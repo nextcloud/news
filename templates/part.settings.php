@@ -67,6 +67,9 @@
     <p>
         <a target="_blank" href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
     </p>
+    <p>
+        <a target="_blank" href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
+    </p>
 
     <div class="import-export">
         <h3><?php p($l->t('Subscriptions (OPML)')); ?></h3>
