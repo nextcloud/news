@@ -53,7 +53,7 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
                 deferred.resolve();
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
             deferred.resolve();
         }
 
