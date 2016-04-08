@@ -35,8 +35,7 @@
     };
 
     var markAllRead = function (navigationArea) {
-        var selector =
-            '.active > .app-navigation-entry-menu .mark-read button';
+        var selector = '.active > .app-navigation-entry-menu .mark-read button';
         var button = navigationArea.find(selector);
         if (button.length > 0) {
             button.trigger('click');
@@ -54,32 +53,17 @@
     };
 
     var scrollToNavigationElement = function (elem, scrollArea, toTop) {
-        if (elem.length === 0 ||
-            (!toTop && isInScrollView(elem, scrollArea))) {
+        if (elem.length === 0 || (!toTop && isInScrollView(elem, scrollArea))) {
             return;
         }
         scrollArea.scrollTop(
-            elem.offset().top - scrollArea.offset().top +
-            scrollArea.scrollTop()
+            elem.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
-    };
-
-    var openAllUnread = function (navigationArea, scrollArea) {
-        var unreadItems = $(scrollArea).find('.item:not(.read)');
-        // only open a maximum of 10 new tabs
-        unreadItems.slice(0, 5).each(function (index, element) {
-            var url = $(element)
-                .find('.external:visible')
-                .attr('href');
-            $(element).trigger('click');  // mark read
-            window.open(url, '_blank');
-        });
     };
 
     var scrollToActiveNavigationEntry = function (navigationArea) {
         var element = navigationArea.find('.active');
-        scrollToNavigationElement(element,
-            navigationArea.children('ul'), true);
+        scrollToNavigationElement(element, navigationArea.children('ul'), true);
     };
 
     var reloadFeed = function (navigationArea) {
@@ -105,9 +89,9 @@
     var nextFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.explore-feed,' +
-            '.subscriptions-feed:visible,' +
-            '.starred-feed:visible,' +
-            '.feed:visible');
+                                           '.subscriptions-feed:visible,' +
+                                           '.starred-feed:visible,' +
+                                           '.feed:visible');
 
         if (current.hasClass('folder')) {
             while (current.length > 0) {
@@ -123,13 +107,13 @@
             return;
         }
 
-        // FIXME: O(n) runtime. If someone creates a nice non fugly solution
+        // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
         // please create a PR
-        for (var i = 0; i < elements.length - 1; i += 1) {
+        for (var i=0; i<elements.length-1; i+=1) {
             var element = elements[i];
 
             if (element === current[0]) {
-                var next = elements[i + 1];
+                var next = elements[i+1];
                 activateNavigationEntry($(next), navigationArea);
                 break;
             }
@@ -200,9 +184,9 @@
     var previousFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.explore-feed,' +
-            '.subscriptions-feed:visible,' +
-            '.starred-feed:visible,' +
-            '.feed:visible');
+                                           '.subscriptions-feed:visible,' +
+                                           '.starred-feed:visible,' +
+                                           '.feed:visible');
 
         // special case: folder selected
         if (current.hasClass('folder')) {
@@ -211,7 +195,7 @@
             while (previousFolder.length > 0) {
                 var subfeeds = previousFolder.find('.feed:visible');
                 if (subfeeds.length > 0) {
-                    activateNavigationEntry($(subfeeds[subfeeds.length - 1]),
+                    activateNavigationEntry($(subfeeds[subfeeds.length-1]),
                         navigationArea);
                     return;
                 }
@@ -222,7 +206,7 @@
             var feeds = current.siblings('.feed');
 
             if (feeds.length > 0) {
-                activateNavigationEntry($(feeds[feeds.length - 1]),
+                activateNavigationEntry($(feeds[feeds.length-1]),
                     navigationArea);
                 return;
             }
@@ -237,13 +221,13 @@
             return;
         }
 
-        // FIXME: O(n) runtime. If someone creates a nice non fugly solution
+        // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
         // please create a PR
-        for (var i = elements.length - 1; i > 0; i -= 1) {
+        for (var i=elements.length-1; i>0; i-=1) {
             var element = elements[i];
 
             if (element === current[0]) {
-                var previous = elements[i - 1];
+                var previous = elements[i-1];
                 activateNavigationEntry($(previous), navigationArea);
                 break;
             }
@@ -295,8 +279,7 @@
         // if you go to the next article in compact view, it should
         // expand the current one
         scrollArea.scrollTop(
-            item.offset().top - scrollArea.offset().top +
-            scrollArea.scrollTop()
+            item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
 
         if (expandItemInCompact) {
@@ -318,9 +301,8 @@
             // special treatment for items that have expand enabled:
             // if you click next and the first item has not been expaned and
             // is on the top, it should be expanded instead of the next one
-            if ((item.position().top === 0 &&
-                expandItemInCompact &&
-                !item.hasClass('open')) ||
+            if ((item.position().top === 0 && expandItemInCompact &&
+                 !item.hasClass('open')) ||
                 item.position().top > 10) {
                 scrollToItem(scrollArea, item, expandItemInCompact);
 
@@ -375,7 +357,7 @@
         var navigationArea = $('#app-navigation');
         var isCompactView = $('#articles.compact').length > 0;
         var isExpandItem = $('#articles')
-                .attr('news-compact-expand') === 'true';
+            .attr('news-compact-expand') === 'true';
         var expandItemInCompact = isCompactView && isExpandItem;
 
         if (noInputFocused($(':focus')) && noModifierKey(event)) {
@@ -385,94 +367,94 @@
                 event.preventDefault();
                 scrollToNextItem(scrollArea, expandItemInCompact);
 
-                // k, p, left arrow
+            // k, p, left arrow
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 scrollToPreviousItem(navigationArea, scrollArea,
-                    expandItemInCompact);
+                                     expandItemInCompact);
 
-                // u
+            // u
             } else if ([85].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 toggleUnread(scrollArea);
 
-                // e
+            // e
             } else if ([69].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 expandItem(scrollArea);
 
-                // s, i, l
+            // s, i, l
             } else if ([73, 83, 76].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 toggleStar(scrollArea);
 
-                // h
+            // h
             } else if ([72].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 toggleStar(scrollArea);
                 scrollToNextItem(scrollArea);
 
-                // o
+            // o
             } else if ([79].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 openLink(scrollArea);
 
-                // r
+            // r
             } else if ([82].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 reloadFeed(navigationArea);
 
-                // f
+            // f
             } else if ([70].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 nextFeed(navigationArea);
 
-                // d
+            // d
             } else if ([68].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 previousFeed(navigationArea);
 
-                // c
+            // c
             } else if ([67].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 previousFolder(navigationArea);
 
-                // a
+            // a
             } else if ([65].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 scrollToActiveNavigationEntry(navigationArea);
 
-                // v
+            // v
             } else if ([86].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 nextFolder(navigationArea);
 
-                // q
+            // q
             } else if ([81].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 $('#searchbox').focus();
 
-                // page up
+            // page up
             } else if ([33].indexOf(keyCode) >= 0) {
 
                 tryReload(navigationArea, scrollArea);
 
             }
 
-            // everything with shift
+        // everything with shift
         } else if (noInputFocused($(':focus')) && event.shiftKey) {
 
             // shift + a
@@ -480,11 +462,6 @@
 
                 event.preventDefault();
                 markAllRead(navigationArea);
-
-                // shoft + o
-            } else if ([79].indexOf(keyCode) >= 0) {
-
-                openAllUnread(navigationArea, scrollArea);
 
             }
         }

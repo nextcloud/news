@@ -1,7 +1,6 @@
-owncloud-news (8.3.0)
+owncloud-news (8.2.1)
 * **Bugfix**: Do not abort full OPML import if one feed failed, #843
 * **Bugfix**: Show error message when empty OPML file was imported, #924
-* **Enhancement**: Add a keyboard shortcut for opening the next five unread articles, #850
 
 owncloud-news (8.2.0)
 * **Backwards incompatible change**: Move updater into separate repository at https://github.com/owncloud/news-updater and publish it on pypi

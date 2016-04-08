@@ -73,10 +73,6 @@
                 <td>shift + a</td>
                 <td><?php p($l->t('Mark current article\'s feed/folder read')); ?></td>
             </tr>
-            <tr>
-                <td>shift + o</td>
-                <td><?php p($l->t('Open the next 5 unread articles in new tabs')); ?></td>
-            </tr>
         </table>
     </div>
 </div>
