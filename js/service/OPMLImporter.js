@@ -12,44 +12,48 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
     'use strict';
     var startFeedJob = function (queue) {
         var deferred = $q.defer();
+        try {
+            if (queue.length > 0) {
+                var feed = queue.pop();
+                var url = feed.url;
+                var title = feed.title;
+                var folderId = 0;
+                var folderName = feed.folderName;
 
-        if (queue.length > 0) {
-            var feed = queue.pop();
-            var url = feed.url;
-            var title = feed.title;
-            var folderId = 0;
-            var folderName = feed.folderName;
+                if (folderName !== undefined &&
+                    FolderResource.get(folderName) !== undefined) {
+                    var folder = FolderResource.get(folderName);
+                    folder.opened = true;
+                    folderId = folder.id;
 
-            if (folderName !== undefined &&
-                FolderResource.get(folderName) !== undefined) {
-                var folder = FolderResource.get(folderName);
-                folder.opened = true;
-                folderId = folder.id;
+                    // display folder while adding the feed
+                    folder.getsFeed = true;
+                    folder.getsFeedCounter = folder.getsFeedCounter || 0;
+                    folder.getsFeedCounter += 1;
+                }
 
-                // display folder while adding the feed
-                folder.getsFeed = true;
-                folder.getsFeedCounter = folder.getsFeedCounter || 0;
-                folder.getsFeedCounter += 1;
+                // make sure to not add already existing feeds
+                if (url !== undefined && FeedResource.get(url) === undefined) {
+                    FeedResource.create(url, folderId, title)
+                        .then(function (data) {
+                            Publisher.publishAll(data);
+                        })
+                        .finally(function () {
+                            if (folderId !== 0) {
+                                folder.getsFeedCounter -= 1;
+
+                                if (folder.getsFeedCounter === 0) {
+                                    folder.getsFeed = false;
+                                }
+                            }
+                            startFeedJob(queue);
+                        });
+                }
+            } else {
+                deferred.resolve();
             }
-
-            // make sure to not add already existing feeds
-            if (url !== undefined && FeedResource.get(url) === undefined) {
-                FeedResource.create(url, folderId, title)
-                .then(function (data) {
-                    Publisher.publishAll(data);
-                })
-                .finally(function () {
-                    if (folderId !== 0) {
-                        folder.getsFeedCounter -= 1;
-
-                        if (folder.getsFeedCounter === 0) {
-                            folder.getsFeed = false;
-                        }
-                    }
-                    startFeedJob(queue);
-                });
-            }
-        } else {
+        } catch (e) {
+            console.log(e);
             deferred.resolve();
         }
 
@@ -66,9 +70,9 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
                 // skip already created folders
                 if (FolderResource.get(folder.name) === undefined) {
                     var promise = FolderResource.create(folder.name)
-                    .then(function (data) {
-                        Publisher.publishAll(data);
-                    });
+                        .then(function (data) {
+                            Publisher.publishAll(data);
+                        });
                     folderPromises.push(promise);
                 }
 
@@ -94,7 +98,7 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
         var deferred = $q.defer();
 
         var jobPromises = [];
-        for (var i=0; i<jobSize; i+=1) {
+        for (var i = 0; i < jobSize; i += 1) {
             jobPromises.push(startFeedJob(feedQueue));
         }
 
