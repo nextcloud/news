@@ -112,7 +112,13 @@ describe('SettingsController', function () {
     OPMLParser) {
         var queue = 4;
 
-        OPMLParser.parse = jasmine.createSpy('parse').and.returnValue(2);
+        var opml = {
+            feeds: [
+                {name: 'hi'}
+            ],
+            folders: []
+        };
+        OPMLParser.parse = jasmine.createSpy('parse').and.returnValue(opml);
 
         OPMLImporter.importFolders = jasmine.createSpy('importFolders')
         .and.returnValue({
@@ -133,12 +139,12 @@ describe('SettingsController', function () {
             OPMLParser: OPMLParser
         });
 
-        var content = '{"test":1}';
+        var content = '{"folders":[{name:"b"}]}';
 
         ctrl.importOPML(content);
 
         expect(OPMLParser.parse).toHaveBeenCalledWith(content);
-        expect(OPMLImporter.importFolders).toHaveBeenCalledWith(2);
+        expect(OPMLImporter.importFolders).toHaveBeenCalledWith(opml);
         expect(OPMLImporter.importFeedQueue).toHaveBeenCalledWith(4, 5);
         expect(ctrl.isOPMLImporting).toBe(false);
         expect(ctrl.opmlImportError).toBe(false);

@@ -1,7 +1,7 @@
 <div id="app-settings-header">
-<button name="app settings"
-    class="settings-button"
-    data-apps-slide-toggle="#app-settings-content"></button>
+    <button name="app settings"
+            class="settings-button"
+            data-apps-slide-toggle="#app-settings-content"></button>
 </div>
 
 <div id="app-settings-content">
@@ -65,33 +65,35 @@
     </p>
 
     <p>
-        <a target="_blank" href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
+        <a target="_blank"
+           href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
     </p>
     <p>
-        <a target="_blank" href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
+        <a target="_blank"
+           href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
     </p>
 
     <div class="import-export">
         <h3><?php p($l->t('Subscriptions (OPML)')); ?></h3>
 
         <input type="file"
-            id="opml-upload"
-            name="import"
-            news-read-file="Settings.importOPML($fileContent)"/>
+               id="opml-upload"
+               name="import"
+               news-read-file="Settings.importOPML($fileContent)"/>
 
         <button title="<?php p($l->t('Import')); ?>"
-            class="icon-upload svg button-icon-label"
-            news-trigger-click="#opml-upload"
-            ng-class="{'entry-loading': Settings.isOPMLImporting}"
-            ng-disabled=
+                class="icon-upload svg button-icon-label"
+                news-trigger-click="#opml-upload"
+                ng-class="{'entry-loading': Settings.isOPMLImporting}"
+                ng-disabled=
                 "Settings.isOPMLImporting || Settings.isArticlesImporting">
         </button>
 
         <a title="<?php p($l->t('Export')); ?>"
-            class="button icon-download svg button-icon-label"
-            href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
-            target="_blank"
-            ng-hide="App.isFirstRun()">
+           class="button icon-download svg button-icon-label"
+           href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
+           target="_blank"
+           ng-hide="App.isFirstRun()">
         </a>
 
         <button
@@ -106,7 +108,12 @@
                 $l->t('Error when importing: file does not contain valid OPML')
             ); ?>
         </p>
-
+        <p class="error" ng-show="Settings.opmlImportEmptyError">
+            <?php p(
+                $l->t('Error when importing: OPML is does neither contain ' .
+                      'feeds nor folders')
+            ); ?>
+        </p>
 
         <h3><?php p($l->t('Unread/Starred Articles')); ?></h3>
 
@@ -117,18 +124,17 @@
             news-read-file="Settings.importArticles($fileContent)"/>
 
         <button title="<?php p($l->t('Import')); ?>"
-            class="icon-upload svg button-icon-label"
-            ng-class="{'entry-loading': Settings.isArticlesImporting}"
-            ng-disabled=
-                "Settings.isOPMLImporting || Settings.isArticlesImporting"
-            news-trigger-click="#article-upload">
+                class="icon-upload svg button-icon-label"
+                ng-class="{'entry-loading': Settings.isArticlesImporting}"
+                ng-disabled="Settings.isOPMLImporting || Settings.isArticlesImporting"
+                news-trigger-click="#article-upload">
         </button>
 
         <a title="<?php p($l->t('Export')); ?>"
-            class="button icon-download svg button-icon-label"
-            href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
-            target="_blank"
-            ng-hide="App.isFirstRun()">
+           class="button icon-download svg button-icon-label"
+           href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
+           target="_blank"
+           ng-hide="App.isFirstRun()">
         </a>
         <button
             class="icon-download svg button-icon-label"
