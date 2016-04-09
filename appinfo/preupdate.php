@@ -13,5 +13,6 @@ namespace OCA\News\AppInfo;
 
 use OCA\News\Upgrade\Upgrade;
 
+throw new \Exception('heheheo');
 $app = new Application();
 $app->getContainer()->query(Upgrade::class)->preUpgrade();
