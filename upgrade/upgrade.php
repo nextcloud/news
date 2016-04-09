@@ -65,6 +65,7 @@ class Upgrade {
                       `last_modified`';
             $query = $this->db->prepare($sql);
             $query->execute();
+            throw new \Exception($sql);
         }
     }
 
