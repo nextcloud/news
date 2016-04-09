@@ -79,7 +79,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $preventUpdate;
     protected $deletedAt;
     protected $articlesPerUpdate;
-    protected $lastModified;
     protected $httpLastModified;
     protected $httpEtag;
     protected $location;
@@ -105,7 +104,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('fullTextEnabled', 'boolean');
         $this->addType('updateMode', 'integer');
         $this->addType('updateErrorCount', 'integer');
-        $this->addType('lastModified', 'integer');
     }
 
 
@@ -135,8 +133,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'updateErrorCount',
             'lastUpdateError',
             'basicAuthUser',
-            'basicAuthPassword',
-            'lastModified'
+            'basicAuthPassword'
         ]);
 
         $url = parse_url($this->link)['host'];
@@ -163,8 +160,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'unreadCount',
             'ordering',
             'link',
-            'pinned',
-            'lastModified'
+            'pinned'
         ]);
     }
 

@@ -20,7 +20,6 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
     private function createFeed() {
         $feed = new Feed();
         $feed->setId(3);
-        $feed->setLastModified(43);
         $feed->setHttpLastModified(44);
         $feed->setHttpEtag(45);
         $feed->setUrl('http://google.com/some/weird/path');
@@ -55,8 +54,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'unreadCount' => 321,
             'ordering' => 2,
             'pinned' => true,
-            'link' => 'https://www.google.com/some/weird/path',
-            'lastModified' => 43
+            'link' => 'https://www.google.com/some/weird/path'
         ], $feed->toAPI());
     }
 
@@ -87,8 +85,7 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'updateErrorCount' => 2,
             'lastUpdateError' => 'hi',
             'basicAuthUser' => 'user',
-            'basicAuthPassword' => 'password',
-            'lastModified' => 43
+            'basicAuthPassword' => 'password'
         ], $feed->jsonSerialize());
     }
 

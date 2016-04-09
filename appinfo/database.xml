@@ -217,14 +217,6 @@
                 <default>0</default>
                 <notnull>true</notnull>
             </field>
-            <field>
-                <name>last_modified</name>
-                <type>integer</type>
-                <default></default>
-                <length>8</length>
-                <notnull>false</notnull>
-                <unsigned>true</unsigned>
-            </field>
 
             <index>
                 <name>news_feeds_user_id_index</name>

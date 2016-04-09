@@ -57,9 +57,7 @@ class Upgrade {
             $this->appName, 'installed_version'
         );
 
-
         $dbType = $this->config->getSystemValue('dbtype');
-        throw new \Exception($previousVersion . ' ' . $dbType);
         if (version_compare($previousVersion, '8.2.2', '<') &&
             $dbType !== 'sqlite3'
         ) {
@@ -67,7 +65,6 @@ class Upgrade {
                       `last_modified`';
             $query = $this->db->prepare($sql);
             $query->execute();
-            throw new \Exception($sql);
         }
     }
 

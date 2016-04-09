@@ -35,7 +35,6 @@ class FeedFixture extends Feed {
             'articlesPerUpdate' => 40,
             'httpLastModified' => 10,
             'httpEtag' => '',
-            'lastModified' => 9,
             'location' => 'http://feed.com/rss',
             'ordering' => 0,
             'fullTextEnabled' => false,
