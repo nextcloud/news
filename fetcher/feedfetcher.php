@@ -46,7 +46,7 @@ class FeedFetcher implements IFeedFetcher {
     public function __construct(Reader $reader,
                                 PicoFeedFaviconFactory $faviconFactory,
                                 IL10N $l10n,
-                                ITimeFactory $time){
+                                ITimeFactory $time) {
         $this->faviconFactory = $faviconFactory;
         $this->reader = $reader;
         $this->time = $time;
@@ -57,7 +57,7 @@ class FeedFetcher implements IFeedFetcher {
     /**
      * This fetcher handles all the remaining urls therefore always returns true
      */
-    public function canHandle($url){
+    public function canHandle($url) {
         return true;
     }
 
@@ -82,14 +82,14 @@ class FeedFetcher implements IFeedFetcher {
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    public function fetch($url, $getFavicon=true, $lastModified=null,
-                          $etag=null, $fullTextEnabled=false,
-                          $basicAuthUser=null, $basicAuthPassword=null) {
+    public function fetch($url, $getFavicon = true, $lastModified = null,
+                          $etag = null, $fullTextEnabled = false,
+                          $basicAuthUser = null, $basicAuthPassword = null) {
         try {
             if ($basicAuthUser !== null && trim($basicAuthUser) !== '') {
                 $resource = $this->reader->discover($url, $lastModified, $etag,
-                                                    $basicAuthUser,
-                                                    $basicAuthPassword);
+                    $basicAuthUser,
+                    $basicAuthPassword);
             } else {
                 $resource = $this->reader->discover($url, $lastModified, $etag);
             }
@@ -117,13 +117,13 @@ class FeedFetcher implements IFeedFetcher {
             );
 
             $items = [];
-            foreach($parsedFeed->getItems() as $item) {
+            foreach ($parsedFeed->getItems() as $item) {
                 $items[] = $this->buildItem($item, $parsedFeed);
             }
 
             return [$feed, $items];
 
-        } catch(Exception $ex){
+        } catch (Exception $ex) {
             $this->handleError($ex);
         }
 
@@ -137,14 +137,13 @@ class FeedFetcher implements IFeedFetcher {
             $msg = $this->l10n->t('Feed contains invalid XML');
         } else if ($ex instanceof SubscriptionNotFoundException) {
             $msg = $this->l10n->t('Feed not found: either the website ' .
-            'does not provide a feed or blocks access. To rule out ' .
-            'blocking, try to download the feed on your server\'s ' .
-            'command line using curl: curl http://the-feed.tld');
+                'does not provide a feed or blocks access. To rule out ' .
+                'blocking, try to download the feed on your server\'s ' .
+                'command line using curl: curl http://the-feed.tld');
         } else if ($ex instanceof UnsupportedFeedFormatException) {
             $msg = $this->l10n->t('Detected feed format is not supported');
         } else if ($ex instanceof InvalidCertificateException) {
-            $msg = $this->l10n->t('SSL certificate error! ') .
-                $ex->getCode() . ' :' . curl_strerror($ex->getCode());
+            $msg = $this->buildCurlSslErrorMessage($ex->getCode());
         } else if ($ex instanceof InvalidUrlException) {
             $msg = $this->l10n->t('Website not found');
         } else if ($ex instanceof MaxRedirectException) {
@@ -155,7 +154,7 @@ class FeedFetcher implements IFeedFetcher {
             $msg = $this->l10n->t('Request timed out');
         } else if ($ex instanceof UnauthorizedException) {
             $msg = $this->l10n->t('Required credentials for feed were ' .
-                                   'either missing or incorrect');
+                'either missing or incorrect');
         } else if ($ex instanceof ForbiddenException) {
             $msg = $this->l10n->t('Forbidden to access feed');
         }
@@ -163,12 +162,61 @@ class FeedFetcher implements IFeedFetcher {
         throw new FetcherException($msg);
     }
 
+    private function buildCurlSslErrorMessage($errorCode) {
+        switch ($errorCode) {
+            case 35: // CURLE_SSL_CONNECT_ERROR
+                return $this->l10n->t(
+                    'Certificate error: A problem occurred ' .
+                    'somewhere in the SSL/TLS handshake. Could be ' .
+                    'certificates (file formats, paths, permissions), ' .
+                    'passwords, and others.'
+                );
+            case 51: // CURLE_PEER_FAILED_VERIFICATION
+                return $this->l10n->t(
+                    'Certificate error: The remote server\'s SSL ' .
+                    'certificate or SSH md5 fingerprint was deemed not OK.'
+                );
+            case 58: // CURLE_SSL_CERTPROBLEM
+                return $this->l10n->t(
+                    'Certificate error: Problem with the local client ' .
+                    'certificate.'
+                );
+            case 59: // CURLE_SSL_CIPHER
+                return $this->l10n->t(
+                    'Certificate error: Couldn\'t use specified cipher.'
+                );
+            case 60: // CURLE_SSL_CACERT
+                return $this->l10n->t(
+                    'Certificate error: Peer certificate cannot be ' .
+                    'authenticated with known CA certificates.'
+                );
+            case 64: // CURLE_USE_SSL_FAILED
+                return $this->l10n->t(
+                    'Certificate error: Requested FTP SSL level failed.'
+                );
+            case 66: // CURLE_SSL_ENGINE_INITFAILED
+                return $this->l10n->t(
+                    'Certificate error: Initiating the SSL Engine failed.'
+                );
+            case 77: // CURLE_SSL_CACERT_BADFILE
+                return $this->l10n->t(
+                    'Certificate error: Problem with reading the SSL CA ' .
+                    'cert (path? access rights?)'
+                );
+            case 83: // CURLE_SSL_ISSUER_ERROR
+                return $this->l10n->t(
+                    'Certificate error: Issuer check failed'
+                );
+            default:
+                return $this->l10n->t('Unknown SSL certificate error!');
+        }
+    }
 
     private function decodeTwice($string) {
         return html_entity_decode(
-                html_entity_decode(
-                    $string, ENT_QUOTES | ENT_HTML5, 'UTF-8'
-                ),
+            html_entity_decode(
+                $string, ENT_QUOTES | ENT_HTML5, 'UTF-8'
+            ),
             ENT_QUOTES | ENT_HTML5, 'UTF-8'
         );
     }
@@ -207,10 +255,11 @@ class FeedFetcher implements IFeedFetcher {
         $item->setBody($body);
 
         $enclosureUrl = $parsedItem->getEnclosureUrl();
-        if($enclosureUrl) {
+        if ($enclosureUrl) {
             $enclosureType = $parsedItem->getEnclosureType();
-            if(stripos($enclosureType, 'audio/') !== false ||
-               stripos($enclosureType, 'video/') !== false) {
+            if (stripos($enclosureType, 'audio/') !== false ||
+                stripos($enclosureType, 'video/') !== false
+            ) {
                 $item->setEnclosureMime($enclosureType);
                 $item->setEnclosureLink($enclosureUrl);
             }
