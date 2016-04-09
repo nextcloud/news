@@ -57,7 +57,9 @@ class Upgrade {
             $this->appName, 'installed_version'
         );
 
+
         $dbType = $this->config->getSystemValue('dbtype');
+        throw new \Exception($previousVersion . ' ' . $dbType);
         if (version_compare($previousVersion, '8.2.2', '<') &&
             $dbType !== 'sqlite3'
         ) {
