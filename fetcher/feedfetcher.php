@@ -143,7 +143,8 @@ class FeedFetcher implements IFeedFetcher {
         } else if ($ex instanceof UnsupportedFeedFormatException) {
             $msg = $this->l10n->t('Detected feed format is not supported');
         } else if ($ex instanceof InvalidCertificateException) {
-            $msg = $this->l10n->t('SSL Certificate is invalid');
+            $msg = $this->l10n->t('SSL certificate error! ') .
+                $ex->getCode() . ' :' . curl_strerror($ex->getCode());
         } else if ($ex instanceof InvalidUrlException) {
             $msg = $this->l10n->t('Website not found');
         } else if ($ex instanceof MaxRedirectException) {
