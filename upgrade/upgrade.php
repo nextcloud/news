@@ -13,6 +13,7 @@ namespace OCA\News\Upgrade;
 
 use OCP\IConfig;
 use OCA\News\Service\ItemService;
+use OCP\IDBConnection;
 
 class Upgrade {
 
@@ -23,6 +24,10 @@ class Upgrade {
     private $itemService;
 
     private $appName;
+    /**
+     * @var IDBConnection
+     */
+    private $db;
 
     /**
      * Upgrade constructor.
@@ -30,10 +35,11 @@ class Upgrade {
      * @param $appName
      */
     public function __construct(IConfig $config, ItemService $itemService,
-                                $appName) {
+                                IDBConnection $db, $appName) {
         $this->config = $config;
         $this->appName = $appName;
         $this->itemService = $itemService;
+        $this->db = $db;
     }
 
     public function upgrade() {
@@ -43,6 +49,22 @@ class Upgrade {
 
         if (version_compare($previousVersion, '7', '<')) {
             $this->itemService->generateSearchIndices();
+        }
+    }
+
+    public function preUpgrade() {
+        $previousVersion = $this->config->getAppValue(
+            $this->appName, 'installed_version'
+        );
+
+        $dbType = $this->config->getSystemValue('dbtype');
+        if (version_compare($previousVersion, '8.2.2', '<') &&
+            $dbType !== 'sqlite3'
+        ) {
+            $sql = 'ALTER TABLE `*PREFIX*news_feeds` DROP COLUMN 
+                      `last_modified`';
+            $query = $this->db->prepare($sql);
+            $query->execute();
         }
     }
 

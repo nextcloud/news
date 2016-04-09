@@ -22,9 +22,17 @@ class UpgradeTest extends \PHPUnit_Framework_TestCase {
     /** @var  IConfig */
     private $config;
 
+    /** @var  IDBConnection */
+    private $db;
+
     public function setUp() {
         $this->config = $this->getMockBuilder(
             '\OCP\IConfig')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->db = $this->getMockBuilder(
+            '\OCP\IDBConnection')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -33,7 +41,8 @@ class UpgradeTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->upgrade = new Upgrade($this->config, $this->service, 'news');
+        $this->upgrade = new Upgrade($this->config, $this->service,
+            $this->db, 'news');
     }
 
     public function testUpgrade() {
