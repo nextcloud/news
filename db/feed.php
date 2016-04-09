@@ -21,7 +21,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getUserId()
  * @method void setUserId(string $value)
  * @method int getOrdering()
- * @method void setOrdering(int $value)
+ * @method void setOrdering(integer $value)
  * @method string getUrlHash()
  * @method void setUrlHash(string $value)
  * @method string getLocation()
@@ -30,9 +30,11 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getTitle()
  * @method void setTitle(string $value)
  * @method string getLastModified()
- * @method void setLastModified(string $value)
- * @method string getEtag()
- * @method void setEtag(string $value)
+ * @method void setLastModified(integer $value)
+ * @method string getHttpLastModified()
+ * @method void setHttpLastModified(string $value)
+ * @method string getHttpEtag()
+ * @method void setHttpEtag(string $value)
  * @method string getFaviconLink()
  * @method void setFaviconLink(string $value)
  * @method integer getAdded()
@@ -78,7 +80,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $deletedAt;
     protected $articlesPerUpdate;
     protected $lastModified;
-    protected $etag;
+    protected $httpLastModified;
+    protected $httpEtag;
     protected $location;
     protected $ordering;
     protected $fullTextEnabled;
@@ -102,6 +105,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('fullTextEnabled', 'boolean');
         $this->addType('updateMode', 'integer');
         $this->addType('updateErrorCount', 'integer');
+        $this->addType('lastModified', 'integer');
     }
 
 
@@ -131,7 +135,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'updateErrorCount',
             'lastUpdateError',
             'basicAuthUser',
-            'basicAuthPassword'
+            'basicAuthPassword',
+            'lastModified'
         ]);
 
         $url = parse_url($this->link)['host'];
@@ -158,7 +163,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'unreadCount',
             'ordering',
             'link',
-            'pinned'
+            'pinned',
+            'lastModified'
         ]);
     }
 

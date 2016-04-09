@@ -237,8 +237,8 @@ class FeedFetcher implements IFeedFetcher {
         $feed->setUrl($url);  // the url used to add the feed
         $feed->setLocation($location);  // the url where the feed was found
         $feed->setLink($link);  // <link> attribute in the feed
-        $feed->setLastModified($modified);
-        $feed->setEtag($etag);
+        $feed->setHttpLastModified($modified);
+        $feed->setHttpEtag($etag);
         $feed->setAdded($this->time->getTime());
 
         if ($getFavicon) {

@@ -26,7 +26,7 @@ class FolderFixture extends Folder {
             'userId' => 'test',
             'opened' => true,
             'deletedAt' => 0,
-
+            'lastModified' => 9
         ], $defaults);
         unset($defaults['feeds']);
         $this->fillDefaults($defaults);

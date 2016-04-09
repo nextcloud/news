@@ -249,8 +249,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed->setUrl($this->url);
         $feed->setLink($this->feedLink);
         $feed->setAdded($this->time);
-        $feed->setLastModified($this->modified);
-        $feed->setEtag($this->etag);
+        $feed->setHttpLastModified($this->modified);
+        $feed->setHttpEtag($this->etag);
         $feed->setLocation($this->location);
 
         if($hasFavicon) {

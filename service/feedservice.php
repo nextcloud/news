@@ -204,8 +204,8 @@ class FeedService extends Service {
             list($fetchedFeed, $items) = $this->feedFetcher->fetch(
                 $location,
                 false,
-                $existingFeed->getLastModified(),
-                $existingFeed->getEtag(),
+                $existingFeed->getHttpLastModified(),
+                $existingFeed->getHttpEtag(),
                 $existingFeed->getFullTextEnabled(),
                 $existingFeed->getBasicAuthUser(),
                 $existingFeed->getBasicAuthPassword()
@@ -228,8 +228,9 @@ class FeedService extends Service {
                 $existingFeed->setArticlesPerUpdate($itemCount);
             }
 
-            $existingFeed->setLastModified($fetchedFeed->getLastModified());
-            $existingFeed->setEtag($fetchedFeed->getEtag());
+            $existingFeed->setHttpLastModified(
+                $fetchedFeed->getHttpLastModified());
+            $existingFeed->setHttpEtag($fetchedFeed->getHttpEtag());
             $existingFeed->setLocation($fetchedFeed->getLocation());
 
             // insert items in reverse order because the first one is
@@ -442,8 +443,8 @@ class FeedService extends Service {
         // special feed updates
         if (array_key_exists('fullTextEnabled', $diff)) {
             // disable caching for the next update
-            $feed->setEtag('');
-            $feed->setLastModified(0);
+            $feed->setHttpEtag('');
+            $feed->setHttpLastModified(0);
             $this->feedMapper->update($feed);
             return $this->update($feedId, $userId, true);
         }

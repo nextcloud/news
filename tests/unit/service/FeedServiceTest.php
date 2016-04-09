@@ -252,8 +252,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed->setLink('http://test');
         $feed->setUrl('http://test');
         $feed->setUrlHash('yo');
-        $feed->setLastModified(3);
-        $feed->setEtag(4);
+        $feed->setHttpLastModified(3);
+        $feed->setHttpEtag(4);
 
         $item = new Item();
         $item->setGuidHash(md5('hi'));
@@ -313,8 +313,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed->setLink('http://test');
         $feed->setUrl('http://test');
         $feed->setUrlHash('yo');
-        $feed->setLastModified(3);
-        $feed->setEtag(4);
+        $feed->setHttpLastModified(3);
+        $feed->setHttpEtag(4);
 
         $item = new Item();
         $item->setGuidHash(md5('hi'));
@@ -374,8 +374,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed->setLink('http://test');
         $feed->setUrl('http://test');
         $feed->setUrlHash('yo');
-        $feed->setLastModified(3);
-        $feed->setEtag(4);
+        $feed->setHttpLastModified(3);
+        $feed->setHttpEtag(4);
         return $feed;
     }
 
@@ -574,8 +574,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $feed = new Feed();
         $feed->setId(3);
         $feed->setUrl('https://goo.com');
-        $feed->setEtag('abc');
-        $feed->setLastModified(123);
+        $feed->setHttpEtag('abc');
+        $feed->setHttpLastModified(123);
         $feed->setFullTextEnabled(true);
 
         $ex = new DoesNotExistException('');
@@ -590,8 +590,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('fetch')
             ->with($this->equalTo($feed->getUrl()),
                    $this->equalTo(false),
-                   $this->equalTo($feed->getLastModified()),
-                   $this->equalTo($feed->getEtag()),
+                   $this->equalTo($feed->getHttpLastModified()),
+                   $this->equalTo($feed->getHttpEtag()),
                    $this->equalTo($feed->getFullTextEnabled()))
             ->will($this->throwException($ex));
 
@@ -997,8 +997,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
     public function testPatchEnableFullText() {
         $feed = Feed::fromRow([
             'id' => 3,
-            'etag' => 'a',
-            'last_modified' => 1,
+            'http_etag' => 'a',
+            'http_last_modified' => 1,
             'full_text_enabled' => false
         ]);
         $feed2 = Feed::fromRow(['id' => 3]);
@@ -1009,8 +1009,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($feed));
 
         $feed2->setFullTextEnabled(true);
-        $feed2->setEtag('');
-        $feed2->setLastModified(0);
+        $feed2->setHttpEtag('');
+        $feed2->setHttpLastModified(0);
         $this->feedMapper->expects($this->at(1))
             ->method('update')
             ->with($this->equalTo($feed2));
