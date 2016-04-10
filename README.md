@@ -40,15 +40,6 @@ These Dependencies are only relevant if you want to work on the source code:
 * gulp-cli (optional)
 * bower (optional)
 
-## Supported Linux Distributions
-Supported means that the distribution's default repository packages will work in conjunction with the News app and you won't have to add any 3rdparty repositories.
-
-The following distros are supported:
-
-* Ubuntu 16.04
-* Debian 8 (Jessie)
-* Arch Linux
-
 ## Supported Browsers
 * Newest Firefox (Desktop, Android, Firefox OS)
 * Newest Chrome/Chromium (Desktop, Android)
