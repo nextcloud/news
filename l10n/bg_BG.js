@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Feed contains invalid XML" : "Потокът съдържа невалидно XML съдържание",
     "Detected feed format is not supported" : "Форматът на намереният поток не е поддържан",
-    "SSL Certificate is invalid" : "Невалиден SSL Сертификат",
     "Website not found" : "Страницата не е открита",
     "More redirects than allowed, aborting" : "Пренасочване повече от разрешеното, прекратяване",
     "Bigger than maximum allowed size" : "Размер по-голям от разрешения максимум",

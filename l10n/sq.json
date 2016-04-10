@@ -2,7 +2,6 @@
     "Feed contains invalid XML" : "Prurja përmban XML të pavleshme",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "S’u gjet prurje: ose sajti s’ofron prurje, ose bllokon hyrjet. Që të përjashtoni mundësinë e bllokimit, provoni ta shkarkoni prurjen që nga rreshti i urdhrave të shërbyesit tuaj, duke përdorur: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Nuk mbulohet formati i zbuluar për prurjen",
-    "SSL Certificate is invalid" : "Dëshmia SSL është e pavlefshme",
     "Website not found" : "S’u gjet sajt",
     "More redirects than allowed, aborting" : "Më tepër ridrejtime se sa lejohet, po ndërpritet",
     "Bigger than maximum allowed size" : "Më e madhe se sa madhësia maksimum e lejuar",
@@ -130,6 +129,7 @@
     "Import" : "Importo",
     "Export" : "Eksporto",
     "Error when importing: file does not contain valid OPML" : "Gabim gjatë importimit: kartela nuk përmban OPML të vlefshme",
+    "Error when importing: OPML is does neither contain feeds nor folders" : "Gabim gjatë importimit: OPML-ja nuk përmban prurje, as dosje të vlefshme",
     "Unread/Starred Articles" : "Artikuj të Palexuar/Me yll",
     "Error when importing: file does not contain valid JSON" : "Gabim gjatë importimit: kartela nuk përmban JSON të vlefshëm"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

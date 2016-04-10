@@ -4,7 +4,6 @@ OC.L10N.register(
     "Feed contains invalid XML" : "無効なXMLを含むフィードです。",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "フィードがありません: サイトがフィードを提供していないか、アクセスをブロックしています。ブロッキングを取り除くためには、次の様にcurl コマンドをサーバー上で実行してフィードをダウンロードしてみてください: curl http://the-feed.tld",
     "Detected feed format is not supported" : "検出したフィードのフォーマットはサポートされません。",
-    "SSL Certificate is invalid" : "無効なSSL証明書です。",
     "Website not found" : "Webサイトが見つかりませんでした。",
     "More redirects than allowed, aborting" : "リダイレクト数が許可数より多いです､中止します。",
     "Bigger than maximum allowed size" : "最大許容サイズより大きいです。",

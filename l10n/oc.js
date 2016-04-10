@@ -4,7 +4,6 @@ OC.L10N.register(
     "Feed contains invalid XML" : "Lo flux conten un XML invalid",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Flux introbable : benlèu que lo site ne'n prepausa pas, o ne blòca l'accès. Per verificar se l'accès al flux es possible, podètz ensajar de lo telecargar dempuèi vòstre servidor en linha de comanda amb curl : curl http://adreca-del/flux",
     "Detected feed format is not supported" : "Format de flux detectat pas compatible",
-    "SSL Certificate is invalid" : "Lo certificat SSL es pas valable",
     "Website not found" : "Site web pas trobat",
     "More redirects than allowed, aborting" : "Nombre de redireccions maximum depassat, abandon",
     "Bigger than maximum allowed size" : "Talha superiora al maximum autorizat",

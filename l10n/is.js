@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Feed contains invalid XML" : "Streymi inniheldur ógilt XML",
     "Detected feed format is not supported" : "Ekki er stuðningur við snið streymisins sem fannst",
-    "SSL Certificate is invalid" : "SSL-skilríki er ekki gilt",
     "Website not found" : "Vefsvæði fannst ekki",
     "More redirects than allowed, aborting" : "Fleiri endurbeiningar en leyfilegt er, hætti við",
     "Bigger than maximum allowed size" : "Stærra en hámarksstærð",

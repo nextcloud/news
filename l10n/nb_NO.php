@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Nyhetskilden inneholder ugyldig XML",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Nyhetskilde ikke funnet: Enten tilbyr ikke websiden en kilde eller den blokkerer tilgang. For å utelukke blokkering, prøv å laste ned kilden på kommandolinjen på serveren med curl: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Påvist nyhetskilde-format støttes ikke",
-"SSL Certificate is invalid" => "Ugylidg SSL-sertifikat",
 "Website not found" => "Nettsted ikke funnet",
 "More redirects than allowed, aborting" => "Flere omdirigeringer enn tillatt. Avbryter",
 "Bigger than maximum allowed size" => "Større enn maksimalt tillatt størrelse",

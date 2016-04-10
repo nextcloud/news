@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Syöte sisältää virheellistä XML:ää",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Syötettä ei löytynyt: joko sivusto ei tarjoa syötettä tai sivusto estää pääsyn syötteeseen. Voit rajata eston pois lataamalla syötteen palvelimen komentoriviä käyttäen curlilla: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Havaittu syötemuoto ei ole tuettu",
-"SSL Certificate is invalid" => "SSL-varmenne on virheellinen",
 "Website not found" => "Verkkosivustoa ei löytynyt",
 "More redirects than allowed, aborting" => "Sallittua enemmän uudelleenohjauksia, perutaan",
 "Bigger than maximum allowed size" => "Sallittua enimmäiskokoa suurempi",

@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Alimentação contém XML inválido",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Alimentação não encontrada: ou o site não fornece um acesso a alimentação ou blocos. Para descartar o bloqueio, tente baixar a alimentação na linha de comando do seu servidor usando curl: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Formato de alimentação detectado não é suportado",
-"SSL Certificate is invalid" => "Certificado SSL é inválido",
 "Website not found" => "Site não encontrado",
 "More redirects than allowed, aborting" => "Mais redirecionamentos do que o permitido, abortando",
 "Bigger than maximum allowed size" => "Maior do que o tamanho máximo permitido",

@@ -4,7 +4,6 @@ OC.L10N.register(
     "Feed contains invalid XML" : "Feed contains invalid XML",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Detected feed format is not supported",
-    "SSL Certificate is invalid" : "SSL Certificate is invalid",
     "Website not found" : "Website not found",
     "More redirects than allowed, aborting" : "More redirects than allowed, aborting",
     "Bigger than maximum allowed size" : "Bigger than maximum allowed size",

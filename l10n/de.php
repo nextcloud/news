@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Feed beinhaltet ungültiges XML",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Feed nicht gefunden: entweder die Webseite unterstützt keine Feeds oder blockiert den Zugriff. Um das Blockieren auszuschließen, versuche den Feed mittels Serverkonsole runterzuladen: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Das Ermitteln des Feedformats wird nicht unterstützt",
-"SSL Certificate is invalid" => "SSL-Zertifikat ist ungültig",
 "Website not found" => "Webseite nicht gefunden",
 "More redirects than allowed, aborting" => "Mehr Weiterleitungen als erlaubt, Abbruch",
 "Bigger than maximum allowed size" => "Größer als die maximal erlaubte Größe",
@@ -131,6 +130,7 @@ $TRANSLATIONS = array(
 "Import" => "Importieren",
 "Export" => "Exportieren",
 "Error when importing: file does not contain valid OPML" => "Fehler beim Importieren: Datei enthält kein gültiges OPML",
+"Error when importing: OPML is does neither contain feeds nor folders" => "Fehler beim Importieren: OPML enthält weder Feeds noch Ordner",
 "Unread/Starred Articles" => "Ungelese/Markierte Artikel",
 "Error when importing: file does not contain valid JSON" => "Fehler beim Importieren: Datei enthält kein gültiges JSON"
 );

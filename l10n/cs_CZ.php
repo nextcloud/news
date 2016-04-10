@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Kanál obsahuje neplatné XML",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Kanál nenalezen: stránka buď žádný neposkytuje nebo je přístup blokován. Pro vyloučení možnosti blokování zkuste stáhnout kanál pomocí příkazové řádky na serveru za použití curl: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Detekovaný formát kanálu není podporován",
-"SSL Certificate is invalid" => "SSL certifikát je neplatný",
 "Website not found" => "Webová stránka nenalezena",
 "More redirects than allowed, aborting" => "Překročen povolený počet přesměrování, ukončuji",
 "Bigger than maximum allowed size" => "Větší než maximální povolená velikost",

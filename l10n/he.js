@@ -4,7 +4,6 @@ OC.L10N.register(
     "Feed contains invalid XML" : "ערוץ הזנת תוכן מכיל XML לא חוקי",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "ערוץ מידע לא נמצא: יתכן שהאתר לא מספק ערוץ תוכן או שהאתר מונע גישה. על מנת לשלול מניעת גישה על ידי האתר, מומלץ לנסות להוריד את ערוץ התוכן באמצעות שורת הפקודה של השרת תוך שימוש בשירות curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "תצורה מזוהה של ערוץ תוכן אינה נתמכת",
-    "SSL Certificate is invalid" : "אישור אבטחה SSL לא חוקי",
     "Website not found" : "האתר לא אותר",
     "More redirects than allowed, aborting" : "מעל למכסה המותרת לניתוב מחדש, מבטל פעולה",
     "Bigger than maximum allowed size" : "גדול מהגודל המקסימלי המותר",

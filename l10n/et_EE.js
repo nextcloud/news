@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Feed contains invalid XML" : "Voog sisaldab vigast XML-i",
     "Detected feed format is not supported" : "Voo tuvastus pole toetatud",
-    "SSL Certificate is invalid" : "SSL sertifikaat on vigane",
     "Website not found" : "Veebilehte ei leitud",
     "More redirects than allowed, aborting" : "Rohkem ümbersuunamisi kui lubatud, katkestan",
     "Bigger than maximum allowed size" : "Suurem kui maksimaalne lubatud suurus",

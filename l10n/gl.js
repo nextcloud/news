@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Feed contains invalid XML" : "A fonte contén XML incorrecto",
     "Detected feed format is not supported" : "O formato detectado da fonte non está admitido",
-    "SSL Certificate is invalid" : "Certificado SSL incorrecto",
     "Website not found" : "Non foi atopado o sitio web",
     "More redirects than allowed, aborting" : "Máis redireccionamentos dos permitidos, cancelando",
     "Bigger than maximum allowed size" : "Maior que o tamaño máximo permitido",

@@ -2,7 +2,6 @@
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Довод садржи неисправан ИксМЛ",
 "Detected feed format is not supported" => "Откривени формат довода није подржан",
-"SSL Certificate is invalid" => "ССЛ сертификат није исправан",
 "Website not found" => "Веб сајт није пронађен",
 "More redirects than allowed, aborting" => "Превише преусмеравања. Прекидам",
 "Bigger than maximum allowed size" => "Веће него што је дозвољено",

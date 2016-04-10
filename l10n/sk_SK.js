@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Feed contains invalid XML" : "Zdroj obsahuje nefunkčné XML",
     "Detected feed format is not supported" : "Detekovaný formát zdroja nieje podporovaný",
-    "SSL Certificate is invalid" : "SSL certifikát je nesprávny",
     "Website not found" : "Webstránka nebola nájdená",
     "More redirects than allowed, aborting" : "Viac presmerovaní ako je povolené, rušenie.",
     "Bigger than maximum allowed size" : "Väčšie ako maximálna povolená veľkosť",

@@ -2,7 +2,6 @@
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Стрічка містить недійсний XML",
 "Detected feed format is not supported" => "Формат знайденої стрічки не підтримується",
-"SSL Certificate is invalid" => "SSL Сертифікат не вірний",
 "Website not found" => "Сайт не знайдено",
 "More redirects than allowed, aborting" => "Більше перенаправлень ніж дозволено, перериваємо",
 "Bigger than maximum allowed size" => "Більший за максимальний розмір",

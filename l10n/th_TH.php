@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "ฟีดประกอบด้วย XML ที่ไม่ถูกต้อง",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "ไม่พบฟีด: เว็บไซต์ไม่ได้ระบุฟีดหรือบล็อกการเข้าถึง ลองพยายามดาวน์โหลดฟีดในเซิร์ฟเวอร์ด้วยคำสั่งนี้: http://the-feed.tld",
 "Detected feed format is not supported" => "รูปแบบฟีดที่ตรวจพบไม่ได้รับการสนับสนุน",
-"SSL Certificate is invalid" => "ใบรับรองความปลอดภัย SSL ไม่ถูกต้อง",
 "Website not found" => "ไม่พบเว็บไซต์",
 "More redirects than allowed, aborting" => "มีการเปลี่ยนเส้นทางมากกว่าที่อนุญาตไว้ ยกเลิก!",
 "Bigger than maximum allowed size" => "มีขนาดใหญ่กว่าขนาดสูงสุดที่อนุญาต",

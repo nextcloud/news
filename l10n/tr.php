@@ -3,7 +3,6 @@ $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Besleme, geçersiz XML içeriyor",
 "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Besleme bulunamadı: ya web sitesi besleme sağlamıyor ya da erişimi engelliyor. Engellemeyi aşmak için beslemeyi sunucunuzdan şu curl komutunu kullanarak indirmeyi deneyin: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Tespit edilen biçim desteklenmiyor",
-"SSL Certificate is invalid" => "SSL Sertifikası geçersiz",
 "Website not found" => "Web sitesi bulunamadı",
 "More redirects than allowed, aborting" => "İzin verilenden daha fazla yeniden yönlendirme. İptal ediliyor",
 "Bigger than maximum allowed size" => "İzin verilen boyuttan daha büyük",
