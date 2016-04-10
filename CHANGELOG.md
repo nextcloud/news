@@ -1,3 +1,8 @@
+owncloud-news (8.3.0)
+* **Bugfix**: If two folders with the same name occur in a OPML file, merge them instead of simply ignoring the second one, #962
+* **Enhancement**: Better error messages for SSL issues, #966
+* **Enhancement**: Rename oc_news_feeds columns etag and last_modified to http_etag and http_last_modified
+
 owncloud-news (8.2.1)
 * **Bugfix**: Do not abort full OPML import if one feed failed, #843
 * **Bugfix**: Show error message when empty OPML file was imported, #924
