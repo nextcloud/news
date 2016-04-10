@@ -22,7 +22,7 @@ app.service('OPMLParser', function () {
                 feeds: []
             };
 
-        // feed
+            // feed
         } else {
             return {
                 type: 'feed',
@@ -35,7 +35,7 @@ app.service('OPMLParser', function () {
     // there is only one level, so feeds in a folder in a folder should be
     // attached to the root folder
     var recursivelyParse = function (level, root, firstLevel) {
-        for (var i=0; i<level.length; i+=1) {
+        for (var i = 0; i < level.length; i += 1) {
             var outline = $(level[i]);
 
             var entry = parseOutline(outline);
@@ -66,7 +66,26 @@ app.service('OPMLParser', function () {
             'folders': []
         };
 
-        return recursivelyParse(firstLevel, root, true);
+        var parsedResult = recursivelyParse(firstLevel, root, true);
+
+        // merge folders with duplicate names
+        var folders = {};
+        parsedResult.folders.forEach(function (folder) {
+            if (folders[folder.name] === undefined) {
+                folders[folder.name] = folder;
+            } else {
+                folders[folder.name].feeds = folders[folder.name]
+                    .feeds.concat(folder.feeds);
+            }
+        });
+
+        return {
+            'feeds': parsedResult.feeds,
+            'folders': Object.keys(folders).map(function (key) {
+                return folders[key];
+            })
+        };
+
     };
 
 });

@@ -40,6 +40,12 @@ describe('OPMLParser', function () {
                 title='a-flat' \
                 xmlUrl='http://a-flat.posterous.com/rss.xml'/> \
         </outline> \
+        \<outline text='Nomadism'> \
+            <outline \
+                htmlUrl='http://google.com' \
+                title='google' \
+                xmlUrl='http://google.com/rss.xml'/> \
+        </outline> \
         <outline title='Elezea' text='Elezee' \
                  xmlUrl='http://feeds.feedburner.com/elezea'/> \
     </body> \
@@ -57,7 +63,7 @@ describe('OPMLParser', function () {
         expect(result.folders.length).toBe(2);
         expect(result.feeds.length).toBe(2);
         expect(result.folders[0].feeds.length).toBe(3);
-        expect(result.folders[1].feeds.length).toBe(1);
+        expect(result.folders[1].feeds.length).toBe(2);
     });
 
 
