@@ -29,16 +29,12 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * PHP >= 5.6
 
 ## Development Dependencies
-These Dependencies are only relevant if you want to work on the source code:
+These Dependencies are only relevant if you want to build the source code:
 * make
 * which
 * Node.js >= 5.6
 * npm
-* curl
-* phpunit (optional)
-* composer (optional)
-* gulp-cli (optional)
-* bower (optional)
+* composer
 
 ## Supported Browsers
 * Newest Firefox (Desktop, Android, Firefox OS)
