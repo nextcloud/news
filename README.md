@@ -76,7 +76,7 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 
 ### Installing from archive
 * Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
-* Starting with 8.0.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code.
+* Starting with 8.0.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code. If you want to install a version prior to 8.0.0, choose the **Source code** download.
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **owncloud/apps/** folder.
 * Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
