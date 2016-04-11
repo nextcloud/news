@@ -1,3 +1,6 @@
+owncloud-news (8.3.1)
+* **Bugfix**: Use the feed url when showing an example of a curl command if a feed does not exist, #969
+
 owncloud-news (8.3.0)
 * **Bugfix**: If two folders with the same name occur in a OPML file, merge them instead of simply ignoring the second one, #962
 * **Enhancement**: Better error messages for SSL issues, #966

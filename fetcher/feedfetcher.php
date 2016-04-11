@@ -124,13 +124,13 @@ class FeedFetcher implements IFeedFetcher {
             return [$feed, $items];
 
         } catch (Exception $ex) {
-            $this->handleError($ex);
+            $this->handleError($ex, $url);
         }
 
     }
 
 
-    private function handleError(Exception $ex) {
+    private function handleError(Exception $ex, $url) {
         $msg = $ex->getMessage();
 
         if ($ex instanceof MalFormedXmlException) {
@@ -139,7 +139,7 @@ class FeedFetcher implements IFeedFetcher {
             $msg = $this->l10n->t('Feed not found: either the website ' .
                 'does not provide a feed or blocks access. To rule out ' .
                 'blocking, try to download the feed on your server\'s ' .
-                'command line using curl: curl http://the-feed.tld');
+                'command line using curl: curl ' . $url);
         } else if ($ex instanceof UnsupportedFeedFormatException) {
             $msg = $this->l10n->t('Detected feed format is not supported');
         } else if ($ex instanceof InvalidCertificateException) {
