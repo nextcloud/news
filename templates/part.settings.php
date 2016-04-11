@@ -58,21 +58,6 @@
         </label>
     </p>
 
-    <h3><?php p($l->t('Help')); ?></h3>
-
-    <p>
-        <a href="#/shortcuts/"><?php p($l->t('Keyboard shortcuts')); ?></a>
-    </p>
-
-    <p>
-        <a target="_blank"
-           href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
-    </p>
-    <p>
-        <a target="_blank"
-           href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
-    </p>
-
     <div class="import-export">
         <h3><?php p($l->t('Subscriptions (OPML)')); ?></h3>
 
@@ -111,7 +96,7 @@
         <p class="error" ng-show="Settings.opmlImportEmptyError">
             <?php p(
                 $l->t('Error when importing: OPML is does neither contain ' .
-                      'feeds nor folders')
+                    'feeds nor folders')
             ); ?>
         </p>
 
@@ -150,4 +135,20 @@
         </p>
 
     </div>
+
+    <h3><?php p($l->t('Help')); ?></h3>
+
+    <p>
+        <a href="#/shortcuts/"><?php p($l->t('Keyboard shortcuts')); ?></a>
+    </p>
+
+    <p>
+        <a target="_blank"
+           href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
+    </p>
+    <p>
+        <a target="_blank"
+           href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
+    </p>
+
 </div>
