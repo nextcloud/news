@@ -1,5 +1,5 @@
 {
-  "name": "ownCloud-news",
+  "name": "owncloud-news",
   "description": "An RSS/Atom feed reader",
   "main": "build/app.min.js",
   "scripts": {
