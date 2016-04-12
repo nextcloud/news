@@ -33,6 +33,24 @@ describe('ItemResource', function () {
         expect(ItemResource.getNewestItemId()).toBe(3);
     }));
 
+    it('should filter out item duplicates', inject(function (ItemResource) {
+        ItemResource.receive([{
+            id: 3,
+            fingerprint: 'a'
+        }, {
+            id: 4,
+            fingerprint: 'a'
+        }, {
+            id: 2,
+            fingerprint: 'b'
+        }], 'items');
+        expect(ItemResource.get(3).fingerprint).toBe('a');
+        expect(ItemResource.get(2).fingerprint).toBe('b');
+        expect(ItemResource.get(4)).toBe(undefined);
+        expect(ItemResource.highestId).toBe(4);
+        expect(ItemResource.lowestId).toBe(2);
+    }));
+
 
     it('should receive the newestItemId', inject(function (ItemResource) {
         ItemResource.receive(2, 'starred');
@@ -41,19 +59,21 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should mark item as read', inject(function (ItemResource) {
+    it('should mark item as read', inject(function (ItemResource) {
         http.expectPOST('base/items/3/read', {isRead: true}).respond(200, {});
 
         ItemResource.receive([
             {
                 id: 3,
                 feedId: 4,
-                unread: true
+                unread: true,
+                fingerprint: 'a'
             },
             {
                 id: 4,
                 feedId: 3,
-                unread: true
+                unread: true,
+                fingerprint: 'b'
             }
         ], 'items');
 
@@ -65,7 +85,7 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should mark multiple item as read', inject(function (ItemResource) {
+    it('should mark multiple item as read', inject(function (ItemResource) {
         http.expectPOST('base/items/read/multiple', {
             itemIds: [3, 4]
         }).respond(200, {});
@@ -74,12 +94,14 @@ describe('ItemResource', function () {
             {
                 id: 3,
                 feedId: 4,
-                unread: true
+                unread: true,
+                fingerprint: 'a'
             },
             {
                 id: 4,
                 feedId: 3,
-                unread: true
+                unread: true,
+                fingerprint: 'b'
             }
         ], 'items');
 
@@ -92,8 +114,7 @@ describe('ItemResource', function () {
     }));
 
 
-
-    it ('should star item', inject(function (ItemResource) {
+    it('should star item', inject(function (ItemResource) {
         http.expectPOST('base/items/4/a/star', {isStarred: true})
             .respond(200, {});
 
@@ -101,12 +122,14 @@ describe('ItemResource', function () {
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 starred: false,
                 guidHash: 'a'
             },
             {
                 id: 4,
                 feedId: 3,
+                fingerprint: 'b',
                 starred: false
             }
         ], 'items');
@@ -120,7 +143,7 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should mark feed as read', inject(function (ItemResource) {
+    it('should mark feed as read', inject(function (ItemResource) {
         http.expectPOST('base/feeds/4/read', {
             highestItemId: 5
         }).respond(200, {});
@@ -129,16 +152,19 @@ describe('ItemResource', function () {
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 unread: true
             },
             {
                 id: 4,
                 feedId: 3,
+                fingerprint: 'b',
                 unread: true
             },
             {
                 id: 5,
                 feedId: 4,
+                fingerprint: 'c',
                 unread: true
             }
         ], 'items');
@@ -153,7 +179,7 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should mark all as read', inject(function (ItemResource) {
+    it('should mark all as read', inject(function (ItemResource) {
         http.expectPOST('base/items/read', {
             highestItemId: 5
         }).respond(200, {});
@@ -162,16 +188,19 @@ describe('ItemResource', function () {
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 unread: true
             },
             {
                 id: 5,
                 feedId: 3,
+                fingerprint: 'b',
                 unread: true
             },
             {
                 id: 4,
                 feedId: 4,
+                fingerprint: 'c',
                 unread: true
             }
         ], 'items');
@@ -187,14 +216,16 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('toggle star', inject(function (ItemResource) {
+    it('toggle star', inject(function (ItemResource) {
         ItemResource.receive([
             {
                 id: 3,
+                fingerprint: 'a',
                 starred: true
             },
             {
                 id: 5,
+                fingerprint: 'b',
                 starred: false
             }
         ], 'items');
@@ -209,7 +240,7 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should auto page newest first', inject(function (ItemResource) {
+    it('should auto page newest first', inject(function (ItemResource) {
         http.expectGET(
             'base/items?id=4&limit=5&offset=3&oldestFirst=false&type=3')
             .respond(200, {});
@@ -218,16 +249,19 @@ describe('ItemResource', function () {
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 unread: true
             },
             {
                 id: 5,
                 feedId: 3,
+                fingerprint: 'b',
                 unread: true
             },
             {
                 id: 4,
                 feedId: 4,
+                fingerprint: 'c',
                 unread: true
             }
         ], 'items');
@@ -238,7 +272,7 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should auto page oldest first', inject(function (ItemResource) {
+    it('should auto page oldest first', inject(function (ItemResource) {
         http.expectGET(
             'base/items?id=4&limit=5&offset=5&oldestFirst=true&type=3')
             .respond(200, {});
@@ -247,16 +281,19 @@ describe('ItemResource', function () {
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 unread: true
             },
             {
                 id: 5,
                 feedId: 3,
+                fingerprint: 'b',
                 unread: true
             },
             {
                 id: 4,
                 feedId: 4,
+                fingerprint: 'c',
                 unread: true
             }
         ], 'items');
@@ -267,26 +304,29 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should auto page all', inject(function (ItemResource) {
+    it('should auto page all', inject(function (ItemResource) {
         http.expectGET(
-            'base/items?id=4&limit=5&offset=5&oldestFirst=true' +
-            '&search=some+string&showAll=true&type=3')
+                'base/items?id=4&limit=5&offset=5&oldestFirst=true' +
+                '&search=some+string&showAll=true&type=3')
             .respond(200, {});
 
         ItemResource.receive([
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 unread: true
             },
             {
                 id: 5,
                 feedId: 3,
+                fingerprint: 'b',
                 unread: true
             },
             {
                 id: 4,
                 feedId: 4,
+                fingerprint: 'c',
                 unread: true
             }
         ], 'items');
@@ -297,21 +337,24 @@ describe('ItemResource', function () {
     }));
 
 
-    it ('should clear all state', inject(function (ItemResource) {
+    it('should clear all state', inject(function (ItemResource) {
         ItemResource.receive([
             {
                 id: 3,
                 feedId: 4,
+                fingerprint: 'a',
                 unread: true
             },
             {
                 id: 5,
                 feedId: 3,
+                fingerprint: 'b',
                 unread: true
             },
             {
                 id: 4,
                 feedId: 4,
+                fingerprint: 'c',
                 unread: true
             }
         ], 'items');
@@ -327,8 +370,7 @@ describe('ItemResource', function () {
     }));
 
 
-
-    it ('should import articles', inject(function (ItemResource) {
+    it('should import articles', inject(function (ItemResource) {
         var json = 'test';
 
         http.expectPOST('base/feeds/import/articles', {

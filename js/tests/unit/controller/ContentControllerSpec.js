@@ -25,27 +25,27 @@ describe('ContentController', function () {
     }));
 
 
-    it('should publish data to models', inject(function ($controller, Publisher,
-        FeedResource, ItemResource) {
+    it('should publish data to models',
+        inject(function ($controller, Publisher, FeedResource, ItemResource) {
 
-        Publisher.subscribe(ItemResource).toChannels(['items']);
-        Publisher.subscribe(FeedResource).toChannels(['feeds']);
+            Publisher.subscribe(ItemResource).toChannels(['items']);
+            Publisher.subscribe(FeedResource).toChannels(['feeds']);
 
-        var controller = $controller('ContentController', {
-            data: {
-                'items': [
-                    {id: 3},
-                    {id: 4}
-                ]
-            }
-        });
+            var controller = $controller('ContentController', {
+                data: {
+                    'items': [
+                        {id: 3, fingerprint: 'a'},
+                        {id: 4, fingerprint: 'b'}
+                    ]
+                }
+            });
 
-        expect(controller.getItems().length).toBe(2);
-    }));
+            expect(controller.getItems().length).toBe(2);
+        }));
 
 
     it('should clear data on url change', inject(function ($controller,
-        ItemResource) {
+                                                           ItemResource) {
 
         ItemResource.clear = jasmine.createSpy('clear');
 
@@ -57,58 +57,59 @@ describe('ContentController', function () {
     }));
 
 
-    it('should return order by', inject(function ($controller,
-        SettingsResource, FEED_TYPE) {
-        var route = {
-            current: {
-                $$route: {
-                    type: FEED_TYPE.FOLDER
+    it('should return order by',
+        inject(function ($controller, SettingsResource, FEED_TYPE) {
+            var route = {
+                current: {
+                    $$route: {
+                        type: FEED_TYPE.FOLDER
+                    }
                 }
-            }
-        };
+            };
 
-        var ctrl = $controller('ContentController', {
-            data: {},
-            $route: route
-        });
+            var ctrl = $controller('ContentController', {
+                data: {},
+                $route: route
+            });
 
-        expect(ctrl.orderBy()).toBe('-id');
+            expect(ctrl.orderBy()).toBe('-id');
 
-        SettingsResource.set('oldestFirst', true);
+            SettingsResource.set('oldestFirst', true);
 
-        expect(ctrl.orderBy()).toBe('id');
-    }));
+            expect(ctrl.orderBy()).toBe('id');
+        }));
 
-    it('should return order if custom ordering', inject(function ($controller,
-        SettingsResource, FeedResource, FEED_TYPE) {
-        var route = {
-            current: {
-                $$route: {
-                    type: FEED_TYPE.FEED
+    it('should return order if custom ordering',
+        inject(function ($controller, SettingsResource, FeedResource,
+                         FEED_TYPE) {
+            var route = {
+                current: {
+                    $$route: {
+                        type: FEED_TYPE.FEED
+                    }
                 }
-            }
-        };
-        FeedResource.receive([
-            {id: 1, folderId: 3,  url: 'ye', unreadCount: 45, ordering: 1},
-        ]);
-        var ctrl = $controller('ContentController', {
-            data: {},
-            $route: route,
-            $routeParams: {
-                id: 1
-            }
-        });
+            };
+            FeedResource.receive([
+                {id: 1, folderId: 3, url: 'ye', unreadCount: 45, ordering: 1},
+            ]);
+            var ctrl = $controller('ContentController', {
+                data: {},
+                $route: route,
+                $routeParams: {
+                    id: 1
+                }
+            });
 
-        expect(ctrl.orderBy()).toBe('id');
+            expect(ctrl.orderBy()).toBe('id');
 
-        SettingsResource.set('oldestFirst', true);
+            SettingsResource.set('oldestFirst', true);
 
-        expect(ctrl.orderBy()).toBe('id');
-    }));
+            expect(ctrl.orderBy()).toBe('id');
+        }));
 
 
     it('should mark read', inject(function ($controller, ItemResource,
-        FeedResource, Publisher) {
+                                            FeedResource, Publisher) {
 
         Publisher.subscribe(ItemResource).toChannels(['items']);
         ItemResource.markItemRead = jasmine.createSpy('markRead');
@@ -118,21 +119,25 @@ describe('ContentController', function () {
             ItemResource: ItemResource,
             FeedResource: FeedResource,
             data: {
-                'items': [{
-                    id: 3,
-                    feedId: 4,
-                    unread: true
-                },
-                {
-                    id: 5,
-                    feedId: 4,
-                    keepUnread: true
-                },
-                {
-                    id: 9,
-                    feedId: 5,
-                    unread: false
-                }]
+                'items': [
+                    {
+                        id: 3,
+                        feedId: 4,
+                        fingerprint: 'a',
+                        unread: true
+                    },
+                    {
+                        id: 5,
+                        feedId: 4,
+                        fingerprint: 'b',
+                        keepUnread: true
+                    },
+                    {
+                        id: 9,
+                        feedId: 5,
+                        fingerprint: 'c',
+                        unread: false
+                    }]
             },
         });
 
@@ -147,59 +152,59 @@ describe('ContentController', function () {
     }));
 
 
-    it('should toggle keep unread when unread', inject(function ($controller,
-        ItemResource, FeedResource, Publisher) {
+    it('should toggle keep unread when unread',
+        inject(function ($controller, ItemResource, FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels(['items']);
+            Publisher.subscribe(ItemResource).toChannels(['items']);
 
-        var ctrl = $controller('ContentController', {
-            ItemResource: ItemResource,
-            FeedResource: FeedResource,
-            data: {
-                'items': [{
-                    id: 3,
-                    feedId: 4,
-                    unread: true
-                }]
-            },
-        });
+            var ctrl = $controller('ContentController', {
+                ItemResource: ItemResource,
+                FeedResource: FeedResource,
+                data: {
+                    'items': [{
+                        id: 3,
+                        feedId: 4,
+                        unread: true
+                    }]
+                },
+            });
 
-        ctrl.toggleKeepUnread(3);
+            ctrl.toggleKeepUnread(3);
 
-        expect(ItemResource.get(3).keepUnread).toBe(true);
-    }));
+            expect(ItemResource.get(3).keepUnread).toBe(true);
+        }));
 
 
-    it('should toggle keep unread when read', inject(function ($controller,
-        ItemResource, FeedResource, Publisher) {
+    it('should toggle keep unread when read',
+        inject(function ($controller, ItemResource, FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels(['items']);
-        ItemResource.markItemRead = jasmine.createSpy('markRead');
-        FeedResource.markItemOfFeedUnread = jasmine.createSpy('markRead');
+            Publisher.subscribe(ItemResource).toChannels(['items']);
+            ItemResource.markItemRead = jasmine.createSpy('markRead');
+            FeedResource.markItemOfFeedUnread = jasmine.createSpy('markRead');
 
-        var ctrl = $controller('ContentController', {
-            ItemResource: ItemResource,
-            FeedResource: FeedResource,
-            data: {
-                'items': [{
-                    id: 3,
-                    feedId: 4,
-                    unread: false,
-                    keepUnread: true
-                }]
-            },
-        });
+            var ctrl = $controller('ContentController', {
+                ItemResource: ItemResource,
+                FeedResource: FeedResource,
+                data: {
+                    'items': [{
+                        id: 3,
+                        feedId: 4,
+                        unread: false,
+                        keepUnread: true
+                    }]
+                },
+            });
 
-        ctrl.toggleKeepUnread(3);
+            ctrl.toggleKeepUnread(3);
 
-        expect(ItemResource.get(3).keepUnread).toBe(false);
-        expect(ItemResource.markItemRead).toHaveBeenCalledWith(3, false);
-        expect(FeedResource.markItemOfFeedUnread).toHaveBeenCalledWith(4);
-    }));
+            expect(ItemResource.get(3).keepUnread).toBe(false);
+            expect(ItemResource.markItemRead).toHaveBeenCalledWith(3, false);
+            expect(FeedResource.markItemOfFeedUnread).toHaveBeenCalledWith(4);
+        }));
 
 
     it('should get a feed', inject(function ($controller, FeedResource,
-    Publisher) {
+                                             Publisher) {
 
         Publisher.subscribe(FeedResource).toChannels(['feeds']);
 
@@ -232,9 +237,8 @@ describe('ContentController', function () {
     }));
 
 
-
     it('should publish compactview', inject(function ($controller,
-    SettingsResource) {
+                                                      SettingsResource) {
 
         SettingsResource.set('compact', true);
 
@@ -247,21 +251,21 @@ describe('ContentController', function () {
     }));
 
 
-    it('should publish compact expand setting', inject(function ($controller,
-    SettingsResource) {
+    it('should publish compact expand setting',
+        inject(function ($controller, SettingsResource) {
 
-        SettingsResource.set('compactExpand', true);
+            SettingsResource.set('compactExpand', true);
 
-        var ctrl = $controller('ContentController', {
-            SettingsResource: SettingsResource,
-            data: {},
-        });
+            var ctrl = $controller('ContentController', {
+                SettingsResource: SettingsResource,
+                data: {},
+            });
 
-        expect(ctrl.isCompactExpand()).toBe(true);
-    }));
+            expect(ctrl.isCompactExpand()).toBe(true);
+        }));
 
     it('should publish markread', inject(function ($controller,
-    SettingsResource) {
+                                                   SettingsResource) {
 
         SettingsResource.set('preventReadOnScroll', true);
 
@@ -283,214 +287,237 @@ describe('ContentController', function () {
     }));
 
 
-    it('should mark multiple items read', inject(function ($controller,
-        ItemResource, FeedResource, Publisher) {
+    it('should mark multiple items read',
+        inject(function ($controller, ItemResource, FeedResource, Publisher) {
 
-        Publisher.subscribe(ItemResource).toChannels(['items']);
-        ItemResource.markItemsRead = jasmine.createSpy('markRead');
-        FeedResource.markItemsOfFeedsRead = jasmine.createSpy('markRead');
+            Publisher.subscribe(ItemResource).toChannels(['items']);
+            ItemResource.markItemsRead = jasmine.createSpy('markRead');
+            FeedResource.markItemsOfFeedsRead = jasmine.createSpy('markRead');
 
-        var ctrl = $controller('ContentController', {
-            ItemResource: ItemResource,
-            FeedResource: FeedResource,
-            data: {
-                'items': [{
-                    id: 3,
-                    feedId: 6
+            var ctrl = $controller('ContentController', {
+                ItemResource: ItemResource,
+                FeedResource: FeedResource,
+                data: {
+                    'items': [
+                        {
+                            id: 3,
+                            fingerprint: 'a',
+                            feedId: 6
+                        },
+                        {
+                            id: 2,
+                            fingerprint: 'b',
+                            feedId: 4,
+                            keepUnread: true
+                        },
+                        {
+                            id: 1,
+                            fingerprint: 'c',
+                            feedId: 4
+                        },]
                 },
-                {
-                    id: 2,
-                    feedId: 4,
-                    keepUnread: true
-                },
-                {
-                    id: 1,
-                    feedId: 4
-                },]
-            },
-        });
+            });
 
-        ctrl.scrollRead([3, 2, 1]);
+            ctrl.scrollRead([3, 2, 1]);
 
-        expect(ItemResource.markItemsRead).toHaveBeenCalledWith([3, 1]);
-        expect(FeedResource.markItemsOfFeedsRead).toHaveBeenCalledWith([6, 4]);
-    }));
+            expect(ItemResource.markItemsRead).toHaveBeenCalledWith([3, 1]);
+            expect(FeedResource.markItemsOfFeedsRead)
+                .toHaveBeenCalledWith([6, 4]);
+        }));
 
 
-    it('should not autopage if less than 0 elements', inject(function (
-        $controller, ItemResource, Publisher, SettingsResource, Loading) {
-        SettingsResource.set('oldestFirst', true);
-        SettingsResource.set('showAll', false);
+    it('should not autopage if less than 0 elements',
+        inject(function ($controller, ItemResource, Publisher,
+                         SettingsResource, Loading) {
+            SettingsResource.set('oldestFirst', true);
+            SettingsResource.set('showAll', false);
 
-        var $location = {
-            search: jasmine.createSpy('search').and.returnValue({
-                search: 'some+string'
-            })
-        };
+            var $location = {
+                search: jasmine.createSpy('search').and.returnValue({
+                    search: 'some+string'
+                })
+            };
 
-        var $route = {
-            current: {
-                $$route: {
-                    type: 3
+            var $route = {
+                current: {
+                    $$route: {
+                        type: 3
+                    }
                 }
-            }
-        };
+            };
 
-        var $routeParams = {
-            id: 2
-        };
+            var $routeParams = {
+                id: 2
+            };
 
-        Publisher.subscribe(ItemResource).toChannels(['items']);
-        ItemResource.autoPage = jasmine.createSpy('autoPage')
-        .and.callFake(function () {
-            return {
-                success: function (callback) {
-                    callback({
-                        'items': []
-                    });
-
+            Publisher.subscribe(ItemResource).toChannels(['items']);
+            ItemResource.autoPage = jasmine.createSpy('autoPage')
+                .and.callFake(function () {
                     return {
-                        error: function () {
+                        success: function (callback) {
+                            callback({
+                                'items': []
+                            });
+
                             return {
-                                finally: function (callback) {
-                                    callback();
+                                error: function () {
+                                    return {
+                                        finally: function (callback) {
+                                            callback();
+                                        }
+                                    };
                                 }
                             };
                         }
                     };
+                });
+
+            var ctrl = $controller('ContentController', {
+                $routeParams: $routeParams,
+                $route: $route,
+                Publisher: Publisher,
+                ItemResource: ItemResource,
+                SettingsResource: SettingsResource,
+                data: {'items': [{id: 3}, {id: 4}]},
+                $location: $location
+            });
+
+            expect(ctrl.autoPagingEnabled()).toBe(true);
+
+            ctrl.autoPage();
+
+            expect(ctrl.autoPagingEnabled()).toBe(false);
+
+            expect(Loading.isLoading('autopaging')).toBe(false);
+            expect(ItemResource.autoPage)
+                .toHaveBeenCalledWith(3, 2, true, false, 'some+string');
+
+        }));
+
+
+    it('should autopage if more than 0 elements',
+        inject(function ($controller, ItemResource, Publisher) {
+
+            var $route = {
+                current: {
+                    $$route: {
+                        type: 3
+                    }
                 }
             };
-        });
 
-        var ctrl = $controller('ContentController', {
-            $routeParams: $routeParams,
-            $route: $route,
-            Publisher: Publisher,
-            ItemResource: ItemResource,
-            SettingsResource: SettingsResource,
-            data: {'items': [{id: 3}, {id: 4}]},
-            $location: $location
-        });
+            var $routeParams = {
+                id: 2
+            };
 
-        expect(ctrl.autoPagingEnabled()).toBe(true);
-
-        ctrl.autoPage();
-
-        expect(ctrl.autoPagingEnabled()).toBe(false);
-
-        expect(Loading.isLoading('autopaging')).toBe(false);
-        expect(ItemResource.autoPage).toHaveBeenCalledWith(3, 2, true, false,
-            'some+string');
-
-    }));
-
-
-    it('should autopage if more than 0 elements', inject(function (
-        $controller, ItemResource, Publisher) {
-
-        var $route = {
-            current: {
-                $$route: {
-                    type: 3
-                }
-            }
-        };
-
-        var $routeParams = {
-            id: 2
-        };
-
-        Publisher.subscribe(ItemResource).toChannels(['items']);
-        ItemResource.autoPage = jasmine.createSpy('autoPage')
-        .and.callFake(function () {
-            return {
-                success: function (callback) {
-                    callback({
-                        'items': [{items: [{id: 3}]}]
-                    });
-
+            Publisher.subscribe(ItemResource).toChannels(['items']);
+            ItemResource.autoPage = jasmine.createSpy('autoPage')
+                .and.callFake(function () {
                     return {
-                        error: function () {
+                        success: function (callback) {
+                            callback({
+                                'items': [{items: [{id: 3, fingerprint: 'a'}]}]
+                            });
+
                             return {
-                                finally: function () {}
+                                error: function () {
+                                    return {
+                                        finally: function () {
+                                        }
+                                    };
+                                }
                             };
                         }
                     };
+                });
+
+            var ctrl = $controller('ContentController', {
+                $routeParams: $routeParams,
+                $route: $route,
+                Publisher: Publisher,
+                ItemResource: ItemResource,
+                data: {
+                    'items': [{
+                        id: 3, fingerprint: 'a'
+                    }, {
+                        id: 4, fingerprint: 'b'
+                    }]
+                },
+            });
+
+            expect(ctrl.autoPagingEnabled()).toBe(true);
+
+            ctrl.autoPage();
+
+            expect(ctrl.autoPagingEnabled()).toBe(true);
+            expect(ItemResource.size()).toBe(3);
+        }));
+
+
+    it('should autopage if error',
+        inject(function ($controller, ItemResource, Publisher) {
+
+            var $route = {
+                current: {
+                    $$route: {
+                        type: 3
+                    }
                 }
             };
-        });
 
-        var ctrl = $controller('ContentController', {
-            $routeParams: $routeParams,
-            $route: $route,
-            Publisher: Publisher,
-            ItemResource: ItemResource,
-            data: {'items': [{id: 3}, {id: 4}]},
-        });
+            var $routeParams = {
+                id: 2
+            };
 
-        expect(ctrl.autoPagingEnabled()).toBe(true);
-
-        ctrl.autoPage();
-
-        expect(ctrl.autoPagingEnabled()).toBe(true);
-        expect(ItemResource.size()).toBe(3);
-    }));
-
-
-    it('should autopage if error', inject(function (
-        $controller, ItemResource, Publisher) {
-
-        var $route = {
-            current: {
-                $$route: {
-                    type: 3
-                }
-            }
-        };
-
-        var $routeParams = {
-            id: 2
-        };
-
-        Publisher.subscribe(ItemResource).toChannels(['items']);
-        ItemResource.autoPage = jasmine.createSpy('autoPage')
-        .and.callFake(function () {
-            return {
-                success: function (callback) {
-                    callback({
-                        'items': []
-                    });
-
+            Publisher.subscribe(ItemResource).toChannels(['items']);
+            ItemResource.autoPage = jasmine.createSpy('autoPage')
+                .and.callFake(function () {
                     return {
-                        error: function (callback) {
-                            callback();
+                        success: function (callback) {
+                            callback({
+                                'items': []
+                            });
+
                             return {
-                                finally: function () {}
+                                error: function (callback) {
+                                    callback();
+                                    return {
+                                        finally: function () {
+                                        }
+                                    };
+                                }
                             };
                         }
                     };
-                }
-            };
-        });
+                });
 
-        var ctrl = $controller('ContentController', {
-            $routeParams: $routeParams,
-            $route: $route,
-            Publisher: Publisher,
-            ItemResource: ItemResource,
-            data: {'items': [{id: 3}, {id: 4}]},
-        });
+            var ctrl = $controller('ContentController', {
+                $routeParams: $routeParams,
+                $route: $route,
+                Publisher: Publisher,
+                ItemResource: ItemResource,
+                data: {
+                    'items': [
+                        {
+                            id: 3,
+                            fingerprint: 'a'
+                        }, {
+                            id: 4,
+                            fingerprint: 'b'
+                        }]
+                },
+            });
 
-        expect(ctrl.autoPagingEnabled()).toBe(true);
+            expect(ctrl.autoPagingEnabled()).toBe(true);
 
-        ctrl.autoPage();
+            ctrl.autoPage();
 
-        expect(ctrl.autoPagingEnabled()).toBe(true);
-    }));
+            expect(ctrl.autoPagingEnabled()).toBe(true);
+        }));
 
 
     it('should return relative date', inject(function ($controller,
-        SettingsResource) {
+                                                       SettingsResource) {
 
         SettingsResource.receive({language: 'en'});
         var ctrl = $controller('ContentController', {
@@ -524,7 +551,7 @@ describe('ContentController', function () {
     }));
 
     it('should tell if a feed is shown', inject(function ($controller,
-        FEED_TYPE) {
+                                                          FEED_TYPE) {
 
         var $route = {
             current: {
@@ -553,7 +580,7 @@ describe('ContentController', function () {
     }));
 
     it('should publish showall', inject(function ($controller,
-    SettingsResource) {
+                                                  SettingsResource) {
 
         SettingsResource.set('showAll', true);
 

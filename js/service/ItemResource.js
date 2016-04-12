@@ -23,6 +23,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
         this.starredCount = 0;
         this.lowestId = 0;
         this.highestId = 0;
+        this.fingerprints = {};
         Resource.prototype.clear.call(this);
     };
 
@@ -39,6 +40,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
 
         default:
             var self = this;
+            var importValues = [];
             value.forEach(function (item) {
                 // initialize lowest and highest id
                 if (self.lowestId === 0) {
@@ -54,9 +56,15 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
                 if (item.id < self.lowestId) {
                     self.lowestId = item.id;
                 }
+
+                // filter out duplicates
+                if (self.fingerprints[item.fingerprint] === undefined) {
+                    self.fingerprints[item.fingerprint] = true;
+                    importValues.push(item);
+                }
             });
 
-            Resource.prototype.receive.call(this, value, channel);
+            Resource.prototype.receive.call(this, importValues, channel);
         }
     };
 

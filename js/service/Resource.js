@@ -62,7 +62,7 @@ app.factory('Resource', function () {
         if (deleteAtIndex !== undefined) {
             this.values.splice(deleteAtIndex, 1);
         }
-
+        
         if (this.hashMap[id] !== undefined) {
             delete this.hashMap[id];
         }

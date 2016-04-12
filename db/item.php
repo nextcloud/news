@@ -23,7 +23,6 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setGuid(string $value)
  * @method string getGuidHash()
  * @method void setGuidHash(string $value)
- * @method string getGuid()
  * @method string getUrl()
  * @method string getTitle()
  * @method string getAuthor()
@@ -131,7 +130,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'starred' => $this->isStarred(),
             'lastModified' => $this->getLastModified(),
             'rtl' => $this->getRtl(),
-            'intro' => $this->getIntro()
+            'intro' => $this->getIntro(),
+            'fingerprint' => $this->getFingerprint()
         ];
     }
 
@@ -151,7 +151,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
             'lastModified' => $this->getLastModified(),
-            'rtl' => $this->getRtl()
+            'rtl' => $this->getRtl(),
+            'fingerprint' => $this->getFingerprint()
         ];
     }
 

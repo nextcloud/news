@@ -70,6 +70,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setUnread();
         $item->setStarred();
         $item->setLastModified(321);
+        $item->setFingerprint('fingerprint');
 
         $this->assertEquals([
             'id' => 3,
@@ -86,7 +87,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'unread' => true,
             'starred' => true,
             'lastModified' => 321,
-            'rtl' => true
+            'rtl' => true,
+            'fingerprint' => 'fingerprint'
             ], $item->toAPI());
     }
 
@@ -107,6 +109,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setStatus(0);
         $item->setRtl(true);
         $item->setUnread();
+        $item->setFingerprint('fingerprint');
         $item->setStarred();
         $item->setLastModified(321);
 
@@ -126,7 +129,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'starred' => true,
             'lastModified' => 321,
             'rtl' => true,
-            'intro' => 'this is a test'
+            'intro' => 'this is a test',
+            'fingerprint' => 'fingerprint'
             ], $item->jsonSerialize());
     }
 
