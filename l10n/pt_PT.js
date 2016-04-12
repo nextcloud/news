@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "O feed contém XML inválido",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feed não encontrado: o sítio web ou não possui feed ou bloqueia-lhe o acesso. Para contornar o bloqueio, tente transferir o feed usando na linha de comando do servidor: curl http://the-feed.tld",
     "Detected feed format is not supported" : "O formato da feed detetado não é suportado",
     "Website not found" : "O site da web não foi encontrado",
     "More redirects than allowed, aborting" : "Mais redirecionamentos do que o permitido. A abortar ...",
@@ -123,14 +122,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Expandir artigos ao navegar por tecla",
     "Show all articles" : "Mostrar todos os artigos",
     "Reverse ordering (oldest on top)" : "Ordem inversa (antigos no topo)",
-    "Help" : "Ajuda",
-    "Keyboard shortcuts" : "Atalhos de teclado",
-    "Documentation" : "Documentação",
     "Subscriptions (OPML)" : "Subscrições (OPML)",
     "Import" : "Importar",
     "Export" : "Exportar",
     "Error when importing: file does not contain valid OPML" : "Ocorreu um erro na importação: o ficheiro não contém um OPML válido",
     "Unread/Starred Articles" : "Artigos Não Lidos/Classificados",
-    "Error when importing: file does not contain valid JSON" : "Ocorreu um erro na importação: o ficheiro não contém JSON válido"
+    "Error when importing: file does not contain valid JSON" : "Ocorreu um erro na importação: o ficheiro não contém JSON válido",
+    "Help" : "Ajuda",
+    "Keyboard shortcuts" : "Atalhos de teclado",
+    "Documentation" : "Documentação"
 },
 "nplurals=2; plural=(n != 1);");

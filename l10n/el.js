@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Η ροή περιέχει μη έγχυρο XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Η ροή δεν βρέθηκε: είτε ο ιστότοπος δε διαθέτει ροή ή εμποδίζει την πρόσβαση. Για να αποκλείσετε το ενδεχόμενο να εμποδίζεται η πρόσβαση, προσπαθήστε να κάνετε λήψη της ροής στη γραμμή εντολών του διακομιστή μας με χρήση του curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Η μορφοποίηση ροής που ανιχνεύτηκε δεν υποστηρίζεται",
     "Website not found" : "Δεν βρέθηκε ιστοσελίδα",
     "More redirects than allowed, aborting" : "Περισσότερες ανακατευθύνσεις από όσες επιτρέπονται, ακύρωση",
@@ -116,14 +115,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Ανάπτυξη των άρθρων κατά την πλοήγηση με πλήκτρα",
     "Show all articles" : "Εμφάνιση όλων των άρθρων",
     "Reverse ordering (oldest on top)" : "Ανεστραμμένη ταξινόμηση (παλαιότερα στην κορυφή)",
-    "Help" : "Βοήθεια",
-    "Keyboard shortcuts" : "Συντομεύσεις πλητρολογίου",
-    "Documentation" : "Τεκμηρίωση",
     "Subscriptions (OPML)" : "Συνδρομές (OPML)",
     "Import" : "Εισαγωγή",
     "Export" : "Εξαγωγή",
     "Error when importing: file does not contain valid OPML" : "Σφάλμα κατα την εισαγωγή: το αρχείο δεν περιέχει έγκυρο OPML",
     "Unread/Starred Articles" : "Με αστέρι/Μη αναγνωσμένα Άρθρα",
-    "Error when importing: file does not contain valid JSON" : "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON"
+    "Error when importing: file does not contain valid JSON" : "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON",
+    "Help" : "Βοήθεια",
+    "Keyboard shortcuts" : "Συντομεύσεις πλητρολογίου",
+    "Documentation" : "Τεκμηρίωση"
 },
 "nplurals=2; plural=(n != 1);");

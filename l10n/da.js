@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Feed'et indeholder ugyldig XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feedet blev ikke fundet: webstedet tilbyder enten ikke et feed eller blokerer adgangen. For at tjekke om der blokeres, så prøv at hente feedet på din gennem din servers kommandolinje med curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Det registrerede feed-format understøttes ikke",
     "Website not found" : "Hjemmesiden blev ikke fundet",
     "More redirects than allowed, aborting" : "Flere videredirigeringer end tilladt - afbryder",
@@ -117,14 +116,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Udvid artikler ved tastenavigation",
     "Show all articles" : "Vis alle artikler",
     "Reverse ordering (oldest on top)" : "Vend om på rækkefølgen (ældste øverst)",
-    "Help" : "Hjælp",
-    "Keyboard shortcuts" : "Tastaturgenveje",
-    "Documentation" : "Dokumentation",
     "Subscriptions (OPML)" : "Abonnementer (OPML)",
     "Import" : "Importer",
     "Export" : "Eksportér",
     "Error when importing: file does not contain valid OPML" : "Fejl ved import: filen indeholder ingen gyldig OPML-kode",
     "Unread/Starred Articles" : "Ulæste/stjernemarkerede artikler",
-    "Error when importing: file does not contain valid JSON" : "Fejl ved import: filen indeholder ikke gyldig JSON kode"
+    "Error when importing: file does not contain valid JSON" : "Fejl ved import: filen indeholder ikke gyldig JSON kode",
+    "Help" : "Hjælp",
+    "Keyboard shortcuts" : "Tastaturgenveje",
+    "Documentation" : "Dokumentation"
 },
 "nplurals=2; plural=(n != 1);");

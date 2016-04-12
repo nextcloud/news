@@ -108,14 +108,14 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "Expandir artigos na tecla de navegación",
 "Show all articles" => "Amosar todos os artigos",
 "Reverse ordering (oldest on top)" => "Ordenado inverso (máis vellos enriba)",
-"Help" => "Axuda",
-"Keyboard shortcuts" => "Atallos de teclado",
-"Documentation" => "Documentación",
 "Subscriptions (OPML)" => "Subscricións (OPML)",
 "Import" => "Importar",
 "Export" => "Exportar",
 "Error when importing: file does not contain valid OPML" => "Erro durante a importación: o ficheiro non conten OPML correcto",
 "Unread/Starred Articles" => "Artigos destacados ou sen ler",
-"Error when importing: file does not contain valid JSON" => "Produciuse un erro ao importar: o ficheiro non contén un JSON correcto"
+"Error when importing: file does not contain valid JSON" => "Produciuse un erro ao importar: o ficheiro non contén un JSON correcto",
+"Help" => "Axuda",
+"Keyboard shortcuts" => "Atallos de teclado",
+"Documentation" => "Documentación"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

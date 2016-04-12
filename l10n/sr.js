@@ -107,14 +107,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Рашири чланке при навигацији тастерима",
     "Show all articles" : "Прикажи све чланке",
     "Reverse ordering (oldest on top)" : "Обрнуто ређање (најстарији на врху)",
-    "Help" : "Помоћ",
-    "Keyboard shortcuts" : "Пречице тастатуре",
-    "Documentation" : "Документација",
     "Subscriptions (OPML)" : "Претплате (ОПМЛ)",
     "Import" : "Увези",
     "Export" : "Извези",
     "Error when importing: file does not contain valid OPML" : "Грешка приликом увоза: фајл не садржи исправан ОПМЛ",
     "Unread/Starred Articles" : "Непрочитани/Озвездани чланци",
-    "Error when importing: file does not contain valid JSON" : "Грешка приликом увоза: фајл не садржи исправан ЈСОН"
+    "Error when importing: file does not contain valid JSON" : "Грешка приликом увоза: фајл не садржи исправан ЈСОН",
+    "Help" : "Помоћ",
+    "Keyboard shortcuts" : "Пречице тастатуре",
+    "Documentation" : "Документација"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

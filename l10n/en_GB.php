@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Feed contains invalid XML",
-"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Detected feed format is not supported",
 "Website not found" => "Website not found",
 "More redirects than allowed, aborting" => "More redirects than allowed, aborting",
@@ -119,14 +118,14 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "Expand articles on key navigation",
 "Show all articles" => "Show all articles",
 "Reverse ordering (oldest on top)" => "Reverse ordering (oldest on top)",
-"Help" => "Help",
-"Keyboard shortcuts" => "Keyboard shortcuts",
-"Documentation" => "Documentation",
 "Subscriptions (OPML)" => "Subscriptions (OPML)",
 "Import" => "Import",
 "Export" => "Export",
 "Error when importing: file does not contain valid OPML" => "Error when importing: file does not contain valid OPML",
 "Unread/Starred Articles" => "Unread/Starred Articles",
-"Error when importing: file does not contain valid JSON" => "Error when importing: file does not contain valid JSON"
+"Error when importing: file does not contain valid JSON" => "Error when importing: file does not contain valid JSON",
+"Help" => "Help",
+"Keyboard shortcuts" => "Keyboard shortcuts",
+"Documentation" => "Documentation"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

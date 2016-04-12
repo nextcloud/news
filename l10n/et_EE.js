@@ -102,14 +102,14 @@ OC.L10N.register(
     "Disable mark read through scrolling" : "Lülita kerimisel loetuks määramine välja",
     "Compact view" : "Kompaktne vaade",
     "Show all articles" : "Näita kõiki artikleid",
-    "Help" : "Abiinfo",
-    "Keyboard shortcuts" : "Klaviatuuri otseteed",
-    "Documentation" : "Dokumentatsioon",
     "Subscriptions (OPML)" : "Tellimused (OPML)",
     "Import" : "Impordi",
     "Export" : "Ekspordi",
     "Error when importing: file does not contain valid OPML" : "Viga importimisel: fail ei sisalda korrektset OPML-i",
     "Unread/Starred Articles" : "Lugemata/Märgitud artiklid",
-    "Error when importing: file does not contain valid JSON" : "Viga importimisel: fail ei sisalda korrektset JSON-i"
+    "Error when importing: file does not contain valid JSON" : "Viga importimisel: fail ei sisalda korrektset JSON-i",
+    "Help" : "Abiinfo",
+    "Keyboard shortcuts" : "Klaviatuuri otseteed",
+    "Documentation" : "Dokumentatsioon"
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Besleme, geçersiz XML içeriyor",
-"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Besleme bulunamadı: ya web sitesi besleme sağlamıyor ya da erişimi engelliyor. Engellemeyi aşmak için beslemeyi sunucunuzdan şu curl komutunu kullanarak indirmeyi deneyin: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Tespit edilen biçim desteklenmiyor",
 "Website not found" => "Web sitesi bulunamadı",
 "More redirects than allowed, aborting" => "İzin verilenden daha fazla yeniden yönlendirme. İptal ediliyor",
@@ -122,14 +121,14 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "Tuşla gezinme sırasında makaleleri genişlet",
 "Show all articles" => "Tüm makaleleri göster",
 "Reverse ordering (oldest on top)" => "Sıralamayı tersine çevir (en eski üstte)",
-"Help" => "Yardım",
-"Keyboard shortcuts" => "Klavye kısayolları",
-"Documentation" => "Belgelendirme",
 "Subscriptions (OPML)" => "Abonelikler (OPML)",
 "Import" => "İçe aktar",
 "Export" => "Dışa aktar",
 "Error when importing: file does not contain valid OPML" => "Dosya alımında hata: dosya geçerli OPML içermiyor",
 "Unread/Starred Articles" => "Okunmamış/Yıldızlı Makaleler",
-"Error when importing: file does not contain valid JSON" => "İçe alınırken hata: dosya geçerli JSON içermiyor"
+"Error when importing: file does not contain valid JSON" => "İçe alınırken hata: dosya geçerli JSON içermiyor",
+"Help" => "Yardım",
+"Keyboard shortcuts" => "Klavye kısayolları",
+"Documentation" => "Belgelendirme"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n > 1);";

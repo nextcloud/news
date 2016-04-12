@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "ערוץ הזנת תוכן מכיל XML לא חוקי",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "ערוץ מידע לא נמצא: יתכן שהאתר לא מספק ערוץ תוכן או שהאתר מונע גישה. על מנת לשלול מניעת גישה על ידי האתר, מומלץ לנסות להוריד את ערוץ התוכן באמצעות שורת הפקודה של השרת תוך שימוש בשירות curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "תצורה מזוהה של ערוץ תוכן אינה נתמכת",
     "Website not found" : "האתר לא אותר",
     "More redirects than allowed, aborting" : "מעל למכסה המותרת לניתוב מחדש, מבטל פעולה",
@@ -121,14 +120,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : " תצוגת מאמר מורחב בתפריט ראשי ",
     "Show all articles" : "הצגת כל המאמרים",
     "Reverse ordering (oldest on top)" : "סידור הפוך (ישן למעלה)",
-    "Help" : "עזרה",
-    "Keyboard shortcuts" : "קיצורי מקלדת",
-    "Documentation" : "תיעוד",
     "Subscriptions (OPML)" : "הרשמות (OPML)",
     "Import" : "יבוא",
     "Export" : "ייצוא",
     "Error when importing: file does not contain valid OPML" : "שגיאה ביבוא: הקובץ אינו מכיל OPML תקין",
     "Unread/Starred Articles" : "מאמרים שלא נקראו / סומנו ככוכב",
-    "Error when importing: file does not contain valid JSON" : "שגיאה ביבוא: הקובץ אינו מכיל JSON תקין"
+    "Error when importing: file does not contain valid JSON" : "שגיאה ביבוא: הקובץ אינו מכיל JSON תקין",
+    "Help" : "עזרה",
+    "Keyboard shortcuts" : "קיצורי מקלדת",
+    "Documentation" : "תיעוד"
 },
 "nplurals=2; plural=(n != 1);");

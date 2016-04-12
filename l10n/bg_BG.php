@@ -108,14 +108,14 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "Разшири статиите от ключовата навигация",
 "Show all articles" => "Покажи всички статии",
 "Reverse ordering (oldest on top)" => "В обратен ред (най-старите отгоре)",
-"Help" => "Помощ",
-"Keyboard shortcuts" => "Клавишни комбинации",
-"Documentation" => "Документация",
 "Subscriptions (OPML)" => "Абонаменти (OPML)",
 "Import" => "Внасяне",
 "Export" => "Експорт",
 "Error when importing: file does not contain valid OPML" => "Грешка при внасяне: файлът няма валиден OPML",
 "Unread/Starred Articles" => "Непрочетени/Отбелязани статии",
-"Error when importing: file does not contain valid JSON" => "Грешка при внасяне: файлът няма валиден JSON"
+"Error when importing: file does not contain valid JSON" => "Грешка при внасяне: файлът няма валиден JSON",
+"Help" => "Помощ",
+"Keyboard shortcuts" => "Клавишни комбинации",
+"Documentation" => "Документация"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

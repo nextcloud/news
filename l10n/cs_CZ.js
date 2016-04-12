@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Kanál obsahuje neplatné XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Kanál nenalezen: stránka buď žádný neposkytuje nebo je přístup blokován. Pro vyloučení možnosti blokování zkuste stáhnout kanál pomocí příkazové řádky na serveru za použití curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Detekovaný formát kanálu není podporován",
     "Website not found" : "Webová stránka nenalezena",
     "More redirects than allowed, aborting" : "Překročen povolený počet přesměrování, ukončuji",
@@ -123,14 +122,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Rozbalit články po stisknutí kláves navigace",
     "Show all articles" : "Zobrazit všechny články",
     "Reverse ordering (oldest on top)" : "Opačné řazení (od nejstarších)",
-    "Help" : "Nápověda",
-    "Keyboard shortcuts" : "Klávesové zkratky",
-    "Documentation" : "Dokumentace",
     "Subscriptions (OPML)" : "Odběry (OPML)",
     "Import" : "Importovat",
     "Export" : "Exportovat",
     "Error when importing: file does not contain valid OPML" : "Chyba při importu: soubor neobsahuje platná OPML data",
     "Unread/Starred Articles" : "Články nepřečtené a s hvězdičkou",
-    "Error when importing: file does not contain valid JSON" : "Chyba při importování: soubor neobsahuje platná data JSON"
+    "Error when importing: file does not contain valid JSON" : "Chyba při importování: soubor neobsahuje platná data JSON",
+    "Help" : "Nápověda",
+    "Keyboard shortcuts" : "Klávesové zkratky",
+    "Documentation" : "Dokumentace"
 },
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");

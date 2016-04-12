@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "ฟีดประกอบด้วย XML ที่ไม่ถูกต้อง",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "ไม่พบฟีด: เว็บไซต์ไม่ได้ระบุฟีดหรือบล็อกการเข้าถึง ลองพยายามดาวน์โหลดฟีดในเซิร์ฟเวอร์ด้วยคำสั่งนี้: http://the-feed.tld",
     "Detected feed format is not supported" : "รูปแบบฟีดที่ตรวจพบไม่ได้รับการสนับสนุน",
     "Website not found" : "ไม่พบเว็บไซต์",
     "More redirects than allowed, aborting" : "มีการเปลี่ยนเส้นทางมากกว่าที่อนุญาตไว้ ยกเลิก!",
@@ -118,14 +117,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "ขยายบทความเกี่ยวกับการนำทางที่สำคัญ",
     "Show all articles" : "แสดงบทความทั้งหมด",
     "Reverse ordering (oldest on top)" : "ย้อนกลับรายการ (เก่าที่สุดอยู่ด้านบน)",
-    "Help" : "ช่วยเหลือ",
-    "Keyboard shortcuts" : "ปุ่มลัด",
-    "Documentation" : "เอกสารคู่มือประกอบการใช้งาน",
     "Subscriptions (OPML)" : "สมัครเป็นสมาชิก (OPML)",
     "Import" : "นำเข้า",
     "Export" : "ส่งออก",
     "Error when importing: file does not contain valid OPML" : "ข้อผิดพลาดเมื่อนำเข้า: ไฟล์มี OPML ที่ไม่ถูกต้อง",
     "Unread/Starred Articles" : "บทความที่ ยังไม่ได้อ่าน/ติดดาว",
-    "Error when importing: file does not contain valid JSON" : "ข้อผิดพลาดเมื่อนำเข้า: ไฟล์มี JSON ที่ไม่ถูกต้อง"
+    "Error when importing: file does not contain valid JSON" : "ข้อผิดพลาดเมื่อนำเข้า: ไฟล์มี JSON ที่ไม่ถูกต้อง",
+    "Help" : "ช่วยเหลือ",
+    "Keyboard shortcuts" : "ปุ่มลัด",
+    "Documentation" : "เอกสารคู่มือประกอบการใช้งาน"
 },
 "nplurals=1; plural=0;");

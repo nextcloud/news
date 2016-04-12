@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Prurja përmban XML të pavleshme",
-"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "S’u gjet prurje: ose sajti s’ofron prurje, ose bllokon hyrjet. Që të përjashtoni mundësinë e bllokimit, provoni ta shkarkoni prurjen që nga rreshti i urdhrave të shërbyesit tuaj, duke përdorur: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Nuk mbulohet formati i zbuluar për prurjen",
 "Website not found" => "S’u gjet sajt",
 "More redirects than allowed, aborting" => "Më tepër ridrejtime se sa lejohet, po ndërpritet",
@@ -132,16 +131,16 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "Zgjeroji artikujt kur lëvizet me tastierë",
 "Show all articles" => "Shfaqi krejt artikujt",
 "Reverse ordering (oldest on top)" => "Renditje e përmbusyr (më të vjetrat në krye)",
-"Help" => "Ndihmë",
-"Keyboard shortcuts" => "Shkurtore tastiere",
-"Documentation" => "Dokumentim",
-"Report a bug" => "Njoftoni një të metë",
 "Subscriptions (OPML)" => "Pajtime (OPML)",
 "Import" => "Importo",
 "Export" => "Eksporto",
 "Error when importing: file does not contain valid OPML" => "Gabim gjatë importimit: kartela nuk përmban OPML të vlefshme",
 "Error when importing: OPML is does neither contain feeds nor folders" => "Gabim gjatë importimit: OPML-ja nuk përmban prurje, as dosje të vlefshme",
 "Unread/Starred Articles" => "Artikuj të Palexuar/Me yll",
-"Error when importing: file does not contain valid JSON" => "Gabim gjatë importimit: kartela nuk përmban JSON të vlefshëm"
+"Error when importing: file does not contain valid JSON" => "Gabim gjatë importimit: kartela nuk përmban JSON të vlefshëm",
+"Help" => "Ndihmë",
+"Keyboard shortcuts" => "Shkurtore tastiere",
+"Documentation" => "Dokumentim",
+"Report a bug" => "Njoftoni një të metë"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

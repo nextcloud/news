@@ -1,6 +1,5 @@
 { "translations": {
     "Feed contains invalid XML" : "В ленте присутствует недействительный XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Новостная лента не найдена: либо веб-сайт не предоставляет новостную ленту, либо он блокирует доступ к ней. Чтобы обойти блокировку, попробуйте скачать новостную ленту в командную строку своего сервера, используя curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Обнаруженный формат ленты не поддерживается",
     "Website not found" : "Сайт не найден",
     "More redirects than allowed, aborting" : "Количество перенаправлений больше допустимого, отменяем",
@@ -118,14 +117,14 @@
     "Expand articles on key navigation" : "Раскрывать статьи при навигации клавишами",
     "Show all articles" : "Показать все статьи",
     "Reverse ordering (oldest on top)" : "Обратный порядок (самые старые сверху)",
-    "Help" : "Помощь",
-    "Keyboard shortcuts" : "Горячие клавиши",
-    "Documentation" : "Документация",
     "Subscriptions (OPML)" : "Подписки (OPML)",
     "Import" : "Импорт",
     "Export" : "Экспорт",
     "Error when importing: file does not contain valid OPML" : "Ошибка при импорте: файл не содержит правильный OPML",
     "Unread/Starred Articles" : "Непрочтенные/Избранные статьи",
-    "Error when importing: file does not contain valid JSON" : "Ошибка при импорте: файл не содержит правильный JSON"
+    "Error when importing: file does not contain valid JSON" : "Ошибка при импорте: файл не содержит правильный JSON",
+    "Help" : "Помощь",
+    "Keyboard shortcuts" : "Горячие клавиши",
+    "Documentation" : "Документация"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

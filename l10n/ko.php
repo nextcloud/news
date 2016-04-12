@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "피드에 올바르지 않은 XML이 포함되어 있음",
-"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "피드를 찾을 수 없습니다. 웹 사이트에서 피드를 제공하지 않거나 접근을 차단하고 있습니다. 차단 여부를 확인하려면 서버의 명령줄에서 curl 명령을 사용하여 피드를 다운로드해 보십시오: curl http://the-feed.tld",
 "Detected feed format is not supported" => "감지한 피드 포맷을 지원하지 않음",
 "Website not found" => "웹 사이트를 찾을 수 없음",
 "More redirects than allowed, aborting" => "허용된 것보다 더 많은 넘겨주기 요청이 들어옴, 중단함",
@@ -115,14 +114,14 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "키 탐색 시 글 확장",
 "Show all articles" => "모든 글 보기",
 "Reverse ordering (oldest on top)" => "순서 뒤집기(오래된 항목 먼저)",
-"Help" => "도움말",
-"Keyboard shortcuts" => "키보드 단축키",
-"Documentation" => "문서",
 "Subscriptions (OPML)" => "구독(OPML)",
 "Import" => "가져오기",
 "Export" => "내보내기",
 "Error when importing: file does not contain valid OPML" => "가져오기 오류: 파일이 올바른 OPML을 포함하지 않음",
 "Unread/Starred Articles" => "읽지 않은/별표한 글",
-"Error when importing: file does not contain valid JSON" => "가져오기 오류: 파일이 올바른 JSON을 포함하지 않음"
+"Error when importing: file does not contain valid JSON" => "가져오기 오류: 파일이 올바른 JSON을 포함하지 않음",
+"Help" => "도움말",
+"Keyboard shortcuts" => "키보드 단축키",
+"Documentation" => "문서"
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

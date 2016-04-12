@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Vir vsebuje neveljaven zapis XML.",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "VIra ni mogoče najti: najverjetneje vira na spletišču ni, ali pa blokira dostop. Slednje lahko preverite tako, da prejmete vir prek strežniške ukazne vrstice z uporabo ukaza curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Zaznan zapis vira ni podprt.",
     "Website not found" : "Spletišča ni mogoče najti.",
     "More redirects than allowed, aborting" : "Zaznanih je več preusmeritev, zato bo opravilo preklicano.",
@@ -112,15 +111,15 @@ OC.L10N.register(
     "Compact view" : "Stisnjen pogled",
     "Show all articles" : "Pokaži vse prispevke",
     "Reverse ordering (oldest on top)" : "Obrni razvrstitev (najstarejši na vrh)",
-    "Help" : "Pomoč",
-    "Keyboard shortcuts" : "Tipkovne bližnjice",
-    "Documentation" : "Dokumentacija",
-    "Report a bug" : "Pošlji poročilo o hrošču",
     "Subscriptions (OPML)" : "Naročnine (OPML)",
     "Import" : "Uvozi",
     "Export" : "Izvozi",
     "Error when importing: file does not contain valid OPML" : "Napaka med uvažanjem: datoteka ne vsebuje veljavnega OPML",
     "Unread/Starred Articles" : "Neprebrani/Označeni prispevki",
-    "Error when importing: file does not contain valid JSON" : "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON."
+    "Error when importing: file does not contain valid JSON" : "Napaka uvoza: datoteka ne vsebuje veljavnih podatkov JSON.",
+    "Help" : "Pomoč",
+    "Keyboard shortcuts" : "Tipkovne bližnjice",
+    "Documentation" : "Dokumentacija",
+    "Report a bug" : "Pošlji poročilo o hrošču"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "La fonte contiene XML non valido",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Fonte non trovata: il sito web non fornisce una fonte o blocca l'accesso. Per evitare il blocco, prova a scaricare la fonte dalla riga di comando del tuo server utilizzando curl: curl http://la-fonte.tld",
     "Detected feed format is not supported" : "Il formato della fonte rilevato non è supportato",
     "Website not found" : "Sito web non trovato",
     "More redirects than allowed, aborting" : "Più redirezioni di quelle consentite, interruzione in corso",
@@ -133,16 +132,16 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Espandi gli articoli durante la navigazione con i tasti",
     "Show all articles" : "Mostra tutti gli articoli",
     "Reverse ordering (oldest on top)" : "Ordine inverso (più vecchio in alto)",
-    "Help" : "Aiuto",
-    "Keyboard shortcuts" : "Scorciatoie da tastiera",
-    "Documentation" : "Documentazione",
-    "Report a bug" : "Segnala un bug",
     "Subscriptions (OPML)" : "Sottoscrizioni (OPML)",
     "Import" : "Importa",
     "Export" : "Esporta",
     "Error when importing: file does not contain valid OPML" : "Errore di importazione: il file non contiene OPML valido",
     "Error when importing: OPML is does neither contain feeds nor folders" : "Errore durante l'importazione: il file OPML non contiene fonti né cartelle",
     "Unread/Starred Articles" : "Articoli non letti/preferiti",
-    "Error when importing: file does not contain valid JSON" : "Errore durante l'importazione: il file non contiene JSON valido"
+    "Error when importing: file does not contain valid JSON" : "Errore durante l'importazione: il file non contiene JSON valido",
+    "Help" : "Aiuto",
+    "Keyboard shortcuts" : "Scorciatoie da tastiera",
+    "Documentation" : "Documentazione",
+    "Report a bug" : "Segnala un bug"
 },
 "nplurals=2; plural=(n != 1);");

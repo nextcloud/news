@@ -1,6 +1,5 @@
 { "translations": {
     "Feed contains invalid XML" : "無効なXMLを含むフィードです。",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "フィードがありません: サイトがフィードを提供していないか、アクセスをブロックしています。ブロッキングを取り除くためには、次の様にcurl コマンドをサーバー上で実行してフィードをダウンロードしてみてください: curl http://the-feed.tld",
     "Detected feed format is not supported" : "検出したフィードのフォーマットはサポートされません。",
     "Website not found" : "Webサイトが見つかりませんでした。",
     "More redirects than allowed, aborting" : "リダイレクト数が許可数より多いです､中止します。",
@@ -118,14 +117,14 @@
     "Expand articles on key navigation" : "キーナビゲーションで記事を展開",
     "Show all articles" : "すべての記事を表示",
     "Reverse ordering (oldest on top)" : "逆順",
-    "Help" : "ヘルプ",
-    "Keyboard shortcuts" : "キーボードショートカット",
-    "Documentation" : "ドキュメント",
     "Subscriptions (OPML)" : "RSS購読リスト (OPML)",
     "Import" : "インポート",
     "Export" : "エクスポート",
     "Error when importing: file does not contain valid OPML" : "インポート中のエラー: ファイルは有効なOPMLを含んでいません",
     "Unread/Starred Articles" : "未読/注目記事",
-    "Error when importing: file does not contain valid JSON" : "インポート中のエラー: ファイルは有効なJSONを含んでいません"
+    "Error when importing: file does not contain valid JSON" : "インポート中のエラー: ファイルは有効なJSONを含んでいません",
+    "Help" : "ヘルプ",
+    "Keyboard shortcuts" : "キーボードショートカット",
+    "Documentation" : "ドキュメント"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

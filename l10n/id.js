@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Feed berisi XML yang tidak sah",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feed tidak ditemukan: bisa karena website tidak menyediakan feed atau akses diblokir. Untuk menyingkirkan pemblokiran, cobalah dengan mengunduh feed pada server Anda dengan baris perintah menggunakan curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Ditemukan format feed yang tidak didukung",
     "Website not found" : "Situs web tidak ditemukan",
     "More redirects than allowed, aborting" : "Pengalihan melebihi dari yang diizinkan, membatalkan",
@@ -114,14 +113,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Perluas artikel di tombol navigasi",
     "Show all articles" : "Tampilkan semua artikel",
     "Reverse ordering (oldest on top)" : "Pengurutan terbalik (yang lama diatas)",
-    "Help" : "Bantuan",
-    "Keyboard shortcuts" : "Pintasan keyboard",
-    "Documentation" : "Dokumentasi",
     "Subscriptions (OPML)" : "Berlangganan (OPML)",
     "Import" : "Impor",
     "Export" : "Ekspor",
     "Error when importing: file does not contain valid OPML" : "Terjadi kesalahan saat mengimpor: berkas tidak berisi OPML yang sah",
     "Unread/Starred Articles" : "Artikel dibintangi/belum dibaca",
-    "Error when importing: file does not contain valid JSON" : "Terjadi kesalahan saat mengimor: berkas tidak berisi JSON yang sah"
+    "Error when importing: file does not contain valid JSON" : "Terjadi kesalahan saat mengimor: berkas tidak berisi JSON yang sah",
+    "Help" : "Bantuan",
+    "Keyboard shortcuts" : "Pintasan keyboard",
+    "Documentation" : "Dokumentasi"
 },
 "nplurals=1; plural=0;");

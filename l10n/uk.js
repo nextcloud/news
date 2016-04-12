@@ -108,14 +108,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Розширенні артикули під час навігації по ключах",
     "Show all articles" : "Показати всі статті",
     "Reverse ordering (oldest on top)" : "Зворотний порядок (найстаріші зверху)",
-    "Help" : "Допомога",
-    "Keyboard shortcuts" : "Сполучення клавіш",
-    "Documentation" : "Документація",
     "Subscriptions (OPML)" : "Підписки (OPML)",
     "Import" : "Імпорт",
     "Export" : "Експорт",
     "Error when importing: file does not contain valid OPML" : "Помилка при імпорті: файл не містить дійсний OPML",
     "Unread/Starred Articles" : "Непрочитані/Вибрані статті",
-    "Error when importing: file does not contain valid JSON" : "Помилка при імпорті: файл не містить дійсний JSON"
+    "Error when importing: file does not contain valid JSON" : "Помилка при імпорті: файл не містить дійсний JSON",
+    "Help" : "Допомога",
+    "Keyboard shortcuts" : "Сполучення клавіш",
+    "Documentation" : "Документація"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Alimentação contém XML inválido",
-"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Alimentação não encontrada: ou o site não fornece um acesso a alimentação ou blocos. Para descartar o bloqueio, tente baixar a alimentação na linha de comando do seu servidor usando curl: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Formato de alimentação detectado não é suportado",
 "Website not found" => "Site não encontrado",
 "More redirects than allowed, aborting" => "Mais redirecionamentos do que o permitido, abortando",
@@ -9,6 +8,16 @@ $TRANSLATIONS = array(
 "Request timed out" => "Solicitação expirou",
 "Required credentials for feed were either missing or incorrect" => "Credenciais necessárias para a alimentação estão ausentes ou incorretas",
 "Forbidden to access feed" => "Proibido de acessar a alimentação",
+"Certificate error: A problem occurred somewhere in the SSL/TLS handshake. Could be certificates (file formats, paths, permissions), passwords, and others." => "Erro de certificado: Ocorreu um problema em algum lugar do SSL/TLS de conexão. Pode ser certificados (formatos de arquivo, caminhos, permissões), senhas e outros.",
+"Certificate error: The remote server's SSL certificate or SSH md5 fingerprint was deemed not OK." => "Erro de certificado: certificado SSL do servidor remoto ou a impressão digital md5 do SSH foi considerada como não OK.",
+"Certificate error: Problem with the local client certificate." => "Erro de certificado: Problema com o certificado de cliente local.",
+"Certificate error: Couldn't use specified cipher." => "Erro de certificado: Não foi possível usar cifra específica.",
+"Certificate error: Peer certificate cannot be authenticated with known CA certificates." => "Certificado de erro: certificado de mesmo nível não pode ser autenticado com certificados CA conhecidos.",
+"Certificate error: Requested FTP SSL level failed." => "Erro de certificado: Solicitação de nível FTP SSL falhou.",
+"Certificate error: Initiating the SSL Engine failed." => "Erro de certificado: Iniciação o Mecanismo SSL falhou.",
+"Certificate error: Problem with reading the SSL CA cert (path? access rights?)" => "Erro de certificado: Problema com a leitura do certificado SSL CA (caminho? direitos de acesso?)",
+"Certificate error: Issuer check failed" => "Erro de certificado: Verificação falhou",
+"Unknown SSL certificate error!" => "Erro desconhecido de certificado SSL!",
 "Request failed, network connection unavailable!" => "A solicitação falhou, conexão de rede indisponível!",
 "Request unauthorized. Are you logged in?" => "Solicitação não autorizada. Você está logado?",
 "Request forbidden. Are you an admin?" => "Solicitação proibida. Você é um administrador?",
@@ -122,14 +131,16 @@ $TRANSLATIONS = array(
 "Expand articles on key navigation" => "Expandir artigos sobre tecla de navegação",
 "Show all articles" => "Mostrar todos os arquivos",
 "Reverse ordering (oldest on top)" => "Ordem inversa (o mais antigo no topo)",
-"Help" => "Ajuda",
-"Keyboard shortcuts" => "Atalhos do teclado",
-"Documentation" => "Documentação",
 "Subscriptions (OPML)" => "Assinaturas (OPML) ",
 "Import" => "Importar",
 "Export" => "Exportar",
 "Error when importing: file does not contain valid OPML" => "Erro ao importar: arquivo não contém OPML válido",
+"Error when importing: OPML is does neither contain feeds nor folders" => "Erro ao importar: OPML que não contêm nem alimentodor nem as pastas",
 "Unread/Starred Articles" => "Não lidas/Artigos Destacados",
-"Error when importing: file does not contain valid JSON" => "Erro ao importar: arquivo não contém JSON válido"
+"Error when importing: file does not contain valid JSON" => "Erro ao importar: arquivo não contém JSON válido",
+"Help" => "Ajuda",
+"Keyboard shortcuts" => "Atalhos do teclado",
+"Documentation" => "Documentação",
+"Report a bug" => "Reportar um bug"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n > 1);";

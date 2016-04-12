@@ -1,6 +1,5 @@
 { "translations": {
     "Feed contains invalid XML" : "Lo flux conten un XML invalid",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Flux introbable : benlèu que lo site ne'n prepausa pas, o ne blòca l'accès. Per verificar se l'accès al flux es possible, podètz ensajar de lo telecargar dempuèi vòstre servidor en linha de comanda amb curl : curl http://adreca-del/flux",
     "Detected feed format is not supported" : "Format de flux detectat pas compatible",
     "Website not found" : "Site web pas trobat",
     "More redirects than allowed, aborting" : "Nombre de redireccions maximum depassat, abandon",
@@ -112,14 +111,14 @@
     "Expand articles on key navigation" : "Espandir los articles al moment de la navigacion amb lo clavièr",
     "Show all articles" : "Afichar totes los articles",
     "Reverse ordering (oldest on top)" : "Òrdre invèrse (los mai ancians amont)",
-    "Help" : "Ajuda",
-    "Keyboard shortcuts" : "Acorchis de clavièr",
-    "Documentation" : "Documentacion",
     "Subscriptions (OPML)" : "Abonaments (OPML)",
     "Import" : "Importar",
     "Export" : "Exportar",
     "Error when importing: file does not contain valid OPML" : "Error al moment de l'impòrt : lo fichièr especificat es pas un fichièr OPML valid",
     "Unread/Starred Articles" : "Articles pas legits / espingolats",
-    "Error when importing: file does not contain valid JSON" : "Error al moment de l'impòrt : lo fichièr especificat es pas un fichièr JSON valid"
+    "Error when importing: file does not contain valid JSON" : "Error al moment de l'impòrt : lo fichièr especificat es pas un fichièr JSON valid",
+    "Help" : "Ajuda",
+    "Keyboard shortcuts" : "Acorchis de clavièr",
+    "Documentation" : "Documentacion"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

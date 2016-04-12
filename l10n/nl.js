@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Feed bevat ongeldige XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Feed niet gevonden: ofwel de website levert geen feed, of de toegang is geblokkeerd. Om te zien of geblokkeerd wordt: probeer de feed via de commandoregel van uw server op te halen met curl: curl http://de-feed.tld",
     "Detected feed format is not supported" : "Gevonden feed formaat wordt niet ondersteund",
     "Website not found" : "Website niet gevonden",
     "More redirects than allowed, aborting" : "Meer doorverwijzingen dan toegestaan, afgebroken",
@@ -10,6 +9,7 @@ OC.L10N.register(
     "Request timed out" : "Aanvraag time-out",
     "Required credentials for feed were either missing or incorrect" : "Vereiste gegevens voor de feed ontbreken of zijn onjuist. ",
     "Forbidden to access feed" : "Geen toegang tot deze access feed",
+    "Unknown SSL certificate error!" : "Onbekende SSL certificaat fout!",
     "Request failed, network connection unavailable!" : "Aanvraag mislukt, netwerkverbinding niet beschikbaar!",
     "Request unauthorized. Are you logged in?" : "Aanvraag niet toegestaan. Bent u ingelogd?",
     "Request forbidden. Are you an admin?" : "Aanvraag verboden. Bent u beheerder?",
@@ -123,14 +123,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Artikelen uitbreiden bij navigatie",
     "Show all articles" : "Toon alle artikelen",
     "Reverse ordering (oldest on top)" : "Omgekeerde volgorde (oudste boven)",
-    "Help" : "Help",
-    "Keyboard shortcuts" : "Sneltoetsen",
-    "Documentation" : "Documentatie",
     "Subscriptions (OPML)" : "Abonnementen (OPML)",
     "Import" : "Importeer",
     "Export" : "Exporteer",
     "Error when importing: file does not contain valid OPML" : "Fout bij importeren: het bestand bevat geen geldige OPML",
     "Unread/Starred Articles" : "Ongelezen/ongemarkeerde artikelen",
-    "Error when importing: file does not contain valid JSON" : "Fout tijdens het importeren: bestand bevat geen geldige JSON"
+    "Error when importing: file does not contain valid JSON" : "Fout tijdens het importeren: bestand bevat geen geldige JSON",
+    "Help" : "Help",
+    "Keyboard shortcuts" : "Sneltoetsen",
+    "Documentation" : "Documentatie"
 },
 "nplurals=2; plural=(n != 1);");

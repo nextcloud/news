@@ -1,7 +1,6 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Syöte sisältää virheellistä XML:ää",
-"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" => "Syötettä ei löytynyt: joko sivusto ei tarjoa syötettä tai sivusto estää pääsyn syötteeseen. Voit rajata eston pois lataamalla syötteen palvelimen komentoriviä käyttäen curlilla: curl http://the-feed.tld",
 "Detected feed format is not supported" => "Havaittu syötemuoto ei ole tuettu",
 "Website not found" => "Verkkosivustoa ei löytynyt",
 "More redirects than allowed, aborting" => "Sallittua enemmän uudelleenohjauksia, perutaan",
@@ -9,6 +8,8 @@ $TRANSLATIONS = array(
 "Request timed out" => "Pyyntö aikakatkaistiin",
 "Required credentials for feed were either missing or incorrect" => "Vaaditut käyttäjätiedot syötteelle puuttuvat tai ovat väärin",
 "Forbidden to access feed" => "Syötteen käyttö on estetty",
+"Certificate error: Issuer check failed" => "Varmennevirhe: myöntäjän tarkistus epäonnistui",
+"Unknown SSL certificate error!" => "Tuntematon SSL-varmennevirhe!",
 "Request failed, network connection unavailable!" => "Pyyntö epäonnistui, verkkoyhteyttä ei ole käytettävissä!",
 "Request unauthorized. Are you logged in?" => "Pyyntö ei ole valtutettu. Oletko sisäänkirjautuneena?",
 "Request forbidden. Are you an admin?" => "Pyyntö kielletty. Oletko ylläpitäjä?",
@@ -113,15 +114,15 @@ $TRANSLATIONS = array(
 "Compact view" => "Tiivis näkymä",
 "Show all articles" => "Näytä kaikki artikkelit",
 "Reverse ordering (oldest on top)" => "Käänteinen järjestys (vanhimmat ylimpänä)",
-"Help" => "Ohje",
-"Keyboard shortcuts" => "Pikanäppäimet",
-"Documentation" => "Dokumentaatio",
-"Report a bug" => "Ilmoita viasta",
 "Subscriptions (OPML)" => "Tilaukset (OPML)",
 "Import" => "Tuo",
 "Export" => "Vie",
 "Error when importing: file does not contain valid OPML" => "Virhe tuotaessa: tiedostossa ei ole kelvollista OPML:ää",
 "Unread/Starred Articles" => "Lukemattomat/tähdellä varustetut artikkelit",
-"Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia"
+"Error when importing: file does not contain valid JSON" => "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia",
+"Help" => "Ohje",
+"Keyboard shortcuts" => "Pikanäppäimet",
+"Documentation" => "Dokumentaatio",
+"Report a bug" => "Ilmoita viasta"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

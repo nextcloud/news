@@ -103,14 +103,14 @@
     "Compact view" : "Kompaktný náhľad",
     "Show all articles" : "Zobraziť všetky články",
     "Reverse ordering (oldest on top)" : "Opačné zoradenie (od najstarších)",
-    "Help" : "Pomoc",
-    "Keyboard shortcuts" : "Klávesové skratky",
-    "Documentation" : "Dokumentácia",
     "Subscriptions (OPML)" : "Odber (OPML)",
     "Import" : "Import",
     "Export" : "Export",
     "Error when importing: file does not contain valid OPML" : "Chyba pri importe: Súbor neobsahuje platné OPML",
     "Unread/Starred Articles" : "Neprečítané články s hviezdičkou",
-    "Error when importing: file does not contain valid JSON" : "Chyba pri importe: súbor neobsahuje platný JSON"
+    "Error when importing: file does not contain valid JSON" : "Chyba pri importe: súbor neobsahuje platný JSON",
+    "Help" : "Pomoc",
+    "Keyboard shortcuts" : "Klávesové skratky",
+    "Documentation" : "Dokumentácia"
 },"pluralForm" :"nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;"
 }

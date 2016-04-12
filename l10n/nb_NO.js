@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "Nyhetskilden inneholder ugyldig XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Nyhetskilde ikke funnet: Enten tilbyr ikke websiden en kilde eller den blokkerer tilgang. For å utelukke blokkering, prøv å laste ned kilden på kommandolinjen på serveren med curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "Påvist nyhetskilde-format støttes ikke",
     "Website not found" : "Nettsted ikke funnet",
     "More redirects than allowed, aborting" : "Flere omdirigeringer enn tillatt. Avbryter",
@@ -120,14 +119,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Ekspander artikler ved tastaturnavigering",
     "Show all articles" : "Vis alle artikler",
     "Reverse ordering (oldest on top)" : "Omvendt sortering (elste øverst)",
-    "Help" : "Hjelp",
-    "Keyboard shortcuts" : "Tastatur snarveier",
-    "Documentation" : "Dokumentasjon",
     "Subscriptions (OPML)" : "Abonnement (OPML)",
     "Import" : "Importer",
     "Export" : "Eksporter",
     "Error when importing: file does not contain valid OPML" : "Feil under importering: Filen inneholder ikke gyldig OPML",
     "Unread/Starred Articles" : "Uleste/merkede artikler",
-    "Error when importing: file does not contain valid JSON" : "Feil under importering: Filen inneholder ikke gyldig JSON"
+    "Error when importing: file does not contain valid JSON" : "Feil under importering: Filen inneholder ikke gyldig JSON",
+    "Help" : "Hjelp",
+    "Keyboard shortcuts" : "Tastatur snarveier",
+    "Documentation" : "Dokumentasjon"
 },
 "nplurals=2; plural=(n != 1);");

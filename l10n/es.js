@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Feed contains invalid XML" : "La fuente contiene XML inválido",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl http://the-feed.tld" : "Fuente no encontrada: o bien la página web no proporciona una fuente o bloquea el acceso. Para descartar el bloqueo, intente descargar la fuente en la línea de comandos del servidor utilizando curl: curl http://the-feed.tld",
     "Detected feed format is not supported" : "El formato de fuente detectado no está soportado",
     "Website not found" : "Sitio web no encontrado",
     "More redirects than allowed, aborting" : "Hay más redirecciones que el máximo permitido, cancelando",
@@ -123,16 +122,16 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Expandir los artículos al navegar con teclas",
     "Show all articles" : "Mostrar todos los artículos",
     "Reverse ordering (oldest on top)" : "Ordenación inversa (la más antigua en la parte superior)",
-    "Help" : "Ayuda",
-    "Keyboard shortcuts" : "Atajos de teclado",
-    "Documentation" : "Documentación",
-    "Report a bug" : "Notificar un error",
     "Subscriptions (OPML)" : "Subscripciones (OPML)",
     "Import" : "Importar",
     "Export" : "Exportar",
     "Error when importing: file does not contain valid OPML" : "Error al importar: el archivo no contiene OPML válido",
     "Error when importing: OPML is does neither contain feeds nor folders" : "Error al importar: el OPML no contiene fuentes ni carpetas",
     "Unread/Starred Articles" : "Artículos no leídos y favoritos",
-    "Error when importing: file does not contain valid JSON" : "Error al importar: el archivo no contiene JSON válido"
+    "Error when importing: file does not contain valid JSON" : "Error al importar: el archivo no contiene JSON válido",
+    "Help" : "Ayuda",
+    "Keyboard shortcuts" : "Atajos de teclado",
+    "Documentation" : "Documentación",
+    "Report a bug" : "Notificar un error"
 },
 "nplurals=2; plural=(n != 1);");

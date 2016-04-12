@@ -110,14 +110,14 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Virkja útflettingu greina við flakk með lyklaborði",
     "Show all articles" : "Birta allar greinar",
     "Reverse ordering (oldest on top)" : "Öfug röðun (elsta efst)",
-    "Help" : "Hjálp",
-    "Keyboard shortcuts" : "Flýtilyklar",
-    "Documentation" : "Hjálparskjöl",
     "Subscriptions (OPML)" : "Áskriftir (OPML)",
     "Import" : "Flytja inn",
     "Export" : "Flytja út",
     "Error when importing: file does not contain valid OPML" : "Villa við innflutning: skrá inniheldur ekki gilt OPML",
     "Unread/Starred Articles" : "Ólesnar/stjörnumerktar greinar",
-    "Error when importing: file does not contain valid JSON" : "Villa við innflutning: skrá inniheldur ekki gilt JSON"
+    "Error when importing: file does not contain valid JSON" : "Villa við innflutning: skrá inniheldur ekki gilt JSON",
+    "Help" : "Hjálp",
+    "Keyboard shortcuts" : "Flýtilyklar",
+    "Documentation" : "Hjálparskjöl"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
