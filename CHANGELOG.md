@@ -1,5 +1,6 @@
-owncloud-news (8.3.1)
+owncloud-news (8.4.0)
 * **Bugfix**: Use the feed url when showing an example of a curl command if a feed does not exist, #969
+* **Enhancement**: Also filter duplicate items from web frontent when in folder, starred or all articles view, #465
 
 owncloud-news (8.3.0)
 * **Bugfix**: If two folders with the same name occur in a OPML file, merge them instead of simply ignoring the second one, #962
