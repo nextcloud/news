@@ -154,13 +154,24 @@ Because we care about our users' security and don't want to hide security warnin
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
 ### I am getting: Doctrine DBAL Exception InvalidFieldNameException: Column not found: 1054 Unknown column some_column Or BadFunctionCallException: someColumn is not a valid attribute
-This error usually means that your database schema was not properly migrated which can either be due to timeouts or bugs in Doctrine/ownCloud core. To prevent future timeouts use
+
+The exception name itself will give you a hint about what is wrong:
+* **BadFunctionCallException**: Is usually thrown when there are more columns in the database than in the code, e.g.:
+
+    BadFunctionCallException, Message: basicAuthUser is not a valid attribute
+
+    means that the attribute **basicAuthUser** was retrieved from the database but could not be found on the corresponding data object (item.php/feed.php/folder.php) in the **db/** folder
+
+* **InvalidFieldNameException**: Is usually thrown when there are more columns in the code than the database
+
+One reason for this error could be old files which were not overwritten properly when the app was upgraded. Make sure that all files match the files in the release archive!
+Most of the time however this is caused by users trying to downgrade (**not supported!!!**) or by failed/timed out database migrations. To prevent future timeouts use
 
     php -f owncloud/occ upgrade
 
 instead of clicking the upgrade button on the web interface.
 
-To fix this issue either manually add/remove the offending columns or trigger another database migration.
+If you have made sure that old files are not the cause of this issue, the solution is to either automatically or manually remove or add columns to your database. The automatic way to do this is to trigger a database migration. The manual way is to manually check which database columns have to be removed from or added to the News database tables.
 
 #### Triggering a database migration
 Databases are migrated when a newer version is found in **appinfo/info.xml** than in the database. To trigger a migration you can therefore simply increase that version number and refresh the web interface to run an update:
@@ -196,10 +207,6 @@ UPDATE oc_appconfig SET configvalue = '7.1.1' WHERE appid = 'news' and configkey
 
 #### Manually adding/removing the field
 Instead of triggering an automatic migration, you can of course also add or remove the offending columns manually.
-
-The exception name itself will give you a hint about what is wrong:
-* **BadFunctionCallException**: Is usually thrown when there are more columns in the database than the code
-* **InvalidFieldNameException**: Is usually thrown when there are more columns in the code than the database
 
 To find out what you need to add or remove, check the current **appinfo/database.xml** and compare it to your tables in the database and add/remove the appropriate fields.
 
