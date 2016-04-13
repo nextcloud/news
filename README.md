@@ -158,7 +158,7 @@ The only fix for this issue is that feed providers serve their content over HTTP
 The exception name itself will give you a hint about what is wrong:
 * **BadFunctionCallException**: Is usually thrown when there are more columns in the database than in the code, e.g.:
 
-    BadFunctionCallException, Message: basicAuthUser is not a valid attribute
+      BadFunctionCallException, Message: basicAuthUser is not a valid attribute
 
     means that the attribute **basicAuthUser** was retrieved from the database but could not be found on the corresponding data object (item.php/feed.php/folder.php) in the **db/** folder
 
