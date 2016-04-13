@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Prurja përmban XML të pavleshme",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " => "S’u gjet prurje: ose sajti nuk furnizon ndonjë prurje, ose i bllokon hyrjet. Që të përjashtoni mundësinë e bllokimit, provoni ta shkarkoni prurjen që nga rreshti i urdhrave të shërbyesit tuaj, duke përdorur urdhrin curl: curl ",
 "Detected feed format is not supported" => "Nuk mbulohet formati i zbuluar për prurjen",
 "Website not found" => "S’u gjet sajt",
 "More redirects than allowed, aborting" => "Më tepër ridrejtime se sa lejohet, po ndërpritet",

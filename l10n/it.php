@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "La fonte contiene XML non valido",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " => "Fonte non trovata: il sito web non fornisce una fonte o blocca l'accesso. Per evitare il blocco, prova a scaricare la fonte dalla riga di comando del tuo server utilizzando curl: curl",
 "Detected feed format is not supported" => "Il formato della fonte rilevato non è supportato",
 "Website not found" => "Sito web non trovato",
 "More redirects than allowed, aborting" => "Più redirezioni di quelle consentite, interruzione in corso",

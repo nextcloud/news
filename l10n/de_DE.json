@@ -1,5 +1,6 @@
 { "translations": {
     "Feed contains invalid XML" : "Feed beinhaltet ungültiges XML",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Feed nicht gefunden: entweder stellt die Website keinen Feed zur Verfügung oder blockiert den Zugriff. Um die Sperre zu umgehen, versuchen Sie den Feed über die Kommandozeile Ihres Servers mithilfe von curl herunterzuladen: curl",
     "Detected feed format is not supported" : "Format des Feeds ermitteln wird nicht unterstützt",
     "Website not found" : "Webseite nicht gefunden",
     "More redirects than allowed, aborting" : "Mehr Weiterleitungen als erlaubt, Abbruch",
