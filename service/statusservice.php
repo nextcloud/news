@@ -30,28 +30,26 @@ class StatusService {
         $this->appName = $AppName;
     }
 
-
-    public function getStatus() {
-        $improperlyConfiguredCron = false;
-
-        $version = $this->settings->getAppValue(
-            $this->appName, 'installed_version'
-        );
+    public function isProperlyConfigured() {
         $cronMode = $this->settings->getAppValue(
             'core', 'backgroundjobs_mode'
         );
-        $cronOn = $this->config->getUseCronUpdates();
+        $cronOff = !$this->config->getUseCronUpdates();
 
         // check for cron modes which may lead to problems
-        if ($cronMode !== 'cron' && $cronOn) {
-            $improperlyConfiguredCron = true;
-        }
+        return $cronMode === 'cron' || $cronOff;
+    }
 
+
+    public function getStatus() {
+        $version = $this->settings->getAppValue(
+            $this->appName, 'installed_version'
+        );
 
         return [
             'version' => $version,
             'warnings' => [
-                'improperlyConfiguredCron' => $improperlyConfiguredCron
+                'improperlyConfiguredCron' => !$this->isProperlyConfigured()
             ]
         ];
     }

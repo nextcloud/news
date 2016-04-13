@@ -10,14 +10,16 @@
 
 app.directive('newsInstantNotification', function () {
     'use strict';
-
+    var shown = false;
     return {
         restrict: 'E',
         link: function (scope, elem) {
             elem.hide();
-
-            var notification = elem.html();
-            OC.Notification.showHtml(notification);
+            if (!shown) {
+                shown = true;
+                var notification = elem.html();
+                OC.Notification.showHtml(notification);
+            }
         }
     };
 

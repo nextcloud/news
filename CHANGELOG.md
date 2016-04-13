@@ -1,3 +1,7 @@
+owncloud-news (8.5.0)
+* **Bugfix**: Do not run feed updates when ajax or web cron mode was detected because it can lead to very long load times, timeouts, data corruption and database inconsistencies
+* **Bugfix**: Fix multiple error messages and outdated links for cron error messages
+
 owncloud-news (8.4.1)
 * **Bugfix**: Fix error messages in the logs which were caused by outdated template includes, #972
 

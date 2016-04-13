@@ -258,14 +258,23 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
     "maintenance" => false,
 
 ### Feeds are not updated
+Feeds can be updated using ownCloud's system cron or any program that implements the [News app's updater API](https://github.com/owncloud/news/wiki/Updater-1.2), most notably [ownCloud News Updater](https://github.com/owncloud/news-updater):
+
+System Cron:
 * Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = true**
+* Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
 * Check if you can execute the cron with **sudo -u www-data php -f owncloud/cron.php** (replace www-data with your httpd user)
 * Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/owncloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
-* Try the [updater script](https://github.com/owncloud/news-updater)
+
+[ownCloud News Updater](https://github.com/owncloud/news-updater):
+* Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = false**
+* Start the updater in loglevel info mode, e.g.:
+
+    owncloud_news_updater --loglevel info -c /path/to/config.ini
 
 ### Adding feeds that use self-signed certificates
 If you want to add a feed that uses a self-signed certificate that is not signed by a trusted CA the request will fail with "SSL certficate is invalid". A common solution is to turn off the certificate verification **which is wrong** and **makes your installation vulnerable to MITM attacks**. Therefore **turning off certificate verification is not supported**.
