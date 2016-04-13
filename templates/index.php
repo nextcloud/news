@@ -70,9 +70,6 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     </div>
 
     <!-- content -->
-    <script type="text/ng-template" id="audio.html">
-        <?php print_unescaped($this->inc('part.content.audio')) ?>
-    </script>
     <script type="text/ng-template" id="content.html">
         <?php print_unescaped($this->inc('part.content')) ?>
     </script>

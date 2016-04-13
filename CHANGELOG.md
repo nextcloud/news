@@ -1,3 +1,6 @@
+owncloud-news (8.4.1)
+* **Bugfix**: Fix error messages in the logs which were caused by outdated template includes, #972
+
 owncloud-news (8.4.0)
 * **Enhancement**: Use the feed url when showing an example of a curl command if a feed does not exist, #969
 * **Enhancement**: Also filter duplicate items from web frontend when in folder, starred or all articles view, #465
