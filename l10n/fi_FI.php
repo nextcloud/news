@@ -33,7 +33,6 @@ $TRANSLATIONS = array(
 "Download" => "Lataa",
 "Close" => "Sulje",
 "How to set up the operating system cron" => "Käyttöjärjestelmän cronin asettaminen",
-"How to set up a custom updater (faster and no possible deadlock) " => "Mukautetun päivitysohjelman asettaminen (nopeampi ja toimintavarmempi)",
 "filter" => "suodatin",
 "Language" => "Kieli",
 "Subscribe" => "Tilaa",

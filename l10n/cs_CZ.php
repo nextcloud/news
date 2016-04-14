@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "Kanál obsahuje neplatné XML",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " => "Kanál nenalezen: stránka buď žádný neposkytuje nebo je přístup blokován. Pro vyloučení možnosti blokování zkuste stáhnout kanál pomocí příkazové řádky na serveru za použití curl: curl",
 "Detected feed format is not supported" => "Detekovaný formát kanálu není podporován",
 "Website not found" => "Webová stránka nenalezena",
 "More redirects than allowed, aborting" => "Překročen povolený počet přesměrování, ukončuji",
@@ -8,6 +9,7 @@ $TRANSLATIONS = array(
 "Request timed out" => "Požadavek vypršel",
 "Required credentials for feed were either missing or incorrect" => "Přihlašovací údaje pro odběr chybí nebo nejsou správné",
 "Forbidden to access feed" => "Přístup k odběru odepřen",
+"Unknown SSL certificate error!" => "Neznámá chyba SSL certifikátu!",
 "Request failed, network connection unavailable!" => "Požadavek selhal, síťové připojení není dostupné!",
 "Request unauthorized. Are you logged in?" => "Neautorizovaný požadavek. Jste přihlášeni?",
 "Request forbidden. Are you an admin?" => "Zakázaný požadavek. Jste administrátor?",
@@ -35,9 +37,7 @@ $TRANSLATIONS = array(
 "Saved" => "Uloženo",
 "Download" => "Stáhnout",
 "Close" => "Zavřít",
-"Ajax or webcron cron mode detected! Your feeds will not be updated correctly. It is recommended to either use the operating system cron or a custom updater." => "Detekován cron mód ajax nebo webcron! Vaše kanály nebudou správně aktualizovány. Doporučuje se použít buď službu cron operačního systému nebo vlastní systém aktualizace.",
 "How to set up the operating system cron" => "Jak nastavit službu cron operačního systému",
-"How to set up a custom updater (faster and no possible deadlock) " => "Jak nastavit vlastní systém aktualizace (rychlejší, bez možných blokování)",
 "filter" => "filtr",
 "Language" => "Jazyk",
 "Subscribe" => "Odebírat",
@@ -129,6 +129,7 @@ $TRANSLATIONS = array(
 "Error when importing: file does not contain valid JSON" => "Chyba při importování: soubor neobsahuje platná data JSON",
 "Help" => "Nápověda",
 "Keyboard shortcuts" => "Klávesové zkratky",
-"Documentation" => "Dokumentace"
+"Documentation" => "Dokumentace",
+"Report a bug" => "Nahlásit chybu"
 );
 $PLURAL_FORMS = "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;";
