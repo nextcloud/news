@@ -258,7 +258,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
     "maintenance" => false,
 
 ### Feeds are not updated
-Feeds can be updated using ownCloud's system cron or any program that implements the [News app's updater API](https://github.com/owncloud/news/wiki/Updater-1.2), most notably [ownCloud News Updater](https://github.com/owncloud/news-updater):
+Feeds can be updated using ownCloud's system cron or any program that implements the [News app's updater API](https://github.com/owncloud/news/wiki/Updater-1.2), most notably [ownCloud News Updater](https://github.com/owncloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
 * Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = true**
