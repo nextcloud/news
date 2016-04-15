@@ -8,6 +8,7 @@ $TRANSLATIONS = array(
 "Request timed out" => "Tiempo de espera agotado",
 "Required credentials for feed were either missing or incorrect" => "Las credenciales requeridas para la fuente o están perdidas o son incorrectas",
 "Forbidden to access feed" => "Prohibido acceder a la fuente",
+"Unknown SSL certificate error!" => "Error de certificado SSL desconocido.",
 "Request failed, network connection unavailable!" => "La petición ha fallado, ¡conexión de red no disponible!",
 "Request unauthorized. Are you logged in?" => "Petición no autorizada, ¿está autenticado?",
 "Request forbidden. Are you an admin?" => "Petición prohibida, ¿es usted el administrador?",
