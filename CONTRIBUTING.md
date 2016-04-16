@@ -99,7 +99,7 @@ That way we can talk about the problem first and discuss the implementation (and
 
 ### How to set up a development environment
 
-To get started after [cloning the repository](https://github.com/owncloud/news#installing-from-git-development-version), install the [development dependencies](https://github.com/owncloud/news#development-dependencies) and run:
+To get started after [cloning the repository](https://github.com/owncloud/news#installing-from-git-development-version), install the [build dependencies](https://github.com/owncloud/news#development-dependencies) and run:
 
     make
 

@@ -28,7 +28,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 * SimpleXML
 * PHP >= 5.6
 
-## Development Dependencies
+## Build Dependencies
 These Dependencies are only relevant if you want to build the source code:
 * make
 * which
