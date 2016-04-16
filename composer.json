@@ -24,7 +24,7 @@
         }
     ],
     "support": {
-        "irc": "irc://irc.freenode.org/owncloud-dev",
+        "irc": "irc://irc.freenode.org/owncloud-news",
         "issues": "https://github.com/owncloud/news/issues",
         "wiki": "https://github.com/owncloud/news/wiki",
         "source": "https://github.com/owncloud/news/"
