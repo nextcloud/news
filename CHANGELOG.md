@@ -1,3 +1,6 @@
+owncloud-news (8.6.0)
+* **Enhancement**: Also publish error count and last error message through API, #977
+
 owncloud-news (8.5.0)
 * **Bugfix**: Do not run feed updates when ajax or web cron mode was detected because it can lead to very long load times, timeouts, data corruption, update bugs where feeds are not updated anymore and database inconsistencies. If someone is interested in re-enabling webcron based feed updates, please create a PHP script which uses the [updater API](https://github.com/owncloud/news/wiki/Updater-1.2). Don't hesitate to ask for help on the issue tracker!
 * **Bugfix**: Fix multiple error messages and outdated links for cron error messages

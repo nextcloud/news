@@ -54,7 +54,9 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'unreadCount' => 321,
             'ordering' => 2,
             'pinned' => true,
-            'link' => 'https://www.google.com/some/weird/path'
+            'link' => 'https://www.google.com/some/weird/path',
+            'updateErrorCount' => 2,
+            'lastUpdateError' => 'hi'
         ], $feed->toAPI());
     }
 

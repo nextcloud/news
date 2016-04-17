@@ -160,7 +160,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'unreadCount',
             'ordering',
             'link',
-            'pinned'
+            'pinned',
+            'updateErrorCount',
+            'lastUpdateError'
         ]);
     }
 
