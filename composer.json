@@ -30,9 +30,9 @@
         "source": "https://github.com/owncloud/news/"
     },
     "require": {
-        "ezyang/htmlpurifier": "~4.7",
+        "ezyang/htmlpurifier": "4.7",
         "fguillot/picofeed": "0.1.23",
-        "pear/net_url2": "~2.2",
-        "riimu/kit-pathjoin": "1.*"
+        "pear/net_url2": "2.2",
+        "riimu/kit-pathjoin": "1.1.2"
     }
 }

@@ -1,4 +1,5 @@
 owncloud-news (8.7.0)
+* **Enhancement**: Better lock down Composer versions to prevent shipping newer PHP libraries then intended when compiling the project
 * **Enhancement**: Mark current article as active while scrolling
 * **Enhancement**: Clicking on an article sets it as active, #791
 * **Enhancement**: Keyboard shortcuts will target the currently active element, #791
