@@ -1,3 +1,8 @@
+owncloud-news (8.7.0)
+* **Enhancement**: Mark current article as active while scrolling
+* **Enhancement**: Clicking on an article sets it as active, #791
+* **Enhancement**: Keyboard shortcuts will target the currently active element, #791
+
 owncloud-news (8.6.0)
 * **Enhancement**: Also publish error count and last error message through API, #977
 

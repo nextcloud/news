@@ -23,8 +23,9 @@
             ng-repeat="item in Content.getItems() |
                 orderBy:[Content.orderBy()] track by item.id"
             ng-mouseup="Content.markRead(item.id)"
-            ng-click="Content.markRead(item.id)"
-            ng-class="{read: !item.unread, open: item.show}"
+            ng-click="Content.markRead(item.id); Content.setItemActive(item.id)"
+            news-on-active="Content.setItemActive(item.id)"
+            ng-class="{read: !item.unread, open: item.show, active: Content.isItemActive(item.id)}"
             data-id="{{ ::item.id }}">
 
             <div class="utils" ng-click="Content.toggleItem(item)">

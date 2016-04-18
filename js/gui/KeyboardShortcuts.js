@@ -234,20 +234,12 @@
         }
     };
 
+    var getActiveElement = function (scrollArea) {
+        return scrollArea.find('.item.active:first');
+    };
+
     var onActiveItem = function (scrollArea, callback) {
-        var items = scrollArea.find('.item');
-
-        items.each(function (index, item) {
-            item = $(item);
-
-            // 130px of the item should be visible
-            if ((item.height() + item.position().top) > 30) {
-                callback(item);
-
-                return false;
-            }
-        });
-
+        callback(getActiveElement(scrollArea));
     };
 
     var toggleUnread = function (scrollArea) {
@@ -275,12 +267,18 @@
         });
     };
 
+    var setItemActive = function (element) {
+        element.dispatchEvent(new CustomEvent('set-active'));
+    };
+
     var scrollToItem = function (scrollArea, item, expandItemInCompact) {
         // if you go to the next article in compact view, it should
         // expand the current one
         scrollArea.scrollTop(
             item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
         );
+
+        setItemActive(item[0]);
 
         if (expandItemInCompact) {
             onActiveItem(scrollArea, function (item) {
@@ -292,64 +290,49 @@
     };
 
     var scrollToNextItem = function (scrollArea, expandItemInCompact) {
-        var items = scrollArea.find('.item');
-        var jumped = false;
-
-        items.each(function (index, item) {
-            item = $(item);
-
-            // special treatment for items that have expand enabled:
-            // if you click next and the first item has not been expaned and
-            // is on the top, it should be expanded instead of the next one
-            if ((item.position().top === 0 && expandItemInCompact &&
-                 !item.hasClass('open')) ||
-                item.position().top > 10) {
-                scrollToItem(scrollArea, item, expandItemInCompact);
-
-                jumped = true;
-
-                return false;
-            }
-        });
-
-        // in case this is the last item it should still scroll below the top
-        if (!jumped) {
+        var activeElement = getActiveElement(scrollArea);
+        var nextElement = activeElement.next();
+        if (nextElement.length > 0) {
+            scrollToItem(scrollArea, nextElement, expandItemInCompact);
+        } else {
+            // in case this is the last item it should still scroll below the
             scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
         }
-
     };
 
     var scrollToPreviousItem = function (navigationArea, scrollArea,
                                          expandItemInCompact) {
-        var items = scrollArea.find('.item');
-        var jumped = false;
+        var activeElement = getActiveElement(scrollArea);
+        var previousElement = activeElement.prev();
 
-        items.each(function (index, item) {
-            item = $(item);
-
-            if ((item.position().top + 10) >= 0) {
-                var previous = item.prev();
-
-                // if there are no items before the current one
-                if (previous.length > 0) {
-                    scrollToItem(scrollArea, previous, expandItemInCompact);
-                } else {
-                    tryReload(navigationArea, scrollArea);
-                    scrollArea.scrollTop(0);
-                }
-
-                jumped = true;
-
-                return false;
-            }
-        });
-
-        // if there was no jump jump to the last element
-        if (!jumped && items.length > 0) {
-            scrollToItem(scrollArea, items.last());
+        // if the active element has been scrolled, the previous element
+        // should be the active one
+        if (activeElement.position().top + 20 <= 0) {
+            scrollToItem(scrollArea, activeElement, expandItemInCompact);
+        } else if (previousElement.length > 0) {
+            scrollToItem(scrollArea, previousElement, expandItemInCompact);
+        } else {
+            tryReload(navigationArea, scrollArea);
+            scrollArea.scrollTop(0);
         }
     };
 
+    // mark current item as active when scrolling
+    $(document).ready(function () {
+        var detectAndSetActiveItem = function () {
+            var items = $('#app-content').find('.item');
+            items.each(function (index, item) {
+                var $item = $(item);
+                var bottom = $item.position().top + $item.outerHeight(true);
+                console.log(bottom);
+                if ((bottom - 20) >= 0){
+                    setItemActive(item);
+                    return false;
+                }
+            });
+        };
+        $('#app-content').scroll(_.debounce(detectAndSetActiveItem, 250));
+    });
 
     $(document).keyup(function (event) {
         var keyCode = event.keyCode;

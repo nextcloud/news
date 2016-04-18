@@ -22,6 +22,13 @@ describe('ContentController', function () {
             SUBSCRIPTIONS: 3,
             SHARED: 4
         });
+        $provide.constant('$route', {
+            current: {
+                $$route: {
+                    type: 3
+                }
+            }
+        })
     }));
 
 
@@ -50,7 +57,7 @@ describe('ContentController', function () {
         ItemResource.clear = jasmine.createSpy('clear');
 
         $controller('ContentController', {
-            data: {},
+            data: {}
         });
 
         expect(ItemResource.clear).toHaveBeenCalled();
@@ -395,6 +402,14 @@ describe('ContentController', function () {
         }));
 
 
+    it ('should toggle active item', function ($controller) {
+        var ctrl = $controller('ContentController');
+        expect(ctrl.isItemActive(3)).toBe(undefined);
+        ctrl.setItemActive(3);
+        expect(ctrl.isItemActive(4)).toBe(false);
+        expect(ctrl.isItemActive(3)).toBe(true);
+    });
+
     it('should autopage if more than 0 elements',
         inject(function ($controller, ItemResource, Publisher) {
 
@@ -538,6 +553,11 @@ describe('ContentController', function () {
 
     it('should refresh the page', inject(function ($controller) {
         var route = {
+            current: {
+                $$route: {
+                    type: 3
+                }
+            },
             reload: jasmine.createSpy('reload')
         };
         var ctrl = $controller('ContentController', {

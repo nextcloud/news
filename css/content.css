@@ -193,6 +193,10 @@
     background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
 }
 
+#app-content .item.active {
+    background-image: linear-gradient(to right, orange 0, orange 2px, #ffffff 2px);
+}
+
 #app-content :not(.compact) .item {
 }
 
