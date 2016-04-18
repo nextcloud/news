@@ -28,7 +28,7 @@ describe('ContentController', function () {
                     type: 3
                 }
             }
-        })
+        });
     }));
 
 
@@ -545,7 +545,7 @@ describe('ContentController', function () {
 
     it('should return relative date empty', inject(function ($controller) {
         var ctrl = $controller('ContentController', {
-            data: {},
+            data: {}
         });
 
         expect(ctrl.getRelativeDate('')).toBe('');
