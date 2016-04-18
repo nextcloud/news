@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "918b43eacd046b2fe1d2c38eb002c614",
-    "content-hash": "8069d24dda2c0e4ec502233d5c44558b",
+    "hash": "e83f14a79182d0a9a3142451b052a27f",
+    "content-hash": "d53260ef20df514cde67be09ed175461",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -53,7 +53,7 @@
         },
         {
             "name": "fguillot/picofeed",
-            "version": "dev-master",
+            "version": "v0.1.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
@@ -254,9 +254,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fguillot/picofeed": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
