@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 dist: trusty
 language: php
 php:
@@ -25,7 +25,8 @@ matrix:
 before_install:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
-    - if [[ "$DB" == 'mysql' ]]; then sudo apt-get -y install mariadb-server; fi
+    # re-enable once mariadb is added as an option
+    # - if [[ "$DB" == 'mysql' ]]; then sudo apt-get -y install mariadb-server; fi
     - nvm install 5.6
     - npm install -g npm@latest
     - make
