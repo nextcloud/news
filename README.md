@@ -215,29 +215,6 @@ Some hints:
 * type clob is usually an Sql TEXT
 * length for integer fields means bytes, so an integer with length 8 means its 64bit
 
-
-### I'm getting a feed not found error when adding a feed, but it works in picoFeed/Miniflux
-Some websites block the News app because the mistake its user agent string for an attack (most notably https://www.joomla.org/announcements.feed\?type\=rss). You can test for this issue by changing the default user agent string in **appinfo/application.php**.
-
-Search the section that defines the user agent:
-
-```php
-$userAgent = 'ownCloud News/' . $appConfig->getConfig('version') .
-             ' (+https://owncloud.org/; 1 subscriber;)';
-```
-
-and replace it with the following line:
-
-```php
-$userAgent = 'test';
-```
-
-If this fixes the issue, contact the feed's administrators and ask them to fix their server setup.
-
-**Hint**: Should you not be able to set up picoFeed or Miniflux, you can simply use the bundled picoFeed version to test the website, e.g.:
-
-    php -f vendor/fguillot/picofeed/picofeed feed https://www.joomla.org/announcements.feed\?type\=rss
-
 ### I am getting: Exception: Some\\Class does not exist erros in my owncloud.log
 This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 

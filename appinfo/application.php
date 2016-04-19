@@ -59,6 +59,7 @@ class Application extends App {
         /**
          * App config parser
          */
+        /** @noinspection PhpParamsInspection */
         $this->registerService(AppConfig::class, function($c) {
             $config = new AppConfig(
                 $c->query(INavigationManager::class),
@@ -73,14 +74,17 @@ class Application extends App {
         /**
          * Core
          */
+        /** @noinspection PhpParamsInspection */
         $this->registerService('LoggerParameters', function($c) {
             return ['app' => $c->query('AppName')];
         });
 
+        /** @noinspection PhpParamsInspection */
         $this->registerService('databaseType', function($c) {
             return $c->query(IConfig::class)->getSystemValue('dbtype');
         });
 
+        /** @noinspection PhpParamsInspection */
         $this->registerService('ConfigView', function($c) {
             $fs = $c->query(IRootFolder::class);
             $path = 'news/config';
@@ -92,6 +96,7 @@ class Application extends App {
         });
 
 
+        /** @noinspection PhpParamsInspection */
         $this->registerService(Config::class, function($c) {
             $config = new Config(
                 $c->query('ConfigView'),
@@ -102,6 +107,7 @@ class Application extends App {
             return $config;
         });
 
+        /** @noinspection PhpParamsInspection */
         $this->registerService(HTMLPurifier::class, function($c) {
             $directory = $c->query(IConfig::class)
                 ->getSystemValue('datadirectory') . '/news/cache/purifier';
@@ -127,14 +133,19 @@ class Application extends App {
         /**
          * Fetchers
          */
+        /** @noinspection PhpParamsInspection */
         $this->registerService(PicoFeedConfig::class, function($c) {
             // FIXME: move this into a separate class for testing?
             $config = $c->query(Config::class);
-            $appConfig = $c->query(AppConfig::class);
             $proxy =  $c->query(ProxyConfigParser::class);
 
-            $userAgent = 'ownCloud News/' . $appConfig->getConfig('version') .
-                         ' (+https://owncloud.org/; 1 subscriber;)';
+            // use chrome's user agent string since mod_security rules
+            // assume that only browsers can send user agent strings. This
+            // can lead to blocked feed updates like joomla.org
+            // For more information see
+            // https://www.atomicorp.com/wiki/index.php/WAF_309925
+            $userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' .
+                '(KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36';
 
             $pico = new PicoFeedConfig();
             $pico->setClientUserAgent($userAgent)
@@ -166,6 +177,7 @@ class Application extends App {
             return $pico;
         });
 
+        /** @noinspection PhpParamsInspection */
         $this->registerService(Fetcher::class, function($c) {
             $fetcher = new Fetcher();
 
@@ -186,6 +198,7 @@ class Application extends App {
      * @param string $file path relative to this file, __DIR__ will be prepended
      */
     private function registerFileContents($key, $file) {
+        /** @noinspection PhpParamsInspection */
         $this->registerService($key, function () use ($file) {
             return file_get_contents(__DIR__ . '/' . $file);
         });
@@ -217,6 +230,7 @@ class Application extends App {
      * @param string $factory fully qualified factory class name
      */
     private function registerFactory($key, $factory) {
+        /** @noinspection PhpParamsInspection */
         $this->registerService($key, function ($c) use ($factory) {
             return $c->query($factory)->build();
         });

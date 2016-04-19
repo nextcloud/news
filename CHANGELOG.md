@@ -1,3 +1,6 @@
+owncloud-news (8.7.1)
+* **Bugfix**: Send Chrome's user agent string instead of our own since mod_security, which is used on some servers, thinks that only browsers are allowed to send user agents. This will fix feed updates for some websites, e.g. joomla.org, (because we all know that Joomla is big on security ;) ), #978
+
 owncloud-news (8.7.0)
 * **Enhancement**: Better lock down Composer versions to prevent shipping newer PHP libraries then intended when compiling the project
 * **Enhancement**: Mark current article as active while scrolling
