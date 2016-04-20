@@ -40,13 +40,13 @@
 #    },
 
 app_name=$(notdir $(CURDIR))
-project_directory=../$(app_name)
 build_tools_directory=$(CURDIR)/build/tools
-source_build_directory=$(CURDIR)/build/artifacts/source
-updater_build_directory=$(CURDIR)/build/artifacts/updater
-source_package_name=$(source_build_directory)/$(app_name)
-appstore_build_directory=$(CURDIR)/build/artifacts/appstore
-appstore_package_name=$(appstore_build_directory)/$(app_name)
+source_build_directory=$(CURDIR)/build/source/news
+source_artifact_directory=$(CURDIR)/build/artifacts/source
+source_package_name=$(source_artifact_directory)/$(app_name)
+appstore_build_directory=$(CURDIR)/build/appstore/news
+appstore_artifact_directory=$(CURDIR)/build/artifacts/appstore
+appstore_package_name=$(appstore_artifact_directory)/$(app_name)
 npm=$(shell which npm 2> /dev/null)
 composer=$(shell which composer 2> /dev/null)
 
@@ -108,55 +108,59 @@ dist:
 # Builds the source package
 .PHONY: source
 source:
-	rm -rf $(source_build_directory)
-	mkdir -p $(source_build_directory)
-	tar cvzf $(source_package_name).tar.gz ../$(app_name) \
-	--exclude-vcs \
-	--exclude="../$(app_name)/build" \
-	--exclude="../$(app_name)/js/node_modules" \
-	--exclude="../$(app_name)/*.log" \
-	--exclude="../$(app_name)/js/*.log" \
+	rm -rf $(source_build_directory) $(source_artifact_directory)
+	mkdir -p $(source_build_directory) $(source_artifact_directory)
+	rsync -rv . $(source_build_directory) \
+	--exclude=/.git/ \
+	--exclude=/.idea/ \
+	--exclude=/build/ \
+	--exclude=/js/node_modules/ \
+	--exclude=*.log
+	tar -cvzf $(source_package_name).tar.gz -C $(source_build_directory)/../ $(app_name)
 
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
 appstore:
-	rm -rf $(appstore_build_directory)
-	mkdir -p $(appstore_build_directory)
-	tar cvzf $(appstore_package_name).tar.gz \
-	$(project_directory)"/admin" \
-	$(project_directory)"/appinfo" \
-	$(project_directory)"/config" \
-	$(project_directory)"/command" \
-	$(project_directory)"/controller" \
-	$(project_directory)"/cron" \
-	$(project_directory)"/css" \
-	$(project_directory)"/db" \
-	$(project_directory)"/dependencyinjection" \
-	$(project_directory)"/explore" \
-	$(project_directory)"/fetcher" \
-	$(project_directory)"/hooks" \
-	$(project_directory)"/http" \
-	$(project_directory)"/img" \
-	$(project_directory)"/l10n" \
-	$(project_directory)"/plugin" \
-	$(project_directory)"/service" \
-	$(project_directory)"/templates" \
-	$(project_directory)"/upgrade" \
-	$(project_directory)"/utility" \
-	$(project_directory)"/vendor" \
-	$(project_directory)"/COPYING" \
-	$(project_directory)"/README.md" \
-	$(project_directory)"/AUTHORS.md" \
-	$(project_directory)"/js/vendor/js-url/url.min.js" \
-	$(project_directory)"/js/vendor/es6-shim/es6-shim.min.js" \
-	$(project_directory)"/js/vendor/angular/angular.min.js" \
-	$(project_directory)"/js/vendor/angular-animate/angular-animate.min.js" \
-	$(project_directory)"/js/vendor/angular-route/angular-route.min.js" \
-	$(project_directory)"/js/vendor/angular-sanitize/angular-sanitize.min.js" \
-	$(project_directory)"/js/vendor/momentjs/min/moment-with-locales.min.js" \
-	$(project_directory)"/js/vendor/masonry/dist/masonry.pkgd.min.js" \
-	$(project_directory)"/js/build/app.min.js" \
-	$(project_directory)"/js/admin/Admin.js" \
+	rm -rf $(appstore_build_directory) $(appstore_artifact_directory)
+	mkdir -p $(appstore_build_directory) $(appstore_artifact_directory)
+	cp --parents -r \
+	"admin" \
+	"appinfo" \
+	"config" \
+	"command" \
+	"controller" \
+	"cron" \
+	"css" \
+	"db" \
+	"dependencyinjection" \
+	"explore" \
+	"fetcher" \
+	"hooks" \
+	"http" \
+	"img" \
+	"l10n" \
+	"plugin" \
+	"service" \
+	"templates" \
+	"upgrade" \
+	"utility" \
+	"vendor" \
+	"COPYING" \
+	"README.md" \
+	"AUTHORS.md" \
+	"js/vendor/js-url/url.min.js" \
+	"js/vendor/es6-shim/es6-shim.min.js" \
+	"js/vendor/angular/angular.min.js" \
+	"js/vendor/angular-animate/angular-animate.min.js" \
+	"js/vendor/angular-route/angular-route.min.js" \
+	"js/vendor/angular-sanitize/angular-sanitize.min.js" \
+	"js/vendor/momentjs/min/moment-with-locales.min.js" \
+	"js/vendor/masonry/dist/masonry.pkgd.min.js" \
+	"js/build/app.min.js" \
+	"js/admin/Admin.js" \
+	$(appstore_build_directory)
+	tar -cvzf $(appstore_package_name).tar.gz -C $(appstore_build_directory)/../ $(app_name)
+
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
