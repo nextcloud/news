@@ -50,6 +50,16 @@ appstore_package_name=$(appstore_artifact_directory)/$(app_name)
 npm=$(shell which npm 2> /dev/null)
 composer=$(shell which composer 2> /dev/null)
 
+# code signing
+# assumes the following:
+# * the app is inside the owncloud/apps folder
+# * the private key is located in ~/.owncloud/news.key
+# * the certificate is located in ~/.owncloud/news.crt
+occ=$(CURDIR)/../../occ
+private_key=$(HOME)/.owncloud/$(app_name).key
+certificate=$(HOME)/.owncloud/$(app_name).crt
+sign="$(occ) integrity:sign-app --privateKey=$(private_key) --certificate=$(certificate)"
+
 all: build
 
 # Fetches the PHP and JS dependencies and compiles the JS. If no composer.json
@@ -116,6 +126,11 @@ source:
 	--exclude=/build/ \
 	--exclude=/js/node_modules/ \
 	--exclude=*.log
+ifneq ($(wildcard $(private_key)),)
+	$(sign) --path $(source_build_directory)
+else
+	@echo "Skipping signing, no key and certificate found in $(private_key) and $(certificate)"
+endif
 	tar -cvzf $(source_package_name).tar.gz -C $(source_build_directory)/../ $(app_name)
 
 # Builds the source package for the app store, ignores php and js tests
@@ -159,7 +174,12 @@ appstore:
 	"js/build/app.min.js" \
 	"js/admin/Admin.js" \
 	$(appstore_build_directory)
-	tar -cvzf $(appstore_package_name).tar.gz -C $(appstore_build_directory)/../ $(app_name)
+ifneq ($(wildcard $(private_key)),)
+	$(sign) --path $(appstore_build_directory)
+else
+	@echo "Skipping signing, no key and certificate found in $(private_key) and $(certificate)"
+endif
+	tar -czf $(appstore_package_name).tar.gz -C $(appstore_build_directory)/../ $(app_name)
 
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
