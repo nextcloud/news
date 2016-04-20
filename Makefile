@@ -59,6 +59,14 @@ occ=$(CURDIR)/../../occ
 private_key=$(HOME)/.owncloud/$(app_name).key
 certificate=$(HOME)/.owncloud/$(app_name).crt
 sign="$(occ) integrity:sign-app --privateKey=$(private_key) --certificate=$(certificate)"
+sign_skip_msg="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
+ifneq (,$(wildcard $(private_key)))
+ifneq (,$(wildcard $(certificate)))
+ifneq (,$(wildcard $(occ)))
+	CAN_SIGN=true
+endif
+endif
+endif
 
 all: build
 
@@ -126,10 +134,10 @@ source:
 	--exclude=/build/ \
 	--exclude=/js/node_modules/ \
 	--exclude=*.log
-ifneq ($(wildcard $(private_key)),)
+ifdef CAN_SIGN
 	$(sign) --path $(source_build_directory)
 else
-	@echo "Skipping signing, no key and certificate found in $(private_key) and $(certificate)"
+	@echo $(sign_skip_msg)
 endif
 	tar -cvzf $(source_package_name).tar.gz -C $(source_build_directory)/../ $(app_name)
 
@@ -174,10 +182,10 @@ appstore:
 	"js/build/app.min.js" \
 	"js/admin/Admin.js" \
 	$(appstore_build_directory)
-ifneq ($(wildcard $(private_key)),)
+ifdef CAN_SIGN
 	$(sign) --path $(appstore_build_directory)
 else
-	@echo "Skipping signing, no key and certificate found in $(private_key) and $(certificate)"
+	@echo $(sign_skip_msg)
 endif
 	tar -czf $(appstore_package_name).tar.gz -C $(appstore_build_directory)/../ $(app_name)
 
