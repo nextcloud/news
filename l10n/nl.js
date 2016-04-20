@@ -129,6 +129,7 @@ OC.L10N.register(
     "Error when importing: file does not contain valid JSON" : "Fout tijdens het importeren: bestand bevat geen geldige JSON",
     "Help" : "Help",
     "Keyboard shortcuts" : "Sneltoetsen",
-    "Documentation" : "Documentatie"
+    "Documentation" : "Documentatie",
+    "Report a bug" : "Rapporteer een fout"
 },
 "nplurals=2; plural=(n != 1);");
