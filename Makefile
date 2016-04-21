@@ -135,7 +135,7 @@ source:
 	--exclude=/js/node_modules/ \
 	--exclude=*.log
 ifdef CAN_SIGN
-	$(sign) --path $(source_build_directory)
+	$(sign) --path "$(source_build_directory)"
 else
 	@echo $(sign_skip_msg)
 endif
