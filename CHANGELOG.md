@@ -1,3 +1,6 @@
+owncloud-news (8.7.2)
+* **Security**: Sign application to make missing/outdated files more easily detectable and prevent attackers from potentially serving a malicious News app from the app store
+
 owncloud-news (8.7.1)
 * **Bugfix**: Send Chrome's user agent string instead of our own since mod_security, which is used on some servers, thinks that only browsers are allowed to send user agents. This will fix feed updates for some websites, e.g. joomla.org, (because we all know that Joomla is big on security ;) ), #978
 

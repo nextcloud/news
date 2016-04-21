@@ -58,7 +58,7 @@ composer=$(shell which composer 2> /dev/null)
 occ=$(CURDIR)/../../occ
 private_key=$(HOME)/.owncloud/$(app_name).key
 certificate=$(HOME)/.owncloud/$(app_name).crt
-sign="$(occ) integrity:sign-app --privateKey=$(private_key) --certificate=$(certificate)"
+sign=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
 sign_skip_msg="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
 ifneq (,$(wildcard $(private_key)))
 ifneq (,$(wildcard $(certificate)))
@@ -183,7 +183,7 @@ appstore:
 	"js/admin/Admin.js" \
 	$(appstore_build_directory)
 ifdef CAN_SIGN
-	$(sign) --path $(appstore_build_directory)
+	$(sign) --path="$(appstore_build_directory)"
 else
 	@echo $(sign_skip_msg)
 endif
