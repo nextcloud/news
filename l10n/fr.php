@@ -8,6 +8,7 @@ $TRANSLATIONS = array(
 "Request timed out" => "Temps de réponse de la requete dépassé",
 "Required credentials for feed were either missing or incorrect" => "Les informations d'identification requises pour le fil sont manquantes ou incorrectes",
 "Forbidden to access feed" => "Interdiction d'accéder au fil",
+"Unknown SSL certificate error!" => "Erreur de certificat SSL inconnue !",
 "Request failed, network connection unavailable!" => "Échec de la requête, connexion réseau indisponible !",
 "Request unauthorized. Are you logged in?" => "Requête non autorisée. Êtes-vous bien connecté avec vos identifiants ?",
 "Request forbidden. Are you an admin?" => "Requête interdite. Avez-vous les droits admin ?",
@@ -126,6 +127,7 @@ $TRANSLATIONS = array(
 "Error when importing: file does not contain valid JSON" => "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide",
 "Help" => "Aide",
 "Keyboard shortcuts" => "Raccourcis clavier",
-"Documentation" => "Documentation"
+"Documentation" => "Documentation",
+"Report a bug" => "Signaler un bogue"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n > 1);";
