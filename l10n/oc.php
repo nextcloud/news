@@ -31,6 +31,7 @@ $TRANSLATIONS = array(
 "Download" => "Telecargar",
 "Close" => "Tampar",
 "How to set up the operating system cron" => "Cossí configurar lo cron del sistèma operatiu",
+"filter" => "filtrar",
 "Language" => "Lenga",
 "Subscribe" => "S'abonar",
 "Refresh" => "Refrescar",
@@ -118,6 +119,7 @@ $TRANSLATIONS = array(
 "Error when importing: file does not contain valid JSON" => "Error al moment de l'impòrt : lo fichièr especificat es pas un fichièr JSON valid",
 "Help" => "Ajuda",
 "Keyboard shortcuts" => "Acorchis de clavièr",
-"Documentation" => "Documentacion"
+"Documentation" => "Documentacion",
+"Report a bug" => "Raportar un bug"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n > 1);";
