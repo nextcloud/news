@@ -276,9 +276,77 @@ In case of an HTTP 200, the deleted folder is returned in full in the response, 
 }
 ```
 ### Creating A Folder
-TBD
+To create a folder, use the following request:
+* **Method**: POST
+* **Route**: /folders
+
+with the following request body:
+```json
+{
+    "name": "Folder name"
+}
+```
+
+The following response is being returned:
+
+Status codes:
+* **200**: Folder was created successfully
+* **400**: Folder creation error, check the error object:
+  * **code**: 1 folder name is empty
+* **409**: Folder with given name exists already
+* Other ownCloud errors, see **Response Format**
+
+In case of an HTTP 200 or 409, the created or already existing folder is returned in full in the response, e.g.:
+
+```json
+{
+    "data": {
+        "folder": {
+            "id": 3,
+            "name": "funny stuff"
+        }
+    }
+}
+```
 ### Changing A Folder
-TBD
+The following attributes can be changed on the folder:
+* **name**
+
+To change any number of attributes on a folder, use the following request and provide as much attributes that can be changed as you want:
+* **Method**: PATCH
+* **Route**: /folders/{id}
+* **Route Parameters**:
+  * **{id}**: folder's id
+
+with the following request body:
+```json
+{
+    "name": "New folder name"
+}
+```
+
+The following response is being returned:
+
+Status codes:
+* **200**: Folder was created successfully
+* **400**: Folder creation error, check the error object:
+  * **code**: 1 folder name is empty
+* **409**: Folder with given name exists already
+* Other ownCloud errors, see **Response Format**
+
+In case of an HTTP 200 or 409, the changed or already existing folder is returned in full in the response, e.g.:
+
+```json
+{
+    "data": {
+        "folder": {
+            "id": 3,
+            "name": "funny stuff"
+        }
+    }
+}
+```
+
 
 ## Feeds
 Feeds are represented using the following data structure:
