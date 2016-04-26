@@ -528,12 +528,13 @@ Both APIs will return the following response body or terminal output:
 ```
 
 ### Update A User's Feed
-After all feed ids and user ids are known, feeds can be updated in parallel
+After all feed ids and user ids are known, feeds can be updated in parallel.
 
 **Console API**:
 * **Positional Parameters**:
   * **{feedId}**: the feed's id
   * **{userId}**: the user's id
+
 
     php -f /path/to/owncloud/occ news:updater:update-feed {feedId} {userId}
 
