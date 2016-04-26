@@ -482,12 +482,12 @@ The API should be used in the following way:
 
 * Clean up before the update
 * Get all feeds and user ids
-* For each feed and user id, run the update command
+* For each feed and user id, run the update
 * Clean up after the update.
 
 The reference [implementation in Python](https://github.com/owncloud/news-updater) should give you a good idea how to design your own updater.
 
-If the REST API is used, Authorization is required via Basic Auth and the user needs to be in the admin group. When using the ownCloud console API, no authorization is required.
+If the REST API is used, Authorization is required via Basic Auth and the user needs to be in the admin group. If the ownCloud console API is used, no authorization is required.
 
 ### Clean Up Before Update
 This is used to clean up the database. It deletes folders and feeds that are marked for deletion.
