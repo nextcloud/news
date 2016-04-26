@@ -77,7 +77,7 @@ The status codes are:
 
 The response headers are:
 * **Content-Type**: application/json; charset=utf-8
-* **Etag**: A string containing a cache header of maximum size 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59
+* **Etag**: A string containing a cache header of maximum length 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59
 
 The response body is a JSON structure that looks like this:
 
