@@ -119,7 +119,6 @@ The intial sync happens when a user adds an ownCloud account in your app. In tha
 
 This will return the following status codes:
 * **200**: Successully synced
-* **400**: An error occurred, check the **error** object for more information
 * Other ownCloud errors, see **Response Format**
 
 and the following HTTP headers:
