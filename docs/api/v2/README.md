@@ -238,7 +238,7 @@ If the HTTP status code was either in the **4xx** or **5xx** range, the exact sa
 
 
 ## Folders
-Folders are represented in the following data structure:
+Folders are represented using the following data structure:
 ```json
 {
     "id": 3,
@@ -258,7 +258,7 @@ TBD
 TBD
 
 ## Feeds
-Feeds are represented in the following data structure:
+Feeds are represented using the following data structure:
 
 ```json
 {
