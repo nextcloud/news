@@ -347,3 +347,10 @@ The attributes mean the following:
 * **fingerprint**: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:
   * Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.
   * When marking an item read, all items with the same fingerprint should also be marked as read.
+
+
+## Update API
+TBD
+
+## Meta Data API
+TBD
