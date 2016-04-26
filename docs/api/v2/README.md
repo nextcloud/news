@@ -476,7 +476,85 @@ The attributes mean the following:
 
 
 ## Updater
-TBD
+Instead of using the built in, slow cron updater you can use the parallel update API to update feeds. The API can be accessed through REST or ownCloud console API.
+
+The API should be used in the following way:
+
+* Clean up before the update
+* Get all feeds and user ids
+* For each feed and user id, run the update command
+* Clean up after the update.
+
+The reference [implementation in Python](https://github.com/owncloud/news-updater) should give you a good idea how to design your own updater.
+
+If the REST API is used, Authorization is required via Basic Auth and the user needs to be in the admin group. When using the ownCloud console API, no authorization is required.
+
+### Clean Up Before Update
+This is used to clean up the database. It deletes folders and feeds that are marked for deletion.
+
+**Console API**:
+
+    php -f owncloud/occ news:updater:before-update
+
+**REST API**:
+
+* **Method**: GET
+* **Route**: /updater/before-update
+
+### Get All Feeds And User Ids
+This call returns pairs of feed ids and user ids.
+
+**Console API**:
+
+    php -f owncloud/occ news:updater:all-feeds
+
+**REST API**:
+
+* **Method**: GET
+* **Route**: /updater/all-feeds
+
+Will return the following response body:
+
+```js
+{
+    "data": {
+        "feeds": [{
+          "id": 3,
+          "userId": "john"
+        }, /* etc */]
+    }
+}
+```
+
+### Update A User's Feed
+After all feed ids and user ids are known, feeds can be updated in parallel
+
+**Console API**:
+* **Positional Parameters**:
+  * **{feedId}**: the feed's id
+  * **{userId}**: the user's id
+
+    php -f owncloud/occ news:updater:update-feed {feedId} {userId}
+
+**REST API**:
+
+* **Method**: GET
+* **Route**: /updater/update-feed?feedId={feedId}&userId={userId}
+* **Route Parameters**:
+  * **{feedId}**: the feed's id
+  * **{userId}**: the user's id
+
+### Clean Up After Update
+This is used to clean up the database. It removes old read articles which are not starred.
+
+**Console API**:
+
+    php -f owncloud/occ news:updater:after-update
+
+**REST API**:
+
+* **Method**: GET
+* **Route**: /updater/after-update
 
 ## Meta Data
 The retrieve meta data about the app, use the following request:
@@ -487,7 +565,7 @@ The retrieve meta data about the app, use the following request:
 The following response is being returned:
 
 Status codes:
-* **200**: Feed was deleted successfully
+* **200**: Meta data accessed successfully
 * Other ownCloud errors, see **Response Format**
 
 
