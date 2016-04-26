@@ -261,6 +261,7 @@ The following response is being returned:
 Status codes:
 * **200**: Folder was deleted successfully
 * **404**: Folder with given id was not found, no error object
+* Other ownCloud errors, see **Response Format**
 
 In case of an HTTP 200, the deleted folder is returned in full in the response, e.g.:
 
@@ -325,6 +326,8 @@ The following response is being returned:
 Status codes:
 * **200**: Feed was deleted successfully
 * **404**: Feed with given id was not found, no error object
+* Other ownCloud errors, see **Response Format**
+
 
 In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:
 
