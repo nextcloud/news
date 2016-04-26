@@ -123,10 +123,10 @@ This will return the following status codes:
 * **400**: An error occurred, check the **error** object for more information
 * **403**: ownCloud Error: The provided authorization headers are invalid
 * **404**: ownCloud Error: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
-* **5xx**: ownCloud Error: A server error occurred. This can happen if the app is in maintenance mode or because of other reasons. No **error** object is available.
+* **5xx**: ownCloud Error: A server error occurred. This can happen if the server is in maintenance mode or because of other reasons. No **error** object is available.
 
 and the following HTTP headers:
-* **Content type**: application/json; charset=utf-8
+* **Content-Type**: application/json; charset=utf-8
 * **Etag**: A string containing a cache header of maximum size 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59
 
 and the following request body:
@@ -179,7 +179,7 @@ After the initial sync the app has all folders, feeds and items. Now you want to
 * **Method**: POST
 * **Route**: /sync
 * **HTTP headers**:
-  * **Content type: "application/json; charset=utf-8"**
+  * **Content-Type: "application/json; charset=utf-8"**
   * **Accept: "application/json"**
   * **If-None-Match: "6d82cbb050ddc7fa9cbb659014546e59"** (Etag from the previous request to the /sync route)
   * Authorization headers
