@@ -2,7 +2,7 @@
 
 The **News app** offers a RESTful API which can be used to sync folders, feeds and items. The API also supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) which means that you can access the API from your browser using JavaScript.
 
-In addition, an updater API is exposed which is able to run feed updates in parallel using a REST API or ownCloud console API.
+In addition, an updater API is exposed which enables API users to run feed updates in parallel using a REST API or ownCloud console API.
 
 ## API Stability Contract
 
