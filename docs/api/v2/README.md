@@ -514,7 +514,7 @@ This call returns pairs of feed ids and user ids.
 * **Method**: GET
 * **Route**: /updater/all-feeds
 
-Will return the following response body:
+Both APIs will return the following response body or terminal output:
 
 ```js
 {
