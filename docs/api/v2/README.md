@@ -340,7 +340,7 @@ The attributes mean the following:
 * **enclosures**: A list of enclosure objects,
   * **mime**: Mimetype
   * **url**: Abitrary long text, location of the enclosure
-* **body**: Abitrary long text, **sanitized**, contains the item's content
+* **body**: Abitrary long text, **sanitized (meaning does not have to be escape)**, contains the item's content
 * **feedId**: 64bit Integer, the item's feed it belongs to
 * **isUnread**: Boolean, true if unread, false if read
 * **isStarred**: Boolean, true if starred, false if not starred
