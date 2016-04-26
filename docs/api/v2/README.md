@@ -90,7 +90,7 @@ The response body is a JSON structure that looks like this:
     "error": {
         "code": 1,  // an error code that is unique in combination with
                     // the HTTP status code to distinguish between multiple error types
-        "message": "Folder exists already"  // a translated error message depending on the user's set locale
+        "message": "Folder exists already"  // a translated error message depending on the user's configured server locale
     }
 }
 ```
@@ -150,7 +150,8 @@ and the following request body:
             "url": "http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/",
             "title": "Plasma-nm after the solid sprint",
             "author": "Jan Grulich (grulja)",
-            "pubDate": "2005-08-15T15:52:01+0000",
+            "publishedAt": "2005-08-15T15:52:01+0000",
+            "updatedAt": "2005-08-15T15:52:01+0000",
             "enclosures": [{
                 "mime": "video/webm",
                 "url": "http://video.webmfiles.org/elephants-dream.webm"
@@ -234,8 +235,115 @@ If the HTTP status code was either in the **4xx** or **5xx** range, the exact sa
 
 **Important**: Read the **Security Guidelines**
 
-## Feeds
-TBD
 
 ## Folders
+Folders are represented in the following data structure:
+```json
+{
+    "id": 3,
+    "name": "funny stuff"
+}
+```
+
+The attributes mean the following:
+* **id**: 64bit Integer, id
+* **name**: Abitrary long text, folder's name
+
+### Deleting A Folder
 TBD
+### Creating A Folder
+TBD
+### Changing A Folder
+TBD
+
+## Feeds
+Feeds are represented in the following data structure:
+
+```json
+{
+    "id": 4,
+    "name": "The Oatmeal - Comics, Quizzes, & Stories",
+    "faviconLink": "http://theoatmeal.com/favicon.ico",
+    "folderId": 3,
+    "ordering": 0,
+    "isPinned": true,
+    "error": {
+        "code": 1,
+        "message": ""
+    }
+}
+```
+
+The attributes mean the following:
+* **id**: 64bit Integer, id
+* **name**: Abitrary long text, feed's name
+* **faviconLink**: Abitrary long text, feed's favicon location, **null** if not found
+* **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
+* **ordering**: 64bit Integer, overrides the feed's default ordering:
+  * **0**: Default ordering
+  * **1**: Oldest first ordering
+  * **2**: Newest first ordering
+* **isPinned**: Boolean, Used to list certain feeds before others. Feeds are first ordered by their **isPinned** value (true before false) and then by their name in alphabetical order
+* **error**: error object:
+  * **code**: The error code:
+    * **1**: Error occured during feed update
+  * **message**: Translated error message depending on the user's configured server locale
+
+
+### Deleting A Feed
+TBD
+### Creating A feed
+TBD
+### Changing A Feed
+TBD
+
+## Items
+
+Items can either be in the format of:
+```json
+{
+    "id": 5,
+    "url": "http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/",
+    "title": "Plasma-nm after the solid sprint",
+    "author": "Jan Grulich (grulja)",
+    "publishedAt": "2005-08-15T15:52:01+0000",
+    "updatedAt": "2005-08-15T15:52:01+0000",
+    "enclosures": [{
+        "mime": "video/webm",
+        "url": "http://video.webmfiles.org/elephants-dream.webm"
+    }],
+    "body": "<p>At first I have to say...</p>",
+    "feedId": 4,
+    "isUnread": true,
+    "isStarred": true,
+    "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054"
+}
+```
+
+or if they did not change in the following format:
+
+```json
+{
+    "id": 5,
+    "isUnread": true,
+    "isStarred": true
+}
+```
+
+The attributes mean the following:
+* **id**: 64bit Integer, id
+* **url**: Abitrary long text, location of the online resource
+* **title**: Abitrary long text, item's title
+* **author**: Abitrary long text, name of the author/authors
+* **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
+* **updateddAt**: String representing an ISO 8601 DateTime object, when the item was updated
+* **enclosures**: A list of enclosure objects,
+  * **mime**: Mimetype
+  * **url**: Abitrary long text, location of the enclosure
+* **body**: Abitrary long text, **sanitized**, contains the item's content
+* **feedId**: 64bit Integer, the item's feed it belongs to
+* **isUnread**: Boolean, true if unread, false if read
+* **isStarred**: Boolean, true if starred, false if not starred
+* **fingerprint**: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:
+  * Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.
+  * When marking an item read, all items with the same fingerprint should also be marked as read.
