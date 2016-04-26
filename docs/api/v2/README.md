@@ -1,6 +1,4 @@
-# Sync API v2
-
-**Disclaimer: This has not yet been implemented and is still a draft**
+# Sync API v2 (Draft)
 
 The **News app** offers a RESTful API which can be used to sync folders, feeds and items.
 
