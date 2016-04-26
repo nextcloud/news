@@ -250,7 +250,30 @@ The attributes mean the following:
 * **name**: Abitrary long text, folder's name
 
 ### Deleting A Folder
-TBD
+To delete a folder, use the following request:
+* **Method**: DELETE
+* **Route**: /folders/{id}
+* **Route Parameters**:
+  * **{id}**: folder's id
+
+The following response is being returned:
+
+Status codes:
+* **200**: Folder was deleted successfully
+* **404**: Folder with given id was not found, no error object
+
+In case of an HTTP 200, the deleted folder is returned in full in the response, e.g.:
+
+```json
+{
+    "data": {
+        "folder": {
+            "id": 3,
+            "name": "funny stuff"
+        }
+    }
+}
+```
 ### Creating A Folder
 TBD
 ### Changing A Folder
@@ -291,7 +314,39 @@ The attributes mean the following:
 
 
 ### Deleting A Feed
-TBD
+To delete a feed, use the following request:
+* **Method**: DELETE
+* **Route**: /feeds/{id}
+* **Route Parameters**:
+  * **{id}**: feed's id
+
+The following response is being returned:
+
+Status codes:
+* **200**: Feed was deleted successfully
+* **404**: Feed with given id was not found, no error object
+
+In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:
+
+```json
+{
+    "data": {
+        "feed": {
+            "id": 4,
+            "name": "The Oatmeal - Comics, Quizzes, & Stories",
+            "faviconLink": "http://theoatmeal.com/favicon.ico",
+            "folderId": 3,
+            "ordering": 0,
+            "isPinned": true,
+            "error": {
+                "code": 1,
+                "message": ""
+            }
+        }
+    }
+}
+```
+
 ### Creating A feed
 TBD
 ### Changing A Feed
