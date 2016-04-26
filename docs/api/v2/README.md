@@ -151,7 +151,7 @@ and the following request body:
         }, /* etc */],
         "items": [{
             "id": 5,
-                  "url": "http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/",
+            "url": "http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/",
             "title": "Plasma-nm after the solid sprint",
             "author": "Jan Grulich (grulja)",
             "pubDate": "2005-08-15T15:52:01+0000",
@@ -159,6 +159,7 @@ and the following request body:
                 "mime": "video/webm",
                 "url": "http://video.webmfiles.org/elephants-dream.webm"
             }],
+            "body": "<p>At first I have to say...</p>",
             "feedId": 4,
             "isUnread": true,
             "isStarred": true,
