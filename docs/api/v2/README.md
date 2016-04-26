@@ -284,7 +284,7 @@ The attributes mean the following:
   * **1**: Oldest first ordering
   * **2**: Newest first ordering
 * **isPinned**: Boolean, Used to list certain feeds before others. Feeds are first ordered by their **isPinned** value (true before false) and then by their name in alphabetical order
-* **error**: error object:
+* **error**: error object, only present if an error occurred:
   * **code**: The error code:
     * **1**: Error occured during feed update
   * **message**: Translated error message depending on the user's configured server locale
