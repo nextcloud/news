@@ -60,7 +60,7 @@ Any request method except GET:
 Any route that allows caching:
 * **If-None-Match**: an Etag, e.g. 6d82cbb050ddc7fa9cbb659014546e59. If no previous Etag is known, this header should be omitted
 
-The request body is either passed in the URL in case of a **GET** request or as JSON, e.g.:
+The request body is either passed in the URL in case of a **GET** request (e.g.: ?foo=bar&index=0) or as JSON, e.g.:
 
 ```json
 {
