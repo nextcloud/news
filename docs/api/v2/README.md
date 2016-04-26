@@ -104,8 +104,8 @@ Read the following notes carefully to prevent being subject to security exploits
 All routes are given relative to the base API url, e.g.: **/sync** becomes  **https://yourowncloud.com/index.php/apps/news/api/v2/sync**
 
 There are three usecases for syncing:
-* Initial sync: the user does not have any data at all
-* Syncing local and remote changes: the user has synced at least once and wants submit and receive changes
+* **Initial sync**: the user does not have any data at all
+* **Syncing local and remote changes**: the user has synced at least once and wants submit and receive changes
 
 ### Initial Sync
 The intial sync happens, when a user adds an ownCloud account in your app. In that case the user wants all folders, feeds and unread/starred items. To do this, make the following request:
