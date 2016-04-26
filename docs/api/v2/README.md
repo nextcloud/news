@@ -521,8 +521,8 @@ Both APIs will return the following response body or terminal output:
 ```js
 {
     "data": {
-        "feeds": [{
-          "id": 3,
+        "updater": [{
+          "feedId": 3,
           "userId": "john"
         }, /* etc */]
     }
