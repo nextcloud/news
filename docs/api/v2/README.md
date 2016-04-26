@@ -1,6 +1,6 @@
 # Sync API v2 (Draft)
 
-The **News app** offers a RESTful API which can be used to sync folders, feeds and items.
+The **News app** offers a RESTful API which can be used to sync folders, feeds and items. The API also supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) which means that you can access the API from your browser using JavaScript.
 
 ## API Stability Contract
 
@@ -94,8 +94,6 @@ The response body is a JSON structure that looks like this:
     }
 }
 ```
-
-The API also supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) which means that you can access the API from your browser using JavaScript.
 
 ## Security Guidelines
 Read the following notes carefully to prevent being subject to security exploits:
