@@ -495,7 +495,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 **Console API**:
 
-    php -f owncloud/occ news:updater:before-update
+    php -f /path/to/owncloud/occ news:updater:before-update
 
 **REST API**:
 
@@ -507,7 +507,7 @@ This call returns pairs of feed ids and user ids.
 
 **Console API**:
 
-    php -f owncloud/occ news:updater:all-feeds
+    php -f /path/to/owncloud/occ news:updater:all-feeds
 
 **REST API**:
 
@@ -535,7 +535,7 @@ After all feed ids and user ids are known, feeds can be updated in parallel
   * **{feedId}**: the feed's id
   * **{userId}**: the user's id
 
-    php -f owncloud/occ news:updater:update-feed {feedId} {userId}
+    php -f /path/to/owncloud/occ news:updater:update-feed {feedId} {userId}
 
 **REST API**:
 
@@ -550,7 +550,7 @@ This is used to clean up the database. It removes old read articles which are no
 
 **Console API**:
 
-    php -f owncloud/occ news:updater:after-update
+    php -f /path/to/owncloud/occ news:updater:after-update
 
 **REST API**:
 
