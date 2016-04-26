@@ -70,8 +70,10 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 ## Response Format
 The status codes are:
 * **200**: Everything went fine
-* **304**: Not modified, response body will be empty
-* **4xx**: There was an error
+* **403**: ownCloud Error: The provided authorization headers are invalid. No **error** object is available.
+* **404**: ownCloud Error: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
+* **4xx**: There was an app related error, check the **error** object
+* **5xx**: ownCloud Error: A server error occurred. This can happen if the server is in maintenance mode or because of other reasons. No **error** object is available.
 
 The response headers are:
 * **Content-Type**: application/json; charset=utf-8
@@ -119,9 +121,7 @@ The intial sync happens, when a user adds an ownCloud account in your app. In th
 This will return the following status codes:
 * **200**: Successully synced
 * **400**: An error occurred, check the **error** object for more information
-* **403**: ownCloud Error: The provided authorization headers are invalid
-* **404**: ownCloud Error: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
-* **5xx**: ownCloud Error: A server error occurred. This can happen if the server is in maintenance mode or because of other reasons. No **error** object is available.
+* Other ownCloud errors, see **Response Format**
 
 and the following HTTP headers:
 * **Content-Type**: application/json; charset=utf-8
