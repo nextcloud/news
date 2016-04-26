@@ -475,8 +475,48 @@ The attributes mean the following:
   * When marking an item read, all items with the same fingerprint should also be marked as read.
 
 
-## Update API
+## Updater
 TBD
 
-## Meta Data API
-TBD
+## Meta Data
+The retrieve meta data about the app, use the following request:
+
+* **Method**: GET
+* **Route**: /
+
+The following response is being returned:
+
+Status codes:
+* **200**: Feed was deleted successfully
+* Other ownCloud errors, see **Response Format**
+
+
+In case of an HTTP 200, the the following response is returned:
+
+```json
+{
+    "version": "9.0.0",
+    "issues": {
+        "improperlyConfiguredCron": false
+    },
+    "user": {
+        "userId": "john",
+        "displayName": "John Doe",
+        "avatar": {
+            "data": "asdiufadfasdfjlkjlkjljdfdf",
+            "mime": "image/jpeg"
+        }
+    }
+}
+```
+
+The attributes mean the following:
+* **version**: Abitrary long text, News app version
+* **issues**: An object containing a dictionary of issues which need to be displayed to the user:
+  * **improperlyConfiguredCron**: Boolean, if true this means that no feed updates are run on the server because the updater is misconfigured
+* **user**: user information:
+  * **userId**: Abitrary long text, the login name
+  * **displayName**: Abitrary long text, the full name like it's displayed in the web interface
+  * **avatar**: an avatar object, null if none is set
+    * **data**: Abitrary long text, the user's image encoded as base64
+    * **mime**: Abitrary long text, avatar mimetype
