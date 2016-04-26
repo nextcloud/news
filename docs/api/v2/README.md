@@ -48,7 +48,7 @@ where $CREDENTIALS is:
 
     base64(USER:PASSWORD)
 
-Depending on when core implements an easy way to use OAuth, this will be the recommended default.
+This authentication/authorization method will be the recommended default until core provides an easy way to do OAuth
 
 ## Request Format
 The required request headers are:
