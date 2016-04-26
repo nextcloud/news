@@ -72,7 +72,7 @@ The status codes are:
 * **200**: Everything went fine
 * **304**: In case the resource was not modified, contains no response body
 * **403**: ownCloud Error: The provided authorization headers are invalid. No **error** object is available.
-* **404**: ownCloud Error: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
+* **404**: ownCloud Error unless specified otherwise: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
 * **4xx**: There was an app related error, check the **error** object
 * **5xx**: ownCloud Error: A server error occurred. This can happen if the server is in maintenance mode or because of other reasons. No **error** object is available.
 
