@@ -70,6 +70,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 ## Response Format
 The status codes are:
 * **200**: Everything went fine
+* **304**: In case the resource was not modified, contains no response body
 * **403**: ownCloud Error: The provided authorization headers are invalid. No **error** object is available.
 * **404**: ownCloud Error: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
 * **4xx**: There was an app related error, check the **error** object
