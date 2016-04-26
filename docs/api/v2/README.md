@@ -101,7 +101,7 @@ Read the following notes carefully to prevent being subject to security exploits
 * Basic Auth headers can easily be decrypted by anyone since base64 is an encoding, not an encryption. Therefore only send them if you are accessing an HTTPS website or display an easy to understand warning if the user chooses HTTP
 
 ## Syncing
-All routes are given relative to the base API url, e.g.: /sync is expanded to  https://yourowncloud.com/index.php/apps/news/api/v2/sync
+All routes are given relative to the base API url, e.g.: **/sync** becomes  **https://yourowncloud.com/index.php/apps/news/api/v2/sync**
 
 There are three usecases for syncing:
 * Initial sync: the user does not have any data at all
