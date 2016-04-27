@@ -327,6 +327,8 @@ with the following request body:
 }
 ```
 
+* **name**: Abitrary long text, the folder's name
+
 The following response is being returned:
 
 Status codes:
@@ -360,6 +362,8 @@ Feeds are represented using the following data structure:
     "faviconLink": "http://theoatmeal.com/favicon.ico",
     "folderId": 3,
     "ordering": 0,
+    "fullTextEnabled": false,
+    "updateMode": 0,
     "isPinned": true,
     "error": {
         "code": 1,
@@ -377,6 +381,9 @@ The attributes mean the following:
   * **0**: Default ordering
   * **1**: Oldest first ordering
   * **2**: Newest first ordering
+* **updateMode**: 64bit Integer, describing how item updates are handled:
+  * **0**: No special behavior
+  * **1**: If an item is updated, mark it unread
 * **isPinned**: Boolean, Used to list certain feeds before others. Feeds are first ordered by their **isPinned** value (true before false) and then by their name in alphabetical order
 * **error**: error object, only present if an error occurred:
   * **code**: The error code:
@@ -411,6 +418,8 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
             "folderId": 3,
             "ordering": 0,
             "isPinned": true,
+            "fullTextEnabled": false,
+            "updateMode": 0,
             "error": {
                 "code": 1,
                 "message": ""
@@ -421,9 +430,142 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
 ```
 
 ### Creating A feed
-TBD
+To create a feed, use the following request:
+* **Method**: POST
+* **Route**: /feeds
+
+with the following request body:
+```json
+{
+    "url": "https://feed.url.com",
+    "name": "Folder name",
+    "ordering": 0,
+    "isPinned": true,
+    "fullTextEnabled": false,
+    "basicAuthUser": "user",
+    "basicAuthPassword": "password"
+}
+```
+* **url**: Abitrary long text, the url which was entered by the user with the full schema
+* **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
+* **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
+* **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
+* **ordering (optional)**: See [Feeds](#Feeds)
+* **isPinned (optional)**: See [Feeds](#Feeds)
+* **fullTextEnabled (optional)**: See [Feeds](#Feeds)
+
+The following response is being returned:
+
+Status codes:
+* **200**: Feed was created successfully
+* **400**: Feed creation error, check the error object:
+  * **code**: 1 url is empty
+  * **code**: 2 malformed xml
+  * **code**: 3 no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)
+  * **code**: 4 feed format not supported (e.g. too old RSS version)
+  * **code**: 5 ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)
+  * **code**: 6 url can not be found or accessed
+  * **code**: 7 maximum redirects reached
+  * **code**: 8 maximum size reached
+  * **code**: 9 request timed out
+  * **code**: 10 invalid or missing http basic auth headers
+  * **code**: 11 not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
+* Other ownCloud errors, see **Response Format**
+
+In case of an HTTP 200, the created feed is returned in full in the response, e.g.:
+
+```json
+{
+    "data": {
+        "feed": {
+            "id": 4,
+            "name": "The Oatmeal - Comics, Quizzes, & Stories",
+            "faviconLink": "http://theoatmeal.com/favicon.ico",
+            "folderId": 3,
+            "ordering": 0,
+            "isPinned": true,
+            "fullTextEnabled": false,
+            "updateMode": 0,
+            "error": {
+                "code": 1,
+                "message": ""
+            }
+        }
+    }
+}
+```
+
+
 ### Changing A Feed
-TBD
+To change a feed, use the following request:
+* **Method**: PATCH
+* **Route**: /feeds/{id}
+* **Route Parameters**:
+  * **{id}**: folder's id
+
+with the following request body:
+```json
+{
+    "url": "https://feed.url.com",
+    "name": "Folder name",
+    "ordering": 0,
+    "isPinned": true,
+    "fullTextEnabled": false,
+    "basicAuthUser": "user",
+    "basicAuthPassword": "password"
+}
+```
+
+All parameters are optional
+
+* **url (optional)**: Abitrary long text, the url which was entered by the user with the full schema
+* **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
+* **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
+* **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
+* **ordering (optional)**: See [Feeds](#Feeds)
+* **isPinned (optional)**: See [Feeds](#Feeds)
+* **fullTextEnabled (optional)**: See [Feeds](#Feeds)
+
+The following response is being returned:
+
+Status codes:
+* **200**: Feed was changed successfully
+* **400**: Feed creation error, check the error object:
+  * **code**: 1 url is empty
+  * **code**: 2 malformed xml
+  * **code**: 3 no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)
+  * **code**: 4 feed format not supported (e.g. too old RSS version)
+  * **code**: 5 ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)
+  * **code**: 6 url can not be found or accessed
+  * **code**: 7 maximum redirects reached
+  * **code**: 8 maximum size reached
+  * **code**: 9 request timed out
+  * **code**: 10 invalid or missing http basic auth headers
+  * **code**: 11 not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
+* Other ownCloud errors, see **Response Format**
+
+In case of an HTTP 200, the changed feed is returned in full in the response, e.g.:
+
+```json
+{
+    "data": {
+        "feed": {
+            "id": 4,
+            "name": "The Oatmeal - Comics, Quizzes, & Stories",
+            "faviconLink": "http://theoatmeal.com/favicon.ico",
+            "folderId": 3,
+            "ordering": 0,
+            "isPinned": true,
+            "fullTextEnabled": false,
+            "updateMode": 0,
+            "error": {
+                "code": 1,
+                "message": ""
+            }
+        }
+    }
+}
+```
 
 ## Items
 
