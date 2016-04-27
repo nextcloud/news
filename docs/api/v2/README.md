@@ -501,7 +501,7 @@ To change a feed, use the following request:
 * **Method**: PATCH
 * **Route**: /feeds/{id}
 * **Route Parameters**:
-  * **{id}**: folder's id
+  * **{id}**: feed's id
 
 with the following request body:
 ```json
