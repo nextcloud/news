@@ -21,7 +21,7 @@ For further developer and user documentation please visit [the wiki](https://git
 are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki/Apps)
 
 ## Dependencies
-* At least a 64bit operating system, otherwise sync will not work
+* 64bit operating system and PHP
 * PHP >= 5.6
 * ownCloud >= 9.0
 * libxml >= 2.7.8 (2.9 recommended)
