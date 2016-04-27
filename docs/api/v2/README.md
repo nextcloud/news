@@ -121,7 +121,7 @@ The intial sync happens when a user adds an ownCloud account in your app. In tha
 
 This will return the following status codes:
 * **200**: Successully synced
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 and the following HTTP headers:
 * **Content-Type**: application/json; charset=utf-8
@@ -263,7 +263,7 @@ The following response is being returned:
 Status codes:
 * **200**: Folder was deleted successfully
 * **404**: Folder with given id was not found, no error object
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the deleted folder is returned in full in the response, e.g.:
 
@@ -296,7 +296,7 @@ Status codes:
 * **400**: Folder creation error, check the error object:
   * **code**: 1 folder name is empty
 * **409**: Folder with given name exists already
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200 or 409, the created or already existing folder is returned in full in the response, e.g.:
 
@@ -336,7 +336,7 @@ Status codes:
 * **400**: Folder creation error, check the error object:
   * **code**: 1 folder name is empty
 * **409**: Folder with given name exists already
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200 or 409, the changed or already existing folder is returned in full in the response, e.g.:
 
@@ -403,7 +403,7 @@ The following response is being returned:
 Status codes:
 * **200**: Feed was deleted successfully
 * **404**: Feed with given id was not found, no error object
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 
 In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:
@@ -470,7 +470,7 @@ Status codes:
   * **code**: 9 request timed out
   * **code**: 10 invalid or missing http basic auth headers
   * **code**: 11 not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the created feed is returned in full in the response, e.g.:
 
@@ -522,9 +522,9 @@ All parameters are optional
 * **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
 * **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
 * **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
-* **ordering (optional)**: See [Feeds](#Feeds)
-* **isPinned (optional)**: See [Feeds](#Feeds)
-* **fullTextEnabled (optional)**: See [Feeds](#Feeds)
+* **ordering (optional)**: See [feeds](#Feeds)
+* **isPinned (optional)**: See [feeds](#Feeds)
+* **fullTextEnabled (optional)**: See [feeds](#Feeds)
 
 The following response is being returned:
 
@@ -542,7 +542,7 @@ Status codes:
   * **code**: 9 request timed out
   * **code**: 10 invalid or missing http basic auth headers
   * **code**: 11 not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the changed feed is returned in full in the response, e.g.:
 
@@ -712,7 +712,7 @@ The following response is being returned:
 
 Status codes:
 * **200**: Meta data accessed successfully
-* Other ownCloud errors, see **Response Format**
+* Other ownCloud errors, see [Response Format](#response-format)
 
 
 In case of an HTTP 200, the the following response is returned:
