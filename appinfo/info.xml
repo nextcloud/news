@@ -23,7 +23,7 @@
     <!-- dependencies -->
     <dependencies>
         <owncloud min-version="9.0" max-version="9.1"/>
-        <php min-version="5.6"/>
+        <php min-version="5.6" min-int-size="64"/>
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
         <database min-version="5.5">mysql</database>
