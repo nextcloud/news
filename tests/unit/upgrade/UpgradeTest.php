@@ -49,7 +49,7 @@ class UpgradeTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('getAppValue')
             ->with($this->equalTo('news'), $this->equalTo('installed_version'))
-            ->will($this->returnValue('6.9.9'));
+            ->will($this->returnValue('8.0.0'));
 
         $this->service->expects($this->once())
             ->method('generateSearchIndices');
@@ -61,7 +61,7 @@ class UpgradeTest extends \PHPUnit_Framework_TestCase {
         $this->config->expects($this->once())
             ->method('getAppValue')
             ->with($this->equalTo('news'), $this->equalTo('installed_version'))
-            ->will($this->returnValue('7.0.0'));
+            ->will($this->returnValue('8.0.1'));
 
         $this->service->expects($this->never())
             ->method('generateSearchIndices');
