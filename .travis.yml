@@ -27,7 +27,7 @@ before_install:
     - sh -e /etc/init.d/xvfb start
     # re-enable once mariadb is added as an option
     # - if [[ "$DB" == 'mysql' ]]; then sudo apt-get -y install mariadb-server; fi
-    - nvm install 5.6
+    - nvm install 6
     - npm install -g npm@latest
     - make
     # install core
