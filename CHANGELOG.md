@@ -1,3 +1,7 @@
+owncloud-news (8.7.3)
+* **Bugfix**: Rerun fingerprint and search index generation in case it was not run properly before
+* **Bugfix**: Do not swallow errors when generating search indices and fingerprints
+
 owncloud-news (8.7.2)
 * **Security**: Sign application to make missing/outdated files more easily detectable and prevent attackers from potentially serving a malicious News app from the app store
 
