@@ -1,7 +1,7 @@
 # JavaScript Development
 JavaScript is built and minified using gulp.
 
-Therefore you need to install **Node.js 5.6+ and npm**. Then use npm to install **gulp-cli**:
+Therefore you need to install **Node.js 6+ and npm**. Then use npm to install **gulp-cli**:
 
 	sudo npm -g install gulp-cli
 

@@ -33,7 +33,7 @@ are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki
 These Dependencies are only relevant if you want to build the source code:
 * make
 * which
-* Node.js >= 5.6
+* Node.js >= 6
 * npm
 * composer
 
