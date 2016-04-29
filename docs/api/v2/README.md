@@ -70,13 +70,19 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 ```
 
 ## Response Format
-The status codes are:
+The status codes are not always provided by the News app itself, but might also be returned because of ownCloud internal errors.
+
+The following status codes can be returned by ownCloud:
+* **401**: The provided authorization headers to log into ownCloud are invalid.
+* **403**: The user is not allowed to access the route. This can happen if for instance of only users in the admin group can access the route and the user is not in it.
+* **404**: The route can not be found or the resource does not exist. Can also happen if for instance you are trying to delete a folder which does not exist.
+* **5xx**: An internal server error occurred. This can happen if the server is in maintenance mode or because of other reasons.
+
+The following status codes are returned by News:
 * **200**: Everything went fine
-* **304**: In case the resource was not modified, contains no response body
-* **403**: ownCloud Error: The provided authorization headers are invalid. No **error** object is available.
-* **404**: ownCloud Error unless specified otherwise: The route can not be found. This can happen if the app is disabled or because of other reasons. No **error** object is available.
-* **4xx**: There was an app related error, check the **error** object if specified
-* **5xx**: ownCloud Error: A server error occurred. This can happen if the server is in maintenance mode or because of other reasons. No **error** object is available.
+* **304**: In case the resource was not modified, contains no response body. This means that you can ignore the request since everything is up to date.
+* **400**: There was an app related error, check the **error** object if specified
+* **409**: Conflict error which means that the resource exists already. Can be returned when updating (**PATCH**) or creating (**POST**) a resource, e.g. a folder
 
 The response headers are:
 * **Content-Type**: application/json; charset=utf-8
@@ -84,19 +90,21 @@ The response headers are:
 
 The response body is a JSON structure that looks like this:
 
-```js
+```json
 {
-    "data": {
-        // payload is in here
-    },
-    // if an error occured
+    "data": { },
     "error": {
-        "code": 1,  // an error code that is unique in combination with
-                    // the HTTP status code to distinguish between multiple error types
-        "message": "Folder exists already"  // a translated error message depending on the user's configured server locale
+        "code": 1,
+        "message": "error message"
     }
 }
 ```
+
+* **data**: Contains the payload
+* **error**: Only present when an HTTP 400 is returned to help distinguishing between error causes
+  * **code**: A unique error code
+  * **message**: A translated error message. The user's configured locale is used.
+
 
 ## Security Guidelines
 Read the following notes carefully to prevent being subject to security exploits:
