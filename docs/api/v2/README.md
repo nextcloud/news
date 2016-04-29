@@ -455,6 +455,7 @@ with the following request body:
 * **isPinned (optional)**: See [Feeds](#feeds)
 * **fullTextEnabled (optional)**: See [Feeds](#feeds)
 
+
 The following response is being returned:
 
 Status codes:
