@@ -73,7 +73,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 The status codes are not always provided by the News app itself, but might also be returned because of ownCloud internal errors.
 
 The following status codes can be returned by ownCloud:
-* **401**: The provided authorization headers to log into ownCloud are invalid.
+* **401**: The provided credentials to log into ownCloud are invalid.
 * **403**: The user is not allowed to access the route. This can happen if for instance of only users in the admin group can access the route and the user is not in it.
 * **404**: The route can not be found or the resource does not exist. Can also happen if for instance you are trying to delete a folder which does not exist.
 * **5xx**: An internal server error occurred. This can happen if the server is in maintenance mode or because of other reasons.
