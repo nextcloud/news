@@ -252,7 +252,7 @@ The response matches the **GET** call, except there can be two different types o
 
 The deciding factor whether a full or reduced item object is being returned depends on the fingerprint in the request: If the fingerprint matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.
 
-The idea behind this special handling is that if the fingerprint matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status.
+The idea behind this special handling is that if the fingerprint matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status. This greatly reduces the amount sent over the Net which is especially important for mobile apps.
 
 ## Folders
 Folders are represented using the following data structure:
