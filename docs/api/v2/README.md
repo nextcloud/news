@@ -540,7 +540,6 @@ In case of an HTTP 200, the changed feed is returned in full in the response, e.
 {
     "data": {
         "feed": { /* feed object */ }
-        }
     }
 }
 ```
