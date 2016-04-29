@@ -102,6 +102,7 @@ The response body is a JSON structure that looks like this:
 Read the following notes carefully to prevent being subject to security exploits:
 * All string fields in a JSON response unless explicitly noted otherwise are provided in without sanitation. This means that if you do not escape it properly before rendering you will be vulnerable to [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29) attacks
 * Basic Auth headers can easily be decrypted by anyone since base64 is an encoding, not an encryption. Therefore only send them if you are accessing an HTTPS website or display an easy to understand warning if the user chooses HTTP
+* When creating a feed you can choose to add basic auth authentication credentials. These must be stored in clear text so anyone with access to your database (however they might have achieved it, think of Sql injection) can read them and use them to access the website. You should warn the user about this.
 
 ## Syncing
 All routes are given relative to the base API url, e.g.: **/sync** becomes  **https://yourowncloud.com/index.php/apps/news/api/v2/sync**
@@ -170,7 +171,6 @@ and the following request body:
 
 Each resource's (aka folder/feed/item) attributes are explained in separate chapters.
 
-**Important**: Read the **Security Guidelines**
 
 ### Sync Local And Remote Changes
 After the initial sync the app has all folders, feeds and items. Now you want to push changes and retrieve updates from the server. To do this, make the following request:
@@ -235,7 +235,6 @@ However if an item did change, the full item will be sent to the client
 If the HTTP status code was either in the **4xx** or **5xx** range, the exact same request needs to be retried when doing the next sync.
 
 
-**Important**: Read the **Security Guidelines**
 
 
 ## Folders
