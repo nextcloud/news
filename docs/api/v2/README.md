@@ -4,6 +4,56 @@ The **News app** offers a RESTful API which can be used to sync folders, feeds a
 
 In addition, an updater API is exposed which enables API users to run feed updates in parallel using a REST API or ownCloud console API.
 
+## Conventions
+This document uses the following conventions:
+
+* Aliases
+* Error objects are omitted
+
+### Object Aliases As Comments
+
+In order to only specify the JSON objects once, comments are used to alias them.
+
+There are two aliases:
+* Objects
+* Object arrays
+
+**Objects**:
+```js
+{
+    "data": {
+        "folder": { /* folder object */ },
+    }
+}
+```
+
+means that the folder attributes will be inside the **folder** object
+
+**Object arrays**:
+```js
+{
+    "data": {
+        "folders": [ /* array of folder objects */ ],
+    }
+}
+```
+
+means that folder objects will be inside the **folders** array.
+
+### Error Objects Are Omitted
+
+This means that the error object will not be explicitely shown in the examples. All HTTP 400 response status codes contain an error object:
+
+```json
+{
+    "data": { },
+    "error": {
+        "code": 1,
+        "message": "error message"
+    }
+}
+```
+
 ## API Stability Contract
 
 The API level will **change** if the following occurs:
@@ -125,7 +175,7 @@ The intial sync happens when a user adds an ownCloud account in your app. In tha
 
 * **Method**: GET
 * **Route**: /sync
-* **Authentication**: [required](#Authentication)
+* **Authentication**: [required](#authentication)
 * **HTTP headers**:
   * **Accept: "application/json"**
 
@@ -148,9 +198,9 @@ and the following request body:
 ```
 
 **Hint**: Each object is explained in more detail in a separate section:
-* [Folders](#Folders)
-* [Feeds](#Feeds)
-* [Items](#Items)
+* [Folders](#folders)
+* [Feeds](#feeds)
+* [Items](#items)
 
 
 ### Sync Local And Remote Changes
@@ -158,7 +208,7 @@ After the initial sync the app has all folders, feeds and items. Now you want to
 
 * **Method**: POST
 * **Route**: /sync
-* **Authentication**: [required](#Authentication)
+* **Authentication**: [required](#authentication)
 * **HTTP headers**:
   * **Content-Type: "application/json; charset=utf-8"**
   * **Accept: "application/json"**
@@ -197,8 +247,8 @@ If no items have been read or starred, simply leave the **items** array empty, e
 ```
 
 The response matches the **GET** call, except there can be two different types of item objects:
-* **[Full](#Full)**: Contains all attributes
-* **[Reduced](#Reduced)**: Contains only **id**, **isRead** and **isStarred**
+* **[Full](#full)**: Contains all attributes
+* **[Reduced](#reduced)**: Contains only **id**, **isRead** and **isStarred**
 
 The deciding factor whether a full or reduced item object is being returned depends on the fingerprint in the request: If the fingerprint matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.
 
@@ -221,26 +271,22 @@ The attributes mean the following:
 To delete a folder, use the following request:
 * **Method**: DELETE
 * **Route**: /folders/{id}
-* **Authentication**: [required](#Authentication)
 * **Route Parameters**:
   * **{id}**: folder's id
+* **Authentication**: [required](#authentication)
 
 The following response is being returned:
 
 Status codes:
 * **200**: Folder was deleted successfully
-* **404**: Folder with given id was not found, no error object
-* Other ownCloud errors, see [Response Format](#response-format)
+* **404**: Folder does not exist
 
 In case of an HTTP 200, the deleted folder is returned in full in the response, e.g.:
 
-```json
+```js
 {
     "data": {
-        "folder": {
-            "id": 3,
-            "name": "funny stuff"
-        }
+        "folder": { /* folder object */ }
     }
 }
 ```
@@ -248,6 +294,7 @@ In case of an HTTP 200, the deleted folder is returned in full in the response, 
 To create a folder, use the following request:
 * **Method**: POST
 * **Route**: /folders
+* **Authentication**: [required](#authentication)
 
 with the following request body:
 ```json
@@ -261,22 +308,19 @@ The following response is being returned:
 Status codes:
 * **200**: Folder was created successfully
 * **400**: Folder creation error, check the error object:
-  * **code**: 1 folder name is empty
+  * **code**: 1: folder name is empty
 * **409**: Folder with given name exists already
-* Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200 or 409, the created or already existing folder is returned in full in the response, e.g.:
 
-```json
+```js
 {
     "data": {
-        "folder": {
-            "id": 3,
-            "name": "funny stuff"
-        }
+        "folder": { /* folder object */ }
     }
 }
 ```
+
 ### Changing A Folder
 The following attributes can be changed on the folder:
 * **name**
@@ -286,6 +330,7 @@ To change any number of attributes on a folder, use the following request and pr
 * **Route**: /folders/{id}
 * **Route Parameters**:
   * **{id}**: folder's id
+* **Authentication**: [required](#authentication)
 
 with the following request body:
 ```json
@@ -301,19 +346,16 @@ The following response is being returned:
 Status codes:
 * **200**: Folder was created successfully
 * **400**: Folder creation error, check the error object:
-  * **code**: 1 folder name is empty
+  * **code**: 1: folder name is empty
 * **409**: Folder with given name exists already
 * Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200 or 409, the changed or already existing folder is returned in full in the response, e.g.:
 
-```json
+```js
 {
     "data": {
-        "folder": {
-            "id": 3,
-            "name": "funny stuff"
-        }
+        "folder": { /* folder object */ }
     }
 }
 ```
@@ -345,9 +387,9 @@ The attributes mean the following:
 * **faviconLink**: Abitrary long text, feed's favicon location, **null** if not found
 * **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 * **ordering**: 64bit Integer, overrides the feed's default ordering:
-  * **0**: Default ordering
-  * **1**: Oldest first ordering
-  * **2**: Newest first ordering
+  * **0**: Default
+  * **1**: Oldest on top
+  * **2**: Newest on top
 * **updateMode**: 64bit Integer, describing how item updates are handled:
   * **0**: No special behavior
   * **1**: If an item is updated, mark it unread
@@ -364,6 +406,8 @@ To delete a feed, use the following request:
 * **Route**: /feeds/{id}
 * **Route Parameters**:
   * **{id}**: feed's id
+* **Authentication**: [required](#authentication)
+
 
 The following response is being returned:
 
@@ -375,22 +419,10 @@ Status codes:
 
 In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:
 
-```json
+```js
 {
     "data": {
-        "feed": {
-            "id": 4,
-            "name": "The Oatmeal - Comics, Quizzes, & Stories",
-            "faviconLink": "http://theoatmeal.com/favicon.ico",
-            "folderId": 3,
-            "ordering": 0,
-            "isPinned": true,
-            "fullTextEnabled": false,
-            "updateMode": 0,
-            "error": {
-                "code": 1,
-                "message": ""
-            }
+        "feed": { /* feed object */ }
         }
     }
 }
@@ -400,6 +432,8 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
 To create a feed, use the following request:
 * **Method**: POST
 * **Route**: /feeds
+* **Authentication**: [required](#authentication)
+
 
 with the following request body:
 ```json
@@ -413,51 +447,37 @@ with the following request body:
     "basicAuthPassword": "password"
 }
 ```
-* **url**: Abitrary long text, the url which was entered by the user with the full schema
+* **url**: Abitrary long text, the url needs to have the full schema e.g. https://the-url.com. In case the user omits the schema, prepending **https** is recommended
 * **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
 * **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
 * **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
-* **ordering (optional)**: See [Feeds](#Feeds)
-* **isPinned (optional)**: See [Feeds](#Feeds)
-* **fullTextEnabled (optional)**: See [Feeds](#Feeds)
+* **ordering (optional)**: See [Feeds](#feeds)
+* **isPinned (optional)**: See [Feeds](#feeds)
+* **fullTextEnabled (optional)**: See [Feeds](#feeds)
 
 The following response is being returned:
 
 Status codes:
 * **200**: Feed was created successfully
-* **400**: Feed creation error, check the error object:
-  * **code**: 1 url is empty
-  * **code**: 2 malformed xml
-  * **code**: 3 no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)
-  * **code**: 4 feed format not supported (e.g. too old RSS version)
-  * **code**: 5 ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)
-  * **code**: 6 url can not be found or accessed
-  * **code**: 7 maximum redirects reached
-  * **code**: 8 maximum size reached
-  * **code**: 9 request timed out
-  * **code**: 10 invalid or missing http basic auth headers
-  * **code**: 11 not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
-* Other ownCloud errors, see [Response Format](#response-format)
+* **400**: Feed creation error, check the **error** object:
+  * **code**: 1: url is empty
+  * **code**: 2: malformed xml
+  * **code**: 3: no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)
+  * **code**: 4: feed format not supported (e.g. too old RSS version)
+  * **code**: 5: ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)
+  * **code**: 6: url can not be found or accessed
+  * **code**: 7: maximum redirects reached
+  * **code**: 8: maximum size reached
+  * **code**: 9: request timed out
+  * **code**: 10: invalid or missing http basic auth headers
+  * **code**: 11: not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
 
 In case of an HTTP 200, the created feed is returned in full in the response, e.g.:
 
-```json
+```js
 {
     "data": {
-        "feed": {
-            "id": 4,
-            "name": "The Oatmeal - Comics, Quizzes, & Stories",
-            "faviconLink": "http://theoatmeal.com/favicon.ico",
-            "folderId": 3,
-            "ordering": 0,
-            "isPinned": true,
-            "fullTextEnabled": false,
-            "updateMode": 0,
-            "error": {
-                "code": 1,
-                "message": ""
-            }
-        }
+        "feed": { /* feed object */ }
     }
 }
 ```
@@ -469,6 +489,8 @@ To change a feed, use the following request:
 * **Route**: /feeds/{id}
 * **Route Parameters**:
   * **{id}**: feed's id
+* **Authentication**: [required](#authentication)
+
 
 with the following request body:
 ```json
@@ -498,37 +520,25 @@ The following response is being returned:
 Status codes:
 * **200**: Feed was changed successfully
 * **400**: Feed creation error, check the error object:
-  * **code**: 1 url is empty
-  * **code**: 2 malformed xml
-  * **code**: 3 no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)
-  * **code**: 4 feed format not supported (e.g. too old RSS version)
-  * **code**: 5 ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)
-  * **code**: 6 url can not be found or accessed
-  * **code**: 7 maximum redirects reached
-  * **code**: 8 maximum size reached
-  * **code**: 9 request timed out
-  * **code**: 10 invalid or missing http basic auth headers
-  * **code**: 11 not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
+  * **code**: 1: url is empty
+  * **code**: 2: malformed xml
+  * **code**: 3: no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)
+  * **code**: 4: feed format not supported (e.g. too old RSS version)
+  * **code**: 5: ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)
+  * **code**: 6: url can not be found or accessed
+  * **code**: 7: maximum redirects reached
+  * **code**: 8: maximum size reached
+  * **code**: 9: request timed out
+  * **code**: 10: invalid or missing http basic auth headers
+  * **code**: 11: not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
 * Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the changed feed is returned in full in the response, e.g.:
 
-```json
+```js
 {
     "data": {
-        "feed": {
-            "id": 4,
-            "name": "The Oatmeal - Comics, Quizzes, & Stories",
-            "faviconLink": "http://theoatmeal.com/favicon.ico",
-            "folderId": 3,
-            "ordering": 0,
-            "isPinned": true,
-            "fullTextEnabled": false,
-            "updateMode": 0,
-            "error": {
-                "code": 1,
-                "message": ""
-            }
+        "feed": { /* feed object */ }
         }
     }
 }
@@ -547,7 +557,7 @@ The attributes mean the following:
 * **title**: Abitrary long text, item's title
 * **author**: Abitrary long text, name of the author/authors
 * **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
-* **updateddAt**: String representing an ISO 8601 DateTime object, when the item was updated
+* **updatedAt**: String representing an ISO 8601 DateTime object, when the item was updated
 * **enclosures**: A list of enclosure objects,
   * **mime**: Mimetype
   * **url**: Abitrary long text, location of the enclosure
@@ -591,9 +601,6 @@ A reduced item only contains the item status:
 }
 ```
 
-
-
-
 ## Updater
 Instead of using the built in, slow cron updater you can use the parallel update API to update feeds. The API can be accessed through REST or ownCloud console API.
 
@@ -620,6 +627,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 * **Method**: GET
 * **Route**: /updater/before-update
+* **Authentication**: [admin](#authentication)
 
 ### Get All Feeds And User Ids
 This call returns pairs of feed ids and user ids.
@@ -632,6 +640,8 @@ This call returns pairs of feed ids and user ids.
 
 * **Method**: GET
 * **Route**: /updater/all-feeds
+* **Authentication**: [admin](#authentication)
+
 
 Both APIs will return the following response body or terminal output:
 
@@ -664,6 +674,8 @@ After all feed ids and user ids are known, feeds can be updated in parallel.
 * **Route Parameters**:
   * **{feedId}**: the feed's id
   * **{userId}**: the user's id
+* **Authentication**: [admin](#authentication)
+
 
 ### Clean Up After Update
 This is used to clean up the database. It removes old read articles which are not starred.
@@ -676,19 +688,20 @@ This is used to clean up the database. It removes old read articles which are no
 
 * **Method**: GET
 * **Route**: /updater/after-update
+* **Authentication**: [admin](#authentication)
 
 ## Meta Data
 The retrieve meta data about the app, use the following request:
 
 * **Method**: GET
 * **Route**: /
+* **Authentication**: [required](#authentication)
+
 
 The following response is being returned:
 
 Status codes:
 * **200**: Meta data accessed successfully
-* Other ownCloud errors, see [Response Format](#response-format)
-
 
 In case of an HTTP 200, the the following response is returned:
 
