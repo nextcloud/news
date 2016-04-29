@@ -72,7 +72,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 ## Response Format
 The status codes are not always provided by the News app itself, but might also be returned because of ownCloud internal errors.
 
-The following status codes can be returned by ownCloud:
+The following status codes can always be returned by ownCloud:
 * **401**: The provided credentials to log into ownCloud are invalid.
 * **403**: The user is not allowed to access the route. This can happen if for instance of only users in the admin group can access the route and the user is not in it.
 * **404**: The route can not be found or the resource does not exist. Can also happen if for instance you are trying to delete a folder which does not exist.
@@ -105,6 +105,7 @@ The response body is a JSON structure that looks like this:
   * **code**: A unique error code
   * **message**: A translated error message. The user's configured locale is used.
 
+In case of an **4xx** or **5xx** error the request was not successful and has to be retried. For instance marking items as read locally and syncing should send the same request again the next time the user syncs in case an error occured.
 
 ## Security Guidelines
 Read the following notes carefully to prevent being subject to security exploits:
@@ -117,67 +118,39 @@ All routes are given relative to the base API url, e.g.: **/sync** becomes  **ht
 
 There are two usecases for syncing:
 * **Initial sync**: the user does not have any data at all
-* **Syncing local and remote changes**: the user has synced at least once and wants submit and receive changes
+* **Syncing local and remote changes**: the user has synced at least once and wants to submit and receive changes
 
 ### Initial Sync
 The intial sync happens when a user adds an ownCloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:
 
 * **Method**: GET
 * **Route**: /sync
+* **Authentication**: [required](#Authentication)
 * **HTTP headers**:
   * **Accept: "application/json"**
-  * Authorization headers
 
 This will return the following status codes:
-* **200**: Successully synced
-* Other ownCloud errors, see [Response Format](#response-format)
+* **200**: Success
 
 and the following HTTP headers:
 * **Content-Type**: application/json; charset=utf-8
-* **Etag**: A string containing a cache header of maximum size 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59
+* **Etag**: A string containing a cache header, maximum size 64 ASCII characters, e.g. 6d82cbb050ddc7fa9cbb659014546e59
 
 and the following request body:
 ```js
 {
     "data": {
-        "folders": [{
-            "id": 3,
-            "name": "funny stuff"
-        }, /* etc */],
-        "feeds": [{
-            "id": 4,
-            "name": "The Oatmeal - Comics, Quizzes, & Stories",
-            "faviconLink": "http://theoatmeal.com/favicon.ico",
-            "folderId": 3,
-            "ordering": 0,
-            "isPinned": true,
-            "error": {
-                "code": 1,
-                "message": ""
-            }
-        }, /* etc */],
-        "items": [{
-            "id": 5,
-            "url": "http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/",
-            "title": "Plasma-nm after the solid sprint",
-            "author": "Jan Grulich (grulja)",
-            "publishedAt": "2005-08-15T15:52:01+0000",
-            "updatedAt": "2005-08-15T15:52:01+0000",
-            "enclosures": [{
-                "mime": "video/webm",
-                "url": "http://video.webmfiles.org/elephants-dream.webm"
-            }],
-            "body": "<p>At first I have to say...</p>",
-            "feedId": 4,
-            "isUnread": true,
-            "isStarred": true,
-            "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054"
-        }, /* etc */]
+        "folders": [ /* array of folder objects */ ],
+        "feeds": [ /* array of feed objects */ ],
+        "items": [ /* array of item objects */ ]
     }
 }
 ```
 
-Each resource's (aka folder/feed/item) attributes are explained in separate chapters.
+**Hint**: Each object is explained in more detail in a separate section:
+* [Folders](#Folders)
+* [Feeds](#Feeds)
+* [Items](#Items)
 
 
 ### Sync Local And Remote Changes
@@ -185,11 +158,11 @@ After the initial sync the app has all folders, feeds and items. Now you want to
 
 * **Method**: POST
 * **Route**: /sync
+* **Authentication**: [required](#Authentication)
 * **HTTP headers**:
   * **Content-Type: "application/json; charset=utf-8"**
   * **Accept: "application/json"**
   * **If-None-Match: "6d82cbb050ddc7fa9cbb659014546e59"** (Etag from the previous request to the /sync route)
-  * Authorization headers
 
 with the following request body:
 
@@ -211,7 +184,7 @@ with the following request body:
             "id": 7,
             "isStarred": false,
             "fingerprint": "18ffbcf94bd95a1faa6e9e799cc29054"
-    },/* etc */]
+    }, /* etc */]
 }
 ```
 
@@ -223,27 +196,13 @@ If no items have been read or starred, simply leave the **items** array empty, e
 }
 ```
 
-The response will be the same as in the initial sync except if an item's fingerprint is the same as in the database: This means that the contents of the item did not change and in order to preserve bandwidth, only the status is added to the item, e.g.:
+The response matches the **GET** call, except there can be two different types of item objects:
+* **[Full](#Full)**: Contains all attributes
+* **[Reduced](#Reduced)**: Contains only **id**, **isRead** and **isStarred**
 
-```js
-{
-    "data": {
-        "folders": [/* new or updated folders here */],
-        "feeds": [/* new or updated feeds here */],
-        "items": [{
-                "id": 5,
-                "isStarred": false,
-                "isRead": true,
-        }, /* etc */]
-    }
-}
-```
-However if an item did change, the full item will be sent to the client
+The deciding factor whether a full or reduced item object is being returned depends on the fingerprint in the request: If the fingerprint matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.
 
-If the HTTP status code was either in the **4xx** or **5xx** range, the exact same request needs to be retried when doing the next sync.
-
-
-
+The idea behind this special handling is that if the fingerprint matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status.
 
 ## Folders
 Folders are represented using the following data structure:
@@ -262,6 +221,7 @@ The attributes mean the following:
 To delete a folder, use the following request:
 * **Method**: DELETE
 * **Route**: /folders/{id}
+* **Authentication**: [required](#Authentication)
 * **Route Parameters**:
   * **{id}**: folder's id
 
@@ -576,7 +536,31 @@ In case of an HTTP 200, the changed feed is returned in full in the response, e.
 
 ## Items
 
-Items can either be in the format of:
+Items can occur in two different formats:
+
+* Full
+* Reduced
+
+The attributes mean the following:
+* **id**: 64bit Integer, id
+* **url**: Abitrary long text, location of the online resource
+* **title**: Abitrary long text, item's title
+* **author**: Abitrary long text, name of the author/authors
+* **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
+* **updateddAt**: String representing an ISO 8601 DateTime object, when the item was updated
+* **enclosures**: A list of enclosure objects,
+  * **mime**: Mimetype
+  * **url**: Abitrary long text, location of the enclosure
+* **body**: Abitrary long text, **sanitized (meaning: does not have to be escape)**, contains the item's content
+* **feedId**: 64bit Integer, the item's feed it belongs to
+* **isUnread**: Boolean, true if unread, false if read
+* **isStarred**: Boolean, true if starred, false if not starred
+* **fingerprint**: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:
+  * Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.
+  * When marking an item read, all items with the same fingerprint should also be marked as read.
+
+### Full
+A full item contains the full content:
 ```json
 {
     "id": 5,
@@ -597,8 +581,8 @@ Items can either be in the format of:
 }
 ```
 
-or if they did not change in the following format:
-
+### Reduced
+A reduced item only contains the item status:
 ```json
 {
     "id": 5,
@@ -607,23 +591,7 @@ or if they did not change in the following format:
 }
 ```
 
-The attributes mean the following:
-* **id**: 64bit Integer, id
-* **url**: Abitrary long text, location of the online resource
-* **title**: Abitrary long text, item's title
-* **author**: Abitrary long text, name of the author/authors
-* **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
-* **updateddAt**: String representing an ISO 8601 DateTime object, when the item was updated
-* **enclosures**: A list of enclosure objects,
-  * **mime**: Mimetype
-  * **url**: Abitrary long text, location of the enclosure
-* **body**: Abitrary long text, **sanitized (meaning: does not have to be escape)**, contains the item's content
-* **feedId**: 64bit Integer, the item's feed it belongs to
-* **isUnread**: Boolean, true if unread, false if read
-* **isStarred**: Boolean, true if starred, false if not starred
-* **fingerprint**: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:
-  * Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.
-  * When marking an item read, all items with the same fingerprint should also be marked as read.
+
 
 
 ## Updater
