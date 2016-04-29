@@ -7,7 +7,7 @@ In addition, an updater API is exposed which enables API users to run feed updat
 ## Conventions
 This document uses the following conventions:
 
-* Aliases
+* Object aliases as comments
 * Error objects are omitted
 
 ### Object Aliases As Comments
