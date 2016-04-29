@@ -27,7 +27,7 @@ There are two types of aliases:
 }
 ```
 
-means that the folder attributes will be inside the **folder** object
+means that the folder attributes will be listed inside the **folder** object
 
 **Object arrays**:
 ```js
@@ -38,7 +38,7 @@ means that the folder attributes will be inside the **folder** object
 }
 ```
 
-means that folder objects will be inside the **folders** array.
+means that folder objects will be listed inside the **folders** array.
 
 ### Error Objects Are Omitted
 
