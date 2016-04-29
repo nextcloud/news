@@ -14,7 +14,7 @@ This document uses the following conventions:
 
 In order to only specify the JSON objects once, comments are used to alias them.
 
-There are two aliases:
+There are two types of aliases:
 * Objects
 * Object arrays
 
