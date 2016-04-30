@@ -339,7 +339,7 @@
 
     #app-content .article-actions li {
         float: left;
-        width: 52px !important;
+        width: 40px !important;
     }
 
     #app-content #articles:not(.compact) .article-actions {
