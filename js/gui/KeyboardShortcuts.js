@@ -324,7 +324,6 @@
             items.each(function (index, item) {
                 var $item = $(item);
                 var bottom = $item.position().top + $item.outerHeight(true);
-                console.log(bottom);
                 if ((bottom - 20) >= 0){
                     setItemActive(item);
                     return false;
