@@ -286,7 +286,7 @@ exploreUrl =
 
 
 * **autoPurgeMinimumInterval**: Minimum amount of seconds after deleted feeds and folders are removed from the database. Values below 60 seconds are ignored
-* **autoPurgeCount**: Defines the minimum amount of articles that can be unread per feed before they get deleted, a negative value will turn off deleting articles completely
+* **autoPurgeCount**: Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off completely
 * **maxRedirects**: How many redirects the updater should follow
 * **maxSize**: Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
