@@ -9,6 +9,7 @@ $TRANSLATIONS = array(
 "Request timed out" => "Zahteva je časovno potekla!",
 "Required credentials for feed were either missing or incorrect" => "Zahtevana poverila za ta vir so nepravilna, ali pa jih ni",
 "Forbidden to access feed" => "Dostop do vira je prepovedan",
+"Certificate error: A problem occurred somewhere in the SSL/TLS handshake. Could be certificates (file formats, paths, permissions), passwords, and others." => "Napaka potrdila: prišlo je do napake med izmenjavo podatkov SSL/TLS. Napaka je lahko v potrdilu (zapis datoteke, pot, dovoljenja), v geslih ali drugje.",
 "Certificate error: Problem with the local client certificate." => "Napaka potrdila: napaka krajevnega potrdila odjemalca.",
 "Certificate error: Couldn't use specified cipher." => "Napaka potrdila: navedene števke ni mogoče uporabiti.",
 "Certificate error: Peer certificate cannot be authenticated with known CA certificates." => "Napaka potrdila: potrdila ni mogoče overiti z znanimi potrdili CA.",
