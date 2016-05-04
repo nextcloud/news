@@ -291,7 +291,7 @@
         var activeElement = getActiveElement(scrollArea);
         // in expand in compact mode, jumping to the next item should open
         // the current one if it's not open yet
-        if (!activeElement.hasClass('open')) {
+        if (expandItemInCompact && !activeElement.hasClass('open')) {
             activeElement.find('.utils').trigger('click');
         } else {
             var nextElement = activeElement.next();
