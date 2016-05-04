@@ -1,3 +1,6 @@
+owncloud-news (8.7.4)
+* **Bugfix**: Fix expand in compact view mode, #988
+
 owncloud-news (8.7.3)
 * **Bugfix**: Rerun fingerprint and search index generation in case it was not run properly before
 * **Bugfix**: Do not swallow errors when generating search indices and fingerprints

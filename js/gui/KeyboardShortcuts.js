@@ -89,9 +89,9 @@
     var nextFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.explore-feed,' +
-                                           '.subscriptions-feed:visible,' +
-                                           '.starred-feed:visible,' +
-                                           '.feed:visible');
+            '.subscriptions-feed:visible,' +
+            '.starred-feed:visible,' +
+            '.feed:visible');
 
         if (current.hasClass('folder')) {
             while (current.length > 0) {
@@ -109,11 +109,11 @@
 
         // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
         // please create a PR
-        for (var i=0; i<elements.length-1; i+=1) {
+        for (var i = 0; i < elements.length - 1; i += 1) {
             var element = elements[i];
 
             if (element === current[0]) {
-                var next = elements[i+1];
+                var next = elements[i + 1];
                 activateNavigationEntry($(next), navigationArea);
                 break;
             }
@@ -184,9 +184,9 @@
     var previousFeed = function (navigationArea) {
         var current = navigationArea.find('.active');
         var elements = navigationArea.find('.explore-feed,' +
-                                           '.subscriptions-feed:visible,' +
-                                           '.starred-feed:visible,' +
-                                           '.feed:visible');
+            '.subscriptions-feed:visible,' +
+            '.starred-feed:visible,' +
+            '.feed:visible');
 
         // special case: folder selected
         if (current.hasClass('folder')) {
@@ -195,7 +195,7 @@
             while (previousFolder.length > 0) {
                 var subfeeds = previousFolder.find('.feed:visible');
                 if (subfeeds.length > 0) {
-                    activateNavigationEntry($(subfeeds[subfeeds.length-1]),
+                    activateNavigationEntry($(subfeeds[subfeeds.length - 1]),
                         navigationArea);
                     return;
                 }
@@ -206,7 +206,7 @@
             var feeds = current.siblings('.feed');
 
             if (feeds.length > 0) {
-                activateNavigationEntry($(feeds[feeds.length-1]),
+                activateNavigationEntry($(feeds[feeds.length - 1]),
                     navigationArea);
                 return;
             }
@@ -223,11 +223,11 @@
 
         // FIXME: O(n) runtime. If someone creates a nice and not fugly solution
         // please create a PR
-        for (var i=elements.length-1; i>0; i-=1) {
+        for (var i = elements.length - 1; i > 0; i -= 1) {
             var element = elements[i];
 
             if (element === current[0]) {
-                var previous = elements[i-1];
+                var previous = elements[i - 1];
                 activateNavigationEntry($(previous), navigationArea);
                 break;
             }
@@ -281,22 +281,27 @@
         setItemActive(item[0]);
 
         if (expandItemInCompact) {
-            onActiveItem(scrollArea, function (item) {
-                if (!item.hasClass('open')) {
-                    item.find('.utils').trigger('click');
-                }
-            });
+            if (!item.hasClass('open')) {
+                item.find('.utils').trigger('click');
+            }
         }
     };
 
     var scrollToNextItem = function (scrollArea, expandItemInCompact) {
         var activeElement = getActiveElement(scrollArea);
-        var nextElement = activeElement.next();
-        if (nextElement.length > 0) {
-            scrollToItem(scrollArea, nextElement, expandItemInCompact);
+        // in expand in compact mode, jumping to the next item should open
+        // the current one if it's not open yet
+        if (!activeElement.hasClass('open')) {
+            activeElement.find('.utils').trigger('click');
         } else {
-            // in case this is the last item it should still scroll below the
-            scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
+            var nextElement = activeElement.next();
+            if (nextElement.length > 0) {
+                scrollToItem(scrollArea, nextElement, expandItemInCompact);
+            } else {
+                // in case this is the last item it should still scroll below
+                // the
+                scrollArea.scrollTop(scrollArea.prop('scrollHeight'));
+            }
         }
     };
 
@@ -324,7 +329,7 @@
             items.each(function (index, item) {
                 var $item = $(item);
                 var bottom = $item.position().top + $item.outerHeight(true);
-                if ((bottom - 20) >= 0){
+                if ((bottom - 20) >= 0) {
                     setItemActive(item);
                     return false;
                 }
@@ -339,7 +344,7 @@
         var navigationArea = $('#app-navigation');
         var isCompactView = $('#articles.compact').length > 0;
         var isExpandItem = $('#articles')
-            .attr('news-compact-expand') === 'true';
+                .attr('news-compact-expand') === 'true';
         var expandItemInCompact = isCompactView && isExpandItem;
 
         if (noInputFocused($(':focus')) && noModifierKey(event)) {
@@ -349,94 +354,94 @@
                 event.preventDefault();
                 scrollToNextItem(scrollArea, expandItemInCompact);
 
-            // k, p, left arrow
+                // k, p, left arrow
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 scrollToPreviousItem(navigationArea, scrollArea,
-                                     expandItemInCompact);
+                    expandItemInCompact);
 
-            // u
+                // u
             } else if ([85].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 toggleUnread(scrollArea);
 
-            // e
+                // e
             } else if ([69].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 expandItem(scrollArea);
 
-            // s, i, l
+                // s, i, l
             } else if ([73, 83, 76].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 toggleStar(scrollArea);
 
-            // h
+                // h
             } else if ([72].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 toggleStar(scrollArea);
                 scrollToNextItem(scrollArea);
 
-            // o
+                // o
             } else if ([79].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 openLink(scrollArea);
 
-            // r
+                // r
             } else if ([82].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 reloadFeed(navigationArea);
 
-            // f
+                // f
             } else if ([70].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 nextFeed(navigationArea);
 
-            // d
+                // d
             } else if ([68].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 previousFeed(navigationArea);
 
-            // c
+                // c
             } else if ([67].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 previousFolder(navigationArea);
 
-            // a
+                // a
             } else if ([65].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 scrollToActiveNavigationEntry(navigationArea);
 
-            // v
+                // v
             } else if ([86].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 nextFolder(navigationArea);
 
-            // q
+                // q
             } else if ([81].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
                 $('#searchbox').focus();
 
-            // page up
+                // page up
             } else if ([33].indexOf(keyCode) >= 0) {
 
                 tryReload(navigationArea, scrollArea);
 
             }
 
-        // everything with shift
+            // everything with shift
         } else if (noInputFocused($(':focus')) && event.shiftKey) {
 
             // shift + a
