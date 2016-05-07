@@ -14,6 +14,7 @@ OC.L10N.register(
     "Certificate error: The remote server's SSL certificate or SSH md5 fingerprint was deemed not OK." : "Certificaat error: De remote server's SSL certificaat of SSH md5 fingerprint was geacht niet OK.",
     "Certificate error: Problem with the local client certificate." : "Certificaat error: Probleem met de lokale cliënt certificaat.",
     "Certificate error: Couldn't use specified cipher." : "Certificaat error: Onbevoegde cijfer gespecificeerd.",
+    "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Certificaatfout: het certificaat van de partner kan niet worden geverifieerd bij de bekende Certificate Authorities.",
     "Certificate error: Requested FTP SSL level failed." : "Certificaat error: Aangevraagde FTP SSL level mislukt.",
     "Certificate error: Initiating the SSL Engine failed." : "Certificaat error: Initialisatie van de SSL Engine mislukt.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Certificaat error: Probleem met het uitlezen van de SSL CA cert (pad? toegang permissies?)",
