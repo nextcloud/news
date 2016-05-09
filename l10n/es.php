@@ -1,6 +1,7 @@
 <?php
 $TRANSLATIONS = array(
 "Feed contains invalid XML" => "La fuente contiene XML inválido",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " => "Fuente no encontrada: o bien la página web no proporciona una fuente o bloquea el acceso. Para descartar el bloqueo, intente descargar la fuente en la línea de comandos del servidor utilizando curl: curl",
 "Detected feed format is not supported" => "El formato de fuente detectado no está soportado",
 "Website not found" => "Sitio web no encontrado",
 "More redirects than allowed, aborting" => "Hay más redirecciones que el máximo permitido, cancelando",
@@ -8,6 +9,8 @@ $TRANSLATIONS = array(
 "Request timed out" => "Tiempo de espera agotado",
 "Required credentials for feed were either missing or incorrect" => "Las credenciales requeridas para la fuente o están perdidas o son incorrectas",
 "Forbidden to access feed" => "Prohibido acceder a la fuente",
+"Certificate error: A problem occurred somewhere in the SSL/TLS handshake. Could be certificates (file formats, paths, permissions), passwords, and others." => "Error de Certificado: Ha ocurrido un error en la negociación SSL/TLS. Puede ser el certificado( Formato del archivo, ruta, permisos) La contraseña u otras cosas.",
+"Certificate error: The remote server's SSL certificate or SSH md5 fingerprint was deemed not OK." => "Error de Certificado: La firma MD5 de SSH o del certificado remoto SSL no es correcta.",
 "Certificate error: Problem with the local client certificate." => "Error de certificado: Problemas con el cliente del certificado local.",
 "Certificate error: Couldn't use specified cipher." => "Error de certificado: No se ha podido utilizar el cifrado especificado.",
 "Certificate error: Peer certificate cannot be authenticated with known CA certificates." => "Error de certificado: el certificado de par no se ha ha podido autentificar con los certificados CA conocidos. ",
