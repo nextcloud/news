@@ -21,9 +21,7 @@ There are two types of aliases:
 **Objects**:
 ```js
 {
-    "data": {
-        "folder": { /* folder object */ },
-    }
+    "folder": { /* folder object */ },
 }
 ```
 
@@ -32,9 +30,7 @@ means that the folder attributes will be listed inside the **folder** object
 **Object arrays**:
 ```js
 {
-    "data": {
-        "folders": [ /* array of folder objects */ ],
-    }
+    "folders": [ /* array of folder objects */ ],
 }
 ```
 
@@ -46,7 +42,6 @@ This means that the error object will not be explicitely shown in the examples. 
 
 ```json
 {
-    "data": { },
     "error": {
         "code": 1,
         "message": "error message"
@@ -138,11 +133,10 @@ The response headers are:
 * **Content-Type**: application/json; charset=utf-8
 * **Etag**: A string containing a cache header of maximum length 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59
 
-The response body is a JSON structure that looks like this:
+The response body is a JSON structure that looks like this, which contains the actual data on the first level. The key is the resource in singular if it's a single resource or plural if its a collection. In case of HTTP 400, an error object is also present to help distinguishing between different error types:
 
 ```json
 {
-    "data": { },
     "error": {
         "code": 1,
         "message": "error message"
@@ -150,7 +144,6 @@ The response body is a JSON structure that looks like this:
 }
 ```
 
-* **data**: Contains the payload
 * **error**: Only present when an HTTP 400 is returned to help distinguishing between error causes
   * **code**: A unique error code
   * **message**: A translated error message. The user's configured locale is used.
@@ -189,11 +182,9 @@ and the following HTTP headers:
 and the following request body:
 ```js
 {
-    "data": {
-        "folders": [ /* array of folder objects */ ],
-        "feeds": [ /* array of feed objects */ ],
-        "items": [ /* array of item objects */ ]
-    }
+    "folders": [ /* array of folder objects */ ],
+    "feeds": [ /* array of feed objects */ ],
+    "items": [ /* array of item objects */ ]
 }
 ```
 
@@ -285,9 +276,7 @@ In case of an HTTP 200, the deleted folder is returned in full in the response, 
 
 ```js
 {
-    "data": {
-        "folder": { /* folder object */ }
-    }
+    "folder": { /* folder object */ }
 }
 ```
 ### Creating A Folder
@@ -315,9 +304,7 @@ In case of an HTTP 200 or 409, the created or already existing folder is returne
 
 ```js
 {
-    "data": {
-        "folder": { /* folder object */ }
-    }
+    "folder": { /* folder object */ }
 }
 ```
 
@@ -354,9 +341,7 @@ In case of an HTTP 200 or 409, the changed or already existing folder is returne
 
 ```js
 {
-    "data": {
-        "folder": { /* folder object */ }
-    }
+    "folder": { /* folder object */ }
 }
 ```
 
@@ -421,10 +406,7 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
 
 ```js
 {
-    "data": {
-        "feed": { /* feed object */ }
-        }
-    }
+    "feed": { /* feed object */ }
 }
 ```
 
@@ -477,9 +459,7 @@ In case of an HTTP 200, the created feed is returned in full in the response, e.
 
 ```js
 {
-    "data": {
-        "feed": { /* feed object */ }
-    }
+    "feed": { /* feed object */ }
 }
 ```
 
@@ -538,9 +518,7 @@ In case of an HTTP 200, the changed feed is returned in full in the response, e.
 
 ```js
 {
-    "data": {
-        "feed": { /* feed object */ }
-    }
+    "feed": { /* feed object */ }
 }
 ```
 
@@ -647,12 +625,10 @@ Both APIs will return the following response body or terminal output:
 
 ```js
 {
-    "data": {
-        "updater": [{
-          "feedId": 3,
-          "userId": "john"
-        }, /* etc */]
-    }
+    "updater": [{
+      "feedId": 3,
+      "userId": "john"
+    }, /* etc */]
 }
 ```
 
