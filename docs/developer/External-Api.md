@@ -152,7 +152,8 @@ In case of an **4xx** or **5xx** error the request was not successful and has to
 
 ## Security Guidelines
 Read the following notes carefully to prevent being subject to security exploits:
-* All string fields in a JSON response unless explicitly noted otherwise are provided in without sanitation. This means that if you do not escape it properly before rendering you will be vulnerable to [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29) attacks
+* You should always enforce SSL certificate verification and never offer a way to turn it off. Certificate verification is important to prevent MITM attacks which is especially important in the mobile world where users are almost always connected to untrusted networks. In case a user runs a self-signed certificate on his server ask him to either install his certificate on his device or direct him to one of the many ways to sign his certificate for free (most notably letsencrypt.com)
+* All string fields in a JSON response **expect an item's body** are **not sanitized**. This means that if you do not escape it properly before rendering you will be vulnerable to [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29) attacks
 * Basic Auth headers can easily be decrypted by anyone since base64 is an encoding, not an encryption. Therefore only send them if you are accessing an HTTPS website or display an easy to understand warning if the user chooses HTTP
 * When creating a feed you can choose to add basic auth authentication credentials. These must be stored in clear text so anyone with access to your database (however they might have achieved it, think of Sql injection) can read them and use them to access the website. You should warn the user about this.
 
