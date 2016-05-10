@@ -104,40 +104,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 **Note**: The current Etag implementation contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.
 
 ### API Level Detection
-To find out which API levels are supported, make a request to the following route:
-
-* **Method**: GET
-* **Route**: https://yourowncloud.com/index.php/apps/news/api
-* **Authentication**: none
-
-The following response is being returned:
-
-Status codes:
-* **200**: The supported API levels can be parsed from the response
-* **404**: The user is either running a version prior to **8.8.0** or the News app is disabled or not installed.
-
-In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
-```json
-{
-    "apiLevels": ["v1-2", "v2"]
-}
-```
-
-**apiLevels**: An array of arbitrary long strings, strings represent the the supported api leves which directly correspond to the first fragment after the **/api/** Url fragment.
-
-To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
-
-* **Method**: GET
-* **Route**: https://yourowncloud.com/index.php/apps/news/api/v1-2/version
-* **Authentication**: [required](#authentication)
-
-Status codes:
-* **200**: Only the v1-2 API level is supported
-* **404**: The News app is disabled or not installed.
-
-Since these calls can be expensive you could first try to make a call to the [sync route](#syncing) and if it fails with an HTTP **404** run the API level detection. Of course the choice which APIs you are going to support is entirely yours and you could also hard require v2.
-
-**Note**: Future News app versions **may remove** the v1-2 API level depending on how widespread the adoption has become. You should therefore always make sure which API levels are actually supported.
+Check the [API level route](#api-level)
 
 ### Authentication
 Because REST is stateless you have to re-send user and password each time you access the API. Therefore running ownCloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
@@ -802,3 +769,40 @@ The attributes mean the following:
   * **avatar**: an avatar object, null if none is set
     * **data**: Abitrary long text, the user's image encoded as base64
     * **mime**: Abitrary long text, avatar mimetype
+
+
+## API Level
+To find out which API levels are supported, make a request to the following route:
+
+* **Method**: GET
+* **Route**: https://yourowncloud.com/index.php/apps/news/api
+* **Authentication**: none
+
+The following response is being returned:
+
+Status codes:
+* **200**: The supported API levels can be parsed from the response
+* **404**: The user is either running a version prior to **8.8.0** or the News app is disabled or not installed.
+
+In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
+```json
+{
+    "apiLevels": ["v1-2", "v2"]
+}
+```
+
+**apiLevels**: An array of arbitrary long strings, strings represent the the supported api leves which directly correspond to the first fragment after the **/api/** Url fragment.
+
+To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
+
+* **Method**: GET
+* **Route**: https://yourowncloud.com/index.php/apps/news/api/v1-2/version
+* **Authentication**: [required](#authentication)
+
+Status codes:
+* **200**: Only the v1-2 API level is supported
+* **404**: The News app is disabled or not installed.
+
+Since these calls can be expensive you could first try to make a call to the [sync route](#syncing) and if it fails with an HTTP **404** run the API level detection. Of course the choice which APIs you are going to support is entirely yours and you could also hard require v2.
+
+**Note**: Future News app versions **may remove** the v1-2 API level depending on how widespread the adoption has become. You should therefore always make sure which API levels are actually supported.
