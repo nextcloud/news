@@ -138,6 +138,8 @@ Status codes:
 * **404**: The News app is disabled or not installed.
 
 
+**Note**: Future News app versions **may remove** the v1-2 API level depending on how widespread the adoption has become. You should therefore always make sure which API levels are actually supported.
+
 ### Authentication
 Because REST is stateless you have to re-send user and password each time you access the API. Therefore running ownCloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
 
