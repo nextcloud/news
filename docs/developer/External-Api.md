@@ -79,7 +79,7 @@ The base URL for all calls is:
 
     https://yourowncloud.com/index.php/apps/news/api/v2
 
-All defined routes in the Specification are appended to this url. To access the sync for instance you'd use the following url:
+Unless an absolute Url is specified, the relative Urls in the Specification are appended to this url. To access the route **/sync** for instance you'd use the following url:
 
     https://yourowncloud.com/index.php/apps/news/api/v2/sync
 
