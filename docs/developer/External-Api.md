@@ -74,9 +74,7 @@ You have to design your app with these things in mind!:
 * **Don't limit your app to the currently available attributes**. New ones might be added. If you don't handle them, ignore them
 * **Use a library to compare versions**, ideally one that uses semantic versioning
 
-## Authentication
-Because REST is stateless you have to re-send user and password each time you access the API. Therefore running ownCloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
-
+## Request Format
 The base URL for all calls is:
 
     https://yourowncloud.com/index.php/apps/news/api/v2
@@ -85,19 +83,6 @@ All defined routes in the Specification are appended to this url. To access the 
 
     https://yourowncloud.com/index.php/apps/news/api/v2/sync
 
-Credentials are passed as an HTTP header using [HTTP basic auth](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side):
-
-    Authorization: Basic $CREDENTIALS
-
-where $CREDENTIALS is:
-
-    base64(USER:PASSWORD)
-
-This authentication/authorization method will be the recommended default until core provides an easy way to do OAuth
-
-**Note**: Even if login cookies are sent back to your client, they will not be considered for authentication.
-
-## Request Format
 The required request headers are:
 * **Accept**: application/json
 
@@ -115,6 +100,58 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
     "index": 0
 }
 ```
+
+**Note**: The current Etag contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.
+
+### API Level Detection
+To see which API levels are supported, make a request to the following route:
+
+* **Method**: GET
+* **Route**: https://yourowncloud.com/index.php/apps/news/api
+* **Authentication**: none
+
+The following response is being returned:
+
+Status codes:
+* **200**: The supported API levels can be parsed from the response
+* **404**: The user is either running a version prior to **8.8.0** or the News app is disabled or not installed.
+
+In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
+```json
+{
+    "apiLevels": ["v1-2", "v2"]
+}
+```
+
+**apiLevels**: An array of arbitrary long strings, strings represent the the supported api leves which directly correspond to the first fragment after the **/api/** Url fragment.
+
+To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
+
+A 404 will indicate that the v2 API is not present. Afterwards try a call to the following route:
+
+* **Method**: GET
+* **Route**: https://yourowncloud.com/index.php/apps/news/api/v1-2/version
+* **Authentication**: [required](#authentication)
+
+Status codes:
+* **200**: Only the v1-2 API level is supported
+* **404**: The News app is disabled or not installed.
+
+
+### Authentication
+Because REST is stateless you have to re-send user and password each time you access the API. Therefore running ownCloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
+
+Credentials are passed as an HTTP header using [HTTP basic auth](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side):
+
+    Authorization: Basic $CREDENTIALS
+
+where $CREDENTIALS is:
+
+    base64(USER:PASSWORD)
+
+This authentication/authorization method will be the recommended default until core provides an easy way to do OAuth
+
+**Note**: Even if login cookies are sent back to your client, they will not be considered for authentication.
 
 ## Response Format
 The status codes are not always provided by the News app itself, but might also be returned because of ownCloud internal errors.
@@ -150,7 +187,7 @@ The response body is a JSON structure that looks like this, which contains the a
   * **code**: A unique error code
   * **message**: A translated error message. The user's configured locale is used.
 
-In case of an **4xx** or **5xx** error the request was not successful and has to be retried. For instance marking items as read locally and syncing should send the same request again the next time the user syncs in case an error occured.
+In case of an **4xx** or **5xx** error the request was not successful and has to be retried. For instance marking items as read locally and syncing should send the same request again the next time the user syncs in case an error occurred.
 
 ## Security Guidelines
 Read the following notes carefully to prevent being subject to security exploits:
