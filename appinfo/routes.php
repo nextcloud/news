@@ -55,6 +55,9 @@ return ['routes' => [
 ['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],
 ['name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'],
 
+// general API
+['name' => 'api#index', 'url' => '/api', 'verb' => 'GET'],
+
 // API 1.2
 ['name' => 'user_api#index', 'url' => '/api/v1-2/user', 'verb' => 'GET'],
 ['name' => 'user_api#avatar', 'url' => '/api/v1-2/user/avatar', 'verb' => 'GET'],
