@@ -537,8 +537,8 @@ The attributes mean the following:
 * **author**: Abitrary long text, name of the author/authors
 * **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
 * **updatedAt**: String representing an ISO 8601 DateTime object, when the item was updated
-* **enclosures**: A list of enclosure objects,
-  * **mime**: Mimetype
+* **enclosure**: An enclosure object or null if none is present
+  * **mimeType**: Abitrary long text, the enclosures mime type
   * **url**: Abitrary long text, location of the enclosure
 * **body**: Abitrary long text, **sanitized (meaning: does not have to be escape)**, contains the item's content
 * **feedId**: 64bit Integer, the item's feed it belongs to
@@ -558,10 +558,10 @@ A full item contains the full content:
     "author": "Jan Grulich (grulja)",
     "publishedAt": "2005-08-15T15:52:01+0000",
     "updatedAt": "2005-08-15T15:52:01+0000",
-    "enclosures": [{
-        "mime": "video/webm",
+    "enclosure": {
+        "mimeType": "video/webm",
         "url": "http://video.webmfiles.org/elephants-dream.webm"
-    }],
+    },
     "body": "<p>At first I have to say...</p>",
     "feedId": 4,
     "isUnread": true,
