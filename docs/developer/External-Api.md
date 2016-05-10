@@ -101,7 +101,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 }
 ```
 
-**Note**: The current Etag contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.
+**Note**: The current Etag implementation contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.
 
 ### API Level Detection
 To see which API levels are supported, make a request to the following route:
