@@ -104,7 +104,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 **Note**: The current Etag implementation contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.
 
 ### API Level Detection
-To see which API levels are supported, make a request to the following route:
+To find out which API levels are supported, make a request to the following route:
 
 * **Method**: GET
 * **Route**: https://yourowncloud.com/index.php/apps/news/api
@@ -127,8 +127,6 @@ In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
 
 To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
 
-A 404 will indicate that the v2 API is not present. Afterwards try a call to the following route:
-
 * **Method**: GET
 * **Route**: https://yourowncloud.com/index.php/apps/news/api/v1-2/version
 * **Authentication**: [required](#authentication)
@@ -137,6 +135,7 @@ Status codes:
 * **200**: Only the v1-2 API level is supported
 * **404**: The News app is disabled or not installed.
 
+Since these calls can be expensive you could first try to make a call to the [sync route](#syncing) and if it fails with an HTTP **404** run the API level detection. Of course the choice which APIs you are going to support is entirely yours and you could also hard require v2.
 
 **Note**: Future News app versions **may remove** the v1-2 API level depending on how widespread the adoption has become. You should therefore always make sure which API levels are actually supported.
 
