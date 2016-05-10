@@ -95,6 +95,8 @@ where $CREDENTIALS is:
 
 This authentication/authorization method will be the recommended default until core provides an easy way to do OAuth
 
+**Note**: Even if login cookies are sent back to your client, they will not be considered for authentication.
+
 ## Request Format
 The required request headers are:
 * **Accept**: application/json
