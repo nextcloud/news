@@ -92,7 +92,8 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             <audio controls autoplay ng-src="{{ App.playingItem.enclosureLink|trustUrl }}" news-play-one></audio>
             <a class="button podcast-download" title="<?php p($l->t('Download')) ?>"
                 ng-href="{{ App.playingItem.enclosureLink|trustUrl }}"
-                target="_blank"></a>
+                target="_blank"
+                rel="noreferrer"></a>
             <button class="podcast-close" title="<?php p($l->t('Close')) ?>"
                 ng-click="App.playingItem = false"></button>
         </div>

@@ -4,7 +4,8 @@
         <ul>
             <li>
                 <a href="https://doc.owncloud.org/server/9.0/admin_manual/configuration_server/background_jobs_configuration.html#cron"
-                   target="_blank">
+                   target="_blank"
+                   rel="noreferrer">
                     <?php
                     p($l->t('How to set up the operating system cron'));
                     ?>
@@ -12,7 +13,8 @@
             </li>
             <li>
                 <a href="https://github.com/owncloud/news-updater"
-                   target="_blank">
+                   target="_blank"
+                   rel="noreferrer">
                     <?php
                     p($l->t('Install and set up a faster parallel updater that uses the News app\'s update API'));
                     ?>

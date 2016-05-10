@@ -25,7 +25,7 @@
             <div class="grid-item-content">
                 <h1 ng-show="entry.favicon"
                     ng-style="{ backgroundImage: 'url(' + entry.favicon + ')'}">
-                    <a target="_blank" ng-href="{{ entry.url }}">{{ entry.title }}</a>
+                    <a target="_blank" rel="noreferrer" ng-href="{{ entry.url }}">{{ entry.title }}</a>
                 </h1>
                 <h1 ng-hide="entry.favicon" class="icon-rss">
                     {{ entry.title }}
@@ -48,6 +48,6 @@
     </div>
 
     <div class="explore-footer">
-        <a target="_blank" href="https://github.com/owncloud/news/wiki/Explore-Feed-Section"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
+        <a target="_blank" rel="noreferrer" href="https://github.com/owncloud/news/wiki/Explore-Feed-Section"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
     </div>
 </div>

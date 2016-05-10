@@ -78,6 +78,7 @@
            class="button icon-download svg button-icon-label"
            href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
            target="_blank"
+           rel="noreferrer"
            ng-hide="App.isFirstRun()">
         </a>
 
@@ -119,6 +120,7 @@
            class="button icon-download svg button-icon-label"
            href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
            target="_blank"
+           rel="noreferrer"
            ng-hide="App.isFirstRun()">
         </a>
         <button
@@ -144,10 +146,12 @@
 
     <p>
         <a target="_blank"
+           rel="noreferrer"
            href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
     </p>
     <p>
         <a target="_blank"
+           rel="noreferrer"
            href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
     </p>
 
