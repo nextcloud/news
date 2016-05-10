@@ -129,6 +129,7 @@ News.addArticleAction(function($actionsElement, article) {
 
     $button.click(function (event) {
         window.open(url);
+        window.opener = null; // prevent twitter being from able to access the DOM
         event.stopPropagation();  // prevent expanding in compact mode
     });
 
