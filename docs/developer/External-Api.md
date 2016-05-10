@@ -189,7 +189,7 @@ and the following request body:
 }
 ```
 
-**Hint**: Each object is explained in more detail in a separate section:
+**Note**: Each object is explained in more detail in a separate section:
 * [Folders](#folders)
 * [Feeds](#feeds)
 * [Items](#items)
@@ -246,6 +246,46 @@ The deciding factor whether a full or reduced item object is being returned depe
 
 The idea behind this special handling is that if the fingerprint matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status. This greatly reduces the amount sent over the Net which is especially important for mobile apps.
 
+If you push a list of items to be marked read/starred, there can also be less items in the response than the ones which were initially sent. This means that the item was deleted by the cleanup job and should be removed from the client device.
+
+For instance let's take a look at the following example. You are **POST**ing the following JSON:
+```json
+{
+    "items": [{
+            "id": 5,
+            "isStarred": false,
+            "isRead": true,
+            "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054"
+        }, {
+            "id": 6,
+            "isRead": true,
+            "fingerprint": "09ffbcf94bd95a1faa6e9e799cc29054"
+        }, {
+            "id": 7,
+            "isStarred": false,
+            "fingerprint": "18ffbcf94bd95a1faa6e9e799cc29054"
+    }]
+}
+```
+
+and receive the following output in return:
+
+```json
+{
+    "items": [{
+            "id": 5,
+            "isStarred": false,
+            "isRead": true
+        }, {
+            "id": 6,
+            "isRead": true,
+            "isStarred": false
+    }]
+}
+```
+
+The item with the **id** **7** is missing from the response. This means that it was deleted on the server.
+
 ## Folders
 Folders are represented using the following data structure:
 ```json
@@ -280,6 +320,11 @@ In case of an HTTP 200, the deleted folder is returned in full in the response, 
     "folder": { /* folder object */ }
 }
 ```
+
+**Note**: Deleted folders will not appear during the next sync so you also need to delete the folder locally afterwards. Folders should only be deleted locally if an HTTP **200** or **404** was returned.
+
+**Note**: If you delete a folder locally, you should also delete all feeds whose **folderId** attribute matches the folder's **id** attribute and also delete all items whose **feedId** attribute matches the feeds' **id** attribute. This is done automatically on the server and will also be missing on the next request.
+
 ### Creating A Folder
 To create a folder, use the following request:
 * **Method**: POST
@@ -411,6 +456,10 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
 }
 ```
 
+**Note**: Deleted feeds will not appear during the next sync so you also need to delete the feed locally afterwards. Feeds should only be deleted locally if an HTTP **200** or **404** was returned.
+
+**Note**: If you delete a feed locally, you should also delete all items whose **feedId** attribute matches the feeds' **id** attribute. This is done automatically on the server and will also be missing on the next request.
+
 ### Creating A feed
 To create a feed, use the following request:
 * **Method**: POST
@@ -464,6 +513,7 @@ In case of an HTTP 200, the created feed is returned in full in the response, e.
 }
 ```
 
+**Note**: Because the next sync would also pull in the added feed and items again, the added items will be omitted for saving bandwidth. This also means that after successfully creating a feed you will need to query the [sync route](#sync-local-and-remote-changes) again.
 
 ### Changing A Feed
 To change a feed, use the following request:
@@ -522,6 +572,8 @@ In case of an HTTP 200, the changed feed is returned in full in the response, e.
     "feed": { /* feed object */ }
 }
 ```
+
+**Note**: Because the next sync would also pull in the changed feed and items again, the added or updated items will be omitted for saving bandwidth. This also means that after successfully updating a feed you will need to query the [sync route](#sync-local-and-remote-changes) again.
 
 ## Items
 
