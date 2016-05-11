@@ -70,17 +70,6 @@
         navigationArea.find('.active > a:visible').trigger('click');
     };
 
-    var tryReload = function (navigationArea, scrollArea) {
-        if (scrollArea.scrollTop() === 0) {
-            var pullToRefresh = scrollArea.find('.pull-to-refresh');
-            if (!pullToRefresh.hasClass('show-pull-to-refresh')) {
-                pullToRefresh.addClass('show-pull-to-refresh');
-            } else if (pullToRefresh.hasClass('done')) {
-                reloadFeed(navigationArea);
-            }
-        }
-    };
-
     var activateNavigationEntry = function (element, navigationArea) {
         element.children('a:visible').trigger('click');
         scrollToNavigationElement(element, navigationArea.children('ul'));
@@ -319,7 +308,6 @@
         } else if (previousElement.length > 0) {
             scrollToItem(scrollArea, previousElement, expandItemInCompact);
         } else {
-            tryReload(navigationArea, scrollArea);
             scrollArea.scrollTop(0);
         }
     };
@@ -437,10 +425,6 @@
                 $('#searchbox').focus();
 
                 // page up
-            } else if ([33].indexOf(keyCode) >= 0) {
-
-                tryReload(navigationArea, scrollArea);
-
             }
 
             // everything with shift

@@ -1,3 +1,7 @@
+owncloud-news (8.8.0)
+* **Enhancement**: Remove current pull to refresh implementation since it is more annoying than helpful.
+* **Enhancement**: Add API route for supported API levels
+
 owncloud-news (8.7.5)
 * **Security (High)**: Fix security bug that would allow websites to access your DOM document when using keyboard shortcuts to open an article in a new tab, downloading audio files, opening links on the explore page or opening links to the ownCloud documentation or issue tracker (News app versions prior to 5.0.0 are also vulnerable when clicking on any link in the title or article body). This gives any attacker access to all data on the DOM and allows them to make arbitrary requests to the ownCloud server on the user's behalf, bypassing CSRF protection and gaining full access to their account by stealing their login cookies. For a more detailed explanation [visit this website](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c#.h55ny7ef0)
 

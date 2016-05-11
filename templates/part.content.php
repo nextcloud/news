@@ -7,13 +7,6 @@
         'feed-view': Content.isFeed()
     }"
     news-compact-expand="{{ Content.isCompactExpand() }}">
-    <div class="pull-to-refresh" ng-class="{
-        'show-pull-to-refresh': showPullToRefresh
-    }" news-finished-transition="done">
-        <button ng-click="Content.refresh()">
-            <?php p($l->t('Refresh')) ?> (r)
-        </button>
-    </div>
     <div ng-show="Content.getItems().length == 0" class="no-feeds-available">
         <p ng-show="Content.isShowAll()"><?php p($l->t('No articles available')) ?></p>
         <p ng-show="!Content.isShowAll()"><?php p($l->t('No unread articles available')) ?></p>
