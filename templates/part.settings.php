@@ -76,7 +76,7 @@
 
         <a title="<?php p($l->t('Export')); ?>"
            class="button icon-download svg button-icon-label"
-           href="<?php p(\OCP\Util::linkToRoute('news.export.opml')); ?>"
+           href="<?php p($_['url_generator']->linkToRoute('news.export.opml')); ?>"
            target="_blank"
            rel="noreferrer"
            ng-hide="App.isFirstRun()">
@@ -118,7 +118,7 @@
 
         <a title="<?php p($l->t('Export')); ?>"
            class="button icon-download svg button-icon-label"
-           href="<?php p(\OCP\Util::linkToRoute('news.export.articles')); ?>"
+           href="<?php p($_['url_generator']->linkToRoute('news.export.articles')); ?>"
            target="_blank"
            rel="noreferrer"
            ng-hide="App.isFirstRun()">
