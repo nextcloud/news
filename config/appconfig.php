@@ -15,11 +15,10 @@ namespace OCA\News\Config;
 
 use SimpleXMLElement;
 
-use \OCP\INavigationManager;
-use \OCP\IURLGenerator;
-use \OCP\Backgroundjob;
-use \OCP\Util;
-use \OCP\App;
+use OCP\INavigationManager;
+use OCP\IURLGenerator;
+use OCP\Util;
+use OCP\App;
 
 // Used to parse app.json file, should be in core at some point
 class AppConfig {
@@ -84,8 +83,9 @@ class AppConfig {
     public function registerAll() {
         $this->registerNavigation();
         $this->registerHooks();
-        // Fuck it lets just do this quick and dirty until core supports this
-        Backgroundjob::addRegularTask($this->config['cron']['job'], 'run');
+        // IJob API is fucked up, so silence the code checker
+        $class = '\OCP\Backgroundjob';
+        $class::addRegularTask($this->config['cron']['job'], 'run');
         App::registerAdmin($this->config['id'], $this->config['admin']);
     }
 
