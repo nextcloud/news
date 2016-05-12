@@ -45,7 +45,7 @@ before_script:
     - mkdir data
     - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
-    - ./occ app:check-code new
+    - ./occ app:check-code news
     - ./occ background:cron  # enable default cron
     - php -S localhost:8080 &
     - cd apps/news
