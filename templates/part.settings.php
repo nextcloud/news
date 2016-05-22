@@ -27,11 +27,10 @@
         </label>
     </p>
 
-    <p ng-class="{disabled: !Settings.getSetting('compact')}">
+    <p ng-show="Settings.getSetting('compact')">
         <label>
             <input type="checkbox"
                    ng-click="Settings.toggleSetting('compactExpand')"
-                   ng-show="Settings.getSetting('compact')"
                    ng-checked="Settings.getSetting('compactExpand')"
                    name="compactExpand">
             <?php p($l->t('Expand articles on key navigation')); ?>
