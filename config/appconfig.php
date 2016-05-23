@@ -84,7 +84,7 @@ class AppConfig {
         $this->registerNavigation();
         $this->registerHooks();
         // IJob API is fucked up, so silence the code checker
-        $class = '\OCP\Backgroundjob';
+        $class = '\OCP\BackgroundJob';
         $class::addRegularTask($this->config['cron']['job'], 'run');
         App::registerAdmin($this->config['id'], $this->config['admin']);
     }
