@@ -223,17 +223,17 @@ with the following request body:
             "id": 5,
             "isStarred": false,
             "isRead": true,
-            "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054"
+            "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             // only read
             "id": 6,
             "isRead": true,
-            "fingerprint": "09ffbcf94bd95a1faa6e9e799cc29054"
+            "contentHash": "09ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             // only starred
             "id": 7,
             "isStarred": false,
-            "fingerprint": "18ffbcf94bd95a1faa6e9e799cc29054"
+            "contentHash": "18ffbcf94bd95a1faa6e9e799cc29054"
     }, /* etc */]
 }
 ```
@@ -250,9 +250,9 @@ The response matches the **GET** call, except there can be two different types o
 * **[Full](#full)**: Contains all attributes
 * **[Reduced](#reduced)**: Contains only **id**, **isRead** and **isStarred**
 
-The deciding factor whether a full or reduced item object is being returned depends on the fingerprint in the request: If the fingerprint matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.
+The deciding factor whether a full or reduced item object is being returned depends on the contentHash in the request: If the contentHash matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.
 
-The idea behind this special handling is that if the fingerprint matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status. This greatly reduces the amount sent over the Net which is especially important for mobile apps.
+The idea behind this special handling is that if the contentHash matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status. This greatly reduces the amount sent over the Net which is especially important for mobile apps.
 
 If you push a list of items to be marked read/starred, there can also be less items in the response than the ones which were initially sent. This means that the item was deleted by the cleanup job and should be removed from the client device.
 
@@ -263,15 +263,15 @@ For instance let's take a look at the following example. You are **POST**ing the
             "id": 5,
             "isStarred": false,
             "isRead": true,
-            "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054"
+            "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             "id": 6,
             "isRead": true,
-            "fingerprint": "09ffbcf94bd95a1faa6e9e799cc29054"
+            "contentHash": "09ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             "id": 7,
             "isStarred": false,
-            "fingerprint": "18ffbcf94bd95a1faa6e9e799cc29054"
+            "contentHash": "18ffbcf94bd95a1faa6e9e799cc29054"
     }]
 }
 ```
@@ -607,6 +607,7 @@ The attributes mean the following:
 * **fingerprint**: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:
   * Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.
   * When marking an item read, all items with the same fingerprint should also be marked as read.
+* **contentHash**: 64 ASCII characters, used to determine if the item on the client is up to or out of date. The difference between the contentHash and the fingerprint attribute is that contentHash is always calculated from a stable set of attributes (title, author, url, publishedAt, updatedAt, enclosure, body) whereas the fingerprint is calculated from a set of attributes depending on the feed. The reason for this is that some feeds use different URLs for the same article so you would not want to include the URL as uniqueness criteria in that case. If the fingerprint was used for syncing however, an URL update would never reach the client.
 
 ### Full
 A full item contains the full content:
@@ -626,7 +627,8 @@ A full item contains the full content:
     "feedId": 4,
     "isUnread": true,
     "isStarred": true,
-    "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054"
+    "fingerprint": "08ffbcf94bd95a1faa6e9e799cc29054",
+    "contentHash": "18ffbcf94bd95a1faa6e9e799cc29054"
 }
 ```
 
