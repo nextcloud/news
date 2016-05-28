@@ -47,7 +47,7 @@ class Upgrade {
             $this->appName, 'installed_version'
         );
 
-        if (version_compare($previousVersion, '8.7.3', '<=')) {
+        if (version_compare($previousVersion, '8.9.0', '<=')) {
             $this->itemService->generateSearchIndices();
         }
     }

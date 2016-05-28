@@ -5,8 +5,8 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Alessandro Cosentino 2012
  * @copyright Bernhard Posselt 2012, 2014
  */
@@ -14,7 +14,6 @@
 namespace OCA\News\Db;
 
 use \OCP\AppFramework\Db\Entity;
-
 
 /**
  * @method integer getId()
@@ -28,6 +27,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getAuthor()
  * @method string getRtl()
  * @method string getFingerprint()
+ * @method string getContentHash()
  * @method integer getPubDate()
  * @method void setPubDate(integer $value)
  * @method string getBody()
@@ -43,12 +43,14 @@ use \OCP\AppFramework\Db\Entity;
  * @method integer getLastModified()
  * @method void setLastModified(integer $value)
  * @method void setFingerprint(string $value)
+ * @method void setContentHash(string $value)
  * @method void setSearchIndex(string $value)
  */
 class Item extends Entity implements IAPI, \JsonSerializable {
 
     use EntityJSONSerializer;
 
+    protected $contentHash;
     protected $guidHash;
     protected $guid;
     protected $url;
@@ -65,14 +67,13 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $rtl;
     protected $fingerprint;
 
-    public function __construct(){
+    public function __construct() {
         $this->addType('pubDate', 'integer');
         $this->addType('feedId', 'integer');
         $this->addType('status', 'integer');
         $this->addType('lastModified', 'integer');
         $this->addType('rtl', 'boolean');
     }
-
 
     public function setRead() {
         $this->markFieldUpdated('status');
@@ -131,7 +132,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'lastModified' => $this->getLastModified(),
             'rtl' => $this->getRtl(),
             'intro' => $this->getIntro(),
-            'fingerprint' => $this->getFingerprint()
+            'fingerprint' => $this->getFingerprint(),
         ];
     }
 
@@ -152,10 +153,10 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'starred' => $this->isStarred(),
             'lastModified' => $this->getLastModified(),
             'rtl' => $this->getRtl(),
-            'fingerprint' => $this->getFingerprint()
+            'fingerprint' => $this->getFingerprint(),
+            'contentHash' => $this->getContentHash()
         ];
     }
-
 
     public function toExport($feeds) {
         return [
@@ -169,11 +170,10 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'enclosureLink' => $this->getEnclosureLink(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
-            'feedLink' => $feeds['feed'. $this->getFeedId()]->getLink(),
-            'rtl' => $this->getRtl()
+            'feedLink' => $feeds['feed' . $this->getFeedId()]->getLink(),
+            'rtl' => $this->getRtl(),
         ];
     }
-
 
     public function getIntro() {
         return strip_tags($this->getBody());
@@ -191,12 +191,12 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);
         $item->setRtl($import['rtl']);
-        if($import['unread']) {
+        if ($import['unread']) {
             $item->setUnread();
         } else {
             $item->setRead();
         }
-        if($import['starred']) {
+        if ($import['starred']) {
             $item->setStarred();
         } else {
             $item->setUnstarred();
@@ -205,11 +205,9 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         return $item;
     }
 
-
     public function setAuthor($name) {
         parent::setAuthor(strip_tags($name));
     }
-
 
     public function setTitle($title) {
         parent::setTitle(strip_tags($title));
@@ -226,20 +224,26 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             )
         );
         $this->setFingerprint($this->computeFingerprint());
+        $this->setContentHash($this->computeContentHash());
+    }
+
+    private function computeContentHash() {
+        return md5($this->getTitle() . $this->getUrl() . $this->getBody() .
+            $this->getEnclosureLink() . $this->getEnclosureMime() .
+            $this->getAuthor());
     }
 
     private function computeFingerprint() {
         return md5($this->getTitle() . $this->getUrl() . $this->getBody() .
-                   $this->getEnclosureLink());
+            $this->getEnclosureLink());
     }
 
     public function setUrl($url) {
         $url = trim($url);
-        if(strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0) {
+        if (strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0) {
             parent::setUrl($url);
         }
     }
-
 
     public function setBody($body) {
         // FIXME: this should not happen if the target="_blank" is already

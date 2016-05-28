@@ -71,6 +71,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setStarred();
         $item->setLastModified(321);
         $item->setFingerprint('fingerprint');
+        $item->setContentHash('contentHash');
 
         $this->assertEquals([
             'id' => 3,
@@ -88,7 +89,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'starred' => true,
             'lastModified' => 321,
             'rtl' => true,
-            'fingerprint' => 'fingerprint'
+            'fingerprint' => 'fingerprint',
+            'contentHash' => 'contentHash'
             ], $item->toAPI());
     }
 

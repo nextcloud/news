@@ -607,7 +607,7 @@ The attributes mean the following:
 * **fingerprint**: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:
   * Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.
   * When marking an item read, all items with the same fingerprint should also be marked as read.
-* **contentHash**: 64 ASCII characters, used to determine if the item on the client is up to or out of date. The difference between the contentHash and the fingerprint attribute is that contentHash is always calculated from a stable set of attributes (title, author, url, publishedAt, updatedAt, enclosure, body) whereas the fingerprint is calculated from a set of attributes depending on the feed. The reason for this is that some feeds use different URLs for the same article so you would not want to include the URL as uniqueness criteria in that case. If the fingerprint was used for syncing however, an URL update would never reach the client.
+* **contentHash**: 64 ASCII characters, used to determine if the item on the client is up to or out of date. The difference between the contentHash and the fingerprint attribute is that contentHash is always calculated from a stable set of attributes (title, author, url, enclosure, body) whereas the fingerprint is calculated from a set of attributes depending on the feed. The reason for this is that some feeds use different URLs for the same article so you would not want to include the URL as uniqueness criteria in that case. If the fingerprint was used for syncing however, an URL update would never reach the client.
 
 ### Full
 A full item contains the full content:

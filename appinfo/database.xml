@@ -266,6 +266,12 @@
                 <length>32</length>
             </field>
             <field>
+                <name>content_hash</name>
+                <type>text</type>
+                <notnull>false</notnull>
+                <length>32</length>
+            </field>
+            <field>
                 <name>rtl</name>
                 <type>boolean</type>
                 <notnull>true</notnull>
