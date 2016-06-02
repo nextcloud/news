@@ -1,6 +1,5 @@
 # Nextcloud News app
 [![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
-[![Join the chat at https://gitter.im/nextcloud/news](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nextcloud/news?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Build Status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nextcloud/news/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nextcloud/news/?branch=master)
