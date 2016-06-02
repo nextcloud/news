@@ -1,3 +1,5 @@
+# External API v1-2 (Legacy)
+
 The **News app 1.2** offers a RESTful API
 
 ## API stability contract
