@@ -66,7 +66,7 @@ Please read the [appropriate section in the contributing notices](https://github
 ### Before you install/update the News app
 Before you install the app do the following:
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
-* Check that your installation fullfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
+* Check that your installation fulfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
 * [Set up Nextcloud Background Jobs](https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/background_jobs_configuration.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
@@ -278,6 +278,13 @@ If you have control over the feed in question, consider signing your certificate
 * [WoSign](https://www.wosign.com/)
 
 If you do not have control over the chosen feed, you should [download the certificate from the feed's website](http://superuser.com/questions/97201/how-to-save-a-remote-server-ssl-certificate-locally-as-a-file) and [add it to your server's trusted certificates](http://www.onlinesmartketer.com/2009/06/23/curl-adding-installing-trusting-new-self-signed-certificate/). The exact procedure however may vary depending on your distribution.
+
+### Is There An Subscription URL To Easily Subscribe To Feeds
+
+By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the News app with a pre-filled URL, e.g.:
+
+    https://yourdomain.com/owncloud/index.php/apps/news?subscribe_to=https://github.com/nextcloud/news/releases
+
 
 
 Configuration
