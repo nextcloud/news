@@ -1,4 +1,4 @@
-# ownCloud News app
+# Nextcloud News app
 [![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
 [![Join the chat at https://gitter.im/nextcloud/news](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nextcloud/news?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -18,12 +18,26 @@ For further developer and user documentation please visit [the wiki](https://git
 * [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
 
 ## Sync Clients
-are listed on the [ownCloud apps overview](https://github.com/owncloud/core/wiki/Apps)
+Nextcloud News can be synced with the following apps:
+  * [RSS Guard (Windows, Linux, OS/2, Mac OS)](https://bitbucket.org/skunkos/rssguard), [open source](https://bitbucket.org/skunkos/rssguard/src)
+  * [ownCloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/nextcloud/news-android-app)
+  * [OCReader (Android)](https://f-droid.org/repository/browse/?fdid=email.schaal.ocreader), [open source](https://github.com/schaal/ocreader)
+  * [CloudNews (iOS)](https://itunes.apple.com/app/cloudnews-owncloud-news-reader/id683859706), [open source](https://github.com/nextcloud/news-ios-app)
+  * [News Checker (Chrome extension)](https://chrome.google.com/webstore/detail/owncloud-news-checker/hnmagnmdnfdhabdlicankfbfhcdgbfhe)
+  * [own News (BlackBerry)](http://appworld.blackberry.com/webstore/content/32767887/)
+  * [ocNews (Sailfish OS)](http://www.buschmann23.de/entwicklung/anwendungen/ocnews/), [open source](https://github.com/Buschtrommel/ocNews)
+  * [MyWebRSS (Firefox OS)](https://marketplace.firefox.com/app/mywebrss), [open source](https://github.com/ybulach/MyWebRSS), also works as [web app](http://html5.mywebrss.net/)
+  * [FeedSpider (Firefox OS, WebOS, LuneOS)](http://www.feedspider.net/), [open source](https://github.com/OthelloVentures/feedspider)
+  * [FeedMonkey (Firefox OS)](https://marketplace.firefox.com/app/feedmonkey), [open source](https://github.com/jeena/feedmonkey)
+  * [fastReader (Windows Phone)](http://www.windowsphone.com/en-us/store/app/fastreader/e55e696d-aa45-4a49-bb1c-a1fc7fdabec1), closed source
+  * [OwnCloud News Reader (WebOS)](http://www.webosnation.com/owncloud-news-reader), [open source](https://bitbucket.org/andpeters/webos-owncloud-news-reader)
+  * [FeedReader (Linux desktop)](http://jangernert.github.io/FeedReader/), [open source](https://github.com/jangernert/FeedReader)
+
 
 ## Dependencies
 * 64bit operating system and PHP
 * PHP >= 5.6
-* ownCloud >= 9.0
+* Nextcloud >= 9.0
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * iconv
@@ -47,15 +61,15 @@ These Dependencies are only relevant if you want to build the source code:
 * SQLite (discouraged)
 
 ## Bugs
-Please read the [appropriate section in the contributing notices](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md#issues)
+Please read the [appropriate section in the contributing notices](https://github.com/nextcloud/news/blob/master/CONTRIBUTING.md#issues)
 
 ## Installation/Update
 
 ### Before you install/update the News app
 Before you install the app do the following:
 * Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
-* Check that your installation fullfills the [requirements listed in the README section](https://github.com/owncloud/news#dependencies)
-* [Set up ownCloud Background Jobs](https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/background_jobs_configuration.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* Check that your installation fullfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
+* [Set up Nextcloud Background Jobs](https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/background_jobs_configuration.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
@@ -63,7 +77,7 @@ Then proceed to install the app either from an archive (zip/tar.gz) or clone it 
 This is the easiest solution: Simply go the the apps page and enable the News app
 
 ### Installing from archive
-* Go to the [ownCloud News GitHub releases page](https://github.com/owncloud/news/releases) and download the latest release/archive to your server
+* Go to the [Nextcloud News GitHub releases page](https://github.com/nextcloud/news/releases) and download the latest release/archive to your server
 * Starting with 8.0.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code. If you want to install a version prior to 8.0.0, choose the **Source code** download.
 * On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **owncloud/apps/** folder.
@@ -79,15 +93,15 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 * Activate the **News** app in the apps menu
 
 ### Installing from Git (development version)
-* The master branch will always be stable in conjunction with the latest master branch from ownCloud
+* The master branch will always be stable in conjunction with the latest master branch from Nextcloud
 * JavaScript and PHP libraries are not included anymore since 8.0.0 and will require you to run **make** after updating/installing the app
 * In your terminal go into the **owncloud/apps/** directory and then run the following command:
 
-        git clone https://github.com/owncloud/news.git
+        git clone https://github.com/nextcloud/news.git
         cd news
         make
 
-* If you are using a stable ownCloud release, stay with the [latest git tag release which is running on your version](https://github.com/owncloud/news/releases). To get an overview over all existing tags run:
+* If you are using a stable Nextcloud release, stay with the [latest git tag release which is running on your version](https://github.com/nextcloud/news/releases). To get an overview over all existing tags run:
 
         git tag
 
@@ -109,18 +123,18 @@ To update the News app use change into the **owncloud/apps/news/** directory usi
 
 ## Performance Notices
 * Use MySQL or PostgreSQL for better database performance
-* Use the [updater script to thread and speed up the update](https://github.com/owncloud/news-updater)
+* Use the [updater script to thread and speed up the update](https://github.com/nextcloud/news-updater)
 
 ## Updating Notices
 
 To receive notifications when a new News app version was released, simply add the following Atom feed in your currently installed News app:
 
-    https://github.com/owncloud/news/releases.atom
+    https://github.com/nextcloud/news/releases.atom
 
 ## FAQ
 
 ### My browser shows a mixed content warning (Connection is Not Secure)
-If you are serving your ownCloud over HTTPS your browser will very likely warn you with a yellow warnings sign about your connection not being secure.
+If you are serving your Nextcloud over HTTPS your browser will very likely warn you with a yellow warnings sign about your connection not being secure.
 
 Chrome will show no green HTTPS lock sign, Firefox will show you the following image
 ![Mixed Passive Content](https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/security/files/2015/10/mixed-passive-click1-600x221.png)
@@ -146,7 +160,7 @@ Since an attacker can not execute code in contrast to mixed active content, but 
 
 #### Why don't you simply use an HTTPS image/audio/video proxy
 
-For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your ownCloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition people feel save when essentially they are not.
+For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your Nextcloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition people feel save when essentially they are not.
 
 Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.
 
@@ -236,7 +250,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
     "maintenance" => false,
 
 ### Feeds are not updated
-Feeds can be updated using ownCloud's system cron or any program that implements the [News app's updater API](https://github.com/owncloud/news/wiki/Updater-1.2), most notably [ownCloud News Updater](https://github.com/owncloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
+Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/wiki/Updater-1.2), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
 * Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = true**
@@ -245,15 +259,15 @@ System Cron:
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
 * Check if you can execute the cron with **sudo -u www-data php -f owncloud/cron.php** (replace www-data with your httpd user)
 * Check your **data/owncloud.log** for errors
-* Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/owncloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
+* Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/nextcloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
-* If your cron works fine but owncloud's cronjobs are never executed, file a bug in [core](https://github.com/owncloud/core/)
+* If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [core](https://github.com/nextcloud/core/)
 
-[ownCloud News Updater](https://github.com/owncloud/news-updater):
+[Nextcloud News Updater](https://github.com/nextcloud/news-updater):
 * Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = false**
 * Start the updater in loglevel info mode and check if the feed update urls are polled, e.g.:
 
-    owncloud_news_updater --loglevel info -c /path/to/config.ini
+    nextcloud_news_updater --loglevel info -c /path/to/config.ini
 
 * Check your **data/owncloud.log** for errors
 
@@ -290,5 +304,5 @@ exploreUrl =
 * **maxRedirects**: How many redirects the updater should follow
 * **maxSize**: Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
-* **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by ownCloud by default by setting this to false
+* **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by Nextcloud by default by setting this to false
 * **exploreUrl**: If given that url will be contacted for fetching content for the explore feed
