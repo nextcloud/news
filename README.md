@@ -1,16 +1,16 @@
 # ownCloud News app
-[![irc](https://img.shields.io/badge/irc%20channel-%23owncloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=owncloud-news)
-[![Join the chat at https://gitter.im/owncloud/news](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/owncloud/news?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
+[![Join the chat at https://gitter.im/nextcloud/news](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nextcloud/news?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Build Status](https://travis-ci.org/owncloud/news.svg?branch=master)](https://travis-ci.org/owncloud/news)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/owncloud/news/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/owncloud/news/?branch=master)
+[![Build Status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nextcloud/news/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nextcloud/news/?branch=master)
 
 
-The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/owncloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/owncloud/news)
+The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
 ![](https://apps.owncloud.com/CONTENT/content-pre1/168040-1.png)
 
-For further developer and user documentation please visit [the wiki](https://github.com/owncloud/news/wiki)
+For further developer and user documentation please visit [the wiki](https://github.com/nextcloud/news/wiki)
 
 ## Maintainers
 * [Bernhard Posselt](https://github.com/BernhardPosselt)
