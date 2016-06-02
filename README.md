@@ -272,6 +272,7 @@ System Cron:
 ### Adding feeds that use self-signed certificates
 If you want to add a feed that uses a self-signed certificate that is not signed by a trusted CA the request will fail with "SSL certficate is invalid". A common solution is to turn off the certificate verification **which is wrong** and **makes your installation vulnerable to MITM attacks**. Therefore **turning off certificate verification is not supported**.
 
+
 If you have control over the feed in question, consider signing your certificate for free on one of the following providers:
 * [letsencrypt.com](http://letsencrypt.com/)
 * [StartSSL](https://www.startssl.com/)
