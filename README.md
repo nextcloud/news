@@ -5,11 +5,10 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nextcloud/news/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nextcloud/news/?branch=master)
 
 
-The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/wiki/API-1.2) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
+The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/tree/master/docs/externalapi) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
 ![](https://apps.owncloud.com/CONTENT/content-pre1/168040-1.png)
 
-For further developer and user documentation please visit [the wiki](https://github.com/nextcloud/news/wiki)
 
 ## Maintainers
 * [Bernhard Posselt](https://github.com/BernhardPosselt)
@@ -249,7 +248,7 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
     "maintenance" => false,
 
 ### Feeds are not updated
-Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/wiki/Updater-1.2), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
+Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/tree/master/docs/externalapi), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
 * Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = true**
