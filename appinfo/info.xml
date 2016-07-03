@@ -1,28 +1,26 @@
 <?xml version="1.0"?>
-<info>
-    <!-- metadata -->
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>news</id>
     <name>News</name>
     <description>An RSS/Atom feed reader</description>
-    <author>Bernhard Posselt, Alessandro Cosentino, Jan-Christoph Borchardt</author>
-    <category>multimedia</category>
-    <licence>AGPL</licence>
-    <version>8.8.2</version>
+    <version>8.8.3</version>
+    <licence>agpl</licence>
+    <author>Bernhard Posselt</author>
+    <author>Alessandro Cosentino</author>
+    <author>Jan-Christoph Borchardt</author>
     <namespace>News</namespace>
-
-    <!-- resources -->
     <documentation>
         <user>https://github.com/owncloud/news/wiki#user-documentation</user>
         <admin>https://github.com/owncloud/news#readme</admin>
         <developer>https://github.com/owncloud/news/wiki#developer-documentation</developer>
     </documentation>
+    <category>multimedia</category>
     <website>https://github.com/owncloud/news</website>
     <bugs>https://github.com/owncloud/news/issues</bugs>
     <repository type="git">https://github.com/owncloud/news.git</repository>
-
-    <!-- dependencies -->
+    <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
+    <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <dependencies>
-        <owncloud min-version="9.0" max-version="9.1"/>
         <php min-version="5.6" min-int-size="64"/>
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
@@ -31,6 +29,7 @@
         <lib>curl</lib>
         <lib>SimpleXML</lib>
         <lib>iconv</lib>
+        <owncloud min-version="9.0" max-version="9.1"/>
     </dependencies>
 
     <!-- navigation -->
