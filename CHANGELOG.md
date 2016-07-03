@@ -1,3 +1,6 @@
+owncloud-news (8.8.3)
+* **Enhancement**: Cleanups for the Nextcloud app store
+
 owncloud-news (8.8.0)
 * **Enhancement**: Remove current pull to refresh implementation since it is more annoying than helpful.
 * **Enhancement**: Add API route for supported API levels
