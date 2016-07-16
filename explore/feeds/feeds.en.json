@@ -1,17 +1,25 @@
 {
-    "ownCloud": [{
+    "ownCloud": {
         "title": "ownCloud Planet",
         "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
         "url": "https://owncloud.org/news/",
         "feed": "https://owncloud.org/feed/",
         "description": "ownCloud Planet is a blog feed aggregator",
         "votes": 1000
+    },
+    "Nextcloud": [{
+        "title": "Nextcloud Planet",
+        "favicon": "https://nextcloud.com/contribook/main/images/nextcloud/100.png",
+        "url": "https://nextcloud.com/news/",
+        "feed": "https://nextcloud.com/feed/",
+        "description": "Nextcloud Planet is a blog feed aggregator",
+        "votes": 1000
     }, {
         "title": "News app releases",
-        "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
-        "url": "https://github.com/owncloud/news/releases",
-        "feed": "https://github.com/owncloud/news/releases.atom",
-        "description": "ownCloud News app releases page. Get notified when a new release comes out",
+        "favicon": "https://nextcloud.com/contribook/main/images/nextcloud/100.png",
+        "url": "https://github.com/nextcloud/news/releases",
+        "feed": "https://github.com/nextcloud/news/releases.atom",
+        "description": "Nextcloud News app releases page. Get notified when a new release comes out",
         "votes": 900
     }],
     "FOSS": [{
