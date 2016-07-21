@@ -1,12 +1,4 @@
 {
-    "ownCloud": {
-        "title": "ownCloud Planet",
-        "favicon": "https://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",
-        "url": "https://owncloud.org/news/",
-        "feed": "https://owncloud.org/feed/",
-        "description": "ownCloud Planet is a blog feed aggregator",
-        "votes": 1000
-    },
     "Nextcloud": [{
         "title": "Nextcloud Planet",
         "favicon": "https://nextcloud.com/contribook/main/images/nextcloud/100.png",
