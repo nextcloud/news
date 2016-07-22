@@ -18,6 +18,7 @@
     <website>https://github.com/owncloud/news</website>
     <bugs>https://github.com/owncloud/news/issues</bugs>
     <repository type="git">https://github.com/owncloud/news.git</repository>
+    <discussion>https://help.nextcloud.com/t/news-app-discussion</discussion>
     <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
     <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <dependencies>
