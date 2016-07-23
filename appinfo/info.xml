@@ -3,7 +3,7 @@
     <id>news</id>
     <name>News</name>
     <description>An RSS/Atom feed reader</description>
-    <version>8.8.4</version>
+    <version>9.0.0</version>
     <licence>agpl</licence>
     <author>Bernhard Posselt</author>
     <author>Alessandro Cosentino</author>
@@ -30,7 +30,7 @@
         <lib>curl</lib>
         <lib>SimpleXML</lib>
         <lib>iconv</lib>
-        <owncloud min-version="9.0" max-version="9.1"/>
+        <owncloud min-version="9.1" max-version="10"/>
     </dependencies>
 
     <!-- navigation -->

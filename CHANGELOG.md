@@ -1,3 +1,9 @@
+owncloud-news (9.0.0)
+* **New dependency**: Bump minimum Nextcloud version to 10
+* **New dependency**: PHP 64bit required
+* **Enhancement**: Further cleanups for the Nextcloud app store
+* **Bugfix**: Fix cronjob updates on Nextcloud 10
+
 owncloud-news (8.8.3)
 * **Enhancement**: Cleanups for the Nextcloud app store
 

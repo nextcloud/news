@@ -35,7 +35,7 @@ Nextcloud News can be synced with the following apps:
 ## Dependencies
 * 64bit operating system and PHP
 * PHP >= 5.6
-* Nextcloud >= 9.0
+* Nextcloud >= 10
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * iconv
