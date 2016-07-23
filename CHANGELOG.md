@@ -1,4 +1,4 @@
-owncloud-news (9.0.0)
+news (9.0.0)
 * **New dependency**: Bump minimum Nextcloud version to 10
 * **New dependency**: PHP 64bit required
 * **Enhancement**: Further cleanups for the Nextcloud app store
