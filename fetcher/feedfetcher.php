@@ -29,12 +29,12 @@ use PicoFeed\Client\ForbiddenException;
 use PicoFeed\Client\UnauthorizedException;
 
 use OCP\IL10N;
-use OCP\AppFramework\Utility\ITimeFactory;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\PicoFeedFaviconFactory;
 use OCA\News\Utility\PicoFeedReaderFactory;
+use OCA\News\Utility\Time;
 
 class FeedFetcher implements IFeedFetcher {
 
@@ -46,7 +46,7 @@ class FeedFetcher implements IFeedFetcher {
     public function __construct(Reader $reader,
                                 PicoFeedFaviconFactory $faviconFactory,
                                 IL10N $l10n,
-                                ITimeFactory $time) {
+                                Time $time) {
         $this->faviconFactory = $faviconFactory;
         $this->reader = $reader;
         $this->time = $time;
@@ -241,7 +241,6 @@ class FeedFetcher implements IFeedFetcher {
         $item->setGuid($parsedItem->getId());
         $item->setGuidHash($item->getGuid());
         $item->setPubDate($parsedItem->getDate()->getTimestamp());
-        $item->setLastModified($this->time->getTime());
         $item->setRtl($this->determineRtl($parsedItem, $parsedFeed));
 
         // unescape content because angularjs helps against XSS

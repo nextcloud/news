@@ -30,7 +30,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->time = 222;
-        $timeFactory = $this->getMockBuilder('\OCP\AppFramework\Utility\ITimeFactory')
+        $timeFactory = $this->getMockBuilder('\OCA\News\Utility\Time')
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())

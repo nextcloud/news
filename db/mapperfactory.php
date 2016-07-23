@@ -13,6 +13,7 @@
 
 namespace OCA\News\Db;
 
+use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
 use OCA\News\Db\Mysql\ItemMapper as MysqlItemMapper;
@@ -23,18 +24,23 @@ class MapperFactory implements IFactory {
 
 	private $dbType;
 	private $db;
+    /**
+     * @var Time
+     */
+    private $time;
 
-	public function __construct(IDBConnection $db, $databaseType) {
+    public function __construct(IDBConnection $db, $databaseType, Time $time) {
 		$this->dbType = $databaseType;
 		$this->db = $db;
-	}
+        $this->time = $time;
+    }
 
 	public function build() {
 		switch($this->dbType) {
 			case 'mysql':
-				return new MysqlItemMapper($this->db);
+				return new MysqlItemMapper($this->db, $this->time);
 			default:
-				return new ItemMapper($this->db);
+				return new ItemMapper($this->db, $this->time);
 		}
 	}
 

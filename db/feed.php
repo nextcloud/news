@@ -80,6 +80,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $deletedAt;
     protected $articlesPerUpdate;
     protected $httpLastModified;
+    protected $lastModified;
     protected $httpEtag;
     protected $location;
     protected $ordering;
@@ -104,6 +105,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('fullTextEnabled', 'boolean');
         $this->addType('updateMode', 'integer');
         $this->addType('updateErrorCount', 'integer');
+        $this->addType('lastModified', 'integer');
     }
 
 

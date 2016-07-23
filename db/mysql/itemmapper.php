@@ -13,6 +13,7 @@
 
 namespace OCA\News\Db\Mysql;
 
+use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
 use OCA\News\Db\StatusFlag;
@@ -20,8 +21,8 @@ use OCA\News\Db\StatusFlag;
 
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
-    public function __construct(IDBConnection $db){
-        parent::__construct($db);
+    public function __construct(IDBConnection $db, Time $time){
+        parent::__construct($db, $time);
     }
 
 

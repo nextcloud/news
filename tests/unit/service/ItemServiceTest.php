@@ -34,11 +34,14 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp(){
         $this->time = 222;
-        $this->timeFactory = $this->getMockBuilder('\OCP\AppFramework\Utility\ITimeFactory')
+        $this->timeFactory = $this->getMockBuilder('\OCA\News\Utility\Time')
             ->disableOriginalConstructor()
             ->getMock();
         $this->timeFactory->expects($this->any())
             ->method('getTime')
+            ->will($this->returnValue($this->time));
+        $this->timeFactory->expects($this->any())
+            ->method('getMicroTime')
             ->will($this->returnValue($this->time));
         $this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
             ->disableOriginalConstructor()
@@ -219,7 +222,6 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $expectedItem->setStatus(128);
         $expectedItem->setStarred();
         $expectedItem->setId($itemId);
-        $expectedItem->setLastModified($this->time);
 
         $this->mapper->expects($this->once())
             ->method('findByGuidHash')
@@ -253,7 +255,6 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $expectedItem->setStatus(128);
         $expectedItem->setUnstarred();
         $expectedItem->setId($itemId);
-        $expectedItem->setLastModified($this->time);
 
         $this->mapper->expects($this->once())
             ->method('findByGuidHash')

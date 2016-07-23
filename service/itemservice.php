@@ -15,12 +15,12 @@ namespace OCA\News\Service;
 
 use OCP\IConfig;
 use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Utility\ITimeFactory;
 
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\StatusFlag;
 use OCA\News\Db\FeedType;
 use OCA\News\Config\Config;
+use OCA\News\Utility\Time;
 
 
 class ItemService extends Service {
@@ -33,7 +33,7 @@ class ItemService extends Service {
 
     public function __construct(ItemMapper $itemMapper,
                                 StatusFlag $statusFlag,
-                                ITimeFactory $timeFactory,
+                                Time $timeFactory,
                                 Config $config,
                                 IConfig $systemConfig){
         parent::__construct($itemMapper);
@@ -126,7 +126,6 @@ class ItemService extends Service {
                 $guidHash, $feedId, $userId
             );
 
-            $item->setLastModified($this->timeFactory->getTime());
             if($isStarred){
                 $item->setStarred();
             } else {
@@ -148,7 +147,7 @@ class ItemService extends Service {
      * @throws ServiceNotFoundException if the item does not exist
      */
     public function read($itemId, $isRead, $userId){
-        $lastModified = $this->timeFactory->getTime();
+        $lastModified = $this->timeFactory->getMicroTime();
         $this->itemMapper->readItem($itemId, $isRead, $lastModified, $userId);
     }
 
@@ -160,7 +159,7 @@ class ItemService extends Service {
      * @param string $userId the name of the user
      */
     public function readAll($highestItemId, $userId){
-        $time = $this->timeFactory->getTime();
+        $time = $this->timeFactory->getMicroTime();
         $this->itemMapper->readAll($highestItemId, $time, $userId);
     }
 
@@ -173,7 +172,7 @@ class ItemService extends Service {
      * @param string $userId the name of the user
      */
     public function readFolder($folderId, $highestItemId, $userId){
-        $time = $this->timeFactory->getTime();
+        $time = $this->timeFactory->getMicroTime();
         $this->itemMapper->readFolder(
             $folderId, $highestItemId, $time, $userId
         );
@@ -188,7 +187,7 @@ class ItemService extends Service {
      * @param string $userId the name of the user
      */
     public function readFeed($feedId, $highestItemId, $userId){
-        $time = $this->timeFactory->getTime();
+        $time = $this->timeFactory->getMicroTime();
         $this->itemMapper->readFeed($feedId, $highestItemId, $time, $userId);
     }
 

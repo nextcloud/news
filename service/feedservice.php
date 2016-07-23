@@ -18,7 +18,6 @@ use HTMLPurifier;
 use OCP\ILogger;
 use OCP\IL10N;
 use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Utility\ITimeFactory;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
@@ -27,6 +26,7 @@ use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FetcherException;
 use OCA\News\Config\Config;
+use OCA\News\Utility\Time;
 
 
 class FeedService extends Service {
@@ -46,7 +46,7 @@ class FeedService extends Service {
                                 ItemMapper $itemMapper,
                                 ILogger $logger,
                                 IL10N $l10n,
-                                ITimeFactory $timeFactory,
+                                Time $timeFactory,
                                 Config $config,
                                 HTMLPurifier $purifier,
                                 $LoggerParameters){
@@ -315,7 +315,6 @@ class FeedService extends Service {
         // if the feed does not exist, create a separate feed for them
         foreach ($json as $entry) {
             $item = Item::fromImport($entry);
-            $item->setLastModified($this->timeFactory->getTime());
             $feedLink = $entry['feedLink'];  // this is not set on the item yet
 
             if(array_key_exists($feedLink, $feedsDict)) {

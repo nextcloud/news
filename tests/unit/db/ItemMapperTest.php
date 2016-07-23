@@ -14,6 +14,8 @@
 namespace OCA\News\Db;
 
 
+use OCA\News\Utility\Time;
+
 class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
     private $mapper;
@@ -29,7 +31,7 @@ class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
     public function setUp() {
         parent::setup();
 
-        $this->mapper = new ItemMapper($this->db);
+        $this->mapper = new ItemMapper($this->db, new Time());
 
         // create mock items
         $item1 = new Item();

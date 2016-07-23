@@ -47,7 +47,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $this->loggerParams = ['hi'];
         $this->time = 222;
         $this->autoPurgeMinimumInterval = 10;
-        $timeFactory = $this->getMockBuilder('\OCP\AppFramework\Utility\ITimeFactory')
+        $timeFactory = $this->getMockBuilder('\OCA\News\Utility\Time')
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
@@ -760,7 +760,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setEnclosureLink('lin');
         $item->setUnread();
         $item->setUnstarred();
-        $item->setLastModified($this->time);
         $item->generateSearchIndex();
 
         $json = $item->toExport(['feed3' => $feed]);
@@ -817,7 +816,6 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setEnclosureLink('lin');
         $item->setUnread();
         $item->setUnstarred();
-        $item->setLastModified($this->time);
         $item->generateSearchIndex();
 
         $json = $item->toExport(['feed3' => $feed]);

@@ -13,6 +13,7 @@
 
 namespace OCA\News\Db;
 
+use OCA\News\Utility\Time;
 use PHPUnit_Framework_TestCase;
 
 use OCP\IDb;
@@ -32,17 +33,17 @@ class MapperFactoryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetItemMapperSqlite() {
-		$factory = new MapperFactory($this->db, 'sqlite');
+		$factory = new MapperFactory($this->db, 'sqlite', new Time());
 		$this->assertTrue($factory->build() instanceof ItemMapper);
 	}
 
 	public function testGetItemMapperPostgres() {
-		$factory = new MapperFactory($this->db, 'pgsql');
+		$factory = new MapperFactory($this->db, 'pgsql', new Time());
 		$this->assertTrue($factory->build() instanceof ItemMapper);
 	}
 
 	public function testGetItemMapperMysql() {
-		$factory = new MapperFactory($this->db, 'mysql');
+		$factory = new MapperFactory($this->db, 'mysql', new Time());
 		$this->assertTrue($factory->build() instanceof MysqlMapper);
 	}
 

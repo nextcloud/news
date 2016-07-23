@@ -15,7 +15,7 @@ namespace OCA\News\Db\Mysql;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\StatusFlag;
-
+use OCA\News\Utility\Time;
 
 class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
@@ -32,7 +32,7 @@ class ItemMapperTest extends  \OCA\News\Tests\Unit\Db\MapperTestUtility {
     public function setUp() {
         parent::setUp();
 
-        $this->mapper = new ItemMapper($this->db);
+        $this->mapper = new ItemMapper($this->db, new Time());
 
         // create mock items
         $item1 = new Item();

@@ -90,7 +90,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
         $this->time = 2323;
         $timeFactory = $this->getMockBuilder(
-            '\OCP\AppFramework\Utility\ITimeFactory')
+            '\OCA\News\Utility\Time')
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
@@ -221,7 +221,6 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item->setGuid($this->guid);
         $item->setGuidHash($this->guid);
         $item->setBody($this->body);
-        $item->setLastModified($this->time);
         $item->setRtl(false);
 
         $this->expectItem('getAuthor', $this->author);

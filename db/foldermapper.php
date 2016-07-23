@@ -13,13 +13,14 @@
 
 namespace OCA\News\Db;
 
+use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
 class FolderMapper extends NewsMapper {
 
-    public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'news_folders', Folder::class);
+    public function __construct(IDBConnection $db, Time $time) {
+        parent::__construct($db, 'news_folders', Folder::class, $time);
     }
 
     public function find($id, $userId){

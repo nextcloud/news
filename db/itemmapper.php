@@ -14,15 +14,15 @@
 namespace OCA\News\Db;
 
 use Exception;
+use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
 
 class ItemMapper extends NewsMapper {
 
-    public function __construct(IDBConnection $db) {
-        parent::__construct($db, 'news_items', Item::class);
+    public function __construct(IDBConnection $db, Time $time) {
+        parent::__construct($db, 'news_items', Item::class, $time);
     }
-
 
     private function makeSelectQuery($prependTo = '', $oldestFirst = false,
                                      $distinctFingerprint = false) {

@@ -5,26 +5,46 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Alessandro Cosentino 2012
  * @copyright Bernhard Posselt 2012, 2014
  */
 
 namespace OCA\News\Db;
 
+use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\Entity;
 
 abstract class NewsMapper extends Mapper {
 
-    public function __construct(IDBConnection $db, $table, $entity) {
+    /**
+     * @var Time
+     */
+    private $time;
+
+    public function __construct(IDBConnection $db, $table, $entity,
+                                Time $time) {
         parent::__construct($db, $table, $entity);
+        $this->time = $time;
+    }
+
+    public function update(Entity $entity) {
+        $entity->setLastModified($this->time->getMicroTime());
+        return parent::update($entity);
+    }
+
+    public function insert(Entity $entity) {
+        $entity->setLastModified($this->time->getMicroTime());
+        return parent::insert($entity);
     }
 
     /**
-     * @param int $id the id of the feed
+     * @param int $id        the id of the feed
      * @param string $userId the id of the user
+     *
      * @return \OCP\AppFramework\Db\Entity
      */
     abstract public function find($id, $userId);
@@ -38,10 +58,11 @@ abstract class NewsMapper extends Mapper {
      *
      * @param array $search an assoc array from property to filter value
      * @param int $limit
+     *
      * @paran int $offset
      * @return array
      */
-    public function where(array $search=[], $limit=null, $offset=null) {
+    public function where(array $search = [], $limit = null, $offset = null) {
         $entity = new $this->entityClass;
 
         // turn keys into sql query filter, e.g. feedId -> feed_id = :feedId

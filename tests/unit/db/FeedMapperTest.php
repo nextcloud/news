@@ -14,6 +14,8 @@
 namespace OCA\News\Db;
 
 
+use OCA\News\Utility\Time;
+
 class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
     private $mapper;
@@ -22,7 +24,7 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
     protected function setUp(){
         parent::setUp();
 
-        $this->mapper = new FeedMapper($this->db);
+        $this->mapper = new FeedMapper($this->db, new Time());
 
         // create mock feeds
         $feed1 = new Feed();

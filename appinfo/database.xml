@@ -93,6 +93,14 @@
                 <length>64</length>
             </field>
             <field>
+                <name>last_modified</name>
+                <type>integer</type>
+                <default></default>
+                <length>8</length>
+                <notnull>false</notnull>
+                <unsigned>true</unsigned>
+            </field>
+            <field>
                 <name>url_hash</name>
                 <type>text</type>
                 <length>32</length>

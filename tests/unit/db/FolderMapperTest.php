@@ -14,6 +14,8 @@
 namespace OCA\News\Db;
 
 
+use OCA\News\Utility\Time;
+
 class FolderMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
 
     private $folderMapper;
@@ -23,7 +25,7 @@ class FolderMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
     protected function setUp(){
         parent::setUp();
 
-        $this->folderMapper = new FolderMapper($this->db);
+        $this->folderMapper = new FolderMapper($this->db, new Time());
 
         // create mock folders
         $folder1 = new Folder();

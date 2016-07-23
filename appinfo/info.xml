@@ -3,7 +3,7 @@
     <id>news</id>
     <name>News</name>
     <description>An RSS/Atom feed reader</description>
-    <version>8.8.3</version>
+    <version>8.8.4</version>
     <licence>agpl</licence>
     <author>Bernhard Posselt</author>
     <author>Alessandro Cosentino</author>
