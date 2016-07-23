@@ -138,7 +138,7 @@ The following status codes are returned by News:
 
 The response headers are:
 * **Content-Type**: application/json; charset=utf-8
-* **Etag**: A string containing a cache header of maximum length 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59
+* **Etag**: A string containing a cache header of maximum length 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59. The etag value will be assembled using the number of feeds, folders and the highest last modified timestamp in milliseconds, e.g. 2-3-123131923912392391239. However consider that a detail and dont rely on it.
 
 The response body is a JSON structure that looks like this, which contains the actual data on the first level. The key is the resource in singular if it's a single resource or plural if its a collection. In case of HTTP 400, an error object is also present to help distinguishing between different error types:
 
@@ -254,6 +254,8 @@ The deciding factor whether a full or reduced item object is being returned depe
 
 The idea behind this special handling is that if the contentHash matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status. This greatly reduces the amount sent over the Net which is especially important for mobile apps.
 
+This also applies to folders and feeds, however the reduced folder and feed objects will only include the **id** element. The deciding factor whether only an id or the full object will be returned is the last modified modified timestamp which is included in the sent etag.
+
 If you push a list of items to be marked read/starred, there can also be less items in the response than the ones which were initially sent. This means that the item was deleted by the cleanup job and should be removed from the client device.
 
 For instance let's take a look at the following example. You are **POST**ing the following JSON:
@@ -293,6 +295,8 @@ and receive the following output in return:
 ```
 
 The item with the **id** **7** is missing from the response. This means that it was deleted on the server.
+
+For folders and feeds all ids will be returned so you can compare the existing ids with your locally available feeds and folders and remove the difference.
 
 ## Folders
 Folders are represented using the following data structure:
