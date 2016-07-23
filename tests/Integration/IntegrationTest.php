@@ -102,7 +102,7 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
      * @param string $name loads fixtures from a given file
      */
     protected function loadFixtures($name) {
-        $fixtures = include __DIR__ . '/fixtures/data/' . $name . '.php';
+        $fixtures = include __DIR__ . '/Fixtures/data/' . $name . '.php';
         if (array_key_exists('folders', $fixtures)) {
             $this->loadFolderFixtures($fixtures['folders']);
         }

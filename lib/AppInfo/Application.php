@@ -46,10 +46,10 @@ class Application extends App {
 
         // files
         $this->registerFileContents('checksums', 'checksum.json');
-        $this->registerFileContents('info', 'info.xml');
+        $this->registerFileContents('info',  '../../appinfo/info.xml');
 
         // parameters
-        $this->registerParameter('exploreDir', __DIR__ . '/../explore/feeds');
+        $this->registerParameter('exploreDir', '../Explore/feeds');
         $this->registerParameter('configFile', 'config.ini');
 
         // factories

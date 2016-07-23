@@ -174,7 +174,7 @@ class PageController extends Controller {
 
         foreach ($iconSizes as $size) {
             $filename = 'app-' . $size . '.png';
-            if (file_exists(__DIR__ . '/../img/' . $filename)) {
+            if (file_exists(__DIR__ . '/../../img/' . $filename)) {
                 $icons[$size] = $this->urlGenerator->imagePath($config['id'],
                     $filename);
             }
