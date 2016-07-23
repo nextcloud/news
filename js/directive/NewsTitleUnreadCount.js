@@ -13,7 +13,7 @@ app.directive('newsTitleUnreadCount', function ($window) {
     var baseTitle = $window.document.title;
     var titles = baseTitle.split('-');
     var appName = titles[0] || 'News';
-    var ownCloudName = titles[1] || 'ownCloud';
+    var ownCloudName = titles[1] || 'Nextcloud';
 
     return {
         restrict: 'E',

@@ -29,7 +29,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $provide.constant('MARK_READ_TIMEOUT', 0.5);
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
-    // make sure that the CSRF header is only sent to the ownCloud domain
+    // make sure that the CSRF header is only sent to the Nextcloud domain
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL, $window) {
         return {
             request: function (config) {
@@ -53,8 +53,8 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         500: t('news', 'Internal server error! Please check your ' +
                        'data/owncloud.log file for additional ' +
                        'information!'),
-        503: t('news', 'Request failed, ownCloud is in currently ' +
-                       'in maintenance mode!'),
+        503: t('news', 'Request failed, Nextcloud is in currently ' +
+                       'in maintenance mode!')
     };
     $provide.factory('ConnectionErrorInterceptor', function ($q, $timeout) {
         var timer;
