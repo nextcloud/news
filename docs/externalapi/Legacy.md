@@ -642,7 +642,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f owncloud/occ news:updater:before-update
+    php -f nextcloud/occ news:updater:before-update
 
 ## Get feed ids and usernames for all feeds
 
@@ -665,7 +665,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f owncloud/occ news:updater:all-feeds
+    php -f nextcloud/occ news:updater:all-feeds
 
 
 ## Trigger a feed update
@@ -687,7 +687,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f owncloud/occ news:updater:update-feed 3 john
+    php -f nextcloud/occ news:updater:update-feed 3 john
 
 ## Trigger cleanup after update
 This is used to clean up the database. It removes old read articles which are not starred
@@ -700,7 +700,7 @@ This is used to clean up the database. It removes old read articles which are no
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f owncloud/occ news:updater:after-update
+    php -f nextcloud/occ news:updater:after-update
 
 # Version
 

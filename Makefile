@@ -3,7 +3,7 @@
 # @author Bernhard Posselt <dev@bernhard-posselt.com>
 # @copyright Bernhard Posselt 2016
 
-# Generic Makefile for building and packaging an ownCloud app which uses npm and
+# Generic Makefile for building and packaging a Nextcloud app which uses npm and
 # Composer.
 #
 # Dependencies:
@@ -52,12 +52,12 @@ composer=$(shell which composer 2> /dev/null)
 
 # code signing
 # assumes the following:
-# * the app is inside the owncloud/apps folder
-# * the private key is located in ~/.owncloud/news.key
-# * the certificate is located in ~/.owncloud/news.crt
+# * the app is inside the nextcloud/apps folder
+# * the private key is located in ~/.nextcloud/news.key
+# * the certificate is located in ~/.nextcloud/news.crt
 occ=$(CURDIR)/../../occ
-private_key=$(HOME)/.owncloud/$(app_name).key
-certificate=$(HOME)/.owncloud/$(app_name).crt
+private_key=$(HOME)/.nextcloud/$(app_name).key
+certificate=$(HOME)/.nextcloud/$(app_name).crt
 sign=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
 sign_skip_msg="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
 ifneq (,$(wildcard $(private_key)))

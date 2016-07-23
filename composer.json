@@ -1,8 +1,8 @@
 {
     "type": "project",
     "license": "AGPL-3.0",
-    "description": "An RSS/Atom feed reader. Requires ownCloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
-    "homepage": "https://github.com/owncloud/news",
+    "description": "An RSS/Atom feed reader. Requires Nextcloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+    "homepage": "https://github.com/nextcloud/news",
     "authors": [
         {
             "name": "Bernhard Posselt",
@@ -24,10 +24,9 @@
         }
     ],
     "support": {
-        "irc": "irc://irc.freenode.org/owncloud-news",
-        "issues": "https://github.com/owncloud/news/issues",
-        "wiki": "https://github.com/owncloud/news/wiki",
-        "source": "https://github.com/owncloud/news/"
+        "irc": "irc://irc.freenode.org/nextcloud-news",
+        "issues": "https://github.com/nextcloud/news/issues",
+        "source": "https://github.com/nextcloud/news/"
     },
     "require": {
         "ezyang/htmlpurifier": "4.7",

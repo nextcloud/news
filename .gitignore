@@ -17,7 +17,6 @@ PKG-INFO
 *~
 __pycache__
 bin/updater/dist/
-owncloud_news_updater.egg-info
 bin/updater/build
 
 # just sane ignores

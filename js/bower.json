@@ -1,6 +1,6 @@
 {
-  "name": "owncloud-news",
-  "homepage": "https://github.com/owncloud/news",
+  "name": "nextcloud-news",
+  "homepage": "https://github.com/nextcloud/news",
   "authors": [
     "Bernhard Posselt <dev@bernhard-posselt.com>"
   ],
@@ -8,7 +8,7 @@
   "keywords": [
     "rss",
     "atom",
-    "owncloud",
+    "nextcloud",
     "feed",
     "reader",
     "app"

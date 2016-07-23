@@ -299,7 +299,7 @@ class FeedService extends Service {
      * @return Feed if one had to be created for nonexistent feeds
      */
     public function importArticles($json, $userId) {
-        $url = 'http://owncloud/nofeed';
+        $url = 'http://nextcloud/nofeed';
         $urlHash = md5($url);
 
         // build assoc array for fast access

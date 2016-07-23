@@ -1,5 +1,5 @@
 {
-  "name": "owncloud-news",
+  "name": "nextcloud-news",
   "description": "An RSS/Atom feed reader",
   "main": "build/app.min.js",
   "scripts": {
@@ -9,26 +9,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/owncloud/news"
+    "url": "https://github.com/nextcloud/news"
   },
   "keywords": [
     "rss",
     "atom",
     "feed",
     "reader",
-    "owncloud",
+    "nextcloud",
     "app"
   ],
   "author": "Bernhard Posselt",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/owncloud/news/issues"
+    "url": "https://github.com/nextcloud/news/issues"
   },
   "engines": {
     "node": ">=6"
   },
   "private": true,
-  "homepage": "https://github.com/owncloud/news",
+  "homepage": "https://github.com/nextcloud/news",
   "devDependencies": {
     "bower": "~1.7.9",
     "gulp": "~3.9.1",

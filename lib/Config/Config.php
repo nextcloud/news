@@ -27,7 +27,7 @@ class Config {
     private $autoPurgeCount;  // number of allowed unread articles per feed
     private $maxRedirects;  // seconds
     private $feedFetcherTimeout;  // seconds
-    private $useCronUpdates;  // turn off updates run by owncloud cronjob
+    private $useCronUpdates;  // turn off updates run by the cron
     private $logger;
     private $loggerParams;
     private $maxSize;

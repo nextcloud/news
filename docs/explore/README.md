@@ -2,7 +2,7 @@
 
 The News app uses a JSON format to display the feeds in the explore feed section.
 
-The feeds are stored in a JSON file in the [explore](https://github.com/nextcloud/news/tree/master/explore/feeds) folder and are localized based on their filename, meaning: feeds.en.json will only be shown for English localized Nextcloud installations, feeds.de.json only for German installations. If no other localization exists, the feeds.en.json will be taken.
+The feeds are stored in a JSON file in the [explore](https://github.com/nextcloud/news/tree/master/lib/Explore/feeds) folder and are localized based on their filename, meaning: feeds.en.json will only be shown for English localized Nextcloud installations, feeds.de.json only for German installations. If no other localization exists, the feeds.en.json will be taken.
 
 You can also provide your own explore service.
 
@@ -11,16 +11,14 @@ You can also provide your own explore service.
 The file has the following format:
 ```js
 {
- "Tech": [  // category
-  {
-   "title": "ownCloud Planet",
-   "url": "http://owncloud.org/news/",  // link to the page so the user can view it
-   "feed": "http://owncloud.org/feed/",  // link to the exact feed location so we can test if the user uses it already
-   "description": "ownCloud Planet is a feed aggregator",
-   "votes": 3121,  // the higher the vote count, the further up the entry will appear
-   "favicon": "http://owncloud.org/wp-content/themes/owncloudorgnew/assets/img/common/favicon.png",  // optional
-  }, // etc
- ]
+  "Nextcloud": [{  // category
+      "title": "Nextcloud Planet",
+      "favicon": "https://nextcloud.com/contribook/main/images/nextcloud/100.png",
+      "url": "https://nextcloud.com/news/",
+      "feed": "https://nextcloud.com/feed/",
+      "description": "Nextcloud Planet is a blog feed aggregator",
+      "votes": 1000
+  }],
 }
 ```
 

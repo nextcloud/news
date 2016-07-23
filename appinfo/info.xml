@@ -10,14 +10,13 @@
     <author>Jan-Christoph Borchardt</author>
     <namespace>News</namespace>
     <documentation>
-        <user>https://github.com/owncloud/news/wiki#user-documentation</user>
-        <admin>https://github.com/owncloud/news#readme</admin>
-        <developer>https://github.com/owncloud/news/wiki#developer-documentation</developer>
+        <admin>https://github.com/nextcloud/news#readme</admin>
+        <developer>https://github.com/nextcloud/news/tree/master/docs</developer>
     </documentation>
     <category>multimedia</category>
-    <website>https://github.com/owncloud/news</website>
-    <bugs>https://github.com/owncloud/news/issues</bugs>
-    <repository type="git">https://github.com/owncloud/news.git</repository>
+    <website>https://github.com/nextcloud/news</website>
+    <bugs>https://github.com/nextcloud/news/issues</bugs>
+    <repository type="git">https://github.com/nextcloud/news.git</repository>
     <discussion>https://help.nextcloud.com/t/news-app-discussion</discussion>
     <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
     <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>

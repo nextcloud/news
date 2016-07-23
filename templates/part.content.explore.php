@@ -48,6 +48,6 @@
     </div>
 
     <div class="explore-footer">
-        <a target="_blank" rel="noreferrer" href="https://github.com/owncloud/news/wiki/Explore-Feed-Section"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
+        <a target="_blank" rel="noreferrer" href="https://github.com/nextcloud/news/tree/master/docs/explore"><?php p($l->t('Got more awesome feeds? Share them with us!')) ?></a>
     </div>
 </div>

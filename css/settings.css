@@ -1,5 +1,5 @@
 /**
- * ownCloud - News
+ * Nextcloud - News
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -42,7 +42,7 @@
 
 #app-settings-content label input[type="checkbox"] {
     margin-left: -18px;
-    max-width: 16px; 
+    max-width: 16px;
 }
 
 .button-icon-label {

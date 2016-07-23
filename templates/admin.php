@@ -9,7 +9,7 @@ style('news', 'admin');
         <p><input type="checkbox" name="news-use-cron-updates"
                <?php if ($_['useCronUpdates']) p('checked'); ?>>
             <label for="news-use-cron-updates">
-                <?php p($l->t('Use ownCloud cron for updates')); ?>
+                <?php p($l->t('Use system cron for updates')); ?>
             </label>
         </p>
         <p>
@@ -118,7 +118,7 @@ style('news', 'admin');
                     'input empty'
                 )); ?>.
             </em>
-            <a href="https://github.com/owncloud/news/wiki/How-to-write-an-explore-service"><?php p($l->t(
+            <a href="https://github.com/nextcloud/news/tree/master/docs/explore"><?php p($l->t(
                 'For more information check the Wiki'
             )); ?></a>
         </p>

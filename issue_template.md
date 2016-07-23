@@ -2,7 +2,7 @@
 
 Read and tick the following checkbox after you have created the issue or place an x inside the brackets ;)
 
-* [ ] I have read the [CONTRIBUTING.md](https://github.com/owncloud/news/blob/master/CONTRIBUTING.md) and followed the provided tips
+* [ ] I have read the [CONTRIBUTING.md](https://github.com/nextcloud/news/blob/master/CONTRIBUTING.md) and followed the provided tips
 
 
 ## Explain the Problem
@@ -16,13 +16,13 @@ Explain what you did to encounter the issue
 
 ## System Information
 * News app version:
-* ownCloud version:
+* Nextcloud version:
 * PHP version:
 * Database and version:
 * Browser and version:
 * Distribution and version:
 
-## Contents of owncloud/data/owncloud.log
+## Contents of nextcloud/data/owncloud.log
 
 ```json
 

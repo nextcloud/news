@@ -146,12 +146,12 @@
     <p>
         <a target="_blank"
            rel="noreferrer"
-           href="https://github.com/owncloud/news/wiki"><?php p($l->t('Documentation')); ?></a>
+           href="https://github.com/nextcloud/news/tree/master/docs"><?php p($l->t('Documentation')); ?></a>
     </p>
     <p>
         <a target="_blank"
            rel="noreferrer"
-           href="https://github.com/owncloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
+           href="https://github.com/nextcloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
     </p>
 
 </div>

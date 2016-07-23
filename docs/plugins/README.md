@@ -8,7 +8,7 @@ There are essentially three different use cases for plugins:
 * Dropping in additional CSS or JavaScript
 
 ## The Basics
-Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app so you can take advantage of the full [Nextcloud app API](https://doc.owncloud.org/server/9.0/developer_manual/app/index.html). If you want you can [take a look at the developer docs](https://doc.owncloud.org/server/9.0/developer_manual/app/index.html) or [dig into the tutorial](http://doc.owncloud.org/server/9.0/developer_manual/app/appframework/tutorial.html).
+Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app so you can take advantage of the full [Nextcloud app API](https://docs.nextcloud.org/server/9/developer_manual/app/index.html). If you want you can [take a look at the developer docs](https://docs.nextcloud.org/server/9/developer_manual/app/index.html) or [dig into the tutorial](https://docs.nextcloud.org/server/9/developer_manual/app/tutorial.html).
 
 However if you just want to start slow, the full process is described below.
 

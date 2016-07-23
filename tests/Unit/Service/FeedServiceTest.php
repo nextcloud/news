@@ -734,7 +734,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testImportArticles(){
-        $url = 'http://owncloud/nofeed';
+        $url = 'http://nextcloud/nofeed';
 
         $feed = new Feed();
         $feed->setId(3);
@@ -790,7 +790,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testImportArticlesCreatesOwnFeedWhenNotFound(){
-        $url = 'http://owncloud/args';
+        $url = 'http://nextcloud/args';
 
         $feed = new Feed();
         $feed->setId(3);
@@ -826,8 +826,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $items = [$json, $json2];
 
         $insertFeed = new Feed();
-        $insertFeed->setLink('http://owncloud/nofeed');
-        $insertFeed->setUrl('http://owncloud/nofeed');
+        $insertFeed->setLink('http://nextcloud/nofeed');
+        $insertFeed->setUrl('http://nextcloud/nofeed');
         $insertFeed->setUserId($this->user);
         $insertFeed->setTitle('Articles without feed');
         $insertFeed->setAdded($this->time);

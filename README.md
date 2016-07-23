@@ -5,7 +5,7 @@
 
 The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/tree/master/docs/externalapi) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
-![](https://apps.owncloud.com/CONTENT/content-pre1/168040-1.png)
+![](https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png)
 
 
 ## Maintainers
@@ -63,9 +63,9 @@ Please read the [appropriate section in the contributing notices](https://github
 
 ### Before you install/update the News app
 Before you install the app do the following:
-* Check that your **owncloud/data/** directory is owned by your webserver user and that it is write/readable
+* Check that your **nextcloud/data/** directory is owned by your web server user and that it is write/readable
 * Check that your installation fulfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
-* [Set up Nextcloud Background Jobs](https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/background_jobs_configuration.html) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up Nextcloud Background Jobs](https://docs.nextcloud.org/server/9/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
@@ -75,23 +75,23 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 ### Installing from archive
 * Go to the [Nextcloud News GitHub releases page](https://github.com/nextcloud/news/releases) and download the latest release/archive to your server
 * Starting with 8.0.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code. If you want to install a version prior to 8.0.0, choose the **Source code** download.
-* On your server, check if there is a folder called **owncloud/apps/news**. If there is one, delete it.
-* Extract the downloaded archive to the **owncloud/apps/** folder.
-* Remove the version from the extracted folder (e.g. rename **owncloud/apps/news-4.0.3/** to **owncloud/apps/news/**
-* If you are a version greater than or equal to 8.0.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **owncloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
+* On your server, check if there is a folder called **nextcloud/apps/news**. If there is one, delete it.
+* Extract the downloaded archive to the **nextcloud/apps/** folder.
+* Remove the version from the extracted folder (e.g. rename **nextcloud/apps/news-4.0.3/** to **nextcloud/apps/news/**
+* If you are a version greater than or equal to 8.0.0 and downloaded the **Source code** zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the **nextcloud/apps/news/** directory and run the following command (requires node >5.6, npm, curl, make and which):
 
         sudo -u www-data make  # www-data might vary depending on your distribution
 
-* Finally make sure that the **owncloud/apps/news** directory is owned by the web server user
+* Finally make sure that the **nextcloud/apps/news** directory is owned by the web server user
 
-        sudo chown -R www-data:www-data owncloud/apps/news  # www-data:www-data might vary depending on your distribution
+        sudo chown -R www-data:www-data nextcloud/apps/news  # www-data:www-data might vary depending on your distribution
 
 * Activate the **News** app in the apps menu
 
 ### Installing from Git (development version)
 * The master branch will always be stable in conjunction with the latest master branch from Nextcloud
 * JavaScript and PHP libraries are not included anymore since 8.0.0 and will require you to run **make** after updating/installing the app
-* In your terminal go into the **owncloud/apps/** directory and then run the following command:
+* In your terminal go into the **nextcloud/apps/** directory and then run the following command:
 
         git clone https://github.com/nextcloud/news.git
         cd news
@@ -112,7 +112,7 @@ This is the easiest solution: Simply go the the apps page and enable the News ap
 
 * Activate the **News** app in the apps menu
 
-To update the News app use change into the **owncloud/apps/news/** directory using your terminal and then run:
+To update the News app use change into the **nextcloud/apps/news/** directory using your terminal and then run:
 
     git pull --rebase origin master
     make
@@ -178,7 +178,7 @@ The exception name itself will give you a hint about what is wrong:
 One reason for this error could be old files which were not overwritten properly when the app was upgraded. Make sure that all files match the files in the release archive!
 Most of the time however this is caused by users trying to downgrade (**not supported!!!**) or by failed/timed out database migrations. To prevent future timeouts use
 
-    php -f owncloud/occ upgrade
+    php -f nextcloud/occ upgrade
 
 instead of clicking the upgrade button on the web interface.
 
@@ -230,7 +230,7 @@ Some hints:
 This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
 ### How do I reset the News app
-Delete the folder **owncloud/apps/news/** and **owncloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
+Delete the folder **nextcloud/apps/news/** and **nextcloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
 
 ```sql
 DELETE FROM oc_appconfig WHERE appid = 'news';
@@ -241,7 +241,7 @@ DROP TABLE oc_news_folders;
 
 ### App is stuck in maintenance mode after failed update
 
-Check the **owncloud/data/owncloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **owncloud/config/config.php** by setting the **maintenance** key to false:
+Check the **nextcloud/data/owncloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **nextcloud/config/config.php** by setting the **maintenance** key to false:
 
     "maintenance" => false,
 
@@ -249,18 +249,18 @@ Check the **owncloud/data/owncloud.log** for hints why it failed. After the issu
 Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/tree/master/docs/externalapi), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
-* Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = true**
+* Check if the config.ini in **nextcloud/data/news/config/config.ini** contains **useCronUpdates = true**
 * Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
-* Check if you can execute the cron with **sudo -u www-data php -f owncloud/cron.php** (replace www-data with your httpd user)
+* Check if you can execute the cron with **sudo -u www-data php -f nextcloud/cron.php** (replace www-data with your httpd user)
 * Check your **data/owncloud.log** for errors
 * Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/nextcloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [core](https://github.com/nextcloud/core/)
 
 [Nextcloud News Updater](https://github.com/nextcloud/news-updater):
-* Check if the config.ini in **owncloud/data/news/config/config.ini** contains **useCronUpdates = false**
+* Check if the config.ini in **nextcloud/data/news/config/config.ini** contains **useCronUpdates = false**
 * Start the updater in loglevel info mode and check if the feed update urls are polled, e.g.:
 
     nextcloud_news_updater --loglevel info -c /path/to/config.ini
@@ -282,13 +282,13 @@ If you do not have control over the chosen feed, you should [download the certif
 
 By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the News app with a pre-filled URL, e.g.:
 
-    https://yourdomain.com/owncloud/index.php/apps/news?subscribe_to=https://github.com/nextcloud/news/releases
+    https://yourdomain.com/nextcloud/index.php/apps/news?subscribe_to=https://github.com/nextcloud/news/releases
 
 
 
 Configuration
 -------------
-All configuration values are set inside **owncloud/data/news/config/config.ini** and can be edited in the admin panel.
+All configuration values are set inside **nextcloud/data/news/config/config.ini** and can be edited in the admin panel.
 
 The configuration is in **INI** format and looks like this:
 
