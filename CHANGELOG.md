@@ -1,68 +1,69 @@
 news (9.0.0)
 * **New dependency**: Bump minimum Nextcloud version to 10
 * **New dependency**: PHP 64bit required
+* **Backwards incompatible change**: Updating to 9.0.0 is only possible from 8.8.0 or higher due complex database schema changes.
 * **Enhancement**: Further cleanups for the Nextcloud app store
 * **Bugfix**: Fix cronjob updates on Nextcloud 10
 
-owncloud-news (8.8.3)
+news (8.8.3)
 * **Enhancement**: Cleanups for the Nextcloud app store
 
-owncloud-news (8.8.0)
+news (8.8.0)
 * **Enhancement**: Remove current pull to refresh implementation since it is more annoying than helpful.
 * **Enhancement**: Add API route for supported API levels
 
-owncloud-news (8.7.5)
+news (8.7.5)
 * **Security (High)**: Fix security bug that would allow websites to access your DOM document when using keyboard shortcuts to open an article in a new tab, downloading audio files, opening links on the explore page or opening links to the ownCloud documentation or issue tracker (News app versions prior to 5.0.0 are also vulnerable when clicking on any link in the title or article body). This gives any attacker access to all data on the DOM and allows them to make arbitrary requests to the ownCloud server on the user's behalf, bypassing CSRF protection and gaining full access to their account by stealing their login cookies. For a more detailed explanation [visit this website](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c#.h55ny7ef0)
 
-owncloud-news (8.7.4)
+news (8.7.4)
 * **Bugfix**: Fix expand in compact view mode, #988
 
-owncloud-news (8.7.3)
+news (8.7.3)
 * **Bugfix**: Rerun fingerprint and search index generation in case it was not run properly before
 * **Bugfix**: Do not swallow errors when generating search indices and fingerprints
 
-owncloud-news (8.7.2)
+news (8.7.2)
 * **Security**: Sign application to make missing/outdated files more easily detectable and prevent attackers from potentially serving a malicious News app from the app store
 
-owncloud-news (8.7.1)
+news (8.7.1)
 * **Bugfix**: Send Chrome's user agent string instead of our own since mod_security, which is used on some servers, thinks that only browsers are allowed to send user agents. This will fix feed updates for some websites, e.g. joomla.org, (because we all know that Joomla is big on security ;) ), #978
 
-owncloud-news (8.7.0)
+news (8.7.0)
 * **Enhancement**: Better lock down Composer versions to prevent shipping newer PHP libraries then intended when compiling the project
 * **Enhancement**: Mark current article as active while scrolling
 * **Enhancement**: Clicking on an article sets it as active, #791
 * **Enhancement**: Keyboard shortcuts will target the currently active element, #791
 
-owncloud-news (8.6.0)
+news (8.6.0)
 * **Enhancement**: Also publish error count and last error message through API, #977
 
-owncloud-news (8.5.0)
+news (8.5.0)
 * **Bugfix**: Do not run feed updates when ajax or web cron mode was detected because it can lead to very long load times, timeouts, data corruption, update bugs where feeds are not updated anymore and database inconsistencies. If someone is interested in re-enabling webcron based feed updates, please create a PHP script which uses the [updater API](https://github.com/owncloud/news/wiki/Updater-1.2). Don't hesitate to ask for help on the issue tracker!
 * **Bugfix**: Fix multiple error messages and outdated links for cron error messages
 
-owncloud-news (8.4.1)
+news (8.4.1)
 * **Bugfix**: Fix error messages in the logs which were caused by outdated template includes, #972
 
-owncloud-news (8.4.0)
+news (8.4.0)
 * **Enhancement**: Use the feed url when showing an example of a curl command if a feed does not exist, #969
 * **Enhancement**: Also filter duplicate items from web frontend when in folder, starred or all articles view, #465
 
-owncloud-news (8.3.0)
+news (8.3.0)
 * **Bugfix**: If two folders with the same name occur in a OPML file, merge them instead of simply ignoring the second one, #962
 * **Enhancement**: Better error messages for SSL issues, #966
 * **Enhancement**: Rename oc_news_feeds columns etag and last_modified to http_etag and http_last_modified
 
-owncloud-news (8.2.1)
+news (8.2.1)
 * **Bugfix**: Do not abort full OPML import if one feed failed, #843
 * **Bugfix**: Show error message when empty OPML file was imported, #924
 
-owncloud-news (8.2.0)
+news (8.2.0)
 * **Backwards incompatible change**: Move updater into separate repository at https://github.com/owncloud/news-updater and publish it on pypi
 * **Bugfix**: Make the export/import buttons smaller so they fit in a line on ownCloud 9.0
 * **Enhancement**: Marking an item as read will now mark all similar items of the same user as read, regardless of the feed, #465
 * **Enhancement**: Add a link to the documentation and bugtracker in the settings area
 
-owncloud-news (8.1.0)
+news (8.1.0)
 * **Backwards incompatible change**: URLs for the Python updater must now start with either http:// or https://
 * **Enhancement**: Change Python updater License from AGPL3+ to GPL3+
 * **Bugfix**: Fix bug that would not package all JavaScript files for the app store zip, #959
@@ -70,7 +71,7 @@ owncloud-news (8.1.0)
 * **Enhancement**: Add an additional parameter to specify the loglevel for the Python updater
 * **Enhancement**: Adjust Python updater to be able to use the console API. If you pass an absolute directory as url (path to your ownCloud), the updater will try to use **occ** updater commands using php. This requires no user or password arguments which makes running the updater on the same system as your ownCloud more secure
 
-owncloud-news (8.0.0)
+news (8.0.0)
 * **Backwards incompatible change**: The git repository does not bundle composer and bower libraries anymore, nor does it contain compiled JavaScript. If you are running the git version, you now need to run **make** after cloning and pulling from the repository to install the depenencies and compile the JavaScript
 * **New dependency**: Bump minimum ownCloud version to 9.0
 * **New dependency**: Bump minimum PostgreSQL version to 9.4
@@ -80,7 +81,7 @@ owncloud-news (8.0.0)
 * **Bugfix**: Fix bug that would not persist settings like compact mode on PostgreSQL, #948
 * **Enhancement**: Add support for password protected feeds (HTTP basic auth), #938
 
-owncloud-news (7.1.2)
+news (7.1.2)
 * **Enhancement**: Major JavaScript library updates:
   * Update from Angular 1.3 to 1.5
   * Use Gulp instead of Grunt
@@ -88,63 +89,63 @@ owncloud-news (7.1.2)
 * **Enhancement**: Update picoFeed
 * **Bugfix**: Fix bug that would sometimes break the rendering of the explore page
 
-owncloud-news (7.1.1)
+news (7.1.1)
 * **Enhancement**: Add vk.com to allowed iframe sources
 * **Enhancement**: Add blog.fefe.de to German explore feeds
 * **Enhancement**: Add Trump's video channel to English explore feeds
 
-owncloud-news (7.1.0)
+news (7.1.0)
 * **Backwards incompatible change**: Change explore URL API to request a file instead of URL parameter
 * **Enhancement**: Improve explore feeds page design
 * **Enhancement**: Add more feeds on the explore feeds page
 * **Enhancement**: Add a list of German feeds for the explore page
 * **Enhancement**: Allow to select other languages than the currently set language
 
-owncloud-news (7.0.1)
+news (7.0.1)
 * **Enhancement**: Show text preview in compact mode
 * **Bugfix**: Fix bug that broke the app when using Italian translations , #913
 
-owncloud-news (7.0.0)
+news (7.0.0)
 * **New dependency**: Bump required ownCloud version to 8.2
 * **Backwards incompatible change**: Remove console commands and instead run them after specific updates
 * **Bugfix**: Fix bug that prevented non admin users from changing feed parameters, #903
 * **Enhancement**: If a feed failed to update more than 100 times, show a hint in the web interface
 * **Enhancement**: Overwrite active feed styling to make it look like in ownCloud 8.1, #897
 
-owncloud-news (6.1.1)
+news (6.1.1)
 * **Security**: Update picoFeed to add an [XXE fix for php-fpm](http://framework.zend.com/security/advisory/ZF2015-06) on systems with PHP <5.5.22 or >5.6 and <5.6.6. This issue allows any user with access to the News app to read abitrary files from the server. For more information read up on the [Zend advisory](http://framework.zend.com/security/advisory/ZF2015-06) and the [OWASP page](https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing). Affected supported distributions include [Ubuntu 14.04](https://bugs.launchpad.net/ubuntu/trusty/+source/php5/+bug/1509817)
 
-owncloud-news (6.1.0)
+news (6.1.0)
 * **Backwards incompatible change**: Removed several web routes and feed service methods by generalizing feed object changes using a patch method
 * **Enhancement**: Update articles if the pubdate is newer than the current one, #877
 * **Enhancement**: Add feed setting to mark updated articles as unread, #882
 * **Enhancement**: Made app compatible with ownCloud 9
 
-owncloud-news (6.0.6)
+news (6.0.6)
 * **Enhancement**: Align settings text properly, #829
 * **Enhancement**: Update picoFeed to include additional feed rules
 
-owncloud-news (6.0.5)
+news (6.0.5)
 * **Bugfix**: Fix icon width for article action plugins
 * **Bugfix**: Submit search on Firefox when hitting enter, #863
 * **Enhancement**: Add user information API route
 
-owncloud-news (6.0.4)
+news (6.0.4)
 * **Bugfix**: Allow YouTube videos to go fullscreen, #857
 * **Enhancement**: Group plugins in menu, #718
 
-owncloud-news (6.0.3)
+news (6.0.3)
 * **Enhancement**: Allow to pin feeds, #848
 
-owncloud-news (6.0.2)
+news (6.0.2)
 * **Bugfix**: Generate search index when importing articles
 * **Enhancement**: Be less precise when jumping to the next article using a keyboard shortcut to prevent tiny jumps which are sometimes caused by re-rendering hiccups, #847
 * **Enhancement**: Add RTL support
 
-owncloud-news (6.0.1)
+news (6.0.1)
 * **Enhancement**: Replace unlicensed PHP library with a licensed alternative
 
-owncloud-news (6.0.0)
+news (6.0.0)
 * **New dependency**: Require PHP 5.5
 * **Support**: Drop CentOS support
 * **Bugfix**: Fix bug that would not delete a user's table entries after deletion
@@ -153,109 +154,109 @@ owncloud-news (6.0.0)
 * **Enhancement**: Enable enhancers per feed rather than globally for rules available
 * **Enhancement**: Add News app releases to example feeds in explore section
 
-owncloud-news (5.3.9)
+news (5.3.9)
 * **Bugfix**: Also warn when webcron is enabled since it is possible that the update will time out or only work sporadically, #828
 
-owncloud-news (5.3.8)
+news (5.3.8)
 * **Bugfix**: Make the searchbox reappear in 8.1
 
-owncloud-news (5.3.7)
+news (5.3.7)
 * Skipped because of wrong git tag
 
-owncloud-news (5.3.6)
+news (5.3.6)
 * **Bugfix**: Firefox: Mark article as read if middle click on the title is performed
 * **Bugfix**: Firefox: Scroll to top before refresh to prevent accidentally marking articles as read
 
-owncloud-news (5.3.5)
+news (5.3.5)
 * **Bugfix**: Downgrade Angular from 1.4 to 1.3 due to several regressions
 * **Bugfix**: Fix video playback for certain videos
 
-owncloud-news (5.3.4)
+news (5.3.4)
 * **Bugfix**: Do not reorder feeds and folders when their names are edited, #790
 * **Bugfix**: Update links in cron warning notice
 
-owncloud-news (5.3.3)
+news (5.3.3)
 * **Enhancement**: Add shortcut for marking the current article's feed/folder read, #635
 * **Bugfix**: When collapsing an article in compact view, remove content to stop playing audio/video from iframes, #787
 * **Bugfix**: If expand in compact view is enabled, keyboard shortcuts will now expand the first item if the scroll position is at the top and the first item has not been expanded yet, #786
 
-owncloud-news (5.3.2)
+news (5.3.2)
 * **Enhancement**: Disable expand on key navigation setting if compact view is not enabled, #774
 * **Bugfix**: Update picoFeed to the latest version to fix a bug that would cause the fetcher timeout setting to be ignored
 * **Bugfix**: Make settings checkboxes clickable by themselves
 * **Bugfix**: Hide menu (which only contains the mark read button) for all articles feed if all articles are read, #775
 * **Bugfix**: Fix issue that would make it impossible to refresh by jumping to previous article once jump to next shortcut was used after the refresh drop down became visible, #770
 
-owncloud-news (5.3.1)
+news (5.3.1)
 * **Enhancement**: Make entire area for adding feeds and folders clickable
 * **Enhancement**: Do not use as much space for longer headings in compact mode
 * **Bugfix**: Also use the set curl timeout in addition to the connect timeout to react to timeouts after connections which is important for slow feeds, #763
 
-owncloud-news (5.3.0)
+news (5.3.0)
 * **Enhancement**: Make it possible to search articles in the search field. To migrate older articles to this functionality, check the README section "Updating from versions prior to 5.3.0", #185
 * **Enhancement**: Stop video and audio playback if a new video or audio file is being played
 * **Enhancement**: Do not stop playing podcasts when the feed is being reloaded or changed, #156
 * **New dependency**: Bump required ownCloud version to 8.1
 
-owncloud-news (5.2.8)
+news (5.2.8)
 * **Bugfix**: Fix feed subscribe to URL
 * **Enhancement**: Provide checksums for all files
 
-owncloud-news (5.2.7)
+news (5.2.7)
 * **Enhancement**: If the app is called with the subscribe\_to url parameter (e.g. **?subscribe_to=http://path.to/feed**) the feed input is prefilled with the address
 * **Enhancement**: Register the app as feed reader in Firefox
 
-owncloud-news (5.2.6)
+news (5.2.6)
 * **Bugfix**: Update picoFeed to strip out contents of script and style tags which were previously converted into plain text, #723
 
-owncloud-news (5.2.5)
+news (5.2.5)
 * **Bugfix**: Fix flying loading icon since snap.js does not seem to want to fix it
 * **Bugfix**: Turn all http iframes into https iframes
 * **Bugfix**: Set a CSP to display external media on master
 
-owncloud-news (5.2.4)
+news (5.2.4)
 * **Enhancement**: Add a new API route to check for the status and possible problems
 
-owncloud-news (5.2.3)
+news (5.2.3)
 * **Enhancement**: Push explore button at the bottom of the feed list
 * **Enhancement**: When passing a negative batchSizes to the item API, all items will be returned
 
-owncloud-news (5.2.2)
+news (5.2.2)
 * **Security**: Only allow YouTube and Vimeo to embed iframes if they use HTTPS to prevent mixed active content iframe attacks
 
-owncloud-news (5.2.1)
+news (5.2.1)
 * **Bugfix**: Fix admin settings by using the correct config path
 
-owncloud-news (5.2.0)
+news (5.2.0)
 * **New dependency**: Require iconv php module (which is required by picoFeed)
 
-owncloud-news (5.1.1)
+news (5.1.1)
 * **Bugfix**: Use the correct scrolltop position for pull to refresh to not reload the feed when jumping back to an article using keyboard shortcuts
 
-owncloud-news (5.1.0)
+news (5.1.0)
 * **Backwards incompatible change**: Break client side plugin API to combat limitations that make it hard to impossible to get the DOM element
 * **New dependency**: Bump required ownCloud version to 8 beta 2
 * **Enhancement**: Expose feed ordering parameter in API
 
-owncloud-news (5.0.1)
+news (5.0.1)
 * **Enhancement**: Show error messages when authentication or network related errors appear
 * **Enhancement**: Show a pull to refresh area if you are at the very top and jump to the previous article using either page up or a jump to previous article shortcut. If this area is already visible reload the page
 * **Enhancement**: Make it possible to overwrite the global ordering for certain feeds
 
-owncloud-news (5.0.0)
+news (5.0.0)
 * **New dependency**: Bump required ownCloud version to 8
 * **Enhancement**: Set the rel="noreferrer" attribute for all links that point to external articles to enhance privacy
 
-owncloud-news (4.3.2)
+news (4.3.2)
 * **Bugfix**: Update picoFeed to fix an HTTP cache problem where only one match (Etag or Last-Modified) was required to mark a feed as not modified. This can cause some feeds to not update if one cache parameter is always the same
 * **Enhancement**: If a feed is added without the protocol, prepend https:// instead of http:// (e.g. adding cnn.com would result in https://cnn.com being added)
 
-owncloud-news (4.3.1)
+news (4.3.1)
 * **Bugfix**: Update picoFeed to fix feed format detection, e.g. http://aroundthebloc.podbean.com/feed/ was previously not recognized as a valid feed
 * **Enhancement**: Add thecodinglove.com and der-postilion.com enhancers
 * **Enhancement**: Make it possible to define your own article actions by adding article action plugins
 
-owncloud-news (4.3.0)
+news (4.3.0)
 * **Backwards incompatible change**: Refactor the Python updater into a Python package. To stay with the old behavior without installing the package use **python3 -m bin/updater/owncloud_news_updater YOUROPTIONS**
 * **Backwards incompatible change**: Use seconds instead of minutes for the Python updater interval
 * **New dependency**: Require requests 2.5.0 for the Python updater
@@ -263,30 +264,30 @@ owncloud-news (4.3.0)
 * **Enhancement**: Log errors from Python updater to stderr
 * **Enhancement**: Add metronieuws.nl article enhancer
 
-owncloud-news (4.2.6)
+news (4.2.6)
 * **Bugfix**: Wording fixes
 * **Enhancement**: Add linuxtoday.com article enhancer
 * **Enhancement**: Make expand entries in compact view after jumping to next/previous feed optional with a setting
 
-owncloud-news (4.2.5)
+news (4.2.5)
 * **Bugfix**: Fix keep unread shortcut in compact view
 
-owncloud-news (4.2.4)
+news (4.2.4)
 * **Bugfix**: Clicking the button to open a website in compact view now marks the article read
 * **Bugfix**: Make read on scroll more sensitive in compact view to mark it read without having to completely scroll over the entry
 * **Enhancement**: Better explanation for reverse ordering setting
 * **Enhancement**: Do not expand entries in compact view when using the jump to next/previous article shortcuts since this makes it harder to keep an overview and the exact same behavior is available in expanded view anyways
 
-owncloud-news (4.2.3)
+news (4.2.3)
 * **Bugfix**: Fix cron update
 
-owncloud-news (4.2.2)
+news (4.2.2)
 * **Enhancement**: Use a light gradient at the bottom of the feed when no items are left to autopage
 
-owncloud-news (4.2.1)
+news (4.2.1)
 * **Bugfix**: Rewrite relative URLs
 
-owncloud-news (4.2.0)
+news (4.2.0)
 * **Security**: Fix [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) vulnerability in picoFeed RSS library. All versions starting from 4.0.0 are affected
 * **Enhancement**: Add admin setting to set a custom explore service URL
 * **Enhancement**: Add explore button and show explore button on startup
@@ -298,17 +299,17 @@ owncloud-news (4.2.0)
 * **Bugfix**: Ignore Atom updated tag if it is earlier than the published tag
 * **Bugfix**: Do not log errors that a subscription could not be found when http cache says nothing changed
 
-owncloud-news (4.1.3)
+news (4.1.3)
 * **Enhancement**: Fade out folders and feeds instead of just hiding them when the unread count drops to 0 and only unread articles should be shown
 
-owncloud-news (4.1.2)
+news (4.1.2)
 * **Enhancement**: Order feeds and folder sorting by title and name rather than by id
 
-owncloud-news (4.1.1)
+news (4.1.1)
 * **Enhancement**: shortcut **a** scrolls to the currently active feed in the navigation
 * **Enhancement**: next/previous feed/folder shortcuts now scroll to the active entry if it is not fully in view
 
-owncloud-news (4.1.0)
+news (4.1.0)
 * **Backwards incompatible change**: Time used for updating when using the Python updater is now subtracted from the given interval meaning: if you specify 30 seconds as interval and the update takes 25 seconds, it will sleep for 5 seconds before running the next update
 * **Enhancement**: Show a message if ajax cron is used to inform people of improperly configured cron
 * **Enhancement**: Allow to specify configuration file for Python updater
@@ -318,21 +319,21 @@ owncloud-news (4.1.0)
  * -i, --interval
  * -s, --timeout
 
-owncloud-news (4.0.4)
+news (4.0.4)
 * **Bugfix**: Do not indent slashdot.org italic elements
 * **Bugfix**: Hide folders when only showing unread articles after marking all articles as read
 
-owncloud-news (4.0.3)
+news (4.0.3)
 * **Bugfix**: Fix unstarring and starring articles added before 4.x
 
-owncloud-news (4.0.2)
+news (4.0.2)
 * **Bugfix**: Fix CORS headers for getting the version via the API
 * **Enhancement**: Transform YouTube urls to allow subscribing to channels and playlists
 
-owncloud-news (4.0.1)
+news (4.0.1)
 * **Bugfix**: Fix heise.de encoding issues
 
-owncloud-news (4.0.0)
+news (4.0.0)
 * **Backwards incompatible change**: Calculate item ids differently which leads to unpreventable readding of read articles
 * **Backwards incompatible change**: Get rid of simplePieCacheDuration setting, remove this setting from your data/news/config/config.ini after upgrading to 4.\*.*
 * **Backwards incompatible change**: Use three numbers for versioning because core bug with versions seems fixed
@@ -346,49 +347,49 @@ owncloud-news (4.0.0)
 * **Bugfix**: Set the correct header for the FirefoxOS manifest.webapp
 * **Bugfix**: Fix article cleanup on sqlite
 
-owncloud-news (3.406)
+news (3.406)
 * **Enhancement**: Make config.ini editable in the admin interface
 
-owncloud-news (3.405)
+news (3.405)
 * **Bugfix**: Fix mobile view for ownCloud 7
 * **Enhancement**: Add shortcuts for jumping to next/previous folder
 * **Enhancement**: Add keyboard shortcuts overview
 * **Enhancement**: More space for checkboxes in settings overview
 
-owncloud-news (3.404)
+news (3.404)
 * **Bugfix**: Fix freeze when a folder is selected, the previous folder has 0 visible subfeeds and the **d** shortcut is pressed to jump the the previous feed
 
-owncloud-news (3.403)
+news (3.403)
 * **Bugfix**: Use correct route for python updater
 
-owncloud-news (3.402)
+news (3.402)
 * **New dependency**: Bump required ownCloud version to 7.0.3 (RC1 is also supported)
 * **Bugfix**: Use **News** as the app navigation entry name across all languages to fix translation errors and because it makes sense
 
-owncloud-news (3.401)
+news (3.401)
 * **New dependency**: SimpleXML
 * **Enhancement**: Added Slashdot.org enhancer to get rid of tons of advertising that create a lot of whitespace when using adblock
 * **Enhancement**: When a folder or feed of a folder is selected, select that folder in the add new feed section
 
-owncloud-news (3.302)
+news (3.302)
 * **Bugfix**: Fix text overflow for subscriptions and starred feed
 * **Bugfix**: Styles for h4, h5 and h6
 * **Bugfix**: Support 7.0.3 alpha release
 * **Enhancement**: Minify CSS
 * **Enhancement**: Minify JavaScript
 
-owncloud-news (3.301)
+news (3.301)
 * **New dependency**: ownCloud >= 7.0.3
 * **Security**: Fix possible [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) due to race conditions on php systems using **php-fpm**
 * **Bugfix**: Fix issue that prevented going below 1 unread count in the window title
 * **Enhancement**: Show a button to refresh the page instead of reloading the route for pull to refresh
 
-owncloud-news (3.202)
+news (3.202)
 * **Security**: Fix [XEE](https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Processing) on systems with libxml < 2.9 which allows attackers to add a malicious feeds that can include any file content that is readable by the webserver
 * **Enhancement**: Provide manifest to make News an installable web app on Firefox OS
 * **Enhancement**: Switch keep unread and star icon
 
-owncloud-news (3.201)
+news (3.201)
 * **New dependency**: Minimum libxml version: 2.7.8
 * **Bugfix**: Move open website icon in compact view to the left of the title
 * **Bugfix**: SimplePie: Do not break if url encoded links contain non ASCII chars
@@ -396,7 +397,7 @@ owncloud-news (3.201)
 * **Bugfix**: Go back to debug level logging for feed updates
 * **Bugfix**: Fix heise.de feeds
 
-owncloud-news (3.105)
+news (3.105)
 * **Bugfix**: Various wording fixes
 * **Bugfix**: Do not use Import/Export caption for settings buttons to avoid UI bugs in translated versions
 * **Bugfix**: Catch all exceptions for feed update to not also not fail completely after db errors
@@ -405,21 +406,21 @@ owncloud-news (3.105)
 * **Bugfix**: Load app config also when in cron mode
 * **Bugfix**: Log feed create and update errors to owncloud log as error because debug is broken
 
-owncloud-news (3.104)
+news (3.104)
 * **Bugfix**: Backport ownCloud CSS z-index fix to ownCloud 7 for settings popup that made it difficult to access the administration tab
 
-owncloud-news (3.103)
+news (3.103)
 * **Bugfix**: Turn all errors into exceptions to prevent failing all feed updates if one update runs into an error
 
-owncloud-news (3.102)
+news (3.102)
 * **Bugfix**: Fix z-index for stable7 so menu buttons dont overlap content in mobile view
 * **Bugfix**: Use public namespace for template script and style template functions
 
-owncloud-news (3.101)
+news (3.101)
 * **Bugfix**: Fix remove YouTube autoplay on libxml versions < 2.6
 * **Enhancement**: Backport to ownCloud 7
 
-owncloud-news (3.003)
+news (3.003)
 * **Bugfix**: Correctly toggle title of star and keep unread icons
 * **Bugfix**: Fix bug that prevented the webinterface's update every 60 seconds
 * **Enhancement**: Less padding right on mobile phone
@@ -428,14 +429,14 @@ owncloud-news (3.003)
 * **Enhancement**: Ignore autoPurgeMinimumInterval setting if it is below 60 seconds since anything lower than that may hurt user experience
 * **Enhancement**: Remove YouTube autoplay from all articles
 
-owncloud-news (3.002)
+news (3.002)
 * **Bugfix**: If a folder is selected, the f and d shortcuts will jump to the previous or next folder subfeeds
 * **Bugfix**: Fix o shortcut in expanded view
 * **Bugfix**: Make **em** tag cursive and black
 * **Enhancement**: Cut mark read timeout in half
 * **Enhancement**: Show full unread count when hovering over the unread count
 
-owncloud-news (3.001)
+news (3.001)
 * **New dependency**: Minimum ownCloud version: 8
 * **New dependency**: Minimum PHP version: 5.4
 * **Breaking Change**: Plugin API: BusinessLayer has been renamed to Service, (FeedBusinessLayer -> FeedService) and different exceptions are now thrown to make failure better distinguishable, accessing the BusinessLayer links to the Service equivalents to keep compability
@@ -476,14 +477,14 @@ owncloud-news (3.001)
 * **Enhancement**: Port clientside code from CoffeeScript to JavaScript
 * **Enhancement**: Respect theme name in tab title
 
-owncloud-news (2.003)
+news (2.003)
 * Use correct url for folder and feed api update methods
 
-owncloud-news (2.002)
+news (2.002)
 * Better check for news app dependencies
 * Security: Don't send CORS Allow-Credentials header to prevent CSRF
 
-owncloud-news (2.001)
+news (2.001)
 * Delete folders, feeds and articles if a user is deleted
 * Also remember collapsed folders on postgres
 * Fix bug that would prevent articles from being deleted if a folder is marked as deleted on sqlite and postgres
@@ -495,35 +496,35 @@ owncloud-news (2.001)
 * Update HTMLPurifier to incorporate security fixes from the [newest release](http://htmlpurifier.org/news/2013/1130-4.6.0-released)
 * **New dependency**: python-requests library for the python updater script
 
-owncloud-news (1.808)
+news (1.808)
 * Also focus article area when clicking on all unread link
 * Autofocus article area by default on load
 * Instantiate only one itemcontroller, prevents tons of requests when autopaging
 * Fix bug that would disable keyboard shortcuts after the star icon has been clicked
 
-owncloud-news (1.807)
+news (1.807)
 * Don't crash if an HttpException occurs in the python updater
 * Add API call to rename a feed
 * Don't collapse articles in compact mode if you select a new article to prevent the scroll position from changing
 
-owncloud-news (1.806)
+news (1.806)
 * Disable simple pie sanitation (we use HtmlPurifier) to speed up update
 * Only purify articles if they will be added to the database
 * Fix XSS vulnerability that was caused by not purifing the body of imported articles
 * Also float the first picture in the first div left (fixes ugly images for golem.de feed)
 
-owncloud-news (1.805)
+news (1.805)
 * Hide editing tools in invalid feed dialog
 * Use local copies of icons to reflect changes in oc 7
 
-owncloud-news (1.804)
+news (1.804)
 * Make it possible to rename folders
 * Do not show rename action for feeds that could not be added
 * Trim URL in invalid feed modal
 * Article enhancer for
   - niebezpiecznik.pl
 
-owncloud-news (1.803)
+news (1.803)
 * Use the feed link if an item doesn't specificy a link
 * Don't fail if article url does not exist but fall back to feed url
 * Article enhancers for
@@ -534,15 +535,15 @@ owncloud-news (1.803)
   - thegamercat.com
   - twokinds.keenspot.com
 
-owncloud-news (1.802)
+news (1.802)
 * Increase performance by not making auto page requests anymore if the last result didn't contain any articles
 
-owncloud-news (1.801)
+news (1.801)
 * Add ability to rename feeds
 * Compact view
 * Add shortcut to expand items in compact view
 
-owncloud-news (1.605)
+news (1.605)
 * Adding feeds does not block the input box any more
 * Always display empty folders
 * Better description for hiding/showing read articles
@@ -562,15 +563,15 @@ owncloud-news (1.605)
   - loldwell.com
   - mokepon.smackjeeves.com
 
-owncloud-news (1.604)
+news (1.604)
 * Use 64bit integers to prevent running out of ids after a year for large installations
 * Fix postgres feed queries with correct group by
 * Article enhancers now transform relative links on a page to absolute links
 
-owncloud-news (1.603)
+news (1.603)
 * Fix JavaScript errors which prevented the translation elements from being removed
 
-owncloud-news (1.602)
+news (1.602)
 * Remove removed class from container
 * Go back to allow feeds per url from input
 * Added ThemeRepublic.net Enhancer
@@ -578,7 +579,7 @@ owncloud-news (1.602)
 * Manually convert &apos; to ' in title and author fields of articles because its not build into PHP
 * Fix localisation of app name in tab title
 
-owncloud-news (1.601)
+news (1.601)
 * Remove Google Reader import
 * Replace Google Reader import with export and import of unread and starred articles
 * Autopurge limit is now added to the number of articles each feed gets when it updates
@@ -587,18 +588,18 @@ owncloud-news (1.601)
 * Implement pull to refresh
 * Use Bower for JavaScript dependency management
 
-owncloud-news (1.404)
+news (1.404)
 * Fix bug on postgres databases that would not delete old articles
 
-owncloud-news (1.403)
+news (1.403)
 * Respect encoding in feed enhancers
 * Hotfix for update on posgresql databases
 
-owncloud-news (1.402)
+news (1.402)
 * Add possibility of adding more than one xpath for article enhancer
 * Fix bug that wouldn't delete old read articles
 
-owncloud-news (1.401)
+news (1.401)
 * Add possibility to hook up article enhancers which fetch article content directly from the web page
 * Add article enhancer for explosm.net to directly fetch comics and shorts
 * Possible backwards incompatible change by using the link provided by simplepie instead of the user for the url hash. This prevents duplication of the feed when adding a slightly different feed url which points to the same feed and allows a speedup from O(n) to O(1) for article enhanchers
@@ -612,18 +613,18 @@ owncloud-news (1.401)
 * Fix bug in python updater api that would trigger a method not allowed error
 * Add first run page that shows all options expanded if there are no feeds and the app is launched for the first time
 
-owncloud-news (1.206)
+news (1.206)
 * Also handle URLErrors in updater script that are thrown when the domain of a feed is not found
 
-owncloud-news (1.205)
+news (1.205)
 * Also allow magnet urls in articles
 * When jumping to the next item after the last one, also mark the last item as read
 
-owncloud-news (1.204)
+news (1.204)
 * Fix problem that caused python updater script to exit because of maximum recursion
 * Add an option to testrun an update with the updater script
 
-owncloud-news (1.203)
+news (1.203)
 * Decode the title twice to fix special characters in HTML content in the title, author and email
 * Scroll to the bottom once you hit the show all button to prevent tedious scrolling
 * Add an API to make ownCloud cron updates optionally. This can be used to write an update script which can be threaded to dramatically speed up fetching of feeds and reduce the used memory to run the update
@@ -634,11 +635,11 @@ owncloud-news (1.203)
 * Use a default batch value for the API
 * Don't fail to import OPML which uses the title instead of text attribute (i.e. OPML created by Thunderbird)
 
-ownCloud-news (1.202)
+news (1.202)
 * Fixed a bug in the API routes that would request an uneeded id when creating a feed
 * Log unimportant errors on debug level instead of error level
 
-ownCloud-news (1.201)
+news (1.201)
 * Add shortcut 'o' which opens the current article in a new tab
 * Speed up updating of feeds by more than 100% by not fetching favicons and unneeded https/http variants
 * Moved to new RESTful API to fix API bugs
@@ -652,22 +653,22 @@ ownCloud-news (1.201)
 * If articles dont provide a pubdate, use the date when the article was saved in the database
 * Display download link if audio file is not playable
 
-ownCloud-news (1.001)
+news (1.001)
 * Also use monospace for pre tag
 * Fix bug that would prevent feed updates when feeds or folders are deleted
 
-ownCloud-news (0.104)
+news (0.104)
 * Also html decode the links to the page to not break on nyaa torrents
 
-ownCloud-news (0.103)
+news (0.103)
 * Fixed a bug that prevented deleting feeds when a folder was deleted
 
-ownCloud-news (0.102)
+news (0.102)
 * Fix marking read of all articles and folders on mysql and postgres
 * Fix bug that would still show items after its feed or folder has been marked as deleted
 * Fix bug that would show invalid unread count for feeds whose folders were deleted
 
-ownCloud-news (0.101)
+news (0.101)
 
 * show 99+ as max unread count
 * only show delete button if feed is active
@@ -686,17 +687,17 @@ ownCloud-news (0.101)
 * Fix bug that broke the News app on postgresql
 * Fix bug that prevented the API from serving items
 
-ownCloud-news (0.98)
+news (0.98)
 
 * Fix XSS vulnerability in sanitation for json import
 * Fix XSS vulnerability in feed and title link
 
-ownCloud-news (0.97)
+news (0.97)
 
 * Fix XSS vulnerability in sanitation
 * Properly show embedded vimeo and youtube videos
 
-ownCloud-news (0.96)
+news (0.96)
 
 * Always open links in new tabs
 * Better exception handling for controllers
@@ -707,7 +708,7 @@ ownCloud-news (0.96)
 * Fixed problem with sites that updated too frequently like youtube
 * Also update folders
 
-ownCloud-news (0.95)
+news (0.95)
 
 * Fix a bug that would cause PHP 5.3 to fail while parsing utf-8
 * Reverted the keep unread checkbox styling from a button back to a normal checkbox
