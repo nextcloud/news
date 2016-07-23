@@ -1,5 +1,5 @@
 /**
- * ownCloud - News
+ * Nextcloud - News
  *
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
@@ -62,7 +62,7 @@ app.factory('Resource', function () {
         if (deleteAtIndex !== undefined) {
             this.values.splice(deleteAtIndex, 1);
         }
-        
+
         if (this.hashMap[id] !== undefined) {
             delete this.hashMap[id];
         }
