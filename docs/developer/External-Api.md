@@ -38,7 +38,7 @@ means that folder objects will be listed inside the **folders** array.
 
 ### Error Objects Are Omitted
 
-This means that the error object will not be explicitely shown in the examples. All HTTP 400 response status codes contain an error object:
+This means that the error object will not be explicitly shown in the examples. All HTTP 400 response status codes contain an error object:
 
 ```json
 {
@@ -797,7 +797,7 @@ In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
 }
 ```
 
-**apiLevels**: An array of arbitrary long strings, strings represent the the supported api leves which directly correspond to the first fragment after the **/api/** Url fragment.
+**apiLevels**: An array of arbitrary long strings, strings represent the the supported api levels which directly correspond to the first fragment after the **/api/** Url fragment.
 
 To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
 
