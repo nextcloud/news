@@ -24,7 +24,7 @@ class Time {
         $timestamp = floor($utimestamp);
         $milliseconds = round(($utimestamp - $timestamp) * 1000000);
         $result = ($timestamp * 1000000) + $milliseconds;
-        return $result;
+        return intval($result);
     }
 
 }
