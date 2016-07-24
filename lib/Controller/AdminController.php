@@ -18,7 +18,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Controller;
 
 use OCA\News\Config\Config;
-use OCA\News\Service\itemService;
+use OCA\News\Service\ItemService;
 
 class AdminController extends Controller {
 
