@@ -51,11 +51,18 @@
             <field>
                 <name>last_modified</name>
                 <type>integer</type>
-                <default></default>
+                <default>0</default>
                 <length>8</length>
                 <notnull>false</notnull>
                 <unsigned>true</unsigned>
             </field>
+
+            <index>
+                <name>news_folders_last_modified_index</name>
+                <field>
+                    <name>last_modified</name>
+                </field>
+            </index>
 
             <index>
                 <name>news_folders_parent_id_index</name>
@@ -95,7 +102,7 @@
             <field>
                 <name>last_modified</name>
                 <type>integer</type>
-                <default></default>
+                <default>0</default>
                 <length>8</length>
                 <notnull>false</notnull>
                 <unsigned>true</unsigned>
@@ -144,7 +151,7 @@
             <field>
                 <name>added</name>
                 <type>integer</type>
-                <default></default>
+                <default>0</default>
                 <length>8</length>
                 <notnull>false</notnull>
                 <unsigned>true</unsigned>
@@ -225,6 +232,13 @@
                 <default>0</default>
                 <notnull>true</notnull>
             </field>
+
+            <index>
+                <name>news_feeds_last_modified_index</name>
+                <field>
+                    <name>last_modified</name>
+                </field>
+            </index>
 
             <index>
                 <name>news_feeds_user_id_index</name>
@@ -345,11 +359,18 @@
             <field>
                 <name>last_modified</name>
                 <type>integer</type>
-                <default></default>
+                <default>0</default>
                 <length>8</length>
                 <notnull>false</notnull>
                 <unsigned>true</unsigned>
             </field>
+
+            <index>
+                <name>news_items_last_modified_index</name>
+                <field>
+                    <name>last_modified</name>
+                </field>
+            </index>
 
             <index>
                 <name>news_items_feed_id_index</name>
