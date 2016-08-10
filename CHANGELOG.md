@@ -4,6 +4,7 @@ news (9.0.0)
 * **Backwards incompatible change**: Updating to 9.0.0 is only possible from 8.8.0 or higher due complex database schema changes.
 * **Enhancement**: Further cleanups for the Nextcloud app store
 * **Bugfix**: Fix cronjob updates on Nextcloud 10
+* **Bugfix**: Limit iframes to 100% width, #10
 
 news (8.8.3)
 * **Enhancement**: Cleanups for the Nextcloud app store
