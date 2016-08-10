@@ -33,7 +33,8 @@ First let's add some meta data about our app. Open the **newsplugin/appinfo/info
     <author>Your Name Here</author>
     <version>0.0.1</version>
     <dependencies>
-        <owncloud min-version="9.0"/>
+        <nextcloud min-version="10"/>
+        <owncloud min-version="9.1"/>
         <php min-version="5.6"/>
     </dependencies>
 </info>
