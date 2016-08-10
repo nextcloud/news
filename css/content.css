@@ -574,13 +574,16 @@
     }
 
     #app-content .body img,
-    #app-content .body table,
-    #app-content .body iframe {
+    #app-content .body table {
         max-width: 100%;
         height: auto;
         overflow: auto;
         word-wrap: break-word;
         white-space:normal;
+    }
+    
+    #app-content .body iframe {
+        max-width: 100%;
     }
 
     #app-content .body > div > img:first-child,
