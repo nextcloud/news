@@ -145,27 +145,13 @@ appstore:
 	cp --parents -r \
 	"admin" \
 	"appinfo" \
-	"config" \
-	"command" \
-	"controller" \
-	"cron" \
 	"css" \
-	"db" \
-	"dependencyinjection" \
-	"explore" \
-	"fetcher" \
-	"hooks" \
-	"http" \
 	"img" \
 	"l10n" \
-	"plugin" \
-	"service" \
+	"lib" \
 	"templates" \
-	"upgrade" \
-	"utility" \
 	"vendor" \
 	"COPYING" \
-	"README.md" \
 	"AUTHORS.md" \
 	"js/vendor/js-url/url.min.js" \
 	"js/vendor/es6-shim/es6-shim.min.js" \
