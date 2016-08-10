@@ -574,7 +574,8 @@
     }
 
     #app-content .body img,
-    #app-content .body table {
+    #app-content .body table,
+    #app-content .body iframe {
         max-width: 100%;
         height: auto;
         overflow: auto;
