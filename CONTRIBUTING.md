@@ -44,12 +44,12 @@ check if:
  ```
 
 * Reproduce the Problem
-* Check **data/owncloud.log**
+* Check **data/nextcloud.log**
 * Check your [browser's JavaScript console for errors](http://ggnome.com/wiki/Using_The_Browser_Error_Console) if it's a client-side issue
 
 Please provide the following details so that your problem can be fixed:
 
-* **data/owncloud.log** (important!)
+* **data/nextcloud.log** (important!)
 * Nextcloud version
 * News version
 * Browser and version
@@ -127,4 +127,3 @@ We usually hang out on **irc.freenode.net** in the **#nextcloud-news** and **#ne
 * Place a space before and after the parameter block for if, else, for, foreach, function
 * Everything should be in pascalCase except classes which should be in CamelCase
 * For linting JavaScript, a [jshint file](https://github.com/nextcloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript
-

@@ -54,7 +54,7 @@ script:
     - make test
 
 after_failure:
-    - cat ../../data/owncloud.log
+    - cat ../../data/nextcloud.log
 
 addons:
     firefox: "latest"

@@ -226,7 +226,7 @@ Some hints:
 * type clob is usually an Sql TEXT
 * length for integer fields means bytes, so an integer with length 8 means its 64bit
 
-### I am getting: Exception: Some\\Class does not exist erros in my owncloud.log
+### I am getting: Exception: Some\\Class does not exist erros in my nextcloud.log
 This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
 ### How do I reset the News app
@@ -241,7 +241,7 @@ DROP TABLE oc_news_folders;
 
 ### App is stuck in maintenance mode after failed update
 
-Check the **nextcloud/data/owncloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **nextcloud/config/config.php** by setting the **maintenance** key to false:
+Check the **nextcloud/data/nextcloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **nextcloud/config/config.php** by setting the **maintenance** key to false:
 
     "maintenance" => false,
 
@@ -254,7 +254,7 @@ System Cron:
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
 * Check if you can execute the cron with **sudo -u www-data php -f nextcloud/cron.php** (replace www-data with your httpd user)
-* Check your **data/owncloud.log** for errors
+* Check your **data/nextcloud.log** for errors
 * Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/nextcloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [core](https://github.com/nextcloud/core/)
@@ -265,7 +265,7 @@ System Cron:
 
     nextcloud_news_updater --loglevel info -c /path/to/config.ini
 
-* Check your **data/owncloud.log** for errors
+* Check your **data/nextcloud.log** for errors
 
 ### Adding feeds that use self-signed certificates
 If you want to add a feed that uses a self-signed certificate that is not signed by a trusted CA the request will fail with "SSL certficate is invalid". A common solution is to turn off the certificate verification **which is wrong** and **makes your installation vulnerable to MITM attacks**. Therefore **turning off certificate verification is not supported**.

@@ -22,7 +22,7 @@ Explain what you did to encounter the issue
 * Browser and version:
 * Distribution and version:
 
-## Contents of nextcloud/data/owncloud.log
+## Contents of nextcloud/data/nextcloud.log
 
 ```json
 

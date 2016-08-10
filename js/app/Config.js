@@ -51,7 +51,7 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         403: t('news', 'Request forbidden. Are you an admin?'),
         412: t('news', 'Token expired or app not enabled! Reload the page!'),
         500: t('news', 'Internal server error! Please check your ' +
-                       'data/owncloud.log file for additional ' +
+                       'data/nextcloud.log file for additional ' +
                        'information!'),
         503: t('news', 'Request failed, Nextcloud is in currently ' +
                        'in maintenance mode!')
