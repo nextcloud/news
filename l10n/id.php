@@ -7,6 +7,7 @@ $TRANSLATIONS = array(
 "Internal server error! Please check your data/nextcloud.log file for additional information!" => "Kesalahan internal server! Mohon cek berkas data/nextcloud.log Anda untuk informasi lebih lanjut!",
 "Request failed, Nextcloud is in currently in maintenance mode!" => "Permintaan gagal, Nextcloud sedang dalam mode pemeliharaan!",
 "Feed contains invalid XML" => "Feed berisi XML yang tidak sah",
+"Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " => "Feed tidak ditemukan: mungkin situs web tidak menyediakan feed atau memblokir akses. Untuk mencegah blokir, coba unduh feed di command line server Anda menggunakan curl: curl",
 "Detected feed format is not supported" => "Ditemukan format feed yang tidak didukung",
 "Website not found" => "Situs web tidak ditemukan",
 "More redirects than allowed, aborting" => "Pengalihan melebihi dari yang diizinkan, membatalkan",
