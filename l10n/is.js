@@ -5,12 +5,17 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Beiðni ekki heimiluð. Ertu skráð/ur inn?",
     "Request forbidden. Are you an admin?" : "Beiðni bönnuð. Ertu kerfisstjóri?",
     "Token expired or app not enabled! Reload the page!" : "Kenniteikn er útrunnið eða forrit ekki virkt! Þú ættir að hlaða síðunni aftur inn!",
+    "Request failed, Nextcloud is in currently in maintenance mode!" : "Fyrirspurn brást, Nextcloud er núna í viðhaldsham.",
     "Feed contains invalid XML" : "Streymi inniheldur ógilt XML",
     "Detected feed format is not supported" : "Ekki er stuðningur við snið streymisins sem fannst",
     "Website not found" : "Vefsvæði fannst ekki",
     "More redirects than allowed, aborting" : "Fleiri endurbeiningar en leyfilegt er, hætti við",
     "Bigger than maximum allowed size" : "Stærra en hámarksstærð",
     "Request timed out" : "Beiðni rann út á tíma",
+    "Certificate error: Couldn't use specified cipher." : "Villa í skilríki: Gat ekki notað umbeðinn dulritunarlykil (chipher).",
+    "Certificate error: Initiating the SSL Engine failed." : "Villa í skilríki: Ekki tókst að frumstilla SSL-kerfið.",
+    "Certificate error: Issuer check failed" : "Villa í skilríki: Ekki tókst að sannreyna útgefanda",
+    "Unknown SSL certificate error!" : "Óþekkt villa í SSL-skilríki",
     "Can not add feed: Exists already" : "Gat ekki bætt við streymi: streymið er þegar til",
     "Articles without feed" : "Greinar án fréttastreymis",
     "Can not add folder: Exists already" : "Gat ekki bætt við möppu: mappan er þegar til",
@@ -117,6 +122,7 @@ OC.L10N.register(
     "Error when importing: file does not contain valid JSON" : "Villa við innflutning: skrá inniheldur ekki gilt JSON",
     "Help" : "Hjálp",
     "Keyboard shortcuts" : "Flýtilyklar",
-    "Documentation" : "Hjálparskjöl"
+    "Documentation" : "Hjálparskjöl",
+    "Report a bug" : "Tilkynna um villu"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
