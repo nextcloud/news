@@ -17,7 +17,7 @@
     <website>https://github.com/nextcloud/news</website>
     <bugs>https://github.com/nextcloud/news/issues</bugs>
     <repository type="git">https://github.com/nextcloud/news.git</repository>
-    <discussion>https://help.nextcloud.com/t/news-app-discussion</discussion>
+    <discussion>https://help.nextcloud.com/t/news-app-discussion/1852</discussion>
     <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
     <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <dependencies>
