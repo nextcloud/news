@@ -89,7 +89,7 @@ OC.L10N.register(
     "Feed exists already!" : "Der Feed existiert bereits!",
     "Folder" : "Ordner",
     "No folder" : "Kein Ordner",
-    "New folder" : "Neues Verzeichnis",
+    "New folder" : "Neuen Ordner",
     "Folder name" : "Ordnername",
     "Go back" : "Zurück gehen",
     "Folder exists already!" : "Der Ordner existiert bereits!",
