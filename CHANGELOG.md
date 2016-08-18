@@ -1,3 +1,6 @@
+news (9.0.1)
+* **Enhancement**: Drop PHP 64bit requirement due to helpful suggestions
+
 news (9.0.0)
 * **New dependency**: Bump minimum Nextcloud version to 10
 * **New dependency**: PHP 64bit required
