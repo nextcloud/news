@@ -20,11 +20,8 @@ class Time {
      * @return int the current unix time in miliseconds
      */
     public function getMicroTime() {
-        $utimestamp = microtime(true);
-        $timestamp = floor($utimestamp);
-        $milliseconds = round(($utimestamp - $timestamp) * 1000000);
-        $result = ($timestamp * 1000000) + $milliseconds;
-        return intval($result);
+        list($millisecs, $secs) = explode(" ", microtime());
+        return $secs . substr($millisecs, 2);
     }
 
 }
