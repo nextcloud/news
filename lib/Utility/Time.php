@@ -21,7 +21,7 @@ class Time {
      */
     public function getMicroTime() {
         list($millisecs, $secs) = explode(" ", microtime());
-        return $secs . substr($millisecs, 2);
+        return $secs . substr($millisecs, 2, 6);
     }
 
 }
