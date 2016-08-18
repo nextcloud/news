@@ -40,8 +40,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method integer getStatus()
  * @method void setStatus(integer $value)
  * @method void setRtl(boolean $value)
- * @method integer getLastModified()
- * @method void setLastModified(integer $value)
+ * @method string getLastModified()
+ * @method void setLastModified(string $value)
  * @method void setFingerprint(string $value)
  * @method void setContentHash(string $value)
  * @method void setSearchIndex(string $value)
@@ -71,7 +71,6 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $this->addType('pubDate', 'integer');
         $this->addType('feedId', 'integer');
         $this->addType('status', 'integer');
-        $this->addType('lastModified', 'integer');
         $this->addType('rtl', 'boolean');
     }
 

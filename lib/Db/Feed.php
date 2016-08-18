@@ -30,7 +30,7 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getTitle()
  * @method void setTitle(string $value)
  * @method string getLastModified()
- * @method void setLastModified(integer $value)
+ * @method void setLastModified(string $value)
  * @method string getHttpLastModified()
  * @method void setHttpLastModified(string $value)
  * @method string getHttpEtag()
@@ -105,7 +105,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
         $this->addType('fullTextEnabled', 'boolean');
         $this->addType('updateMode', 'integer');
         $this->addType('updateErrorCount', 'integer');
-        $this->addType('lastModified', 'integer');
     }
 
 

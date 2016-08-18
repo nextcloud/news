@@ -28,8 +28,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setOpened(boolean $value)
  * @method integer getDeletedAt()
  * @method void setDeletedAt(integer $value)
- * @method integer getLastModified()
- * @method void setLastModified(integer $value)
+ * @method string getLastModified()
+ * @method void setLastModified(string $value)
 
  */
 class Folder extends Entity implements IAPI, \JsonSerializable {
@@ -47,7 +47,6 @@ class Folder extends Entity implements IAPI, \JsonSerializable {
         $this->addType('parentId', 'integer');
         $this->addType('opened', 'boolean');
         $this->addType('deletedAt', 'integer');
-        $this->addType('lastModified', 'integer');
     }
 
     /**

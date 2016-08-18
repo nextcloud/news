@@ -233,9 +233,6 @@ class FeedMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
         $sql2 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
         $arguments2 = [$feed->getId()];
 
-        $pdoResult = $this->getMock('Result', ['fetch']);
-        $pdoResult->expects($this->any())->method('fetch');
-
         $this->setMapperResult($sql, $arguments);
         $this->setMapperResult($sql2, $arguments2);
 
