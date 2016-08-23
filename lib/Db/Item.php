@@ -150,7 +150,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
-            'lastModified' => $this->getLastModified(),
+            'lastModified' => (int) substr($this->getLastModified(), 0, -6),
             'rtl' => $this->getRtl(),
             'fingerprint' => $this->getFingerprint(),
             'contentHash' => $this->getContentHash()

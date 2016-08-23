@@ -1,3 +1,6 @@
+news (9.0.2)
+* **Bugfix**: Do not return millisecond lastModified timestamps in API, #20
+
 news (9.0.1)
 * **Enhancement**: Drop PHP 64bit requirement due to helpful suggestions
 

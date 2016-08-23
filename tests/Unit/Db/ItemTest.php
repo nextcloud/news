@@ -69,7 +69,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setStatus(0);
         $item->setUnread();
         $item->setStarred();
-        $item->setLastModified(321);
+        $item->setLastModified('1111111111234567');
         $item->setFingerprint('fingerprint');
         $item->setContentHash('contentHash');
 
@@ -87,7 +87,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
-            'lastModified' => 321,
+            'lastModified' => 1111111111,
             'rtl' => true,
             'fingerprint' => 'fingerprint',
             'contentHash' => 'contentHash'
