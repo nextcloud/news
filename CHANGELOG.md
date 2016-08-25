@@ -1,3 +1,6 @@
+news (9.0.3)
+* **Security (Low)**: Prevent browsers like Chrome from auto-filling your Nextcloud login credentials into Basic Auth form. This could lead users to accidentally saving their credentials in the database and disclosing them to the feed source when the feed is added/updated
+
 news (9.0.2)
 * **Bugfix**: Do not return millisecond lastModified timestamps in API, #20
 

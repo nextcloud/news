@@ -91,7 +91,7 @@
                     <input type="password"
                         ng-model="Navigation.feed.password"
                         placeholder="<?php p($l->t('Password')); ?>"
-                        name="password">
+                        name="password" autocomplete="new-password">
                 </div>
 
                 <!-- submit -->
