@@ -150,7 +150,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
-            'lastModified' => (int) substr($this->getLastModified(), 0, -6),
+            'lastModified' => $this->cropApiLastModified(),
             'rtl' => $this->getRtl(),
             'fingerprint' => $this->getFingerprint(),
             'contentHash' => $this->getContentHash()
@@ -250,6 +250,18 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         parent::setBody(str_replace(
             '<a', '<a target="_blank" rel="noreferrer"', $body
         ));
+    }
+
+    /**
+     * @return int
+     */
+    public function cropApiLastModified() {
+        $lastModified = $this->getLastModified();
+        if (strlen((string)$lastModified > 10)) {
+            return (int)substr($lastModified, 0, -6);
+        } else {
+            return $lastModified;
+        }
     }
 
 }
