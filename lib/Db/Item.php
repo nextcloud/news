@@ -257,10 +257,10 @@ class Item extends Entity implements IAPI, \JsonSerializable {
      */
     public function cropApiLastModified() {
         $lastModified = $this->getLastModified();
-        if (strlen((string)$lastModified > 10)) {
+        if (strlen((string)$lastModified) > 10) {
             return (int)substr($lastModified, 0, -6);
         } else {
-            return $lastModified;
+            return (int)$lastModified;
         }
     }
 
