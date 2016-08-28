@@ -75,7 +75,11 @@ class ItemApiController extends ApiController {
      */
     public function updated($type=3, $id=0, $lastModified=0) {
         // needs to be turned into a millisecond timestamp to work properly
-        $paddedLastModified = $lastModified . '000000';
+        if (strlen((string) $lastModified) <= 10) {
+            $paddedLastModified = $lastModified . '000000';
+        } else {
+            $paddedLastModified = $lastModified;
+        }
         return $this->serializer->serialize(
             $this->itemService->findAllNew($id, $type, $paddedLastModified,
                                            true, $this->userId)
