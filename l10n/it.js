@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Impossibile aggiungere la fonte: esiste già",
     "Articles without feed" : "Articoli senza fonte",
     "Can not add folder: Exists already" : "Impossibile aggiungere la cartella: esiste già",
+    "Use system cron for updates" : "Usa cron di sistema per gli aggiornamenti",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Disabilita questa opzione se esegui uno strumento di aggiornamento personalizzato come quello Python incluso nell'applicazione",
     "Purge interval" : "Intervallo di cancellazione",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" : "Numero minimo di secondi dopo i quali le fonti e le cartelle eliminate sono rimosse dal database; valori inferiori a 60 secondi sono ignorati",
