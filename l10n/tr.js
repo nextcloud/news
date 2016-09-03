@@ -81,7 +81,7 @@ OC.L10N.register(
     "Load previous folder" : "Önceki klasörü yükle",
     "Scroll to active navigation entry" : "Gezinti girdisini etkinleştirmek için kaydır",
     "Focus search field" : "Arama alanına odaklan",
-    "Mark current article's feed/folder read" : "Geçerli makalenin beslemesini/klasörünü okundu işaretle",
+    "Mark current article's feed/folder read" : "Geçerli makale akışını/klasörünü okunmuş olarak işaretle",
     "Web address" : "Web adresi",
     "Feed exists already!" : "Besleme zaten mevcut!",
     "Folder" : "Klasör",
