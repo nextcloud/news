@@ -483,7 +483,7 @@ with the following request body:
 ```json
 {
     "url": "https://feed.url.com",
-    "name": "Folder name",
+    "name": "Feed name",
     "ordering": 0,
     "isPinned": true,
     "fullTextEnabled": false,
@@ -540,7 +540,7 @@ with the following request body:
 ```json
 {
     "url": "https://feed.url.com",
-    "name": "Folder name",
+    "name": "Feed name",
     "ordering": 0,
     "isPinned": true,
     "fullTextEnabled": false,
