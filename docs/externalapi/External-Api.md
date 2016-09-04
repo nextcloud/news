@@ -485,6 +485,7 @@ with the following request body:
     "url": "https://feed.url.com",
     "name": "Folder name",
     "ordering": 0,
+    "folderId": 3,
     "isPinned": true,
     "fullTextEnabled": false,
     "basicAuthUser": "user",
@@ -492,6 +493,7 @@ with the following request body:
 }
 ```
 * **url**: Abitrary long text, the url needs to have the full schema e.g. https://the-url.com. In case the user omits the schema, prepending **https** is recommended
+* **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 * **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
 * **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
 * **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
@@ -542,6 +544,7 @@ with the following request body:
     "url": "https://feed.url.com",
     "name": "Folder name",
     "ordering": 0,
+    "folderId": 3,
     "isPinned": true,
     "fullTextEnabled": false,
     "basicAuthUser": "user",
@@ -558,6 +561,7 @@ All parameters are optional
 * **ordering (optional)**: See [feeds](#Feeds)
 * **isPinned (optional)**: See [feeds](#Feeds)
 * **fullTextEnabled (optional)**: See [feeds](#Feeds)
+* **folderId (optional)**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 
 The following response is being returned:
 
