@@ -222,12 +222,12 @@ with the following request body:
             // read and starred
             "id": 5,
             "isStarred": false,
-            "isRead": true,
+            "isUnread": true,
             "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             // only read
             "id": 6,
-            "isRead": true,
+            "isUnread": true,
             "contentHash": "09ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             // only starred
@@ -248,7 +248,7 @@ If no items have been read or starred, simply leave the **items** array empty, e
 
 The response matches the **GET** call, except there can be two different types of item objects:
 * **[Full](#full)**: Contains all attributes
-* **[Reduced](#reduced)**: Contains only **id**, **isRead** and **isStarred**
+* **[Reduced](#reduced)**: Contains only **id**, **isUnread** and **isStarred**
 
 The deciding factor whether a full or reduced item object is being returned depends on the contentHash in the request: If the contentHash matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.
 
@@ -264,11 +264,11 @@ For instance let's take a look at the following example. You are **POST**ing the
     "items": [{
             "id": 5,
             "isStarred": false,
-            "isRead": true,
+            "isUnread": true,
             "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             "id": 6,
-            "isRead": true,
+            "isUnread": true,
             "contentHash": "09ffbcf94bd95a1faa6e9e799cc29054"
         }, {
             "id": 7,
@@ -285,10 +285,10 @@ and receive the following output in return:
     "items": [{
             "id": 5,
             "isStarred": false,
-            "isRead": true
+            "isUnread": true
         }, {
             "id": 6,
-            "isRead": true,
+            "isUnread": true,
             "isStarred": false
     }]
 }
