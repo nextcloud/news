@@ -137,7 +137,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'basicAuthPassword'
         ]);
 
-        $url = parse_url($this->link)['host'];
+        $url = parse_url($this->link, PHP_URL_HOST);
 
         // strip leading www. to avoid css class confusion
         if (strpos($url, 'www.') === 0) {
