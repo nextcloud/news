@@ -36,6 +36,7 @@ OC.L10N.register(
     "Download" : "Letöltés",
     "Close" : "Bezárás",
     "Ajax or Web cron mode detected! Your feeds will not be updated!" : "Ajax vagy Web cron mód észlelve. A hírfolyamok nem lesznek frissítve!",
+    "How to set up the operating system cron" : "Hogyan állítsd be az operációs rendszer időzítőjét",
     "filter" : "szűrő",
     "Language" : "Nyelv",
     "Subscribe" : "Feliratkozás",
