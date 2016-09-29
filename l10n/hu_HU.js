@@ -26,6 +26,7 @@ OC.L10N.register(
     "Articles without feed" : "Cikkek hírfolyam nélkül",
     "Can not add folder: Exists already" : "A mappa nem hozható létre: már létezik",
     "Use system cron for updates" : "A frissítésekhez használd a rendszer cront",
+    "Purge interval" : "Tisztogatási időköz",
     "Maximum read count per feed" : "Maximális olvasási szám hífolyamonként",
     "Maximum redirects" : "Maximum átirányítás",
     "How many redirects the feed fetcher should follow" : "Hány átirányítást kövessen a hírfolyam letöltő",
