@@ -3,6 +3,7 @@
     "Request unauthorized. Are you logged in?" : "요청이 인증되지 않았습니다. 로그인 되어 있습니까?",
     "Request forbidden. Are you an admin?" : "요청이 금지되었습니다. 관리자 권한을 갖고 있습니까?",
     "Token expired or app not enabled! Reload the page!" : "토큰이 만료되었거나 앱이 활성화되어 있지 않습니다. 페이지를 새로 고치십시오.",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "인터넷 서버 오류! 자세한 내용은 data/nextcloud.log 파일을 확인하세요!",
     "Feed contains invalid XML" : "피드에 올바르지 않은 XML이 포함되어 있음",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "피드를 찾을 수 없습니다. 웹 사이트에서 피드를 제공하지 않거나 접근을 차단하고 있습니다. 차단 여부를 확인하려면 서버의 명령줄에서 curl 명령을 사용하여 피드를 다운로드해 보십시오: curl",
     "Detected feed format is not supported" : "감지한 피드 포맷을 지원하지 않음",
