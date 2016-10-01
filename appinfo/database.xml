@@ -329,6 +329,13 @@
                 <notnull>false</notnull>
             </field>
             <field>
+                <name>updated_date</name>
+                <type>integer</type>
+                <length>8</length>
+                <unsigned>true</unsigned>
+                <notnull>false</notnull>
+            </field>
+            <field>
                 <name>body</name>
                 <type>clob</type>
                 <notnull>false</notnull>
