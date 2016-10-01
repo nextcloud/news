@@ -384,6 +384,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setGuidHash(md5('hi'));
         $item->setFeedId(3);
         $item->setPubDate(2);
+        $item->setUpdatedDate(2);
         $item->setTitle('hey');
         $item->setAuthor('aut');
         $item->setBody('new');
@@ -396,6 +397,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setGuidHash(md5('hi'));
         $item->setFeedId(3);
         $item->setPubDate(1);
+        $item->setUpdatedDate(1);
         $item->setTitle('ho');
         $item->setAuthor('auto');
         $item->setBody('old');
@@ -403,7 +405,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         return $item;
     }
 
-    public function testUpdateUpdatesWhenPubdateIsNewer() {
+    public function testUpdateUpdatesWhenUpdateddateIsNewer() {
         $feed = $this->createUpdateFeed();
         $item = $this->createUpdateItem();
         $item2 = $this->createUpdateItem2();
