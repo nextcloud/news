@@ -38,6 +38,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $title;
     private $guid;
     private $pub;
+    private $updated;
     private $body;
     private $author;
     private $enclosureLink;
@@ -110,6 +111,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->body2 = 'let the bodies hit the floor ' .
             '<a target="_blank" href="test">test</a>';
         $this->pub = 23111;
+        $this->updated = 23444;
         $this->author = '&lt;boogieman';
         $this->enclosureLink = 'http://enclosure.you';
 
@@ -209,10 +211,14 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item = new Item();
 
         date_default_timezone_set('America/Los_Angeles');
-        $date = new \DateTime();
-        $date->setTimestamp($this->pub);
-        $this->expectItem('getDate', $date);
+
+        $pubdate = \Datetime::createFromFormat('U',$this->pub);
+        $this->expectItem('getPublishedDate', $pubdate);
         $item->setPubDate($this->pub);
+
+        $update = \Datetime::createFromFormat('U',$this->updated);
+        $this->expectItem('getUpdatedDate', $update);
+        $item->setUpdatedDate($this->updated);
 
         $item->setStatus(0);
         $item->setUnread();
