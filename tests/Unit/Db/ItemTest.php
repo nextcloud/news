@@ -61,6 +61,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
+        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -81,6 +82,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
+            'updatedDate' => 234,
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -104,6 +106,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
+        $item->setUpdatedDate(234);
         $item->setBody('<body><div>this is a test</body>');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -123,6 +126,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
+            'updatedDate' => 234,
             'body' => '<body><div>this is a test</body>',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -145,6 +149,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
+        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -165,6 +170,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
+            'updatedDate' => 234,
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -184,6 +190,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
+        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -221,6 +228,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'title' => $item->getTitle(),
             'author' => $item->getAuthor(),
             'pubDate' => $item->getPubDate(),
+            'updatedDate' => $item->getUpdatedDate(),
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
@@ -244,6 +252,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'title' => $item->getTitle(),
             'author' => $item->getAuthor(),
             'pubDate' => $item->getPubDate(),
+            'updatedDate' => $item->getUpdatedDate(),
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
