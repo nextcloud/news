@@ -256,7 +256,15 @@ System Cron:
 * Check your **data/nextcloud.log** for errors
 * Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/nextcloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
-* If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [core](https://github.com/nextcloud/core/)
+* Check if the **oc_jobs** table has a **reserved_at** with a different value than 0. If it does for whatever reason, set it to 0. You can check this by executing:
+
+    SELECT reserved_at FROM oc_jobs WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+
+ and reset it by executing
+
+    UPDATE oc_jobs SET reserved_at = 0 WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+
+* If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
 
 [Nextcloud News Updater](https://github.com/nextcloud/news-updater):
 * Check if the config.ini in **nextcloud/data/news/config/config.ini** contains **useCronUpdates = false**
