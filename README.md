@@ -256,7 +256,7 @@ System Cron:
 * Check your **data/nextcloud.log** for errors
 * Check if the cronjob is ever executed by placing an **error_log('updating');** in the [background job file](https://github.com/nextcloud/news/blob/master/cron/updater.php#L28). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
-* Check if the **oc_jobs** table has a **reserved_at** with a different value than 0. If it does for whatever reason, set it to 0. You can check this by executing:
+* Check if the **oc_jobs** table has a **reserved_at** entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:
 
   ```sql
   SELECT reserved_at FROM oc_jobs WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
