@@ -240,8 +240,7 @@ class FeedFetcher implements IFeedFetcher {
         $item->setUrl($parsedItem->getUrl());
         $item->setGuid($parsedItem->getId());
         $item->setGuidHash($item->getGuid());
-        $item->setPubDate($parsedItem->getPublishedDate()->getTimestamp());
-        $item->setUpdatedDate($parsedItem->getUpdatedDate()->getTimestamp());
+        $item->setPubDate($parsedItem->getDate()->getTimestamp());
         $item->setRtl($this->determineRtl($parsedItem, $parsedFeed));
 
         // unescape content because angularjs helps against XSS

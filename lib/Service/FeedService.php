@@ -246,7 +246,7 @@ class FeedService extends Service {
 
                     // in case of update
                     if ($forceUpdate ||
-                        $item->getUpdatedDate() > $dbItem->getUpdatedDate()) {
+                        $item->getPubDate() > $dbItem->getPubDate()) {
 
                         $dbItem->setTitle($item->getTitle());
                         $dbItem->setUrl($item->getUrl());
@@ -255,7 +255,6 @@ class FeedService extends Service {
                         $dbItem->setRtl($item->getRtl());
                         $dbItem->setLastModified($item->getLastModified());
                         $dbItem->setPubDate($item->getPubDate());
-                        $dbItem->setUpdatedDate($item->getUpdatedDate());
                         $dbItem->setEnclosureMime($item->getEnclosureMime());
                         $dbItem->setEnclosureLink($item->getEnclosureLink());
                         $dbItem->setBody(
