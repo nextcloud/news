@@ -258,11 +258,15 @@ System Cron:
 * If there is no **updating** statement in your logs check if your cronjob is executed by executing a different script
 * Check if the **oc_jobs** table has a **reserved_at** with a different value than 0. If it does for whatever reason, set it to 0. You can check this by executing:
 
+    ```sql
     SELECT reserved_at FROM oc_jobs WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+    ```
 
  and reset it by executing
 
+    ```sql
     UPDATE oc_jobs SET reserved_at = 0 WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+    ```
 
 * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
 
