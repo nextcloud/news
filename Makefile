@@ -153,6 +153,7 @@ appstore:
 	"vendor" \
 	"COPYING" \
 	"AUTHORS.md" \
+	"CHANGELOG.md" \
 	"js/vendor/js-url/url.min.js" \
 	"js/vendor/es6-shim/es6-shim.min.js" \
 	"js/vendor/angular/angular.min.js" \
