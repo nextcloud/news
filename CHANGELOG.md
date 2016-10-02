@@ -1,3 +1,8 @@
+news (9.1.0)
+* **Enhancement**: Include changelog in release download
+* **Enhancement**: Update picoFeed to the latest release
+* **Enhancement**: Parse and save updated date
+
 news (9.0.4)
 * **Bugfix**: Pad API last modified timestamp to milliseconds in updated items API to return only new items. API users however need to re-sync their complete contents, #24
 * **Bugfix**: Do not pad milliseconds for non millisecond timestamps in API
