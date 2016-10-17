@@ -55,7 +55,7 @@ OC.L10N.register(
     "Subscribe" : "Abonnér",
     "Got more awesome feeds? Share them with us!" : "Har du flere fantastiske nyhetskilder? Del dem med oss!",
     "No articles available" : "Ingen artikler tilgjengelig",
-    "No unread articles available" : "Inen uleste artikler tilgjengelig",
+    "No unread articles available" : "Ingen uleste artikler tilgjengelig",
     "Open website" : "Åpne webside",
     "Star article" : "Merk artikkelen",
     "Unstar article" : "Fjern merking av artikkelen",
