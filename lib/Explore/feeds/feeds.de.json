@@ -46,14 +46,20 @@
         "votes": 100
     }],
     "Blogs": [{
-            "title": "Fefes Blog",
-            "favicon": "http:\/\/blog.fefe.de\/favicon.ico",
-            "url": "http:\/\/blog.fefe.de\/",
-            "feed": "http:\/\/blog.fefe.de\/rss.xml?html",
-            "description": "Verschw\u00f6rungen und Obskures aus aller Welt",
-            "votes": 100
-        }
-    ],
+        "title": "Fefes Blog",
+        "favicon": "http:\/\/blog.fefe.de\/favicon.ico",
+        "url": "http:\/\/blog.fefe.de\/",
+        "feed": "http:\/\/blog.fefe.de\/rss.xml?html",
+        "description": "Verschw\u00f6rungen und Obskures aus aller Welt",
+        "votes": 100
+    }, {
+        "title": "Kuketz IT-Security Blog",
+        "favicon": "https:\/\/www.kuketz-blog.de\/favicon.ico",
+        "url": "https:\/\/www.kuketz-blog.de\/",
+        "feed": "https:\/\/www.kuketz-blog.de\/feed\/",
+        "description": "IT-Sicherheit und Datenschutz",
+        "votes": 100
+    }],
     "Nachrichten": [{
         "title": "derStandard.at",
         "favicon": "https:\/\/derstandard.at\/img\/derstandard.at.ico",
