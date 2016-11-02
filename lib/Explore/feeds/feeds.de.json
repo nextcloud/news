@@ -10,7 +10,7 @@
         "title": "Golem.de",
         "favicon": "http:\/\/golem.de\/favicon.ico",
         "url": "http:\/\/www.golem.de\/",
-        "feed": "http:\/\/golem.de.dynamic.feedsportal.com\/pf\/578068\/http:\/\/rss.golem.de\/rss.php?feed=RSS1.0",
+        "feed": "http:\/\/rss.golem.de\/rss.php?feed=ATOM1.0",
         "description": "IT-News fuer Profis",
         "votes": 100,
         "image": "http:\/\/www.golem.de\/staticrl\/images\/golem-rss.png"
@@ -32,17 +32,17 @@
     }, {
         "title": "heise online News",
         "favicon": "https:\/\/www.heise.de\/favicon.ico",
-        "url": "http:\/\/www.heise.de\/newsticker\/",
-        "feed": "http:\/\/heise.de.feedsportal.com\/c\/35207\/f\/653901\/index.rss",
+        "url": "https:\/\/www.heise.de\/newsticker\/classic\/",
+        "feed": "https:\/\/www.heise.de\/newsticker\/heise-atom.xml",
         "description": "Nachrichten nicht nur aus der Welt der Computer",
         "votes": 100
     }],
     "FOSS": [{
         "title": "heise open news",
         "favicon": "https:\/\/www.heise.de\/favicon.ico",
-        "url": "http:\/\/www.heise.de\/open\/news\/",
-        "feed": "http:\/\/heise.de.open.feedsportal.com\/c\/32509\/f\/480599\/index.rss",
-        "description": "Nachrichten zu Open Source",
+        "url": "https:\/\/www.heise.de\/thema\/Linux-und-Open-Source",
+        "feed": "https:\/\/www.heise.de\/thema\/Linux-und-Open-Source?view=atom",
+        "description": "Nachrichten zu Linux und Open Source",
         "votes": 100
     }],
     "Blogs": [{
