@@ -298,6 +298,18 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testReadDoesNotExist(){
+
+        $this->setExpectedException(
+            '\OCA\News\Service\ServiceNotFoundException'
+        );
+        $this->mapper->expects($this->once())
+            ->method('readItem')
+            ->will($this->throwException(new DoesNotExistException('')));
+
+        $this->itemService->read(1, true, $this->user);
+    }
+
     public function testStarDoesNotExist(){
 
         $this->setExpectedException(
