@@ -49,7 +49,7 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->query = $this->getMock('\PDOStatement');
+        $this->query = $this->createMock('\PDOStatement');
         $this->queryAt = 0;
         $this->prepareAt = 0;
         $this->iterators = [];
