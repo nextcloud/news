@@ -147,8 +147,12 @@ class ItemService extends Service {
      * @throws ServiceNotFoundException if the item does not exist
      */
     public function read($itemId, $isRead, $userId){
-        $lastModified = $this->timeFactory->getMicroTime();
-        $this->itemMapper->readItem($itemId, $isRead, $lastModified, $userId);
+        try {
+            $lastModified = $this->timeFactory->getMicroTime();
+            $this->itemMapper->readItem($itemId, $isRead, $lastModified, $userId);
+        } catch(DoesNotExistException $ex) {
+            throw new ServiceNotFoundException($ex->getMessage());
+        }
     }
 
 
