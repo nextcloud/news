@@ -16,6 +16,7 @@ namespace OCA\News\AppInfo;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 
+use OCP\BackgroundJob\IJobList;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Reader\Reader as PicoFeedReader;
 
@@ -63,7 +64,8 @@ class Application extends App {
         $this->registerService(AppConfig::class, function($c) {
             $config = new AppConfig(
                 $c->query(INavigationManager::class),
-                $c->query(IURLGenerator::class)
+                $c->query(IURLGenerator::class),
+                $c->query(IJobList::class)
             );
 
             $config->loadConfig($c->query('info'));

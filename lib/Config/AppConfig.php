@@ -13,6 +13,7 @@
 
 namespace OCA\News\Config;
 
+use OCP\BackgroundJob\IJobList;
 use SimpleXMLElement;
 
 use OCP\INavigationManager;
@@ -26,6 +27,7 @@ class AppConfig {
     private $config;
     private $navigationManager;
     private $urlGenerator;
+	private $jobList;
 
     /**
      * TODO: External deps that are needed:
@@ -33,10 +35,12 @@ class AppConfig {
      * - connect to hooks
      */
     public function __construct(INavigationManager $navigationManager,
-                                IURLGenerator $urlGenerator) {
+                                IURLGenerator $urlGenerator,
+                                IJobList $jobList) {
         $this->navigationManager = $navigationManager;
         $this->urlGenerator = $urlGenerator;
         $this->config = [];
+        $this->jobList = $jobList;
     }
 
 
@@ -83,9 +87,7 @@ class AppConfig {
     public function registerAll() {
         $this->registerNavigation();
         $this->registerHooks();
-        // IJob API is fucked up, so silence the code checker
-        $class = '\OCP\BackgroundJob';
-        $class::addRegularTask($this->config['cron']['job'], 'run');
+        $this->jobList->add('OC\BackgroundJob\Legacy\RegularJob', [$this->config['cron']['job'], 'run']);
         App::registerAdmin($this->config['id'], $this->config['admin']);
     }
 
