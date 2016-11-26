@@ -36,6 +36,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <owncloud max-version="0" min-version="0"/>
         <nextcloud min-version="11" max-version="11"/>
     </dependencies>
+    <ocsid>168040</ocsid>
 
     <!-- navigation -->
     <navigation>
@@ -60,5 +61,4 @@ Before you update to a new version, [check the changelog](https://github.com/nex
             <subscriber>OCA\News\Hooks\User::deleteUser</subscriber>
         </hook>
     </hooks>
-    <ocsid>168040</ocsid>
 </info>

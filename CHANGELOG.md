@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Switch to new update API
 - Do not fail to mark items as read if they do not exist on the server anymore when using the API
+- Show "Settings" label for settings area button
 
 ## 9.0.4
 
