@@ -47,7 +47,7 @@ This is a small overview over how you should sync your articles with the Nextclo
 All routes are given relative to the base API url (e.g.: https://yournextcloud.com/index.php/apps/news/api/v1-2)
 
 ### Initial Sync
-The intial sync happens, when a user adds an Nextcloud account in your app. In that case you should fetch all feeds, folders and unread or starred articles from the News app. Do not fetch all articles, not only because it syncs faster, but also because the user is primarily interested in unread articles. To fetch all unread and starred articles, you must call 4 routes:
+The intial sync happens, when a user adds a Nextcloud account in your app. In that case you should fetch all feeds, folders and unread or starred articles from the News app. Do not fetch all articles, not only because it syncs faster, but also because the user is primarily interested in unread articles. To fetch all unread and starred articles, you must call 4 routes:
 
 * **unread articles**: GET /items?type=3&getRead=false&batchSize=-1
 * **starred articles**: GET /items?type=2&getRead=true&batchSize=-1
