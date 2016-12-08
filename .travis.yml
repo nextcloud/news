@@ -43,11 +43,11 @@ before_script:
     - if [[ "$DB" == 'pgsql' ]]; then psql -U postgres -c "GRANT ALL ON DATABASE oc_autotest TO oc_autotest;"; fi
     - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e 'create database oc_autotest;'; fi
     - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"; fi
-    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "grant all on oc_autotest.* to 'oc_autotest'@'localhost';"; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "GRANT ALL ON oc_autotest.* TO 'oc_autotest'@'localhost';"; fi
     # fill nextcloud with default configs and enable news
     - cd nextcloud
     - mkdir data
-    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
+    - ./occ maintenance:install --database-name oc_autotest --database-user postgres --admin-user admin --admin-pass admin --database $DB --database-pass=''
     - ./occ app:enable news
     - ./occ app:check-code news
     - ./occ background:cron  # enable default cron
@@ -66,5 +66,5 @@ addons:
     firefox: "latest"
 
 services:
-  - postgresql
-  - mysql
+    - mysql
+    - postgresql
