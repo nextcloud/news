@@ -581,7 +581,7 @@
         word-wrap: break-word;
         white-space:normal;
     }
-    
+
     #app-content .body iframe {
         max-width: 100%;
     }
@@ -597,7 +597,7 @@
         font-size: 17px;
         font-weight: bold;
         color: #222;
-        margin: 21px 0 0 0;
+        margin: 21px 0 5px 0;
     }
 
     #app-content .body h3 {

@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "010bbed448270e58892a326d72da0e8b",
-    "content-hash": "2f5f2d3822b3881fe37f38548918cd00",
+    "hash": "9518ad408d6c54ebf09c7c68314ddb52",
+    "content-hash": "180718a2770d88bdcdf663e62f9604da",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.7.0",
+            "version": "v4.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
+                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
-                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
+                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
                 "shasum": ""
             },
             "require": {
@@ -49,20 +49,20 @@
             "keywords": [
                 "html"
             ],
-            "time": "2015-08-05 01:03:42"
+            "time": "2016-07-16 12:58:58"
         },
         {
             "name": "fguillot/picofeed",
-            "version": "v0.1.23",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "a7c3d420c239fe9ffc39b0d06b6e57db39ce3797"
+                "reference": "b0da4c4de928ba0bc879f27b2a99f77355b9afa7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/a7c3d420c239fe9ffc39b0d06b6e57db39ce3797",
-                "reference": "a7c3d420c239fe9ffc39b0d06b6e57db39ce3797",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/b0da4c4de928ba0bc879f27b2a99f77355b9afa7",
+                "reference": "b0da4c4de928ba0bc879f27b2a99f77355b9afa7",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +97,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/fguillot/picoFeed",
-            "time": "2016-04-17 22:31:55"
+            "time": "2016-11-29 23:21:32"
         },
         {
             "name": "pear/net_url2",
@@ -254,7 +254,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "fguillot/picofeed": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
