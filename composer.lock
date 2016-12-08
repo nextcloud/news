@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9518ad408d6c54ebf09c7c68314ddb52",
-    "content-hash": "180718a2770d88bdcdf663e62f9604da",
+    "hash": "8d2e9b29809087fa5b3de196be311319",
+    "content-hash": "374e1a4540a77c25fa84a4c7951073ba",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -101,16 +101,16 @@
         },
         {
             "name": "pear/net_url2",
-            "version": "v2.2.0",
+            "version": "v2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Net_URL2.git",
-                "reference": "fa9b1ecb3c3e640d4a54d58d681a4cb7524f209e"
+                "reference": "43a87606daf52efe6685c92131be083143108e37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_URL2/zipball/fa9b1ecb3c3e640d4a54d58d681a4cb7524f209e",
-                "reference": "fa9b1ecb3c3e640d4a54d58d681a4cb7524f209e",
+                "url": "https://api.github.com/repos/pear/Net_URL2/zipball/43a87606daf52efe6685c92131be083143108e37",
+                "reference": "43a87606daf52efe6685c92131be083143108e37",
                 "shasum": ""
             },
             "require": {
@@ -158,7 +158,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2015-04-18 17:36:57"
+            "time": "2016-04-18 22:24:01"
         },
         {
             "name": "riimu/kit-pathjoin",
