@@ -22,8 +22,8 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     <website>https://github.com/nextcloud/news</website>
     <bugs>https://github.com/nextcloud/news/issues</bugs>
     <repository type="git">https://github.com/nextcloud/news.git</repository>
-    <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
-    <screenshot>https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
+    <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
+    <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <dependencies>
         <php min-version="5.6"/>
         <database min-version="9.4">pgsql</database>
