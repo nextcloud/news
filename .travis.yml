@@ -49,6 +49,8 @@ before_script:
     - ./occ app:check-code news
     - ./occ background:cron  # enable default cron
     - php -S localhost:8080 &
+    - ls
+    - ls data
     - cd apps/news
 
 script:
