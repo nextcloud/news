@@ -6,7 +6,7 @@ php:
     - 7
 env:
     global:
-        - CORE_BRANCH=stable10
+        - CORE_BRANCH=stable11
     matrix:
         - DB=pgsql
 
@@ -58,3 +58,7 @@ after_failure:
 
 addons:
     firefox: "latest"
+
+services:
+  - postgresql
+  - mysql
