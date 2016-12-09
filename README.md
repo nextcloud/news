@@ -28,6 +28,7 @@ Nextcloud News can be synced with the following apps:
   * [fastReader (Windows Phone)](http://www.windowsphone.com/en-us/store/app/fastreader/e55e696d-aa45-4a49-bb1c-a1fc7fdabec1), closed source
   * [OwnCloud News Reader (WebOS)](http://www.webosnation.com/owncloud-news-reader), [open source](https://bitbucket.org/andpeters/webos-owncloud-news-reader)
   * [FeedReader (Linux desktop)](http://jangernert.github.io/FeedReader/), [open source](https://github.com/jangernert/FeedReader)
+  * [py3status](https://github.com/ultrabug/py3status/) for [i3 (UNIX-like)](http://i3wm.org/), [open source](https://github.com/i3/i3)
 
 
 ## Dependencies
