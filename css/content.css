@@ -479,9 +479,9 @@
 }
 
 #app-content .source img {
-    height: 18px;
+    height: 16px;
     display: inline-block;
-    margin: 0 0 -3px 3px;
+    margin: 0 0 -2px 2px;
 }
 
 /**
