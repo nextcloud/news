@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Added
+- Show favicons in expanded mode's subtitle section if a folder is viewed
+
 ## 10.0.0
 
 ### Removed

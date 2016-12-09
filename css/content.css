@@ -478,6 +478,12 @@
     display: none;
 }
 
+#app-content .source img {
+    height: 20px;
+    display: inline-block;
+    margin: 0 0 -5px 5px;
+}
+
 /**
  * Actual content
  */
