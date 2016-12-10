@@ -1,10 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 10.0.1
 
 ### Added
 - Show favicons in expanded mode's subtitle section if a folder is viewed
+
+### Changed
+- Updated PHP and JS libraries
 
 ## 10.0.0
 
