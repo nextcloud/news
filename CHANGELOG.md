@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 10.0.1
+## 10.1.0
 
 ### Added
 - Show favicons in expanded mode's subtitle section if a folder is viewed
