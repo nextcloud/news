@@ -23,7 +23,7 @@ OC.L10N.register(
     "Certificate error: Initiating the SSL Engine failed." : "Gabim dëshmie: Dështoi nisja e Mekanizmit SSL.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Gabim dëshmie: Problem me leximin e dëshmisë SSL të AD-sët (shteg? të drejta hyrjeje?)",
     "Certificate error: Issuer check failed" : "Gabim dëshmie: Dështoi kontrolli i lëshuesit",
-    "Unknown SSL certificate error!" : "Gabim i panjohur dëshmie SSL!",
+    "Unknown SSL certificate error!" : "Gabim i panjohur certifikate SSL!",
     "Can not add feed: Exists already" : "Prurja s’shtohet dot: ekziston tashmë",
     "Articles without feed" : "Artikuj pa prurje",
     "Can not add folder: Exists already" : "S’shtohet dot dosje: ekziston tashmë",
