@@ -15,6 +15,8 @@ namespace OCA\News\Fetcher;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
+use OCP\Http\Client\IClientService;
+use PicoFeed\Processor\ItemPostProcessor;
 
 
 class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
@@ -96,11 +98,19 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
+        $postProcessor = $this->getMockBuilder(ItemPostProcessor::class)
+            ->getMock();
+        $this->parser->expects($this->any())
+            ->method('getItemPostProcessor')
+            ->will($this->returnValue($postProcessor));
+        $clientService = $this->getMockBuilder(IClientService::class)
+            ->getMock();
         $this->fetcher = new FeedFetcher(
                         $this->reader,
                         $this->faviconFactory,
                         $this->l10n,
-                        $timeFactory);
+                        $timeFactory,
+                        $clientService);
         $this->url = 'http://tests';
 
         $this->permalink = 'http://permalink';
