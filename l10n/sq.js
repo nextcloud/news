@@ -5,6 +5,7 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Kërkesë e paautorizuar. Jeni i futur?",
     "Request forbidden. Are you an admin?" : "Kërkesë e ndaluar. Jeni një përgjegjës?",
     "Token expired or app not enabled! Reload the page!" : "Token-i ka skaduar ose s’është aktivizuar aplikacioni! Ringarkoni faqen!",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Gabim i brendshëm serveri! Ju lutemi kontrolloni skedarin tuaj data/nextcloud.log për informacion shtesë!",
     "Feed contains invalid XML" : "Prurja përmban XML të pavleshme",
     "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "S’u gjet prurje: ose sajti nuk furnizon ndonjë prurje, ose i bllokon hyrjet. Që të përjashtoni mundësinë e bllokimit, provoni ta shkarkoni prurjen që nga rreshti i urdhrave të shërbyesit tuaj, duke përdorur urdhrin curl: curl ",
     "Detected feed format is not supported" : "Nuk mbulohet formati i zbuluar për prurjen",
