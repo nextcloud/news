@@ -57,6 +57,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $title;
     protected $author;
     protected $pubDate;
+    protected $updatedDate;
     protected $body;
     protected $enclosureMime;
     protected $enclosureLink;
@@ -69,6 +70,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
 
     public function __construct() {
         $this->addType('pubDate', 'integer');
+        $this->addType('updatedDate', 'integer');
         $this->addType('feedId', 'integer');
         $this->addType('status', 'integer');
         $this->addType('rtl', 'boolean');
@@ -122,6 +124,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'pubDate' => $this->getPubDate(),
+            'updatedDate' => $this->getUpdatedDate(),
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
@@ -144,6 +147,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'pubDate' => $this->getPubDate(),
+            'updatedDate' => $this->getUpdatedDate(),
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
@@ -164,6 +168,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'pubDate' => $this->getPubDate(),
+            'updatedDate' => $this->getUpdatedDate(),
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
@@ -186,6 +191,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $item->setTitle($import['title']);
         $item->setAuthor($import['author']);
         $item->setPubDate($import['pubDate']);
+        $item->setUpdatedDate($import['updatedDate']);
         $item->setBody($import['body']);
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);

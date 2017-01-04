@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7d53c930874a1103e790167b8d0e0d0c",
-    "content-hash": "2bd56b0f3d648651eb3470b5d003ef46",
+    "hash": "2aeb3a6a1ab336d16bf352f4e88f6825",
+    "content-hash": "ef2350b58d0ee66262400727956c9786",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
@@ -53,16 +53,16 @@
         },
         {
             "name": "fguillot/picofeed",
-            "version": "dev-master",
+            "version": "v0.1.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "58a94dcefd12401cdb5a40017dfbbb960756e22a"
+                "reference": "9da506c308bcb40b6fc630f9123466028c03170b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/58a94dcefd12401cdb5a40017dfbbb960756e22a",
-                "reference": "58a94dcefd12401cdb5a40017dfbbb960756e22a",
+                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/9da506c308bcb40b6fc630f9123466028c03170b",
+                "reference": "9da506c308bcb40b6fc630f9123466028c03170b",
                 "shasum": ""
             },
             "require": {
@@ -73,6 +73,11 @@
                 "ext-xml": "*",
                 "php": ">=5.3.0",
                 "zendframework/zendxml": "^1.0"
+            },
+            "require-dev": {
+                "phpdocumentor/reflection-docblock": "2.0.4",
+                "phpunit/phpunit": "4.8.26",
+                "symfony/yaml": "2.8.7"
             },
             "suggest": {
                 "ext-curl": "PicoFeed will use cURL if present"
@@ -97,7 +102,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/fguillot/picoFeed",
-            "time": "2016-12-09 00:31:15"
+            "time": "2016-12-29 00:06:41"
         },
         {
             "name": "pear/net_url2",
@@ -254,9 +259,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "fguillot/picofeed": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
