@@ -15,6 +15,8 @@ namespace OCA\News\Fetcher;
 
 use Exception;
 
+use OCA\News\PostProcessor\LWNProcessor;
+use OCP\Http\Client\IClientService;
 use PicoFeed\Parser\MalFormedXmlException;
 use PicoFeed\Reader\Reader;
 use PicoFeed\Parser\Parser;
@@ -42,15 +44,18 @@ class FeedFetcher implements IFeedFetcher {
     private $reader;
     private $l10n;
     private $time;
+    private $clientService;
 
     public function __construct(Reader $reader,
                                 PicoFeedFaviconFactory $faviconFactory,
                                 IL10N $l10n,
-                                Time $time) {
+                                Time $time,
+                                IClientService $clientService) {
         $this->faviconFactory = $faviconFactory;
         $this->reader = $reader;
         $this->time = $time;
         $this->l10n = $l10n;
+        $this->clientService = $clientService;
     }
 
 
@@ -108,6 +113,7 @@ class FeedFetcher implements IFeedFetcher {
 
             if ($fullTextEnabled) {
                 $parser->enableContentGrabber();
+                $parser->getItemPostProcessor()->register(new LWNProcessor($basicAuthUser, $basicAuthPassword, $this->clientService));
             }
 
             $parsedFeed = $parser->execute();
