@@ -1,4 +1,4 @@
--/**
+/**
  * Nextcloud - News
  *
  * This file is licensed under the Affero General Public License version 3 or
@@ -233,18 +233,4 @@
 
 #app-navigation .updateerror a {
     background-color: orange !important;
-}
-
-/**
- * Fixes for owncloud/core#20208
- */
-#app-navigation li a,
-#app-navigation .add-new button {
-    opacity: 1 !important;
-    color: #000 !important;
-}
-#app-navigation .active,
-#app-navigation .active a,
-#app-navigation li > a:hover {
-    background-color: #ddd;
 }
