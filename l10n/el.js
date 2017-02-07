@@ -15,6 +15,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Αδυναμία προσθήκης ροής: Υπάρχει ήδη",
     "Articles without feed" : "Άρθρα χωρίς ροές",
     "Can not add folder: Exists already" : "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδη",
+    "Use system cron for updates" : "Χρήση του cron του συστήματος για ενημερώσεις",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Απενεργοποιήστε αυτό εάν τρέχετε μια τροποποιημένη υπηρεσία ενημέρωσης όπως την υπηρεσία ενημέρωσης Python που περιλαμβάνεται στην εφαρμογή",
     "Purge interval" : "Διάστημα καθαρισμού",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" : "Η ελάχιστη διάρκεια σε δευτερόλεπτα μετά τη διαγραφή ροών και φακέλων οπότε θα απομακρύνονται από τη βάση δεδομένων - τιμές κάτω από 60 δευτερόλεπτα θα αγνοούνται",
