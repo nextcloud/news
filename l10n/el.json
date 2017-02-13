@@ -4,6 +4,7 @@
     "Request forbidden. Are you an admin?" : "Το αίτημα δεν επιτράπει. Είστε διαχειριστής;",
     "Token expired or app not enabled! Reload the page!" : "Η διαδικασία αναγνώρισης τερματίστηκε ή η εφαρμογή δεν είναι ενεργοποιημένη! Επαναφορτώστε τη σελίδα! ",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Εσωτερικό σφάλμα διακομιστή! Παρακαλώ ελέγξτε το αρχείο data/nextcloud.log για περισσότερες πληροφορίες!",
+    "Request failed, Nextcloud is in currently in maintenance mode!" : "Αποτυχία αιτήματος, το Nextcloud είναι προσωρινά σε κατάσταση συντήρησης!",
     "Feed contains invalid XML" : "Η ροή περιέχει μη έγχυρο XML",
     "Detected feed format is not supported" : "Η μορφοποίηση ροής που ανιχνεύτηκε δεν υποστηρίζεται",
     "Website not found" : "Δεν βρέθηκε ιστοσελίδα",
