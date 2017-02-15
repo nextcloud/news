@@ -44,7 +44,7 @@
 
     var subscribeUrl = cleanUrl + '?subscribe_to=%s';
     var mimeType = 'application/vnd.mozilla.maybe.feed';
-    var title = 'ownCloud News @ ' + cleanUrl;
+    var title = 'Nextcloud News @ ' + cleanUrl;
 
     registerHandler(mimeType, subscribeUrl, title);
 
