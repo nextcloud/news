@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2aeb3a6a1ab336d16bf352f4e88f6825",
     "content-hash": "ef2350b58d0ee66262400727956c9786",
     "packages": [
         {
@@ -49,7 +48,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2016-07-16 12:58:58"
+            "time": "2016-07-16T12:58:58+00:00"
         },
         {
             "name": "fguillot/picofeed",
@@ -102,7 +101,7 @@
             ],
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/fguillot/picoFeed",
-            "time": "2016-12-29 00:06:41"
+            "time": "2016-12-29T00:06:41+00:00"
         },
         {
             "name": "pear/net_url2",
@@ -163,7 +162,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2016-04-18 22:24:01"
+            "time": "2016-04-18T22:24:01+00:00"
         },
         {
             "name": "riimu/kit-pathjoin",
@@ -208,7 +207,7 @@
                 "path",
                 "system"
             ],
-            "time": "2015-08-22 11:29:24"
+            "time": "2015-08-22T11:29:24+00:00"
         },
         {
             "name": "zendframework/zendxml",
@@ -253,7 +252,7 @@
                 "xml",
                 "zf2"
             ],
-            "time": "2016-02-04 21:02:08"
+            "time": "2016-02-04T21:02:08+00:00"
         }
     ],
     "packages-dev": [],

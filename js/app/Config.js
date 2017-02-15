@@ -33,12 +33,14 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL, $window) {
         return {
             request: function (config) {
-                var domain =
+                const token = $window.document.getElementsByTagName('head')[0]
+                    .getAttribute('data-requesttoken');
+                const domain =
                     $window.location.href.split($window.location.pathname)[0];
                 if (config.url.indexOf(BASE_URL) === 0 ||
                     config.url.indexOf(domain) === 0) {
                     /*jshint camelcase: false */
-                    config.headers.requesttoken = oc_requesttoken;
+                    config.headers.requesttoken = token;
                 }
 
                 return config || $q.when(config);
