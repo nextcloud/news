@@ -16,7 +16,7 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://g
 ## Sync Clients
 Nextcloud News can be synced with the following apps:
   * [RSS Guard (Windows, Linux, OS/2, Mac OS)](https://github.com/martinrotter/rssguard), [open source](https://github.com/martinrotter/rssguard)
-  * [ownCloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/nextcloud/news-android-app)
+  * [ownCloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/owncloud/news-android-app)
   * [OCReader (Android)](https://f-droid.org/repository/browse/?fdid=email.schaal.ocreader), [open source](https://github.com/schaal/ocreader)
   * [CloudNews (iOS)](https://itunes.apple.com/app/cloudnews-owncloud-news-reader/id683859706), [open source](https://github.com/nextcloud/news-ios-app)
   * [News Checker (Chrome extension)](https://chrome.google.com/webstore/detail/owncloud-news-checker/hnmagnmdnfdhabdlicankfbfhcdgbfhe)
