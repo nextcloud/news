@@ -39,7 +39,7 @@
     "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Maximale Feedgröße in Bytes. Wenn die RSS/Atom-Seite größer als dieser Wert ist, wird die Aktualisierung abgebrochen",
     "Feed fetcher timeout" : "Zeitüberschreitung Feed-Sammler",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Maximale Anzahl an Sekunden zum Laden eines RSS- oder Atom-Feeds; Wenn dies länger dauert, wird die Aktualisierung abgebrochen.",
-    "Explore Service URL" : "Service-URL entdecken",
+    "Explore Service URL" : "Service-URL finden",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Falls angegeben, wird die URL dieses Dienstes zur Feed-Anzeige innerhalb des Explore-Feed-Bereichs abgefragt. Lassen Sie dieses Feld unausgefüllt, um auf den eingebauten Explore-Dienst zurückzugreifen.",
     "For more information check the Wiki" : "Für weiter Informationen besuchen Sie das Wiki",
     "Saved" : "Gespeichert",
