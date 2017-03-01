@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Pyyntö epäonnistui, verkkoyhteyttä ei ole käytettävissä!",
     "Request unauthorized. Are you logged in?" : "Pyyntö ei ole valtutettu. Oletko sisäänkirjautuneena?",
-    "Request forbidden. Are you an admin?" : "Pyyntö kielletty. Oletko ylläpitäjä?",
+    "Request forbidden. Are you an admin?" : "Pyyntö evätty. Oletko ylläpitäjä?",
     "Token expired or app not enabled! Reload the page!" : "Valtuutus vanheni tai sovellus ei käytössä. Lataa sivu uudelleen.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Pyyntö epäonnistui, Nextcloud on parhaillaan huoltotilassa!",
     "Feed contains invalid XML" : "Syöte sisältää virheellistä XML:ää",
