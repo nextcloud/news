@@ -118,7 +118,7 @@ OC.L10N.register(
     "Rename feed" : "Feed umbenennen",
     "Delete feed" : "Feed löschen",
     "Mark all articles read" : "Alles als gelesen kennzeichnen",
-    "Dismiss" : "Ausblenden",
+    "Dismiss" : "Verwerfen",
     "Collapse" : "Zuklappen",
     "Deleted folder" : "Gelöschter Ordner",
     "Undo delete folder" : "Gelöschten Ordner wiederherstellen",
