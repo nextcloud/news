@@ -29,7 +29,7 @@
         "source": "https://github.com/nextcloud/news/"
     },
     "require": {
-        "ezyang/htmlpurifier": "4.8",
+        "ezyang/htmlpurifier": "4.9.2",
         "fguillot/picofeed": "0.1.28",
         "pear/net_url2": "2.2.1",
         "riimu/kit-pathjoin": "1.1.2"
