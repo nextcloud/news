@@ -1,5 +1,4 @@
 sudo: false
-dist: trusty
 language: php
 php:
     - 5.6
@@ -27,6 +26,8 @@ matrix:
 before_install:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
+    - sudo apt-get update
+    - sudo apt-get upgrade -y
     # re-enable once mariadb is added as an option
     # - if [[ "$DB" == 'mysql' ]]; then sudo apt-get -y install mariadb-server; fi
     - nvm install 6
@@ -60,6 +61,7 @@ after_failure:
 
 addons:
     firefox: "latest"
+    postgresql: "9.5"
 
 services:
     - mysql
