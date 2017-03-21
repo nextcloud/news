@@ -16,7 +16,7 @@ namespace OCA\News\Db;
 use OCA\News\Utility\Time;
 use PHPUnit_Framework_TestCase;
 
-use OCP\IDb;
+use OCP\IDBConnection;
 
 use OCA\News\Db\Mysql\ItemMapper as MysqlMapper;
 
@@ -27,7 +27,7 @@ class MapperFactoryTest extends PHPUnit_Framework_TestCase {
 	private $settings;
 
 	public function setUp() {
-		$this->db = $this->getMockBuilder(IDb::class)
+		$this->db = $this->getMockBuilder(IDBConnection::class)
 			->disableOriginalConstructor()
 			->getMock();
 	}
