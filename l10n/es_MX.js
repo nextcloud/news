@@ -7,6 +7,7 @@ OC.L10N.register(
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Se presentó un error interno del servidor! ¡Favor de verificar el archivo data/nextcloud.log para más informacón!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Se presentó una falla, por el momento Nextcloud se encuentra en modo mantenimiento!",
     "Website not found" : "El sitio web no fue encontrado",
+    "More redirects than allowed, aborting" : "Más redirecciones de las permitidas, abortando",
     "Bigger than maximum allowed size" : "Más grande que el tamaño máximo permitido",
     "Request timed out" : "La solicitud expiró",
     "Certificate error: A problem occurred somewhere in the SSL/TLS handshake. Could be certificates (file formats, paths, permissions), passwords, and others." : "Error en el certificado:  Se presentó un problema al negociar la conexión SSL/TSL <handshake>. Pudieron haber sido los certificados (formatos de archivos, rutas, permisos), contraseñas u otros factores",
