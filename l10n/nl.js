@@ -8,7 +8,7 @@ OC.L10N.register(
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interne serverfout! Contrleer je data/nextcloud.log bestand voor meer informatie!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Aanvraag mislukt, Nextcloud staat momenteel in onderhoudsmodus!",
     "Feed contains invalid XML" : "Feed bevat ongeldige XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Feed niet gevonden: of de website levert geen feed of blokkeert toegang hiervoor. Om een blokkade uit te sluiten, probeer via de command line de feed op uw server te downloaden doormiddel van de commando: curl",
+    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Feed niet gevonden: of de website levert geen feed of blokkeert toegang hiervoor. Om een blokkade uit te sluiten, probeer via de command line de feed op je server te downloaden doormiddel van de commando: curl",
     "Detected feed format is not supported" : "Gevonden feed formaat wordt niet ondersteund",
     "Website not found" : "Website niet gevonden",
     "More redirects than allowed, aborting" : "Meer doorverwijzingen dan toegestaan, afgebroken",
