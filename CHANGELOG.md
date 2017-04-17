@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## 10.2.0
 
+### Added
+
+- Experimental support for Nextcloud 12
+
 ### Changed
 
 - Update picoFeed and HTMLPurifier libs to the latest version
