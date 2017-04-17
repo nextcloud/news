@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 10.2.0
+
+### Changed
+
+- Update picoFeed and HTMLPurifier libs to the latest version
+
+### Fixed
+
+- Parse CSRF token directly from source rather than using a global variable which never got updated. This fixes the login warnings that appeared after you left the News app open for a longer period of time which forced you to reload the page.
+
 ## 10.1.0
 
 ### Added

@@ -30,7 +30,7 @@
     },
     "require": {
         "ezyang/htmlpurifier": "4.9.2",
-        "fguillot/picofeed": "0.1.28",
+        "fguillot/picofeed": "0.1.33",
         "pear/net_url2": "2.2.1",
         "riimu/kit-pathjoin": "1.1.2"
     }
