@@ -177,6 +177,8 @@ The intial sync happens when a user adds an ownCloud account in your app. In tha
 
 * **Method**: GET
 * **Route**: /sync
+* **Route Parameters**:
+  * **{batchSize}**: limit number of returned items to `batchSize`
 * **Authentication**: [required](#authentication)
 * **HTTP headers**:
   * **Accept: "application/json"**
