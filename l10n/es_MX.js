@@ -83,7 +83,7 @@ OC.L10N.register(
     "Load next folder" : "Cargar la siguiente carpeta",
     "Load previous folder" : "Cargar carpeta anterrior",
     "Scroll to active navigation entry" : "Desplácese hasta el elemento de navegación activo",
-    "Focus search field" : "Campo de búsqueda enfocada",
+    "Focus search field" : "Ir al campo de búsqueda",
     "Mark current article's feed/folder read" : "Marcar la fuente/carpeta del artículo actual como leído",
     "Web address" : "Dirección web",
     "Feed exists already!" : "¡La fuente ya existe!",
