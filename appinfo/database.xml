@@ -279,19 +279,19 @@
                 <name>guid_hash</name>
                 <type>text</type>
                 <notnull>true</notnull>
-                <length>32</length>
+                <length>64</length>
             </field>
             <field>
                 <name>fingerprint</name>
                 <type>text</type>
                 <notnull>false</notnull>
-                <length>32</length>
+                <length>64</length>
             </field>
             <field>
                 <name>content_hash</name>
                 <type>text</type>
                 <notnull>false</notnull>
-                <length>32</length>
+                <length>64</length>
             </field>
             <field>
                 <name>rtl</name>
