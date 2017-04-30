@@ -39,13 +39,12 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     </dependencies>
     <ocsid>168040</ocsid>
 
-    <!-- navigation -->
-    <navigation>
-        <route>news.page.index</route>
-        <order>10</order>
-        <icon>app.svg</icon>
-        <name>News</name>
-    </navigation>
+    <navigations>
+        <navigation>
+            <name>News</name>
+            <route>news.page.index</route>
+        </navigation>
+    </navigations>
 
     <!-- admin -->
     <admin>admin/admin</admin>
