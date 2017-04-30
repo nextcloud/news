@@ -88,73 +88,73 @@
         <ul>
             <li>
                 <button ng-click="Navigation.togglePinned(feed.id)"
-                        ng-show="feed.pinned"
-                        class="icon-pinned"
-                        title="<?php p($l->t('Unpin feed from the top')); ?>">
+                        ng-show="feed.pinned">
+                    <span class="icon-pinned"></span>
+                    <span><?php p($l->t('Unpin from top')); ?></span>
                 </button>
                 <button ng-click="Navigation.togglePinned(feed.id)"
-                        ng-hide="feed.pinned"
-                        class="icon-unpinned"
-                        title="<?php p($l->t('Pin feed to the top')); ?>">
+                        ng-hide="feed.pinned">
+                    <span class="icon-unpinned"></span>
+                    <span><?php p($l->t('Pin to top')); ?></span>
                 </button>
             </li>
             <li>
                 <button ng-click="Navigation.setOrdering(feed, 1)"
-                        ng-show="feed.ordering == 0"
-                        class="icon-caret-dark feed-no-ordering"
-                        title="<?php p($l->t('No feed ordering')); ?>">
+                        ng-show="feed.ordering == 0">
+                    <span class="icon-caret-dark feed-no-ordering"></span>
+                    <span><?php p($l->t('Newest first')); ?></span>
                 </button>
                 <button ng-click="Navigation.setOrdering(feed, 2)"
-                        ng-show="feed.ordering == 1"
-                        class="icon-caret-dark feed-reverse-ordering"
-                        title="<?php p($l->t('Reversed feed ordering')); ?>">
+                        ng-show="feed.ordering == 1">
+                    <span class="icon-caret-dark feed-reverse-ordering"></span>
+                    <span><?php p($l->t('Oldest first')); ?></span>
                 </button>
                 <button ng-click="Navigation.setOrdering(feed, 0)"
-                        ng-show="feed.ordering == 2"
-                        class="icon-caret-dark feed-normal-ordering"
-                        title="<?php p($l->t('Normal feed ordering')); ?>">
+                        ng-show="feed.ordering == 2">
+                    <span class="icon-caret-dark feed-normal-ordering"></span>
+                    <span><?php p($l->t('Default order')); ?></span>
                 </button>
             </li>
             <li>
                 <button ng-click="Navigation.toggleFullText(feed)"
-                        class="icon-full-text-disabled"
-                        ng-hide="feed.fullTextEnabled"
-                        title="<?php p($l->t('Enable full text feed fetching')); ?>">
+                        ng-hide="feed.fullTextEnabled">
+                    <span class="icon-full-text-disabled"></span>
+                    <span><?php p($l->t('Enable full text')); ?></span>
                 </button>
                 <button ng-click="Navigation.toggleFullText(feed)"
-                        class="icon-full-text-enabled"
-                        ng-show="feed.fullTextEnabled"
-                        title="<?php p($l->t('Disable full text feed fetching')); ?>">
+                        ng-show="feed.fullTextEnabled">
+                    <span class="icon-full-text-enabled"></span>
+                    <span><?php p($l->t('Disable full text')); ?></span>
                 </button>
             </li>
             <li>
                 <button ng-click="Navigation.setUpdateMode(feed.id, 1)"
-                        class="icon-updatemode-default"
-                        ng-hide="feed.updateMode == 1"
-                        title="<?php p($l->t('Keep updated articles as is')); ?>">
+                        ng-hide="feed.updateMode == 1">
+                    <span class="icon-updatemode-default"></span>
+                    <span><?php p($l->t('Mark updated unread')); ?></span>
                 </button>
                 <button ng-click="Navigation.setUpdateMode(feed.id, 0)"
-                        class="icon-updatemode-unread"
-                        ng-show="feed.updateMode == 1"
-                        title="<?php p($l->t('Mark updated articles unread')); ?>">
+                        ng-show="feed.updateMode == 1">
+                    <span class="icon-updatemode-unread"></span>
+                    <span><?php p($l->t('Ignore updated')); ?></span>
                 </button>
             </li>
             <li>
-                <button ng-click="feed.editing=true"
-                        class="icon-rename"
-                        title="<?php p($l->t('Rename feed')); ?>">
+                <button ng-click="feed.editing=true">
+                    <span class="icon-rename"></span>
+                    <span><?php p($l->t('Rename')); ?></span>
                 </button>
             </li>
             <li>
-                <button ng-click="Navigation.reversiblyDeleteFeed(feed)"
-                        class="icon-delete"
-                        title="<?php p($l->t('Delete feed')); ?>">
+                <button ng-click="Navigation.reversiblyDeleteFeed(feed)">
+                    <span class="icon-delete"></span>
+                    <span><?php p($l->t('Delete')); ?></span>
                 </button>
             </li>
             <li ng-show="Navigation.isFeedUnread(feed.id)" class="mark-read">
-                <button class="icon-checkmark"
-                        ng-click="Navigation.markFeedRead(feed.id)"
-                        title="<?php p($l->t('Mark all articles read')); ?>">
+                <button ng-click="Navigation.markFeedRead(feed.id)">
+                    <span class="icon-checkmark"></span>
+                    <span><?php p($l->t('Mark read')); ?></span>
                 </button>
             </li>
         </ul>

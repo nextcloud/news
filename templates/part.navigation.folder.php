@@ -110,21 +110,21 @@
     <div class="app-navigation-entry-menu">
         <ul>
             <li>
-                <button ng-click="folder.editing=true"
-                        class="icon-rename"
-                        title="<?php p($l->t('Rename folder')); ?>">
+                <button ng-click="folder.editing=true">
+                    <span class="icon-rename"></span>
+                    <span><?php p($l->t('Rename')); ?></span>
                 </button>
             </li>
             <li>
-                <button ng-click="Navigation.reversiblyDeleteFolder(folder)"
-                        class="icon-delete"
-                        title="<?php p($l->t('Delete folder')); ?>">
+                <button ng-click="Navigation.reversiblyDeleteFolder(folder)">
+                    <span class="icon-delete"></span>
+                    <span><?php p($l->t('Delete')); ?></span>
                 </button>
             </li>
             <li ng-show="Navigation.isFolderUnread(folder.id)" class="mark-read">
-                <button class="icon-checkmark"
-                        ng-click="Navigation.markFolderRead(folder.id)"
-                        title="<?php p($l->t('Mark all articles read')); ?>">
+                <button ng-click="Navigation.markFolderRead(folder.id)">
+                    <span class="icon-checkmark"></span>
+                    <span><?php p($l->t('Mark read')); ?></span>
                 </button>
             </li>
         </ul>

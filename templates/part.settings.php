@@ -9,55 +9,55 @@
 <div id="app-settings-content">
     <h3><?php p($l->t('Settings')); ?></h3>
 
-    <p>
-        <label>
-            <input type="checkbox"
-                   ng-click="Settings.toggleSetting('preventReadOnScroll')"
-                   ng-checked="Settings.getSetting('preventReadOnScroll')"
-                   name="preventReadOnScroll">
-            <?php p($l->t('Disable mark read through scrolling')); ?>
-        </label>
-    </p>
-
-    <p>
-        <label>
-            <input type="checkbox"
-                   ng-click="Settings.toggleSetting('compact')"
-                   ng-checked="Settings.getSetting('compact')"
-                   name="compact">
-            <?php p($l->t('Compact view')); ?>
-        </label>
-    </p>
-
-    <p ng-show="Settings.getSetting('compact')">
-        <label>
-            <input type="checkbox"
-                   ng-click="Settings.toggleSetting('compactExpand')"
-                   ng-checked="Settings.getSetting('compactExpand')"
-                   name="compactExpand">
-            <?php p($l->t('Expand articles on key navigation')); ?>
-        </label>
-    </p>
-
-    <p>
-        <label>
-            <input type="checkbox"
-                   ng-click="Settings.toggleSetting('showAll')"
-                   ng-checked="Settings.getSetting('showAll')"
-                   name="showAll">
-            <?php p($l->t('Show all articles')); ?>
-        </label>
-    </p>
-
-    <p>
-        <label>
-            <input type="checkbox"
-                   ng-click="Settings.toggleSetting('oldestFirst')"
-                   ng-checked="Settings.getSetting('oldestFirst')"
-                   name="oldestFirst">
-            <?php p($l->t('Reverse ordering (oldest on top)')); ?>
-        </label>
-    </p>
+    <fieldset class="settings-fieldset">
+        <ul class="settings-fieldset-interior">
+            <li class="settings-fieldset-interior-item">
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-click="Settings.toggleSetting('preventReadOnScroll')"
+                       ng-checked="Settings.getSetting('preventReadOnScroll')"
+                       name="preventReadOnScroll"
+                       id="settings-preventReadOnScroll">
+                <label for="settings-preventReadOnScroll"><?php p($l->t('Disable mark read through scrolling')); ?></label>
+            </li>
+            <li class="settings-fieldset-interior-item">
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-click="Settings.toggleSetting('compact')"
+                       ng-checked="Settings.getSetting('compact')"
+                       name="compact"
+                       id="settings-compact">
+                <label for="settings-compact"><?php p($l->t('Compact view')); ?></label>
+            </li>
+            <li class="settings-fieldset-interior-item" ng-show="Settings.getSetting('compact')">
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-click="Settings.toggleSetting('compactExpand')"
+                       ng-checked="Settings.getSetting('compactExpand')"
+                       name="compactExpand"
+                       id="settings-compactExpand">
+                <label for="settings-compactExpand"><?php p($l->t('Expand articles on key navigation')); ?></label>
+            </li>
+            <li class="settings-fieldset-interior-item">
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-click="Settings.toggleSetting('showAll')"
+                       ng-checked="Settings.getSetting('showAll')"
+                       name="showAll"
+                       id="settings-showAll">
+                <label for="settings-showAll"><?php p($l->t('Show all articles')); ?></label>
+            </li>
+            <li class="settings-fieldset-interior-item">
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-click="Settings.toggleSetting('oldestFirst')"
+                       ng-checked="Settings.getSetting('oldestFirst')"
+                       name="oldestFirst"
+                       id="settings-oldestFirst">
+                <label for="settings-oldestFirst"><?php p($l->t('Reverse ordering (oldest on top)')); ?></label>
+            </li>
+        </ul>
+    </fieldset>
 
     <div class="import-export">
         <h3><?php p($l->t('Subscriptions (OPML)')); ?></h3>
