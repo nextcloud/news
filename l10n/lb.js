@@ -42,8 +42,6 @@ OC.L10N.register(
     "Collapse" : "Zesumme falen",
     "Deleted folder" : "Dossier läschen",
     "Undo delete folder" : "Dossier läschen réckgängeg maachen",
-    "Rename folder" : "Dossier ëmbenennen",
-    "Delete folder" : "Dossier läschen",
     "Unread articles" : "Ongeliesen Artikelen",
     "All articles" : "All Artikelen",
     "Settings" : "Astellungen",

@@ -86,24 +86,10 @@
     "Undo delete feed" : "Αναίρεση διαγραφής ροής",
     "Rename" : "Μετονομασία",
     "Menu" : "Μενού",
-    "Unpin feed from the top" : "Απαγκίστρωση της ροής από την κορυφή",
-    "Pin feed to the top" : "Αγκίστρωση της ροής στην κορυφή",
-    "No feed ordering" : "Καμμία ταξινόμηση ροής",
-    "Reversed feed ordering" : "Ανεστραμμένη ταξινόμηση ροής",
-    "Normal feed ordering" : "Κανονική ταξινόμηση ροής",
-    "Enable full text feed fetching" : "Ενεργοποίηση λήψης ροής πλήρους κειμένου",
-    "Disable full text feed fetching" : "Απενεργοποίηση λήψης ροής πλήρους κειμένου",
-    "Keep updated articles as is" : "Διατήρηση ενημερωμένων άρθρων ως έχουν",
-    "Mark updated articles unread" : "Σημείωση των ενημερωμένων άρθρων ως μη αναγνωσμένων",
-    "Rename feed" : "Μετονομασία ροής",
-    "Delete feed" : "Διαγραφή ροής",
-    "Mark all articles read" : "Σημείωση όλων των άρθρων ως ανεγνωσμένων",
     "Dismiss" : "Απόρριψη",
     "Collapse" : "Σύμπτυξη",
     "Deleted folder" : "Διαγραφή φακέλου",
     "Undo delete folder" : "Αναίρεση διαγραφής φακέλου",
-    "Rename folder" : "Μετονομασία φακέλου",
-    "Delete folder" : "Διαγραφή φακέλου",
     "Starred" : "Με αστέρι",
     "Unread articles" : "Μη αναγνωσμένα άρθρα",
     "All articles" : "Όλα τα άρθρα",
@@ -121,6 +107,7 @@
     "Error when importing: file does not contain valid JSON" : "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON",
     "Help" : "Βοήθεια",
     "Keyboard shortcuts" : "Συντομεύσεις πλητρολογίου",
-    "Documentation" : "Τεκμηρίωση"
+    "Documentation" : "Τεκμηρίωση",
+    "Report a bug" : "Αναφορά σφάλματος"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
