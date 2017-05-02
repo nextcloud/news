@@ -179,6 +179,10 @@ class Application extends App {
             return $pico;
         });
 
+        $this->registerService(PicoFeedReader::class, function ($c) {
+            return new PicoFeedReader($c->query(PicoFeedConfig::class));
+        });
+
         /** @noinspection PhpParamsInspection */
         $this->registerService(Fetcher::class, function($c) {
             $fetcher = new Fetcher();
