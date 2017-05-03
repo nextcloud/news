@@ -88,6 +88,8 @@ OC.L10N.register(
     "Undo delete feed" : "Αναίρεση διαγραφής ροής",
     "Rename" : "Μετονομασία",
     "Menu" : "Μενού",
+    "Delete" : "Διαγραφή",
+    "Mark read" : "Σημείωση ως ανεγνωσμένου",
     "Dismiss" : "Απόρριψη",
     "Collapse" : "Σύμπτυξη",
     "Deleted folder" : "Διαγραφή φακέλου",
