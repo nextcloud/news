@@ -30,13 +30,13 @@ Nextcloud News can be synced with the following apps:
   * [FeedReader (Linux desktop)](http://jangernert.github.io/FeedReader/), [open source](https://github.com/jangernert/FeedReader)
   * [py3status](https://github.com/ultrabug/py3status/) for [i3 (UNIX-like)](http://i3wm.org/), [open source](https://github.com/i3/i3)
 
-## Custom Themes 
+## Custom Themes
 Nextcloud News can look different with the following themes:
   * [Nextcloud News Themes](https://github.com/cwmke/nextcloud-news-themes)
 
 ## Dependencies
 * PHP >= 5.6
-* Nextcloud 11
+* Nextcloud 12
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * iconv
