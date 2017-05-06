@@ -1,12 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 11.0.0
 
 ### Removed
 
 - Dropped support for Nextcloud 11
-- Adjusted navigation area to fit Nextcloud 12 design
+
+### Fixed
+
+- Fix articles appearing as unread when updating to Nextcloud 12 beta
+- Partly fix frontend styles that were changed in 12
 
 ## 10.2.0
 
