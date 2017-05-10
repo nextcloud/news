@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Не удаётся добавить ленту: Уже существует",
     "Articles without feed" : "Статьи без новостной ленты",
     "Can not add folder: Exists already" : "Не удаётся добавить папку. Папка уже существует",
+    "News" : "Новости",
     "Use system cron for updates" : "Для получения обновлений используйте системный cron",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Отключите, если собираетесь использовать другой механизм обновлений, например, Python updater, включенный в поставку этого приложения",
     "Purge interval" : "Интервал очистки",

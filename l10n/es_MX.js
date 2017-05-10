@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "No es posible agregar la fuente: ya existe",
     "Articles without feed" : "Artículos sin fuente",
     "Can not add folder: Exists already" : "No se puede agregar la carpeta: ya existe",
+    "News" : "Novedades",
     "Use system cron for updates" : "Use el sistema cron para las actualizaciones",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Deshabilite esto si usa un actualizador personalizado como el actualizador de Python en la aplicación",
     "Purge interval" : "Purgar el intervalo",

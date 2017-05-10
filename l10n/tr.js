@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Akış eklenemedi: Zaten var",
     "Articles without feed" : "Akışı olmayan makaleler",
     "Can not add folder: Exists already" : "Klasör eklenemedi: Zaten var",
+    "News" : "Haberler",
     "Use system cron for updates" : "Güncellemeler için sistem zamanlanmış görevi kullanılsın",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Uygulamayanın içnde bulunan Python güncelleyicisi gibi bir özel güncelleyici çalıştırıyorsanız bu seçeneği devre dışı bırakın",
     "Purge interval" : "Temizleme Aralığı",
