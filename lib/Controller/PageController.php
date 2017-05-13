@@ -24,7 +24,6 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
-use OCA\News\Config\AppConfig;
 use OCA\News\Config\Config;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Explore\RecommendedSiteNotFoundException;
@@ -35,7 +34,6 @@ class PageController extends Controller {
     private $settings;
     private $l10n;
     private $userId;
-    private $appConfig;
     private $urlGenerator;
     private $config;
     private $recommendedSites;
@@ -47,7 +45,6 @@ class PageController extends Controller {
                                 IRequest $request,
                                 IConfig $settings,
                                 IURLGenerator $urlGenerator,
-                                AppConfig $appConfig,
                                 Config $config,
                                 IL10N $l10n,
                                 RecommendedSites $recommendedSites,
@@ -56,7 +53,6 @@ class PageController extends Controller {
         parent::__construct($AppName, $request);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
-        $this->appConfig = $appConfig;
         $this->l10n = $l10n;
         $this->userId = $UserId;
         $this->config = $config;
@@ -153,53 +149,6 @@ class PageController extends Controller {
             $this->settings->setUserValue($this->userId, $this->appName,
                                           $setting, $value);
         }
-    }
-
-
-    /**
-     * @NoCSRFRequired
-     * @PublicPage
-     *
-     * Generates a web app manifest, according to specs in:
-     * https://developer.mozilla.org/en-US/Apps/Build/Manifest
-     */
-    public function manifest() {
-        $config = $this->appConfig->getConfig();
-
-        // size of the icons: 128x128 is required by FxOS for all app manifests
-        $iconSizes = ['128', '512'];
-        $icons = [];
-
-        $locale = str_replace('_', '-', $this->l10n->getLanguageCode());
-
-        foreach ($iconSizes as $size) {
-            $filename = 'app-' . $size . '.png';
-            if (file_exists(__DIR__ . '/../../img/' . $filename)) {
-                $icons[$size] = $this->urlGenerator->imagePath($config['id'],
-                    $filename);
-            }
-        }
-
-
-        $data = [
-            "name" => $config['name'],
-            "type" => 'web',
-            "default_locale" => $locale,
-            "description" => $config['description'],
-            "launch_path" => $this->urlGenerator->linkToRoute(
-                $config['navigation']['route']),
-            "icons" => $icons,
-            "developer" => [
-                "name" => $config['author'],
-                "url" => $config['homepage']
-            ]
-        ];
-
-        $response = new JSONResponse($data);
-        $response->addHeader('Content-Type',
-            'application/x-web-app-manifest+json');
-
-        return $response;
     }
 
     /**

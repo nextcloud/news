@@ -143,7 +143,6 @@ appstore:
 	rm -rf $(appstore_build_directory) $(appstore_artifact_directory)
 	mkdir -p $(appstore_build_directory) $(appstore_artifact_directory)
 	cp --parents -r \
-	"admin" \
 	"appinfo" \
 	"css" \
 	"img" \
