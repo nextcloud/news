@@ -9,8 +9,8 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://g
 
 
 ## Maintainers
-* [Bernhard Posselt](https://github.com/BernhardPosselt)
-* [Alessandro Cosentino](https://github.com/cosenal)
+Looking for new a new maintainer :)
+
 * [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
 
 ## Sync Clients
