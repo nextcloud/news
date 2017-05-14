@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Nun pue amestase'l feed: Yá esiste",
     "Articles without feed" : "Artículos ensin fonte",
     "Can not add folder: Exists already" : "Nun pue amestase la carpeta: Yá esiste",
+    "News" : "Anuncies",
     "Purge interval" : "Intervalu de purga",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" : "Los Feeds y les carpetes son borraes de la base de datos darréu; los valores embaxu 60 segudos son inoraos. ",
     "Maximum read count per feed" : "Númberu máximu de llectura per feed",

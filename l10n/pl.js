@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Nie można dodać kanału: już istnieje",
     "Articles without feed" : "Artykuły bez kanału",
     "Can not add folder: Exists already" : "Nie można dodać folderu: już istnieje",
+    "News" : "Wiadomości",
     "Use system cron for updates" : "Użyj systemowego crona do aktualizacji",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Wyłącz to jeśli używasz specjalnego aktualizatora takiego jak Python załączonego do aplikacji",
     "Purge interval" : "Interwał czyszczenia",
