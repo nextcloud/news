@@ -106,6 +106,7 @@ OC.L10N.register(
     "Undo delete feed" : "Angre sletting av nyhetskilde",
     "Rename" : "Gi nytt navn",
     "Menu" : "Meny",
+    "Delete" : "Slett",
     "Dismiss" : "Forkast",
     "Collapse" : "Skjul",
     "Deleted folder" : "Slettet mappe",

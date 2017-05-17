@@ -2,8 +2,10 @@ OC.L10N.register(
     "news",
     {
     "Request failed, network connection unavailable!" : "Užklausa nepavyko, neprieinamas tinklo ryšys!",
+    "Request forbidden. Are you an admin?" : "Užklausa uždrausta. Ar jūs esate administratorius?",
     "Token expired or app not enabled! Reload the page!" : "Pasibaigė prieigos raktų galiojimas arba programėlė nėra įjungta! Įkelkite puslapį iš naujo!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vidinė serverio klaida! Išsamesnei informacijai, prašome patikrinti savo data/nextcloud.log failą!",
+    "Request failed, Nextcloud is in currently in maintenance mode!" : "Užklausa nepavyko, Nextcloud šiuo metu yra techninės priežiūros veiksenoje!",
     "Feed contains invalid XML" : "Kanale yra neteisingas XML",
     "Detected feed format is not supported" : "Aptiktas kanalo formatas yra nepalaikomas",
     "Website not found" : "Svetainė nerasta",
@@ -56,6 +58,7 @@ OC.L10N.register(
     "Undo delete feed" : "Atšaukti kanalo ištrynimą",
     "Rename" : "Pervadinti",
     "Menu" : "Meniu",
+    "Delete" : "Ištrinti",
     "Collapse" : "Suskleisti",
     "Deleted folder" : "Ištrintas aplankas",
     "Undo delete folder" : "Atšaukti aplanko ištrynimą",
