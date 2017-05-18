@@ -102,6 +102,7 @@ OC.L10N.register(
     "Undo delete feed" : "Desfacer desaniciu del feed",
     "Rename" : "Renomar",
     "Menu" : "Menú",
+    "Unpin from top" : "Defixar de lo cimero",
     "Delete" : "Desaniciar",
     "Dismiss" : "Encaboxar",
     "Collapse" : "Contrayer",

@@ -29,6 +29,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Kan feed niet toevoegen: bestaat al",
     "Articles without feed" : "Artikelen zonder feed",
     "Can not add folder: Exists already" : "Kan map niet toevoegen, bestaat al",
+    "News" : "Nieuws",
     "Use system cron for updates" : "Gebruik system cron voor updates",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Schakel dit uit als u een maatwerk updater gebruikt, zoals de Python updater bij de app",
     "Purge interval" : "Opruim interval",
