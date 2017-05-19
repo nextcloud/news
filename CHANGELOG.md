@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- Fix admin section on latest master, #145
+- Fix admin section on latest master (fix only works with a version newer than 12.0.0-beta4), #145
 - Do not show tooltip when hovering over headlines in compact mode, #151
 
 
