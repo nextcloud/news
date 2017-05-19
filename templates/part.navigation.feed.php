@@ -131,7 +131,7 @@
                 <button ng-click="Navigation.setUpdateMode(feed.id, 1)"
                         ng-hide="feed.updateMode == 1">
                     <span class="icon-updatemode-default"></span>
-                    <span><?php p($l->t('Mark updated unread')); ?></span>
+                    <span><?php p($l->t('Unread updated')); ?></span>
                 </button>
                 <button ng-click="Navigation.setUpdateMode(feed.id, 0)"
                         ng-show="feed.updateMode == 1">

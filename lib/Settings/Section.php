@@ -4,9 +4,9 @@ namespace OCA\News\Settings;
 
 use OCP\IL10N;
 use OCP\IURLGenerator;
-use OCP\Settings\ISection;
+use OCP\Settings\IIconSection;
 
-class Section implements ISection {
+class Section implements IIconSection {
     private $l;
     private $url;
 
@@ -28,6 +28,6 @@ class Section implements ISection {
     }
 
     public function getIcon() {
-        return $this->url->imagePath('news', 'app.svg');
+        return $this->url->imagePath('news', 'app-dark.svg');
     }
 }

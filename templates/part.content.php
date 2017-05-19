@@ -35,7 +35,6 @@
                         </a>
                     </li>
                     <li class="title only-in-compact"
-                        title="{{ ::item.title }}"
                         ng-class="{
                             'icon-rss':
                                 !Content.getFeed(item.feedId).faviconLink

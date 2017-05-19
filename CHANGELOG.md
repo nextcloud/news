@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 11.0.1
+
+### Fixed
+
+- Fix admin section on latest master, #145
+- Do not show tooltip when hovering over headlines in compact mode, #151
+
+
 ## 11.0.0
 
 ### Removed
