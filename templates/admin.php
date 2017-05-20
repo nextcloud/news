@@ -119,7 +119,7 @@ style('news', 'admin');
                 )); ?>.
             </em>
             <a href="https://github.com/nextcloud/news/tree/master/docs/explore"><?php p($l->t(
-                'For more information check the Wiki'
+                'For more information check the wiki'
             )); ?></a>
         </p>
         <p><input type="text" name="news-explore-url"
