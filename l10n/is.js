@@ -114,7 +114,6 @@ OC.L10N.register(
     "Default order" : "Sjálfgefin röðun",
     "Enable full text" : "Virkja allan texta",
     "Disable full text" : "Afvirkja allan texta",
-    "Mark updated unread" : "Merkja uppfært sem ólesið",
     "Ignore updated" : "Hunsa uppfært",
     "Delete" : "Eyða",
     "Mark read" : "Merkja sem lesið",

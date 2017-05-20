@@ -114,7 +114,6 @@ OC.L10N.register(
     "Default order" : "Standard-Sortierung",
     "Enable full text" : "Volltext aktivieren",
     "Disable full text" : "Volltext deaktivieren",
-    "Mark updated unread" : "Ausgewählte als ungelesen markieren",
     "Ignore updated" : "Ausgewählte ignorieren",
     "Delete" : "Löschen",
     "Mark read" : "Als gelesen markieren",

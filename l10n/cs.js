@@ -113,7 +113,6 @@ OC.L10N.register(
     "Default order" : "Výchozí pořadí",
     "Enable full text" : "Povolit plný text",
     "Disable full text" : "Zakázat plný text",
-    "Mark updated unread" : "Označit aktualizované jako nepřečtené",
     "Ignore updated" : "Ignorovat aktualizaci",
     "Delete" : "Smazat",
     "Mark read" : "Označit jako přečtené",

@@ -114,7 +114,6 @@ OC.L10N.register(
     "Default order" : "Varsayılan Sıralama",
     "Enable full text" : "Tam metin kullanılsın",
     "Disable full text" : "Tam metin kullanılmasın",
-    "Mark updated unread" : "Güncellemeleri okunmamış olarak işaretle",
     "Ignore updated" : "Güncellemeleri yoksay",
     "Delete" : "Sil",
     "Mark read" : "Okunmuş olarak işaretle",

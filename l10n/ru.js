@@ -114,7 +114,6 @@ OC.L10N.register(
     "Default order" : "Порядок по умолчанию",
     "Enable full text" : "Включить полный текст",
     "Disable full text" : "Отключить полный текст",
-    "Mark updated unread" : "Помечать обновлённые как непрочитанные",
     "Ignore updated" : "Игнорировать обновлённые",
     "Delete" : "Удалить",
     "Mark read" : "Пометить прочтённым",

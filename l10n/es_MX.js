@@ -114,7 +114,6 @@ OC.L10N.register(
     "Default order" : "Ordenamiento predeterminado",
     "Enable full text" : "Habilitar texto completo",
     "Disable full text" : "Deshabilitar texto completo",
-    "Mark updated unread" : "Marcar actualizados como no leídos",
     "Ignore updated" : "Ignorar actualizados",
     "Delete" : "Borrar",
     "Mark read" : "Marcar como leído",
