@@ -86,6 +86,12 @@
 
     <div class="app-navigation-entry-menu">
         <ul>
+            <li ng-show="Navigation.isFeedUnread(feed.id)" class="mark-read">
+                <button ng-click="Navigation.markFeedRead(feed.id)">
+                    <span class="icon-checkmark"></span>
+                    <span><?php p($l->t('Mark read')); ?></span>
+                </button>
+            </li>
             <li>
                 <button ng-click="Navigation.togglePinned(feed.id)"
                         ng-show="feed.pinned">
@@ -149,12 +155,6 @@
                 <button ng-click="Navigation.reversiblyDeleteFeed(feed)">
                     <span class="icon-delete"></span>
                     <span><?php p($l->t('Delete')); ?></span>
-                </button>
-            </li>
-            <li ng-show="Navigation.isFeedUnread(feed.id)" class="mark-read">
-                <button ng-click="Navigation.markFeedRead(feed.id)">
-                    <span class="icon-checkmark"></span>
-                    <span><?php p($l->t('Mark read')); ?></span>
                 </button>
             </li>
         </ul>
