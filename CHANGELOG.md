@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 11.0.2
+
+### Changed
+
+- Fail early when an incorrectly configured MySql/MariaDB instance is found to prevent update errors and data loss
+
 ## 11.0.1
 
 ### Fixed
