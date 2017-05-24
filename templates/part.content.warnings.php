@@ -26,14 +26,14 @@
 
 <?php if ($_['warnings']['incorrectDbCharset']) { ?>
     <news-instant-notification id="cron-warning">
-        <p><?php p($l->t('Incorrect MySql/MariaDb database charset detected!')); ?></p>
+        <p><?php p($l->t('Non UTF-8 charset for MySql/MariaDb database detected!')); ?></p>
         <ul>
             <li>
                 <a href="https://dba.stackexchange.com/a/21684"
                    target="_blank"
                    rel="noreferrer">
                     <?php
-                    p($l->t('Learn on how to convert your database to utf8mb4'));
+                    p($l->t('Learn how to convert your database to utf8mb4 (make a backup beforehand)'));
                     ?>
                 </a>
             </li>
