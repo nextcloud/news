@@ -428,7 +428,8 @@
             }
 
             // everything with shift, just the shift
-        } else if (noInputFocused($(':focus')) && event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey) {
+        } else if (noInputFocused($(':focus')) && event.shiftKey &&
+            !event.ctrlKey && !event.altKey && !event.metaKey) {
 
             // shift + a
             if ([65].indexOf(keyCode) >= 0) {
