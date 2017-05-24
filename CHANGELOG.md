@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## 11.0.2
 
-### Changed
+
+### Fixed
 
 - Fail early when an incorrectly configured MySql/MariaDB instance is found to prevent update errors and data loss
+- Do not mark articles read when shift + a + ctrl/meta/alt is pressed  
+- Re-order mark read to first position
 
 ## 11.0.1
 
