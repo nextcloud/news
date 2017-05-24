@@ -13,7 +13,10 @@
 
 namespace OCA\News\Service;
 
+use Doctrine\DBAL\Platforms\MySqlPlatform;
+
 use OCP\IConfig;
+use OCP\IDBConnection;
 
 use OCA\News\Config\Config;
 
@@ -23,11 +26,17 @@ class StatusService {
     private $settings;
     private $config;
     private $appName;
+    /**
+     * @var IDBConnection
+     */
+    private $connection;
 
-    public function __construct(IConfig $settings, Config $config, $AppName) {
+    public function __construct(IConfig $settings, IDBConnection $connection,
+                                Config $config, $AppName) {
         $this->settings = $settings;
         $this->config = $config;
         $this->appName = $AppName;
+        $this->connection = $connection;
     }
 
     public function isProperlyConfigured() {
@@ -49,9 +58,16 @@ class StatusService {
         return [
             'version' => $version,
             'warnings' => [
-                'improperlyConfiguredCron' => !$this->isProperlyConfigured()
+                'improperlyConfiguredCron' => !$this->isProperlyConfigured(),
+                'incorrectDbCharset' => $this->hasIncorrectCharset()
             ]
         ];
+    }
+
+    public function hasIncorrectCharset() {
+        $charset = $this->connection->getParams()['charset'];
+        $platform = $this->connection->getDatabasePlatform();
+        return $platform instanceof MySqlPlatform && $charset !== 'utf8mb4';
     }
 
 }

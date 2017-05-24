@@ -732,7 +732,8 @@ This API can be used to display warnings and errors in your client if the web ap
 {
   "version": "5.2.4",
   "warnings": {
-    "improperlyConfiguredCron": false  // if true the webapp will fail to update the feeds correctly
+    "improperlyConfiguredCron": false,  // if true the webapp will fail to update the feeds correctly
+    "incorrectDbCharset": false
   }
 }
 ```
@@ -746,6 +747,7 @@ You should show the following warning and the link should be clickable:
     The News App updater is improperly configured and you will lose updates.
     See http://hisdomain.com/index.php/apps/news for instructions on how to fix it.
 
+If **incorrectDbCharset** is true you should display a warning that database charset is set up incorrectly and updates with unicode characters might fail
 
 # User
 

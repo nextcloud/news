@@ -1,8 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 11.0.2
+## 11.0.3
 
+### Fixed
+
+- Display database charset warning inside the app instead of failing installation/update
+
+## 11.0.2
 
 ### Fixed
 

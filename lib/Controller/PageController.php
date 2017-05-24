@@ -68,7 +68,7 @@ class PageController extends Controller {
     public function index() {
         $status = $this->statusService->getStatus();
         $response = new TemplateResponse($this->appName, 'index', [
-            'cronWarning' => $status['warnings']['improperlyConfiguredCron'],
+            'warnings' => $status['warnings'],
             'url_generator' => $this->urlGenerator
         ]);
 
