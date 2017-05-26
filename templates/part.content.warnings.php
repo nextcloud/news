@@ -26,7 +26,7 @@
 
 <?php if ($_['warnings']['incorrectDbCharset']) { ?>
     <news-instant-notification id="cron-warning">
-        <p><?php p($l->t('Non UTF-8 charset for MySql/MariaDb database detected!')); ?></p>
+        <p><?php p($l->t('Non UTF-8 charset for MySQL/MariaDB database detected!')); ?></p>
         <ul>
             <li>
                 <a href="https://dba.stackexchange.com/a/21684"
