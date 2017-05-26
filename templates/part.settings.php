@@ -92,7 +92,7 @@
 
         <p class="error" ng-show="Settings.opmlImportError">
             <?php p(
-                $l->t('Error when importing: file does not contain valid OPML')
+                $l->t('Error when importing: File does not contain valid OPML')
             ); ?>
         </p>
         <p class="error" ng-show="Settings.opmlImportEmptyError">
