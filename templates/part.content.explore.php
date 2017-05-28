@@ -1,4 +1,4 @@
-<?php print_unescaped($this->inc('part.content.cronwarning')) ?>
+<?php print_unescaped($this->inc('part.content.warnings')) ?>
 
 <div id="explore">
     <!--<div class="explore-filter">
