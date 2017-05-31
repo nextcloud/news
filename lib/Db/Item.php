@@ -251,6 +251,15 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
     public function setBody($body) {
+        // replace 4-byte unicode characters (e.g. Emoticons) with
+        // replacement character if DB does not explicitly support them.
+        // Don't just strip it for security/XSS reasons, see
+        // http://stackoverflow.com/questions/8491431/
+        // how-to-replace-remove-4-byte-characters-from-a-utf-8-string-in-php
+        //
+        // FIXME: This should only be necessary if OCP\IConfig\getSystemValue('mysql.utf8mb4') is not true
+        $body = preg_replace('/[\x{10000}-\x{10FFFF}]/u', "\xEF\xBF\xBD", $body);
+
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
         parent::setBody(str_replace(
