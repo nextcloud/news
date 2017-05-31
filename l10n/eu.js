@@ -54,7 +54,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "Harpidetzak (OPML)",
     "Import" : "Inportatu",
     "Export" : "Esportatu",
-    "Error when importing: file does not contain valid OPML" : "Errorea inportatzean: fitxategiak ez du baliozko OPML",
     "Unread/Starred Articles" : "Irakurri gabeko/markatutako artikuluak",
     "Error when importing: file does not contain valid JSON" : "Errorea inportatzean: fitxategiak ez du baliozko JSON",
     "Help" : "Laguntza",

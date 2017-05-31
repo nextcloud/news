@@ -36,7 +36,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "সাবস্ক্রিপশন (OPML)",
     "Import" : "আমদানি",
     "Export" : "রপ্তানি",
-    "Error when importing: file does not contain valid OPML" : "আমদানীজণিত সমস্যা: ফাইলের OPML সঠিক নয়",
     "Unread/Starred Articles" : "অপঠিত/তারকাচিহ্নিত লেখা",
     "Error when importing: file does not contain valid JSON" : "আমদানীজণিত সমস্যা: ফাইলের JSON সঠিক নয়",
     "Help" : "সহায়িকা",

@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Website not found" : "Sito web non trovate",
-    "For more information check the Wiki" : "Pro obtener plus informationes verifica le Wiki",
     "Saved" : "Salveguardate",
     "Download" : "Discargar",
     "Close" : "Clauder",
@@ -65,7 +64,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "Subscriptiones (OPML)",
     "Import" : "Importar",
     "Export" : "Exportar",
-    "Error when importing: file does not contain valid OPML" : "Error durante importation: file non contine un OPML valide",
     "Error when importing: OPML is does neither contain feeds nor folders" : "Error durante importation: OPML contine ni syndicationes ni dossiers",
     "Unread/Starred Articles" : "Articulos Non Legite / Favorite",
     "Error when importing: file does not contain valid JSON" : "Error durante importation: file non contine un JSON valide",

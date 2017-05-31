@@ -77,7 +77,6 @@
     "Subscriptions (OPML)" : "訂閱 (OPML)",
     "Import" : "匯入",
     "Export" : "匯出",
-    "Error when importing: file does not contain valid OPML" : "匯入時出錯: 該檔案不包含有效的OPML",
     "Unread/Starred Articles" : "未讀/已加星號 文章",
     "Error when importing: file does not contain valid JSON" : "匯入錯誤: 檔案包含非法的JSON數據",
     "Help" : "說明",

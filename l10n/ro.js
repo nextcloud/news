@@ -63,7 +63,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "Subscripţii (OPLM)",
     "Import" : "Importă",
     "Export" : "Exportă",
-    "Error when importing: file does not contain valid OPML" : "Eroare în timpul importării : fişierul nu conţine OPLM valid",
     "Error when importing: file does not contain valid JSON" : "Eroare în timpul importării : fişierul nu conţine  JSON valid",
     "Help" : "Ajutor",
     "Keyboard shortcuts" : "Scurtături din tastatură",

@@ -19,7 +19,6 @@ OC.L10N.register(
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Izslēdziet šo, ja lietojat kādu citu atjauninātāju, piemēram, Python atjauninātāju, kas iekļauts šajā programmā",
     "Purge interval" : "Iztīrīšanas intervāls",
     "Maximum redirects" : "Maksimāli pieļaujamais pārsūtīšanu skaits",
-    "For more information check the Wiki" : "Plašākai informācijai skaties Wiki",
     "Saved" : "Saglabāts",
     "Download" : "Lejupielādēt",
     "Close" : "Aizvērt",

@@ -34,7 +34,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "اشتراك (OPML)",
     "Import" : "إدخال",
     "Export" : "تصدير",
-    "Error when importing: file does not contain valid OPML" : "خطا عند الاستيراد: الملف لايحتوي على OPML صالح",
     "Unread/Starred Articles" : "مقالات غير مقروءه/نجمة ",
     "Error when importing: file does not contain valid JSON" : "خطا عند الاستيراد: الملف لايحتوي على OPML صالح",
     "Help" : "المساعدة",

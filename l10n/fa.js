@@ -50,7 +50,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "اشتراک‌ها (OPML)",
     "Import" : "وارد کردن",
     "Export" : "گرفتن خروجی",
-    "Error when importing: file does not contain valid OPML" : "خطا هنگام وارد کردن: فایل حاوی OPML  معتبر نیست.",
     "Error when importing: file does not contain valid JSON" : "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست.",
     "Help" : "راه‌نما",
     "Keyboard shortcuts" : "میان بر صفحه ی کلید",

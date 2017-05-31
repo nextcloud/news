@@ -34,7 +34,6 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "Suscripciones (OPML)",
     "Import" : "Importar",
     "Export" : "Exportar",
-    "Error when importing: file does not contain valid OPML" : "Error al importar: el archivo no contiene OPML válido",
     "Unread/Starred Articles" : "Artículos No leídos/Favoritos",
     "Error when importing: file does not contain valid JSON" : "Error al importar: el archivo no contiene JSON válido",
     "Help" : "Ayuda",
