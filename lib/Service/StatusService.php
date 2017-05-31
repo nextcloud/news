@@ -59,15 +59,9 @@ class StatusService {
             'version' => $version,
             'warnings' => [
                 'improperlyConfiguredCron' => !$this->isProperlyConfigured(),
-                'incorrectDbCharset' => $this->hasIncorrectCharset()
+                'incorrectDbCharset' => !$this->connection->supports4ByteText()
             ]
         ];
-    }
-
-    public function hasIncorrectCharset() {
-        $charset = $this->connection->getParams()['charset'];
-        $platform = $this->connection->getDatabasePlatform();
-        return $platform instanceof MySqlPlatform && $charset !== 'utf8mb4';
     }
 
 }
