@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 11.0.4
+
+### Fixed
+
+- Do not fail MySql utf-8 support check on other platforms for various reasons, #163
+- Include the correct files for displaying warnings, #166
+
+
 ## 11.0.3
 
 ### Fixed
