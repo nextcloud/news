@@ -42,8 +42,8 @@ class Updater extends Job {
     protected function run($argument) {
         if ($this->config->getUseCronUpdates() &&
             $this->status->isProperlyConfigured()) {
-            $this->updaterService->update();
             $this->updaterService->beforeUpdate();
+            $this->updaterService->update();
             $this->updaterService->afterUpdate();
         }
     }
