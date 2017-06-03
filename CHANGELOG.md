@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 11.0.5
+
+### Fixed
+
+- Fix order of update scripts for cron updates, #172
+
 ## 11.0.4
 
 ### Fixed
