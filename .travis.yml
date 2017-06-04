@@ -38,14 +38,15 @@ before_install:
     - mv news nextcloud/apps/
 
 before_script:
-    - if [[ "$DB" == 'pgsql' ]]; then psql -c 'create database oc_autotest;' -U postgres; fi
+    - if [[ "$DB" == 'pgsql' ]]; then psql -c "CREATE ROLE oc_autotest LOGIN PASSWORD 'oc_autotest'" -U postgres; fi
+    - if [[ "$DB" == 'pgsql' ]]; then psql -c "CREATE DATABASE oc_autotest OWNER oc_autotest;" -U postgres; fi
     - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e 'CREATE DATABASE oc_autotest;'; fi
-    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY '';"; fi
+    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY 'oc_autotest';"; fi
     - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "GRANT ALL ON oc_autotest.* TO 'oc_autotest'@'localhost';"; fi
     # fill nextcloud with default configs and enable news
     - cd nextcloud
     - mkdir data
-    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass=''
+    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass="oc_autotest"
     - ./occ app:enable news
     - ./occ app:check-code news
     - ./occ background:cron  # enable default cron
