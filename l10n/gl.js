@@ -143,6 +143,6 @@ OC.L10N.register(
     "Help" : "Axuda",
     "Keyboard shortcuts" : "Atallos de teclado",
     "Documentation" : "Documentación",
-    "Report a bug" : "Informar dun fallo"
+    "Report a bug" : "Informar dunha falla"
 },
 "nplurals=2; plural=(n != 1);");
