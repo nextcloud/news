@@ -58,21 +58,21 @@
             </field>
 
             <index>
-                <name>news_folders_last_modified_index</name>
+                <name>news_folders_last_mod_idx</name>
                 <field>
                     <name>last_modified</name>
                 </field>
             </index>
 
             <index>
-                <name>news_folders_parent_id_index</name>
+                <name>news_folders_parent_id_idx</name>
                 <field>
                     <name>parent_id</name>
                 </field>
             </index>
 
             <index>
-                <name>news_folders_user_id_index</name>
+                <name>news_folders_user_id_idx</name>
                 <field>
                     <name>user_id</name>
                 </field>
@@ -234,7 +234,7 @@
             </field>
 
             <index>
-                <name>news_feeds_last_modified_index</name>
+                <name>news_feeds_last_mod_idx</name>
                 <field>
                     <name>last_modified</name>
                 </field>
@@ -373,7 +373,7 @@
             </field>
 
             <index>
-                <name>news_items_last_modified_index</name>
+                <name>news_items_last_mod_idx</name>
                 <field>
                     <name>last_modified</name>
                 </field>
@@ -387,7 +387,7 @@
             </index>
 
             <index>
-                <name>news_items_fingerprint_index</name>
+                <name>news_items_fingerprint_idx</name>
                 <field>
                     <name>fingerprint</name>
                 </field>
