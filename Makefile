@@ -178,13 +178,6 @@ endif
 .PHONY: test
 test:
 	cd js && $(npm) run test
-ifeq (, $(shell which phpunit 2> /dev/null))
-	@echo "No phpunit command available, downloading a copy from the web"
-	mkdir -p $(build_tools_directory)
-	curl -sSL https://phar.phpunit.de/phpunit.phar -o $(build_tools_directory)/phpunit.phar
-	php $(build_tools_directory)/phpunit.phar -c phpunit.xml --coverage-clover build/php-unit.clover
-	php $(build_tools_directory)/phpunit.phar -c phpunit.integration.xml --coverage-clover build/php-integration.clover
-else
-	phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
-	phpunit -c phpunit.integration.xml --coverage-clover build/php-unit.clover
-endif
+	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
+	# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
+	env TRAVIS=1 ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml --coverage-clover build/php-unit.clover
