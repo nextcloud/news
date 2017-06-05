@@ -32,7 +32,7 @@ use OCA\News\Db\ItemMapper;
 use OCA\News\Db\FolderMapper;
 
 
-abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
+abstract class IntegrationTest extends \Test\TestCase {
 
     protected $user = 'test';
     protected $userPassword = 'test';
@@ -162,8 +162,7 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
         $userManager = $this->container->query(IUserManager::class);
         $userManager->createUser($user, $password);
 
-        $session = $this->container->query(IUserSession::class);
-        $session->login($user, $password);
+        $this->loginAsUser($user);
     }
 
     /**
