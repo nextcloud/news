@@ -19,7 +19,7 @@ use OCA\News\Db\Item;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\IAppContainer;
 
-use OCP\IDb;
+use OCP\IDBConnection;
 use OCP\IUserSession;
 use OCP\IUserManager;
 
@@ -192,9 +192,9 @@ abstract class IntegrationTest extends PHPUnit_Framework_TestCase {
             'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?'
         ];
 
-        $db = $this->container->query(IDb::class);
+        $db = $this->container->query(IDBConnection::class);
         foreach ($sql as $query) {
-            $db->prepareQuery($query)->execute([$user]);
+            $db->prepare($query)->execute([$user]);
         }
     }
 
