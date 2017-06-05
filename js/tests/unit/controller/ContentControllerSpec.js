@@ -402,13 +402,15 @@ describe('ContentController', function () {
         }));
 
 
-    it ('should toggle active item', function ($controller) {
-        var ctrl = $controller('ContentController');
-        expect(ctrl.isItemActive(3)).toBe(undefined);
+    it ('should toggle active item', inject(function ($controller) {
+        var ctrl = $controller('ContentController', {
+            data: {'items': [{id: 3}, {id: 4}]}
+        });
+        expect(ctrl.isItemActive(3)).toBe(false);
         ctrl.setItemActive(3);
         expect(ctrl.isItemActive(4)).toBe(false);
         expect(ctrl.isItemActive(3)).toBe(true);
-    });
+    }));
 
     it('should autopage if more than 0 elements',
         inject(function ($controller, ItemResource, Publisher) {
