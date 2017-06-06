@@ -33,8 +33,11 @@ class StatusServiceTest extends \PHPUnit_Framework_TestCase {
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->service = new StatusService($this->settings, $this->config,
-            $this->appName);
+		$this->db = $this->getMockBuilder("\OCP\IDBConnection")
+			->disableOriginalConstructor()
+			->getMock();
+        $this->service = new StatusService($this->settings, $this->db,
+            $this->config, $this->appName);
     }
 
     private function beforeStatus($cronMode='cron', $cronEnabled=true,

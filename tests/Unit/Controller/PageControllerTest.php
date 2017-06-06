@@ -80,8 +80,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new PageController($this->appName, $this->request,
-            $this->settings, $this->urlGenerator, $this->appConfig,
-            $this->config, $this->l10n, $this->recommended, $this->status,
+            $this->settings, $this->urlGenerator, $this->config,
+            $this->l10n, $this->recommended, $this->status,
             $this->user);
     }
 
@@ -97,7 +97,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->controller->index();
         $this->assertEquals('index', $response->getTemplateName());
-        $this->assertSame(false, $response->getParams()['cronWarning']);
+        $this->assertSame(false, $response->getParams()['warnings']['improperlyConfiguredCron']);
     }
 
 
@@ -112,7 +112,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
 
 
         $response = $this->controller->index();
-        $this->assertEquals(true, $response->getParams()['cronWarning']);
+        $this->assertEquals(true, $response->getParams()['warnings']['improperlyConfiguredCron']);
     }
 
 
