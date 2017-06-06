@@ -29,7 +29,7 @@
         <p><?php p($l->t('Non UTF-8 charset for MySQL/MariaDB database detected!')); ?></p>
         <ul>
             <li>
-                <a href="https://dba.stackexchange.com/a/21684"
+                <a href="https://docs.nextcloud.com/server/12/admin_manual/configuration_database/mysql_4byte_support.html"
                    target="_blank"
                    rel="noreferrer">
                     <?php
