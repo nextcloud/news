@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## 11.0.5
 
+### Changed
+
+- Replaced url of utf8mb4 instructions to stack exchange with nextcloud-specific page, #181
+
 ### Fixed
 
 - Fix order of update scripts for cron updates, #172
