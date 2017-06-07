@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Replaced url of utf8mb4 instructions to stack exchange with nextcloud-specific page, #181
+- Created user setting for populating title of news headlines 
 
 ## 11.0.5
 
