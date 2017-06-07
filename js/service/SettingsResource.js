@@ -19,7 +19,8 @@ app.service('SettingsResource', function ($http, BASE_URL) {
         oldestFirst: null,
         preventReadOnScroll: false,
         compactExpand: false,
-        exploreUrl: ''
+        exploreUrl: '',
+        showHeadlineAsTitle: false
     };
     this.defaultLanguageCode = 'en';
     this.supportedLanguageCodes = [
@@ -63,7 +64,8 @@ app.service('SettingsResource', function ($http, BASE_URL) {
                 compact: this.settings.compact,
                 oldestFirst: this.settings.oldestFirst,
                 compactExpand: this.settings.compactExpand,
-                preventReadOnScroll: this.settings.preventReadOnScroll
+                preventReadOnScroll: this.settings.preventReadOnScroll,
+                showHeadlineAsTitle: this.settings.showHeadlineAsTitle
             }
         });
     };

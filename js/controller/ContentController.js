@@ -130,6 +130,11 @@ app.controller('ContentController',
             return !SettingsResource.get('preventReadOnScroll');
         };
 
+        this.showHeadlineAsTitle = function () {
+            return SettingsResource.get('showHeadlineAsTitle');
+        };
+
+
         this.scrollRead = function (itemIds) {
             var ids = [];
             var feedIds = [];

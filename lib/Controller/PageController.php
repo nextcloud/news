@@ -97,7 +97,8 @@ class PageController extends Controller {
             'compact',
             'preventReadOnScroll',
             'oldestFirst',
-            'compactExpand'
+            'compactExpand',
+            'showHeadlineAsTitle'
         ];
 
         $exploreUrl = $this->config->getExploreUrl();
@@ -130,14 +131,16 @@ class PageController extends Controller {
      * @param bool $compact
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
+     * @param bool $showHeadlineAsTitle
      */
     public function updateSettings($showAll, $compact, $preventReadOnScroll,
-                                   $oldestFirst, $compactExpand) {
+                                   $oldestFirst, $compactExpand, $showHeadlineAsTitle) {
         $settings = ['showAll',
             'compact',
             'preventReadOnScroll',
             'oldestFirst',
-            'compactExpand'
+            'compactExpand',
+            'showHeadlineAsTitle'
         ];
 
         foreach ($settings as $setting) {

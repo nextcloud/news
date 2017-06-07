@@ -56,6 +56,15 @@
                        id="settings-oldestFirst">
                 <label for="settings-oldestFirst"><?php p($l->t('Reverse ordering (oldest on top)')); ?></label>
             </li>
+            <li class="settings-fieldset-interior-item">
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-click="Settings.toggleSetting('showHeadlineAsTitle')"
+                       ng-checked="Settings.getSetting('showHeadlineAsTitle')"
+                       name="oldestFirst"
+                       id="settings-showHeadlineAsTitle">
+                <label for="settings-showHeadlineAsTitle"><?php p($l->t('Show the headline in mouseover')); ?></label>
+            </li>
         </ul>
     </fieldset>
 
