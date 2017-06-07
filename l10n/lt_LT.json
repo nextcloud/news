@@ -1,5 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Užklausa nepavyko, neprieinamas tinklo ryšys!",
+    "Request unauthorized. Are you logged in?" : "Užklausa nesankcionuota. Ar esate prisijungę?",
     "Request forbidden. Are you an admin?" : "Užklausa uždrausta. Ar jūs esate administratorius?",
     "Token expired or app not enabled! Reload the page!" : "Pasibaigė prieigos raktų galiojimas arba programėlė nėra įjungta! Įkelkite puslapį iš naujo!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vidinė serverio klaida! Išsamesnei informacijai, prašome patikrinti savo data/nextcloud.log failą!",
@@ -10,7 +11,9 @@
     "More redirects than allowed, aborting" : "Daugiau peradresavimų negu leidžiama, nutraukiama",
     "Request timed out" : "Pasibaigė užklausai skirtas laikas",
     "Certificate error: Couldn't use specified cipher." : "Liudijimo klaida: Nepavyko naudoti nurodyto šifro.",
+    "Certificate error: Requested FTP SSL level failed." : "Liudijimo klaida: Užklaustas FTP SSL lygis patyrė nesėkmę.",
     "Certificate error: Initiating the SSL Engine failed." : "Liudijimo klaida: SSL modulio inicijavimas nepavyko.",
+    "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Liudijimo klaida: Problemos, skaitant SSL CA liudijimą (kelias? prieigos teisės?)",
     "Can not add feed: Exists already" : "Nepavyko pridėti srauto: Jau yra",
     "Articles without feed" : "Straipsniai be sklaidos kanalų",
     "Can not add folder: Exists already" : "Nepavyko pridėti aplanko: Jau yra",
