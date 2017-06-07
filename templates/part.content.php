@@ -35,6 +35,7 @@
                         </a>
                     </li>
                     <li class="title only-in-compact"
+                    title="{{ (Content.showHeadlineAsTitle() ? item.title : '') }}"
                         ng-class="{
                             'icon-rss':
                                 !Content.getFeed(item.feedId).faviconLink
