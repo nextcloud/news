@@ -71,7 +71,7 @@
                 url: url,
                 data: JSON.stringify(data),
                 dataType: 'json'
-            }).success(function (data) {
+            }).then(function (data) {
                 saved();
                 autoPurgeMinimumIntervalInput
                     .val(data.autoPurgeMinimumInterval);

@@ -178,10 +178,10 @@ app.controller('ContentController',
             Loading.setLoading('autopaging', true);
 
             ItemResource.autoPage(type, id, oldestFirst, showAll, search)
-                .success(function (data) {
-                    Publisher.publishAll(data);
+                .then(function (response) {
+                    Publisher.publishAll(response.data);
 
-                    if (data.items.length >= ITEM_AUTO_PAGE_SIZE) {
+                    if (response.data.items.length >= ITEM_AUTO_PAGE_SIZE) {
                         self.isAutoPagingEnabled = true;
                     } else {
                         self.isNothingMoreToAutoPage = true;
@@ -190,7 +190,8 @@ app.controller('ContentController',
                     if (self.isAutoPagingEnabled && self.autoPageAgain) {
                         self.autoPage();
                     }
-                }).error(function () {
+                    return response.data;
+                }, function () {
                 self.isAutoPagingEnabled = true;
             }).finally(function () {
                 Loading.setLoading('autopaging', false);

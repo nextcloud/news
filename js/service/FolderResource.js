@@ -60,26 +60,21 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
     FolderResource.prototype.rename = function (folderName, toFolderName) {
         var folder = this.get(folderName);
-        var deferred = this.$q.defer();
         var self = this;
 
-        this.http({
+        return this.http({
             url: this.BASE_URL + '/folders/' + folder.id + '/rename',
             method: 'POST',
             data: {
                 folderName: toFolderName
             }
-        }).success(function () {
+        }).then(function () {
             folder.name = toFolderName;
             delete self.hashMap[folderName];
             self.hashMap[toFolderName] = folder;
-
-            deferred.resolve();
-        }).error(function (data) {
-            deferred.reject(data.message);
+        }, function (response) {
+            return response.data.message;
         });
-
-        return deferred.promise;
     };
 
     FolderResource.prototype.getById = function (id) {
@@ -94,21 +89,17 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
         this.add(folder);
 
-        var deferred = this.$q.defer();
-
-        this.http({
+        return this.http({
             url: this.BASE_URL + '/folders',
             method: 'POST',
             data: {
                 folderName: folderName
             }
-        }).success(function (data) {
-            deferred.resolve(data);
-        }).error(function (data) {
-            folder.error = data.message;
+        }).then(function (response) {
+            return response.data;
+        }, function (response) {
+            folder.error = response.data.message;
         });
-
-        return deferred.promise;
     };
 
 

@@ -92,12 +92,10 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                 var oldestFirst = SettingsResource.get('oldestFirst');
                 var search = $location.search().search || '';
 
-                var deferred = $q.defer();
-
                 // if those two values are null it means we did not receive
                 // the settings request from the server so dont query the server
                 if (showAll === null || oldestFirst === null) {
-                    deferred.resolve({});
+                    return {};
                 } else {
                     var parameters = {
                         type: type,
@@ -125,16 +123,14 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                         }
                     }
 
-                    $http({
+                    return $http({
                         url:  BASE_URL + '/items',
                         method: 'GET',
                         params: parameters
-                    }).success(function (data) {
-                        deferred.resolve(data);
+                    }).then(function (response) {
+                        return response.data;
                     });
                 }
-
-                return deferred.promise;
             }
         };
     };
@@ -143,16 +139,15 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         return {
             sites: /* @ngInject */ function (
             $http, $q, BASE_URL, $location, Publisher, SettingsResource) {
-                var deferred = $q.defer();
-
                 // always use the code from the url
                 var language = $location.search().lang;
                 if (!language) {
                     language = SettingsResource.get('language');
                 }
 
-                $http.get(BASE_URL + '/settings').then(function (data) {
-                    Publisher.publishAll(data);
+                return $http.get(
+                    BASE_URL + '/settings').then(function (response) {
+                    Publisher.publishAll(response.data);
 
                     // get url and strip trailing slashes
                     var url = SettingsResource.get('exploreUrl')
@@ -166,13 +161,9 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
                             return $http.get(defaultExploreUrl);
                         });
 
-                }).then(function (data) {
-                    deferred.resolve(data.data);
-                }).catch(function () {
-                    deferred.reject();
+                }).then(function (response) {
+                    return response.data;
                 });
-
-                return deferred.promise;
             }
         };
     };
