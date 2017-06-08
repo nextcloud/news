@@ -7,10 +7,6 @@ All notable changes to this project will be documented in this file.
 
 - Replaced url of utf8mb4 instructions to stack exchange with nextcloud-specific page, #181
 
-### Removed
-
-- Removed obsolete img/logo-icon.svg
-
 ## 11.0.5
 
 
