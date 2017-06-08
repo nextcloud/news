@@ -159,7 +159,7 @@ appstore:
 	"js/vendor/angular-animate/angular-animate.min.js" \
 	"js/vendor/angular-route/angular-route.min.js" \
 	"js/vendor/angular-sanitize/angular-sanitize.min.js" \
-	"js/vendor/momentjs/min/moment-with-locales.min.js" \
+	"js/vendor/moment/min/moment-with-locales.min.js" \
 	"js/vendor/masonry/dist/masonry.pkgd.min.js" \
 	"js/build/app.min.js" \
 	"js/admin/Admin.js" \
