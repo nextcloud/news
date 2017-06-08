@@ -7,7 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.config(function ($routeProvider, $provide, $httpProvider) {
+app.config(
+    function ($routeProvider, $provide, $httpProvider, $locationProvider) {
     'use strict';
 
     var feedType = {
@@ -18,6 +19,10 @@ app.config(function ($routeProvider, $provide, $httpProvider) {
         SHARED: 4,
         EXPLORE: 5
     };
+
+    // default hashPrefix changed in angular 1.6 to '!'
+    // change back to empty string to keep links working
+    $locationProvider.hashPrefix('');
 
     // constants
     $provide.constant('REFRESH_RATE', 60);  // seconds
