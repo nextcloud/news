@@ -216,6 +216,8 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
             data: {
                 json: json
             }
+        }).then(function(response) {
+            return response.data;
         });
     };
 

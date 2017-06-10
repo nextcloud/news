@@ -74,7 +74,7 @@ app.controller('SettingsController',
                 var articles = JSON.parse(content);
 
                 var self = this;
-                ItemResource.importArticles(articles).success(function (data) {
+                ItemResource.importArticles(articles).then(function (data) {
                     Publisher.publishAll(data);
                 }).finally(function () {
                     self.isArticlesImporting = false;

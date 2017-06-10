@@ -19,7 +19,7 @@ module.exports = function (config) {
             'vendor/js-url/url.min.js',
             'vendor/es6-shim/es6-shim.min.js',
             'vendor/jquery/dist/jquery.js',
-            'vendor/momentjs/min/moment-with-locales.js',
+            'vendor/moment/min/moment-with-locales.js',
             'vendor/angular/angular.js',
             'vendor/angular-mocks/angular-mocks.js',
             'vendor/angular-route/angular-route.js',

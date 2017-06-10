@@ -361,18 +361,14 @@ describe('ContentController', function () {
             ItemResource.autoPage = jasmine.createSpy('autoPage')
                 .and.callFake(function () {
                     return {
-                        success: function (callback) {
+                        then: function (callback) {
                             callback({
-                                'items': []
+                                data: {'items': []}
                             });
 
                             return {
-                                error: function () {
-                                    return {
-                                        finally: function (callback) {
-                                            callback();
-                                        }
-                                    };
+                                finally: function (callback) {
+                                    callback();
                                 }
                             };
                         }
@@ -431,17 +427,15 @@ describe('ContentController', function () {
             ItemResource.autoPage = jasmine.createSpy('autoPage')
                 .and.callFake(function () {
                     return {
-                        success: function (callback) {
+                        then: function (callback) {
                             callback({
-                                'items': [{items: [{id: 3, fingerprint: 'a'}]}]
+                                data: {
+                                    'items': [
+                                        {items: [{id: 3, fingerprint: 'a'}]}]}
                             });
 
                             return {
-                                error: function () {
-                                    return {
-                                        finally: function () {
-                                        }
-                                    };
+                                finally: function () {
                                 }
                             };
                         }
@@ -490,18 +484,13 @@ describe('ContentController', function () {
             ItemResource.autoPage = jasmine.createSpy('autoPage')
                 .and.callFake(function () {
                     return {
-                        success: function (callback) {
+                        then: function (callback, errorCallback) {
                             callback({
-                                'items': []
-                            });
+                                data: {'items': []}
+                            }, errorCallback({}));
 
                             return {
-                                error: function (callback) {
-                                    callback();
-                                    return {
-                                        finally: function () {
-                                        }
-                                    };
+                                finally: function () {
                                 }
                             };
                         }

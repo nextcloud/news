@@ -24,25 +24,25 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
     Publisher.subscribe(SettingsResource).toChannels(['settings']);
 
     // load feeds, settings and last read feed
-    var settingsDeferred = $q.defer();
-    $http.get(BASE_URL + '/settings').success(function (data) {
-        Publisher.publishAll(data);
-        settingsDeferred.resolve();
+    var settingsPromise = $http.get(BASE_URL + '/settings').then(
+        function (response) {
+            Publisher.publishAll(response.data);
+            return response.data;
     });
 
-    var activeFeedDeferred = $q.defer();
     var path = $location.path();
-    $http.get(BASE_URL + '/feeds/active').success(function (data) {
+    var activeFeedPromise = $http.get(BASE_URL + '/feeds/active')
+        .then(function (response) {
         var url;
 
-        switch (data.activeFeed.type) {
+        switch (response.data.activeFeed.type) {
 
         case FEED_TYPE.FEED:
-            url = '/items/feeds/' + data.activeFeed.id;
+            url = '/items/feeds/' + response.data.activeFeed.id;
             break;
 
         case FEED_TYPE.FOLDER:
-            url = '/items/folders/' + data.activeFeed.id;
+            url = '/items/folders/' + response.data.activeFeed.id;
             break;
 
         case FEED_TYPE.STARRED:
@@ -63,26 +63,25 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
             $location.path(url);
         }
 
-        activeFeedDeferred.resolve();
+        return response.data;
     });
 
-    var feedDeferred = $q.defer();
     var feeds;
-    $http.get(BASE_URL + '/feeds').success(function (data) {
-        feeds = data;
-        feedDeferred.resolve();
+    var feedPromise = $http.get(BASE_URL + '/feeds').then(function (response) {
+        feeds = response.data;
+        return feeds;
     });
 
-    var folderDeferred = $q.defer();
     var folders;
-    $http.get(BASE_URL + '/folders').success(function (data) {
-        folders = data;
-        folderDeferred.resolve();
+    var folderPromise = $http.get(BASE_URL + '/folders')
+    .then(function (response) {
+        folders = response.data;
+        return folders;
     });
 
     $q.all([
-        feedDeferred.promise,
-        folderDeferred.promise
+        feedPromise,
+        folderPromise
     ]).then(function () {
         // first publish feeds to correctly update the folder resource unread
         // cache
@@ -96,10 +95,10 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
     // disable loading if all initial requests finished
     $q.all(
         [
-            settingsDeferred.promise,
-            activeFeedDeferred.promise,
-            feedDeferred.promise,
-            folderDeferred.promise
+            settingsPromise,
+            activeFeedPromise,
+            feedPromise,
+            folderPromise
         ]
     )
         .then(function () {
@@ -109,11 +108,11 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
 
     // refresh feeds and folders
     $interval(function () {
-        $http.get(BASE_URL + '/feeds').success(function (data) {
-            Publisher.publishAll(data);
+        $http.get(BASE_URL + '/feeds').then(function (response) {
+            Publisher.publishAll(response.data);
         });
-        $http.get(BASE_URL + '/folders').success(function (data) {
-            Publisher.publishAll(data);
+        $http.get(BASE_URL + '/folders').then(function (response) {
+            Publisher.publishAll(response.data);
         });
     }, REFRESH_RATE * 1000);
 

@@ -22,15 +22,15 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.5.0",
-    "angular-route": "~1.5.0",
-    "angular-mocks": "~1.5.0",
-    "angular-sanitize": "~1.5.0",
-    "angular-animate": "~1.5.0",
+    "angular": "~1.6.0",
+    "angular-route": "~1.6.0",
+    "angular-mocks": "~1.6.0",
+    "angular-sanitize": "~1.6.0",
+    "angular-animate": "~1.6.0",
     "jquery": "~2.2.0",
-    "momentjs": "~2.12.0",
+    "moment": "~2.18",
     "es6-shim": "~0.35.0",
-    "js-url": "~2.3.0",
-    "masonry": "~4.0.0"
+    "js-url": "~2.5.0",
+    "masonry": "~4.2.0"
   }
 }

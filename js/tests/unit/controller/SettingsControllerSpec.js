@@ -62,12 +62,12 @@ describe('SettingsController', function () {
 
     it('should import articles', inject(function ($controller, ItemResource,
     Publisher) {
-        var data = 1;
+        var response = {data: 1};
         ItemResource.importArticles = jasmine.createSpy('importArticles')
         .and.callFake(function () {
             return {
-                success: function (callback) {
-                    callback(data);
+                then: function (callback) {
+                    callback(response.data);
                     return {
                         finally: function (finalCallback) {
                             finalCallback();
@@ -89,7 +89,7 @@ describe('SettingsController', function () {
 
         expect(ItemResource.importArticles)
             .toHaveBeenCalledWith(JSON.parse(content));
-        expect(Publisher.publishAll).toHaveBeenCalledWith(data);
+        expect(Publisher.publishAll).toHaveBeenCalledWith(response.data);
         expect(ctrl.isArticlesImporting).toBe(false);
         expect(ctrl.articleImportError).toBe(false);
     }));

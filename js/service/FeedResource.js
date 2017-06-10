@@ -184,9 +184,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         this.add(feed);
         this.updateFolderCache();
 
-        var deferred = this.$q.defer();
-
-        this.http({
+        return this.http({
             method: 'POST',
             url: this.BASE_URL + '/feeds',
             data: {
@@ -196,15 +194,12 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
                 user: user || null,
                 password: password || null
             }
-        }).success(function (data) {
-            deferred.resolve(data);
-        }).error(function (data) {
+        }).then(function (response) {
+            return response.data;
+        }, function (response) {
             feed.faviconLink = '';
-            feed.error = data.message;
-            deferred.reject();
+            feed.error = response.data.message;
         });
-
-        return deferred.promise;
     };
 
 

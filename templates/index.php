@@ -8,7 +8,7 @@ script('news', [
     'vendor/angular-animate/angular-animate.min',
     'vendor/angular-route/angular-route.min',
     'vendor/angular-sanitize/angular-sanitize.min',
-    'vendor/momentjs/min/moment-with-locales.min',
+    'vendor/moment/min/moment-with-locales.min',
     'vendor/masonry/dist/masonry.pkgd.min',
     'build/app.min',
 ]);
