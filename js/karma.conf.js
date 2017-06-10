@@ -16,14 +16,13 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'vendor/js-url/url.min.js',
-            'vendor/es6-shim/es6-shim.min.js',
-            'vendor/jquery/dist/jquery.js',
-            'vendor/moment/min/moment-with-locales.js',
-            'vendor/angular/angular.js',
-            'vendor/angular-mocks/angular-mocks.js',
-            'vendor/angular-route/angular-route.js',
-            'vendor/angular-sanitize/angular-sanitize.js',
+            'node_modules/es6-shim/es6-shim.min.js',
+            'node_modules/jquery/dist/jquery.js',
+            'node_modules/moment/min/moment-with-locales.js',
+            'node_modules/angular/angular.js',
+            'node_modules/angular-mocks/angular-mocks.js',
+            'node_modules/angular-route/angular-route.js',
+            'node_modules/angular-sanitize/angular-sanitize.js',
             'tests/unit/stubs/App.js',
             'tests/unit/stubs/OC.js',
             'controller/**/*.js',

@@ -2,14 +2,13 @@
 use OCA\News\Plugin\Client\Plugin;
 
 script('news', [
-    'vendor/js-url/url.min',
-    'vendor/es6-shim/es6-shim.min',
-    'vendor/angular/angular.min',
-    'vendor/angular-animate/angular-animate.min',
-    'vendor/angular-route/angular-route.min',
-    'vendor/angular-sanitize/angular-sanitize.min',
-    'vendor/moment/min/moment-with-locales.min',
-    'vendor/masonry/dist/masonry.pkgd.min',
+    'node_modules/es6-shim/es6-shim.min',
+    'node_modules/angular/angular.min',
+    'node_modules/angular-animate/angular-animate.min',
+    'node_modules/angular-route/angular-route.min',
+    'node_modules/angular-sanitize/angular-sanitize.min',
+    'node_modules/moment/min/moment-with-locales.min',
+    'node_modules/masonry-layout/dist/masonry.pkgd.min',
     'build/app.min',
 ]);
 

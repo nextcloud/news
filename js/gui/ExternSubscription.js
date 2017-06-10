@@ -12,8 +12,21 @@
  * This prefills the add feed section if an external link has ?subsribe_to
  * filled out
  */
-(function (window, document, navigator, url, $, undefined) {
+(function (window, document, navigator, $, undefined) {
     'use strict';
+
+    function queryParam(param)
+    {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i += 1) {
+                var pair = vars[i].split('=');
+                if(pair[0] === param) {
+                    return decodeURIComponent(pair[1]);
+                }
+        }
+        return(false);
+    }
 
     // register reader as feed reader in firefox
     var location = window.location;
@@ -50,12 +63,13 @@
 
 
     $(document).ready(function () {
-        var subscription = url('?subscribe_to');
-        if (subscription && subscription !== 'undefined') {
+        var subscribeTo = queryParam('subscribe_to');
+
+        if(subscribeTo && subscribeTo !== 'undefined') {
             $('#new-feed').show();
 
             var input = $('input[ng-model="Navigation.feed.url"]');
-            input.val(subscription);
+            input.val(subscribeTo);
             input.trigger('input');
 
             // hacky way to focus because initial loading of a feed
@@ -66,4 +80,4 @@
         }
     });
 
-})(window, document, navigator, url, $);
+})(window, document, navigator, $);
