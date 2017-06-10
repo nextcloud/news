@@ -1,5 +1,5 @@
 { "translations": {
-    "Request failed, network connection unavailable!" : "A solicitação falhou pois a conexão de rede está indisponível!",
+    "Request failed, network connection unavailable!" : "A solicitação falhou, conexão de rede indisponível!",
     "Request unauthorized. Are you logged in?" : "Solicitação não autorizada. Você está logado?",
     "Request forbidden. Are you an admin?" : "Solicitação proibida. Você é um administrador?",
     "Token expired or app not enabled! Reload the page!" : "Token expirado ou aplicativo não habilitado! Recarregue a página!",
