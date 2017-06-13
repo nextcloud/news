@@ -15,7 +15,7 @@
     "Required credentials for feed were either missing or incorrect" : "Credenciais necessárias para o feed estão ausentes ou incorretas",
     "Forbidden to access feed" : "O acesso ao feed está proibido",
     "Certificate error: A problem occurred somewhere in the SSL/TLS handshake. Could be certificates (file formats, paths, permissions), passwords, and others." : "Erro de certificado: Ocorreu um problema em algum lugar do handshake do  SSL/TLS. Pode ser no certificado (formatos de arquivo, caminhos, permissões, senhas e outros).",
-    "Certificate error: The remote server's SSL certificate or SSH md5 fingerprint was deemed not OK." : "Erro de certificado: O certificado SSL do servidor remoto ou a impressão digital md5 do SSH foi considerada como não OK.",
+    "Certificate error: The remote server's SSL certificate or SSH md5 fingerprint was deemed not OK." : "Erro de certificado: O certificado SSL do servidor remoto ou a impressão digital SSH md5 foi considerada como não OK.",
     "Certificate error: Problem with the local client certificate." : "Erro de certificado: Problema com o certificado de cliente local.",
     "Certificate error: Couldn't use specified cipher." : "Erro de certificado: Não foi possível usar a cifra específica.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Erro de certificado: Certificado de mesmo nível não pode ser autenticado com certificados CA conhecidos.",
