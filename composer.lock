@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "42e736ee493ffe0d8e66714313365d2d",
-    "content-hash": "19af3d601f08f25dc7de1a47cd2eb6fb",
+    "hash": "63a65f12a3a13c77aa65e51a30bfef52",
+    "content-hash": "3e09cb824fc2eb931014dc99a3b5b648",
     "packages": [
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.9.2",
+            "version": "v4.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4"
+                "reference": "95e1bae3182efc0f3422896a3236e991049dac69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
-                "reference": "6d50e5282afdfdfc3e0ff6d192aff56c5629b3d4",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/95e1bae3182efc0f3422896a3236e991049dac69",
+                "reference": "95e1bae3182efc0f3422896a3236e991049dac69",
                 "shasum": ""
             },
             "require": {
@@ -52,20 +52,20 @@
             "keywords": [
                 "html"
             ],
-            "time": "2017-03-13 06:30:53"
+            "time": "2017-06-03 02:28:16"
         },
         {
-            "name": "fguillot/picofeed",
-            "version": "v0.1.33",
+            "name": "miniflux/picofeed",
+            "version": "v0.1.34",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fguillot/picoFeed.git",
-                "reference": "b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f"
+                "url": "https://github.com/miniflux/picoFeed.git",
+                "reference": "5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fguillot/picoFeed/zipball/b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f",
-                "reference": "b44f1e1fdecfd2e7f158df86a23e1ea3dfb4e16f",
+                "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea",
+                "reference": "5c8a731d4e7a3589e562e4fdaa98bcb57fa8a2ea",
                 "shasum": ""
             },
             "require": {
@@ -104,8 +104,8 @@
                 }
             ],
             "description": "Modern library to handle RSS/Atom feeds",
-            "homepage": "https://github.com/fguillot/picoFeed",
-            "time": "2017-04-07 01:57:15"
+            "homepage": "https://github.com/miniflux/picoFeed",
+            "time": "2017-06-12 00:22:06"
         },
         {
             "name": "pear/net_url2",
@@ -1470,16 +1470,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.0",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "885db865f6b2b918404a1fae28f9ac640f71f994"
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/885db865f6b2b918404a1fae28f9ac640f71f994",
-                "reference": "885db865f6b2b918404a1fae28f9ac640f71f994",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/9752a30000a8ca9f4b34b5227d15d0101b96b063",
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063",
                 "shasum": ""
             },
             "require": {
@@ -1521,7 +1521,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-28 10:56:20"
+            "time": "2017-06-02 22:05:06"
         },
         {
             "name": "webmozart/assert",
