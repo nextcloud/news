@@ -81,7 +81,7 @@ You can help to improve our explore feeds section by [providing more feeds](http
 
 ## Fulltext configurations
 
-Nextcloud News uses [picoFeed web scrapers](https://github.com/fguillot/picoFeed/blob/master/docs/grabber.markdown). Simply create a new configuration file if needed and open a pull request on their repository. The News app syncs regularly with the most recent changes.
+Nextcloud News uses [picoFeed web scrapers](https://github.com/miniflux/picoFeed/blob/master/docs/grabber.markdown). Simply create a new configuration file if needed and open a pull request on their repository. The News app syncs regularly with the most recent changes.
 
 ## Development
 
