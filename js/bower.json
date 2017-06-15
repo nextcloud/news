@@ -32,5 +32,9 @@
     "es6-shim": "~0.35.0",
     "js-url": "~2.5.0",
     "masonry": "~4.2.0"
+  },
+  "resolutions": {
+    "outlayer": "^2.1.0",
+    "angular": "1.6.4"
   }
 }
