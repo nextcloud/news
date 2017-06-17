@@ -152,13 +152,6 @@ appstore:
 	"COPYING" \
 	"AUTHORS.md" \
 	"CHANGELOG.md" \
-	"js/node_modules/es6-shim/es6-shim.min.js" \
-	"js/node_modules/angular/angular.min.js" \
-	"js/node_modules/angular-animate/angular-animate.min.js" \
-	"js/node_modules/angular-route/angular-route.min.js" \
-	"js/node_modules/angular-sanitize/angular-sanitize.min.js" \
-	"js/node_modules/moment/min/moment-with-locales.min.js" \
-	"js/node_modules/masonry-layout/dist/masonry.pkgd.min.js" \
 	"js/build/app.min.js" \
 	"js/admin/Admin.js" \
 	$(appstore_build_directory)
