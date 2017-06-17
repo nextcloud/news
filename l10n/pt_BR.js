@@ -69,7 +69,7 @@ OC.L10N.register(
     "right" : "direita",
     "Jump to next article" : "Pular para o próximo artigo",
     "left" : "esquerda",
-    "Jump to previous article" : "Pular para o artigo anterior",
+    "Jump to previous article" : "Voltar para o artigo anterior",
     "Toggle star article" : "Alternar destaque do arquivo",
     "Star article and jump to next one" : "Destacar artigo e ir para próximo",
     "Toggle keep current article unread" : "Alternar manter o presente artigo não lido",
