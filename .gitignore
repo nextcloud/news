@@ -2,7 +2,6 @@
 composer.phar
 node_modules/
 vendor/
-js/vendor/
 js/build
 *.log
 /build/

@@ -29,13 +29,13 @@
 # build tools and additional package managers should be installed locally in
 # your project, since this won't pollute people's global namespace.
 #
-# The following npm scripts in your package.json install and update the bower
-# and npm dependencies and use gulp as build system (notice how everything is
-# run from the node_modules folder):
+# The following npm scripts in your package.json install the npm dependencies
+# and use gulp as build system (notice how everything is run from the
+# node_modules folder):
 #
 #    "scripts": {
 #        "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-#        "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+#        "prebuild": "npm install",
 #        "build": "node node_modules/gulp-cli/bin/gulp.js"
 #    },
 
@@ -104,13 +104,12 @@ npm:
 clean:
 	rm -rf ./build
 
-# Same as clean but also removes dependencies installed by composer, bower and
+# Same as clean but also removes dependencies installed by composer and
 # npm
 .PHONY: distclean
 distclean: clean
 	rm -rf vendor
 	rm -rf node_modules
-	rm -rf js/vendor
 	rm -rf js/node_modules
 
 # Builds the source and appstore package
@@ -153,14 +152,6 @@ appstore:
 	"COPYING" \
 	"AUTHORS.md" \
 	"CHANGELOG.md" \
-	"js/vendor/js-url/url.min.js" \
-	"js/vendor/es6-shim/es6-shim.min.js" \
-	"js/vendor/angular/angular.min.js" \
-	"js/vendor/angular-animate/angular-animate.min.js" \
-	"js/vendor/angular-route/angular-route.min.js" \
-	"js/vendor/angular-sanitize/angular-sanitize.min.js" \
-	"js/vendor/moment/min/moment-with-locales.min.js" \
-	"js/vendor/masonry/dist/masonry.pkgd.min.js" \
 	"js/build/app.min.js" \
 	"js/admin/Admin.js" \
 	$(appstore_build_directory)

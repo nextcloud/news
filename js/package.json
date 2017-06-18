@@ -4,7 +4,7 @@
   "main": "build/app.min.js",
   "scripts": {
     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-    "prebuild": "npm install && npm update && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+    "prebuild": "npm install && npm update",
     "build": "node node_modules/gulp-cli/bin/gulp.js"
   },
   "repository": {
@@ -30,7 +30,6 @@
   "private": true,
   "homepage": "https://github.com/nextcloud/news",
   "devDependencies": {
-    "bower": "^1.8.0",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
     "gulp-concat": "^2.6.1",
@@ -40,6 +39,7 @@
     "gulp-sourcemaps": "^1.9.1",
     "gulp-uglify": "^2.0.0",
     "jasmine-core": "^2.5.2",
+    "jquery": "^2.2.4",
     "jshint": "^2.9.4",
     "karma": "^1.3.0",
     "karma-chrome-launcher": "^2.0.0",
@@ -47,5 +47,14 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-animate": "^1.6.4",
+    "angular-mocks": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-sanitize": "^1.6.4",
+    "debug": "^2.6.8",
+    "masonry-layout": "^4.2.0",
+    "moment": "^2.18.1"
+  }
 }

@@ -46,7 +46,6 @@
         "enumerate": true,
         "News": true,
         "t": true,
-        "url": true,
         "navigator": true,
         "oc_requesttoken": true,
         "_": true
