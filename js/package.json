@@ -54,7 +54,6 @@
     "angular-route": "^1.6.4",
     "angular-sanitize": "^1.6.4",
     "debug": "^2.6.8",
-    "es6-shim": "^0.35.3",
     "masonry-layout": "^4.2.0",
     "moment": "^2.18.1"
   }
