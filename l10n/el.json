@@ -12,6 +12,7 @@
     "More redirects than allowed, aborting" : "Περισσότερες ανακατευθύνσεις από όσες επιτρέπονται, ακύρωση",
     "Bigger than maximum allowed size" : "Μεγαλύτερο από το μέγιστο επιτρεπόμενο μέγεθος",
     "Request timed out" : "Το αίτημα έληξε",
+    "Required credentials for feed were either missing or incorrect" : "Τα απαιτούμενα διαπιστευτήρια για τη ροή δεδομένων είτε λείπουν είτε είναι λανθασμένα",
     "Can not add feed: Exists already" : "Αδυναμία προσθήκης ροής: Υπάρχει ήδη",
     "Articles without feed" : "Άρθρα χωρίς ροές",
     "Can not add folder: Exists already" : "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδη",
