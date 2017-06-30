@@ -39,6 +39,7 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Numër maksimum sekondash që duhet pritur për ngarkimin e një prurjeje RSS ose Atom; nëse zgjat më shumë, përditësimi do të ndërpritet",
     "Explore Service URL" : "URL Shërbimi Eksplorimesh",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Në u dhëntë, kjo URL shërbimi do të përdoret për të shfaqur prurje te ndarja Eksploroni Prurje. Që të përdoret shërbimi i brendshëm i eksplorimit, lëreni të zbrazët këtë fushë",
+    "For more information check the wiki" : "Për më shumë informacione kontrolloni wiki-in",
     "Saved" : "U ruajt",
     "Download" : "Shkarko",
     "Close" : "Mbylle",
