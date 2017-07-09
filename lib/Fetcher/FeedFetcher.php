@@ -202,7 +202,7 @@ class FeedFetcher implements IFeedFetcher {
                 );
             case 66: // CURLE_SSL_ENGINE_INITFAILED
                 return $this->l10n->t(
-                    'Certificate error: Initiating the SSL Engine failed.'
+                    'Certificate error: Initiating the SSL engine failed.'
                 );
             case 77: // CURLE_SSL_CACERT_BADFILE
                 return $this->l10n->t(
