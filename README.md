@@ -265,11 +265,19 @@ System Cron:
   ```sql
   SELECT reserved_at FROM oc_jobs WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
   ```
+  and
+  ```sql
+  SELECT reserved_at FROM oc_jobs WHERE class = 'OCA\\News\\Cron\\Updater';
+  ```
 
- and reset it by executing
+  and reset it by executing
 
   ```sql
   UPDATE oc_jobs SET reserved_at = 0 WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+  ```
+  and
+  ```sql
+  UPDATE oc_jobs SET reserved_at = 0 WHERE class = 'OCA\\News\\Cron\\Updater';
   ```
 
 * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
