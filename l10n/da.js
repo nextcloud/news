@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Certifikat fejl: Kunne ikke bruge specificeret chiffer.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Certifikat fejl: Peer certifikat kan ikke bekræftes med kendte CA-certifikater.",
     "Certificate error: Requested FTP SSL level failed." : "Certifikat fejl: Anmodet FTP SSL niveau mislykkedes.",
-    "Certificate error: Initiating the SSL Engine failed." : "Certifikat fejl: Igangsættelse af SSL mekanismen mislykkedes.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Certifikat fejl: Problem med at læse SSL CA cert (sti? adgangsrettigheder?)",
     "Certificate error: Issuer check failed" : "Certifikat fejl: Udstederkontrol mislykkedes",
     "Unknown SSL certificate error!" : "Ukendt SSL certifikat fejl!",

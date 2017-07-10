@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "인증서 오류: 지정한 암호화를 사용할 수 없습니다.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "인증서 오류: 알려진 CA 인증서로 상대방 인증서를 인증할 수 없습니다.",
     "Certificate error: Requested FTP SSL level failed." : "인증서 오류: 요청한 FTP SSL 단계가 실패했습니다.",
-    "Certificate error: Initiating the SSL Engine failed." : "인증서 오류: SSL 엔진을 초기화할 수 없습니다.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "인증서 오류: SSL CA 인증서를 읽을 수 없습니다 (경로? 권한 문제?)",
     "Certificate error: Issuer check failed" : "인증서 오류: 발행자 확인이 실패했습니다",
     "Unknown SSL certificate error!" : "알 수 없는 SSL 인증서 오류!",

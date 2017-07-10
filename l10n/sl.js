@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Napaka potrdila: navedene števke ni mogoče uporabiti.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Napaka potrdila: potrdila ni mogoče overiti z znanimi potrdili CA.",
     "Certificate error: Requested FTP SSL level failed." : "Napaka potrdila: zahteva prijave prek FTP SSL je spodletela.",
-    "Certificate error: Initiating the SSL Engine failed." : "Napaka potrdila: začenjanje programnika SSL je spodletelo.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Napaka potrdila: napaka branja potrdila SSL CA (je napačno navedena pot?, ni ustreznih dovoljenj?).",
     "Certificate error: Issuer check failed" : "Napaka potrdila: preverjanje izdajatelja je spodletelo",
     "Unknown SSL certificate error!" : "Neznana napaka potrdila SSL!",

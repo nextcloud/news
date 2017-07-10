@@ -20,7 +20,6 @@
     "Certificate error: Couldn't use specified cipher." : "Certifikat-fel: Det gick inte att använda det angivna chiffer.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Certifikat-fel: Peer-Certifikatet kan inte verifieras med kända CA-certifikat.",
     "Certificate error: Requested FTP SSL level failed." : "Certifikat-fel: Begärd FTP SSL nivå misslyckades.",
-    "Certificate error: Initiating the SSL Engine failed." : "Certifikat-fel: Initiering av SSL-Motorn misslyckades.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Certifikat-fel: Problem med att läsa SSL CA-certifikat (sökväg? åtkomsträttigheter?)",
     "Certificate error: Issuer check failed" : "Certifikat-fel: Emittent kontroll misslyckades",
     "Unknown SSL certificate error!" : "Okänt SSL certifikat fel!",

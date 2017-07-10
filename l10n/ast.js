@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Fallu del certificáu: Nun pudo usase'l cifráu especificáu.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Fallu de certificáu: El certificáu de par nun pudo autentificase colos certificaos CA conocíos.",
     "Certificate error: Requested FTP SSL level failed." : "Fallu de certificáu: Nivel SSL FTP solicitáu falló.",
-    "Certificate error: Initiating the SSL Engine failed." : "Fallu de certificáu: Empecipiando'l motor SSL falló.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Fallu de certificáu: Problema cola llectura del certificáu SSL CA (¿Camín? ¿Derechos d'accesu?)",
     "Certificate error: Issuer check failed" : "Fallu de certificáu: La comprobación del emisor falló",
     "Unknown SSL certificate error!" : "SSL desconocíu, ¡fallu de certificáu!",

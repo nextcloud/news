@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Sertifika sorunu: Belirtilen şifreleyici kullanılamadı.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Sertifika sorunu: Eş sertifikası bilinen CA sertifikaları ile doğrulanamadı.",
     "Certificate error: Requested FTP SSL level failed." : "Sertifika sorunu: İstenilen FTP SSL düzeyi sağlanamadı.",
-    "Certificate error: Initiating the SSL Engine failed." : "Sertifika sorunu: SSL Motoru başlatılamadı.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Sertifika sorunu: SSL CA sertifikası okunurken bir sorun çıktı (yol ya da erişim hakkı sorunu?)",
     "Certificate error: Issuer check failed" : "Sertifika sorunu: Yayıncı denetimi başarısız oldu",
     "Unknown SSL certificate error!" : "Bilinmeyen SSL sertifika sorunu!",

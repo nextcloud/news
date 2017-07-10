@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "证书错误：无法使用指定的加密方式。",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "证书错误：对方证书无法被已知 CA 证书认证。",
     "Certificate error: Requested FTP SSL level failed." : "证书错误：请求的 FTP SSL 级别失败。",
-    "Certificate error: Initiating the SSL Engine failed." : "证书错误：初始化 SSL 引擎失败。",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "证书错误：读取 SSL CA 证书有问题 (路径？访问权限？)",
     "Certificate error: Issuer check failed" : "证书错误：签发者验证失败",
     "Unknown SSL certificate error!" : "未知的 SSL 证书错误！",

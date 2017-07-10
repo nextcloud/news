@@ -18,7 +18,6 @@
     "Certificate error: Couldn't use specified cipher." : "Грешка в сертификата: Не може да се използва избрания шифър.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Грешка в сертификата: Сертификатът на емисията не може да бъде удостоверен чрез достъпните сертификати от сертифициращи органи.",
     "Certificate error: Requested FTP SSL level failed." : "Грешка в сертификата: Заявеното FTP SSL ниво се провали.",
-    "Certificate error: Initiating the SSL Engine failed." : "Грешка в сертификата: Инициализацията на SSL софтуера се провали.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Грешка в сертификата: Проблем при четене на SSL CA сертификат (пътища? права за достъп?)",
     "Certificate error: Issuer check failed" : "Грешка в сертификата: Проверката на издателя се провали",
     "Unknown SSL certificate error!" : "Неизвестна грешка в SSL сертификата!",

@@ -20,7 +20,6 @@
     "Certificate error: Couldn't use specified cipher." : "Kesalahan sertifikat: Tidak dapat menggunakan sandi.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Kesalahan sertifikat: Sertifikat peer tidak dapat diotentikasi dengan sertifikat CA yang diketahui.",
     "Certificate error: Requested FTP SSL level failed." : "Kesalahan sertifikat: FTP SSL level yang diminta gagal.",
-    "Certificate error: Initiating the SSL Engine failed." : "Kesalahan sertifikat: Inisialisasi SSL Engine gagal.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Kesalahan sertifikat: Permasalahan membaca sertifikat CA SSL (path? izin akses?)",
     "Certificate error: Issuer check failed" : "Kesalahan sertifikat: Cek penerbit gagal",
     "Unknown SSL certificate error!" : "Galat sertifikat SSL ditak diketahui!",

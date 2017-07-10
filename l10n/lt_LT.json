@@ -12,7 +12,6 @@
     "Request timed out" : "Pasibaigė užklausai skirtas laikas",
     "Certificate error: Couldn't use specified cipher." : "Liudijimo klaida: Nepavyko naudoti nurodyto šifro.",
     "Certificate error: Requested FTP SSL level failed." : "Liudijimo klaida: Užklaustas FTP SSL lygis patyrė nesėkmę.",
-    "Certificate error: Initiating the SSL Engine failed." : "Liudijimo klaida: SSL modulio inicijavimas nepavyko.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Liudijimo klaida: Problemos, skaitant SSL CA liudijimą (kelias? prieigos teisės?)",
     "Can not add feed: Exists already" : "Nepavyko pridėti srauto: Jau yra",
     "Articles without feed" : "Straipsniai be sklaidos kanalų",

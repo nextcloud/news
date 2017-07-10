@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Błąd certyfikatu: nie można użyć wyznaczonego szyfru.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Błąd certyfikatu: Certyfikat klienta nie może zostać uwierzytelniony przez uznane CA certyfikatów.",
     "Certificate error: Requested FTP SSL level failed." : "Błąd certyfikatu: żądany poziom SSL FTP nie został uzyskany.",
-    "Certificate error: Initiating the SSL Engine failed." : "Błąd certyfikatu: zainicjowanie silnika SSL nie powiodło się.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Błąd certyfikatu: problem z odczytaniem certyfikatu SSL CA (ścieżka? uprawnienia?)",
     "Certificate error: Issuer check failed" : "Błąd certyfikatu: Sprawdzenie wystawcy nie powiodło się",
     "Unknown SSL certificate error!" : "Nieznany błąd certyfikatu!",

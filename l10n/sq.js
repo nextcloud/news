@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Gabim dëshmie: S’u përdor dot shifra e dhënë.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Gabim dëshmie: Dëshmia e anës tjetër s’mund të mirëfilltësohet me dëshmi AD të njohura.",
     "Certificate error: Requested FTP SSL level failed." : "Gabim dëshmie: S’u arrit dot në nivelin e kërkuar FTP SSL.",
-    "Certificate error: Initiating the SSL Engine failed." : "Gabim dëshmie: Dështoi nisja e Mekanizmit SSL.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Gabim dëshmie: Problem me leximin e dëshmisë SSL të AD-sët (shteg? të drejta hyrjeje?)",
     "Certificate error: Issuer check failed" : "Gabim dëshmie: Dështoi kontrolli i lëshuesit",
     "Unknown SSL certificate error!" : "Gabim i panjohur certifikate SSL!",

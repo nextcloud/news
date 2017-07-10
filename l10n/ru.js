@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Ошибка сертификата: Не удалось использовать заданный шифр.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Ошибка сертификата: Сертификат удалённого узла не удалось аутентифицировать с помощью известных сертификатов УЦ.",
     "Certificate error: Requested FTP SSL level failed." : "Ошибка сертификата: Не удалось установить запрошенный уровень SSL для FTP.",
-    "Certificate error: Initiating the SSL Engine failed." : "Ошибка сертификата: Не удалось инициализировать механизм SSL.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Ошибка сертификата: Проблема при чтении сертификата УЦ для SSL (путь? права доступа?)",
     "Certificate error: Issuer check failed" : "Ошибка сертификата: Не удалась проверка издателя",
     "Unknown SSL certificate error!" : "Неизвестная ошибка сертификата SSL!",

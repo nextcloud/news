@@ -18,7 +18,6 @@
     "Certificate error: Couldn't use specified cipher." : "שגיאת תעודת אימות: לא ניתן היה להשתמש במקודד הנתון.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "שגיאת תעודת אימות: תעודת גישה אינה ניתנת לאימות באמצעות תעודות CA מוכרות.",
     "Certificate error: Requested FTP SSL level failed." : "שגיאת תעודת אימות: בקשת רמת FTP SSL נכשלה.",
-    "Certificate error: Initiating the SSL Engine failed." : "שגיאת תעודת אימות: הנעת מנוע ה- SSL נכשלה.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "שגיאת תעודת אימות: בעייה בקריאת את אימות ה- SSL CA (נתיב? הרשאות גישה?)",
     "Certificate error: Issuer check failed" : "שגיאת תעודת אימות: בדיקת מנפיק נכשלה.",
     "Unknown SSL certificate error!" : "שגיאת תעודת אימות SSL לא ידועה!",

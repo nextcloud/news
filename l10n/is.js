@@ -22,7 +22,6 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Villa í skilríki: Gat ekki notað umbeðinn dulritunarlykil (chipher).",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Villa í skilríki: Ekki er hægt að auðkenna jafningjaskilríki með þekktum CA-skilríkjum.",
     "Certificate error: Requested FTP SSL level failed." : "Villa í skilríki: Umbeðið stig FTP SSL mistókst.",
-    "Certificate error: Initiating the SSL Engine failed." : "Villa í skilríki: Ekki tókst að frumstilla SSL-kerfið.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Villa í skilríki: Vandamál með að lesa SSL CA skilríki (slóð? aðgangsheimildir?)",
     "Certificate error: Issuer check failed" : "Villa í skilríki: Ekki tókst að sannreyna útgefanda",
     "Unknown SSL certificate error!" : "Óþekkt villa í SSL-skilríki",

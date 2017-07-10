@@ -18,7 +18,6 @@
     "Certificate error: Couldn't use specified cipher." : "Erro de certificado: Não foi possível utilizar a cifra especificada.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Erro de certificado: O certificado do par não pode ser autenticado usando os certificados das autoridades certificadoras (CA) conhecidas .",
     "Certificate error: Requested FTP SSL level failed." : "Erro de certificado: O pedido do nível de SSL para FTP falhou.",
-    "Certificate error: Initiating the SSL Engine failed." : "Erro de certificado: Falhou a inicialização do motor de SSL.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Erro de certificado: Problema na leitura do certificado CA SSL (caminho? privilégios?)",
     "Certificate error: Issuer check failed" : "Erro de certificado: A verificação do emissor falhou",
     "Unknown SSL certificate error!" : "Erro desconhecido de certificado SSL!",

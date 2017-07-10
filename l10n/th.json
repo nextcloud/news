@@ -18,7 +18,6 @@
     "Certificate error: Couldn't use specified cipher." : "ข้อผิดพลาดใบรับรอง: ไม่สามารถใช้การเข้ารหัสที่เฉพาะเจาะจง",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "ข้อผิดพลาดใบรับรอง: ใบรับรองเพียร์ไม่สามารถรับรองความถูกต้องด้วยใบรับรอง CA ที่รู้จักกัน",
     "Certificate error: Requested FTP SSL level failed." : "ข้อผิดพลาดใบรับรอง: ร้องขอระดับ FTP, SSL ล้มเหลว",
-    "Certificate error: Initiating the SSL Engine failed." : "ข้อผิดพลาดใบรับรอง: เริ่มต้น SSL Engine ล้มเหลว",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "ข้อผิดพลาดใบรับรอง: ปัญหาเกี่ยวกับการอ่าน SSL CA (สิทธิในการเข้าถึง? เส้นทาง?)",
     "Certificate error: Issuer check failed" : "ข้อผิดพลาดใบรับรอง: ปัญหาการตรวจสอบล้มเหลว",
     "Unknown SSL certificate error!" : "ข้อผิดพลาดใบรับรอง SSL ที่ไม่รู้จัก!",

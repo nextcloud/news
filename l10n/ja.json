@@ -20,7 +20,6 @@
     "Certificate error: Couldn't use specified cipher." : "証明書のエラー: 指定された暗号を使用することができませんでした。",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "証明書のエラー: 証明書が認証されたCA証明書で署名されていません。",
     "Certificate error: Requested FTP SSL level failed." : "証明書のエラー: 要求されたFTP SSLレベルが失敗しました。",
-    "Certificate error: Initiating the SSL Engine failed." : "証明書のエラー: SSLエンジンの初期化に失敗しました。",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "証明書のエラー: CA証明書の読み込みに失敗しました。ファイルのパス又はアクセス権を確認してください。",
     "Certificate error: Issuer check failed" : "証明書のエラー: 発行者の検査に失敗しました。",
     "Unknown SSL certificate error!" : "不明なSSL証明書エラーです！",
