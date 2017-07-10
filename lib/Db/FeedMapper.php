@@ -35,8 +35,7 @@ class FeedMapper extends NewsMapper {
                 // work because prepared statements dont work. This is a
                 // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
-                'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
-                StatusFlag::UNREAD . ' ' .
+                'AND unread = 1 ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
             'GROUP BY `feeds`.`id`';
@@ -57,8 +56,7 @@ class FeedMapper extends NewsMapper {
                 // work because prepared statements dont work. This is a
                 // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
-                'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
-                StatusFlag::UNREAD . ' ' .
+                'AND unread = 1 ' .
             'WHERE `feeds`.`user_id` = ? ' .
             'AND (`feeds`.`folder_id` = 0 ' .
                 'OR `folders`.`deleted_at` = 0' .
@@ -82,8 +80,7 @@ class FeedMapper extends NewsMapper {
                 // work because prepared statements dont work. This is a
                 // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
-                'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
-                StatusFlag::UNREAD . ' ' .
+                'AND unread = 1 ' .
             'WHERE (`feeds`.`folder_id` = 0 ' .
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
@@ -103,8 +100,7 @@ class FeedMapper extends NewsMapper {
                 // work because prepared statements dont work. This is a
                 // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                 // think twice when changing this
-                'AND (`items`.`status` & ' . StatusFlag::UNREAD . ') = ' .
-                StatusFlag::UNREAD . ' ' .
+                'AND unread = 1 ' .
             'WHERE `feeds`.`url_hash` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
             'GROUP BY `feeds`.`id`';

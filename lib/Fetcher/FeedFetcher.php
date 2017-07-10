@@ -242,7 +242,7 @@ class FeedFetcher implements IFeedFetcher {
 
     protected function buildItem($parsedItem, $parsedFeed) {
         $item = new Item();
-        $item->setUnread();
+        $item->setUnread(true);
         $item->setUrl($parsedItem->getUrl());
         $item->setGuid($parsedItem->getId());
         $item->setGuidHash($item->getGuid());

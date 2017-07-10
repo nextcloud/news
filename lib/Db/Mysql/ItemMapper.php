@@ -16,9 +16,6 @@ namespace OCA\News\Db\Mysql;
 use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
-use OCA\News\Db\StatusFlag;
-
-
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
     public function __construct(IDBConnection $db, Time $time){
@@ -32,16 +29,15 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
 	 * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold){
-        $status = StatusFlag::STARRED | StatusFlag::UNREAD;
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
         '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                'AND NOT ((`items`.`status` & ?) > 0) ' .
+                'AND NOT (`items`.`unread` = ? OR `items`.`starred` = ?)' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
-        $params = [$status, $threshold];
+        $params = [1, 1, $threshold];
         $result = $this->execute($sql, $params);
 
         while($row = $result->fetch()) {
@@ -50,10 +46,10 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $limit = $size - $threshold;
 
             if($limit > 0) {
-                $params = [$status, $row['feed_id'], $limit];
+                $params = [1, 1, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE NOT ((`status` & ?) > 0) ' .
+                    'WHERE NOT (`items`.`unread` = ? OR `items`.`starred` = ?)' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?';
@@ -71,16 +67,15 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $sql = 'UPDATE `*PREFIX*news_items` `items`
                 JOIN `*PREFIX*news_feeds` `feeds`
                     ON `feeds`.`id` = `items`.`feed_id`
-                SET `items`.`status` = `items`.`status` & ?,
-                    `items`.`last_modified` = ?
+                SET `items`.`unread` = ?,'.
+                    '`items`.`last_modified` = ?
                 WHERE `items`.`fingerprint` = ?
                     AND `feeds`.`user_id` = ?';
-            $params = [~StatusFlag::UNREAD, $lastModified,
-                       $item->getFingerprint(), $userId];
+            $params = [0, $lastModified, $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);
-            $item->setUnread();
+            $item->setUnread(true);
             $this->update($item);
         }
     }

@@ -49,10 +49,19 @@ class ItemMapper extends NewsMapper {
                                            $oldestFirst = false, $search = [],
                                            $distinctFingerprint = false) {
         $status = (int)$status;
+        // destruct old status flag
+        $unread = (($status & StatusFlag::UNREAD) == StatusFlag::UNREAD);
+        $starred = (($status & StatusFlag::STARRED) == StatusFlag::STARRED);
         $count = count($search);
 
+        $sql = '';
+        if ($unread) {
+            $sql .= 'AND `items`.`unread` = ' . $unread . ' ';
+        } elseif ($starred) {
+            $sql .= 'AND `items`.`starred` = ' . $starred . ' ';
+        }
+
         // WARNING: Potential SQL injection if you change this carelessly
-        $sql = 'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ';
         $sql .= str_repeat('AND `items`.`search_index` LIKE ? ', $count);
         $sql .= $prependTo;
 
@@ -88,14 +97,13 @@ class ItemMapper extends NewsMapper {
             'ON `feeds`.`id` = `items`.`feed_id` ' .
             'AND `feeds`.`deleted_at` = 0 ' .
             'AND `feeds`.`user_id` = ? ' .
-            'AND ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
-            StatusFlag::STARRED . ')' .
+            'AND `items`.`starred` = ? ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
             'ON `folders`.`id` = `feeds`.`folder_id` ' .
             'WHERE `feeds`.`folder_id` = 0 ' .
             'OR `folders`.`deleted_at` = 0';
 
-        $params = [$userId];
+        $params = [$userId, 1];
 
         $result = $this->execute($sql, $params)->fetch();
 
@@ -105,21 +113,21 @@ class ItemMapper extends NewsMapper {
 
     public function readAll($highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
-        $params = [~StatusFlag::UNREAD, $time, $userId, $highestItemId];
+        $params = [0, $time, $userId, $highestItemId];
         $this->execute($sql, $params);
     }
 
 
     public function readFolder($folderId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
@@ -127,7 +135,7 @@ class ItemMapper extends NewsMapper {
             'AND `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
-        $params = [~StatusFlag::UNREAD, $time, $folderId, $userId,
+        $params = [0, $time, $folderId, $userId,
             $highestItemId];
         $this->execute($sql, $params);
     }
@@ -135,7 +143,7 @@ class ItemMapper extends NewsMapper {
 
     public function readFeed($feedId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` = ? ' .
             'AND `id` <= ? ' .
@@ -143,7 +151,7 @@ class ItemMapper extends NewsMapper {
             'SELECT * FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             'AND `id` = ? ) ';
-        $params = [~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
+        $params = [0, $time, $feedId, $highestItemId,
             $userId, $feedId];
 
         $this->execute($sql, $params);
@@ -250,8 +258,7 @@ class ItemMapper extends NewsMapper {
 
     public function findAllUnreadOrStarred($userId) {
         $params = [$userId];
-        $status = StatusFlag::UNREAD | StatusFlag::STARRED;
-        $sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
+        $sql = 'AND `items`.`unread` = 1 OR `items`.`starred` = 1 ';
         $sql = $this->makeSelectQuery($sql);
         return $this->findEntities($sql, $params);
     }
@@ -272,15 +279,14 @@ class ItemMapper extends NewsMapper {
      * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold) {
-        $status = StatusFlag::STARRED | StatusFlag::UNREAD;
-        $params = [$status, $threshold];
+        $params = [1, 1, $threshold];
 
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
             '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
             'ON `feeds`.`id` = `items`.`feed_id` ' .
-            'AND NOT ((`items`.`status` & ?) > 0) ' .
+            'AND NOT (`items`.`unread` = ? OR `items`.`starred` = ?) ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
 
@@ -292,12 +298,12 @@ class ItemMapper extends NewsMapper {
             $limit = $size - $threshold;
 
             if ($limit > 0) {
-                $params = [$status, $row['feed_id'], $limit];
+                $params = [1, 1, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
                     'WHERE `id` IN (' .
                     'SELECT `id` FROM `*PREFIX*news_items` ' .
-                    'WHERE NOT ((`status` & ?) > 0) ' .
+                    'WHERE NOT (`items`.`unread` = ? OR `items`.`starred` = ?) ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?' .
@@ -383,19 +389,18 @@ class ItemMapper extends NewsMapper {
         // as unread
         if ($isRead) {
             $sql = 'UPDATE `*PREFIX*news_items`
-                SET `status` = `status` & ?,
-                    `last_modified` = ?
+                SET `unread` = ?,'.
+                    '`last_modified` = ?
                 WHERE `fingerprint` = ?
                     AND `feed_id` IN (
                         SELECT `f`.`id` FROM `*PREFIX*news_feeds` AS `f`
                             WHERE `f`.`user_id` = ?
                     )';
-            $params = [~StatusFlag::UNREAD, $lastModified,
-                $item->getFingerprint(), $userId];
+            $params = [0, $lastModified, $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);
-            $item->setUnread();
+            $item->setUnread(true);
             $this->update($item);
         }
     }

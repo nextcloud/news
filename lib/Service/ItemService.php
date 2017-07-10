@@ -13,6 +13,7 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\Db\Item;
 use OCP\IConfig;
 use OCP\AppFramework\Db\DoesNotExistException;
 
@@ -122,15 +123,13 @@ class ItemService extends Service {
      */
     public function star($feedId, $guidHash, $isStarred, $userId){
         try {
+            /** @var Item $item */
             $item = $this->itemMapper->findByGuidHash(
                 $guidHash, $feedId, $userId
             );
 
-            if($isStarred){
-                $item->setStarred();
-            } else {
-                $item->setUnstarred();
-            }
+            $item->setStarred($isStarred);
+
             $this->itemMapper->update($item);
         } catch(DoesNotExistException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
