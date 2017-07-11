@@ -22,6 +22,7 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Sertifikatfeil: Kunne ikke bruke spesifisert krypteringsalgoritme",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Sertifikatfeil: Motpartens sertifikat kan ikke bekreftes med kjente CA-sertifikater.",
     "Certificate error: Requested FTP SSL level failed." : "Sertifikatfeil: Forespurt SSL-nivå for FTP mislyktes.",
+    "Certificate error: Initiating the SSL engine failed." : "Sertifikatfeil: Oppstart av SSL-motoren mislyktes.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Sertifikatfeil: Problem med å lese SSL CA-sertifikat (sti? tilgangsrettigheter?)",
     "Certificate error: Issuer check failed" : "Sertifikatfeil: Sjekk av utsteder mislyktes",
     "Unknown SSL certificate error!" : "Ukjent feil med SSL-sertifikat!",

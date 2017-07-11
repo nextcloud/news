@@ -22,6 +22,7 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Chyba certifikátu: Nelze použít uvedený kód.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Chyba certifikátu: Klientský certifikát nemůže být ověřen se známými CA certifikáty.",
     "Certificate error: Requested FTP SSL level failed." : "Chyba certifikátu: Požadavek na FTP SSL selhal.",
+    "Certificate error: Initiating the SSL engine failed." : "Chyba certifikátu: Inicializace SSL selhala.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Chyba certifikátu: Problém se čtením SSL CA certifikátu (cesta? přístupová práva?)",
     "Certificate error: Issuer check failed" : "Chyba certifikátu: Kontrola zadavatele selhala",
     "Unknown SSL certificate error!" : "Neznámá chyba SSL certifikátu!",
