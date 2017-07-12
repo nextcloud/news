@@ -34,10 +34,11 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                'AND NOT (`items`.`unread` = ? OR `items`.`starred` = ?)' .
+                'AND `items`.`unread` = false ' .
+                'AND `items`.`starred` = false ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
-        $params = [1, 1, $threshold];
+        $params = [$threshold];
         $result = $this->execute($sql, $params);
 
         while($row = $result->fetch()) {
@@ -46,10 +47,11 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $limit = $size - $threshold;
 
             if($limit > 0) {
-                $params = [1, 1, $row['feed_id'], $limit];
+                $params = [$row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE NOT (`items`.`unread` = ? OR `items`.`starred` = ?)' .
+                    'WHERE `items`.`unread` = false ' .
+                    'AND `items`.`starred` = false ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?';
@@ -67,11 +69,11 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $sql = 'UPDATE `*PREFIX*news_items` `items`
                 JOIN `*PREFIX*news_feeds` `feeds`
                     ON `feeds`.`id` = `items`.`feed_id`
-                SET `items`.`unread` = ?,'.
-                    '`items`.`last_modified` = ?
+                SET `items`.`unread` = false,
+                    `items`.`last_modified` = ?
                 WHERE `items`.`fingerprint` = ?
                     AND `feeds`.`user_id` = ?';
-            $params = [0, $lastModified, $item->getFingerprint(), $userId];
+            $params = [$lastModified, $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);

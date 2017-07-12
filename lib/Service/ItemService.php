@@ -18,7 +18,6 @@ use OCP\IConfig;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\ItemMapper;
-use OCA\News\Db\StatusFlag;
 use OCA\News\Db\FeedType;
 use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
@@ -26,19 +25,16 @@ use OCA\News\Utility\Time;
 
 class ItemService extends Service {
 
-    private $statusFlag;
     private $config;
     private $timeFactory;
     private $itemMapper;
     private $systemConfig;
 
     public function __construct(ItemMapper $itemMapper,
-                                StatusFlag $statusFlag,
                                 Time $timeFactory,
                                 Config $config,
                                 IConfig $systemConfig){
         parent::__construct($itemMapper);
-        $this->statusFlag = $statusFlag;
         $this->config = $config;
         $this->timeFactory = $timeFactory;
         $this->itemMapper = $itemMapper;
@@ -57,20 +53,18 @@ class ItemService extends Service {
      * @return array of items
      */
     public function findAllNew($id, $type, $updatedSince, $showAll, $userId){
-        $status = $this->statusFlag->typeToStatus($type, $showAll);
-
         switch($type){
             case FeedType::FEED:
                 return $this->itemMapper->findAllNewFeed(
-                    $id, $updatedSince, $status, $userId
+                    $id, $updatedSince, $showAll, $userId
                 );
             case FeedType::FOLDER:
                 return $this->itemMapper->findAllNewFolder(
-                    $id, $updatedSince, $status, $userId
+                    $id, $updatedSince, $showAll, $userId
                 );
             default:
                 return $this->itemMapper->findAllNew(
-                    $updatedSince, $status, $userId
+                    $updatedSince, $type, $showAll, $userId
                 );
         }
     }
@@ -91,22 +85,20 @@ class ItemService extends Service {
      */
     public function findAll($id, $type, $limit, $offset, $showAll, $oldestFirst,
                             $userId, $search=[]){
-        $status = $this->statusFlag->typeToStatus($type, $showAll);
-
         switch($type){
             case FeedType::FEED:
                 return $this->itemMapper->findAllFeed(
-                    $id, $limit, $offset, $status, $oldestFirst, $userId,
+                    $id, $limit, $offset, $showAll, $oldestFirst, $userId,
                     $search
                 );
             case FeedType::FOLDER:
                 return $this->itemMapper->findAllFolder(
-                    $id, $limit, $offset, $status, $oldestFirst, $userId,
+                    $id, $limit, $offset, $showAll, $oldestFirst, $userId,
                     $search
                 );
             default:
                 return $this->itemMapper->findAll(
-                    $limit, $offset, $status, $oldestFirst, $userId, $search
+                    $limit, $offset, $type, $showAll, $oldestFirst, $userId, $search
                 );
         }
     }
