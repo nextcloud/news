@@ -1,6 +1,6 @@
 <?php if ($_['warnings']['improperlyConfiguredCron']) { ?>
     <news-instant-notification id="cron-warning">
-        <p><?php p($l->t('Ajax or Web cron mode detected! Your feeds will not be updated!')); ?></p>
+        <p><?php p($l->t('Ajax or Webcron mode detected! Your feeds will not be updated!')); ?></p>
         <ul>
             <li>
                 <a href="https://docs.nextcloud.org/server/9/admin_manual/configuration_server/background_jobs_configuration.html#cron"
