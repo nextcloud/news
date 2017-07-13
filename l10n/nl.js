@@ -22,6 +22,7 @@ OC.L10N.register(
     "Certificate error: Couldn't use specified cipher." : "Certificaat error: Onbevoegde cijfer gespecificeerd.",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Certificaatfout: het certificaat van de partner kan niet worden geverifieerd bij de bekende Certificate Authorities.",
     "Certificate error: Requested FTP SSL level failed." : "Certificaat error: Aangevraagde FTP SSL level mislukt.",
+    "Certificate error: Initiating the SSL engine failed." : "Certificaat error: Initialisatie van de SSL Engine mislukte.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Certificaat error: Probleem met het uitlezen van de SSL CA cert (pad? toegang permissies?)",
     "Certificate error: Issuer check failed" : "Certificaat error:  Issuer check mislukt",
     "Unknown SSL certificate error!" : "Onbekende SSL certificaat fout!",
