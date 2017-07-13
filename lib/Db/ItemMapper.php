@@ -55,9 +55,9 @@ class ItemMapper extends NewsMapper {
         $sql = '';
 
         if (isset($type) && $type === FeedType::STARRED) {
-            $sql = 'AND `items`.`starred` = true ';
+            $sql = 'AND `items`.`starred` = 1 ';
         } elseif (!$showAll) {
-            $sql .= 'AND `items`.`unread` = true ';
+            $sql .= 'AND `items`.`unread` = 1 ';
         }
 
         return $sql;
@@ -96,7 +96,7 @@ class ItemMapper extends NewsMapper {
             'ON `feeds`.`id` = `items`.`feed_id` ' .
             'AND `feeds`.`deleted_at` = 0 ' .
             'AND `feeds`.`user_id` = ? ' .
-            'AND `items`.`starred` = true ' .
+            'AND `items`.`starred` = 1 ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
             'ON `folders`.`id` = `feeds`.`folder_id` ' .
             'WHERE `feeds`.`folder_id` = 0 ' .
@@ -112,7 +112,7 @@ class ItemMapper extends NewsMapper {
 
     public function readAll($highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = false ' .
+            'SET unread = 0 ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
@@ -126,7 +126,7 @@ class ItemMapper extends NewsMapper {
 
     public function readFolder($folderId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = false ' .
+            'SET unread = 0 ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
@@ -142,7 +142,7 @@ class ItemMapper extends NewsMapper {
 
     public function readFeed($feedId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = false ' .
+            'SET unread = 0 ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` = ? ' .
             'AND `id` <= ? ' .
@@ -269,7 +269,7 @@ class ItemMapper extends NewsMapper {
 
     public function findAllUnreadOrStarred($userId) {
         $params = [$userId];
-        $sql = 'AND `items`.`unread` = true OR `items`.`starred` = true ';
+        $sql = 'AND `items`.`unread` = 1 OR `items`.`starred` = 1 ';
         $sql = $this->makeSelectQuery($sql);
         return $this->findEntities($sql, $params);
     }
@@ -297,8 +297,8 @@ class ItemMapper extends NewsMapper {
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
             'ON `feeds`.`id` = `items`.`feed_id` ' .
-            'AND `items`.`unread` = false ' .
-            'AND `items`.`starred` = false ' .
+            'AND `items`.`unread` = 0 ' .
+            'AND `items`.`starred` = 0 ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
 
@@ -315,8 +315,8 @@ class ItemMapper extends NewsMapper {
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
                     'WHERE `id` IN (' .
                     'SELECT `id` FROM `*PREFIX*news_items` ' .
-                    'WHERE `items`.`unread` = false ' .
-                    'AND `items`.`starred` = false ' .
+                    'WHERE `items`.`unread` = 0 ' .
+                    'AND `items`.`starred` = 0 ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?' .
@@ -402,7 +402,7 @@ class ItemMapper extends NewsMapper {
         // as unread
         if ($isRead) {
             $sql = 'UPDATE `*PREFIX*news_items`
-                SET `unread` = false,
+                SET `unread` = 0,
                     `last_modified` = ?
                 WHERE `fingerprint` = ?
                     AND `feed_id` IN (

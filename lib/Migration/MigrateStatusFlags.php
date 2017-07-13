@@ -44,7 +44,7 @@ class MigrateStatusFlags implements IRepairStep {
         }
 
         $update = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = IF(status & 2, true, false), starred = IF(status & 4, true, false)';
+            'SET unread = IF(status & 2, 1, 0), starred = IF(status & 4, 1, 0)';
 
         $output->startProgress();
         $this->db->executeUpdate($update);

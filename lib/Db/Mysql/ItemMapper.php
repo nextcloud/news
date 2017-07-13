@@ -34,8 +34,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                'AND `items`.`unread` = false ' .
-                'AND `items`.`starred` = false ' .
+                'AND `items`.`unread` = 0 ' .
+                'AND `items`.`starred` = 0 ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
         $params = [$threshold];
@@ -50,8 +50,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
                 $params = [$row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE `items`.`unread` = false ' .
-                    'AND `items`.`starred` = false ' .
+                    'WHERE `items`.`unread` = 0 ' .
+                    'AND `items`.`starred` = 0 ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?';
@@ -69,7 +69,7 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $sql = 'UPDATE `*PREFIX*news_items` `items`
                 JOIN `*PREFIX*news_feeds` `feeds`
                     ON `feeds`.`id` = `items`.`feed_id`
-                SET `items`.`unread` = false,
+                SET `items`.`unread` = 0,
                     `items`.`last_modified` = ?
                 WHERE `items`.`fingerprint` = ?
                     AND `feeds`.`user_id` = ?';
