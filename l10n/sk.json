@@ -6,7 +6,6 @@
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnútorná chyba servera! Skontrolujte prosím súbor data/nextcloud.log pre podrobnejšie informácie!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požiadavka zlyhala, Nextcloud je momentálne v režime údržby!",
     "Feed contains invalid XML" : "Zdroj obsahuje nefunkčné XML",
-    "Feed not found: either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Kanál nebol nájdený: buď webstránka neposkytuje žiadne články, alebo bráni prístupu. Pre vylúčenie blokovania, skúste stiahnuť článok použitím príkazu curl v príkazovom riadku servera.",
     "Detected feed format is not supported" : "Detekovaný formát zdroja nieje podporovaný",
     "Website not found" : "Webstránka nebola nájdená",
     "More redirects than allowed, aborting" : "Viac presmerovaní ako je povolené, rušenie.",
