@@ -7,6 +7,11 @@ Read this when you want to:
 * add cool new feeds to the feed explore section
 * want to provide additional full text feed rules
 
+## General
+
+* Be as precise in your issues as possible and make it as easy as possible to understand. 
+* Follow the [code of conduct](https://nextcloud.com/code-of-conduct/). Being a dick and insulting people will get your posts deleted and issues locked.
+
 ## Issues
 This section is split into two section:
 
@@ -58,7 +63,7 @@ Please provide the following details so that your problem can be fixed:
 
 ### When Requesting Features
 
-Please always provide the usecase in addition solution, e.g.:
+Please always provide the use case in addition solution, e.g.:
 
 * "If I read feed that has comics, the newest first ordering does not work well because I have to read from the bottom up"
 
