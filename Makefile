@@ -39,16 +39,16 @@
 #        "build": "node node_modules/gulp-cli/bin/gulp.js"
 #    },
 
-app_name=$(notdir $(CURDIR))
-build_tools_directory=$(CURDIR)/build/tools
-source_build_directory=$(CURDIR)/build/source/news
-source_artifact_directory=$(CURDIR)/build/artifacts/source
-source_package_name=$(source_artifact_directory)/$(app_name)
-appstore_build_directory=$(CURDIR)/build/appstore/news
-appstore_artifact_directory=$(CURDIR)/build/artifacts/appstore
-appstore_package_name=$(appstore_artifact_directory)/$(app_name)
-npm=$(shell which npm 2> /dev/null)
-composer=$(shell which composer 2> /dev/null)
+app_name:=$(notdir $(CURDIR))
+build_tools_directory:=$(CURDIR)/build/tools
+source_build_directory:=$(CURDIR)/build/source/news
+source_artifact_directory:=$(CURDIR)/build/artifacts/source
+source_package_name:=$(source_artifact_directory)/$(app_name)
+appstore_build_directory:=$(CURDIR)/build/appstore/news
+appstore_artifact_directory:=$(CURDIR)/build/artifacts/appstore
+appstore_package_name:=$(appstore_artifact_directory)/$(app_name)
+npm:=$(shell which npm 2> /dev/null)
+composer:=$(shell which composer 2> /dev/null)
 ifeq (,$(composer))
 	composer=php $(build_tools_directory)/composer.phar
 endif
@@ -58,11 +58,11 @@ endif
 # * the app is inside the nextcloud/apps folder
 # * the private key is located in ~/.nextcloud/news.key
 # * the certificate is located in ~/.nextcloud/news.crt
-occ=$(CURDIR)/../../occ
-private_key=$(HOME)/.nextcloud/$(app_name).key
-certificate=$(HOME)/.nextcloud/$(app_name).crt
-sign=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
-sign_skip_msg="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
+occ:=$(CURDIR)/../../occ
+private_key:=$(HOME)/.nextcloud/$(app_name).key
+certificate:=$(HOME)/.nextcloud/$(app_name).crt
+sign:=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
+sign_skip_msg:="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
 ifneq (,$(wildcard $(private_key)))
 ifneq (,$(wildcard $(certificate)))
 ifneq (,$(wildcard $(occ)))
