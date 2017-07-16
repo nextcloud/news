@@ -1,5 +1,5 @@
 sudo: false
-dist: precise
+dist: trusty
 language: php
 php:
     - 5.6
@@ -61,7 +61,7 @@ after_failure:
 
 addons:
     firefox: "latest"
-    postgresql: "9.4"
+    postgresql: "9.6"
 
 services:
     - mysql
