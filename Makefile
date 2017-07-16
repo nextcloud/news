@@ -78,8 +78,8 @@ all: build
 # is present, the npm step is skipped
 .PHONY: build
 build:
-	make composer
-	make npm
+	$(MAKE) composer
+	$(MAKE) npm
 
 # Installs and updates the composer dependencies. If composer is not installed
 # a copy is fetched from the web
