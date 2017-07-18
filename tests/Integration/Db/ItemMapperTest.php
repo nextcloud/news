@@ -112,9 +112,8 @@ class ItemMapperTest extends IntegrationTest {
 
         $this->itemMapper->readAll(PHP_INT_MAX, 10, $this->user);
 
-        $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->user
+            30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(0, count($items));
@@ -144,9 +143,8 @@ class ItemMapperTest extends IntegrationTest {
             $folderId, PHP_INT_MAX, 10, $this->user
         );
 
-        $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->user
+            30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(1, count($items));
@@ -176,9 +174,8 @@ class ItemMapperTest extends IntegrationTest {
             $feedId, PHP_INT_MAX, 10, $this->user
         );
 
-        $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->user
+            30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(2, count($items));

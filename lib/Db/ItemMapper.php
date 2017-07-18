@@ -269,7 +269,7 @@ class ItemMapper extends NewsMapper {
 
     public function findAllUnreadOrStarred($userId) {
         $params = [$userId];
-        $sql = 'AND `items`.`unread` = 1 OR `items`.`starred` = 1 ';
+        $sql = 'AND (`items`.`unread` = 1 OR `items`.`starred` = 1) ';
         $sql = $this->makeSelectQuery($sql);
         return $this->findEntities($sql, $params);
     }
@@ -315,8 +315,8 @@ class ItemMapper extends NewsMapper {
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
                     'WHERE `id` IN (' .
                     'SELECT `id` FROM `*PREFIX*news_items` ' .
-                    'WHERE `items`.`unread` = 0 ' .
-                    'AND `items`.`starred` = 0 ' .
+                    'WHERE `unread` = 0 ' .
+                    'AND `starred` = 0 ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?' .

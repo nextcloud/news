@@ -124,7 +124,10 @@ abstract class IntegrationTest extends \Test\TestCase {
             $feed = new FeedFixture($feedFixture);
             $feed->setFolderId($folderId);
             $feedId = $this->loadFixture($feed);
-            $this->loadItemFixtures($feedFixture['items'], $feedId);
+
+            if (!empty($feedFixture['items'])) {
+				$this->loadItemFixtures($feedFixture['items'], $feedId);
+			}
         }
     }
 

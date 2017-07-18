@@ -26,7 +26,7 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
     /**
      * Delete all items for feeds that have over $threshold unread and not
      * starred items
-	 * @param int $threshold the number of items that should be deleted
+     * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold){
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .

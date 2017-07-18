@@ -16,13 +16,13 @@ namespace OCA\News\Service;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;
-use \OCA\News\Db\StatusFlag;
 use \OCA\News\Db\FeedType;
 
 
 class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
     private $mapper;
+    /** @var  ItemService */
     private $itemService;
     private $user;
     private $response;
@@ -46,13 +46,6 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->statusFlag = $this->getMockBuilder('\OCA\News\Db\StatusFlag')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->status = StatusFlag::STARRED;
-        $this->statusFlag->expects($this->any())
-            ->method('typeToStatus')
-            ->will($this->returnValue($this->status));
         $this->config = $this->getMockBuilder(
             '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
@@ -62,8 +55,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = new ItemService($this->mapper,
-            $this->statusFlag, $this->timeFactory, $this->config,
-            $this->systemConfig);
+            $this->timeFactory, $this->config, $this->systemConfig);
         $this->user = 'jack';
         $this->id = 3;
         $this->updatedSince = 20333;
@@ -80,7 +72,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('findAllNewFeed')
             ->with($this->equalTo($this->id),
                     $this->equalTo($this->updatedSince),
-                    $this->equalTo($this->status),
+                    $this->equalTo($this->showAll),
                     $this->equalTo($this->user))
             ->will($this->returnValue($this->response));
 
@@ -97,7 +89,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('findAllNewFolder')
             ->with($this->equalTo($this->id),
                     $this->equalTo($this->updatedSince),
-                    $this->equalTo($this->status),
+                    $this->equalTo($this->showAll),
                     $this->equalTo($this->user))
             ->will($this->returnValue($this->response));
 
@@ -113,7 +105,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $this->mapper->expects($this->once())
             ->method('findAllNew')
             ->with( $this->equalTo($this->updatedSince),
-                    $this->equalTo($this->status),
+                    $this->equalTo($type),
+                    $this->equalTo($this->showAll),
                     $this->equalTo($this->user))
             ->will($this->returnValue($this->response));
 
@@ -131,7 +124,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->id),
                     $this->equalTo($this->limit),
                     $this->equalTo($this->offset),
-                    $this->equalTo($this->status),
+                    $this->equalTo($this->showAll),
                     $this->equalTo(false),
                     $this->equalTo($this->user),
                     $this->equalTo([]))
@@ -152,7 +145,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->id),
                     $this->equalTo($this->limit),
                     $this->equalTo($this->offset),
-                    $this->equalTo($this->status),
+                    $this->equalTo($this->showAll),
                     $this->equalTo(true),
                     $this->equalTo($this->user),
                     $this->equalTo([]))
@@ -172,7 +165,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('findAll')
             ->with( $this->equalTo($this->limit),
                     $this->equalTo($this->offset),
-                    $this->equalTo($this->status),
+                    $this->equalTo($type),
+                    $this->equalTo($this->showAll),
                     $this->equalTo(true),
                     $this->equalTo($this->user),
                     $this->equalTo([]))
@@ -193,7 +187,8 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('findAll')
             ->with( $this->equalTo($this->limit),
                     $this->equalTo($this->offset),
-                    $this->equalTo($this->status),
+                    $this->equalTo($type),
+                    $this->equalTo($this->showAll),
                     $this->equalTo(true),
                     $this->equalTo($this->user),
                     $this->equalTo($search))

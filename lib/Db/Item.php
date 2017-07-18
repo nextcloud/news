@@ -43,8 +43,6 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setFingerprint(string $value)
  * @method void setContentHash(string $value)
  * @method void setSearchIndex(string $value)
- * @method void setUnread(bool $value)
- * @method void setStarred(bool $value)
  */
 class Item extends Entity implements IAPI, \JsonSerializable {
 
@@ -79,12 +77,34 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $this->addType('starred', 'boolean');
     }
 
+    public function setRead() {
+        $this->setUnread(false);
+    }
+
+    public function isRead() {
+        return !$this->unread;
+    }
+
+    public function setUnread($value = true) {
+        $this->markFieldUpdated('unread');
+        $this->unread = (bool)$value;
+    }
+
     public function isUnread() {
-        return $this->unread;
+        return (bool)$this->unread;
+    }
+
+    public function setStarred($value = true) {
+        $this->markFieldUpdated('starred');
+        $this->starred = (bool)$value;
     }
 
     public function isStarred() {
         return (bool)$this->starred;
+    }
+
+    public function setUnstarred() {
+        $this->setStarred(false);
     }
 
     public function isUnstarred() {
