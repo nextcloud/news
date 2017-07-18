@@ -9,6 +9,7 @@ php:
 env:
     global:
         - CORE_BRANCH=stable12
+        - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
 
@@ -25,8 +26,6 @@ matrix:
     fast_finish: true
 
 before_install:
-    - export DISPLAY=:99.0
-    - sh -e /etc/init.d/xvfb start
     # re-enable once mariadb is added as an option
     # - if [[ "$DB" == 'mysql' ]]; then sudo apt-get -y install mariadb-server; fi
     - nvm install 6
@@ -60,7 +59,7 @@ after_failure:
     - cat ../../data/nextcloud.log
 
 addons:
-    firefox: "latest"
+    firefox: "latest-beta"
     postgresql: "9.6"
 
 services:
