@@ -15,6 +15,7 @@ namespace OCA\News\Db;
 
 use Exception;
 use OCA\News\Utility\Time;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 
@@ -55,9 +56,11 @@ class ItemMapper extends NewsMapper {
         $sql = '';
 
         if (isset($type) && $type === FeedType::STARRED) {
-            $sql = 'AND `items`.`starred` = 1 ';
+            $sql = 'AND `items`.`starred` = ';
+            $sql .= $this->db->quote(true, IQueryBuilder::PARAM_BOOL) . ' ';
         } elseif (!$showAll) {
-            $sql .= 'AND `items`.`unread` = 1 ';
+            $sql .= 'AND `items`.`unread` = ';
+            $sql .= $this->db->quote(true, IQueryBuilder::PARAM_BOOL) . ' ';
         }
 
         return $sql;
@@ -96,13 +99,13 @@ class ItemMapper extends NewsMapper {
             'ON `feeds`.`id` = `items`.`feed_id` ' .
             'AND `feeds`.`deleted_at` = 0 ' .
             'AND `feeds`.`user_id` = ? ' .
-            'AND `items`.`starred` = 1 ' .
+            'AND `items`.`starred` = ? ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
             'ON `folders`.`id` = `feeds`.`folder_id` ' .
             'WHERE `feeds`.`folder_id` = 0 ' .
             'OR `folders`.`deleted_at` = 0';
 
-        $params = [$userId];
+        $params = [$userId, true];
 
         $result = $this->execute($sql, $params)->fetch();
 
@@ -112,21 +115,21 @@ class ItemMapper extends NewsMapper {
 
     public function readAll($highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = 0 ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
-        $params = [$time, $userId, $highestItemId];
+        $params = [false, $time, $userId, $highestItemId];
         $this->execute($sql, $params);
     }
 
 
     public function readFolder($folderId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = 0 ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
@@ -134,7 +137,7 @@ class ItemMapper extends NewsMapper {
             'AND `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
-        $params = [$time, $folderId, $userId,
+        $params = [false, $time, $folderId, $userId,
             $highestItemId];
         $this->execute($sql, $params);
     }
@@ -142,7 +145,7 @@ class ItemMapper extends NewsMapper {
 
     public function readFeed($feedId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = 0 ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` = ? ' .
             'AND `id` <= ? ' .
@@ -150,7 +153,7 @@ class ItemMapper extends NewsMapper {
             'SELECT * FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             'AND `id` = ? ) ';
-        $params = [$time, $feedId, $highestItemId,
+        $params = [false, $time, $feedId, $highestItemId,
             $userId, $feedId];
 
         $this->execute($sql, $params);
@@ -268,8 +271,8 @@ class ItemMapper extends NewsMapper {
 
 
     public function findAllUnreadOrStarred($userId) {
-        $params = [$userId];
-        $sql = 'AND (`items`.`unread` = 1 OR `items`.`starred` = 1) ';
+        $params = [$userId, true, true];
+        $sql = 'AND (`items`.`unread` = ? OR `items`.`starred` = ?) ';
         $sql = $this->makeSelectQuery($sql);
         return $this->findEntities($sql, $params);
     }
@@ -290,15 +293,15 @@ class ItemMapper extends NewsMapper {
      * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold) {
-        $params = [$threshold];
+        $params = [false, false, $threshold];
 
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
             '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
             'ON `feeds`.`id` = `items`.`feed_id` ' .
-            'AND `items`.`unread` = 0 ' .
-            'AND `items`.`starred` = 0 ' .
+            'AND `items`.`unread` = ? ' .
+            'AND `items`.`starred` = ? ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
 
@@ -310,13 +313,13 @@ class ItemMapper extends NewsMapper {
             $limit = $size - $threshold;
 
             if ($limit > 0) {
-                $params = [$row['feed_id'], $limit];
+                $params = [false, false, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
                     'WHERE `id` IN (' .
                     'SELECT `id` FROM `*PREFIX*news_items` ' .
-                    'WHERE `unread` = 0 ' .
-                    'AND `starred` = 0 ' .
+                    'WHERE `unread` = ? ' .
+                    'AND `starred` = ? ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?' .
@@ -402,14 +405,14 @@ class ItemMapper extends NewsMapper {
         // as unread
         if ($isRead) {
             $sql = 'UPDATE `*PREFIX*news_items`
-                SET `unread` = 0,
+                SET `unread` = ?,
                     `last_modified` = ?
                 WHERE `fingerprint` = ?
                     AND `feed_id` IN (
                         SELECT `f`.`id` FROM `*PREFIX*news_feeds` AS `f`
                             WHERE `f`.`user_id` = ?
                     )';
-            $params = [$lastModified, $item->getFingerprint(), $userId];
+            $params = [false, $lastModified, $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);

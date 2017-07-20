@@ -11,6 +11,7 @@
 
 namespace OCA\News\Migration;
 
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\Migration\IRepairStep;
@@ -43,11 +44,22 @@ class MigrateStatusFlags implements IRepairStep {
             return;
         }
 
-        $update = 'UPDATE `*PREFIX*news_items` ' .
-            'SET unread = IF(status & 2, 1, 0), starred = IF(status & 4, 1, 0)';
-
         $output->startProgress();
-        $this->db->executeUpdate($update);
+
+        $qb = $this->db->getQueryBuilder();
+
+        $qb->update('news_items')
+            ->set('unread', $qb->createParameter('unread_value'))
+            ->where('(status & 2)')
+            ->setParameter('unread_value', true, IQueryBuilder::PARAM_BOOL)
+            ->execute();
+
+        $qb->update('news_items')
+            ->set('starred', $qb->createParameter('starred_value'))
+            ->where('(status & 4)')
+            ->setParameter('starred_value', true, IQueryBuilder::PARAM_BOOL)
+            ->execute();
+
         $output->finishProgress();
     }
 
