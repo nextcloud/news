@@ -71,6 +71,7 @@
     "Focus search field" : "聚焦搜索域",
     "Mark current article's feed/folder read" : "标记当前文章/文件夹为已读",
     "How to set up the operating system cron" : "如何设置操作系统 cron",
+    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "检测到 MySQL / MariaDB 数据库的非 UTF-8 字符集！",
     "Web address" : "网络地址",
     "Feed exists already!" : "Feed已存在！",
     "Folder" : "文件夹",
