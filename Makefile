@@ -39,27 +39,30 @@
 #        "build": "node node_modules/gulp-cli/bin/gulp.js"
 #    },
 
-app_name=$(notdir $(CURDIR))
-build_tools_directory=$(CURDIR)/build/tools
-source_build_directory=$(CURDIR)/build/source/news
-source_artifact_directory=$(CURDIR)/build/artifacts/source
-source_package_name=$(source_artifact_directory)/$(app_name)
-appstore_build_directory=$(CURDIR)/build/appstore/news
-appstore_artifact_directory=$(CURDIR)/build/artifacts/appstore
-appstore_package_name=$(appstore_artifact_directory)/$(app_name)
-npm=$(shell which npm 2> /dev/null)
-composer=$(shell which composer 2> /dev/null)
+app_name:=$(notdir $(CURDIR))
+build_tools_directory:=$(CURDIR)/build/tools
+source_build_directory:=$(CURDIR)/build/source/news
+source_artifact_directory:=$(CURDIR)/build/artifacts/source
+source_package_name:=$(source_artifact_directory)/$(app_name)
+appstore_build_directory:=$(CURDIR)/build/appstore/news
+appstore_artifact_directory:=$(CURDIR)/build/artifacts/appstore
+appstore_package_name:=$(appstore_artifact_directory)/$(app_name)
+npm:=$(shell which npm 2> /dev/null)
+composer:=$(shell which composer 2> /dev/null)
+ifeq (,$(composer))
+	composer=php $(build_tools_directory)/composer.phar
+endif
 
 # code signing
 # assumes the following:
 # * the app is inside the nextcloud/apps folder
 # * the private key is located in ~/.nextcloud/news.key
 # * the certificate is located in ~/.nextcloud/news.crt
-occ=$(CURDIR)/../../occ
-private_key=$(HOME)/.nextcloud/$(app_name).key
-certificate=$(HOME)/.nextcloud/$(app_name).crt
-sign=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
-sign_skip_msg="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
+occ:=$(CURDIR)/../../occ
+private_key:=$(HOME)/.nextcloud/$(app_name).key
+certificate:=$(HOME)/.nextcloud/$(app_name).crt
+sign:=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
+sign_skip_msg:="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
 ifneq (,$(wildcard $(private_key)))
 ifneq (,$(wildcard $(certificate)))
 ifneq (,$(wildcard $(occ)))
@@ -75,8 +78,8 @@ all: build
 # is present, the npm step is skipped
 .PHONY: build
 build:
-	make composer
-	make npm
+	$(MAKE) composer
+	$(MAKE) npm
 
 # Installs and updates the composer dependencies. If composer is not installed
 # a copy is fetched from the web
@@ -87,17 +90,18 @@ ifeq (, $(composer))
 	mkdir -p $(build_tools_directory)
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar $(build_tools_directory)
-	php $(build_tools_directory)/composer.phar install --prefer-dist
-	php $(build_tools_directory)/composer.phar update --prefer-dist
-else
-	composer install --prefer-dist
-	composer update --prefer-dist
 endif
+	$(composer) update --prefer-dist
 
 # Installs npm dependencies
 .PHONY: npm
 npm:
+ifneq (, $(npm))
 	cd js && $(npm) run build
+else
+	@echo "npm command not available, please install nodejs first"
+	@exit 1
+endif
 
 # Removes the appstore build
 .PHONY: clean
