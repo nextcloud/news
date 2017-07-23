@@ -87,20 +87,20 @@ class Item extends Entity implements IAPI, \JsonSerializable {
 
     public function setUnread($value = true) {
         $this->markFieldUpdated('unread');
-        $this->unread = (bool)$value;
+        $this->unread = $value;
     }
 
     public function isUnread() {
-        return (bool)$this->unread;
+        return $this->unread;
     }
 
     public function setStarred($value = true) {
         $this->markFieldUpdated('starred');
-        $this->starred = (bool)$value;
+        $this->starred = $value;
     }
 
     public function isStarred() {
-        return (bool)$this->starred;
+        return $this->starred;
     }
 
     public function setUnstarred() {
