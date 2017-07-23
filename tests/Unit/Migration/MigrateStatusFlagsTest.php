@@ -35,29 +35,29 @@ class MigrateStatusFlagsTest extends TestCase {
 
     public function testRun() {
         $queryBuilder = $this->createMock(IQueryBuilder::class);
-        $queryBuilder->expects($this->exactly(2))
+        $queryBuilder->expects($this->exactly(3))
             ->method('createParameter')
             ->with($this->logicalOr('unread_value', 'starred_value'))
             ->willReturn($this->createMock(IParameter::class));
-        $queryBuilder->expects($this->exactly(2))
+        $queryBuilder->expects($this->exactly(3))
             ->method('update')
             ->with('news_items')
             ->willReturnSelf();
         $setParam = $this->logicalOr('unread', 'starred');
-        $queryBuilder->expects($this->exactly(2))
+        $queryBuilder->expects($this->exactly(3))
             ->method('set')
             ->with($setParam, $this->isInstanceOf(IParameter::class))
             ->willReturnSelf();
-        $queryBuilder->expects($this->exactly(2))
+        $queryBuilder->expects($this->exactly(3))
             ->method('where')
-            ->with($this->logicalOr('(status & 2)', '(status & 4)'))
+            ->with($this->logicalOr('(status & 2)', '(status & 4)', '(NOT status & 2)'))
             ->willReturnSelf();
         $setParameterName = $this->logicalOr('unread_value', 'starred_value');
-        $queryBuilder->expects($this->exactly(2))
+        $queryBuilder->expects($this->exactly(3))
             ->method('setParameter')
-            ->with($setParameterName, true, IQueryBuilder::PARAM_BOOL)
+            ->with($setParameterName, $this->logicalOr(true, false), IQueryBuilder::PARAM_BOOL)
             ->willReturnSelf();
-        $queryBuilder->expects($this->exactly(2))
+        $queryBuilder->expects($this->exactly(3))
             ->method('execute')
             ->with();
 

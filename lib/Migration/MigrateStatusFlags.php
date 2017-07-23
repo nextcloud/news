@@ -55,6 +55,12 @@ class MigrateStatusFlags implements IRepairStep {
             ->execute();
 
         $qb->update('news_items')
+            ->set('unread', $qb->createParameter('unread_value'))
+            ->where('(NOT status & 2)')
+            ->setParameter('unread_value', false, IQueryBuilder::PARAM_BOOL)
+            ->execute();
+
+        $qb->update('news_items')
             ->set('starred', $qb->createParameter('starred_value'))
             ->where('(status & 4)')
             ->setParameter('starred_value', true, IQueryBuilder::PARAM_BOOL)

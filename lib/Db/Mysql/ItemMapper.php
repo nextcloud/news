@@ -50,8 +50,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
                 $params = [false, false, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE `items`.`unread` = ? ' .
-                    'AND `items`.`starred` = ? ' .
+                    'WHERE `unread` = ? ' .
+                    'AND `starred` = ? ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?';
