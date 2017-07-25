@@ -48,7 +48,7 @@ OC.L10N.register(
     "Language" : "Gjuhë",
     "Subscribe" : "Pajtohuni",
     "Got more awesome feeds? Share them with us!" : "Keni prurje të tjera të mahnitshme? Ndajini me ne!",
-    "No articles available" : "Pa artikuj gati",
+    "No articles available" : "Jo artikuj të gatshëm",
     "No unread articles available" : "Pa artikuj të palexuar gati",
     "Open website" : "Hap sajtin",
     "Star article" : "Vëri yll artikullit",
