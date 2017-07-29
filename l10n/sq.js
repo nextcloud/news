@@ -102,6 +102,8 @@ OC.L10N.register(
     "Undo delete feed" : "Zhbëje fshirjen e prurjes",
     "Rename" : "Riemërtojeni",
     "Menu" : "Menu",
+    "Enable full text" : "Aktivizo tekst të plotë",
+    "Disable full text" : "Çaktivizo tekstin e plotë",
     "Delete" : "Fshij",
     "Dismiss" : "Mos e merr parasysh",
     "Collapse" : "Tkurre",
