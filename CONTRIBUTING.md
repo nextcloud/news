@@ -130,5 +130,5 @@ We usually hang out on **irc.freenode.net** in the **#nextcloud-news** and **#ne
   ```
 
 * Place a space before and after the parameter block for if, else, for, foreach, function
-* Everything should be in pascalCase except classes which should be in CamelCase
+* Everything should be in camelCase except classes which should be in PascalCase
 * For linting JavaScript, a [jshint file](https://github.com/nextcloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript
