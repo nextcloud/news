@@ -82,7 +82,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
     public function isRead() {
-        return !$this->unread;
+        return empty($this->unread);
     }
 
     public function setUnread($value = true) {
@@ -91,7 +91,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
     public function isUnread() {
-        return $this->unread;
+        return !empty($this->unread);
     }
 
     public function setStarred($value = true) {
@@ -100,7 +100,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
     public function isStarred() {
-        return $this->starred;
+        return !empty($this->starred);
     }
 
     public function setUnstarred() {
@@ -108,7 +108,7 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     }
 
     public function isUnstarred() {
-        return !$this->starred;
+        return empty($this->starred);
     }
 
     /**
