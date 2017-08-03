@@ -87,7 +87,7 @@ OC.L10N.register(
     "How to set up the operating system cron" : "Cómo establecer las tareas programadas del sistema operativo",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instala y configura un actualizador en paralelo más rápido que use el API de actualización de la nueva aplicación",
     "Non UTF-8 charset for MySQL/MariaDB database detected!" : "¡Se ha detectado un juego de caracteres no UTF-8 para la base de datos MySql/MariaDB!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Descubre como convertir tu base de datos a utf8mb4 (has un respaldo de antemano)",
+    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Descubre como convertir tu base de datos a utf8mb4 (haz un respaldo de antemano)",
     "Web address" : "Dirección web",
     "Feed exists already!" : "¡La fuente ya existe!",
     "Folder" : "Carpeta",
