@@ -211,11 +211,11 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $item = new Item();
         $item->setStatus(128);
         $item->setId($itemId);
-        $item->setUnstarred();
+        $item->setStarred(false);
 
         $expectedItem = new Item();
         $expectedItem->setStatus(128);
-        $expectedItem->setStarred();
+        $expectedItem->setStarred(true);
         $expectedItem->setId($itemId);
 
         $this->mapper->expects($this->once())
@@ -244,11 +244,12 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $item = new Item();
         $item->setStatus(128);
         $item->setId($itemId);
-        $item->setStarred();
+        $item->setStarred(true);
 
         $expectedItem = new Item();
         $expectedItem->setStatus(128);
-        $expectedItem->setUnstarred();
+        $expectedItem->setStarred(true); //workaround to set starred as updated field
+        $expectedItem->setStarred(false);
         $expectedItem->setId($itemId);
 
         $this->mapper->expects($this->once())
@@ -265,7 +266,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
 
         $this->itemService->star($feedId, $guidHash, false, $this->user);
 
-        $this->assertTrue($item->isUnstarred());
+        $this->assertFalse($item->isStarred());
     }
 
     public function testRead(){
@@ -273,11 +274,11 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase {
         $item = new Item();
         $item->setStatus(128);
         $item->setId($itemId);
-        $item->setUnread();
+        $item->setUnread(true);
 
         $expectedItem = new Item();
         $expectedItem->setStatus(128);
-        $expectedItem->setRead();
+        $expectedItem->setUnread(false);
         $expectedItem->setId($itemId);
         $expectedItem->setLastModified($this->time);
 

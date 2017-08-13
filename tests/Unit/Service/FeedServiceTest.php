@@ -388,7 +388,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('hey');
         $item->setAuthor('aut');
         $item->setBody('new');
-        $item->setRead();
+        $item->setUnread(false);
         return $item;
     }
 
@@ -401,7 +401,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setTitle('ho');
         $item->setAuthor('auto');
         $item->setBody('old');
-        $item->setRead();
+        $item->setUnread(false);
         return $item;
     }
 
@@ -448,7 +448,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item = $this->createUpdateItem();
         $item2 = $this->createUpdateItem2();
         $item3 = $this->createUpdateItem();
-        $item3->setUnread();
+        $item3->setUnread(true);
 
         $items = [$item];
 
@@ -760,8 +760,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setBody('come over');
         $item->setEnclosureMime('mime');
         $item->setEnclosureLink('lin');
-        $item->setUnread();
-        $item->setUnstarred();
+        $item->setUnread(true);
+        $item->setStarred(false);
         $item->generateSearchIndex();
 
         $json = $item->toExport(['feed3' => $feed]);
@@ -816,8 +816,8 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase {
         $item->setBody('come over');
         $item->setEnclosureMime('mime');
         $item->setEnclosureLink('lin');
-        $item->setUnread();
-        $item->setUnstarred();
+        $item->setUnread(true);
+        $item->setStarred(false);
         $item->generateSearchIndex();
 
         $json = $item->toExport(['feed3' => $feed]);

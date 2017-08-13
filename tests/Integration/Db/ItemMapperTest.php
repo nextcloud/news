@@ -243,7 +243,7 @@ class ItemMapperTest extends IntegrationTest {
         // assert that all test user's same items are read
         $items = $this->itemMapper->where(['feedId' => $feed->getId(), 'title' => 'blubb']);
         foreach ($items as $item) {
-            $this->assertTrue($item->isRead());
+            $this->assertFalse($item->isUnread());
         }
 
         // assert that a different item is not read
@@ -274,7 +274,7 @@ class ItemMapperTest extends IntegrationTest {
             if ($item->getId() === $duplicateItem->getId()) {
                 $this->assertTrue($item->isUnread());
             } else {
-                $this->assertTrue($item->isRead());
+                $this->assertFalse($item->isUnread());
             }
         }
 

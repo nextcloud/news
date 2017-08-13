@@ -264,7 +264,7 @@ class FeedService extends Service {
 
                         // update modes: 0 nothing, 1 set unread
                         if ($existingFeed->getUpdateMode() === 1) {
-                            $dbItem->setUnread();
+                            $dbItem->setUnread(true);
                         }
 
                         $this->itemMapper->update($dbItem);

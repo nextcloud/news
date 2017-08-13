@@ -231,7 +231,7 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $item->setUpdatedDate($this->updated);
 
         $item->setStatus(0);
-        $item->setUnread();
+        $item->setUnread(true);
         $item->setUrl($this->permalink);
         $item->setTitle('my<\' title');
         $item->setGuid($this->guid);

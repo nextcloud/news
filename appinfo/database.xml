@@ -366,7 +366,7 @@
             <field>
                 <name>unread</name>
                 <type>boolean</type>
-                <default>true</default>
+                <default>false</default>
                 <notnull>true</notnull>
             </field>
             <field>

@@ -43,6 +43,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setFingerprint(string $value)
  * @method void setContentHash(string $value)
  * @method void setSearchIndex(string $value)
+ * @method void setUnread(bool $value)
+ * @method void setStarred(bool $value)
  */
 class Item extends Entity implements IAPI, \JsonSerializable {
 
@@ -65,8 +67,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $searchIndex;
     protected $rtl;
     protected $fingerprint;
-    protected $unread;
-    protected $starred;
+    protected $unread = false;
+    protected $starred = false;
 
     public function __construct() {
         $this->addType('pubDate', 'integer');
@@ -77,38 +79,12 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $this->addType('starred', 'boolean');
     }
 
-    public function setRead() {
-        $this->setUnread(false);
-    }
-
-    public function isRead() {
-        return empty($this->unread);
-    }
-
-    public function setUnread($value = true) {
-        $this->markFieldUpdated('unread');
-        $this->unread = $value;
-    }
-
     public function isUnread() {
-        return !empty($this->unread);
-    }
-
-    public function setStarred($value = true) {
-        $this->markFieldUpdated('starred');
-        $this->starred = $value;
+        return $this->unread;
     }
 
     public function isStarred() {
-        return !empty($this->starred);
-    }
-
-    public function setUnstarred() {
-        $this->setStarred(false);
-    }
-
-    public function isUnstarred() {
-        return empty($this->starred);
+        return $this->starred;
     }
 
     /**
@@ -195,8 +171,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);
         $item->setRtl($import['rtl']);
-        $item->setUnread(!empty($import['unread']));
-        $item->setStarred(!empty($import['starred']));
+        $item->setUnread($import['unread']);
+        $item->setStarred($import['starred']);
 
         return $item;
     }
