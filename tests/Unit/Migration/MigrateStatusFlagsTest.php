@@ -11,8 +11,7 @@
 
 namespace OCA\News\Migration;
 
-use OCP\DB\QueryBuilder\IParameter;
-use OCP\DB\QueryBuilder\IQueryBuilder;
+use Doctrine\DBAL\Driver\Statement;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;
@@ -34,45 +33,53 @@ class MigrateStatusFlagsTest extends TestCase {
     }
 
     public function testRun() {
-        $queryBuilder = $this->createMock(IQueryBuilder::class);
-        $queryBuilder->expects($this->exactly(3))
-            ->method('createParameter')
-            ->with($this->logicalOr('unread_value', 'starred_value'))
-            ->willReturn($this->createMock(IParameter::class));
-        $queryBuilder->expects($this->exactly(3))
-            ->method('update')
-            ->with('news_items')
-            ->willReturnSelf();
-        $setParam = $this->logicalOr('unread', 'starred');
-        $queryBuilder->expects($this->exactly(3))
-            ->method('set')
-            ->with($setParam, $this->isInstanceOf(IParameter::class))
-            ->willReturnSelf();
-        $queryBuilder->expects($this->exactly(3))
-            ->method('where')
-            ->with($this->logicalOr('(status & 2)', '(status & 4)', '(NOT status & 2)'))
-            ->willReturnSelf();
-        $setParameterName = $this->logicalOr('unread_value', 'starred_value');
-        $queryBuilder->expects($this->exactly(3))
-            ->method('setParameter')
-            ->with($setParameterName, $this->logicalOr(true, false), IQueryBuilder::PARAM_BOOL)
-            ->willReturnSelf();
-        $queryBuilder->expects($this->exactly(3))
+        $statement = $this->createMock(Statement::class);
+        $statement->expects($this->exactly(1))
             ->method('execute')
-            ->with();
+            ->with()
+            ->willReturn(true);
 
         $this->config->expects($this->exactly(1))
             ->method('getAppValue')
             ->with('news', 'installed_version', '0.0.0')
             ->willReturn('11.0.5');
+
+        $sql = 'UPDATE `*PREFIX*news_items` '
+            . 'SET `unread` = ((`status` & 2) = 2), '
+            . '`starred` = ((`status` & 4) = 4)';
+
         $this->db->expects($this->exactly(1))
-            ->method('getQueryBuilder')
+            ->method('prepare')
+            ->with($sql)
+            ->willReturn($statement);
+
+        $migration = new MigrateStatusFlags($this->db, $this->config);
+        $migration->run($this->output);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testRunException() {
+        $statement = $this->createMock(Statement::class);
+        $statement->expects($this->exactly(1))
+            ->method('execute')
             ->with()
-            ->willReturn($queryBuilder);
-        $this->output->expects($this->exactly(1))
-            ->method('startProgress');
-        $this->output->expects($this->exactly(1))
-            ->method('finishProgress');
+            ->willReturn(false);
+
+        $this->config->expects($this->exactly(1))
+            ->method('getAppValue')
+            ->with('news', 'installed_version', '0.0.0')
+            ->willReturn('11.0.5');
+
+        $sql = 'UPDATE `*PREFIX*news_items` '
+            . 'SET `unread` = ((`status` & 2) = 2), '
+            . '`starred` = ((`status` & 4) = 4)';
+
+        $this->db->expects($this->exactly(1))
+            ->method('prepare')
+            ->with($sql)
+            ->willReturn($statement);
 
         $migration = new MigrateStatusFlags($this->db, $this->config);
         $migration->run($this->output);
@@ -84,7 +91,7 @@ class MigrateStatusFlagsTest extends TestCase {
             ->with('news', 'installed_version', '0.0.0')
             ->willReturn('11.1.0');
         $this->db->expects($this->exactly(0))
-            ->method('getQueryBuilder');
+            ->method('prepare');
 
         $migration = new MigrateStatusFlags($this->db, $this->config);
         $migration->run($this->output);

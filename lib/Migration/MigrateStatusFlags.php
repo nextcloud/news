@@ -44,29 +44,13 @@ class MigrateStatusFlags implements IRepairStep {
             return;
         }
 
-        $output->startProgress();
+        $sql = 'UPDATE `*PREFIX*news_items` '
+            . 'SET `unread` = ((`status` & 2) = 2), '
+            . '`starred` = ((`status` & 4) = 4)';
+        $query = $this->db->prepare($sql);
 
-        $qb = $this->db->getQueryBuilder();
-
-        $qb->update('news_items')
-            ->set('unread', $qb->createParameter('unread_value'))
-            ->where('(status & 2)')
-            ->setParameter('unread_value', true, IQueryBuilder::PARAM_BOOL)
-            ->execute();
-
-        $qb->update('news_items')
-            ->set('unread', $qb->createParameter('unread_value'))
-            ->where('(NOT status & 2)')
-            ->setParameter('unread_value', false, IQueryBuilder::PARAM_BOOL)
-            ->execute();
-
-        $qb->update('news_items')
-            ->set('starred', $qb->createParameter('starred_value'))
-            ->where('(status & 4)')
-            ->setParameter('starred_value', true, IQueryBuilder::PARAM_BOOL)
-            ->execute();
-
-        $output->finishProgress();
+        if (!$query->execute()) {
+            throw new \Exception('Could not migrate status');
+        }
     }
-
 }
