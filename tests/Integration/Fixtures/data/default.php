@@ -20,12 +20,12 @@ return [
                     'articlesPerUpdate' => 1,
                     'items' => [
                         ['title' => 'a title1', 'guid' => 'abc'],
-                        ['title' => 'a title2', 'status' => 4, 'guid' => 'def'],
-                        ['title' => 'a title3', 'status' => 6, 'guid' => 'gih'],
-                        ['title' => 'del1', 'status' => 0],
-                        ['title' => 'del2', 'status' => 0],
-                        ['title' => 'del3', 'status' => 0],
-                        ['title' => 'del4', 'status' => 0]
+                        ['title' => 'a title2', 'unread' => false, 'starred' => true, 'guid' => 'def'],
+                        ['title' => 'a title3', 'unread' => true, 'starred' => true, 'guid' => 'gih'],
+                        ['title' => 'del1', 'unread' => false, 'starred' => false],
+                        ['title' => 'del2', 'unread' => false, 'starred' => false],
+                        ['title' => 'del3', 'unread' => false, 'starred' => false],
+                        ['title' => 'del4', 'unread' => false, 'starred' => false]
                     ]
                 ],
                 [
@@ -69,7 +69,7 @@ return [
             'title' => 'fourth feed',
             'url' => 'http://blog.fefe.de',
             'items' => [
-                ['title' => 'no folder', 'status' => 0]
+                ['title' => 'no folder', 'unread' => false, 'starred' => false]
             ]
         ]
     ]

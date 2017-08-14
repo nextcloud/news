@@ -29,7 +29,7 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
 
     public function testSerializeSingle() {
         $item = new Item();
-        $item->setUnread();
+        $item->setUnread(true);
 
         $serializer = new EntityApiSerializer('items');
         $result = $serializer->serialize($item);
@@ -40,10 +40,10 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
 
     public function testSerializeMultiple() {
         $item = new Item();
-        $item->setUnread();
+        $item->setUnread(true);
 
         $item2 = new Item();
-        $item2->setRead();
+        $item2->setUnread(false);
 
         $serializer = new EntityApiSerializer('items');
 
@@ -66,10 +66,10 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
 
     public function testCompleteArraysTransformed() {
         $item = new Item();
-        $item->setUnread();
+        $item->setUnread(true);
 
         $item2 = new Item();
-        $item2->setRead();
+        $item2->setUnread(false);
 
         $serializer = new EntityApiSerializer('items');
 

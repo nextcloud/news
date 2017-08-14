@@ -16,6 +16,7 @@ namespace OCA\News\Db;
 
 class ItemTest extends \PHPUnit_Framework_TestCase {
 
+    /** @var Item */
     private $item;
 
     protected function setUp(){
@@ -25,30 +26,30 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testSetRead(){
-        $this->item->setRead();
+        $this->item->setUnread(false);
 
-        $this->assertTrue($this->item->isRead());
+        $this->assertFalse($this->item->isUnread());
     }
 
 
     public function testSetUnread(){
-        $this->item->setUnread();
+        $this->item->setUnread(true);
 
         $this->assertTrue($this->item->isUnread());
     }
 
 
     public function testSetStarred(){
-        $this->item->setStarred();
+        $this->item->setStarred(true);
 
         $this->assertTrue($this->item->isStarred());
     }
 
 
     public function testSetUnstarred(){
-        $this->item->setUnstarred();
+        $this->item->setStarred(false);
 
-        $this->assertTrue($this->item->isUnstarred());
+        $this->assertFalse($this->item->isStarred());
     }
 
 
@@ -68,8 +69,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setRtl(true);
         $item->setFeedId(1);
         $item->setStatus(0);
-        $item->setUnread();
-        $item->setStarred();
+        $item->setUnread(true);
+        $item->setStarred(true);
         $item->setLastModified('1111111111234567');
         $item->setFingerprint('fingerprint');
         $item->setContentHash('contentHash');
@@ -113,9 +114,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setFeedId(1);
         $item->setStatus(0);
         $item->setRtl(true);
-        $item->setUnread();
+        $item->setUnread(true);
         $item->setFingerprint('fingerprint');
-        $item->setStarred();
+        $item->setStarred(true);
         $item->setLastModified(321);
 
         $this->assertEquals([
@@ -156,8 +157,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setFeedId(1);
         $item->setRtl(true);
         $item->setStatus(0);
-        $item->setRead();
-        $item->setStarred();
+        $item->setUnread(false);
+        $item->setStarred(true);
         $item->setLastModified(321);
 
         $feed = new Feed();
@@ -194,13 +195,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
-        $item->setStarred();
+        $item->setStarred(true);
         $item->setRtl(true);
 
         if ($isRead) {
-            $item->setUnread();
+            $item->setUnread(true);
         } else {
-            $item->setRead();
+            $item->setUnread(false);
         }
 
         return $item;

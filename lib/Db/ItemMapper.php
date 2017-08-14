@@ -15,6 +15,7 @@ namespace OCA\News\Db;
 
 use Exception;
 use OCA\News\Utility\Time;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 
@@ -45,18 +46,28 @@ class ItemMapper extends NewsMapper {
         'ORDER BY `items`.`id` ' . $ordering;
     }
 
-    private function makeSelectQueryStatus($prependTo, $status,
-                                           $oldestFirst = false, $search = [],
-                                           $distinctFingerprint = false) {
-        $status = (int)$status;
-        $count = count($search);
+    /**
+     * check if type is feed or all items should be shown
+     * @param bool $showAll
+     * @param int|null $type
+     * @return string
+     */
+    private function buildStatusQueryPart($showAll, $type = null) {
+        $sql = '';
 
-        // WARNING: Potential SQL injection if you change this carelessly
-        $sql = 'AND ((`items`.`status` & ' . $status . ') = ' . $status . ') ';
-        $sql .= str_repeat('AND `items`.`search_index` LIKE ? ', $count);
-        $sql .= $prependTo;
+        if (isset($type) && $type === FeedType::STARRED) {
+            $sql = 'AND `items`.`starred` = ';
+            $sql .= $this->db->quote(true, IQueryBuilder::PARAM_BOOL) . ' ';
+        } elseif (!$showAll) {
+            $sql .= 'AND `items`.`unread` = ';
+            $sql .= $this->db->quote(true, IQueryBuilder::PARAM_BOOL) . ' ';
+        }
 
-        return $this->makeSelectQuery($sql, $oldestFirst, $distinctFingerprint);
+        return $sql;
+    }
+
+    private function buildSearchQueryPart(array $search = []) {
+        return str_repeat('AND `items`.`search_index` LIKE ? ', count($search));
     }
 
     /**
@@ -88,14 +99,13 @@ class ItemMapper extends NewsMapper {
             'ON `feeds`.`id` = `items`.`feed_id` ' .
             'AND `feeds`.`deleted_at` = 0 ' .
             'AND `feeds`.`user_id` = ? ' .
-            'AND ((`items`.`status` & ' . StatusFlag::STARRED . ') = ' .
-            StatusFlag::STARRED . ')' .
+            'AND `items`.`starred` = ? ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
             'ON `folders`.`id` = `feeds`.`folder_id` ' .
             'WHERE `feeds`.`folder_id` = 0 ' .
             'OR `folders`.`deleted_at` = 0';
 
-        $params = [$userId];
+        $params = [$userId, true];
 
         $result = $this->execute($sql, $params)->fetch();
 
@@ -105,21 +115,21 @@ class ItemMapper extends NewsMapper {
 
     public function readAll($highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
-        $params = [~StatusFlag::UNREAD, $time, $userId, $highestItemId];
+        $params = [false, $time, $userId, $highestItemId];
         $this->execute($sql, $params);
     }
 
 
     public function readFolder($folderId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
@@ -127,7 +137,7 @@ class ItemMapper extends NewsMapper {
             'AND `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
-        $params = [~StatusFlag::UNREAD, $time, $folderId, $userId,
+        $params = [false, $time, $folderId, $userId,
             $highestItemId];
         $this->execute($sql, $params);
     }
@@ -135,7 +145,7 @@ class ItemMapper extends NewsMapper {
 
     public function readFeed($feedId, $highestItemId, $time, $userId) {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
-            'SET `status` = `status` & ? ' .
+            'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` = ? ' .
             'AND `id` <= ? ' .
@@ -143,7 +153,7 @@ class ItemMapper extends NewsMapper {
             'SELECT * FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             'AND `id` = ? ) ';
-        $params = [~StatusFlag::UNREAD, $time, $feedId, $highestItemId,
+        $params = [false, $time, $feedId, $highestItemId,
             $userId, $feedId];
 
         $this->execute($sql, $params);
@@ -159,27 +169,33 @@ class ItemMapper extends NewsMapper {
     }
 
 
-    public function findAllNew($updatedSince, $status, $userId) {
-        $sql = $this->makeSelectQueryStatus(
-            'AND `items`.`last_modified` >= ? ', $status);
+    public function findAllNew($updatedSince, $type, $showAll, $userId) {
+        $sql = $this->buildStatusQueryPart($showAll, $type);
+
+        $sql .= 'AND `items`.`last_modified` >= ? ';
+        $sql = $this->makeSelectQuery($sql);
         $params = [$userId, $updatedSince];
         return $this->findEntities($sql, $params);
     }
 
 
-    public function findAllNewFolder($id, $updatedSince, $status, $userId) {
-        $sql = 'AND `feeds`.`folder_id` = ? ' .
+    public function findAllNewFolder($id, $updatedSince, $showAll, $userId) {
+        $sql = $this->buildStatusQueryPart($showAll);
+
+        $sql .= 'AND `feeds`.`folder_id` = ? ' .
             'AND `items`.`last_modified` >= ? ';
-        $sql = $this->makeSelectQueryStatus($sql, $status);
+        $sql = $this->makeSelectQuery($sql);
         $params = [$userId, $id, $updatedSince];
         return $this->findEntities($sql, $params);
     }
 
 
-    public function findAllNewFeed($id, $updatedSince, $status, $userId) {
-        $sql = 'AND `items`.`feed_id` = ? ' .
+    public function findAllNewFeed($id, $updatedSince, $showAll, $userId) {
+        $sql = $this->buildStatusQueryPart($showAll);
+
+        $sql .= 'AND `items`.`feed_id` = ? ' .
             'AND `items`.`last_modified` >= ? ';
-        $sql = $this->makeSelectQueryStatus($sql, $status);
+        $sql = $this->makeSelectQuery($sql);
         $params = [$userId, $id, $updatedSince];
         return $this->findEntities($sql, $params);
     }
@@ -195,63 +211,68 @@ class ItemMapper extends NewsMapper {
     }
 
 
-    public function findAllFeed($id, $limit, $offset, $status, $oldestFirst,
+    public function findAllFeed($id, $limit, $offset, $showAll, $oldestFirst,
                                 $userId, $search = []) {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $params[] = $id;
 
-        $sql = 'AND `items`.`feed_id` = ? ';
+        $sql = $this->buildStatusQueryPart($showAll);
+        $sql .= $this->buildSearchQueryPart($search);
+
+        $sql .= 'AND `items`.`feed_id` = ? ';
         if ($offset !== 0) {
             $sql .= 'AND `items`.`id` ' .
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
-            $search);
+        $sql = $this->makeSelectQuery($sql, $oldestFirst, $search);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
-    public function findAllFolder($id, $limit, $offset, $status, $oldestFirst,
+    public function findAllFolder($id, $limit, $offset, $showAll, $oldestFirst,
                                   $userId, $search = []) {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $params[] = $id;
 
-        $sql = 'AND `feeds`.`folder_id` = ? ';
+        $sql = $this->buildStatusQueryPart($showAll);
+        $sql .= $this->buildSearchQueryPart($search);
+
+        $sql .= 'AND `feeds`.`folder_id` = ? ';
         if ($offset !== 0) {
             $sql .= 'AND `items`.`id` ' .
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
-            $search);
+        $sql = $this->makeSelectQuery($sql, $oldestFirst, $search);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
-    public function findAll($limit, $offset, $status, $oldestFirst, $userId,
+    public function findAll($limit, $offset, $type, $showAll, $oldestFirst, $userId,
                             $search = []) {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
-        $sql = '';
+        $sql = $this->buildStatusQueryPart($showAll, $type);
+        $sql .= $this->buildSearchQueryPart($search);
+
         if ($offset !== 0) {
             $sql .= 'AND `items`.`id` ' .
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQueryStatus($sql, $status, $oldestFirst,
-            $search);
+
+        $sql = $this->makeSelectQuery($sql, $oldestFirst);
 
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
 
     public function findAllUnreadOrStarred($userId) {
-        $params = [$userId];
-        $status = StatusFlag::UNREAD | StatusFlag::STARRED;
-        $sql = 'AND ((`items`.`status` & ' . $status . ') > 0) ';
+        $params = [$userId, true, true];
+        $sql = 'AND (`items`.`unread` = ? OR `items`.`starred` = ?) ';
         $sql = $this->makeSelectQuery($sql);
         return $this->findEntities($sql, $params);
     }
@@ -272,15 +293,15 @@ class ItemMapper extends NewsMapper {
      * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold) {
-        $status = StatusFlag::STARRED | StatusFlag::UNREAD;
-        $params = [$status, $threshold];
+        $params = [false, false, $threshold];
 
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
             '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
             'ON `feeds`.`id` = `items`.`feed_id` ' .
-            'AND NOT ((`items`.`status` & ?) > 0) ' .
+            'AND `items`.`unread` = ? ' .
+            'AND `items`.`starred` = ? ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
 
@@ -292,12 +313,13 @@ class ItemMapper extends NewsMapper {
             $limit = $size - $threshold;
 
             if ($limit > 0) {
-                $params = [$status, $row['feed_id'], $limit];
+                $params = [false, false, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
                     'WHERE `id` IN (' .
                     'SELECT `id` FROM `*PREFIX*news_items` ' .
-                    'WHERE NOT ((`status` & ?) > 0) ' .
+                    'WHERE `unread` = ? ' .
+                    'AND `starred` = ? ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?' .
@@ -383,19 +405,18 @@ class ItemMapper extends NewsMapper {
         // as unread
         if ($isRead) {
             $sql = 'UPDATE `*PREFIX*news_items`
-                SET `status` = `status` & ?,
+                SET `unread` = ?,
                     `last_modified` = ?
                 WHERE `fingerprint` = ?
                     AND `feed_id` IN (
                         SELECT `f`.`id` FROM `*PREFIX*news_feeds` AS `f`
                             WHERE `f`.`user_id` = ?
                     )';
-            $params = [~StatusFlag::UNREAD, $lastModified,
-                $item->getFingerprint(), $userId];
+            $params = [false, $lastModified, $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);
-            $item->setUnread();
+            $item->setUnread(true);
             $this->update($item);
         }
     }

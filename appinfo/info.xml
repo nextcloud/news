@@ -8,7 +8,7 @@
 Before you update to a new version, [check the changelog](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) to avoid surprises.
 
 **Important**: To enable feed updates you will need to enable either [Nextcloud system cron](https://docs.nextcloud.com/server/10/admin_manual/configuration_server/background_jobs_configuration.html#cron) or use [an updater](https://github.com/nextcloud/news-updater) which uses the built in update API and disable cron updates. More information can be found [in the README](https://github.com/nextcloud/news).]]></description>
-    <version>11.0.5</version>
+    <version>11.0.6</version>
     <licence>agpl</licence>
     <author>Bernhard Posselt</author>
     <author>Alessandro Cosentino</author>
@@ -41,6 +41,12 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     <background-jobs>
         <job>OCA\News\Cron\Updater</job>
     </background-jobs>
+
+    <repair-steps>
+        <post-migration>
+            <step>OCA\News\Migration\MigrateStatusFlags</step>
+        </post-migration>
+    </repair-steps>
 
     <settings>
         <admin>OCA\News\Settings\Admin</admin>

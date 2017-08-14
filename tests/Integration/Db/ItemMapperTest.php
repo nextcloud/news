@@ -112,9 +112,8 @@ class ItemMapperTest extends IntegrationTest {
 
         $this->itemMapper->readAll(PHP_INT_MAX, 10, $this->user);
 
-        $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->user
+            30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(0, count($items));
@@ -144,9 +143,8 @@ class ItemMapperTest extends IntegrationTest {
             $folderId, PHP_INT_MAX, 10, $this->user
         );
 
-        $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->user
+            30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(1, count($items));
@@ -176,9 +174,8 @@ class ItemMapperTest extends IntegrationTest {
             $feedId, PHP_INT_MAX, 10, $this->user
         );
 
-        $status = StatusFlag::UNREAD;
         $items = $this->itemMapper->findAll(
-            30, 0, $status, false, $this->user
+            30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(2, count($items));
@@ -246,7 +243,7 @@ class ItemMapperTest extends IntegrationTest {
         // assert that all test user's same items are read
         $items = $this->itemMapper->where(['feedId' => $feed->getId(), 'title' => 'blubb']);
         foreach ($items as $item) {
-            $this->assertTrue($item->isRead());
+            $this->assertFalse($item->isUnread());
         }
 
         // assert that a different item is not read
@@ -277,7 +274,7 @@ class ItemMapperTest extends IntegrationTest {
             if ($item->getId() === $duplicateItem->getId()) {
                 $this->assertTrue($item->isUnread());
             } else {
-                $this->assertTrue($item->isRead());
+                $this->assertFalse($item->isUnread());
             }
         }
 

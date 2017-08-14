@@ -16,9 +16,6 @@ namespace OCA\News\Db\Mysql;
 use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
-use OCA\News\Db\StatusFlag;
-
-
 class ItemMapper extends \OCA\News\Db\ItemMapper {
 
     public function __construct(IDBConnection $db, Time $time){
@@ -29,19 +26,19 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
     /**
      * Delete all items for feeds that have over $threshold unread and not
      * starred items
-	 * @param int $threshold the number of items that should be deleted
+     * @param int $threshold the number of items that should be deleted
      */
     public function deleteReadOlderThanThreshold($threshold){
-        $status = StatusFlag::STARRED | StatusFlag::UNREAD;
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
         '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                'AND NOT ((`items`.`status` & ?) > 0) ' .
+                'AND `items`.`unread` = ? ' .
+                'AND `items`.`starred` = ? ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
-        $params = [$status, $threshold];
+        $params = [false, false, $threshold];
         $result = $this->execute($sql, $params);
 
         while($row = $result->fetch()) {
@@ -50,10 +47,11 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $limit = $size - $threshold;
 
             if($limit > 0) {
-                $params = [$status, $row['feed_id'], $limit];
+                $params = [false, false, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE NOT ((`status` & ?) > 0) ' .
+                    'WHERE `unread` = ? ' .
+                    'AND `starred` = ? ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?';
@@ -71,16 +69,15 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
             $sql = 'UPDATE `*PREFIX*news_items` `items`
                 JOIN `*PREFIX*news_feeds` `feeds`
                     ON `feeds`.`id` = `items`.`feed_id`
-                SET `items`.`status` = `items`.`status` & ?,
+                SET `items`.`unread` = ?,
                     `items`.`last_modified` = ?
                 WHERE `items`.`fingerprint` = ?
                     AND `feeds`.`user_id` = ?';
-            $params = [~StatusFlag::UNREAD, $lastModified,
-                       $item->getFingerprint(), $userId];
+            $params = [false, $lastModified, $item->getFingerprint(), $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);
-            $item->setUnread();
+            $item->setUnread(true);
             $this->update($item);
         }
     }

@@ -15,18 +15,18 @@ return [
             'title' => 'john feed',
             'userId' => 'john',
             'items' => [
-                ['title' => 'blubb', 'status' => 2],
-                ['title' => 'blubb', 'status' => 2]
+                ['title' => 'blubb', 'unread' => true, 'starred' => false],
+                ['title' => 'blubb', 'unread' => true, 'starred' => false]
             ]
         ],
         [
             'title' => 'test feed',
             'userId' => 'test',
             'items' => [
-                ['title' => 'blubb', 'status' => 2],
-                ['title' => 'blubbs', 'status' => 2],
-                ['title' => 'blubb', 'status' => 2],
-                ['title' => 'blubb', 'status' => 2]
+                ['title' => 'blubb', 'unread' => true, 'starred' => false],
+                ['title' => 'blubbs', 'unread' => true, 'starred' => false],
+                ['title' => 'blubb', 'unread' => true, 'starred' => false],
+                ['title' => 'blubb', 'unread' => true, 'starred' => false]
             ]
         ]
     ]

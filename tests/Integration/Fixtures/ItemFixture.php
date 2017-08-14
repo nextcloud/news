@@ -29,7 +29,8 @@ class ItemFixture extends Item {
             'enclosureMime' => 'video/mpeg',
             'enclosureLink' => 'http://google.de/web.webm',
             'feedId' => 0,
-            'status' => 2,
+            'unread' => true,
+            'starred' => false,
             'lastModified' => 113,
             'rtl' => false,
         ], $defaults);

@@ -37,14 +37,14 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setEnclosureLink(string $value)
  * @method integer getFeedId()
  * @method void setFeedId(integer $value)
- * @method integer getStatus()
- * @method void setStatus(integer $value)
  * @method void setRtl(boolean $value)
  * @method string getLastModified()
  * @method void setLastModified(string $value)
  * @method void setFingerprint(string $value)
  * @method void setContentHash(string $value)
  * @method void setSearchIndex(string $value)
+ * @method void setUnread(bool $value)
+ * @method void setStarred(bool $value)
  */
 class Item extends Entity implements IAPI, \JsonSerializable {
 
@@ -67,53 +67,28 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $searchIndex;
     protected $rtl;
     protected $fingerprint;
+    protected $unread = false;
+    protected $starred = false;
 
     public function __construct() {
         $this->addType('pubDate', 'integer');
         $this->addType('updatedDate', 'integer');
         $this->addType('feedId', 'integer');
-        $this->addType('status', 'integer');
         $this->addType('rtl', 'boolean');
-    }
-
-    public function setRead() {
-        $this->markFieldUpdated('status');
-        $this->status &= ~StatusFlag::UNREAD;
-    }
-
-    public function isRead() {
-        return !(($this->status & StatusFlag::UNREAD) === StatusFlag::UNREAD);
-    }
-
-    public function setUnread() {
-        $this->markFieldUpdated('status');
-        $this->status |= StatusFlag::UNREAD;
+        $this->addType('unread', 'boolean');
+        $this->addType('starred', 'boolean');
     }
 
     public function isUnread() {
-        return !$this->isRead();
-    }
-
-    public function setStarred() {
-        $this->markFieldUpdated('status');
-        $this->status |= StatusFlag::STARRED;
+        return $this->unread;
     }
 
     public function isStarred() {
-        return ($this->status & StatusFlag::STARRED) === StatusFlag::STARRED;
-    }
-
-    public function setUnstarred() {
-        $this->markFieldUpdated('status');
-        $this->status &= ~StatusFlag::STARRED;
-    }
-
-    public function isUnstarred() {
-        return !$this->isStarred();
+        return $this->starred;
     }
 
     /**
-     * Turns entitie attributes into an array
+     * Turns entity attributes into an array
      */
     public function jsonSerialize() {
         return [
@@ -196,16 +171,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);
         $item->setRtl($import['rtl']);
-        if ($import['unread']) {
-            $item->setUnread();
-        } else {
-            $item->setRead();
-        }
-        if ($import['starred']) {
-            $item->setStarred();
-        } else {
-            $item->setUnstarred();
-        }
+        $item->setUnread($import['unread']);
+        $item->setStarred($import['starred']);
 
         return $item;
     }
