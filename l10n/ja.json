@@ -84,6 +84,7 @@
     "How to set up the operating system cron" : "OSのcronのやり方",
     "Install and set up a faster parallel updater that uses the News app's update API" : "ニュースアプリのアップデートAPIを使用する、高速な並列アップデーターをインストールして、設定します。",
     "Non UTF-8 charset for MySQL/MariaDB database detected!" : "MySQL/MariaDB データベース の charset が UTF-8 ではありません。",
+    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "データベースを utf8mb4 に変換する方法を理解する(その前にバックアップを取ってください)",
     "Web address" : "WEBアドレス",
     "Feed exists already!" : "フィードはすでに存在します！",
     "Folder" : "フォルダー",
