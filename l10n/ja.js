@@ -35,6 +35,7 @@ OC.L10N.register(
     "Purge interval" : "パージ周期",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored" : "削除されたフィードとフォルダーがデータベースから削除されるまでの秒数；60秒以下の値は無視されます",
     "Maximum read count per feed" : "フィード当たりの最大閲覧数",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off" : "フィード毎に読み込むことができる最大の記事数を定義して、クリーンナップジョブで削除されない数を決めます；もし、読んだ記事が再度表示されるならば、この値を増やしてみてください；-1 などの負の値でこの機能は無効になります。",
     "Maximum redirects" : "最大リダイレクト数",
     "How many redirects the feed fetcher should follow" : "フィードフェッチャーに許可するリダイレクト数",
     "Maximum feed page size" : "最大フィードページサイズ",
