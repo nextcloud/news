@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Begäran misslyckades, nätverksanslutning ej tillgänglig!",
     "Request unauthorized. Are you logged in?" : "Ogiltig begäran. Är du inloggad?",
-    "Request forbidden. Are you an admin?" : "Begäran förbjuden. Är du en administratör?",
+    "Request forbidden. Are you an admin?" : "Begäran förbjuden. Är du administratör?",
     "Token expired or app not enabled! Reload the page!" : "Polletten föråldrad eller så är applikationen inte aktiverad! Uppdatera sidan.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Internt serverfel! Vänligen kontrollera din loggfil under data/nextcloud.log för mer information!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Förfrågan misslyckades. Nextcloud är för nuvarande i underhållsläge!",
