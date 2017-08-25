@@ -38,6 +38,7 @@ OC.L10N.register(
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Númeru máximu de segundos d'espera pa que cargue una RSS o un feed Atom; si lleva más tiempu, la xubida albortarase. ",
     "Explore Service URL" : "Esplorar URL del serviciu",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Si ye'l casu, la URL d'esti serviciu va ser consultada pa la visualización de los feeds na sección de gueta de feeds. Pa volver al serviciu d'esploración integráu, dexe esti campu baleru.",
+    "For more information check the wiki" : "Pa más información, comprueba la wiki",
     "Saved" : "Guardáu",
     "Download" : "Descargar",
     "Close" : "Zarrar",
