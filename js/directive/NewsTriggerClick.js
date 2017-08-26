@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTriggerClick', function () {
+NewsTriggerClick.$inject = [];
+
+export default function NewsTriggerClick() {
     'use strict';
 
     return function (scope, elm, attr) {
@@ -16,4 +18,4 @@ app.directive('newsTriggerClick', function () {
         });
     };
 
-});
+};

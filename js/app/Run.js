@@ -7,9 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
-         ItemResource, FeedResource, FolderResource, SettingsResource,
-          Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+Run.$inject = ['$rootScope', '$location', '$http', '$q', '$interval', '$route',
+    'Loading', 'ItemResource', 'FeedResource', 'FolderResource',
+    'SettingsResource', 'Publisher', 'BASE_URL', 'FEED_TYPE', 'REFRESH_RATE'];
+
+export default function Run($rootScope, $location, $http, $q, $interval, $route,
+                            Loading, ItemResource, FeedResource, FolderResource,
+                            SettingsResource, Publisher, BASE_URL, FEED_TYPE,
+                            REFRESH_RATE) {
     'use strict';
 
     // show Loading screen
@@ -130,4 +135,4 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
         $location.path('/items');
     });
 
-});
+};

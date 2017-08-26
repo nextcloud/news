@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsStickyMenu', function () {
+NewsStickyMenu.$inject = [];
+
+export default function NewsStickyMenu() {
     'use strict';
 
     return function (scope, elem, attr) {
@@ -24,4 +26,4 @@ app.directive('newsStickyMenu', function () {
             }
         });
     };
-});
+};

@@ -7,9 +7,12 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('SettingsController',
-    function ($route, $q, SettingsResource, ItemResource, OPMLParser,
-              OPMLImporter, Publisher) {
+SettingsController.$inject = ['$route', '$q', 'SettingsResource',
+    'ItemResource', 'OPMLParser', 'OPMLImporter', 'Publisher'];
+
+export default function SettingsController($route, $q, SettingsResource,
+                                           ItemResource, OPMLParser,
+                                           OPMLImporter, Publisher) {
         'use strict';
         this.isOPMLImporting = false;
         this.isArticlesImporting = false;
@@ -87,4 +90,4 @@ app.controller('SettingsController',
             }
         };
 
-    });
+    };

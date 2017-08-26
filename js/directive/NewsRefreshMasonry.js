@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsRefreshMasonry', function ($timeout) {
+NewsRefreshMasony.$inject = ['$timeout'];
+
+export default function NewsRefreshMasony($timeout) {
 	'use strict';
 	var refresh = function (elem) {
 		$timeout(function () {
@@ -26,4 +28,4 @@ app.directive('newsRefreshMasonry', function ($timeout) {
 			refresh(elem);
 		}
 	};
-});
+};

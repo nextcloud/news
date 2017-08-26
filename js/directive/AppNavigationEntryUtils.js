@@ -7,14 +7,18 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($document, $rootScope) {
+AppNavigationEntryUtilsRun.$inject = ['$document', '$rootScope'];
+
+export function AppNavigationEntryUtilsRun($document, $rootScope) {
     'use strict';
     $document.click(function (event) {
         $rootScope.$broadcast('documentClicked', event);
     });
-});
+};
 
-app.directive('appNavigationEntryUtils', function () {
+AppNavigationEntryUtils.$inject = [];
+
+export function AppNavigationEntryUtils() {
     'use strict';
     return {
         restrict: 'C',
@@ -34,4 +38,4 @@ app.directive('appNavigationEntryUtils', function () {
             });
         }
     };
-});
+};

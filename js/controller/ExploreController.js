@@ -7,8 +7,11 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ExploreController',
-function (sites, $rootScope, FeedResource, SettingsResource, $location) {
+ExploreController.$inject = ['sites', '$rootScope', 'FeedResource',
+    'SettingsResource', '$location'];
+
+export default function ExploreController(sites, $rootScope, FeedResource,
+                                          SettingsResource, $location) {
 	'use strict';
 
 	this.sites = sites;
@@ -55,4 +58,4 @@ function (sites, $rootScope, FeedResource, SettingsResource, $location) {
 	};
 
 	this.selectedLanguageCode = this.getCurrentLanguageCode();
-});
+};

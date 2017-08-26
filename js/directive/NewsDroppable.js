@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsDroppable', function ($rootScope) {
+NewsDroppable.$inject = ['$rootScope'];
+
+export default function NewsDroppable($rootScope) {
     'use strict';
 
     return function (scope, elem, attr) {
@@ -31,4 +33,4 @@ app.directive('newsDroppable', function ($rootScope) {
 
         elem.droppable(details);
     };
-});
+};

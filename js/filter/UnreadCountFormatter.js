@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.filter('unreadCountFormatter', function () {
+UnreadCountFormatter.$inject = [];
+
+export default function UnreadCountFormatter() {
     'use strict';
 
     return function (unreadCount) {
@@ -16,4 +18,4 @@ app.filter('unreadCountFormatter', function () {
         }
         return unreadCount;
     };
-});
+};

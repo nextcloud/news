@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('ItemResource', function (Resource, $http, BASE_URL,
+ItemResource.$inject = ['Resource', '$http', 'BASE_URL', 'ITEM_BATCH_SIZE'];
+
+export default function ItemResource(Resource, $http, BASE_URL,
                                       ITEM_BATCH_SIZE) {
     'use strict';
 
@@ -223,4 +225,4 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
 
 
     return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
-});
+};

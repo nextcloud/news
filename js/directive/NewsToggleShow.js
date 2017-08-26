@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsToggleShow', function () {
+NewsToggleShow.$inject = [];
+
+export default function NewsToggleShow() {
     'use strict';
     return {
         restrict: 'A',
@@ -21,4 +23,4 @@ app.directive('newsToggleShow', function () {
             });
         }
     };
-});
+};

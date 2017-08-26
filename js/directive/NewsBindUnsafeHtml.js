@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsBindHtmlUnsafe', function () {
+NewsBindUnsafeHtml.$inject = [];
+
+export default function NewsBindUnsafeHtml() {
     'use strict';
 
     return function (scope, elem, attr) {
@@ -15,4 +17,4 @@ app.directive('newsBindHtmlUnsafe', function () {
             elem.html(scope.$eval(attr.newsBindHtmlUnsafe));
         });
     };
-});
+};

@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsDraggable', function () {
+NewsDraggable.$inject = [];
+
+export default function NewsDraggable() {
     'use strict';
 
     return function (scope, elem, attr) {
@@ -27,4 +29,4 @@ app.directive('newsDraggable', function () {
             }
         });
     };
-});
+};

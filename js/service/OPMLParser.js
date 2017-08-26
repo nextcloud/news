@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.service('OPMLParser', function () {
+OPMLParser.$inject = [];
+
+export default function OPMLParser() {
     'use strict';
 
     var parseOutline = function (outline) {
@@ -88,4 +90,4 @@ app.service('OPMLParser', function () {
 
     };
 
-});
+};

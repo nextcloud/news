@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
+FolderResource.$inject = ['Resource', '$http', 'BASE_URL', '$q'];
+
+export default function FolderResource(Resource, $http, BASE_URL, $q) {
     'use strict';
 
     var FolderResource = function ($http, BASE_URL, $q) {
@@ -120,4 +122,4 @@ app.factory('FolderResource', function (Resource, $http, BASE_URL, $q) {
 
 
     return new FolderResource($http, BASE_URL, $q);
-});
+};

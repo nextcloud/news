@@ -7,10 +7,12 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.filter('trustUrl', function ($sce) {
+TrustUrl.$inject = ['$sce'];
+
+export default function TrustUrl($sce) {
     'use strict';
 
     return function (url) {
         return $sce.trustAsResourceUrl(url);
     };
-});
+};

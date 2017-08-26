@@ -7,8 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
+NewsInstantNotification.$inject = [];
 
-app.directive('newsInstantNotification', function () {
+export default function NewsInstantNotification() {
     'use strict';
     var shown = false;
     return {
@@ -23,4 +24,4 @@ app.directive('newsInstantNotification', function () {
         }
     };
 
-});
+};

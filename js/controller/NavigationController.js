@@ -7,9 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('NavigationController',
-function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location, $q) {
+NavigationController.$inject = ['$route', 'FEED_TYPE', 'FeedResource',
+    'FolderResource', 'ItemResource', 'SettingsResource', 'Publisher',
+    '$rootScope', '$location', '$q'];
+
+export default function NavigationController($route, FEED_TYPE, FeedResource,
+                                             FolderResource, ItemResource,
+                                             SettingsResource, Publisher,
+                                             $rootScope, $location, $q) {
     'use strict';
 
     this.feedError = '';
@@ -375,4 +380,4 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         setSelectedFolderForRoute();
     });
 
-});
+};

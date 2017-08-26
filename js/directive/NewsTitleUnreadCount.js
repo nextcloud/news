@@ -7,7 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTitleUnreadCount', function ($window) {
+NewsTitleUnreadCount.$inject = ['$window'];
+
+export default function NewsTitleUnreadCount($window) {
     'use strict';
 
     var baseTitle = $window.document.title;
@@ -32,4 +34,4 @@ app.directive('newsTitleUnreadCount', function ($window) {
         }
     };
 
-});
+};

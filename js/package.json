@@ -5,7 +5,8 @@
   "scripts": {
     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
     "prebuild": "npm install && npm update",
-    "build": "node node_modules/gulp-cli/bin/gulp.js"
+    "build-old": "node node_modules/gulp-cli/bin/gulp.js",
+    "build": "node node_modules/webpack/bin/webpack.js"
   },
   "repository": {
     "type": "git",
@@ -45,7 +46,9 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "^1.0.0",
-    "karma-jasmine": "^1.1.0"
+    "karma-jasmine": "^1.1.0",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.5.5"
   },
   "dependencies": {
     "angular": "^1.6.4",
@@ -54,6 +57,7 @@
     "angular-route": "^1.6.4",
     "angular-sanitize": "^1.6.4",
     "debug": "^2.6.8",
+    "jquery-bridget": "^2.0.1",
     "masonry-layout": "^4.2.0",
     "moment": "^2.18.1"
   }
