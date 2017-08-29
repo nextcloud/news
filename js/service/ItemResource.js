@@ -7,10 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-ItemResource.$inject = ['Resource', '$http', 'BASE_URL', 'ITEM_BATCH_SIZE'];
-
-export default function ItemResource(Resource, $http, BASE_URL,
-                                      ITEM_BATCH_SIZE) {
+export default /* @ngInject */ function (
+    Resource, $http, BASE_URL, ITEM_BATCH_SIZE
+) {
     'use strict';
 
     var ItemResource = function ($http, BASE_URL, ITEM_BATCH_SIZE) {

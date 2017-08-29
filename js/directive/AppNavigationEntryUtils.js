@@ -7,18 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-AppNavigationEntryUtilsRun.$inject = ['$document', '$rootScope'];
-
-export function AppNavigationEntryUtilsRun($document, $rootScope) {
+export /* @ngInject */ function AppNavigationEntryUtilsRun($document, $rootScope) {
     'use strict';
     $document.click(function (event) {
         $rootScope.$broadcast('documentClicked', event);
     });
 };
 
-AppNavigationEntryUtils.$inject = [];
-
-export function AppNavigationEntryUtils() {
+export /* @ngInject */ function AppNavigationEntryUtils() {
     'use strict';
     return {
         restrict: 'C',

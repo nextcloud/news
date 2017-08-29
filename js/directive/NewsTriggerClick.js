@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsTriggerClick.$inject = [];
-
-export default function NewsTriggerClick() {
+export default /* @ngInject */ function () {
     'use strict';
 
     return function (scope, elm, attr) {

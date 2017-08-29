@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsStopPropagation.$inject = [];
-
-export default function NewsStopPropagation() {
+export default /* @ngInject */ function () {
     'use strict';
     return {
         restrict: 'A',

@@ -7,12 +7,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsPlayOne.$inject = ['$rootScope'];
-
 /**
  * Pause playback on elements other than the current one
  */
-export default function NewsPlayOne($rootScope) {
+export default /* @ngInject */ function ($rootScope) {
     'use strict';
     return {
         restrict: 'A',

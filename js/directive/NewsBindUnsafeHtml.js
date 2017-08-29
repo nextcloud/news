@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsBindUnsafeHtml.$inject = [];
-
-export default function NewsBindUnsafeHtml() {
+export default /* @ngInject */ function () {
     'use strict';
 
     return function (scope, elem, attr) {

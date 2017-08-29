@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-FeedResource.$inject = ['Resource', '$http', 'BASE_URL', '$q'];
-
-export default function FeedResource(Resource, $http, BASE_URL, $q) {
+export default /* @ngInject */ function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
     var FeedResource = function ($http, BASE_URL, $q) {

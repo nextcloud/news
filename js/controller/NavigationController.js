@@ -7,14 +7,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NavigationController.$inject = ['$route', 'FEED_TYPE', 'FeedResource',
-    'FolderResource', 'ItemResource', 'SettingsResource', 'Publisher',
-    '$rootScope', '$location', '$q'];
-
-export default function NavigationController($route, FEED_TYPE, FeedResource,
-                                             FolderResource, ItemResource,
-                                             SettingsResource, Publisher,
-                                             $rootScope, $location, $q) {
+export default /* @ngInject */ function (
+    $route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+    SettingsResource, Publisher, $rootScope, $location, $q
+) {
     'use strict';
 
     this.feedError = '';

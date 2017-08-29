@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-UnreadCountFormatter.$inject = [];
-
-export default function UnreadCountFormatter() {
+export default /* @ngInject */ function () {
     'use strict';
 
     return function (unreadCount) {

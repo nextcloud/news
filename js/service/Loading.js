@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-Loading.$inject = [];
-
-export default function Loading() {
+export default /* @ngInject */ function () {
     'use strict';
 
     this.loading = {

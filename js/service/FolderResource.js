@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-FolderResource.$inject = ['Resource', '$http', 'BASE_URL', '$q'];
-
-export default function FolderResource(Resource, $http, BASE_URL, $q) {
+export default /* @ngInject */ function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
     var FolderResource = function ($http, BASE_URL, $q) {

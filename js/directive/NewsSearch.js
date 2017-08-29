@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsSearch.$inject = ['$document', '$location'];
-
-export default function NewsSearch($document, $location) {
+export default /* @ngInject */ function ($document, $location) {
     'use strict';
 
     return {

@@ -7,14 +7,11 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-Run.$inject = ['$rootScope', '$location', '$http', '$q', '$interval', '$route',
-    'Loading', 'ItemResource', 'FeedResource', 'FolderResource',
-    'SettingsResource', 'Publisher', 'BASE_URL', 'FEED_TYPE', 'REFRESH_RATE'];
-
-export default function Run($rootScope, $location, $http, $q, $interval, $route,
-                            Loading, ItemResource, FeedResource, FolderResource,
-                            SettingsResource, Publisher, BASE_URL, FEED_TYPE,
-                            REFRESH_RATE) {
+export default /* @ngInject */ function (
+    $rootScope, $location, $http, $q, $interval, $route, Loading, ItemResource,
+    FeedResource, FolderResource, SettingsResource, Publisher, BASE_URL,
+    FEED_TYPE, REFRESH_RATE
+) {
     'use strict';
 
     // show Loading screen

@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-Resource.$inject = [];
-
-export default function Resource() {
+export default /* @ngInject */ function () {
     'use strict';
 
     var Resource = function (http, BASE_URL, id) {

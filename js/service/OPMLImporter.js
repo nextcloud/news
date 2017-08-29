@@ -7,10 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-OPMLImporter.$inject = ['FeedResource', 'FolderResource', 'Publisher', '$q'];
-
-export default function OPMLImporter(FeedResource, FolderResource, Publisher,
-                                      $q) {
+export default /* @ngInject */ function (
+    FeedResource, FolderResource, Publisher, $q
+) {
     'use strict';
     var startFeedJob = function (queue) {
         var deferred = $q.defer();

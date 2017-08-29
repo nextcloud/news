@@ -7,11 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-Config.$inject = ['$routeProvider', '$provide', '$httpProvider',
-    '$locationProvider'];
-
-export default function Config($routeProvider, $provide, $httpProvider,
-                               $locationProvider) {
+export default /* @ngInject */ function (
+    $routeProvider, $provide, $httpProvider, $locationProvider
+) {
     'use strict';
 
     var feedType = {
@@ -37,8 +35,10 @@ export default function Config($routeProvider, $provide, $httpProvider,
     $provide.constant('MARK_READ_TIMEOUT', 0.5);
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
-    CSRFInterceptor.$inject = ['$q', 'BASE_URL', '$window'];
-    function CSRFInterceptor($q, BASE_URL, $window) {
+    // make sure that the CSRF header is only sent to the Nextcloud domain
+    $provide.factory('CSRFInterceptor', /* @ngInject */ function (
+        $q, BASE_URL, $window
+    ) {
         return {
             request: function (config) {
                 const token = $window.document.getElementsByTagName('head')[0]
@@ -54,9 +54,7 @@ export default function Config($routeProvider, $provide, $httpProvider,
                 return config || $q.when(config);
             }
         };
-    }
-    // make sure that the CSRF header is only sent to the Nextcloud domain
-    $provide.factory('CSRFInterceptor', CSRFInterceptor);
+    });
     var errorMessages = {
         0: t('news', 'Request failed, network connection unavailable!'),
         401: t('news', 'Request unauthorized. Are you logged in?'),
@@ -68,8 +66,8 @@ export default function Config($routeProvider, $provide, $httpProvider,
         503: t('news', 'Request failed, Nextcloud is in currently ' +
                        'in maintenance mode!')
     };
-    ConnectionErrorInterceptor.$inject = ['$q', '$timeout'];
-    function ConnectionErrorInterceptor($q, $timeout) {
+
+    $provide.factory('ConnectionErrorInterceptor', /* @ngInject */ function ($q, $timeout) {
         var timer;
         return {
             responseError: function (response) {
@@ -87,101 +85,97 @@ export default function Config($routeProvider, $provide, $httpProvider,
                 return $q.reject(response);
             }
         };
-    }
-    $provide.factory('ConnectionErrorInterceptor', ConnectionErrorInterceptor);
+    });
     $httpProvider.interceptors.push('CSRFInterceptor');
     $httpProvider.interceptors.push('ConnectionErrorInterceptor');
 
     // routing
     var getItemResolve = function (type) {
-        data.$inject = ['$http', '$route', '$q', '$location', 'BASE_URL',
-            'ITEM_BATCH_SIZE', 'FEED_TYPE', 'SettingsResource', 'FeedResource'];
-        function data($http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE,
-                      FEED_TYPE, SettingsResource, FeedResource) {
-
-            var showAll = SettingsResource.get('showAll');
-            var oldestFirst = SettingsResource.get('oldestFirst');
-            var search = $location.search().search || '';
-
-            // if those two values are null it means we did not receive
-            // the settings request from the server so dont query the server
-            if (showAll === null || oldestFirst === null) {
-                return {};
-            } else {
-                var parameters = {
-                    type: type,
-                    limit: ITEM_BATCH_SIZE,
-                    showAll: showAll,
-                    oldestFirst: oldestFirst,
-                    search: search
-                };
-
-                if ($route.current !== undefined &&
-                    $route.current.params !== undefined &&
-                    $route.current.params.id !== undefined) {
-                    parameters.id = $route.current.params.id;
-                }
-
-                // check if a custom ordering is set
-                if (type === FEED_TYPE.FEED) {
-                    var feed = FeedResource.getById(parameters.id);
-
-                    // on intial load, the feed ordering is undefined
-                    if (feed === undefined || feed.ordering === 2) {
-                        parameters.oldestFirst = false;
-                    } else if (feed.ordering === 1) {
-                        parameters.oldestFirst = true;
-                    }
-                }
-
-                return $http({
-                    url:  BASE_URL + '/items',
-                    method: 'GET',
-                    params: parameters
-                }).then(function (response) {
-                    return response.data;
-                });
-            }
-        };
         return {
             // request to items also returns feeds
-            data: data
+            data: /* @ngInject */ function (
+                $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE,
+                FEED_TYPE, SettingsResource, FeedResource
+            ) {
+
+                var showAll = SettingsResource.get('showAll');
+                var oldestFirst = SettingsResource.get('oldestFirst');
+                var search = $location.search().search || '';
+
+                // if those two values are null it means we did not receive
+                // the settings request from the server so dont query the server
+                if (showAll === null || oldestFirst === null) {
+                    return {};
+                } else {
+                    var parameters = {
+                        type: type,
+                        limit: ITEM_BATCH_SIZE,
+                        showAll: showAll,
+                        oldestFirst: oldestFirst,
+                        search: search
+                    };
+
+                    if ($route.current !== undefined &&
+                        $route.current.params !== undefined &&
+                        $route.current.params.id !== undefined) {
+                        parameters.id = $route.current.params.id;
+                    }
+
+                    // check if a custom ordering is set
+                    if (type === FEED_TYPE.FEED) {
+                        var feed = FeedResource.getById(parameters.id);
+
+                        // on intial load, the feed ordering is undefined
+                        if (feed === undefined || feed.ordering === 2) {
+                            parameters.oldestFirst = false;
+                        } else if (feed.ordering === 1) {
+                            parameters.oldestFirst = true;
+                        }
+                    }
+
+                    return $http({
+                        url:  BASE_URL + '/items',
+                        method: 'GET',
+                        params: parameters
+                    }).then(function (response) {
+                        return response.data;
+                    });
+                }
+            }
         };
     };
 
     var getExploreResolve = function () {
-        sites.$inject = ['$http', '$q', 'BASE_URL', '$location', 'Publisher',
-            'SettingsResource'];
-        function sites($http, $q, BASE_URL, $location, Publisher,
-                       SettingsResource) {
-            // always use the code from the url
-            var language = $location.search().lang;
-            if (!language) {
-                language = SettingsResource.get('language');
-            }
-
-            return $http.get(
-                BASE_URL + '/settings').then(function (response) {
-                Publisher.publishAll(response.data);
-
-                // get url and strip trailing slashes
-                var url = SettingsResource.get('exploreUrl')
-                    .replace(/\/+$/, '');
-
-                var exploreUrl = url + '/feeds.' + language + '.json';
-                var defaultExploreUrl = url + '/feeds.en.json';
-                return $http
-                    .get(exploreUrl)
-                    .catch(function () {
-                        return $http.get(defaultExploreUrl);
-                    });
-
-            }).then(function (response) {
-                return response.data;
-            });
-        };
         return {
-            sites: sites
+            sites: /* @ngInject */ function (
+                $http, $q, BASE_URL, $location, Publisher, SettingsResource
+            ) {
+                // always use the code from the url
+                var language = $location.search().lang;
+                if (!language) {
+                    language = SettingsResource.get('language');
+                }
+
+                return $http.get(
+                    BASE_URL + '/settings').then(function (response) {
+                    Publisher.publishAll(response.data);
+
+                    // get url and strip trailing slashes
+                    var url = SettingsResource.get('exploreUrl')
+                        .replace(/\/+$/, '');
+
+                    var exploreUrl = url + '/feeds.' + language + '.json';
+                    var defaultExploreUrl = url + '/feeds.en.json';
+                    return $http
+                        .get(exploreUrl)
+                        .catch(function () {
+                            return $http.get(defaultExploreUrl);
+                        });
+
+                }).then(function (response) {
+                    return response.data;
+                });
+            }
         };
     };
 

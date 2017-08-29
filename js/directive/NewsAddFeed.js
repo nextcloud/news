@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsAddFeed.$inject = ['$rootScope', '$timeout'];
-
-export default function NewsAddFeed($rootScope, $timeout) {
+export default /* @ngInject */ function ($rootScope, $timeout) {
     'use strict';
 
     return {

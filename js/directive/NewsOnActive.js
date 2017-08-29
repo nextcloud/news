@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2016
  */
-NewsOnActive.$inject = ['$parse'];
-
-export default function NewsOnActive($parse) {
+export default /* @ngInject */ function ($parse) {
     'use strict';
     return {
         restrict: 'A',

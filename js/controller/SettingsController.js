@@ -7,12 +7,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-SettingsController.$inject = ['$route', '$q', 'SettingsResource',
-    'ItemResource', 'OPMLParser', 'OPMLImporter', 'Publisher'];
-
-export default function SettingsController($route, $q, SettingsResource,
-                                           ItemResource, OPMLParser,
-                                           OPMLImporter, Publisher) {
+export default /* @ngInject */ function (
+    $route, $q, SettingsResource, ItemResource, OPMLParser, OPMLImporter,
+    Publisher
+) {
         'use strict';
         this.isOPMLImporting = false;
         this.isArticlesImporting = false;

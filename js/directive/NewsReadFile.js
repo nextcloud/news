@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsReadFile.$inject = [];
-
-export default function NewsReadFile() {
+export default /* @ngInject */ function () {
     'use strict';
 
     return function (scope, elem, attr) {

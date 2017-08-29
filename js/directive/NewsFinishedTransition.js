@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsFinishedTransition.$inject = [];
-
-export default function NewsFinishedTransition() {
+export default /* @ngInject */ function () {
     'use strict';
 
     return function (scope, elem, attrs) {

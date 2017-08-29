@@ -7,10 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-SettingsResource.$inject = ['$http', 'BASE_URL'];
-
  /*jshint unused:false*/
-export default function SettingsResource($http, BASE_URL) {
+export default /* @ngInject */ function ($http, BASE_URL) {
     'use strict';
 
     this.settings = {

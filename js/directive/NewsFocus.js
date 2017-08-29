@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsFocus.$inject = ['$timeout', '$interpolate'];
-
-export default function NewsFocus($timeout, $interpolate) {
+export default /* @ngInject */ function ($timeout, $interpolate) {
     'use strict';
 
     return function (scope, elem, attrs) {

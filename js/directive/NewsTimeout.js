@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsTimeout.$inject = ['$timeout', '$rootScope'];
-
-export default function NewsTimeout($timeout, $rootScope) {
+export default /* @ngInject */ function ($timeout, $rootScope) {
     'use strict';
 
     return {

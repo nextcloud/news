@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-AppController.$inject = ['Loading', 'FeedResource', 'FolderResource'];
-
-export default function AppController(Loading, FeedResource, FolderResource) {
+export default /*@ngInject*/ function (Loading, FeedResource, FolderResource) {
     'use strict';
 
     this.loading = Loading;

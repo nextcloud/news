@@ -31,6 +31,8 @@
   "private": true,
   "homepage": "https://github.com/nextcloud/news",
   "devDependencies": {
+    "babel-loader": "^7.1.2",
+    "babel-plugin-angularjs-annotate": "^0.8.0",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
     "gulp-concat": "^2.6.1",

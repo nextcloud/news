@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsTitleUnreadCount.$inject = ['$window'];
-
-export default function NewsTitleUnreadCount($window) {
+export default /* @ngInject */ function ($window) {
     'use strict';
 
     var baseTitle = $window.document.title;

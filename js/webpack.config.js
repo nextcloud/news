@@ -11,6 +11,23 @@ module.exports = {
             sourceMap: true
         })
     ],
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        // presets: ['env']
+                        "plugins": [
+                            ["angularjs-annotate", { "explicitOnly" : true}]
+                        ]
+                    }
+                }
+            }
+        ]
+    },
     output: {
         filename: '[name].min.js',
         path: path.resolve(__dirname, 'build')

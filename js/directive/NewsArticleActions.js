@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsArticleAction.$inject = [];
-
-export default function NewsArticleAction() {
+export default /* @ngInject */ function () {
     'use strict';
     return {
         restrict: 'A',

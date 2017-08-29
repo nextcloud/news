@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsAutoFocus.$inject = ['$timeout'];
-
-export default function NewsAutoFocus($timeout) {
+export default /* @ngInject */ function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {
         var toFocus = elem;

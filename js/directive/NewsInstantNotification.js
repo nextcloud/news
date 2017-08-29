@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-NewsInstantNotification.$inject = [];
-
-export default function NewsInstantNotification() {
+export default /* @ngInject */ function () {
     'use strict';
     var shown = false;
     return {

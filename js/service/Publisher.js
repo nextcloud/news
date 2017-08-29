@@ -7,10 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-Publisher.$inject = [];
-
 /*jshint undef:false*/
-export default function Publisher() {
+export default /* @ngInject */ function () {
     'use strict';
 
     this.channels = {};

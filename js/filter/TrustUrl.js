@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-TrustUrl.$inject = ['$sce'];
-
-export default function TrustUrl($sce) {
+export default /* @ngInject */ function ($sce) {
     'use strict';
 
     return function (url) {

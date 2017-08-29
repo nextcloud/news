@@ -7,9 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-OPMLParser.$inject = [];
-
-export default function OPMLParser() {
+export default /* @ngInject */ function () {
     'use strict';
 
     var parseOutline = function (outline) {
