@@ -98,7 +98,7 @@ OC.L10N.register(
     "Folder exists already!" : "Mappe finnes allerede!",
     "Advanced settings" : "Avanserte innstillinger",
     "Credentials" : "Påloggingsdetaljer",
-    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Detaljer for HTTP Basic Auth må lagres ukryptert! Alle med tilgang til tjeneren eller databasen vil være i stand til å aksessere dem!",
+    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Detaljer for HTTP Basic Auth må lagres ukryptert! Alle med tilgang til tjeneren eller databasen vil være i stand til å nå dem!",
     "Username" : "Brukernavn",
     "Password" : "Passord",
     "New Folder" : "Ny mappe",
