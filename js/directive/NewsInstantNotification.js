@@ -21,5 +21,4 @@ export default /* @ngInject */ function () {
             }
         }
     };
-
-};
+}

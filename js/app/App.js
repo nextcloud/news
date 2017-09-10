@@ -20,7 +20,10 @@ import ExploreController from '../controller/ExploreController';
 import NavigationController from '../controller/NavigationController';
 import SettingsController from '../controller/SettingsController';
 //directives
-import {AppNavigationEntryUtils, AppNavigationEntryUtilsRun} from '../directive/AppNavigationEntryUtils';
+import {
+    AppNavigationEntryUtils,
+    AppNavigationEntryUtilsRun
+} from '../directive/AppNavigationEntryUtils';
 import newsAddFeed from '../directive/NewsAddFeed';
 import newsArticleActions from '../directive/NewsArticleActions';
 import newsAutoFocus from '../directive/NewsAutoFocus';

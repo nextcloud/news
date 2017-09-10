@@ -15,5 +15,4 @@ export default /* @ngInject */ function () {
             $(attr.newsTriggerClick).trigger('click');
         });
     };
-
-};
+}

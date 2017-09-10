@@ -80,5 +80,4 @@ export default /* @ngInject */ function ($http, BASE_URL) {
 
         return languageCode;
     };
-
-};
+}

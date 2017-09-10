@@ -16,7 +16,6 @@ export default /* @ngInject */ function ($parse) {
                 var callback = $parse(attrs.newsOnActive);
                 scope.$apply(callback);
             });
-
         }
     };
-};
+}

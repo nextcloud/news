@@ -109,5 +109,4 @@ export default /* @ngInject */ function (
 
         return deferred.promise;
     };
-
-};
+}

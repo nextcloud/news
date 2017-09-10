@@ -19,4 +19,4 @@ export default /*@ngInject*/ function (Loading, FeedResource, FolderResource) {
     this.play = function (item) {
         this.playingItem = item;
     };
-};
+}

@@ -85,7 +85,5 @@ export default /* @ngInject */ function () {
                 return folders[key];
             })
         };
-
     };
-
-};
+}

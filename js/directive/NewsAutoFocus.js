@@ -21,4 +21,4 @@ export default /* @ngInject */ function ($timeout) {
             toFocus.focus();
         }, 0);
     };
-};
+}

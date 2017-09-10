@@ -67,25 +67,30 @@ export default /* @ngInject */ function (
                        'in maintenance mode!')
     };
 
-    $provide.factory('ConnectionErrorInterceptor', /* @ngInject */ function ($q, $timeout) {
-        var timer;
-        return {
-            responseError: function (response) {
-                // status 0 is a network error
-                if (response.status in errorMessages) {
-                    if (timer) {
-                        $timeout.cancel(timer);
-                    }
-                    OC.Notification.hide();
-                    OC.Notification.showHtml(errorMessages[response.status]);
-                    timer = $timeout(function () {
+    $provide.factory(
+        'ConnectionErrorInterceptor',
+        /* @ngInject */ function ($q, $timeout) {
+            var timer;
+            return {
+                responseError: function (response) {
+                    // status 0 is a network error
+                    if (response.status in errorMessages) {
+                        if (timer) {
+                            $timeout.cancel(timer);
+                        }
                         OC.Notification.hide();
-                    }, 5000);
+                        OC.Notification.showHtml(
+                            errorMessages[response.status]
+                        );
+                        timer = $timeout(function () {
+                            OC.Notification.hide();
+                        }, 5000);
+                    }
+                    return $q.reject(response);
                 }
-                return $q.reject(response);
-            }
-        };
-    });
+            };
+        }
+    );
     $httpProvider.interceptors.push('CSRFInterceptor');
     $httpProvider.interceptors.push('ConnectionErrorInterceptor');
 
@@ -212,5 +217,4 @@ export default /* @ngInject */ function (
             templateUrl: 'shortcuts.html',
             type: -1
         });
-
-};
+}

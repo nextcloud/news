@@ -56,4 +56,4 @@ export default /* @ngInject */ function (
     };
 
     this.selectedLanguageCode = this.getCurrentLanguageCode();
-};
+}

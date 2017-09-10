@@ -13,4 +13,4 @@ export default /* @ngInject */ function ($sce) {
     return function (url) {
         return $sce.trustAsResourceUrl(url);
     };
-};
+}

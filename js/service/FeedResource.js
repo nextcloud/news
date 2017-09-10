@@ -346,4 +346,4 @@ export default /* @ngInject */ function (Resource, $http, BASE_URL, $q) {
 
 
     return new FeedResource($http, BASE_URL, $q);
-};
+}

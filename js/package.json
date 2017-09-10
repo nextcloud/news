@@ -6,7 +6,7 @@
     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
     "prebuild": "npm install && npm update",
     "build-old": "node node_modules/gulp-cli/bin/gulp.js",
-    "build": "node node_modules/webpack/bin/webpack.js"
+    "build": "jshint . && webpack"
   },
   "repository": {
     "type": "git",

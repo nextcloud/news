@@ -87,4 +87,4 @@ export default /* @ngInject */ function () {
 
 
     return Resource;
-};
+}

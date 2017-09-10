@@ -375,5 +375,4 @@ export default /* @ngInject */ function (
     $rootScope.$on('$routeChangeSuccess', function () {
         setSelectedFolderForRoute();
     });
-
-};
+}

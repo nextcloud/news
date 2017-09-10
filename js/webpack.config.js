@@ -19,9 +19,8 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        // presets: ['env']
-                        "plugins": [
-                            ["angularjs-annotate", { "explicitOnly" : true}]
+                        'plugins': [
+                            ['angularjs-annotate', { 'explicitOnly' : true}]
                         ]
                     }
                 }

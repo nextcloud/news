@@ -120,4 +120,4 @@ export default /* @ngInject */ function (Resource, $http, BASE_URL, $q) {
 
 
     return new FolderResource($http, BASE_URL, $q);
-};
+}

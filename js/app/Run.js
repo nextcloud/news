@@ -131,5 +131,4 @@ export default /* @ngInject */ function (
     $rootScope.$on('$routeChangeError', function () {
         $location.path('/items');
     });
-
-};
+}

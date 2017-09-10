@@ -15,4 +15,4 @@ export default /* @ngInject */ function () {
             elem.html(scope.$eval(attr.newsBindHtmlUnsafe));
         });
     };
-};
+}

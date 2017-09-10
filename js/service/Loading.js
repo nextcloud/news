@@ -23,5 +23,4 @@ export default /* @ngInject */ function () {
     this.isLoading = function (area) {
         return this.loading[area];
     };
-
-};
+}

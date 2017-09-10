@@ -112,4 +112,4 @@ export default /* @ngInject */ function (
             });
         }
     };
-};
+}

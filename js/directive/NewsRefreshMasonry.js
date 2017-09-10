@@ -26,4 +26,4 @@ export default /* @ngInject */ function ($timeout) {
             refresh(elem);
         }
     };
-};
+}

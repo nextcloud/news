@@ -224,4 +224,4 @@ export default /* @ngInject */ function (
 
 
     return new ItemResource($http, BASE_URL, ITEM_BATCH_SIZE);
-};
+}

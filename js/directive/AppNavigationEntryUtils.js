@@ -7,12 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-export /* @ngInject */ function AppNavigationEntryUtilsRun($document, $rootScope) {
+export /* @ngInject */ function AppNavigationEntryUtilsRun(
+    $document, $rootScope
+) {
     'use strict';
     $document.click(function (event) {
         $rootScope.$broadcast('documentClicked', event);
     });
-};
+}
 
 export /* @ngInject */ function AppNavigationEntryUtils() {
     'use strict';
@@ -34,4 +36,4 @@ export /* @ngInject */ function AppNavigationEntryUtils() {
             });
         }
     };
-};
+}

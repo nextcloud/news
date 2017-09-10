@@ -15,5 +15,4 @@ export default /* @ngInject */ function () {
             elem.addClass(attrs.newsFinishedTransition);
         });
     };
-
-};
+}

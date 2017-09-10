@@ -18,5 +18,4 @@ export default /* @ngInject */ function ($timeout, $interpolate) {
             }, 500);
         });
     };
-
-};
+}

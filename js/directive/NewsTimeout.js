@@ -42,4 +42,4 @@ export default /* @ngInject */ function ($timeout, $rootScope) {
             });
         }
     };
-};
+}

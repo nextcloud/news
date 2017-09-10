@@ -25,4 +25,4 @@ export default /* @ngInject */ function () {
             scope.noPlugins = plugins.length === 0;
         }
     };
-};
+}

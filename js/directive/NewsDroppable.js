@@ -31,4 +31,4 @@ export default /* @ngInject */ function ($rootScope) {
 
         elem.droppable(details);
     };
-};
+}
