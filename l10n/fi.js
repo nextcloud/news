@@ -5,6 +5,7 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Pyyntö ei ole valtutettu. Oletko sisäänkirjautuneena?",
     "Request forbidden. Are you an admin?" : "Pyyntö evätty. Oletko ylläpitäjä?",
     "Token expired or app not enabled! Reload the page!" : "Valtuutus vanheni tai sovellus ei käytössä. Lataa sivu uudelleen.",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sisäinen palvelinvirhe! Tarkista tiedosto data/nextcloud.log saadaksesi lisätietoja!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Pyyntö epäonnistui, Nextcloud on parhaillaan huoltotilassa!",
     "Feed contains invalid XML" : "Syöte sisältää virheellistä XML:ää",
     "Detected feed format is not supported" : "Havaittu syötemuoto ei ole tuettu",
