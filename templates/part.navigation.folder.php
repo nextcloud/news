@@ -1,7 +1,6 @@
 <li ng-class="{
         active: Navigation.isFolderActive(folder.id),
         open: folder.opened || folder.getsFeed,
-        collapsible: Navigation.hasFeeds(folder.id) || folder.getsFeed,
         unread: Navigation.isFolderUnread(folder.id),
         deleted: folder.deleted,
         editing: folder.editing
@@ -14,7 +13,7 @@
             || !folder.id
             || folder.getsFeed
             || !Navigation.hasFeeds(folder.id)"
-    class="folder with-counter with-menu animate-show"
+    class="folder with-counter with-menu animate-show collapsible"
     data-id="{{ folder.id }}"
     news-droppable>
     <button class="collapse"
