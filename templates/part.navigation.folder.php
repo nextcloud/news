@@ -2,7 +2,9 @@
         active: Navigation.isFolderActive(folder.id),
         open: folder.opened || folder.getsFeed,
         collapsible: Navigation.hasFeeds(folder.id) || folder.getsFeed,
-        unread: Navigation.isFolderUnread(folder.id)
+        unread: Navigation.isFolderUnread(folder.id),
+        deleted: folder.deleted,
+        editing: folder.editing
     }"
     ng-repeat="folder in Navigation.getFolders() | orderBy:'name.toLowerCase()'"
     ng-show="Navigation.isFolderUnread(folder.id)
@@ -19,6 +21,16 @@
             ng-hide="folder.editing || folder.deleted"
             title="<?php p($l->t('Collapse'));?>"
             ng-click="Navigation.toggleFolder(folder.name)"></button>
+
+    <a ng-href="#/items/folders/{{ folder.id }}/"
+        class="title icon-folder"
+        ng-if="!folder.error && folder.id">
+       {{ folder.name }}
+    </a>
+
+    <a class="title icon-loading-small" ng-if="!(folder.id || folder.error)">
+       {{ folder.name }}
+    </a>
 
     <div ng-if="folder.deleted"
         class="app-navigation-entry-deleted"
@@ -40,30 +52,29 @@
                 Navigation.folderNameExists(folderName))
             }">
         <form ng-submit="Navigation.renameFolder(folder, folderName)">
-            <fieldset ng-disabled="Navigation.renamingFolder">
-                <input name="folderName"
-                    type="text"
-                    ng-init="folderName=folder.name"
-                    ng-class="{
-                        'ng-invalid':
-                            folderName != folder.name &&
-                            !Navigation.renamingFolder &&
-                            Navigation.folderNameExists(folderName)
-                    }"
-                    ng-model="folderName"
-                    ng-model-options="{updateOn:'submit'}"
-                    required
-                    news-auto-focus>
-                <input type="submit"
-                    value=""
-                    ng-class="{'entry-loading': Navigation.renamingFolder}"
-                    title="<?php p($l->t('Rename')); ?>"
-                    class="action icon-checkmark"
-                    ng-disabled="folderName != folder.name &&
+            <input name="folderName"
+                type="text"
+                ng-init="folderName=folder.name"
+                ng-class="{
+                    'ng-invalid':
+                        folderName != folder.name &&
                         !Navigation.renamingFolder &&
-                        Navigation.folderNameExists(folderName)">
-                </button>
-            </fieldset>
+                        Navigation.folderNameExists(folderName)
+                }"
+                ng-model="folderName"
+                ng-model-options="{updateOn:'submit'}"
+                ng-disabled="Navigation.renamingFolder"
+                required
+                news-auto-focus>
+            <input type="submit"
+                value=""
+                ng-class="{'icon-loading-small': Navigation.renamingFolder}"
+                title="<?php p($l->t('Rename')); ?>"
+                class="action icon-checkmark"
+                ng-disabled="folderName != folder.name &&
+                    !Navigation.renamingFolder &&
+                    Navigation.folderNameExists(folderName)">
+            </button>
             <p class="error" ng-show="folderName != folder.name &&
                 !Navigation.renamingFolder &&
                 Navigation.folderNameExists(folderName)">
@@ -74,19 +85,6 @@
             </p>
         </form>
     </div>
-
-    <a ng-href="#/items/folders/{{ folder.id }}/"
-        class="title icon-folder"
-        ng-show="!folder.editing &&
-            !folder.error &&
-            !folder.deleted &&
-            folder.id">
-       {{ folder.name }}
-    </a>
-
-    <a class="title entry-loading" ng-hide="folder.id || folder.error">
-       {{ folder.name }}
-    </a>
 
     <div class="app-navigation-entry-utils"
          ng-show="folder.id &&
