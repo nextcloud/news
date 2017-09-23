@@ -35,7 +35,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <lib>SimpleXML</lib>
         <lib>iconv</lib>
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="12" max-version="12"/>
+        <nextcloud min-version="12" max-version="13"/>
     </dependencies>
 
     <background-jobs>
