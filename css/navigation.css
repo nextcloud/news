@@ -119,14 +119,6 @@
     font-weight: bold;
 }
 
-#app-navigation .entry-loading {
-    background-image: url('../img/loading.gif') !important;
-}
-
-#app-navigation input.entry-loading {
-    background-size: 20px;
-}
-
 #app-navigation p.error {
     line-height: 25px;
 }

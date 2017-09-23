@@ -1,7 +1,10 @@
 <li ng-class="{
         active: Navigation.isFeedActive(feed.id),
         unread: Navigation.isFeedUnread(feed.id),
-        updateerror: feed.updateErrorCount>50
+        updateerror: feed.updateErrorCount>50,
+        deleted: feed.deleted,
+        editing: feed.editing,
+        'icon-loading-small': !(feed.id || feed.error)
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>)
         | orderBy:['-pinned', 'title.toLowerCase()'] track by feed.url"
@@ -29,7 +32,7 @@
     }">
 
     <a  ng-style="{ backgroundImage: 'url(' + feed.faviconLink + ')'}"
-        ng-show="!feed.editing && !feed.deleted && !feed.error && feed.id"
+        ng-show="!feed.error && feed.id"
         ng-href="#/items/feeds/{{ feed.id }}/"
         class="title"
         ng-class="{'icon-rss': !feed.faviconLink}"
@@ -37,8 +40,8 @@
        {{ feed.title }}
     </a>
 
-    <a ng-hide="feed.id || feed.error"
-        class="entry-loading title"
+    <a ng-if="!(feed.id || feed.error)"
+        class="title"
         title="{{ feed.title }}">
        {{ feed.title }}
     </a>
