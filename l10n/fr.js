@@ -2,7 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Request failed, network connection unavailable!" : "Échec de la requête, connexion réseau indisponible !",
-    "Request unauthorized. Are you logged in?" : "Requête non autorisée. Êtes-vous bien connecté avec vos identifiants ?",
+    "Request unauthorized. Are you logged in?" : "Requête non autorisée. Êtes-vous bien connecté?",
     "Request forbidden. Are you an admin?" : "Requête interdite. Avez-vous les droits administrateurs ?",
     "Token expired or app not enabled! Reload the page!" : "Le jeton a expiré ou l'application n'est pas activée ! Veuillez recharger la page !",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Erreur interne du serveur ! Veuillez consulter votre fichier data/nextcloud.log pour plus d'informations !",
