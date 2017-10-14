@@ -19,6 +19,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Nemožno pridať kanál: Už existuje",
     "Articles without feed" : "Články bez zdroja",
     "Can not add folder: Exists already" : "Nemožno pridať priečinok: Už existuje",
+    "News" : "Správy",
     "Use system cron for updates" : "Použiť systémový plánovač cron pre aktualizácie",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Vypnite, ak používate vlastnú aplikáciu pre aktulizácie, napr. Python aktualizácie zahrnuté v aplikácii",
     "Purge interval" : "Vynulovať interval",
@@ -35,6 +36,7 @@ OC.L10N.register(
     "Saved" : "Uložené",
     "Download" : "Sťahovanie",
     "Close" : "Zavrieť",
+    "filter" : "filter",
     "Language" : "Jazyk",
     "Subscribe" : "Prihlásiť odber",
     "No articles available" : "Žiadne články nie sú dostupné",
@@ -86,6 +88,7 @@ OC.L10N.register(
     "Undo delete feed" : "Obnoviť zmazaný kanál",
     "Rename" : "Premenovať",
     "Menu" : "Menu",
+    "Delete" : "Zmazať",
     "Dismiss" : "Odmietnuť",
     "Collapse" : "Zvinúť",
     "Deleted folder" : "Zmazaný priečinok",
@@ -105,6 +108,7 @@ OC.L10N.register(
     "Error when importing: file does not contain valid JSON" : "Chyba pri importe: súbor neobsahuje platný JSON",
     "Help" : "Pomoc",
     "Keyboard shortcuts" : "Klávesové skratky",
-    "Documentation" : "Dokumentácia"
+    "Documentation" : "Dokumentácia",
+    "Report a bug" : "Nahlásiť chybu"
 },
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");
