@@ -21,6 +21,7 @@ OC.L10N.register(
     "Articles without feed" : "Vailla syötettä olevat artikkelit",
     "Can not add folder: Exists already" : "Kansiota ei voi lisätä: se on jo olemassa",
     "News" : "Uutiset",
+    "Use system cron for updates" : "Käytä järjestelmän cronia päivityksille",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Poista käytöstä, jos käytät omavalintaista päivitystapaa, kuten sovelluksen mukana tullutta Python-päivitystapaa",
     "Purge interval" : "Hävitysväli",
     "Maximum read count per feed" : "Syötekohtaisten lukukertojen enimmäismäärä",
