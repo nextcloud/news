@@ -265,6 +265,10 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         }
     };
 
+    this.openFeedUrl = function (feed) {
+        window.open(feed.url, '_blank');
+    };
+
     this.reversiblyDeleteFeed = function (feed) {
         FeedResource.reversiblyDelete(feed.id).finally(function () {
             $route.reload();

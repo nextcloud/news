@@ -149,6 +149,12 @@
                 </button>
             </li>
             <li>
+                <button ng-click="Navigation.openFeedUrl(feed)">
+                    <span class="icon-rss"></span>
+                    <span><?php p($l->t('Open feed url')); ?></span>
+                </button>
+            </li>
+            <li>
                 <button ng-click="feed.editing=true">
                     <span class="icon-rename"></span>
                     <span><?php p($l->t('Rename')); ?></span>
