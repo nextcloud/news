@@ -149,6 +149,12 @@
                 </button>
             </li>
             <li>
+                <a ng-href="{{feed.url}}" target="_blank" rel="noopener noreferrer">
+                    <span class="icon-rss"></span>
+                    <span><?php p($l->t('Open feed url')); ?></span>
+                </a>
+            </li>
+            <li>
                 <button ng-click="feed.editing=true">
                     <span class="icon-rename"></span>
                     <span><?php p($l->t('Rename')); ?></span>
