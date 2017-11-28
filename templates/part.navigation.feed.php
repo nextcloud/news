@@ -149,7 +149,7 @@
                 </button>
             </li>
             <li>
-                <a ng-href="{{feed.url}}" target="_href" rel="noopener noreferrer">
+                <a ng-href="{{feed.url}}" target="_blank" rel="noopener noreferrer">
                     <span class="icon-rss"></span>
                     <span><?php p($l->t('Open feed url')); ?></span>
                 </a>
