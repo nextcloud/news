@@ -149,10 +149,10 @@
                 </button>
             </li>
             <li>
-                <button ng-click="Navigation.openFeedUrl(feed)">
+                <a ng-href="{{feed.url}}" target="_href" rel="noopener noreferrer">
                     <span class="icon-rss"></span>
                     <span><?php p($l->t('Open feed url')); ?></span>
-                </button>
+                </a>
             </li>
             <li>
                 <button ng-click="feed.editing=true">
