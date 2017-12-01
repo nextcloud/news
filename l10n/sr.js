@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Искључи цео текст",
     "Unread updated" : "Ажуриране непрочитане",
     "Ignore updated" : "Игнориши непрочитане",
+    "Open feed URL" : "Отвори адресу довода",
     "Delete" : "Обриши",
     "Dismiss" : "Одбаци",
     "Collapse" : "Скупи",

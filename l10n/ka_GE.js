@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "სრული ტექსტის გათიშვა",
     "Unread updated" : "განახლებულის წაუკითხავად მონიშვნა",
     "Ignore updated" : "განახლებულის იგნორირება",
+    "Open feed URL" : "ლენტის URL-ს გახსნა",
     "Delete" : "გაუქმება",
     "Dismiss" : "დათხოვნა",
     "Collapse" : "აკეცვა",
