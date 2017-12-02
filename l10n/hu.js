@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Teljes szöveges mód letiltása",
     "Unread updated" : "Olvasatlan frissítés",
     "Ignore updated" : "Frissítés figyelmen kívül hagyása!",
+    "Open feed URL" : "Hírfolyam URL megnyitása",
     "Delete" : "Törlés",
     "Dismiss" : "Elutasít",
     "Collapse" : "Összecsukás",
