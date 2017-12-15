@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Отключить полный текст",
     "Unread updated" : "Непрочитанное обновлено",
     "Ignore updated" : "Игнорировать обновлённые",
+    "Open feed URL" : "Открыть URL ленты",
     "Delete" : "Удалить",
     "Dismiss" : "Убрать",
     "Collapse" : "Свернуть",
