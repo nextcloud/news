@@ -36,6 +36,13 @@
         "feed": "https:\/\/www.heise.de\/newsticker\/heise-atom.xml",
         "description": "Nachrichten nicht nur aus der Welt der Computer",
         "votes": 100
+    }, {
+        "title": "t3n IT News",
+        "favicon": "http:\/\/t3n.de\/favicon.ico",
+        "url": "http:\/\/t3n.de\/news\/",
+        "feed": "http:\/\/t3n.de\/rss.xml",
+        "description": "Das Magazin für digitales Business",
+        "votes": 100
     }],
     "FOSS": [{
         "title": "heise open news",
@@ -66,6 +73,13 @@
         "url": "http:\/\/derstandard.at\/",
         "feed": "http:\/\/derstandard.at\/?page=rss&ressort=seite1",
         "description": "Nachrichten in Echtzeit. derStandard.at: Permanent aktualisierte Nachrichten aus aller Welt vom Online-Newsroom der f\u00fchrenden Qualit\u00e4tszeitung \u00d6sterreichs. Plus die ganze Tageszeitung gratis im WWW. News in German, brought to you by the leading quality newspaper from Austria.",
+        "votes": 100
+    }, {
+        "title": "Netzpolitik.org Nachrichten",
+        "favicon": "https:\/\/netzpolitik.org\/favicon.ico",
+        "url": "https:\/\/netzpolitik.org",
+        "feed": "https:\/\/netzpolitik.org\/feed",
+        "description": "Plattform für digitale Freiheitsrechte",
         "votes": 100
     }]
 }
