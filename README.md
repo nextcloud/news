@@ -314,8 +314,8 @@ By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the
 
 
 
-Configuration
--------------
+## Configuration
+
 All configuration values are set inside **nextcloud/data/news/config/config.ini** and can be edited in the admin panel.
 
 The configuration is in **INI** format and looks like this:
