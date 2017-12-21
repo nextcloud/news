@@ -8,6 +8,21 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://g
 ![](https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png)
 
 
+## Table of Contents
+  * [Maintainers](#maintainers)
+  * [Sync Clients](#sync-clients)
+  * [Custom Themes](#custom-themes)
+  * [Dependencies](#dependencies)
+  * [Build Dependencies](#build-dependencies)
+  * [Supported Browsers](#supported-browsers)
+  * [Supported Databases](#supported-databases)
+  * [Bugs](#bugs)
+  * [Installation/Update](#installationupdate)
+  * [Performance Notices](#performance-notices)
+  * [Updating Notices](#updating-notices)
+  * [FAQ](#faq)
+  * [Configuration](#configuration)
+
 ## Maintainers
 Looking for new a new maintainer :)
 
