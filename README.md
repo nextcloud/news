@@ -22,6 +22,7 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://g
   * [Updating Notices](#updating-notices)
   * [FAQ](#faq)
   * [Configuration](#configuration)
+  * [Keyboard Shortcuts](#keyboard-shortcuts)
 
 ## Maintainers
 Looking for new a new maintainer :)
@@ -338,3 +339,23 @@ exploreUrl =
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by Nextcloud by default by setting this to false
 * **exploreUrl**: If given that url will be contacted for fetching content for the explore feed
+
+## Keyboard Shortcuts
+
+| Keybindings       | Action                              |
+|-------------------|-------------------------------------|
+| `j`, `n`, `Right` | Scroll to next item                 |
+| `k`, `p`, `Left`  | Scroll to previous item             |
+| `u`               | Toggle unread                       |
+| `e`               | Expand item                         |
+| `s`, `i`, `l`     | Toggle star                         |
+| `h`               | Toggle star and scroll to next item |
+| `o`               | Open link                           |
+| `r`               | Reload feed                         |
+| `f`               | Next feed                           |
+| `d`               | Previous feed                       |
+| `c`               | Previous folder                     |
+| `a`               | Scroll to active navigation entry   |
+| `v`               | Next folder                         |
+| `q`               | Search                              |
+| `Shift-A`         | Mark all read                       |
