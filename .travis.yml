@@ -8,7 +8,7 @@ php:
 
 env:
     global:
-        - CORE_BRANCH=stable12
+        - CORE_BRANCH=stable13
         - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
