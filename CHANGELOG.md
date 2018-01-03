@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 12.0.0
+
 ### Changed
 
 - Replaced url of utf8mb4 instructions to stack exchange with nextcloud-specific page, #181
+- Dropped support for Nextcloud 12
 
 ## 11.0.5
 
