@@ -8,6 +8,22 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://g
 ![](https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png)
 
 
+## Table of Contents
+  * [Maintainers](#maintainers)
+  * [Sync Clients](#sync-clients)
+  * [Custom Themes](#custom-themes)
+  * [Dependencies](#dependencies)
+  * [Build Dependencies](#build-dependencies)
+  * [Supported Browsers](#supported-browsers)
+  * [Supported Databases](#supported-databases)
+  * [Bugs](#bugs)
+  * [Installation/Update](#installationupdate)
+  * [Performance Notices](#performance-notices)
+  * [Updating Notices](#updating-notices)
+  * [FAQ](#faq)
+  * [Configuration](#configuration)
+  * [Keyboard Shortcuts](#keyboard-shortcuts)
+
 ## Maintainers
 Looking for new a new maintainer :)
 
@@ -299,8 +315,8 @@ By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the
 
 
 
-Configuration
--------------
+## Configuration
+
 All configuration values are set inside **nextcloud/data/news/config/config.ini** and can be edited in the admin panel.
 
 The configuration is in **INI** format and looks like this:
@@ -323,3 +339,23 @@ exploreUrl =
 * **feedFetcherTimeout**: Maximum number of seconds to wait for an RSS or Atom feed to load. If a feed takes longer than that number of seconds to update, the update will be aborted
 * **useCronUpdates**: To use a custom update/cron script you need to disable the cronjob which is run by Nextcloud by default by setting this to false
 * **exploreUrl**: If given that url will be contacted for fetching content for the explore feed
+
+## Keyboard Shortcuts
+
+| Keybindings       | Action                              |
+|-------------------|-------------------------------------|
+| `j`, `n`, `Right` | Scroll to next item                 |
+| `k`, `p`, `Left`  | Scroll to previous item             |
+| `u`               | Toggle unread                       |
+| `e`               | Expand item                         |
+| `s`, `i`, `l`     | Toggle star                         |
+| `h`               | Toggle star and scroll to next item |
+| `o`               | Open link                           |
+| `r`               | Reload feed                         |
+| `f`               | Next feed                           |
+| `d`               | Previous feed                       |
+| `c`               | Previous folder                     |
+| `a`               | Scroll to active navigation entry   |
+| `v`               | Next folder                         |
+| `q`               | Search                              |
+| `Shift-A`         | Mark all read                       |
