@@ -14,6 +14,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
 
     // autopaging
     var autoPage = function (limit, elem, scope) {
+        console.log(elem, scope);
         var counter = 0;
         var articles = elem.find('.item');
 
@@ -43,6 +44,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
     // mark read
     var markRead = function (enabled, elem, scope) {
         if (enabled) {
+            console.log(elem, scope);
             var ids = [];
             var articles = elem.find('.item:not(.read)');
 

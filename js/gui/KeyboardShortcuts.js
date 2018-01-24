@@ -330,7 +330,7 @@
 
     $(document).keyup(function (event) {
         var keyCode = event.keyCode;
-        var scrollArea = $('#app-content');
+        var scrollArea = $('.app-content-detail');
         var navigationArea = $('#app-navigation');
         var isCompactView = $('#articles.compact').length > 0;
         var isExpandItem = $('#articles')
