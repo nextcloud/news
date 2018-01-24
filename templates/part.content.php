@@ -6,7 +6,8 @@
         compact: Content.isCompactView(),
         'feed-view': Content.isFeed()
     }"
-    news-compact-expand="{{ Content.isCompactExpand() }}">
+    news-compact-expand="{{ Content.isCompactExpand() }}"
+    class="app-content-detail">
     <div ng-show="Content.getItems().length == 0" class="no-feeds-available">
         <p ng-show="Content.isShowAll()"><?php p($l->t('No articles available')) ?></p>
         <p ng-show="!Content.isShowAll()"><?php p($l->t('No unread articles available')) ?></p>
