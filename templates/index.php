@@ -96,7 +96,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             }"
             ng-hide="App.loading.isLoading('global')"
             ng-view
-            news-scroll="#app-content"
+            news-scroll=".app-content-detail"
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"
             news-scroll-mark-read="Content.scrollRead(itemIds)"></div>
