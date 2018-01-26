@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 12.0.1
+
+### Fixed
+
+- Fix various styling and usage issues introduced with beta changes 
+
 ## 12.0.0
 
 ### Changed
