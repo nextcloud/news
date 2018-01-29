@@ -29,6 +29,7 @@ Nextcloud News can be synced with the following apps:
   * [OwnCloud News Reader (WebOS)](http://www.webosnation.com/owncloud-news-reader), [open source](https://bitbucket.org/andpeters/webos-owncloud-news-reader)
   * [FeedReader (Linux desktop)](http://jangernert.github.io/FeedReader/), [open source](https://github.com/jangernert/FeedReader)
   * [py3status](https://github.com/ultrabug/py3status/) for [i3 (UNIX-like)](http://i3wm.org/), [open source](https://github.com/i3/i3)
+  * [newsboat](http://newsboat.org/) for Unix terminal, [open source](https://github.com/newsboat/newsboat)
 
 ## Custom Themes
 Nextcloud News can look different with the following themes:
