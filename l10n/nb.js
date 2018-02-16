@@ -119,7 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Skru av fulltekst",
     "Unread updated" : "Uleste oppdatert",
     "Ignore updated" : "Ignorer oppdaterte",
-    "Open feed URL" : "Åpne nyhets-URL",
+    "Open feed URL" : "Åpne nyhetsnettadresse",
     "Delete" : "Slett",
     "Dismiss" : "Forkast",
     "Collapse" : "Skjul",
