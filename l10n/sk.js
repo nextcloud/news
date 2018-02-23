@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Zakázať plný text",
     "Unread updated" : "Aktualizovali sa neprečítané",
     "Ignore updated" : "Ignorovať aktualizáciu",
+    "Open feed URL" : "Otvoriť adresu zdroja",
     "Delete" : "Zmazať",
     "Dismiss" : "Odmietnuť",
     "Collapse" : "Zvinúť",
