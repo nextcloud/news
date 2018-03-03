@@ -1,4 +1,7 @@
-# Nextcloud News app
+# Nextcloud News app (unmaintained)
+
+**This app is unmaintained! Looking for new maintainers!**
+
 [![Build Status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news) [![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
 
 
