@@ -12,7 +12,7 @@
     "More redirects than allowed, aborting" : "Hay más redirecciones que el máximo permitido, cancelando",
     "Bigger than maximum allowed size" : "Mayor tamaño que el máximo permitido",
     "Request timed out" : "Tiempo de espera agotado",
-    "Required credentials for feed were either missing or incorrect" : "Las credenciales requeridas para la fuente o están perdidas o son incorrectas",
+    "Required credentials for feed were either missing or incorrect" : "Faltan las credenciales requeridas para la fuente o son incorrectas",
     "Forbidden to access feed" : "Prohibido acceder a la fuente",
     "Certificate error: A problem occurred somewhere in the SSL/TLS handshake. Could be certificates (file formats, paths, permissions), passwords, and others." : "Error de Certificado: Ha ocurrido un error en la negociación SSL/TLS. Puede ser el certificado( Formato del archivo, ruta, permisos) La contraseña u otras cosas.",
     "Certificate error: The remote server's SSL certificate or SSH md5 fingerprint was deemed not OK." : "Error de Certificado: La firma MD5 de SSH o del certificado remoto SSL no es correcta.",
