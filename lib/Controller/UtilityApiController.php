@@ -15,7 +15,6 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\IConfig;
-use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Utility\Updater;

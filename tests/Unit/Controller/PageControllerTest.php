@@ -64,7 +64,7 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->appConfig = $this->getMockBuilder(
-            '\OCA\News\Config\AppConfig')
+            '\OCA\News\Config\Config')
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this->getMockBuilder(
@@ -267,28 +267,6 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo('1'));
         $this->controller->updateSettings(true, true, false, true, true);
 
-    }
-
-
-    public function testManifest(){
-        $this->appConfig->expects($this->once())
-            ->method('getConfig')
-            ->will($this->returnValue($this->configData));
-        $this->l10n->expects($this->once())
-            ->method('getLanguageCode')
-            ->will($this->returnValue('de_DE'));
-
-        $result = $this->controller->manifest()->getData();
-        $this->assertEquals($this->configData['name'], $result['name']);
-        $this->assertEquals('web', $result['type']);
-        $this->assertEquals(
-            $this->configData['description'], $result['description']
-        );
-        $this->assertEquals('de-DE', $result['default_locale']);
-        $this->assertEquals(
-            $this->configData['homepage'], $result['developer']['url']
-        );
-        $this->assertEquals('john, test', $result['developer']['name']);
     }
 
 

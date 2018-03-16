@@ -31,6 +31,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     private $itemService;
     private $settings;
     private $exampleResult;
+    private $user;
 
 
     /**
