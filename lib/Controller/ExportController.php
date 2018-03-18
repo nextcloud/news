@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -24,7 +24,8 @@ use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
 use \OCA\News\Utility\OPMLExporter;
 
-class ExportController extends Controller {
+class ExportController extends Controller
+{
 
     private $opmlExporter;
     private $folderService;
@@ -32,14 +33,15 @@ class ExportController extends Controller {
     private $itemService;
     private $userId;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                FolderService $folderService,
-                                FeedService $feedService,
-                                ItemService $itemService,
-                                OPMLExporter $opmlExporter,
-                                $UserId){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        FolderService $folderService,
+        FeedService $feedService,
+        ItemService $itemService,
+        OPMLExporter $opmlExporter,
+        $UserId
+    ) {
+        parent::__construct($appName, $request);
         $this->feedService = $feedService;
         $this->folderService = $folderService;
         $this->opmlExporter = $opmlExporter;
@@ -52,7 +54,8 @@ class ExportController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function opml(){
+    public function opml()
+    {
         $feeds = $this->feedService->findAll($this->userId);
         $folders = $this->folderService->findAll($this->userId);
         $opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
@@ -66,7 +69,8 @@ class ExportController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function articles(){
+    public function articles()
+    {
         $feeds = $this->feedService->findAll($this->userId);
         $items = $this->itemService->getUnreadOrStarred($this->userId);
 
@@ -82,8 +86,10 @@ class ExportController extends Controller {
         }
 
         $response = new JSONResponse($articles);
-        $response->addHeader('Content-Disposition',
-            'attachment; filename="articles.json"');
+        $response->addHeader(
+            'Content-Disposition',
+            'attachment; filename="articles.json"'
+        );
         return $response;
     }
 

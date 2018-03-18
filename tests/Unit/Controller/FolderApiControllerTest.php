@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -26,7 +26,8 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 
 
-class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
+class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $folderService;
     private $itemService;
@@ -36,19 +37,23 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     private $request;
     private $msg;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->appName = 'news';
         $this->user = 'tom';
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderService = $this->getMockBuilder(
-            '\OCA\News\Service\FolderService')
+            '\OCA\News\Service\FolderService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService')
+            '\OCA\News\Service\ItemService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderAPI = new FolderApiController(
@@ -62,7 +67,8 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndex() {
+    public function testIndex() 
+    {
         $folders = [new Folder()];
 
         $this->folderService->expects($this->once())
@@ -72,13 +78,16 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->folderAPI->index();
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'folders' => [$folders[0]->toAPI()]
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testCreate() {
+    public function testCreate() 
+    {
         $folderName = 'test';
         $folder = new Folder();
         $folder->setName($folderName);
@@ -93,13 +102,16 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->folderAPI->create($folderName);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'folders' => [$folder->toAPI()]
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testCreateAlreadyExists() {
+    public function testCreateAlreadyExists() 
+    {
         $msg = 'exists';
 
         $this->folderService->expects($this->once())
@@ -117,7 +129,8 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreateInvalidFolderName() {
+    public function testCreateInvalidFolderName() 
+    {
         $msg = 'exists';
 
         $this->folderService->expects($this->once())
@@ -137,7 +150,8 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testDelete() {
+    public function testDelete() 
+    {
         $folderId = 23;
         $this->folderService->expects($this->once())
             ->method('delete')
@@ -147,7 +161,8 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testDeleteDoesNotExist() {
+    public function testDeleteDoesNotExist() 
+    {
         $folderId = 23;
 
         $this->folderService->expects($this->once())
@@ -166,20 +181,24 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdate() {
+    public function testUpdate() 
+    {
         $folderId = 23;
         $folderName = 'test';
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->with($this->equalTo($folderId),
+            ->with(
+                $this->equalTo($folderId),
                 $this->equalTo($folderName),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
 
         $this->folderAPI->update($folderId, $folderName);
     }
 
-    public function testUpdateDoesNotExist() {
+    public function testUpdateDoesNotExist() 
+    {
         $folderId = 23;
         $folderName = 'test';
 
@@ -199,7 +218,8 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdateExists() {
+    public function testUpdateExists() 
+    {
         $folderId = 23;
         $folderName = 'test';
 
@@ -219,7 +239,8 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdateInvalidFolderName() {
+    public function testUpdateInvalidFolderName() 
+    {
         $folderId = 23;
         $folderName = '';
 
@@ -241,13 +262,15 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRead() {
+    public function testRead() 
+    {
         $this->itemService->expects($this->once())
             ->method('readFolder')
             ->with(
                 $this->equalTo(3),
                 $this->equalTo(30),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
 
         $this->folderAPI->read(3, 30);
     }

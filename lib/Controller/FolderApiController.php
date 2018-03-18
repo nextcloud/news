@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -23,7 +23,8 @@ use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
 
-class FolderApiController extends ApiController {
+class FolderApiController extends ApiController
+{
 
     use JSONHttpError;
 
@@ -32,12 +33,13 @@ class FolderApiController extends ApiController {
     private $userId;
     private $serializer;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                FolderService $folderService,
-                                ItemService $itemService,
-                                $UserId){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        FolderService $folderService,
+        ItemService $itemService,
+        $UserId
+    ) {
+        parent::__construct($appName, $request);
         $this->folderService = $folderService;
         $this->itemService = $itemService;
         $this->userId = $UserId;
@@ -50,7 +52,8 @@ class FolderApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function index() {
+    public function index() 
+    {
         return $this->serializer->serialize(
             $this->folderService->findAll($this->userId)
         );
@@ -65,7 +68,8 @@ class FolderApiController extends ApiController {
      * @param string $name
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($name) {
+    public function create($name) 
+    {
         try {
             $this->folderService->purgeDeleted($this->userId, false);
             return $this->serializer->serialize(
@@ -87,7 +91,8 @@ class FolderApiController extends ApiController {
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function delete($folderId) {
+    public function delete($folderId) 
+    {
         try {
             $this->folderService->delete($folderId, $this->userId);
         } catch(ServiceNotFoundException $ex) {
@@ -102,11 +107,12 @@ class FolderApiController extends ApiController {
      * @NoAdminRequired
      * @NoCSRFRequired
      * @CORS
-     * @param int $folderId
+     * @param int    $folderId
      * @param string $name
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function update($folderId, $name) {
+    public function update($folderId, $name) 
+    {
         try {
             $this->folderService->rename($folderId, $name, $this->userId);
 
@@ -130,7 +136,8 @@ class FolderApiController extends ApiController {
      * @param int $folderId
      * @param int $newestItemId
      */
-    public function read($folderId, $newestItemId) {
+    public function read($folderId, $newestItemId) 
+    {
         $this->itemService->readFolder($folderId, $newestItemId, $this->userId);
     }
 

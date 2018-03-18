@@ -7,8 +7,9 @@
  *
  * @author Alessandro Cosentino <cosenal@gmail.com>
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ *
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -20,68 +21,94 @@ use OCP\AppFramework\Controller;
 use OCA\News\Config\Config;
 use OCA\News\Service\ItemService;
 
-class AdminController extends Controller {
+/**
+ * Class AdminController
+ *
+ * @package OCA\News\Controller
+ */
+class AdminController extends Controller
+{
+    private $_config;
+    private $_configPath;
+    private $_itemService;
 
-    private $config;
-    private $configPath;
-    private $itemService;
-
-    public function __construct($AppName, IRequest $request, Config $config,
-                                ItemService $itemService, $configFile){
-        parent::__construct($AppName, $request);
-        $this->config = $config;
-        $this->configPath = $configFile;
-        $this->itemService = $itemService;
+    /**
+     * AdminController constructor.
+     *
+     * @param string      $appName     The name of the app
+     * @param IRequest    $request     The request
+     * @param Config      $config      Config for nextcloud
+     * @param ItemService $itemService Service for items
+     * @param string      $configFile  Path to the config
+     */
+    public function __construct($appName, IRequest $request, Config $config,
+        ItemService $itemService, $configFile
+    ) {
+        parent::__construct($appName, $request);
+        $this->_config      = $config;
+        $this->_configPath  = $configFile;
+        $this->_itemService = $itemService;
     }
 
-    // There are no checks for the index method since the output is rendered
-    // in admin/admin.php
-    public function index() {
+    /**
+     * Controller main entry.
+     *
+     * There are no checks for the index method since the output is
+     * rendered in admin/admin.php
+     *
+     * @return TemplateResponse
+     */
+    public function index()
+    {
         $data = [
             'autoPurgeMinimumInterval' =>
-                $this->config->getAutoPurgeMinimumInterval(),
-            'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'maxRedirects' => $this->config->getMaxRedirects(),
-            'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
-            'useCronUpdates' => $this->config->getUseCronUpdates(),
-            'maxSize' => $this->config->getMaxSize(),
-            'exploreUrl' => $this->config->getExploreUrl(),
+                $this->_config->getAutoPurgeMinimumInterval(),
+            'autoPurgeCount' => $this->_config->getAutoPurgeCount(),
+            'maxRedirects' => $this->_config->getMaxRedirects(),
+            'feedFetcherTimeout' => $this->_config->getFeedFetcherTimeout(),
+            'useCronUpdates' => $this->_config->getUseCronUpdates(),
+            'maxSize' => $this->_config->getMaxSize(),
+            'exploreUrl' => $this->_config->getExploreUrl(),
         ];
         return new TemplateResponse($this->appName, 'admin', $data, 'blank');
     }
 
 
     /**
-     * @param int $autoPurgeMinimumInterval
-     * @param int $autoPurgeCount
-     * @param int $maxRedirects
-     * @param int $feedFetcherTimeout
-     * @param int $maxSize
-     * @param bool $useCronUpdates
-     * @param string $exploreUrl
+     * Update the app config.
+     *
+     * @param int    $autoPurgeMinimumInterval New minimum interval for auto-purge
+     * @param int    $autoPurgeCount           New value of auto-purge count
+     * @param int    $maxRedirects             New value for max amount of redirects
+     * @param int    $feedFetcherTimeout       New timeout value for feed fetcher
+     * @param int    $maxSize                  New max feed size
+     * @param bool   $useCronUpdates           Whether or not to use cron updates
+     * @param string $exploreUrl               URL to use for the explore feed
+     *
      * @return array with the updated values
      */
     public function update($autoPurgeMinimumInterval, $autoPurgeCount,
-                           $maxRedirects, $feedFetcherTimeout, $maxSize,
-                           $useCronUpdates, $exploreUrl) {
-        $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
-        $this->config->setAutoPurgeCount($autoPurgeCount);
-        $this->config->setMaxRedirects($maxRedirects);
-        $this->config->setMaxSize($maxSize);
-        $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
-        $this->config->setUseCronUpdates($useCronUpdates);
-        $this->config->setExploreUrl($exploreUrl);
-        $this->config->write($this->configPath);
+        $maxRedirects, $feedFetcherTimeout, $maxSize,
+        $useCronUpdates, $exploreUrl
+    ) {
+        $this->_config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
+        $this->_config->setAutoPurgeCount($autoPurgeCount);
+        $this->_config->setMaxRedirects($maxRedirects);
+        $this->_config->setMaxSize($maxSize);
+        $this->_config->setFeedFetcherTimeout($feedFetcherTimeout);
+        $this->_config->setUseCronUpdates($useCronUpdates);
+        $this->_config->setExploreUrl($exploreUrl);
+        $this->_config->write($this->_configPath);
 
         return [
             'autoPurgeMinimumInterval' =>
-                $this->config->getAutoPurgeMinimumInterval(),
-            'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'maxRedirects' => $this->config->getMaxRedirects(),
-            'maxSize' => $this->config->getMaxSize(),
-            'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
-            'useCronUpdates' => $this->config->getUseCronUpdates(),
-            'exploreUrl' => $this->config->getExploreUrl(),
+                $this->_config->getAutoPurgeMinimumInterval(),
+            'autoPurgeCount' => $this->_config->getAutoPurgeCount(),
+            'maxRedirects' => $this->_config->getMaxRedirects(),
+            'maxSize' => $this->_config->getMaxSize(),
+            'feedFetcherTimeout' => $this->_config->getFeedFetcherTimeout(),
+            'useCronUpdates' => $this->_config->getUseCronUpdates(),
+            'exploreUrl' => $this->_config->getExploreUrl(),
         ];
     }
 

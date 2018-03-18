@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db\Mysql;
@@ -16,9 +16,11 @@ namespace OCA\News\Db\Mysql;
 use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
-class ItemMapper extends \OCA\News\Db\ItemMapper {
+class ItemMapper extends \OCA\News\Db\ItemMapper
+{
 
-    public function __construct(IDBConnection $db, Time $time){
+    public function __construct(IDBConnection $db, Time $time)
+    {
         parent::__construct($db, $time);
     }
 
@@ -26,9 +28,11 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
     /**
      * Delete all items for feeds that have over $threshold unread and not
      * starred items
+     *
      * @param int $threshold the number of items that should be deleted
      */
-    public function deleteReadOlderThanThreshold($threshold){
+    public function deleteReadOlderThanThreshold($threshold)
+    {
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
         '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
@@ -62,7 +66,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper {
 
     }
 
-    public function readItem($itemId, $isRead, $lastModified, $userId) {
+    public function readItem($itemId, $isRead, $lastModified, $userId) 
+    {
         $item = $this->find($itemId, $userId);
 
         if ($isRead) {

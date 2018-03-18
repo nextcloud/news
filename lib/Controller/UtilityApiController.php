@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -21,18 +21,20 @@ use \OCA\News\Utility\Updater;
 use \OCA\News\Service\StatusService;
 
 
-class UtilityApiController extends ApiController {
+class UtilityApiController extends ApiController
+{
 
     private $updater;
     private $settings;
     private $statusService;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                Updater $updater,
-                                IConfig $settings,
-                                StatusService $statusService){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        Updater $updater,
+        IConfig $settings,
+        StatusService $statusService
+    ) {
+        parent::__construct($appName, $request);
         $this->updater = $updater;
         $this->settings = $settings;
         $this->statusService = $statusService;
@@ -44,9 +46,12 @@ class UtilityApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function version() {
-        $version = $this->settings->getAppValue($this->appName,
-            'installed_version');
+    public function version() 
+    {
+        $version = $this->settings->getAppValue(
+            $this->appName,
+            'installed_version'
+        );
         return ['version' => $version];
     }
 
@@ -55,7 +60,8 @@ class UtilityApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function beforeUpdate() {
+    public function beforeUpdate() 
+    {
         $this->updater->beforeUpdate();
     }
 
@@ -64,7 +70,8 @@ class UtilityApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function afterUpdate() {
+    public function afterUpdate() 
+    {
         $this->updater->afterUpdate();
     }
 
@@ -74,7 +81,8 @@ class UtilityApiController extends ApiController {
      * @NoCSRFRequired
      * @NoAdminRequired
      */
-    public function status() {
+    public function status() 
+    {
         return $this->statusService->getStatus();
     }
 

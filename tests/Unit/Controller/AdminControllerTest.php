@@ -5,18 +5,18 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
 
-
 use OCA\News\Controller\AdminController;
 
-class AdminControllerTest extends \PHPUnit_Framework_TestCase {
+class AdminControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $appName;
     private $request;
@@ -28,28 +28,35 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
     /**
      * Gets run before each test
      */
-    public function setUp(){
+    public function setUp()
+    {
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config')
+            '\OCA\News\Config\Config'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService')
+            '\OCA\News\Service\ItemService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->configPath = 'my.ini';
-        $this->controller = new AdminController($this->appName, $this->request,
-            $this->config, $this->itemService, $this->configPath);
+        $this->controller = new AdminController(
+            $this->appName, $this->request,
+            $this->config, $this->itemService, $this->configPath
+        );
     }
 
 
-    public function testIndex() {
+    public function testIndex() 
+    {
         $expected = [
             'autoPurgeMinimumInterval' => 1,
             'autoPurgeCount' => 2,
@@ -92,7 +99,8 @@ class AdminControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdate() {
+    public function testUpdate() 
+    {
         $expected = [
             'autoPurgeMinimumInterval' => 1,
             'autoPurgeCount' => 2,

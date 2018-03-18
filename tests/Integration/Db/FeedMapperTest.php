@@ -5,8 +5,8 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @author Daniel Opitz <dev@copynpaste.de>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Daniel Opitz <dev@copynpaste.de>
  * @copyright Bernhard Posselt 2015
  * @copyright Daniel Opitz 2017
  */
@@ -17,9 +17,11 @@ use OCA\News\Db\Feed;
 use OCA\News\Tests\Integration\IntegrationTest;
 use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 
-class FeedMapperTest extends IntegrationTest {
+class FeedMapperTest extends IntegrationTest
+{
 
-    public function testFind () {
+    public function testFind() 
+    {
         $feed = new FeedFixture();
         $feed = $this->feedMapper->insert($feed);
 
@@ -32,12 +34,14 @@ class FeedMapperTest extends IntegrationTest {
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
-    public function testFindNotExisting () {
+    public function testFindNotExisting() 
+    {
         $this->feedMapper->find(0, $this->user);
     }
 
 
-    public function testFindAll () {
+    public function testFindAll() 
+    {
         $feeds = [
             [
                 'userId' => $this->user,
@@ -59,7 +63,8 @@ class FeedMapperTest extends IntegrationTest {
         $this->tearDownUser('john');
     }
 
-    public function testFindAllEmpty () {
+    public function testFindAllEmpty() 
+    {
         $feeds = $this->feedMapper->findAll();
 
         $this->assertInternalType('array', $feeds);
@@ -67,7 +72,8 @@ class FeedMapperTest extends IntegrationTest {
     }
 
 
-    public function testFindAllFromUser () {
+    public function testFindAllFromUser() 
+    {
         $feeds = [
             [
                 'userId' => $this->user,
@@ -90,7 +96,8 @@ class FeedMapperTest extends IntegrationTest {
     }
 
 
-    public function testFindAllFromUserNotExisting () {
+    public function testFindAllFromUserNotExisting() 
+    {
         $fetched = $this->feedMapper->findAllFromUser('notexistinguser');
 
         $this->assertInternalType('array', $fetched);
@@ -98,11 +105,14 @@ class FeedMapperTest extends IntegrationTest {
     }
 
 
-    public function testFindByUrlHash () {
-        $feed = new FeedFixture([
+    public function testFindByUrlHash() 
+    {
+        $feed = new FeedFixture(
+            [
             'urlHash' => 'someTestHash',
             'title' => 'Some Test Title'
-        ]);
+            ]
+        );
         $feed = $this->feedMapper->insert($feed);
 
         $fetched = $this->feedMapper->findByUrlHash($feed->getUrlHash(), $this->user);
@@ -114,13 +124,22 @@ class FeedMapperTest extends IntegrationTest {
     /**
      * @expectedException OCP\AppFramework\Db\MultipleObjectsReturnedException
      */
-    public function testFindByUrlHashMoreThanOneResult () {
-        $feed1 = $this->feedMapper->insert(new FeedFixture([
-            'urlHash' => 'someTestHash'
-        ]));
-        $feed2 = $this->feedMapper->insert(new FeedFixture([
-            'urlHash' => 'someTestHash'
-        ]));
+    public function testFindByUrlHashMoreThanOneResult() 
+    {
+        $feed1 = $this->feedMapper->insert(
+            new FeedFixture(
+                [
+                'urlHash' => 'someTestHash'
+                ]
+            )
+        );
+        $feed2 = $this->feedMapper->insert(
+            new FeedFixture(
+                [
+                'urlHash' => 'someTestHash'
+                ]
+            )
+        );
 
         $this->feedMapper->findByUrlHash($feed1->getUrlHash(), $this->user);
     }
@@ -129,12 +148,14 @@ class FeedMapperTest extends IntegrationTest {
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
-    public function testFindByUrlHashNotExisting () {
+    public function testFindByUrlHashNotExisting() 
+    {
         $this->feedMapper->findByUrlHash('some random hash', $this->user);
     }
 
 
-    public function testDelete () {
+    public function testDelete() 
+    {
         $this->loadFixtures('default');
 
         $feeds = $this->feedMapper->findAllFromUser($this->user);
@@ -157,13 +178,16 @@ class FeedMapperTest extends IntegrationTest {
         $this->assertCount(0, $items);
     }
 
-    public function testGetToDelete () {
-        $this->loadFeedFixtures([
+    public function testGetToDelete() 
+    {
+        $this->loadFeedFixtures(
+            [
             ['deletedAt' => 1],
             ['deletedAt' => 0],
             ['deletedAt' => 1, 'userId' => 'john'],
             ['deletedAt' => 1000]
-        ]);
+            ]
+        );
 
         $fetched = $this->feedMapper->getToDelete();
 
@@ -174,13 +198,16 @@ class FeedMapperTest extends IntegrationTest {
         $this->tearDownUser('john');
     }
 
-    public function testGetToDeleteOlderThan () {
-        $this->loadFeedFixtures([
+    public function testGetToDeleteOlderThan() 
+    {
+        $this->loadFeedFixtures(
+            [
             ['deletedAt' => 1],
             ['deletedAt' => 0],
             ['deletedAt' => 1, 'userId' => 'john'],
             ['deletedAt' => 1000]
-        ]);
+            ]
+        );
 
         $fetched = $this->feedMapper->getToDelete(1000);
 
@@ -191,13 +218,16 @@ class FeedMapperTest extends IntegrationTest {
         $this->tearDownUser('john');
     }
 
-    public function testGetToDeleteUser () {
-        $this->loadFeedFixtures([
+    public function testGetToDeleteUser() 
+    {
+        $this->loadFeedFixtures(
+            [
             ['deletedAt' => 1],
             ['deletedAt' => 0],
             ['deletedAt' => 1, 'userId' => 'john'],
             ['deletedAt' => 1000]
-        ]);
+            ]
+        );
 
         $fetched = $this->feedMapper->getToDelete(2000, $this->user);
 
@@ -208,14 +238,16 @@ class FeedMapperTest extends IntegrationTest {
         $this->tearDownUser('john');
     }
 
-    public function testGetToDeleteEmpty () {
+    public function testGetToDeleteEmpty() 
+    {
         $fetched = $this->feedMapper->getToDelete();
 
         $this->assertInternalType('array', $fetched);
         $this->assertCount(0, $fetched);
     }
 
-    public function testDeleteUser () {
+    public function testDeleteUser() 
+    {
         $this->loadFixtures('default');
 
         $this->assertCount(4, $this->feedMapper->findAllFromUser($this->user));
@@ -231,7 +263,8 @@ class FeedMapperTest extends IntegrationTest {
         $this->assertCount(0, $items);
     }
 
-    public function testDeleteUserNotExisting () {
+    public function testDeleteUserNotExisting() 
+    {
         $this->feedMapper->deleteUser('notexistinguser');
     }
 }

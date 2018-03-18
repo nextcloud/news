@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Daniel Opitz <dev@copynpaste.de>
+ * @author    Daniel Opitz <dev@copynpaste.de>
  * @copyright Daniel Opitz 2017
  */
 
@@ -18,22 +18,31 @@ use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use Test\TestCase;
 
-class MigrateStatusFlagsTest extends TestCase {
+class MigrateStatusFlagsTest extends TestCase
+{
 
-    /** @var IDBConnection|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var IDBConnection|\PHPUnit_Framework_MockObject_MockObject 
+     */
     protected $db;
-    /** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var IConfig|\PHPUnit_Framework_MockObject_MockObject 
+     */
     protected $config;
-    /** @var IOutput|\PHPUnit_Framework_MockObject_MockObject */
+    /**
+     * @var IOutput|\PHPUnit_Framework_MockObject_MockObject 
+     */
     protected $output;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->db = $this->createMock(IDBConnection::class);
         $this->config = $this->createMock(IConfig::class);
         $this->output = $this->createMock(IOutput::class);
     }
 
-    public function testRun() {
+    public function testRun() 
+    {
         $statement = $this->createMock(Statement::class);
         $statement->expects($this->exactly(1))
             ->method('execute')
@@ -61,7 +70,8 @@ class MigrateStatusFlagsTest extends TestCase {
     /**
      * @expectedException \Exception
      */
-    public function testRunException() {
+    public function testRunException() 
+    {
         $statement = $this->createMock(Statement::class);
         $statement->expects($this->exactly(1))
             ->method('execute')
@@ -86,7 +96,8 @@ class MigrateStatusFlagsTest extends TestCase {
         $migration->run($this->output);
     }
 
-    public function testRunNewerVersion() {
+    public function testRunNewerVersion() 
+    {
         $this->config->expects($this->exactly(1))
             ->method('getAppValue')
             ->with('news', 'installed_version', '0.0.0')

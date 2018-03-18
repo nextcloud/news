@@ -5,27 +5,29 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Utility;
 
 /**
-* Exports the OPML
-*/
-class OPMLExporter {
+ * Exports the OPML
+ */
+class OPMLExporter
+{
 
     /**
      * Generates the OPML for the active user
      *
-     * @param \OCA\News\Db\Folder[] $folders
-     * @param \OCA\News\Db\Feed[] $feeds
+     * @param  \OCA\News\Db\Folder[] $folders
+     * @param  \OCA\News\Db\Feed[]   $feeds
      * @return \DomDocument the document
      */
-    public function build($folders, $feeds){
+    public function build($folders, $feeds)
+    {
         $document = new \DomDocument('1.0', 'UTF-8');
         $document->formatOutput = true;
 
@@ -76,7 +78,8 @@ class OPMLExporter {
     }
 
 
-    protected function createFeedOutline($feed, $document) {
+    protected function createFeedOutline($feed, $document) 
+    {
         $feedOutline = $document->createElement('outline');
         $feedOutline->setAttribute('title', $feed->getTitle());
         $feedOutline->setAttribute('text', $feed->getTitle());

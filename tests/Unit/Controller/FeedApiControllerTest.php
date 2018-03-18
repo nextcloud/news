@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -23,7 +23,8 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 
 
-class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
+class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $feedService;
     private $itemService;
@@ -35,24 +36,29 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     private $logger;
     private $loggerParams;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->user = 'tom';
         $this->loggerParams = ['hi'];
         $this->logger = $this->getMockBuilder(
-            '\OCP\ILogger')
+            '\OCP\ILogger'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedService = $this->getMockBuilder(
-            '\OCA\News\Service\FeedService')
+            '\OCA\News\Service\FeedService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService')
+            '\OCA\News\Service\ItemService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedAPI = new FeedApiController(
@@ -68,7 +74,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndex() {
+    public function testIndex() 
+    {
         $feeds = [new Feed()];
         $starredCount = 3;
         $newestItemId = 2;
@@ -88,15 +95,18 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->feedAPI->index();
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'feeds' => [$feeds[0]->toAPI()],
             'starredCount' => $starredCount,
             'newestItemId' => $newestItemId
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testIndexNoNewestItemId() {
+    public function testIndexNoNewestItemId() 
+    {
         $feeds = [new Feed()];
         $starredCount = 3;
 
@@ -115,29 +125,36 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->feedAPI->index();
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'feeds' => [$feeds[0]->toAPI()],
             'starredCount' => $starredCount,
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testDelete() {
+    public function testDelete() 
+    {
         $this->feedService->expects($this->once())
             ->method('delete')
             ->with(
                 $this->equalTo(2),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
 
         $this->feedAPI->delete(2);
     }
 
 
-    public function testDeleteDoesNotExist() {
+    public function testDeleteDoesNotExist() 
+    {
         $this->feedService->expects($this->once())
             ->method('delete')
-            ->will($this->throwException(
-                new ServiceNotFoundException($this->msg))
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
             );
 
         $response = $this->feedAPI->delete(2);
@@ -148,7 +165,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreate() {
+    public function testCreate() 
+    {
         $feeds = [new Feed()];
 
         $this->feedService->expects($this->once())
@@ -159,7 +177,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->with(
                 $this->equalTo('url'),
                 $this->equalTo(3),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue($feeds[0]));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
@@ -167,14 +186,17 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->feedAPI->create('url', 3);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'feeds' => [$feeds[0]->toAPI()],
             'newestItemId' => 3
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testCreateNoItems() {
+    public function testCreateNoItems() 
+    {
         $feeds = [new Feed()];
 
         $this->feedService->expects($this->once())
@@ -185,7 +207,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->with(
                 $this->equalTo('ho'),
                 $this->equalTo(3),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue($feeds[0]));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
@@ -193,14 +216,17 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->feedAPI->create('ho', 3);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'feeds' => [$feeds[0]->toAPI()]
-        ], $response);
+            ], $response
+        );
     }
 
 
 
-    public function testCreateExists() {
+    public function testCreateExists() 
+    {
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->equalTo($this->user), $this->equalTo(false));
@@ -218,7 +244,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreateError() {
+    public function testCreateError() 
+    {
         $this->feedService->expects($this->once())
             ->method('create')
             ->will(
@@ -233,31 +260,36 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRead() {
+    public function testRead() 
+    {
         $this->itemService->expects($this->once())
             ->method('readFeed')
             ->with(
                 $this->equalTo(3),
                 $this->equalTo(30),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
 
         $this->feedAPI->read(3, 30);
     }
 
 
-    public function testMove() {
+    public function testMove() 
+    {
         $this->feedService->expects($this->once())
             ->method('patch')
             ->with(
                 $this->equalTo(3),
                 $this->equalTo($this->user),
-                $this->equalTo(['folderId' => 30]));
+                $this->equalTo(['folderId' => 30])
+            );
 
         $this->feedAPI->move(3, 30);
     }
 
 
-    public function testMoveDoesNotExist() {
+    public function testMoveDoesNotExist() 
+    {
         $this->feedService->expects($this->once())
             ->method('patch')
             ->will(
@@ -272,7 +304,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRename() {
+    public function testRename() 
+    {
         $feedId = 3;
         $feedTitle = 'test';
 
@@ -281,13 +314,15 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->with(
                 $this->equalTo($feedId),
                 $this->equalTo($this->user),
-                $this->equalTo(['title' => $feedTitle]));
+                $this->equalTo(['title' => $feedTitle])
+            );
 
         $this->feedAPI->rename($feedId, $feedTitle);
     }
 
 
-    public function testRenameError() {
+    public function testRenameError() 
+    {
         $feedId = 3;
         $feedTitle = 'test';
 
@@ -296,7 +331,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->with(
                 $this->equalTo($feedId),
                 $this->equalTo($this->user),
-                $this->equalTo(['title' => $feedTitle]))
+                $this->equalTo(['title' => $feedTitle])
+            )
             ->will($this->throwException(new ServiceNotFoundException('hi')));
 
         $result = $this->feedAPI->rename($feedId, $feedTitle);
@@ -308,7 +344,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testfromAllUsers(){
+    public function testfromAllUsers()
+    {
         $feed = new Feed();
         $feed->setUrl(3);
         $feed->setId(1);
@@ -322,7 +359,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdate() {
+    public function testUpdate() 
+    {
         $feedId = 3;
         $userId = 'hi';
 
@@ -334,7 +372,8 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdateError() {
+    public function testUpdateError() 
+    {
         $feedId = 3;
         $userId = 'hi';
         $this->feedService->expects($this->once())
@@ -342,8 +381,10 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->throwException(new \Exception($this->msg)));
         $this->logger->expects($this->once())
             ->method('debug')
-            ->with($this->equalTo('Could not update feed ' . $this->msg),
-                $this->equalTo($this->loggerParams));
+            ->with(
+                $this->equalTo('Could not update feed ' . $this->msg),
+                $this->equalTo($this->loggerParams)
+            );
 
         $this->feedAPI->update($userId, $feedId);
 

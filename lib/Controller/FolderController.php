@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -25,7 +25,8 @@ use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
 
-class FolderController extends Controller {
+class FolderController extends Controller
+{
 
     use JSONHttpError;
 
@@ -34,13 +35,14 @@ class FolderController extends Controller {
     private $itemService;
     private $userId;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                FolderService $folderService,
-                                FeedService $feedService,
-                                ItemService $itemService,
-                                $UserId) {
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        FolderService $folderService,
+        FeedService $feedService,
+        ItemService $itemService,
+        $UserId
+    ) {
+        parent::__construct($appName, $request);
         $this->folderService = $folderService;
         $this->feedService = $feedService;
         $this->itemService = $itemService;
@@ -51,7 +53,8 @@ class FolderController extends Controller {
     /**
      * @NoAdminRequired
      */
-    public function index() {
+    public function index() 
+    {
         $folders = $this->folderService->findAll($this->userId);
         return ['folders' => $folders];
     }
@@ -60,11 +63,12 @@ class FolderController extends Controller {
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
+     * @param int  $folderId
      * @param bool $open
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function open($folderId, $open) {
+    public function open($folderId, $open) 
+    {
         try {
             $this->folderService->open($folderId, $open, $this->userId);
         } catch(ServiceNotFoundException $ex) {
@@ -81,7 +85,8 @@ class FolderController extends Controller {
      * @param string $folderName
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($folderName) {
+    public function create($folderName) 
+    {
         try {
             // we need to purge deleted folders if a folder is created to
             // prevent already exists exceptions
@@ -105,7 +110,8 @@ class FolderController extends Controller {
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function delete($folderId) {
+    public function delete($folderId) 
+    {
         try {
             $this->folderService->markDeleted($folderId, $this->userId);
         } catch (ServiceNotFoundException $ex){
@@ -120,13 +126,16 @@ class FolderController extends Controller {
      * @NoAdminRequired
      *
      * @param string $folderName
-     * @param int $folderId
+     * @param int    $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function rename($folderName, $folderId) {
+    public function rename($folderName, $folderId) 
+    {
         try {
-            $folder = $this->folderService->rename($folderId, $folderName,
-                $this->userId);
+            $folder = $this->folderService->rename(
+                $folderId, $folderName,
+                $this->userId
+            );
 
             return ['folders' => [$folder]];
 
@@ -147,7 +156,8 @@ class FolderController extends Controller {
      * @param int $highestItemId
      * @return array
      */
-    public function read($folderId, $highestItemId) {
+    public function read($folderId, $highestItemId) 
+    {
         $this->itemService->readFolder(
             $folderId, $highestItemId, $this->userId
         );
@@ -162,7 +172,8 @@ class FolderController extends Controller {
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function restore($folderId) {
+    public function restore($folderId) 
+    {
         try {
             $this->folderService->unmarkDeleted($folderId, $this->userId);
         } catch (ServiceNotFoundException $ex){

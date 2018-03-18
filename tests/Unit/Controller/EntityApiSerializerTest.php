@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -19,15 +19,18 @@ use \OCP\AppFramework\Db\Entity;
 
 use \OCA\News\Db\Item;
 
-class TestEntity extends Entity {
+class TestEntity extends Entity
+{
 
 }
 
 
-class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
+class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase
+{
 
 
-    public function testSerializeSingle() {
+    public function testSerializeSingle() 
+    {
         $item = new Item();
         $item->setUnread(true);
 
@@ -38,7 +41,8 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testSerializeMultiple() {
+    public function testSerializeMultiple() 
+    {
         $item = new Item();
         $item->setUnread(true);
 
@@ -54,7 +58,8 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testResponseNoChange() {
+    public function testResponseNoChange() 
+    {
         $response = new Response();
         $serializer = new EntityApiSerializer('items');
 
@@ -64,7 +69,8 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCompleteArraysTransformed() {
+    public function testCompleteArraysTransformed() 
+    {
         $item = new Item();
         $item->setUnread(true);
 
@@ -86,7 +92,8 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testNoEntityNoChange() {
+    public function testNoEntityNoChange() 
+    {
         $serializer = new EntityApiSerializer('items');
 
         $in = [
@@ -102,7 +109,8 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testEntitiesNoChange() {
+    public function testEntitiesNoChange() 
+    {
         $serializer = new EntityApiSerializer('items');
 
         $in = [

@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Db;
@@ -43,7 +43,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testFind(){
+    public function testFind()
+    {
         $userId = 'john';
         $id = 3;
         $rows = [['id' => $this->folders[0]->getId()]];
@@ -59,7 +60,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testFindNotFound(){
+    public function testFindNotFound()
+    {
         $userId = 'john';
         $id = 3;
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
@@ -75,7 +77,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testFindMoreThanOneResultFound(){
+    public function testFindMoreThanOneResultFound()
+    {
         $userId = 'john';
         $id = 3;
         $rows = $this->twoRows;
@@ -93,7 +96,8 @@ class FolderMapperTest extends MapperTestUtility
 
 
 
-    public function testFindAllFromUser(){
+    public function testFindAllFromUser()
+    {
         $userId = 'john';
         $rows = $this->twoRows;
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
@@ -107,7 +111,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testFindByName(){
+    public function testFindByName()
+    {
         $folderName = 'heheh';
         $userId = 'john';
         $rows = $this->twoRows;
@@ -122,7 +127,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testDelete(){
+    public function testDelete()
+    {
         $folder = new Folder();
         $folder->setId(3);
 
@@ -143,7 +149,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testGetPurgeDeleted(){
+    public function testGetPurgeDeleted()
+    {
         $rows = $this->twoRows;
         $deleteOlderThan = 110;
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
@@ -157,7 +164,8 @@ class FolderMapperTest extends MapperTestUtility
 
 
 
-    public function testGetPurgeDeletedUser(){
+    public function testGetPurgeDeletedUser()
+    {
         $rows = $this->twoRows;
         $deleteOlderThan = 110;
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
@@ -173,7 +181,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testGetAllPurgeDeletedUser(){
+    public function testGetAllPurgeDeletedUser()
+    {
         $rows = $this->twoRows;
 
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
@@ -186,7 +195,8 @@ class FolderMapperTest extends MapperTestUtility
     }
 
 
-    public function testDeleteFromUser(){
+    public function testDeleteFromUser()
+    {
         $userId = 'john';
         $sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
 

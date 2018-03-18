@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -22,7 +22,8 @@ use OCA\News\Service\ServiceNotFoundException;
 use OCA\News\Service\ServiceConflictException;
 
 
-class FeedControllerTest extends \PHPUnit_Framework_TestCase {
+class FeedControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $appName;
     private $feedService;
@@ -38,11 +39,13 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     /**
      * Gets run before each test
      */
-    public function setUp(){
+    public function setUp()
+    {
         $this->appName = 'news';
         $this->user = 'jack';
         $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig')
+            '\OCP\IConfig'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this
@@ -58,15 +61,18 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
-        $this->controller = new FeedController($this->appName, $this->request,
-                $this->folderService,
-                $this->feedService,
-                $this->itemService,
-                $this->settings,
-                $this->user);
+        $this->controller = new FeedController(
+            $this->appName, $this->request,
+            $this->folderService,
+            $this->feedService,
+            $this->itemService,
+            $this->settings,
+            $this->user
+        );
         $this->exampleResult = [
             'activeFeed' => [
                 'id' => 0,
@@ -76,7 +82,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndex(){
+    public function testIndex()
+    {
         $result = [
             'feeds' => [
                 ['a feed'],
@@ -102,7 +109,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndexHighestItemIdExists(){
+    public function testIndexHighestItemIdExists()
+    {
         $result = [
             'feeds' => [
                 ['a feed'],
@@ -130,23 +138,29 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
 
 
-    private function activeInitMocks($id, $type){
+    private function activeInitMocks($id, $type)
+    {
         $this->settings->expects($this->at(0))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedId'))
+                $this->equalTo('lastViewedFeedId')
+            )
             ->will($this->returnValue($id));
         $this->settings->expects($this->at(1))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedType'))
+                $this->equalTo('lastViewedFeedType')
+            )
             ->will($this->returnValue($type));
     }
 
 
-    public function testActive(){
+    public function testActive()
+    {
         $id = 3;
         $type = FeedType::STARRED;
         $result = [
@@ -164,7 +178,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testActiveFeedDoesNotExist(){
+    public function testActiveFeedDoesNotExist()
+    {
         $id = 3;
         $type = FeedType::FEED;
         $ex = new ServiceNotFoundException('hiu');
@@ -183,7 +198,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testActiveFolderDoesNotExist(){
+    public function testActiveFolderDoesNotExist()
+    {
         $id = 3;
         $type = FeedType::FOLDER;
         $ex = new ServiceNotFoundException('hiu');
@@ -202,7 +218,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testActiveActiveIsNull(){
+    public function testActiveActiveIsNull()
+    {
         $id = 3;
         $type = null;
         $result = $this->exampleResult;
@@ -216,7 +233,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreate(){
+    public function testCreate()
+    {
         $result = [
             'feeds' => [new Feed()],
             'newestItemId' => 3
@@ -230,10 +248,12 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($this->user), $this->equalTo(false));
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with($this->equalTo('hi'),
+            ->with(
+                $this->equalTo('hi'),
                 $this->equalTo(4),
                 $this->equalTo($this->user),
-                $this->equalTo('yo'))
+                $this->equalTo('yo')
+            )
             ->will($this->returnValue($result['feeds'][0]));
 
         $response = $this->controller->create('hi', 4, 'yo');
@@ -242,7 +262,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreateNoItems(){
+    public function testCreateNoItems()
+    {
         $result = ['feeds' => [new Feed()]];
 
         $this->feedService->expects($this->once())
@@ -255,10 +276,12 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with($this->equalTo('hi'),
+            ->with(
+                $this->equalTo('hi'),
                 $this->equalTo(4),
                 $this->equalTo($this->user),
-                $this->equalTo('yo'))
+                $this->equalTo('yo')
+            )
             ->will($this->returnValue($result['feeds'][0]));
 
         $response = $this->controller->create('hi', 4, 'yo');
@@ -267,7 +290,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreateReturnsErrorForInvalidCreate(){
+    public function testCreateReturnsErrorForInvalidCreate()
+    {
         $msg = 'except';
         $ex = new ServiceNotFoundException($msg);
         $this->feedService->expects($this->once())
@@ -287,7 +311,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreateReturnsErrorForDuplicateCreate(){
+    public function testCreateReturnsErrorForDuplicateCreate()
+    {
         $msg = 'except';
         $ex = new ServiceConflictException($msg);
         $this->feedService->expects($this->once())
@@ -305,7 +330,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testDelete(){
+    public function testDelete()
+    {
         $this->feedService->expects($this->once())
             ->method('markDeleted')
             ->with($this->equalTo(4));
@@ -314,7 +340,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testDeleteDoesNotExist(){
+    public function testDeleteDoesNotExist()
+    {
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())
@@ -329,7 +356,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdate(){
+    public function testUpdate()
+    {
         $feed = new Feed();
         $feed->setId(3);
         $feed->setUnreadCount(44);
@@ -353,7 +381,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUpdateReturnsJSONError(){
+    public function testUpdateReturnsJSONError()
+    {
         $this->feedService->expects($this->once())
             ->method('update')
             ->with($this->equalTo(4), $this->equalTo($this->user))
@@ -367,7 +396,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testImport() {
+    public function testImport() 
+    {
         $feed = new Feed();
 
         $expected = [
@@ -377,8 +407,10 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->feedService->expects($this->once())
             ->method('importArticles')
-            ->with($this->equalTo(['json']),
-                $this->equalTo($this->user))
+            ->with(
+                $this->equalTo(['json']),
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue($feed));
 
         $this->itemService->expects($this->once())
@@ -392,11 +424,14 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testImportCreatesNoAdditionalFeed() {
+    public function testImportCreatesNoAdditionalFeed() 
+    {
         $this->feedService->expects($this->once())
             ->method('importArticles')
-            ->with($this->equalTo(['json']),
-                $this->equalTo($this->user))
+            ->with(
+                $this->equalTo(['json']),
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue(null));
 
         $this->itemService->expects($this->once())
@@ -410,7 +445,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testReadFeed(){
+    public function testReadFeed()
+    {
         $expected = [
             'feeds' => [
                 [
@@ -429,7 +465,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRestore() {
+    public function testRestore() 
+    {
         $this->feedService->expects($this->once())
             ->method('unmarkDeleted')
             ->with($this->equalTo(4));
@@ -438,7 +475,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRestoreDoesNotExist(){
+    public function testRestoreDoesNotExist()
+    {
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())
@@ -452,7 +490,8 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
-    public function testPatch() {
+    public function testPatch() 
+    {
         $expected = [
             'pinned' => true,
             'fullTextEnabled' => true,
@@ -460,15 +499,18 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
         ];
         $this->feedService->expects($this->once())
             ->method('patch')
-            ->with($this->equalTo(4),
-                    $this->equalTo($this->user),
-                    $this->equalTo($expected))
+            ->with(
+                $this->equalTo(4),
+                $this->equalTo($this->user),
+                $this->equalTo($expected)
+            )
             ->will($this->returnValue(1));
 
         $this->controller->patch(4, true, true, 1);
     }
 
-    public function testPatchDoesNotExist(){
+    public function testPatchDoesNotExist()
+    {
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())

@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Db;
@@ -16,46 +16,55 @@ namespace OCA\News\Tests\Unit\Db;
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 
-class ItemTest extends \PHPUnit_Framework_TestCase {
+class ItemTest extends \PHPUnit_Framework_TestCase
+{
 
-    /** @var Item */
+    /**
+     * @var Item 
+     */
     private $item;
 
-    protected function setUp(){
+    protected function setUp()
+    {
         $this->item = new Item();
         $this->item->setStatus(0);
     }
 
 
-    public function testSetRead(){
+    public function testSetRead()
+    {
         $this->item->setUnread(false);
 
         $this->assertFalse($this->item->isUnread());
     }
 
 
-    public function testSetUnread(){
+    public function testSetUnread()
+    {
         $this->item->setUnread(true);
 
         $this->assertTrue($this->item->isUnread());
     }
 
 
-    public function testSetStarred(){
+    public function testSetStarred()
+    {
         $this->item->setStarred(true);
 
         $this->assertTrue($this->item->isStarred());
     }
 
 
-    public function testSetUnstarred(){
+    public function testSetUnstarred()
+    {
         $this->item->setStarred(false);
 
         $this->assertFalse($this->item->isStarred());
     }
 
 
-    public function testToAPI() {
+    public function testToAPI() 
+    {
         $item = new Item();
         $item->setId(3);
         $item->setGuid('guid');
@@ -77,7 +86,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setFingerprint('fingerprint');
         $item->setContentHash('contentHash');
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'id' => 3,
             'guid' => 'guid',
             'guidHash' => 'hash',
@@ -96,11 +106,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'rtl' => true,
             'fingerprint' => 'fingerprint',
             'contentHash' => 'contentHash'
-            ], $item->toAPI());
+            ], $item->toAPI()
+        );
     }
 
 
-    public function testJSONSerialize() {
+    public function testJSONSerialize() 
+    {
         $item = new Item();
         $item->setId(3);
         $item->setGuid('guid');
@@ -121,7 +133,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setStarred(true);
         $item->setLastModified(321);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'id' => 3,
             'guid' => 'guid',
             'guidHash' => 'hash',
@@ -140,10 +153,12 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'rtl' => true,
             'intro' => 'this is a test',
             'fingerprint' => 'fingerprint'
-            ], $item->jsonSerialize());
+            ], $item->jsonSerialize()
+        );
     }
 
-    public function testToExport() {
+    public function testToExport() 
+    {
         $item = new Item();
         $item->setId(3);
         $item->setGuid('guid');
@@ -167,7 +182,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $feed->setLink('http://test');
         $feeds = ["feed1" => $feed];
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'guid' => 'guid',
             'url' => 'https://google',
             'title' => 'title',
@@ -181,11 +197,13 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
             'starred' => true,
             'feedLink' => 'http://test',
             'rtl' => true
-            ], $item->toExport($feeds));
+            ], $item->toExport($feeds)
+        );
     }
 
 
-    private function createImportItem($isRead) {
+    private function createImportItem($isRead) 
+    {
         $item = new Item();
         $item->setGuid('guid');
         $item->setGuidHash('guid');
@@ -210,7 +228,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testSearchIndex() {
+    public function testSearchIndex() 
+    {
         $item = new Item();
         $item->setBody('<a>somEth&auml;ng</a>');
         $item->setUrl('http://link');
@@ -222,7 +241,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testFromImport() {
+    public function testFromImport() 
+    {
         $item = $this->createImportItem(false);
 
         $import = [
@@ -246,7 +266,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testFromImportRead() {
+    public function testFromImportRead() 
+    {
         $item = $this->createImportItem(true);
 
         $import = [
@@ -271,7 +292,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
 
 
-    public function testSetAuthor(){
+    public function testSetAuthor()
+    {
         $item = new Item();
         $item->setAuthor('<a>my link</li>');
         $this->assertEquals('my link', $item->getAuthor());
@@ -279,7 +301,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testSetTitle(){
+    public function testSetTitle()
+    {
         $item = new Item();
         $item->setTitle('<a>my link</li>');
         $this->assertEquals('my link', $item->getTitle());
@@ -287,28 +310,34 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testSetXSSUrl() {
+    public function testSetXSSUrl() 
+    {
         $item = new Item();
         $item->setUrl('javascript:alert()');
         $this->assertEquals('', $item->getUrl());
     }
 
 
-    public function testSetMagnetUrl() {
+    public function testSetMagnetUrl() 
+    {
         $item = new Item();
         $item->setUrl('magnet://link.com');
         $this->assertEquals('magnet://link.com', $item->getUrl());
     }
 
 
-    public function testMakeLinksInBodyOpenNewTab() {
+    public function testMakeLinksInBodyOpenNewTab() 
+    {
         $item = new Item();
         $item->setBody("<a href=\"test\">ha</a>");
-        $this->assertEquals("<a target=\"_blank\" rel=\"noreferrer\" href=\"test\">ha</a>",
-            $item->getBody());
+        $this->assertEquals(
+            "<a target=\"_blank\" rel=\"noreferrer\" href=\"test\">ha</a>",
+            $item->getBody()
+        );
     }
 
-    public function testComputeFingerPrint() {
+    public function testComputeFingerPrint() 
+    {
         $title = 'a';
         $body = 'b';
         $url = 'http://google.com';
@@ -321,8 +350,10 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setEnclosureLink($link);
         $item->generateSearchIndex();
 
-        $this->assertEquals(md5($title . $url . $body . $link),
-                            $item->getFingerprint());
+        $this->assertEquals(
+            md5($title . $url . $body . $link),
+            $item->getFingerprint()
+        );
     }
 
 }

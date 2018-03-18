@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2015
  */
 
@@ -15,12 +15,15 @@ namespace OCA\News\Tests\Integration\Fixtures;
 
 use OCA\News\Db\Item;
 
-class ItemFixture extends Item {
+class ItemFixture extends Item
+{
     use Fixture;
 
-    public function __construct(array $defaults=[])  {
+    public function __construct(array $defaults=[])  
+    {
         parent::__construct();
-        $defaults = array_merge([
+        $defaults = array_merge(
+            [
             'url' => 'http://google.de',
             'title' => 'title',
             'author' => 'my author',
@@ -33,7 +36,8 @@ class ItemFixture extends Item {
             'starred' => false,
             'lastModified' => 113,
             'rtl' => false,
-        ], $defaults);
+            ], $defaults
+        );
 
         if (!array_key_exists('guid', $defaults)) {
             $defaults['guid'] = $defaults['title'];

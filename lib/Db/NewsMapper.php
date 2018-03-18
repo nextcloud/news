@@ -7,8 +7,8 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db;
@@ -18,7 +18,8 @@ use OCP\IDBConnection;
 use OCP\AppFramework\Db\Mapper;
 use OCP\AppFramework\Db\Entity;
 
-abstract class NewsMapper extends Mapper {
+abstract class NewsMapper extends Mapper
+{
 
     /**
      * @var Time
@@ -26,23 +27,26 @@ abstract class NewsMapper extends Mapper {
     private $time;
 
     public function __construct(IDBConnection $db, $table, $entity,
-                                Time $time) {
+        Time $time
+    ) {
         parent::__construct($db, $table, $entity);
         $this->time = $time;
     }
 
-    public function update(Entity $entity) {
+    public function update(Entity $entity) 
+    {
         $entity->setLastModified($this->time->getMicroTime());
         return parent::update($entity);
     }
 
-    public function insert(Entity $entity) {
+    public function insert(Entity $entity) 
+    {
         $entity->setLastModified($this->time->getMicroTime());
         return parent::insert($entity);
     }
 
     /**
-     * @param int $id        the id of the feed
+     * @param int    $id     the id of the feed
      * @param string $userId the id of the user
      *
      * @return \OCP\AppFramework\Db\Entity
@@ -57,27 +61,30 @@ abstract class NewsMapper extends Mapper {
      * Important: This method does not filter marked as deleted rows!
      *
      * @param array $search an assoc array from property to filter value
-     * @param int $limit
+     * @param int   $limit
      *
-     * @paran int $offset
+     * @paran  int $offset
      * @return array
      */
-    public function where(array $search = [], $limit = null, $offset = null) {
+    public function where(array $search = [], $limit = null, $offset = null) 
+    {
         $entity = new $this->entityClass;
 
         // turn keys into sql query filter, e.g. feedId -> feed_id = :feedId
-        $filter = array_map(function ($property) use ($entity) {
-            // check if the property actually exists on the entity to prevent
-            // accidental Sql injection
-            if (!property_exists($entity, $property)) {
-                $msg = 'Property ' . $property . ' does not exist on '
+        $filter = array_map(
+            function ($property) use ($entity) {
+                // check if the property actually exists on the entity to prevent
+                // accidental Sql injection
+                if (!property_exists($entity, $property)) {
+                    $msg = 'Property ' . $property . ' does not exist on '
                     . $this->entityClass;
-                throw new \BadFunctionCallException($msg);
-            }
+                    throw new \BadFunctionCallException($msg);
+                }
 
-            $column = $entity->propertyToColumn($property);
-            return $column . ' = :' . $property;
-        }, array_keys($search));
+                $column = $entity->propertyToColumn($property);
+                return $column . ' = :' . $property;
+            }, array_keys($search)
+        );
 
         $andStatement = implode(' AND ', $filter);
 

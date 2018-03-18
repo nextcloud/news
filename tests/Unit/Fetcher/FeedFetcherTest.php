@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Fetcher;
@@ -20,7 +20,8 @@ use OCP\Http\Client\IClientService;
 use PicoFeed\Processor\ItemPostProcessor;
 
 
-class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
+class FeedFetcherTest extends \PHPUnit_Framework_TestCase
+{
 
     private $fetcher;
     private $parser;
@@ -58,43 +59,53 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     private $location;
     private $feedLanguage;
 
-    protected function setUp(){
+    protected function setUp()
+    {
         $this->l10n = $this->getMockBuilder(
-            '\OCP\IL10N')
+            '\OCP\IL10N'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->reader = $this->getMockBuilder(
-            '\PicoFeed\Reader\Reader')
+            '\PicoFeed\Reader\Reader'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->parser = $this->getMockBuilder(
-            '\PicoFeed\Parser\Parser')
+            '\PicoFeed\Parser\Parser'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->client = $this->getMockBuilder(
-            '\PicoFeed\Client\Client')
+            '\PicoFeed\Client\Client'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->parsedFeed = $this->getMockBuilder(
-            '\PicoFeed\Parser\Feed')
+            '\PicoFeed\Parser\Feed'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->item = $this->getMockBuilder(
-            '\PicoFeed\Parser\Item')
+            '\PicoFeed\Parser\Item'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFetcher = $this->getMockBuilder(
-            '\PicoFeed\Reader\Favicon')
+            '\PicoFeed\Reader\Favicon'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->faviconFactory = $this->getMockBuilder(
-            '\OCA\News\Utility\PicoFeedFaviconFactory')
+            '\OCA\News\Utility\PicoFeedFaviconFactory'
+        )
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->time = 2323;
         $timeFactory = $this->getMockBuilder(
-            '\OCA\News\Utility\Time')
+            '\OCA\News\Utility\Time'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
@@ -108,11 +119,12 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $clientService = $this->getMockBuilder(IClientService::class)
             ->getMock();
         $this->fetcher = new FeedFetcher(
-                        $this->reader,
-                        $this->faviconFactory,
-                        $this->l10n,
-                        $timeFactory,
-                        $clientService);
+            $this->reader,
+            $this->faviconFactory,
+            $this->l10n,
+            $timeFactory,
+            $clientService
+        );
         $this->url = 'http://tests';
 
         $this->permalink = 'http://permalink';
@@ -140,13 +152,15 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCanHandle(){
+    public function testCanHandle()
+    {
         $url = 'google.de';
 
         $this->assertTrue($this->fetcher->canHandle($url));
     }
 
-    private function setUpReader($url='', $modified=true, $noParser=false) {
+    private function setUpReader($url='', $modified=true, $noParser=false) 
+    {
         $this->reader->expects($this->once())
             ->method('discover')
             ->with($this->equalTo($url))
@@ -178,9 +192,11 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
             if ($noParser) {
                 $this->reader->expects($this->once())
                     ->method('getParser')
-                    ->will($this->throwException(
-                        new \PicoFeed\Reader\SubscriptionNotFoundException()
-                    ));
+                    ->will(
+                        $this->throwException(
+                            new \PicoFeed\Reader\SubscriptionNotFoundException()
+                        )
+                    );
             } else {
                 $this->reader->expects($this->once())
                     ->method('getParser')
@@ -200,20 +216,23 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    private function expectFeed($method, $return, $count = 1) {
+    private function expectFeed($method, $return, $count = 1) 
+    {
         $this->parsedFeed->expects($this->exactly($count))
             ->method($method)
             ->will($this->returnValue($return));
     }
 
-    private function expectItem($method, $return, $count = 1) {
+    private function expectItem($method, $return, $count = 1) 
+    {
         $this->item->expects($this->exactly($count))
             ->method($method)
             ->will($this->returnValue($return));
     }
 
 
-    private function createItem($enclosureType=null) {
+    private function createItem($enclosureType=null) 
+    {
         $this->expectItem('getUrl', $this->permalink);
         $this->expectItem('getTitle', $this->title);
         $this->expectItem('getId', $this->guid);
@@ -223,11 +242,11 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
         date_default_timezone_set('America/Los_Angeles');
 
-        $pubdate = \Datetime::createFromFormat('U',$this->pub);
+        $pubdate = \Datetime::createFromFormat('U', $this->pub);
         $this->expectItem('getPublishedDate', $pubdate);
         $item->setPubDate($this->pub);
 
-        $update = \Datetime::createFromFormat('U',$this->updated);
+        $update = \Datetime::createFromFormat('U', $this->updated);
         $this->expectItem('getUpdatedDate', $update);
         $item->setUpdatedDate($this->updated);
 
@@ -256,7 +275,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    private function createFeed($hasFavicon=false) {
+    private function createFeed($hasFavicon=false) 
+    {
         $this->expectFeed('getTitle', $this->feedTitle);
         $this->expectFeed('getSiteUrl', $this->feedLink);
 
@@ -283,12 +303,14 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         return $feed;
     }
 
-    public function testNoFetchIfNotModified(){
+    public function testNoFetchIfNotModified()
+    {
         $this->setUpReader($this->url, false);;
         $result = $this->fetcher->fetch($this->url, false);
     }
 
-    public function testFetch(){
+    public function testFetch()
+    {
         $this->setUpReader($this->url);
         $item = $this->createItem();
         $feed = $this->createFeed();
@@ -299,7 +321,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testAudioEnclosure(){
+    public function testAudioEnclosure()
+    {
         $this->setUpReader($this->url);
         $item = $this->createItem('audio/ogg');
         $feed = $this->createFeed();
@@ -310,7 +333,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testVideoEnclosure(){
+    public function testVideoEnclosure()
+    {
         $this->setUpReader($this->url);
         $item = $this->createItem('video/ogg');
         $feed = $this->createFeed();
@@ -322,7 +346,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
 
 
 
-    public function testFavicon() {
+    public function testFavicon() 
+    {
         $this->setUpReader($this->url);
 
         $feed = $this->createFeed(true);
@@ -333,7 +358,8 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals([$feed, [$item]], $result);
     }
 
-    public function testFullText() {
+    public function testFullText() 
+    {
         $this->setUpReader($this->url);
 
         $feed = $this->createFeed();
@@ -345,13 +371,14 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testNoFavicon() {
+    public function testNoFavicon() 
+    {
         $this->setUpReader($this->url);
 
         $feed = $this->createFeed(false);
 
         $this->faviconFetcher->expects($this->never())
-                ->method('find');
+            ->method('find');
 
         $item = $this->createItem();
         $this->expectFeed('getItems', [$this->item]);
@@ -361,20 +388,24 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRtl() {
+    public function testRtl() 
+    {
         $this->setUpReader($this->url);
         $this->expectFeed('getLanguage', 'he-IL');
         $this->expectItem('getLanguage', '');
         $feed = $this->createFeed();
         $item = $this->createItem(null);
         $this->expectFeed('getItems', [$this->item]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, null,
-                                                    null, true);
+        list($feed, $items) = $this->fetcher->fetch(
+            $this->url, false, null,
+            null, true
+        );
         $this->assertTrue($items[0]->getRtl());
     }
 
 
-    public function testRtlItemPrecedence() {
+    public function testRtlItemPrecedence() 
+    {
         $this->setUpReader($this->url);
         $this->expectFeed('getLanguage', 'de-DE');
         $this->expectItem('getLanguage', 'he-IL');
@@ -382,12 +413,15 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed = $this->createFeed();
         $item = $this->createItem(null);
         $this->expectFeed('getItems', [$this->item]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, null,
-                                                    null, true);
+        list($feed, $items) = $this->fetcher->fetch(
+            $this->url, false, null,
+            null, true
+        );
         $this->assertTrue($items[0]->getRtl());
     }
 
-    public function testNegativeRtlItemPrecedence() {
+    public function testNegativeRtlItemPrecedence() 
+    {
         $this->setUpReader($this->url);
         $this->expectFeed('getLanguage', 'he-IL');
         $this->expectItem('getLanguage', 'de-DE');
@@ -395,8 +429,10 @@ class FeedFetcherTest extends \PHPUnit_Framework_TestCase {
         $feed = $this->createFeed();
         $item = $this->createItem(null);
         $this->expectFeed('getItems', [$this->item]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, null,
-                                                    null, true);
+        list($feed, $items) = $this->fetcher->fetch(
+            $this->url, false, null,
+            null, true
+        );
         $this->assertFalse($items[0]->getRtl());
     }
 

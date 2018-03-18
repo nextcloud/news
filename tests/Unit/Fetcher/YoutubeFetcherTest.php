@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2012, 2014
  */
 
@@ -15,33 +15,39 @@ use \OCA\News\Db\Feed;
 use OCA\News\Fetcher\YoutubeFetcher;
 
 
-class YoutubeFetcherTest extends \PHPUnit_Framework_TestCase {
+class YoutubeFetcherTest extends \PHPUnit_Framework_TestCase
+{
 
     private $fetcher;
     private $feedFetcher;
 
-    public function setUp() {
+    public function setUp() 
+    {
         $this->feedFetcher = $this->getMockBuilder(
-            '\OCA\News\Fetcher\FeedFetcher')
+            '\OCA\News\Fetcher\FeedFetcher'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = new YoutubeFetcher($this->feedFetcher);
     }
 
 
-    public function testCanHandleFails() {
+    public function testCanHandleFails() 
+    {
         $url = 'http://youtube.com';
         $this->assertFalse($this->fetcher->canHandle($url));
     }
 
 
-    public function testCanHandle() {
+    public function testCanHandle() 
+    {
         $url = 'http://youtube.com/test/?test=a&list=b&b=c';
         $this->assertTrue($this->fetcher->canHandle($url));
     }
 
 
-    public function testPlaylistUrl() {
+    public function testPlaylistUrl() 
+    {
         $url = 'http://youtube.com/something/weird?a=b&list=sobo3&c=1';
         $transformedUrl = 'http://gdata.youtube.com/feeds/api/playlists/sobo3';
         $favicon = true;

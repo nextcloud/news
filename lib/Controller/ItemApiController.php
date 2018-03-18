@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -19,7 +19,8 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\ItemService;
 use \OCA\News\Service\ServiceNotFoundException;
 
-class ItemApiController extends ApiController {
+class ItemApiController extends ApiController
+{
 
     use JSONHttpError;
 
@@ -27,11 +28,12 @@ class ItemApiController extends ApiController {
     private $userId;
     private $serializer;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                ItemService $itemService,
-                                $UserId){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        ItemService $itemService,
+        $UserId
+    ) {
+        parent::__construct($appName, $request);
         $this->itemService = $itemService;
         $this->userId = $UserId;
         $this->serializer = new EntityApiSerializer('items');
@@ -43,16 +45,17 @@ class ItemApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $type
-     * @param int $id
+     * @param int  $type
+     * @param int  $id
      * @param bool $getRead
-     * @param int $batchSize
-     * @param int $offset
+     * @param int  $batchSize
+     * @param int  $offset
      * @param bool $oldestFirst
      * @return array|mixed
      */
     public function index($type=3, $id=0, $getRead=true, $batchSize=-1,
-                          $offset=0, $oldestFirst=false) {
+        $offset=0, $oldestFirst=false
+    ) {
         return $this->serializer->serialize(
             $this->itemService->findAll(
                 $id, $type, $batchSize, $offset, $getRead, $oldestFirst,
@@ -72,7 +75,8 @@ class ItemApiController extends ApiController {
      * @param int $lastModified
      * @return array|mixed
      */
-    public function updated($type=3, $id=0, $lastModified=0) {
+    public function updated($type=3, $id=0, $lastModified=0) 
+    {
         // needs to be turned into a millisecond timestamp to work properly
         if (strlen((string) $lastModified) <= 10) {
             $paddedLastModified = $lastModified . '000000';
@@ -80,13 +84,16 @@ class ItemApiController extends ApiController {
             $paddedLastModified = $lastModified;
         }
         return $this->serializer->serialize(
-            $this->itemService->findAllNew($id, $type, $paddedLastModified,
-                                           true, $this->userId)
+            $this->itemService->findAllNew(
+                $id, $type, $paddedLastModified,
+                true, $this->userId
+            )
         );
     }
 
 
-    private function setRead($isRead, $itemId) {
+    private function setRead($isRead, $itemId) 
+    {
         try {
             $this->itemService->read($itemId, $isRead, $this->userId);
         } catch(ServiceNotFoundException $ex){
@@ -105,7 +112,8 @@ class ItemApiController extends ApiController {
      * @param int $itemId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function read($itemId) {
+    public function read($itemId) 
+    {
         return $this->setRead(true, $itemId);
     }
 
@@ -118,12 +126,14 @@ class ItemApiController extends ApiController {
      * @param int $itemId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function unread($itemId) {
+    public function unread($itemId) 
+    {
         return $this->setRead(false, $itemId);
     }
 
 
-    private function setStarred($isStarred, $feedId, $guidHash) {
+    private function setStarred($isStarred, $feedId, $guidHash) 
+    {
         try {
             $this->itemService->star(
                 $feedId, $guidHash, $isStarred, $this->userId
@@ -141,11 +151,12 @@ class ItemApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $feedId
+     * @param int    $feedId
      * @param string $guidHash
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function star($feedId, $guidHash) {
+    public function star($feedId, $guidHash) 
+    {
         return $this->setStarred(true, $feedId, $guidHash);
     }
 
@@ -155,11 +166,12 @@ class ItemApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $feedId
+     * @param int    $feedId
      * @param string $guidHash
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function unstar($feedId, $guidHash) {
+    public function unstar($feedId, $guidHash) 
+    {
         return $this->setStarred(false, $feedId, $guidHash);
     }
 
@@ -171,12 +183,14 @@ class ItemApiController extends ApiController {
      *
      * @param int $newestItemId
      */
-    public function readAll($newestItemId) {
+    public function readAll($newestItemId) 
+    {
         $this->itemService->readAll($newestItemId, $this->userId);
     }
 
 
-    private function setMultipleRead($isRead, $items) {
+    private function setMultipleRead($isRead, $items) 
+    {
         foreach($items as $id) {
             try {
                 $this->itemService->read($id, $isRead, $this->userId);
@@ -194,7 +208,8 @@ class ItemApiController extends ApiController {
      *
      * @param int[] item ids
      */
-    public function readMultiple($items) {
+    public function readMultiple($items) 
+    {
         $this->setMultipleRead(true, $items);
     }
 
@@ -206,16 +221,20 @@ class ItemApiController extends ApiController {
      *
      * @param int[] item ids
      */
-    public function unreadMultiple($items) {
+    public function unreadMultiple($items) 
+    {
         $this->setMultipleRead(false, $items);
     }
 
 
-    private function setMultipleStarred($isStarred, $items) {
+    private function setMultipleStarred($isStarred, $items) 
+    {
         foreach($items as $item) {
             try {
-                $this->itemService->star($item['feedId'], $item['guidHash'],
-                                               $isStarred, $this->userId);
+                $this->itemService->star(
+                    $item['feedId'], $item['guidHash'],
+                    $isStarred, $this->userId
+                );
             } catch(ServiceNotFoundException $ex) {
                 continue;
             }
@@ -230,7 +249,8 @@ class ItemApiController extends ApiController {
      *
      * @param int[] item ids
      */
-    public function starMultiple($items) {
+    public function starMultiple($items) 
+    {
         $this->setMultipleStarred(true, $items);
     }
 
@@ -242,7 +262,8 @@ class ItemApiController extends ApiController {
      *
      * @param int[] item ids
      */
-    public function unstarMultiple($items) {
+    public function unstarMultiple($items) 
+    {
         $this->setMultipleStarred(false, $items);
     }
 
