@@ -11,10 +11,11 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Utility;
+namespace OCA\News\Tests\Unit\Utility;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
+use OCA\News\Utility\OPMLExporter;
 
 
 class OPMLExporterTest extends \PHPUnit_Framework_TestCase {

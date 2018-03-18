@@ -12,8 +12,10 @@
  */
 
 
-namespace OCA\News\Http;
+namespace OCA\News\Tests\Unit\Http;
 
+
+use OCA\News\Http\TextResponse;
 
 class TextResponseTest extends \PHPUnit_Framework_TestCase {
 

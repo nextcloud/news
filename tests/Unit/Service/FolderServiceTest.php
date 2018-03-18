@@ -11,9 +11,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Service;
+namespace OCA\News\Tests\Unit\Service;
 
 use \OCA\News\Db\Folder;
+use OCA\News\Service\FolderService;
 
 
 class FolderServiceTest extends \PHPUnit_Framework_TestCase {
@@ -80,6 +81,11 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folder))
             ->will($this->returnValue($folder));
 
+        $this->folderMapper->expects($this->once())
+            ->method('findByName')
+            ->with('hey', 'john')
+            ->will($this->returnValue([]));
+
         $result = $this->folderService->create('hey', 'john', 5);
 
         $this->assertEquals($folder, $result);
@@ -103,7 +109,9 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
         $this->folderService->create($folderName, 'john', 3);
     }
 
-
+    /**
+     * @expectedException \OCA\News\Service\ServiceValidationException
+     */
     public function testCreateThrowsExWhenFolderNameEmpty(){
         $folderName = '';
 
@@ -112,9 +120,6 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folderName))
             ->will($this->returnValue([]));
 
-        $this->setExpectedException(
-            '\OCA\News\Service\ServiceValidationException'
-        );
         $this->folderService->create($folderName, 'john', 3);
     }
 
@@ -150,6 +155,11 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
         $this->folderMapper->expects($this->once())
             ->method('update')
             ->with($this->equalTo($folder));
+
+        $this->folderMapper->expects($this->once())
+                           ->method('findByName')
+                           ->with('bogus', '')
+                           ->will($this->returnValue([]));
 
         $this->folderService->rename(3, 'bogus', '');
 

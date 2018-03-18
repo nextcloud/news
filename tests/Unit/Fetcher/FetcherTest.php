@@ -23,8 +23,10 @@
 *
 */
 
-namespace OCA\News\Fetcher;
+namespace OCA\News\Tests\Unit\Fetcher;
 
+
+use OCA\News\Fetcher\Fetcher;
 
 class FetcherTest extends \PHPUnit_Framework_TestCase {
 

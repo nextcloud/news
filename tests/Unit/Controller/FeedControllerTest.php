@@ -11,8 +11,9 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Controller;
+namespace OCA\News\Tests\Unit\Controller;
 
+use OCA\News\Controller\FeedController;
 use OCP\AppFramework\Http;
 
 use OCA\News\Db\Feed;
@@ -31,6 +32,7 @@ class FeedControllerTest extends \PHPUnit_Framework_TestCase {
     private $itemService;
     private $settings;
     private $exampleResult;
+    private $user;
 
 
     /**

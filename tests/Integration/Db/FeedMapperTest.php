@@ -11,10 +11,11 @@
  * @copyright Daniel Opitz 2017
  */
 
-namespace OCA\News\Db;
+namespace OCA\News\Tests\Integration\Db;
 
-use OCA\News\Tests\Integration\Fixtures\FeedFixture;
+use OCA\News\Db\Feed;
 use OCA\News\Tests\Integration\IntegrationTest;
+use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 
 class FeedMapperTest extends IntegrationTest {
 

@@ -35,6 +35,16 @@
         "riimu/kit-pathjoin": "1.1.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.4"
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "OCA\\News\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OCA\\News\\Tests\\": "tests/"
+        }
     }
 }

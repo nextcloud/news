@@ -11,18 +11,21 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Db;
+namespace OCA\News\Tests\Unit\Db;
 
-
+use OCA\News\Db\Folder;
+use OCA\News\Db\FolderMapper;
 use OCA\News\Utility\Time;
 
-class FolderMapperTest extends \OCA\News\Tests\Unit\Db\MapperTestUtility {
+class FolderMapperTest extends MapperTestUtility
+{
 
     private $folderMapper;
     private $folders;
     private $user;
 
-    protected function setUp(){
+    protected function setUp()
+    {
         parent::setUp();
 
         $this->folderMapper = new FolderMapper($this->db, new Time());

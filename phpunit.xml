@@ -4,4 +4,24 @@
             <directory>./tests/Unit</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./lib/</directory>
+            <exclude>
+                <file>./lib/Config/DependencyException.php</file>
+                <file>./lib/Explore/feeds/RecommendedSiteNotFoundException.php</file>
+                <file>./lib/Explore/feeds/RecommendedSiteNotFoundException.php</file>
+                <file>./lib/Fetcher/FetcherException.php</file>
+                <file>./lib/Service/ServiceConflictException.php</file>
+                <file>./lib/Service/ServiceException.php</file>
+                <file>./lib/Service/ServiceNotFoundException.php</file>
+                <file>./lib/Service/ServiceValidationException.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="./build/report" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="./build/coverage.xml"/>
+        <log type="junit" target="./build/junit.xml"/>
+    </logging>
 </phpunit>

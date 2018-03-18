@@ -8,10 +8,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2015
  */
- 
-namespace OCA\News\Db;
 
-use \OCA\News\Tests\Integration\IntegrationTest;
+namespace OCA\News\Tests\Integration\Db;
+
+use OCA\News\Tests\Integration\IntegrationTest;
 
 class FolderMapperTest extends IntegrationTest {
 

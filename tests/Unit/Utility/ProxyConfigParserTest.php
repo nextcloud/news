@@ -11,8 +11,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Utility;
+namespace OCA\News\Tests\Unit\Utility;
 
+
+use OCA\News\Utility\ProxyConfigParser;
 
 class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase {
 
