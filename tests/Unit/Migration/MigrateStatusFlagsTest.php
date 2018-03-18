@@ -9,9 +9,10 @@
  * @copyright Daniel Opitz 2017
  */
 
-namespace OCA\News\Migration;
+namespace OCA\News\Tests\Unit\Migration;
 
 use Doctrine\DBAL\Driver\Statement;
+use OCA\News\Migration\MigrateStatusFlags;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;

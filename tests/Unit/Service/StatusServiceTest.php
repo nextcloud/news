@@ -11,9 +11,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Service;
+namespace OCA\News\Tests\Unit\Service;
 
 use \OCA\News\Db\FeedType;
+use OCA\News\Service\StatusService;
 
 
 class StatusServiceTest extends \PHPUnit_Framework_TestCase {

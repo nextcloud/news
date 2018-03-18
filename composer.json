@@ -38,7 +38,13 @@
         "phpunit/phpunit": "^5.7"
     },
     "autoload": {
-        "psr-4": { "OCA\\News\\": "lib/" },
-        "classmap": ["tests/"]
+        "psr-4": {
+            "OCA\\News\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OCA\\News\\Tests\\": "tests/"
+        }
     }
 }

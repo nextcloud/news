@@ -11,10 +11,11 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Fetcher;
+namespace OCA\News\Tests\Unit\Fetcher;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
+use OCA\News\Fetcher\FeedFetcher;
 use OCP\Http\Client\IClientService;
 use PicoFeed\Processor\ItemPostProcessor;
 

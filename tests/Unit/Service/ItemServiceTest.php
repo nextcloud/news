@@ -11,8 +11,9 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Service;
+namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;

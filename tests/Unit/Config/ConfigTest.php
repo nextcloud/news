@@ -11,8 +11,9 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Config;
+namespace OCA\News\Tests\Unit\Config;
 
+use OCA\News\Config\Config;
 use PHPUnit_Framework_TestCase;
 
 
