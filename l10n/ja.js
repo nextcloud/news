@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "全文検索を無効",
     "Unread updated" : "更新を未読",
     "Ignore updated" : "更新を無視",
+    "Open feed URL" : "フィードURLを開く",
     "Delete" : "削除",
     "Dismiss" : "閉じる",
     "Collapse" : "折りたたむ",

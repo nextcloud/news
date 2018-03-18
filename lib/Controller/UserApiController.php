@@ -17,7 +17,6 @@ use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\IURLGenerator;
 use \OCP\Files\IRootFolder;
-use \OCP\AppFramework\ApiController;
 use \OCP\AppFramework\Http;
 
 class UserApiController extends ApiController {

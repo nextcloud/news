@@ -9,9 +9,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Fetcher;
+namespace OCA\News\Tests\Unit\Fetcher;
 
 use \OCA\News\Db\Feed;
+use OCA\News\Fetcher\YoutubeFetcher;
 
 
 class YoutubeFetcherTest extends \PHPUnit_Framework_TestCase {

@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Afvirkja allan texta",
     "Unread updated" : "Ólesið uppfært",
     "Ignore updated" : "Hunsa uppfært",
+    "Open feed URL" : "Opna URL-slóð streymis",
     "Delete" : "Eyða",
     "Dismiss" : "Hafna",
     "Collapse" : "Fella saman",

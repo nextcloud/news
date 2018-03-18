@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Avaktivera fulltext",
     "Unread updated" : "Markera som oläst",
     "Ignore updated" : "Ignorera uppdaterad",
+    "Open feed URL" : "Öppna flödes-URL",
     "Delete" : "Radera",
     "Dismiss" : "Avfärda",
     "Collapse" : "Dölj",

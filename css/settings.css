@@ -12,10 +12,6 @@
     left: -30000px;
 }
 
-#app-settings .opened:hover {
-    background-color: transparent !important;
-}
-
 #app-settings-content {
     padding-bottom: 25px;
 }

@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Disable full text",
     "Unread updated" : "Unread updated",
     "Ignore updated" : "Ignore updated",
+    "Open feed URL" : "Open feed URL",
     "Delete" : "Delete",
     "Dismiss" : "Dismiss",
     "Collapse" : "Collapse",

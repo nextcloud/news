@@ -11,8 +11,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Db;
+namespace OCA\News\Tests\Unit\Db;
 
+use OCA\News\Db\Feed;
+use OCA\News\Db\Item;
 
 class ItemTest extends \PHPUnit_Framework_TestCase {
 

@@ -5,10 +5,12 @@ php:
     - 5.6
     - 7
     - 7.1
+    - 7.2
+    - nightly
 
 env:
     global:
-        - CORE_BRANCH=stable12
+        - CORE_BRANCH=stable13
         - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
@@ -16,20 +18,17 @@ env:
 matrix:
     allow_failures:
         - env: DB=pgsql CORE_BRANCH=master
+        - php: nightly
     include:
-        - php: 5.6
+        - php: 7.1
           env: DB=sqlite
-        - php: 5.6
+        - php: 7.1
           env: DB=mysql
-        - php: 5.6
+        - php: 7.1
           env:  DB=pgsql CORE_BRANCH=master
     fast_finish: true
 
 before_install:
-    # re-enable once mariadb is added as an option
-    # - if [[ "$DB" == 'mysql' ]]; then sudo apt-get -y install mariadb-server; fi
-    - nvm install 6
-    - npm install -g npm@latest
     - make
     # install core
     - cd ../

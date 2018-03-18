@@ -9,11 +9,11 @@
  * @copyright Bernhard Posselt 2015
  */
 
-namespace OCA\News\Db;
+namespace OCA\News\Tests\Integration\Db;
 
+use OCA\News\Tests\Integration\IntegrationTest;
 use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 use OCA\News\Tests\Integration\Fixtures\ItemFixture;
-use OCA\News\Tests\Integration\IntegrationTest;
 
 class ItemMapperTest extends IntegrationTest {
 

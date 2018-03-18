@@ -51,7 +51,7 @@ OC.L10N.register(
     "Import" : "وارد کردن",
     "Export" : "گرفتن خروجی",
     "Error when importing: file does not contain valid JSON" : "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست.",
-    "Help" : "راه‌نما",
+    "Help" : "کمک",
     "Keyboard shortcuts" : "میان بر صفحه ی کلید",
     "Documentation" : "مستندسازی"
 },

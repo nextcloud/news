@@ -2,7 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Request failed, network connection unavailable!" : "Nėra interneto ryšio!",
-    "Request unauthorized. Are you logged in?" : "Neatpažintas prisijungimas. Ar esate prisijungę?",
+    "Request unauthorized. Are you logged in?" : "Užklausa neleidžiama. Ar esate prisijungę?",
     "Request forbidden. Are you an admin?" : "Užklausa neleidžiama. Ar jūs esate administratorius?",
     "Token expired or app not enabled! Reload the page!" : "Pasibaigė prieigos raktų galiojimas arba programėlė nėra įjungta! Įkelkite puslapį iš naujo!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vidinė serverio klaida! Išsamesnė informacija aprašoma \"data/nextcloud.log\" žurnale!",

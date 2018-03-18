@@ -24,7 +24,6 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
-
 /**
  * Simple utility class for testing mappers
  */

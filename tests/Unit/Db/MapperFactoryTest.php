@@ -11,8 +11,10 @@
  * @copyright Bernhard Posselt 2012, 2014
  */
 
-namespace OCA\News\Db;
+namespace OCA\News\Tests\Unit\Db;
 
+use OCA\News\Db\ItemMapper;
+use OCA\News\Db\MapperFactory;
 use OCA\News\Utility\Time;
 use PHPUnit_Framework_TestCase;
 

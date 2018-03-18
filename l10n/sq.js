@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Çaktivizo tekstin e plotë",
     "Unread updated" : "Përditësim i pa lexuar",
     "Ignore updated" : "Injoro përditësimin",
+    "Open feed URL" : "Hap furnizimin URL",
     "Delete" : "Fshij",
     "Dismiss" : "Mos e merr parasysh",
     "Collapse" : "Tkurre",

@@ -12,8 +12,9 @@
  */
 
 
-namespace OCA\News\Service;
+namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Service\FeedService;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\Feed;

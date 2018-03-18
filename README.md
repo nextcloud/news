@@ -1,4 +1,7 @@
-# Nextcloud News app
+# Nextcloud News app (unmaintained)
+
+**This app is unmaintained! Looking for new maintainers!**
+
 [![Build Status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news) [![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
 
 
@@ -29,6 +32,7 @@ Nextcloud News can be synced with the following apps:
   * [OwnCloud News Reader (WebOS)](http://www.webosnation.com/owncloud-news-reader), [open source](https://bitbucket.org/andpeters/webos-owncloud-news-reader)
   * [FeedReader (Linux desktop)](http://jangernert.github.io/FeedReader/), [open source](https://github.com/jangernert/FeedReader)
   * [py3status](https://github.com/ultrabug/py3status/) for [i3 (UNIX-like)](http://i3wm.org/), [open source](https://github.com/i3/i3)
+  * [newsboat](http://newsboat.org/) for Unix terminal, [open source](https://github.com/newsboat/newsboat)
 
 ## Custom Themes
 Nextcloud News can look different with the following themes:
@@ -263,13 +267,13 @@ System Cron:
 * Check if the **oc_jobs** table has a **reserved_at** entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:
 
   ```sql
-  SELECT reserved_at FROM oc_jobs WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+  SELECT reserved_at FROM oc_jobs WHERE (argument = '["OCA\\News\\Cron\\Updater","run"]' OR class = 'OCA\\News\\Cron\\Updater');
   ```
 
  and reset it by executing
 
   ```sql
-  UPDATE oc_jobs SET reserved_at = 0 WHERE argument = '["OCA\\News\\Cron\\Updater","run"]';
+  UPDATE oc_jobs SET reserved_at = 0 WHERE (argument = '["OCA\\News\\Cron\\Updater","run"]' OR class = 'OCA\\News\\Cron\\Updater');
   ```
 
 * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
