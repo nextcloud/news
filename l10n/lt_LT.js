@@ -119,6 +119,7 @@ OC.L10N.register(
     "Disable full text" : "Rodyti tik antraštes",
     "Unread updated" : "Papildytus straipsnius pažymėti neskaitytais",
     "Ignore updated" : "Nekreipti dėmesio į papildytus straipsnius",
+    "Open feed URL" : "Atidaryti URL",
     "Delete" : "Ištrinti",
     "Dismiss" : "Pašalinti",
     "Collapse" : "Suskleisti",
