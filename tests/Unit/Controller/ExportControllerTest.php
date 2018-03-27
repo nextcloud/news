@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -22,7 +22,8 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 
-class ExportControllerTest extends \PHPUnit_Framework_TestCase {
+class ExportControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $appName;
     private $request;
@@ -36,32 +37,39 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
     /**
      * Gets run before each test
      */
-    public function setUp(){
+    public function setUp()
+    {
         $this->appName = 'news';
         $this->user = 'john';
         $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService')
+            '\OCA\News\Service\ItemService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedService = $this->getMockBuilder(
-            '\OCA\News\Service\FeedService')
+            '\OCA\News\Service\FeedService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderService = $this->getMockBuilder(
-            '\OCA\News\Service\FolderService')
+            '\OCA\News\Service\FolderService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder('\OCP\IRequest')
             ->disableOriginalConstructor()
             ->getMock();
         $this->opmlExporter = new OPMLExporter();
-        $this->controller = new ExportController($this->appName, $this->request,
+        $this->controller = new ExportController(
+            $this->appName, $this->request,
             $this->folderService, $this->feedService,
-            $this->itemService, $this->opmlExporter, $this->user);
+            $this->itemService, $this->opmlExporter, $this->user
+        );
     }
 
 
-    public function testOpmlExportNoFeeds(){
+    public function testOpmlExportNoFeeds()
+    {
         $opml =
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" .
         "<opml version=\"2.0\">\n" .
@@ -86,7 +94,8 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetAllArticles(){
+    public function testGetAllArticles()
+    {
         $item1 = new Item();
         $item1->setFeedId(3);
         $item2 = new Item();
@@ -119,14 +128,16 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase {
             $headers ['Content-Disposition']
         );
 
-        $this->assertEquals('[{"guid":null,"url":null,"title":null,' .
+        $this->assertEquals(
+            '[{"guid":null,"url":null,"title":null,' .
             '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
             '"enclosureLink":null,"unread":false,"starred":false,' .
             '"feedLink":"http:\/\/goo","rtl":null},{"guid":null,"url":null,' .
             '"title":null,"author":null,"pubDate":null,"updatedDate":null,"body":null,' .
             '"enclosureMime":null,"enclosureLink":null,"unread":false,' .
             '"starred":false,"feedLink":"http:\/\/gee","rtl":null}]',
-            $return->render());
+            $return->render()
+        );
     }
 
 }

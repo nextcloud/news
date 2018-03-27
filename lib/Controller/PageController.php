@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -29,7 +29,8 @@ use OCA\News\Explore\RecommendedSites;
 use OCA\News\Explore\RecommendedSiteNotFoundException;
 use OCA\News\Db\FeedType;
 
-class PageController extends Controller {
+class PageController extends Controller
+{
 
     private $settings;
     private $l10n;
@@ -41,16 +42,17 @@ class PageController extends Controller {
 
     use JSONHttpError;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                IConfig $settings,
-                                IURLGenerator $urlGenerator,
-                                Config $config,
-                                IL10N $l10n,
-                                RecommendedSites $recommendedSites,
-                                StatusService $statusService,
-                                $UserId){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        IConfig $settings,
+        IURLGenerator $urlGenerator,
+        Config $config,
+        IL10N $l10n,
+        RecommendedSites $recommendedSites,
+        StatusService $statusService,
+        $UserId
+    ) {
+        parent::__construct($appName, $request);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
         $this->l10n = $l10n;
@@ -65,12 +67,15 @@ class PageController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function index() {
+    public function index() 
+    {
         $status = $this->statusService->getStatus();
-        $response = new TemplateResponse($this->appName, 'index', [
+        $response = new TemplateResponse(
+            $this->appName, 'index', [
             'warnings' => $status['warnings'],
             'url_generator' => $this->urlGenerator
-        ]);
+            ]
+        );
 
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
@@ -91,7 +96,8 @@ class PageController extends Controller {
     /**
      * @NoAdminRequired
      */
-    public function settings() {
+    public function settings() 
+    {
         $settings = [
             'showAll',
             'compact',
@@ -132,7 +138,8 @@ class PageController extends Controller {
      * @param bool $oldestFirst
      */
     public function updateSettings($showAll, $compact, $preventReadOnScroll,
-                                   $oldestFirst, $compactExpand) {
+        $oldestFirst, $compactExpand
+    ) {
         $settings = ['showAll',
             'compact',
             'preventReadOnScroll',
@@ -146,8 +153,10 @@ class PageController extends Controller {
             } else {
                 $value = '0';
             }
-            $this->settings->setUserValue($this->userId, $this->appName,
-                                          $setting, $value);
+            $this->settings->setUserValue(
+                $this->userId, $this->appName,
+                $setting, $value
+            );
         }
     }
 
@@ -156,11 +165,16 @@ class PageController extends Controller {
      *
      * @param string $lang
      */
-    public function explore($lang) {
-        $this->settings->setUserValue($this->userId, $this->appName,
-            'lastViewedFeedId', 0);
-        $this->settings->setUserValue($this->userId, $this->appName,
-            'lastViewedFeedType', FeedType::EXPLORE);
+    public function explore($lang) 
+    {
+        $this->settings->setUserValue(
+            $this->userId, $this->appName,
+            'lastViewedFeedId', 0
+        );
+        $this->settings->setUserValue(
+            $this->userId, $this->appName,
+            'lastViewedFeedType', FeedType::EXPLORE
+        );
 
         try {
             return $this->recommendedSites->forLanguage($lang);

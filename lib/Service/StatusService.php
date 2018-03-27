@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Service;
@@ -21,7 +21,8 @@ use OCP\IDBConnection;
 use OCA\News\Config\Config;
 
 
-class StatusService {
+class StatusService
+{
 
     private $settings;
     private $config;
@@ -32,14 +33,16 @@ class StatusService {
     private $connection;
 
     public function __construct(IConfig $settings, IDBConnection $connection,
-                                Config $config, $AppName) {
+        Config $config, $AppName
+    ) {
         $this->settings = $settings;
         $this->config = $config;
         $this->appName = $AppName;
         $this->connection = $connection;
     }
 
-    public function isProperlyConfigured() {
+    public function isProperlyConfigured() 
+    {
         $cronMode = $this->settings->getAppValue(
             'core', 'backgroundjobs_mode'
         );
@@ -50,7 +53,8 @@ class StatusService {
     }
 
 
-    public function getStatus() {
+    public function getStatus() 
+    {
         $version = $this->settings->getAppValue(
             $this->appName, 'installed_version'
         );

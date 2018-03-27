@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -20,7 +20,8 @@ use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Db\Item;
 
 
-class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
+class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $itemService;
     private $itemAPI;
@@ -29,15 +30,18 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     private $request;
     private $msg;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->user = 'tom';
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService')
+            '\OCA\News\Service\ItemService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemAPI = new ItemApiController(
@@ -50,7 +54,8 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndex() {
+    public function testIndex() 
+    {
         $items = [new Item()];
 
         $this->itemService->expects($this->once())
@@ -68,13 +73,16 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->itemAPI->index(1, 2, true, 30, 20, true);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'items' => [$items[0]->toApi()]
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testIndexDefaultBatchSize() {
+    public function testIndexDefaultBatchSize() 
+    {
         $items = [new Item()];
 
         $this->itemService->expects($this->once())
@@ -92,13 +100,16 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->itemAPI->index(1, 2, false);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'items' => [$items[0]->toApi()]
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testUpdated() {
+    public function testUpdated() 
+    {
         $items = [new Item()];
 
         $this->itemService->expects($this->once())
@@ -114,13 +125,16 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $response = $this->itemAPI->updated(1, 2, 30);
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'items' => [$items[0]->toApi()]
-        ], $response);
+            ], $response
+        );
     }
 
 
-    public function testRead() {
+    public function testRead() 
+    {
         $this->itemService->expects($this->once())
             ->method('read')
             ->with(
@@ -133,11 +147,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testReadDoesNotExist() {
+    public function testReadDoesNotExist() 
+    {
         $this->itemService->expects($this->once())
             ->method('read')
-            ->will($this->throwException(
-                new ServiceNotFoundException($this->msg))
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
             );
 
         $response = $this->itemAPI->read(2);
@@ -148,7 +165,8 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUnread() {
+    public function testUnread() 
+    {
         $this->itemService->expects($this->once())
             ->method('read')
             ->with(
@@ -161,11 +179,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUnreadDoesNotExist() {
+    public function testUnreadDoesNotExist() 
+    {
         $this->itemService->expects($this->once())
             ->method('read')
-            ->will($this->throwException(
-                new ServiceNotFoundException($this->msg))
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
             );
 
         $response = $this->itemAPI->unread(2);
@@ -176,7 +197,8 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testStar() {
+    public function testStar() 
+    {
         $this->itemService->expects($this->once())
             ->method('star')
             ->with(
@@ -190,11 +212,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testStarDoesNotExist() {
+    public function testStarDoesNotExist() 
+    {
         $this->itemService->expects($this->once())
             ->method('star')
-            ->will($this->throwException(
-                new ServiceNotFoundException($this->msg))
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
             );
 
         $response = $this->itemAPI->star(2, 'test');
@@ -205,7 +230,8 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUnstar() {
+    public function testUnstar() 
+    {
         $this->itemService->expects($this->once())
             ->method('star')
             ->with(
@@ -219,11 +245,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUnstarDoesNotExist() {
+    public function testUnstarDoesNotExist() 
+    {
         $this->itemService->expects($this->once())
             ->method('star')
-            ->will($this->throwException(
-                new ServiceNotFoundException($this->msg))
+            ->will(
+                $this->throwException(
+                    new ServiceNotFoundException($this->msg)
+                )
             );
 
         $response = $this->itemAPI->unstar(2, 'test');
@@ -234,62 +263,78 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testReadAll() {
+    public function testReadAll() 
+    {
         $this->itemService->expects($this->once())
             ->method('readAll')
             ->with(
                 $this->equalTo(30),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
 
         $this->itemAPI->readAll(30);
     }
 
 
 
-    public function testReadMultiple() {
+    public function testReadMultiple() 
+    {
         $this->itemService->expects($this->at(0))
             ->method('read')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemService->expects($this->at(1))
             ->method('read')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemAPI->readMultiple([2, 4]);
     }
 
 
-    public function testReadMultipleDoesntCareAboutException() {
+    public function testReadMultipleDoesntCareAboutException() 
+    {
         $this->itemService->expects($this->at(0))
             ->method('read')
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->itemService->expects($this->at(1))
             ->method('read')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemAPI->readMultiple([2, 4]);
     }
 
 
-    public function testUnreadMultiple() {
+    public function testUnreadMultiple() 
+    {
         $this->itemService->expects($this->at(0))
             ->method('read')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo(false),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemService->expects($this->at(1))
             ->method('read')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo(false),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemAPI->unreadMultiple([2, 4]);
     }
 
 
-    public function testStarMultiple() {
+    public function testStarMultiple() 
+    {
         $ids = [
                     [
                         'feedId' => 2,
@@ -303,21 +348,26 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->itemService->expects($this->at(0))
             ->method('star')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo('a'),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemService->expects($this->at(1))
             ->method('star')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo('b'),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemAPI->starMultiple($ids);
     }
 
 
-    public function testStarMultipleDoesntCareAboutException() {
+    public function testStarMultipleDoesntCareAboutException() 
+    {
         $ids = [
                     [
                         'feedId' => 2,
@@ -334,15 +384,18 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->itemService->expects($this->at(1))
             ->method('star')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo('b'),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemAPI->starMultiple($ids);
     }
 
 
-    public function testUnstarMultiple() {
+    public function testUnstarMultiple() 
+    {
         $ids = [
                     [
                         'feedId' => 2,
@@ -356,16 +409,20 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->itemService->expects($this->at(0))
             ->method('star')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo('a'),
                 $this->equalTo(false),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemService->expects($this->at(1))
             ->method('star')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo('b'),
                 $this->equalTo(false),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemAPI->unstarMultiple($ids);
     }
 

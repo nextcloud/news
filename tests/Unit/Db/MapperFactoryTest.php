@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Db;
@@ -23,30 +23,35 @@ use OCP\IDBConnection;
 use OCA\News\Db\Mysql\ItemMapper as MysqlMapper;
 
 
-class MapperFactoryTest extends PHPUnit_Framework_TestCase {
+class MapperFactoryTest extends PHPUnit_Framework_TestCase
+{
 
-	private $db;
-	private $settings;
+    private $db;
+    private $settings;
 
-	public function setUp() {
-		$this->db = $this->getMockBuilder(IDBConnection::class)
-			->disableOriginalConstructor()
-			->getMock();
-	}
+    public function setUp() 
+    {
+        $this->db = $this->getMockBuilder(IDBConnection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
 
-	public function testGetItemMapperSqlite() {
-		$factory = new MapperFactory($this->db, 'sqlite', new Time());
-		$this->assertTrue($factory->build() instanceof ItemMapper);
-	}
+    public function testGetItemMapperSqlite() 
+    {
+        $factory = new MapperFactory($this->db, 'sqlite', new Time());
+        $this->assertTrue($factory->build() instanceof ItemMapper);
+    }
 
-	public function testGetItemMapperPostgres() {
-		$factory = new MapperFactory($this->db, 'pgsql', new Time());
-		$this->assertTrue($factory->build() instanceof ItemMapper);
-	}
+    public function testGetItemMapperPostgres() 
+    {
+        $factory = new MapperFactory($this->db, 'pgsql', new Time());
+        $this->assertTrue($factory->build() instanceof ItemMapper);
+    }
 
-	public function testGetItemMapperMysql() {
-		$factory = new MapperFactory($this->db, 'mysql', new Time());
-		$this->assertTrue($factory->build() instanceof MysqlMapper);
-	}
+    public function testGetItemMapperMysql() 
+    {
+        $factory = new MapperFactory($this->db, 'mysql', new Time());
+        $this->assertTrue($factory->build() instanceof MysqlMapper);
+    }
 
 }

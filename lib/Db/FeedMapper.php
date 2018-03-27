@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db;
@@ -18,15 +18,18 @@ use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
 
-class FeedMapper extends NewsMapper {
+class FeedMapper extends NewsMapper
+{
 
 
-    public function __construct(IDBConnection $db, Time $time) {
+    public function __construct(IDBConnection $db, Time $time) 
+    {
         parent::__construct($db, 'news_feeds', Feed::class, $time);
     }
 
 
-    public function find($id, $userId){
+    public function find($id, $userId)
+    {
         $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
@@ -45,7 +48,8 @@ class FeedMapper extends NewsMapper {
     }
 
 
-    public function findAllFromUser($userId){
+    public function findAllFromUser($userId)
+    {
         $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` '.
@@ -69,7 +73,8 @@ class FeedMapper extends NewsMapper {
     }
 
 
-    public function findAll(){
+    public function findAll()
+    {
         $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` '.
@@ -91,7 +96,8 @@ class FeedMapper extends NewsMapper {
     }
 
 
-    public function findByUrlHash($hash, $userId){
+    public function findByUrlHash($hash, $userId)
+    {
         $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
@@ -110,7 +116,8 @@ class FeedMapper extends NewsMapper {
     }
 
 
-    public function delete(Entity $entity){
+    public function delete(Entity $entity)
+    {
         parent::delete($entity);
 
         // someone please slap me for doing this manually :P
@@ -122,12 +129,13 @@ class FeedMapper extends NewsMapper {
 
 
     /**
-     * @param int $deleteOlderThan if given gets all entries with a delete date
-     * older than that timestamp
-     * @param string $userId if given returns only entries from the given user
+     * @param int    $deleteOlderThan if given gets all entries with a delete date
+     *                                older than that timestamp
+     * @param string $userId          if given returns only entries from the given user
      * @return array with the database rows
      */
-    public function getToDelete($deleteOlderThan=null, $userId=null) {
+    public function getToDelete($deleteOlderThan=null, $userId=null) 
+    {
         $sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
             'WHERE `deleted_at` > 0 ';
         $params = [];
@@ -151,9 +159,11 @@ class FeedMapper extends NewsMapper {
     /**
      * Deletes all feeds of a user, delete items first since the user_id
      * is not defined in there
+     *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) {
+    public function deleteUser($userId) 
+    {
         $sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
         $this->execute($sql, [$userId]);
     }

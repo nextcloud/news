@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db;
@@ -17,13 +17,16 @@ use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
-class FolderMapper extends NewsMapper {
+class FolderMapper extends NewsMapper
+{
 
-    public function __construct(IDBConnection $db, Time $time) {
+    public function __construct(IDBConnection $db, Time $time) 
+    {
         parent::__construct($db, 'news_folders', Folder::class, $time);
     }
 
-    public function find($id, $userId){
+    public function find($id, $userId)
+    {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `id` = ? ' .
             'AND `user_id` = ?';
@@ -32,7 +35,8 @@ class FolderMapper extends NewsMapper {
     }
 
 
-    public function findAllFromUser($userId){
+    public function findAllFromUser($userId)
+    {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `user_id` = ? ' .
             'AND `deleted_at` = 0';
@@ -42,7 +46,8 @@ class FolderMapper extends NewsMapper {
     }
 
 
-    public function findByName($folderName, $userId){
+    public function findByName($folderName, $userId)
+    {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `name` = ? ' .
             'AND `user_id` = ?';
@@ -52,7 +57,8 @@ class FolderMapper extends NewsMapper {
     }
 
 
-    public function delete(Entity $entity){
+    public function delete(Entity $entity)
+    {
         parent::delete($entity);
 
         // someone please slap me for doing this manually :P
@@ -71,12 +77,13 @@ class FolderMapper extends NewsMapper {
 
 
     /**
-     * @param int $deleteOlderThan if given gets all entries with a delete date
-     * older than that timestamp
-     * @param string $userId if given returns only entries from the given user
+     * @param int    $deleteOlderThan if given gets all entries with a delete date
+     *                                older than that timestamp
+     * @param string $userId          if given returns only entries from the given user
      * @return array with the database rows
      */
-    public function getToDelete($deleteOlderThan=null, $userId=null) {
+    public function getToDelete($deleteOlderThan=null, $userId=null) 
+    {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `deleted_at` > 0 ';
         $params = [];
@@ -99,9 +106,11 @@ class FolderMapper extends NewsMapper {
 
     /**
      * Deletes all folders of a user
+     *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) {
+    public function deleteUser($userId) 
+    {
         $sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
         $this->execute($sql, [$userId]);
     }

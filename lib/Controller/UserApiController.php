@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -19,16 +19,18 @@ use \OCP\IURLGenerator;
 use \OCP\Files\IRootFolder;
 use \OCP\AppFramework\Http;
 
-class UserApiController extends ApiController {
+class UserApiController extends ApiController
+{
 
     private $userSession;
     private $rootFolder;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                IUserSession $userSession,
-                                IRootFolder $rootFolder){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        IUserSession $userSession,
+        IRootFolder $rootFolder
+    ) {
+        parent::__construct($appName, $request);
         $this->userSession = $userSession;
         $this->rootFolder = $rootFolder;
     }
@@ -38,7 +40,8 @@ class UserApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function index() {
+    public function index() 
+    {
         $user = $this->userSession->getUser();
 
         // find the avatar

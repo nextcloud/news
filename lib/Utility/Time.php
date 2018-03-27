@@ -6,20 +6,23 @@
  * later. See the COPYING file.
  *
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Bernhard Posselt 2016
+ * @copyright 2016 Bernhard Posselt
  */
 
 namespace OCA\News\Utility;
 
-class Time {
-    public function getTime() {
+class Time
+{
+    public function getTime() 
+    {
         return time();
     }
 
     /**
      * @return int the current unix time in miliseconds
      */
-    public function getMicroTime() {
+    public function getMicroTime() 
+    {
         list($millisecs, $secs) = explode(" ", microtime());
         return $secs . substr($millisecs, 2, 6);
     }

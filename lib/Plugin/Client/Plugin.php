@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Plugin\Client;
@@ -20,24 +20,29 @@ namespace OCA\News\Plugin\Client;
  * but atm there is no really good way since there is no uninstall hook which
  * would remove the plugin from the apps so fk it :)
  */
-class Plugin {
+class Plugin
+{
 
     private static $scripts = [];
     private static $styles = [];
 
-    public static function registerStyle($appName, $styleName) {
+    public static function registerStyle($appName, $styleName) 
+    {
         self::$styles[$appName] = $styleName;
     }
 
-    public static function registerScript($appName, $scriptName) {
+    public static function registerScript($appName, $scriptName) 
+    {
         self::$scripts[$appName] = $scriptName;
     }
 
-    public static function getStyles() {
+    public static function getStyles() 
+    {
         return self::$styles;
     }
 
-    public static function getScripts() {
+    public static function getScripts() 
+    {
         return self::$scripts;
     }
 

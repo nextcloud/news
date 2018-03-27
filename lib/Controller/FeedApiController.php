@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -23,7 +23,8 @@ use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 
 
-class FeedApiController extends ApiController {
+class FeedApiController extends ApiController
+{
 
     use JSONHttpError;
 
@@ -34,14 +35,15 @@ class FeedApiController extends ApiController {
     private $loggerParams;
     private $serializer;
 
-    public function __construct($AppName,
-                                IRequest $request,
-                                FeedService $feedService,
-                                ItemService $itemService,
-                                ILogger $logger,
-                                $UserId,
-                                $LoggerParameters){
-        parent::__construct($AppName, $request);
+    public function __construct($appName,
+        IRequest $request,
+        FeedService $feedService,
+        ItemService $itemService,
+        ILogger $logger,
+        $UserId,
+        $LoggerParameters
+    ) {
+        parent::__construct($appName, $request);
         $this->feedService = $feedService;
         $this->itemService = $itemService;
         $this->userId = $UserId;
@@ -56,7 +58,8 @@ class FeedApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function index() {
+    public function index() 
+    {
 
         $result = [
             'starredCount' => $this->itemService->starredCount($this->userId),
@@ -68,8 +71,9 @@ class FeedApiController extends ApiController {
             $result['newestItemId'] =
                 $this->itemService->getNewestItemId($this->userId);
 
-        // in case there are no items, ignore
-        } catch(ServiceNotFoundException $ex) {}
+            // in case there are no items, ignore
+        } catch(ServiceNotFoundException $ex) {
+        }
 
         return $this->serializer->serialize($result);
     }
@@ -81,10 +85,11 @@ class FeedApiController extends ApiController {
      * @CORS
      *
      * @param string $url
-     * @param int $folderId
+     * @param int    $folderId
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($url, $folderId=0) {
+    public function create($url, $folderId=0) 
+    {
         try {
             $this->feedService->purgeDeleted($this->userId, false);
 
@@ -95,8 +100,9 @@ class FeedApiController extends ApiController {
                 $result['newestItemId'] =
                     $this->itemService->getNewestItemId($this->userId);
 
-            // in case there are no items, ignore
-            } catch(ServiceNotFoundException $ex) {}
+                // in case there are no items, ignore
+            } catch(ServiceNotFoundException $ex) {
+            }
 
             return $this->serializer->serialize($result);
 
@@ -116,7 +122,8 @@ class FeedApiController extends ApiController {
      * @param int $feedId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function delete($feedId) {
+    public function delete($feedId) 
+    {
         try {
             $this->feedService->delete($feedId, $this->userId);
         } catch(ServiceNotFoundException $ex) {
@@ -135,7 +142,8 @@ class FeedApiController extends ApiController {
      * @param int $feedId
      * @param int $newestItemId
      */
-    public function read($feedId, $newestItemId) {
+    public function read($feedId, $newestItemId) 
+    {
         $this->itemService->readFeed($feedId, $newestItemId, $this->userId);
     }
 
@@ -149,7 +157,8 @@ class FeedApiController extends ApiController {
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function move($feedId, $folderId) {
+    public function move($feedId, $folderId) 
+    {
         try {
             $this->feedService->patch(
                 $feedId, $this->userId, ['folderId' => $folderId]
@@ -167,11 +176,12 @@ class FeedApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $feedId
+     * @param int    $feedId
      * @param string $feedTitle
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function rename($feedId, $feedTitle) {
+    public function rename($feedId, $feedTitle) 
+    {
         try {
             $this->feedService->patch(
                 $feedId, $this->userId, ['title' => $feedTitle]
@@ -188,7 +198,8 @@ class FeedApiController extends ApiController {
      * @NoCSRFRequired
      * @CORS
      */
-    public function fromAllUsers() {
+    public function fromAllUsers() 
+    {
         $feeds = $this->feedService->findAllFromAllUsers();
         $result = ['feeds' => []];
 
@@ -207,15 +218,18 @@ class FeedApiController extends ApiController {
      * @NoCSRFRequired
      *
      * @param string $userId
-     * @param int $feedId
+     * @param int    $feedId
      */
-    public function update($userId, $feedId) {
+    public function update($userId, $feedId) 
+    {
         try {
             $this->feedService->update($feedId, $userId);
-        // ignore update failure
+            // ignore update failure
         } catch(\Exception $ex) {
-            $this->logger->debug('Could not update feed ' . $ex->getMessage(),
-                    $this->loggerParams);
+            $this->logger->debug(
+                'Could not update feed ' . $ex->getMessage(),
+                $this->loggerParams
+            );
         }
     }
 

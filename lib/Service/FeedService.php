@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Service;
@@ -29,7 +29,8 @@ use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
 
-class FeedService extends Service {
+class FeedService extends Service
+{
 
     private $feedFetcher;
     private $itemMapper;
@@ -42,14 +43,15 @@ class FeedService extends Service {
     private $loggerParams;
 
     public function __construct(FeedMapper $feedMapper,
-                                Fetcher $feedFetcher,
-                                ItemMapper $itemMapper,
-                                ILogger $logger,
-                                IL10N $l10n,
-                                Time $timeFactory,
-                                Config $config,
-                                HTMLPurifier $purifier,
-                                $LoggerParameters){
+        Fetcher $feedFetcher,
+        ItemMapper $itemMapper,
+        ILogger $logger,
+        IL10N $l10n,
+        Time $timeFactory,
+        Config $config,
+        HTMLPurifier $purifier,
+        $LoggerParameters
+    ) {
         parent::__construct($feedMapper);
         $this->feedFetcher = $feedFetcher;
         $this->itemMapper = $itemMapper;
@@ -65,53 +67,63 @@ class FeedService extends Service {
 
     /**
      * Finds all feeds of a user
-     * @param string $userId the name of the user
+     *
+     * @param  string $userId the name of the user
      * @return Feed[]
      */
-    public function findAll($userId){
+    public function findAll($userId)
+    {
         return $this->feedMapper->findAllFromUser($userId);
     }
 
 
     /**
      * Finds all feeds from all users
+     *
      * @return array of feeds
      */
-    public function findAllFromAllUsers() {
+    public function findAllFromAllUsers() 
+    {
         return $this->feedMapper->findAll();
     }
 
 
     /**
      * Creates a new feed
-     * @param string $feedUrl the url to the feed
-     * @param int $folderId the folder where it should be put into, 0 for root
-     * folder
-     * @param string $userId for which user the feed should be created
-     * @param string $title if given, this is used for the opml feed title
-     * @param string $basicAuthUser if given, basic auth is set for this feed
-     * @param string $basicAuthPassword if given, basic auth is set for this
-     * feed. Ignored if user is null or an empty string
+     *
+     * @param  string $feedUrl           the url to the feed
+     * @param  int    $folderId          the folder where it should be put into, 0 for root
+     *                                   folder
+     * @param  string $userId            for which user the feed should be created
+     * @param  string $title             if given, this is used for the opml feed title
+     * @param  string $basicAuthUser     if given, basic auth is set for this feed
+     * @param  string $basicAuthPassword if given, basic auth is set for this
+     *                                   feed. Ignored if user is null or an empty string
      * @throws ServiceConflictException if the feed exists already
      * @throws ServiceNotFoundException if the url points to an invalid feed
      * @return Feed the newly created feed
      */
     public function create($feedUrl, $folderId, $userId, $title=null,
-                           $basicAuthUser=null, $basicAuthPassword=null){
+        $basicAuthUser=null, $basicAuthPassword=null
+    ) {
         // first try if the feed exists already
         try {
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true,
-                                  null, null, false, $basicAuthUser,
-                                  $basicAuthPassword);
+            list($feed, $items) = $this->feedFetcher->fetch(
+                $feedUrl, true,
+                null, null, false, $basicAuthUser,
+                $basicAuthPassword
+            );
 
             // try again if feed exists depending on the reported link
             try {
                 $this->feedMapper->findByUrlHash($feed->getUrlHash(), $userId);
                 throw new ServiceConflictException(
-                    $this->l10n->t('Can not add feed: Exists already'));
+                    $this->l10n->t('Can not add feed: Exists already')
+                );
 
-            // If no matching feed was found everything was ok
-            } catch(DoesNotExistException $ex){}
+                // If no matching feed was found everything was ok
+            } catch(DoesNotExistException $ex){
+            }
 
             // insert feed
             $itemCount = count($items);
@@ -138,7 +150,8 @@ class FeedService extends Service {
                 // and ignore it if it does
                 try {
                     $this->itemMapper->findByGuidHash(
-                        $item->getGuidHash(), $item->getFeedId(), $userId);
+                        $item->getGuidHash(), $item->getFeedId(), $userId
+                    );
                     continue;
                 } catch(DoesNotExistException $ex){
                     $unreadCount += 1;
@@ -161,7 +174,8 @@ class FeedService extends Service {
     /**
      * Runs all the feed updates
      */
-    public function updateAll(){
+    public function updateAll()
+    {
         // TODO: this method is not covered by any tests
         $feeds = $this->feedMapper->findAll();
         foreach($feeds as $feed){
@@ -180,13 +194,15 @@ class FeedService extends Service {
 
     /**
      * Updates a single feed
-     * @param int $feedId the id of the feed that should be updated
-     * @param string $userId the id of the user
-     * @param bool $forceUpdate update even if the article exists already
+     *
+     * @param  int    $feedId      the id of the feed that should be updated
+     * @param  string $userId      the id of the user
+     * @param  bool   $forceUpdate update even if the article exists already
      * @throws ServiceNotFoundException if the feed does not exist
      * @return Feed the updated feed entity
      */
-    public function update($feedId, $userId, $forceUpdate=false){
+    public function update($feedId, $userId, $forceUpdate=false)
+    {
         $existingFeed = $this->find($feedId, $userId);
 
         if($existingFeed->getPreventUpdate() === true) {
@@ -229,7 +245,8 @@ class FeedService extends Service {
             }
 
             $existingFeed->setHttpLastModified(
-                $fetchedFeed->getHttpLastModified());
+                $fetchedFeed->getHttpLastModified()
+            );
             $existingFeed->setHttpEtag($fetchedFeed->getHttpEtag());
             $existingFeed->setLocation($fetchedFeed->getLocation());
 
@@ -245,8 +262,9 @@ class FeedService extends Service {
                     );
 
                     // in case of update
-                    if ($forceUpdate ||
-                        $item->getUpdatedDate() > $dbItem->getUpdatedDate()) {
+                    if ($forceUpdate 
+                        || $item->getUpdatedDate() > $dbItem->getUpdatedDate()
+                    ) {
 
                         $dbItem->setTitle($item->getTitle());
                         $dbItem->setUrl($item->getUrl());
@@ -295,11 +313,13 @@ class FeedService extends Service {
 
     /**
      * Import articles
-     * @param array $json the array with json
-     * @param string $userId the username
+     *
+     * @param  array  $json   the array with json
+     * @param  string $userId the username
      * @return Feed if one had to be created for nonexistent feeds
      */
-    public function importArticles($json, $userId) {
+    public function importArticles($json, $userId) 
+    {
         $url = 'http://nextcloud/nofeed';
         $urlHash = md5($url);
 
@@ -343,7 +363,8 @@ class FeedService extends Service {
             try {
                 // if item exists, copy the status
                 $existingItem = $this->itemMapper->findByGuidHash(
-                    $item->getGuidHash(), $feed->getId(), $userId);
+                    $item->getGuidHash(), $feed->getId(), $userId
+                );
                 $existingItem->setStatus($item->getStatus());
                 $this->itemMapper->update($existingItem);
             } catch(DoesNotExistException $ex){
@@ -363,11 +384,13 @@ class FeedService extends Service {
 
     /**
      * Use this to mark a feed as deleted. That way it can be un-deleted
-     * @param int $feedId the id of the feed that should be deleted
-     * @param string $userId the name of the user for security reasons
+     *
+     * @param  int    $feedId the id of the feed that should be deleted
+     * @param  string $userId the name of the user for security reasons
      * @throws ServiceNotFoundException when feed does not exist
      */
-    public function markDeleted($feedId, $userId) {
+    public function markDeleted($feedId, $userId) 
+    {
         $feed = $this->find($feedId, $userId);
         $feed->setDeletedAt($this->timeFactory->getTime());
         $this->feedMapper->update($feed);
@@ -376,11 +399,13 @@ class FeedService extends Service {
 
     /**
      * Use this to undo a feed deletion
-     * @param int $feedId the id of the feed that should be restored
-     * @param string $userId the name of the user for security reasons
+     *
+     * @param  int    $feedId the id of the feed that should be restored
+     * @param  string $userId the name of the user for security reasons
      * @throws ServiceNotFoundException when feed does not exist
      */
-    public function unmarkDeleted($feedId, $userId) {
+    public function unmarkDeleted($feedId, $userId) 
+    {
         $feed = $this->find($feedId, $userId);
         $feed->setDeletedAt(0);
         $this->feedMapper->update($feed);
@@ -389,12 +414,14 @@ class FeedService extends Service {
 
     /**
      * Deletes all deleted feeds
-     * @param string $userId if given it purges only feeds of that user
+     *
+     * @param string  $userId      if given it purges only feeds of that user
      * @param boolean $useInterval defaults to true, if true it only purges
-     * entries in a given interval to give the user a chance to undo the
-     * deletion
+     *                             entries in a given interval to give the user a chance to undo the
+     *                             deletion
      */
-    public function purgeDeleted($userId=null, $useInterval=true) {
+    public function purgeDeleted($userId=null, $useInterval=true) 
+    {
         $deleteOlderThan = null;
 
         if ($useInterval) {
@@ -413,9 +440,11 @@ class FeedService extends Service {
     /**
      * Deletes all feeds of a user, delete items first since the user_id
      * is not defined in there
+     *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) {
+    public function deleteUser($userId) 
+    {
         $this->feedMapper->deleteUser($userId);
     }
 
@@ -432,7 +461,8 @@ class FeedService extends Service {
      * ]
      * @throws ServiceNotFoundException if feed does not exist
      */
-    public function patch($feedId, $userId, $diff=[]) {
+    public function patch($feedId, $userId, $diff=[]) 
+    {
         $feed = $this->find($feedId, $userId);
 
         foreach ($diff as $attribute => $value) {

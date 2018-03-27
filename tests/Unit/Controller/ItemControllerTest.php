@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -22,7 +22,8 @@ use \OCA\News\Db\FeedType;
 use \OCA\News\Service\ServiceNotFoundException;
 
 
-class ItemControllerTest extends \PHPUnit_Framework_TestCase {
+class ItemControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $appName;
     private $settings;
@@ -36,11 +37,13 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     /**
      * Gets run before each test
      */
-    public function setUp(){
+    public function setUp()
+    {
         $this->appName = 'news';
         $this->user = 'jackob';
         $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig')
+            '\OCP\IConfig'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService =
@@ -52,17 +55,21 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
-        $this->controller = new ItemController($this->appName, $this->request,
-                $this->feedService, $this->itemService, $this->settings,
-                $this->user);
+        $this->controller = new ItemController(
+            $this->appName, $this->request,
+            $this->feedService, $this->itemService, $this->settings,
+            $this->user
+        );
         $this->newestItemId = 12312;
     }
 
 
-    public function testRead(){
+    public function testRead()
+    {
         $this->itemService->expects($this->once())
             ->method('read')
             ->with(4, true, $this->user);
@@ -71,7 +78,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testReadDoesNotExist(){
+    public function testReadDoesNotExist()
+    {
         $msg = 'hi';
 
         $this->itemService->expects($this->once())
@@ -86,51 +94,64 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testReadMultiple() {
+    public function testReadMultiple() 
+    {
         $this->itemService->expects($this->at(0))
             ->method('read')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->itemService->expects($this->at(1))
             ->method('read')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->controller->readMultiple([2, 4]);
     }
 
 
-    public function testReadMultipleDontStopOnException() {
+    public function testReadMultipleDontStopOnException() 
+    {
         $this->itemService->expects($this->at(0))
             ->method('read')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo(true),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user)
+            )
             ->will($this->throwException(new ServiceNotFoundException('yo')));
         $this->itemService->expects($this->at(1))
             ->method('read')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
         $this->controller->readMultiple([2, 4]);
     }
 
 
-    public function testStar(){
+    public function testStar()
+    {
         $this->itemService->expects($this->once())
             ->method('star')
             ->with(
                 $this->equalTo(4),
                 $this->equalTo('test'),
                 $this->equalTo(true),
-                $this->equalTo($this->user));
+                $this->equalTo($this->user)
+            );
 
         $this->controller->star(4, 'test', true);
     }
 
 
-    public function testStarDoesNotExist(){
+    public function testStarDoesNotExist()
+    {
         $msg = 'ho';
 
         $this->itemService->expects($this->once())
@@ -145,15 +166,18 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testReadAll(){
+    public function testReadAll()
+    {
         $feed = new Feed();
 
         $expected = ['feeds' => [$feed]];
 
         $this->itemService->expects($this->once())
             ->method('readAll')
-            ->with($this->equalTo(5),
-                $this->equalTo($this->user));
+            ->with(
+                $this->equalTo(5),
+                $this->equalTo($this->user)
+            );
         $this->feedService->expects($this->once())
             ->method('findAll')
             ->with($this->equalTo($this->user))
@@ -164,35 +188,45 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    private function itemsApiExpects($id, $type, $oldestFirst='1'){
+    private function itemsApiExpects($id, $type, $oldestFirst='1')
+    {
         $this->settings->expects($this->at(0))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('showAll'))
+                $this->equalTo('showAll')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(1))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst'))
+                $this->equalTo('oldestFirst')
+            )
             ->will($this->returnValue($oldestFirst));
         $this->settings->expects($this->at(2))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('lastViewedFeedId'),
-                $this->equalTo($id));
+                $this->equalTo($id)
+            );
         $this->settings->expects($this->at(3))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('lastViewedFeedType'),
-                $this->equalTo($type));
+                $this->equalTo($type)
+            );
     }
 
 
-    public function testIndex(){
+    public function testIndex()
+    {
         $feeds = [new Feed()];
         $result = [
             'items' => [new Item()],
@@ -228,7 +262,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo(true),
                 $this->equalTo(false),
                 $this->equalTo($this->user),
-                $this->equalTo([]))
+                $this->equalTo([])
+            )
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->index(FeedType::FEED, 2, 3);
@@ -236,7 +271,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndexSearch(){
+    public function testIndexSearch()
+    {
         $feeds = [new Feed()];
         $result = [
             'items' => [new Item()],
@@ -272,29 +308,35 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo(true),
                 $this->equalTo(false),
                 $this->equalTo($this->user),
-                $this->equalTo(['test', 'search']))
+                $this->equalTo(['test', 'search'])
+            )
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->index(FeedType::FEED, 2, 3,
-            0, null, null, 'test%20%20search%20');
+        $response = $this->controller->index(
+            FeedType::FEED, 2, 3,
+            0, null, null, 'test%20%20search%20'
+        );
         $this->assertEquals($result, $response);
     }
 
 
-    public function testItemsOffsetNotZero(){
+    public function testItemsOffsetNotZero()
+    {
         $result = ['items' => [new Item()]];
 
         $this->itemsApiExpects(2, FeedType::FEED);
 
         $this->itemService->expects($this->once())
             ->method('findAll')
-            ->with($this->equalTo(2),
+            ->with(
+                $this->equalTo(2),
                 $this->equalTo(FeedType::FEED),
                 $this->equalTo(3),
                 $this->equalTo(10),
                 $this->equalTo(true),
                 $this->equalTo(true),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue($result['items']));
 
         $this->feedService->expects($this->never())
@@ -305,7 +347,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetItemsNoNewestItemsId(){
+    public function testGetItemsNoNewestItemsId()
+    {
         $this->itemsApiExpects(2, FeedType::FEED);
 
         $this->itemService->expects($this->once())
@@ -318,7 +361,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testNewItems(){
+    public function testNewItems()
+    {
         $feeds = [new Feed()];
         $result = [
             'items' => [new Item()],
@@ -329,9 +373,11 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->settings->expects($this->once())
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('showAll'))
+                $this->equalTo('showAll')
+            )
             ->will($this->returnValue('1'));
 
         $this->feedService->expects($this->once())
@@ -356,7 +402,8 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
                 $this->equalTo(FeedType::FEED),
                 $this->equalTo(3),
                 $this->equalTo(true),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->newItems(FeedType::FEED, 2, 3);
@@ -364,12 +411,15 @@ class ItemControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetNewItemsNoNewestItemsId(){
+    public function testGetNewItemsNoNewestItemsId()
+    {
         $this->settings->expects($this->once())
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('showAll'))
+                $this->equalTo('showAll')
+            )
             ->will($this->returnValue('1'));
 
         $this->itemService->expects($this->once())

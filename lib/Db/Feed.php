@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db;
@@ -63,7 +63,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method string getBasicAuthPassword()
  * @method void setBasicAuthPassword(string $value)
  */
-class Feed extends Entity implements IAPI, \JsonSerializable {
+class Feed extends Entity implements IAPI, \JsonSerializable
+{
 
     use EntityJSONSerializer;
 
@@ -92,7 +93,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     protected $basicAuthUser;
     protected $basicAuthPassword;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->addType('parentId', 'integer');
         $this->addType('added', 'integer');
         $this->addType('folderId', 'integer');
@@ -111,8 +113,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     /**
      * Turns entitie attributes into an array
      */
-    public function jsonSerialize() {
-        $serialized = $this->serializeFields([
+    public function jsonSerialize() 
+    {
+        $serialized = $this->serializeFields(
+            [
             'id',
             'userId',
             'urlHash',
@@ -135,7 +139,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'lastUpdateError',
             'basicAuthUser',
             'basicAuthPassword'
-        ]);
+            ]
+        );
 
         $url = parse_url($this->link, PHP_URL_HOST);
 
@@ -150,8 +155,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     }
 
 
-    public function toAPI() {
-        return $this->serializeFields([
+    public function toAPI() 
+    {
+        return $this->serializeFields(
+            [
             'id',
             'url',
             'title',
@@ -164,11 +171,13 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
             'pinned',
             'updateErrorCount',
             'lastUpdateError'
-        ]);
+            ]
+        );
     }
 
 
-    public function setUrl($url) {
+    public function setUrl($url) 
+    {
         $url = trim($url);
         if(strpos($url, 'http') === 0) {
             parent::setUrl($url);
@@ -177,7 +186,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable {
     }
 
 
-    public function setLink($url) {
+    public function setLink($url) 
+    {
         $url = trim($url);
         if(strpos($url, 'http') === 0) {
             parent::setLink($url);

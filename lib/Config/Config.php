@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Config;
@@ -17,7 +17,8 @@ use OCP\ILogger;
 use OCP\Files\Folder;
 
 
-class Config {
+class Config
+{
 
     private $fileSystem;
     private $autoPurgeMinimumInterval;  // seconds, used to define how
@@ -34,8 +35,9 @@ class Config {
     private $exploreUrl;
 
     public function __construct(Folder $fileSystem,
-                                ILogger $logger,
-                                $LoggerParameters) {
+        ILogger $logger,
+        $LoggerParameters
+    ) {
         $this->fileSystem = $fileSystem;
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
@@ -48,7 +50,8 @@ class Config {
         $this->loggerParams = $LoggerParameters;
     }
 
-    public function getAutoPurgeMinimumInterval() {
+    public function getAutoPurgeMinimumInterval() 
+    {
         if ($this->autoPurgeMinimumInterval > 60) {
             return $this->autoPurgeMinimumInterval;
         } else {
@@ -56,71 +59,85 @@ class Config {
         }
     }
 
-    public function getAutoPurgeCount() {
+    public function getAutoPurgeCount() 
+    {
         return $this->autoPurgeCount;
     }
 
 
-    public function getMaxRedirects() {
+    public function getMaxRedirects() 
+    {
         return $this->maxRedirects;
     }
 
 
-    public function getFeedFetcherTimeout() {
+    public function getFeedFetcherTimeout() 
+    {
         return $this->feedFetcherTimeout;
     }
 
 
-    public function getUseCronUpdates() {
+    public function getUseCronUpdates() 
+    {
         return $this->useCronUpdates;
     }
 
 
-    public function getMaxSize() {
+    public function getMaxSize() 
+    {
         return $this->maxSize;
     }
 
 
-    public function getExploreUrl() {
+    public function getExploreUrl() 
+    {
         return $this->exploreUrl;
     }
 
 
-    public function setAutoPurgeMinimumInterval($value) {
+    public function setAutoPurgeMinimumInterval($value) 
+    {
         $this->autoPurgeMinimumInterval = $value;
     }
 
 
-    public function setAutoPurgeCount($value) {
+    public function setAutoPurgeCount($value) 
+    {
         $this->autoPurgeCount = $value;
     }
 
 
-    public function setMaxRedirects($value) {
+    public function setMaxRedirects($value) 
+    {
         $this->maxRedirects = $value;
     }
 
 
-    public function setFeedFetcherTimeout($value) {
+    public function setFeedFetcherTimeout($value) 
+    {
         $this->feedFetcherTimeout = $value;
     }
 
 
-    public function setUseCronUpdates($value) {
+    public function setUseCronUpdates($value) 
+    {
         $this->useCronUpdates = $value;
     }
 
-    public function setMaxSize($value) {
+    public function setMaxSize($value) 
+    {
         $this->maxSize = $value;
     }
 
 
-    public function setExploreUrl($value) {
+    public function setExploreUrl($value) 
+    {
         $this->exploreUrl = $value;
     }
 
 
-    public function read($configPath, $createIfNotExists=false) {
+    public function read($configPath, $createIfNotExists=false) 
+    {
         if($createIfNotExists && !$this->fileSystem->nodeExists($configPath)) {
             $this->fileSystem->newFile($configPath);
             $this->write($configPath);
@@ -145,7 +162,7 @@ class Config {
                     } else {
                         $this->logger->warning(
                             'Configuration value "' . $key .
-                            '" does not exist. Ignored value.' ,
+                            '" does not exist. Ignored value.',
                             $this->loggerParams
                         );
                     }
@@ -156,7 +173,8 @@ class Config {
     }
 
 
-    public function write($configPath) {
+    public function write($configPath) 
+    {
         $ini =
             'autoPurgeMinimumInterval = ' .
                 $this->autoPurgeMinimumInterval . "\n" .

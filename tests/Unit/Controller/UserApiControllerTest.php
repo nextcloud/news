@@ -5,17 +5,18 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\UserApiController;
 
-class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
+class UserApiControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $request;
     private $appName;
@@ -25,26 +26,32 @@ class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
     private $user;
     private $file;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->rootFolder = $this->getMockBuilder(
-            '\OCP\Files\IRootFolder')
+            '\OCP\Files\IRootFolder'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->file = $this->getMockBuilder(
-            '\OCP\Files\File')
+            '\OCP\Files\File'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->userSession = $this->getMockBuilder(
-            '\OCP\IUserSession')
+            '\OCP\IUserSession'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->user = $this->getMockBuilder(
-            '\OCP\IUser')
+            '\OCP\IUser'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new UserApiController(
@@ -55,7 +62,8 @@ class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
 
     }
 
-    private function expectUser($uid, $displayName, $lastLogin) {
+    private function expectUser($uid, $displayName, $lastLogin) 
+    {
         $this->userSession->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->user));
@@ -70,16 +78,21 @@ class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($displayName));
     }
 
-    private function expectImg($isJpg, $isPng, $user, $exists, $data) {
+    private function expectImg($isJpg, $isPng, $user, $exists, $data) 
+    {
         $jpg = '/' . $user . '/' . 'avatar.jpg';
         $png = '/' . $user . '/' . 'avatar.png';
 
         $this->rootFolder->expects($this->any())
             ->method('nodeExists')
-            ->will($this->returnValueMap([
-                [$jpg, $isJpg],
-                [$png, $isPng]
-            ]));
+            ->will(
+                $this->returnValueMap(
+                    [
+                    [$jpg, $isJpg],
+                    [$png, $isPng]
+                    ]
+                )
+            );
         $this->rootFolder->expects($this->any())
             ->method('get')
             ->will($this->returnValue($this->file));
@@ -88,7 +101,8 @@ class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($data));
     }
 
-    public function testGetJpeg() {
+    public function testGetJpeg() 
+    {
         $this->expectUser('john', 'John', 123);
         $this->expectImg(true, false, 'john', true, 'hi');
 
@@ -106,7 +120,8 @@ class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testGetPng() {
+    public function testGetPng() 
+    {
         $this->expectUser('john', 'John', 123);
         $this->expectImg(false, true, 'john', false, 'hi');
 
@@ -124,7 +139,8 @@ class UserApiControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $result);
     }
 
-    public function testNoAvatar() {
+    public function testNoAvatar() 
+    {
         $this->expectUser('john', 'John', 123);
         $this->expectImg(false, false, 'john', false, 'hi');
 

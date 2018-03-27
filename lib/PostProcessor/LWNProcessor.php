@@ -17,7 +17,8 @@ use PicoFeed\Parser\Item;
 use PicoFeed\Processor\ItemProcessorInterface;
 use PicoFeed\Scraper\RuleParser;
 
-class LWNProcessor implements ItemProcessorInterface {
+class LWNProcessor implements ItemProcessorInterface
+{
     private $user;
 
     private $password;
@@ -30,14 +31,16 @@ class LWNProcessor implements ItemProcessorInterface {
      * @param $user
      * @param $password
      */
-    public function __construct($user, $password, IClientService $clientService) {
+    public function __construct($user, $password, IClientService $clientService) 
+    {
         $this->user = $user;
         $this->password = $password;
         $this->clientService = $clientService;
         $this->cookieJar = new CookieJar();
     }
 
-    private function login() {
+    private function login() 
+    {
         if ($this->cookieJar->count() > 0) {
             return true;
         }
@@ -46,36 +49,44 @@ class LWNProcessor implements ItemProcessorInterface {
         }
 
         $client = $this->clientService->newClient();
-        $response = $client->post('https://lwn.net/login', [
+        $response = $client->post(
+            'https://lwn.net/login', [
             'cookies' => $this->cookieJar,
             'body' => [
                 'Username' => $this->user,
                 'Password' => $this->password,
                 'target' => '/'
             ]
-        ]);
+            ]
+        );
         return ($response->getStatusCode() === 200 && $this->cookieJar->count() > 0);
     }
 
-    private function getBody($url) {
+    private function getBody($url) 
+    {
         $client = $this->clientService->newClient();
-        $response = $client->get($url, [
+        $response = $client->get(
+            $url, [
             'cookies' => $this->cookieJar
-        ]);
-        $parser = new RuleParser($response->getBody(), [
+            ]
+        );
+        $parser = new RuleParser(
+            $response->getBody(), [
             'body' => array(
                 '//div[@class="ArticleText"]',
             ),
             'strip' => array(
                 '//div[@class="FeatureByline"]'
             )
-        ]);
+            ]
+        );
         $articleBody = $parser->execute();
         // make all links absolute
         return str_replace('href="/', 'href="https://lwn.net/', $articleBody);
     }
 
-    private function canHandle($url) {
+    private function canHandle($url) 
+    {
         $regex = '%(?:https?://|//)?(?:www.)?lwn.net%';
 
         return (bool)preg_match($regex, $url);
@@ -89,7 +100,8 @@ class LWNProcessor implements ItemProcessorInterface {
      * @param  Item $item
      * @return bool
      */
-    public function execute(Feed $feed, Item $item) {
+    public function execute(Feed $feed, Item $item) 
+    {
         if ($this->canHandle($item->getUrl())) {
             $loggedIn = $this->login();
 

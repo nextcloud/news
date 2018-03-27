@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2015
  */
 
@@ -15,9 +15,11 @@ use OCA\News\Tests\Integration\IntegrationTest;
 use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 use OCA\News\Tests\Integration\Fixtures\ItemFixture;
 
-class ItemMapperTest extends IntegrationTest {
+class ItemMapperTest extends IntegrationTest
+{
 
-    public function testFind() {
+    public function testFind() 
+    {
         $feed = new FeedFixture();
         $feed = $this->feedMapper->insert($feed);
 
@@ -32,17 +34,20 @@ class ItemMapperTest extends IntegrationTest {
 
     /**
      * Same as whereId with easier title search
-     * @param $title
+     *
+     * @param  $title
      * @return mixed
      */
-    private function whereTitleId($title) {
+    private function whereTitleId($title) 
+    {
         return $this->findItemByTitle($title)->getId();
     }
 
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
-    public function testFindNotFoundWhenDeletedFeed() {
+    public function testFindNotFoundWhenDeletedFeed() 
+    {
         $this->loadFixtures('default');
 
         $id = $this->whereTitleId('not found feed');
@@ -53,7 +58,8 @@ class ItemMapperTest extends IntegrationTest {
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
-    public function testFindNotFoundWhenDeletedFolder() {
+    public function testFindNotFoundWhenDeletedFolder() 
+    {
         $this->loadFixtures('default');
 
 
@@ -62,7 +68,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    private function deleteReadOlderThanThreshold() {
+    private function deleteReadOlderThanThreshold() 
+    {
         $this->loadFixtures('default');
 
         $this->itemMapper->deleteReadOlderThanThreshold(1);
@@ -77,7 +84,8 @@ class ItemMapperTest extends IntegrationTest {
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
-    public function testDeleteOlderThanThresholdOne() {
+    public function testDeleteOlderThanThresholdOne() 
+    {
         $this->loadFixtures('default');
         $id = $this->whereTitleId('del1');
 
@@ -89,7 +97,8 @@ class ItemMapperTest extends IntegrationTest {
     /**
      * @expectedException OCP\AppFramework\Db\DoesNotExistException
      */
-    public function testDeleteOlderThanThresholdTwo() {
+    public function testDeleteOlderThanThresholdTwo() 
+    {
         $this->loadFixtures('default');
         $id = $this->whereTitleId('del2');
 
@@ -99,7 +108,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    public function testStarredCount () {
+    public function testStarredCount() 
+    {
         $this->loadFixtures('default');
 
         $count = $this->itemMapper->starredCount($this->user);
@@ -107,7 +117,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    public function testReadAll () {
+    public function testReadAll() 
+    {
         $this->loadFixtures('default');
 
         $this->itemMapper->readAll(PHP_INT_MAX, 10, $this->user);
@@ -135,7 +146,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    public function testReadFolder () {
+    public function testReadFolder() 
+    {
         $this->loadFixtures('default');
 
         $folderId = $this->findFolderByName('first folder')->getId();
@@ -166,7 +178,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    public function testReadFeed () {
+    public function testReadFeed() 
+    {
         $this->loadFixtures('default');
 
         $feedId = $this->findFeedByTitle('third feed')->getId();
@@ -196,7 +209,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    public function testDeleteUser () {
+    public function testDeleteUser() 
+    {
         $this->loadFixtures('default');
 
         $this->itemMapper->deleteUser($this->user);
@@ -205,7 +219,8 @@ class ItemMapperTest extends IntegrationTest {
         $this->assertEquals(0, $id);
     }
 
-    public function testGetNewestItemId () {
+    public function testGetNewestItemId() 
+    {
         $this->loadFixtures('default');
 
         $id = $this->itemMapper->getNewestItemId($this->user);
@@ -214,7 +229,8 @@ class ItemMapperTest extends IntegrationTest {
         $this->assertEquals($itemId, $id);
     }
 
-    public function testFindAllUnreadOrStarred () {
+    public function testFindAllUnreadOrStarred() 
+    {
         $this->loadFixtures('default');
 
         $items = $this->itemMapper->findAllUnreadOrStarred($this->user);
@@ -222,7 +238,8 @@ class ItemMapperTest extends IntegrationTest {
     }
 
 
-    public function testReadItem() {
+    public function testReadItem() 
+    {
         $this->loadFixtures('readitem');
         // assert that all items are unread
         $feed = $this->feedMapper->where(['userId' => 'john'])[0];
@@ -260,7 +277,8 @@ class ItemMapperTest extends IntegrationTest {
         }
     }
 
-    public function testUnreadItem() {
+    public function testUnreadItem() 
+    {
         $this->loadFixtures('readitem');
         // unread an item
         $feed = $this->feedMapper->where(['userId' => 'test'])[0];
@@ -286,7 +304,8 @@ class ItemMapperTest extends IntegrationTest {
         }
     }
 
-    protected function tearDown() {
+    protected function tearDown() 
+    {
         parent::tearDown();
         $this->clearUserNewsDatabase('john');
     }

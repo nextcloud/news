@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2015
  */
 
@@ -13,10 +13,12 @@ namespace OCA\News\Tests\Integration\Db;
 
 use OCA\News\Tests\Integration\IntegrationTest;
 
-class FolderMapperTest extends IntegrationTest {
+class FolderMapperTest extends IntegrationTest
+{
 
 
-    public function testFind () {
+    public function testFind() 
+    {
 
     }
 

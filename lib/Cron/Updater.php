@@ -6,7 +6,7 @@
  * later. See the COPYING file.
  *
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Bernhard Posselt 2012, 2014
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Cron;
@@ -17,7 +17,8 @@ use OCA\News\Config\Config;
 use OCA\News\Service\StatusService;
 use OCA\News\Utility\Updater as UpdaterService;
 
-class Updater extends Job {
+class Updater extends Job
+{
 
     /**
      * @var Config
@@ -33,15 +34,18 @@ class Updater extends Job {
     private $updaterService;
 
     public function __construct(Config $config, StatusService $status,
-                                UpdaterService $updaterService) {
+        UpdaterService $updaterService
+    ) {
         $this->config = $config;
         $this->status = $status;
         $this->updaterService = $updaterService;
     }
 
-    protected function run($argument) {
-        if ($this->config->getUseCronUpdates() &&
-            $this->status->isProperlyConfigured()) {
+    protected function run($argument) 
+    {
+        if ($this->config->getUseCronUpdates() 
+            && $this->status->isProperlyConfigured()
+        ) {
             $this->updaterService->beforeUpdate();
             $this->updaterService->update();
             $this->updaterService->afterUpdate();

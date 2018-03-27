@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db;
@@ -20,28 +20,31 @@ use OCA\News\Db\Mysql\ItemMapper as MysqlItemMapper;
 use OCA\News\DependencyInjection\IFactory;
 
 
-class MapperFactory implements IFactory {
+class MapperFactory implements IFactory
+{
 
-	private $dbType;
-	private $db;
+    private $dbType;
+    private $db;
     /**
      * @var Time
      */
     private $time;
 
-    public function __construct(IDBConnection $db, $databaseType, Time $time) {
-		$this->dbType = $databaseType;
-		$this->db = $db;
+    public function __construct(IDBConnection $db, $databaseType, Time $time) 
+    {
+        $this->dbType = $databaseType;
+        $this->db = $db;
         $this->time = $time;
     }
 
-	public function build() {
-		switch($this->dbType) {
-			case 'mysql':
-				return new MysqlItemMapper($this->db, $this->time);
-			default:
-				return new ItemMapper($this->db, $this->time);
-		}
-	}
+    public function build() 
+    {
+        switch($this->dbType) {
+        case 'mysql':
+            return new MysqlItemMapper($this->db, $this->time);
+        default:
+            return new ItemMapper($this->db, $this->time);
+        }
+    }
 
 }

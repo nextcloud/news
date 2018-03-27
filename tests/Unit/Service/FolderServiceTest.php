@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Service;
@@ -17,7 +17,8 @@ use \OCA\News\Db\Folder;
 use OCA\News\Service\FolderService;
 
 
-class FolderServiceTest extends \PHPUnit_Framework_TestCase {
+class FolderServiceTest extends \PHPUnit_Framework_TestCase
+{
 
     private $folderMapper;
     private $folderService;
@@ -26,7 +27,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     private $autoPurgeMinimumInterval;
     private $l10n;
 
-    protected function setUp(){
+    protected function setUp()
+    {
         $this->l10n = $this->getMockBuilder('\OCP\IL10N')
             ->disableOriginalConstructor()
             ->getMock();
@@ -38,24 +40,28 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->method('getTime')
             ->will($this->returnValue($this->time));
         $this->folderMapper = $this->getMockBuilder(
-            '\OCA\News\Db\FolderMapper')
+            '\OCA\News\Db\FolderMapper'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->autoPurgeMinimumInterval = 10;
         $config = $this->getMockBuilder(
-            '\OCA\News\Config\Config')
+            '\OCA\News\Config\Config'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $config->expects($this->any())
             ->method('getAutoPurgeMinimumInterval')
             ->will($this->returnValue($this->autoPurgeMinimumInterval));
         $this->folderService = new FolderService(
-            $this->folderMapper, $this->l10n, $timeFactory, $config);
+            $this->folderMapper, $this->l10n, $timeFactory, $config
+        );
         $this->user = 'hi';
     }
 
 
-    public function testFindAll(){
+    public function testFindAll()
+    {
         $userId = 'jack';
         $return = 'hi';
         $this->folderMapper->expects($this->once())
@@ -69,7 +75,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreate(){
+    public function testCreate()
+    {
         $folder = new Folder();
         $folder->setName('hey');
         $folder->setParentId(5);
@@ -92,7 +99,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testCreateThrowsExWhenFolderNameExists(){
+    public function testCreateThrowsExWhenFolderNameExists()
+    {
         $folderName = 'hihi';
         $rows = [['id' => 1]];
 
@@ -112,7 +120,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     /**
      * @expectedException \OCA\News\Service\ServiceValidationException
      */
-    public function testCreateThrowsExWhenFolderNameEmpty(){
+    public function testCreateThrowsExWhenFolderNameEmpty()
+    {
         $folderName = '';
 
         $this->folderMapper->expects($this->once())
@@ -124,7 +133,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testOpen(){
+    public function testOpen()
+    {
         $folder = new Folder();
 
         $this->folderMapper->expects($this->once())
@@ -143,7 +153,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRename(){
+    public function testRename()
+    {
         $folder = new Folder();
         $folder->setName('jooohn');
 
@@ -157,9 +168,9 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
             ->with($this->equalTo($folder));
 
         $this->folderMapper->expects($this->once())
-                           ->method('findByName')
-                           ->with('bogus', '')
-                           ->will($this->returnValue([]));
+            ->method('findByName')
+            ->with('bogus', '')
+            ->will($this->returnValue([]));
 
         $this->folderService->rename(3, 'bogus', '');
 
@@ -167,7 +178,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRenameThrowsExWhenFolderNameExists(){
+    public function testRenameThrowsExWhenFolderNameExists()
+    {
         $folderName = 'hihi';
         $rows = [['id' => 1]];
 
@@ -185,7 +197,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRenameThrowsExWhenFolderNameEmpty(){
+    public function testRenameThrowsExWhenFolderNameEmpty()
+    {
         $folderName = '';
 
         $this->folderMapper->expects($this->once())
@@ -200,7 +213,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testMarkDeleted() {
+    public function testMarkDeleted() 
+    {
         $id = 3;
         $folder = new Folder();
         $folder2 = new Folder();
@@ -218,7 +232,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testUnmarkDeleted() {
+    public function testUnmarkDeleted() 
+    {
         $id = 3;
         $folder = new Folder();
         $folder2 = new Folder();
@@ -235,7 +250,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
         $this->folderService->unmarkDeleted($id, $this->user);
     }
 
-    public function testPurgeDeleted(){
+    public function testPurgeDeleted()
+    {
         $folder1 = new Folder();
         $folder1->setId(3);
         $folder2 = new Folder();
@@ -258,7 +274,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testPurgeDeletedNoInterval(){
+    public function testPurgeDeletedNoInterval()
+    {
         $folder1 = new Folder();
         $folder1->setId(3);
         $folder2 = new Folder();
@@ -280,7 +297,8 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testDeleteUser() {
+    public function testDeleteUser() 
+    {
         $this->folderMapper->expects($this->once())
             ->method('deleteUser')
             ->will($this->returnValue($this->user));

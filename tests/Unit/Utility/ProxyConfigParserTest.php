@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Utility;
@@ -16,22 +16,26 @@ namespace OCA\News\Tests\Unit\Utility;
 
 use OCA\News\Utility\ProxyConfigParser;
 
-class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase {
+class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase
+{
 
     private $config;
     private $feedService;
     private $itemService;
     private $parser;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->config = $this->getMockBuilder(
-            '\OCP\IConfig')
+            '\OCP\IConfig'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->parser = new ProxyConfigParser($this->config);
     }
 
-    private function setExpectedProxy($proxy=null, $userpasswd=null) {
+    private function setExpectedProxy($proxy=null, $userpasswd=null) 
+    {
         $this->config->expects($this->at(0))
             ->method('getSystemValue')
             ->with($this->equalTo('proxy'))
@@ -42,7 +46,8 @@ class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue($userpasswd));
     }
 
-    public function testParsesNoProxy() {
+    public function testParsesNoProxy() 
+    {
         $expected = [
             'host' => null,
             'port' => null,
@@ -55,7 +60,8 @@ class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testParsesHost() {
+    public function testParsesHost() 
+    {
         $expected = [
             'host' => 'http://google.com/mytest',
             'port' => null,
@@ -68,7 +74,8 @@ class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testParsesHostAndPort() {
+    public function testParsesHostAndPort() 
+    {
         $expected = [
             'host' => 'http://google.com/mytest',
             'port' => 89,
@@ -81,7 +88,8 @@ class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testParsesUser() {
+    public function testParsesUser() 
+    {
         $expected = [
             'host' => null,
             'port' => null,

@@ -3,7 +3,7 @@
 /**
  * ownCloud - App Framework
  *
- * @author Bernhard Posselt
+ * @author    Bernhard Posselt
  * @copyright 2012 Bernhard Posselt dev@bernhard-posselt.com
  *
  * This library is free software; you can redistribute it and/or
@@ -18,7 +18,6 @@
  *
  * You should have received a copy of the GNU Affero General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
- *
  */
 
 
@@ -27,7 +26,8 @@ namespace OCA\News\Tests\Unit\Db;
 /**
  * Simple utility class for testing mappers
  */
-abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
+abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase
+{
     protected $db;
     private $query;
     private $queryAt;
@@ -40,11 +40,13 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
      * Run this function before the actual test to either set or initialize the
      * db. After this the db can be accessed by using $this->db
      */
-    protected function setUp(){
+    protected function setUp()
+    {
         parent::setUp();
 
         $this->db = $this->getMockBuilder(
-            '\OCP\IDBConnection')
+            '\OCP\IDBConnection'
+        )
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -57,40 +59,47 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 
     /**
      * Checks if an array is associative
-     * @param array $array
+     *
+     * @param  array $array
      * @return bool true if associative
      */
-    private function isAssocArray(array $array) {
+    private function isAssocArray(array $array) 
+    {
         return array_values($array) !== $array;
     }
 
     /**
      * Returns the correct PDO constant based on the value type
-     * @param $value
+     *
+     * @param  $value
      * @return PDO constant
      */
-    private function getPDOType($value) {
+    private function getPDOType($value) 
+    {
         switch (gettype($value)) {
-            case 'integer':
-                return \PDO::PARAM_INT;
-            case 'boolean':
-                return \PDO::PARAM_BOOL;
-            default:
-                return \PDO::PARAM_STR;
+        case 'integer':
+            return \PDO::PARAM_INT;
+        case 'boolean':
+            return \PDO::PARAM_BOOL;
+        default:
+            return \PDO::PARAM_STR;
         }
     }
 
     /**
      * Create mocks and set expected results for database queries
-     * @param string $sql the sql query that you expect to receive
-     * @param array $arguments the expected arguments for the prepare query
-     * method
-     * @param array $returnRows the rows that should be returned for the result
-     * of the database query. If not provided, it wont be assumed that fetch
-     * will be called on the result
+     *
+     * @param string $sql        the sql query that you expect to receive
+     * @param array  $arguments  the expected arguments for the prepare query
+     *                           method
+     * @param array  $returnRows the rows that should be returned for the result
+     *                           of the database query. If not provided, it wont
+     *                           be assumed that fetch will be called on the
+     *                           result
      */
     protected function setMapperResult($sql, $arguments=array(), $returnRows=array(),
-        $limit=null, $offset=null, $expectClose=false){
+        $limit=null, $offset=null, $expectClose=false
+    ) {
         if($limit === null && $offset === null) {
             $this->db->expects($this->at($this->prepareAt))
                 ->method('prepare')
@@ -104,16 +113,20 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
         } elseif($limit === null && $offset !== null) {
             $this->db->expects($this->at($this->prepareAt))
                 ->method('prepare')
-                ->with($this->equalTo($sql),
+                ->with(
+                    $this->equalTo($sql),
                     $this->equalTo(null),
-                    $this->equalTo($offset))
+                    $this->equalTo($offset)
+                )
                 ->will(($this->returnValue($this->query)));
         } else  {
             $this->db->expects($this->at($this->prepareAt))
                 ->method('prepare')
-                ->with($this->equalTo($sql),
+                ->with(
+                    $this->equalTo($sql),
                     $this->equalTo($limit),
-                    $this->equalTo($offset))
+                    $this->equalTo($offset)
+                )
                 ->will(($this->returnValue($this->query)));
         }
 
@@ -124,29 +137,33 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 
         $this->query->expects($this->any())
             ->method('fetch')
-            ->will($this->returnCallback(
-                function() use ($iterators, $fetchAt){
-                    $iterator = $iterators[$fetchAt];
-                    $result = $iterator->next();
+            ->will(
+                $this->returnCallback(
+                    function () use ($iterators, $fetchAt) {
+                        $iterator = $iterators[$fetchAt];
+                        $result = $iterator->next();
 
-                    if($result === false) {
-                        $fetchAt++;
+                        if($result === false) {
+                            $fetchAt++;
+                        }
+
+                        $this->queryAt++;
+
+                        return $result;
                     }
-
-                    $this->queryAt++;
-
-                    return $result;
-                }
-            ));
+                )
+            );
 
         if ($this->isAssocArray($arguments)) {
             foreach($arguments as $key => $argument) {
                 $pdoConstant = $this->getPDOType($argument);
                 $this->query->expects($this->at($this->queryAt))
                     ->method('bindValue')
-                    ->with($this->equalTo($key),
+                    ->with(
+                        $this->equalTo($key),
                         $this->equalTo($argument),
-                        $this->equalTo($pdoConstant));
+                        $this->equalTo($pdoConstant)
+                    );
                 $this->queryAt++;
             }
         } else {
@@ -155,9 +172,11 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
                 $pdoConstant = $this->getPDOType($argument);
                 $this->query->expects($this->at($this->queryAt))
                     ->method('bindValue')
-                    ->with($this->equalTo($index),
+                    ->with(
+                        $this->equalTo($index),
                         $this->equalTo($argument),
-                        $this->equalTo($pdoConstant));
+                        $this->equalTo($pdoConstant)
+                    );
                 $index++;
                 $this->queryAt++;
             }
@@ -165,9 +184,13 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 
         $this->query->expects($this->at($this->queryAt))
             ->method('execute')
-            ->will($this->returnCallback(function($sql, $p=null, $o=null, $s=null) {
+            ->will(
+                $this->returnCallback(
+                    function ($sql, $p=null, $o=null, $s=null) {
 
-            }));
+                    }
+                )
+            );
         $this->queryAt++;
 
 
@@ -188,17 +211,20 @@ abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase {
 }
 
 
-class ArgumentIterator {
+class ArgumentIterator
+{
 
     private $arguments;
 
-    public function __construct($arguments){
+    public function __construct($arguments)
+    {
         $this->arguments = $arguments;
     }
 
-    public function next(){
+    public function next()
+    {
         $result = array_shift($this->arguments);
-        if($result === null){
+        if($result === null) {
             return false;
         } else {
             return $result;

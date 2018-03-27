@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2015
  */
 
@@ -32,24 +32,34 @@ use OCA\News\Db\ItemMapper;
 use OCA\News\Db\FolderMapper;
 
 
-abstract class IntegrationTest extends \Test\TestCase {
+abstract class IntegrationTest extends \Test\TestCase
+{
 
     protected $user = 'test';
     protected $userPassword = 'test';
 
-    /** @var ItemMapper */
+    /**
+     * @var ItemMapper 
+     */
     protected $itemMapper;
 
-    /** @var  FeedMapper */
+    /**
+     * @var  FeedMapper 
+     */
     protected $feedMapper;
 
-    /** @var FolderMapper */
+    /**
+     * @var FolderMapper 
+     */
     protected $folderMapper;
 
-    /** @var IAppContainer */
+    /**
+     * @var IAppContainer 
+     */
     protected $container;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         parent::setUp();
         $app = new Application();
         $this->container = $app->getContainer();
@@ -62,7 +72,8 @@ abstract class IntegrationTest extends \Test\TestCase {
         $this->folderMapper = $this->container->query(FolderMapper::class);
     }
 
-    protected function findItemByTitle($title) {
+    protected function findItemByTitle($title) 
+    {
         // db logic in app code, negligible since its a test
         $items = $this->itemMapper->where(['title' => $title]);
         $feeds = $this->feedMapper->where(['userId' => $this->user]);
@@ -72,10 +83,12 @@ abstract class IntegrationTest extends \Test\TestCase {
             $feedIds[$feed->getId()] = true;
         }
 
-        $result = array_filter($items,
+        $result = array_filter(
+            $items,
             function (Item $item) use ($feedIds) {
-            return array_key_exists($item->getFeedId(), $feedIds);
-        });
+                return array_key_exists($item->getFeedId(), $feedIds);
+            }
+        );
 
         // ok so this is funny: array_filter preserves indices, meaning that
         // you can't use 0 as key for the first element return from it :D
@@ -84,24 +97,31 @@ abstract class IntegrationTest extends \Test\TestCase {
         return $result;
     }
 
-    protected function findFolderByName($name) {
-        return $this->folderMapper->where([
+    protected function findFolderByName($name) 
+    {
+        return $this->folderMapper->where(
+            [
             'userId' => $this->user,
             'name' => $name
-        ])[0];
+            ]
+        )[0];
     }
 
-    protected function findFeedByTitle($title) {
-        return $this->feedMapper->where([
+    protected function findFeedByTitle($title) 
+    {
+        return $this->feedMapper->where(
+            [
             'userId' => $this->user,
             'title' => $title
-        ])[0];
+            ]
+        )[0];
     }
 
     /**
      * @param string $name loads fixtures from a given file
      */
-    protected function loadFixtures($name) {
+    protected function loadFixtures($name) 
+    {
         $fixtures = include __DIR__ . '/Fixtures/data/' . $name . '.php';
         if (array_key_exists('folders', $fixtures)) {
             $this->loadFolderFixtures($fixtures['folders']);
@@ -111,7 +131,8 @@ abstract class IntegrationTest extends \Test\TestCase {
         }
     }
 
-    protected function loadFolderFixtures(array $folderFixtures=[]) {
+    protected function loadFolderFixtures(array $folderFixtures=[]) 
+    {
         foreach ($folderFixtures as $folderFixture) {
             $folder = new FolderFixture($folderFixture);
             $folderId = $this->loadFixture($folder);
@@ -119,19 +140,21 @@ abstract class IntegrationTest extends \Test\TestCase {
         }
     }
 
-    protected function loadFeedFixtures(array $feedFixtures=[], $folderId=0) {
+    protected function loadFeedFixtures(array $feedFixtures=[], $folderId=0) 
+    {
         foreach ($feedFixtures as $feedFixture) {
             $feed = new FeedFixture($feedFixture);
             $feed->setFolderId($folderId);
             $feedId = $this->loadFixture($feed);
 
             if (!empty($feedFixture['items'])) {
-				$this->loadItemFixtures($feedFixture['items'], $feedId);
-			}
+                $this->loadItemFixtures($feedFixture['items'], $feedId);
+            }
         }
     }
 
-    protected function loadItemFixtures(array $itemFixtures=[], $feedId) {
+    protected function loadItemFixtures(array $itemFixtures=[], $feedId) 
+    {
         foreach ($itemFixtures as $itemFixture) {
             $item = new ItemFixture($itemFixture);
             $item->setFeedId($feedId);
@@ -141,10 +164,12 @@ abstract class IntegrationTest extends \Test\TestCase {
 
     /**
      * Saves a fixture in a database and returns the saved result
-     * @param Entity $fixture
+     *
+     * @param  Entity $fixture
      * @return int the id
      */
-    protected function loadFixture(Entity $fixture) {
+    protected function loadFixture(Entity $fixture) 
+    {
         if ($fixture instanceof FeedFixture) {
             return $this->feedMapper->insert($fixture)->getId();
         } elseif ($fixture instanceof ItemFixture) {
@@ -158,10 +183,12 @@ abstract class IntegrationTest extends \Test\TestCase {
 
     /**
      * Creates and logs in a new ownCloud user
+     *
      * @param $user
      * @param $password
      */
-    protected function setupUser($user, $password) {
+    protected function setupUser($user, $password) 
+    {
         $userManager = $this->container->query(IUserManager::class);
         $userManager->createUser($user, $password);
 
@@ -170,9 +197,11 @@ abstract class IntegrationTest extends \Test\TestCase {
 
     /**
      * Removes a user and his News app database entries from the database
+     *
      * @param $user
      */
-    protected function tearDownUser($user) {
+    protected function tearDownUser($user) 
+    {
         $userManager = $this->container->query(IUserManager::class);
 
         if ($userManager->userExists($user)) {
@@ -184,9 +213,11 @@ abstract class IntegrationTest extends \Test\TestCase {
 
     /**
      * Deletes all news entries of a given user
+     *
      * @param string $user
      */
-    protected function clearUserNewsDatabase($user) {
+    protected function clearUserNewsDatabase($user) 
+    {
         $sql = [
             'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` IN
               (SELECT `id` FROM `*PREFIX*news_feeds` WHERE `user_id` = ?)',
@@ -200,7 +231,8 @@ abstract class IntegrationTest extends \Test\TestCase {
         }
     }
 
-    protected function tearDown() {
+    protected function tearDown() 
+    {
         parent::tearDown();
         $this->tearDownUser($this->user);
     }

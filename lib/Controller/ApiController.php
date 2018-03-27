@@ -7,8 +7,8 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Controller;
@@ -16,19 +16,35 @@ namespace OCA\News\Controller;
 use OCP\IRequest;
 use OCP\AppFramework\ApiController as BaseApiController;
 
-class ApiController extends BaseApiController {
-
-    public function __construct($appName,
-                                IRequest $request){
+/**
+ * Class ApiController
+ *
+ * @package OCA\News\Controller
+ */
+class ApiController extends BaseApiController
+{
+    /**
+     * ApiController constructor.
+     *
+     * @param string   $appName The name of the app
+     * @param IRequest $request The request
+     */
+    public function __construct($appName, IRequest $request)
+    {
         parent::__construct($appName, $request);
     }
 
     /**
+     * Indication of the API levels
+     *
      * @PublicPage
      * @NoCSRFRequired
      * @CORS
+     *
+     * @return array
      */
-    public function index() {
+    public function index()
+    {
         return [
             'apiLevels' => ['v1-2']
         ];

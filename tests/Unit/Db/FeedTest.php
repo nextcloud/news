@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Db;
@@ -16,10 +16,12 @@ namespace OCA\News\Tests\Unit\Db;
 
 use OCA\News\Db\Feed;
 
-class FeedTest extends \PHPUnit_Framework_TestCase {
+class FeedTest extends \PHPUnit_Framework_TestCase
+{
 
 
-    private function createFeed() {
+    private function createFeed() 
+    {
         $feed = new Feed();
         $feed->setId(3);
         $feed->setHttpLastModified(44);
@@ -43,10 +45,12 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
         return $feed;
     }
 
-    public function testToAPI() {
+    public function testToAPI() 
+    {
         $feed = $this->createFeed();
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'id' => 3,
             'url' => 'http://google.com/some/weird/path',
             'title' => 'title',
@@ -59,14 +63,17 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'link' => 'https://www.google.com/some/weird/path',
             'updateErrorCount' => 2,
             'lastUpdateError' => 'hi'
-        ], $feed->toAPI());
+            ], $feed->toAPI()
+        );
     }
 
 
-    public function testSerialize() {
+    public function testSerialize() 
+    {
         $feed = $this->createFeed();
 
-        $this->assertEquals([
+        $this->assertEquals(
+            [
             'id' => 3,
             'url' => 'http://google.com/some/weird/path',
             'title' => 'title',
@@ -90,25 +97,29 @@ class FeedTest extends \PHPUnit_Framework_TestCase {
             'lastUpdateError' => 'hi',
             'basicAuthUser' => 'user',
             'basicAuthPassword' => 'password'
-        ], $feed->jsonSerialize());
+            ], $feed->jsonSerialize()
+        );
     }
 
 
-    public function testSetXSSUrl() {
+    public function testSetXSSUrl() 
+    {
         $feed = new Feed();
         $feed->setUrl('javascript:alert()');
         $this->assertEquals('', $feed->getUrl());
     }
 
 
-    public function testSetUrlUpdatesHash() {
+    public function testSetUrlUpdatesHash() 
+    {
         $feed = new Feed();
         $feed->setUrl('http://test');
         $this->assertEquals(md5('http://test'), $feed->getUrlHash());
     }
 
 
-    public function testSetXSSLink() {
+    public function testSetXSSLink() 
+    {
         $feed = new Feed();
         $feed->setLink('javascript:alert()');
         $this->assertEquals('', $feed->getLink());

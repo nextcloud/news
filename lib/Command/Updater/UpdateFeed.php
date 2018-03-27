@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2016
  */
 
@@ -21,15 +21,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 use OCA\News\Service\FeedService;
 
 
-class UpdateFeed extends Command {
+class UpdateFeed extends Command
+{
     private $feedService;
 
-    public function __construct(FeedService $feedService) {
+    public function __construct(FeedService $feedService) 
+    {
         parent::__construct();
         $this->feedService = $feedService;
     }
 
-    protected function configure() {
+    protected function configure() 
+    {
         $this->setName('news:updater:update-feed')
             ->addArgument(
                 'feed-id',
@@ -44,15 +47,18 @@ class UpdateFeed extends Command {
             ->setDescription('Console API for updating a single user\'s feed');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output) 
+    {
         $feedId = $input->getArgument('feed-id');
         $userId = $input->getArgument('user-id');
         try {
             $this->feedService->update($feedId, $userId);
         } catch (Exception $e) {
-            $output->writeln('<error>Could not update feed with id ' . $feedId .
+            $output->writeln(
+                '<error>Could not update feed with id ' . $feedId .
                              ' and user ' . $userId . ': ' . $e->getMessage() .
-                             '</error> ');
+                '</error> '
+            );
         }
     }
 

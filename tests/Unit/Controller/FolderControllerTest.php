@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -23,7 +23,8 @@ use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
 
-class FolderControllerTest extends \PHPUnit_Framework_TestCase {
+class FolderControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $appName;
     private $folderService;
@@ -41,21 +42,28 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
     {
         $this->appName = 'news';
         $this->user = 'jack';
-        $this->folderService = $this->getMockBuilder('\OCA\News\Service\FolderService')
+        $this->folderService = $this->getMockBuilder(
+            '\OCA\News\Service\FolderService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder('\OCA\News\Service\FeedService')
+        $this->feedService = $this->getMockBuilder(
+            '\OCA\News\Service\FeedService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder('\OCA\News\Service\ItemService')
+        $this->itemService = $this->getMockBuilder(
+            '\OCA\News\Service\ItemService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder('\OCP\IRequest')
+        $this->request = $this->getMockBuilder(
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new FolderController(
-            $this->appName,
-            $this->request,
+            $this->appName, $this->request,
             $this->folderService,
             $this->feedService,
             $this->itemService,
@@ -82,13 +90,13 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
             ->method('open')
             ->with(
                 $this->equalTo(3),
-                $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo(true), $this->equalTo($this->user)
             );
 
         $this->controller->open(3, true);
 
     }
+
 
     public function testOpenDoesNotExist()
     {
@@ -108,14 +116,14 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
+
     public function testCollapse()
     {
         $this->folderService->expects($this->once())
             ->method('open')
             ->with(
                 $this->equalTo(5),
-                $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo(false), $this->equalTo($this->user)
             );
 
         $this->controller->open(5, false);
@@ -221,9 +229,11 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->with($this->equalTo(4),
+            ->with(
+                $this->equalTo(4),
                 $this->equalTo('tech'),
-                $this->equalTo($this->user))
+                $this->equalTo($this->user)
+            )
             ->will($this->returnValue($result['folders'][0]));
 
         $response = $this->controller->rename('tech', 4);
@@ -243,8 +253,10 @@ class FolderControllerTest extends \PHPUnit_Framework_TestCase {
         $response = $this->controller->rename('tech', 4);
         $params = json_decode($response->render(), true);
 
-        $this->assertEquals($response->getStatus(),
-            Http::STATUS_UNPROCESSABLE_ENTITY);
+        $this->assertEquals(
+            $response->getStatus(),
+            Http::STATUS_UNPROCESSABLE_ENTITY
+        );
         $this->assertEquals($msg, $params['message']);
     }
 

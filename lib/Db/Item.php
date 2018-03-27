@@ -7,8 +7,8 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Db;
@@ -46,7 +46,8 @@ use \OCP\AppFramework\Db\Entity;
  * @method void setUnread(bool $value)
  * @method void setStarred(bool $value)
  */
-class Item extends Entity implements IAPI, \JsonSerializable {
+class Item extends Entity implements IAPI, \JsonSerializable
+{
 
     use EntityJSONSerializer;
 
@@ -70,7 +71,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
     protected $unread = false;
     protected $starred = false;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->addType('pubDate', 'integer');
         $this->addType('updatedDate', 'integer');
         $this->addType('feedId', 'integer');
@@ -79,18 +81,21 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $this->addType('starred', 'boolean');
     }
 
-    public function isUnread() {
+    public function isUnread() 
+    {
         return $this->unread;
     }
 
-    public function isStarred() {
+    public function isStarred() 
+    {
         return $this->starred;
     }
 
     /**
      * Turns entity attributes into an array
      */
-    public function jsonSerialize() {
+    public function jsonSerialize() 
+    {
         return [
             'id' => $this->getId(),
             'guid' => $this->getGuid(),
@@ -113,7 +118,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         ];
     }
 
-    public function toAPI() {
+    public function toAPI() 
+    {
         return [
             'id' => $this->getId(),
             'guid' => $this->getGuid(),
@@ -136,7 +142,8 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         ];
     }
 
-    public function toExport($feeds) {
+    public function toExport($feeds) 
+    {
         return [
             'guid' => $this->getGuid(),
             'url' => $this->getUrl(),
@@ -154,11 +161,13 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         ];
     }
 
-    public function getIntro() {
+    public function getIntro() 
+    {
         return strip_tags($this->getBody());
     }
 
-    public static function fromImport($import) {
+    public static function fromImport($import) 
+    {
         $item = new static();
         $item->setGuid($import['guid']);
         $item->setGuidHash($import['guid']);
@@ -177,15 +186,18 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         return $item;
     }
 
-    public function setAuthor($name) {
+    public function setAuthor($name) 
+    {
         parent::setAuthor(strip_tags($name));
     }
 
-    public function setTitle($title) {
+    public function setTitle($title) 
+    {
         parent::setTitle(strip_tags($title));
     }
 
-    public function generateSearchIndex() {
+    public function generateSearchIndex() 
+    {
         $this->setSearchIndex(
             mb_strtolower(
                 html_entity_decode(strip_tags($this->getBody())) .
@@ -199,36 +211,47 @@ class Item extends Entity implements IAPI, \JsonSerializable {
         $this->setContentHash($this->computeContentHash());
     }
 
-    private function computeContentHash() {
-        return md5($this->getTitle() . $this->getUrl() . $this->getBody() .
+    private function computeContentHash() 
+    {
+        return md5(
+            $this->getTitle() . $this->getUrl() . $this->getBody() .
             $this->getEnclosureLink() . $this->getEnclosureMime() .
-            $this->getAuthor());
+            $this->getAuthor()
+        );
     }
 
-    private function computeFingerprint() {
-        return md5($this->getTitle() . $this->getUrl() . $this->getBody() .
-            $this->getEnclosureLink());
+    private function computeFingerprint() 
+    {
+        return md5(
+            $this->getTitle() . $this->getUrl() . $this->getBody() .
+            $this->getEnclosureLink()
+        );
     }
 
-    public function setUrl($url) {
+    public function setUrl($url) 
+    {
         $url = trim($url);
         if (strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0) {
             parent::setUrl($url);
         }
     }
 
-    public function setBody($body) {
+    public function setBody($body) 
+    {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
-        parent::setBody(str_replace(
-            '<a', '<a target="_blank" rel="noreferrer"', $body
-        ));
+        parent::setBody(
+            str_replace(
+                '<a', '<a target="_blank" rel="noreferrer"', $body
+            )
+        );
     }
 
     /**
      * @return int
      */
-    public function cropApiLastModified() {
+    public function cropApiLastModified() 
+    {
         $lastModified = $this->getLastModified();
         if (strlen((string)$lastModified) > 10) {
             return (int)substr($lastModified, 0, -6);

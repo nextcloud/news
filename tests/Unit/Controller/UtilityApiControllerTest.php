@@ -5,17 +5,18 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\UtilityApiController;
 
-class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
+class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $settings;
     private $request;
@@ -24,22 +25,27 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
     private $appName;
     private $status;
 
-    protected function setUp() {
+    protected function setUp() 
+    {
         $this->appName = 'news';
         $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig')
+            '\OCP\IConfig'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->updater = $this->getMockBuilder(
-            '\OCA\News\Utility\Updater')
+            '\OCA\News\Utility\Updater'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->status = $this->getMockBuilder(
-            '\OCA\News\Service\StatusService')
+            '\OCA\News\Service\StatusService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->newsAPI = new UtilityApiController(
@@ -49,11 +55,14 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testGetVersion(){
+    public function testGetVersion()
+    {
         $this->settings->expects($this->once())
             ->method('getAppValue')
-            ->with($this->equalTo($this->appName),
-                $this->equalTo('installed_version'))
+            ->with(
+                $this->equalTo($this->appName),
+                $this->equalTo('installed_version')
+            )
             ->will($this->returnValue('1.0'));
 
         $response = $this->newsAPI->version();
@@ -63,21 +72,24 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testBeforeUpdate(){
+    public function testBeforeUpdate()
+    {
         $this->updater->expects($this->once())
             ->method('beforeUpdate');
         $this->newsAPI->beforeUpdate();
     }
 
 
-    public function testAfterUpdate(){
+    public function testAfterUpdate()
+    {
         $this->updater->expects($this->once())
             ->method('afterUpdate');
         $this->newsAPI->afterUpdate();
     }
 
 
-    public function testStatus(){
+    public function testStatus()
+    {
         $in = 'hi';
         $this->status->expects($this->once())
             ->method('getStatus')

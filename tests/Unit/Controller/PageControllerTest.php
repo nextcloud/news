@@ -5,10 +5,10 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author Alessandro Cosentino <cosenal@gmail.com>
- * @author Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright Alessandro Cosentino 2012
- * @copyright Bernhard Posselt 2012, 2014
+ * @author    Alessandro Cosentino <cosenal@gmail.com>
+ * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @copyright 2012 Alessandro Cosentino
+ * @copyright 2012-2014 Bernhard Posselt
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -17,7 +17,8 @@ use OCA\News\Controller\PageController;
 use \OCA\News\Db\FeedType;
 
 
-class PageControllerTest extends \PHPUnit_Framework_TestCase {
+class PageControllerTest extends \PHPUnit_Framework_TestCase
+{
 
     private $settings;
     private $appName;
@@ -35,7 +36,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     /**
      * Gets run before each test
      */
-    public function setUp(){
+    public function setUp()
+    {
         $this->appName = 'news';
         $this->user = 'becka';
         $this->configData = [
@@ -49,52 +51,67 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             'homepage' => 'https://github.com/owncloud/test'
         ];
         $this->l10n = $this->request = $this->getMockBuilder(
-            '\OCP\IL10n')
+            '\OCP\IL10n'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig')
+            '\OCP\IConfig'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(
-            '\OCP\IRequest')
+            '\OCP\IRequest'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->urlGenerator = $this->getMockBuilder(
-            '\OCP\IURLGenerator')
+            '\OCP\IURLGenerator'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->appConfig = $this->getMockBuilder(
-            '\OCA\News\Config\Config')
+            '\OCA\News\Config\Config'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config')
+            '\OCA\News\Config\Config'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->recommended = $this->getMockBuilder(
-            '\OCA\News\Explore\RecommendedSites')
+            '\OCA\News\Explore\RecommendedSites'
+        )
             ->disableOriginalConstructor()
             ->getMock();
         $this->status = $this->getMockBuilder(
-            '\OCA\News\Service\StatusService')
+            '\OCA\News\Service\StatusService'
+        )
             ->disableOriginalConstructor()
             ->getMock();
-        $this->controller = new PageController($this->appName, $this->request,
+        $this->controller = new PageController(
+            $this->appName, $this->request,
             $this->settings, $this->urlGenerator, $this->config,
             $this->l10n, $this->recommended, $this->status,
-            $this->user);
+            $this->user
+        );
     }
 
 
-    public function testIndex(){
+    public function testIndex()
+    {
         $this->status->expects($this->once())
             ->method('getStatus')
-            ->will($this->returnValue([
-                'warnings' => [
+            ->will(
+                $this->returnValue(
+                    [
+                    'warnings' => [
                     'improperlyConfiguredCron' => false
-                ]
-            ]));
+                    ]
+                    ]
+                )
+            );
 
         $response = $this->controller->index();
         $this->assertEquals('index', $response->getTemplateName());
@@ -102,14 +119,19 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testIndexNoCorrectCronAjax(){
+    public function testIndexNoCorrectCronAjax()
+    {
         $this->status->expects($this->once())
             ->method('getStatus')
-            ->will($this->returnValue([
-                'warnings' => [
+            ->will(
+                $this->returnValue(
+                    [
+                    'warnings' => [
                     'improperlyConfiguredCron' => true
-                ]
-            ]));
+                    ]
+                    ]
+                )
+            );
 
 
         $response = $this->controller->index();
@@ -117,7 +139,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testSettings() {
+    public function testSettings() 
+    {
         $result = [
             'settings' => [
                 'showAll' => true,
@@ -135,41 +158,53 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue('de'));
         $this->settings->expects($this->at(0))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('showAll'))
+                $this->equalTo('showAll')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(1))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('compact'))
+                $this->equalTo('compact')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(2))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('preventReadOnScroll'))
+                $this->equalTo('preventReadOnScroll')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(3))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst'))
+                $this->equalTo('oldestFirst')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(4))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('compactExpand'))
+                $this->equalTo('compactExpand')
+            )
             ->will($this->returnValue('1'));
         $this->config->expects($this->once())
             ->method('getExploreUrl')
             ->will($this->returnValue(' '));
         $this->urlGenerator->expects($this->once())
             ->method('linkToRoute')
-            ->with($this->equalTo('news.page.explore'),
-                    $this->equalTo(['lang' => 'en']))
+            ->with(
+                $this->equalTo('news.page.explore'),
+                $this->equalTo(['lang' => 'en'])
+            )
             ->will($this->returnValue('test'));
 
 
@@ -178,7 +213,8 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testSettingsExploreUrlSet() {
+    public function testSettingsExploreUrlSet() 
+    {
         $result = [
             'settings' => [
                 'showAll' => true,
@@ -196,33 +232,43 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
             ->will($this->returnValue('de'));
         $this->settings->expects($this->at(0))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('showAll'))
+                $this->equalTo('showAll')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(1))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('compact'))
+                $this->equalTo('compact')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(2))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('preventReadOnScroll'))
+                $this->equalTo('preventReadOnScroll')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(3))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst'))
+                $this->equalTo('oldestFirst')
+            )
             ->will($this->returnValue('1'));
         $this->settings->expects($this->at(4))
             ->method('getUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
-                $this->equalTo('compactExpand'))
+                $this->equalTo('compactExpand')
+            )
             ->will($this->returnValue('1'));
         $this->config->expects($this->once())
             ->method('getExploreUrl')
@@ -235,57 +281,73 @@ class PageControllerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($result, $response);
     }
 
-    public function testUpdateSettings() {
+    public function testUpdateSettings() 
+    {
         $this->settings->expects($this->at(0))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('showAll'),
-                $this->equalTo('1'));
+                $this->equalTo('1')
+            );
         $this->settings->expects($this->at(1))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('compact'),
-                $this->equalTo('1'));
+                $this->equalTo('1')
+            );
         $this->settings->expects($this->at(2))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('preventReadOnScroll'),
-                $this->equalTo('0'));
+                $this->equalTo('0')
+            );
         $this->settings->expects($this->at(3))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('oldestFirst'),
-                $this->equalTo('1'));
+                $this->equalTo('1')
+            );
         $this->settings->expects($this->at(4))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('compactExpand'),
-                $this->equalTo('1'));
+                $this->equalTo('1')
+            );
         $this->controller->updateSettings(true, true, false, true, true);
 
     }
 
 
-    public function testExplore(){
+    public function testExplore()
+    {
         $in = 'test';
         $this->settings->expects($this->at(0))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('lastViewedFeedId'),
-                $this->equalTo(0));
+                $this->equalTo(0)
+            );
 
         $this->settings->expects($this->at(1))
             ->method('setUserValue')
-            ->with($this->equalTo($this->user),
+            ->with(
+                $this->equalTo($this->user),
                 $this->equalTo($this->appName),
                 $this->equalTo('lastViewedFeedType'),
-                $this->equalTo(FeedType::EXPLORE));
+                $this->equalTo(FeedType::EXPLORE)
+            );
 
         $this->recommended->expects($this->once())
             ->method('forLanguage')
