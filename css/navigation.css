@@ -135,6 +135,7 @@
     background-color: #DE1212;
     color: #fff;
     position: relative;
+    overflow-y: auto;
 }
 
 #app-navigation .ui-state-disabled {
