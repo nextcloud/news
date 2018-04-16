@@ -20,9 +20,8 @@ class FeedFixture extends Feed
 
     use Fixture;
 
-    public function __construct(array $defaults=[])  
+    public function __construct(array $defaults=[])
     {
-        parent::__construct();
         $defaults = array_merge(
             [
             'userId' => 'test',
