@@ -91,7 +91,7 @@ ifeq (, $(shell which composer 2> /dev/null))
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar $(build_tools_directory)
 endif
-	$(composer) update --prefer-dist
+	$(composer) install --prefer-dist --no-dev
 
 # Installs npm dependencies
 .PHONY: npm
