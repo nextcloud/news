@@ -172,7 +172,7 @@ endif
 # from the internet
 .PHONY: test
 test:
-	$(composer) install --prefer-dist
+	$(composer) update --prefer-dist
 	cd js && $(npm) run test
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
 	# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
