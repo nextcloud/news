@@ -126,5 +126,5 @@
     "Keyboard shortcuts" : "קיצורי מקלדת",
     "Documentation" : "תיעוד",
     "Report a bug" : "דיווח על באג"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
+},"pluralForm" :"nplurals=4; plural=(n==1 ? 1: n == 2 ? 2 : (n % 10 == 0 and n > 10) ? 4);"
 }
