@@ -52,5 +52,5 @@
     "Help" : "کمک",
     "Keyboard shortcuts" : "میان بر صفحه ی کلید",
     "Documentation" : "مستندسازی"
-},"pluralForm" :"nplurals=2; plural=((n<=1 && n>= 0) ? 1);"
+},"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -55,4 +55,4 @@ OC.L10N.register(
     "Keyboard shortcuts" : "میان بر صفحه ی کلید",
     "Documentation" : "مستندسازی"
 },
-"nplurals=2; plural=((n<=1 && n>= 0) ? 1);");
+"nplurals=2; plural=(n > 1);");

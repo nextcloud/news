@@ -146,4 +146,4 @@ OC.L10N.register(
     "Documentation" : "დოკუმენტაცია",
     "Report a bug" : "განაცხადეთ შეცდომა"
 },
-"nplurals=2; plural=(n==1);");
+"nplurals=2; plural=(n!=1);");
