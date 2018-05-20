@@ -6,7 +6,7 @@ OC.L10N.register(
     "Request forbidden. Are you an admin?" : "Užklausa neleidžiama. Ar jūs esate administratorius?",
     "Token expired or app not enabled! Reload the page!" : "Pasibaigė prieigos raktų galiojimas arba programėlė nėra įjungta! Įkelkite puslapį iš naujo!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vidinė serverio klaida! Išsamesnė informacija aprašoma \"data/nextcloud.log\" žurnale!",
-    "Request failed, Nextcloud is in currently in maintenance mode!" : "Sistema yra atnaujinama! Palaukite ir bandykite dar kartą.",
+    "Request failed, Nextcloud is in currently in maintenance mode!" : "Užklausa nepavyko, Nextcloud šiuo metu yra techninės priežiūros veiksenoje!",
     "Feed contains invalid XML" : "Naujienų srautas duomenis pateikia klaidingai",
     "Feed not found: Either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Tinklapis neteikia naujienų srauto paslaugos arba blokuoja prieigą prie jo. ",
     "Detected feed format is not supported" : "Naujienų srauto formatas yra nepalaikomas",
