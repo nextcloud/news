@@ -30,6 +30,7 @@ OC.L10N.register(
     "Articles without feed" : "Articoli senza fonte",
     "Can not add folder: Exists already" : "Impossibile aggiungere la cartella: esiste già",
     "News" : "Notizie",
+    "An RSS/Atom feed reader" : "Un lettore di fonti RSS/Atom",
     "Use system cron for updates" : "Usa cron di sistema per gli aggiornamenti",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Disabilita questa opzione se esegui uno strumento di aggiornamento personalizzato come quello Python incluso nell'applicazione",
     "Purge interval" : "Intervallo di cancellazione",
