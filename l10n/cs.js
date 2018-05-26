@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Požadavek selhal, síťové připojení není dostupné!",
     "Request unauthorized. Are you logged in?" : "Neautorizovaný požadavek. Jste přihlášeni?",
-    "Request forbidden. Are you an admin?" : "Zakázaný požadavek. Jste administrátor?",
+    "Request forbidden. Are you an admin?" : "Požadavek odepřen. Jste správce?",
     "Token expired or app not enabled! Reload the page!" : "Token vypršel nebo aplikace není povolena! Obnovte stránku!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interní chyba serveru! Nahlédněte prosím do souboru data/nextcloud.log pro více informací!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek selhal, Nextcloud je aktuálně v módu údržby!",
