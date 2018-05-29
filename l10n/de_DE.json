@@ -28,6 +28,7 @@
     "Articles without feed" : "Artikel ohne Feed",
     "Can not add folder: Exists already" : "Ordner kann nicht hinzgefügt werden: Existiert bereits",
     "News" : "News",
+    "An RSS/Atom feed reader" : "Ein RSS/Atom Feed-Reader",
     "Use system cron for updates" : "Verwende System-Cron für Aktualisierungen",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Deaktivieren Sie diese Option, wenn Sie einen eigenen Updater wie z.B. den Python-Updater aus der App laufen lassen",
     "Purge interval" : "Säuberungssintervall",
