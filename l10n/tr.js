@@ -5,7 +5,7 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "İstek için yeterli izin yok. Oturumunuz açık mı?",
     "Request forbidden. Are you an admin?" : "İstek reddedildi. Bir yönetici misiniz?",
     "Token expired or app not enabled! Reload the page!" : "Kodun süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
-    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucu sorunu! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucu sorunu! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "İstek karşılanamadı. Nextcloud şu anda bakım kipinde!",
     "Feed contains invalid XML" : "Akıştaki XML geçersiz",
     "Feed not found: Either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Akış bulunamadı: Ya web sitesi bir akış sunmuyor ya da erişim engelleniyor. Engellemeyi aşmak için akışı sunucunuzdan şu curl komutunu kullanarak indirmeyi deneyin: curl",
