@@ -7,9 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-
  /*jshint unused:false*/
-app.service('SettingsResource', function ($http, BASE_URL) {
+export default /* @ngInject */ function ($http, BASE_URL) {
     'use strict';
 
     this.settings = {
@@ -81,5 +80,4 @@ app.service('SettingsResource', function ($http, BASE_URL) {
 
         return languageCode;
     };
-
-});
+}

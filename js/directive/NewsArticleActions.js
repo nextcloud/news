@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsArticleActions', function () {
+export default /* @ngInject */ function () {
     'use strict';
     return {
         restrict: 'A',
@@ -25,4 +25,4 @@ app.directive('newsArticleActions', function () {
             scope.noPlugins = plugins.length === 0;
         }
     };
-});
+}

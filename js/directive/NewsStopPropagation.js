@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsStopPropagation', function () {
+export default /* @ngInject */ function () {
     'use strict';
     return {
         restrict: 'A',
@@ -17,4 +17,4 @@ app.directive('newsStopPropagation', function () {
             });
         }
     };
-});
+}

@@ -7,23 +7,23 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsRefreshMasonry', function ($timeout) {
-	'use strict';
-	var refresh = function (elem) {
-		$timeout(function () {
-			$timeout(function () {
-				elem.parent().masonry({
-					itemSelector: '.grid-item',
-					gutter: 25,
-					columnWidth: 300
-				});
-			}, 100);
-		});
-	};
+export default /* @ngInject */ function ($timeout) {
+    'use strict';
+    var refresh = function (elem) {
+        $timeout(function () {
+            $timeout(function () {
+                elem.parent().masonry({
+                    itemSelector: '.grid-item',
+                    gutter: 25,
+                    columnWidth: 300
+                });
+            }, 100);
+        });
+    };
 
-	return function (scope, elem) {
-		if (scope.$last) {
-			refresh(elem);
-		}
-	};
-});
+    return function (scope, elem) {
+        if (scope.$last) {
+            refresh(elem);
+        }
+    };
+}

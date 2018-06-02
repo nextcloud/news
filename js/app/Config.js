@@ -7,8 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.config(
-    function ($routeProvider, $provide, $httpProvider, $locationProvider) {
+export default /* @ngInject */ function (
+    $routeProvider, $provide, $httpProvider, $locationProvider
+) {
     'use strict';
 
     var feedType = {
@@ -35,7 +36,9 @@ app.config(
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
     // make sure that the CSRF header is only sent to the Nextcloud domain
-    $provide.factory('CSRFInterceptor', function ($q, BASE_URL, $window) {
+    $provide.factory('CSRFInterceptor', /* @ngInject */ function (
+        $q, BASE_URL, $window
+    ) {
         return {
             request: function (config) {
                 const token = $window.document.getElementsByTagName('head')[0]
@@ -63,25 +66,31 @@ app.config(
         503: t('news', 'Request failed, Nextcloud is in currently ' +
                        'in maintenance mode!')
     };
-    $provide.factory('ConnectionErrorInterceptor', function ($q, $timeout) {
-        var timer;
-        return {
-            responseError: function (response) {
-                // status 0 is a network error
-                if (response.status in errorMessages) {
-                    if (timer) {
-                        $timeout.cancel(timer);
-                    }
-                    OC.Notification.hide();
-                    OC.Notification.showHtml(errorMessages[response.status]);
-                    timer = $timeout(function () {
+
+    $provide.factory(
+        'ConnectionErrorInterceptor',
+        /* @ngInject */ function ($q, $timeout) {
+            var timer;
+            return {
+                responseError: function (response) {
+                    // status 0 is a network error
+                    if (response.status in errorMessages) {
+                        if (timer) {
+                            $timeout.cancel(timer);
+                        }
                         OC.Notification.hide();
-                    }, 5000);
+                        OC.Notification.showHtml(
+                            errorMessages[response.status]
+                        );
+                        timer = $timeout(function () {
+                            OC.Notification.hide();
+                        }, 5000);
+                    }
+                    return $q.reject(response);
                 }
-                return $q.reject(response);
-            }
-        };
-    });
+            };
+        }
+    );
     $httpProvider.interceptors.push('CSRFInterceptor');
     $httpProvider.interceptors.push('ConnectionErrorInterceptor');
 
@@ -90,8 +99,9 @@ app.config(
         return {
             // request to items also returns feeds
             data: /* @ngInject */ function (
-            $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
-            SettingsResource, FeedResource) {
+                $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE,
+                FEED_TYPE, SettingsResource, FeedResource
+            ) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
@@ -143,7 +153,8 @@ app.config(
     var getExploreResolve = function () {
         return {
             sites: /* @ngInject */ function (
-            $http, $q, BASE_URL, $location, Publisher, SettingsResource) {
+                $http, $q, BASE_URL, $location, Publisher, SettingsResource
+            ) {
                 // always use the code from the url
                 var language = $location.search().lang;
                 if (!language) {
@@ -206,5 +217,4 @@ app.config(
             templateUrl: 'shortcuts.html',
             type: -1
         });
-
-});
+}

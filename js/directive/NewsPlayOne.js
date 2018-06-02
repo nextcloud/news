@@ -7,11 +7,10 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-
 /**
  * Pause playback on elements other than the current one
  */
-app.directive('newsPlayOne', function ($rootScope) {
+export default /* @ngInject */ function ($rootScope) {
     'use strict';
     return {
         restrict: 'A',
@@ -27,4 +26,4 @@ app.directive('newsPlayOne', function ($rootScope) {
             });
         }
     };
-});
+}

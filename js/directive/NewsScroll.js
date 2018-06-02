@@ -7,8 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
-    MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
+export default /* @ngInject */ function (
+    $timeout, ITEM_AUTO_PAGE_SIZE, MARK_READ_TIMEOUT, SCROLL_TIMEOUT
+) {
     'use strict';
     var timer;
 
@@ -111,4 +112,4 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             });
         }
     };
-});
+}

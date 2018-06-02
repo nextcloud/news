@@ -7,8 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2016
  */
-
-app.directive('newsOnActive', function ($parse) {
+export default /* @ngInject */ function ($parse) {
     'use strict';
     return {
         restrict: 'A',
@@ -17,7 +16,6 @@ app.directive('newsOnActive', function ($parse) {
                 var callback = $parse(attrs.newsOnActive);
                 scope.$apply(callback);
             });
-
         }
     };
-});
+}

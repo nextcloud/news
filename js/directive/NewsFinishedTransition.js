@@ -7,8 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-
-app.directive('newsFinishedTransition', function () {
+export default /* @ngInject */ function () {
     'use strict';
 
     return function (scope, elem, attrs) {
@@ -16,5 +15,4 @@ app.directive('newsFinishedTransition', function () {
             elem.addClass(attrs.newsFinishedTransition);
         });
     };
-
-});
+}

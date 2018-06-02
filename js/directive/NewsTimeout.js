@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsTimeout', function ($timeout, $rootScope) {
+export default /* @ngInject */ function ($timeout, $rootScope) {
     'use strict';
 
     return {
@@ -42,4 +42,4 @@ app.directive('newsTimeout', function ($timeout, $rootScope) {
             });
         }
     };
-});
+}

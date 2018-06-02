@@ -7,8 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
-                                      $q) {
+export default /* @ngInject */ function (
+    FeedResource, FolderResource, Publisher, $q
+) {
     'use strict';
     var startFeedJob = function (queue) {
         var deferred = $q.defer();
@@ -108,5 +109,4 @@ app.service('OPMLImporter', function (FeedResource, FolderResource, Publisher,
 
         return deferred.promise;
     };
-
-});
+}

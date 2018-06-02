@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('Resource', function () {
+export default /* @ngInject */ function () {
     'use strict';
 
     var Resource = function (http, BASE_URL, id) {
@@ -87,4 +87,4 @@ app.factory('Resource', function () {
 
 
     return Resource;
-});
+}

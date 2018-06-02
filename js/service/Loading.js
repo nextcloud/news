@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.service('Loading', function () {
+export default /* @ngInject */ function () {
     'use strict';
 
     this.loading = {
@@ -23,5 +23,4 @@ app.service('Loading', function () {
     this.isLoading = function (area) {
         return this.loading[area];
     };
-
-});
+}

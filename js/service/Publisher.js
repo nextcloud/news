@@ -7,9 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-
 /*jshint undef:false*/
-app.service('Publisher', function () {
+export default /* @ngInject */ function () {
     'use strict';
 
     this.channels = {};
@@ -40,5 +39,4 @@ app.service('Publisher', function () {
             }
         });
     };
-
-});
+}

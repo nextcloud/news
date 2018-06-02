@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
+export default /* @ngInject */ function (Resource, $http, BASE_URL, $q) {
     'use strict';
 
     var FeedResource = function ($http, BASE_URL, $q) {
@@ -346,4 +346,4 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
 
 
     return new FeedResource($http, BASE_URL, $q);
-});
+}

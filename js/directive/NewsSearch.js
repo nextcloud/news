@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsSearch', function ($document, $location) {
+export default /* @ngInject */ function ($document, $location) {
     'use strict';
 
     return {
@@ -44,4 +44,4 @@ app.directive('newsSearch', function ($document, $location) {
             });
         }
     };
-});
+}

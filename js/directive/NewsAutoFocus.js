@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsAutoFocus', function ($timeout) {
+export default /* @ngInject */ function ($timeout) {
     'use strict';
     return function (scope, elem, attrs) {
         var toFocus = elem;
@@ -21,4 +21,4 @@ app.directive('newsAutoFocus', function ($timeout) {
             toFocus.focus();
         }, 0);
     };
-});
+}

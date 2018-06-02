@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsAddFeed', function ($rootScope, $timeout) {
+export default /* @ngInject */ function ($rootScope, $timeout) {
     'use strict';
 
     return {
@@ -29,4 +29,4 @@ app.directive('newsAddFeed', function ($rootScope, $timeout) {
             });
         }
     };
-});
+}

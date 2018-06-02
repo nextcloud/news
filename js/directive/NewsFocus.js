@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsFocus', function ($timeout, $interpolate) {
+export default /* @ngInject */ function ($timeout, $interpolate) {
     'use strict';
 
     return function (scope, elem, attrs) {
@@ -18,5 +18,4 @@ app.directive('newsFocus', function ($timeout, $interpolate) {
             }, 500);
         });
     };
-
-});
+}
