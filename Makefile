@@ -145,7 +145,7 @@ endif
 appstore:
 	rm -rf $(appstore_build_directory) $(appstore_artifact_directory)
 	mkdir -p $(appstore_build_directory) $(appstore_artifact_directory)
-	cp --parents -r \
+	cp -r \
 	"appinfo" \
 	"css" \
 	"img" \
@@ -156,9 +156,12 @@ appstore:
 	"COPYING" \
 	"AUTHORS.md" \
 	"CHANGELOG.md" \
-	"js/build/app.min.js" \
-	"js/admin/Admin.js" \
 	$(appstore_build_directory)
+
+	# on macOS there is no option "--parents" for the "cp" command
+	mkdir -p $(appstore_build_directory)/js/build $(appstore_build_directory)/js/admin
+	cp js/build/app.min.js $(appstore_build_directory)/js/build
+	cp js/admin/Admin.js $(appstore_build_directory)/js/admin
 ifdef CAN_SIGN
 	$(sign) --path="$(appstore_build_directory)"
 else
