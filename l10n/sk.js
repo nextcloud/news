@@ -30,6 +30,7 @@ OC.L10N.register(
     "Articles without feed" : "Články bez zdroja",
     "Can not add folder: Exists already" : "Nemožno pridať priečinok: Už existuje",
     "News" : "Správy",
+    "An RSS/Atom feed reader" : "RSS/Atom čítačka",
     "Use system cron for updates" : "Použiť systémový plánovač cron pre aktualizácie",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Vypnite, ak používate vlastnú aplikáciu pre aktulizácie, napr. Python aktualizácie zahrnuté v aplikácii",
     "Purge interval" : "Vynulovať interval",
