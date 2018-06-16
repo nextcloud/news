@@ -2,7 +2,7 @@
     "Request failed, network connection unavailable!" : "リクエストに失敗しました。ネットワーク接続が利用できません！",
     "Request unauthorized. Are you logged in?" : "リクエストは認証されていません。ログインしていますか？",
     "Request forbidden. Are you an admin?" : "リクエストは禁止されています。あなたは管理者でしょうか?",
-    "Token expired or app not enabled! Reload the page!" : "トークンもしくはアプリが無効になりました！ページを再読込してください！",
+    "Token expired or app not enabled! Reload the page!" : "トークンまたはアプリが無効になりました！ページを再読込してください！",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "内部サーバーエラー！追加情報については、あなたのdata/nextcloud.logファイルをチェックしてください！",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "リクエストが失敗しました。Nextcloudは現在メンテナンスモードです。",
     "Feed contains invalid XML" : "無効なXMLを含むフィードです。",
