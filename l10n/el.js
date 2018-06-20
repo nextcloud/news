@@ -99,7 +99,7 @@ OC.L10N.register(
     "Enable full text" : "Ενεργοποίηση πλήρους κειμένου",
     "Disable full text" : "Απενεργοποίηση πλήρους κειμένου",
     "Delete" : "Διαγραφή",
-    "Dismiss" : "Απόρριψη",
+    "Dismiss" : "Αποδέσμευση",
     "Collapse" : "Σύμπτυξη",
     "Deleted folder" : "Διαγραφή φακέλου",
     "Undo delete folder" : "Αναίρεση διαγραφής φακέλου",
