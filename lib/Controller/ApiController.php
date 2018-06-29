@@ -7,14 +7,17 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Controller;
 
-use OCP\IRequest;
-use OCP\AppFramework\ApiController as BaseApiController;
+use \OCP\IRequest;
+use \OCP\IUserSession;
+use \OCP\AppFramework\ApiController as BaseApiController;
 
 /**
  * Class ApiController
@@ -24,14 +27,36 @@ use OCP\AppFramework\ApiController as BaseApiController;
 class ApiController extends BaseApiController
 {
     /**
+     * @var IUserSession
+     */
+    private $userSession;
+
+    /**
      * ApiController constructor.
      *
-     * @param string   $appName The name of the app
-     * @param IRequest $request The request
+     * Stores the user session to be able to leverage the user in further methods
+     *
+     * @param string        $appName        The name of the app
+     * @param IRequest      $request        The request
+     * @param IUserSession  $userSession    The user session
      */
-    public function __construct($appName, IRequest $request)
-    {
+    public function __construct($appName, IRequest $request, IUserSession $userSession) {
         parent::__construct($appName, $request);
+        $this->userSession = $userSession;
+    }
+
+    /**
+     * @return IUser
+     */
+    protected function getUser() {
+        return $this->userSession->getUser();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUserId() {
+        return $this->getUser()->getUID();
     }
 
     /**

@@ -7,8 +7,10 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Controller;
@@ -30,8 +32,7 @@ class UserApiController extends ApiController
         IUserSession $userSession,
         IRootFolder $rootFolder
     ) {
-        parent::__construct($appName, $request);
-        $this->userSession = $userSession;
+        parent::__construct($appName, $request, $userSession);
         $this->rootFolder = $rootFolder;
     }
 
@@ -42,7 +43,7 @@ class UserApiController extends ApiController
      */
     public function index() 
     {
-        $user = $this->userSession->getUser();
+        $user = $this->getUser();
 
         // find the avatar
         $jpgAvatar = '/' . $user->getUID() . '/avatar.jpg';
