@@ -7,8 +7,10 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -33,6 +35,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
     private $itemService;
     private $folderAPI;
     private $appName;
+    private $userSession;
     private $user;
     private $request;
     private $msg;
@@ -40,12 +43,27 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
     protected function setUp() 
     {
         $this->appName = 'news';
-        $this->user = 'tom';
         $this->request = $this->getMockBuilder(
             '\OCP\IRequest'
         )
             ->disableOriginalConstructor()
             ->getMock();
+        $this->userSession = $this->getMockBuilder(
+            '\OCP\IUserSession'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->user = $this->getMockBuilder(
+            '\OCP\IUser'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('123'));
         $this->folderService = $this->getMockBuilder(
             '\OCA\News\Service\FolderService'
         )
@@ -59,9 +77,9 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
         $this->folderAPI = new FolderApiController(
             $this->appName,
             $this->request,
+            $this->userSession,
             $this->folderService,
-            $this->itemService,
-            $this->user
+            $this->itemService
         );
         $this->msg = 'test';
     }
@@ -73,7 +91,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->folderService->expects($this->once())
             ->method('findAll')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($folders));
 
         $response = $this->folderAPI->index();
@@ -94,10 +112,10 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->folderService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->folderService->expects($this->once())
             ->method('create')
-            ->with($this->equalTo($folderName), $this->equalTo($this->user))
+            ->with($this->equalTo($folderName), $this->equalTo($this->user->getUID()))
             ->will($this->returnValue($folder));
 
         $response = $this->folderAPI->create($folderName);
@@ -116,7 +134,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->folderService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceConflictException($msg)));
@@ -135,7 +153,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->folderService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceValidationException($msg)));
@@ -155,7 +173,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
         $folderId = 23;
         $this->folderService->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo($folderId), $this->equalTo($this->user));
+            ->with($this->equalTo($folderId), $this->equalTo($this->user->getUID()));
 
         $this->folderAPI->delete(23);
     }
@@ -191,7 +209,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo($folderId),
                 $this->equalTo($folderName),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->folderAPI->update($folderId, $folderName);
@@ -269,7 +287,7 @@ class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(3),
                 $this->equalTo(30),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->folderAPI->read(3, 30);

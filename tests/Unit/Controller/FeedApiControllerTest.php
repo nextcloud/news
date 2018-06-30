@@ -7,8 +7,10 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -30,6 +32,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
     private $itemService;
     private $feedAPI;
     private $appName;
+    private $userSession;
     private $user;
     private $request;
     private $msg;
@@ -38,7 +41,6 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp() 
     {
-        $this->user = 'tom';
         $this->loggerParams = ['hi'];
         $this->logger = $this->getMockBuilder(
             '\OCP\ILogger'
@@ -51,6 +53,22 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
         )
             ->disableOriginalConstructor()
             ->getMock();
+        $this->userSession = $this->getMockBuilder(
+            '\OCP\IUserSession'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->user = $this->getMockBuilder(
+            '\OCP\IUser'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('123'));
         $this->feedService = $this->getMockBuilder(
             '\OCA\News\Service\FeedService'
         )
@@ -64,10 +82,10 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
         $this->feedAPI = new FeedApiController(
             $this->appName,
             $this->request,
+            $this->userSession,
             $this->feedService,
             $this->itemService,
             $this->logger,
-            $this->user,
             $this->loggerParams
         );
         $this->msg = 'hohoho';
@@ -82,15 +100,15 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($starredCount));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($newestItemId));
         $this->feedService->expects($this->once())
             ->method('findAll')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($feeds));
 
         $response = $this->feedAPI->index();
@@ -112,15 +130,15 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($starredCount));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->feedService->expects($this->once())
             ->method('findAll')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($feeds));
 
         $response = $this->feedAPI->index();
@@ -140,7 +158,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
             ->method('delete')
             ->with(
                 $this->equalTo(2),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->feedAPI->delete(2);
@@ -171,13 +189,13 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->feedService->expects($this->once())
             ->method('create')
             ->with(
                 $this->equalTo('url'),
                 $this->equalTo(3),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             )
             ->will($this->returnValue($feeds[0]));
         $this->itemService->expects($this->once())
@@ -201,13 +219,13 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->feedService->expects($this->once())
             ->method('create')
             ->with(
                 $this->equalTo('ho'),
                 $this->equalTo(3),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             )
             ->will($this->returnValue($feeds[0]));
         $this->itemService->expects($this->once())
@@ -229,7 +247,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->feedService->expects($this->once())
             ->method('create')
             ->will(
@@ -267,7 +285,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(3),
                 $this->equalTo(30),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->feedAPI->read(3, 30);
@@ -280,7 +298,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
             ->method('patch')
             ->with(
                 $this->equalTo(3),
-                $this->equalTo($this->user),
+                $this->equalTo($this->user->getUID()),
                 $this->equalTo(['folderId' => 30])
             );
 
@@ -313,7 +331,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
             ->method('patch')
             ->with(
                 $this->equalTo($feedId),
-                $this->equalTo($this->user),
+                $this->equalTo($this->user->getUID()),
                 $this->equalTo(['title' => $feedTitle])
             );
 
@@ -330,7 +348,7 @@ class FeedApiControllerTest extends \PHPUnit_Framework_TestCase
             ->method('patch')
             ->with(
                 $this->equalTo($feedId),
-                $this->equalTo($this->user),
+                $this->equalTo($this->user->getUID()),
                 $this->equalTo(['title' => $feedTitle])
             )
             ->will($this->throwException(new ServiceNotFoundException('hi')));
