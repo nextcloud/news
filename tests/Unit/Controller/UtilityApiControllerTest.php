@@ -7,8 +7,10 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -20,6 +22,8 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase
 
     private $settings;
     private $request;
+    private $userSession;
+    private $user;
     private $newsAPI;
     private $updater;
     private $appName;
@@ -38,6 +42,19 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase
         )
             ->disableOriginalConstructor()
             ->getMock();
+        $this->userSession = $this->getMockBuilder(
+            '\OCP\IUserSession'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->user = $this->getMockBuilder(
+            '\OCP\IUser'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
         $this->updater = $this->getMockBuilder(
             '\OCA\News\Utility\Updater'
         )
@@ -49,8 +66,8 @@ class UtilityApiControllerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->newsAPI = new UtilityApiController(
-            $this->appName, $this->request, $this->updater, $this->settings,
-            $this->status
+            $this->appName, $this->request, $this->userSession,
+            $this->updater, $this->settings, $this->status
         );
     }
 

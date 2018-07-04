@@ -7,13 +7,16 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
+use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\ItemService;
@@ -25,17 +28,15 @@ class ItemApiController extends ApiController
     use JSONHttpError;
 
     private $itemService;
-    private $userId;
     private $serializer;
 
     public function __construct($appName,
         IRequest $request,
-        ItemService $itemService,
-        $UserId
+        IUserSession $userSession,
+        ItemService $itemService
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($appName, $request, $userSession);
         $this->itemService = $itemService;
-        $this->userId = $UserId;
         $this->serializer = new EntityApiSerializer('items');
     }
 
@@ -59,7 +60,7 @@ class ItemApiController extends ApiController
         return $this->serializer->serialize(
             $this->itemService->findAll(
                 $id, $type, $batchSize, $offset, $getRead, $oldestFirst,
-                $this->userId
+                $this->getUserId()
             )
         );
     }
@@ -86,7 +87,7 @@ class ItemApiController extends ApiController
         return $this->serializer->serialize(
             $this->itemService->findAllNew(
                 $id, $type, $paddedLastModified,
-                true, $this->userId
+                true, $this->getUserId()
             )
         );
     }
@@ -95,7 +96,7 @@ class ItemApiController extends ApiController
     private function setRead($isRead, $itemId) 
     {
         try {
-            $this->itemService->read($itemId, $isRead, $this->userId);
+            $this->itemService->read($itemId, $isRead, $this->getUserId());
         } catch(ServiceNotFoundException $ex){
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -136,7 +137,7 @@ class ItemApiController extends ApiController
     {
         try {
             $this->itemService->star(
-                $feedId, $guidHash, $isStarred, $this->userId
+                $feedId, $guidHash, $isStarred, $this->getUserId()
             );
         } catch(ServiceNotFoundException $ex){
             return $this->error($ex, Http::STATUS_NOT_FOUND);
@@ -185,7 +186,7 @@ class ItemApiController extends ApiController
      */
     public function readAll($newestItemId) 
     {
-        $this->itemService->readAll($newestItemId, $this->userId);
+        $this->itemService->readAll($newestItemId, $this->getUserId());
     }
 
 
@@ -193,7 +194,7 @@ class ItemApiController extends ApiController
     {
         foreach($items as $id) {
             try {
-                $this->itemService->read($id, $isRead, $this->userId);
+                $this->itemService->read($id, $isRead, $this->getUserId());
             } catch(ServiceNotFoundException $ex) {
                 continue;
             }
@@ -233,7 +234,7 @@ class ItemApiController extends ApiController
             try {
                 $this->itemService->star(
                     $item['feedId'], $item['guidHash'],
-                    $isStarred, $this->userId
+                    $isStarred, $this->getUserId()
                 );
             } catch(ServiceNotFoundException $ex) {
                 continue;

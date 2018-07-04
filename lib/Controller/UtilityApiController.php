@@ -7,14 +7,17 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\IConfig;
+use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Utility\Updater;
@@ -30,11 +33,12 @@ class UtilityApiController extends ApiController
 
     public function __construct($appName,
         IRequest $request,
+        IUserSession $userSession,
         Updater $updater,
         IConfig $settings,
         StatusService $statusService
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($appName, $request, $userSession);
         $this->updater = $updater;
         $this->settings = $settings;
         $this->statusService = $statusService;

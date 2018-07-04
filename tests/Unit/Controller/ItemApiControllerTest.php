@@ -7,8 +7,10 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
+ * @author    David Guillot <david@guillot.me>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
+ * @copyright 2018 David Guillot
  */
 
 namespace OCA\News\Tests\Unit\Controller;
@@ -26,6 +28,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
     private $itemService;
     private $itemAPI;
     private $api;
+    private $userSession;
     private $user;
     private $request;
     private $msg;
@@ -39,6 +42,22 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
         )
             ->disableOriginalConstructor()
             ->getMock();
+        $this->userSession = $this->getMockBuilder(
+            '\OCP\IUserSession'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->user = $this->getMockBuilder(
+            '\OCP\IUser'
+        )
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('123'));
         $this->itemService = $this->getMockBuilder(
             '\OCA\News\Service\ItemService'
         )
@@ -47,8 +66,8 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
         $this->itemAPI = new ItemApiController(
             $this->appName,
             $this->request,
-            $this->itemService,
-            $this->user
+            $this->userSession,
+            $this->itemService
         );
         $this->msg = 'hi';
     }
@@ -67,7 +86,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(20),
                 $this->equalTo(true),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             )
             ->will($this->returnValue($items));
 
@@ -94,7 +113,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(0),
                 $this->equalTo(false),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             )
             ->will($this->returnValue($items));
 
@@ -119,7 +138,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(1),
                 $this->equalTo('30000000'),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             )
             ->will($this->returnValue($items));
 
@@ -140,7 +159,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->itemAPI->read(2);
@@ -172,7 +191,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->itemAPI->unread(2);
@@ -205,7 +224,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(2),
                 $this->equalTo('hash'),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->itemAPI->star(2, 'hash');
@@ -238,7 +257,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(2),
                 $this->equalTo('hash'),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->itemAPI->unstar(2, 'hash');
@@ -269,7 +288,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
             ->method('readAll')
             ->with(
                 $this->equalTo(30),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
 
         $this->itemAPI->readAll(30);
@@ -284,14 +303,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemService->expects($this->at(1))
             ->method('read')
             ->with(
                 $this->equalTo(4),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemAPI->readMultiple([2, 4]);
     }
@@ -307,7 +326,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(4),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemAPI->readMultiple([2, 4]);
     }
@@ -320,14 +339,14 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemService->expects($this->at(1))
             ->method('read')
             ->with(
                 $this->equalTo(4),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemAPI->unreadMultiple([2, 4]);
     }
@@ -352,7 +371,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(2),
                 $this->equalTo('a'),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemService->expects($this->at(1))
             ->method('star')
@@ -360,7 +379,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(4),
                 $this->equalTo('b'),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemAPI->starMultiple($ids);
     }
@@ -388,7 +407,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(4),
                 $this->equalTo('b'),
                 $this->equalTo(true),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemAPI->starMultiple($ids);
     }
@@ -413,7 +432,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(2),
                 $this->equalTo('a'),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemService->expects($this->at(1))
             ->method('star')
@@ -421,7 +440,7 @@ class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
                 $this->equalTo(4),
                 $this->equalTo('b'),
                 $this->equalTo(false),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user->getUID())
             );
         $this->itemAPI->unstarMultiple($ids);
     }
