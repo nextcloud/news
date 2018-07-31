@@ -30,6 +30,7 @@ OC.L10N.register(
     "Articles without feed" : "Greinar án fréttastreymis",
     "Can not add folder: Exists already" : "Gat ekki bætt við möppu: mappan er þegar til",
     "News" : "Fréttir",
+    "An RSS/Atom feed reader" : "RSS/Atom streymislesari",
     "Use system cron for updates" : "Nota kerfis-cron fyrir uppfærslur",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Gerðu þetta óvirkt ef þú keyrir sérsniðið uppfærsluforrit eins og Python uppærsluforritið sem innifalið er í smáforritinu",
     "Purge interval" : "Millibil förgunar",
