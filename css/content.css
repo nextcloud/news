@@ -39,9 +39,8 @@
     display: table-cell;
 }
 
-#articles,
-#app-content-wrapper {
-    height: 100%;
+#articles {
+    width: 100%;
 }
 
 /**

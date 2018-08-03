@@ -266,7 +266,7 @@
         // if you go to the next article in compact view, it should
         // expand the current one
         scrollArea.scrollTop(
-            item.offset().top - scrollArea.offset().top + scrollArea.scrollTop()
+            item.offset().top - 50
         );
 
         setItemActive(item[0]);
@@ -296,7 +296,7 @@
         }
     };
 
-    var scrollToPreviousItem = function (navigationArea, scrollArea,
+    var scrollToPreviousItem = function (scrollArea,
                                          expandItemInCompact) {
         var activeElement = getActiveElement(scrollArea);
         var previousElement = activeElement.prev();
@@ -330,7 +330,7 @@
 
     $(document).keyup(function (event) {
         var keyCode = event.keyCode;
-        var scrollArea = $('.app-content-detail');
+        var scrollArea = $(document);
         var navigationArea = $('#app-navigation');
         var isCompactView = $('#articles.compact').length > 0;
         var isExpandItem = $('#articles')
@@ -348,7 +348,7 @@
             } else if ([75, 80, 37].indexOf(keyCode) >= 0) {
 
                 event.preventDefault();
-                scrollToPreviousItem(navigationArea, scrollArea,
+                scrollToPreviousItem(scrollArea,
                     expandItemInCompact);
 
                 // u
