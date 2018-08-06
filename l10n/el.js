@@ -115,6 +115,7 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "Συνδρομές (OPML)",
     "Import" : "Εισαγωγή",
     "Export" : "Εξαγωγή",
+    "Error when importing: File does not contain valid OPML" : "Σφάλμα κατά την εισαγωγή: Το αρχείο δεν περιέχει έγκυρο OPML",
     "Unread/Starred Articles" : "Με αστέρι/Μη αναγνωσμένα Άρθρα",
     "Error when importing: file does not contain valid JSON" : "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON",
     "Help" : "Βοήθεια",
