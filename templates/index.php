@@ -2,8 +2,7 @@
 use OCA\News\Plugin\Client\Plugin;
 
 script('news', [
-    'build/app.min',
-    'app-inject-14'
+    'build/app.min'
 ]);
 
 style('news', [
