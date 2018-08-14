@@ -7,6 +7,14 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
+
+#app-content {
+    width: 100%
+}
+#app-navigation:not(.hidden) + #app-content {
+    width: calc(100% - 300px);
+}
+
 #app-content #searchresults {
     display: none;
 }
@@ -47,17 +55,20 @@
  * Podcast settings
  */
 #app-content .podcast {
-    height: 30px;
+    height: 50px;
     z-index: 10000;
     background-color: #111;
+    display: flex;
+	position: sticky;
+    top: 50px;
+    align-items: center;
 }
 
 #app-content .podcast audio {
     display: block;
-    float: left;
     width: calc(100% - 60px);
-    height: 30px;
     border-radius: 0;
+    height: inherit;
 }
 
 #app-content .podcast button,

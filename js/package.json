@@ -51,11 +51,11 @@
     "karma-jasmine": "^1.1.2"
   },
   "dependencies": {
-    "angular": "^1.7.2",
-    "angular-animate": "^1.7.2",
-    "angular-mocks": "^1.7.2",
-    "angular-route": "^1.7.2",
-    "angular-sanitize": "^1.7.2",
+    "angular": "^1.7.3",
+    "angular-animate": "^1.7.3",
+    "angular-mocks": "^1.7.3",
+    "angular-route": "^1.7.3",
+    "angular-sanitize": "^1.7.3",
     "debug": "^2.6.8",
     "masonry-layout": "^4.2.2",
     "moment": "^2.22.2"
