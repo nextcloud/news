@@ -31,7 +31,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             // this is only reached when the item is not is
             // below the top and we didnt hit the factor yet so
             // autopage and break
-            if (item.position().top < 0) {
+            if (item[0].getBoundingClientRect().top < 0) {
                 scope.$apply(scope.newsScrollAutoPage);
                 break;
             }
