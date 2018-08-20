@@ -2,7 +2,7 @@
 use OCA\News\Plugin\Client\Plugin;
 
 script('news', [
-    'build/app.min',
+    'build/app.min'
 ]);
 
 style('news', [
@@ -25,20 +25,27 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
 }
 ?>
 
-<div id="app" ng-app="News" ng-cloak ng-strict-di
-    ng-controller="AppController as App">
-
-
     <div id="global-loading"
         class="icon-loading"
         ng-show="App.loading.isLoading('global')"></div>
+
+    <!-- content -->
+    <script type="text/ng-template" id="content.html">
+        <?php print_unescaped($this->inc('part.content')) ?>
+    </script>
+    <script type="text/ng-template" id="shortcuts.html">
+        <?php print_unescaped($this->inc('part.content.shortcuts')) ?>
+    </script>
+    <script type="text/ng-template" id="explore.html">
+        <?php print_unescaped($this->inc('part.content.explore')) ?>
+    </script>
 
     <!-- navigation -->
     <div id="app-navigation"
         ng-controller="NavigationController as Navigation"
         ng-hide="App.loading.isLoading('global')">
 
-        <news-search on-search="Navigation.search" class="ng-hide"></news-search>
+        <news-search on-search="Navigation.search"></news-search>
         <news-title-unread-count
             unread-count="{{ Navigation.getUnreadCount() }}">
         </news-title-unread-count>
@@ -60,17 +67,6 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             <?php print_unescaped($this->inc('part.settings')) ?>
         </div>
     </div>
-
-    <!-- content -->
-    <script type="text/ng-template" id="content.html">
-        <?php print_unescaped($this->inc('part.content')) ?>
-    </script>
-    <script type="text/ng-template" id="shortcuts.html">
-        <?php print_unescaped($this->inc('part.content.shortcuts')) ?>
-    </script>
-    <script type="text/ng-template" id="explore.html">
-        <?php print_unescaped($this->inc('part.content.explore')) ?>
-    </script>
 
     <div id="app-content"
         ng-class="{
@@ -96,8 +92,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             }"
             ng-hide="App.loading.isLoading('global')"
             ng-view
-            news-scroll=".app-content-detail"
+            news-scroll
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"
             news-scroll-mark-read="Content.scrollRead(itemIds)"></div>
-</div>

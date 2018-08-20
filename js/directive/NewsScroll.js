@@ -31,7 +31,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             // this is only reached when the item is not is
             // below the top and we didnt hit the factor yet so
             // autopage and break
-            if (item.position().top < 0) {
+            if (item[0].getBoundingClientRect().top < 0) {
                 scope.$apply(scope.newsScrollAutoPage);
                 break;
             }
@@ -44,13 +44,13 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
     var markRead = function (enabled, elem, scope) {
         if (enabled) {
             var ids = [];
-            var articles = elem.find('.item:not(.read)');
+            var articles = elem.querySelectorAll('.item:not(.read)');
 
-            articles.each(function(index, article) {
-                var item = $(article);
-
-                if (item.position().top <= -10) {
-                    ids.push(parseInt(item.data('id'), 10));
+            articles.forEach(function(article) {
+                var distTop = article.getBoundingClientRect().top;
+                var scrollTop = $(document).scrollTop();
+                if (distTop - scrollTop <= -10) {
+                    ids.push(parseInt(article.dataset.id, 10));
                 } else {
                     return false;
                 }
@@ -71,11 +71,6 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
         },
         link: function (scope, elem) {
             var allowScroll = true;
-            var scrollArea = elem;
-
-            if (scope.newsScroll) {
-                scrollArea = $(scope.newsScroll);
-            }
 
             var scrollHandler = function () {
                 // allow only one scroll event to trigger every 300ms
@@ -84,7 +79,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
 
                     $timeout(function () {
                         allowScroll = true;
-                    }, SCROLL_TIMEOUT*1000);
+                    }, SCROLL_TIMEOUT * 1000);
 
                     autoPage(ITEM_AUTO_PAGE_SIZE, elem, scope);
 
@@ -96,18 +91,18 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
                     // allow user to undo accidental scroll
                     timer = $timeout(function () {
                         markRead(scope.newsScrollEnabledMarkRead,
-                                 elem,
+                                 elem[0],
                                  scope);
                         timer = undefined;
                     }, MARK_READ_TIMEOUT*1000);
                 }
             };
 
-            scrollArea.on('scroll', scrollHandler);
+            $(document).on('scroll', scrollHandler);
 
             // remove scroll handler if element is destroyed
             scope.$on('$destroy', function () {
-                scrollArea.off('scroll', scrollHandler);
+                $(document).off('scroll', scrollHandler);
             });
         }
     };
