@@ -21,58 +21,58 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     use EntityJSONSerializer;
 
     /** @var string */
-    protected $userId;
+    protected $userId = '';
     /** @var string */
     protected $urlHash;
     /** @var string */
     protected $url;
     /** @var string */
     protected $title;
-    /** @var string */
-    protected $faviconLink;
-    /** @var int */
-    protected $added;
+    /** @var string|null */
+    protected $faviconLink = null;
+    /** @var int|null */
+    protected $added = 0;
     /** @var int */
     protected $folderId;
     /** @var int */
     protected $unreadCount;
-    /** @var string */
-    protected $link;
+    /** @var string|null */
+    protected $link = null;
     /** @var bool */
-    protected $preventUpdate;
+    protected $preventUpdate = false;
+    /** @var int|null */
+    protected $deletedAt = 0;
     /** @var int */
-    protected $deletedAt;
+    protected $articlesPerUpdate = 0;
+    /** @var string|null */
+    protected $httpLastModified = null;
+    /** @var int|null */
+    protected $lastModified = 0;
+    /** @var string|null */
+    protected $httpEtag = null;
+    /** @var string|null */
+    protected $location = null;
     /** @var int */
-    protected $articlesPerUpdate;
-    /** @var string */
-    protected $httpLastModified;
-    /** @var string */
-    protected $lastModified;
-    /** @var string */
-    protected $httpEtag;
-    /** @var string */
-    protected $location;
-    /** @var int */
-    protected $ordering;
+    protected $ordering = 0;
     /** @var bool */
-    protected $fullTextEnabled;
+    protected $fullTextEnabled = false;
     /** @var bool */
-    protected $pinned;
+    protected $pinned = false;
     /** @var int */
-    protected $updateMode;
+    protected $updateMode = 0;
     /** @var int */
-    protected $updateErrorCount;
-    /** @var string */
-    protected $lastUpdateError;
-    /** @var string */
-    protected $basicAuthUser;
-    /** @var string */
-    protected $basicAuthPassword;
+    protected $updateErrorCount = 0;
+    /** @var string|null */
+    protected $lastUpdateError = '';
+    /** @var string|null */
+    protected $basicAuthUser = '';
+    /** @var string|null */
+    protected $basicAuthPassword = '';
 
     /**
-     * Turns entitie attributes into an array
+     * Turns entity attributes into an array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $serialized = $this->serializeFields(
             [
@@ -114,7 +114,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
 
-    public function toAPI()
+    public function toAPI(): array
     {
         return $this->serializeFields(
             [
@@ -137,7 +137,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -145,10 +145,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $id
      */
-    public function setId($id)
+    public function setId(int $id)
     {
         if ($this->id !== $id) {
-            $this->id = (int)$id;
+            $this->id = $id;
             $this->markFieldUpdated('id');
         }
     }
@@ -156,7 +156,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string
      */
-    public function getUserId()
+    public function getUserId(): string
     {
         return $this->userId;
     }
@@ -164,10 +164,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string $userId
      */
-    public function setUserId($userId)
+    public function setUserId(string $userId)
     {
         if ($this->userId !== $userId) {
-            $this->userId = (string)$userId;
+            $this->userId = $userId;
             $this->markFieldUpdated('userId');
         }
     }
@@ -175,7 +175,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string
      */
-    public function getUrlHash()
+    public function getUrlHash(): string
     {
         return $this->urlHash;
     }
@@ -183,10 +183,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string $urlHash
      */
-    public function setUrlHash($urlHash)
+    public function setUrlHash(string $urlHash)
     {
         if ($this->urlHash !== $urlHash) {
-            $this->urlHash = (string)$urlHash;
+            $this->urlHash = $urlHash;
             $this->markFieldUpdated('urlHash');
         }
     }
@@ -194,7 +194,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -202,9 +202,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string $url
      */
-    public function setUrl($url)
+    public function setUrl(string $url)
     {
-        $url = trim((string)$url);
+        $url = trim($url);
         if(strpos($url, 'http') === 0 && $this->url !== $url) {
             $this->url = $url;
             $this->setUrlHash(md5($url));
@@ -215,7 +215,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -223,16 +223,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         if ($this->title !== $title) {
-            $this->title = (string)$title;
+            $this->title = $title;
             $this->markFieldUpdated('title');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getFaviconLink()
     {
@@ -240,18 +240,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $faviconLink
+     * @param string|null $faviconLink
      */
-    public function setFaviconLink($faviconLink)
+    public function setFaviconLink(string $faviconLink = null)
     {
         if ($this->faviconLink !== $faviconLink) {
-            $this->faviconLink = (string)$faviconLink;
+            $this->faviconLink = $faviconLink;
             $this->markFieldUpdated('faviconLink');
         }
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getAdded()
     {
@@ -259,12 +259,12 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param int $added
+     * @param int|null $added
      */
-    public function setAdded($added)
+    public function setAdded(int $added = null)
     {
         if ($this->added !== $added) {
-            $this->added = (int)$added;
+            $this->added = $added;
             $this->markFieldUpdated('added');
         }
     }
@@ -272,7 +272,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getFolderId()
+    public function getFolderId(): int
     {
         return $this->folderId;
     }
@@ -280,10 +280,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $folderId
      */
-    public function setFolderId($folderId)
+    public function setFolderId(int $folderId)
     {
         if ($this->folderId !== $folderId) {
-            $this->folderId = (int)$folderId;
+            $this->folderId = $folderId;
             $this->markFieldUpdated('folderId');
         }
     }
@@ -291,7 +291,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getUnreadCount()
+    public function getUnreadCount(): int
     {
         return $this->unreadCount;
     }
@@ -299,16 +299,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $unreadCount
      */
-    public function setUnreadCount($unreadCount)
+    public function setUnreadCount(int $unreadCount)
     {
         if ($this->unreadCount !== $unreadCount) {
-            $this->unreadCount = (int)$unreadCount;
+            $this->unreadCount = $unreadCount;
             $this->markFieldUpdated('unreadCount');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getLink()
     {
@@ -316,13 +316,13 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $link
+     * @param string|null $link
      */
-    public function setLink($link)
+    public function setLink(string $link = null)
     {
-        $link = trim((string)$link);
+        $link = trim($link);
         if(strpos($link, 'http') === 0 && $this->link !== $link) {
-            $this->link = (string)$link;
+            $this->link = $link;
             $this->markFieldUpdated('link');
         }
     }
@@ -330,7 +330,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return bool
      */
-    public function getPreventUpdate()
+    public function getPreventUpdate(): bool
     {
         return $this->preventUpdate;
     }
@@ -338,16 +338,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param bool $preventUpdate
      */
-    public function setPreventUpdate($preventUpdate)
+    public function setPreventUpdate(bool $preventUpdate)
     {
         if ($this->preventUpdate !== $preventUpdate) {
-            $this->preventUpdate = (bool)$preventUpdate;
+            $this->preventUpdate = $preventUpdate;
             $this->markFieldUpdated('preventUpdate');
         }
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getDeletedAt()
     {
@@ -355,12 +355,12 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param int $deletedAt
+     * @param int|null $deletedAt
      */
-    public function setDeletedAt($deletedAt)
+    public function setDeletedAt(int $deletedAt = null)
     {
         if ($this->deletedAt !== $deletedAt) {
-            $this->deletedAt = (int)$deletedAt;
+            $this->deletedAt = $deletedAt;
             $this->markFieldUpdated('deletedAt');
         }
     }
@@ -368,7 +368,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getArticlesPerUpdate()
+    public function getArticlesPerUpdate(): int
     {
         return $this->articlesPerUpdate;
     }
@@ -376,16 +376,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $articlesPerUpdate
      */
-    public function setArticlesPerUpdate($articlesPerUpdate)
+    public function setArticlesPerUpdate(int $articlesPerUpdate)
     {
         if ($this->articlesPerUpdate !== $articlesPerUpdate) {
-            $this->articlesPerUpdate = (int)$articlesPerUpdate;
+            $this->articlesPerUpdate = $articlesPerUpdate;
             $this->markFieldUpdated('articlesPerUpdate');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getHttpLastModified()
     {
@@ -393,18 +393,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $httpLastModified
+     * @param string|null $httpLastModified
      */
-    public function setHttpLastModified($httpLastModified)
+    public function setHttpLastModified(string $httpLastModified = null)
     {
         if ($this->httpLastModified !== $httpLastModified) {
-            $this->httpLastModified = (string)$httpLastModified;
+            $this->httpLastModified = $httpLastModified;
             $this->markFieldUpdated('httpLastModified');
         }
     }
 
     /**
-     * @return string
+     * @return int|null
      */
     public function getLastModified()
     {
@@ -412,18 +412,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $lastModified
+     * @param int|null $lastModified
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(int $lastModified = null)
     {
         if ($this->lastModified !== $lastModified) {
-            $this->lastModified = (string)$lastModified;
+            $this->lastModified = $lastModified;
             $this->markFieldUpdated('lastModified');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getHttpEtag()
     {
@@ -431,18 +431,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $httpEtag
+     * @param string|null $httpEtag
      */
-    public function setHttpEtag($httpEtag)
+    public function setHttpEtag(string $httpEtag = null)
     {
         if ($this->httpEtag !== $httpEtag) {
-            $this->httpEtag = (string)$httpEtag;
+            $this->httpEtag = $httpEtag;
             $this->markFieldUpdated('httpEtag');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getLocation()
     {
@@ -450,12 +450,12 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $location
+     * @param string|null $location
      */
-    public function setLocation($location)
+    public function setLocation(string $location = null)
     {
         if ($this->location !== $location) {
-            $this->location = (string)$location;
+            $this->location = $location;
             $this->markFieldUpdated('location');
         }
     }
@@ -463,7 +463,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getOrdering()
+    public function getOrdering(): int
     {
         return $this->ordering;
     }
@@ -471,10 +471,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $ordering
      */
-    public function setOrdering($ordering)
+    public function setOrdering(int $ordering)
     {
         if ($this->ordering !== $ordering) {
-            $this->ordering = (int)$ordering;
+            $this->ordering = $ordering;
             $this->markFieldUpdated('ordering');
         }
     }
@@ -482,7 +482,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return bool
      */
-    public function getFullTextEnabled()
+    public function getFullTextEnabled(): bool
     {
         return $this->fullTextEnabled;
     }
@@ -490,10 +490,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param bool $fullTextEnabled
      */
-    public function setFullTextEnabled($fullTextEnabled)
+    public function setFullTextEnabled(bool $fullTextEnabled)
     {
         if ($this->fullTextEnabled !== $fullTextEnabled) {
-            $this->fullTextEnabled = (bool)$fullTextEnabled;
+            $this->fullTextEnabled = $fullTextEnabled;
             $this->markFieldUpdated('fullTextEnabled');
         }
     }
@@ -501,7 +501,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return bool
      */
-    public function getPinned()
+    public function getPinned(): bool
     {
         return $this->pinned;
     }
@@ -509,10 +509,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param bool $pinned
      */
-    public function setPinned($pinned)
+    public function setPinned(bool $pinned)
     {
         if ($this->pinned !== $pinned) {
-            $this->pinned = (bool)$pinned;
+            $this->pinned = $pinned;
             $this->markFieldUpdated('pinned');
         }
     }
@@ -520,7 +520,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getUpdateMode()
+    public function getUpdateMode(): int
     {
         return $this->updateMode;
     }
@@ -528,10 +528,10 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $updateMode
      */
-    public function setUpdateMode($updateMode)
+    public function setUpdateMode(int $updateMode)
     {
         if ($this->updateMode !== $updateMode) {
-            $this->updateMode = (int)$updateMode;
+            $this->updateMode = $updateMode;
             $this->markFieldUpdated('updateMode');
         }
     }
@@ -539,7 +539,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int
      */
-    public function getUpdateErrorCount()
+    public function getUpdateErrorCount(): int
     {
         return $this->updateErrorCount;
     }
@@ -547,16 +547,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $updateErrorCount
      */
-    public function setUpdateErrorCount($updateErrorCount)
+    public function setUpdateErrorCount(int $updateErrorCount)
     {
         if ($this->updateErrorCount !== $updateErrorCount) {
-            $this->updateErrorCount = (int)$updateErrorCount;
+            $this->updateErrorCount = $updateErrorCount;
             $this->markFieldUpdated('updateErrorCount');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getLastUpdateError()
     {
@@ -564,18 +564,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $lastUpdateError
+     * @param string|null $lastUpdateError
      */
-    public function setLastUpdateError($lastUpdateError)
+    public function setLastUpdateError(string $lastUpdateError = null)
     {
         if ($this->lastUpdateError !== $lastUpdateError) {
-            $this->lastUpdateError = (string)$lastUpdateError;
+            $this->lastUpdateError = $lastUpdateError;
             $this->markFieldUpdated('lastUpdateError');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getBasicAuthUser()
     {
@@ -583,18 +583,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $basicAuthUser
+     * @param string|null $basicAuthUser
      */
-    public function setBasicAuthUser($basicAuthUser)
+    public function setBasicAuthUser(string $basicAuthUser = null)
     {
         if ($this->basicAuthUser !== $basicAuthUser) {
-            $this->basicAuthUser = (string)$basicAuthUser;
+            $this->basicAuthUser = $basicAuthUser;
             $this->markFieldUpdated('basicAuthUser');
         }
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getBasicAuthPassword()
     {
@@ -602,12 +602,12 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $basicAuthPassword
+     * @param string|null $basicAuthPassword
      */
-    public function setBasicAuthPassword($basicAuthPassword)
+    public function setBasicAuthPassword(string $basicAuthPassword = null)
     {
         if ($this->basicAuthPassword !== $basicAuthPassword) {
-            $this->basicAuthPassword = (string)$basicAuthPassword;
+            $this->basicAuthPassword = $basicAuthPassword;
             $this->markFieldUpdated('basicAuthPassword');
         }
     }

@@ -29,6 +29,7 @@
         "source": "https://github.com/nextcloud/news/"
     },
     "require": {
+        "php": "^7.0",
         "ezyang/htmlpurifier": "4.9.3",
         "miniflux/picofeed": "0.1.34",
         "pear/net_url2": "2.2.1",
