@@ -13,6 +13,8 @@
 
 namespace OCA\News\Utility;
 
+use OCA\News\Db\Feed;
+
 /**
  * Exports the OPML
  */
@@ -77,8 +79,12 @@ class OPMLExporter
         return $document;
     }
 
-
-    protected function createFeedOutline($feed, $document) 
+    /**
+     * @param Feed $feed
+     * @param \DOMDocument $document
+     * @return \DOMElement
+     */
+    protected function createFeedOutline($feed, $document)
     {
         $feedOutline = $document->createElement('outline');
         $feedOutline->setAttribute('title', $feed->getTitle());

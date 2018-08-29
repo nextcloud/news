@@ -108,6 +108,10 @@ class FeedService extends Service
     ) {
         // first try if the feed exists already
         try {
+            /**
+             * @var Feed $feed
+             * @var Item[] $items
+             */
             list($feed, $items) = $this->feedFetcher->fetch(
                 $feedUrl, true,
                 null, null, false, $basicAuthUser,
@@ -203,6 +207,7 @@ class FeedService extends Service
      */
     public function update($feedId, $userId, $forceUpdate=false)
     {
+        /** @var Feed $existingFeed */
         $existingFeed = $this->find($feedId, $userId);
 
         if($existingFeed->getPreventUpdate() === true) {
@@ -354,6 +359,7 @@ class FeedService extends Service
                 $feed->setAdded($this->timeFactory->getTime());
                 $feed->setFolderId(0);
                 $feed->setPreventUpdate(true);
+                /** @var Feed $feed */
                 $feed = $this->feedMapper->insert($feed);
 
                 $item->setFeedId($feed->getId());

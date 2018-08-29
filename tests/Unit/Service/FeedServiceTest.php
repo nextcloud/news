@@ -27,6 +27,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
 {
 
     private $feedMapper;
+    /** @var FeedService */
     private $feedService;
     private $user;
     private $response;
@@ -133,8 +134,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $createdFeed->setBasicAuthUser('user');
         $createdFeed->setBasicAuthPassword('pass');
         $item1 = new Item();
+        $item1->setFeedId(4);
         $item1->setGuidHash('hi');
         $item2 = new Item();
+        $item2->setFeedId(4);
         $item2->setGuidHash('yo');
         $return = [
             $createdFeed,
@@ -155,7 +158,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $this->feedMapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($createdFeed))
-            ->will($this->returnValue($createdFeed));
+            ->will($this->returnCallback(function() use ($createdFeed) {
+                $createdFeed->setId(4);
+                return $createdFeed;
+            }));
         $this->itemMapper->expects($this->at(0))
             ->method('findByGuidHash')
             ->with(
@@ -210,8 +216,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $createdFeed->setUrlHash($url);
         $createdFeed->setLink($url);
         $item1 = new Item();
+        $item1->setFeedId(5);
         $item1->setGuidHash('hi');
         $item2 = new Item();
+        $item2->setFeedId(5);
         $item2->setGuidHash('yo');
         $return = [
             $createdFeed,
@@ -232,7 +240,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $this->feedMapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($createdFeed))
-            ->will($this->returnValue($createdFeed));
+            ->will($this->returnCallback(function() use ($createdFeed) {
+                $createdFeed->setId(5);
+                return $createdFeed;
+            }));
         $this->itemMapper->expects($this->at(0))
             ->method('findByGuidHash')
             ->with(
@@ -519,9 +530,12 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
     {
         $feed = new Feed();
         $feed->setId(3);
+        $feed->setUrl('http://example.com');
         $feed->setUrlHash('yo');
 
         $existingFeed = new Feed();
+        $existingFeed->setId(3);
+        $existingFeed->setUrl('http://example.com');
         $feed->setArticlesPerUpdate(2);
 
         $item = new Item();
@@ -552,11 +566,13 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
     {
         $feed = new Feed();
         $feed->setId(3);
+        $feed->setUrl('http://example.com');
         $feed->setUpdateErrorCount(0);
         $feed->setLastUpdateError('');
 
         $exptectedFeed = new Feed();
         $exptectedFeed->setId(3);
+        $exptectedFeed->setUrl('http://example.com');
         $exptectedFeed->setUpdateErrorCount(1);
         $exptectedFeed->setLastUpdateError('hi');
 
@@ -655,6 +671,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $feed = new Feed();
         $feed->setId(3);
         $feed->setArticlesPerUpdate(1);
+        $feed->setUrl('http://example.com');
 
         $item = new Item();
         $item->setGuidHash(md5('hi'));
@@ -733,6 +750,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $feed = new Feed();
         $feed->setFolderId(16);
         $feed->setId($feedId);
+        $feed->setUrl('http://example.com');
 
         $this->feedMapper->expects($this->once())
             ->method('find')
@@ -909,7 +927,10 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
         $this->feedMapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($insertFeed))
-            ->will($this->returnValue($insertFeed));
+            ->will($this->returnCallback(function() use ($insertFeed) {
+                $insertFeed->setId(3);
+                return $insertFeed;
+            }));
 
 
         $this->itemMapper->expects($this->at(0))

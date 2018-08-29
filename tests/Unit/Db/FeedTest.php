@@ -104,9 +104,11 @@ class FeedTest extends \PHPUnit_Framework_TestCase
 
     public function testSetXSSUrl() 
     {
+        $this->setExpectedException(\TypeError::class);
+
         $feed = new Feed();
         $feed->setUrl('javascript:alert()');
-        $this->assertEquals('', $feed->getUrl());
+        $feed->getUrl();
     }
 
 
