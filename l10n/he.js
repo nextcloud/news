@@ -117,6 +117,8 @@ OC.L10N.register(
     "Default order" : "סדר בררת המחדל",
     "Enable full text" : "הפעלת טקסט מלא",
     "Disable full text" : "השבתת טקסט מלא",
+    "Unread updated" : "לא נקראו עודכנו",
+    "Ignore updated" : "בהתעלמות עודכנו",
     "Open feed URL" : "פתיחת כתובת ערוץ תוכן",
     "Delete" : "מחיקה",
     "Dismiss" : "שחרור",
