@@ -25,7 +25,7 @@ Before you install the app do the following:
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
-## Installing from the app store
+## Installing from the [app store](https://apps.nextcloud.com/apps/news)
 This is the easiest solution: Simply go the the apps page (section: "Multimedia") and enable the News app
 
 ## Installing from archive
