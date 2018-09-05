@@ -47,9 +47,11 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             var articles = elem.querySelectorAll('.item:not(.read)');
 
             articles.forEach(function(article) {
-                var distTop = article.getBoundingClientRect().top;
-                var scrollTop = $(document).scrollTop();
-                if (distTop - scrollTop <= -10) {
+                // distance to top + height
+                var distTop = article.offsetTop + article.offsetHeight;
+                var scrollTop = window.pageYOffset ||
+                    document.documentElement.scrollTop;
+                if (distTop < scrollTop) {
                     ids.push(parseInt(article.dataset.id, 10));
                 } else {
                     return false;
