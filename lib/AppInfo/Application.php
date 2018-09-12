@@ -172,13 +172,7 @@ class Application extends App
                 $config = $c->query(Config::class);
                 $proxy =  $c->query(ProxyConfigParser::class);
 
-                // use chrome's user agent string since mod_security rules
-                // assume that only browsers can send user agent strings. This
-                // can lead to blocked feed updates like joomla.org
-                // For more information see
-                // https://www.atomicorp.com/wiki/index.php/WAF_309925
-                $userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' .
-                '(KHTML, like Gecko) Chrome/50.0.2661.75 Safari/537.36';
+                $userAgent = 'NextCloud-News/1.0';
 
                 $pico = new PicoFeedConfig();
                 $pico->setClientUserAgent($userAgent)
