@@ -28,6 +28,7 @@
     "Articles without feed" : "Články bez kanálu",
     "Can not add folder: Exists already" : "Nelze přidat adresář: již existuje",
     "News" : "Zprávy",
+    "An RSS/Atom feed reader" : "Čtečka RSS/Atom zdrojů",
     "Use system cron for updates" : "Pro aktualizace použít systémovou službu cron",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Toto vypněte, pokud používáte vlastní aplikaci pro aktualizace jako například dostupnou aktualizační službu Python",
     "Purge interval" : "Interval čištění",
