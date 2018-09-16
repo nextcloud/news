@@ -19,9 +19,11 @@ use OCA\News\Utility\Time;
 
 class FolderMapperTest extends MapperTestUtility
 {
-
+    /** @var FolderMapper */
     private $folderMapper;
+    /** @var Folder[] */
     private $folders;
+    /** @var string */
     private $user;
 
     protected function setUp()
@@ -32,7 +34,11 @@ class FolderMapperTest extends MapperTestUtility
 
         // create mock folders
         $folder1 = new Folder();
+        $folder1->setId(4);
+        $folder1->resetUpdatedFields();
         $folder2 = new Folder();
+        $folder2->setId(5);
+        $folder2->resetUpdatedFields();
 
         $this->folders = [$folder1, $folder2];
         $this->user = 'hh';

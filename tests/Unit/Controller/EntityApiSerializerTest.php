@@ -33,6 +33,10 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase
     {
         $item = new Item();
         $item->setUnread(true);
+        $item->setId(3);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
 
         $serializer = new EntityApiSerializer('items');
         $result = $serializer->serialize($item);
@@ -45,9 +49,17 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase
     {
         $item = new Item();
         $item->setUnread(true);
+        $item->setId(3);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
 
         $item2 = new Item();
         $item2->setUnread(false);
+        $item2->setId(5);
+        $item2->setGuid('guid');
+        $item2->setGuidHash('guidhash');
+        $item2->setFeedId(123);
 
         $serializer = new EntityApiSerializer('items');
 
@@ -73,9 +85,17 @@ class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase
     {
         $item = new Item();
         $item->setUnread(true);
+        $item->setId(3);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
 
         $item2 = new Item();
         $item2->setUnread(false);
+        $item2->setId(5);
+        $item2->setGuid('guid');
+        $item2->setGuidHash('guidhash');
+        $item2->setFeedId(123);
 
         $serializer = new EntityApiSerializer('items');
 

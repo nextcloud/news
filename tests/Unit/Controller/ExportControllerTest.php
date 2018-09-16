@@ -98,8 +98,10 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase
     {
         $item1 = new Item();
         $item1->setFeedId(3);
+        $item1->setGuid('guid');
         $item2 = new Item();
         $item2->setFeedId(5);
+        $item2->setGuid('guid');
 
         $feed1 = new Feed();
         $feed1->setId(3);
@@ -129,13 +131,13 @@ class ExportControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            '[{"guid":null,"url":null,"title":null,' .
+            '[{"guid":"guid","url":null,"title":null,' .
             '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
             '"enclosureLink":null,"unread":false,"starred":false,' .
-            '"feedLink":"http:\/\/goo","rtl":null},{"guid":null,"url":null,' .
+            '"feedLink":"http:\/\/goo","rtl":false},{"guid":"guid","url":null,' .
             '"title":null,"author":null,"pubDate":null,"updatedDate":null,"body":null,' .
             '"enclosureMime":null,"enclosureLink":null,"unread":false,' .
-            '"starred":false,"feedLink":"http:\/\/gee","rtl":null}]',
+            '"starred":false,"feedLink":"http:\/\/gee","rtl":false}]',
             $return->render()
         );
     }
