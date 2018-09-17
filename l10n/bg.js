@@ -10,7 +10,7 @@ OC.L10N.register(
     "Feed contains invalid XML" : "Емисията е с невалидно XML съдържание",
     "Detected feed format is not supported" : "Форматът на емисиятане се поддържа",
     "Website not found" : "Страницата не е открита",
-    "More redirects than allowed, aborting" : "Пренасочване повече от разрешеното, прекратяване",
+    "More redirects than allowed, aborting" : "Повече от разрешените пренасочвания, прекратяване",
     "Bigger than maximum allowed size" : "Размер по-голям от разрешения максимум",
     "Request timed out" : "Изтекло време на заявка",
     "Required credentials for feed were either missing or incorrect" : "Необходимите удостоверения за емисията липсват или са неправилни",
