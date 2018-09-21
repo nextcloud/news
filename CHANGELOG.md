@@ -3,11 +3,46 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 13.0.0
+
+### Changed
+
+- Nextcloud 14 compatibility #312, #319
+- API support for new login flow #303
+- Dropped support for Nextcloud 13
+
+## 12.0.4
+
+### Fixed
+
+- Re-release of 12.0.3 but without signature, because it was broken.
+
+## 12.0.3
+
+### Fixed
+
+- packaging problem in 12.0.2
+
+## 12.0.2
+
+### Fixed
+
+- Fix the error RSS source overlay #281
+- MySQL UTF8Mb4 link to current docs #285
+- Remove development dependencies from archive #288
+
+### Changed
+
+- Add newsboat compatible client to README.md #256
+- Move transifex config for updated l10n script #267
+- Core: Fix compatibility with nextcloud codestyle #280
+- JS: Fix gulp issues with new node versions #293
+
 ## 12.0.1
 
 ### Fixed
 
-- Fix various styling and usage issues introduced with beta changes 
+- Fix various styling and usage issues introduced with beta changes
 
 ## 12.0.0
 
@@ -17,7 +52,6 @@ All notable changes to this project will be documented in this file.
 - Dropped support for Nextcloud 12
 
 ## 11.0.5
-
 
 ### Fixed
 
@@ -30,7 +64,6 @@ All notable changes to this project will be documented in this file.
 - Do not fail MySql utf-8 support check on other platforms for various reasons, #163
 - Include the correct files for displaying warnings, #166
 
-
 ## 11.0.3
 
 ### Fixed
@@ -42,7 +75,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Fail early when an incorrectly configured MySql/MariaDB instance is found to prevent update errors and data loss
-- Do not mark articles read when shift + a + ctrl/meta/alt is pressed  
+- Do not mark articles read when shift + a + ctrl/meta/alt is pressed
 - Re-order mark read to first position
 
 ## 11.0.1
@@ -51,7 +84,6 @@ All notable changes to this project will be documented in this file.
 
 - Fix admin section on latest master (fix only works with a version newer than 12.0.0-beta4), #145
 - Do not show tooltip when hovering over headlines in compact mode, #151
-
 
 ## 11.0.0
 
