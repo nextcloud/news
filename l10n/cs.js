@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Request failed, network connection unavailable!" : "Požadavek selhal, síťové připojení není dostupné!",
-    "Request unauthorized. Are you logged in?" : "Neautorizovaný požadavek. Jste přihlášeni?",
+    "Request failed, network connection unavailable!" : "Požadavek se nezdařil, síťové připojení není dostupné!",
+    "Request unauthorized. Are you logged in?" : "Neoprávněný požadavek. Jste přihlášení?",
     "Request forbidden. Are you an admin?" : "Požadavek odepřen. Jste správce?",
     "Token expired or app not enabled! Reload the page!" : "Token vypršel nebo aplikace není povolena! Obnovte stránku!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interní chyba serveru! Nahlédněte prosím do souboru data/nextcloud.log pro více informací!",
@@ -31,6 +31,7 @@ OC.L10N.register(
     "Can not add folder: Exists already" : "Nelze přidat adresář: již existuje",
     "News" : "Zprávy",
     "An RSS/Atom feed reader" : "Čtečka RSS/Atom zdrojů",
+    "The News app is an RSS/Atom feed reader for Nextcloud which can be synced with many mobile devices. A list of all clients and requirements can be found [in the README](https://github.com/nextcloud/news)\n\nBefore you update to a new version, [check the changelog](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) to avoid surprises.\n\n**Important**: To enable feed updates you will need to enable either [Nextcloud system cron](https://docs.nextcloud.com/server/10/admin_manual/configuration_server/background_jobs_configuration.html#cron) or use [an updater](https://github.com/nextcloud/news-updater) which uses the built in update API and disable cron updates. More information can be found [in the README](https://github.com/nextcloud/news)." : "Aplikace Novinky je čtečka RSS/Atom zdrojů pro Nextcloud, kterou je možné synchronizovat s mnoha mobilními zařízeními. Seznam všech klientů a požadavky je k nalezení [v souboru README](https://github.com/nextcloud/news)\n\nPřed provedením přechodu na novou verzi, [se podívejte do výčtu změn](https://github.com/nextcloud/news/blob/master/CHANGELOG.md), abyste se vyhnuli nenadálým překvapením.\n\n**Důležité**: Pro zapnutí aktualizací zdrojů je třeba zapnout buď [Nextcloud systémový plánovač](https://docs.nextcloud.com/server/10/admin_manual/configuration_server/background_jobs_configuration.html#cron) nebo použít [aktualizátor](https://github.com/nextcloud/news-updater) který používá vestavěné API aktualizací a vypíná aktualizace z cron. Více informací je k dispozici [v souboru README](https://github.com/nextcloud/news).",
     "Use system cron for updates" : "Pro aktualizace použít systémovou službu cron",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Toto vypněte, pokud používáte vlastní aplikaci pro aktualizace jako například dostupnou aktualizační službu Python",
     "Purge interval" : "Interval čištění",
