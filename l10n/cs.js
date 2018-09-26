@@ -1,11 +1,11 @@
 OC.L10N.register(
     "news",
     {
-    "Request failed, network connection unavailable!" : "Požadavek se nezdařil, síťové připojení není dostupné!",
+    "Request failed, network connection unavailable!" : "Požadavek se nezdařil, není dostupné síťové připojení!",
     "Request unauthorized. Are you logged in?" : "Neoprávněný požadavek. Jste přihlášení?",
     "Request forbidden. Are you an admin?" : "Požadavek odepřen. Jste správce?",
-    "Token expired or app not enabled! Reload the page!" : "Token vypršel nebo aplikace není povolena! Obnovte stránku!",
-    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interní chyba serveru! Nahlédněte prosím do souboru data/nextcloud.log pro více informací!",
+    "Token expired or app not enabled! Reload the page!" : "Platnost tokenu skončila nebo aplikace není povolena! Načtěte stránku znovu.",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnitřní chyba serveru! Další informace naleznete v souboru data/nextcloud.log.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek se nezdařil, Nextcloud je aktuálně v režimu údržby!",
     "Feed contains invalid XML" : "Kanál obsahuje neplatné XML",
     "Feed not found: Either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Kanál nenalezen: stránka buď žádný neposkytuje nebo je přístup blokován. Pro vyloučení možnosti blokování zkuste stáhnout kanál pomocí příkazového řádku na serveru za použití curl: curl",
