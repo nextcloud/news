@@ -1,4 +1,4 @@
-@media (max-width: 770px) {
+@media only screen and (max-width: 768px) {
     #app-content .utils .date {
         display: none;
     }
@@ -7,9 +7,13 @@
         padding-left: 44px;
     }
 
+    #app-navigation:not(.hidden) + #app-content {
+        width: 100%;
+    }
+
 }
 
-@media (max-width: 600px) {
+@media only screen and (max-width: 600px) {
     #app-content .article-actions ul {
         max-width: 164px;
     }
@@ -32,7 +36,7 @@
     }
 }
 
-@media (max-width: 340px) {
+@media only screen and (max-width: 340px) {
     #app-content .article-actions  {
         max-width: 82px;
     }
