@@ -8,7 +8,7 @@ OC.L10N.register(
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnitřní chyba serveru! Další informace naleznete v souboru data/nextcloud.log.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek se nezdařil, Nextcloud je aktuálně v režimu údržby!",
     "Feed contains invalid XML" : "Kanál obsahuje neplatné XML",
-    "Feed not found: Either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Kanál nenalezen: stránka buď žádný neposkytuje nebo je přístup blokován. Pro vyloučení možnosti blokování zkuste stáhnout kanál pomocí příkazového řádku na serveru za použití curl: curl",
+    "Feed not found: Either the website does not provide a feed or blocks access. To rule out blocking, try to download the feed on your server's command line using curl: curl " : "Kanál nenalezen: stránka buď žádný neposkytuje nebo je přístup blokován. Pro vyloučení možnosti blokování zkuste stáhnout kanál pomocí příkazového řádku na svém serveru za použití curl: curl",
     "Detected feed format is not supported" : "Zjištěný formát kanálu není podporován",
     "Website not found" : "Webová stránka nenalezena",
     "More redirects than allowed, aborting" : "Překročen povolený počet přesměrování, ukončuje se",
