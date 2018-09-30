@@ -31,12 +31,17 @@ OC.L10N.register(
     "Explore" : "Ontdek",
     "Rename" : "Hernoem",
     "Menu" : "Kieslys",
+    "Newest first" : "Nuutste eerste",
+    "Oldest first" : "Oudste eerste",
     "Delete" : "Skrap",
     "Dismiss" : "Wys Af",
     "Collapse" : "Vou In",
     "Deleted folder" : "Geskrapte vouer",
     "All articles" : "Alle artikels",
     "Settings" : "Instellings",
+    "Import" : "Voer In",
+    "Export" : "Stuur Uit",
+    "Keyboard shortcuts" : "Sneltoetse",
     "Documentation" : "Dokumentasie"
 },
 "nplurals=2; plural=(n != 1);");
