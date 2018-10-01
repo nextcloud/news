@@ -15,8 +15,9 @@ namespace OCA\News\Tests\Unit\Utility;
 
 
 use OCA\News\Utility\ProxyConfigParser;
+use PHPUnit\Framework\TestCase;
 
-class ProxyConfigParserTest extends \PHPUnit_Framework_TestCase
+class ProxyConfigParserTest extends TestCase
 {
 
     private $config;

@@ -14,8 +14,9 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\AdminController;
+use PHPUnit\Framework\TestCase;
 
-class AdminControllerTest extends \PHPUnit_Framework_TestCase
+class AdminControllerTest extends TestCase
 {
 
     private $appName;

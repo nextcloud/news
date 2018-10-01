@@ -18,9 +18,10 @@ use \OCA\News\Db\Feed;
 use OCA\News\Fetcher\FeedFetcher;
 use OCP\Http\Client\IClientService;
 use PicoFeed\Processor\ItemPostProcessor;
+use PHPUnit\Framework\TestCase;
 
 
-class FeedFetcherTest extends \PHPUnit_Framework_TestCase
+class FeedFetcherTest extends TestCase
 {
 
     private $fetcher;

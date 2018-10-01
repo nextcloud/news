@@ -22,8 +22,10 @@ use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
+use PHPUnit\Framework\TestCase;
 
-class FolderControllerTest extends \PHPUnit_Framework_TestCase
+
+class FolderControllerTest extends TestCase
 {
 
     private $appName;

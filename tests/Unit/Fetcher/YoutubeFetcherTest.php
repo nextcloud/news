@@ -14,8 +14,9 @@ namespace OCA\News\Tests\Unit\Fetcher;
 use \OCA\News\Db\Feed;
 use OCA\News\Fetcher\YoutubeFetcher;
 
+use PHPUnit\Framework\TestCase;
 
-class YoutubeFetcherTest extends \PHPUnit_Framework_TestCase
+class YoutubeFetcherTest extends TestCase
 {
 
     private $fetcher;

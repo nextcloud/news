@@ -21,8 +21,9 @@ use OCA\News\Db\FeedType;
 use OCA\News\Service\ServiceNotFoundException;
 use OCA\News\Service\ServiceConflictException;
 
+use PHPUnit\Framework\TestCase;
 
-class FeedControllerTest extends \PHPUnit_Framework_TestCase
+class FeedControllerTest extends TestCase
 {
 
     private $appName;

@@ -13,10 +13,10 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
-
+use PHPUnit\Framework\TestCase;
 use OCA\News\Db\Feed;
 
-class FeedTest extends \PHPUnit_Framework_TestCase
+class FeedTest extends TestCase
 {
 
 

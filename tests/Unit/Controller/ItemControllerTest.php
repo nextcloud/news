@@ -21,8 +21,10 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 use \OCA\News\Service\ServiceNotFoundException;
 
+use PHPUnit\Framework\TestCase;
 
-class ItemControllerTest extends \PHPUnit_Framework_TestCase
+
+class ItemControllerTest extends TestCase
 {
 
     private $appName;

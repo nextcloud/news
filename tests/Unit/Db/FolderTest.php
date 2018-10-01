@@ -14,8 +14,9 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use OCA\News\Db\Folder;
+use PHPUnit\Framework\TestCase;
 
-class FolderTest extends \PHPUnit_Framework_TestCase
+class FolderTest extends TestCase
 {
 
 

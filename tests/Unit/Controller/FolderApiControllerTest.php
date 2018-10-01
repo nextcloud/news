@@ -27,8 +27,10 @@ use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 
+use PHPUnit\Framework\TestCase;
 
-class FolderApiControllerTest extends \PHPUnit_Framework_TestCase
+
+class FolderApiControllerTest extends TestCase
 {
 
     private $folderService;

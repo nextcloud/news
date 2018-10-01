@@ -18,6 +18,7 @@ use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Folder;
+use PHPUnit\Framework\TestCase;
 
 
 class TestService extends Service
@@ -28,7 +29,7 @@ class TestService extends Service
     }
 }
 
-class ServiceTest extends \PHPUnit_Framework_TestCase
+class ServiceTest extends TestCase
 {
 
     protected $mapper;
@@ -83,7 +84,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             ->method('find')
             ->will($this->throwException($ex));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->newsService->find(1, '');
@@ -98,7 +99,7 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
             ->method('find')
             ->will($this->throwException($ex));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->newsService->find(1, '');

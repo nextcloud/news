@@ -16,7 +16,9 @@ namespace OCA\News\Tests\Unit\Db;
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ItemTest extends TestCase
 {
 
     /**

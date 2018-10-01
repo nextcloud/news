@@ -23,10 +23,11 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
+use PHPUnit\Framework\TestCase;
 /**
  * Simple utility class for testing mappers
  */
-abstract class MapperTestUtility extends \PHPUnit_Framework_TestCase
+abstract class MapperTestUtility extends TestCase
 {
     protected $db;
     private $query;

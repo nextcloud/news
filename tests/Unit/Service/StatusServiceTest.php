@@ -15,9 +15,10 @@ namespace OCA\News\Tests\Unit\Service;
 
 use \OCA\News\Db\FeedType;
 use OCA\News\Service\StatusService;
+use PHPUnit\Framework\TestCase;
 
 
-class StatusServiceTest extends \PHPUnit_Framework_TestCase
+class StatusServiceTest extends TestCase
 {
 
     private $settings;

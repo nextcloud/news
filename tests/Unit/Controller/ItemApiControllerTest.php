@@ -21,8 +21,10 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Db\Item;
 
+use PHPUnit\Framework\TestCase;
 
-class ItemApiControllerTest extends \PHPUnit_Framework_TestCase
+
+class ItemApiControllerTest extends TestCase
 {
 
     private $itemService;

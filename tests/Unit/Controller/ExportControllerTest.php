@@ -21,8 +21,9 @@ use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
+use PHPUnit\Framework\TestCase;
 
-class ExportControllerTest extends \PHPUnit_Framework_TestCase
+class ExportControllerTest extends TestCase
 {
 
     private $appName;

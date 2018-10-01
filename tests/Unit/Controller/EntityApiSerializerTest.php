@@ -18,14 +18,14 @@ use \OCP\AppFramework\Http\Response;
 use \OCP\AppFramework\Db\Entity;
 
 use \OCA\News\Db\Item;
+use PHPUnit\Framework\TestCase;
 
 class TestEntity extends Entity
 {
 
 }
 
-
-class EntityApiSerializerTest extends \PHPUnit_Framework_TestCase
+class EntityApiSerializerTest extends TestCase
 {
 
 

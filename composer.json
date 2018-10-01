@@ -29,13 +29,14 @@
         "source": "https://github.com/nextcloud/news/"
     },
     "require": {
-        "ezyang/htmlpurifier": "4.9.3",
+        "php": "^7.0",
+        "ezyang/htmlpurifier": "4.10.0",
         "miniflux/picofeed": "0.1.34",
-        "pear/net_url2": "2.2.1",
-        "riimu/kit-pathjoin": "1.1.2"
+        "pear/net_url2": "2.2.2",
+        "riimu/kit-pathjoin": "1.2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^6.5"
     },
     "autoload": {
         "psr-4": {
