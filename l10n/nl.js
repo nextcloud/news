@@ -87,7 +87,7 @@ OC.L10N.register(
     "Mark current article's feed/folder read" : "Markeer feed/map van huidige artikel als gelezen",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax of Web cron mode gedetecteerd! Je feeds worden niet bijgewerkt!",
     "How to set up the operating system cron" : "Hoe wordt de cron-service van het operating system ingesteld",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Installeer en configureer een snellere parallel updater dat gebruik maakt van de News app z'n update API.",
+    "Install and set up a faster parallel updater that uses the News app's update API" : "Installeer en configureer een snellere parallel updater die gebruik maakt van de update API van de Nieuws app",
     "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Non UTF-8 tekenset voor MySQL/MariaDB database vastgesteld!",
     "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Leer hoe je je database naar utf8mb4 converteert (maak eerst een backup)",
     "Web address" : "Webadres",
