@@ -21,10 +21,16 @@ use PHPUnit\Framework\TestCase;
 
 class OPMLExporterTest extends TestCase
 {
-
+    /** @var OPMLExporter */
     private $exporter;
+    /** @var Feed */
     private $feed1;
+    /** @var Feed */
     private $feed2;
+    /** @var Folder */
+    private $folder1;
+    /** @var Folder */
+    private $folder2;
 
     protected function setUp() 
     {
@@ -38,11 +44,11 @@ class OPMLExporterTest extends TestCase
         $this->folder2->setParentId(3);
         $this->folder2->setName('a ergendwas');
         $this->feed1 = new Feed();
-        $this->feed1->setUrl('url 1');
+        $this->feed1->setUrl('http://url1');
         $this->feed1->setTitle('tötel');
         $this->feed1->setFolderId(0);
         $this->feed2 = new Feed();
-        $this->feed2->setUrl('url');
+        $this->feed2->setUrl('http://url');
         $this->feed2->setTitle('ttel df');
         $this->feed2->setLink('goooooogel');
         $this->feed2->setFolderId(1);

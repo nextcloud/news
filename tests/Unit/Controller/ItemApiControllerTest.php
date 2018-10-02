@@ -77,7 +77,11 @@ class ItemApiControllerTest extends TestCase
 
     public function testIndex() 
     {
-        $items = [new Item()];
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
             ->method('findAll')
@@ -90,13 +94,13 @@ class ItemApiControllerTest extends TestCase
                 $this->equalTo(true),
                 $this->equalTo($this->user->getUID())
             )
-            ->will($this->returnValue($items));
+            ->will($this->returnValue([$item]));
 
         $response = $this->itemAPI->index(1, 2, true, 30, 20, true);
 
         $this->assertEquals(
             [
-            'items' => [$items[0]->toApi()]
+            'items' => [$item->toApi()]
             ], $response
         );
     }
@@ -104,7 +108,11 @@ class ItemApiControllerTest extends TestCase
 
     public function testIndexDefaultBatchSize() 
     {
-        $items = [new Item()];
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
             ->method('findAll')
@@ -117,13 +125,13 @@ class ItemApiControllerTest extends TestCase
                 $this->equalTo(false),
                 $this->equalTo($this->user->getUID())
             )
-            ->will($this->returnValue($items));
+            ->will($this->returnValue([$item]));
 
         $response = $this->itemAPI->index(1, 2, false);
 
         $this->assertEquals(
             [
-            'items' => [$items[0]->toApi()]
+            'items' => [$item->toApi()]
             ], $response
         );
     }
@@ -131,7 +139,11 @@ class ItemApiControllerTest extends TestCase
 
     public function testUpdated() 
     {
-        $items = [new Item()];
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
             ->method('findAllNew')
@@ -142,13 +154,13 @@ class ItemApiControllerTest extends TestCase
                 $this->equalTo(true),
                 $this->equalTo($this->user->getUID())
             )
-            ->will($this->returnValue($items));
+            ->will($this->returnValue([$item]));
 
         $response = $this->itemAPI->updated(1, 2, 30);
 
         $this->assertEquals(
             [
-            'items' => [$items[0]->toApi()]
+            'items' => [$item->toApi()]
             ], $response
         );
     }

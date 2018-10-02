@@ -21,7 +21,6 @@ class FolderFixture extends Folder
 
     public function __construct(array $defaults=[])  
     {
-        parent::__construct();
         $defaults = array_merge(
             [
             'parentId' => 0,

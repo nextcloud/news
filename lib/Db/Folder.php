@@ -13,66 +13,150 @@
 
 namespace OCA\News\Db;
 
-use \OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\Entity;
 
-/**
- * @method integer getId()
- * @method void setId(integer $value)
- * @method string getUserId()
- * @method void setUserId(string $value)
- * @method string getName()
- * @method void setName(string $value)
- * @method integer getParentId()
- * @method void setParentId(integer $value)
- * @method boolean getOpened()
- * @method void setOpened(boolean $value)
- * @method integer getDeletedAt()
- * @method void setDeletedAt(integer $value)
- * @method string getLastModified()
- * @method void setLastModified(string $value)
- */
 class Folder extends Entity implements IAPI, \JsonSerializable
 {
 
     use EntityJSONSerializer;
 
+    /** @var int|null */
     protected $parentId;
+    /** @var string */
     protected $name;
-    protected $userId;
-    protected $opened;
-    protected $deletedAt;
-    protected $lastModified;
+    /** @var string */
+    protected $userId = '';
+    /** @var bool */
+    protected $opened = true;
+    /** @var int|null */
+    protected $deletedAt = 0;
+    /** @var int|null */
+    protected $lastModified = 0;
 
-    public function __construct()
+    /**
+     * @return int|null
+     */
+    public function getDeletedAt()
     {
-        $this->addType('parentId', 'integer');
-        $this->addType('opened', 'boolean');
-        $this->addType('deletedAt', 'integer');
+        return $this->deletedAt;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
-     * Turns entitie attributes into an array
+     * @return int|null
      */
-    public function jsonSerialize() 
+    public function getLastModified()
+    {
+        return $this->lastModified;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getOpened(): bool
+    {
+        return $this->opened;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Turns entity attributes into an array
+     */
+    public function jsonSerialize(): array
     {
         return $this->serializeFields(
             [
-            'id',
-            'parentId',
-            'name',
-            'userId',
-            'opened',
-            'deletedAt',
+                'id',
+                'parentId',
+                'name',
+                'userId',
+                'opened',
+                'deletedAt',
             ]
         );
     }
 
-    public function toAPI() 
+    public function setDeletedAt(int $deletedAt = null)
+    {
+        if ($this->deletedAt !== $deletedAt) {
+            $this->deletedAt = $deletedAt;
+            $this->markFieldUpdated('deletedAt');
+        }
+    }
+
+    public function setId(int $id)
+    {
+        if ($this->id !== $id) {
+            $this->id = $id;
+            $this->markFieldUpdated('id');
+        }
+    }
+
+    public function setLastModified(int $lastModified = null)
+    {
+
+        if ($this->lastModified !== $lastModified) {
+            $this->lastModified = $lastModified;
+            $this->markFieldUpdated('lastModified');
+        }
+    }
+
+    public function setName(string $name)
+    {
+        if ($this->name !== $name) {
+            $this->name = $name;
+            $this->markFieldUpdated('name');
+        }
+    }
+
+    public function setOpened(bool $opened)
+    {
+        if ($this->opened !== $opened) {
+            $this->opened = $opened;
+            $this->markFieldUpdated('opened');
+        }
+    }
+
+    public function setParentId(int $parentId = null)
+    {
+        if ($this->parentId !== $parentId) {
+            $this->parentId = $parentId;
+            $this->markFieldUpdated('parentId');
+        }
+    }
+
+    public function setUserId(string $userId)
+    {
+        if ($this->userId !== $userId) {
+            $this->userId = $userId;
+            $this->markFieldUpdated('userId');
+        }
+    }
+
+    public function toAPI(): array
     {
         return $this->serializeFields(
             [
-            'id',
-            'name'
+                'id',
+                'name'
             ]
         );
     }

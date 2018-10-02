@@ -21,7 +21,6 @@ class ItemFixture extends Item
 
     public function __construct(array $defaults=[])  
     {
-        parent::__construct();
         $defaults = array_merge(
             [
             'url' => 'http://google.de',
