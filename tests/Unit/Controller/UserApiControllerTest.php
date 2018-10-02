@@ -15,7 +15,9 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\UserApiController;
 
-class UserApiControllerTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class UserApiControllerTest extends TestCase
 {
 
     private $request;

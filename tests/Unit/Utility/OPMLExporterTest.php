@@ -16,9 +16,10 @@ namespace OCA\News\Tests\Unit\Utility;
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
 use OCA\News\Utility\OPMLExporter;
+use PHPUnit\Framework\TestCase;
 
 
-class OPMLExporterTest extends \PHPUnit_Framework_TestCase
+class OPMLExporterTest extends TestCase
 {
 
     private $exporter;

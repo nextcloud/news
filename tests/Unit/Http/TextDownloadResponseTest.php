@@ -16,8 +16,9 @@ namespace OCA\News\Tests\Unit\Http;
 
 
 use OCA\News\Http\TextDownloadResponse;
+use PHPUnit\Framework\TestCase;
 
-class TextDownloadResponseTest extends \PHPUnit_Framework_TestCase
+class TextDownloadResponseTest extends TestCase
 {
 
 

@@ -16,8 +16,10 @@ namespace OCA\News\Tests\Unit\Service;
 use \OCA\News\Db\Folder;
 use OCA\News\Service\FolderService;
 
+use PHPUnit\Framework\TestCase;
 
-class FolderServiceTest extends \PHPUnit_Framework_TestCase
+
+class FolderServiceTest extends TestCase
 {
 
     private $folderMapper;
@@ -111,7 +113,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($folderName))
             ->will($this->returnValue($rows));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceConflictException'
         );
         $this->folderService->create($folderName, 'john', 3);
@@ -190,7 +192,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($folderName))
             ->will($this->returnValue($rows));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceConflictException'
         );
         $this->folderService->rename(3, $folderName, 'john');
@@ -206,7 +208,7 @@ class FolderServiceTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($folderName))
             ->will($this->returnValue([]));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceValidationException'
         );
         $this->folderService->rename(3, $folderName, 'john');

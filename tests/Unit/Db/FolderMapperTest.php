@@ -70,7 +70,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->setMapperResult($sql, [$id, $userId]);
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCP\AppFramework\Db\DoesNotExistException'
         );
         $this->folderMapper->find($id, $userId);
@@ -88,7 +88,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->setMapperResult($sql, [$id, $userId], $rows);
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCP\AppFramework\Db\MultipleObjectsReturnedException'
         );
         $this->folderMapper->find($id, $userId);

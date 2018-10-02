@@ -15,9 +15,10 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\PageController;
 use \OCA\News\Db\FeedType;
+use PHPUnit\Framework\TestCase;
 
 
-class PageControllerTest extends \PHPUnit_Framework_TestCase
+class PageControllerTest extends TestCase
 {
 
     private $settings;

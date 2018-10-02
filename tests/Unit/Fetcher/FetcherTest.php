@@ -26,8 +26,9 @@ namespace OCA\News\Tests\Unit\Fetcher;
 
 
 use OCA\News\Fetcher\Fetcher;
+use PHPUnit\Framework\TestCase;
 
-class FetcherTest extends \PHPUnit_Framework_TestCase
+class FetcherTest extends TestCase
 {
 
     private $fetcher;

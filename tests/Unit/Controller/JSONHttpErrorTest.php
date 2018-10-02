@@ -15,12 +15,14 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\JSONHttpError;
 
+use PHPUnit\Framework\TestCase;
+
 class Test
 {
     use JSONHttpError;
 }
 
-class JSONHttpErrorTest extends \PHPUnit_Framework_TestCase
+class JSONHttpErrorTest extends TestCase
 {
 
 

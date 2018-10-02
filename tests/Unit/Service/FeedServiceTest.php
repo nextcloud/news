@@ -22,8 +22,10 @@ use OCA\News\Db\Item;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FetcherException;
 
+use PHPUnit\Framework\TestCase;
 
-class FeedServiceTest extends \PHPUnit_Framework_TestCase
+
+class FeedServiceTest extends TestCase
 {
 
     private $feedMapper;
@@ -114,7 +116,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
             ->method('fetch')
             ->with($this->equalTo($url))
             ->will($this->throwException($ex));
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->feedService->create($url, 1, $this->user);
@@ -606,7 +608,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->throwException($ex));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->feedService->update($feed->getId(), $this->user);
@@ -643,7 +645,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->throwException($ex));
 
-        $this->setExpectedException(
+        $this->expectException(
             'OCP\AppFramework\Db\DoesNotExistException'
         );
         $this->feedService->update($feed->getId(), $this->user);
@@ -698,7 +700,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->throwException($ex));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->feedService->update($feed->getId(), $this->user);
@@ -1100,7 +1102,7 @@ class FeedServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
 

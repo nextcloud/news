@@ -19,8 +19,10 @@ use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\FeedType;
 
+use PHPUnit\Framework\TestCase;
 
-class ItemServiceTest extends \PHPUnit_Framework_TestCase
+
+class ItemServiceTest extends TestCase
 {
 
     private $mapper;
@@ -337,7 +339,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase
     public function testReadDoesNotExist()
     {
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->mapper->expects($this->once())
@@ -350,7 +352,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase
     public function testStarDoesNotExist()
     {
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->mapper->expects($this->once())
@@ -460,7 +462,7 @@ class ItemServiceTest extends \PHPUnit_Framework_TestCase
                 )
             );
 
-        $this->setExpectedException(
+        $this->expectException(
             '\OCA\News\Service\ServiceNotFoundException'
         );
         $this->itemService->getNewestItemId($this->user);

@@ -12,7 +12,7 @@
 
 namespace OCA\News\Tests\Integration;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;

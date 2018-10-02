@@ -13,10 +13,10 @@
 
 namespace OCA\News\Tests\Unit\Utility;
 
-
 use OCA\News\Utility\Updater;
+use PHPUnit\Framework\TestCase;
 
-class UpdaterTest extends \PHPUnit_Framework_TestCase
+class UpdaterTest extends TestCase
 {
 
     private $folderService;

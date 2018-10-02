@@ -14,10 +14,10 @@
 
 namespace OCA\News\Tests\Unit\Http;
 
-
+use PHPUnit\Framework\TestCase;
 use OCA\News\Http\TextResponse;
 
-class TextResponseTest extends \PHPUnit_Framework_TestCase
+class TextResponseTest extends TestCase
 {
 
 

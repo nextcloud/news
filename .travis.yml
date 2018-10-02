@@ -2,20 +2,21 @@ sudo: false
 dist: trusty
 language: php
 php:
-    - 7
+    - 7.0
     - 7.1
     - 7.2
     - nightly
 
 env:
     global:
-        - CORE_BRANCH=master
+        - CORE_BRANCH=stable14
         - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
 
 matrix:
     allow_failures:
+        - env: DB=pgsql CORE_BRANCH=master
         - php: nightly
     include:
         - php: 7.1
@@ -26,7 +27,9 @@ matrix:
           env: DB=mysql
         - php: 7.2
           env: DB=mysql
-    fast_finish: true
+        - php: 7.2
+          env: DB=pgsql CORE_BRANCH=master
+fast_finish: true
 
 before_install:
     - make
@@ -60,6 +63,4 @@ after_failure:
 addons:
     firefox: "latest-beta"
     postgresql: "9.6"
-
-services:
-    - mysql
+    mariadb: "10.3"

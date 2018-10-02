@@ -16,14 +16,14 @@ namespace OCA\News\Tests\Unit\Db;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\MapperFactory;
 use OCA\News\Utility\Time;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 use OCP\IDBConnection;
 
 use OCA\News\Db\Mysql\ItemMapper as MysqlMapper;
 
 
-class MapperFactoryTest extends PHPUnit_Framework_TestCase
+class MapperFactoryTest extends TestCase
 {
 
     private $db;
