@@ -158,6 +158,9 @@ appstore:
 	"CHANGELOG.md" \
 	$(appstore_build_directory)
 
+	#remove stray .htaccess files since they are filtered by nextcloud
+	find $(appstore_build_directory) -name .htaccess -exec rm {} \;
+
 	# on macOS there is no option "--parents" for the "cp" command
 	mkdir -p $(appstore_build_directory)/js/build $(appstore_build_directory)/js/admin
 	cp js/build/app.min.js $(appstore_build_directory)/js/build
