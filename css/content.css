@@ -227,7 +227,13 @@
 
 #app-content .compact .utils {
     cursor: pointer;
-    padding-top: 0;
+    padding: 0;
+    -webkit-position: sticky;
+    position: sticky;
+    top: 50px;
+    background-color: #fff;
+    height: 41px;
+    opacity: 0.9;
 }
 
 #app-content .utils ul {
