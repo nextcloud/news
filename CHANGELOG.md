@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- support for php 7.2 added
+- code refactoring
+
+## 13.0.1
+
+### Fixed
+- Fixed design on mobile and desktop
+- Compact view fixes for Firefox
+
+### Known issues
+- Integrity error for missing .htaccess file
+
 ## 13.0.0
 
 ### Changed
