@@ -20,7 +20,7 @@ class FeedTest extends TestCase
 {
 
 
-    private function createFeed() 
+    private function createFeed()
     {
         $feed = new Feed();
         $feed->setId(3);
@@ -45,7 +45,7 @@ class FeedTest extends TestCase
         return $feed;
     }
 
-    public function testToAPI() 
+    public function testToAPI()
     {
         $feed = $this->createFeed();
 
@@ -68,7 +68,7 @@ class FeedTest extends TestCase
     }
 
 
-    public function testSerialize() 
+    public function testSerialize()
     {
         $feed = $this->createFeed();
 
@@ -102,9 +102,9 @@ class FeedTest extends TestCase
     }
 
 
-    public function testSetXSSUrl() 
+    public function testSetXSSUrl()
     {
-        $this->setExpectedException(\TypeError::class);
+        $this->expectException(\TypeError::class);
 
         $feed = new Feed();
         $feed->setUrl('javascript:alert()');
@@ -112,7 +112,7 @@ class FeedTest extends TestCase
     }
 
 
-    public function testSetUrlUpdatesHash() 
+    public function testSetUrlUpdatesHash()
     {
         $feed = new Feed();
         $feed->setUrl('http://test');
@@ -120,7 +120,7 @@ class FeedTest extends TestCase
     }
 
 
-    public function testSetXSSLink() 
+    public function testSetXSSLink()
     {
         $feed = new Feed();
         $feed->setLink('javascript:alert()');
