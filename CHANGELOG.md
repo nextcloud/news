@@ -1,11 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## 13.0.2
 
 ### Changed
 - support for php 7.2 added
 - code refactoring
+- switched user agent to a more readable one #328
+- date added to export .opml #345
+- sticky compact mode headers #338
+- fix broken signature issue #347
 
 ## 13.0.1
 
