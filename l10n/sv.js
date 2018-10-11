@@ -30,6 +30,7 @@ OC.L10N.register(
     "Articles without feed" : "Artiklar utan flöde",
     "Can not add folder: Exists already" : "Kan inte lägga till: mappen existerar redan",
     "News" : "Nyheter",
+    "An RSS/Atom feed reader" : "En RSS/Atom feed-läsare",
     "Use system cron for updates" : "Använda \"system cron\" för uppdateringar",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Inaktivera detta om du använder en anpassad uppdaterare så som Python-uppdateraren som ingår i appen",
     "Purge interval" : "Utrensningsintervall",
