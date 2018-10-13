@@ -46,8 +46,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $feedId;
     /** @var int */
     protected $status = 0;
-    /** @var int|null */
-    protected $lastModified = 0;
+    /** @var string|null */
+    protected $lastModified = '0';
     /** @var string|null */
     protected $searchIndex;
     /** @var bool */
@@ -181,7 +181,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
     public function getLastModified()
     {
@@ -356,7 +356,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setLastModified(int $lastModified = null)
+    public function setLastModified(string $lastModified = null)
     {
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
