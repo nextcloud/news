@@ -30,8 +30,8 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     protected $opened = true;
     /** @var int|null */
     protected $deletedAt = 0;
-    /** @var int|null */
-    protected $lastModified = 0;
+    /** @var string|null */
+    protected $lastModified = '0';
 
     /**
      * @return int|null
@@ -47,7 +47,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @return int|null
+     * @return string|null
      */
     public function getLastModified()
     {
@@ -110,7 +110,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setLastModified(int $lastModified = null)
+    public function setLastModified(string $lastModified = null)
     {
 
         if ($this->lastModified !== $lastModified) {
