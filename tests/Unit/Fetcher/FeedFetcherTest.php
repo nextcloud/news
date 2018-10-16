@@ -16,9 +16,16 @@ namespace OCA\News\Tests\Unit\Fetcher;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use OCA\News\Fetcher\FeedFetcher;
+use OCA\News\Utility\PicoFeedFaviconFactory;
+use OCA\News\Utility\Time;
 use OCP\Http\Client\IClientService;
-use PicoFeed\Processor\ItemPostProcessor;
+use OCP\IL10N;
 use PHPUnit\Framework\TestCase;
+use PicoFeed\Client\Client;
+use PicoFeed\Parser\Parser;
+use PicoFeed\Processor\ItemPostProcessor;
+use PicoFeed\Reader\Favicon;
+use PicoFeed\Reader\Reader;
 
 
 class FeedFetcherTest extends TestCase
@@ -62,51 +69,33 @@ class FeedFetcherTest extends TestCase
 
     protected function setUp()
     {
-        $this->l10n = $this->getMockBuilder(
-            '\OCP\IL10N'
-        )
+        $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->reader = $this->getMockBuilder(
-            '\PicoFeed\Reader\Reader'
-        )
+        $this->reader = $this->getMockBuilder(Reader::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->parser = $this->getMockBuilder(
-            '\PicoFeed\Parser\Parser'
-        )
+        $this->parser = $this->getMockBuilder(Parser::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->client = $this->getMockBuilder(
-            '\PicoFeed\Client\Client'
-        )
+        $this->client = $this->getMockBuilder(Client::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->parsedFeed = $this->getMockBuilder(
-            '\PicoFeed\Parser\Feed'
-        )
+        $this->parsedFeed = $this->getMockBuilder(\PicoFeed\Parser\Feed::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->item = $this->getMockBuilder(
-            '\PicoFeed\Parser\Item'
-        )
+        $this->item = $this->getMockBuilder(\PicoFeed\Parser\Item::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->faviconFetcher = $this->getMockBuilder(
-            '\PicoFeed\Reader\Favicon'
-        )
+        $this->faviconFetcher = $this->getMockBuilder(Favicon::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->faviconFactory = $this->getMockBuilder(
-            '\OCA\News\Utility\PicoFeedFaviconFactory'
-        )
+        $this->faviconFactory = $this->getMockBuilder(PicoFeedFaviconFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->time = 2323;
-        $timeFactory = $this->getMockBuilder(
-            '\OCA\News\Utility\Time'
-        )
+        $timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())

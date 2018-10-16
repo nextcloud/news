@@ -16,6 +16,12 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\UtilityApiController;
+use OCA\News\Service\StatusService;
+use OCA\News\Utility\Updater;
+use OCP\IConfig;
+use OCP\IRequest;
+use OCP\IUser;
+use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
@@ -34,37 +40,25 @@ class UtilityApiControllerTest extends TestCase
     protected function setUp() 
     {
         $this->appName = 'news';
-        $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig'
-        )
+        $this->settings = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(
-            '\OCP\IUserSession'
-        )
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(
-            '\OCP\IUser'
-        )
+        $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->userSession->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->user));
-        $this->updater = $this->getMockBuilder(
-            '\OCA\News\Utility\Updater'
-        )
+        $this->updater = $this->getMockBuilder(Updater::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->status = $this->getMockBuilder(
-            '\OCA\News\Service\StatusService'
-        )
+        $this->status = $this->getMockBuilder(StatusService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->newsAPI = new UtilityApiController(

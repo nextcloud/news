@@ -16,16 +16,18 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FolderApiController;
+use OCA\News\Service\FolderService;
+use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
 
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
 use \OCA\News\Db\Folder;
-use \OCA\News\Db\Feed;
-use \OCA\News\Db\Item;
+use OCP\IRequest;
+use OCP\IUser;
+use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
@@ -45,19 +47,13 @@ class FolderApiControllerTest extends TestCase
     protected function setUp() 
     {
         $this->appName = 'news';
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(
-            '\OCP\IUserSession'
-        )
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(
-            '\OCP\IUser'
-        )
+        $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->userSession->expects($this->any())
@@ -66,14 +62,10 @@ class FolderApiControllerTest extends TestCase
         $this->user->expects($this->any())
             ->method('getUID')
             ->will($this->returnValue('123'));
-        $this->folderService = $this->getMockBuilder(
-            '\OCA\News\Service\FolderService'
-        )
+        $this->folderService = $this->getMockBuilder(FolderService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService'
-        )
+        $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderAPI = new FolderApiController(

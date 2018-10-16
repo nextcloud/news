@@ -13,8 +13,14 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Config\Config;
 use \OCA\News\Db\Folder;
+use OCA\News\Db\FolderMapper;
 use OCA\News\Service\FolderService;
+use OCA\News\Service\ServiceConflictException;
+use OCA\News\Service\ServiceValidationException;
+use OCA\News\Utility\Time;
+use OCP\IL10N;
 
 use PHPUnit\Framework\TestCase;
 
@@ -31,25 +37,21 @@ class FolderServiceTest extends TestCase
 
     protected function setUp()
     {
-        $this->l10n = $this->getMockBuilder('\OCP\IL10N')
+        $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->time = 222;
-        $timeFactory = $this->getMockBuilder('\OCA\News\Utility\Time')
+        $timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->folderMapper = $this->getMockBuilder(
-            '\OCA\News\Db\FolderMapper'
-        )
+        $this->folderMapper = $this->getMockBuilder(FolderMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->autoPurgeMinimumInterval = 10;
-        $config = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $config = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
         $config->expects($this->any())
@@ -113,9 +115,7 @@ class FolderServiceTest extends TestCase
             ->with($this->equalTo($folderName))
             ->will($this->returnValue($rows));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceConflictException'
-        );
+        $this->expectException(ServiceConflictException::class);
         $this->folderService->create($folderName, 'john', 3);
     }
 
@@ -192,9 +192,7 @@ class FolderServiceTest extends TestCase
             ->with($this->equalTo($folderName))
             ->will($this->returnValue($rows));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceConflictException'
-        );
+        $this->expectException(ServiceConflictException::class);
         $this->folderService->rename(3, $folderName, 'john');
     }
 
@@ -208,9 +206,7 @@ class FolderServiceTest extends TestCase
             ->with($this->equalTo($folderName))
             ->will($this->returnValue([]));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceValidationException'
-        );
+        $this->expectException(ServiceValidationException::class);
         $this->folderService->rename(3, $folderName, 'john');
     }
 

@@ -14,6 +14,9 @@
 namespace OCA\News\Tests\Unit\Config;
 
 use OCA\News\Config\Config;
+use OCP\Files\File;
+use OCP\Files\Folder;
+use OCP\ILogger;
 use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
@@ -26,12 +29,10 @@ class ConfigTest extends TestCase
 
     public function setUp() 
     {
-        $this->logger = $this->getMockBuilder(
-            'OCP\ILogger'
-        )
+        $this->logger = $this->getMockBuilder(ILogger::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->fileSystem = $this->getMockBuilder('OCP\Files\Folder')->getMock();
+        $this->fileSystem = $this->getMockBuilder(Folder::class)->getMock();
         $this->loggerParams = ['hi'];
         $this->config = new Config(
             $this->fileSystem, $this->logger, $this->loggerParams
@@ -54,7 +55,7 @@ class ConfigTest extends TestCase
 
     public function testRead() 
     {
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))
@@ -77,7 +78,7 @@ class ConfigTest extends TestCase
 
     public function testReadIgnoresVeryLowPurgeInterval() 
     {
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))
@@ -95,7 +96,7 @@ class ConfigTest extends TestCase
 
     public function testReadBool() 
     {
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))
@@ -117,7 +118,7 @@ class ConfigTest extends TestCase
 
     public function testReadLogsInvalidValue() 
     {
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))
@@ -141,7 +142,7 @@ class ConfigTest extends TestCase
 
     public function testReadLogsInvalidINI() 
     {
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))
@@ -173,7 +174,7 @@ class ConfigTest extends TestCase
         $this->config->setMaxSize(399);
         $this->config->setExploreUrl('http://google.de');
 
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))
@@ -207,7 +208,7 @@ class ConfigTest extends TestCase
         $this->fileSystem->expects($this->once())
             ->method('newFile')
             ->with($this->equalTo($this->configPath));
-        $file = $this->getMockBuilder('OCP\Files\File')->getMock();
+        $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
             ->method('get')
             ->with($this->equalTo($this->configPath))

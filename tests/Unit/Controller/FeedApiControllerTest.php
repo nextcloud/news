@@ -16,13 +16,17 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FeedApiController;
+use OCA\News\Service\FeedService;
+use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
-use \OCA\News\Db\Item;
+use OCP\ILogger;
+use OCP\IRequest;
+use OCP\IUser;
+use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
@@ -43,25 +47,17 @@ class FeedApiControllerTest extends TestCase
     protected function setUp() 
     {
         $this->loggerParams = ['hi'];
-        $this->logger = $this->getMockBuilder(
-            '\OCP\ILogger'
-        )
+        $this->logger = $this->getMockBuilder(ILogger::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->appName = 'news';
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(
-            '\OCP\IUserSession'
-        )
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(
-            '\OCP\IUser'
-        )
+        $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->userSession->expects($this->any())
@@ -70,14 +66,10 @@ class FeedApiControllerTest extends TestCase
         $this->user->expects($this->any())
             ->method('getUID')
             ->will($this->returnValue('123'));
-        $this->feedService = $this->getMockBuilder(
-            '\OCA\News\Service\FeedService'
-        )
+        $this->feedService = $this->getMockBuilder(FeedService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService'
-        )
+        $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedAPI = new FeedApiController(

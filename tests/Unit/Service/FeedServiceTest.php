@@ -14,13 +14,20 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Config\Config;
+use OCA\News\Db\FeedMapper;
+use OCA\News\Db\ItemMapper;
 use OCA\News\Service\FeedService;
+use OCA\News\Service\ServiceNotFoundException;
+use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FetcherException;
+use OCP\IL10N;
+use OCP\ILogger;
 
 use PHPUnit\Framework\TestCase;
 
@@ -46,42 +53,38 @@ class FeedServiceTest extends TestCase
 
     protected function setUp()
     {
-        $this->logger = $this->getMockBuilder(
-            '\OCP\ILogger'
-        )
+        $this->logger = $this->getMockBuilder(ILogger::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->loggerParams = ['hi'];
         $this->time = 222;
         $this->autoPurgeMinimumInterval = 10;
-        $timeFactory = $this->getMockBuilder('\OCA\News\Utility\Time')
+        $timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->l10n = $this->getMockBuilder('\OCP\IL10N')
+        $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedMapper = $this
-            ->getMockBuilder('\OCA\News\Db\FeedMapper')
+            ->getMockBuilder(FeedMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = $this
-            ->getMockBuilder('\OCA\News\Fetcher\Fetcher')
+            ->getMockBuilder(Fetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemMapper = $this
-            ->getMockBuilder('\OCA\News\Db\ItemMapper')
+            ->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder('\HTMLPurifier')
+            ->getMockBuilder(\HTMLPurifier::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $config = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $config = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
         $config->expects($this->any())
@@ -117,9 +120,7 @@ class FeedServiceTest extends TestCase
             ->method('fetch')
             ->with($this->equalTo($url))
             ->will($this->throwException($ex));
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->feedService->create($url, 1, $this->user);
     }
 
@@ -624,9 +625,7 @@ class FeedServiceTest extends TestCase
             )
             ->will($this->throwException($ex));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->feedService->update($feed->getId(), $this->user);
     }
 
@@ -661,9 +660,7 @@ class FeedServiceTest extends TestCase
             )
             ->will($this->throwException($ex));
 
-        $this->expectException(
-            'OCP\AppFramework\Db\DoesNotExistException'
-        );
+        $this->expectException(DoesNotExistException::class);
         $this->feedService->update($feed->getId(), $this->user);
     }
 
@@ -717,9 +714,7 @@ class FeedServiceTest extends TestCase
             )
             ->will($this->throwException($ex));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->feedService->update($feed->getId(), $this->user);
     }
 
@@ -1123,9 +1118,7 @@ class FeedServiceTest extends TestCase
             )
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
 
         $this->feedService->patch(3, $this->user, ['fullTextEnabled' => true]);
     }

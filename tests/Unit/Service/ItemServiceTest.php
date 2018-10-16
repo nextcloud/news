@@ -13,11 +13,16 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Config\Config;
+use OCA\News\Db\ItemMapper;
 use OCA\News\Service\ItemService;
+use OCA\News\Service\ServiceNotFoundException;
+use OCA\News\Utility\Time;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\FeedType;
+use OCP\IConfig;
 
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +46,7 @@ class ItemServiceTest extends TestCase
     protected function setUp()
     {
         $this->time = 222;
-        $this->timeFactory = $this->getMockBuilder('\OCA\News\Utility\Time')
+        $this->timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->timeFactory->expects($this->any())
@@ -50,17 +55,13 @@ class ItemServiceTest extends TestCase
         $this->timeFactory->expects($this->any())
             ->method('getMicroTime')
             ->will($this->returnValue($this->time));
-        $this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
+        $this->mapper = $this->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $this->config = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->systemConfig = $this->getMockBuilder(
-            'OCP\IConfig'
-        )
+        $this->systemConfig = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = new ItemService(
@@ -339,9 +340,7 @@ class ItemServiceTest extends TestCase
     public function testReadDoesNotExist()
     {
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->mapper->expects($this->once())
             ->method('readItem')
             ->will($this->throwException(new DoesNotExistException('')));
@@ -352,9 +351,7 @@ class ItemServiceTest extends TestCase
     public function testStarDoesNotExist()
     {
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->mapper->expects($this->once())
             ->method('findByGuidHash')
             ->will($this->throwException(new DoesNotExistException('')));
@@ -462,9 +459,7 @@ class ItemServiceTest extends TestCase
                 )
             );
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->itemService->getNewestItemId($this->user);
     }
 

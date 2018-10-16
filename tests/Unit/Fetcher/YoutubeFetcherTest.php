@@ -12,6 +12,7 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use \OCA\News\Db\Feed;
+use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
 
 use PHPUnit\Framework\TestCase;
@@ -24,9 +25,7 @@ class YoutubeFetcherTest extends TestCase
 
     public function setUp() 
     {
-        $this->feedFetcher = $this->getMockBuilder(
-            '\OCA\News\Fetcher\FeedFetcher'
-        )
+        $this->feedFetcher = $this->getMockBuilder(FeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = new YoutubeFetcher($this->feedFetcher);

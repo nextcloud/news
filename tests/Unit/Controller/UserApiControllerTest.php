@@ -14,6 +14,11 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\UserApiController;
+use OCP\Files\File;
+use OCP\Files\IRootFolder;
+use OCP\IRequest;
+use OCP\IUser;
+use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
@@ -31,29 +36,19 @@ class UserApiControllerTest extends TestCase
     protected function setUp() 
     {
         $this->appName = 'news';
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->rootFolder = $this->getMockBuilder(
-            '\OCP\Files\IRootFolder'
-        )
+        $this->rootFolder = $this->getMockBuilder(IRootFolder::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->file = $this->getMockBuilder(
-            '\OCP\Files\File'
-        )
+        $this->file = $this->getMockBuilder(File::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(
-            '\OCP\IUserSession'
-        )
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(
-            '\OCP\IUser'
-        )
+        $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new UserApiController(
