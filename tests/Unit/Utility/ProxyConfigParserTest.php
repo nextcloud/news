@@ -15,6 +15,7 @@ namespace OCA\News\Tests\Unit\Utility;
 
 
 use OCA\News\Utility\ProxyConfigParser;
+use OCP\IConfig;
 use PHPUnit\Framework\TestCase;
 
 class ProxyConfigParserTest extends TestCase
@@ -27,9 +28,7 @@ class ProxyConfigParserTest extends TestCase
 
     protected function setUp() 
     {
-        $this->config = $this->getMockBuilder(
-            '\OCP\IConfig'
-        )
+        $this->config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->parser = new ProxyConfigParser($this->config);

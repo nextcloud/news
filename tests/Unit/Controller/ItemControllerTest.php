@@ -14,12 +14,16 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ItemController;
+use OCA\News\Service\FeedService;
+use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
 use \OCA\News\Service\ServiceNotFoundException;
+use OCP\IConfig;
+use OCP\IRequest;
 
 use PHPUnit\Framework\TestCase;
 
@@ -43,22 +47,18 @@ class ItemControllerTest extends TestCase
     {
         $this->appName = 'news';
         $this->user = 'jackob';
-        $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig'
-        )
+        $this->settings = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService =
-        $this->getMockBuilder('\OCA\News\Service\ItemService')
+        $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedService =
-        $this->getMockBuilder('\OCA\News\Service\FeedService')
+        $this->getMockBuilder(FeedService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new ItemController(

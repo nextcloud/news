@@ -23,6 +23,8 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
+use OCP\IDBConnection;
+
 use PHPUnit\Framework\TestCase;
 /**
  * Simple utility class for testing mappers
@@ -45,13 +47,11 @@ abstract class MapperTestUtility extends TestCase
     {
         parent::setUp();
 
-        $this->db = $this->getMockBuilder(
-            '\OCP\IDBConnection'
-        )
+        $this->db = $this->getMockBuilder(IDBConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->query = $this->createMock('\PDOStatement');
+        $this->query = $this->createMock(\PDOStatement::class);
         $this->queryAt = 0;
         $this->prepareAt = 0;
         $this->iterators = [];

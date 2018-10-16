@@ -13,7 +13,9 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Db\ItemMapper;
 use OCA\News\Service\Service;
+use OCA\News\Service\ServiceNotFoundException;
 use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
@@ -37,7 +39,7 @@ class ServiceTest extends TestCase
 
     protected function setUp()
     {
-        $this->mapper = $this->getMockBuilder('\OCA\News\Db\ItemMapper')
+        $this->mapper = $this->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->newsService = new TestService($this->mapper);
@@ -84,9 +86,7 @@ class ServiceTest extends TestCase
             ->method('find')
             ->will($this->throwException($ex));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->newsService->find(1, '');
     }
 
@@ -99,9 +99,7 @@ class ServiceTest extends TestCase
             ->method('find')
             ->will($this->throwException($ex));
 
-        $this->expectException(
-            '\OCA\News\Service\ServiceNotFoundException'
-        );
+        $this->expectException(ServiceNotFoundException::class);
         $this->newsService->find(1, '');
     }
 

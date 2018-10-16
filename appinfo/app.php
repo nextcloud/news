@@ -13,6 +13,8 @@
 
 namespace OCA\News\AppInfo;
 
+use OCA\News\Hooks\User;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-\OCP\Util::connectHook('OC_User', 'pre_deleteUser', 'OCA\News\Hooks\User', 'deleteUser');
+\OCP\Util::connectHook('OC_User', 'pre_deleteUser', User::class, 'deleteUser');

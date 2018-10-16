@@ -16,10 +16,14 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ItemApiController;
+use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Db\Item;
+use OCP\IRequest;
+use OCP\IUser;
+use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
@@ -39,19 +43,13 @@ class ItemApiControllerTest extends TestCase
     {
         $this->user = 'tom';
         $this->appName = 'news';
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(
-            '\OCP\IUserSession'
-        )
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(
-            '\OCP\IUser'
-        )
+        $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->userSession->expects($this->any())
@@ -60,9 +58,7 @@ class ItemApiControllerTest extends TestCase
         $this->user->expects($this->any())
             ->method('getUID')
             ->will($this->returnValue('123'));
-        $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService'
-        )
+        $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemAPI = new ItemApiController(

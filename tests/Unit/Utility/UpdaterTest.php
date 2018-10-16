@@ -13,6 +13,10 @@
 
 namespace OCA\News\Tests\Unit\Utility;
 
+
+use OCA\News\Service\FeedService;
+use OCA\News\Service\FolderService;
+use OCA\News\Service\ItemService;
 use OCA\News\Utility\Updater;
 use PHPUnit\Framework\TestCase;
 
@@ -26,19 +30,13 @@ class UpdaterTest extends TestCase
 
     protected function setUp() 
     {
-        $this->folderService = $this->getMockBuilder(
-            '\OCA\News\Service\FolderService'
-        )
+        $this->folderService = $this->getMockBuilder(FolderService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder(
-            '\OCA\News\Service\FeedService'
-        )
+        $this->feedService = $this->getMockBuilder(FeedService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService'
-        )
+        $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->updater = new Updater(

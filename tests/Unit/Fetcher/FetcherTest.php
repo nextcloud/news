@@ -26,6 +26,7 @@ namespace OCA\News\Tests\Unit\Fetcher;
 
 
 use OCA\News\Fetcher\Fetcher;
+use OCA\News\Fetcher\IFeedFetcher;
 use PHPUnit\Framework\TestCase;
 
 class FetcherTest extends TestCase
@@ -42,7 +43,7 @@ class FetcherTest extends TestCase
     public function testFetch()
     {
         $url = 'hi';
-        $mockFetcher = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher->expects($this->once())
@@ -67,14 +68,14 @@ class FetcherTest extends TestCase
     public function testNoFetchers()
     {
         $url = 'hi';
-        $mockFetcher = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher->expects($this->once())
             ->method('canHandle')
             ->with($this->equalTo($url))
             ->will($this->returnValue(false));
-        $mockFetcher2 = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher2 = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher2->expects($this->once())
@@ -92,14 +93,14 @@ class FetcherTest extends TestCase
     public function testMultipleFetchers()
     {
         $url = 'hi';
-        $mockFetcher = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher->expects($this->once())
             ->method('canHandle')
             ->with($this->equalTo($url))
             ->will($this->returnValue(false));
-        $mockFetcher2 = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher2 = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher2->expects($this->once())
@@ -118,7 +119,7 @@ class FetcherTest extends TestCase
     {
         $url = 'hi';
         $return = 'zeas';
-        $mockFetcher = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher->expects($this->once())
@@ -129,7 +130,7 @@ class FetcherTest extends TestCase
             ->method('fetch')
             ->with($this->equalTo($url))
             ->will($this->returnValue($return));
-        $mockFetcher2 = $this->getMockBuilder('\OCA\News\Fetcher\IFeedFetcher')
+        $mockFetcher2 = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
         $mockFetcher2->expects($this->never())

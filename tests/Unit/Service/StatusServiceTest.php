@@ -13,8 +13,11 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Config\Config;
 use \OCA\News\Db\FeedType;
 use OCA\News\Service\StatusService;
+use OCP\IConfig;
+use OCP\IDBConnection;
 use PHPUnit\Framework\TestCase;
 
 
@@ -29,17 +32,13 @@ class StatusServiceTest extends TestCase
     public function setUp()
     {
         $this->appName = 'news';
-        $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig'
-        )
+        $this->settings = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $this->config = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->db = $this->getMockBuilder("\OCP\IDBConnection")
+        $this->db = $this->getMockBuilder(IDBConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->service = new StatusService(

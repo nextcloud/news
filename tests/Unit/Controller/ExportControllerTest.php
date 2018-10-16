@@ -14,12 +14,15 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ExportController;
-use \OCP\AppFramework\Http;
+use OCA\News\Service\FeedService;
+use OCA\News\Service\FolderService;
+use OCA\News\Service\ItemService;
 
 use \OCA\News\Http\TextDownloadResponse;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
+use OCP\IRequest;
 
 use PHPUnit\Framework\TestCase;
 
@@ -42,22 +45,16 @@ class ExportControllerTest extends TestCase
     {
         $this->appName = 'news';
         $this->user = 'john';
-        $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService'
-        )
+        $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder(
-            '\OCA\News\Service\FeedService'
-        )
+        $this->feedService = $this->getMockBuilder(FeedService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->folderService = $this->getMockBuilder(
-            '\OCA\News\Service\FolderService'
-        )
+        $this->folderService = $this->getMockBuilder(FolderService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder('\OCP\IRequest')
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->opmlExporter = new OPMLExporter();

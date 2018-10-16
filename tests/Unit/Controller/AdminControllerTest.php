@@ -13,7 +13,10 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
+use OCA\News\Config\Config;
 use OCA\News\Controller\AdminController;
+use OCA\News\Service\ItemService;
+use OCP\IRequest;
 use PHPUnit\Framework\TestCase;
 
 class AdminControllerTest extends TestCase
@@ -32,19 +35,13 @@ class AdminControllerTest extends TestCase
     public function setUp()
     {
         $this->appName = 'news';
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $this->config = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(
-            '\OCA\News\Service\ItemService'
-        )
+        $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
 

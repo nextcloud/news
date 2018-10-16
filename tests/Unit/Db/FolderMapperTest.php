@@ -16,6 +16,8 @@ namespace OCA\News\Tests\Unit\Db;
 use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapper;
 use OCA\News\Utility\Time;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 class FolderMapperTest extends MapperTestUtility
 {
@@ -76,9 +78,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->setMapperResult($sql, [$id, $userId]);
 
-        $this->expectException(
-            '\OCP\AppFramework\Db\DoesNotExistException'
-        );
+        $this->expectException(DoesNotExistException::class);
         $this->folderMapper->find($id, $userId);
     }
 
@@ -94,9 +94,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->setMapperResult($sql, [$id, $userId], $rows);
 
-        $this->expectException(
-            '\OCP\AppFramework\Db\MultipleObjectsReturnedException'
-        );
+        $this->expectException(MultipleObjectsReturnedException::class);
         $this->folderMapper->find($id, $userId);
     }
 

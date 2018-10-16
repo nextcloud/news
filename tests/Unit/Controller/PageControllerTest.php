@@ -13,8 +13,15 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
+use OCA\News\Config\Config;
 use OCA\News\Controller\PageController;
 use \OCA\News\Db\FeedType;
+use OCA\News\Explore\RecommendedSites;
+use OCA\News\Service\StatusService;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\IRequest;
+use OCP\IURLGenerator;
 use PHPUnit\Framework\TestCase;
 
 
@@ -51,44 +58,28 @@ class PageControllerTest extends TestCase
             'description' => 'This is a test app',
             'homepage' => 'https://github.com/owncloud/test'
         ];
-        $this->l10n = $this->request = $this->getMockBuilder(
-            '\OCP\IL10n'
-        )
+        $this->l10n = $this->request = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->settings = $this->getMockBuilder(
-            '\OCP\IConfig'
-        )
+        $this->settings = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder(
-            '\OCP\IRequest'
-        )
+        $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->urlGenerator = $this->getMockBuilder(
-            '\OCP\IURLGenerator'
-        )
+        $this->urlGenerator = $this->getMockBuilder(IURLGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->appConfig = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $this->appConfig = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(
-            '\OCA\News\Config\Config'
-        )
+        $this->config = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->recommended = $this->getMockBuilder(
-            '\OCA\News\Explore\RecommendedSites'
-        )
+        $this->recommended = $this->getMockBuilder(RecommendedSites::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->status = $this->getMockBuilder(
-            '\OCA\News\Service\StatusService'
-        )
+        $this->status = $this->getMockBuilder(StatusService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new PageController(
