@@ -66,6 +66,13 @@
         "feed": "https:\/\/www.kuketz-blog.de\/feed\/",
         "description": "IT-Sicherheit und Datenschutz",
         "votes": 100
+    },{
+        "title": "APPkosmos",
+        "favicon": "https:\/\/appkosmos.de\/wp-content\/uploads\/2016\/12\/cropped-logo-1-192x192.png",
+        "url": "https:\/\/appkosmos.de\/",
+        "feed": "https:\/\/appkosmos.de\/feed\/",
+        "description": "APPkosmos.de bringt dir die Welt der Apps und Gadgets nahe. Wir testen Apps und Gadgets aus allen Kategorien – die Mischung macht es.",
+        "votes": 100
     }],
     "Nachrichten": [{
         "title": "derStandard.at",
