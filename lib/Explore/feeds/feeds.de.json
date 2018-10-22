@@ -52,6 +52,14 @@
         "description": "Nachrichten zu Linux und Open Source",
         "votes": 100
     }],
+    "Free & OpenSource Software News": [{
+        "title": "EFB.NU Essential Freebies Board",
+        "favicon": "https:\/\/www.essential-freebies.de\/favicon.ico",
+        "url": "https:\/\/www.essential-freebies.de\/board",
+        "feed": "https:\/\/www.essential-freebies.de\/board\/feed.php",
+        "description": "Nachrichten zu WinNT OpenSource, Free, Cardware und Shareware. Wenn Du was brauchst, findest Du's ganz sicher hier !",
+        "votes": 100
+    }],
     "Blogs": [{
         "title": "Fefes Blog",
         "favicon": "http:\/\/blog.fefe.de\/favicon.ico",
