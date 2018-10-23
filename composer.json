@@ -31,9 +31,9 @@
     "require": {
         "php": "^7.0",
         "ezyang/htmlpurifier": "4.10.0",
-        "miniflux/picofeed": "0.1.34",
         "pear/net_url2": "2.2.2",
-        "riimu/kit-pathjoin": "1.2.0"
+        "riimu/kit-pathjoin": "1.2.0",
+        "nicolus/picofeed": "0.1.35"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5"
