@@ -51,7 +51,7 @@ OC.L10N.register(
     "filter" : "过滤器",
     "Language" : "语言",
     "Subscribe" : "订阅",
-    "Got more awesome feeds? Share them with us!" : "有更好的 feeds？分享给我们！",
+    "Got more awesome feeds? Share them with us!" : "有更好的 feeds？共享给我们！",
     "No articles available" : "没有文章可用",
     "No unread articles available" : "没有未读的文章可用",
     "Open website" : "打开网站",
