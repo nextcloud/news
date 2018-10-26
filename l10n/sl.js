@@ -103,6 +103,7 @@ OC.L10N.register(
     "Undo delete feed" : "Razveljavi brisanje vira",
     "Rename" : "Preimenuj",
     "Menu" : "Meni",
+    "Enable full text" : "Omogoči polno besedilo",
     "Delete" : "Izbriši",
     "Dismiss" : "Opusti",
     "Collapse" : "Skrči",
