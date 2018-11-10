@@ -16,7 +16,7 @@
 }
 
 #app-navigation .add-new .heading:hover {
-    background-color: #ccc;
+    background-color: var(--color-background-darker);
 }
 
 #app-navigation .add-new .heading button {
@@ -39,14 +39,14 @@
 #app-navigation .add-new-popup {
     display: none;
     padding: 10px;
-    box-shadow: inset 0px 0px 10px #dedede;
-    border-top: 1px solid #dedede;
-    border-bottom: 1px solid #dedede;
+    box-shadow: inset 0px 0px 10px var(--color-box-shadow);
+    border-top: 1px solid var(--color-border-dark);
+    border-bottom: 1px solid var(--color-border-dark);
 }
 
 
 #app-navigation input.ng-invalid {
-    border: 1px solid #dd1144;
+    border: 1px solid var(--color-error);
 }
 
 #app-navigation .add-new-popup input,
@@ -132,7 +132,7 @@
  */
 #app-navigation .error-message {
     padding: 15px;
-    background-color: #DE1212;
+    background-color: var(--color-error);
     color: #fff;
     position: relative;
     overflow-y: auto;
@@ -225,5 +225,5 @@
 }
 
 #app-navigation .updateerror a {
-    background-color: orange !important;
+    background-color: var(--color-warning) !important;
 }
