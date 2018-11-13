@@ -8,5 +8,5 @@
 }
 
 #news .notice {
-    color: red;
+    color: var(--color-error);
 }

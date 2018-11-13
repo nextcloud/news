@@ -22,7 +22,7 @@
 
 #undo {
     z-index:101;
-    background-color:#fc4;
+    background-color:var(--color-warning);
     border:0;
     padding:0 .7em .3em;
     display:none;

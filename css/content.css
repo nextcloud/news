@@ -35,7 +35,7 @@
 
 #app-content .no-feeds-available {
     text-align: center;
-    color: #333;
+    color: var(--color-text-lighter);
     font-size: 16pt;
     min-height: 100%;
     height: 100%;
@@ -151,11 +151,7 @@
 }
 
 #app-content .finished-auto-paging #articles:after {
-    background-image: -o-linear-gradient(top, #eee 0%, #FEFEFE 100%);
-    background-image: -moz-linear-gradient(top, #eee 0%, #FEFEFE 100%);
-    background-image: -webkit-linear-gradient(top, #eee 0%, #FEFEFE 100%);
-    background-image: -ms-linear-gradient(top, #eee 0%, #FEFEFE 100%);
-    background-image: linear-gradient(to top, #eee 0%, #FEFEFE 100%);
+    background: var(--color-main-background);
 }
 
 
@@ -200,12 +196,12 @@
 
 #app-content .item {
     cursor: default;
-    border-bottom: 1px solid #eee;
-    background-image: linear-gradient(top, rgb(248,248,248) 0, rgb(255,255,255) 84px);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-background-dark);
 }
 
 #app-content .item.active {
-    background-image: linear-gradient(to right, orange 0, orange 2px, #ffffff 2px);
+    background: var(--color-background-darker);
 }
 
 #app-content :not(.compact) .item {
@@ -231,7 +227,7 @@
     -webkit-position: sticky;
     position: sticky;
     top: 50px;
-    background-color: #fff;
+    background-color: var(--color-main-background);
     height: 41px;
     opacity: 0.9;
 }
@@ -344,7 +340,7 @@
         border-radius: 3px;
         z-index: 1000;
         border: 1px solid transparent;
-        background-color: #fff;
+        background-color: var(--color-main-background);
         margin: 0;
         padding: 0;
     }
@@ -423,7 +419,7 @@
         overflow: hidden;
         width: 100%;
         display: inline-block;
-        color: #222;
+        color: var(--color-main-text);
         font-weight: bold;
         font-size: 16px;
         line-height: 1.5;
@@ -436,7 +432,7 @@
     }
 
     #app-content .title .intro {
-        color: #777;
+        color: var(--color-text-lighter);
         font-size: 10pt;
         font-weight: normal;
         margin-left: 20px;
@@ -449,7 +445,7 @@
 
     #app-content .read .utils .title h1 a {
         font-weight: normal;
-        color: #777;
+        color: var(--color-text-lighter);
     }
 
     #app-content .utils .date {
@@ -473,7 +469,7 @@
 
     #app-content .heading a {
         font-weight: bold;
-        color: #222;
+        color: var(--color-main-text);
         text-decoration: none;
     }
         #app-content .heading a:hover {
@@ -489,7 +485,7 @@
 
 #app-content .read .heading a {
     font-weight: normal !important;
-    color: #777;
+    color: var(--color-text-lighter);
 }
 
 #app-content .feed-view .source {
@@ -522,14 +518,14 @@
  * Timestamp
  */
 #app-content .subtitle {
-    color: #777;
+    color: var(--color-text-lighter);
     font-size: 15px;
     max-width: 770px;
     padding-bottom: 25px;
 }
 
 #app-content .subtitle a {
-    color: #777;
+    color: var(--color-text-lighter);
 }
 
 #app-content .subtitle a:hover {
@@ -537,7 +533,7 @@
 }
 
 #app-content .date {
-    color: #777;
+    color: var(--color-text-lighter);
     white-space: nowrap;
 }
 
@@ -545,7 +541,7 @@
  * Author
  */
 #app-content .author {
-    color: #777;
+    color: var(--color-text-lighter);
     font-size: 15px;
 }
 
@@ -620,14 +616,14 @@
     #app-content .body h2 {
         font-size: 17px;
         font-weight: bold;
-        color: #222;
+        color: var(--color-main-text);
         margin: 21px 0 5px 0;
     }
 
     #app-content .body h3 {
         font-size: 15px;
         font-weight: bold;
-        color: #222;
+        color: var(--color-main-text);
         margin: 21px 0 0 0;
         text-decoration: underline;
     }
@@ -665,8 +661,8 @@
 
     #app-content .body pre {
         padding: 7px 7px 7px 14px;
-        background-color: #dadada;
-        border: 1px solid #ccc;
+        background-color: var(--color-background-darker);
+        border: 1px solid var(--color-border-dark);
         margin: 7px 0 14px 0;
         overflow-y: auto;
     }

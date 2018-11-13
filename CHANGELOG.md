@@ -1,15 +1,30 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 13.0.3
+
+### Changed
+- Dependencies update #365 #364
+- New feed #360
+- Translations updates
+
+### Fixed
+- Broken on 32 bit systems #350 #355
+
 ## 13.0.2
 
 ### Changed
-- support for php 7.2 added
-- code refactoring
-- switched user agent to a more readable one #328
-- date added to export .opml #345
-- sticky compact mode headers #338
-- fix broken signature issue #347
+- Support for php 7.2 added
+- Code refactoring
+- Switched user agent to a more readable one #328
+- Date added to export .opml #345
+- Sticky compact mode headers #338
+
+### Fixed
+- Fix broken signature issue #347
+
+### Known issues
+- Broken on 32 bit systems #350
 
 ## 13.0.1
 
@@ -38,7 +53,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- packaging problem in 12.0.2
+- Packaging problem in 12.0.2
 
 ## 12.0.2
 
