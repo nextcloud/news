@@ -30,6 +30,7 @@ OC.L10N.register(
     "Articles without feed" : "无法订阅的文章",
     "Can not add folder: Exists already" : "无法增加文件夹：文件夹已存在",
     "News" : "新闻",
+    "An RSS/Atom feed reader" : "一个 RSS/Atom 订阅器",
     "Use system cron for updates" : "使用系统计划任务执行更新",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "如果你运行了诸如应用自带的 Python 更新器，请禁用此项。",
     "Purge interval" : "清理间隔",
