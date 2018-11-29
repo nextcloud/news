@@ -22,7 +22,7 @@ class PicoFeedClientFactory
 
     private $config;
 
-    public function __construct(Config $config) 
+    public function __construct(Config $config)
     {
         $this->config = $config;
     }
@@ -33,12 +33,10 @@ class PicoFeedClientFactory
      *
      * @return \PicoFeed\Client instance
      */
-    public function build() 
+    public function build()
     {
         $client = Client::getInstance();
         $client->setConfig($this->config);
         return $client;
     }
-
-
 }

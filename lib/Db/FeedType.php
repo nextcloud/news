@@ -13,7 +13,6 @@
 
 namespace OCA\News\Db;
 
-
 class FeedType
 {
     const FEED          = 0;

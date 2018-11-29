@@ -20,7 +20,6 @@ use OCP\IDBConnection;
 
 use OCA\News\Config\Config;
 
-
 class StatusService
 {
 
@@ -32,8 +31,11 @@ class StatusService
      */
     private $connection;
 
-    public function __construct(IConfig $settings, IDBConnection $connection,
-        Config $config, $AppName
+    public function __construct(
+        IConfig $settings,
+        IDBConnection $connection,
+        Config $config,
+        $AppName
     ) {
         $this->settings = $settings;
         $this->config = $config;
@@ -41,10 +43,11 @@ class StatusService
         $this->connection = $connection;
     }
 
-    public function isProperlyConfigured() 
+    public function isProperlyConfigured()
     {
         $cronMode = $this->settings->getAppValue(
-            'core', 'backgroundjobs_mode'
+            'core',
+            'backgroundjobs_mode'
         );
         $cronOff = !$this->config->getUseCronUpdates();
 
@@ -53,10 +56,11 @@ class StatusService
     }
 
 
-    public function getStatus() 
+    public function getStatus()
     {
         $version = $this->settings->getAppValue(
-            $this->appName, 'installed_version'
+            $this->appName,
+            'installed_version'
         );
 
         return [
@@ -67,5 +71,4 @@ class StatusService
             ]
         ];
     }
-
 }

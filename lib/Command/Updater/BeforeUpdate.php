@@ -23,13 +23,13 @@ class BeforeUpdate extends Command
 {
     private $updater;
 
-    public function __construct(Updater $updater) 
+    public function __construct(Updater $updater)
     {
         parent::__construct();
         $this->updater = $updater;
     }
 
-    protected function configure() 
+    protected function configure()
     {
         $this->setName('news:updater:before-update')
             ->setDescription(
@@ -39,9 +39,8 @@ class BeforeUpdate extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) 
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->updater->beforeUpdate();
     }
-
 }

@@ -28,9 +28,9 @@ use OCA\News\Service\ItemService;
  */
 class AdminController extends Controller
 {
-    private $_config;
-    private $_configPath;
-    private $_itemService;
+    private $config;
+    private $configPath;
+    private $itemService;
 
     /**
      * AdminController constructor.
@@ -41,13 +41,17 @@ class AdminController extends Controller
      * @param ItemService $itemService Service for items
      * @param string      $configFile  Path to the config
      */
-    public function __construct($appName, IRequest $request, Config $config,
-        ItemService $itemService, $configFile
+    public function __construct(
+        $appName,
+        IRequest $request,
+        Config $config,
+        ItemService $itemService,
+        $configFile
     ) {
         parent::__construct($appName, $request);
-        $this->_config      = $config;
-        $this->_configPath  = $configFile;
-        $this->_itemService = $itemService;
+        $this->config      = $config;
+        $this->configPath  = $configFile;
+        $this->itemService = $itemService;
     }
 
     /**
@@ -62,13 +66,13 @@ class AdminController extends Controller
     {
         $data = [
             'autoPurgeMinimumInterval' =>
-                $this->_config->getAutoPurgeMinimumInterval(),
-            'autoPurgeCount' => $this->_config->getAutoPurgeCount(),
-            'maxRedirects' => $this->_config->getMaxRedirects(),
-            'feedFetcherTimeout' => $this->_config->getFeedFetcherTimeout(),
-            'useCronUpdates' => $this->_config->getUseCronUpdates(),
-            'maxSize' => $this->_config->getMaxSize(),
-            'exploreUrl' => $this->_config->getExploreUrl(),
+                $this->config->getAutoPurgeMinimumInterval(),
+            'autoPurgeCount' => $this->config->getAutoPurgeCount(),
+            'maxRedirects' => $this->config->getMaxRedirects(),
+            'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
+            'useCronUpdates' => $this->config->getUseCronUpdates(),
+            'maxSize' => $this->config->getMaxSize(),
+            'exploreUrl' => $this->config->getExploreUrl(),
         ];
         return new TemplateResponse($this->appName, 'admin', $data, 'blank');
     }
@@ -87,29 +91,33 @@ class AdminController extends Controller
      *
      * @return array with the updated values
      */
-    public function update($autoPurgeMinimumInterval, $autoPurgeCount,
-        $maxRedirects, $feedFetcherTimeout, $maxSize,
-        $useCronUpdates, $exploreUrl
+    public function update(
+        $autoPurgeMinimumInterval,
+        $autoPurgeCount,
+        $maxRedirects,
+        $feedFetcherTimeout,
+        $maxSize,
+        $useCronUpdates,
+        $exploreUrl
     ) {
-        $this->_config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
-        $this->_config->setAutoPurgeCount($autoPurgeCount);
-        $this->_config->setMaxRedirects($maxRedirects);
-        $this->_config->setMaxSize($maxSize);
-        $this->_config->setFeedFetcherTimeout($feedFetcherTimeout);
-        $this->_config->setUseCronUpdates($useCronUpdates);
-        $this->_config->setExploreUrl($exploreUrl);
-        $this->_config->write($this->_configPath);
+        $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
+        $this->config->setAutoPurgeCount($autoPurgeCount);
+        $this->config->setMaxRedirects($maxRedirects);
+        $this->config->setMaxSize($maxSize);
+        $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
+        $this->config->setUseCronUpdates($useCronUpdates);
+        $this->config->setExploreUrl($exploreUrl);
+        $this->config->write($this->configPath);
 
         return [
             'autoPurgeMinimumInterval' =>
-                $this->_config->getAutoPurgeMinimumInterval(),
-            'autoPurgeCount' => $this->_config->getAutoPurgeCount(),
-            'maxRedirects' => $this->_config->getMaxRedirects(),
-            'maxSize' => $this->_config->getMaxSize(),
-            'feedFetcherTimeout' => $this->_config->getFeedFetcherTimeout(),
-            'useCronUpdates' => $this->_config->getUseCronUpdates(),
-            'exploreUrl' => $this->_config->getExploreUrl(),
+                $this->config->getAutoPurgeMinimumInterval(),
+            'autoPurgeCount' => $this->config->getAutoPurgeCount(),
+            'maxRedirects' => $this->config->getMaxRedirects(),
+            'maxSize' => $this->config->getMaxSize(),
+            'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
+            'useCronUpdates' => $this->config->getUseCronUpdates(),
+            'exploreUrl' => $this->config->getExploreUrl(),
         ];
     }
-
 }

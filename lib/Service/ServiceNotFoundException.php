@@ -13,7 +13,6 @@
 
 namespace OCA\News\Service;
 
-
 class ServiceNotFoundException extends ServiceException
 {
 
@@ -26,5 +25,4 @@ class ServiceNotFoundException extends ServiceException
     {
         parent::__construct($msg);
     }
-
 }

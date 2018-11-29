@@ -20,7 +20,7 @@ use OCP\AppFramework\Db\Entity;
 class FolderMapper extends NewsMapper
 {
 
-    public function __construct(IDBConnection $db, Time $time) 
+    public function __construct(IDBConnection $db, Time $time)
     {
         parent::__construct($db, 'news_folders', Folder::class, $time);
     }
@@ -68,7 +68,7 @@ class FolderMapper extends NewsMapper
         $stmt = $this->execute($sql, $params);
         $stmt->closeCursor();
 
-        $sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
+        $sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN ' .
             '(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
 
         $stmt = $this->execute($sql);
@@ -82,7 +82,7 @@ class FolderMapper extends NewsMapper
      * @param string $userId          if given returns only entries from the given user
      * @return array with the database rows
      */
-    public function getToDelete($deleteOlderThan=null, $userId=null) 
+    public function getToDelete($deleteOlderThan = null, $userId = null)
     {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `deleted_at` > 0 ';
@@ -95,7 +95,7 @@ class FolderMapper extends NewsMapper
         }
 
         // we need to sometimes only delete feeds of a user
-        if($userId !== null) {
+        if ($userId !== null) {
             $sql .= 'AND `user_id` = ?';
             $params[] = $userId;
         }
@@ -109,11 +109,9 @@ class FolderMapper extends NewsMapper
      *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) 
+    public function deleteUser($userId)
     {
         $sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
         $this->execute($sql, [$userId]);
     }
-
-
 }

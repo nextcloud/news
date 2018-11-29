@@ -23,13 +23,13 @@ class AfterUpdate extends Command
 {
     private $updater;
 
-    public function __construct(Updater $updater) 
+    public function __construct(Updater $updater)
     {
         parent::__construct();
         $this->updater = $updater;
     }
 
-    protected function configure() 
+    protected function configure()
     {
         $this->setName('news:updater:after-update')
             ->setDescription(
@@ -38,9 +38,8 @@ class AfterUpdate extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) 
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->updater->afterUpdate();
     }
-
 }

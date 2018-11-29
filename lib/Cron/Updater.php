@@ -33,7 +33,9 @@ class Updater extends Job
      */
     private $updaterService;
 
-    public function __construct(Config $config, StatusService $status,
+    public function __construct(
+        Config $config,
+        StatusService $status,
         UpdaterService $updaterService
     ) {
         $this->config = $config;
@@ -41,9 +43,9 @@ class Updater extends Job
         $this->updaterService = $updaterService;
     }
 
-    protected function run($argument) 
+    protected function run($argument)
     {
-        if ($this->config->getUseCronUpdates() 
+        if ($this->config->getUseCronUpdates()
             && $this->status->isProperlyConfigured()
         ) {
             $this->updaterService->beforeUpdate();
@@ -51,5 +53,4 @@ class Updater extends Job
             $this->updaterService->afterUpdate();
         }
     }
-
 }

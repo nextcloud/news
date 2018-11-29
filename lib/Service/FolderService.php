@@ -19,7 +19,6 @@ use OCA\News\Db\FolderMapper;
 use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
-
 class FolderService extends Service
 {
 
@@ -28,7 +27,8 @@ class FolderService extends Service
     private $autoPurgeMinimumInterval;
     private $folderMapper;
 
-    public function __construct(FolderMapper $folderMapper,
+    public function __construct(
+        FolderMapper $folderMapper,
         IL10N $l10n,
         Time $timeFactory,
         Config $config
@@ -47,7 +47,7 @@ class FolderService extends Service
      * @param  string $userId the name of the user
      * @return array of folders
      */
-    public function findAll($userId) 
+    public function findAll($userId)
     {
         return $this->folderMapper->findAllFromUser($userId);
     }
@@ -57,14 +57,13 @@ class FolderService extends Service
     {
         $existingFolders =
             $this->folderMapper->findByName($folderName, $userId);
-        if(count($existingFolders) > 0) {
-
+        if (count($existingFolders) > 0) {
             throw new ServiceConflictException(
                 $this->l10n->t('Can not add folder: Exists already')
             );
         }
 
-        if(mb_strlen($folderName) === 0) {
+        if (mb_strlen($folderName) === 0) {
             throw new ServiceValidationException(
                 'Folder name can not be empty'
             );
@@ -83,7 +82,7 @@ class FolderService extends Service
      * @throws ServiceValidationException if the folder has invalid parameters
      * @return Folder the newly created folder
      */
-    public function create($folderName, $userId, $parentId=0) 
+    public function create($folderName, $userId, $parentId = 0)
     {
         $this->validateFolder($folderName, $userId);
 
@@ -135,7 +134,7 @@ class FolderService extends Service
      * @param  string $userId   the name of the user for security reasons
      * @throws ServiceNotFoundException when folder does not exist
      */
-    public function markDeleted($folderId, $userId) 
+    public function markDeleted($folderId, $userId)
     {
         $folder = $this->find($folderId, $userId);
         $folder->setDeletedAt($this->timeFactory->getTime());
@@ -150,7 +149,7 @@ class FolderService extends Service
      * @param  string $userId   the name of the user for security reasons
      * @throws ServiceNotFoundException when folder does not exist
      */
-    public function unmarkDeleted($folderId, $userId) 
+    public function unmarkDeleted($folderId, $userId)
     {
         $folder = $this->find($folderId, $userId);
         $folder->setDeletedAt(0);
@@ -166,7 +165,7 @@ class FolderService extends Service
      *                             entries in a given interval to give the user a chance to undo the
      *                             deletion
      */
-    public function purgeDeleted($userId=null, $useInterval=true) 
+    public function purgeDeleted($userId = null, $useInterval = true)
     {
         $deleteOlderThan = null;
 
@@ -188,10 +187,8 @@ class FolderService extends Service
      *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) 
+    public function deleteUser($userId)
     {
         $this->folderMapper->deleteUser($userId);
     }
-
-
 }

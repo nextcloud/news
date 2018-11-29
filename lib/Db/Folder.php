@@ -17,7 +17,6 @@ use OCP\AppFramework\Db\Entity;
 
 class Folder extends Entity implements IAPI, \JsonSerializable
 {
-
     use EntityJSONSerializer;
 
     /** @var int|null */

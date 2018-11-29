@@ -17,7 +17,6 @@ use OCP\AppFramework\Db\Entity;
 
 class Item extends Entity implements IAPI, \JsonSerializable
 {
-
     use EntityJSONSerializer;
 
     /** @var string|null */
@@ -425,8 +424,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     public function setUrl(string $url = null)
     {
         $url = trim($url);
-        if (
-            (strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0)
+        if ((strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0)
             && $this->url !== $url
         ) {
             $this->url = $url;

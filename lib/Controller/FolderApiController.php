@@ -25,17 +25,16 @@ use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 use \OCA\News\Service\ServiceValidationException;
 
-
 class FolderApiController extends ApiController
 {
-
     use JSONHttpError;
 
     private $folderService;
     private $itemService;
     private $serializer;
 
-    public function __construct($appName,
+    public function __construct(
+        $appName,
         IRequest $request,
         IUserSession $userSession,
         FolderService $folderService,
@@ -53,7 +52,7 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index() 
+    public function index()
     {
         return $this->serializer->serialize(
             $this->folderService->findAll($this->getUserId())
@@ -69,16 +68,16 @@ class FolderApiController extends ApiController
      * @param string $name
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($name) 
+    public function create($name)
     {
         try {
             $this->folderService->purgeDeleted($this->getUserId(), false);
             return $this->serializer->serialize(
                 $this->folderService->create($name, $this->getUserId())
             );
-        } catch(ServiceValidationException $ex) {
+        } catch (ServiceValidationException $ex) {
             return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
-        } catch(ServiceConflictException $ex) {
+        } catch (ServiceConflictException $ex) {
             return $this->error($ex, Http::STATUS_CONFLICT);
         }
     }
@@ -92,11 +91,11 @@ class FolderApiController extends ApiController
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function delete($folderId) 
+    public function delete($folderId)
     {
         try {
             $this->folderService->delete($folderId, $this->getUserId());
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
@@ -112,16 +111,15 @@ class FolderApiController extends ApiController
      * @param string $name
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function update($folderId, $name) 
+    public function update($folderId, $name)
     {
         try {
             $this->folderService->rename($folderId, $name, $this->getUserId());
-
-        } catch(ServiceValidationException $ex) {
+        } catch (ServiceValidationException $ex) {
             return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
-        } catch(ServiceConflictException $ex) {
+        } catch (ServiceConflictException $ex) {
             return $this->error($ex, Http::STATUS_CONFLICT);
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
@@ -137,10 +135,8 @@ class FolderApiController extends ApiController
      * @param int $folderId
      * @param int $newestItemId
      */
-    public function read($folderId, $newestItemId) 
+    public function read($folderId, $newestItemId)
     {
         $this->itemService->readFolder($folderId, $newestItemId, $this->getUserId());
     }
-
-
 }

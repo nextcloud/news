@@ -30,7 +30,7 @@ class TextResponse extends Response
      * @param string $contentType the mimetype. text/ is added automatically so
      *                            only plain or html can be added to get text/plain or text/html
      */
-    public function __construct($content, $contentType='plain')
+    public function __construct($content, $contentType = 'plain')
     {
         $this->content = $content;
         $this->addHeader('Content-type', 'text/' . $contentType);
@@ -46,6 +46,4 @@ class TextResponse extends Response
     {
         return $this->content;
     }
-
-
 }

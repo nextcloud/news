@@ -108,6 +108,11 @@ endif
 clean:
 	rm -rf ./build
 
+# Reports PHP codestyle violations
+.PHONY: phpcs
+phpcs:
+	./vendor/bin/phpcs --standard=PSR2 lib
+
 # Same as clean but also removes dependencies installed by composer and
 # npm
 .PHONY: distclean
@@ -183,3 +188,4 @@ test:
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
 	# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
 	env TRAVIS=1 ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml --coverage-clover build/php-unit.clover
+	$(MAKE) phpcs

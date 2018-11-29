@@ -11,12 +11,12 @@ class Admin implements ISettings
 {
     private $config;
 
-    public function __construct(Config $config) 
+    public function __construct(Config $config)
     {
         $this->config = $config;
     }
 
-    public function getForm() 
+    public function getForm()
     {
         $data = [
             'autoPurgeMinimumInterval' =>
@@ -31,12 +31,12 @@ class Admin implements ISettings
         return new TemplateResponse('news', 'admin', $data, '');
     }
 
-    public function getSection() 
+    public function getSection()
     {
         return 'news';
     }
 
-    public function getPriority() 
+    public function getPriority()
     {
         return 40;
     }

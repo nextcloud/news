@@ -11,28 +11,28 @@ class Section implements IIconSection
     private $l;
     private $url;
 
-    public function __construct(IURLGenerator $url, IL10N $l) 
+    public function __construct(IURLGenerator $url, IL10N $l)
     {
         $this->url = $url;
         $this->l = $l;
     }
 
-    public function getID() 
+    public function getID()
     {
         return 'news';
     }
 
-    public function getName() 
+    public function getName()
     {
         return $this->l->t('News');
     }
 
-    public function getPriority() 
+    public function getPriority()
     {
         return 10;
     }
 
-    public function getIcon() 
+    public function getIcon()
     {
         return $this->url->imagePath('news', 'app-dark.svg');
     }

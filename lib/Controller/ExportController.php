@@ -33,7 +33,8 @@ class ExportController extends Controller
     private $itemService;
     private $userId;
 
-    public function __construct($appName,
+    public function __construct(
+        $appName,
         IRequest $request,
         FolderService $folderService,
         FeedService $feedService,
@@ -60,7 +61,7 @@ class ExportController extends Controller
         $folders = $this->folderService->findAll($this->userId);
         $opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
         $date = date('Y-m-d');
-        $name = "subscriptions-".$date.".opml";
+        $name = "subscriptions-" . $date . ".opml";
         $mimeType = 'text/xml';
         return new TextDownloadResponse($opml, $name, $mimeType);
     }
@@ -77,12 +78,12 @@ class ExportController extends Controller
 
         // build assoc array for fast access
         $feedsDict = [];
-        foreach($feeds as $feed) {
+        foreach ($feeds as $feed) {
             $feedsDict['feed' . $feed->getId()] = $feed;
         }
 
         $articles = [];
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $articles[] = $item->toExport($feedsDict);
         }
 
@@ -93,6 +94,4 @@ class ExportController extends Controller
         );
         return $response;
     }
-
-
 }

@@ -13,7 +13,6 @@ namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http\JSONResponse;
 
-
 trait JSONHttpError
 {
 
@@ -24,10 +23,8 @@ trait JSONHttpError
      * @param int        $code      the http error code
      * @return \OCP\AppFramework\Http\JSONResponse
      */
-    public function error(\Exception $exception, $code) 
+    public function error(\Exception $exception, $code)
     {
         return new JSONResponse(['message' => $exception->getMessage()], $code);
     }
-
-
 }

@@ -26,24 +26,23 @@ class Plugin
     private static $scripts = [];
     private static $styles = [];
 
-    public static function registerStyle($appName, $styleName) 
+    public static function registerStyle($appName, $styleName)
     {
         self::$styles[$appName] = $styleName;
     }
 
-    public static function registerScript($appName, $scriptName) 
+    public static function registerScript($appName, $scriptName)
     {
         self::$scripts[$appName] = $scriptName;
     }
 
-    public static function getStyles() 
+    public static function getStyles()
     {
         return self::$styles;
     }
 
-    public static function getScripts() 
+    public static function getScripts()
     {
         return self::$scripts;
     }
-
 }

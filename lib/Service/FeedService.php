@@ -28,7 +28,6 @@ use OCA\News\Fetcher\FetcherException;
 use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
-
 class FeedService extends Service
 {
 
@@ -42,7 +41,8 @@ class FeedService extends Service
     private $purifier;
     private $loggerParams;
 
-    public function __construct(FeedMapper $feedMapper,
+    public function __construct(
+        FeedMapper $feedMapper,
         Fetcher $feedFetcher,
         ItemMapper $itemMapper,
         ILogger $logger,
@@ -82,7 +82,7 @@ class FeedService extends Service
      *
      * @return array of feeds
      */
-    public function findAllFromAllUsers() 
+    public function findAllFromAllUsers()
     {
         return $this->feedMapper->findAll();
     }
@@ -103,8 +103,13 @@ class FeedService extends Service
      * @throws ServiceNotFoundException if the url points to an invalid feed
      * @return Feed the newly created feed
      */
-    public function create($feedUrl, $folderId, $userId, $title=null,
-        $basicAuthUser=null, $basicAuthPassword=null
+    public function create(
+        $feedUrl,
+        $folderId,
+        $userId,
+        $title = null,
+        $basicAuthUser = null,
+        $basicAuthPassword = null
     ) {
         // first try if the feed exists already
         try {
@@ -113,8 +118,12 @@ class FeedService extends Service
              * @var Item[] $items
              */
             list($feed, $items) = $this->feedFetcher->fetch(
-                $feedUrl, true,
-                null, null, false, $basicAuthUser,
+                $feedUrl,
+                true,
+                null,
+                null,
+                false,
+                $basicAuthUser,
                 $basicAuthPassword
             );
 
@@ -126,7 +135,7 @@ class FeedService extends Service
                 );
 
                 // If no matching feed was found everything was ok
-            } catch(DoesNotExistException $ex){
+            } catch (DoesNotExistException $ex) {
             }
 
             // insert feed
@@ -146,7 +155,7 @@ class FeedService extends Service
             // insert items in reverse order because the first one is usually
             // the newest item
             $unreadCount = 0;
-            for($i=$itemCount-1; $i>=0; $i--){
+            for ($i = $itemCount - 1; $i >= 0; $i--) {
                 $item = $items[$i];
                 $item->setFeedId($feed->getId());
 
@@ -154,10 +163,12 @@ class FeedService extends Service
                 // and ignore it if it does
                 try {
                     $this->itemMapper->findByGuidHash(
-                        $item->getGuidHash(), $item->getFeedId(), $userId
+                        $item->getGuidHash(),
+                        $item->getFeedId(),
+                        $userId
                     );
                     continue;
-                } catch(DoesNotExistException $ex){
+                } catch (DoesNotExistException $ex) {
                     $unreadCount += 1;
                     $item->setBody($this->purifier->purify($item->getBody()));
                     $this->itemMapper->insert($item);
@@ -168,7 +179,7 @@ class FeedService extends Service
             $feed->setUnreadCount($unreadCount);
 
             return $feed;
-        } catch(FetcherException $ex){
+        } catch (FetcherException $ex) {
             $this->logger->debug($ex->getMessage(), $this->loggerParams);
             throw new ServiceNotFoundException($ex->getMessage());
         }
@@ -182,10 +193,10 @@ class FeedService extends Service
     {
         // TODO: this method is not covered by any tests
         $feeds = $this->feedMapper->findAll();
-        foreach($feeds as $feed){
+        foreach ($feeds as $feed) {
             try {
                 $this->update($feed->getId(), $feed->getUserId());
-            } catch(\Exception $ex){
+            } catch (\Exception $ex) {
                 // something is really wrong here, log it
                 $this->logger->error(
                     'Unexpected error when updating feed ' . $ex->getMessage(),
@@ -205,12 +216,12 @@ class FeedService extends Service
      * @throws ServiceNotFoundException if the feed does not exist
      * @return Feed the updated feed entity
      */
-    public function update($feedId, $userId, $forceUpdate=false)
+    public function update($feedId, $userId, $forceUpdate = false)
     {
         /** @var Feed $existingFeed */
         $existingFeed = $this->find($feedId, $userId);
 
-        if($existingFeed->getPreventUpdate() === true) {
+        if ($existingFeed->getPreventUpdate() === true) {
             return $existingFeed;
         }
 
@@ -257,20 +268,21 @@ class FeedService extends Service
 
             // insert items in reverse order because the first one is
             // usually the newest item
-            for($i=$itemCount-1; $i>=0; $i--){
+            for ($i = $itemCount - 1; $i >= 0; $i--) {
                 $item = $items[$i];
                 $item->setFeedId($existingFeed->getId());
 
                 try {
                     $dbItem = $this->itemMapper->findByGuidHash(
-                        $item->getGuidHash(), $feedId, $userId
+                        $item->getGuidHash(),
+                        $feedId,
+                        $userId
                     );
 
                     // in case of update
-                    if ($forceUpdate 
+                    if ($forceUpdate
                         || $item->getUpdatedDate() > $dbItem->getUpdatedDate()
                     ) {
-
                         $dbItem->setTitle($item->getTitle());
                         $dbItem->setUrl($item->getUrl());
                         $dbItem->setAuthor($item->getAuthor());
@@ -292,7 +304,7 @@ class FeedService extends Service
 
                         $this->itemMapper->update($dbItem);
                     }
-                } catch(DoesNotExistException $ex){
+                } catch (DoesNotExistException $ex) {
                     $item->setBody(
                         $this->purifier->purify($item->getBody())
                     );
@@ -303,10 +315,9 @@ class FeedService extends Service
             // mark feed as successfully updated
             $existingFeed->setUpdateErrorCount(0);
             $existingFeed->setLastUpdateError('');
-
-        } catch(FetcherException $ex){
+        } catch (FetcherException $ex) {
             $existingFeed->setUpdateErrorCount(
-                $existingFeed->getUpdateErrorCount()+1
+                $existingFeed->getUpdateErrorCount() + 1
             );
             $existingFeed->setLastUpdateError($ex->getMessage());
         }
@@ -323,7 +334,7 @@ class FeedService extends Service
      * @param  string $userId the username
      * @return Feed if one had to be created for nonexistent feeds
      */
-    public function importArticles($json, $userId) 
+    public function importArticles($json, $userId)
     {
         $url = 'http://nextcloud/nofeed';
         $urlHash = md5($url);
@@ -331,7 +342,7 @@ class FeedService extends Service
         // build assoc array for fast access
         $feeds = $this->findAll($userId);
         $feedsDict = [];
-        foreach($feeds as $feed) {
+        foreach ($feeds as $feed) {
             $feedsDict[$feed->getLink()] = $feed;
         }
 
@@ -343,10 +354,10 @@ class FeedService extends Service
             $item = Item::fromImport($entry);
             $feedLink = $entry['feedLink'];  // this is not set on the item yet
 
-            if(array_key_exists($feedLink, $feedsDict)) {
+            if (array_key_exists($feedLink, $feedsDict)) {
                 $feed = $feedsDict[$feedLink];
                 $item->setFeedId($feed->getId());
-            } elseif(array_key_exists($url, $feedsDict)) {
+            } elseif (array_key_exists($url, $feedsDict)) {
                 $feed = $feedsDict[$url];
                 $item->setFeedId($feed->getId());
             } else {
@@ -369,18 +380,20 @@ class FeedService extends Service
             try {
                 // if item exists, copy the status
                 $existingItem = $this->itemMapper->findByGuidHash(
-                    $item->getGuidHash(), $feed->getId(), $userId
+                    $item->getGuidHash(),
+                    $feed->getId(),
+                    $userId
                 );
                 $existingItem->setStatus($item->getStatus());
                 $this->itemMapper->update($existingItem);
-            } catch(DoesNotExistException $ex){
+            } catch (DoesNotExistException $ex) {
                 $item->setBody($this->purifier->purify($item->getBody()));
                 $item->generateSearchIndex();
                 $this->itemMapper->insert($item);
             }
         }
 
-        if($createdFeed) {
+        if ($createdFeed) {
             return $this->feedMapper->findByUrlHash($urlHash, $userId);
         }
 
@@ -395,7 +408,7 @@ class FeedService extends Service
      * @param  string $userId the name of the user for security reasons
      * @throws ServiceNotFoundException when feed does not exist
      */
-    public function markDeleted($feedId, $userId) 
+    public function markDeleted($feedId, $userId)
     {
         $feed = $this->find($feedId, $userId);
         $feed->setDeletedAt($this->timeFactory->getTime());
@@ -410,7 +423,7 @@ class FeedService extends Service
      * @param  string $userId the name of the user for security reasons
      * @throws ServiceNotFoundException when feed does not exist
      */
-    public function unmarkDeleted($feedId, $userId) 
+    public function unmarkDeleted($feedId, $userId)
     {
         $feed = $this->find($feedId, $userId);
         $feed->setDeletedAt(0);
@@ -426,7 +439,7 @@ class FeedService extends Service
      *                             entries in a given interval to give the user a chance to undo the
      *                             deletion
      */
-    public function purgeDeleted($userId=null, $useInterval=true) 
+    public function purgeDeleted($userId = null, $useInterval = true)
     {
         $deleteOlderThan = null;
 
@@ -449,7 +462,7 @@ class FeedService extends Service
      *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) 
+    public function deleteUser($userId)
     {
         $this->feedMapper->deleteUser($userId);
     }
@@ -467,7 +480,7 @@ class FeedService extends Service
      * ]
      * @throws ServiceNotFoundException if feed does not exist
      */
-    public function patch($feedId, $userId, $diff=[]) 
+    public function patch($feedId, $userId, $diff = [])
     {
         $feed = $this->find($feedId, $userId);
 
@@ -487,5 +500,4 @@ class FeedService extends Service
 
         return $this->feedMapper->update($feed);
     }
-
 }
