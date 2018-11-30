@@ -5,6 +5,7 @@ php:
     - 7.0
     - 7.1
     - 7.2
+    - 7.3
     - nightly
 
 env:
@@ -28,6 +29,12 @@ matrix:
         - php: 7.2
           env: DB=mysql
         - php: 7.2
+          env: DB=pgsql CORE_BRANCH=master
+        - php: 7.3
+          env: DB=sqlite
+        - php: 7.3
+          env: DB=mysql
+        - php: 7.3
           env: DB=pgsql CORE_BRANCH=master
 fast_finish: true
 
