@@ -74,7 +74,7 @@ OC.L10N.register(
     "Toggle star article" : "Växla stjärnmärkning av artiklar",
     "Star article and jump to next one" : "Stärnmärk artikel och hoppa till nästa",
     "Toggle keep current article unread" : "Aktivera för att hålla aktuell artikel oläst",
-    "Open article in new tab" : "Öppna artikel i ny flik",
+    "Open article in new tab" : "Öppna artikeln i ny flik",
     "Toggle expand article in compact view" : "Aktivera för att expandera artikeln i kompakt vy",
     "Refresh" : "Uppdatera",
     "Load next feed" : "Ladda nästkommande flöde",
