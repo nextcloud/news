@@ -49,7 +49,8 @@ class AllFeeds extends Command
         foreach ($feeds as $feed) {
             $result['feeds'][] = [
                 'id' => $feed->getId(),
-                'userId' => $feed->getUserId()
+                'userId' => $feed->getUserId(),
+                'folderId' => $feed->getFolderId(),
             ];
         }
 
