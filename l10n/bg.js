@@ -41,8 +41,6 @@ OC.L10N.register(
     "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Максимален размер на емисия в байтове. Ако RSS/Atom страницата е по-голяма от тази стойност, актуализирането се прекратява",
     "Feed fetcher timeout" : "Максимално време за изчакване",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Максималното време в секунди за изчакване зареждането на RSS или Atom емисия; ако отнема по-дълго актуализирането се прекратява",
-    "Explore Service URL" : "Редактирай URL на Услугата",
-    "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Ако Ви е даден, този URL на услуги ще бъде заявен за показване на потока, в раздела за зареждане на потоци. За да попадне обратно в редакцията услугата, оставете полето празно",
     "For more information check the wiki" : "За допълнителна информация проверете wiki страницата",
     "Saved" : "Запазено",
     "Download" : "Изтегли",
