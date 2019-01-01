@@ -76,7 +76,7 @@ OC.L10N.register(
     "Star article and jump to next one" : "Markeer artikel en ga naar volgende",
     "Toggle keep current article unread" : "Omswitchen hou huidig artikel ongelezen",
     "Open article in new tab" : "Open artikel in nieuwe tab",
-    "Toggle expand article in compact view" : "Omswitchen uitgebreid artikel in compact overzicht",
+    "Toggle expand article in compact view" : "Omswitchen uitgebreid artikel in compacte weergave",
     "Refresh" : "Vernieuwen",
     "Load next feed" : "Laad volgende feed",
     "Load previous feed" : "Laad voorgaande feed",
