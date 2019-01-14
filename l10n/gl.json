@@ -20,7 +20,7 @@
     "Certificate error: Couldn't use specified cipher." : "Erro no certificado: Non foi posíbel especificar o cifrado. ",
     "Certificate error: Peer certificate cannot be authenticated with known CA certificates." : "Erro no certificado:Non foi posíbel autenticar o certificado contra os certificados dunha Entidade de Acreditación coñecida.",
     "Certificate error: Requested FTP SSL level failed." : "Error no certificado: Produciuse un erro no nivel SSL de FTP solicitado.",
-    "Certificate error: Initiating the SSL engine failed." : "Erro no certificado: Produciuse unha falla ao iniciar o motor SSL.",
+    "Certificate error: Initiating the SSL engine failed." : "Erro no certificado: Produciuse un fallo ao iniciar o motor SSL.",
     "Certificate error: Problem with reading the SSL CA cert (path? access rights?)" : "Erro no certificado: Produciuse un problema ao ler o certificado CA SSL (ruta? privilegios?)",
     "Certificate error: Issuer check failed" : "Erro no certificado: Fallou a comprobación do emisor",
     "Unknown SSL certificate error!" : "Produciuse un erro descoñecido no certificado SSL!",
@@ -144,6 +144,6 @@
     "Help" : "Axuda",
     "Keyboard shortcuts" : "Atallos de teclado",
     "Documentation" : "Documentación",
-    "Report a bug" : "Informar dunha falla"
+    "Report a bug" : "Informar dun fallo"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
