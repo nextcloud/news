@@ -123,7 +123,7 @@ OC.L10N.register(
     "Ignore updated" : "Ignorar actualizados",
     "Open feed URL" : "Abrir o URL da fonte",
     "Delete" : "Eliminar",
-    "Dismiss" : "Desbotar",
+    "Dismiss" : "Rexeitar",
     "Collapse" : "Contraer",
     "Deleted folder" : "Eliminar cartafol",
     "Undo delete folder" : "Desfacer a eliminación do cartafol",
