@@ -130,7 +130,7 @@ OC.L10N.register(
     "Starred" : "Estrelles",
     "Unread articles" : "Articles sense llegir",
     "All articles" : "Tots els articles",
-    "Settings" : "Configuració",
+    "Settings" : "Paràmetres",
     "Disable mark read through scrolling" : "Desactiva la marca de lectura mitjançant el desplaçament",
     "Compact view" : "Visualització compacta",
     "Expand articles on key navigation" : "Expandeixi articles sobre la navegació de tecles",
