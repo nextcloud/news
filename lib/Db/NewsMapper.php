@@ -26,20 +26,23 @@ abstract class NewsMapper extends Mapper
      */
     private $time;
 
-    public function __construct(IDBConnection $db, $table, $entity,
+    public function __construct(
+        IDBConnection $db,
+        $table,
+        $entity,
         Time $time
     ) {
         parent::__construct($db, $table, $entity);
         $this->time = $time;
     }
 
-    public function update(Entity $entity) 
+    public function update(Entity $entity)
     {
         $entity->setLastModified($this->time->getMicroTime());
         return parent::update($entity);
     }
 
-    public function insert(Entity $entity) 
+    public function insert(Entity $entity)
     {
         $entity->setLastModified($this->time->getMicroTime());
         return parent::insert($entity);
@@ -66,9 +69,9 @@ abstract class NewsMapper extends Mapper
      * @paran  int $offset
      * @return array
      */
-    public function where(array $search = [], $limit = null, $offset = null) 
+    public function where(array $search = [], $limit = null, $offset = null)
     {
-        $entity = new $this->entityClass;
+        $entity = new $this->entityClass();
 
         // turn keys into sql query filter, e.g. feedId -> feed_id = :feedId
         $filter = array_map(
@@ -83,7 +86,8 @@ abstract class NewsMapper extends Mapper
 
                 $column = $entity->propertyToColumn($property);
                 return $column . ' = :' . $property;
-            }, array_keys($search)
+            },
+            array_keys($search)
         );
 
         $andStatement = implode(' AND ', $filter);
@@ -96,5 +100,4 @@ abstract class NewsMapper extends Mapper
 
         return $this->findEntities($sql, $search, $limit, $offset);
     }
-
 }

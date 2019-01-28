@@ -19,18 +19,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use OCA\News\Service\FeedService;
 
-
 class AllFeeds extends Command
 {
     private $feedService;
 
-    public function __construct(FeedService $feedService) 
+    public function __construct(FeedService $feedService)
     {
         parent::__construct();
         $this->feedService = $feedService;
     }
 
-    protected function configure() 
+    protected function configure()
     {
         $json = '{"feeds": [{"id": 39, "userId": "john"}, // etc ]}';
 
@@ -41,7 +40,7 @@ class AllFeeds extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) 
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $feeds = $this->feedService->findAllFromAllUsers();
         $result = ['feeds' => []];
@@ -56,5 +55,4 @@ class AllFeeds extends Command
 
         print(json_encode($result));
     }
-
 }

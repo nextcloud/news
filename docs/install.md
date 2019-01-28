@@ -1,8 +1,8 @@
 # Installation/Update
 
 ## Dependencies
-* PHP >= 5.6
-* Nextcloud 12
+* PHP >= 7.0
+* Nextcloud 14
 * libxml >= 2.7.8 (2.9 recommended)
 * php-curl
 * iconv

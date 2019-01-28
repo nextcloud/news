@@ -17,12 +17,11 @@ use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
-
 class FeedMapper extends NewsMapper
 {
 
 
-    public function __construct(IDBConnection $db, Time $time) 
+    public function __construct(IDBConnection $db, Time $time)
     {
         parent::__construct($db, 'news_feeds', Feed::class, $time);
     }
@@ -52,7 +51,7 @@ class FeedMapper extends NewsMapper
     {
         $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
-            'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` '.
+            'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
                 'ON `feeds`.`folder_id` = `folders`.`id` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -77,7 +76,7 @@ class FeedMapper extends NewsMapper
     {
         $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
-            'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` '.
+            'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
                 'ON `feeds`.`folder_id` = `folders`.`id` ' .
             'LEFT JOIN `*PREFIX*news_items` `items` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
@@ -134,7 +133,7 @@ class FeedMapper extends NewsMapper
      * @param string $userId          if given returns only entries from the given user
      * @return array with the database rows
      */
-    public function getToDelete($deleteOlderThan=null, $userId=null) 
+    public function getToDelete($deleteOlderThan = null, $userId = null)
     {
         $sql = 'SELECT * FROM `*PREFIX*news_feeds` ' .
             'WHERE `deleted_at` > 0 ';
@@ -147,7 +146,7 @@ class FeedMapper extends NewsMapper
         }
 
         // we need to sometimes only delete feeds of a user
-        if($userId !== null) {
+        if ($userId !== null) {
             $sql .= 'AND `user_id` = ?';
             $params[] = $userId;
         }
@@ -162,11 +161,9 @@ class FeedMapper extends NewsMapper
      *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId) 
+    public function deleteUser($userId)
     {
         $sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
         $this->execute($sql, [$userId]);
     }
-
-
 }

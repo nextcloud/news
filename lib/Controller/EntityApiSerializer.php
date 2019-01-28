@@ -13,13 +13,12 @@ namespace OCA\News\Controller;
 
 use \OCA\News\Db\IAPI;
 
-
 class EntityApiSerializer
 {
 
     private $level;
 
-    public function __construct($level) 
+    public function __construct($level)
     {
         $this->level = $level;
     }
@@ -35,16 +34,16 @@ class EntityApiSerializer
      *                     * Response
      * @return array|mixed
      */
-    public function serialize($data) 
+    public function serialize($data)
     {
 
-        if($data instanceof IAPI) {
+        if ($data instanceof IAPI) {
             return [$this->level => [$data->toAPI()]];
         }
 
-        if(is_array($data) && array_key_exists($this->level, $data)) {
+        if (is_array($data) && array_key_exists($this->level, $data)) {
             $data[$this->level] = $this->convert($data[$this->level]);
-        } elseif(is_array($data)) {
+        } elseif (is_array($data)) {
             $data = [$this->level => $this->convert($data)];
         }
 
@@ -52,12 +51,12 @@ class EntityApiSerializer
     }
 
 
-    private function convert($entities) 
+    private function convert($entities)
     {
         $converted = [];
 
-        foreach($entities as $entity) {
-            if($entity instanceof IAPI) {
+        foreach ($entities as $entity) {
+            if ($entity instanceof IAPI) {
                 $converted[] = $entity->toAPI();
 
                 // break if it contains anything else than entities
@@ -68,5 +67,4 @@ class EntityApiSerializer
 
         return $converted;
     }
-
 }

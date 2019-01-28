@@ -18,7 +18,6 @@ use \OCA\News\Service\FolderService;
 use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
 
-
 class Updater
 {
 
@@ -27,7 +26,8 @@ class Updater
     private $feedService;
     private $itemService;
 
-    public function __construct(FolderService $folderService,
+    public function __construct(
+        FolderService $folderService,
         FeedService $feedService,
         ItemService $itemService
     ) {
@@ -37,23 +37,21 @@ class Updater
     }
 
 
-    public function beforeUpdate() 
+    public function beforeUpdate()
     {
         $this->folderService->purgeDeleted();
         $this->feedService->purgeDeleted();
     }
 
 
-    public function update() 
+    public function update()
     {
         $this->feedService->updateAll();
     }
 
 
-    public function afterUpdate() 
+    public function afterUpdate()
     {
         $this->itemService->autoPurgeOld();
     }
-
-
 }

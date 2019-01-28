@@ -13,7 +13,7 @@ namespace OCA\News\Utility;
 
 class Time
 {
-    public function getTime() 
+    public function getTime()
     {
         return time();
     }
@@ -21,10 +21,9 @@ class Time
     /**
      * @return int the current unix time in miliseconds
      */
-    public function getMicroTime() 
+    public function getMicroTime()
     {
         list($millisecs, $secs) = explode(" ", microtime());
         return $secs . substr($millisecs, 2, 6);
     }
-
 }

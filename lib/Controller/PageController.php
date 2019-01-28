@@ -31,6 +31,7 @@ use OCA\News\Db\FeedType;
 
 class PageController extends Controller
 {
+    use JSONHttpError;
 
     private $settings;
     private $l10n;
@@ -38,11 +39,11 @@ class PageController extends Controller
     private $urlGenerator;
     private $config;
     private $recommendedSites;
+
     private $statusService;
 
-    use JSONHttpError;
-
-    public function __construct($appName,
+    public function __construct(
+        $appName,
         IRequest $request,
         IConfig $settings,
         IURLGenerator $urlGenerator,
@@ -67,20 +68,22 @@ class PageController extends Controller
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function index() 
+    public function index()
     {
         $status = $this->statusService->getStatus();
         $response = new TemplateResponse(
-            $this->appName, 'index', [
-            'warnings' => $status['warnings'],
-            'url_generator' => $this->urlGenerator
+            $this->appName,
+            'index',
+            [
+                'warnings' => $status['warnings'],
+                'url_generator' => $this->urlGenerator
             ]
         );
 
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
-            ->addAllowedConnectDomain('*')  // chrome breaks on audio elements
+            ->addAllowedConnectDomain('*')// chrome breaks on audio elements
             ->addAllowedFrameDomain('https://youtube.com')
             ->addAllowedFrameDomain('https://www.youtube.com')
             ->addAllowedFrameDomain('https://player.vimeo.com')
@@ -96,7 +99,7 @@ class PageController extends Controller
     /**
      * @NoAdminRequired
      */
-    public function settings() 
+    public function settings()
     {
         $settings = [
             'showAll',
@@ -110,7 +113,8 @@ class PageController extends Controller
         if (trim($exploreUrl) === '') {
             // default url should not feature the sites.en.json
             $exploreUrl = $this->urlGenerator->linkToRoute(
-                'news.page.explore', ['lang' => 'en']
+                'news.page.explore',
+                ['lang' => 'en']
             );
             $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
         }
@@ -122,7 +126,9 @@ class PageController extends Controller
 
         foreach ($settings as $setting) {
             $result[$setting] = $this->settings->getUserValue(
-                $this->userId, $this->appName, $setting
+                $this->userId,
+                $this->appName,
+                $setting
             ) === '1';
         }
         return ['settings' => $result];
@@ -137,10 +143,15 @@ class PageController extends Controller
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
      */
-    public function updateSettings($showAll, $compact, $preventReadOnScroll,
-        $oldestFirst, $compactExpand
+    public function updateSettings(
+        $showAll,
+        $compact,
+        $preventReadOnScroll,
+        $oldestFirst,
+        $compactExpand
     ) {
-        $settings = ['showAll',
+        $settings = [
+            'showAll',
             'compact',
             'preventReadOnScroll',
             'oldestFirst',
@@ -154,8 +165,10 @@ class PageController extends Controller
                 $value = '0';
             }
             $this->settings->setUserValue(
-                $this->userId, $this->appName,
-                $setting, $value
+                $this->userId,
+                $this->appName,
+                $setting,
+                $value
             );
         }
     }
@@ -165,15 +178,19 @@ class PageController extends Controller
      *
      * @param string $lang
      */
-    public function explore($lang) 
+    public function explore($lang)
     {
         $this->settings->setUserValue(
-            $this->userId, $this->appName,
-            'lastViewedFeedId', 0
+            $this->userId,
+            $this->appName,
+            'lastViewedFeedId',
+            0
         );
         $this->settings->setUserValue(
-            $this->userId, $this->appName,
-            'lastViewedFeedType', FeedType::EXPLORE
+            $this->userId,
+            $this->appName,
+            'lastViewedFeedType',
+            FeedType::EXPLORE
         );
 
         try {
@@ -182,6 +199,4 @@ class PageController extends Controller
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
     }
-
-
 }

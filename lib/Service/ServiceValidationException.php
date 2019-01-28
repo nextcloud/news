@@ -13,7 +13,6 @@
 
 namespace OCA\News\Service;
 
-
 class ServiceValidationException extends ServiceException
 {
 
@@ -26,5 +25,4 @@ class ServiceValidationException extends ServiceException
     {
         parent::__construct($msg);
     }
-
 }

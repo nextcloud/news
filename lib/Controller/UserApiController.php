@@ -27,7 +27,8 @@ class UserApiController extends ApiController
     private $userSession;
     private $rootFolder;
 
-    public function __construct($appName,
+    public function __construct(
+        $appName,
         IRequest $request,
         IUserSession $userSession,
         IRootFolder $rootFolder
@@ -41,7 +42,7 @@ class UserApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index() 
+    public function index()
     {
         $user = $this->getUser();
 
@@ -71,5 +72,4 @@ class UserApiController extends ApiController
             'avatar' => $avatar
         ];
     }
-
 }

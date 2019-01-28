@@ -16,7 +16,6 @@ namespace OCA\News\Config;
 use OCP\ILogger;
 use OCP\Files\Folder;
 
-
 class Config
 {
 
@@ -34,7 +33,8 @@ class Config
     private $maxSize;
     private $exploreUrl;
 
-    public function __construct(Folder $fileSystem,
+    public function __construct(
+        Folder $fileSystem,
         ILogger $logger,
         $LoggerParameters
     ) {
@@ -42,7 +42,7 @@ class Config
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
         $this->maxRedirects = 10;
-        $this->maxSize = 100*1024*1024; // 100Mb
+        $this->maxSize = 100 * 1024 * 1024; // 100Mb
         $this->feedFetcherTimeout = 60;
         $this->useCronUpdates = true;
         $this->logger = $logger;
@@ -50,7 +50,7 @@ class Config
         $this->loggerParams = $LoggerParameters;
     }
 
-    public function getAutoPurgeMinimumInterval() 
+    public function getAutoPurgeMinimumInterval()
     {
         if ($this->autoPurgeMinimumInterval > 60) {
             return $this->autoPurgeMinimumInterval;
@@ -59,103 +59,100 @@ class Config
         }
     }
 
-    public function getAutoPurgeCount() 
+    public function getAutoPurgeCount()
     {
         return $this->autoPurgeCount;
     }
 
 
-    public function getMaxRedirects() 
+    public function getMaxRedirects()
     {
         return $this->maxRedirects;
     }
 
 
-    public function getFeedFetcherTimeout() 
+    public function getFeedFetcherTimeout()
     {
         return $this->feedFetcherTimeout;
     }
 
 
-    public function getUseCronUpdates() 
+    public function getUseCronUpdates()
     {
         return $this->useCronUpdates;
     }
 
 
-    public function getMaxSize() 
+    public function getMaxSize()
     {
         return $this->maxSize;
     }
 
 
-    public function getExploreUrl() 
+    public function getExploreUrl()
     {
         return $this->exploreUrl;
     }
 
 
-    public function setAutoPurgeMinimumInterval($value) 
+    public function setAutoPurgeMinimumInterval($value)
     {
         $this->autoPurgeMinimumInterval = $value;
     }
 
 
-    public function setAutoPurgeCount($value) 
+    public function setAutoPurgeCount($value)
     {
         $this->autoPurgeCount = $value;
     }
 
 
-    public function setMaxRedirects($value) 
+    public function setMaxRedirects($value)
     {
         $this->maxRedirects = $value;
     }
 
 
-    public function setFeedFetcherTimeout($value) 
+    public function setFeedFetcherTimeout($value)
     {
         $this->feedFetcherTimeout = $value;
     }
 
 
-    public function setUseCronUpdates($value) 
+    public function setUseCronUpdates($value)
     {
         $this->useCronUpdates = $value;
     }
 
-    public function setMaxSize($value) 
+    public function setMaxSize($value)
     {
         $this->maxSize = $value;
     }
 
 
-    public function setExploreUrl($value) 
+    public function setExploreUrl($value)
     {
         $this->exploreUrl = $value;
     }
 
 
-    public function read($configPath, $createIfNotExists=false) 
+    public function read($configPath, $createIfNotExists = false)
     {
-        if($createIfNotExists && !$this->fileSystem->nodeExists($configPath)) {
+        if ($createIfNotExists && !$this->fileSystem->nodeExists($configPath)) {
             $this->fileSystem->newFile($configPath);
             $this->write($configPath);
-
         } else {
-
             $content = $this->fileSystem->get($configPath)->getContent();
             $configValues = parse_ini_string($content);
 
-            if($configValues === false || count($configValues) === 0) {
+            if ($configValues === false || count($configValues) === 0) {
                 $this->logger->warning(
                     'Configuration invalid. Ignoring values.',
                     $this->loggerParams
                 );
             } else {
-
-                foreach($configValues as $key => $value) {
-                    if(property_exists($this, $key)) {
+                foreach ($configValues as $key => $value) {
+                    if (property_exists($this, $key)) {
                         $type = gettype($this->$key);
                         settype($value, $type);
                         $this->$key = $value;
@@ -167,13 +164,12 @@ class Config
                         );
                     }
                 }
-
             }
         }
     }
 
 
-    public function write($configPath) 
+    public function write($configPath)
     {
         $ini =
             'autoPurgeMinimumInterval = ' .
@@ -194,6 +190,4 @@ class Config
 
         $this->fileSystem->get($configPath)->putContent($ini);
     }
-
-
 }

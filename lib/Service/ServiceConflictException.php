@@ -13,7 +13,6 @@
 
 namespace OCA\News\Service;
 
-
 class ServiceConflictException extends ServiceException
 {
 
@@ -26,5 +25,4 @@ class ServiceConflictException extends ServiceException
     {
         parent::__construct($msg);
     }
-
 }

@@ -48,7 +48,7 @@ class OPMLExporter
         $body = $document->createElement('body');
 
         // feeds with folders
-        foreach($folders as $folder) {
+        foreach ($folders as $folder) {
             $folderOutline = $document->createElement('outline');
             $folderOutline->setAttribute('title', $folder->getName());
             $folderOutline->setAttribute('text', $folder->getName());
@@ -94,7 +94,4 @@ class OPMLExporter
         $feedOutline->setAttribute('htmlUrl', $feed->getLink());
         return $feedOutline;
     }
-
-
 }
-

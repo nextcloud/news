@@ -18,7 +18,6 @@ use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\NewsMapper;
 
-
 abstract class Service
 {
 
@@ -58,11 +57,10 @@ abstract class Service
     {
         try {
             return $this->mapper->find($id, $userId);
-        } catch(DoesNotExistException $ex){
+        } catch (DoesNotExistException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
-        } catch(MultipleObjectsReturnedException $ex){
+        } catch (MultipleObjectsReturnedException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
         }
     }
-
 }

@@ -22,7 +22,7 @@ class PicoFeedFaviconFactory
 
     private $config;
 
-    public function __construct(Config $config) 
+    public function __construct(Config $config)
     {
         $this->config = $config;
     }
@@ -33,10 +33,8 @@ class PicoFeedFaviconFactory
      *
      * @return \PicoFeed\Favicon instance
      */
-    public function build() 
+    public function build()
     {
         return new Favicon($this->config);
     }
-
-
 }

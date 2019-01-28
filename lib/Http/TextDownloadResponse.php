@@ -15,7 +15,6 @@ namespace OCA\News\Http;
 
 use \OCP\AppFramework\Http\DownloadResponse;
 
-
 /**
  * Prompts the user to download the a text file
  */
@@ -49,6 +48,4 @@ class TextDownloadResponse extends DownloadResponse
     {
         return $this->content;
     }
-
-
 }

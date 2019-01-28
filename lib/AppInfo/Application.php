@@ -31,7 +31,6 @@ use OCP\ILogger;
 use PicoFeed\Config\Config as PicoFeedConfig;
 use PicoFeed\Reader\Reader as PicoFeedReader;
 
-
 class Application extends App
 {
 
@@ -79,7 +78,6 @@ class Application extends App
                 return $fs->newFolder($path);
             }
         });
-
 
         $container->registerService(Config::class, function (IContainer $c): Config {
             $config = new Config(
@@ -168,8 +166,5 @@ class Application extends App
 
             return $fetcher;
         });
-
-
     }
-
 }

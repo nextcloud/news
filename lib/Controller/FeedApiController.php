@@ -25,10 +25,8 @@ use \OCA\News\Service\ItemService;
 use \OCA\News\Service\ServiceNotFoundException;
 use \OCA\News\Service\ServiceConflictException;
 
-
 class FeedApiController extends ApiController
 {
-
     use JSONHttpError;
 
     private $itemService;
@@ -37,7 +35,8 @@ class FeedApiController extends ApiController
     private $loggerParams;
     private $serializer;
 
-    public function __construct($appName,
+    public function __construct(
+        $appName,
         IRequest $request,
         IUserSession $userSession,
         FeedService $feedService,
@@ -59,7 +58,7 @@ class FeedApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index() 
+    public function index()
     {
 
         $result = [
@@ -73,7 +72,7 @@ class FeedApiController extends ApiController
                 $this->itemService->getNewestItemId($this->getUserId());
 
             // in case there are no items, ignore
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
         }
 
         return $this->serializer->serialize($result);
@@ -89,7 +88,7 @@ class FeedApiController extends ApiController
      * @param int    $folderId
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($url, $folderId=0) 
+    public function create($url, $folderId = 0)
     {
         try {
             $this->feedService->purgeDeleted($this->getUserId(), false);
@@ -102,14 +101,13 @@ class FeedApiController extends ApiController
                     $this->itemService->getNewestItemId($this->getUserId());
 
                 // in case there are no items, ignore
-            } catch(ServiceNotFoundException $ex) {
+            } catch (ServiceNotFoundException $ex) {
             }
 
             return $this->serializer->serialize($result);
-
-        } catch(ServiceConflictException $ex) {
+        } catch (ServiceConflictException $ex) {
             return $this->error($ex, Http::STATUS_CONFLICT);
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
     }
@@ -123,11 +121,11 @@ class FeedApiController extends ApiController
      * @param int $feedId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function delete($feedId) 
+    public function delete($feedId)
     {
         try {
             $this->feedService->delete($feedId, $this->getUserId());
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
@@ -143,7 +141,7 @@ class FeedApiController extends ApiController
      * @param int $feedId
      * @param int $newestItemId
      */
-    public function read($feedId, $newestItemId) 
+    public function read($feedId, $newestItemId)
     {
         $this->itemService->readFeed($feedId, $newestItemId, $this->getUserId());
     }
@@ -158,13 +156,15 @@ class FeedApiController extends ApiController
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function move($feedId, $folderId) 
+    public function move($feedId, $folderId)
     {
         try {
             $this->feedService->patch(
-                $feedId, $this->getUserId(), ['folderId' => $folderId]
+                $feedId,
+                $this->getUserId(),
+                ['folderId' => $folderId]
             );
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
@@ -181,13 +181,15 @@ class FeedApiController extends ApiController
      * @param string $feedTitle
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function rename($feedId, $feedTitle) 
+    public function rename($feedId, $feedTitle)
     {
         try {
             $this->feedService->patch(
-                $feedId, $this->getUserId(), ['title' => $feedTitle]
+                $feedId,
+                $this->getUserId(),
+                ['title' => $feedTitle]
             );
-        } catch(ServiceNotFoundException $ex) {
+        } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
@@ -199,7 +201,7 @@ class FeedApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function fromAllUsers() 
+    public function fromAllUsers()
     {
         $feeds = $this->feedService->findAllFromAllUsers();
         $result = ['feeds' => []];
@@ -221,18 +223,16 @@ class FeedApiController extends ApiController
      * @param string $userId
      * @param int    $feedId
      */
-    public function update($userId, $feedId) 
+    public function update($userId, $feedId)
     {
         try {
             $this->feedService->update($feedId, $userId);
             // ignore update failure
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             $this->logger->debug(
                 'Could not update feed ' . $ex->getMessage(),
                 $this->loggerParams
             );
         }
     }
-
-
 }

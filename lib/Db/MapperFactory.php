@@ -19,7 +19,6 @@ use OCP\IDBConnection;
 use OCA\News\Db\Mysql\ItemMapper as MysqlItemMapper;
 use OCA\News\DependencyInjection\IFactory;
 
-
 class MapperFactory implements IFactory
 {
 
@@ -30,21 +29,20 @@ class MapperFactory implements IFactory
      */
     private $time;
 
-    public function __construct(IDBConnection $db, $databaseType, Time $time) 
+    public function __construct(IDBConnection $db, $databaseType, Time $time)
     {
         $this->dbType = $databaseType;
         $this->db = $db;
         $this->time = $time;
     }
 
-    public function build() 
+    public function build()
     {
-        switch($this->dbType) {
-        case 'mysql':
-            return new MysqlItemMapper($this->db, $this->time);
-        default:
-            return new ItemMapper($this->db, $this->time);
+        switch ($this->dbType) {
+            case 'mysql':
+                return new MysqlItemMapper($this->db, $this->time);
+            default:
+                return new ItemMapper($this->db, $this->time);
         }
     }
-
 }

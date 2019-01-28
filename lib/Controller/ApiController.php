@@ -40,7 +40,8 @@ class ApiController extends BaseApiController
      * @param IRequest      $request        The request
      * @param IUserSession  $userSession    The user session
      */
-    public function __construct($appName, IRequest $request, IUserSession $userSession) {
+    public function __construct($appName, IRequest $request, IUserSession $userSession)
+    {
         parent::__construct($appName, $request);
         $this->userSession = $userSession;
     }
@@ -48,14 +49,16 @@ class ApiController extends BaseApiController
     /**
      * @return IUser
      */
-    protected function getUser() {
+    protected function getUser()
+    {
         return $this->userSession->getUser();
     }
 
     /**
      * @return string
      */
-    protected function getUserId() {
+    protected function getUserId()
+    {
         return $this->getUser()->getUID();
     }
 
@@ -74,5 +77,4 @@ class ApiController extends BaseApiController
             'apiLevels' => ['v1-2']
         ];
     }
-
 }

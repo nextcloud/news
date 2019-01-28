@@ -16,13 +16,12 @@ namespace OCA\News\Utility;
 
 use \OCP\IConfig;
 
-
 class ProxyConfigParser
 {
 
     private $config;
 
-    public function __construct(IConfig $config) 
+    public function __construct(IConfig $config)
     {
         $this->config = $config;
     }
@@ -33,7 +32,7 @@ class ProxyConfigParser
      *
      * @return array
      */
-    public function parse() 
+    public function parse()
     {
         $proxy = $this->config->getSystemValue('proxy');
         $userpasswd = $this->config->getSystemValue('proxyuserpwd');
@@ -64,6 +63,4 @@ class ProxyConfigParser
 
         return $result;
     }
-
-
 }

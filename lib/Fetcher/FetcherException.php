@@ -25,5 +25,4 @@ class FetcherException extends \Exception
     {
         parent::__construct($msg);
     }
-
 }

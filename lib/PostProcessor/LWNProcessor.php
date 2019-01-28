@@ -31,7 +31,7 @@ class LWNProcessor implements ItemProcessorInterface
      * @param $user
      * @param $password
      */
-    public function __construct($user, $password, IClientService $clientService) 
+    public function __construct($user, $password, IClientService $clientService)
     {
         $this->user = $user;
         $this->password = $password;
@@ -39,7 +39,7 @@ class LWNProcessor implements ItemProcessorInterface
         $this->cookieJar = new CookieJar();
     }
 
-    private function login() 
+    private function login()
     {
         if ($this->cookieJar->count() > 0) {
             return true;
@@ -50,7 +50,8 @@ class LWNProcessor implements ItemProcessorInterface
 
         $client = $this->clientService->newClient();
         $response = $client->post(
-            'https://lwn.net/login', [
+            'https://lwn.net/login',
+            [
             'cookies' => $this->cookieJar,
             'body' => [
                 'Username' => $this->user,
@@ -62,16 +63,18 @@ class LWNProcessor implements ItemProcessorInterface
         return ($response->getStatusCode() === 200 && $this->cookieJar->count() > 0);
     }
 
-    private function getBody($url) 
+    private function getBody($url)
     {
         $client = $this->clientService->newClient();
         $response = $client->get(
-            $url, [
+            $url,
+            [
             'cookies' => $this->cookieJar
             ]
         );
         $parser = new RuleParser(
-            $response->getBody(), [
+            $response->getBody(),
+            [
             'body' => array(
                 '//div[@class="ArticleText"]',
             ),
@@ -85,7 +88,7 @@ class LWNProcessor implements ItemProcessorInterface
         return str_replace('href="/', 'href="https://lwn.net/', $articleBody);
     }
 
-    private function canHandle($url) 
+    private function canHandle($url)
     {
         $regex = '%(?:https?://|//)?(?:www.)?lwn.net%';
 
@@ -100,7 +103,7 @@ class LWNProcessor implements ItemProcessorInterface
      * @param  Item $item
      * @return bool
      */
-    public function execute(Feed $feed, Item $item) 
+    public function execute(Feed $feed, Item $item)
     {
         if ($this->canHandle($item->getUrl())) {
             $loggedIn = $this->login();

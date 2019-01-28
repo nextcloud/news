@@ -1,8 +1,8 @@
 # Contributing
 Read this when you want to:
 
-* file an issue (bug or feature request)
-* help translate the News file to your language
+* [file an issue (bug or feature request)](#Issues)
+* [help translate the News file to your language](#Translation)
 * start programming and change the way the News app works
 * add cool new feeds to the feed explore section
 * want to provide additional full text feed rules
@@ -119,16 +119,8 @@ We usually hang out on **irc.freenode.net** in the **#nextcloud-news** and **#ne
 
 ### Coding Style Guidelines
 
-* Use 4 spaces for indention. Why spaces? Because it looks the same on every machine and on the web where you can't normally control the tab width.
-* Place the open curly braces on the same line as the parameter block, e.g.:
-  ```php
-  if (condition) {
-      // code
-  } else {
-      // code
-  }
-  ```
+The PHP code should all adhere to [PSR-2](https://www.php-fig.org/psr/psr-2/).
+*Note that this is a different codestyle than nextcloud itself uses.*
+To test the codestyle you can run `make phpcs`.
 
-* Place a space before and after the parameter block for if, else, for, foreach, function
-* Everything should be in camelCase except classes which should be in PascalCase
-* For linting JavaScript, a [jshint file](https://github.com/nextcloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript
+For linting JavaScript, a [jshint file](https://github.com/nextcloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript

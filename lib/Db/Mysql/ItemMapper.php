@@ -45,12 +45,11 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
         $params = [false, false, $threshold];
         $result = $this->execute($sql, $params);
 
-        while($row = $result->fetch()) {
-
+        while ($row = $result->fetch()) {
             $size = (int) $row['size'];
             $limit = $size - $threshold;
 
-            if($limit > 0) {
+            if ($limit > 0) {
                 $params = [false, false, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
@@ -63,10 +62,9 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
                 $this->execute($sql, $params);
             }
         }
-
     }
 
-    public function readItem($itemId, $isRead, $lastModified, $userId) 
+    public function readItem($itemId, $isRead, $lastModified, $userId)
     {
         $item = $this->find($itemId, $userId);
 
@@ -86,5 +84,4 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
             $this->update($item);
         }
     }
-
 }

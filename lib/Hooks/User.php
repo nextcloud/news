@@ -21,7 +21,7 @@ use OCA\News\Service\FolderService;
 class User
 {
 
-    public static function deleteUser($params) 
+    public static function deleteUser($params)
     {
         $userId = $params['uid'];
 
@@ -33,5 +33,4 @@ class User
         $container->query(FeedService::class)->deleteUser($userId);
         $container->query(FolderService::class)->deleteUser($userId);
     }
-
 }

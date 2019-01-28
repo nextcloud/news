@@ -21,12 +21,12 @@ class MigrateStatusFlags implements IRepairStep
 {
 
     /**
-     * @var IDBConnection 
+     * @var IDBConnection
      */
     private $db;
 
     /**
-     * @var IConfig 
+     * @var IConfig
      */
     private $config;
 
@@ -34,18 +34,18 @@ class MigrateStatusFlags implements IRepairStep
      * @param IDBConnection $db
      * @param IConfig       $config
      */
-    public function __construct(IDBConnection $db, IConfig $config) 
+    public function __construct(IDBConnection $db, IConfig $config)
     {
         $this->db = $db;
         $this->config = $config;
     }
 
-    public function getName() 
+    public function getName()
     {
         return 'Migrate binary status into separate boolean fields';
     }
 
-    public function run(IOutput $output) 
+    public function run(IOutput $output)
     {
         $version = $this->config->getAppValue('news', 'installed_version', '0.0.0');
         if (version_compare($version, '11.0.6', '>=')) {

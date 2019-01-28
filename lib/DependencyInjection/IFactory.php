@@ -22,5 +22,4 @@ interface IFactory
      * @return mixed the constructed object
      */
     public function build();
-    
 }

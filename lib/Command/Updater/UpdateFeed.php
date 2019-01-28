@@ -20,18 +20,17 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use OCA\News\Service\FeedService;
 
-
 class UpdateFeed extends Command
 {
     private $feedService;
 
-    public function __construct(FeedService $feedService) 
+    public function __construct(FeedService $feedService)
     {
         parent::__construct();
         $this->feedService = $feedService;
     }
 
-    protected function configure() 
+    protected function configure()
     {
         $this->setName('news:updater:update-feed')
             ->addArgument(
@@ -47,7 +46,7 @@ class UpdateFeed extends Command
             ->setDescription('Console API for updating a single user\'s feed');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) 
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $feedId = $input->getArgument('feed-id');
         $userId = $input->getArgument('user-id');
@@ -61,5 +60,4 @@ class UpdateFeed extends Command
             );
         }
     }
-
 }

@@ -17,7 +17,6 @@ use OCP\AppFramework\Db\Entity;
 
 class Feed extends Entity implements IAPI, \JsonSerializable
 {
-
     use EntityJSONSerializer;
 
     /** @var string */

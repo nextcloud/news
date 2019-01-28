@@ -26,6 +26,4 @@ class DependencyException extends \Exception
     {
         parent::__construct($msg);
     }
-
-
 }
