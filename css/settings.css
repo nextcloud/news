@@ -66,5 +66,5 @@
 }
 
 #app-settings .disabled {
-    color: #aaa;
+    color: var(--color-text-lighter);
 }

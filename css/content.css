@@ -386,13 +386,13 @@
 
     #app-content .article-actions:after {
     	border-color: rgba(255, 255, 255, 0);
-    	border-bottom-color: #fff;
+    	border-bottom-color: var(--color-border);
     	border-width: 5px;
     	margin-left: -5px;
     }
     #app-content .article-actions:before {
     	border-color: rgba(255, 255, 255, 0);
-    	border-bottom-color: #fff;
+    	border-bottom-color: var(--color-border);
     	border-width: 9px;
     	margin-left: -9px;
     }
