@@ -311,7 +311,8 @@ class FeedServiceTest extends TestCase
                 $this->equalTo('http://test'),
                 $this->equalTo(false),
                 $this->equalTo(3),
-                $this->equalTo(4)
+                $this->equalTo(''),
+                $this->equalTo('')
             )
             ->will($this->returnValue($fetchReturn));
         $this->feedMapper->expects($this->at(1))
@@ -377,7 +378,8 @@ class FeedServiceTest extends TestCase
                 $this->equalTo('http://test'),
                 $this->equalTo(false),
                 $this->equalTo(3),
-                $this->equalTo(4)
+                $this->equalTo(''),
+                $this->equalTo('')
             )
             ->will($this->returnValue($fetchReturn));
         $this->feedMapper->expects($this->at(1))
@@ -635,7 +637,6 @@ class FeedServiceTest extends TestCase
         $feed = new Feed();
         $feed->setId(3);
         $feed->setUrl('https://goo.com');
-        $feed->setHttpEtag('abc');
         $feed->setHttpLastModified(123);
         $feed->setFullTextEnabled(true);
 
@@ -654,9 +655,7 @@ class FeedServiceTest extends TestCase
             ->with(
                 $this->equalTo($feed->getUrl()),
                 $this->equalTo(false),
-                $this->equalTo($feed->getHttpLastModified()),
-                $this->equalTo($feed->getHttpEtag()),
-                $this->equalTo($feed->getFullTextEnabled())
+                $this->equalTo($feed->getHttpLastModified())
             )
             ->will($this->throwException($ex));
 

@@ -58,8 +58,8 @@ class FeedService extends Service
         $this->logger = $logger;
         $this->l10n = $l10n;
         $this->timeFactory = $timeFactory;
-        $this->autoPurgeMinimumInterval =
-            $config->getAutoPurgeMinimumInterval();
+        $this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval(
+        );
         $this->purifier = $purifier;
         $this->feedMapper = $feedMapper;
         $this->loggerParams = $LoggerParameters;
@@ -69,6 +69,7 @@ class FeedService extends Service
      * Finds all feeds of a user
      *
      * @param  string $userId the name of the user
+     *
      * @return Feed[]
      */
     public function findAll($userId)
@@ -96,9 +97,10 @@ class FeedService extends Service
      *                                   folder
      * @param  string $userId            for which user the feed should be created
      * @param  string $title             if given, this is used for the opml feed title
-     * @param  string $basicAuthUser     if given, basic auth is set for this feed
-     * @param  string $basicAuthPassword if given, basic auth is set for this
+     * @param  string $user              if given, basic auth is set for this feed
+     * @param  string $password          if given, basic auth is set for this
      *                                   feed. Ignored if user is null or an empty string
+     *
      * @throws ServiceConflictException if the feed exists already
      * @throws ServiceNotFoundException if the url points to an invalid feed
      * @return Feed the newly created feed
@@ -108,23 +110,21 @@ class FeedService extends Service
         $folderId,
         $userId,
         $title = null,
-        $basicAuthUser = null,
-        $basicAuthPassword = null
+        $user = null,
+        $password = null
     ) {
         // first try if the feed exists already
         try {
             /**
-             * @var Feed $feed
+             * @var Feed   $feed
              * @var Item[] $items
              */
             list($feed, $items) = $this->feedFetcher->fetch(
                 $feedUrl,
                 true,
                 null,
-                null,
-                false,
-                $basicAuthUser,
-                $basicAuthPassword
+                $user,
+                $password
             );
 
             // try again if feed exists depending on the reported link
@@ -140,8 +140,8 @@ class FeedService extends Service
 
             // insert feed
             $itemCount = count($items);
-            $feed->setBasicAuthUser($basicAuthUser);
-            $feed->setBasicAuthPassword($basicAuthPassword);
+            $feed->setBasicAuthUser($user);
+            $feed->setBasicAuthPassword($password);
             $feed->setFolderId($folderId);
             $feed->setUserId($userId);
             $feed->setArticlesPerUpdate($itemCount);
@@ -213,6 +213,7 @@ class FeedService extends Service
      * @param  int    $feedId      the id of the feed that should be updated
      * @param  string $userId      the id of the user
      * @param  bool   $forceUpdate update even if the article exists already
+     *
      * @throws ServiceNotFoundException if the feed does not exist
      * @return Feed the updated feed entity
      */
@@ -237,8 +238,6 @@ class FeedService extends Service
                 $location,
                 false,
                 $existingFeed->getHttpLastModified(),
-                $existingFeed->getHttpEtag(),
-                $existingFeed->getFullTextEnabled(),
                 $existingFeed->getBasicAuthUser(),
                 $existingFeed->getBasicAuthPassword()
             );
@@ -332,6 +331,7 @@ class FeedService extends Service
      *
      * @param  array  $json   the array with json
      * @param  string $userId the username
+     *
      * @return Feed if one had to be created for nonexistent feeds
      */
     public function importArticles($json, $userId)
@@ -406,6 +406,7 @@ class FeedService extends Service
      *
      * @param  int    $feedId the id of the feed that should be deleted
      * @param  string $userId the name of the user for security reasons
+     *
      * @throws ServiceNotFoundException when feed does not exist
      */
     public function markDeleted($feedId, $userId)
@@ -421,6 +422,7 @@ class FeedService extends Service
      *
      * @param  int    $feedId the id of the feed that should be restored
      * @param  string $userId the name of the user for security reasons
+     *
      * @throws ServiceNotFoundException when feed does not exist
      */
     public function unmarkDeleted($feedId, $userId)
@@ -471,13 +473,14 @@ class FeedService extends Service
      * @param $feedId
      * @param $userId
      * @param $diff an array containing the fields to update, e.g.:
-     *  [
-     *      'ordering' => 1,
-     *      'fullTextEnabled' => true,
-     *      'pinned' => true,
-     *      'updateMode' => 0,
-     *      'title' => 'title'
-     * ]
+     *              [
+     *              'ordering' => 1,
+     *              'fullTextEnabled' => true,
+     *              'pinned' => true,
+     *              'updateMode' => 0,
+     *              'title' => 'title'
+     *              ]
+     *
      * @throws ServiceNotFoundException if feed does not exist
      */
     public function patch($feedId, $userId, $diff = [])

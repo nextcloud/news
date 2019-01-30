@@ -13,27 +13,46 @@
 
 namespace OCA\News\AppInfo;
 
+use Closure;
+use FeedIo\FeedIo;
 use HTMLPurifier;
 use HTMLPurifier_Config;
+
+use OCA\News\Config\FetcherConfig;
+use OCA\News\Utility\PsrLogger;
+use OCP\BackgroundJob\IJobList;
+
+use OCP\IContainer;
+use OCP\INavigationManager;
+use OCP\IURLGenerator;
+use OCP\IConfig;
+use OCP\AppFramework\App;
+use OCP\Files\IRootFolder;
+use OCP\Files\Node;
+
+
+use OCA\News\Config\AppConfig;
 use OCA\News\Config\Config;
-use OCA\News\Db\ItemMapper;
 use OCA\News\Db\MapperFactory;
+use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
 use OCA\News\Utility\ProxyConfigParser;
-use OCP\AppFramework\App;
-use OCP\Files\IRootFolder;
-use OCP\Files\Node;
-use OCP\IConfig;
-use OCP\IContainer;
-use OCP\ILogger;
-use PicoFeed\Config\Config as PicoFeedConfig;
-use PicoFeed\Reader\Reader as PicoFeedReader;
 
+/**
+ * Class Application
+ *
+ * @package OCA\News\AppInfo
+ */
 class Application extends App
 {
 
+    /**
+     * Application constructor.
+     *
+     * @param array $urlParams Parameters
+     */
     public function __construct(array $urlParams = [])
     {
         parent::__construct('news', $urlParams);
@@ -55,6 +74,21 @@ class Application extends App
         // factories
         $container->registerService(ItemMapper::class, function (IContainer $c) {
             return $c->query(MapperFactory::class)->build();
+        });
+
+
+        /**
+         * App config parser.
+         */
+        $container->registerService(AppConfig::class, function (IContainer $c) {
+            $config = new AppConfig(
+                $c->query(INavigationManager::class),
+                $c->query(IURLGenerator::class),
+                $c->query(IJobList::class)
+            );
+
+            $config->loadConfig($c->query('info'));
+            return $config;
         });
 
         /**
@@ -79,10 +113,21 @@ class Application extends App
             }
         });
 
+        /**
+         * Logger base
+         */
+        $container->registerService(PsrLogger::class, function (IContainer $c) {
+            return new PsrLogger(
+                $c->query('ServerContainer')->getLogger(),
+                $c->query('AppName')
+            );
+        });
+
+
         $container->registerService(Config::class, function (IContainer $c): Config {
             $config = new Config(
                 $c->query('ConfigView'),
-                $c->query(ILogger::class),
+                $c->query(PsrLogger::class),
                 $c->query('LoggerParameters')
             );
             $config->read($c->query('configFile'), true);
@@ -115,55 +160,33 @@ class Application extends App
         /**
          * Fetchers
          */
-        $container->registerService(PicoFeedConfig::class, function (IContainer $c): PicoFeedConfig {
+        $container->registerService(FetcherConfig::class, function (IContainer $c) {
             // FIXME: move this into a separate class for testing?
             $config = $c->query(Config::class);
-            $proxy = $c->query(ProxyConfigParser::class);
+            $proxy  = $c->query(ProxyConfigParser::class);
 
-            $userAgent = 'NextCloud-News/1.0';
+            $fConfig = new FetcherConfig();
+            $fConfig->setClientTimeout($config->getFeedFetcherTimeout());
+            $fConfig->setProxy($proxy);
 
-            $pico = new PicoFeedConfig();
-            $pico->setClientUserAgent($userAgent)
-                ->setClientTimeout($config->getFeedFetcherTimeout())
-                ->setMaxRedirections($config->getMaxRedirects())
-                ->setMaxBodySize($config->getMaxSize())
-                ->setParserHashAlgo('md5');
-
-            // proxy settings
-            $proxySettings = $proxy->parse();
-            $host = $proxySettings['host'];
-            $port = $proxySettings['port'];
-            $user = $proxySettings['user'];
-            $password = $proxySettings['password'];
-
-            if ($host) {
-                $pico->setProxyHostname($host);
-
-                if ($port) {
-                    $pico->setProxyPort($port);
-                }
-            }
-
-            if ($user) {
-                $pico->setProxyUsername($user)
-                    ->setProxyPassword($password);
-            }
-
-            return $pico;
+            return $fConfig;
         });
 
-        $container->registerService(PicoFeedReader::class, function (IContainer $c): PicoFeedReader {
-            return new PicoFeedReader($c->query(PicoFeedConfig::class));
+        $container->registerService(FeedIo::class, function (IContainer $c) {
+            $config = $c->query(FetcherConfig::class);
+            return new FeedIo($config->getClient(), $c->query(PsrLogger::class));
         });
 
-        $container->registerService(Fetcher::class, function (IContainer $c): Fetcher {
+        /**
+         * @noinspection PhpParamsInspection
+         */
+        $container->registerService(Fetcher::class, function (IContainer $c) {
             $fetcher = new Fetcher();
 
             // register fetchers in order, the most generic fetcher should be
             // the last one
             $fetcher->registerFetcher($c->query(YoutubeFetcher::class));
             $fetcher->registerFetcher($c->query(FeedFetcher::class));
-
             return $fetcher;
         });
     }
