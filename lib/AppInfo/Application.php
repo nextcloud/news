@@ -72,7 +72,7 @@ class Application extends App
         $container->registerParameter('configFile', 'config.ini');
 
         // factories
-        $container->registerService(ItemMapper::class, function (IContainer $c) {
+        $container->registerService(ItemMapper::class, function (IContainer $c): ItemMapper {
             return $c->query(MapperFactory::class)->build();
         });
 
@@ -80,7 +80,7 @@ class Application extends App
         /**
          * App config parser.
          */
-        $container->registerService(AppConfig::class, function (IContainer $c) {
+        $container->registerService(AppConfig::class, function (IContainer $c): AppConfig {
             $config = new AppConfig(
                 $c->query(INavigationManager::class),
                 $c->query(IURLGenerator::class),
@@ -116,7 +116,7 @@ class Application extends App
         /**
          * Logger base
          */
-        $container->registerService(PsrLogger::class, function (IContainer $c) {
+        $container->registerService(PsrLogger::class, function (IContainer $c): PsrLogger {
             return new PsrLogger(
                 $c->query('ServerContainer')->getLogger(),
                 $c->query('AppName')
@@ -160,7 +160,7 @@ class Application extends App
         /**
          * Fetchers
          */
-        $container->registerService(FetcherConfig::class, function (IContainer $c) {
+        $container->registerService(FetcherConfig::class, function (IContainer $c): FetcherConfig {
             // FIXME: move this into a separate class for testing?
             $config = $c->query(Config::class);
             $proxy  = $c->query(ProxyConfigParser::class);
@@ -172,7 +172,7 @@ class Application extends App
             return $fConfig;
         });
 
-        $container->registerService(FeedIo::class, function (IContainer $c) {
+        $container->registerService(FeedIo::class, function (IContainer $c): FeedIo {
             $config = $c->query(FetcherConfig::class);
             return new FeedIo($config->getClient(), $c->query(PsrLogger::class));
         });
@@ -180,7 +180,7 @@ class Application extends App
         /**
          * @noinspection PhpParamsInspection
          */
-        $container->registerService(Fetcher::class, function (IContainer $c) {
+        $container->registerService(Fetcher::class, function (IContainer $c): Fetcher {
             $fetcher = new Fetcher();
 
             // register fetchers in order, the most generic fetcher should be

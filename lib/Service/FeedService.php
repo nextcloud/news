@@ -105,37 +105,24 @@ class FeedService extends Service
      * @throws ServiceNotFoundException if the url points to an invalid feed
      * @return Feed the newly created feed
      */
-    public function create(
-        $feedUrl,
-        $folderId,
-        $userId,
-        $title = null,
-        $user = null,
-        $password = null
-    ) {
+    public function create($feedUrl, $folderId, $userId, $title = null, $user = null, $password = null)
+    {
         // first try if the feed exists already
         try {
             /**
              * @var Feed   $feed
              * @var Item[] $items
              */
-            list($feed, $items) = $this->feedFetcher->fetch(
-                $feedUrl,
-                true,
-                null,
-                $user,
-                $password
-            );
-
+            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, null, $user, $password);
             // try again if feed exists depending on the reported link
             try {
-                $this->feedMapper->findByUrlHash($feed->getUrlHash(), $userId);
+                $hash = $feed->getUrlHash();
+                $this->feedMapper->findByUrlHash($hash, $userId);
                 throw new ServiceConflictException(
                     $this->l10n->t('Can not add feed: Exists already')
                 );
-
-                // If no matching feed was found everything was ok
             } catch (DoesNotExistException $ex) {
+                // If no matching feed was found everything was ok
             }
 
             // insert feed
@@ -146,7 +133,7 @@ class FeedService extends Service
             $feed->setUserId($userId);
             $feed->setArticlesPerUpdate($itemCount);
 
-            if ($title !== null && $title !== '') {
+            if (!empty($title)) {
                 $feed->setTitle($title);
             }
 
@@ -155,8 +142,7 @@ class FeedService extends Service
             // insert items in reverse order because the first one is usually
             // the newest item
             $unreadCount = 0;
-            for ($i = $itemCount - 1; $i >= 0; $i--) {
-                $item = $items[$i];
+            foreach (array_reverse($items) as $item) {
                 $item->setFeedId($feed->getId());
 
                 // check if item exists (guidhash is the same)

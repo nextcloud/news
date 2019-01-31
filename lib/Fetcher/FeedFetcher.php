@@ -18,7 +18,6 @@ use Favicon\Favicon;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
-use OCP\Http\Client\IClientService;
 
 use OCP\IL10N;
 
@@ -33,20 +32,13 @@ class FeedFetcher implements IFeedFetcher
     private $reader;
     private $l10n;
     private $time;
-    private $clientService;
 
-    public function __construct(
-        FeedIo $fetcher,
-        Favicon $favicon,
-        IL10N $l10n,
-        Time $time,
-        IClientService $clientService
-    ) {
-        $this->faviconFactory = $favicon;
+    public function __construct(FeedIo $fetcher, Favicon $favicon, IL10N $l10n, Time $time)
+    {
         $this->reader         = $fetcher;
-        $this->time           = $time;
+        $this->faviconFactory = $favicon;
         $this->l10n           = $l10n;
-        $this->clientService  = $clientService;
+        $this->time           = $time;
     }
 
 
@@ -57,7 +49,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return bool
      */
-    public function canHandle($url)
+    public function canHandle($url): bool
     {
         return true;
     }
@@ -79,7 +71,7 @@ class FeedFetcher implements IFeedFetcher
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    public function fetch($url, $getFavicon = true, $lastModified = null, $user = null, $password = null)
+    public function fetch(string $url, $getFavicon = true, $lastModified = null, $user = null, $password = null): array
     {
         if ($user !== null && trim($user) !== '') {
             $url = explode('://', $url);
@@ -88,7 +80,7 @@ class FeedFetcher implements IFeedFetcher
         $resource = $this->reader->readSince($url, new DateTime($lastModified));
 
         if (!$resource->getResponse()->isModified()) {
-            return [null, null];
+            throw new FetcherException('Feed was not modified since last fetch');
         }
 
         $location     = $resource->getUrl();
@@ -115,7 +107,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return string
      */
-    private function decodeTwice($string)
+    private function decodeTwice($string): string
     {
         return html_entity_decode(
             html_entity_decode(
@@ -135,7 +127,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return bool
      */
-    protected function determineRtl($parsedFeed)
+    protected function determineRtl(FeedInterface $parsedFeed): bool
     {
         $language = $parsedFeed->getLanguage();
 
@@ -166,7 +158,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return Item
      */
-    protected function buildItem($parsedItem, $parsedFeed)
+    protected function buildItem(ItemInterface $parsedItem, FeedInterface $parsedFeed): Item
     {
         $item = new Item();
         $item->setUnread(true);
@@ -223,12 +215,12 @@ class FeedFetcher implements IFeedFetcher
      *
      * @param FeedInterface $feed       Feed to build from
      * @param string        $url        URL to use
-     * @param bool          $getFavicon To get the favicon
+     * @param boolean       $getFavicon To get the favicon
      * @param string        $location   String base URL
      *
      * @return Feed
      */
-    protected function buildFeed($feed, $url, $getFavicon, $location)
+    protected function buildFeed(FeedInterface $feed, string $url, boolean $getFavicon, string $location): Feed
     {
         $newFeed = new Feed();
 

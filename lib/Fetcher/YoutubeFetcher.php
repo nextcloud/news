@@ -39,7 +39,7 @@ class YoutubeFetcher implements IFeedFetcher
     /**
      * This fetcher handles all the remaining urls therefore always returns true
      */
-    public function canHandle($url)
+    public function canHandle($url): bool
     {
         return $this->buildUrl($url) !== $url;
     }
@@ -59,8 +59,7 @@ class YoutubeFetcher implements IFeedFetcher
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    public function fetch($url, $getFavicon = true, $lastModified = null, $user = null, $password = null
-    )
+    public function fetch($url, $getFavicon = true, $lastModified = null, $user = null, $password = null): array
     {
         $transformedUrl = $this->buildUrl($url);
 

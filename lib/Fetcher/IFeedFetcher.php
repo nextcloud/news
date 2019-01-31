@@ -30,7 +30,7 @@ interface IFeedFetcher
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    public function fetch($url, $getFavicon = true, $lastModified = null, $user = null, $password = null);
+    public function fetch($url, $getFavicon = true, $lastModified = null, $user = null, $password = null): array;
 
     /**
      * Can a fetcher handle a feed.
@@ -40,5 +40,5 @@ interface IFeedFetcher
      * @return boolean if the fetcher can handle the url. This fetcher will be
      * used exclusively to fetch the feed and the items of the page
      */
-    public function canHandle($url);
+    public function canHandle($url): bool;
 }
