@@ -58,20 +58,9 @@ class FeedFetcher implements IFeedFetcher
     /**
      * Fetch a feed from remote
      *
-     * @param string  $url          Remote url of the feed
-     * @param boolean $getFavicon   If the favicon should also be fetched,
-     *                              defaults to true
-     * @param string  $lastModified A last modified value from an http header
-     *                              defaults to false. If lastModified matches
-     *                              the header from the feed no results are fetched
-     * @param string  $user         If given, basic auth is set for this feed
-     * @param string  $password     If given, basic auth is set for this feed.
-     *                              Ignored if user is null or an empty string.
-     *
-     * @return array an array containing the new feed and its items, first
-     * element being the Feed and second element being an array of Items
+     * @inheritdoc
      */
-    public function fetch(string $url, $getFavicon = true, $lastModified = null, $user = null, $password = null): array
+    public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
     {
         if ($user !== null && trim($user) !== '') {
             $url = explode('://', $url);
@@ -88,7 +77,7 @@ class FeedFetcher implements IFeedFetcher
         $feed = $this->buildFeed(
             $parsedFeed,
             $url,
-            $getFavicon,
+            $favicon,
             $location
         );
 
@@ -220,7 +209,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return Feed
      */
-    protected function buildFeed(FeedInterface $feed, string $url, boolean $getFavicon, string $location): Feed
+    protected function buildFeed(FeedInterface $feed, string $url, bool $getFavicon, string $location): Feed
     {
         $newFeed = new Feed();
 
