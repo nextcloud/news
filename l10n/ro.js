@@ -1,9 +1,12 @@
 OC.L10N.register(
     "news",
     {
+    "Request failed, network connection unavailable!" : "Solecitare nereușită, conexiune la rețeă indisponibilă!",
     "Request unauthorized. Are you logged in?" : "Cerere neautorizată. Ești autentificat ?",
     "Request forbidden. Are you an admin?" : "Cerere interzisă. Ești un administrator ?",
     "Token expired or app not enabled! Reload the page!" : "Token expirat sau aplicatie inactivă. Reîncarcă pagina!",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Eroare server internă! Controlați fișierul data/nextcloud.log pentru mai multe informații!",
+    "Request failed, Nextcloud is in currently in maintenance mode!" : "Solecitare nereușită, Nexcloud este în întreţinere!",
     "Feed contains invalid XML" : "Fluxul conține XML invalid",
     "Website not found" : "Websiteul nu a fost găsit",
     "Bigger than maximum allowed size" : "Mai mare decât mărimea maximă permisă",
@@ -14,6 +17,7 @@ OC.L10N.register(
     "Can not add feed: Exists already" : "Nu pot adăuga fluxul: Deja există!",
     "Articles without feed" : "Articole fără flux",
     "Can not add folder: Exists already" : "Nu se poate adăuga directorul : Există deja",
+    "News" : "Noutăți",
     "Saved" : "Salvat",
     "Download" : "Descarcă",
     "Close" : "Închide",
