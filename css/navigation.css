@@ -39,7 +39,7 @@
 #app-navigation .add-new-popup {
     display: none;
     padding: 10px;
-    box-shadow: inset 0px 0px 10px var(--color-box-shadow);
+    width: 100%;
     border-top: 1px solid var(--color-border-dark);
     border-bottom: 1px solid var(--color-border-dark);
 }
@@ -132,8 +132,8 @@
  */
 #app-navigation .error-message {
     padding: 15px;
-    background-color: var(--color-error);
-    color: #fff;
+    background-color: var(--color-main-background);
+    color: var(--color-error);
     position: relative;
     overflow-y: auto;
 }

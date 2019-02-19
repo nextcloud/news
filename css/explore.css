@@ -55,8 +55,8 @@
 #explore .category {
 	font-weight: normal;
 	font-size: 10pt;
-	color: #fff;
-	background-color: #0082c9;
+	color: var(--color-primary-text);
+	background-color: var(--color-primary);
 	padding: 10px;
 	font-weight: bold;
 }
