@@ -2,7 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Request failed, network connection unavailable!" : "Неуспешна заявка, няма налична мрежова връзка!",
-    "Request unauthorized. Are you logged in?" : "Неавторизирана заявка. Влезли ли сте?",
+    "Request unauthorized. Are you logged in?" : "Заявката не е упълномощена. Вписан ли сте?",
     "Request forbidden. Are you an admin?" : "Достъп е отказан. Администратор ли сте?",
     "Token expired or app not enabled! Reload the page!" : "Изтекла парола или приложението не е активирано! Презаредете страницата!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Вътрешно сървърна грешка! За допълнителна информация проверете файла data/nextcloud.log !",
