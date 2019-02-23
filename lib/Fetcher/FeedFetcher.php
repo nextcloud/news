@@ -19,6 +19,7 @@ use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 
+use OCA\News\Utility\PsrLogger;
 use OCP\IL10N;
 
 use OCA\News\Db\Item;
@@ -32,13 +33,15 @@ class FeedFetcher implements IFeedFetcher
     private $reader;
     private $l10n;
     private $time;
+    private $logger;
 
-    public function __construct(FeedIo $fetcher, Favicon $favicon, IL10N $l10n, Time $time)
+    public function __construct(FeedIo $fetcher, Favicon $favicon, IL10N $l10n, Time $time, PsrLogger $logger)
     {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
         $this->l10n           = $l10n;
         $this->time           = $time;
+        $this->logger         = $logger;
     }
 
 
@@ -62,14 +65,24 @@ class FeedFetcher implements IFeedFetcher
      */
     public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
     {
-        if ($user !== null && trim($user) !== '') {
+        if (!empty($user) && !empty(trim($user))) {
             $url = explode('://', $url);
             $url = $url[0] . '://' . $user . ':' . $password . '@' . $url[1];
         }
-        $resource = $this->reader->readSince($url, new DateTime($lastModified));
+        if (is_null($lastModified) || !is_string($lastModified)) {
+            $resource = $this->reader->read($url);
+        } else {
+            $resource = $this->reader->readSince($url, new DateTime($lastModified));
+        }
 
-        if (!$resource->getResponse()->isModified()) {
-            throw new FetcherException('Feed was not modified since last fetch');
+        $response = $resource->getResponse();
+        if (!$response->isModified()) {
+            $this->logger->debug('Feed {url} was not modified since last fetch. old: {old}, new: {new}', [
+                 'url' => $url,
+                 'old' => print_r($lastModified, true),
+                 'new' => print_r($response->getLastModified(), true),
+            ]);
+            return [null, []];
         }
 
         $location     = $resource->getUrl();
@@ -82,6 +95,7 @@ class FeedFetcher implements IFeedFetcher
         );
 
         $items = [];
+        $this->logger->debug('Feed ' . $url . ' was modified since last fetch. #' . count($parsedFeed) .  ' items');
         foreach ($parsedFeed as $item) {
             $items[] = $this->buildItem($item, $parsedFeed);
         }
@@ -153,26 +167,32 @@ class FeedFetcher implements IFeedFetcher
         $item->setUnread(true);
         $item->setUrl($parsedItem->getLink());
         $item->setGuid($parsedItem->getPublicId());
-        $item->setGuidHash($item->getGuid());
+        $item->setGuidHash(md5($item->getGuid()));
 
-        $pubDT = $parsedItem->getLastModified();
+        $lastmodified = $parsedItem->getLastModified() ?? new \DateTime();
         if ($parsedItem->getValue('pubDate') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('pubDate'));
         } elseif ($parsedItem->getValue('published') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('published'));
+        } else {
+            $pubDT = $lastmodified;
         }
 
         $item->setPubDate(
             $pubDT->getTimestamp()
         );
+
         $item->setLastModified(
-            $parsedItem->getLastModified()->getTimestamp()
+            $lastmodified->getTimestamp()
         );
         $item->setRtl($this->determineRtl($parsedFeed));
 
         // unescape content because angularjs helps against XSS
         $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
-        $item->setAuthor($this->decodeTwice($parsedItem->getAuthor()));
+        $author = $parsedItem->getAuthor();
+        if (!is_null($author)) {
+            $item->setAuthor($this->decodeTwice($author->getName()));
+        }
 
         // purification is done in the service layer
         $body = $parsedItem->getDescription();
@@ -196,6 +216,11 @@ class FeedFetcher implements IFeedFetcher
 
         $item->generateSearchIndex();
 
+        $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
+            'title' => $item->getTitle(),
+            'feed'  => $parsedFeed->getTitle(),
+            'datetime'  => $item->getLastModified(),
+        ]);
         return $item;
     }
 
@@ -219,7 +244,8 @@ class FeedFetcher implements IFeedFetcher
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
-        $newFeed->setLastModified($feed->getLastModified()->getTimestamp());
+        $lastmodified = $feed->getLastModified() ?? new DateTime();
+        $newFeed->setLastModified($lastmodified->getTimestamp());
         $newFeed->setAdded($this->time->getTime());
 
         if (!$getFavicon) {
