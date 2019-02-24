@@ -7,8 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.config(
-    function ($routeProvider, $provide, $httpProvider, $locationProvider) {
+app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider) {
     'use strict';
 
     var feedType = {
@@ -58,25 +57,30 @@ app.config(
         403: t('news', 'Request forbidden. Are you an admin?'),
         412: t('news', 'Token expired or app not enabled! Reload the page!'),
         500: t('news', 'Internal server error! Please check your ' +
-                       'data/nextcloud.log file for additional ' +
-                       'information!'),
+            'data/nextcloud.log file for additional ' +
+            'information!'),
         503: t('news', 'Request failed, Nextcloud is in currently ' +
-                       'in maintenance mode!')
+            'in maintenance mode!')
     };
     $provide.factory('ConnectionErrorInterceptor', function ($q, $timeout) {
         var timer;
         return {
             responseError: function (response) {
                 // status 0 is a network error
-                if (response.status in errorMessages) {
-                    if (timer) {
-                        $timeout.cancel(timer);
-                    }
-                    OC.Notification.hide();
+                function sendNotification() {
                     OC.Notification.showHtml(errorMessages[response.status]);
                     timer = $timeout(function () {
                         OC.Notification.hide();
                     }, 5000);
+                }
+                if (response.status in errorMessages) {
+                    if (timer) {
+                        timer.then(function (){
+                            sendNotification();
+                        });
+                    } else {
+                        sendNotification();
+                    }
                 }
                 return $q.reject(response);
             }
@@ -90,8 +94,8 @@ app.config(
         return {
             // request to items also returns feeds
             data: /* @ngInject */ function (
-            $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
-            SettingsResource, FeedResource) {
+                $http, $route, $q, $location, BASE_URL, ITEM_BATCH_SIZE, FEED_TYPE,
+                SettingsResource, FeedResource) {
 
                 var showAll = SettingsResource.get('showAll');
                 var oldestFirst = SettingsResource.get('oldestFirst');
@@ -129,7 +133,7 @@ app.config(
                     }
 
                     return $http({
-                        url:  BASE_URL + '/items',
+                        url: BASE_URL + '/items',
                         method: 'GET',
                         params: parameters
                     }).then(function (response) {
@@ -143,7 +147,7 @@ app.config(
     var getExploreResolve = function () {
         return {
             sites: /* @ngInject */ function (
-            $http, $q, BASE_URL, $location, Publisher, SettingsResource) {
+                $http, $q, BASE_URL, $location, Publisher, SettingsResource) {
                 // always use the code from the url
                 var language = $location.search().lang;
                 if (!language) {
@@ -198,13 +202,13 @@ app.config(
             resolve: getItemResolve(feedType.FOLDER),
             type: feedType.FOLDER
         }).when('/explore', {
-            controller: 'ExploreController as Explore',
-            templateUrl: 'explore.html',
-            resolve: getExploreResolve(),
-            type: feedType.EXPLORE
-        }).when('/shortcuts', {
-            templateUrl: 'shortcuts.html',
-            type: -1
-        });
+        controller: 'ExploreController as Explore',
+        templateUrl: 'explore.html',
+        resolve: getExploreResolve(),
+        type: feedType.EXPLORE
+    }).when('/shortcuts', {
+        templateUrl: 'shortcuts.html',
+        type: -1
+    });
 
 });

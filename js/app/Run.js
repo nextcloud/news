@@ -7,9 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
-         ItemResource, FeedResource, FolderResource, SettingsResource,
-          Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
+app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, ItemResource, FeedResource,
+                  FolderResource, SettingsResource, Publisher, BASE_URL, FEED_TYPE, REFRESH_RATE) {
     'use strict';
 
     // show Loading screen
@@ -18,53 +17,50 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
     Publisher.subscribe(ItemResource).toChannels(['items', 'newestItemId',
-                                                  'starred']);
+        'starred']);
     Publisher.subscribe(FolderResource).toChannels(['folders']);
     Publisher.subscribe(FeedResource).toChannels(['feeds']);
     Publisher.subscribe(SettingsResource).toChannels(['settings']);
 
     // load feeds, settings and last read feed
-    var settingsPromise = $http.get(BASE_URL + '/settings').then(
-        function (response) {
-            Publisher.publishAll(response.data);
-            return response.data;
+    var settingsPromise = $http.get(BASE_URL + '/settings').then(function (response) {
+        Publisher.publishAll(response.data);
+        return response.data;
     });
 
     var path = $location.path();
     var activeFeedPromise = $http.get(BASE_URL + '/feeds/active')
         .then(function (response) {
-        var url;
+            var url;
+            switch (response.data.activeFeed.type) {
+                case FEED_TYPE.FEED:
+                    url = '/items/feeds/' + response.data.activeFeed.id;
+                    break;
 
-        switch (response.data.activeFeed.type) {
+                case FEED_TYPE.FOLDER:
+                    url = '/items/folders/' + response.data.activeFeed.id;
+                    break;
 
-        case FEED_TYPE.FEED:
-            url = '/items/feeds/' + response.data.activeFeed.id;
-            break;
+                case FEED_TYPE.STARRED:
+                    url = '/items/starred';
+                    break;
 
-        case FEED_TYPE.FOLDER:
-            url = '/items/folders/' + response.data.activeFeed.id;
-            break;
+                case FEED_TYPE.EXPLORE:
+                    url = '/explore';
+                    break;
 
-        case FEED_TYPE.STARRED:
-            url = '/items/starred';
-            break;
+                default:
+                    url = '/items';
+            }
 
-        case FEED_TYPE.EXPLORE:
-            url = '/explore';
-            break;
+            // only redirect if url is empty or faulty
+            if (!/^\/items(\/(starred|explore|feeds\/\d+|folders\/\d+))?\/?$/
+                .test(path)) {
+                $location.path(url);
+            }
 
-        default:
-            url = '/items';
-        }
-
-        // only redirect if url is empty or faulty
-        if (!/^\/items(\/(starred|explore|feeds\/\d+|folders\/\d+))?\/?$/
-            .test(path)) {
-            $location.path(url);
-        }
-
-        return response.data;
-    });
+            return response.data;
+        });
 
     var feeds;
     var feedPromise = $http.get(BASE_URL + '/feeds').then(function (response) {
@@ -74,10 +70,10 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading,
 
     var folders;
     var folderPromise = $http.get(BASE_URL + '/folders')
-    .then(function (response) {
-        folders = response.data;
-        return folders;
-    });
+        .then(function (response) {
+            folders = response.data;
+            return folders;
+        });
 
     $q.all([
         feedPromise,

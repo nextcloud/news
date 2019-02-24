@@ -55,7 +55,7 @@ app.factory('Resource', function () {
     Resource.prototype.delete = function (id) {
         // find index of object that should be deleted
         var self = this;
-        var deleteAtIndex = this.values.findIndex(function(element) {
+        var deleteAtIndex = this.values.findIndex(function (element) {
             return element[self.id] === id;
         });
 

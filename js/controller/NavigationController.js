@@ -7,9 +7,8 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('NavigationController',
-function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
-    SettingsResource, Publisher, $rootScope, $location, $q) {
+app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
+                                                 SettingsResource, Publisher, $rootScope, $location, $q) {
     'use strict';
 
     this.feedError = '';
@@ -84,7 +83,7 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
         return this.getFeedUnreadCount(feedId) > 0;
     };
 
-    this.getFolderUnreadCount= function (folderId) {
+    this.getFolderUnreadCount = function (folderId) {
         return FeedResource.getFolderUnreadCount(folderId);
     };
 
@@ -175,15 +174,11 @@ function ($route, FEED_TYPE, FeedResource, FolderResource, ItemResource,
             // is closed or has no unread articles
             existingFolder.getsFeed = true;
 
-            FeedResource.create(feed.url, existingFolder.id, undefined,
-                                feed.user, feed.password)
-            .then(function (data) {
-
+            FeedResource.create(feed.url, existingFolder.id, undefined, feed.user, feed.password).then(function (data) {
                 Publisher.publishAll(data);
 
                 // set folder as default
                 $location.path('/items/feeds/' + data.feeds[0].id + '/');
-
             }).finally(function () {
                 existingFolder.getsFeed = undefined;
                 feed.url = '';
