@@ -7,8 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('AppController',
-function (Loading, FeedResource, FolderResource) {
+app.controller('AppController', function (Loading, FeedResource, FolderResource) {
     'use strict';
 
     this.loading = Loading;

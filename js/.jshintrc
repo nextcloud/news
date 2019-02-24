@@ -19,7 +19,7 @@
     "strict": true,
     "maxparams": false,
     "maxdepth": 3,
-    "maxlen": 80,
+    "maxlen": 120,
     "browser": true,
     "devel": true,
     "jquery": true,

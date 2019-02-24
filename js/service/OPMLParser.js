@@ -43,7 +43,6 @@ app.service('OPMLParser', function () {
             if (entry.type === 'feed') {
                 root.feeds.push(entry);
             } else {
-
                 // only first level should append folders
                 if (firstLevel) {
                     recursivelyParse(outline.children('outline'), entry, false);
@@ -57,8 +56,8 @@ app.service('OPMLParser', function () {
         return root;
     };
 
-    this.parse = function (xml) {
-        xml = $.parseXML(xml);
+    this.parse = function (fileContent) {
+        var xml = $.parseXML(fileContent);
         var firstLevel = $(xml).find('body > outline');
 
         var root = {

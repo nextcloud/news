@@ -7,8 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.factory('ItemResource', function (Resource, $http, BASE_URL,
-                                      ITEM_BATCH_SIZE) {
+app.factory('ItemResource', function (Resource, $http, BASE_URL, ITEM_BATCH_SIZE) {
     'use strict';
 
     var ItemResource = function ($http, BASE_URL, ITEM_BATCH_SIZE) {
@@ -29,42 +28,41 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
 
     ItemResource.prototype.receive = function (value, channel) {
         switch (channel) {
+            case 'newestItemId':
+                this.newestItemId = value;
+                break;
 
-        case 'newestItemId':
-            this.newestItemId = value;
-            break;
+            case 'starred':
+                this.starredCount = value;
+                break;
 
-        case 'starred':
-            this.starredCount = value;
-            break;
+            default:
+                var self = this;
+                var importValues = [];
+                value.forEach(function (item) {
+                    // initialize lowest and highest id
+                    if (self.lowestId === 0) {
+                        self.lowestId = item.id;
+                    }
+                    if (self.highestId === 0) {
+                        self.highestId = item.id;
+                    }
 
-        default:
-            var self = this;
-            var importValues = [];
-            value.forEach(function (item) {
-                // initialize lowest and highest id
-                if (self.lowestId === 0) {
-                    self.lowestId = item.id;
-                }
-                if (self.highestId === 0) {
-                    self.highestId = item.id;
-                }
+                    if (item.id > self.highestId) {
+                        self.highestId = item.id;
+                    }
+                    if (item.id < self.lowestId) {
+                        self.lowestId = item.id;
+                    }
 
-                if (item.id > self.highestId) {
-                    self.highestId = item.id;
-                }
-                if (item.id < self.lowestId) {
-                    self.lowestId = item.id;
-                }
+                    // filter out duplicates
+                    if (self.fingerprints[item.fingerprint] === undefined) {
+                        self.fingerprints[item.fingerprint] = true;
+                        importValues.push(item);
+                    }
+                });
 
-                // filter out duplicates
-                if (self.fingerprints[item.fingerprint] === undefined) {
-                    self.fingerprints[item.fingerprint] = true;
-                    importValues.push(item);
-                }
-            });
-
-            Resource.prototype.receive.call(this, importValues, channel);
+                Resource.prototype.receive.call(this, importValues, channel);
         }
     };
 
@@ -135,7 +133,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
     ItemResource.prototype.markItemsRead = function (itemIds) {
         var self = this;
 
-        itemIds.forEach(function(itemId) {
+        itemIds.forEach(function (itemId) {
             self.get(itemId).unread = false;
         });
 
@@ -183,8 +181,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
     };
 
 
-    ItemResource.prototype.autoPage = function (type, id, oldestFirst,
-    showAll, search) {
+    ItemResource.prototype.autoPage = function (type, id, oldestFirst, showAll, search) {
         var offset;
 
         if (oldestFirst) {
@@ -216,7 +213,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL,
             data: {
                 json: json
             }
-        }).then(function(response) {
+        }).then(function (response) {
             return response.data;
         });
     };

@@ -163,8 +163,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.create = function (url, folderId, title, user,
-                                              password) {
+    FeedResource.prototype.create = function (url, folderId, title, user, password) {
         url = url.trim();
         if (!url.startsWith('http')) {
             url = 'https://' + url;
@@ -203,8 +202,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.reversiblyDelete = function (id, updateCache,
-                                                        isFolder) {
+    FeedResource.prototype.reversiblyDelete = function (id, updateCache, isFolder) {
         var feed = this.getById(id);
 
         // if a folder is deleted it does not have to trigger the delete
@@ -329,7 +327,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
         var feed = this.getById(feedId);
 
         if (feed) {
-            Object.keys(diff).forEach(function(key) {
+            Object.keys(diff).forEach(function (key) {
                 feed[key] = diff[key];
             });
             var url = this.BASE_URL + '/feeds/' + feedId;
