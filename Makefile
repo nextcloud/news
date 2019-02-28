@@ -41,10 +41,10 @@
 
 app_name:=$(notdir $(CURDIR))
 build_tools_directory:=$(CURDIR)/build/tools
-source_build_directory:=$(CURDIR)/build/source/news
+source_build_directory:=$(CURDIR)/build/source/$(app_name)
 source_artifact_directory:=$(CURDIR)/build/artifacts/source
 source_package_name:=$(source_artifact_directory)/$(app_name)
-appstore_build_directory:=$(CURDIR)/build/appstore/news
+appstore_build_directory:=$(CURDIR)/build/appstore/$(app_name)
 appstore_artifact_directory:=$(CURDIR)/build/artifacts/appstore
 appstore_package_name:=$(appstore_artifact_directory)/$(app_name)
 npm:=$(shell which npm 2> /dev/null)

@@ -29,7 +29,7 @@ class ConfigTest extends TestCase
 
     public function setUp() 
     {
-        $this->logger = $this->getMockBuilder(ILogger::class)
+        $this->logger = $this->getMockBuilder('OCA\News\Utility\PsrLogger')
             ->disableOriginalConstructor()
             ->getMock();
         $this->fileSystem = $this->getMockBuilder(Folder::class)->getMock();

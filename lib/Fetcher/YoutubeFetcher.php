@@ -39,7 +39,7 @@ class YoutubeFetcher implements IFeedFetcher
     /**
      * This fetcher handles all the remaining urls therefore always returns true
      */
-    public function canHandle($url)
+    public function canHandle($url): bool
     {
         return $this->buildUrl($url) !== $url;
     }
@@ -48,39 +48,18 @@ class YoutubeFetcher implements IFeedFetcher
     /**
      * Fetch a feed from remote
      *
-     * @param  string  $url               remote url of the feed
-     * @param  boolean $getFavicon        if the favicon should also be fetched, defaults to true
-     * @param  string  $lastModified      a last modified value from an http header defaults to false.
-     *                                    If lastModified matches the http header from the feed no results are fetched
-     * @param  string  $etag              an etag from an http header.
-     *                                    If lastModified matches the http header from the feed no results are fetched
-     * @param  bool    $fullTextEnabled   if true tells the fetcher to enhance the articles by fetching more content
-     * @param  string  $basicAuthUser     if given, basic auth is set for this feed
-     * @param  string  $basicAuthPassword if given, basic auth is set for this feed. Ignored if user is empty
-     *
-     * @throws FetcherException if it fails
-     * @return array an array containing the new feed and its items, first
-     * element being the Feed and second element being an array of Items
+     * @inheritdoc
      */
-    public function fetch(
-        $url,
-        $getFavicon = true,
-        $lastModified = null,
-        $etag = null,
-        $fullTextEnabled = false,
-        $basicAuthUser = null,
-        $basicAuthPassword = null
-    ) {
+    public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
+    {
         $transformedUrl = $this->buildUrl($url);
 
         $result = $this->feedFetcher->fetch(
             $transformedUrl,
-            $getFavicon,
+            $favicon,
             $lastModified,
-            $etag,
-            $fullTextEnabled,
-            $basicAuthUser,
-            $basicAuthPassword
+            $user,
+            $password
         );
 
         // reset feed url so we know the correct added url for the feed

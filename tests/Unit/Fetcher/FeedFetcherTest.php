@@ -13,13 +13,20 @@
 
 namespace OCA\News\Tests\Unit\Fetcher;
 
-use \OCA\News\Db\Item;
+use FeedIo\Feed\Item\Author;
+use FeedIo\Feed\Item\MediaInterface;
+use FeedIo\Feed\ItemInterface;
+use FeedIo\FeedInterface;
+use OC\L10N\L10N;
+use OCA\AdminAudit\Actions\Auth;
 use \OCA\News\Db\Feed;
+use \OCA\News\Db\Item;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Utility\PicoFeedFaviconFactory;
+use OCA\News\Utility\PsrLogger;
 use OCA\News\Utility\Time;
-use OCP\Http\Client\IClientService;
 use OCP\IL10N;
+
 use PHPUnit\Framework\TestCase;
 use PicoFeed\Client\Client;
 use PicoFeed\Parser\Parser;
@@ -27,120 +34,174 @@ use PicoFeed\Processor\ItemPostProcessor;
 use PicoFeed\Reader\Favicon;
 use PicoFeed\Reader\Reader;
 
-
+/**
+ * Class FeedFetcherTest
+ *
+ * @package OCA\News\Tests\Unit\Fetcher
+ */
 class FeedFetcherTest extends TestCase
 {
-
+    /**
+     * The class to test
+     *
+     * @var FeedFetcher
+     */
     private $fetcher;
-    private $parser;
+
+    /**
+     * Feed reader
+     *
+     * @var \FeedIo\FeedIo
+     */
     private $reader;
-    private $client;
-    private $faviconFetcher;
-    private $parsedFeed;
-    private $faviconFactory;
+
+    /**
+     * Feed reader result
+     *
+     * @var \FeedIo\Reader\Result
+     */
+    private $result;
+
+    /**
+     * Feed reader result object
+     *
+     * @var \FeedIo\Adapter\ResponseInterface
+     */
+    private $response;
+
+    /**
+     * @var \Favicon\Favicon
+     */
+    private $favicon;
+
+    /**
+     * @var L10N
+     */
     private $l10n;
-    private $url;
+
+    /**
+     * @var ItemInterface
+     */
+    private $item_mock;
+
+    /**
+     * @var FeedInterface
+     */
+    private $feed_mock;
+
+    /**
+     * @var PsrLogger
+     */
+    private $logger;
+
+    //metadata
+    /**
+     * @var integer
+     */
     private $time;
-    private $item;
-    private $content;
+
+    /**
+     * @var string
+     */
     private $encoding;
+
+    /**
+     * @var string
+     */
+    private $url;
 
     // items
     private $permalink;
     private $title;
     private $guid;
+    private $guid_hash;
     private $pub;
     private $updated;
     private $body;
+    /**
+     * @var Author
+     */
     private $author;
-    private $enclosureLink;
+    private $enclosure;
     private $rtl;
     private $language;
 
     // feed
-    private $feedTitle;
-    private $feedLink;
-    private $feedImage;
-    private $webFavicon;
+    private $feed_title;
+    private $feed_link;
+    private $feed_image;
+    private $web_favicon;
     private $modified;
-    private $etag;
     private $location;
-    private $feedLanguage;
 
     protected function setUp()
     {
-        $this->l10n = $this->getMockBuilder(IL10N::class)
+        $this->l10n     = $this->getMockBuilder(\OCP\IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->reader = $this->getMockBuilder(Reader::class)
+        $this->reader   = $this->getMockBuilder(\FeedIo\FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->parser = $this->getMockBuilder(Parser::class)
+        $this->favicon  = $this->getMockBuilder(\Favicon\Favicon::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->client = $this->getMockBuilder(Client::class)
+        $this->result   = $this->getMockBuilder(\FeedIo\Reader\Result::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->parsedFeed = $this->getMockBuilder(\PicoFeed\Parser\Feed::class)
+        $this->response = $this->getMockBuilder(\FeedIo\Adapter\ResponseInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->item = $this->getMockBuilder(\PicoFeed\Parser\Item::class)
+
+        $this->item_mock = $this->getMockBuilder(\FeedIo\Feed\ItemInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->faviconFetcher = $this->getMockBuilder(Favicon::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->faviconFactory = $this->getMockBuilder(PicoFeedFaviconFactory::class)
+
+        $this->feed_mock = $this->getMockBuilder(\FeedIo\FeedInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->time = 2323;
-        $timeFactory = $this->getMockBuilder(Time::class)
+        $timeFactory = $this->getMockBuilder(\OCA\News\Utility\Time::class)
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $postProcessor = $this->getMockBuilder(ItemPostProcessor::class)
-            ->getMock();
-        $this->parser->expects($this->any())
-            ->method('getItemPostProcessor')
-            ->will($this->returnValue($postProcessor));
-        $clientService = $this->getMockBuilder(IClientService::class)
+        $this->logger  = $this->getMockBuilder(PsrLogger::class)
+            ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = new FeedFetcher(
             $this->reader,
-            $this->faviconFactory,
+            $this->favicon,
             $this->l10n,
             $timeFactory,
-            $clientService
+            $this->logger
         );
-        $this->url = 'http://tests';
+        $this->url     = 'http://tests';
 
         $this->permalink = 'http://permalink';
-        $this->title = 'my&amp;lt;&apos; title';
-        $this->guid = 'hey guid here';
-        $this->body = 'let the bodies hit the floor <a href="test">test</a>';
-        $this->body2 = 'let the bodies hit the floor ' .
-            '<a target="_blank" href="test">test</a>';
-        $this->pub = 23111;
-        $this->updated = 23444;
-        $this->author = '&lt;boogieman';
-        $this->enclosureLink = 'http://enclosure.you';
+        $this->title     = 'my&amp;lt;&apos; title';
+        $this->guid      = 'hey guid here';
+        $this->guid_hash = 'df9a5f84e44bfe38cf44f6070d5b0250';
+        $this->body      = 'let the bodies hit the floor <a href="test">test</a>';
+        $this->pub       = 23111;
+        $this->updated   = 23444;
+        $this->author    = new Author();
+        $this->author->setName('&lt;boogieman');
+        $this->enclosure = 'http://enclosure.you';
 
-        $this->feedTitle = '&lt;a&gt;&amp;its a&lt;/a&gt; title';
-        $this->feedLink = 'http://goatse';
-        $this->feedImage = '/an/image';
-        $this->webFavicon = 'http://anon.google.com';
-        $this->authorMail = 'doe@joes.com';
-        $this->modified = 3;
-        $this->etag = 'yo';
-        $this->content = 'some content';
-        $this->encoding = 'UTF-8';
-        $this->language = 'de-DE';
-        $this->feedLanguage = 'de-DE';
+        $this->feed_title  = '&lt;a&gt;&amp;its a&lt;/a&gt; title';
+        $this->feed_link   = 'http://tests';
+        $this->feed_image  = '/an/image';
+        $this->web_favicon = 'http://anon.google.com';
+        $this->modified    = $this->getMockBuilder('\DateTime')->getMock();
+        $this->modified->expects($this->any())
+            ->method('getTimestamp')
+            ->will($this->returnValue(3));
+        $this->encoding   = 'UTF-8';
+        $this->language   = 'de-DE';
+        $this->rtl        = false;
     }
-
 
     public function testCanHandle()
     {
@@ -149,163 +210,26 @@ class FeedFetcherTest extends TestCase
         $this->assertTrue($this->fetcher->canHandle($url));
     }
 
-    private function setUpReader($url='', $modified=true, $noParser=false) 
-    {
-        $this->reader->expects($this->once())
-            ->method('discover')
-            ->with($this->equalTo($url))
-            ->will($this->returnValue($this->client));
-        $this->client->expects($this->once())
-            ->method('isModified')
-            ->will($this->returnValue($modified));
-
-        if (!$modified) {
-            $this->reader->expects($this->never())
-                ->method('getParser');
-        } else {
-            $this->client->expects($this->once())
-                ->method('getLastModified')
-                ->will($this->returnValue($this->modified));
-            $this->client->expects($this->once())
-                ->method('getEtag')
-                ->will($this->returnValue($this->etag));
-            $this->client->expects($this->once())
-                ->method('getUrl')
-                ->will($this->returnValue($this->location));
-            $this->client->expects($this->once())
-                ->method('getContent')
-                ->will($this->returnValue($this->content));
-            $this->client->expects($this->once())
-                ->method('getEncoding')
-                ->will($this->returnValue($this->encoding));
-
-            if ($noParser) {
-                $this->reader->expects($this->once())
-                    ->method('getParser')
-                    ->will(
-                        $this->throwException(
-                            new \PicoFeed\Reader\SubscriptionNotFoundException()
-                        )
-                    );
-            } else {
-                $this->reader->expects($this->once())
-                    ->method('getParser')
-                    ->with(
-                        $this->equalTo($this->location),
-                        $this->equalTo($this->content),
-                        $this->equalTo($this->encoding)
-                    )
-                    ->will($this->returnValue($this->parser));
-            }
-
-            $this->parser->expects($this->once())
-                ->method('execute')
-                ->will($this->returnValue($this->parsedFeed));
-        }
-
-    }
-
-
-    private function expectFeed($method, $return, $count = 1) 
-    {
-        $this->parsedFeed->expects($this->exactly($count))
-            ->method($method)
-            ->will($this->returnValue($return));
-    }
-
-    private function expectItem($method, $return, $count = 1) 
-    {
-        $this->item->expects($this->exactly($count))
-            ->method($method)
-            ->will($this->returnValue($return));
-    }
-
-
-    private function createItem($enclosureType=null) 
-    {
-        $this->expectItem('getUrl', $this->permalink);
-        $this->expectItem('getTitle', $this->title);
-        $this->expectItem('getId', $this->guid);
-        $this->expectItem('getContent', $this->body);
-
-        $item = new Item();
-
-        date_default_timezone_set('America/Los_Angeles');
-
-        $pubdate = \Datetime::createFromFormat('U', $this->pub);
-        $this->expectItem('getPublishedDate', $pubdate);
-        $item->setPubDate($this->pub);
-
-        $update = \Datetime::createFromFormat('U', $this->updated);
-        $this->expectItem('getUpdatedDate', $update);
-        $item->setUpdatedDate($this->updated);
-
-        $item->setStatus(0);
-        $item->setUnread(true);
-        $item->setUrl($this->permalink);
-        $item->setTitle('my<\' title');
-        $item->setGuid($this->guid);
-        $item->setGuidHash($this->guid);
-        $item->setBody($this->body);
-        $item->setRtl(false);
-
-        $this->expectItem('getAuthor', $this->author);
-        $item->setAuthor(html_entity_decode($this->author));
-
-        if($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
-            $this->expectItem('getEnclosureUrl', $this->enclosureLink);
-            $this->expectItem('getEnclosureType', $enclosureType);
-
-            $item->setEnclosureMime($enclosureType);
-            $item->setEnclosureLink($this->enclosureLink);
-        }
-        $item->generateSearchIndex();
-
-        return $item;
-    }
-
-
-    private function createFeed($hasFavicon=false) 
-    {
-        $this->expectFeed('getTitle', $this->feedTitle);
-        $this->expectFeed('getSiteUrl', $this->feedLink);
-
-        $feed = new Feed();
-        $feed->setTitle('&its a title');
-        $feed->setUrl($this->url);
-        $feed->setLink($this->feedLink);
-        $feed->setAdded($this->time);
-        $feed->setHttpLastModified($this->modified);
-        $feed->setHttpEtag($this->etag);
-        $feed->setLocation($this->location);
-
-        if($hasFavicon) {
-            $this->faviconFactory->expects($this->once())
-                ->method('build')
-                ->will($this->returnValue($this->faviconFetcher));
-            $this->faviconFetcher->expects($this->once())
-                ->method('find')
-                ->with($this->equalTo($this->feedLink))
-                ->will($this->returnValue($this->webFavicon));
-            $feed->setFaviconLink($this->webFavicon);
-        }
-
-        return $feed;
-    }
-
+    /**
+     * Test if empty is logged when the feed remain the same.
+     */
     public function testNoFetchIfNotModified()
     {
-        $this->setUpReader($this->url, false);;
-        $result = $this->fetcher->fetch($this->url, false);
+        $this->__setUpReader($this->url, false);
+        $this->logger->expects($this->once())
+            ->method('debug')
+            ->with('Feed {url} was not modified since last fetch. old: {old}, new: {new}');
+        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $this->assertSame([null, []], $result);
     }
 
     public function testFetch()
     {
-        $this->setUpReader($this->url);
-        $item = $this->createItem();
-        $feed = $this->createFeed();
-        $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url, false);
+        $this->__setUpReader($this->url);
+        $item = $this->_createItem();
+        $feed = $this->_createFeed();
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -313,11 +237,11 @@ class FeedFetcherTest extends TestCase
 
     public function testAudioEnclosure()
     {
-        $this->setUpReader($this->url);
-        $item = $this->createItem('audio/ogg');
-        $feed = $this->createFeed();
-        $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url, false);
+        $this->__setUpReader($this->url);
+        $item = $this->_createItem('audio/ogg');
+        $feed = $this->_createFeed();
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -325,105 +249,284 @@ class FeedFetcherTest extends TestCase
 
     public function testVideoEnclosure()
     {
-        $this->setUpReader($this->url);
-        $item = $this->createItem('video/ogg');
-        $feed = $this->createFeed();
-        $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url, false);
+        $this->__setUpReader($this->url);
+        $item = $this->_createItem('video/ogg');
+        $feed = $this->_createFeed();
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
-
-
 
     public function testFavicon() 
     {
-        $this->setUpReader($this->url);
+        $this->__setUpReader($this->url);
 
-        $feed = $this->createFeed(true);
-        $item = $this->createItem();
-        $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url);
+        $feed = $this->_createFeed('de-DE', true);
+        $item = $this->_createItem();
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, true, null, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
-
-    public function testFullText() 
-    {
-        $this->setUpReader($this->url);
-
-        $feed = $this->createFeed();
-        $item = $this->createItem();
-        $this->parser->expects($this->once())
-            ->method('enableContentGrabber');
-        $this->expectFeed('getItems', [$this->item]);
-        $this->fetcher->fetch($this->url, false, null, null, true);
-    }
-
 
     public function testNoFavicon() 
     {
-        $this->setUpReader($this->url);
+        $this->__setUpReader($this->url);
 
-        $feed = $this->createFeed(false);
+        $feed = $this->_createFeed(false);
 
-        $this->faviconFetcher->expects($this->never())
-            ->method('find');
+        $this->favicon->expects($this->never())
+            ->method('get');
 
-        $item = $this->createItem();
-        $this->expectFeed('getItems', [$this->item]);
-        $result = $this->fetcher->fetch($this->url, false);
+        $item = $this->_createItem();
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
 
-
     public function testRtl() 
     {
-        $this->setUpReader($this->url);
-        $this->expectFeed('getLanguage', 'he-IL');
-        $this->expectItem('getLanguage', '');
-        $feed = $this->createFeed();
-        $item = $this->createItem(null);
-        $this->expectFeed('getItems', [$this->item]);
-        list($feed, $items) = $this->fetcher->fetch(
-            $this->url, false, null,
-            null, true
-        );
+        $this->__setUpReader($this->url);
+        $this->_createFeed('he-IL');
+        $this->_createItem();
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null);
         $this->assertTrue($items[0]->getRtl());
     }
 
-
-    public function testRtlItemPrecedence() 
+    public function testRssPubDate()
     {
-        $this->setUpReader($this->url);
-        $this->expectFeed('getLanguage', 'de-DE');
-        $this->expectItem('getLanguage', 'he-IL');
+        $this->__setUpReader($this->url);
+        $this->_createFeed('he-IL');
+        $this->_createItem();
 
-        $feed = $this->createFeed();
-        $item = $this->createItem(null);
-        $this->expectFeed('getItems', [$this->item]);
-        list($feed, $items) = $this->fetcher->fetch(
-            $this->url, false, null,
-            null, true
-        );
-        $this->assertTrue($items[0]->getRtl());
+        $this->item_mock->expects($this->exactly(2))
+            ->method('getValue')
+            ->will($this->returnValueMap([
+                ['pubDate', '2018-03-27T19:50:29Z'],
+                ['published', NULL],
+            ]));
+
+
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null);
+        $this->assertSame($items[0]->getPubDate(), 1522180229);
     }
 
-    public function testNegativeRtlItemPrecedence() 
+    public function testAtomPubDate()
     {
-        $this->setUpReader($this->url);
-        $this->expectFeed('getLanguage', 'he-IL');
-        $this->expectItem('getLanguage', 'de-DE');
+        $this->__setUpReader($this->url);
+        $this->_createFeed('he-IL');
+        $this->_createItem();
 
-        $feed = $this->createFeed();
-        $item = $this->createItem(null);
-        $this->expectFeed('getItems', [$this->item]);
-        list($feed, $items) = $this->fetcher->fetch(
-            $this->url, false, null,
-            null, true
-        );
-        $this->assertFalse($items[0]->getRtl());
+        $this->item_mock->expects($this->exactly(3))
+                         ->method('getValue')
+                         ->will($this->returnValueMap([
+                             ['pubDate', NULL],
+                             ['published', '2018-02-27T19:50:29Z'],
+                         ]));
+
+
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null);
+        $this->assertSame($items[0]->getPubDate(), 1519761029);
     }
 
+    /**
+     * Mock an iteration option on an existing mock
+     *
+     * @param object $iteratorMock The mock to enhance
+     * @param array  $items        The items to make available
+     *
+     * @return mixed
+     */
+    private function _mockIterator($iteratorMock, array $items)
+    {
+        $iteratorData = new \stdClass();
+        $iteratorData->array = $items;
+        $iteratorData->position = 0;
+
+        $iteratorMock->expects($this->any())
+            ->method('rewind')
+            ->will(
+                $this->returnCallback(
+                    function () use ($iteratorData) {
+                        $iteratorData->position = 0;
+                    }
+                )
+            );
+
+        $iteratorMock->expects($this->any())
+            ->method('current')
+            ->will(
+                $this->returnCallback(
+                    function () use ($iteratorData) {
+                        return $iteratorData->array[$iteratorData->position];
+                    }
+                )
+            );
+
+        $iteratorMock->expects($this->any())
+            ->method('key')
+            ->will(
+                $this->returnCallback(
+                    function () use ($iteratorData) {
+                        return $iteratorData->position;
+                    }
+                )
+            );
+
+        $iteratorMock->expects($this->any())
+            ->method('next')
+            ->will(
+                $this->returnCallback(
+                    function () use ($iteratorData) {
+                        $iteratorData->position++;
+                    }
+                )
+            );
+
+        $iteratorMock->expects($this->any())
+            ->method('valid')
+            ->will(
+                $this->returnCallback(
+                    function () use ($iteratorData) {
+                        return isset($iteratorData->array[$iteratorData->position]);
+                    }
+                )
+            );
+
+        $iteratorMock->expects($this->any())
+            ->method('count')
+            ->will(
+                $this->returnCallback(
+                    function () use ($iteratorData) {
+                        return sizeof($iteratorData->array);
+                    }
+                )
+            );
+
+        return $iteratorMock;
+    }
+
+    private function __setUpReader($url = '', $modified = true)
+    {
+        $this->reader->expects($this->once())
+            ->method('read')
+            ->with($this->equalTo($url))
+            ->will($this->returnValue($this->result));
+        $this->result->expects($this->once())
+            ->method('getResponse')
+            ->will($this->returnValue($this->response));
+        $this->response->expects($this->once())
+            ->method('isModified')
+            ->will($this->returnValue($modified));
+        $this->location = $url;
+
+        if (!$modified) {
+            $this->result->expects($this->never())
+                ->method('getUrl');
+        } else {
+            $this->result->expects($this->once())
+                ->method('getUrl')
+                ->will($this->returnValue($this->location));
+            $this->result->expects($this->once())
+                ->method('getFeed')
+                ->will($this->returnValue($this->feed_mock));
+        }
+
+    }
+
+    private function _expectFeed($method, $return, $count = 1)
+    {
+        $this->feed_mock->expects($this->exactly($count))
+            ->method($method)
+            ->will($this->returnValue($return));
+    }
+
+    private function _expectItem($method, $return, $count = 1)
+    {
+        $this->item_mock->expects($this->exactly($count))
+            ->method($method)
+            ->will($this->returnValue($return));
+    }
+
+
+    private function _createItem($enclosureType=null)
+    {
+        $this->_expectItem('getLink', $this->permalink);
+        $this->_expectItem('getTitle', $this->title);
+        $this->_expectItem('getPublicId', $this->guid);
+        $this->_expectItem('getDescription', $this->body);
+        $this->_expectItem('getLastModified', $this->modified);
+        $this->_expectItem('getAuthor', $this->author);
+
+        $item = new Item();
+
+        $item->setStatus(0);
+        $item->setUnread(true);
+        $item->setUrl($this->permalink);
+        $item->setTitle('my<\' title');
+        $item->setGuid($this->guid);
+        $item->setGuidHash($this->guid_hash);
+        $item->setBody($this->body);
+        $item->setRtl(false);
+        $item->setLastModified(3);
+        $item->setPubDate(3);
+        $item->setAuthor(html_entity_decode($this->author->getName()));
+
+        if ($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
+            $media = $this->getMockbuilder(MediaInterface::class)->getMock();
+            $media->expects($this->once())
+                ->method('getType')
+                ->will($this->returnValue('sounds'));
+            $media2 = $this->getMockbuilder(MediaInterface::class)->getMock();
+            $media2->expects($this->exactly(2))
+                ->method('getType')
+                ->will($this->returnValue($enclosureType));
+            $media2->expects($this->once())
+                ->method('getUrl')
+                ->will($this->returnValue($this->enclosure));
+            $this->_expectItem('hasMedia', true);
+            $this->_expectItem('getMedias', [$media, $media2]);
+
+            $item->setEnclosureMime($enclosureType);
+            $item->setEnclosureLink($this->enclosure);
+        }
+        $item->generateSearchIndex();
+
+        return $item;
+    }
+
+
+    private function _createFeed($lang='de-DE', $favicon=false)
+    {
+        $this->_expectFeed('getTitle', $this->feed_title, 2);
+        $this->_expectFeed('getLink', $this->feed_link);
+        $this->_expectFeed('getLastModified', $this->modified);
+        $this->_expectFeed('getLanguage', $lang);
+
+        $feed = new Feed();
+
+        $feed->setTitle('&its a title');
+        $feed->setLink($this->feed_link);
+        $feed->setLocation($this->location);
+        $feed->setUrl($this->url);
+        $feed->setLastModified(3);
+        $feed->setAdded($this->time);
+        if ($favicon) {
+            $feed->setFaviconLink('http://anon.google.com');
+            $this->favicon->expects($this->exactly(1))
+                ->method('get')
+                ->with($this->equalTo($this->feed_link))
+                ->will($this->returnValue($this->web_favicon));
+        } else {
+            $this->favicon->expects($this->never())
+                ->method('get');
+        }
+
+        return $feed;
+    }
 }

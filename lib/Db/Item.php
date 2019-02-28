@@ -491,4 +491,18 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->getEnclosureLink()
         );
     }
+
+    /**
+     * Check if a given mimetype is supported
+     *
+     * @param string $mime mimetype to check
+     *
+     * @return boolean
+     */
+    public function isSupportedMime($mime)
+    {
+        return (
+            stripos($mime, 'audio/') !== false ||
+            stripos($mime, 'video/') !== false);
+    }
 }

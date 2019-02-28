@@ -13,7 +13,7 @@
 
 namespace OCA\News\Config;
 
-use OCP\ILogger;
+use OCA\News\Utility\PsrLogger;
 use OCP\Files\Folder;
 
 class Config
@@ -35,7 +35,7 @@ class Config
 
     public function __construct(
         Folder $fileSystem,
-        ILogger $logger,
+        PsrLogger $logger,
         $LoggerParameters
     ) {
         $this->fileSystem = $fileSystem;

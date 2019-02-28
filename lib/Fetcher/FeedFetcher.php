@@ -13,29 +13,17 @@
 
 namespace OCA\News\Fetcher;
 
-use Exception;
+use DateTime;
+use Favicon\Favicon;
+use FeedIo\Feed\ItemInterface;
+use FeedIo\FeedInterface;
+use FeedIo\FeedIo;
 
-use OCA\News\PostProcessor\LWNProcessor;
-use OCP\Http\Client\IClientService;
-use PicoFeed\Parser\MalFormedXmlException;
-use PicoFeed\Reader\Reader;
-use PicoFeed\Parser\Parser;
-use PicoFeed\Reader\SubscriptionNotFoundException;
-use PicoFeed\Reader\UnsupportedFeedFormatException;
-use PicoFeed\Client\InvalidCertificateException;
-use PicoFeed\Client\InvalidUrlException;
-use PicoFeed\Client\MaxRedirectException;
-use PicoFeed\Client\MaxSizeException;
-use PicoFeed\Client\TimeoutException;
-use PicoFeed\Client\ForbiddenException;
-use PicoFeed\Client\UnauthorizedException;
-
+use OCA\News\Utility\PsrLogger;
 use OCP\IL10N;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
-use OCA\News\Utility\PicoFeedFaviconFactory;
-use OCA\News\Utility\PicoFeedReaderFactory;
 use OCA\News\Utility\Time;
 
 class FeedFetcher implements IFeedFetcher
@@ -45,27 +33,26 @@ class FeedFetcher implements IFeedFetcher
     private $reader;
     private $l10n;
     private $time;
-    private $clientService;
+    private $logger;
 
-    public function __construct(
-        Reader $reader,
-        PicoFeedFaviconFactory $faviconFactory,
-        IL10N $l10n,
-        Time $time,
-        IClientService $clientService
-    ) {
-        $this->faviconFactory = $faviconFactory;
-        $this->reader = $reader;
-        $this->time = $time;
-        $this->l10n = $l10n;
-        $this->clientService = $clientService;
+    public function __construct(FeedIo $fetcher, Favicon $favicon, IL10N $l10n, Time $time, PsrLogger $logger)
+    {
+        $this->reader         = $fetcher;
+        $this->faviconFactory = $favicon;
+        $this->l10n           = $l10n;
+        $this->time           = $time;
+        $this->logger         = $logger;
     }
 
 
     /**
-     * This fetcher handles all the remaining urls therefore always returns true
+     * This fetcher handles all the remaining urls therefore always returns true.
+     *
+     * @param string $url The URL to check
+     *
+     * @return bool
      */
-    public function canHandle($url)
+    public function canHandle($url): bool
     {
         return true;
     }
@@ -74,177 +61,56 @@ class FeedFetcher implements IFeedFetcher
     /**
      * Fetch a feed from remote
      *
-     * @param  string  $url               remote url of the feed
-     * @param  boolean $getFavicon        if the favicon should also be fetched, defaults to true
-     * @param  string  $lastModified      a last modified value from an http header defaults to false.
-     *                                    If lastModified matches the http header from the feed no results are fetched
-     * @param  string  $etag              an etag from an http header.
-     *                                    If lastModified matches the http header from the feed no results are fetched
-     * @param  bool    $fullTextEnabled   if true tells the fetcher to enhance the articles by fetching more content
-     * @param  string  $basicAuthUser     if given, basic auth is set for this feed
-     * @param  string  $basicAuthPassword if given, basic auth is set for this feed. Ignored if user is empty
-     *
-     * @throws FetcherException if it fails
-     * @return array an array containing the new feed and its items, first
-     * element being the Feed and second element being an array of Items
+     * @inheritdoc
      */
-    public function fetch(
-        $url,
-        $getFavicon = true,
-        $lastModified = null,
-        $etag = null,
-        $fullTextEnabled = false,
-        $basicAuthUser = null,
-        $basicAuthPassword = null
-    ) {
-        try {
-            if ($basicAuthUser !== null && trim($basicAuthUser) !== '') {
-                $resource = $this->reader->discover(
-                    $url,
-                    $lastModified,
-                    $etag,
-                    $basicAuthUser,
-                    $basicAuthPassword
-                );
-            } else {
-                $resource = $this->reader->discover($url, $lastModified, $etag);
-            }
-
-            if (!$resource->isModified()) {
-                return [null, null];
-            }
-
-            $location = $resource->getUrl();
-            $etag = $resource->getEtag();
-            $content = $resource->getContent();
-            $encoding = $resource->getEncoding();
-            $lastModified = $resource->getLastModified();
-
-            $parser = $this->reader->getParser($location, $content, $encoding);
-
-            if ($fullTextEnabled) {
-                $parser->enableContentGrabber();
-                $parser->getItemPostProcessor()->register(
-                    new LWNProcessor(
-                        $basicAuthUser,
-                        $basicAuthPassword,
-                        $this->clientService
-                    )
-                );
-            }
-
-            $parsedFeed = $parser->execute();
-
-            $feed = $this->buildFeed(
-                $parsedFeed,
-                $url,
-                $getFavicon,
-                $lastModified,
-                $etag,
-                $location
-            );
-
-            $items = [];
-            foreach ($parsedFeed->getItems() as $item) {
-                $items[] = $this->buildItem($item, $parsedFeed);
-            }
-
-            return [$feed, $items];
-        } catch (Exception $ex) {
-            $this->handleError($ex, $url);
-        }
-    }
-
-
-    private function handleError(Exception $ex, $url)
+    public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
     {
-        $msg = $ex->getMessage();
-
-        if ($ex instanceof MalFormedXmlException) {
-            $msg = $this->l10n->t('Feed contains invalid XML');
-        } elseif ($ex instanceof SubscriptionNotFoundException) {
-            $msg = $this->l10n->t(
-                'Feed not found: Either the website ' .
-                'does not provide a feed or blocks access. To rule out ' .
-                'blocking, try to download the feed on your server\'s ' .
-                'command line using curl: curl ' . $url
-            );
-        } elseif ($ex instanceof UnsupportedFeedFormatException) {
-            $msg = $this->l10n->t('Detected feed format is not supported');
-        } elseif ($ex instanceof InvalidCertificateException) {
-            $msg = $this->buildCurlSslErrorMessage($ex->getCode());
-        } elseif ($ex instanceof InvalidUrlException) {
-            $msg = $this->l10n->t('Website not found');
-        } elseif ($ex instanceof MaxRedirectException) {
-            $msg = $this->l10n->t('More redirects than allowed, aborting');
-        } elseif ($ex instanceof MaxSizeException) {
-            $msg = $this->l10n->t('Bigger than maximum allowed size');
-        } elseif ($ex instanceof TimeoutException) {
-            $msg = $this->l10n->t('Request timed out');
-        } elseif ($ex instanceof UnauthorizedException) {
-            $msg = $this->l10n->t(
-                'Required credentials for feed were ' .
-                'either missing or incorrect'
-            );
-        } elseif ($ex instanceof ForbiddenException) {
-            $msg = $this->l10n->t('Forbidden to access feed');
+        if (!empty($user) && !empty(trim($user))) {
+            $url = explode('://', $url);
+            $url = $url[0] . '://' . $user . ':' . $password . '@' . $url[1];
+        }
+        if (is_null($lastModified) || !is_string($lastModified)) {
+            $resource = $this->reader->read($url);
+        } else {
+            $resource = $this->reader->readSince($url, new DateTime($lastModified));
         }
 
-        throw new FetcherException($msg);
-    }
-
-    private function buildCurlSslErrorMessage($errorCode)
-    {
-        switch ($errorCode) {
-            case 35: // CURLE_SSL_CONNECT_ERROR
-                return $this->l10n->t(
-                    'Certificate error: A problem occurred ' .
-                    'somewhere in the SSL/TLS handshake. Could be ' .
-                    'certificates (file formats, paths, permissions), ' .
-                    'passwords, and others.'
-                );
-            case 51: // CURLE_PEER_FAILED_VERIFICATION
-                return $this->l10n->t(
-                    'Certificate error: The remote server\'s SSL ' .
-                    'certificate or SSH md5 fingerprint was deemed not OK.'
-                );
-            case 58: // CURLE_SSL_CERTPROBLEM
-                return $this->l10n->t(
-                    'Certificate error: Problem with the local client ' .
-                    'certificate.'
-                );
-            case 59: // CURLE_SSL_CIPHER
-                return $this->l10n->t(
-                    'Certificate error: Couldn\'t use specified cipher.'
-                );
-            case 60: // CURLE_SSL_CACERT
-                return $this->l10n->t(
-                    'Certificate error: Peer certificate cannot be ' .
-                    'authenticated with known CA certificates.'
-                );
-            case 64: // CURLE_USE_SSL_FAILED
-                return $this->l10n->t(
-                    'Certificate error: Requested FTP SSL level failed.'
-                );
-            case 66: // CURLE_SSL_ENGINE_INITFAILED
-                return $this->l10n->t(
-                    'Certificate error: Initiating the SSL engine failed.'
-                );
-            case 77: // CURLE_SSL_CACERT_BADFILE
-                return $this->l10n->t(
-                    'Certificate error: Problem with reading the SSL CA ' .
-                    'cert (path? access rights?)'
-                );
-            case 83: // CURLE_SSL_ISSUER_ERROR
-                return $this->l10n->t(
-                    'Certificate error: Issuer check failed'
-                );
-            default:
-                return $this->l10n->t('Unknown SSL certificate error!');
+        $response = $resource->getResponse();
+        if (!$response->isModified()) {
+            $this->logger->debug('Feed {url} was not modified since last fetch. old: {old}, new: {new}', [
+                 'url' => $url,
+                 'old' => print_r($lastModified, true),
+                 'new' => print_r($response->getLastModified(), true),
+            ]);
+            return [null, []];
         }
+
+        $location     = $resource->getUrl();
+        $parsedFeed   = $resource->getFeed();
+        $feed = $this->buildFeed(
+            $parsedFeed,
+            $url,
+            $favicon,
+            $location
+        );
+
+        $items = [];
+        $this->logger->debug('Feed ' . $url . ' was modified since last fetch. #' . count($parsedFeed) .  ' items');
+        foreach ($parsedFeed as $item) {
+            $items[] = $this->buildItem($item, $parsedFeed);
+        }
+
+        return [$feed, $items];
     }
 
-    private function decodeTwice($string)
+    /**
+     * Decode the string twice
+     *
+     * @param string $string String to decode
+     *
+     * @return string
+     */
+    private function decodeTwice($string): string
     {
         return html_entity_decode(
             html_entity_decode(
@@ -257,37 +123,79 @@ class FeedFetcher implements IFeedFetcher
         );
     }
 
-
-    protected function determineRtl($parsedItem, $parsedFeed)
+    /**
+     * Check if a feed is RTL or not
+     *
+     * @param FeedInterface $parsedFeed The feed that was parsed
+     *
+     * @return bool
+     */
+    protected function determineRtl(FeedInterface $parsedFeed): bool
     {
-        $itemLang = $parsedItem->getLanguage();
-        $feedLang = $parsedFeed->getLanguage();
+        $language = $parsedFeed->getLanguage();
 
-        if ($itemLang) {
-            return Parser::isLanguageRTL($itemLang);
-        } else {
-            return Parser::isLanguageRTL($feedLang);
+        $language = strtolower($language);
+        $rtl_languages = array(
+            'ar', // Arabic (ar-**)
+            'fa', // Farsi (fa-**)
+            'ur', // Urdu (ur-**)
+            'ps', // Pashtu (ps-**)
+            'syr', // Syriac (syr-**)
+            'dv', // Divehi (dv-**)
+            'he', // Hebrew (he-**)
+            'yi', // Yiddish (yi-**)
+        );
+        foreach ($rtl_languages as $prefix) {
+            if (strpos($language, $prefix) === 0) {
+                return true;
+            }
         }
+        return false;
     }
 
-
-    protected function buildItem($parsedItem, $parsedFeed)
+    /**
+     * Build an item based on a feed.
+     *
+     * @param ItemInterface $parsedItem The item to use
+     * @param FeedInterface $parsedFeed The feed to use
+     *
+     * @return Item
+     */
+    protected function buildItem(ItemInterface $parsedItem, FeedInterface $parsedFeed): Item
     {
         $item = new Item();
         $item->setUnread(true);
-        $item->setUrl($parsedItem->getUrl());
-        $item->setGuid($parsedItem->getId());
-        $item->setGuidHash($item->getGuid());
-        $item->setPubDate($parsedItem->getPublishedDate()->getTimestamp());
-        $item->setUpdatedDate($parsedItem->getUpdatedDate()->getTimestamp());
-        $item->setRtl($this->determineRtl($parsedItem, $parsedFeed));
+        $item->setUrl($parsedItem->getLink());
+        $item->setGuid($parsedItem->getPublicId());
+        $item->setGuidHash(md5($item->getGuid()));
+
+        $lastmodified = $parsedItem->getLastModified() ?? new \DateTime();
+        if ($parsedItem->getValue('pubDate') !== null) {
+            $pubDT = new DateTime($parsedItem->getValue('pubDate'));
+        } elseif ($parsedItem->getValue('published') !== null) {
+            $pubDT = new DateTime($parsedItem->getValue('published'));
+        } else {
+            $pubDT = $lastmodified;
+        }
+
+        $item->setPubDate(
+            $pubDT->getTimestamp()
+        );
+
+        $item->setLastModified(
+            $lastmodified->getTimestamp()
+        );
+        $item->setRtl($this->determineRtl($parsedFeed));
 
         // unescape content because angularjs helps against XSS
         $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
-        $item->setAuthor($this->decodeTwice($parsedItem->getAuthor()));
+        $author = $parsedItem->getAuthor();
+        if (!is_null($author)) {
+            $item->setAuthor($this->decodeTwice($author->getName()));
+        }
 
         // purification is done in the service layer
-        $body = $parsedItem->getContent();
+        $body = $parsedItem->getDescription();
         $body = mb_convert_encoding(
             $body,
             'HTML-ENTITIES',
@@ -295,55 +203,57 @@ class FeedFetcher implements IFeedFetcher
         );
         $item->setBody($body);
 
-        $enclosureUrl = $parsedItem->getEnclosureUrl();
-        if ($enclosureUrl) {
-            $enclosureType = $parsedItem->getEnclosureType();
-            if (stripos($enclosureType, 'audio/') !== false
-                || stripos($enclosureType, 'video/') !== false
-            ) {
-                $item->setEnclosureMime($enclosureType);
-                $item->setEnclosureLink($enclosureUrl);
+        if ($parsedItem->hasMedia()) {
+            // TODO: Fix multiple media support
+            foreach ($parsedItem->getMedias() as $media) {
+                if (!$item->isSupportedMime($media->getType())) {
+                    continue;
+                }
+                $item->setEnclosureMime($media->getType());
+                $item->setEnclosureLink($media->getUrl());
             }
         }
 
         $item->generateSearchIndex();
 
+        $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
+            'title' => $item->getTitle(),
+            'feed'  => $parsedFeed->getTitle(),
+            'datetime'  => $item->getLastModified(),
+        ]);
         return $item;
     }
 
-
-    protected function buildFeed(
-        $parsedFeed,
-        $url,
-        $getFavicon,
-        $modified,
-        $etag,
-        $location
-    ) {
-        $feed = new Feed();
-
-        $link = $parsedFeed->getSiteUrl();
-
-        if (!$link) {
-            $link = $location;
-        }
+    /**
+     * Build a feed based on provided info
+     *
+     * @param FeedInterface $feed       Feed to build from
+     * @param string        $url        URL to use
+     * @param boolean       $getFavicon To get the favicon
+     * @param string        $location   String base URL
+     *
+     * @return Feed
+     */
+    protected function buildFeed(FeedInterface $feed, string $url, bool $getFavicon, string $location): Feed
+    {
+        $newFeed = new Feed();
 
         // unescape content because angularjs helps against XSS
-        $title = strip_tags($this->decodeTwice($parsedFeed->getTitle()));
-        $feed->setTitle($title);
-        $feed->setUrl($url);  // the url used to add the feed
-        $feed->setLocation($location);  // the url where the feed was found
-        $feed->setLink($link);  // <link> attribute in the feed
-        $feed->setHttpLastModified($modified);
-        $feed->setHttpEtag($etag);
-        $feed->setAdded($this->time->getTime());
+        $title = strip_tags($this->decodeTwice($feed->getTitle()));
+        $newFeed->setTitle($title);
+        $newFeed->setUrl($url);  // the url used to add the feed
+        $newFeed->setLocation($location);  // the url where the feed was found
+        $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
+        $lastmodified = $feed->getLastModified() ?? new DateTime();
+        $newFeed->setLastModified($lastmodified->getTimestamp());
+        $newFeed->setAdded($this->time->getTime());
 
-        if ($getFavicon) {
-            $faviconFetcher = $this->faviconFactory->build();
-            $favicon = $faviconFetcher->find($feed->getLink());
-            $feed->setFaviconLink($favicon);
+        if (!$getFavicon) {
+            return $newFeed;
         }
+        $favicon = $this->faviconFactory->get($url);
+        $newFeed->setFaviconLink($favicon);
 
-        return $feed;
+        return $newFeed;
     }
 }

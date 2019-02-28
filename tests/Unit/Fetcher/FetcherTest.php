@@ -118,7 +118,7 @@ class FetcherTest extends TestCase
     public function testMultipleFetchersOnlyOneShouldHandle()
     {
         $url = 'hi';
-        $return = 'zeas';
+        $return = [];
         $mockFetcher = $this->getMockBuilder(IFeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();

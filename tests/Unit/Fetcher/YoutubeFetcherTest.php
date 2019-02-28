@@ -13,6 +13,7 @@ namespace OCA\News\Tests\Unit\Fetcher;
 
 use \OCA\News\Db\Feed;
 use OCA\News\Fetcher\FeedFetcher;
+use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
 
 use PHPUnit\Framework\TestCase;
@@ -20,7 +21,18 @@ use PHPUnit\Framework\TestCase;
 class YoutubeFetcherTest extends TestCase
 {
 
+    /**
+     * Mocked fetcher.
+     *
+     * @var Fetcher
+     */
     private $fetcher;
+
+    /**
+     * Mocked Feed Fetcher.
+     *
+     * @var FeedFetcher
+     */
     private $feedFetcher;
 
     public function setUp() 
@@ -52,7 +64,8 @@ class YoutubeFetcherTest extends TestCase
         $transformedUrl = 'http://gdata.youtube.com/feeds/api/playlists/sobo3';
         $favicon = true;
         $modified = 3;
-        $etag = 5;
+        $user = 5;
+        $password = 5;
         $feed = new Feed();
         $feed->setUrl('http://google.de');
         $result = [$feed, []];
@@ -63,10 +76,10 @@ class YoutubeFetcherTest extends TestCase
                 $this->equalTo($transformedUrl),
                 $this->equalTo($favicon),
                 $this->equalTo($modified),
-                $this->equalTo($etag)
+                $this->equalTo($user)
             )
             ->will($this->returnValue($result));
-        $feed = $this->fetcher->fetch($url, $favicon, $modified, $etag);
+        $feed = $this->fetcher->fetch($url, $favicon, $modified, $user, $password);
 
         $this->assertEquals($url, $result[0]->getUrl());
     }
