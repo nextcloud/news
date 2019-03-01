@@ -1,10 +1,4 @@
 { "translations": {
-    "Feed contains invalid XML" : "Unos sadrži pogrešan XML",
-    "Detected feed format is not supported" : "Ponađeni format unosa nije podržan",
-    "Website not found" : "Web stranica nije nađena",
-    "More redirects than allowed, aborting" : "Više preusmjerenja nego li je dopušteno, odustajem",
-    "Bigger than maximum allowed size" : "Veći nego li je dopušteno",
-    "Request timed out" : "Zahtjevu je isteklo vrijeme",
     "Can not add feed: Exists already" : "Unos sadrži pogrešan XML",
     "Articles without feed" : "Članci bez unosa",
     "Can not add folder: Exists already" : "Ne mogu dodati mapu: Mapa već postoji",

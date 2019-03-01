@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Website not found" : "Sito web non trovate",
     "Saved" : "Salveguardate",
     "Download" : "Discargar",
     "Close" : "Clauder",

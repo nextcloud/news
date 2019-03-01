@@ -1,9 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Website not found" : "وب‌سایت یافت نشد",
-    "Bigger than maximum allowed size" : "بزرگتر از حداکثر سایز مجاز",
-    "Request timed out" : "زمان درخواست تمام شد",
     "Can not add feed: Exists already" : "خوراک خوان را نمی تواند اضافه کند: در حال حاضر موجود است.",
     "Can not add folder: Exists already" : "پوشه را نمی تواند اضافه کند: در حال حاضر وجود دارد.",
     "Saved" : "ذخیره شد",

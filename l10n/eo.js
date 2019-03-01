@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Website not found" : "TTT-ejo ne troviĝis",
     "Can not add feed: Exists already" : "Ne eblas aldoni fluon: ĝi jam ekzistas",
     "Can not add folder: Exists already" : "Ne eblas aldoni dosierujon: ĝi jam ekzistas",
     "News" : "Novaĵo",

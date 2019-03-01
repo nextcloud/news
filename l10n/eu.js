@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Website not found" : "Webgunea ez da aurkitu",
     "Can not add feed: Exists already" : "Ezin da iturburua gehitu: Dagoeneko existitzen da",
     "Articles without feed" : "Iturbururik gabeko artikuluak",
     "Can not add folder: Exists already" : "Ezin da karpeta gehitu: Dagoeneko existitzen da",
