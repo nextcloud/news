@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Changed
+- Switch from picoFeed to feed-io #258 #282
+- Official codestyle is now PSR-2 #382
+- `news:updater:all-feeds` now returns folderId #388
+
+### Fixed
+- Broken multi-line news titles #395
+- Better support for the dark-theme #392 #377
+- Horizontal scrollbar in compact view #370 #389
+
 ## 13.0.3
 
 ### Changed
