@@ -22,13 +22,13 @@ The file has the following format:
 }
 ```
 
-To ease the pain of constructing the JSON object, you can use a small script to automatically create it:
+To ease the pain of constructing the JSON object, you can use a nextcloud command to automatically create it:
 
-    php -f bin/tools/generate_explore.php https://path.com/to/feed.rss
+    php ./occ news:generate-explore https://path.com/to/feed.rss
 
 By passing a second parameter you can set the vote count which determines the sorting on the explore page:
 
-    php -f bin/tools/generate_explore.php https://path.com/to/feed.rss 1000
+    php ./occ news:generate-explore https://path.com/to/feed.rss 1000
 
 You can paste the output directly into the appropriate json file but you may need to add additional categories and commas
 

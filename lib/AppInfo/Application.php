@@ -76,7 +76,6 @@ class Application extends App
             return $c->query(MapperFactory::class)->build();
         });
 
-
         /**
          * App config parser.
          */
@@ -122,7 +121,6 @@ class Application extends App
                 $c->query('AppName')
             );
         });
-
 
         $container->registerService(Config::class, function (IContainer $c): Config {
             $config = new Config(

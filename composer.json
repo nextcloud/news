@@ -40,7 +40,8 @@
         "pear/net_url2": "2.2.2",
         "riimu/kit-pathjoin": "1.2.0",
         "debril/feed-io": "^3.0",
-        "arthurhoaro/favicon": "^1.2"
+        "arthurhoaro/favicon": "^1.2",
+        "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",

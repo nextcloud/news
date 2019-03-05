@@ -15,6 +15,7 @@ use OCA\News\Command\Updater\UpdateFeed;
 use OCA\News\Command\Updater\AllFeeds;
 use OCA\News\Command\Updater\BeforeUpdate;
 use OCA\News\Command\Updater\AfterUpdate;
+use OCA\News\Command\ExploreGenerator;
 
 $app = new Application();
 $container = $app->getContainer();
@@ -22,3 +23,4 @@ $application->add($container->query(AllFeeds::class));
 $application->add($container->query(UpdateFeed::class));
 $application->add($container->query(BeforeUpdate::class));
 $application->add($container->query(AfterUpdate::class));
+$application->add($container->query(ExploreGenerator::class));

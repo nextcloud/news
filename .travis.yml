@@ -59,9 +59,10 @@ before_script:
     - ./occ app:check-code news
     - ./occ background:cron  # enable default cron
     - php -S localhost:8080 &
-    - cd apps/news
 
 script:
+    - ./occ news:generate-explore --votes 100 "https://nextcloud.com/blogfeed"
+    - cd apps/news
     - make test
 
 after_failure:
