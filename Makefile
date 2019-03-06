@@ -150,6 +150,7 @@ endif
 appstore:
 	rm -rf $(appstore_build_directory) $(appstore_artifact_directory)
 	mkdir -p $(appstore_build_directory) $(appstore_artifact_directory)
+	./bin/tools/generate_authors.php
 	cp -r \
 	"appinfo" \
 	"css" \
@@ -189,3 +190,4 @@ test:
 	# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
 	env TRAVIS=1 ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml --coverage-clover build/php-unit.clover
 	$(MAKE) phpcs
+	./bin/tools/generate_authors.php
