@@ -21,7 +21,7 @@
 Before you install the app do the following:
 * Check that your **nextcloud/data/** directory is owned by your web server user and that it is write/readable
 * Check that your installation fulfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
-* [Set up Nextcloud Background Jobs](https://docs.nextcloud.com/server/10/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up Nextcloud Background Jobs](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
