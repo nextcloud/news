@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Switch from picoFeed to feed-io #258 #282
 - Official codestyle is now PSR-2 #382
 - `news:updater:all-feeds` now returns folderId #388
+- new command `news:generate-explore` #402
 
 ### Fixed
 - Broken multi-line news titles #395
