@@ -2,15 +2,15 @@ sudo: false
 dist: trusty
 language: php
 php:
-    - 7.0
-    - 7.1
+    - 7.0.33
+    - 7.1.26
     - 7.2
     - 7.3
     - nightly
 
 env:
     global:
-        - CORE_BRANCH=stable14
+        - CORE_BRANCH=stable15
         - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
@@ -20,16 +20,6 @@ matrix:
         - env: DB=pgsql CORE_BRANCH=master
         - php: nightly
     include:
-        - php: 7.1
-          env: DB=sqlite
-        - php: 7.2
-          env: DB=sqlite
-        - php: 7.1
-          env: DB=mysql
-        - php: 7.2
-          env: DB=mysql
-        - php: 7.2
-          env: DB=pgsql CORE_BRANCH=master
         - php: 7.3
           env: DB=sqlite
         - php: 7.3

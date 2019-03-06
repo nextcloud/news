@@ -91,5 +91,4 @@ class ExploreGenerator extends Command
             return 1;
         }
     }
-
 }
