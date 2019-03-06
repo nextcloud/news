@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## 13.1.0
 
 ### Changed
 - Switch from picoFeed to feed-io #258 #282
