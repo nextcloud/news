@@ -3,23 +3,14 @@ Read this when you want to:
 
 * [file an issue (bug or feature request)](#Issues)
 * [help translate the News file to your language](#Translation)
-* start programming and change the way the News app works
-* add cool new feeds to the feed explore section
-* want to provide additional full text feed rules
+* [start programming and change the way the News app works](#development)
+* [add cool new feeds to the feed explore section](#explore-feeds-section)
 
 ## General
-
 * Be as precise in your issues as possible and make it as easy as possible to understand. 
 * Follow the [code of conduct](https://nextcloud.com/code-of-conduct/). Being a dick and insulting people will get your posts deleted and issues locked.
 
-## Issues
-This section is split into two section:
-
-* Everything that has to do with bugs
-* How to request features
-
 ### Before Reporting Bugs
-
 * We do not support Internet Explorer and Safari (Patches accepted though, except for IE < 10)
 * We do **not support the server-side encryption app** (use client side encryption instead)
 * Get the latest version of the News app
@@ -27,16 +18,11 @@ This section is split into two section:
 * Clear your PHP opcode cache if you use any by restarting your webserver. This affects any version of PHP >=5.5
 * [Check if they have already been reported](https://github.com/nextcloud/news/issues?state=open)
 * [Check if your problem is covered in the FAQ section](https://github.com/nextcloud/news#faq)
-
-If you are not able to add a feed because its XML *does not validate* (see [this issue](https://github.com/nextcloud/news/issues/133) for an example),
-check if:
-
+**For feed parsing issues, check**:
 * It is a valid RSS by running it through the [W3C validator](http://validator.w3.org/feed/)
 * You are able to add the feed in other feed readers
 
-
 ### When reporting bugs
-
 * Enable debug mode in your **config/config.php**:
  * Add the **debug** attribute to config array (if not already present) and set it to **true**:
  ```php
@@ -53,7 +39,6 @@ check if:
 * Check your [browser's JavaScript console for errors](http://ggnome.com/wiki/Using_The_Browser_Error_Console) if it's a client-side issue
 
 Please provide the following details so that your problem can be fixed:
-
 * **data/nextcloud.log** (important!)
 * Nextcloud version
 * News version
@@ -62,7 +47,6 @@ Please provide the following details so that your problem can be fixed:
 * Distribution and version
 
 ### When Requesting Features
-
 Please always provide the use case in addition solution, e.g.:
 
 * "If I read feed that has comics, the newest first ordering does not work well because I have to read from the bottom up"
@@ -84,18 +68,12 @@ If approved, the translation will be automatically ported to the code within 24 
 ## Explore feeds section
 You can help to improve our explore feeds section by [providing more feeds](https://github.com/nextcloud/news/tree/master/docs/explore)
 
-## Fulltext configurations
-
-Nextcloud News uses [picoFeed web scrapers](https://github.com/miniflux/picoFeed/blob/master/docs/grabber.markdown). Simply create a new configuration file if needed and open a pull request on their repository. The News app syncs regularly with the most recent changes.
-
 ## Development
-
 In general it's a good idea to **first create an issue where you explain why, what and how** you want to make a change **before writing any code**.
 
 That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
 
 ### How to set up a development environment
-
 To get started after [cloning the repository](https://github.com/nextcloud/news#installing-from-git-development-version), install the [build dependencies](https://github.com/nextcloud/news#development-dependencies) and run:
 
     make
@@ -112,13 +90,7 @@ Packaging is done via:
 
 The packages are inside the top level **build/artifacts** folder
 
-### Contact Us!
-
-We usually hang out on **irc.freenode.net** in the **#nextcloud-news** and **#nextcloud-dev** chat room. Just ping [BernhardPosselt](https://github.com/BernhardPosselt/) or [cosenal](https://github.com/cosenal) or write us a mail directly. Mail addresses are listed on our GitHub profiles.
-
-
 ### Coding Style Guidelines
-
 The PHP code should all adhere to [PSR-2](https://www.php-fig.org/psr/psr-2/).
 *Note that this is a different codestyle than nextcloud itself uses.*
 To test the codestyle you can run `make phpcs`.

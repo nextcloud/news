@@ -17,22 +17,17 @@ use FeedIo\Feed\Item\Author;
 use FeedIo\Feed\Item\MediaInterface;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
+use Favicon\Favicon;
 use OC\L10N\L10N;
 use OCA\AdminAudit\Actions\Auth;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Fetcher\FeedFetcher;
-use OCA\News\Utility\PicoFeedFaviconFactory;
 use OCA\News\Utility\PsrLogger;
 use OCA\News\Utility\Time;
 use OCP\IL10N;
 
 use PHPUnit\Framework\TestCase;
-use PicoFeed\Client\Client;
-use PicoFeed\Parser\Parser;
-use PicoFeed\Processor\ItemPostProcessor;
-use PicoFeed\Reader\Favicon;
-use PicoFeed\Reader\Reader;
 
 /**
  * Class FeedFetcherTest
