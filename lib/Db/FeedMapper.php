@@ -40,7 +40,15 @@ class FeedMapper extends NewsMapper
                 'AND unread = ? ' .
             'WHERE `feeds`.`id` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`';
+            'GROUP BY `feeds`.`id`, `feeds`.`user_id`,  `feeds`.`url_hash`,
+                      `feeds`.`url`, `feeds`.`title`, `feeds`.`favicon_link`,
+                      `feeds`.`added`, `feeds`.`folder_id`,
+                      `feeds`.`link`, `feeds`.`prevent_update`, `feeds`.`deleted_at`,
+                      `feeds`.`articles_per_update`, `feeds`.`http_last_modified`,
+                      `feeds`.`last_modified`, `feeds`.`http_etag`, `feeds`.`location`,
+                      `feeds`.`ordering`, `feeds`.`full_text_enabled`, `feeds`.`pinned`,
+                      `feeds`.`update_mode`, `feeds`.`update_error_count`, `feeds`.`last_update_error`,
+                      `feeds`.`basic_auth_user`, `feeds`.`basic_auth_password`';
         $params = [true, $id, $userId];
 
         return $this->findEntity($sql, $params);
@@ -65,7 +73,15 @@ class FeedMapper extends NewsMapper
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`';
+            'GROUP BY `feeds`.`id`, `feeds`.`user_id`,  `feeds`.`url_hash`,
+                      `feeds`.`url`, `feeds`.`title`, `feeds`.`favicon_link`,
+                      `feeds`.`added`, `feeds`.`folder_id`,
+                      `feeds`.`link`, `feeds`.`prevent_update`, `feeds`.`deleted_at`,
+                      `feeds`.`articles_per_update`, `feeds`.`http_last_modified`,
+                      `feeds`.`last_modified`, `feeds`.`http_etag`, `feeds`.`location`,
+                      `feeds`.`ordering`, `feeds`.`full_text_enabled`, `feeds`.`pinned`,
+                      `feeds`.`update_mode`, `feeds`.`update_error_count`, `feeds`.`last_update_error`,
+                      `feeds`.`basic_auth_user`, `feeds`.`basic_auth_password`';
         $params = [true, $userId];
 
         return $this->findEntities($sql, $params);
@@ -89,7 +105,15 @@ class FeedMapper extends NewsMapper
                 'OR `folders`.`deleted_at` = 0' .
             ')' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`';
+            'GROUP BY `feeds`.`id`, `feeds`.`user_id`,  `feeds`.`url_hash`,
+                      `feeds`.`url`, `feeds`.`title`, `feeds`.`favicon_link`,
+                      `feeds`.`added`, `feeds`.`folder_id`,
+                      `feeds`.`link`, `feeds`.`prevent_update`, `feeds`.`deleted_at`,
+                      `feeds`.`articles_per_update`, `feeds`.`http_last_modified`,
+                      `feeds`.`last_modified`, `feeds`.`http_etag`, `feeds`.`location`,
+                      `feeds`.`ordering`, `feeds`.`full_text_enabled`, `feeds`.`pinned`,
+                      `feeds`.`update_mode`, `feeds`.`update_error_count`, `feeds`.`last_update_error`,
+                      `feeds`.`basic_auth_user`, `feeds`.`basic_auth_password`';
 
         return $this->findEntities($sql, [true]);
     }
@@ -108,7 +132,15 @@ class FeedMapper extends NewsMapper
                 'AND unread = ? ' .
             'WHERE `feeds`.`url_hash` = ? ' .
                 'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`';
+            'GROUP BY `feeds`.`id`, `feeds`.`user_id`,  `feeds`.`url_hash`,
+                      `feeds`.`url`, `feeds`.`title`, `feeds`.`favicon_link`,
+                      `feeds`.`added`, `feeds`.`folder_id`,
+                      `feeds`.`link`, `feeds`.`prevent_update`, `feeds`.`deleted_at`,
+                      `feeds`.`articles_per_update`, `feeds`.`http_last_modified`,
+                      `feeds`.`last_modified`, `feeds`.`http_etag`, `feeds`.`location`,
+                      `feeds`.`ordering`, `feeds`.`full_text_enabled`, `feeds`.`pinned`,
+                      `feeds`.`update_mode`, `feeds`.`update_error_count`, `feeds`.`last_update_error`,
+                      `feeds`.`basic_auth_user`, `feeds`.`basic_auth_password`';
         $params = [true, $hash, $userId];
 
         return $this->findEntity($sql, $params);
