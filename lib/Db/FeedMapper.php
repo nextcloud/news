@@ -115,7 +115,7 @@ class FeedMapper extends NewsMapper
         $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
             'JOIN ( ' .
-                'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+                'SELECT `feeds`.`id`, COUNT(`items`.`id`) AS `unread_count` ' .
                 'FROM `*PREFIX*news_feeds` `feeds` ' .
                 'LEFT JOIN `*PREFIX*news_items` `items` ' .
                     'ON `feeds`.`id` = `items`.`feed_id` ' .
