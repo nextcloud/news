@@ -65,6 +65,7 @@ OC.L10N.register(
     "Menu" : "Meniu",
     "Unpin from top" : "Atsegti nuo viršaus",
     "Pin to top" : "Prisegti viršuje",
+    "Default order" : "Numatytoji tvarka",
     "Open feed URL" : "Atverti kanalo URL",
     "Delete" : "Ištrinti",
     "Collapse" : "Suskleisti",
