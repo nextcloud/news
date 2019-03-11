@@ -81,6 +81,6 @@ class LegacyGuzzleResponse implements ResponseInterface
      */
     public function getHeader($name)
     {
-        return $this->response->getHeader($name);
+        return current($this->response->getHeader($name));
     }
 }
