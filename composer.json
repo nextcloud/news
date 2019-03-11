@@ -39,7 +39,7 @@
         "ezyang/htmlpurifier": "4.10.0",
         "pear/net_url2": "2.2.2",
         "riimu/kit-pathjoin": "1.2.0",
-        "debril/feed-io": "^3.0",
+        "debril/feed-io": "^3.1",
         "arthurhoaro/favicon": "^1.2",
         "ext-json": "*"
     },

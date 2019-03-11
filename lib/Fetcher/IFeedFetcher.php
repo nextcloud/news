@@ -13,6 +13,8 @@
 
 namespace OCA\News\Fetcher;
 
+use FeedIo\Reader\ReadErrorException;
+
 interface IFeedFetcher
 {
 
@@ -28,7 +30,7 @@ interface IFeedFetcher
      *
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
-     * @throws FetcherException if the fetcher encounters a problem
+     * @throws ReadErrorException if the Feed-IO fetcher encounters a problem
      */
     public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array;
 
