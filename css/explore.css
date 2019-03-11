@@ -12,101 +12,98 @@
  * Explore styles
  */
 .explore #app-content-wrapper {
-	height: 100%;
+    height: 100%;
 }
 
 #explore {
-	height: 100%;
-	width: 100%;
-	padding: 45px;
-	padding-right: 0;
+    height: 100%;
+    width: 100%;
+    padding: 45px 0 45px 45px;
 }
 
 
 #explore .grid-item {
-	float: left;
-	width: 300px;
-	border-collapse: collapse;
-	border: 1px solid #ccc;
-	margin: 0 25px 25px 0;
+    float: left;
+    width: 300px;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin: 0 25px 25px 0;
 }
 
 #explore h1 {
-	font-size: 13pt;
-	background-repeat: no-repeat;
-	background-position: 0 center;
-	background-size: 24px 24px;
-	padding: 5px 0 0 35px;
-	background-position: 0 center;
+    font-size: 13pt;
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    background-size: 24px 24px;
+    padding: 5px 0 0 35px;
 }
 
 #explore h1 a {
-	word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 #explore h1 a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #explore .category-wrapper {
-	text-align: center;
+    text-align: center;
 }
 
 #explore .category {
-	font-weight: normal;
-	font-size: 10pt;
-	color: var(--color-primary-text);
-	background-color: var(--color-primary);
-	padding: 10px;
-	font-weight: bold;
+    font-weight: normal;
+    font-size: 10pt;
+    color: var(--color-primary-text);
+    background-color: var(--color-primary);
+    padding: 10px;
+    font-weight: bold;
 }
 
 #explore .grid-item-content {
-	padding: 30px;
+    padding: 30px;
 }
 
 #explore .explore-logo {
-	text-align: center;
-	margin-top: 25px;
+    text-align: center;
+    margin-top: 25px;
 }
 
 #explore .explore-logo img {
-	width: 100%;
+    width: 100%;
 }
 
 #explore .explore-subscribe {
-	padding-top: 15px;
-	text-align: right;
+    padding-top: 15px;
+    text-align: right;
 }
 
 #explore .explore-content {
-	padding-top: 25px;
+    padding-top: 25px;
 }
 
 #explore .explore-filter {
-	text-align: right;
-	padding: 30px;
-	padding-top: 0;
+    text-align: right;
+    padding: 0 30px 30px;
 }
 
 #explore .explore-filter input,
 #explore .explore-filter select {
-	margin-left: 10px;
-	display: inline-block;
+    margin-left: 10px;
+    display: inline-block;
 }
 
 #explore .explore-filter input {
-	width: 200px;
+    width: 200px;
 }
 
 #explore .explore-footer {
-	clear: both;
-	margin: 75px 0;
-	text-align: center;
+    clear: both;
+    margin: 75px 0;
+    text-align: center;
 }
 
 #explore .explore-footer a {
-	font-size: 11pt;
-	color: #0000AA;
-	text-decoration: underline;
+    font-size: 11pt;
+    color: #0000AA;
+    text-decoration: underline;
 }

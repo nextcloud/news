@@ -160,7 +160,6 @@
     right: 0;
     position: absolute;
     margin: 0;
-    padding: 0;
     height: 44px;
     width: 44px;
     padding: 15px;
@@ -179,14 +178,14 @@
 
 #app-navigation .animate-show.ng-hide-add,
 #app-navigation .animate-show.ng-hide-remove {
-  /* this is required as of 1.3x to properly
-     apply all styling in a show/hide animation */
-  transition: 0s linear opacity;
+    /* this is required as of 1.3x to properly
+       apply all styling in a show/hide animation */
+    transition: 0s linear opacity;
 }
 
 #app-navigation .animate-show.ng-hide-add-active,
 #app-navigation .animate-show.ng-hide-remove-active {
-  transition: .2s linear opacity;
+    transition: .2s linear opacity;
 }
 
 #app-navigation .animate-show {
