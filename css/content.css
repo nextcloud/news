@@ -12,6 +12,7 @@
     width: 100%;
     flex-basis: auto;
 }
+
 #app-navigation:not(.hidden) + #app-content {
     width: calc(100% - 300px);
 }
@@ -60,7 +61,7 @@
     z-index: 10000;
     background-color: #111;
     display: flex;
-	position: sticky;
+    position: sticky;
     top: 50px;
     align-items: center;
 }
@@ -81,7 +82,6 @@
     border: 0;
     border-radius: 0;
     margin: 0;
-    background-color: #111;
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: center;
@@ -124,7 +124,7 @@
     background: url('../img/loading.gif') no-repeat;
     background-position: calc(50% - 16px) calc(50% - 16px);
     /* Overrides the snap.js animation making the loading icon to fly in app-content. */
-    transition:none !important;
+    transition: none !important;
     -webkit-transition: none !important;
     -moz-webkit-transition: none !important;
 }
@@ -145,7 +145,7 @@
     background-image: url('../img/loading.gif');
     background-position: calc(50% - 16px) calc(50% - 16px);
     /* Overrides the snap.js animation making the loading icon to fly in app-content. */
-    transition:none !important;
+    transition: none !important;
     -webkit-transition: none !important;
     -moz-webkit-transition: none !important;
 }
@@ -154,7 +154,6 @@
     background: var(--color-main-background);
 }
 
-
 /**
  *
  */
@@ -162,10 +161,10 @@
     height: 0;
     overflow: hidden;
     text-align: center;
-    background-image:-moz-linear-gradient(top, #eee 0%, #fefefe 100%);
-    background-image:-webkit-linear-gradient(top, #eee 0%, #fefefe 100%);
-    background-image:-ms-linear-gradient(top, #eee 0%, #fefefe 100%);
-    background-image:linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image: -moz-linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image: -webkit-linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image: -ms-linear-gradient(top, #eee 0%, #fefefe 100%);
+    background-image: linear-gradient(top, #eee 0%, #fefefe 100%);
 }
 
 .pull-to-refresh.show-pull-to-refresh {
@@ -197,7 +196,6 @@
 #app-content .item {
     cursor: default;
     border-bottom: 1px solid var(--color-border);
-    background: var(--color-background-dark);
 }
 
 #app-content .item.active {
@@ -227,7 +225,6 @@
     -webkit-position: sticky;
     position: sticky;
     top: 50px;
-    background-color: var(--color-main-background);
     min-height: 41px;
     opacity: 0.9;
 }
@@ -244,214 +241,214 @@
     height: auto;
 }
 
-    #app-content .utils ul > li {
-        min-width: 0;
-    }
+#app-content .utils ul > li {
+    min-width: 0;
+}
 
-    #app-content .util-spacer {
-        width: 20px;
-    }
+#app-content .util-spacer {
+    width: 20px;
+}
 
-    #app-content .compact .util-spacer {
-        width: 19px;
-    }
+#app-content .compact .util-spacer {
+    width: 19px;
+}
 
-    #app-content .utils li {
-        line-height: 40px;
-        vertical-align: middle;
-    }
+#app-content .utils li {
+    line-height: 40px;
+    vertical-align: middle;
+}
 
-    #app-content .utils > ul > li:last-child {
-        padding-right: 0;
-    }
+#app-content .utils > ul > li:last-child {
+    padding-right: 0;
+}
 
-    #app-content .utils > ul > li:first-child {
-        padding-left: 0;
-    }
+#app-content .utils > ul > li:first-child {
+    padding-left: 0;
+}
 
-    #app-content .utils .util {
-        padding: 0 6px;
-    }
+#app-content .utils .util {
+    padding: 0 6px;
+}
 
-    #app-content .utils .article-action-plugins {
+#app-content .utils .article-action-plugins {
 
-    }
+}
 
-    #app-content .utils button,
-    #app-content .utils .external {
-        padding: 0;
-        margin: 0;
-        height: 40px;
-        width: 40px;
-        border: 0;
-        float: left;
-        background-color: transparent;
-        background-size: 100%;
-        background-repeat: no-repeat;
-        background-size: 25px;
-        background-position: center;
-    }
+#app-content .utils button,
+#app-content .utils .external {
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    width: 40px;
+    border: 0;
+    float: left;
+    background-color: transparent;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center;
+}
 
-    #app-content .utils .external,
-    #app-content .utils .menu button,
-    #app-content .utils .icon-toggle {
-        display: inline-block;
-        opacity: 0.3;
-    }
+#app-content .utils .external,
+#app-content .utils .menu button,
+#app-content .utils .icon-toggle {
+    display: inline-block;
+    opacity: 0.3;
+}
 
-    #app-content .utils .external:hover,
-    #app-content .utils .menu button:hover,
-    #app-content .utils .icon-toggle:hover,
-    #app-content .utils .icon-toggle.keep-unread {
-        opacity: 1;
-    }
+#app-content .utils .external:hover,
+#app-content .utils .menu button:hover,
+#app-content .utils .icon-toggle:hover,
+#app-content .utils .icon-toggle.keep-unread {
+    opacity: 1;
+}
 
-    #app-content .utils .star {
-        background-image: url('../img/inactive_star.svg');
-    }
+#app-content .utils .star {
+    background-image: url('../img/inactive_star.svg');
+}
 
-    #app-content .utils .starred {
-        background-image: url('../img/active_star.svg');
-    }
+#app-content .utils .starred {
+    background-image: url('../img/active_star.svg');
+}
 
-    #app-content .utils .star:hover {
-         background-image: url('../img/hover_star.svg');
-    }
+#app-content .utils .star:hover {
+    background-image: url('../img/hover_star.svg');
+}
 
-    #app-content .utils .more button {
-        opacity: .3;
-    }
+#app-content .utils .more button {
+    opacity: .3;
+}
 
-    #app-content .utils .more button:hover {
-        opacity: 1;
-    }
+#app-content .utils .more button:hover {
+    opacity: 1;
+}
 
-    #app-content .utils .more {
-        position: relative;
-    }
+#app-content .utils .more {
+    position: relative;
+}
 
-    #app-content .article-actions {
-        display: none;
-        filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
-        -webkit-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
-        -moz-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
-        position: absolute;
-        top: 40px;
-        border-radius: 3px;
-        z-index: 1000;
-        border: 1px solid transparent;
-        background-color: var(--color-main-background);
-        margin: 0;
-        padding: 0;
-    }
+#app-content .article-actions {
+    display: none;
+    filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+    -webkit-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+    -moz-filter: drop-shadow(0 0 5px rgba(150, 150, 150, 0.75));
+    position: absolute;
+    top: 40px;
+    border-radius: 3px;
+    z-index: 1000;
+    border: 1px solid transparent;
+    margin: 0;
+    padding: 0;
+}
 
-    #app-content .article-actions ul {
-        display: flex;
-        float: left;
-    }
+#app-content .article-actions ul {
+    display: flex;
+    float: left;
+}
 
-    #app-content .article-actions li {
-        float: left;
-        width: 40px !important;
-    }
+#app-content .article-actions li {
+    float: left;
+    width: 40px !important;
+}
 
-    #app-content #articles:not(.compact) .article-actions {
-        left: 6px;
-    }
+#app-content #articles:not(.compact) .article-actions {
+    left: 6px;
+}
 
-    #app-content #articles:not(.compact) .article-actions:after,
-    #app-content #articles:not(.compact) .article-actions:before {
-        left: 20px;
-    }
+#app-content #articles:not(.compact) .article-actions:after,
+#app-content #articles:not(.compact) .article-actions:before {
+    left: 20px;
+}
 
-    #app-content #articles.compact .article-actions {
-        right: -10px;
-    }
+#app-content #articles.compact .article-actions {
+    right: -10px;
+}
 
-    #app-content #articles.compact .article-actions:after,
-    #app-content #articles.compact .article-actions:before {
-        right: 9px;
-    }
+#app-content #articles.compact .article-actions:after,
+#app-content #articles.compact .article-actions:before {
+    right: 9px;
+}
 
-    #app-content .article-actions:after,
-    #app-content .article-actions:before {
-    	bottom: 100%;
-    	border: solid transparent;
-    	content: " ";
-    	height: 0;
-    	width: 0;
-    	position: absolute;
-    	pointer-events: none;
-    }
+#app-content .article-actions:after,
+#app-content .article-actions:before {
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
 
-    #app-content .article-actions:after {
-    	border-color: rgba(255, 255, 255, 0);
-    	border-bottom-color: var(--color-border);
-    	border-width: 5px;
-    	margin-left: -5px;
-    }
-    #app-content .article-actions:before {
-    	border-color: rgba(255, 255, 255, 0);
-    	border-bottom-color: var(--color-border);
-    	border-width: 9px;
-    	margin-left: -9px;
-    }
+#app-content .article-actions:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: var(--color-border);
+    border-width: 5px;
+    margin-left: -5px;
+}
 
-    /**
-     * Article title
-     */
-    #app-content .utils .title {
-        width: 100%;
-        padding-left: 45px;
-        background-position: 10px 10px;
-        background-size: 20px 20px;
-        background-repeat: no-repeat;
-    }
+#app-content .article-actions:before {
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: var(--color-border);
+    border-width: 9px;
+    margin-left: -9px;
+}
 
-    #app-content .feed-view .utils .title {
-        background: none !important;
-        padding-left: 10px;
-    }
+/**
+ * Article title
+ */
+#app-content .utils .title {
+    width: 100%;
+    padding-left: 45px;
+    background-position: 10px 10px;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+}
 
-    #app-content .utils .title h1 a {
-        /*text-overflow: ellipsis;*/
-        white-space: nowrap;
-        overflow: hidden;
-        width: 100%;
-        display: inline-block;
-        color: var(--color-main-text);
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 1.5;
-        padding-top: 8px;
-        min-height: 40px;
-    }
+#app-content .feed-view .utils .title {
+    background: none !important;
+    padding-left: 10px;
+}
 
-    #app-content .open .title .intro {
-        display: none;
-    }
+#app-content .utils .title h1 a {
+    /*text-overflow: ellipsis;*/
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    display: inline-block;
+    color: var(--color-main-text);
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 1.5;
+    padding-top: 8px;
+    min-height: 40px;
+}
 
-    #app-content .title .intro {
-        color: var(--color-text-lighter);
-        font-size: 10pt;
-        font-weight: normal;
-        margin-left: 20px;
-    }
+#app-content .open .title .intro {
+    display: none;
+}
 
-    #app-content .open .utils .title h1 a {
-        overflow: auto;
-        white-space: normal;
-    }
+#app-content .title .intro {
+    color: var(--color-text-lighter);
+    font-size: 10pt;
+    font-weight: normal;
+    margin-left: 20px;
+}
 
-    #app-content .read .utils .title h1 a {
-        font-weight: normal;
-        color: var(--color-text-lighter);
-    }
+#app-content .open .utils .title h1 a {
+    overflow: auto;
+    white-space: normal;
+}
 
-    #app-content .utils .date {
-        padding: 0 15px;
-        margin-right: 25px;
-    }
+#app-content .read .utils .title h1 a {
+    font-weight: normal;
+    color: var(--color-text-lighter);
+}
+
+#app-content .utils .date {
+    padding: 0 15px;
+    margin-right: 25px;
+}
 
 
 /**
@@ -467,14 +464,15 @@
     word-wrap: break-word;
 }
 
-    #app-content .heading a {
-        font-weight: bold;
-        color: var(--color-main-text);
-        text-decoration: none;
-    }
-        #app-content .heading a:hover {
-            text-decoration: underline;
-        }
+#app-content .heading a {
+    font-weight: bold;
+    color: var(--color-main-text);
+    text-decoration: none;
+}
+
+#app-content .heading a:hover {
+    text-decoration: underline;
+}
 
 #app-content .heading .date {
     float: right;
@@ -545,13 +543,13 @@
     font-size: 15px;
 }
 
-    #app-content .author a {
-        color: inherit;
-    }
+#app-content .author a {
+    color: inherit;
+}
 
-        #app-content .author a:hover {
-            text-decoration: underline;
-        }
+#app-content .author a:hover {
+    text-decoration: underline;
+}
 
 /**
  * Enclosure
@@ -588,114 +586,115 @@
     overflow-x: auto;
 }
 
-    #app-content .body p {
-        line-height: 1.5;
-        margin: 7px 0 14px 0;
-    }
+#app-content .body p {
+    line-height: 1.5;
+    margin: 7px 0 14px 0;
+}
 
-    #app-content .body img,
-    #app-content .body table {
-        max-width: 100%;
-        height: auto;
-        overflow: auto;
-        word-wrap: break-word;
-        white-space:normal;
-    }
+#app-content .body img,
+#app-content .body table {
+    max-width: 100%;
+    height: auto;
+    overflow: auto;
+    word-wrap: break-word;
+    white-space: normal;
+}
 
-    #app-content .body iframe {
-        max-width: 100%;
-    }
+#app-content .body iframe {
+    max-width: 100%;
+}
 
-    #app-content .body > div > img:first-child,
-    #app-content .body > div > :first-child > img:first-child {
-        padding: 0 14px 0 0;
-        float: left;
-    }
+#app-content .body > div > img:first-child,
+#app-content .body > div > :first-child > img:first-child {
+    padding: 0 14px 0 0;
+    float: left;
+}
 
-    #app-content .body h1,
-    #app-content .body h2 {
-        font-size: 17px;
-        font-weight: bold;
-        color: var(--color-main-text);
-        margin: 21px 0 5px 0;
-    }
+#app-content .body h1,
+#app-content .body h2 {
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--color-main-text);
+    margin: 21px 0 5px 0;
+}
 
-    #app-content .body h3 {
-        font-size: 15px;
-        font-weight: bold;
-        color: var(--color-main-text);
-        margin: 21px 0 0 0;
-        text-decoration: underline;
-    }
+#app-content .body h3 {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--color-main-text);
+    margin: 21px 0 0 0;
+    text-decoration: underline;
+}
 
-    #app-content .body h4,
-    #app-content .body h5,
-    #app-content .body h6 {
-        font-weight: bold;
-    }
+#app-content .body h4,
+#app-content .body h5,
+#app-content .body h6 {
+    font-weight: bold;
+}
 
-    #app-content .body > div {
-        margin: 7px 0;
-    }
+#app-content .body > div {
+    margin: 7px 0;
+}
 
-    #app-content .body a {
-        color: #0000ff;
-        text-decoration: underline;
-    }
+#app-content .body a {
+    color: #0000ff;
+    text-decoration: underline;
+}
 
-    #app-content .body ul {
-        margin: 7px 0;
-        padding-left: 14px;
-        list-style-type: disc;
-    }
+#app-content .body ul {
+    margin: 7px 0;
+    padding-left: 14px;
+    list-style-type: disc;
+}
 
-    #app-content .body ol {
-        margin: 7px 0;
-        padding-left: 21px;
-    }
+#app-content .body ol {
+    margin: 7px 0;
+    padding-left: 21px;
+}
 
-        #app-content .body ul li {
-            cursor: default;
-            line-height: 21px;
-        }
+#app-content .body ul li {
+    cursor: default;
+    line-height: 21px;
+}
 
-    #app-content .body pre {
-        padding: 7px 7px 7px 14px;
-        background-color: var(--color-background-darker);
-        border: 1px solid var(--color-border-dark);
-        margin: 7px 0 14px 0;
-        overflow-y: auto;
-    }
-        #app-content .body pre::-webkit-scrollbar {
-            height: 10px;
-        }
+#app-content .body pre {
+    padding: 7px 7px 7px 14px;
+    background-color: var(--color-background-darker);
+    border: 1px solid var(--color-border-dark);
+    margin: 7px 0 14px 0;
+    overflow-y: auto;
+}
 
-        #app-content .body pre::-webkit-scrollbar-thumb {
-            background: #333;
-        }
+#app-content .body pre::-webkit-scrollbar {
+    height: 10px;
+}
 
-        #app-content .body pre::-webkit-scrollbar-track-piece {
-            background: #ddd;
-        }
+#app-content .body pre::-webkit-scrollbar-thumb {
+    background: #333;
+}
 
-        #app-content .body code,
-        #app-content .body pre {
-            font-family: monospace;
-            font-size: 16px;
-        }
+#app-content .body pre::-webkit-scrollbar-track-piece {
+    background: #ddd;
+}
 
-    #app-content .body blockquote {
-        border-left: 1px solid rgb(210,210,210);
-        margin: 25px 0;
-        padding: 0 0 0 15px;
-        font-style: italic;
-    }
+#app-content .body code,
+#app-content .body pre {
+    font-family: monospace;
+    font-size: 16px;
+}
 
-    #app-content .body em {
-        font-style: italic;
-        opacity: 1;
-    }
+#app-content .body blockquote {
+    border-left: 1px solid rgb(210, 210, 210);
+    margin: 25px 0;
+    padding: 0 0 0 15px;
+    font-style: italic;
+}
 
-    #app-content *[dir=rtl] {
-        text-align: right;
-    }
+#app-content .body em {
+    font-style: italic;
+    opacity: 1;
+}
+
+#app-content *[dir=rtl] {
+    text-align: right;
+}

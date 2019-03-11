@@ -21,24 +21,24 @@
 }
 
 #undo {
-    z-index:101;
-    background-color:var(--color-warning);
-    border:0;
-    padding:0 .7em .3em;
-    display:none;
+    z-index: 101;
+    background-color: var(--color-warning);
+    border: 0;
+    padding: 0 .7em .3em;
+    display: none;
     position: relative;
-    top:0;
-    border-bottom-left-radius:1em;
-    border-bottom-right-radius:1em;
+    top: 0;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
 }
 
-    #undo a {
-        font-weight: bold;
-    }
+#undo a {
+    font-weight: bold;
+}
 
-    #undo a:hover {
-        text-decoration: underline;
-    }
+#undo a:hover {
+    text-decoration: underline;
+}
 
 #searchbox {
     display: block !important;
@@ -46,5 +46,5 @@
 
 /* Override hidden before angular is loaded */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
-	display: none !important;
+    display: none !important;
 }
