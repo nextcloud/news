@@ -13,6 +13,7 @@
 
 namespace OCA\News\Service;
 
+use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
 
 use OCP\ILogger;
@@ -24,7 +25,6 @@ use OCA\News\Db\Item;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
-use OCA\News\Fetcher\FetcherException;
 use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
@@ -165,7 +165,7 @@ class FeedService extends Service
             $feed->setUnreadCount($unreadCount);
 
             return $feed;
-        } catch (FetcherException $ex) {
+        } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage(), $this->loggerParams);
             throw new ServiceNotFoundException($ex->getMessage());
         }
@@ -300,7 +300,7 @@ class FeedService extends Service
             // mark feed as successfully updated
             $existingFeed->setUpdateErrorCount(0);
             $existingFeed->setLastUpdateError('');
-        } catch (FetcherException $ex) {
+        } catch (ReadErrorException $ex) {
             $existingFeed->setUpdateErrorCount(
                 $existingFeed->getUpdateErrorCount() + 1
             );
@@ -456,18 +456,21 @@ class FeedService extends Service
     }
 
     /**
-     * @param $feedId
-     * @param $userId
-     * @param $diff an array containing the fields to update, e.g.:
-     *              [
-     *              'ordering' => 1,
-     *              'fullTextEnabled' => true,
-     *              'pinned' => true,
-     *              'updateMode' => 0,
-     *              'title' => 'title'
-     *              ]
+     * @param string $feedId ID of the feed.
+     * @param string $userId ID of the user.
+     * @param array $diff An array containing the fields to update, e.g.:
+     * <code>
+     * [
+     *   'ordering' => 1,
+     *   'fullTextEnabled' => true,
+     *   'pinned' => true,
+     *   'updateMode' => 0,
+     *   'title' => 'title'
+     * ]
+     * </code>
      *
      * @throws ServiceNotFoundException if feed does not exist
+     * @return Feed The patched feed
      */
     public function patch($feedId, $userId, $diff = [])
     {

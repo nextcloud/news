@@ -13,6 +13,8 @@
 
 namespace OCA\News\Fetcher;
 
+use FeedIo\Reader\ReadErrorException;
+
 class Fetcher
 {
 
@@ -48,7 +50,7 @@ class Fetcher
      * @param  string $user               if given, basic auth is set for this feed
      * @param  string $password           if given, basic auth is set for this feed. Ignored if user is empty
      *
-     * @throws FetcherException if FeedIO fails
+     * @throws ReadErrorException if FeedIO fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */

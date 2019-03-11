@@ -14,6 +14,8 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use FeedIo\Reader\ReadErrorException;
+
 use OCA\News\Config\Config;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
@@ -114,7 +116,7 @@ class FeedServiceTest extends TestCase
 
     public function testCreateDoesNotFindFeed()
     {
-        $ex = new FetcherException('hi');
+        $ex = new ReadErrorException('hi');
         $url = 'test';
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -581,7 +583,7 @@ class FeedServiceTest extends TestCase
         $exptectedFeed->setUpdateErrorCount(1);
         $exptectedFeed->setLastUpdateError('hi');
 
-        $ex = new FetcherException('hi');
+        $ex = new ReadErrorException('hi');
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
