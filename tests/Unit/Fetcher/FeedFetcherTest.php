@@ -229,6 +229,17 @@ class FeedFetcherTest extends TestCase
         $this->assertEquals([$feed, [$item]], $result);
     }
 
+    public function testFetchAccount()
+    {
+        $this->__setUpReader('http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests');
+        $item = $this->_createItem();
+        $feed = $this->_createFeed('de-DE', false, 'http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests');
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, 'account@email.com', 'F9sEU*Rt%:KFK8HMHT&');
+
+        $this->assertEquals([$feed, [$item]], $result);
+    }
+
 
     public function testAudioEnclosure()
     {
@@ -496,8 +507,9 @@ class FeedFetcherTest extends TestCase
     }
 
 
-    private function _createFeed($lang='de-DE', $favicon=false)
+    private function _createFeed($lang='de-DE', $favicon=false, $url= null)
     {
+        $url = $url ?? $this->url;
         $this->_expectFeed('getTitle', $this->feed_title, 2);
         $this->_expectFeed('getLink', $this->feed_link);
         $this->_expectFeed('getLastModified', $this->modified);
@@ -508,7 +520,7 @@ class FeedFetcherTest extends TestCase
         $feed->setTitle('&its a title');
         $feed->setLink($this->feed_link);
         $feed->setLocation($this->location);
-        $feed->setUrl($this->url);
+        $feed->setUrl($url);
         $feed->setLastModified(3);
         $feed->setAdded($this->time);
         if ($favicon) {
