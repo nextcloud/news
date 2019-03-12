@@ -67,7 +67,7 @@ class FeedFetcher implements IFeedFetcher
     {
         if (!empty($user) && !empty(trim($user))) {
             $url = explode('://', $url);
-            $url = $url[0] . '://' . $user . ':' . $password . '@' . $url[1];
+            $url = $url[0] . '://' . urlencode($user) . ':' . urlencode($password) . '@' . $url[1];
         }
         if (is_null($lastModified) || !is_string($lastModified)) {
             $resource = $this->reader->read($url);
@@ -95,7 +95,10 @@ class FeedFetcher implements IFeedFetcher
         );
 
         $items = [];
-        $this->logger->debug('Feed ' . $url . ' was modified since last fetch. #' . count($parsedFeed) .  ' items');
+        $this->logger->debug('Feed {url} was modified since last fetch. #{count} items', [
+            'url'   => $url,
+            'count' => count($parsedFeed),
+        ]);
         foreach ($parsedFeed as $item) {
             $items[] = $this->buildItem($item, $parsedFeed);
         }
