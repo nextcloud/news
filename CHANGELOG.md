@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Fixed
+- Issue with reading a timestamp in a feed #413
+- Passing credentials to a feed #419
+- Background color everywhere #410
+- Updater stopping when one feed fails #408
+
 ## 13.1.0
 
 ### Changed
