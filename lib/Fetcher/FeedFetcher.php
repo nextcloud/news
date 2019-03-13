@@ -25,6 +25,7 @@ use OCP\IL10N;
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
+use SimpleXMLElement;
 
 class FeedFetcher implements IFeedFetcher
 {
@@ -204,6 +205,12 @@ class FeedFetcher implements IFeedFetcher
             'HTML-ENTITIES',
             mb_detect_encoding($body)
         );
+        $data = simplexml_load_string(
+            '<?xml version="1.0" encoding="utf-8"?><item>' . $body . '</item>',
+            SimpleXMLElement::class,
+            LIBXML_NOCDATA
+        );
+        $body = ($data === false) ? $body : (string) $data;
         $item->setBody($body);
 
         if ($parsedItem->hasMedia()) {

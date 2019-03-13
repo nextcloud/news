@@ -26,6 +26,8 @@ class FetcherConfig
 {
     protected $client_timeout;
     protected $proxy;
+    protected $redirects;
+    protected $max_size;
 
     /**
      * Configure a guzzle client
@@ -36,14 +38,18 @@ class FetcherConfig
     {
         if (!class_exists('GuzzleHttp\Collection')) {
             $config = [
-                'timeout' => $this->getClientTimeout(),
+                'timeout' => $this->client_timeout,
             ];
 
             if (!empty($this->proxy)) {
                 $config['proxy'] = $this->proxy;
             }
 
-            $guzzle = new Client();
+            if (!empty($this->redirects)) {
+                $config['redirect.max'] = $this->redirects;
+            }
+
+            $guzzle = new Client($config);
             $client = new FeedIoClient($guzzle);
 
             return $client;
@@ -51,7 +57,7 @@ class FetcherConfig
 
         $config = [
             'request.options' => [
-                'timeout' => $this->getClientTimeout(),
+                'timeout' => $this->client_timeout,
             ],
         ];
 
@@ -59,32 +65,28 @@ class FetcherConfig
             $config['request.options']['proxy'] = $this->proxy;
         }
 
+        if (!empty($this->redirects)) {
+            $config['request.options']['redirect.max'] = $this->redirects;
+        }
+
         $guzzle = new Client($config);
         return new LegacyGuzzleClient($guzzle);
     }
 
     /**
-     * Set a timeout for the client
+     * Set settings for config.
      *
-     * @param int $timeout The timeout
+     * @param Config $config The shared configuration
      *
      * @return self
      */
-    public function setClientTimeout($timeout)
+    public function setConfig(Config $config)
     {
-        $this->client_timeout = $timeout;
+        $this->client_timeout = $config->getFeedFetcherTimeout();
+        $this->redirects = $config->getMaxRedirects();
+        $this->max_size = $config->getMaxSize();
 
         return $this;
-    }
-
-    /**
-     * Get the client timeout.
-     *
-     * @return mixed
-     */
-    public function getClientTimeout()
-    {
-        return $this->client_timeout;
     }
 
     /**

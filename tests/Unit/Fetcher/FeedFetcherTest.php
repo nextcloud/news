@@ -113,6 +113,7 @@ class FeedFetcherTest extends TestCase
     private $pub;
     private $updated;
     private $body;
+    private $parsed_body;
     /**
      * @var Author
      */
@@ -174,16 +175,17 @@ class FeedFetcherTest extends TestCase
         );
         $this->url     = 'http://tests';
 
-        $this->permalink = 'http://permalink';
-        $this->title     = 'my&amp;lt;&apos; title';
-        $this->guid      = 'hey guid here';
-        $this->guid_hash = 'df9a5f84e44bfe38cf44f6070d5b0250';
-        $this->body      = 'let the bodies hit the floor <a href="test">test</a>';
-        $this->pub       = 23111;
-        $this->updated   = 23444;
-        $this->author    = new Author();
+        $this->permalink   = 'http://permalink';
+        $this->title       = 'my&amp;lt;&apos; title';
+        $this->guid        = 'hey guid here';
+        $this->guid_hash   = 'df9a5f84e44bfe38cf44f6070d5b0250';
+        $this->body        = '<![CDATA[let the bodies hit the floor <a href="test">test</a>]]>';
+        $this->parsed_body = 'let the bodies hit the floor <a href="test">test</a>';
+        $this->pub         = 23111;
+        $this->updated     = 23444;
+        $this->author      = new Author();
         $this->author->setName('&lt;boogieman');
-        $this->enclosure = 'http://enclosure.you';
+        $this->enclosure   = 'http://enclosure.you';
 
         $this->feed_title  = '&lt;a&gt;&amp;its a&lt;/a&gt; title';
         $this->feed_link   = 'http://tests';
@@ -477,7 +479,7 @@ class FeedFetcherTest extends TestCase
         $item->setTitle('my<\' title');
         $item->setGuid($this->guid);
         $item->setGuidHash($this->guid_hash);
-        $item->setBody($this->body);
+        $item->setBody($this->parsed_body);
         $item->setRtl(false);
         $item->setLastModified(3);
         $item->setPubDate(3);
