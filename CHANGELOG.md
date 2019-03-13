@@ -1,7 +1,8 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 13.1.1
+
 ### Fixed
 - Issue with reading a timestamp in a feed #413
 - Passing credentials to a feed #419
