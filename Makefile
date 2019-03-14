@@ -124,7 +124,7 @@ distclean: clean
 # Builds the source and appstore package
 .PHONY: dist
 dist:
-    make distclean
+	make distclean
 	make build
 	make source
 	make appstore
