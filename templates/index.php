@@ -27,6 +27,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
 
     <div id="global-loading"
         class="icon-loading"
+        ngCloak
         ng-show="App.loading.isLoading('global')"></div>
 
     <!-- content -->
