@@ -199,7 +199,6 @@
 }
 
 #app-content .item.active {
-    background: var(--color-background-darker);
 }
 
 #app-content :not(.compact) .item {
