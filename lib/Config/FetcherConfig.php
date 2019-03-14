@@ -25,10 +25,36 @@ use OCP\IConfig;
  */
 class FetcherConfig
 {
+    /**
+     * Timeout before the client should abort.
+     * @var string
+     */
     protected $client_timeout;
+
+    /**
+     * Configuration for an HTTP proxy.
+     * @var string
+     */
     protected $proxy;
+
+    /**
+     * Amount of allowed redirects.
+     * @var string
+     */
     protected $redirects;
+
+    /**
+     * Max size of the recieved data.
+     * @deprecated guzzle can't handle this
+     * @var string
+     */
     protected $max_size;
+
+    /**
+     * User agent for the client.
+     * @var string
+     */
+    const DEFAULT_USER_AGENT = 'NextCloud-News/1.0';
 
     /**
      * Configure a guzzle client
@@ -38,27 +64,43 @@ class FetcherConfig
     public function getClient()
     {
         if (!class_exists('GuzzleHttp\Collection')) {
-            $config = [
-                'timeout' => $this->client_timeout,
-            ];
-
-            if (!empty($this->proxy)) {
-                $config['proxy'] = $this->proxy;
-            }
-
-            if (!empty($this->redirects)) {
-                $config['redirect.max'] = $this->redirects;
-            }
-
-            $guzzle = new Client($config);
-            $client = new FeedIoClient($guzzle);
-
-            return $client;
+            return new FeedIoClient($this->getConfig());
         }
 
+        return new LegacyGuzzleClient($this->getOldConfig());
+    }
+    /**
+     * Get configuration for modern guzzle.
+     * @return Client Guzzle client.
+     */
+    private function getConfig()
+    {
+        $config = [
+            'timeout' => $this->client_timeout,
+            'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT],
+        ];
+
+        if (!empty($this->proxy)) {
+            $config['proxy'] = $this->proxy;
+        }
+        if (!empty($this->redirects)) {
+            $config['redirect.max'] = $this->redirects;
+        }
+
+        $guzzle = new Client($config);
+        return $guzzle;
+    }
+
+    /**
+     * Get configuration for old guzzle.
+     * @return Client Guzzle client.
+     */
+    private function getOldConfig()
+    {
         $config = [
             'request.options' => [
                 'timeout' => $this->client_timeout,
+                'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT],
             ],
         ];
 
@@ -71,7 +113,7 @@ class FetcherConfig
         }
 
         $guzzle = new Client($config);
-        return new LegacyGuzzleClient($guzzle);
+        return $guzzle;
     }
 
     /**
