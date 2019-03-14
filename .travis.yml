@@ -51,7 +51,7 @@ before_script:
     - php -S localhost:8080 &
 
 script:
-    - ./occ news:generate-explore --votes 100 "https://nextcloud.com/blogfeed"
+    - ./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
     - cd apps/news
     - make test
 
