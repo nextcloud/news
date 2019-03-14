@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Changed
+- The active item is now highlighted by a thin orange line #434
+
+### Fixed
+- Highlight in compact mode #109
+- Prevent raw angluar templates from flashing on page load #429
+- HTML elements where not rendered #428
+- Provide UserAgent to prevent HTTP 403 errors #428 
+
 ## 13.1.1
 
 ### Fixed
