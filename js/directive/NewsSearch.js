@@ -26,8 +26,9 @@ app.directive('newsSearch', function ($document, $location) {
                 });
             };
 
-            box.on('search keyup', function (event) {
+            box.on('search keydown', function (event) {
                 if (event.type === 'search' || event.keyCode === 13) {
+                    event.preventDefault();
                     doSearch();
                 }
             });
