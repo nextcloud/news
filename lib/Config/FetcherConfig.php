@@ -16,6 +16,7 @@ namespace OCA\News\Config;
 use FeedIo\Adapter\ClientInterface;
 use \GuzzleHttp\Client;
 use \FeedIo\Adapter\Guzzle\Client as FeedIoClient;
+use OCP\IConfig;
 
 /**
  * Class FetcherConfig
@@ -92,28 +93,27 @@ class FetcherConfig
     /**
      * Set the proxy
      *
-     * @param \OCA\News\Utility\ProxyConfigParser $proxy The proxy to set.
+     * @param IConfig $config Nextcloud config.
      *
      * @return self
      */
-    public function setProxy($proxy)
+    public function setProxy(IConfig $config)
     {
-        // proxy settings
-        $proxySettings = $proxy->parse();
-        $host = $proxySettings['host'];
-        $port = $proxySettings['port'];
-        $user = $proxySettings['user'];
-        $password = $proxySettings['password'];
+        $proxy = $config->getSystemValue('proxy', null);
+        $creds = $config->getSystemValue('proxyuserpwd', null);
 
-        $proxy_string = 'https://';
-        if (!empty($user)) {
-            $proxy_string .= $user . ':' . $password . '@';
+        if (is_null($proxy)) {
+            return $this;
         }
-        $proxy_string .= $host;
-        if (!empty($port)) {
-            $proxy_string .= ':' . $port;
+
+        $url = new \Net_URL2($proxy);
+
+        if ($creds) {
+            $auth = explode(':', $creds, 2);
+            $url->setUserinfo($auth[0], $auth[1]);
         }
-        $this->proxy = $proxy_string;
+
+        $this->proxy = $url->getNormalizedURL();
 
         return $this;
     }

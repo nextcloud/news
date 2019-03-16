@@ -19,6 +19,7 @@ use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 
+use Net_URL2;
 use OCA\News\Utility\PsrLogger;
 use OCP\IL10N;
 
@@ -66,10 +67,11 @@ class FeedFetcher implements IFeedFetcher
      */
     public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
     {
+        $url2 = new Net_URL2($url);
         if (!empty($user) && !empty(trim($user))) {
-            $url = explode('://', $url);
-            $url = $url[0] . '://' . urlencode($user) . ':' . urlencode($password) . '@' . $url[1];
+            $url2->setUserinfo(urlencode($user), urlencode($password));
         }
+        $url = $url2->getNormalizedURL();
         if (is_null($lastModified) || !is_string($lastModified)) {
             $resource = $this->reader->read($url);
         } else {

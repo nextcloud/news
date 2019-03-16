@@ -160,8 +160,8 @@ class Application extends App
          */
         $container->registerService(FetcherConfig::class, function (IContainer $c): FetcherConfig {
             $fConfig = new FetcherConfig();
-            $fConfig->setConfig($c->query(Config::class));
-            $fConfig->setProxy($c->query(ProxyConfigParser::class));
+            $fConfig->setConfig($c->query(Config::class))
+                    ->setProxy($c->query(IConfig::class));
 
             return $fConfig;
         });

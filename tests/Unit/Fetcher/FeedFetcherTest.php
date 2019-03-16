@@ -173,7 +173,7 @@ class FeedFetcherTest extends TestCase
             $timeFactory,
             $this->logger
         );
-        $this->url     = 'http://tests';
+        $this->url     = 'http://tests/';
 
         $this->permalink   = 'http://permalink';
         $this->title       = 'my&amp;lt;&apos; title';
@@ -188,7 +188,7 @@ class FeedFetcherTest extends TestCase
         $this->enclosure   = 'http://enclosure.you';
 
         $this->feed_title  = '&lt;a&gt;&amp;its a&lt;/a&gt; title';
-        $this->feed_link   = 'http://tests';
+        $this->feed_link   = 'http://tests/';
         $this->feed_image  = '/an/image';
         $this->web_favicon = 'http://anon.google.com';
         $this->modified    = $this->getMockBuilder('\DateTime')->getMock();
@@ -233,9 +233,9 @@ class FeedFetcherTest extends TestCase
 
     public function testFetchAccount()
     {
-        $this->__setUpReader('http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests');
+        $this->__setUpReader('http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests/');
         $item = $this->_createItem();
-        $feed = $this->_createFeed('de-DE', false, 'http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests');
+        $feed = $this->_createFeed('de-DE', false, 'http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests/');
         $this->_mockIterator($this->feed_mock, [$this->item_mock]);
         $result = $this->fetcher->fetch($this->url, false, null, 'account@email.com', 'F9sEU*Rt%:KFK8HMHT&');
 
