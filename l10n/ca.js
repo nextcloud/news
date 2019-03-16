@@ -89,7 +89,7 @@ OC.L10N.register(
     "Update failed more than 50 times" : "L'actualització ha fallat més de 50 vegades",
     "Deleted feed" : "El feed s'ha suprimit",
     "Undo delete feed" : "Desfés el feed d'esborrat",
-    "Rename" : "Reanomena",
+    "Rename" : "Canvia el nom",
     "Menu" : "Men",
     "Mark read" : "Marca com a llegit",
     "Unpin from top" : "Torneu a picar des de dalt",
