@@ -15,7 +15,8 @@ namespace OCA\News\Config;
 
 use FeedIo\Adapter\ClientInterface;
 use \GuzzleHttp\Client;
-use \FeedIo\Adapter\Guzzle\Client as FeedIoClient;
+use OCA\News\Fetcher\Client\FeedIoClient;
+use OCA\News\Fetcher\Client\LegacyGuzzleClient;
 use OCP\IConfig;
 
 /**

@@ -9,7 +9,7 @@
  * @copyright 2018 Sean Molenaar
  */
 
-namespace OCA\News\Config;
+namespace OCA\News\Fetcher\Client;
 
 use FeedIo\Adapter\ResponseInterface;
 use GuzzleHttp\Message\ResponseInterface as GuzzleResponseInterface;
