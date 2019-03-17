@@ -159,13 +159,9 @@ class Application extends App
          * Fetchers
          */
         $container->registerService(FetcherConfig::class, function (IContainer $c): FetcherConfig {
-            // FIXME: move this into a separate class for testing?
-            $config = $c->query(Config::class);
-            $proxy  = $c->query(ProxyConfigParser::class);
-
             $fConfig = new FetcherConfig();
-            $fConfig->setClientTimeout($config->getFeedFetcherTimeout());
-            $fConfig->setProxy($proxy);
+            $fConfig->setConfig($c->query(Config::class))
+                    ->setProxy($c->query(IConfig::class));
 
             return $fConfig;
         });

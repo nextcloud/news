@@ -19,12 +19,14 @@ use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 
+use Net_URL2;
 use OCA\News\Utility\PsrLogger;
 use OCP\IL10N;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
+use SimpleXMLElement;
 
 class FeedFetcher implements IFeedFetcher
 {
@@ -65,10 +67,11 @@ class FeedFetcher implements IFeedFetcher
      */
     public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
     {
+        $url2 = new Net_URL2($url);
         if (!empty($user) && !empty(trim($user))) {
-            $url = explode('://', $url);
-            $url = $url[0] . '://' . urlencode($user) . ':' . urlencode($password) . '@' . $url[1];
+            $url2->setUserinfo(urlencode($user), urlencode($password));
         }
+        $url = $url2->getNormalizedURL();
         if (is_null($lastModified) || !is_string($lastModified)) {
             $resource = $this->reader->read($url);
         } else {
@@ -204,6 +207,12 @@ class FeedFetcher implements IFeedFetcher
             'HTML-ENTITIES',
             mb_detect_encoding($body)
         );
+        $data = simplexml_load_string(
+            '<?xml version="1.0" encoding="utf-8"?><item>' . $body . '</item>',
+            SimpleXMLElement::class,
+            LIBXML_NOCDATA
+        );
+        $body = ($data === false) ? $body : (string) $data;
         $item->setBody($body);
 
         if ($parsedItem->hasMedia()) {

@@ -146,7 +146,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->enclosureMime;
     }
 
-    public function getFeedId(): int
+    public function getFeedId()
     {
         return $this->feedId;
     }
@@ -169,7 +169,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->guidHash;
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }

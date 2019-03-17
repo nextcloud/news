@@ -11,6 +11,7 @@
 
 namespace OCA\News\AppInfo;
 
+use OCA\News\Command\ShowFeed;
 use OCA\News\Command\Updater\UpdateFeed;
 use OCA\News\Command\Updater\AllFeeds;
 use OCA\News\Command\Updater\BeforeUpdate;
@@ -24,3 +25,4 @@ $application->add($container->query(UpdateFeed::class));
 $application->add($container->query(BeforeUpdate::class));
 $application->add($container->query(AfterUpdate::class));
 $application->add($container->query(ExploreGenerator::class));
+$application->add($container->query(ShowFeed::class));

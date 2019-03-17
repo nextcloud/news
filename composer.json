@@ -1,64 +1,65 @@
 {
-    "type": "project",
-    "license": "AGPL-3.0",
-    "description": "An RSS/Atom feed reader. Requires Nextcloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
-    "homepage": "https://github.com/nextcloud/news",
-    "authors": [
-        {
-            "name": "Bernhard Posselt",
-            "email": "dev@bernhard-posselt.com",
-            "homepage": "https://bernhard-posselt.com",
-            "role": "Developer"
-        },
-        {
-            "name": "Sean Molenaar",
-            "email": "sean@seanmolenaar.eu",
-            "homepage": "https://seanmolenaar.eu",
-            "role": "Developer"
-        },
-        {
-            "name": "Alessandro Cosentino",
-            "homepage": "http://algorithmsforthekitchen.com/",
-            "email": "cosenal@gmail.com",
-            "role": "Developer"
-        },
-        {
-            "name": "Jan-Christoph Borchardt",
-            "email": "hey@jancborchardt.net",
-            "homepage": "http://jancborchardt.net/",
-            "role": "Designer"
-        }
-    ],
-    "support": {
-        "irc": "irc://irc.freenode.org/nextcloud-news",
-        "issues": "https://github.com/nextcloud/news/issues",
-        "source": "https://github.com/nextcloud/news/"
+  "type": "project",
+  "license": "AGPL-3.0",
+  "description": "An RSS/Atom feed reader. Requires Nextcloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+  "homepage": "https://github.com/nextcloud/news",
+  "authors": [
+    {
+      "name": "Bernhard Posselt",
+      "email": "dev@bernhard-posselt.com",
+      "homepage": "https://bernhard-posselt.com",
+      "role": "Developer"
     },
-    "require": {
-        "php": "^7.0",
-        "ezyang/htmlpurifier": "4.10.0",
-        "pear/net_url2": "2.2.2",
-        "riimu/kit-pathjoin": "1.2.0",
-        "debril/feed-io": "^3.1",
-        "arthurhoaro/favicon": "^1.2",
-        "ext-json": "*"
+    {
+      "name": "Sean Molenaar",
+      "email": "sean@seanmolenaar.eu",
+      "homepage": "https://seanmolenaar.eu",
+      "role": "Developer"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^6.5",
-        "squizlabs/php_codesniffer": "^3.3",
-        "guzzlehttp/guzzle": "~6.3"
+    {
+      "name": "Alessandro Cosentino",
+      "homepage": "http://algorithmsforthekitchen.com/",
+      "email": "cosenal@gmail.com",
+      "role": "Developer"
     },
-    "replace": {
-        "guzzlehttp/guzzle": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "OCA\\News\\": "lib/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "OCA\\News\\Tests\\": "tests/"
-        }
+    {
+      "name": "Jan-Christoph Borchardt",
+      "email": "hey@jancborchardt.net",
+      "homepage": "http://jancborchardt.net/",
+      "role": "Designer"
     }
+  ],
+  "support": {
+    "irc": "irc://irc.freenode.org/nextcloud-news",
+    "issues": "https://github.com/nextcloud/news/issues",
+    "source": "https://github.com/nextcloud/news/"
+  },
+  "require": {
+    "php": "^7.0",
+    "ezyang/htmlpurifier": "4.10.0",
+    "pear/net_url2": "2.2.2",
+    "riimu/kit-pathjoin": "1.2.0",
+    "debril/feed-io": "^3.1",
+    "arthurhoaro/favicon": "^1.2",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.3",
+    "ext-simplexml": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "squizlabs/php_codesniffer": "^3.3"
+  },
+  "replace": {
+    "guzzlehttp/guzzle": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "OCA\\News\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "OCA\\News\\Tests\\": "tests/"
+    }
+  }
 }
