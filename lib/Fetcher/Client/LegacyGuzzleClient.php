@@ -9,7 +9,7 @@
  * @copyright 2018 Sean Molenaar
  */
 
-namespace OCA\News\Config;
+namespace OCA\News\Fetcher\Client;
 
 use FeedIo\Adapter\ClientInterface as FeedIoClientInterface;
 use FeedIo\Adapter\NotFoundException;
@@ -47,7 +47,6 @@ class LegacyGuzzleClient implements FeedIoClientInterface
         try {
             $options = [
                 'headers' => [
-                    'User-Agent' => 'NextCloud-News/1.0',
                     'If-Modified-Since' => $modifiedSince->format(\DateTime::RFC2822)
                 ]
             ];
