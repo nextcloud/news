@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 13.1.3
+
+### Fixed
+- rebuild of version 13.1.2 due to packaging failure
+
 ## 13.1.2
 
 ### Changed
