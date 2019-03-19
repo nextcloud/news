@@ -73,7 +73,7 @@ class FeedFetcher implements IFeedFetcher
         }
         $url = $url2->getNormalizedURL();
         $this->reader->resetFilters();
-        if (is_null($lastModified) || !is_string($lastModified)) {
+        if (is_null($lastModified) || !is_string($lastModified) || $lastModified === '0') {
             $resource = $this->reader->read($url);
         } else {
             $resource = $this->reader->readSince($url, new DateTime($lastModified));
