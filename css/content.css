@@ -225,6 +225,7 @@
     -webkit-position: sticky;
     position: sticky;
     top: 50px;
+    background-color: var(--color-main-background);
     min-height: 41px;
     opacity: 0.9;
 }
