@@ -72,6 +72,7 @@ class FeedFetcher implements IFeedFetcher
             $url2->setUserinfo(urlencode($user), urlencode($password));
         }
         $url = $url2->getNormalizedURL();
+        $this->reader->resetFilters();
         if (is_null($lastModified) || !is_string($lastModified)) {
             $resource = $this->reader->read($url);
         } else {
