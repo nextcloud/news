@@ -229,7 +229,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->_createItem();
         $feed = $this->_createFeed('de-DE', false, null, '0');
         $this->_mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $result = $this->fetcher->fetch($this->url, false, '0', null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
