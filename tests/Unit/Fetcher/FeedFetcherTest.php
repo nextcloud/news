@@ -220,6 +220,17 @@ class FeedFetcherTest extends TestCase
         $this->assertSame([null, []], $result);
     }
 
+    public function testLastModifiedIsEmptyFetch()
+    {
+        $this->__setUpReader($this->url);
+        $item = $this->_createItem();
+        $feed = $this->_createFeed($lastModified='0');
+        $this->_mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+
+        $this->assertEquals([$feed, [$item]], $result);
+    }
+
     public function testFetch()
     {
         $this->__setUpReader($this->url);
@@ -509,7 +520,7 @@ class FeedFetcherTest extends TestCase
     }
 
 
-    private function _createFeed($lang='de-DE', $favicon=false, $url= null)
+    private function _createFeed($lang='de-DE', $favicon=false, $url=null, $lastModified=3)
     {
         $url = $url ?? $this->url;
         $this->_expectFeed('getTitle', $this->feed_title, 2);
@@ -523,7 +534,7 @@ class FeedFetcherTest extends TestCase
         $feed->setLink($this->feed_link);
         $feed->setLocation($this->location);
         $feed->setUrl($url);
-        $feed->setLastModified(3);
+        $feed->setLastModified($lastModified);
         $feed->setAdded($this->time);
         if ($favicon) {
             $feed->setFaviconLink('http://anon.google.com');
