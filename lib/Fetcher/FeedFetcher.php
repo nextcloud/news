@@ -209,7 +209,7 @@ class FeedFetcher implements IFeedFetcher
             mb_detect_encoding($body)
         );
         $data = simplexml_load_string(
-            '<?xml version="1.0" encoding="utf-8"?><item>' . $body . '</item>',
+            '<?xml version="1.0" encoding="utf-8"?><item>' . "$body" . '</item>',
             SimpleXMLElement::class,
             LIBXML_NOCDATA
         );
