@@ -220,11 +220,14 @@ class FeedFetcherTest extends TestCase
         $this->assertSame([null, []], $result);
     }
 
+    /**
+     * Test if feed is updated when lastModified is 0.
+     */
     public function testLastModifiedIsEmptyFetch()
     {
         $this->__setUpReader($this->url);
         $item = $this->_createItem();
-        $feed = $this->_createFeed($lastModified='0');
+        $feed = $this->_createFeed('de-DE', false, null, '0');
         $this->_mockIterator($this->feed_mock, [$this->item_mock]);
         $result = $this->fetcher->fetch($this->url, false, null, null, null);
 
