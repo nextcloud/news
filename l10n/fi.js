@@ -88,6 +88,7 @@ OC.L10N.register(
     "Newest first" : "Uusin ensin",
     "Oldest first" : "Vanhin ensin",
     "Default order" : "Oletusjärjestys",
+    "Open feed URL" : "Avaa syötteen osoite",
     "Delete" : "Poista",
     "Dismiss" : "Hylkää",
     "Collapse" : "Kutista näkymää",
