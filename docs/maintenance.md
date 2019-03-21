@@ -1,7 +1,7 @@
 # Maintenance documentation
 
 ## Release
-Releases should be done by checking `make test`, cleaning using `make disclean` and consequently running `make dist`.
+Releases should be done by checking `make test`, cleaning using `make distclean` and consequently running `make dist`.
 This will create an app store ready package to be uploaded. 
 This process should be done by someone who has the private keys and the access to sign and upload such a package.
 
