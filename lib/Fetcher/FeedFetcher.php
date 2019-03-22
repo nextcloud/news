@@ -208,11 +208,13 @@ class FeedFetcher implements IFeedFetcher
             'HTML-ENTITIES',
             mb_detect_encoding($body)
         );
+        libxml_use_internal_errors(true);
         $data = simplexml_load_string(
-            '<?xml version="1.0" encoding="utf-8"?><item>' . $body . '</item>',
+            "<?xml version=\"1.0\"?><item>$body</item>",
             SimpleXMLElement::class,
             LIBXML_NOCDATA
         );
+        libxml_clear_errors();
         $body = ($data === false) ? $body : (string) $data;
         $item->setBody($body);
 
