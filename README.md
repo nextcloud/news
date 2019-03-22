@@ -1,6 +1,6 @@
-# Nextcloud News app (unmaintained)
+# Nextcloud News app
 
-**This app is unmaintained! Looking for new maintainers!**
+**We need help with the frontend, check the issue tracker if you are interessted!**
 
 [![Build Status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news) [![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
 
@@ -57,6 +57,6 @@ To receive notifications when a new News app version was released, simply add th
 ![](https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png)
 
 ## Maintainers
-Looking for a new maintainer :)
 
-* [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
+* [Benjamin Brahmer](https://github.com/Grotax)
+* [Sean Molenaar](https://github.com/SMillerDev)
