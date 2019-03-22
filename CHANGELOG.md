@@ -3,10 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 13.1.4
+
+### Fixed
+- Another fix for failed updates #448
+- Missing background back on news titles #451
+- Encoding errors thrown by simplexml #457
+- Allow '0' as last Modified date #458
+
 ## 13.1.3
 
 ### Fixed
-- rebuild of version 13.1.2 due to packaging failure
+- Rebuild of version 13.1.2 due to packaging failure
 
 ## 13.1.2
 
