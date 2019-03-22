@@ -57,6 +57,6 @@ To receive notifications when a new News app version was released, simply add th
 ![](https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png)
 
 ## Maintainers
-Looking for a new maintainer :)
 
-* [Jan-Christoph Borchardt](https://github.com/jancborchardt) (Design)
+* [Benjamin Brahmer](https://github.com/Grotax)
+* [Sean Molenaar](https://github.com/SMillerDev)
