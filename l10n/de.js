@@ -34,7 +34,7 @@ OC.L10N.register(
     "filter" : "Filter",
     "Language" : "Sprache",
     "Subscribe" : "Abonnieren",
-    "Got more awesome feeds? Share them with us!" : "Hast du mehr interessante Feeds? Teile sie mit uns!",
+    "Got more awesome feeds? Share them with us!" : "Hast Du mehr interessante Feeds? Teile sie mit uns!",
     "No articles available" : "Keine Artikel verfügbar",
     "No unread articles available" : "Keine ungelesenen Artikel verfügbar",
     "Open website" : "Internetseite öffnen",
