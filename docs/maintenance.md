@@ -15,7 +15,7 @@ Users are nice but devs should be a priority in decisions that are likely to imp
 - Bug reports without test cases (feed url and action is enough) can be closed with or without comment.
 
 - Feature requests without thoughtful commentary or pull request can be closed with or without comment,
-unless a developer is interested to support such a future.
+unless a developer is interested to support such a feature.
 
 - Issues without activity in the last 30 days can be closed with or without comment.
 If this is a bug you care about that isn't getting attention, fix it. 
