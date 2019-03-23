@@ -44,3 +44,120 @@
         max-width: 82px;
     }
 }
+
+/* section copied from server.css to support better reading in a rotated tablet screen */
+/* changed only max-width in the first line                                            */
+
+@media only screen and (max-width:1024px) {
+ #dropdown {
+  margin-right:10% !important;
+  width:80% !important
+ }
+ .ui-autocomplete {
+  z-index:1000 !important<
+ }
+ .error-wide {
+  width:100%;
+  margin-left:0 !important;
+  box-sizing:border-box
+ }
+ #app-navigation {
+  transform:translateX(-300px)
+ }
+ .snapjs-left #app-navigation {
+  transform:translateX(0)
+ }
+ #app-navigation:not(.hidden) + #app-content {
+  margin-left:0
+ }
+ .app-content-list {
+  background:var(--color-main-background);
+  flex:1 1 100%;
+  max-height:unset;
+  max-width:100%
+ }
+ .app-content-list + .app-content-details {
+  display:none
+ }
+ .app-content-list.showdetails {
+  display:none
+ }
+ .app-content-list.showdetails + .app-content-details {
+  display:initial
+ }
+ #app-content.showdetails #app-navigation-toggle {
+  transform:translateX(-44px)
+ }
+ #app-content.showdetails #app-navigation-toggle-back {
+  position:fixed;
+  display:inline-block !important;
+  top:50px;
+  left:0;
+  width:44px;
+  height:44px;
+  z-index:149;
+  background-color:rgba(255, 255, 255, 0.7);
+  cursor:pointer;
+  opacity:0.6;
+  transform:rotate(90deg)
+ }
+ #app-content.showdetails .app-content-list {
+  transform:translateX(-100%)
+ }
+ #app-navigation-toggle {
+  position:fixed;
+  display:inline-block !important;
+  left:0;
+  width:44px;
+  height:44px;
+  z-index:149;
+  background-color:var(--color-main-background-darker);
+  cursor:pointer;
+  opacity:0.6
+ }
+ #app-navigation-toggle:hover,
+ #app-navigation-toggle:focus {
+  opacity:1
+ }
+ #app-navigation + #app-content #controls {
+  padding-left:44px
+ }
+ #body-user .app-files.viewer-mode #controls {
+  padding-left:0 !important
+ }
+ .app-files.viewer-mode #app-navigation-toggle {
+  display:none !important
+ }
+ table.multiselect thead {
+  left:0 !important
+ }
+ #usersearchform {
+  display:none
+ }
+ #body-settings #controls {
+  min-width:768px !important
+ }
+ #oc-dialog-filepicker-content .filelist .filesize,
+ #oc-dialog-filepicker-content .filelist .date {
+  display:none
+ }
+ #oc-dialog-filepicker-content .filelist .filename {
+  max-width:100%
+ }
+ .snapjs-left table.multiselect thead {
+  top:44px
+ }
+        #app-content .utils .date {
+        display: none;
+    }
+
+    #app-shortcuts th:first-child {
+        padding-left: 44px;
+    }
+
+    #app-navigation:not(.hidden) + #app-content {
+        width: 100%;
+    }
+}
+
+/* section end */
