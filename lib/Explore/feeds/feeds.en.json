@@ -35,9 +35,15 @@
             "feed": "http:\/\/planet.mozilla.org\/atom.xml",
             "description": "Planet Mozilla - Mozilla Blogs",
             "votes": 100
-        }
-
-    ],
+        }],
+  "Tech software engineer & programmer Forum": [{ 
+      "title": "Reboot.pro",
+      "favicon": "http://reboot.pro/public/style_images/metro/meta_image.png",
+      "url": "http://reboot.pro/",
+      "feed": "http://reboot.pro/rss/forums/1-rebootpro/",
+      "description": "Software engineer & programmer Board with connectivity to users, (Owner:Nuno Brito, founder of XPlite)",
+      "votes": 550
+  }],
     "Tech": [{
         "title": "Slashdot",
         "favicon": "https://slashdot.org/favicon.ico",
