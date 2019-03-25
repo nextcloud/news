@@ -185,13 +185,9 @@ class FeedFetcher implements IFeedFetcher
             $pubDT = $lastmodified;
         }
 
-        $item->setPubDate(
-            $pubDT->getTimestamp()
-        );
+        $item->setPubDate($pubDT->getTimestamp());
 
-        $item->setLastModified(
-            $lastmodified->getTimestamp()
-        );
+        $item->setLastModified($lastmodified->getTimestamp());
         $item->setRtl($this->determineRtl($parsedFeed));
 
         // unescape content because angularjs helps against XSS
@@ -208,14 +204,19 @@ class FeedFetcher implements IFeedFetcher
             'HTML-ENTITIES',
             mb_detect_encoding($body)
         );
-        libxml_use_internal_errors(true);
-        $data = simplexml_load_string(
-            "<?xml version=\"1.0\"?><item>$body</item>",
-            SimpleXMLElement::class,
-            LIBXML_NOCDATA
-        );
-        libxml_clear_errors();
-        $body = ($data === false) ? $body : (string) $data;
+        if (strpos($body, 'CDATA') !== false) {
+            libxml_use_internal_errors(true);
+            $data = simplexml_load_string(
+                "<?xml version=\"1.0\"?><item>$body</item>",
+                SimpleXMLElement::class,
+                LIBXML_NOCDATA
+            );
+            if ($data !== false && libxml_get_last_error() === false) {
+                $body = (string) $data;
+            }
+            libxml_clear_errors();
+        }
+
         $item->setBody($body);
 
         if ($parsedItem->hasMedia()) {
