@@ -26,6 +26,7 @@ Explain what you did to encounter the issue
 ## System Information
 * News app version:
 * Nextcloud version:
+* Cron type: 
 * PHP version:
 * Database and version:
 * Browser and version:
