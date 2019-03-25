@@ -18,15 +18,11 @@ use FeedIo\Feed\Item\Author;
 use FeedIo\Feed\Item\MediaInterface;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
-use Favicon\Favicon;
 use OC\L10N\L10N;
-use OCA\AdminAudit\Actions\Auth;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Utility\PsrLogger;
-use OCA\News\Utility\Time;
-use OCP\IL10N;
 
 use PHPUnit\Framework\TestCase;
 
@@ -241,6 +237,60 @@ class FeedFetcherTest extends TestCase
         $result = $this->fetcher->fetch($this->url, false, '0', null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
+    }
+
+    /**
+     * Return body options
+     * @return array
+     */
+    public function feedBodyProvider()
+    {
+        return [
+            [
+                '<![CDATA[let the bodies hit the floor <a href="test">test</a>]]>',
+                'let the bodies hit the floor <a href="test">test</a>'
+            ],
+            [
+                'let the bodies hit the floor <a href="test">test</a>',
+                'let the bodies hit the floor <a href="test">test</a>'
+            ],
+            [
+                'let the bodies hit the floor "test" test',
+                'let the bodies hit the floor "test" test'
+            ],
+            [
+                '<img src="https://imgs.xkcd.com/google_trends_maps.png" title="It\'s early 2020. The entire country is gripped with Marco Rubio" />',
+                '<img src="https://imgs.xkcd.com/google_trends_maps.png" title="It\'s early 2020. The entire country is gripped with Marco Rubio" />'
+            ],
+        ];
+    }
+
+    /**
+     * Test if body is set correctly.
+     *
+     * @dataProvider feedBodyProvider
+     *
+     * @param string $body        The body before parsing.
+     * @param string $parsed_body The body after parsing.
+     */
+    public function testFetchWithFeedContent($body, $parsed_body)
+    {
+        $bodyBackup = $this->body;
+        $parsedBackup = $this->parsed_body;
+
+        $this->body = $body;
+        $this->parsed_body = $parsed_body;
+
+        $this->setUpReader($this->url, null, true);
+        $item = $this->createItem();
+        $feed = $this->createFeed();
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, '0', null, null);
+
+        $this->assertEquals([$feed, [$item]], $result);
+
+        $this->body = $bodyBackup;
+        $this->parsed_body = $parsedBackup;
     }
 
     /**
