@@ -29,7 +29,7 @@ Please read the [appropriate section in the contributing notices](https://github
 ## Sync Clients
 Nextcloud News can be synced with the following apps:
   * [RSS Guard (Windows, Linux, OS/2, Mac OS)](https://github.com/martinrotter/rssguard), [open source](https://github.com/martinrotter/rssguard)
-  * [ownCloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/owncloud/news-android-app)
+  * [Nextcloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/nextcloud/news-android-app)
   * [OCReader (Android)](https://f-droid.org/repository/browse/?fdid=email.schaal.ocreader), [open source](https://github.com/schaal/ocreader)
   * [Newsout (Android)](https://play.google.com/store/apps/details?id=com.inspiredandroid.newsout), [open source](https://github.com/SimonSchubert/NewsOut)
   * [CloudNews (iOS)](https://itunes.apple.com/app/cloudnews-owncloud-news-reader/id683859706), [open source](https://github.com/owncloud/news-ios-app)
