@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 13.1.5
+
+### Changed
+- Added new android (and iOS) client 'newsout' to list #475
+- News requires php 7.0 please update to 7.1+ if possible #476
+
+### Fixed
+- Fixed some feeds with a empty body #474
+- Restored full text by default for some feeds #479
+- Some smaller adjustments for the design #463 #464 
+
 ## 13.1.4
 
 ### Fixed
