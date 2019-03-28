@@ -8,11 +8,13 @@
 Before you update to a new version, [check the changelog](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) to avoid surprises.
 
 **Important**: To enable feed updates you will need to enable either [Nextcloud system cron](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) or use [an updater](https://github.com/nextcloud/news-updater) which uses the built in update API and disable cron updates. More information can be found [in the README](https://github.com/nextcloud/news).]]></description>
-    <version>13.1.4</version>
+    <version>13.1.5</version>
     <licence>agpl</licence>
-    <author>Bernhard Posselt</author>
-    <author>Alessandro Cosentino</author>
-    <author>Jan-Christoph Borchardt</author>
+    <author>Benjamin Brahmer</author>
+    <author>Sean Molenaar</author>
+    <author>Bernhard Posselt (former)</author>
+    <author>Alessandro Cosentino (former)</author>
+    <author>Jan-Christoph Borchardt (former)</author>
     <namespace>News</namespace>
     <documentation>
         <admin>https://github.com/nextcloud/news#readme</admin>
