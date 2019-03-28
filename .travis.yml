@@ -58,6 +58,9 @@ script:
 after_failure:
     - cat ../../data/nextcloud.log
 
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
+
 addons:
     firefox: "latest-beta"
     postgresql: "9.6"
