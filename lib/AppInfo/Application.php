@@ -17,6 +17,7 @@ use Closure;
 use FeedIo\FeedIo;
 use HTMLPurifier;
 use HTMLPurifier_Config;
+use Favicon\Favicon;
 
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Utility\PsrLogger;
@@ -169,6 +170,13 @@ class Application extends App
         $container->registerService(FeedIo::class, function (IContainer $c): FeedIo {
             $config = $c->query(FetcherConfig::class);
             return new FeedIo($config->getClient(), $c->query(PsrLogger::class));
+        });
+
+        $container->registerService(Favicon::class, function (IContainer $c): Favicon {
+            $favicon = new Favicon();
+            $settings = ['dir' => sys_get_temp_dir()];
+            $favicon->cache($settings);
+            return $favicon;
         });
 
         /**
