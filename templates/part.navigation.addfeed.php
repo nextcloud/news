@@ -76,11 +76,15 @@
                 </p>
 
                 <!-- basic auth -->
-                <button type="button" class="add-feed-advanced" ng-click="Navigation.showAddFeedAdvanced=!Navigation.showAddFeedAdvanced">
-                    <?php p($l->t('Advanced settings')); ?>
-                </button>
-                <div ng-if="Navigation.showAddFeedAdvanced" class="add-feed-advanced-area">
-                    <h2><?php p($l->t('Credentials')); ?></h2>
+                <div class="add-new-basicauth-toggle">
+                    <input type="checkbox"
+                           class="checkbox"
+                           ng-model="Navigation.addFeedBasicauth"
+                           id="add-feed-basicauth">
+                    <label for="add-feed-basicauth"><?php p($l->t('Credentials')); ?></label>
+                </div>
+
+                <div ng-show="Navigation.addFeedBasicauth" class="add-feed-basicauth">
                     <p class="warning"><?php p($l->t('HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!')); ?></p>
                     <input type="text"
                         ng-model="Navigation.feed.user"
