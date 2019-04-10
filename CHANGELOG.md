@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 13.1.6
+
+### Changed
+- Replaced "Advanced settings" for feed credentials by a checkbox #488
+
+### Fixed
+- Fixed signature error caused by favicon cache #485
+
 ## 13.1.5
 
 ### Changed
