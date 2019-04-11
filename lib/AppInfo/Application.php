@@ -174,7 +174,7 @@ class Application extends App
 
         $container->registerService(Favicon::class, function (IContainer $c): Favicon {
             $favicon = new Favicon();
-            $settings = ['dir' => sys_get_temp_dir()];
+            $settings = ['dir' => \OC::$server->getTempManager()->getTempBaseDir()];
             $favicon->cache($settings);
             return $favicon;
         });
