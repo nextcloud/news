@@ -28,7 +28,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3.png</screenshot>
     <dependencies>
-        <php min-version="7.0"/>
+        <php min-version="7.1"/>
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
         <database min-version="5.5">mysql</database>
@@ -37,7 +37,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <lib>SimpleXML</lib>
         <lib>iconv</lib>
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="14" max-version="16"/>
+        <nextcloud min-version="14" max-version="17"/>
     </dependencies>
 
     <background-jobs>

@@ -2,7 +2,6 @@ sudo: false
 dist: trusty
 language: php
 php:
-    - 7.0.33
     - 7.1.26
     - 7.2
     - 7.3
@@ -10,7 +9,7 @@ php:
 
 env:
     global:
-        - CORE_BRANCH=stable15
+        - CORE_BRANCH=stable16
         - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
@@ -26,6 +25,10 @@ matrix:
           env: DB=mysql
         - php: 7.3
           env: DB=pgsql CORE_BRANCH=master
+        - php: 7.1.26
+          env: DB=mysql CORE_BRANCH=stable14
+        - php: 7.1.26
+          env: DB=mysql CORE_BRANCH=stable15
 fast_finish: true
 
 before_install:

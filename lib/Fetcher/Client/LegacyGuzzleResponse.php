@@ -37,7 +37,7 @@ class LegacyGuzzleResponse implements ResponseInterface
     /**
      * @return boolean
      */
-    public function isModified()
+    public function isModified() : bool
     {
         return $this->response->getStatusCode() !== 304 && $this->response->getBody()->getSize() > 0;
     }
@@ -45,7 +45,7 @@ class LegacyGuzzleResponse implements ResponseInterface
     /**
      * @return \Psr\Http\Message\StreamInterface
      */
-    public function getBody()
+    public function getBody() : ? string
     {
         return $this->response->getBody();
     }
@@ -53,7 +53,7 @@ class LegacyGuzzleResponse implements ResponseInterface
     /**
      * @return \DateTime|null
      */
-    public function getLastModified()
+    public function getLastModified() : ?\DateTime
     {
         if ($this->response->hasHeader(static::HTTP_LAST_MODIFIED)) {
             $lastModified = \DateTime::createFromFormat(
@@ -64,13 +64,13 @@ class LegacyGuzzleResponse implements ResponseInterface
             return false === $lastModified ? null : $lastModified;
         }
 
-        return;
+        return null;
     }
 
     /**
      * @return array
      */
-    public function getHeaders()
+    public function getHeaders() : iterable
     {
         return $this->response->getHeaders();
     }
@@ -79,7 +79,7 @@ class LegacyGuzzleResponse implements ResponseInterface
      * @param  string       $name
      * @return string[]
      */
-    public function getHeader($name)
+    public function getHeader(string $name) : iterable
     {
         return current($this->response->getHeader($name));
     }
