@@ -27,6 +27,7 @@ use OCP\IContainer;
 use OCP\INavigationManager;
 use OCP\IURLGenerator;
 use OCP\IConfig;
+use OCP\ITempManager;
 use OCP\AppFramework\App;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
@@ -174,7 +175,8 @@ class Application extends App
 
         $container->registerService(Favicon::class, function (IContainer $c): Favicon {
             $favicon = new Favicon();
-            $settings = ['dir' => \OC::$server->getTempManager()->getTempBaseDir()];
+            $tempManager = $c->query(ITempManager::class);
+            $settings = ['dir' => $tempManager->getTempBaseDir()];
             $favicon->cache($settings);
             return $favicon;
         });
