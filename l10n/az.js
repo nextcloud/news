@@ -17,7 +17,6 @@ OC.L10N.register(
     "Folder" : "Qovluq",
     "New folder" : "Yeni qovluq",
     "Folder name" : "Qovluq adı",
-    "Advanced settings" : "İrəliləmiş quraşdırmalar",
     "Credentials" : "Səlahiyyətlər",
     "Username" : "İstifadəçi adı",
     "Password" : "Şifrə",

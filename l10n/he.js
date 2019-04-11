@@ -77,7 +77,6 @@ OC.L10N.register(
     "Folder name" : "שם התיקייה",
     "Go back" : "חזרה",
     "Folder exists already!" : "התיקייה כבר קיימת!",
-    "Advanced settings" : "הגדרות מתקדמות",
     "Credentials" : "פרטי גישה",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "אישורי אימות HTTP בסיסיים חייבים להיות מאוחסנים ללא קידוד! כל אחד עם גישה לשרת או למסד הנתונים יוכלו לגשת אליהם!",
     "Username" : "שם משתמש",

@@ -79,7 +79,6 @@ OC.L10N.register(
     "Folder name" : "Název složky",
     "Go back" : "Jít zpět",
     "Folder exists already!" : "Složka už existuje!",
-    "Advanced settings" : "Pokročilá nastavení",
     "Credentials" : "Přihlašovací údaje",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Je třeba, aby přihlašovací údaje pro HTTP Basic Auth byly uloženy nešifrovaně! Každý s přístupem k serveru nebo databázi je bude moci přečíst!",
     "Username" : "Uživatelské jméno",

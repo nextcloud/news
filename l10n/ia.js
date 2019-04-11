@@ -36,7 +36,6 @@ OC.L10N.register(
     "Folder name" : "Nomine de dossier",
     "Go back" : "Retornar",
     "Folder exists already!" : "Dossier ja existe!",
-    "Advanced settings" : "Configurationes avantiate",
     "Credentials" : "Datos de authentication",
     "Username" : "Nomine de usator",
     "Password" : "Contrasigno",

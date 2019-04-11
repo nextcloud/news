@@ -75,7 +75,6 @@
     "Folder name" : "დირექტორიის სახელი",
     "Go back" : "უკან დაბრუნება",
     "Folder exists already!" : "დირექტორია უკვე არსებობს!",
-    "Advanced settings" : "დამატებითი პარამეტრები",
     "Credentials" : "უფლებამოსილებები",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP ძირითადი აუტენტიფიკაციის მონაცემები არ უნდა იყოს დაშიფრული! სერვერთან ან მონაცემთა ბაზის წვდომის უფლებებით ყველა შეძლებს მათ ნახვას.",
     "Username" : "მომხმარებლის სახელი",

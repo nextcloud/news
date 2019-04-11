@@ -68,7 +68,6 @@ OC.L10N.register(
     "Folder name" : "ชื่อโฟลเดอร์",
     "Go back" : "กลับไป",
     "Folder exists already!" : "โฟลเดอร์มีอยู่แล้วในระบบ",
-    "Advanced settings" : "ตั้งค่าขั้นสูง",
     "Credentials" : "ข้อมูลส่วนตัวสำหรับเข้าระบบ",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "ข้อมูลประจำตัวการตรวจสอบสิทธิ์พื้นฐานของ HTTP จะต้องเก็บไว้แบบไม่ได้เข้ารหัสลับ! ทุกคนที่มีการเข้าถึงเซิร์ฟเวอร์หรือฐานข้อมูลจะสามารถเข้าถึงมันได้!",
     "Username" : "ชื่อผู้ใช้",

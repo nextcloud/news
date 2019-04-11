@@ -61,7 +61,6 @@ OC.L10N.register(
     "Folder name" : "Aplanko pavadinimas",
     "Go back" : "Grįžti",
     "Folder exists already!" : "Aplankas jau yra!",
-    "Advanced settings" : "Išplėstiniai nustatymai",
     "Credentials" : "Prisijungimo duomenys ",
     "Username" : "Naudotojo vardas",
     "Password" : "Slaptažodis",

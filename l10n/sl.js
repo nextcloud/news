@@ -73,7 +73,6 @@ OC.L10N.register(
     "Folder name" : "Ime mape",
     "Go back" : "Nazaj",
     "Folder exists already!" : "Mapa že obstaja!",
-    "Advanced settings" : "Napredne nastavitve",
     "Credentials" : "Poverila",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth podatki morajo biti shranjeni nekodirani! Vsakdo z dostopom do baze jih lahko vidi!",
     "Username" : "Uporabniško ime",

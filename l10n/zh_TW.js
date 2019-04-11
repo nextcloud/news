@@ -50,7 +50,6 @@ OC.L10N.register(
     "Folder name" : "資料夾名稱",
     "Go back" : "返回",
     "Folder exists already!" : "資料夾已經存在！",
-    "Advanced settings" : "進階設定",
     "Credentials" : "帳密",
     "Username" : "使用者名稱",
     "Password" : "密碼",

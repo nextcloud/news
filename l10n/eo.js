@@ -23,7 +23,6 @@ OC.L10N.register(
     "Folder name" : "Dosierujnomo",
     "Go back" : "Revenu",
     "Folder exists already!" : "Dosierujo jam ekzistas!",
-    "Advanced settings" : "Altanivela agordo",
     "Credentials" : "Aŭtentigiloj",
     "Username" : "Uzantonomo",
     "Password" : "Pasvorto",

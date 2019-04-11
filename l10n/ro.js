@@ -35,7 +35,6 @@ OC.L10N.register(
     "Folder name" : "Denumire director",
     "Go back" : "Înapoi",
     "Folder exists already!" : "Directorul există deja!",
-    "Advanced settings" : "Setări avansate",
     "Credentials" : "Detalii de autentificare",
     "Username" : "Utilizator",
     "Password" : "Parolă",

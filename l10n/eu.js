@@ -39,7 +39,6 @@ OC.L10N.register(
     "Folder name" : "Karpetaren izena",
     "Go back" : "Atzera",
     "Folder exists already!" : "Karpeta dagoeneko existitzen da!",
-    "Advanced settings" : "Ezarpen aurreratuak",
     "Credentials" : "Kredentzialak",
     "Username" : "Erabiltzaile izena",
     "Password" : "Pasahitza",

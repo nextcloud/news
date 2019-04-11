@@ -70,7 +70,6 @@ OC.L10N.register(
     "Folder name" : "Όνομα φακέλου",
     "Go back" : "Μετακίνηση πίσω",
     "Folder exists already!" : "Ο φάκελος υπάρχει ήδη!",
-    "Advanced settings" : "Ρυθμίσεις για προχωρημένους",
     "Credentials" : "Πιστοποιητικά",
     "Username" : "Όνομα χρήστη",
     "Password" : "Κωδικός πρόσβασης",

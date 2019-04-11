@@ -27,7 +27,6 @@ OC.L10N.register(
     "New folder" : "پوشه جدید",
     "Folder name" : "نام پوشه",
     "Folder exists already!" : "پوشه در حال حاضر موجود است!",
-    "Advanced settings" : "تنظیمات پیشرفته",
     "Credentials" : "اعتبارهای",
     "Username" : "نام کاربری",
     "Password" : "گذرواژه",

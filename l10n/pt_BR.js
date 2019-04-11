@@ -79,7 +79,6 @@ OC.L10N.register(
     "Folder name" : "Nome da pasta",
     "Go back" : "Retornar",
     "Folder exists already!" : "Esta pasta já existe!",
-    "Advanced settings" : "Configurações avançadas",
     "Credentials" : "Credenciais",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Credenciais Básicas de Autenticação HTTP devem ser armazenadas sem criptografia! Todos com acesso ao servidor ou banco de dados serão capazes de acessá-los!",
     "Username" : "Nome de usuário",

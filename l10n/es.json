@@ -77,7 +77,6 @@
     "Folder name" : "Nombre de la carpeta",
     "Go back" : "Atrás",
     "Folder exists already!" : "¡La carpeta ya existe!",
-    "Advanced settings" : "Configuración avanzada",
     "Credentials" : "Credenciales",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "¡Las credenciales para HTTP Basic Auth deben estar guardadas sin cifrar! ¡Cualquiera con acceso al servidor puede acceder a ellas!",
     "Username" : "Nombre de usuario",

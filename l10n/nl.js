@@ -79,7 +79,6 @@ OC.L10N.register(
     "Folder name" : "Mapnaam",
     "Go back" : "Terug",
     "Folder exists already!" : "Map bestaat al!",
-    "Advanced settings" : "Geavanceerde instellingen",
     "Credentials" : "Inloggegevens",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP basis auth gegevens moeten ongecodeerd worden opgeslagen! Iederen die toegang heeft tot de server of database kan deze benaderen! ",
     "Username" : "Gebruikersnaam",

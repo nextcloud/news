@@ -66,7 +66,6 @@ OC.L10N.register(
     "Folder name" : "Nom del dorsièr",
     "Go back" : "Revenir en arrière",
     "Folder exists already!" : "Lo dorsièr existís ja !",
-    "Advanced settings" : "Paramètres avançats",
     "Credentials" : "Informacions d'identificacion",
     "Username" : "Identificant",
     "Password" : "Senhal",

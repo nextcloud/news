@@ -76,7 +76,6 @@
     "Folder name" : "Mappenavn",
     "Go back" : "Gå tilbake",
     "Folder exists already!" : "Mappe finnes allerede!",
-    "Advanced settings" : "Avanserte innstillinger",
     "Credentials" : "Påloggingsdetaljer",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Detaljer for HTTP Basic Auth må lagres ukryptert! Alle med tilgang til serveren eller databasen vil være i stand til å nå dem!",
     "Username" : "Brukernavn",

@@ -77,7 +77,6 @@
     "Folder name" : "Nazwa folderu",
     "Go back" : "Wróć",
     "Folder exists already!" : "Folder już istnieje!",
-    "Advanced settings" : "Ustawienia zaawansowane",
     "Credentials" : "Poświadczenia",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Podstawowe poświadczenia uwierzytelnienia HTTP muszą być zapisane odszyfrowane! Każdy posiadający dostęp do serwera lub bazy danych będzie mógł je odczytać!",
     "Username" : "Nazwa użytkownika",

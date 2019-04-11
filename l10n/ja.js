@@ -78,7 +78,6 @@ OC.L10N.register(
     "Folder name" : "フォルダー名",
     "Go back" : "戻る",
     "Folder exists already!" : "フォルダーはすでに存在します！",
-    "Advanced settings" : "詳細設定",
     "Credentials" : "資格情報",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP ベーシック認証の認証情報は暗号化せずに保管する必要があります。その為、サーバーやデータベースにアクセスできる人はすべてこの情報を見ることができます。",
     "Username" : "ユーザー名",

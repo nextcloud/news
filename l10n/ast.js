@@ -68,7 +68,6 @@ OC.L10N.register(
     "Folder name" : "Nome de la carpeta",
     "Go back" : "Atrás",
     "Folder exists already!" : "¡La carpeta yá esiste!",
-    "Advanced settings" : "Axustes avanzaos",
     "Credentials" : "Credenciales",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "¡Les credenciales d'autenticación básica d'HTTP tienen de ser almacenaos ensin encriptar! ¡Cualesquier que pueda aportar al sirvidor o base de datos va ser capaz d'aportar a ellos!",
     "Username" : "Nome d'usuariu",

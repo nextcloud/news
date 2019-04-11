@@ -30,7 +30,6 @@ OC.L10N.register(
     "Folder name" : "Dossiers Numm:",
     "Go back" : "Zeréckgoen",
     "Folder exists already!" : "Dësen Dossier gëtt et schonns!",
-    "Advanced settings" : "Erweidert Astellungen",
     "Username" : "Benotzernumm",
     "Password" : "Passwuert",
     "New Folder" : "Neien Dossier",

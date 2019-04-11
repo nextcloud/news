@@ -23,7 +23,6 @@ OC.L10N.register(
     "Folder name" : "Vouernaam",
     "Go back" : "Gaan terug",
     "Folder exists already!" : "Vouers bestaan reeds!",
-    "Advanced settings" : "Gevorderde instellings",
     "Username" : "Gebruikersnaam",
     "Password" : "Wagwoord",
     "New Folder" : "Nuwe Vouer",

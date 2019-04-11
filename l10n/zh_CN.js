@@ -79,7 +79,6 @@ OC.L10N.register(
     "Folder name" : "文件夹名称",
     "Go back" : "后退",
     "Folder exists already!" : "文件夹已经存在！",
-    "Advanced settings" : "高级选项",
     "Credentials" : "凭证",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth 认证只能被未加密保存！所有可以访问这个服务器的数据库的人都可以访问他们！",
     "Username" : "用户名",

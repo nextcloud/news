@@ -79,7 +79,6 @@ OC.L10N.register(
     "Folder name" : "Назив фасцикле",
     "Go back" : "Иди назад",
     "Folder exists already!" : "Фасцикла већ постоји!",
-    "Advanced settings" : "Напредне поставке",
     "Credentials" : "Акредитиви",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth акредитиви морају бити сачувани нешифровани! Свак са приступом серверу или бази ће моћи да им приступи!",
     "Username" : "Корисничко име",

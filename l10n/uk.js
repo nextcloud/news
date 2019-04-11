@@ -66,7 +66,6 @@ OC.L10N.register(
     "Folder name" : "Ім'я теки",
     "Go back" : "Повернутися назад",
     "Folder exists already!" : "Тека вже існує !",
-    "Advanced settings" : "Розширені налаштування",
     "Credentials" : "Облікові дані",
     "Username" : "Ім'я користувача",
     "Password" : "Пароль",

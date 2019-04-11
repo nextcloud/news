@@ -76,7 +76,6 @@
     "Folder name" : "Nom de la carpeta",
     "Go back" : "Torna enrere",
     "Folder exists already!" : "La carpeta ja existeix!",
-    "Advanced settings" : "Paràmetres avançats",
     "Credentials" : "Credencials",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Les credencials d'autenticació bàsica HTTP s'han d'emmagatzemar sense xifrar! Tothom amb accés al servidor o a la base de dades podrà accedir-hi.",
     "Username" : "Nom d'usuari",

@@ -68,7 +68,6 @@ OC.L10N.register(
     "Folder name" : "Kausta nimi",
     "Go back" : "Mine tagasi",
     "Folder exists already!" : "Kaust on juba olemas!",
-    "Advanced settings" : "Lisavalikud",
     "Credentials" : "Kasutajatunnused",
     "Username" : "Kasutajanimi",
     "Password" : "Parool",

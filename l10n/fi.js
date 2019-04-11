@@ -70,7 +70,6 @@ OC.L10N.register(
     "Folder name" : "Kansion nimi",
     "Go back" : "Takaisin",
     "Folder exists already!" : "Kansio on jo olemassa!",
-    "Advanced settings" : "Lisäasetukset",
     "Credentials" : "Tilitiedot",
     "Username" : "Käyttäjätunnus",
     "Password" : "Salasana",

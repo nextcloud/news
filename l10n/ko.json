@@ -75,7 +75,6 @@
     "Folder name" : "폴더 이름",
     "Go back" : "뒤로 가기",
     "Folder exists already!" : "폴더가 이미 존재합니다!",
-    "Advanced settings" : "고급 설정",
     "Credentials" : "자격 정보",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP 기본 인증 정보는 암호화되지 않은 상태로 저장됩니다! 서버나 데이터베이스에 접근한 모든 사용자들이 접근할 수 있습니다!",
     "Username" : "사용자 이름",

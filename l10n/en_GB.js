@@ -78,7 +78,6 @@ OC.L10N.register(
     "Folder name" : "Folder name",
     "Go back" : "Go back",
     "Folder exists already!" : "Folder exists already!",
-    "Advanced settings" : "Advanced settings",
     "Credentials" : "Credentials",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!",
     "Username" : "Username",

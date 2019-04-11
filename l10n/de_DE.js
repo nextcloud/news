@@ -79,7 +79,6 @@ OC.L10N.register(
     "Folder name" : "Ordnername",
     "Go back" : "Zurück gehen",
     "Folder exists already!" : "Der Ordner existiert bereits!",
-    "Advanced settings" : "Erweiterte Einstellungen",
     "Credentials" : "Zugangsdaten",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Die Anmeldeinformationen der HTTP-Standardauthentifizierung müssen unverschlüsselt gespeichert werden! Jeder mit Serverzugriff ist in der Lage diese Daten zu lesen.",
     "Username" : "Benutzername",

@@ -78,7 +78,6 @@ OC.L10N.register(
     "Folder name" : "Mappanév",
     "Go back" : "Menj vissza",
     "Folder exists already!" : "A mappa már létezik!",
-    "Advanced settings" : "Haladó beállítások",
     "Credentials" : "Azonosítók",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "A HTTP alapértelmezett azonosítási adatok titkosítatlanul tárolódnak! Bárki aki hozzáfér a szerverhez vagy az adatbázishoz olvashatja azt!",
     "Username" : "Felhasználónév",

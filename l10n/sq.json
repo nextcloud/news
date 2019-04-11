@@ -75,7 +75,6 @@
     "Folder name" : "Emër dosjeje",
     "Go back" : "Kthehuni mbrapsht",
     "Folder exists already!" : "Ka një dosje të tillë!",
-    "Advanced settings" : "Rregullime të mëtejshme",
     "Credentials" : "Kredenciale",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Kredencialet HTTP Basic Auth duhet të depozitohen të pafshehtëzuara! Cilido që ka hyrje te shërbyesi ose te baza e të dhënave do të jetë në gjendje të hyjë në to!",
     "Username" : "Emër përdoruesi",

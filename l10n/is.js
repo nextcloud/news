@@ -78,7 +78,6 @@ OC.L10N.register(
     "Folder name" : "Nafn möppu",
     "Go back" : "Til baka",
     "Folder exists already!" : "Mappan er þegar til!",
-    "Advanced settings" : "Ítarlegri valkostir",
     "Credentials" : "Auðkenni",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth auðkenni verða að geymast ódulrituð! Hver sá sem hefur aðgang að þjóninum eða gagnagrunninum mun hafa aðgang að þeim!",
     "Username" : "Notandanafn",

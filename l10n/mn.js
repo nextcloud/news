@@ -30,7 +30,6 @@ OC.L10N.register(
     "New folder" : "Шинэ хавтас",
     "Folder name" : "Хавтасны нэр",
     "Go back" : "Буцах",
-    "Advanced settings" : "Нарийвчилсан тохиргоо",
     "Credentials" : "Итгэмжлэл",
     "Username" : "Хэрэглэгчийн нэр",
     "Password" : "Нууц үг",

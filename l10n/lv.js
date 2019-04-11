@@ -39,7 +39,6 @@ OC.L10N.register(
     "Folder name" : "Mapes nosaukums",
     "Go back" : "Atpakaļ",
     "Folder exists already!" : "Mape jau eksistē!",
-    "Advanced settings" : "Paplašināti iestatījumi",
     "Credentials" : "Akreditācijas dati",
     "Username" : "Lietotājvārds",
     "Password" : "Parole",
