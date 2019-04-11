@@ -13,7 +13,7 @@
 
 const gulp = require('gulp'),
     ngAnnotate = require('gulp-ng-annotate'),
-    uglify = require('gulp-uglify'),
+    terser = require('gulp-terser'),
     jshint = require('gulp-jshint'),
     KarmaServer = require('karma').Server,
     phpunit = require('gulp-phpunit'),
@@ -47,22 +47,22 @@ const watchSources = sources.concat(testSources).concat(['*.js']);
 const lintSources = watchSources;
 
 // tasks
-gulp.task('default', ['lint'], () => {
-    return gulp.src(sources)
-        .pipe(ngAnnotate())
-        .pipe(sourcemaps.init())
-        .pipe(concat(buildTarget))
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(destinationFolder));
-});
-
 gulp.task('lint', () => {
     return gulp.src(lintSources)
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(jshint.reporter('fail'));
 });
+
+gulp.task('default', gulp.series('lint', () => {
+    return gulp.src(sources)
+        .pipe(ngAnnotate())
+        .pipe(sourcemaps.init())
+        .pipe(concat(buildTarget))
+        .pipe(terser())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(destinationFolder));
+}));
 
 gulp.task('watch', () => {
     gulp.watch(watchSources, ['default']);
