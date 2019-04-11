@@ -2,30 +2,31 @@ sudo: false
 dist: trusty
 language: php
 php:
-    - 7.0.33
     - 7.1.26
     - 7.2
     - 7.3
+    - 7.4snapshot
     - nightly
 
 env:
     global:
-        - CORE_BRANCH=stable15
+        - CORE_BRANCH=stable16
         - MOZ_HEADLESS=1
     matrix:
         - DB=pgsql
 
 matrix:
     allow_failures:
-        - env: DB=pgsql CORE_BRANCH=master
+        - env: CORE_BRANCH=master
         - php: nightly
+        - php: 7.4snapshot
     include:
         - php: 7.3
           env: DB=sqlite
         - php: 7.3
           env: DB=mysql
         - php: 7.3
-          env: DB=pgsql CORE_BRANCH=master
+          env: CORE_BRANCH=master
 fast_finish: true
 
 before_install:
@@ -64,4 +65,4 @@ after_success:
 addons:
     firefox: "latest-beta"
     postgresql: "9.6"
-    mariadb: "10.3"
+    mariadb: "10.4"
