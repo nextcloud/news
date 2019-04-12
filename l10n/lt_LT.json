@@ -89,6 +89,7 @@
     "Subscriptions (OPML)" : "Prenumeratos (OPML)",
     "Import" : "Importuoti",
     "Export" : "Eksportuoti",
+    "Error when importing: File does not contain valid OPML" : "Klaida importuojant: Faile nėra tinkamo OPML",
     "Error when importing: OPML is does neither contain feeds nor folders" : "Klaida, importuojant: OPML faile nėra nei kanalų, nei aplankų",
     "Error when importing: file does not contain valid JSON" : "Klaida importuojant: faile nėra teisingo JSON",
     "Help" : "Pagalba",

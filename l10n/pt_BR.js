@@ -114,7 +114,7 @@ OC.L10N.register(
     "Disable mark read through scrolling" : "Desativar a marca de lido durante a rolagem",
     "Compact view" : "Versão reduzida",
     "Expand articles on key navigation" : "Expandir artigos sobre tecla de navegação",
-    "Show all articles" : "Mostrar todos os artigos",
+    "Show all articles" : "Exibir todos os artigos",
     "Reverse ordering (oldest on top)" : "Ordem inversa (o mais antigo no topo)",
     "Subscriptions (OPML)" : "Assinaturas (OPML) ",
     "Import" : "Importar",
