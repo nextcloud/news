@@ -58,16 +58,16 @@
         },
         {
             "name": "debril/feed-io",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdebril/feed-io.git",
-                "reference": "199246f2da1ee0ec6509c9d0ec6f7547e5d9d2de"
+                "reference": "a8ae664c948f0ca926150cc4597f343af797b4b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/199246f2da1ee0ec6509c9d0ec6f7547e5d9d2de",
-                "reference": "199246f2da1ee0ec6509c9d0ec6f7547e5d9d2de",
+                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/a8ae664c948f0ca926150cc4597f343af797b4b0",
+                "reference": "a8ae664c948f0ca926150cc4597f343af797b4b0",
                 "shasum": ""
             },
             "require": {
@@ -114,7 +114,7 @@
                 "news",
                 "rss"
             ],
-            "time": "2019-03-28T08:31:48+00:00"
+            "time": "2019-04-12T11:48:51+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
