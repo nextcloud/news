@@ -37,7 +37,7 @@ OC.L10N.register(
     "Got more awesome feeds? Share them with us!" : "Ten máis fontes moi interesantes? Compártaas connosco!",
     "No articles available" : "Non hai artigos dispoñíbeis",
     "No unread articles available" : "Non hai artigos sen ler dispoñíbeis",
-    "Open website" : "Abrir sitio web",
+    "Open website" : "Abrir o sitio web",
     "Star article" : "Marcar artigo",
     "Unstar article" : "Desmarcar artigo",
     "Keep article unread" : "Manter o artigo como non lido",
