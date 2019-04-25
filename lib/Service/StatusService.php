@@ -13,8 +13,6 @@
 
 namespace OCA\News\Service;
 
-use Doctrine\DBAL\Platforms\MySqlPlatform;
-
 use OCP\IConfig;
 use OCP\IDBConnection;
 
@@ -22,13 +20,13 @@ use OCA\News\Config\Config;
 
 class StatusService
 {
-
+    /** @var IConfig */
     private $settings;
+    /** @var Config */
     private $config;
+    /** @var string */
     private $appName;
-    /**
-     * @var IDBConnection
-     */
+    /** @var IDBConnection */
     private $connection;
 
     public function __construct(
