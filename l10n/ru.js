@@ -68,8 +68,6 @@ OC.L10N.register(
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Обнаружен режим планировщика задач Ajax или webcron! Ленты не будут обновляться!",
     "How to set up the operating system cron" : "Как настроить cron (планировщик задач) операционной системы",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Установить и настроить более быстрое средство параллельного обновления, которое использует собственный API обновлений приложения новостей",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "База данных MySQL/MariaDB использует кодировку, отличную от UTF-8!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Узнайте как сконвертировать вашу базу данных в кодировку utf8mb4 (сначала создайте резервную копию)",
     "Web address" : "Веб адрес",
     "Feed exists already!" : "Лента уже существует!",
     "Folder" : "Папка",

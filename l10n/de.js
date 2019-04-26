@@ -69,8 +69,6 @@ OC.L10N.register(
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax oder ein webbasierter Cron-Modus gefunden! Deine Feeds werden nicht aktualisiert! ",
     "How to set up the operating system cron" : "Wie der Cron des Betriebssystems eingerichtet wird",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Installiere und richte einen schnellen, parallelen Updater ein, der die Update-API der News-App nutzt",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Es wurde ein Nicht-UTF-8-Zeichensatz für MySQL/MariaDB gefunden.",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Lerne wie Du Deine Datenbank zu utf8mb4 wandeln kannst (Erstelle zuvor eine Datensicherung)",
     "Web address" : "Internetadresse",
     "Feed exists already!" : "Feed existiert bereits!",
     "Folder" : "Ordner",

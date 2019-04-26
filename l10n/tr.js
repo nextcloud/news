@@ -69,8 +69,6 @@ OC.L10N.register(
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ya da Web zamanlanmış görev kipi algılandı! Akışlarınız güncellenmeyecek!",
     "How to set up the operating system cron" : "İşletim sistemi zamanlanmış görevi nasıl ayarlanır",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Haberler uygulamasının güncelleme API yazılımını kullanan daha hızlı bir paralel güncelleyici kurun ve ayarlayın",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "MySQL/MariaDB için UTF-8 olmayan karakter kümesi algılandı!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Veritabanınızı utf8mb4 karakter kümesine dönüştürme hakkında bilgi alın (önce yedek alın)",
     "Web address" : "Web adresi",
     "Feed exists already!" : "Akış zaten var!",
     "Folder" : "Klasör",

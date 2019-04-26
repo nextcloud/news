@@ -66,8 +66,6 @@
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax eða webcron fannst! Fréttastraumar þínir verða ekki uppfærðir!",
     "How to set up the operating system cron" : "Hvernig á að setja upp cron-þjónustu stýrikerfis",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Setja upp og stilla hraðvirkari samhliða uppfærslueiningu sem notar API-forritsviðmót fréttaforritsins",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Stafatafla sem ekki er UTF-8 fannst í MySQL/MariaDB gagnagrunni!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Lærðu hvernig þú getur umbreytt gagnagrunninum í utf8mb4 (taktu öryggisafrit fyrst)",
     "Web address" : "Veffang",
     "Feed exists already!" : "Streymið er þegar til!",
     "Folder" : "Mappa",

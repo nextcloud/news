@@ -58,8 +58,6 @@
     "Focus search field" : "Kohdista hakukenttään",
     "Mark current article's feed/folder read" : "Merkitse nykyisen artikkelin syöte/kansio luetuksi",
     "How to set up the operating system cron" : "Käyttöjärjestelmän cronin asettaminen",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Muu kuin UTF-8-merkistö MySQL-/MariaDB-tietokannalle havaittu!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Lisätietoja tietokannan muuntamisesta utf8mb4:ään (tee ensin varmuuskopio)",
     "Web address" : "Verkko-osoite",
     "Feed exists already!" : "Syöte on jo olemassa!",
     "Folder" : "Kansio",

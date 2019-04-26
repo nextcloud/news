@@ -67,8 +67,6 @@ OC.L10N.register(
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax 및 웹 cron 모드가 감지되었습니다! 피드를 업데이트하지 않습니다!",
     "How to set up the operating system cron" : "운영 체제 cron 설정 방법",
     "Install and set up a faster parallel updater that uses the News app's update API" : "뉴스 앱의 업데이트 API를 사용하는 빠른 병렬 업데이터 설치 및 설정",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "MySQL/MariaDB 데이터베이스에서 UTF-8이 아닌 문자 인코딩이 감지되었습니다!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "utf8mb4로 데이터베이스를 변환하는 법 알아보기(변환 전 백업 필요)",
     "Web address" : "웹 주소",
     "Feed exists already!" : "피드가 이미 존재합니다!",
     "Folder" : "폴더",

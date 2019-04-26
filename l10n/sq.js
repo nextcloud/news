@@ -67,8 +67,6 @@ OC.L10N.register(
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zbulohet modaliteti Ajax ose webcron! Feedet tuaja nuk do të përditësohen!",
     "How to set up the operating system cron" : "Si të rregullohet cron-i i sistemit operativ",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instaloni dhe rregulloni për punë një përditësues paralel më të shpejtë që përdor për përditësime API-n e aplikacionit Lajme",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Jo UTF-8 charset për databazën MySQL/MariaDB u zbulua!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Mëso se si të konvertohet databaza juaj në utf8mb4 (bëj paraprakisht një kopje rezervë)",
     "Web address" : "Adresë Web",
     "Feed exists already!" : "Prurja ekziston tashmë!",
     "Folder" : "Dosje",

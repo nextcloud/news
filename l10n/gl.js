@@ -69,8 +69,6 @@ OC.L10N.register(
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Detectouse o modo Ajax ou webcron! As súas fontes non van ser actualizadas!",
     "How to set up the operating system cron" : "Cómo configurar o cron do sistema operativo",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instala e configura un actualizador paralelo máis rápido que utiliza a API de actualización do aplicativo Nopvas",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Detectouse un conxunto de caracteres non UTF-8 para a base de datos MySql/MariaDB!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Descubra como converter a súa base de datos a utf8mb4 (faga previamente unha copia de seguranza)",
     "Web address" : "Enderezo web",
     "Feed exists already!" : "Esta fonte de novas xa existe!",
     "Folder" : "Cartafol",

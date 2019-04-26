@@ -66,8 +66,6 @@
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax or webcron mode detected! Your feeds will not be updated!",
     "How to set up the operating system cron" : "How to set up the operating system cron",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Install and set up a faster parallel updater that uses the News app's update API",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "Non UTF-8 charset for MySQL/MariaDB database detected!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Learn how to convert your database to utf8mb4 (make a backup beforehand)",
     "Web address" : "Web address",
     "Feed exists already!" : "Feed exists already!",
     "Folder" : "Folder",

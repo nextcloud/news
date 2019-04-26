@@ -65,8 +65,6 @@
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "არჩეულია Ajax-ის ან webcron-ის რეჟიმი! თქვენი ლენტა არ განახლდება!",
     "How to set up the operating system cron" : "როგორ დავაყენოთ ოპერაციული სისტემის კრონი",
     "Install and set up a faster parallel updater that uses the News app's update API" : "დააყენეთ და მოაწყვეთ უფრო სწრაფი პარალელური განახლება რომელიც მოიხმარს სიახლეების აპლიკაციის განახლების პროგრამულ ინტერფეისს",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "აღმოჩენილია არა UTF-8 ნიშანი MySQL/MariaDB მონაცემთა ბაზისთვის!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "ისწავლეთ როგორ გარდაქმნათ თქვენი მონაცემთა ბაზა utf8mb4 ფორმატში (მანამდე შეასრულეთ დაზღვევა)",
     "Web address" : "Web მისამართი",
     "Feed exists already!" : "ლენტა უკვე არსებობს!",
     "Folder" : "დირექტორია",

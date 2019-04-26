@@ -65,8 +65,6 @@
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "זוהה מצב Ajax או webcron! ערוצי התוכן שלך לא יעודכנו!",
     "How to set up the operating system cron" : "איך להגדיר את cron מערכת ההפעלה",
     "Install and set up a faster parallel updater that uses the News app's update API" : "התקנה והגדרת עדכון מקביל מהיר שמשתמש בעדכון יישום חדשות מבוסס API",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "זוהו תווים שאינם UTF-8 למסד הנתונים MySQL/MariaDB!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "מידע על הסבת מסד הנתונים שלך ל־utf8mb4 (כדאי להכין גיבוי לפני כן)",
     "Web address" : "כתובת אתר",
     "Feed exists already!" : "ערוץ הזנת התוכן כבר קיים!",
     "Folder" : "תיקייה",

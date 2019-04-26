@@ -67,8 +67,6 @@
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Detectado modo Ajax o webcron! ¡Tus fuentes no se actualizarán!",
     "How to set up the operating system cron" : "Cómo configurar el cron del sistema operativo",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instala y configura un actualizador paralelo más rápido que utiliza la API de actualización de la app News",
-    "Non UTF-8 charset for MySQL/MariaDB database detected!" : "¡No se ha detectado codificación de caracteres UTF-8 para la base de datos MySQL/MariaDB!",
-    "Learn how to convert your database to utf8mb4 (make a backup beforehand)" : "Aprende cómo convertir tu base de datos a ut8mb4 (haz antes una copia de seguridad)",
     "Web address" : "Dirección web",
     "Feed exists already!" : "Esa fuente ya existe.",
     "Folder" : "Carpeta",
