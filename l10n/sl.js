@@ -8,7 +8,7 @@ OC.L10N.register(
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interna napaka strežnika! Preveri data/nextcloud.log datoteko za dodatne informacije!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Zahteva ni uspela, Nextcloud je trenutno v servisnem načinu!",
     "Can not add feed: Exists already" : "Vira ni mogoče dodati: ta že obstaja",
-    "Articles without feed" : "Članki brez virov",
+    "Articles without feed" : "Prispevki brez virov",
     "Can not add folder: Exists already" : "Ni mogoče dodati mape: mapa že obstaja.",
     "News" : "Novice",
     "An RSS/Atom feed reader" : "Bralnik virov RSS/Atom",
