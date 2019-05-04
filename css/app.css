@@ -44,6 +44,13 @@
     display: block !important;
 }
 
+#mark-all-read-button {
+    position: fixed;
+    z-index: 1;
+    bottom: 0.5em;
+    right: 0.5em;
+}
+
 /* Override hidden before angular is loaded */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
     display: none !important;

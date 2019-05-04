@@ -12,6 +12,10 @@
         <p ng-show="Content.isShowAll()"><?php p($l->t('No articles available')) ?></p>
         <p ng-show="!Content.isShowAll()"><?php p($l->t('No unread articles available')) ?></p>
     </div>
+    <button ng-controller="NavigationController as Navigation" id="mark-all-read-button" ng-click="Navigation.markCurrentRead()" class="hidden">
+        <span title="Mark Read" class="icon-checkmark"></span>
+    </button>
+
     <ul>
         <li class="item {{ ::Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() |

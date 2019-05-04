@@ -36,6 +36,19 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
         return FolderResource.getAll();
     };
 
+    this.markCurrentRead = function () {
+      var id = getRouteId();
+      var type = $route.current.$$route.type;
+
+      if(isNaN(id)) {
+        this.markRead();
+      } else if(type === FEED_TYPE.FOLDER) {
+        this.markFolderRead(id);
+      } else if(type === FEED_TYPE.FEED) {
+        this.markFeedRead(id);
+      }
+    };
+
     this.markFolderRead = function (folderId) {
         FeedResource.markFolderRead(folderId);
 
