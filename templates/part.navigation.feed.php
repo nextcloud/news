@@ -87,7 +87,7 @@
         </ul>
     </div>
 
-    <div class="app-navigation-entry-menu">
+    <div class="app-navigation-entry-menu" ng-click="$event.stopPropagation()">
         <ul>
             <li ng-show="Navigation.isFeedUnread(feed.id)" class="mark-read">
                 <button ng-click="Navigation.markFeedRead(feed.id)">
