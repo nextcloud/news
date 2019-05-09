@@ -63,6 +63,7 @@ OC.L10N.register(
     "Scroll to active navigation entry" : "Pomakni se na predmet v žarišču",
     "Focus search field" : "Postavi iskalno polje v žarišče",
     "Mark current article's feed/folder read" : "Označi trenutni predmet kot prebran",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zaznan je način Ajax oziroma webcron! Izbrani viri ne bodo posodobljeni!",
     "How to set up the operating system cron" : "Kako nastaviti opravila cron operacijskega sistema",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Namesti in nastavi hitrejši vzporedni posodabljalnik, ki za posodobitev uporablja  API programa  News",
     "Web address" : "Spletni naslov",
