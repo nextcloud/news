@@ -26,23 +26,22 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
 
 
     /**
-     * Delete all items for feeds that have over $threshold unread and not
+     * Delete all items for feeds that have over $threshold not
      * starred items
      *
      * @param int $threshold the number of items that should be deleted
      */
-    public function deleteReadOlderThanThreshold($threshold)
+    public function deleteOlderThanThreshold($threshold)
     {
         $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
         '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
                 'ON `feeds`.`id` = `items`.`feed_id` ' .
-                'AND `items`.`unread` = ? ' .
                 'AND `items`.`starred` = ? ' .
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
-        $params = [false, false, $threshold];
+        $params = [false, $threshold];
         $result = $this->execute($sql, $params);
 
         while ($row = $result->fetch()) {
@@ -50,11 +49,10 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
             $limit = $size - $threshold;
 
             if ($limit > 0) {
-                $params = [false, false, $row['feed_id'], $limit];
+                $params = [false, $row['feed_id'], $limit];
 
                 $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE `unread` = ? ' .
-                    'AND `starred` = ? ' .
+                    'WHERE `starred` = ? ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
                     'LIMIT ?';

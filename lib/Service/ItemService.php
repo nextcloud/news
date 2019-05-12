@@ -257,7 +257,7 @@ class ItemService extends Service
     {
         $count = $this->config->getAutoPurgeCount();
         if ($count >= 0) {
-            $this->itemMapper->deleteReadOlderThanThreshold($count);
+            $this->itemMapper->deleteOlderThanThreshold($count);
         }
     }
 

@@ -32,7 +32,7 @@ class ItemServiceTest extends TestCase
 
     private $mapper;
     /**
-     * @var  ItemService 
+     * @var  ItemService
      */
     private $itemService;
     private $user;
@@ -418,7 +418,7 @@ class ItemServiceTest extends TestCase
             ->method('getAutoPurgeCount')
             ->will($this->returnValue(2));
         $this->mapper->expects($this->once())
-            ->method('deleteReadOlderThanThreshold')
+            ->method('deleteOlderThanThreshold')
             ->with($this->equalTo(2));
 
         $this->itemService->autoPurgeOld();
@@ -430,13 +430,13 @@ class ItemServiceTest extends TestCase
             ->method('getAutoPurgeCount')
             ->will($this->returnValue(-1));
         $this->mapper->expects($this->never())
-            ->method('deleteReadOlderThanThreshold');
+            ->method('deleteOlderThanThreshold');
 
         $this->itemService->autoPurgeOld();
     }
 
 
-    public function testGetNewestItemId() 
+    public function testGetNewestItemId()
     {
         $this->mapper->expects($this->once())
             ->method('getNewestItemId')
@@ -448,7 +448,7 @@ class ItemServiceTest extends TestCase
     }
 
 
-    public function testGetNewestItemIdDoesNotExist() 
+    public function testGetNewestItemIdDoesNotExist()
     {
         $this->mapper->expects($this->once())
             ->method('getNewestItemId')
@@ -494,7 +494,7 @@ class ItemServiceTest extends TestCase
     }
 
 
-    public function testDeleteUser() 
+    public function testDeleteUser()
     {
         $this->mapper->expects($this->once())
             ->method('deleteUser')
