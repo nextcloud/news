@@ -1,0 +1,69 @@
+{
+    "Nextcloud": [{
+        "title": "Nextcloud News",
+        "favicon": "https://nextcloud.com/media/screenshot-150x150.png",
+        "url": "https://nextcloud.com/blog/",
+        "feed": "https://nextcloud.com/blogfeed",
+        "description": "Nextcloud's Official Blog",
+        "votes": 1000
+    }],
+    "Tech": [{
+        "title": "GIGAZINE",
+        "favicon": "https://gigazine.net/favicon.ico",
+        "url": "https://gigazine.net/",
+        "feed": "https://gigazine.net/news/rss_2.0/",
+        "description": "IT News site",
+        "votes": 100
+    }, {
+        "title": "TechCrunch (JA)",
+        "favicon": "https://s2.wp.com/wp-content/themes/vip/techcrunch-jp-2015/assets/images/homescreen_TCIcon_2x.png",
+        "url": "https://jp.techcrunch.com/",
+        "feed": "https://jp.techcrunch.com/feed/",
+        "description": "IT & Startup News site",
+        "votes": 100,
+    }],
+    "NEWS": [{
+        "title": "BBC (JA)",
+        "favicon": "https://static.bbc.co.uk/news/1.281.03331/apple-touch-icon.png",
+        "url": "https://www.bbc.com/japanese",
+        "feed": "https://feeds.bbci.co.uk/japanese/rss.xml",
+        "description": "BBC NEWS (Japanese)",
+        "votes": 100
+    }, {
+        "title": "ASAHI NEWS",
+        "favicon": "https://www.asahi.com/logo_icon.png",
+        "url": "https://www.asahi.com/",
+        "feed": "https://rss.asahi.com/rss/asahi/newsheadlines.rdf",
+        "description": "Asahi Newspaper",
+        "votes": 100,
+    }, {
+        "title": "NHK NEWS",
+        "favicon": "https://www.nhk.or.jp/favicon.ico",
+        "url": "https://www3.nhk.or.jp/news/",
+        "feed": "https://www3.nhk.or.jp/rss/news/cat0.xml",
+        "description": "NHK(Japan Broadcasting Corporation) NEWS",
+        "votes": 100
+    }],
+    "Blogs": [{
+        "title": "The Mozilla Blog",
+        "favicon": "https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/wp-content/themes/frontierline/img/favicon.png",
+        "url": "https://blog.mozilla.org/",
+        "feed": "https://blog.mozilla.org/feed/",
+        "description": "Mozilla's Official Blog",
+        "votes": 100
+    }, {
+        "title": "OpenStreetMap Blog",
+        "favicon": "https://blog.openstreetmap.org/wp-content/themes/osmblog-wp-theme/images/osm-logo.png",
+        "url": "https://blog.openstreetmap.org/",
+        "feed": "https://blog.openstreetmap.org/feed/",
+        "description": "OpenStreetMap's Official Blog",
+        "votes": 100
+    },{
+        "title": "DuckDuckGo Blog",
+        "favicon": "https://spreadprivacy.com/favicon.png",
+        "url": "https://spreadprivacy.com/",
+        "feed": "https://spreadprivacy.com/rss/",
+        "description": "DuckDuckGo's Official Blog",
+        "votes": 100
+    }]
+}
