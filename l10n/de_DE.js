@@ -119,7 +119,7 @@ OC.L10N.register(
     "Export" : "Exportieren",
     "Error when importing: File does not contain valid OPML" : "Fehler beim Importieren: Datei enthält kein gültiges OPML",
     "Error when importing: OPML is does neither contain feeds nor folders" : "Fehler beim Importieren: OPML enthält weder Feeds noch Ordner",
-    "Unread/Starred Articles" : "Ungelese/Markierte Artikel",
+    "Unread/Starred Articles" : "Ungelesene/Markierte Artikel",
     "Error when importing: file does not contain valid JSON" : "Fehler beim Importieren: Datei enthält kein gültiges JSON",
     "Help" : "Hilfe",
     "Keyboard shortcuts" : "Tastenkürzel",
