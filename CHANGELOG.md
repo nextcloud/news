@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.0.0
+
+### Changed
+- Dropped support for Nextcloud 14 & 15 #494
+- Switched to feedio 4.3 #494
+- News now requires PHP 7.1 #494
+- Removed UTF-8 warning (now included in server) #497
+- UI imporvements #505 #504 #467
+- Add the 'Accept' header to requests #525
+
 ## 13.1.6
 
 ### Changed
