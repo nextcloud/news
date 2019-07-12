@@ -58,6 +58,12 @@ class FetcherConfig
     const DEFAULT_USER_AGENT = 'NextCloud-News/1.0';
 
     /**
+     * Acccept header for the client.
+     * @var string
+     */
+    const DEFAULT_ACCEPT = '*/*';
+
+    /**
      * Configure a guzzle client
      *
      * @return ClientInterface Legacy client to guzzle.
@@ -78,7 +84,7 @@ class FetcherConfig
     {
         $config = [
             'timeout' => $this->client_timeout,
-            'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT],
+            'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT, 'Accept' => static::DEFAULT_ACCEPT],
         ];
 
         if (!empty($this->proxy)) {
