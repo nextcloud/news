@@ -61,7 +61,7 @@ class FetcherConfig
      * Acccept header for the client.
      * @var string
      */
-    const DEFAULT_ACCEPT = '*/*';
+    const DEFAULT_ACCEPT = 'application/rss+xml, application/rdf+xml;q=0.8, application/atom+xml;q=0.6, application/xml;q=0.4, text/xml;q=0.4, */*;q=0.2';
 
     /**
      * Configure a guzzle client
