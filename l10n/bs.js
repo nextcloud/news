@@ -1,0 +1,27 @@
+OC.L10N.register(
+    "news",
+    {
+    "Saved" : "Spremljeno",
+    "Download" : "Preuzmite",
+    "Close" : "Zatvori",
+    "Language" : "Jezik",
+    "by" : "od strane",
+    "from" : "od",
+    "Description" : "Opis",
+    "Folder" : "Fasikla",
+    "New folder" : "Nova fascikla",
+    "Credentials" : "Vjerodajnice",
+    "Username" : "Korisničko ime",
+    "Password" : "Lozinka",
+    "Create" : "Kreiraj",
+    "Rename" : "Preimenuj",
+    "Collapse" : "Proširi",
+    "Starred" : "Označeno",
+    "Settings" : "Postavke",
+    "Import" : "Uvezi",
+    "Export" : "Izvezi",
+    "Help" : "Pomoć",
+    "Keyboard shortcuts" : "Tipkovni prečaci",
+    "Documentation" : "Dokumentacija"
+},
+"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

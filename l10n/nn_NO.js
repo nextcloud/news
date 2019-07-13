@@ -1,0 +1,28 @@
+OC.L10N.register(
+    "news",
+    {
+    "Download" : "Last ned",
+    "Close" : "Lukk",
+    "Language" : "Språk",
+    "by" : "av",
+    "from" : "frå",
+    "Description" : "Skildring",
+    "Refresh" : "Oppfrisk",
+    "Web address" : "Nettadresse",
+    "Folder" : "Mappe",
+    "New folder" : "Ny mappe",
+    "Folder name" : "Mappenamn",
+    "Username" : "Brukarnamn",
+    "Password" : "Passord",
+    "New Folder" : "Ny mappe",
+    "Create" : "Lag",
+    "Rename" : "Endra namn",
+    "Dismiss" : "Forkast",
+    "Settings" : "Innstillingar",
+    "Import" : "Importer",
+    "Export" : "Eksporter",
+    "Help" : "Hjelp",
+    "Keyboard shortcuts" : "Tastatursnarvegar",
+    "Documentation" : "Dokumentasjon"
+},
+"nplurals=2; plural=(n != 1);");

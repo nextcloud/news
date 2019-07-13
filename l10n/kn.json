@@ -1,0 +1,21 @@
+{ "translations": {
+    "Saved" : "﻿ಉಳಿಸಿದ",
+    "Download" : "ಪ್ರತಿಯನ್ನು ಸ್ಥಳೀಯವಾಗಿ ಉಳಿಸಿಕೊಳ್ಳಿ",
+    "Close" : "ಮುಚ್ಚು",
+    "Language" : "﻿ಭಾಷೆ",
+    "right" : "ಬಲ",
+    "left" : "ಎಡ",
+    "Folder" : "ಕೋಶ",
+    "New folder" : "﻿ಹೊಸ ಕೋಶ",
+    "Credentials" : "﻿ರುಜುವಾತುಗಳು",
+    "Username" : "﻿ಬಳಕೆಯ ಹೆಸರು",
+    "Password" : "ಗುಪ್ತಪದ",
+    "Create" : "ಸೃಷ್ಟಿಸಿ",
+    "Rename" : "﻿ಮರುಹೆಸರಿಸು",
+    "Settings" : "ಆಯ್ಕೆ",
+    "Import" : "ಆಮದು",
+    "Export" : "ರಫ್ತು",
+    "Help" : "﻿ಸಹಾಯ",
+    "Documentation" : "ದಸ್ತಾವೇಜು"
+},"pluralForm" :"nplurals=2; plural=(n > 1);"
+}

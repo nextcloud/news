@@ -1,0 +1,25 @@
+OC.L10N.register(
+    "news",
+    {
+    "Download" : "چۈشۈر",
+    "Close" : "ياپ",
+    "Language" : "تىل",
+    "by" : "سەنئەتكار",
+    "Description" : "چۈشەندۈرۈش",
+    "Refresh" : "يېڭىلا",
+    "Web address" : "تور ئادرېسى",
+    "Folder" : "قىسقۇچ",
+    "New folder" : "يېڭى قىسقۇچ",
+    "Folder name" : "قىسقۇچ ئاتى",
+    "Username" : "ئىشلەتكۈچى ئاتى",
+    "Password" : "ئىم",
+    "Create" : "قۇر",
+    "Rename" : "ئات ئۆزگەرت",
+    "Starred" : "يۇلتۇزلۇق",
+    "Settings" : "تەڭشەكلەر",
+    "Import" : "ئەكىر",
+    "Export" : "چىقار",
+    "Help" : "ياردەم",
+    "Documentation" : "قوللانما"
+},
+"nplurals=1; plural=0;");
