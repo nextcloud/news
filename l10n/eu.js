@@ -1,10 +1,12 @@
 OC.L10N.register(
     "news",
     {
+    "Request failed, network connection unavailable!" : "Eskariak huts egin du, sare konexioa ez dago eskuragarri!",
     "Can not add feed: Exists already" : "Ezin da iturburua gehitu: Dagoeneko existitzen da",
     "Articles without feed" : "Iturbururik gabeko artikuluak",
     "Can not add folder: Exists already" : "Ezin da karpeta gehitu: Dagoeneko existitzen da",
     "News" : "Berriak",
+    "An RSS/Atom feed reader" : "RSS/Atom jarioen irakurle bat",
     "Disable this if you run a custom updater such as the Python updater included in the app" : "Ezgaitu aplikazioarekin banatzen den Python eguneratzailea bezalako beste eguneratzaileren bat erabiltzen baduzu",
     "Saved" : "Gordeta",
     "Download" : "Deskargatu",
