@@ -12,6 +12,7 @@
 namespace OCA\News\Fetcher\Client;
 
 use FeedIo\Adapter\ClientInterface as FeedIoClientInterface;
+use FeedIo\Adapter\ResponseInterface;
 use FeedIo\Adapter\NotFoundException;
 use FeedIo\Adapter\ServerErrorException;
 use Guzzle\Service\ClientInterface;
@@ -42,7 +43,7 @@ class LegacyGuzzleClient implements FeedIoClientInterface
      * @throws \FeedIo\Adapter\ServerErrorException
      * @return \FeedIo\Adapter\ResponseInterface
      */
-    public function getResponse($url, \DateTime $modifiedSince)
+    public function getResponse(string $url, \DateTime $modifiedSince) : ResponseInterface
     {
         try {
             $options = [
