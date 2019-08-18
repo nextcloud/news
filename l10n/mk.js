@@ -27,7 +27,7 @@ OC.L10N.register(
     "Starred" : "Со ѕвезда",
     "Unread articles" : "Непрочитани статии",
     "All articles" : "Сите статии",
-    "Settings" : "Подесувања",
+    "Settings" : "Параметри",
     "Subscriptions (OPML)" : "Претплати (OPML)",
     "Import" : "Увези",
     "Export" : "Извези",
