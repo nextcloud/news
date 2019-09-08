@@ -122,7 +122,7 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Ungelesene/Markierte Artikel",
     "Error when importing: file does not contain valid JSON" : "Fehler beim Importieren: Datei enthält kein gültiges JSON",
     "Help" : "Hilfe",
-    "Keyboard shortcuts" : "Tastenkürzel",
+    "Keyboard shortcuts" : "Tastaturkürzel",
     "Documentation" : "Dokumentation",
     "Report a bug" : "Melde einen technischen Fehler"
 },
