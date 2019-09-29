@@ -35,7 +35,7 @@ class YoutubeFetcherTest extends TestCase
      */
     private $feedFetcher;
 
-    public function setUp() 
+    public function setUp()
     {
         $this->feedFetcher = $this->getMockBuilder(FeedFetcher::class)
             ->disableOriginalConstructor()
@@ -44,26 +44,27 @@ class YoutubeFetcherTest extends TestCase
     }
 
 
-    public function testCanHandleFails() 
+    public function testCanHandleFails()
     {
         $url = 'http://youtube.com';
         $this->assertFalse($this->fetcher->canHandle($url));
     }
 
 
-    public function testCanHandle() 
+    public function testCanHandle()
     {
         $url = 'http://youtube.com/test/?test=a&list=b&b=c';
         $this->assertTrue($this->fetcher->canHandle($url));
     }
 
 
-    public function testPlaylistUrl() 
+    public function testPlaylistUrl()
     {
         $url = 'http://youtube.com/something/weird?a=b&list=sobo3&c=1';
         $transformedUrl = 'http://gdata.youtube.com/feeds/api/playlists/sobo3';
         $favicon = true;
         $modified = 3;
+        $fullTextEnabled = false;
         $user = 5;
         $password = 5;
         $feed = new Feed();
@@ -76,10 +77,11 @@ class YoutubeFetcherTest extends TestCase
                 $this->equalTo($transformedUrl),
                 $this->equalTo($favicon),
                 $this->equalTo($modified),
+                $this->equalTo($fullTextEnabled),
                 $this->equalTo($user)
             )
             ->will($this->returnValue($result));
-        $feed = $this->fetcher->fetch($url, $favicon, $modified, $user, $password);
+        $feed = $this->fetcher->fetch($url, $favicon, $modified, $fullTextEnabled, $user, $password);
 
         $this->assertEquals($url, $result[0]->getUrl());
     }

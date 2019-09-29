@@ -65,7 +65,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @inheritdoc
      */
-    public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
+    public function fetch(string $url, bool $favicon, $lastModified, bool $fullTextEnabled, $user, $password): array
     {
         $url2 = new Net_URL2($url);
         if (!empty($user) && !empty(trim($user))) {

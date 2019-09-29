@@ -50,7 +50,7 @@ class YoutubeFetcher implements IFeedFetcher
      *
      * @inheritdoc
      */
-    public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array
+    public function fetch(string $url, bool $favicon, $lastModified, bool $fullTextEnabled, $user, $password): array
     {
         $transformedUrl = $this->buildUrl($url);
 
@@ -58,6 +58,7 @@ class YoutubeFetcher implements IFeedFetcher
             $transformedUrl,
             $favicon,
             $lastModified,
+            $fullTextEnabled,
             $user,
             $password
         );

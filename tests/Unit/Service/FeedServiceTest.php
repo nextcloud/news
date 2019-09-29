@@ -657,7 +657,8 @@ class FeedServiceTest extends TestCase
             ->with(
                 $this->equalTo($feed->getUrl()),
                 $this->equalTo(false),
-                $this->equalTo($feed->getHttpLastModified())
+                $this->equalTo($feed->getHttpLastModified()),
+                $this->equalTo($feed->getFullTextEnabled())
             )
             ->will($this->throwException($ex));
 
