@@ -41,6 +41,7 @@ use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
 use OCA\News\Utility\ProxyConfigParser;
+use OCA\News\Scraper\Scraper;
 
 /**
  * Class Application
@@ -192,6 +193,15 @@ class Application extends App
             $fetcher->registerFetcher($c->query(YoutubeFetcher::class));
             $fetcher->registerFetcher($c->query(FeedFetcher::class));
             return $fetcher;
+        });
+
+        /**
+         * Scrapers
+         */
+        $container->registerService(Scraper::class, function (IContainer $c): Scraper {
+            return new Scraper(
+                $c->query(PsrLogger::class)
+            );
         });
     }
 }

@@ -26,6 +26,7 @@ use OCP\IL10N;
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
+use OCA\News\Scraper\Scraper;
 use SimpleXMLElement;
 
 class FeedFetcher implements IFeedFetcher
@@ -36,14 +37,22 @@ class FeedFetcher implements IFeedFetcher
     private $l10n;
     private $time;
     private $logger;
+    private $scraper;
 
-    public function __construct(FeedIo $fetcher, Favicon $favicon, IL10N $l10n, Time $time, PsrLogger $logger)
-    {
+    public function __construct(
+        FeedIo $fetcher,
+        Favicon $favicon,
+        IL10N $l10n,
+        Time $time,
+        PsrLogger $logger,
+        Scraper $scraper
+    ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
         $this->l10n           = $l10n;
         $this->time           = $time;
         $this->logger         = $logger;
+        $this->scraper        = $scraper;
     }
 
 
@@ -107,7 +116,18 @@ class FeedFetcher implements IFeedFetcher
         ]);
 
         foreach ($parsedFeed as $item) {
-            $builtItem = $this->buildItem($item, null, $RTL);
+            $body = null;
+            $currRTL = $RTL;
+
+            // Scrape content if enabled
+            if ($fullTextEnabled) {
+                if ($this->scraper->scrape($item->getLink())) {
+                    $body = $this->scraper->getContent();
+                    $currRTL = $this->scraper->getRTL($currRTL);
+                }
+            }
+
+            $builtItem = $this->buildItem($item, $body, $currRTL);
             $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
                 'title' => $builtItem->getTitle(),
                 'feed'  => $feedName,
