@@ -99,12 +99,21 @@ class FeedFetcher implements IFeedFetcher
         );
 
         $items = [];
+        $RTL = $this->determineRtl($parsedFeed);
+        $feedName = $parsedFeed->getTitle();
         $this->logger->debug('Feed {url} was modified since last fetch. #{count} items', [
             'url'   => $url,
             'count' => count($parsedFeed),
         ]);
+
         foreach ($parsedFeed as $item) {
-            $items[] = $this->buildItem($item, $parsedFeed);
+            $builtItem = $this->buildItem($item, null, $RTL);
+            $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
+                'title' => $builtItem->getTitle(),
+                'feed'  => $feedName,
+                'datetime'  => $builtItem->getLastModified(),
+            ]);
+            $items[] = $builtItem;
         }
 
         return [$feed, $items];
@@ -164,11 +173,12 @@ class FeedFetcher implements IFeedFetcher
      * Build an item based on a feed.
      *
      * @param ItemInterface $parsedItem The item to use
-     * @param FeedInterface $parsedFeed The feed to use
+     * @param string        $body       Text of the item, if not provided use description from $parsedItem
+     * @param bool          $RTL        True if the feed is RTL (Right-to-left)
      *
      * @return Item
      */
-    protected function buildItem(ItemInterface $parsedItem, FeedInterface $parsedFeed): Item
+    protected function buildItem(ItemInterface $parsedItem, string $body = null, bool $RTL = false): Item
     {
         $item = new Item();
         $item->setUnread(true);
@@ -188,7 +198,7 @@ class FeedFetcher implements IFeedFetcher
         $item->setPubDate($pubDT->getTimestamp());
 
         $item->setLastModified($lastmodified->getTimestamp());
-        $item->setRtl($this->determineRtl($parsedFeed));
+        $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS
         $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
@@ -197,8 +207,12 @@ class FeedFetcher implements IFeedFetcher
             $item->setAuthor($this->decodeTwice($author->getName()));
         }
 
+        // Use description from feed if body is not provided (by a scraper)
+        if ($body === null) {
+            $body = $parsedItem->getValue("content:encoded") ?? $parsedItem->getDescription();
+        }
+
         // purification is done in the service layer
-        $body = $parsedItem->getValue("content:encoded") ?? $parsedItem->getDescription();
         $body = mb_convert_encoding(
             $body,
             'HTML-ENTITIES',
@@ -231,12 +245,6 @@ class FeedFetcher implements IFeedFetcher
         }
 
         $item->generateSearchIndex();
-
-        $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
-            'title' => $item->getTitle(),
-            'feed'  => $parsedFeed->getTitle(),
-            'datetime'  => $item->getLastModified(),
-        ]);
         return $item;
     }
 
