@@ -45,6 +45,13 @@
         "feed": "https://rss.slashdot.org/Slashdot/slashdot",
         "description": "Slashdot: News for nerds, stuff that matters",
         "votes": 500
+    }, {
+        "title": "Lifehacker",
+        "favicon": "https://lifehacker.com/favicon.ico",
+        "url": "https://lifehacker.com",
+        "feed": "https://lifehacker.com/rss",
+        "description": "Lifehacker is the ultimate authority on optimizing every aspect of your life. Do everything better.",
+        "votes": 500
     }],
     "Gaming": [{
         "title": "TotalBiscuit, The Cynical Brit",
