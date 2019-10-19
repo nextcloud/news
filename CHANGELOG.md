@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.0.1
+
+### Changed
+- update js and php dependencies
+- add Lifehacker RSS feed #557
+
 ## 14.0.0
 
 ### Changed
