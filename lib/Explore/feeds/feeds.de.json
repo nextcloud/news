@@ -43,6 +43,13 @@
         "feed": "http:\/\/t3n.de\/rss.xml",
         "description": "Das Magazin für digitales Business",
         "votes": 100
+    }, {
+        "title": "Deskmodder.de",
+        "favicon": "http:\/\/www.deskmodder.de\/favicon.ico",
+        "url": "https:\/\/www.deskmodder.de\/blog\/feed\/",
+        "feed": "http:\/\/www.deskmodder.de\/blog\/feed\/",
+        "description": "News,Typps und Hilfe",
+        "votes": 100
     }],
     "FOSS": [{
         "title": "heise open news",
