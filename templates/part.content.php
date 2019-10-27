@@ -130,7 +130,7 @@
                     </span>
                 </div>
 
-                <div class="enclosure" ng-if="item.enclosureLink">
+                <div class="enclosure" ng-if="Content.getMediaType(item.enclosureMime) == 'audio' || Content.getMediaType(item.enclosureMime) == 'video'">
                     <video controls preload="none" ng-if="Content.getMediaType(item.enclosureMime) =='video'" news-play-one ng-src="{{ item.enclosureLink|trustUrl }}" type="{{ item.enclosureMime }}">
                     </video>
                     <button ng-if="Content.getMediaType(item.enclosureMime) == 'audio'" ng-click="App.play(item)"><?php p($l->t('Play audio')) ?></button>
