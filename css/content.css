@@ -562,8 +562,7 @@
 }
 
 #app-content .enclosure audio,
-#app-content .enclosure video,
-#app-content .enclosure img {
+#app-content .enclosure video {
     width: 100%;
 }
 

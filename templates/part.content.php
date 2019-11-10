@@ -130,18 +130,19 @@
                     </span>
                 </div>
 
-                <div class="enclosure" ng-if="item.enclosureLink">
-                    <video controls preload="none" ng-if="Content.getMediaType(item.enclosureMime) =='video'" news-play-one ng-src="{{ item.enclosureLink|trustUrl }}" type="{{ item.enclosureMime }}">
-                    </video>
-                    <button ng-if="Content.getMediaType(item.enclosureMime) == 'audio'" ng-click="App.play(item)"><?php p($l->t('Play audio')) ?></button>
-                    <a ng-show="Content.getMediaType(item.enclosureMime) =='video'" class="button" ng-href="{{ item.enclosureLink|trustUrl }}" target="_blank" rel="noreferrer">
-                        <?php p($l->t('Download video')) ?>
-                    </a>
-                    <a ng-show="Content.getMediaType(item.enclosureMime) =='audio'" class="button" ng-href="{{ item.enclosureLink|trustUrl }}" target="_blank" rel="noreferrer">
+                <div class="enclosure" ng-if="Content.getMediaType(item.enclosureMime) == 'audio'">
+                    <button ng-click="App.play(item)"><?php p($l->t('Play audio')) ?></button>
+                    <a class="button" ng-href="{{ item.enclosureLink|trustUrl }}" target="_blank" rel="noreferrer">
                         <?php p($l->t('Download audio')) ?>
                     </a>
                 </div>
-
+                <div class="enclosure" ng-if="Content.getMediaType(item.enclosureMime) == 'video'">
+                    <video controls preload="none" news-play-one ng-src="{{ item.enclosureLink|trustUrl }}" type="{{ item.enclosureMime }}">
+                    </video>
+                    <a class="button" ng-href="{{ item.enclosureLink|trustUrl }}" target="_blank" rel="noreferrer">
+                        <?php p($l->t('Download video')) ?>
+                    </a>
+                </div>
 
                 <div class="body" news-bind-html-unsafe="item.body" ng-attr-dir="{{item.rtl && 'rtl'}}"></div>
 
