@@ -198,7 +198,7 @@ class FeedFetcher implements IFeedFetcher
         }
 
         // purification is done in the service layer
-        $body = $parsedItem->getValue("content:encoded") ? $parsedItem->getValue("content:encoded") : $parsedItem->getDescription();
+        $body = $parsedItem->getValue("content:encoded") ?? $parsedItem->getDescription();
         $body = mb_convert_encoding(
             $body,
             'HTML-ENTITIES',
