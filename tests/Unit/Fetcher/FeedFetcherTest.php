@@ -405,7 +405,7 @@ class FeedFetcherTest extends TestCase
         $this->createFeed('he-IL');
         $this->createItem();
 
-        $this->item_mock->expects($this->exactly(2))
+        $this->item_mock->expects($this->exactly(3))
             ->method('getValue')
             ->will(
                 $this->returnValueMap(
@@ -431,7 +431,7 @@ class FeedFetcherTest extends TestCase
         $this->createFeed('he-IL');
         $this->createItem();
 
-        $this->item_mock->expects($this->exactly(3))
+        $this->item_mock->expects($this->exactly(4))
             ->method('getValue')
             ->will(
                 $this->returnValueMap(
