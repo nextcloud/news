@@ -43,7 +43,7 @@
     "gulp-terser": "^1.2.0",
     "jasmine-core": "^3.5.0",
     "jquery": "^3.4.1",
-    "jshint": "^2.10.2",
+    "jshint": "^2.10.3",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.2",
