@@ -113,7 +113,7 @@ OC.L10N.register(
     "Expand articles on key navigation" : "Expandera artiklar vid hantering",
     "Show all articles" : "Visa alla artiklar",
     "Reverse ordering (oldest on top)" : "Omvänd ordning (äldst överst)",
-    "Subscriptions (OPML)" : "Prenumerationer (OPML)",
+    "Subscriptions (OPML)" : "Abonnemang (OPML)",
     "Import" : "Importera",
     "Export" : "Exportera",
     "Error when importing: File does not contain valid OPML" : "Fel vid importering: Fil innehåller inte giltig OPML",

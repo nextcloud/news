@@ -36,7 +36,7 @@ OC.L10N.register(
     "No unread articles available" : "Ni neprebranih prispevkov",
     "Open website" : "Odpri spletišče",
     "Star article" : "Označi prispevek z zvezdico",
-    "Unstar article" : "Odstrani oznako prispevka",
+    "Unstar article" : "Odstrani zvezdico s prispevka",
     "Keep article unread" : "Obdrži kot neprebrano",
     "Remove keep article unread" : "Odstrani možnost neprebrano",
     "by" : "od",

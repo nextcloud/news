@@ -98,7 +98,7 @@ OC.L10N.register(
     "Enable full text" : "Tam metin kullanılsın",
     "Disable full text" : "Tam metin kullanılmasın",
     "Unread updated" : "Okunmamış güncellendi",
-    "Ignore updated" : "Güncellemeleri yoksay",
+    "Ignore updated" : "Güncellemeleri yok say",
     "Open feed URL" : "Akış adresini aç",
     "Delete" : "Sil",
     "Dismiss" : "İptal et",

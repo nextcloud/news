@@ -56,7 +56,7 @@ OC.L10N.register(
     "Toggle star article" : "Přepnout hvězdičku",
     "Star article and jump to next one" : "Označit článek hvězdičkou a přejít na další",
     "Toggle keep current article unread" : "Ponechat aktuální článek jako nepřečtený",
-    "Open article in new tab" : "Otevřít článek v nové záložce",
+    "Open article in new tab" : "Otevřít článek v novém panelu",
     "Toggle expand article in compact view" : "Přepínat rozbalení článku v kompaktním náhledu",
     "Refresh" : "Obnovit",
     "Load next feed" : "Načíst další kanál",
