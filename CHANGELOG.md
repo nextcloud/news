@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.0.2
+
+### Changed
+- Get content:encoded of item if available #565
+- update js and php dependencies #575
+
+### Fixed
+- Generate enclosure div only for audio & video #567
+
 ## 14.0.1
 
 ### Changed
