@@ -105,7 +105,6 @@
 * [Zach DeCook](mailto:zachdecook@gmail.com)
 * [amittel](mailto:arnulf.mittelstaedt@gmail.com)
 * [anoy](mailto:anoymouserver@users.noreply.github.com)
-* [b_b](mailto:brunobergot@gmail.com)
 * [bjoerns1983](mailto:bjoern@sengotta.net)
 * [blackcrack](mailto:blackcrack@blackysgate.de)
 * [comradekingu](mailto:epost@anotheragency.no)
