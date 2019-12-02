@@ -1,10 +1,9 @@
-sudo: false
-dist: trusty
+dist: bionic
 language: php
 php:
     - 7.2
     - 7.3
-    - 7.4snapshot
+    - 7.4
     - nightly
 
 env:
@@ -18,7 +17,7 @@ matrix:
     allow_failures:
         - env: CORE_BRANCH=master
         - php: nightly
-        - php: 7.4snapshot
+        - php: 7.4
     include:
         - php: 7.3
           env: DB=sqlite
@@ -40,13 +39,19 @@ before_install:
 before_script:
     - if [[ "$DB" == 'pgsql' ]]; then psql -c "CREATE ROLE oc_autotest LOGIN PASSWORD 'oc_autotest'" -U postgres; fi
     - if [[ "$DB" == 'pgsql' ]]; then psql -c "CREATE DATABASE oc_autotest OWNER oc_autotest;" -U postgres; fi
-    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e 'CREATE DATABASE oc_autotest;'; fi
-    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY 'oc_autotest';"; fi
-    - if [[ "$DB" == 'mysql' ]]; then mysql -u root -e "GRANT ALL ON oc_autotest.* TO 'oc_autotest'@'localhost';"; fi
+    - if [[ "$DB" == 'mysql' ]]; then sudo mysql -u root -e 'CREATE DATABASE oc_autotest;'; fi
+    - if [[ "$DB" == 'mysql' ]]; then sudo mysql -u root -e "CREATE USER 'oc_autotest'@'localhost' IDENTIFIED BY 'oc_autotest';"; fi
+    - if [[ "$DB" == 'mysql' ]]; then sudo mysql -u root -e "GRANT ALL ON oc_autotest.* TO 'oc_autotest'@'localhost';"; fi
     # fill nextcloud with default configs and enable news
     - cd nextcloud
     - mkdir data
-    - ./occ maintenance:install --database-name oc_autotest --database-user oc_autotest --admin-user admin --admin-pass admin --database $DB --database-pass="oc_autotest"
+    - ./occ maintenance:install
+      --admin-user="admin"
+      --admin-pass="admin"
+      --database "${DB}"
+      --database-name="oc_autotest"
+      --database-user="oc_autotest"
+      --database-pass="oc_autotest"
     - ./occ app:enable news
     - ./occ app:check-code news
     - ./occ background:cron  # enable default cron
@@ -65,5 +70,5 @@ after_success:
 
 addons:
     firefox: "latest-beta"
-    postgresql: "9.6"
+    postgresql: "10"
     mariadb: "10.4"
