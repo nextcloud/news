@@ -2,6 +2,7 @@
     "Can not add feed: Exists already" : "Не можам да додадам фид: Веќе постои",
     "Articles without feed" : "Статии без фид",
     "Can not add folder: Exists already" : "Не можам да додадам папка: Веќе постои",
+    "News" : "Новости",
     "Saved" : "Снимено",
     "Download" : "Преземи",
     "Close" : "Затвори",
@@ -16,11 +17,17 @@
     "Folder" : "Папка",
     "New folder" : "Нова папка",
     "Folder name" : "Име на папка",
+    "Go back" : "Назад",
     "Credentials" : "Акредитиви",
     "Username" : "Корисничко име",
     "Password" : "Лозинка",
     "Create" : "Создај",
     "Rename" : "Преименувај",
+    "Mark read" : "Означи како прочитано",
+    "Newest first" : "Новите прво",
+    "Oldest first" : "Старите прво",
+    "Delete" : "Избриши",
+    "Dismiss" : "Отфрли",
     "Collapse" : "Собери",
     "Starred" : "Со ѕвезда",
     "Unread articles" : "Непрочитани статии",
@@ -33,6 +40,7 @@
     "Error when importing: file does not contain valid JSON" : "Грешка при импортирање: датотеката не содржи валиден JSON",
     "Help" : "Помош",
     "Keyboard shortcuts" : "Кратенки преку тастатура",
-    "Documentation" : "Документација"
+    "Documentation" : "Документација",
+    "Report a bug" : "Пријави грешка"
 },"pluralForm" :"nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;"
 }

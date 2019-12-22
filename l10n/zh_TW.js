@@ -60,6 +60,10 @@ OC.L10N.register(
     "Undo delete feed" : "取消刪除饋流",
     "Rename" : "重新命名",
     "Menu" : "選單",
+    "Newest first" : "最新先",
+    "Oldest first" : "最舊先",
+    "Delete" : "刪除",
+    "Dismiss" : "取消",
     "Collapse" : "收合",
     "Deleted folder" : "已刪除的資料夾",
     "Undo delete folder" : "取消刪除資料夾",
@@ -76,6 +80,7 @@ OC.L10N.register(
     "Error when importing: file does not contain valid JSON" : "匯入錯誤: 檔案包含非法的JSON數據",
     "Help" : "說明",
     "Keyboard shortcuts" : "快速鍵",
-    "Documentation" : "說明文件"
+    "Documentation" : "說明文件",
+    "Report a bug" : "回報問題"
 },
 "nplurals=1; plural=0;");

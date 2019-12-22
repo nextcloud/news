@@ -7,6 +7,7 @@ OC.L10N.register(
     "Close" : "Хаах",
     "Language" : "Хэл",
     "Subscribe" : "Захиалга",
+    "from" : "тэндээс",
     "Play audio" : "Аудио тоглуулах",
     "Download audio" : "Аудиог татаж авах",
     "Download video" : "Видеог татаж авах",
@@ -38,6 +39,13 @@ OC.L10N.register(
     "Explore" : "Хайх",
     "Update failed more than 50 times" : "Шинэчлэлт 50-иас дээш удаа амжилтгүй болсон",
     "Rename" : "Нэрлэнэ үү",
+    "Newest first" : "Шинийг урд нь",
+    "Oldest first" : "Хуучныг урд нь",
+    "Delete" : "Устгах",
+    "Dismiss" : "Арилгах",
+    "Settings" : "Тохиргоо",
+    "Import" : "Импорт",
+    "Export" : "Экспорт",
     "Help" : "Туслах"
 },
 "nplurals=2; plural=(n != 1);");

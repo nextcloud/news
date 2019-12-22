@@ -80,6 +80,7 @@ OC.L10N.register(
     "Undo delete feed" : "ยกเลิกการลบฟีด",
     "Rename" : "เปลี่ยนชื่อ",
     "Menu" : "เมนู",
+    "Delete" : "ลบ",
     "Dismiss" : "ยกเลิก",
     "Collapse" : "ย่อ",
     "Deleted folder" : "โฟลเดอร์ที่ถูกลบ",

@@ -76,6 +76,7 @@ OC.L10N.register(
     "Undo delete feed" : "Anullar la supression del flux",
     "Rename" : "Renomenar",
     "Menu" : "Menú",
+    "Delete" : "Suprimir",
     "Dismiss" : "Ignorar",
     "Collapse" : "Replegar",
     "Deleted folder" : "Dorsièr suprimit",

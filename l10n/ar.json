@@ -17,11 +17,15 @@
     "Folder" : "مجلد",
     "New folder" : "مجلد جديد",
     "Folder name" : "اسم المجلد",
+    "Go back" : "العودة",
+    "Credentials" : "Credentials",
     "Username" : "إسم المستخدم",
     "Password" : "كلمة السر",
     "New Folder" : "مجلد جديد",
     "Create" : "انشئ",
     "Rename" : "إعادة التسمية",
+    "Newest first" : "الأحدث أولا",
+    "Oldest first" : "الأقدم أولا",
     "Delete" : "حذف ",
     "Dismiss" : "تراجع",
     "Collapse" : "طوي",
@@ -37,6 +41,7 @@
     "Error when importing: file does not contain valid JSON" : "خطا عند الاستيراد: الملف لايحتوي على OPML صالح",
     "Help" : "المساعدة",
     "Keyboard shortcuts" : "اختصارات لوحة المفاتيح",
-    "Documentation" : "التوثيق"
+    "Documentation" : "التوثيق",
+    "Report a bug" : "الإبلاغ عن عِلّة"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }

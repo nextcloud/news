@@ -2,8 +2,12 @@
     "Download" : "ڈاؤن لوڈ،",
     "Close" : "بند ",
     "Description" : "تصریح",
+    "Folder" : "Folder",
+    "Credentials" : "Credentials",
     "Username" : "اسم صارف",
     "Password" : "پاسورڈ",
+    "Rename" : "Rename",
+    "Delete" : "حذف کریں",
     "Settings" : "سیٹینگز",
     "Help" : "مدد"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

@@ -76,6 +76,9 @@ OC.L10N.register(
     "Undo delete feed" : "Відмінити видалення стрічки",
     "Rename" : "Перейменувати",
     "Menu" : "Меню",
+    "Newest first" : "Новіші попереду",
+    "Oldest first" : "Старіші попереду",
+    "Delete" : "Видалити",
     "Dismiss" : "Припинити",
     "Collapse" : "Згорнути",
     "Deleted folder" : "Видалені теки",
@@ -96,6 +99,7 @@ OC.L10N.register(
     "Error when importing: file does not contain valid JSON" : "Помилка при імпорті: файл не містить дійсний JSON",
     "Help" : "Допомога",
     "Keyboard shortcuts" : "Сполучення клавіш",
-    "Documentation" : "Документація"
+    "Documentation" : "Документація",
+    "Report a bug" : "Повідомити про помилку"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

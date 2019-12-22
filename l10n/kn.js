@@ -14,6 +14,7 @@ OC.L10N.register(
     "Password" : "ಗುಪ್ತಪದ",
     "Create" : "ಸೃಷ್ಟಿಸಿ",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
+    "Delete" : "﻿ಅಳಿಸಿ",
     "Settings" : "ಆಯ್ಕೆ",
     "Import" : "ಆಮದು",
     "Export" : "ರಫ್ತು",

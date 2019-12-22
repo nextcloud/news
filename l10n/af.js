@@ -2,9 +2,12 @@ OC.L10N.register(
     "news",
     {
     "News" : "Nuus",
+    "Saved" : "Bewaar",
     "Download" : "Laai Af",
+    "Close" : "Sluit",
     "filter" : "filter",
     "Language" : "Taal",
+    "Subscribe" : "Teken in",
     "by" : "deur",
     "from" : "van",
     "Play audio" : "Speel oudio af",
@@ -16,6 +19,7 @@ OC.L10N.register(
     "Jump to next article" : "Spring na volgende artikel",
     "left" : "links",
     "Jump to previous article" : "Spring na vorige artikel",
+    "Refresh" : "Verfris",
     "Web address" : "Webadres",
     "Folder" : "Vouer",
     "No folder" : "Geen vouer",
@@ -40,6 +44,7 @@ OC.L10N.register(
     "Settings" : "Instellings",
     "Import" : "Voer In",
     "Export" : "Stuur Uit",
+    "Help" : "Hulp",
     "Keyboard shortcuts" : "Sneltoetse",
     "Documentation" : "Dokumentasie"
 },

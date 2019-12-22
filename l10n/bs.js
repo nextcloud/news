@@ -15,6 +15,7 @@ OC.L10N.register(
     "Password" : "Lozinka",
     "Create" : "Kreiraj",
     "Rename" : "Preimenuj",
+    "Delete" : "Obriši",
     "Collapse" : "Proširi",
     "Starred" : "Označeno",
     "Settings" : "Postavke",

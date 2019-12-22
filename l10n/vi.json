@@ -16,12 +16,17 @@
     "No folder" : "Không có thư mục nào",
     "New folder" : "Tạo thư mục",
     "Folder name" : "Tên thư mục",
+    "Go back" : "Quay lại",
     "Folder exists already!" : "Thư mục đã tồn tại!",
     "Credentials" : "Giấy chứng nhận",
     "Username" : "Tên đăng nhập",
     "Password" : "Mật khẩu",
     "Create" : "Tạo",
     "Rename" : "Sửa tên",
+    "Newest first" : "Mới trước",
+    "Oldest first" : "Cũ trước",
+    "Delete" : "Xóa",
+    "Dismiss" : "Bỏ qua",
     "Collapse" : "Thu gọn",
     "Starred" : "Starred",
     "Unread articles" : "Bài chưa đọc",
@@ -31,6 +36,7 @@
     "Export" : "Xuất ra",
     "Help" : "Giúp đỡ",
     "Keyboard shortcuts" : "Phím tắt",
-    "Documentation" : "Tài liệu hướng dẫn"
+    "Documentation" : "Tài liệu hướng dẫn",
+    "Report a bug" : "Báo cáo lỗi"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

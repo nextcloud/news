@@ -1,0 +1,12 @@
+{ "translations": {
+    "Download" : "ښکته کول",
+    "Close" : "بندول",
+    "New folder" : "نوی فولډر",
+    "Username" : "کارن نوم",
+    "Password" : "پاسورډ",
+    "Rename" : "نوم بدلول",
+    "Delete" : "ړنګول",
+    "Settings" : "سمونې",
+    "Help" : "مرسته"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

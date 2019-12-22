@@ -47,6 +47,8 @@ OC.L10N.register(
     "Undo delete feed" : "Disfacer deletion del syndication",
     "Rename" : "Renominar",
     "Menu" : "Menu",
+    "Delete" : "Deler",
+    "Dismiss" : "Dimitter",
     "Collapse" : "Collaber",
     "Deleted folder" : "Dossier delite",
     "Undo delete folder" : "Disfacer deletion del dossier",

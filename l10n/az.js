@@ -22,6 +22,7 @@ OC.L10N.register(
     "Password" : "Şifrə",
     "Create" : "Yarat",
     "Rename" : "Adı dəyiş",
+    "Delete" : "Sil",
     "Collapse" : "Yığılma",
     "Starred" : "Ulduzlu",
     "Unread articles" : "Oxunulmamış məqalə",

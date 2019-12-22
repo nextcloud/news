@@ -32,6 +32,8 @@ OC.L10N.register(
     "Undo delete feed" : "Malfari forigon de fluo",
     "Rename" : "Alinomigi",
     "Mark read" : "Marki kiel legita",
+    "Newest first" : "Pli novaj unue",
+    "Oldest first" : "Malpli novaj unue",
     "Delete" : "Forigi",
     "Dismiss" : "Forsendi",
     "Collapse" : "Maletendi",
@@ -47,6 +49,7 @@ OC.L10N.register(
     "Error when importing: file does not contain valid JSON" : "La enporto eraris: la dosiero ne enhavas validan JSON-on",
     "Help" : "Helpo",
     "Keyboard shortcuts" : "Fulmoklavoj",
-    "Documentation" : "Dokumentaro"
+    "Documentation" : "Dokumentaro",
+    "Report a bug" : "Raporti problemon"
 },
 "nplurals=2; plural=(n != 1);");

@@ -16,6 +16,7 @@ OC.L10N.register(
     "Password" : "கடவுச்சொல்",
     "Create" : "உருவாக்குக",
     "Rename" : "பெயர்மாற்றம்",
+    "Delete" : "நீக்குக",
     "Settings" : "அமைப்புகள்",
     "Import" : "இறக்குமதி",
     "Export" : "ஏற்றுமதி",
