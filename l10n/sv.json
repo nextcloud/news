@@ -1,5 +1,5 @@
 { "translations": {
-    "Request failed, network connection unavailable!" : "Begäran misslyckades, nätverksanslutning ej tillgänglig!",
+    "Request failed, network connection unavailable!" : "Begäran misslyckades, nätverksanslutning otillgänglig!",
     "Request unauthorized. Are you logged in?" : "Ogiltig begäran. Är du inloggad?",
     "Request forbidden. Are you an admin?" : "Begäran förbjuden. Är du administratör?",
     "Token expired or app not enabled! Reload the page!" : "Polletten föråldrad eller så är applikationen inte aktiverad! Uppdatera sidan.",
@@ -117,7 +117,7 @@
     "Error when importing: File does not contain valid OPML" : "Fel vid importering: Fil innehåller inte giltig OPML",
     "Error when importing: OPML is does neither contain feeds nor folders" : "Fel vid import: OPML innehåller varken flöden eller mappar",
     "Unread/Starred Articles" : "Olästa/Stjärnmärkta artiklar",
-    "Error when importing: file does not contain valid JSON" : "Fel vid import: filen innehåller ej giltig JSON",
+    "Error when importing: file does not contain valid JSON" : "Fel vid import: filen innehåller inte giltig JSON",
     "Help" : "Hjälp",
     "Keyboard shortcuts" : "Kortkommandon",
     "Documentation" : "Dokumentation",
