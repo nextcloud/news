@@ -2,7 +2,6 @@ sudo: false
 dist: trusty
 language: php
 php:
-    - 7.1.26
     - 7.2
     - 7.3
     - 7.4snapshot
