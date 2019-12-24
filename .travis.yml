@@ -26,7 +26,9 @@ matrix:
         - php: 7.3
           env: DB=mysql
         - php: 7.3
-          env: CORE_BRANCH=master
+          env: 
+                - CORE_BRANCH=master
+                - DB=mysql
 fast_finish: true
 
 before_install:
