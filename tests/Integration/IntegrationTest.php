@@ -58,7 +58,7 @@ abstract class IntegrationTest extends \Test\TestCase
      */
     protected $container;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         parent::setUp();
         $app = new Application();
@@ -231,7 +231,7 @@ abstract class IntegrationTest extends \Test\TestCase
         }
     }
 
-    protected function tearDown() 
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->tearDownUser($this->user);
