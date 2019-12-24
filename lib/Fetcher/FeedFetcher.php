@@ -206,7 +206,7 @@ class FeedFetcher implements IFeedFetcher
         $item->setGuid($parsedItem->getPublicId());
         $item->setGuidHash(md5($item->getGuid()));
 
-        $lastmodified = $parsedItem->getLastModified() ?? new \DateTime();
+        $lastmodified = $parsedItem->getLastModified() ?? new DateTime();
         if ($parsedItem->getValue('pubDate') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('pubDate'));
         } elseif ($parsedItem->getValue('published') !== null) {
@@ -288,8 +288,9 @@ class FeedFetcher implements IFeedFetcher
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
-        $lastmodified = $feed->getLastModified() ?? new DateTime();
-        $newFeed->setLastModified($lastmodified->getTimestamp());
+        if ($feed->getLastModified() instanceof DateTime) {
+            $newFeed->setHttpLastModified($feed->getLastModified()->format(DateTime::RSS));
+        }
         $newFeed->setAdded($this->time->getTime());
 
         if (!$getFavicon) {

@@ -195,10 +195,7 @@ class FeedFetcherTest extends TestCase
         $this->feed_link = 'http://tests/';
         $this->feed_image = '/an/image';
         $this->web_favicon = 'http://anon.google.com';
-        $this->modified = $this->getMockBuilder('\DateTime')->getMock();
-        $this->modified->expects($this->any())
-            ->method('getTimestamp')
-            ->will($this->returnValue(3));
+        $this->modified = new DateTime('@3');
         $this->encoding = 'UTF-8';
         $this->language = 'de-DE';
         $this->rtl = false;
@@ -661,7 +658,7 @@ class FeedFetcherTest extends TestCase
         $this->feed_mock->expects($this->exactly(1))
             ->method('getLink')
             ->will($this->returnValue($this->feed_link));
-        $this->feed_mock->expects($this->exactly(1))
+        $this->feed_mock->expects($this->exactly(2))
             ->method('getLastModified')
             ->will($this->returnValue($this->modified));
         $this->feed_mock->expects($this->exactly(1))
@@ -674,7 +671,7 @@ class FeedFetcherTest extends TestCase
         $feed->setLink($this->feed_link);
         $feed->setLocation($this->location);
         $feed->setUrl($url);
-        $feed->setLastModified(3);
+        $feed->setHttpLastModified((new DateTime('@3'))->format(DateTime::RSS));
         $feed->setAdded($this->time);
         if ($favicon) {
             $feed->setFaviconLink('http://anon.google.com');
