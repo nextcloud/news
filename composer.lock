@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2178133694c535deff7942447efde95d",
+    "content-hash": "1df92ada3f365f720fb91d2f7232a91f",
     "packages": [
+        {
+            "name": "andreskrey/readability.php",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/andreskrey/readability.php.git",
+                "reference": "7617a912b6c527909168f5d41d263792f171c42a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/andreskrey/readability.php/zipball/7617a912b6c527909168f5d41d263792f171c42a",
+                "reference": "7617a912b6c527909168f5d41d263792f171c42a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-mbstring": "*",
+                "ext-xml": "*",
+                "php": ">=7.0.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "monolog/monolog": "^1.24",
+                "phpunit/phpunit": "^6.5"
+            },
+            "suggest": {
+                "monolog/monolog": "Allow logging debug information"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "andreskrey\\Readability\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Andres Rey",
+                    "email": "andreskrey@gmail.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "A PHP port of Readability.js",
+            "homepage": "https://github.com/andreskrey/readability",
+            "keywords": [
+                "html",
+                "readability"
+            ],
+            "time": "2019-07-22T21:42:25+00:00"
+        },
         {
             "name": "arthurhoaro/favicon",
             "version": "v1.2.2",

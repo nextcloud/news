@@ -25,6 +25,7 @@ interface IFeedFetcher
      * @param  boolean     $favicon       if the favicon should also be fetched, defaults to true
      * @param  string|null $lastModified  a last modified value from an http header defaults to false.
      *                                    If lastModified matches the http header from the feed no results are fetched
+     * @param  bool      $fullTextEnabled If true use a scraper to download the full article
      * @param  string|null $user          if given, basic auth is set for this feed
      * @param  string|null $password      if given, basic auth is set for this feed. Ignored if user is empty
      *
@@ -32,7 +33,7 @@ interface IFeedFetcher
      * element being the Feed and second element being an array of Items
      * @throws ReadErrorException if the Feed-IO fetcher encounters a problem
      */
-    public function fetch(string $url, bool $favicon, $lastModified, $user, $password): array;
+    public function fetch(string $url, bool $favicon, $lastModified, bool $fullTextEnabled, $user, $password): array;
 
     /**
      * Can a fetcher handle a feed.

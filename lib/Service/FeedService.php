@@ -113,7 +113,7 @@ class FeedService extends Service
              * @var Feed   $feed
              * @var Item[] $items
              */
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, null, $user, $password);
+            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, null, false, $user, $password);
             // try again if feed exists depending on the reported link
             try {
                 $hash = $feed->getUrlHash();
@@ -224,6 +224,7 @@ class FeedService extends Service
                 $location,
                 false,
                 $existingFeed->getHttpLastModified(),
+                $existingFeed->getFullTextEnabled(),
                 $existingFeed->getBasicAuthUser(),
                 $existingFeed->getBasicAuthPassword()
             );

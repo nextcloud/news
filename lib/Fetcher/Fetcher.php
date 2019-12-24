@@ -45,17 +45,24 @@ class Fetcher
      *
      * @param  string  $url               remote url of the feed
      * @param  boolean $getFavicon        if the favicon should also be fetched, defaults to true
-     * @param  string $lastModified       a last modified value from an http header defaults to false.
+     * @param  string  $lastModified      a last modified value from an http header defaults to false.
      *                                    If lastModified matches the http header from the feed no results are fetched
-     * @param  string $user               if given, basic auth is set for this feed
-     * @param  string $password           if given, basic auth is set for this feed. Ignored if user is empty
+     * @param  bool    $fullTextEnabled   If true use a scraper to download the full article
+     * @param  string  $user              if given, basic auth is set for this feed
+     * @param  string  $password          if given, basic auth is set for this feed. Ignored if user is empty
      *
      * @throws ReadErrorException if FeedIO fails
      * @return array an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      */
-    public function fetch($url, $getFavicon = true, $lastModified = null, $user = null, $password = null)
-    {
+    public function fetch(
+        $url,
+        $getFavicon = true,
+        $lastModified = null,
+        $fullTextEnabled = false,
+        $user = null,
+        $password = null
+    ) {
         foreach ($this->fetchers as $fetcher) {
             if (!$fetcher->canHandle($url)) {
                 continue;
@@ -64,6 +71,7 @@ class Fetcher
                 $url,
                 $getFavicon,
                 $lastModified,
+                $fullTextEnabled,
                 $user,
                 $password
             );
