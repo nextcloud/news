@@ -16,13 +16,11 @@ const gulp = require('gulp'),
     terser = require('gulp-terser'),
     jshint = require('gulp-jshint'),
     KarmaServer = require('karma').Server,
-    phpunit = require('gulp-phpunit'),
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps');
 
 // Configuration
 const buildTarget = 'app.min.js';
-const phpunitConfig = __dirname + '/../phpunit.xml';
 const karmaConfig = __dirname + '/karma.conf.js';
 const destinationFolder = __dirname + '/build/';
 const sources = [
@@ -42,7 +40,6 @@ const sources = [
     'directive/**/*.js'
 ];
 const testSources = ['tests/**/*.js'];
-const phpSources = ['../**/*.php', '!../js/**', '!../vendor/**'];
 const watchSources = sources.concat(testSources).concat(['*.js']);
 const lintSources = watchSources;
 
@@ -80,15 +77,4 @@ gulp.task('watch-karma', (done) => {
         configFile: karmaConfig,
         autoWatch: true
     }, done).start();
-});
-
-gulp.task('phpunit', () => {
-    return gulp.src(phpSources)
-        .pipe(phpunit('phpunit', {
-            configurationFile: phpunitConfig
-        }));
-});
-
-gulp.task('watch-phpunit', () => {
-    gulp.watch(phpSources, ['phpunit']);
 });

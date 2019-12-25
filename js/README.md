@@ -27,7 +27,3 @@ The following tasks are available:
 * **Watch for changes and run JavaScript unit tests**:
 
         gulp watch-karma
-
-* **Watch for changes and run PHP unit tests**:
-
-        gulp watch-phpunit
