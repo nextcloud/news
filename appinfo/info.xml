@@ -8,7 +8,7 @@
 Before you update to a new version, [check the changelog](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) to avoid surprises.
 
 **Important**: To enable feed updates you will need to enable either [Nextcloud system cron](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) or use [an updater](https://github.com/nextcloud/news-updater) which uses the built in update API and disable cron updates. More information can be found [in the README](https://github.com/nextcloud/news).]]></description>
-    <version>14.0.2</version>
+    <version>14.1.0</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -28,7 +28,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3.png</screenshot>
     <dependencies>
-        <php min-version="7.1"/>
+        <php min-version="7.2"/>
         <database min-version="9.4">pgsql</database>
         <database>sqlite</database>
         <database min-version="5.5">mysql</database>
@@ -37,7 +37,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <lib>SimpleXML</lib>
         <lib>iconv</lib>
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="16" max-version="17"/>
+        <nextcloud min-version="16" max-version="18"/>
     </dependencies>
 
     <background-jobs>

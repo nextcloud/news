@@ -304,7 +304,7 @@ class ItemMapperTest extends IntegrationTest
         }
     }
 
-    protected function tearDown() 
+    protected function tearDown(): void
     {
         parent::tearDown();
         $this->clearUserNewsDatabase('john');

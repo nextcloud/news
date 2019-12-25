@@ -69,6 +69,7 @@
 * [Daniel S](mailto:daniel@while-true-do.org)
 * [Detlev Zundel](mailto:dzu@member.fsf.org)
 * [Doron Behar](mailto:doron.behar@gmail.com)
+* [DriverXX](mailto:DriverXX@users.noreply.github.com)
 * [DriverXX](mailto:thegio.f@gmail.com)
 * [DudleyDursley](mailto:35841630+DudleyDursley@users.noreply.github.com)
 * [Felix](mailto:eppfel@users.noreply.github.com)

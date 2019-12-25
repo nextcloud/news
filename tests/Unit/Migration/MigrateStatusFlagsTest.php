@@ -34,7 +34,7 @@ class MigrateStatusFlagsTest extends TestCase
      */
     protected $output;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->db = $this->createMock(IDBConnection::class);
         $this->config = $this->createMock(IConfig::class);
