@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.0
+
+### Changed
+- Minimum PHP version is now 7.2
+- Reimplement full-text scraping #563
+- Update for nextcloud 18 #593 #583
+- Update httpLastModified from the feed response #594
+
 ## 14.0.2
 
 ### Changed
