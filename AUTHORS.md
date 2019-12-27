@@ -111,6 +111,7 @@
 * [blackcrack](mailto:blackcrack@blackysgate.de)
 * [comradekingu](mailto:epost@anotheragency.no)
 * [joeplus](mailto:joerg@honululu.Speedport_W_723V_1_32_000)
+* [kesselb](mailto:mail@danielkesselberg.de)
 * [kondou](mailto:kondou@ts.unde.re)
 * [markusj](mailto:markusj@users.noreply.github.com)
 * [nexus-uw](mailto:you@example.com)
