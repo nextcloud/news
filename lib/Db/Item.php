@@ -41,6 +41,10 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $enclosureMime;
     /** @var string|null */
     protected $enclosureLink;
+    /** @var string|null */
+    protected $mediaThumbnail;
+    /** @var string|null */
+    protected $mediaDescription;
     /** @var int */
     protected $feedId;
     /** @var int */
@@ -84,6 +88,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $item->setBody($import['body']);
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);
+        $item->setMediaThumbnail($import['mediaThumbnail']);
+        $item->setMediaDescription($import['mediaDescription']);
         $item->setRtl($import['rtl']);
         $item->setUnread($import['unread']);
         $item->setStarred($import['starred']);
@@ -259,6 +265,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
+            'mediaThumbnail' => $this->getMediaThumbnail(),
+            'mediaDescription' => $this->getMediaDescription(),
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
@@ -312,6 +320,22 @@ class Item extends Entity implements IAPI, \JsonSerializable
         if ($this->enclosureMime !== $enclosureMime) {
             $this->enclosureMime = $enclosureMime;
             $this->markFieldUpdated('enclosureMime');
+        }
+    }
+
+    public function setMediaThumbnail(string $mediaThumbnail = null)
+    {
+        if ($this->mediaThumbnail !== $mediaThumbnail) {
+            $this->mediaThumbnail = $mediaThumbnail;
+            $this->markFieldUpdated('mediaThumbnail');
+        }
+    }
+
+    public function setMediaDescription(string $mediaDescription = null)
+    {
+        if ($this->mediaDescription !== $mediaDescription) {
+            $this->mediaDescription = $mediaDescription;
+            $this->markFieldUpdated('mediaDescription');
         }
     }
 
@@ -446,6 +470,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
+            'mediaThumbnail' => $this->getMediaThumbnail(),
+            'mediaDescription' => $this->getMediaDescription(),
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
@@ -468,6 +494,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
+            'mediaThumbnail' => $this->getMediaThumbnail(),
+            'mediaDescription' => $this->getMediaDescription(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
             'feedLink' => $feeds['feed' . $this->getFeedId()]->getLink(),
