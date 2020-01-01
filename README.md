@@ -32,14 +32,12 @@ Nextcloud News can be synced with the following apps:
   * [Nextcloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/nextcloud/news-android-app)
   * [OCReader (Android)](https://f-droid.org/repository/browse/?fdid=email.schaal.ocreader), [open source](https://github.com/schaal/ocreader)
   * [Newsout (Android)](https://play.google.com/store/apps/details?id=com.inspiredandroid.newsout), [open source](https://github.com/SimonSchubert/NewsOut)
-  * [CloudNews (iOS)](https://itunes.apple.com/app/cloudnews-owncloud-news-reader/id683859706), [open source](https://github.com/owncloud/news-ios-app)
+  * [CloudNews (iOS)](https://apps.apple.com/app/cloudnews-owncloud-news-reader/id683859706), [open source](https://github.com/owncloud/news-ios-app)
   * [Fiery Feeds (iOS)](https://apps.apple.com/us/app/fiery-feeds-rss-reader/id1158763303), closed source
   * [News Checker (Chrome extension)](https://chrome.google.com/webstore/detail/owncloud-news-checker/hnmagnmdnfdhabdlicankfbfhcdgbfhe)
   * [own News (BlackBerry)](http://appworld.blackberry.com/webstore/content/32767887/)
   * [ocNews (Sailfish OS)](http://www.buschmann23.de/entwicklung/anwendungen/ocnews/), [open source](https://github.com/Buschtrommel/ocNews)
-  * [MyWebRSS (Firefox OS)](https://marketplace.firefox.com/app/mywebrss), [open source](https://github.com/ybulach/MyWebRSS), also works as [web app](http://html5.mywebrss.net/)
   * [FeedSpider (Firefox OS, WebOS, LuneOS)](http://www.feedspider.net/), [open source](https://github.com/OthelloVentures/feedspider)
-  * [FeedMonkey (Firefox OS)](https://marketplace.firefox.com/app/feedmonkey), [open source](https://github.com/jeena/feedmonkey)
   * [fastReader (Windows Phone)](http://www.windowsphone.com/en-us/store/app/fastreader/e55e696d-aa45-4a49-bb1c-a1fc7fdabec1), closed source
   * [OwnCloud News Reader (WebOS)](http://www.webosnation.com/owncloud-news-reader), [open source](https://bitbucket.org/andpeters/webos-owncloud-news-reader)
   * [FeedReader (Linux desktop)](http://jangernert.github.io/FeedReader/), [open source](https://github.com/jangernert/FeedReader)
