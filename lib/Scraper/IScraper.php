@@ -29,7 +29,7 @@ interface IScraper
      * @return string
      *
      */
-    public function getContent(): string;
+    public function getContent(): ?string;
 
     /**
      * Get the RTL (rigth-to-left) information
