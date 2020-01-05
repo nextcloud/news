@@ -26,7 +26,7 @@ interface IScraper
     /**
      * Get the scraped content
      *
-     * @return string, null if failed
+     * @return string|null
      *
      */
     public function getContent(): ?string;
