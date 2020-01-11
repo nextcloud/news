@@ -19,6 +19,7 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
     this.folderError = '';
     this.renameError = '';
     this.feed = {};
+    this.youtubeDetectorRegex = new RegExp(/youtube\.[a-z\.]{2,}\/(user|channel)\/(.*?)(\/|\?|$)/);
 
     var getRouteId = function () {
         return parseInt($route.current.params.id, 10);
@@ -186,6 +187,23 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
             // this is set to display the feed in any folder, even if the folder
             // is closed or has no unread articles
             existingFolder.getsFeed = true;
+
+            /**
+             * Transform youtube channel and user URL into their RSS feed
+             * (09/01/2020): Youtube feed url work as `https://www.youtube.com/feeds/videos.xml?user=<username>`
+             */
+            var regResult = this.youtubeDetectorRegex.exec(feed.url);
+            /**
+             * At this point:
+             * regResult[0] contain the match
+             * regResult[1] contain the type of youtube entity (channel or user)
+             * regResult[2] contain either the username or the channel id
+             */
+            if (regResult && regResult[0] && regResult[1] && regResult[2]) {
+                feed.url = 'https://www.youtube.com/feeds/videos.xml?';
+                feed.url += (regResult[1] === 'user') ? 'user=' : 'channel_id=';
+                feed.url += regResult[2];
+            }
 
             FeedResource.create(feed.url, existingFolder.id, undefined, feed.user, feed.password).then(function (data) {
                 Publisher.publishAll(data);
