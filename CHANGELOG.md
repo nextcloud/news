@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.1
+
+### Changed
+- feed-io updated to v4.5.1 #613
+- Automatically convert youtube channel urls in feed url #612
+
+###  Fixed
+- Scraper breaks feed fetching when it fails #606
+
 ## 14.1.0
 
 ### Changed

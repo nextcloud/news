@@ -96,6 +96,7 @@
 * [Roeland Jago Douma](mailto:roeland@famdouma.nl)
 * [Simon](mailto:sschubert89@gmail.com)
 * [Simon Gilliot](mailto:simon@gilliot.fr)
+* [SuliacLEGUILLOU](mailto:suliac.leguillou@pm.me)
 * [TexasGamer](mailto:tpgaubert@gmail.com)
 * [The Gitter Badger](mailto:badger@gitter.im)
 * [Thomas Wouters](mailto:twouters@users.noreply.github.com)
