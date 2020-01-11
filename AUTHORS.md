@@ -89,6 +89,7 @@
 * [Oliver Herst](mailto:oliver.herst@googlemail.com)
 * [Patrick O'Keeffe](mailto:patricktokeeffe@users.noreply.github.com)
 * [Paul Calabro](mailto:paulcalabro@users.noreply.github.com)
+* [Petros Koutsolampros](mailto:2184600+orange-vertex@users.noreply.github.com)
 * [Pierre Ozoux](mailto:pierre@ozoux.net)
 * [Piotr Dobrowolski](mailto:admin@tastycode.pl)
 * [Raspbeguy](mailto:raspbeguy@users.noreply.github.com)
