@@ -61,20 +61,20 @@
         },
         {
             "name": "arthurhoaro/favicon",
-            "version": "v1.2.2",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ArthurHoaro/favicon.git",
-                "reference": "50fd2a0f984db13948a69ab120451e03e41979fa"
+                "reference": "8e23fe1dee6d201dd0cf05059649e567eafae57f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ArthurHoaro/favicon/zipball/50fd2a0f984db13948a69ab120451e03e41979fa",
-                "reference": "50fd2a0f984db13948a69ab120451e03e41979fa",
+                "url": "https://api.github.com/repos/ArthurHoaro/favicon/zipball/8e23fe1dee6d201dd0cf05059649e567eafae57f",
+                "reference": "8e23fe1dee6d201dd0cf05059649e567eafae57f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.6"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.8",
@@ -107,20 +107,20 @@
                 "finder",
                 "icon"
             ],
-            "time": "2018-09-08T09:37:54+00:00"
+            "time": "2020-01-09T15:47:28+00:00"
         },
         {
             "name": "debril/feed-io",
-            "version": "v4.5.0",
+            "version": "v4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdebril/feed-io.git",
-                "reference": "30142fe3d9d52c5e0ca5309308a39c29124deb6f"
+                "reference": "c651b6fc8952ebf0121bc0cc06ceeb3a69d482cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/30142fe3d9d52c5e0ca5309308a39c29124deb6f",
-                "reference": "30142fe3d9d52c5e0ca5309308a39c29124deb6f",
+                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/c651b6fc8952ebf0121bc0cc06ceeb3a69d482cf",
+                "reference": "c651b6fc8952ebf0121bc0cc06ceeb3a69d482cf",
                 "shasum": ""
             },
             "require": {
@@ -167,7 +167,7 @@
                 "news",
                 "rss"
             ],
-            "time": "2019-12-10T17:37:13+00:00"
+            "time": "2020-01-10T12:26:10+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -939,16 +939,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "2ecaa9fef01634c83bfa8dc1fe35fb5cef223a62"
+                "reference": "da3fd972d6bafd628114f7e7e036f45944b62e9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/2ecaa9fef01634c83bfa8dc1fe35fb5cef223a62",
-                "reference": "2ecaa9fef01634c83bfa8dc1fe35fb5cef223a62",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/da3fd972d6bafd628114f7e7e036f45944b62e9c",
+                "reference": "da3fd972d6bafd628114f7e7e036f45944b62e9c",
                 "shasum": ""
             },
             "require": {
@@ -960,6 +960,7 @@
             "require-dev": {
                 "doctrine/instantiator": "^1.0.5",
                 "mockery/mockery": "^1.0",
+                "phpdocumentor/type-resolver": "0.4.*",
                 "phpunit/phpunit": "^6.4"
             },
             "type": "library",
@@ -986,7 +987,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2019-12-20T13:40:23+00:00"
+            "time": "2019-12-28T18:55:12+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -1352,16 +1353,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.18",
+            "version": "7.5.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "fcf6c4bfafaadc07785528b06385cce88935474d"
+                "reference": "9467db479d1b0487c99733bb1e7944d32deded2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fcf6c4bfafaadc07785528b06385cce88935474d",
-                "reference": "fcf6c4bfafaadc07785528b06385cce88935474d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9467db479d1b0487c99733bb1e7944d32deded2c",
+                "reference": "9467db479d1b0487c99733bb1e7944d32deded2c",
                 "shasum": ""
             },
             "require": {
@@ -1432,7 +1433,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-12-06T05:14:37+00:00"
+            "time": "2020-01-08T08:45:45+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
