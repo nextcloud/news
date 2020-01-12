@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.2
+
+## Changed
+- Updated js packages 
+
+### Fixed
+- Signature was missing
+
 ## 14.1.1
 
 ### Changed
