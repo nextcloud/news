@@ -38,7 +38,7 @@ OC.L10N.register(
     "No articles available" : "Nejsou dostupné žádné články",
     "No unread articles available" : "Nejsou dostupné žádné nepřečtené články",
     "Open website" : "Otevřít webovou stránku",
-    "Star article" : "Ocenit článek hvězdičkou",
+    "Star article" : "Ohodnotit článek hvězdičkou",
     "Unstar article" : "Odebrat článku hvězdičku",
     "Keep article unread" : "Ponechat článek jako nepřečtený",
     "Remove keep article unread" : "Odstranit označení článku jako nepřečtený",
