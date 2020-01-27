@@ -1,6 +1,5 @@
 os: linux
 dist: bionic
-sudo: false
 language: php
 
 php:
@@ -12,7 +11,7 @@ env:
   global:
     - MOZ_HEADLESS=1
   jobs:
-    - CORE_BRANCH=stable16 DB=mysql
+    - CORE_BRANCH=stable16 DB=pgsql
     - CORE_BRANCH=stable17 DB=mysql
     - CORE_BRANCH=stable18 DB=pgsql
     - CORE_BRANCH=stable18 DB=mysql
@@ -22,7 +21,9 @@ env:
 jobs:
   exclude:
     - php: 7.4
-      env: CORE_BRANCH=stable16 DB=mysql # not supported by nc
+      env: CORE_BRANCH=stable16 DB=pgsql # not supported by nc
+    - php: 7.4
+      env: CORE_BRANCH=stable17 DB=pgsql # not supported by nc
     - php: 7.4
       env: CORE_BRANCH=stable17 DB=mysql # not supported by nc
     - php: 7.2
