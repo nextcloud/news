@@ -18,7 +18,7 @@ matrix:
           env: CORE_BRANCH=stable17
         - php: 7.4
           env: 
-            - CORE_BRANCH=master
+            - CORE_BRANCH=stable18
             - DB=mysql
         - php: nightly
           env:
