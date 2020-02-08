@@ -1,37 +1,40 @@
+os: linux
 dist: bionic
 language: php
+
 php:
-    - 7.2
-    - 7.3
-    - 7.4
-    - nightly
+  - 7.2
+  - 7.3
+  - 7.4
 
 env:
-    global:
-        - CORE_BRANCH=stable16
-        - MOZ_HEADLESS=1
-    matrix:
-        - DB=pgsql
+  global:
+    - MOZ_HEADLESS=1
+  jobs:
+    - CORE_BRANCH=stable16 DB=mysql
+    - CORE_BRANCH=stable17 DB=mysql
+    - CORE_BRANCH=stable18 DB=pgsql
+    - CORE_BRANCH=stable18 DB=mysql
+    - CORE_BRANCH=stable18 DB=sqlite
+    - CORE_BRANCH=master DB=sqlite
 
-matrix:
-    allow_failures:
-        - env: CORE_BRANCH=master
-        - php: nightly
-        - php: 7.4
-    include:
-        - php: 7.3
-          env: DB=sqlite
-        - php: 7.3
-          env: DB=mysql
-        - php: 7.3
-          env: 
-                - CORE_BRANCH=master
-                - DB=mysql
-fast_finish: true
+jobs:
+  exclude:
+    - php: 7.4
+      env: CORE_BRANCH=stable16 DB=mysql # not supported by nc
+    - php: 7.4
+      env: CORE_BRANCH=stable17 DB=mysql # not supported by nc
+    - php: 7.2
+      env: CORE_BRANCH=master DB=sqlite # not wanted
+    - php: 7.3
+      env: CORE_BRANCH=master DB=sqlite # not wanted
+  allow_failures:
+    - env: 
+        - CORE_BRANCH=master DB=sqlite
+  fast_finish: true
 
 before_install:
     - make
-    # install core
     - cd ../
     - git clone https://github.com/nextcloud/server.git --recursive --depth 1 -b $CORE_BRANCH nextcloud
     - mv news nextcloud/apps/
