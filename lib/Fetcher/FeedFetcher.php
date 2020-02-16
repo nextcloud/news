@@ -256,11 +256,19 @@ class FeedFetcher implements IFeedFetcher
         if ($parsedItem->hasMedia()) {
             // TODO: Fix multiple media support
             foreach ($parsedItem->getMedias() as $media) {
-                if (!$item->isSupportedMime($media->getType())) {
+                if (!$item->isSupportedMime($media->getType())
+                    && !$media->getThumbnail()
+                    && !$media->getDescription()
+                ) {
                     continue;
                 }
                 $item->setEnclosureMime($media->getType());
                 $item->setEnclosureLink($media->getUrl());
+                $item->setMediaThumbnail($media->getThumbnail());
+                if ($media->getDescription()) {
+                    $description = str_replace("\n", "<br>", $media->getDescription());
+                    $item->setMediaDescription($description);
+                }
             }
         }
 

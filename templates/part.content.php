@@ -144,6 +144,12 @@
                     </a>
                 </div>
 
+                <div class="enclosure thumbnail" ng-if="item.mediaThumbnail">
+                    <a ng-href="{{ ::item.enclosureLink }}"><img ng-src="{{ item.mediaThumbnail|trustUrl }}" alt="" /></a>
+                </div>
+
+                <div class="enclosure description" ng-if="item.mediaDescription" news-bind-html-unsafe="item.mediaDescription"></div>
+
                 <div class="body" news-bind-html-unsafe="item.body" ng-attr-dir="{{item.rtl && 'rtl'}}"></div>
 
             </div>

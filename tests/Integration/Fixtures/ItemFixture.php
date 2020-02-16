@@ -30,6 +30,8 @@ class ItemFixture extends Item
             'body' => 'this is a body',
             'enclosureMime' => 'video/mpeg',
             'enclosureLink' => 'http://google.de/web.webm',
+            'mediaThumbnail' => 'https://i3.ytimg.com/vi/Zgge1O9wdPY/hqdefault.jpg',
+            'mediaDescription' => 'The best video ever',
             'feedId' => 0,
             'unread' => true,
             'starred' => false,

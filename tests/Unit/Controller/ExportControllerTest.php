@@ -131,10 +131,12 @@ class ExportControllerTest extends TestCase
         $this->assertEquals(
             '[{"guid":"guid","url":null,"title":null,' .
             '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
-            '"enclosureLink":null,"unread":false,"starred":false,' .
+            '"enclosureLink":null,"mediaThumbnail":null,"mediaDescription":null,'.
+            '"unread":false,"starred":false,' .
             '"feedLink":"http:\/\/goo","rtl":false},{"guid":"guid","url":null,' .
             '"title":null,"author":null,"pubDate":null,"updatedDate":null,"body":null,' .
-            '"enclosureMime":null,"enclosureLink":null,"unread":false,' .
+            '"enclosureMime":null,"enclosureLink":null,"mediaThumbnail":null,'.
+            '"mediaDescription":null,"unread":false,' .
             '"starred":false,"feedLink":"http:\/\/gee","rtl":false}]',
             $return->render()
         );

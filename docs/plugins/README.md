@@ -112,6 +112,8 @@ The **addArticleAction** method expects a function with the following parameters
     * **body**: the html content
     * **enclosureMime**: if an enclosure is added, this is the mime type
     * **enclosureLink**: this is the source of the enclosure
+    * **mediaThumbnail**: if there is a media attached, this is its thumbnail
+    * **mediaDescription**: if there is a media attached, this is its description
     * **feedId**: the feed id it belongs to
     * **unread**: if the article is unread (bool)
     * **starred**: if the article is starred (bool)

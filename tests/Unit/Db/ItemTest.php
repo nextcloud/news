@@ -79,6 +79,8 @@ class ItemTest extends TestCase
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
+        $item->setMediaThumbnail('https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg');
+        $item->setMediaDescription('The best video ever');
         $item->setRtl(true);
         $item->setFeedId(1);
         $item->setStatus(0);
@@ -101,6 +103,8 @@ class ItemTest extends TestCase
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
+            'mediaThumbnail' => 'https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg',
+            'mediaDescription' => 'The best video ever',
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
@@ -127,6 +131,8 @@ class ItemTest extends TestCase
         $item->setBody('<body><div>this is a test</body>');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
+        $item->setMediaThumbnail('https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg');
+        $item->setMediaDescription('The best video ever');
         $item->setFeedId(1);
         $item->setStatus(0);
         $item->setRtl(true);
@@ -148,6 +154,8 @@ class ItemTest extends TestCase
             'body' => '<body><div>this is a test</body>',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
+            'mediaThumbnail' => 'https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg',
+            'mediaDescription' => 'The best video ever',
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
@@ -173,6 +181,8 @@ class ItemTest extends TestCase
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
+        $item->setMediaThumbnail('https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg');
+        $item->setMediaDescription('The best video ever');
         $item->setFeedId(1);
         $item->setRtl(true);
         $item->setStatus(0);
@@ -195,6 +205,8 @@ class ItemTest extends TestCase
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
+            'mediaThumbnail' => 'https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg',
+            'mediaDescription' => 'The best video ever',
             'unread' => false,
             'starred' => true,
             'feedLink' => 'http://test',
@@ -257,6 +269,8 @@ class ItemTest extends TestCase
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
+            'mediaThumbnail' => $item->getMediaThumbnail(),
+            'mediaDescription' => $item->getMediaDescription(),
             'unread' => $item->isUnread(),
             'starred' => $item->isStarred(),
             'rtl' => $item->getRtl()
@@ -282,6 +296,8 @@ class ItemTest extends TestCase
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
+            'mediaThumbnail' => $item->getMediaThumbnail(),
+            'mediaDescription' => $item->getMediaDescription(),
             'unread' => $item->isUnread(),
             'starred' => $item->isStarred(),
             'rtl' => $item->getRtl()
