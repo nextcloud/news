@@ -59,7 +59,8 @@
     "symfony/service-contracts": "1.1.8"
   },
   "replace": {
-    "guzzlehttp/guzzle": "*"
+    "guzzlehttp/guzzle": "*",
+    "symfony/console": "*"
   },
   "autoload": {
     "psr-4": {
