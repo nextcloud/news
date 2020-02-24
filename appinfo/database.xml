@@ -402,13 +402,6 @@
             </index>
 
             <index>
-                <name>news_items_feed_id_index</name>
-                <field>
-                    <name>feed_id</name>
-                </field>
-            </index>
-
-            <index>
                 <name>news_items_fingerprint_idx</name>
                 <field>
                     <name>fingerprint</name>
@@ -422,6 +415,36 @@
                 </field>
                 <field>
                     <name>feed_id</name>
+                </field>
+            </index>
+
+            <index>
+                <name>news_items_unread_feed_id</name>
+                <field>
+                    <name>unread</name>
+                </field>
+                <field>
+                    <name>feed_id</name>
+                </field>
+            </index>
+
+            <index>
+                <name>news_items_starred_feed_id</name>
+                <field>
+                    <name>starred</name>
+                </field>
+                <field>
+                    <name>feed_id</name>
+                </field>
+            </index>
+
+            <index>
+                <name>news_items_unread_id</name>
+                <field>
+                    <name>unread</name>
+                </field>
+                <field>
+                    <name>id</name>
                 </field>
             </index>
         </declaration>
