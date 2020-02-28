@@ -23,7 +23,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow" : "Колико ће се преусмеравања следити",
     "Maximum feed page size" : "Највећа страница довода",
     "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted" : "Највећа величина довода у бајтовима. Ако је страница довода већа, ажурирање ће бити прекинуто.",
-    "Feed fetcher timeout" : "Време чекања довлачења",
+    "Feed fetcher timeout" : "Рок добављања довода",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Време у секундама које ће се чекати да се довод учита. Ако траје дуже, ажурирање ће се прекинути",
     "Explore Service URL" : "Истражите сервисну адресу",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Ако је дато, ова сервисна адреса ће бити упитана за приказивање у секцији за истраживање довода. За повратак на коришћење уграђеног сервиса за истраживање, оставите ово празно",
