@@ -29,18 +29,23 @@ class FeedMapper extends NewsMapper
 
     public function find($id, $userId)
     {
-        $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+        $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
-            'LEFT JOIN `*PREFIX*news_items` `items` ' .
-                'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query
-                // work because prepared statements dont work. This is a
-                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-                // think twice when changing this
-                'AND unread = ? ' .
-            'WHERE `feeds`.`id` = ? ' .
-                'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`';
+            'JOIN ( ' .
+                'SELECT `feeds`.`id`, COUNT(`items`.`id`) AS `unread_count` ' .
+                'FROM `*PREFIX*news_feeds` `feeds` ' .
+                'LEFT JOIN `*PREFIX*news_items` `items` ' .
+                    'ON `feeds`.`id` = `items`.`feed_id` ' .
+                    // WARNING: this is a desperate attempt at making this query
+                    // work because prepared statements dont work. This is a
+                    // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                    // think twice when changing this
+                    'AND `items`.`unread` = ? ' .
+                'WHERE `feeds`.`id` = ? ' .
+                  'AND `feeds`.`user_id` = ? ' .
+                'GROUP BY `feeds`.`id` ' .
+            ') `item_numbers` ' .
+            'ON `item_numbers`.`id` = `feeds`.`id` ';
         $params = [true, $id, $userId];
 
         return $this->findEntity($sql, $params);
@@ -49,23 +54,28 @@ class FeedMapper extends NewsMapper
 
     public function findAllFromUser($userId)
     {
-        $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+        $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
-            'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
-                'ON `feeds`.`folder_id` = `folders`.`id` ' .
-            'LEFT JOIN `*PREFIX*news_items` `items` ' .
-                'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query
-                // work because prepared statements dont work. This is a
-                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-                // think twice when changing this
-                'AND unread = ? ' .
-            'WHERE `feeds`.`user_id` = ? ' .
-            'AND (`feeds`.`folder_id` = 0 ' .
-                'OR `folders`.`deleted_at` = 0' .
-            ')' .
-            'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`';
+            'JOIN ( ' .
+                'SELECT `feeds`.`id`, COUNT(`items`.`id`) AS `unread_count` ' .
+                'FROM `*PREFIX*news_feeds` `feeds` ' .
+                'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
+                    'ON `feeds`.`folder_id` = `folders`.`id` ' .
+                'LEFT JOIN `*PREFIX*news_items` `items` ' .
+                    'ON `feeds`.`id` = `items`.`feed_id` ' .
+                    // WARNING: this is a desperate attempt at making this query
+                    // work because prepared statements dont work. This is a
+                    // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                    // think twice when changing this
+                    'AND `items`.`unread` = ? ' .
+                'WHERE `feeds`.`user_id` = ? ' .
+                  'AND (`feeds`.`folder_id` = 0 ' .
+                   'OR `folders`.`deleted_at` = 0 ' .
+                  ') ' .
+                  'AND `feeds`.`deleted_at` = 0 ' .
+                'GROUP BY `feeds`.`id` ' .
+            ') `item_numbers` ' .
+            'ON `item_numbers`.`id` = `feeds`.`id` ';
         $params = [true, $userId];
 
         return $this->findEntities($sql, $params);
@@ -74,22 +84,27 @@ class FeedMapper extends NewsMapper
 
     public function findAll()
     {
-        $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+        $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
-            'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
-                'ON `feeds`.`folder_id` = `folders`.`id` ' .
-            'LEFT JOIN `*PREFIX*news_items` `items` ' .
-                'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query
-                // work because prepared statements dont work. This is a
-                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-                // think twice when changing this
-                'AND unread = ? ' .
-            'WHERE (`feeds`.`folder_id` = 0 ' .
-                'OR `folders`.`deleted_at` = 0' .
-            ')' .
-            'AND `feeds`.`deleted_at` = 0 ' .
-            'GROUP BY `feeds`.`id`';
+            'JOIN ( ' .
+                'SELECT `feeds`.`id`, COUNT(`items`.`id`) AS `unread_count` ' .
+                'FROM `*PREFIX*news_feeds` `feeds` ' .
+                'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
+                    'ON `feeds`.`folder_id` = `folders`.`id` ' .
+                'LEFT JOIN `*PREFIX*news_items` `items` ' .
+                    'ON `feeds`.`id` = `items`.`feed_id` ' .
+                    // WARNING: this is a desperate attempt at making this query
+                    // work because prepared statements dont work. This is a
+                    // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                    // think twice when changing this
+                    'AND `items`.`unread` = ? ' .
+                'WHERE (`feeds`.`folder_id` = 0 ' .
+                   'OR `folders`.`deleted_at` = 0 ' .
+                ') ' .
+                'AND `feeds`.`deleted_at` = 0 ' .
+                'GROUP BY `feeds`.`id` ' .
+            ') `item_numbers` ' .
+            'ON `item_numbers`.`id` = `feeds`.`id` ';
 
         return $this->findEntities($sql, [true]);
     }
@@ -97,18 +112,23 @@ class FeedMapper extends NewsMapper
 
     public function findByUrlHash($hash, $userId)
     {
-        $sql = 'SELECT `feeds`.*, COUNT(`items`.`id`) AS `unread_count` ' .
+        $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
-            'LEFT JOIN `*PREFIX*news_items` `items` ' .
-                'ON `feeds`.`id` = `items`.`feed_id` ' .
-                // WARNING: this is a desperate attempt at making this query
-                // work because prepared statements dont work. This is a
-                // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
-                // think twice when changing this
-                'AND unread = ? ' .
-            'WHERE `feeds`.`url_hash` = ? ' .
-                'AND `feeds`.`user_id` = ? ' .
-            'GROUP BY `feeds`.`id`';
+            'JOIN ( ' .
+                'SELECT `feeds`.`id`, COUNT(`items`.`id`) AS `unread_count` ' .
+                'FROM `*PREFIX*news_feeds` `feeds` ' .
+                'LEFT JOIN `*PREFIX*news_items` `items` ' .
+                    'ON `feeds`.`id` = `items`.`feed_id` ' .
+                    // WARNING: this is a desperate attempt at making this query
+                    // work because prepared statements dont work. This is a
+                    // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
+                    // think twice when changing this
+                    'AND `items`.`unread` = ? ' .
+                'WHERE `feeds`.`url_hash` = ? ' .
+                  'AND `feeds`.`user_id` = ? ' .
+                'GROUP BY `feeds`.`id` ' .
+            ') `item_numbers` ' .
+            'ON `item_numbers`.`id` = `feeds`.`id` ';
         $params = [true, $hash, $userId];
 
         return $this->findEntity($sql, $params);
