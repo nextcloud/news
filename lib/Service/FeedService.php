@@ -115,6 +115,9 @@ class FeedService extends Service
              */
             list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, null, false, $user, $password);
             // try again if feed exists depending on the reported link
+            if ($feed === null) {
+                throw new ServiceNotFoundException($this->l10n->t('Can not add feed: Unable to parse feed'));
+            }
             try {
                 $hash = $feed->getUrlHash();
                 $this->feedMapper->findByUrlHash($hash, $userId);
