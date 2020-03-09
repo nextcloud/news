@@ -279,6 +279,26 @@ class FeedServiceTest extends TestCase
         $this->assertEquals(1, $feed->getUnreadCount());
     }
 
+    public function testCreateUnableToParseFeed()
+    {
+        $url = 'http://test';
+        $folderId = 10;
+
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with($this->equalTo($url))
+            ->willReturn([null, []]);
+
+        $this->l10n->expects($this->once())
+            ->method('t')
+            ->with($this->equalTo('Can not add feed: Unable to parse feed'))
+            ->willReturn('Can not add feed: Unable to parse feed');
+
+        $this->expectException(ServiceNotFoundException::class);
+        $this->expectExceptionMessage('Can not add feed: Unable to parse feed');
+
+        $this->feedService->create($url, $folderId, $this->user);
+    }
 
     public function testUpdateCreatesNewEntry()
     {
@@ -414,7 +434,7 @@ class FeedServiceTest extends TestCase
         $this->assertEquals($return, $feed);
     }
 
-    private function createUpdateFeed() 
+    private function createUpdateFeed()
     {
         $feed = new Feed();
         $feed->setId(3);
@@ -427,7 +447,7 @@ class FeedServiceTest extends TestCase
         return $feed;
     }
 
-    private function createUpdateItem() 
+    private function createUpdateItem()
     {
         $item = new Item();
         $item->setGuidHash(md5('hi'));
@@ -441,7 +461,7 @@ class FeedServiceTest extends TestCase
         return $item;
     }
 
-    private function createUpdateItem2() 
+    private function createUpdateItem2()
     {
         $item = new Item();
         $item->setGuidHash(md5('hi'));
@@ -455,7 +475,7 @@ class FeedServiceTest extends TestCase
         return $item;
     }
 
-    public function testUpdateUpdatesWhenUpdateddateIsNewer() 
+    public function testUpdateUpdatesWhenUpdateddateIsNewer()
     {
         $feed = $this->createUpdateFeed();
         $item = $this->createUpdateItem();
@@ -493,7 +513,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUpdateSetsUnreadIfModeIsOne() 
+    public function testUpdateSetsUnreadIfModeIsOne()
     {
         $feed = $this->createUpdateFeed();
         $feed->setUpdateMode(1);
@@ -533,7 +553,7 @@ class FeedServiceTest extends TestCase
 
     }
 
-    public function testUpdateUpdatesArticlesPerFeedCount() 
+    public function testUpdateUpdatesArticlesPerFeedCount()
     {
         $feed = new Feed();
         $feed->setId(3);
@@ -614,7 +634,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUpdateDoesNotFindEntry() 
+    public function testUpdateDoesNotFindEntry()
     {
         $feed = new Feed();
         $feed->setId(3);
@@ -634,7 +654,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUpdatePassesFullText() 
+    public function testUpdatePassesFullText()
     {
         $feed = new Feed();
         $feed->setId(3);
@@ -667,7 +687,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUpdateDoesNotFindUpdatedEntry() 
+    public function testUpdateDoesNotFindUpdatedEntry()
     {
         $feed = new Feed();
         $feed->setId(3);
@@ -721,7 +741,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUpdateDoesntUpdateIfFeedIsPrevented() 
+    public function testUpdateDoesntUpdateIfFeedIsPrevented()
     {
         $feedId = 3;
         $feed = new Feed();
@@ -743,7 +763,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUpdateDoesntUpdateIfNoFeed() 
+    public function testUpdateDoesntUpdateIfNoFeed()
     {
         $feedId = 3;
         $feed = new Feed();
@@ -960,7 +980,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testMarkDeleted() 
+    public function testMarkDeleted()
     {
         $id = 3;
         $feed = new Feed();
@@ -979,7 +999,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testUnmarkDeleted() 
+    public function testUnmarkDeleted()
     {
         $id = 3;
         $feed = new Feed();
@@ -1045,7 +1065,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testfindAllFromAllUsers() 
+    public function testfindAllFromAllUsers()
     {
         $expected = 'hi';
         $this->feedMapper->expects($this->once())
@@ -1056,7 +1076,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testDeleteUser() 
+    public function testDeleteUser()
     {
         $this->feedMapper->expects($this->once())
             ->method('deleteUser')
@@ -1066,7 +1086,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testOrdering() 
+    public function testOrdering()
     {
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
@@ -1086,7 +1106,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testPatchEnableFullText() 
+    public function testPatchEnableFullText()
     {
         $feed = Feed::fromRow(
             [
@@ -1129,7 +1149,7 @@ class FeedServiceTest extends TestCase
     /**
      * @expectedException OCA\News\Service\ServiceNotFoundException
      */
-    public function testPatchDoesNotExist() 
+    public function testPatchDoesNotExist()
     {
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
@@ -1140,7 +1160,7 @@ class FeedServiceTest extends TestCase
     }
 
 
-    public function testSetPinned() 
+    public function testSetPinned()
     {
         $feed = Feed::fromRow(['id' => 3, 'pinned' => false]);
         $this->feedMapper->expects($this->once())
