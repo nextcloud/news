@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Platnost tokenu skončila nebo aplikace není povolena! Načtěte stránku znovu.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnitřní chyba serveru! Další informace naleznete v souboru data/nextcloud.log.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek se nezdařil, Nextcloud je aktuálně v režimu údržby!",
+    "Can not add feed: Unable to parse feed" : "Zdroj (feed) nelze přidat: nedaří se ho zpracovat",
     "Can not add feed: Exists already" : "Nelze přidat kanál: už existuje",
     "Articles without feed" : "Články bez kanálu",
     "Can not add folder: Exists already" : "Složku nelze přidat: už existuje",

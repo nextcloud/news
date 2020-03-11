@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "¡Sesión expirada o aplicación no habilitada! ¡Vuelve a cargar la página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Error interno del servidor! ¡Por favor, comprueba el archivo data/nextcloud.log para mas información!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Petición fallida! Nexcloud está actualmente en modo mantenimiento.",
+    "Can not add feed: Unable to parse feed" : "No se puede agregar fuente: No se ha podido procesar la fuente",
     "Can not add feed: Exists already" : "No se puede agregar fuente: ya existe",
     "Articles without feed" : "Artículos sin fuente",
     "Can not add folder: Exists already" : "No se puede agregar la carpeta: ya existe",

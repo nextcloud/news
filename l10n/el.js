@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Η διαδικασία αναγνώρισης τερματίστηκε ή η εφαρμογή δεν είναι ενεργοποιημένη! Επαναφορτώστε τη σελίδα! ",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Εσωτερικό σφάλμα διακομιστή! Παρακαλώ ελέγξτε το αρχείο data/nextcloud.log για περισσότερες πληροφορίες!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Αποτυχία αιτήματος, το Nextcloud είναι προσωρινά σε κατάσταση συντήρησης!",
+    "Can not add feed: Unable to parse feed" : "Αδυναμία προσθήκης ροής: Δεν μπορεί να αναλυθεί",
     "Can not add feed: Exists already" : "Αδυναμία προσθήκης ροής: Υπάρχει ήδη",
     "Articles without feed" : "Άρθρα χωρίς ροές",
     "Can not add folder: Exists already" : "Αδυναμία προσθήκης φακέλου: Υπάρχει ήδη",

@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Token wygasł lub aplikacja nie jest włączona! Przeładuj stronę!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Wewnętrzny błąd serwera! Proszę sprawdzić plik data/nextcloud.log w celu uzyskania dodatkowych informacji!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Nie wykonano żądania, Nextcloud działa obecnie w trybie konserwacji!",
+    "Can not add feed: Unable to parse feed" : "Nie można dodać kanału: Nie można przeanalizować kanału",
     "Can not add feed: Exists already" : "Nie można dodać kanału: już istnieje",
     "Articles without feed" : "Artykuły bez kanału",
     "Can not add folder: Exists already" : "Nie można dodać folderu: już istnieje",

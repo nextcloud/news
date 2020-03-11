@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Le jeton a expiré ou l'application n'est pas activée ! Veuillez recharger la page !",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Erreur interne du serveur ! Veuillez consulter votre fichier data/nextcloud.log pour plus d'informations !",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "La requête a échoué, Nextcloud est actuellement en maintenance !",
+    "Can not add feed: Unable to parse feed" : "Impossible d'ajouter le flux : erreur lors de l'analyser du flux",
     "Can not add feed: Exists already" : "Impossible d'ajouter le flux : déjà présent",
     "Articles without feed" : "Articles sans flux",
     "Can not add folder: Exists already" : "Impossible d'ajouter le dossier : déjà présent",
