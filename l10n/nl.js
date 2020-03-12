@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Token verlopen of app niet ingeschakeld! Ververs de pagina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interne serverfout! Contrleer je data/nextcloud.log bestand voor meer informatie!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Aanvraag mislukt, Nextcloud staat momenteel in onderhoudsmodus!",
+    "Can not add feed: Unable to parse feed" : "Kan feed niet toevoegen: kan feed niet parseren",
     "Can not add feed: Exists already" : "Kan feed niet toevoegen: bestaat al",
     "Articles without feed" : "Artikelen zonder feed",
     "Can not add folder: Exists already" : "Kan map niet toevoegen, bestaat al",
