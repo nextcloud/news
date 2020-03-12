@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+
+## 14.1.4-rc1
+
+## Changed
+- Basic Media-RSS support (#599)
+- Database index improvements (#637)
+
+### Fixed
+- Call to a member function getUrlHash() on null" when adding a feed (#640)
+- Don't install symfony/console via composer (#636)
+- Fix for for ONLY_FULL_GROUP_BY (see #406) (Issue #80) (#407)
+- Catch invalid feeds (#646)
+
 ## 14.1.3
 
 ## Changed
