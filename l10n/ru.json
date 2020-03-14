@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Срок действия токена истёк или приложение не включено! Перезагрузите страницу!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Внутренняя ошибка сервера! Пожалуйста, для получения дополнительной информации проверьте журнал в файле data/nextcloud.log!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Запрос не удался, в настоящий момент Nextcloud включен в режиме обслуживания!",
+    "Can not add feed: Unable to parse feed" : "Не удалось добавить ленту: не удалось произвести разбор файла",
     "Can not add feed: Exists already" : "Не удаётся добавить ленту: Уже существует",
     "Articles without feed" : "Статьи без новостной ленты",
     "Can not add folder: Exists already" : "Не удаётся добавить папку. Папка уже существует",

@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Kodun süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucu sorunu! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "İstek karşılanamadı. Nextcloud şu anda bakım kipinde!",
+    "Can not add feed: Unable to parse feed" : "Akış eklenemedi: Akış alınamadı",
     "Can not add feed: Exists already" : "Akış eklenemedi: Zaten var",
     "Articles without feed" : "Akışı olmayan makaleler",
     "Can not add folder: Exists already" : "Klasör eklenemedi: Zaten var",
