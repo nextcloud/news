@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "令牌过期或者应用没有启用！重新加载页面！",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "内部服务器错误！请检查您的 data/nextcloud.log 文件获取更多详细信息！",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "请求失败，Nextcloud 现处于维护模式！",
+    "Can not add feed: Unable to parse feed" : "无法添加订阅源：无法解析订阅源",
     "Can not add feed: Exists already" : "无法添加订阅源：已经存在",
     "Articles without feed" : "没有订阅源的文章",
     "Can not add folder: Exists already" : "无法增加文件夹：文件夹已存在",
