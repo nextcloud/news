@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Žeton je potekel ali pa program ni omogočen! Poskusite osvežiti stran!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Notranja napaka strežnika! Preverite datoteko data/nextcloud.log za podrobnosti!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Zahteva je spodletela! Okolje Nextcloud je trenutno v vzdrževalnem načinu!",
+    "Can not add feed: Unable to parse feed" : "Vira ni mogoče dodati: podatkov ni mogoče razčleniti",
     "Can not add feed: Exists already" : "Vira ni mogoče dodati: vir že obstaja",
     "Articles without feed" : "Prispevki brez virov",
     "Can not add folder: Exists already" : "Mape ni mogoče dodati: mapa že obstaja",
