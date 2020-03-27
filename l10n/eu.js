@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Tokena iraungi da edo aplikazioa ez dago gaituta! Kargatu berriz orria!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Zerbitzariaren barneko errorea! Begiratu data/nextcloud.log fitxategia informazio gehiagorako!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Eskaerak huts egin du, Nextcloud mantentze moduan dago une honetan!",
+    "Can not add feed: Unable to parse feed" : "Ezin da jarioa gehitu: ezin da jarioa irakurri",
     "Can not add feed: Exists already" : "Ezin da jarioa gehitu: Dagoeneko existitzen da",
     "Articles without feed" : "Jariorik gabeko artikuluak",
     "Can not add folder: Exists already" : "Ezin da karpeta gehitu: Dagoeneko existitzen da",
