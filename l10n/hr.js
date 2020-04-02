@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Token je istekao ili aplikacija nije omogućena! Učitajte stranicu ponovo!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Unutarnja pogreška poslužitelja! Provjerite svoje podatke/datoteku nextcloud.log za dodatne informacije!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Zahtjev nije uspio, Nextcloud je trenutno u načinu održavanja!",
+    "Can not add feed: Unable to parse feed" : "Nije moguće dodati sažetak: parsiranje sažetka nije uspjelo",
     "Can not add feed: Exists already" : "Nije moguće dodati sažetak: već postoji",
     "Articles without feed" : "Članci bez sažetka",
     "Can not add folder: Exists already" : "Nije moguće dodati mapu: već postoji",
