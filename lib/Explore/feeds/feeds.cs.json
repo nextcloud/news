@@ -1,0 +1,165 @@
+{
+    "Počítače": [{
+        "title": "Zive.cz",
+        "favicon": "https://www.zive.cz/favicon.ico",
+        "url": "https://www.zive.cz",
+        "feed": "https://www.zive.cz/rss/sc-47/",
+        "description": "O počítačích, internetu, vědě a technice",
+        "votes": 500
+    }, {
+        "title": "Cnews",
+        "favicon": "https://www.cnews.cz/wp-content/uploads/2017/02/cn-ico.png",
+        "url": "https://www.cnews.cz",
+        "feed": "https://www.cnews.cz/feed/",
+        "description": "Od tranzistorů až po PC sestavy",
+        "votes": 500
+    }, {
+        "title": "PCWorld",
+        "favicon": "https://pcworld.cz/gfx/favicon.ico",
+        "url": "https://pcworld.cz/",
+        "feed": "https://pcworld.cz/rss.xml",
+        "description": "Recenze, novinky a testy na Hardware, Software, Downloady a Internet",
+        "votes": 500
+    }],
+    "Mobilní technologie": [{
+        "title": "Mobilmania.cz",
+        "favicon": "https://www.mobilmania.cz/favicon.ico",
+        "url": "https://www.mobilmania.cz",
+        "feed": "https://www.mobilmania.cz/rss/sc-47/",
+        "description": "Nejčtenější web o mobilním telefonování, mobilních telefonech a dalších kapesních zařízeních. Denně články, aktuality a videa.",
+        "votes": 500
+    }, {
+        "title": "Mobilenet.cz",
+        "favicon": "https://cdn.24net.cz/resources/1/icons/favicon-32x32.png",
+        "url": "https://mobilenet.cz/",
+        "feed": "https://mobilenet.cz/rss",
+        "description": "Mobilní telefony, notebooky a technologie budoucnosti",
+        "votes": 100
+    },],
+    "Audio a Video": [{
+        "title": "Avmania.cz",
+        "favicon": "https://avmania.zive.cz/favicon.ico",
+        "url": "https://avmania.zive.cz",
+        "feed": "https://avmania.zive.cz/rss",
+        "description": "Každý den články a aktuality věnované spotřební elektronice. Televizory, sluchátka, Hi-Fi. Filmy a seriály, online video.",
+        "votes": 500
+    }, {
+        "title": "Audiozone",
+        "favicon": "https://audiozone.cz/favicon.ico",
+        "url": "https://www.audiozone.cz/",
+        "feed": "http://www.audiozone.cz/app.php/feed/news",
+        "description": "Internetový magazín o digitálním zpracování zvuku - přehled novinek, recenze audio hardware a software, bazar, diskuzní fórum, seznam nahrávacích studií.",
+        "votes": 500
+    }],
+    "Programování": [{
+        "title": "Root",
+        "favicon": "https://i.iinfo.cz/sh/favicon/root-cz/favicon.ico",
+        "url": "https://www.root.cz/",
+        "feed": "https://www.root.cz/rss/clanky/",
+        "description": "Píšeme o serverech, sítích a počítačové bezpečnosti. Články, zprávičky, komentáře, fórum.",
+        "votes": 500
+    }, {
+        "title": "Zdroják",
+        "favicon": "https://www.zdrojak.cz/favicon.ico",
+        "url": "https://www.zdrojak.cz",
+        "feed": "https://www.zdrojak.cz/feed/",
+        "description": "Zdroják - o tvorbě webových stránek a aplikací",
+        "votes": 500
+    }],
+    "Auta": [{
+        "title": "Auto.cz",
+        "favicon": "https://www.auto.cz/favicon.ico",
+        "url": "https://www.auto.cz/",
+        "feed": "https://www.auto.cz/rss",
+        "description": "Auto.cz - nejlepší jízda na webu: recenze, videa, testy",
+        "votes": 500
+    }, {
+        "title": "Autobible",
+        "favicon": "https://autobible.euro.cz/wp-content/uploads/2016/09/favicona.png",
+        "url": "https://autobible.euro.cz/",
+        "feed": "https://autobible.euro.cz/feed/",
+        "description": "Novinky, články a testy ze světa aut a motorek. Vlastní videa a fotografie.",
+        "votes": 500
+    },{
+        "title": "Autorevue",
+        "favicon": "https://www.autorevue.cz/favicon.ico",
+        "url": "https://www.autorevue.cz/",
+        "feed": "https://www.autorevue.cz/rss",
+        "description": "Každý den píšeme o autech. Novinky, aktuality, podrobné testy a tajné projekty automobilek. Živé diskuzní fórum a čtenářská fotogalerie.",
+        "votes": 500
+    }],
+    "Foto": [{
+        "title": "Digiarena",
+        "favicon": "https://digiarena.zive.cz/favicon.ico",
+        "url": "https://digiarena.zive.cz/",
+        "feed": "https://digiarena.zive.cz/rss",
+        "description": "Auto.cz - nejlepší jízda na webu: recenze, videa, testy",
+        "votes": 500
+    }, {
+        "title": "Fotoguru",
+        "favicon": "https://www.fotoguru.cz/files/cropped-FotoGurucz-site-icon-50x50.png",
+        "url": "https://www.fotoguru.cz/",
+        "feed": "https://www.fotoguru.cz/feed/",
+        "description": "Zajímají vás základy fotografování, rady pro pokročilé nebo třeba recenze fotoaparátů? Web Fotoguru.cz známého fotografa a novináře Jana Rybáře vám poradí!",
+        "votes": 500
+    }],
+      "Vaření": [{
+        "title": "Recepty.cz",
+        "favicon": "https://www.recepty.cz/favicon.ico",
+        "url": "https://www.recepty.cz/",
+        "feed": "https://www.recepty.cz/rss/recommended",
+        "description": "Recepty.cz - on-line kuchařka, kde najdete dobré rady, jaké jídlo si připravit a jaké si na něj nachystat suroviny.",
+        "votes": 500
+    }, {
+        "title": "Vareni.cz",
+        "favicon": "https://recepty.vareni.cz/images/icons/favicon.ico",
+        "url": "https://www.vareni.cz/",
+        "feed": "https://www.vareni.cz/rss/clanky.xml",
+        "description": "Vaření.cz je online kuchařka s osvědčenými recepty a články o jídle a vaření.",
+        "votes": 500
+    }],
+      "Filmy a seriály": [{
+        "title": "Edna",
+        "favicon": "https://www.edna.cz/static/favicon.ico",
+        "url": "https://www.edna.cz/",
+        "feed": "https://www.edna.cz/rss/",
+        "description": "Internetový domov pro fanoušky seriálu. Fanweby kultovních sérií, diskuze, novinky, hodnocení, titulky.",
+        "votes": 500
+    }, {
+        "title": "Serialzone",
+        "favicon": "https://www.serialzone.cz/favicon.ico",
+        "url": "https://www.serialzone.cz/",
+        "feed": "https://www.serialzone.cz/rss/",
+        "description": "Vaření.cz je online kuchařka s osvědčenými recepty a články o jídle a vaření.",
+        "votes": 500
+    },{
+        "title": "Filmtoro",
+        "favicon": "https://filmtoro.cz/favicon.ico",
+        "url": "https://filmtoro.cz/",
+        "feed": "https://filmtoro.cz/rss",
+        "description": "Když nevíš, co si pustíš",
+        "votes": 500
+    },{
+        "title": "Moviezone",
+        "favicon": "https://www.moviezone.cz/favicon.ico",
+        "url": "https://www.moviezone.cz/",
+        "feed": "https://www.moviezone.cz/rss",
+        "description": "Nezávislé recenze filmů a seriálů psané uznávanými autory.",
+        "votes": 500
+    }],
+      "Hry-Gaming": [{
+        "title": "Doupe",
+        "favicon": "https://doupe.zive.cz/Client.Images/favicon.ico",
+        "url": "https://doupe.zive.cz/",
+        "feed": "https://doupe.zive.cz/rss",
+        "description": "Každý den články o počítačových hrách pro všechny platformy: PC, Nintendo, Xbox, Playstation",
+        "votes": 500
+    }, {
+        "title": "Hrej",
+        "favicon": "http://www.hrej.cz/www/favicon.ico",
+        "url": "http://www.hrej.cz/",
+        "feed": "http://www.hrej.cz/rss/clanky/",
+        "description": "Vše o hrách na Hrej.cz",
+        "votes": 500
+    }]
+}
