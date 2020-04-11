@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Жетон је истекао или апликација није укључена! Учитајте поново страницу!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Интерна грешка на серверу! Проверите data/nextcloud.log фајл за додатне информације!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Неуспео захтев. Некстклауд сервер је тренутно у режиму приступа само једног корисника!",
+    "Can not add feed: Unable to parse feed" : "Не могу да додам довод: не могу да парсирам довод",
     "Can not add feed: Exists already" : "Не могу да додам довод. Већ постоји",
     "Articles without feed" : "Чланци без довода",
     "Can not add folder: Exists already" : "Не могу да додам фасциклу. Већ постоји",
