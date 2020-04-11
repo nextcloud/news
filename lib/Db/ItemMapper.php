@@ -64,7 +64,7 @@ class ItemMapper extends NewsMapper
         if (isset($type) && $type === FeedType::STARRED) {
             $sql = 'AND `items`.`starred` = ';
             $sql .= $this->db->quote(true, IQueryBuilder::PARAM_BOOL) . ' ';
-        } elseif (!$showAll) {
+        } elseif (!$showAll || $type === FeedType::UNREAD) {
             $sql .= 'AND `items`.`unread` = ';
             $sql .= $this->db->quote(true, IQueryBuilder::PARAM_BOOL) . ' ';
         }

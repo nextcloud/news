@@ -17,7 +17,7 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
     Publisher.subscribe(ItemResource).toChannels(['items', 'newestItemId',
-        'starred']);
+        'starred', 'unread']);
     Publisher.subscribe(FolderResource).toChannels(['folders']);
     Publisher.subscribe(FeedResource).toChannels(['feeds']);
     Publisher.subscribe(SettingsResource).toChannels(['settings']);
@@ -49,12 +49,16 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, 
                     url = '/explore';
                     break;
 
+                case FEED_TYPE.UNREAD:
+                    url = '/items/unread';
+                    break;
+
                 default:
                     url = '/items';
             }
 
             // only redirect if url is empty or faulty
-            if (!/^\/items(\/(starred|explore|feeds\/\d+|folders\/\d+))?\/?$/
+            if (!/^\/items(\/(starred|unread|explore|feeds\/\d+|folders\/\d+))?\/?$/
                 .test(path)) {
                 $location.path(url);
             }
