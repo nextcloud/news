@@ -1,7 +1,7 @@
 OC.L10N.register(
     "news",
     {
-    "Request failed, network connection unavailable!" : "İstek karşılanamadı. Ağ bağlantısı kullanılamıyor!",
+    "Request failed, network connection unavailable!" : "İstek karşılanamadı. Ağ bağlantısı kullanılamıyor!",
     "Request unauthorized. Are you logged in?" : "İstek için yeterli izin yok. Oturumunuz açık mı?",
     "Request forbidden. Are you an admin?" : "İstek reddedildi. Bir yönetici misiniz?",
     "Token expired or app not enabled! Reload the page!" : "Kodun süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
