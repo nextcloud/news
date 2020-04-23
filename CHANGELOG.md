@@ -2,7 +2,14 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-- update for Nextcloud 19
+
+## 14.1.4
+
+## Changed
+- Update for Nextcloud 19 (#627)
+- Create Czech feed examples (#664)
+- Always show the unread articles "folder" (#662)
+- Update feed-io to v4.5.7
 
 ## 14.1.4-rc1
 
