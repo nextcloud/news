@@ -140,6 +140,11 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
             $route.current.$$route.type === FEED_TYPE.SUBSCRIPTIONS;
     };
 
+    this.isUnreadActive = function () {
+        return $route.current &&
+            $route.current.$$route.type === FEED_TYPE.UNREAD;
+    };
+
     this.isStarredActive = function () {
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.STARRED;
