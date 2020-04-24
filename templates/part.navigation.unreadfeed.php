@@ -1,10 +1,10 @@
 <li ng-class="{
-        active: Navigation.isSubscriptionsActive(),
+        active: Navigation.isUnreadActive(),
         unread: Navigation.isUnread()
     }"
     class="subscriptions-feed with-counter with-menu">
 
-    <a class="icon-rss" ng-href="#/items/unread" >
+    <a class="icon-rss" ng-href="#/items/unread/" >
        <?php p($l->t('Unread articles'))?>
     </a>
 
@@ -40,13 +40,14 @@
         active: Navigation.isSubscriptionsActive(),
         unread: Navigation.isUnread()
     }"
-    class="all-subscriptions-feed with-counter with-menu">
+    ng-if="Navigation.isShowAll()"
+    class="all-subscriptions-feed with-menu">
 
-    <a class="icon-rss" ng-href="#/items/" ng-if="Navigation.isShowAll()">
+    <a class="icon-rss" ng-href="#/items/">
        <?php p($l->t('All articles'))?>
     </a>
 
-    <div class="app-navigation-entry-utils" ng-if="Navigation.isShowAll()">
+    <div class="app-navigation-entry-utils">
         <ul>
             <li class="app-navigation-entry-utils-menu-button">
                 <button
@@ -56,7 +57,7 @@
         </ul>
     </div>
 
-    <div class="app-navigation-entry-menu" ng-if="navigation.isShowAll()">
+    <div class="app-navigation-entry-menu">
         <ul>
             <li class="mark-read">
                 <button ng-click="Navigation.markRead()">
