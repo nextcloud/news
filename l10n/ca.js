@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "El Token està caducat o l'aplicació no està activada! Torneu a carregar la pàgina.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Error intern servidor! Consulteu el fitxer data/nextcloud.log per obtenir informació addicional.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "La sol·licitud ha fallat, Nextcloud és actualment en mode de manteniment.",
+    "Can not add feed: Unable to parse feed" : "No s'ha pogut afegir la font: impossible entendre el format del feed",
     "Can not add feed: Exists already" : "No es pot afegir la font: ja existeix",
     "Articles without feed" : "Articles sense font",
     "Can not add folder: Exists already" : "No es pot afegir la carpeta: ja existeix",
