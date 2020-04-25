@@ -3,9 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.5
+
+### Fixed
+- Fixed active menu item and reload for unread (#674)
+
 ## 14.1.4
 
-## Changed
+### Changed
 - Update for Nextcloud 19 (#627)
 - Create Czech feed examples (#664)
 - Always show the unread articles "folder" (#662)
@@ -13,7 +18,7 @@ All notable changes to this project will be documented in this file.
 
 ## 14.1.4-rc1
 
-## Changed
+### Changed
 - Basic Media-RSS support (#599)
 - Database index improvements (#637)
 
