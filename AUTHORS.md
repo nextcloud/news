@@ -66,6 +66,7 @@
 * [Carlos Silva](mailto:r3pek@r3pek.org)
 * [Cesar Enrique Garcia Dabo](mailto:enrique@engarda.org)
 * [Chris Aumann](mailto:me@chr4.org)
+* [Chris Noxz](mailto:chris@noxz.tech)
 * [Colin W](mailto:cwmke@users.noreply.github.com)
 * [Daniel Aleksandersen](mailto:code@daniel.priv.no)
 * [Daniel S](mailto:daniel@while-true-do.org)
