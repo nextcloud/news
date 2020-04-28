@@ -32,6 +32,7 @@ Nextcloud News can be synced with the following apps:
   * [Nextcloud News Reader (Android)](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader), [open source](https://github.com/nextcloud/news-android-app)
   * [OCReader (Android)](https://f-droid.org/repository/browse/?fdid=email.schaal.ocreader), [open source](https://github.com/schaal/ocreader)
   * [Newsout (Android)](https://play.google.com/store/apps/details?id=com.inspiredandroid.newsout), [open source](https://github.com/SimonSchubert/NewsOut)
+  * [Readrops (Android)](https://f-droid.org/en/packages/com.readrops.app/), [open source](https://github.com/readrops/Readrops)  
   * [CloudNews (iOS)](https://apps.apple.com/app/cloudnews-owncloud-news-reader/id683859706), [open source](https://github.com/owncloud/news-ios-app)
   * [Fiery Feeds (iOS)](https://apps.apple.com/us/app/fiery-feeds-rss-reader/id1158763303), closed source
   * [News Checker (Chrome extension)](https://chrome.google.com/webstore/detail/owncloud-news-checker/hnmagnmdnfdhabdlicankfbfhcdgbfhe)
