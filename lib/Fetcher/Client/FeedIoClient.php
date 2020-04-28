@@ -44,10 +44,11 @@ class FeedIoClient implements ClientInterface
      */
     public function getResponse(string $url, \DateTime $modifiedSince) : ResponseInterface
     {
+        $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
         try {
             $options = [
                 'headers' => [
-                    'If-Modified-Since' => $modifiedSince->format(\DateTime::RFC2822)
+                    'If-Modified-Since' => $modifiedSince->format('D, d M Y H:i:s e')
                 ]
             ];
 
