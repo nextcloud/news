@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.6
+
+### Fixed
+- Fixed 'If-Modified-Since' causing BAD REQUEST (#684)
+
 ## 14.1.5
 
 ### Fixed
