@@ -47,7 +47,7 @@ class FeedIoClient implements ClientInterface
         try {
             $options = [
                 'headers' => [
-                    'If-Modified-Since' => $modifiedSince->format(\DateTime::RFC2822)
+                    'If-Modified-Since' => $modifiedSince->format('D, d M Y H:i:s \G\M\T')
                 ]
             ];
 

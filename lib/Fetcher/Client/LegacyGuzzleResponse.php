@@ -1,4 +1,4 @@
-<?php
+/<?php
 /**
  * Nextcloud - News
  *
@@ -57,7 +57,7 @@ class LegacyGuzzleResponse implements ResponseInterface
     {
         if ($this->response->hasHeader(static::HTTP_LAST_MODIFIED)) {
             $lastModified = \DateTime::createFromFormat(
-                \DateTime::RFC2822,
+                'D, d M Y H:i:s \G\M\T',
                 $this->getHeader(static::HTTP_LAST_MODIFIED)
             );
 
