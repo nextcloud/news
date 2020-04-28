@@ -62,3 +62,6 @@ To receive notifications when a new News app version was released, simply add th
 
 * [Benjamin Brahmer](https://github.com/Grotax)
 * [Sean Molenaar](https://github.com/SMillerDev)
+
+### Special thanks to the Feed-IO library
+Please consider donating to the developer of the RSS parser that powers nextcloud/news: [https://github.com/sponsors/alexdebril](https://github.com/sponsors/alexdebril)
