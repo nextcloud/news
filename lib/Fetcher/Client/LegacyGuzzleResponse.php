@@ -56,8 +56,9 @@ class LegacyGuzzleResponse implements ResponseInterface
     public function getLastModified() : ?\DateTime
     {
         if ($this->response->hasHeader(static::HTTP_LAST_MODIFIED)) {
+            $lastModified->setTimezone(new \DateTimeZone('GMT'));
             $lastModified = \DateTime::createFromFormat(
-                'D, d M Y H:i:s \G\M\T',
+                'D, d M Y H:i:s e',
                 $this->getHeader(static::HTTP_LAST_MODIFIED)
             );
 
