@@ -45,9 +45,9 @@ class LegacyGuzzleClient implements FeedIoClientInterface
      */
     public function getResponse(string $url, \DateTime $modifiedSince) : ResponseInterface
     {
+        $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
         try {
             $options = [
-                $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
                 'headers' => [
                     'If-Modified-Since' => $modifiedSince->format('D, d M Y H:i:s e')
                 ]
