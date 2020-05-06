@@ -169,5 +169,13 @@
         "feed": "http:\/\/feeds.feedburner.com\/oatmealfeed",
         "description": "The oatmeal tastes better than stale skittles found under the couch cushions",
         "votes": 100
+    }],
+	"Other": [{
+        "title": "The Regimental Standard",
+        "favicon": "http:\/\/regimentalstandard.files.wordpress.com\/2017\/03\/cropped-icon.png",
+        "url": "http:\/\/regimental-standard.com",
+        "feed": "http:\/\/regimental-standard.com\/feed\/",
+        "description": "Required weekly reading for the modern guardsman",
+        "votes": 100
     }]
 }
