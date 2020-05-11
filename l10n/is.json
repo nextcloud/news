@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Kenniteikn er útrunnið eða forrit ekki virkt! Þú ættir að hlaða síðunni aftur inn!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Innri miðlaravilla! Athugaðu skrána data/nextcloud.log fyrir nánari upplýsingar!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Fyrirspurn brást, Nextcloud er núna í viðhaldsham.",
+    "Can not add feed: Unable to parse feed" : "Gat ekki bætt við streymi: Það tókst ekki að þátta streymið",
     "Can not add feed: Exists already" : "Gat ekki bætt við streymi: streymið er þegar til",
     "Articles without feed" : "Greinar án fréttastreymis",
     "Can not add folder: Exists already" : "Gat ekki bætt við möppu: mappan er þegar til",
