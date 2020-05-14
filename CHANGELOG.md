@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.8
+
+### Changed
+- Update feed-io to v4.7.0
+- Update js dependencies
+
+### Fixed
+- Do not create spurious links in item body (#699)
+
 ## 14.1.7
 
 ### Changed
