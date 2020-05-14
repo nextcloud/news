@@ -78,7 +78,7 @@ OC.L10N.register(
     "Go back" : "Gå tillbaks",
     "Folder exists already!" : "Katalogen finns redan",
     "Credentials" : "Inloggningsuppgifter",
-    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Grundläggande HTTP-autentiseringsuppgifter måste lagras okrypterade! Alla med tillgång till servern eller databasen kommer att kunna få tillgång till dem!",
+    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Grundläggande HTTP-autentiseringsuppgifter måste lagras okrypterade! Alla med åtkomst till servern eller databasen kommer att kunna få åtkomst till dem!",
     "Username" : "Användarnamn",
     "Password" : "Lösenord",
     "New Folder" : "Ny mapp",
