@@ -80,6 +80,8 @@
 * [Florian Hülsmann](mailto:fh@cbix.de)
 * [Flurin Rindisbacher](mailto:flurischt@users.noreply.github.com)
 * [Frank Karlitschek](mailto:frank@owncloud.org)
+* [Freddo](mailto:f.falk@protonmail.com)
+* [Freddo3000](mailto:f.falk@protonmail.com)
 * [Hanzei](mailto:Hanzei@users.noreply.github.com)
 * [Hendrik Leppelsack](mailto:hendrik@leppelsack.de)
 * [Jasper Knockaert](mailto:jasper@knockaert.nl)
