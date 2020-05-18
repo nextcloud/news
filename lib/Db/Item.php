@@ -291,7 +291,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
-        $body = str_replace('<a', '<a target="_blank" rel="noreferrer"', $body);
+        $body = str_replace('<a ', '<a target="_blank" rel="noreferrer" ', $body);
 
         if ($this->body !== $body) {
             $this->body = $body;
