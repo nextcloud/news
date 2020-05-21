@@ -90,7 +90,7 @@ OC.L10N.register(
     "Undo delete feed" : "撤销删除订阅源",
     "Rename" : "重命名",
     "Menu" : "菜单",
-    "Mark read" : "设置为已读",
+    "Mark read" : "标记为已读",
     "Unpin from top" : "取消置顶",
     "Pin to top" : "固定在顶端",
     "Newest first" : "按时间顺序",
