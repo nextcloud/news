@@ -70,6 +70,7 @@
 * [Colin W](mailto:cwmke@users.noreply.github.com)
 * [Daniel Aleksandersen](mailto:code@daniel.priv.no)
 * [Daniel S](mailto:daniel@while-true-do.org)
+* [David Engster](mailto:deng@randomsample.de)
 * [Detlev Zundel](mailto:dzu@member.fsf.org)
 * [Doron Behar](mailto:doron.behar@gmail.com)
 * [DriverXX](mailto:DriverXX@users.noreply.github.com)
