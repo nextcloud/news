@@ -34,7 +34,7 @@ OC.L10N.register(
     "Close" : "Κλείσιμο",
     "filter" : "φίλτρο",
     "Language" : "Γλώσσα",
-    "Subscribe" : "Συνδρομή",
+    "Subscribe" : "Εγγραφή",
     "Got more awesome feeds? Share them with us!" : "Έχετε πιο τρομερές ροές; Μοιραστείτε τα μαζί μας!",
     "No articles available" : "Δεν υπάρχουν διαθέσιμα άρθρα",
     "No unread articles available" : "Κανένα αδιάβαστο άρθρο διαθέσιμο",
