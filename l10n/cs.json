@@ -25,7 +25,7 @@
     "Feed fetcher timeout" : "Časový limit při stahování článků",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted" : "Maximální počet sekund pro aktualizaci RSS nebo Atom zdroje; pokud bude interval překročen, aktualizace se ukončí",
     "Explore Service URL" : "URL prohledávání",
-    "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Pokud zadáno, bude tato URL dotazována na zobrazování kanálů v sekci prohledávání kanálu. Pro návrat k výchozí službě hledání ponechte toto pole prázdné.",
+    "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Pokud zadáno, bude tato URL dotazována na zobrazování kanálů v sekci prohledávání kanálu. Pro návrat k výchozí službě hledání ponechte tuto kolonku prázdnou.",
     "For more information check the wiki" : "Další informace jsou k dispozici na wiki projektu",
     "Saved" : "Uloženo",
     "Download" : "Stáhnout",

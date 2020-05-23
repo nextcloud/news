@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "אישור פג תוקף או יישום לא מופעל! יש לטעון את הדף שוב!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "שגיאת שרת פנימית! נא לעיין בקובץ data/nextcloud.log שאצלך לקבלת פרטים נוספים!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "הבקשה נכשלה, מערכת Nextcloud נמצאת כרגע במצב תחזוקה!",
+    "Can not add feed: Unable to parse feed" : "לא ניתן להוסיף הזנה: אין אפשרות לפענח הזנה",
     "Can not add feed: Exists already" : "לא ניתן להוסיף הזנת ערוץ תוכן: כבר קיים",
     "Articles without feed" : "מאמרים ללא ערוץ הזנת תוכן",
     "Can not add folder: Exists already" : "לא ניתן להוסיף תיקייה: כבר קיימת",
