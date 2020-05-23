@@ -32,6 +32,7 @@ class Config
     private $loggerParams;
     private $maxSize;
     private $exploreUrl;
+    private $updateInterval;
 
     public function __construct(
         Folder $fileSystem,
@@ -48,6 +49,7 @@ class Config
         $this->logger = $logger;
         $this->exploreUrl = '';
         $this->loggerParams = $LoggerParameters;
+        $this->updateInterval = 3600;
     }
 
     public function getAutoPurgeMinimumInterval()
@@ -94,6 +96,10 @@ class Config
         return $this->exploreUrl;
     }
 
+    public function getUpdateInterval()
+    {
+        return $this->updateInterval;
+    }
 
     public function setAutoPurgeMinimumInterval($value)
     {
@@ -134,6 +140,12 @@ class Config
     {
         $this->exploreUrl = $value;
     }
+
+    public function setUpdateInterval($value)
+    {
+        $this->updateInterval = $value;
+    }
+
 
 
     public function read($configPath, $createIfNotExists = false)

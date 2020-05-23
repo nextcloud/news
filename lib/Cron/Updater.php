@@ -11,13 +11,13 @@
 
 namespace OCA\News\Cron;
 
-use OC\BackgroundJob\Job;
+use OC\BackgroundJob\TimedJob;
 
 use OCA\News\Config\Config;
 use OCA\News\Service\StatusService;
 use OCA\News\Utility\Updater as UpdaterService;
 
-class Updater extends Job
+class Updater extends TimedJob
 {
 
     /**
@@ -34,6 +34,7 @@ class Updater extends Job
     private $updaterService;
 
     public function __construct(
+        ITimeFactroy $time,
         Config $config,
         StatusService $status,
         UpdaterService $updaterService
@@ -41,6 +42,8 @@ class Updater extends Job
         $this->config = $config;
         $this->status = $status;
         $this->updaterService = $updaterService;
+
+        parent::setInterval($this->config->getupdateInterval());
     }
 
     protected function run($argument)

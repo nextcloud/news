@@ -27,6 +27,7 @@ class Admin implements ISettings
             'useCronUpdates' => $this->config->getUseCronUpdates(),
             'maxSize' => $this->config->getMaxSize(),
             'exploreUrl' => $this->config->getExploreUrl(),
+            'updateInterval' => $this->config->getUpdateInterval(),
         ];
         return new TemplateResponse('news', 'admin', $data, '');
     }
