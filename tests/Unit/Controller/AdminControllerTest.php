@@ -62,7 +62,8 @@ class AdminControllerTest extends TestCase
             'feedFetcherTimeout' => 4,
             'useCronUpdates' => 5,
             'maxSize' => 7,
-            'exploreUrl' => 'test'
+            'exploreUrl' => 'test',
+            'updateInterval' => 3600
         ];
         $this->config->expects($this->once())
             ->method('getAutoPurgeMinimumInterval')
@@ -85,6 +86,9 @@ class AdminControllerTest extends TestCase
         $this->config->expects($this->once())
             ->method('getExploreUrl')
             ->will($this->returnValue($expected['exploreUrl']));
+        $this->config->expects($this->once())
+            ->method('getUpdateInterval')
+            ->will($this->returnValue($expected['updateInterval']));
 
         $response = $this->controller->index();
         $data = $response->getParams();
@@ -106,7 +110,8 @@ class AdminControllerTest extends TestCase
             'feedFetcherTimeout' => 4,
             'useCronUpdates' => 5,
             'maxSize' => 7,
-            'exploreUrl' => 'test'
+            'exploreUrl' => 'test',
+            'updateInterval' => 3600
         ];
 
         $this->config->expects($this->once())
@@ -127,6 +132,9 @@ class AdminControllerTest extends TestCase
         $this->config->expects($this->once())
             ->method('setExploreUrl')
             ->with($this->equalTo($expected['exploreUrl']));
+        $this->config->expects($this->once())
+            ->method('setUpdateInterval')
+            ->with($this->equalTo($expected['updateInterval']));
         $this->config->expects($this->once())
             ->method('write')
             ->with($this->equalTo($this->configPath));
@@ -152,6 +160,9 @@ class AdminControllerTest extends TestCase
         $this->config->expects($this->once())
             ->method('getExploreUrl')
             ->will($this->returnValue($expected['exploreUrl']));
+        $this->config->expects($this->once())
+            ->method('getUpdateInterval')
+            ->will($this->returnValue($expected['updateInterval']));
 
         $response = $this->controller->update(
             $expected['autoPurgeMinimumInterval'],
@@ -160,7 +171,8 @@ class AdminControllerTest extends TestCase
             $expected['feedFetcherTimeout'],
             $expected['maxSize'],
             $expected['useCronUpdates'],
-            $expected['exploreUrl']
+            $expected['exploreUrl'],
+            $expected['updateInterval']
         );
 
         $this->assertEquals($expected, $response);

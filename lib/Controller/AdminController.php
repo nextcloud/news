@@ -73,6 +73,7 @@ class AdminController extends Controller
             'useCronUpdates' => $this->config->getUseCronUpdates(),
             'maxSize' => $this->config->getMaxSize(),
             'exploreUrl' => $this->config->getExploreUrl(),
+            'updateInterval' => $this->config->getupdateInterval(),
         ];
         return new TemplateResponse($this->appName, 'admin', $data, 'blank');
     }
@@ -88,6 +89,7 @@ class AdminController extends Controller
      * @param int    $maxSize                  New max feed size
      * @param bool   $useCronUpdates           Whether or not to use cron updates
      * @param string $exploreUrl               URL to use for the explore feed
+     * @param int    $updateInterval           Interval in which the feeds will be updated
      *
      * @return array with the updated values
      */
@@ -98,7 +100,8 @@ class AdminController extends Controller
         $feedFetcherTimeout,
         $maxSize,
         $useCronUpdates,
-        $exploreUrl
+        $exploreUrl,
+        $updateInterval
     ) {
         $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
         $this->config->setAutoPurgeCount($autoPurgeCount);
@@ -107,6 +110,7 @@ class AdminController extends Controller
         $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
         $this->config->setUseCronUpdates($useCronUpdates);
         $this->config->setExploreUrl($exploreUrl);
+        $this->config->setupdateInterval($updateInterval);
         $this->config->write($this->configPath);
 
         return [
@@ -118,6 +122,7 @@ class AdminController extends Controller
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
             'exploreUrl' => $this->config->getExploreUrl(),
+            'updateInterval' => $this->config->getupdateInterval(),
         ];
     }
 }

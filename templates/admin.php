@@ -125,6 +125,25 @@ style('news', 'admin');
         <p><input type="text" name="news-explore-url"
                value="<?php p($_['exploreUrl']); ?>"></p>
     </div>
+    <div class="form-line">
+        <p>
+            <label for="news-updater-interval">
+                <?php p($l->t('Update Interval')); ?>
+            </label>
+        </p>
+        <p>
+            <em>
+                <?php p($l->t(
+                    'Interval in which the feeds will be updated '
+                )); ?>.
+            </em>
+            <a href="https://github.com/nextcloud/news/tree/master/docs/updateInterval"><?php p($l->t(
+                'For more information check the wiki'
+            )); ?></a>
+        </p>
+        <p><input type="text" name="news-update-interval"
+               value="<?php p($_['updateInterval']); ?>"></p>
+    </div>
     <div id="news-saved-message">
         <span class="msg success"><?php p($l->t('Saved')); ?></span>
     </div>
