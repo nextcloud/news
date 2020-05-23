@@ -394,6 +394,8 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **url**
 * **enclosureMime**
 * **enclosureLink**
+* **mediaThumbnail**
+* **mediaDescription**
 
 ## Get items
 * **Status**: Implemented
@@ -425,9 +427,12 @@ The following attributes are **not sanitized** meaning: including them in your w
       "body": "<p>At first I have to say...</p>",
       "enclosureMime": null,
       "enclosureLink": null,
+      "mediaThumbnail": null, // new in 14.1.4-rc1
+      "mediaDescription": null, // new in 14.1.4-rc1
       "feedId": 67,
       "unread": true,
       "starred": false,
+      "rtl": false, // new in 6.0.2
       "lastModified": 1367273003,
       "fingerprint": "aeaae2123"  // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
     }, // etc
