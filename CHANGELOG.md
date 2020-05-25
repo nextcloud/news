@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.10
+
+### Changed
+- Update feed-io to v4.7.1
+
 ## 14.1.9
 
 ### Changed
