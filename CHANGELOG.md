@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.1.11
+
+### Changed
+- Re-release of 14.1.10
+
 ## 14.1.10
 
 ### Changed
