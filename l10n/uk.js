@@ -76,6 +76,7 @@ OC.L10N.register(
     "Undo delete feed" : "Скасувати вилучення стрічки",
     "Rename" : "Перейменувати",
     "Menu" : "Меню",
+    "Mark read" : "Позначити як прочитане",
     "Newest first" : "Новіші попереду",
     "Oldest first" : "Старіші попереду",
     "Delete" : "Вилучити",
