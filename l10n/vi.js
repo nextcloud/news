@@ -6,6 +6,7 @@ OC.L10N.register(
     "Close" : "Đóng",
     "Language" : "Ngôn ngữ",
     "Subscribe" : "Theo dõi",
+    "Open website" : "Mở trang web",
     "by" : "bởi",
     "from" : "từ",
     "Description" : "Mô tả",
