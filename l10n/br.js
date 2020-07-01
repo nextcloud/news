@@ -5,6 +5,8 @@ OC.L10N.register(
     "Close" : "Serriñ",
     "Folder" : "Teuliad",
     "New folder" : "Heuliad nevez",
+    "Username" : "anv implijer",
+    "Password" : "Ger-tremen",
     "Rename" : "Adenvel",
     "Delete" : "Dilemel",
     "Settings" : "Arventennoù",
