@@ -1,8 +1,10 @@
 OC.L10N.register(
     "news",
     {
+    "Saved" : "Enrolet",
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
+    "Language" : "Yezh",
     "Folder" : "Teuliad",
     "New folder" : "Heuliad nevez",
     "Username" : "anv implijer",
