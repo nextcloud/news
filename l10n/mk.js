@@ -10,6 +10,7 @@ OC.L10N.register(
     "Close" : "Затвори",
     "Language" : "Јазик",
     "Subscribe" : "Претплата",
+    "Open website" : "Отвори вебсајт",
     "by" : "од",
     "from" : "од",
     "Description" : "Опис",
