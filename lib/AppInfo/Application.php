@@ -153,6 +153,20 @@ class Application extends App
                 'player.vimeo.com/video/|' .
                 'vk.com/video_ext.php)%'
             ); //allow YouTube and Vimeo
+
+            // Additionally to the defaults, allow the data URI scheme.
+            // See http://htmlpurifier.org/live/configdoc/plain.html#URI.AllowedSchemes
+            $config->set('URI.AllowedSchemes', [
+                'http' => true,
+                'https' => true,
+                'data' => true,
+                'mailto' => true,
+                'ftp' => true,
+                'nntp' => true,
+                'news' => true,
+                'tel' => true,
+            ]);
+
             $def = $config->getHTMLDefinition(true);
             $def->addAttribute('iframe', 'allowfullscreen', 'Bool');
             return new HTMLPurifier($config);
