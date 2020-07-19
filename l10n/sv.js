@@ -85,7 +85,7 @@ OC.L10N.register(
     "Create" : "Skapa",
     "Explore" : "Utforska",
     "Update failed more than 50 times" : "Uppdatering misslyckades mer än 50 gånger",
-    "Deleted feed" : "Raderade flöde",
+    "Deleted feed" : "Borttagna flöde",
     "Undo delete feed" : "Ångra radera flöde",
     "Rename" : "Byt namn",
     "Menu" : "Meny",

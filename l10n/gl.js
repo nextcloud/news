@@ -4,7 +4,7 @@ OC.L10N.register(
     "Request failed, network connection unavailable!" : "Non se realizou a solicitude, a conexión de rede non está dispoñíbel!",
     "Request unauthorized. Are you logged in?" : "Solicitude non autorizada. Está vostede autenticado?",
     "Request forbidden. Are you an admin?" : "Solicitude prohibida. É vostede un administrador?",
-    "Token expired or app not enabled! Reload the page!" : "Ou ben caducou a testemuña ou a aplicación non está activada! Volva cargar a páxina!",
+    "Token expired or app not enabled! Reload the page!" : "Ou ben caducou o testemuño ou a aplicación non está activada. Volva cargar a páxina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Produciuse un erro interno do servidor! Verifique o ficheiro data/nextcloud.log para obter máis información!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Produciuse un fallo na solicitude, Nexcloud esta actualmente en modo mantemento!",
     "Can not add feed: Unable to parse feed" : "Non é posíbel engadir a fonte: Non é posíbel analizala",
