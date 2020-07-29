@@ -1,7 +1,7 @@
 OC.L10N.register(
     "news",
     {
-    "Saved" : "Enrolet",
+    "Saved" : "Enrollet",
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
     "Language" : "Yezh",
