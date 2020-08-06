@@ -5,6 +5,7 @@ OC.L10N.register(
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
     "Language" : "Yezh",
+    "Open website" : "Digor al lec'hienn-web",
     "by" : "gant",
     "Description" : "Diskrivadur",
     "Refresh" : "Freskaat",
