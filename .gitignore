@@ -2,11 +2,9 @@
 composer.phar
 node_modules/
 vendor/
-js/build
 *.log
 /build/
 /js/coverage/
-js/*.xml
 .rvm
 *.clover
 
