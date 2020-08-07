@@ -1,7 +1,7 @@
 {
   "name": "nextcloud-news",
   "description": "An RSS/Atom feed reader",
-  "main": "build/app.min.js",
+  "main": "js/app.min.js",
   "scripts": {
     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
     "prebuild": "npm install && npm update",
@@ -33,13 +33,6 @@
   "private": true,
   "homepage": "https://github.com/nextcloud/news",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-cli": "^2.2.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-jshint": "^2.1.0",
-    "gulp-ng-annotate": "^2.1.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-terser": "^1.2.0",
     "jasmine-core": "^3.5.0",
     "jquery": "^3.5.1",
     "jshint": "^2.11.1",
