@@ -97,7 +97,7 @@ endif
 .PHONY: npm
 npm:
 ifneq (, $(npm))
-	cd js && $(npm) run build
+	$(npm) run build
 else
 	@echo "npm command not available, please install nodejs first"
 	@exit 1
