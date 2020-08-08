@@ -1,4 +1,3 @@
 <template>
-	<div id="content" class="app-news">
-  </div>
+	<div id="content" class="app-news" />
 </template>
