@@ -71,6 +71,8 @@
     "debug": "^4.1.1",
     "masonry-layout": "^4.2.2",
     "moment": "^2.26.0",
+    "stylelint-config-recommended-scss": "^4.2.0",
+    "stylelint-scss": "^3.18.0",
     "vue": "^2.6.11",
     "vuex": "^3.5.1"
   }
