@@ -31,8 +31,3 @@ export default {
 }
 </script>
 
-<style>
-.icon-rss {
-	background-image: url(/img/rss.svg) !important;
-}
-</style>
