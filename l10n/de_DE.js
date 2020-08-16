@@ -29,6 +29,8 @@ OC.L10N.register(
     "Explore Service URL" : "Service-URL finden",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Falls angegeben, wird die URL dieses Dienstes zur Feed-Anzeige innerhalb des Explore-Feed-Bereichs abgefragt. Lassen Sie dieses Feld unausgefüllt, um auf den eingebauten Explore-Dienst zurückzugreifen.",
     "For more information check the wiki" : "Für weitere Informationen besuchen Sie das Wiki ",
+    "Update Interval" : "Aktualisierungsintervall",
+    "Interval in which the feeds will be updated " : "Intervall, in dem die Feeds aktualisiert werden",
     "Saved" : "Gespeichert",
     "Download" : "Herunterladen",
     "Close" : "Schließen",
