@@ -29,6 +29,8 @@ OC.L10N.register(
     "Explore Service URL" : "URL del servizio Esplora",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty" : "Se specificato, questo URL del servizio sarà interrogato per visualizzare le fonti nella sezione di esplorazione. Per tornare al servizio di esplorazione integrato, lascia vuoto questo campo",
     "For more information check the wiki" : "Per ulteriori informazioni, controlla il wiki",
+    "Update Interval" : "Intervallo di aggiornamento",
+    "Interval in which the feeds will be updated " : "Intervallo in cui le fonti saranno aggiornate",
     "Saved" : "Salvato",
     "Download" : "Scarica",
     "Close" : "Chiudi",
