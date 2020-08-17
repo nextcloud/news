@@ -15,7 +15,7 @@ style('news', 'admin');
         <p>
             <em><?php p($l->t(
                 'Disable this if you run a custom updater such as the Python ' .
-                'updater included in the app'
+                'updater included in the app.'
             )); ?></em>
         </p>
     </div>
@@ -29,7 +29,7 @@ style('news', 'admin');
             <?php p($l->t(
                 'Minimum amount of seconds after deleted feeds and folders ' .
                 'are removed from the database; values below 60 seconds are ' .
-                'ignored'
+                'ignored.'
             )); ?></em>
         </p>
         <p><input type="text" name="news-auto-purge-minimum-interval"
@@ -48,7 +48,7 @@ style('news', 'admin');
                 "feed which won't be deleted by the cleanup job; ".
                 'if old articles reappear after being read, increase ' .
                 'this value; negative values such as -1 will turn this ' .
-                'feature off'
+                'feature off.'
             )); ?></em>
         </p>
         <p><input type="text" name="news-auto-purge-count"
@@ -63,7 +63,7 @@ style('news', 'admin');
         <p>
             <em>
                 <?php p($l->t(
-                    'How many redirects the feed fetcher should follow'
+                    'How many redirects the feed fetcher should follow.'
                 )); ?>
             </em>
         </p>
@@ -80,7 +80,7 @@ style('news', 'admin');
             <em>
                 <?php p($l->t(
                     'Maximum feed size in bytes. If the RSS/Atom page is ' .
-                    'bigger than this value, the update will be aborted'
+                    'bigger than this value, the update will be aborted.'
                 )); ?>
             </em>
         </p>
@@ -97,7 +97,7 @@ style('news', 'admin');
             <em>
             <?php p($l->t(
                 'Maximum number of seconds to wait for an RSS or Atom feed ' .
-                'to load; if it takes longer the update will be aborted'
+                'to load; if it takes longer the update will be aborted.'
             )); ?></em>
         </p>
         <p><input type="text" name="news-feed-fetcher-timeout"
@@ -115,11 +115,11 @@ style('news', 'admin');
                     'If given, this service\'s URL will be queried for ' .
                     'displaying the feeds in the explore feed section. To ' .
                     'fall back to the built in explore service, leave this ' .
-                    'input empty'
-                )); ?>.
+                    'input empty.'
+                )); ?>
             </em>
             <a href="https://github.com/nextcloud/news/tree/master/docs/explore"><?php p($l->t(
-                'For more information check the wiki'
+                'For more information check the wiki.'
             )); ?></a>
         </p>
         <p><input type="text" name="news-explore-url"
@@ -128,17 +128,17 @@ style('news', 'admin');
     <div class="form-line">
         <p>
             <label for="news-updater-interval">
-                <?php p($l->t('Update Interval')); ?>
+                <?php p($l->t('Update interval')); ?>
             </label>
         </p>
         <p>
             <em>
                 <?php p($l->t(
-                    'Interval in which the feeds will be updated '
-                )); ?>.
+                    'Interval in which the feeds will be updated.'
+                )); ?>
             </em>
             <a href="https://github.com/nextcloud/news/tree/master/docs/updateInterval"><?php p($l->t(
-                'For more information check the wiki'
+                'For more information check the wiki.'
             )); ?></a>
         </p>
         <p><input type="text" name="news-update-interval"
