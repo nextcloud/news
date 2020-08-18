@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Pieprasījums neizdevās, Nextcloud pašlaik darbojas uzturēšanas režīmā!",
     "Can not add folder: Exists already" : "Nevar pievienot mapi: tāda jau ir",
     "Use system cron for updates" : "Izmantot sistēmas cron atjauninājumiem",
-    "Disable this if you run a custom updater such as the Python updater included in the app" : "Izslēdziet šo, ja lietojat kādu citu atjauninātāju, piemēram, Python atjauninātāju, kas iekļauts šajā programmā",
     "Purge interval" : "Iztīrīšanas intervāls",
     "Maximum redirects" : "Maksimāli pieļaujamais pārsūtīšanu skaits",
     "Saved" : "Saglabāts",
