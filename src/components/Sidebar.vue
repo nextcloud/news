@@ -6,11 +6,11 @@
 			button-class="icon-add" />
 		<ul id="locations" class="with-icon">
 			<AppNavigationItem :title="t('news','Unread articles')" icon="icon-rss">
-				<AppNavigationCounter slot="counter">
+				<AppNavigationCounter slot="counter" :highlighted="true">
 					5
 				</AppNavigationCounter>
 			</AppNavigationItem>
-			<AppNavigationItem :title="t('news','New folder')" icon="icon-add" />
+			<AppNavigationItem :title="t('news','New folder')" icon="icon-add" :new-item="true" />
 		</ul>
 	</AppNavigation>
 </template>
