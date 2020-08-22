@@ -11,17 +11,16 @@ env:
   global:
     - MOZ_HEADLESS=1
   jobs:
-    - CORE_BRANCH=stable16 DB=pgsql
     - CORE_BRANCH=stable17 DB=mysql
     - CORE_BRANCH=stable18 DB=pgsql
     - CORE_BRANCH=stable18 DB=mysql
-    - CORE_BRANCH=stable18 DB=sqlite
+    - CORE_BRANCH=stable19 DB=pgsql
+    - CORE_BRANCH=stable19 DB=mysql
+    - CORE_BRANCH=stable19 DB=sqlite
     - CORE_BRANCH=master DB=sqlite
 
 jobs:
   exclude:
-    - php: 7.4
-      env: CORE_BRANCH=stable16 DB=pgsql # not supported by nc
     - php: 7.4
       env: CORE_BRANCH=stable17 DB=pgsql # not supported by nc
     - php: 7.4
