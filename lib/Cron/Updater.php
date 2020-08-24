@@ -34,7 +34,6 @@ class Updater extends TimedJob
     private $updaterService;
 
     public function __construct(
-        ITimeFactroy $time,
         Config $config,
         StatusService $status,
         UpdaterService $updaterService

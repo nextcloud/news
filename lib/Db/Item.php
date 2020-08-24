@@ -77,7 +77,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public static function fromImport($import): Item
     {
-        $item = new static();
+        $item = new Item();
         $item->setGuid($import['guid']);
         $item->setGuidHash($import['guid']);
         $item->setUrl($import['url']);
@@ -142,6 +142,22 @@ class Item extends Entity implements IAPI, \JsonSerializable
     public function getEnclosureLink()
     {
         return $this->enclosureLink;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMediaThumbnail()
+    {
+        return $this->mediaThumbnail;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMediaDescription()
+    {
+        return $this->mediaDescription;
     }
 
     /**

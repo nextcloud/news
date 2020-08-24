@@ -113,6 +113,11 @@ clean:
 phpcs:
 	./vendor/bin/phpcs --standard=PSR2 lib
 
+# Reports PHP static violations
+.PHONY: phpstan
+phpstan:
+	./vendor/bin/phpstan analyse --level=1 lib
+
 # Same as clean but also removes dependencies installed by composer and
 # npm
 .PHONY: distclean
@@ -192,4 +197,5 @@ test:
 	# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
 	env TRAVIS=1 ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
 	$(MAKE) phpcs
+	$(MAKE) phpstan
 	./bin/tools/generate_authors.php

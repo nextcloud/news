@@ -56,7 +56,8 @@
     "phpunit/phpunit": "^7.5",
     "squizlabs/php_codesniffer": "^3.4",
     "guzzlehttp/guzzle": "^6.3",
-    "symfony/service-contracts": "1.1.8"
+    "symfony/service-contracts": "1.1.8",
+    "phpstan/phpstan": "^0.12.38"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
