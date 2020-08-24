@@ -111,7 +111,7 @@ clean:
 # Reports PHP codestyle violations
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs --standard=PSR2 lib
+	./vendor/bin/phpcs --standard=PSR2 --ignore=lib/Migration/Version*.php lib
 
 # Same as clean but also removes dependencies installed by composer and
 # npm

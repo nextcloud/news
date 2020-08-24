@@ -13,7 +13,6 @@
 
 namespace OCA\News\AppInfo;
 
-use Closure;
 use FeedIo\FeedIo;
 use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -40,7 +39,6 @@ use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
-use OCA\News\Utility\ProxyConfigParser;
 use OCA\News\Scraper\Scraper;
 
 /**
@@ -196,9 +194,6 @@ class Application extends App
             return $favicon;
         });
 
-        /**
-         * @noinspection PhpParamsInspection
-         */
         $container->registerService(Fetcher::class, function (IContainer $c): Fetcher {
             $fetcher = new Fetcher();
 
