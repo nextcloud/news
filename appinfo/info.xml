@@ -50,6 +50,15 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         </post-migration>
     </repair-steps>
 
+    <commands>
+        <command>OCA\News\Command\ExploreGenerator</command>
+        <command>OCA\News\Command\ShowFeed</command>
+        <command>OCA\News\Command\Updater\AllFeeds</command>
+        <command>OCA\News\Command\Updater\UpdateFeed</command>
+        <command>OCA\News\Command\Updater\BeforeUpdate</command>
+        <command>OCA\News\Command\Updater\AfterUpdate</command>
+    </commands>
+
     <settings>
         <admin>OCA\News\Settings\Admin</admin>
         <admin-section>OCA\News\Settings\Section</admin-section>
