@@ -1,0 +1,9 @@
+parameters:
+  inferPrivatePropertyTypeFromConstructor: true
+  treatPhpDocTypesAsCertain: false
+  bootstrapFiles:
+    - %currentWorkingDirectory%/../../lib/base.php
+  excludes_analyse:
+    - %currentWorkingDirectory%/lib/Migration/*.php
+    - %currentWorkingDirectory%/lib/AppInfo/Application.php
+    - %currentWorkingDirectory%/lib/Fetcher/Client/Legacy*.php
