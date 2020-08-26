@@ -1,10 +1,10 @@
-# What is the update intervall?
-The Update intervall is used to determine when the next update of all feeds should be done.
-You can configure this as an administrator.
+# What is the update interval?
+The update interval is used to determine when the next update of all feeds should be done.
+You can configure this interval as an administrator.
 
-# What is a good update intervall?
-It depends on your individual needs.
-Also keep in mind that the lower your update intervall the more traffic is generated.
+# What is a good update interval?
+That depends on your individual needs.
+Please keep in mind that the lower you set your update interval, the more traffic is generated.
 
-# Can I set indivudal update intervalls per feed/user?
+# Can I set individual update intervals per feed/user?
 No.
