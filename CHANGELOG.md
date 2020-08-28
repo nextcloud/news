@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.2.0
+
+### Changed
+- JS library updates #737 #741
+- Allow data URI scheme inside the body of an item #733
+- Update to new BackgroudJob logic #704
+- Update feed-io to v4.7.8
+
+### Fixed
+- fixed double escaped intro (not rendering html) #694
+- translation updates and fixes
+
 ## 14.1.11
 
 ### Changed
