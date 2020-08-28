@@ -853,7 +853,7 @@ class FeedServiceTest extends TestCase
         $item->setFeedId(3);
         $item->setAuthor('john');
         $item->setGuid('s');
-        $item->setGuidHash('s');
+        $item->setGuidHash('03c7c0ace395d80182db07ae2c30f034');
         $item->setTitle('hey');
         $item->setPubDate(333);
         $item->setBody('come over');
@@ -910,7 +910,7 @@ class FeedServiceTest extends TestCase
         $item->setFeedId(3);
         $item->setAuthor('john');
         $item->setGuid('s');
-        $item->setGuidHash('s');
+        $item->setGuidHash('03c7c0ace395d80182db07ae2c30f034');
         $item->setTitle('hey');
         $item->setPubDate(333);
         $item->setBody('come over');
