@@ -220,7 +220,7 @@ class ItemTest extends TestCase
     {
         $item = new Item();
         $item->setGuid('guid');
-        $item->setGuidHash('guid');
+        $item->setGuidHash('1e0ca5b1252f1f6b1e0ac91be7e7219e');
         $item->setUrl('https://google');
         $item->setTitle('title');
         $item->setAuthor('author');

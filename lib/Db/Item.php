@@ -79,7 +79,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     {
         $item = new Item();
         $item->setGuid($import['guid']);
-        $item->setGuidHash($import['guid']);
+        $item->setGuidHash(md5($import['guid']));
         $item->setUrl($import['url']);
         $item->setTitle($import['title']);
         $item->setAuthor($import['author']);
