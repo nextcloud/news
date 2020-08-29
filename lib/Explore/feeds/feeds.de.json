@@ -96,5 +96,12 @@
         "feed": "https:\/\/netzpolitik.org\/feed",
         "description": "Plattform für digitale Freiheitsrechte",
         "votes": 100
+    }, {
+        "title": "Tarnkappe.info",
+        "favicon": "https:\/\/tarnkappe.info\/favicon.ico",
+        "url": "https:\/\/tarnkappe.info",
+        "feed": "https:\/\/tarnkappe.info\/feed",
+        "description": "Unter dem Radar - Urheberrecht, Netzpolitik & IT Security",
+        "votes": 100
     }]
 }
