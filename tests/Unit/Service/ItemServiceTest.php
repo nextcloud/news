@@ -13,9 +13,11 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OC\Log;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Service\ItemService;
-use OCA\News\Service\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Utility\PsrLogger;
 use OCA\News\Utility\Time;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
@@ -24,6 +26,7 @@ use \OCA\News\Db\FeedType;
 use OCP\IConfig;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 
 class ItemServiceTest extends TestCase
@@ -39,14 +42,30 @@ class ItemServiceTest extends TestCase
     private $itemService;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     */
+    private $config;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|Time
+     */
+    private $timeFactory;
+
+    /**
+     * @var int
+     */
+    private $newestItemId;
+
+    /**
      * @var int
      */
     private $time;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
-     */
-    private $config;
 
     protected function setUp(): void
     {
@@ -66,7 +85,24 @@ class ItemServiceTest extends TestCase
         $this->config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = new ItemService($this->mapper, $this->timeFactory, $this->config);
+
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->itemService = new ItemService(
+            $this->mapper,
+            $this->timeFactory,
+            $this->config,
+            $this->logger
+        );
+        $this->user = 'jack';
+        $this->id = 3;
+        $this->updatedSince = 20333;
+        $this->showAll = true;
+        $this->offset = 5;
+        $this->limit = 20;
+        $this->newestItemId = 4;
     }
 
 
@@ -143,7 +179,7 @@ class ItemServiceTest extends TestCase
             )
             ->will($this->returnValue(['val']));
 
-        $result = $this->itemService->findAll(
+        $result = $this->itemService->findAllItems(
             3, $type, 20, 5,
             true, false, 'jack'
         );
@@ -167,7 +203,7 @@ class ItemServiceTest extends TestCase
             )
             ->will($this->returnValue(['val']));
 
-        $result = $this->itemService->findAll(
+        $result = $this->itemService->findAllItems(
             3, $type, 20, 5,
             true, true, 'jack'
         );
@@ -179,7 +215,7 @@ class ItemServiceTest extends TestCase
     {
         $type = FeedType::STARRED;
         $this->mapper->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(20),
                 $this->equalTo(5),
@@ -191,7 +227,7 @@ class ItemServiceTest extends TestCase
             )
             ->will($this->returnValue(['val']));
 
-        $result = $this->itemService->findAll(
+        $result = $this->itemService->findAllItems(
             3, $type, 20, 5,
             true, true, 'jack'
         );
@@ -203,8 +239,9 @@ class ItemServiceTest extends TestCase
     {
         $type = FeedType::STARRED;
         $search = ['test'];
+
         $this->mapper->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(20),
                 $this->equalTo(5),
@@ -216,7 +253,7 @@ class ItemServiceTest extends TestCase
             )
             ->will($this->returnValue(['val']));
 
-        $result = $this->itemService->findAll(
+        $result = $this->itemService->findAllItems(
             3, $type, 20, 5,
             true, true, 'jack', $search
         );

@@ -21,7 +21,7 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\FeedType;
-use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\IConfig;
 use OCP\IRequest;
 

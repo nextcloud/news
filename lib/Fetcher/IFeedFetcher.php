@@ -43,5 +43,5 @@ interface IFeedFetcher
      * @return boolean if the fetcher can handle the url. This fetcher will be
      * used exclusively to fetch the feed and the items of the page
      */
-    public function canHandle($url): bool;
+    public function canHandle(string $url): bool;
 }

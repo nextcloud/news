@@ -64,7 +64,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return bool
      */
-    public function canHandle($url): bool
+    public function canHandle(string $url): bool
     {
         return true;
     }

@@ -39,22 +39,22 @@ abstract class IntegrationTest extends \Test\TestCase
     protected $userPassword = 'test';
 
     /**
-     * @var ItemMapper 
+     * @var ItemMapper
      */
     protected $itemMapper;
 
     /**
-     * @var  FeedMapper 
+     * @var  FeedMapper
      */
     protected $feedMapper;
 
     /**
-     * @var FolderMapper 
+     * @var FolderMapper
      */
     protected $folderMapper;
 
     /**
-     * @var IAppContainer 
+     * @var IAppContainer
      */
     protected $container;
 
@@ -72,7 +72,7 @@ abstract class IntegrationTest extends \Test\TestCase
         $this->folderMapper = $this->container->query(FolderMapper::class);
     }
 
-    protected function findItemByTitle($title) 
+    protected function findItemByTitle($title)
     {
         // db logic in app code, negligible since its a test
         $items = $this->itemMapper->where(['title' => $title]);
@@ -97,7 +97,7 @@ abstract class IntegrationTest extends \Test\TestCase
         return $result;
     }
 
-    protected function findFolderByName($name) 
+    protected function findFolderByName($name)
     {
         return $this->folderMapper->where(
             [
@@ -107,7 +107,7 @@ abstract class IntegrationTest extends \Test\TestCase
         )[0];
     }
 
-    protected function findFeedByTitle($title) 
+    protected function findFeedByTitle($title)
     {
         return $this->feedMapper->where(
             [
@@ -120,7 +120,7 @@ abstract class IntegrationTest extends \Test\TestCase
     /**
      * @param string $name loads fixtures from a given file
      */
-    protected function loadFixtures($name) 
+    protected function loadFixtures($name)
     {
         $fixtures = include __DIR__ . '/Fixtures/data/' . $name . '.php';
         if (array_key_exists('folders', $fixtures)) {
@@ -131,7 +131,7 @@ abstract class IntegrationTest extends \Test\TestCase
         }
     }
 
-    protected function loadFolderFixtures(array $folderFixtures=[]) 
+    protected function loadFolderFixtures(array $folderFixtures = [])
     {
         foreach ($folderFixtures as $folderFixture) {
             $folder = new FolderFixture($folderFixture);
@@ -140,7 +140,7 @@ abstract class IntegrationTest extends \Test\TestCase
         }
     }
 
-    protected function loadFeedFixtures(array $feedFixtures=[], $folderId=0) 
+    protected function loadFeedFixtures(array $feedFixtures = [], $folderId = 0)
     {
         foreach ($feedFixtures as $feedFixture) {
             $feed = new FeedFixture($feedFixture);
@@ -153,7 +153,7 @@ abstract class IntegrationTest extends \Test\TestCase
         }
     }
 
-    protected function loadItemFixtures(array $itemFixtures=[], $feedId) 
+    protected function loadItemFixtures(array $itemFixtures, $feedId)
     {
         foreach ($itemFixtures as $itemFixture) {
             $item = new ItemFixture($itemFixture);
@@ -168,7 +168,7 @@ abstract class IntegrationTest extends \Test\TestCase
      * @param  Entity $fixture
      * @return int the id
      */
-    protected function loadFixture(Entity $fixture) 
+    protected function loadFixture(Entity $fixture)
     {
         if ($fixture instanceof FeedFixture) {
             return $this->feedMapper->insert($fixture)->getId();
@@ -187,7 +187,7 @@ abstract class IntegrationTest extends \Test\TestCase
      * @param $user
      * @param $password
      */
-    protected function setupUser($user, $password) 
+    protected function setupUser($user, $password)
     {
         $userManager = $this->container->query(IUserManager::class);
         $userManager->createUser($user, $password);
@@ -200,7 +200,7 @@ abstract class IntegrationTest extends \Test\TestCase
      *
      * @param $user
      */
-    protected function tearDownUser($user) 
+    protected function tearDownUser($user)
     {
         $userManager = $this->container->query(IUserManager::class);
 
@@ -216,7 +216,7 @@ abstract class IntegrationTest extends \Test\TestCase
      *
      * @param string $user
      */
-    protected function clearUserNewsDatabase($user) 
+    protected function clearUserNewsDatabase($user)
     {
         $sql = [
             'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` IN

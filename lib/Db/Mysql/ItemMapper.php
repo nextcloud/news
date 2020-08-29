@@ -16,6 +16,12 @@ namespace OCA\News\Db\Mysql;
 use OCA\News\Utility\Time;
 use OCP\IDBConnection;
 
+/**
+ * Class LegacyItemMapper
+ *
+ * @package OCA\News\Db\Mysql
+ * @deprecated use normal ItemMapper
+ */
 class ItemMapper extends \OCA\News\Db\ItemMapper
 {
 

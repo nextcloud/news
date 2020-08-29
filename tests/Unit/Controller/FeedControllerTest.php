@@ -21,8 +21,8 @@ use OCP\AppFramework\Http;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedType;
-use OCA\News\Service\ServiceNotFoundException;
-use OCA\News\Service\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCP\IConfig;
 use OCP\IRequest;
 
@@ -93,7 +93,7 @@ class FeedControllerTest extends TestCase
             'starred' => 13
         ];
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue($result['feeds']));
         $this->itemService->expects($this->once())
@@ -121,7 +121,7 @@ class FeedControllerTest extends TestCase
             'newestItemId' => 5
         ];
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue($result['feeds']));
         $this->itemService->expects($this->once())
@@ -189,7 +189,7 @@ class FeedControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+            ->with($this->user, $id)
             ->will($this->throwException($ex));
 
         $this->activeInitMocks($id, $type);
@@ -209,7 +209,7 @@ class FeedControllerTest extends TestCase
 
         $this->folderService->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+            ->with($this->user, $id)
             ->will($this->throwException($ex));
 
         $this->activeInitMocks($id, $type);
@@ -374,7 +374,7 @@ class FeedControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('update')
-            ->with($this->equalTo(4), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo(4))
             ->will($this->returnValue($feed));
 
         $response = $this->controller->update(4);
@@ -387,7 +387,7 @@ class FeedControllerTest extends TestCase
     {
         $this->feedService->expects($this->once())
             ->method('update')
-            ->with($this->equalTo(4), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo(4))
             ->will($this->throwException(new ServiceNotFoundException('NO!')));
 
         $response = $this->controller->update(4);

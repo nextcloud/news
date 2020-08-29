@@ -12,13 +12,17 @@
  */
 
 
-namespace OCA\News\Utility;
+namespace OCA\News\Service;
 
-use \OCA\News\Service\FolderService;
+use OCA\News\Db\ItemMapperV2;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FolderServiceV2;
+use OCA\News\Service\ItemServiceV2;
+use \OCA\News\Service\LegacyFolderService;
 use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
 
-class Updater
+class UpdaterService
 {
 
     /**
@@ -37,9 +41,9 @@ class Updater
     private $itemService;
 
     public function __construct(
-        FolderService $folderService,
-        FeedService $feedService,
-        ItemService $itemService
+        FolderServiceV2 $folderService,
+        FeedServiceV2 $feedService,
+        ItemServiceV2 $itemService
     ) {
         $this->folderService = $folderService;
         $this->feedService = $feedService;
@@ -56,12 +60,12 @@ class Updater
 
     public function update()
     {
-        $this->feedService->updateAll();
+        $this->feedService->fetchAll();
     }
 
 
     public function afterUpdate()
     {
-        $this->itemService->autoPurgeOld();
+        $this->itemService->purgeOverThreshold(null);
     }
 }

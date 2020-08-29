@@ -11,35 +11,49 @@
  * @copyright 2012-2014 Bernhard Posselt
  */
 
-namespace OCA\News\Tests\Unit\Utility;
+namespace OCA\News\Tests\Unit\Service;
 
-
-use OCA\News\Service\FeedService;
-use OCA\News\Service\FolderService;
-use OCA\News\Service\ItemService;
-use OCA\News\Utility\Updater;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FolderServiceV2;
+use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\UpdaterService;
 use PHPUnit\Framework\TestCase;
 
 class UpdaterTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FolderServiceV2
+     */
     private $folderService;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedServiceV2
+     */
     private $feedService;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
+     */
     private $itemService;
+
+    /**
+     * @var UpdaterService
+     */
     private $updater;
 
     protected function setUp(): void
     {
-        $this->folderService = $this->getMockBuilder(FolderService::class)
+        $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder(FeedService::class)
+        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(ItemService::class)
+        $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->updater = new Updater(
+        $this->updater = new UpdaterService(
             $this->folderService,
             $this->feedService,
             $this->itemService
@@ -59,14 +73,14 @@ class UpdaterTest extends TestCase
     public function testAfterUpdate()
     {
         $this->itemService->expects($this->once())
-            ->method('autoPurgeOld');
+            ->method('purgeOverThreshold');
         $this->updater->afterUpdate();
     }
 
     public function testUpdate()
     {
         $this->feedService->expects($this->once())
-            ->method('updateAll');
+            ->method('fetchAll');
         $this->updater->update();
     }
 }

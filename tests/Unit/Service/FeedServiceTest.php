@@ -20,7 +20,7 @@ use OC\L10N\L10N;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Service\FeedService;
-use OCA\News\Service\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 
@@ -30,9 +30,9 @@ use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FetcherException;
 use OCP\IConfig;
 use OCP\IL10N;
-use OCP\ILogger;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 
 class FeedServiceTest extends TestCase
@@ -82,16 +82,15 @@ class FeedServiceTest extends TestCase
     private $l10n;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|ILogger
+     * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
      */
     private $logger;
 
     protected function setUp(): void
     {
-        $this->logger = $this->getMockBuilder(ILogger::class)
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $loggerParams = ['hi'];
         $this->time = 222;
         $this->autoPurgeMinimumInterval = 10;
         $timeFactory = $this->getMockBuilder(Time::class)
@@ -130,7 +129,7 @@ class FeedServiceTest extends TestCase
         $this->feedService = new FeedService(
             $this->feedMapper,
             $this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
-            $timeFactory, $config, $this->purifier, $loggerParams
+            $timeFactory, $config, $this->purifier
         );
         $this->user = 'jack';
     }
@@ -140,12 +139,13 @@ class FeedServiceTest extends TestCase
      */
     public function testFindAll()
     {
+        $this->response = [];
         $this->feedMapper->expects($this->once())
             ->method('findAllFromUser')
             ->with($this->user)
             ->will($this->returnValue([]));
 
-        $result = $this->feedService->findAll($this->user);
+        $result = $this->feedService->findAllForUser($this->user);
         $this->assertEquals([], $result);
     }
 
@@ -199,10 +199,14 @@ class FeedServiceTest extends TestCase
         $this->feedMapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($createdFeed))
-            ->will($this->returnCallback(function() use ($createdFeed) {
-                $createdFeed->setId(4);
-                return $createdFeed;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(4);
+                        return $createdFeed;
+                    }
+                )
+            );
         $this->itemMapper->expects($this->at(0))
             ->method('findByGuidHash')
             ->with(
@@ -281,10 +285,14 @@ class FeedServiceTest extends TestCase
         $this->feedMapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($createdFeed))
-            ->will($this->returnCallback(function() use ($createdFeed) {
-                $createdFeed->setId(5);
-                return $createdFeed;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(5);
+                        return $createdFeed;
+                    }
+                )
+            );
         $this->itemMapper->expects($this->at(0))
             ->method('findByGuidHash')
             ->with(
@@ -358,10 +366,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -394,11 +399,11 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(2))
             ->method('find')
-            ->with($feed->getId(), $this->user)
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
 
 
-        $return = $this->feedService->update($feed->getId(), $this->user);
+        $return = $this->feedService->update($this->user, $feed->getId());
 
         $this->assertEquals($return, $feed);
     }
@@ -425,10 +430,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -461,11 +463,11 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(2))
             ->method('find')
-            ->with($feed->getId(), $this->user)
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
 
 
-        $return = $this->feedService->update($feed->getId(), $this->user, true);
+        $return = $this->feedService->update($this->user, $feed->getId(), true);
 
         $this->assertEquals($return, $feed);
     }
@@ -543,7 +545,7 @@ class FeedServiceTest extends TestCase
             ->will($this->returnValue($feed));
 
 
-        $return = $this->feedService->update($feed->getId(), $this->user);
+        $return = $this->feedService->update($this->user, $feed->getId());
 
         $this->assertEquals($return, $feed);
     }
@@ -583,7 +585,7 @@ class FeedServiceTest extends TestCase
             ->method('find')
             ->will($this->returnValue($feed));
 
-        $return = $this->feedService->update($feed->getId(), $this->user);
+        $return = $this->feedService->update($this->user, $feed->getId());
 
         $this->assertEquals($return, $feed);
 
@@ -622,7 +624,7 @@ class FeedServiceTest extends TestCase
             ->method('findByGuidHash')
             ->will($this->returnValue($item));
 
-        $this->feedService->update($feed->getId(), $this->user);
+        $this->feedService->update($this->user, $feed->getId());
     }
 
     public function testUpdateFails()
@@ -643,10 +645,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -661,10 +660,10 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(2))
             ->method('find')
-            ->with($feed->getId(), $this->user)
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($exptectedFeed));
 
-        $return = $this->feedService->update($feed->getId(), $this->user);
+        $return = $this->feedService->update($this->user, $feed->getId());
 
         $this->assertEquals($return, $exptectedFeed);
     }
@@ -679,14 +678,11 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->throwException($ex));
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->feedService->update($feed->getId(), $this->user);
+        $this->feedService->update($this->user, $feed->getId());
     }
 
 
@@ -702,10 +698,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
 
         $this->fetcher->expects($this->once())
@@ -719,7 +712,7 @@ class FeedServiceTest extends TestCase
             ->will($this->throwException($ex));
 
         $this->expectException(DoesNotExistException::class);
-        $this->feedService->update($feed->getId(), $this->user);
+        $this->feedService->update($this->user, $feed->getId());
     }
 
 
@@ -744,10 +737,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(0))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->feedMapper->expects($this->at(1))
             ->method('update')
@@ -766,14 +756,11 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->at(2))
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->throwException($ex));
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->feedService->update($feed->getId(), $this->user);
+        $this->feedService->update($this->user, $feed->getId());
     }
 
 
@@ -787,15 +774,12 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->never())
             ->method('fetch');
 
-        $this->feedService->update($feedId, $this->user);
+        $this->feedService->update($this->user, $feedId);
     }
 
 
@@ -809,16 +793,13 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
             ->will($this->returnValue([null, null]));
 
-        $return = $this->feedService->update($feedId, $this->user);
+        $return = $this->feedService->update($this->user, $feedId);
         $this->assertEquals($feed, $return);
     }
 
@@ -833,14 +814,16 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($feedId), $this->equalTo($this->user))
+            ->with($this->user, $feedId)
             ->will($this->returnValue($feed));
 
         $this->feedMapper->expects($this->once())
             ->method('update')
             ->with($this->equalTo($feed));
 
-        $this->feedService->patch($feedId, $this->user, ['folderId' => $folderId]);
+        $this->feedService->patch(
+            $feedId, $this->user, ['folderId' => $folderId]
+        );
 
         $this->assertEquals($folderId, $feed->getFolderId());
     }
@@ -856,14 +839,16 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($feedId), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo($feedId))
             ->will($this->returnValue($feed));
 
         $this->feedMapper->expects($this->once())
             ->method('update')
             ->with($this->equalTo($feed));
 
-        $this->feedService->patch($feedId, $this->user, ['title' => $feedTitle]);
+        $this->feedService->patch(
+            $feedId, $this->user, ['title' => $feedTitle]
+        );
 
         $this->assertEquals($feedTitle, $feed->getTitle());
     }
@@ -982,10 +967,14 @@ class FeedServiceTest extends TestCase
         $this->feedMapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($insertFeed))
-            ->will($this->returnCallback(function() use ($insertFeed) {
-                $insertFeed->setId(3);
-                return $insertFeed;
-            }));
+            ->will(
+                $this->returnCallback(
+                    function () use ($insertFeed) {
+                        $insertFeed->setId(3);
+                        return $insertFeed;
+                    }
+                )
+            );
 
 
         $this->itemMapper->expects($this->at(0))
@@ -1025,7 +1014,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo($id))
             ->will($this->returnValue($feed));
         $this->feedMapper->expects($this->once())
             ->method('update')
@@ -1044,7 +1033,7 @@ class FeedServiceTest extends TestCase
 
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo($id))
             ->will($this->returnValue($feed));
         $this->feedMapper->expects($this->once())
             ->method('update')
@@ -1103,7 +1092,7 @@ class FeedServiceTest extends TestCase
 
     public function testfindAllFromAllUsers()
     {
-        $expected = 'hi';
+        $expected = ['hi'];
         $this->feedMapper->expects($this->once())
             ->method('findAll')
             ->will($this->returnValue($expected));
@@ -1128,8 +1117,8 @@ class FeedServiceTest extends TestCase
         $this->feedMapper->expects($this->once())
             ->method('find')
             ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user),
+                $this->equalTo($feed->getId())
             )
             ->will($this->returnValue($feed));
 
@@ -1146,18 +1135,18 @@ class FeedServiceTest extends TestCase
     {
         $feed = Feed::fromRow(
             [
-            'id' => 3,
-            'http_etag' => 'a',
-            'http_last_modified' => 1,
-            'full_text_enabled' => false
+                'id' => 3,
+                'http_etag' => 'a',
+                'http_last_modified' => 1,
+                'full_text_enabled' => false
             ]
         );
         $feed2 = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->at(0))
             ->method('find')
             ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user),
+                $this->equalTo($feed->getId())
             )
             ->will($this->returnValue($feed));
 
@@ -1171,8 +1160,8 @@ class FeedServiceTest extends TestCase
         $this->feedMapper->expects($this->at(2))
             ->method('find')
             ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
+                $this->equalTo($this->user),
+                $this->equalTo($feed->getId())
             )
             ->will($this->throwException(new DoesNotExistException('')));
 
@@ -1183,7 +1172,7 @@ class FeedServiceTest extends TestCase
 
     public function testPatchDoesNotExist()
     {
-        $this->expectException('OCA\News\Service\ServiceNotFoundException');
+        $this->expectException('OCA\News\Service\Exceptions\ServiceNotFoundException');
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
             ->method('find')
@@ -1198,10 +1187,7 @@ class FeedServiceTest extends TestCase
         $feed = Feed::fromRow(['id' => 3, 'pinned' => false]);
         $this->feedMapper->expects($this->once())
             ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+            ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
 
         $feed->setPinned(true);

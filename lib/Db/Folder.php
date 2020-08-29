@@ -31,6 +31,8 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     protected $deletedAt = 0;
     /** @var string|null */
     protected $lastModified = '0';
+    /** @var Feed[] */
+    public $feeds = [];
 
     /**
      * @return int|null
@@ -134,7 +136,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setParentId(int $parentId = null)
+    public function setParentId(int $parentId = 0)
     {
         if ($this->parentId !== $parentId) {
             $this->parentId = $parentId;
@@ -155,7 +157,8 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         return $this->serializeFields(
             [
                 'id',
-                'name'
+                'name',
+                'feeds'
             ]
         );
     }

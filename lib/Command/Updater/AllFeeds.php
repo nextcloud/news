@@ -11,19 +11,24 @@
 
 namespace OCA\News\Command\Updater;
 
-use Exception;
-
+use OCA\News\Service\FeedServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use OCA\News\Service\FeedService;
-
 class AllFeeds extends Command
 {
+    /**
+     * @var FeedServiceV2 Feed service
+     */
     private $feedService;
 
-    public function __construct(FeedService $feedService)
+    /**
+     * AllFeeds constructor.
+     *
+     * @param FeedServiceV2 $feedService
+     */
+    public function __construct(FeedServiceV2 $feedService)
     {
         parent::__construct();
         $this->feedService = $feedService;
@@ -35,6 +40,7 @@ class AllFeeds extends Command
 
         $this->setName('news:updater:all-feeds')
             ->setDescription(
+                'DEPRECATED: use news:feed:list instead.' . PHP_EOL .
                 'Prints a JSON string which contains all feed ' .
                 'ids and user ids, e.g.: ' . $json
             );
@@ -42,7 +48,7 @@ class AllFeeds extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $feeds = $this->feedService->findAllFromAllUsers();
+        $feeds = $this->feedService->findAll();
         $result = ['feeds' => []];
 
         foreach ($feeds as $feed) {
@@ -53,6 +59,6 @@ class AllFeeds extends Command
             ];
         }
 
-        print(json_encode($result));
+        $output->write(json_encode($result));
     }
 }

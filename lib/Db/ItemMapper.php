@@ -15,15 +15,25 @@ namespace OCA\News\Db;
 
 use Exception;
 use OCA\News\Utility\Time;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+/**
+ * Class LegacyItemMapper
+ *
+ * @package OCA\News\Db
+ * @deprecated use ItemMapper
+ */
 class ItemMapper extends NewsMapper
 {
 
+    const TABLE_NAME = 'news_items';
     public function __construct(IDBConnection $db, Time $time)
     {
-        parent::__construct($db, 'news_items', Item::class, $time);
+        parent::__construct($db, $time, Item::class);
     }
 
     private function makeSelectQuery(
@@ -99,13 +109,13 @@ class ItemMapper extends NewsMapper
      * @param string $userId
      * @return \OCA\News\Db\Item
      */
-    public function find($id, $userId)
+    public function find(string $userId, int $id)
     {
         $sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
         return $this->findEntity($sql, [$userId, $id]);
     }
 
-    public function starredCount($userId)
+    public function starredCount(string $userId)
     {
         $sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
@@ -126,7 +136,7 @@ class ItemMapper extends NewsMapper
     }
 
 
-    public function readAll($highestItemId, $time, $userId)
+    public function readAll(int $highestItemId, $time, string $userId)
     {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
             'SET unread = ? ' .
@@ -221,7 +231,7 @@ class ItemMapper extends NewsMapper
     }
 
 
-    private function findEntitiesIgnoringNegativeLimit($sql, $params, $limit)
+    private function findEntitiesIgnoringNegativeLimit($sql, $params, $limit): array
     {
         // ignore limit if negative to offer a way to return all feeds
         if ($limit >= 0) {
@@ -286,7 +296,7 @@ class ItemMapper extends NewsMapper
     }
 
 
-    public function findAll(
+    public function findAllItems(
         $limit,
         $offset,
         $type,
@@ -294,7 +304,7 @@ class ItemMapper extends NewsMapper
         $oldestFirst,
         $userId,
         $search = []
-    ) {
+    ): array {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $sql = $this->buildStatusQueryPart($showAll, $type);
@@ -457,7 +467,7 @@ class ItemMapper extends NewsMapper
 
     public function readItem($itemId, $isRead, $lastModified, $userId)
     {
-        $item = $this->find($itemId, $userId);
+        $item = $this->find($userId, $itemId);
 
         // reading an item should set all of the same items as read, whereas
         // marking an item as unread should only mark the selected instance
@@ -478,5 +488,31 @@ class ItemMapper extends NewsMapper
             $item->setUnread(true);
             $this->update($item);
         }
+    }
+
+    /**
+     * NO-OP
+     *
+     * @param string $userId
+     *
+     * @return array
+     */
+    public function findAllFromUser(string $userId): array
+    {
+        return [];
+    }
+
+    public function findFromUser(string $userId, int $id): Entity
+    {
+        return $this->find($id, $userId);
+    }
+
+    /**
+     * NO-OP
+     * @return array
+     */
+    public function findAll(): array
+    {
+        return [];
     }
 }

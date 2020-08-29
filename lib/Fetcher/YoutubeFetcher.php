@@ -37,9 +37,13 @@ class YoutubeFetcher implements IFeedFetcher
 
 
     /**
-     * This fetcher handles all the remaining urls therefore always returns true
+     * Check if the URL is a youtube URL by reformatting it.
+     *
+     * @param string $url the url that should be fetched
+     *
+     * @return bool
      */
-    public function canHandle($url): bool
+    public function canHandle(string $url): bool
     {
         return $this->buildUrl($url) !== $url;
     }

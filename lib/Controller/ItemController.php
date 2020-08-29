@@ -18,8 +18,8 @@ use \OCP\IConfig;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceException;
-use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\ItemService;
 use \OCA\News\Service\FeedService;
 
@@ -245,7 +245,7 @@ class ItemController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int[] item ids
+     * @param int[] $itemIds item ids
      */
     public function readMultiple($itemIds)
     {

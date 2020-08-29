@@ -20,9 +20,9 @@ use OCA\News\Service\FolderService;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 use \OCA\News\Db\Folder;
 use OCP\IRequest;
@@ -38,25 +38,22 @@ class FolderApiControllerTest extends TestCase
     private $folderService;
     private $itemService;
     private $folderAPI;
-    private $appName;
-    private $userSession;
     private $user;
-    private $request;
     private $msg;
 
     protected function setUp(): void
     {
-        $this->appName = 'news';
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $appName = 'news';
+        $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(IUserSession::class)
+        $userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession->expects($this->any())
+        $userSession->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->user));
         $this->user->expects($this->any())
@@ -69,9 +66,9 @@ class FolderApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderAPI = new FolderApiController(
-            $this->appName,
-            $this->request,
-            $this->userSession,
+            $appName,
+            $request,
+            $userSession,
             $this->folderService,
             $this->itemService
         );

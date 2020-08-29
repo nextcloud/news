@@ -15,6 +15,12 @@ namespace OCA\News\Db;
 
 use OCP\AppFramework\Db\Entity;
 
+/**
+ * Class Feed
+ *
+ * @package OCA\News\Db
+ * @Embeddable
+ */
 class Feed extends Entity implements IAPI, \JsonSerializable
 {
     use EntityJSONSerializer;
@@ -67,6 +73,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected $basicAuthUser = '';
     /** @var string|null */
     protected $basicAuthPassword = '';
+    /** @var Item[] */
+    public $items = [];
 
     /**
      * @return int|null
@@ -135,7 +143,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getHttpEtag()
+    public function getHttpEtag(): ?string
     {
         return $this->httpEtag;
     }
@@ -143,7 +151,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getHttpLastModified()
+    public function getHttpLastModified(): ?string
     {
         return $this->httpLastModified;
     }
@@ -313,250 +321,294 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int|null $added
      */
-    public function setAdded(int $added = null)
+    public function setAdded(int $added = null): Feed
     {
         if ($this->added !== $added) {
             $this->added = $added;
             $this->markFieldUpdated('added');
         }
+
+        return $this;
     }
 
     /**
      * @param int $articlesPerUpdate
      */
-    public function setArticlesPerUpdate(int $articlesPerUpdate)
+    public function setArticlesPerUpdate(int $articlesPerUpdate): Feed
     {
         if ($this->articlesPerUpdate !== $articlesPerUpdate) {
             $this->articlesPerUpdate = $articlesPerUpdate;
             $this->markFieldUpdated('articlesPerUpdate');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $basicAuthPassword
      */
-    public function setBasicAuthPassword(string $basicAuthPassword = null)
+    public function setBasicAuthPassword(string $basicAuthPassword = null): Feed
     {
         if ($this->basicAuthPassword !== $basicAuthPassword) {
             $this->basicAuthPassword = $basicAuthPassword;
             $this->markFieldUpdated('basicAuthPassword');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $basicAuthUser
      */
-    public function setBasicAuthUser(string $basicAuthUser = null)
+    public function setBasicAuthUser(string $basicAuthUser = null): Feed
     {
         if ($this->basicAuthUser !== $basicAuthUser) {
             $this->basicAuthUser = $basicAuthUser;
             $this->markFieldUpdated('basicAuthUser');
         }
+
+        return $this;
     }
 
     /**
      * @param int|null $deletedAt
      */
-    public function setDeletedAt(int $deletedAt = null)
+    public function setDeletedAt(int $deletedAt = null): Feed
     {
         if ($this->deletedAt !== $deletedAt) {
             $this->deletedAt = $deletedAt;
             $this->markFieldUpdated('deletedAt');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $faviconLink
      */
-    public function setFaviconLink(string $faviconLink = null)
+    public function setFaviconLink(string $faviconLink = null): Feed
     {
         if ($this->faviconLink !== $faviconLink) {
             $this->faviconLink = $faviconLink;
             $this->markFieldUpdated('faviconLink');
         }
+
+        return $this;
     }
 
     /**
      * @param int $folderId
      */
-    public function setFolderId(int $folderId)
+    public function setFolderId(int $folderId): Feed
     {
         if ($this->folderId !== $folderId) {
             $this->folderId = $folderId;
             $this->markFieldUpdated('folderId');
         }
+
+        return $this;
     }
 
     /**
      * @param bool $fullTextEnabled
      */
-    public function setFullTextEnabled(bool $fullTextEnabled)
+    public function setFullTextEnabled(bool $fullTextEnabled): Feed
     {
         if ($this->fullTextEnabled !== $fullTextEnabled) {
             $this->fullTextEnabled = $fullTextEnabled;
             $this->markFieldUpdated('fullTextEnabled');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $httpEtag
      */
-    public function setHttpEtag(string $httpEtag = null)
+    public function setHttpEtag(string $httpEtag = null): Feed
     {
         if ($this->httpEtag !== $httpEtag) {
             $this->httpEtag = $httpEtag;
             $this->markFieldUpdated('httpEtag');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $httpLastModified
      */
-    public function setHttpLastModified(string $httpLastModified = null)
+    public function setHttpLastModified(string $httpLastModified = null): Feed
     {
         if ($this->httpLastModified !== $httpLastModified) {
             $this->httpLastModified = $httpLastModified;
             $this->markFieldUpdated('httpLastModified');
         }
+
+        return $this;
     }
 
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId(int $id): Feed
     {
         if ($this->id !== $id) {
             $this->id = $id;
             $this->markFieldUpdated('id');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $lastModified
      */
-    public function setLastModified(string $lastModified = null)
+    public function setLastModified(string $lastModified = null): Feed
     {
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
             $this->markFieldUpdated('lastModified');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $lastUpdateError
      */
-    public function setLastUpdateError(string $lastUpdateError = null)
+    public function setLastUpdateError(string $lastUpdateError = null): Feed
     {
         if ($this->lastUpdateError !== $lastUpdateError) {
             $this->lastUpdateError = $lastUpdateError;
             $this->markFieldUpdated('lastUpdateError');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $link
      */
-    public function setLink(string $link = null)
+    public function setLink(string $link = null): Feed
     {
         $link = trim($link);
         if (strpos($link, 'http') === 0 && $this->link !== $link) {
             $this->link = $link;
             $this->markFieldUpdated('link');
         }
+
+        return $this;
     }
 
     /**
      * @param string|null $location
      */
-    public function setLocation(string $location = null)
+    public function setLocation(string $location = null): Feed
     {
         if ($this->location !== $location) {
             $this->location = $location;
             $this->markFieldUpdated('location');
         }
+
+        return $this;
     }
 
     /**
      * @param int $ordering
      */
-    public function setOrdering(int $ordering)
+    public function setOrdering(int $ordering): Feed
     {
         if ($this->ordering !== $ordering) {
             $this->ordering = $ordering;
             $this->markFieldUpdated('ordering');
         }
+
+        return $this;
     }
 
     /**
      * @param bool $pinned
      */
-    public function setPinned(bool $pinned)
+    public function setPinned(bool $pinned): Feed
     {
         if ($this->pinned !== $pinned) {
             $this->pinned = $pinned;
             $this->markFieldUpdated('pinned');
         }
+
+        return $this;
     }
 
     /**
      * @param bool $preventUpdate
      */
-    public function setPreventUpdate(bool $preventUpdate)
+    public function setPreventUpdate(bool $preventUpdate): Feed
     {
         if ($this->preventUpdate !== $preventUpdate) {
             $this->preventUpdate = $preventUpdate;
             $this->markFieldUpdated('preventUpdate');
         }
+
+        return $this;
     }
 
     /**
      * @param string $title
      */
-    public function setTitle(string $title)
+    public function setTitle(string $title): Feed
     {
         if ($this->title !== $title) {
             $this->title = $title;
             $this->markFieldUpdated('title');
         }
+
+        return $this;
     }
 
     /**
      * @param int $unreadCount
      */
-    public function setUnreadCount(int $unreadCount)
+    public function setUnreadCount(int $unreadCount): Feed
     {
         if ($this->unreadCount !== $unreadCount) {
             $this->unreadCount = $unreadCount;
             $this->markFieldUpdated('unreadCount');
         }
+
+        return $this;
     }
 
     /**
      * @param int $updateErrorCount
      */
-    public function setUpdateErrorCount(int $updateErrorCount)
+    public function setUpdateErrorCount(int $updateErrorCount): Feed
     {
         if ($this->updateErrorCount !== $updateErrorCount) {
             $this->updateErrorCount = $updateErrorCount;
             $this->markFieldUpdated('updateErrorCount');
         }
+
+        return $this;
     }
 
     /**
      * @param int $updateMode
      */
-    public function setUpdateMode(int $updateMode)
+    public function setUpdateMode(int $updateMode): Feed
     {
         if ($this->updateMode !== $updateMode) {
             $this->updateMode = $updateMode;
             $this->markFieldUpdated('updateMode');
         }
+
+        return $this;
     }
 
     /**
      * @param string $url
      */
-    public function setUrl(string $url)
+    public function setUrl(string $url): Feed
     {
         $url = trim($url);
         if (strpos($url, 'http') === 0 && $this->url !== $url) {
@@ -564,28 +616,34 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             $this->setUrlHash(md5($url));
             $this->markFieldUpdated('url');
         }
+
+        return $this;
     }
 
     /**
      * @param string $urlHash
      */
-    public function setUrlHash(string $urlHash)
+    public function setUrlHash(string $urlHash): Feed
     {
         if ($this->urlHash !== $urlHash) {
             $this->urlHash = $urlHash;
             $this->markFieldUpdated('urlHash');
         }
+
+        return $this;
     }
 
     /**
      * @param string $userId
      */
-    public function setUserId(string $userId)
+    public function setUserId(string $userId): Feed
     {
         if ($this->userId !== $userId) {
             $this->userId = $userId;
             $this->markFieldUpdated('userId');
         }
+
+        return $this;
     }
 
     public function toAPI(): array
@@ -603,7 +661,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
                 'link',
                 'pinned',
                 'updateErrorCount',
-                'lastUpdateError'
+                'lastUpdateError',
+                'items'
             ]
         );
     }

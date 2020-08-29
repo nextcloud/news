@@ -13,21 +13,33 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Db\Feed;
 use OCA\News\Db\ItemMapper;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Service;
-use OCA\News\Service\ServiceNotFoundException;
 use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 use \OCA\News\Db\Folder;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 
-class TestService extends Service
+class TestLegacyService extends Service
 {
-    public function __construct($mapper)
+    public function __construct($mapper, $logger)
     {
-        parent::__construct($mapper);
+        parent::__construct($mapper, $logger);
+    }
+
+    public function findAllForUser(string $userId): array
+    {
+        // TODO: Implement findAllForUser() method.
+    }
+
+    public function findAll(): array
+    {
+        // TODO: Implement findAll() method.
     }
 }
 
@@ -35,6 +47,7 @@ class ServiceTest extends TestCase
 {
 
     protected $mapper;
+    protected $logger;
     protected $newsService;
 
     protected function setUp(): void
@@ -42,7 +55,10 @@ class ServiceTest extends TestCase
         $this->mapper = $this->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->newsService = new TestService($this->mapper);
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->newsService = new TestLegacyService($this->mapper, $this->logger);
     }
 
 
@@ -58,10 +74,10 @@ class ServiceTest extends TestCase
             ->with($this->equalTo($folder));
         $this->mapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($user))
+            ->with($this->equalTo($user), $this->equalTo($id))
             ->will($this->returnValue($folder));
 
-        $this->newsService->delete($id, $user);
+        $this->newsService->delete($user, $id);
     }
 
 
@@ -72,9 +88,10 @@ class ServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($user));
+            ->with($this->equalTo($user), $this->equalTo($id))
+            ->will($this->returnValue(new Feed()));
 
-        $this->newsService->find($id, $user);
+        $this->newsService->find($user, $id);
     }
 
 
@@ -87,7 +104,7 @@ class ServiceTest extends TestCase
             ->will($this->throwException($ex));
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->newsService->find(1, '');
+        $this->newsService->find('', 1);
     }
 
 
@@ -100,7 +117,7 @@ class ServiceTest extends TestCase
             ->will($this->throwException($ex));
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->newsService->find(1, '');
+        $this->newsService->find('', 1);
     }
 
 }

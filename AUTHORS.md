@@ -130,6 +130,7 @@
 * [blackcrack](mailto:blackcrack@blackysgate.de)
 * [comradekingu](mailto:epost@anotheragency.no)
 * [e-alfred](mailto:e-alfred@users.noreply.github.com)
+* [fran-penedo](mailto:fran@franpenedo.com)
 * [joeplus](mailto:joerg@honululu.Speedport_W_723V_1_32_000)
 * [kesselb](mailto:mail@danielkesselberg.de)
 * [kondou](mailto:kondou@ts.unde.re)

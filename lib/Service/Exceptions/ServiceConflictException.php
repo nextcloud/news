@@ -11,9 +11,9 @@
  * @copyright 2012-2014 Bernhard Posselt
  */
 
-namespace OCA\News\Service;
+namespace OCA\News\Service\Exceptions;
 
-class ServiceValidationException extends ServiceException
+class ServiceConflictException extends ServiceException
 {
 
     /**

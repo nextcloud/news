@@ -18,7 +18,9 @@ use HTMLPurifier;
 
 use OCA\News\AppInfo\Application;
 use OCP\IConfig;
-use OCP\ILogger;
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCP\AppFramework\Db\Entity;
 use OCP\IL10N;
 use OCP\AppFramework\Db\DoesNotExistException;
 
@@ -28,14 +30,20 @@ use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Utility\Time;
+use Psr\Log\LoggerInterface;
 
+/**
+ * Class LegacyFeedService
+ *
+ * @package OCA\News\Service
+ * @deprecated use FeedServiceV2
+ */
 class FeedService extends Service
 {
 
     private $feedFetcher;
     private $itemMapper;
     private $feedMapper;
-    private $logger;
     private $l10n;
     private $timeFactory;
     private $autoPurgeMinimumInterval;
@@ -43,18 +51,19 @@ class FeedService extends Service
     private $loggerParams;
 
     public function __construct(
-        FeedMapper $feedMapper,
+        FeedMapper $legacyFeedMapper,
         Fetcher $feedFetcher,
-        ItemMapper $itemMapper,
-        ILogger $logger,
+        ItemMapper $legacyItemMapper,
+        LoggerInterface $logger,
         IL10N $l10n,
         Time $timeFactory,
         IConfig $config,
         HTMLPurifier $purifier
     ) {
-        parent::__construct($feedMapper);
+        parent::__construct($legacyFeedMapper, $logger);
         $this->feedFetcher = $feedFetcher;
-        $this->itemMapper = $itemMapper;
+        $this->feedMapper = $legacyFeedMapper;
+        $this->itemMapper = $legacyItemMapper;
         $this->logger = $logger;
         $this->l10n = $l10n;
         $this->timeFactory = $timeFactory;
@@ -64,7 +73,6 @@ class FeedService extends Service
             Application::DEFAULT_SETTINGS['autoPurgeMinimumInterval']
         );
         $this->purifier = $purifier;
-        $this->feedMapper = $feedMapper;
         $this->loggerParams = ['app' => Application::NAME];
     }
 
@@ -75,7 +83,7 @@ class FeedService extends Service
      *
      * @return Feed[]
      */
-    public function findAll($userId)
+    public function findAllForUser($userId): array
     {
         return $this->feedMapper->findAllFromUser($userId);
     }
@@ -88,7 +96,7 @@ class FeedService extends Service
      */
     public function findAllFromAllUsers()
     {
-        return $this->feedMapper->findAll();
+        return $this->findAll();
     }
 
 
@@ -202,17 +210,17 @@ class FeedService extends Service
     /**
      * Updates a single feed
      *
-     * @param  int    $feedId      the id of the feed that should be updated
      * @param  string $userId      the id of the user
+     * @param  int    $feedId      the id of the feed that should be updated
      * @param  bool   $forceUpdate update even if the article exists already
      *
      * @throws ServiceNotFoundException if the feed does not exist
      * @return Feed the updated feed entity
      */
-    public function update($feedId, $userId, $forceUpdate = false)
+    public function update(string $userId, int $feedId, $forceUpdate = false)
     {
         /** @var Feed $existingFeed */
-        $existingFeed = $this->find($feedId, $userId);
+        $existingFeed = $this->find($userId, $feedId);
 
         if ($existingFeed->getPreventUpdate() === true) {
             return $existingFeed;
@@ -316,7 +324,7 @@ class FeedService extends Service
 
         $this->feedMapper->update($existingFeed);
 
-        return $this->find($feedId, $userId);
+        return $this->find($userId, $feedId);
     }
 
     /**
@@ -333,7 +341,7 @@ class FeedService extends Service
         $urlHash = md5($url);
 
         // build assoc array for fast access
-        $feeds = $this->findAll($userId);
+        $feeds = $this->findAllForUser($userId);
         $feedsDict = [];
         foreach ($feeds as $feed) {
             $feedsDict[$feed->getLink()] = $feed;
@@ -402,9 +410,9 @@ class FeedService extends Service
      *
      * @throws ServiceNotFoundException when feed does not exist
      */
-    public function markDeleted($feedId, $userId)
+    public function markDeleted(int $feedId, string $userId)
     {
-        $feed = $this->find($feedId, $userId);
+        $feed = $this->find($userId, $feedId);
         $feed->setDeletedAt($this->timeFactory->getTime());
         $this->feedMapper->update($feed);
     }
@@ -418,9 +426,9 @@ class FeedService extends Service
      *
      * @throws ServiceNotFoundException when feed does not exist
      */
-    public function unmarkDeleted($feedId, $userId)
+    public function unmarkDeleted(int $feedId, string $userId)
     {
-        $feed = $this->find($feedId, $userId);
+        $feed = $this->find($userId, $feedId);
         $feed->setDeletedAt(0);
         $this->feedMapper->update($feed);
     }
@@ -463,9 +471,9 @@ class FeedService extends Service
     }
 
     /**
-     * @param string $feedId ID of the feed.
+     * @param int    $feedId ID of the feed.
      * @param string $userId ID of the user.
-     * @param array $diff An array containing the fields to update, e.g.:
+     * @param array  $diff   An array containing the fields to update, e.g.:
      * <code>
      * [
      *   'ordering' => 1,
@@ -479,9 +487,9 @@ class FeedService extends Service
      * @throws ServiceNotFoundException if feed does not exist
      * @return Feed The patched feed
      */
-    public function patch($feedId, $userId, $diff = [])
+    public function patch(int $feedId, string $userId, array $diff = [])
     {
-        $feed = $this->find($feedId, $userId);
+        $feed = $this->find($userId, $feedId);
 
         foreach ($diff as $attribute => $value) {
             $method = 'set' . ucfirst($attribute);
@@ -494,9 +502,14 @@ class FeedService extends Service
             $feed->setHttpEtag('');
             $feed->setHttpLastModified(0);
             $this->feedMapper->update($feed);
-            return $this->update($feedId, $userId, true);
+            return $this->update($userId, $feedId, true);
         }
 
         return $this->feedMapper->update($feed);
+    }
+
+    public function findAll(): array
+    {
+        return $this->feedMapper->findAll();
     }
 }

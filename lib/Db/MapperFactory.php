@@ -19,6 +19,12 @@ use OCP\IDBConnection;
 use OCA\News\Db\Mysql\ItemMapper as MysqlItemMapper;
 use OCA\News\DependencyInjection\IFactory;
 
+/**
+ * Class LegacyMapperFactory
+ *
+ * @package OCA\News\Db
+ * @deprecated not needed in modern system
+ */
 class MapperFactory implements IFactory
 {
 

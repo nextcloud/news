@@ -20,7 +20,7 @@ class FolderTest extends TestCase
 {
 
 
-    public function testToAPI() 
+    public function testToAPI()
     {
         $folder = new Folder();
         $folder->setId(3);
@@ -28,14 +28,15 @@ class FolderTest extends TestCase
 
         $this->assertEquals(
             [
-            'id' => 3,
-            'name' => 'name'
+                'id' => 3,
+                'name' => 'name',
+                'feeds' => [],
             ], $folder->toAPI()
         );
     }
 
 
-    public function testSerialize() 
+    public function testSerialize()
     {
         $folder = new Folder();
         $folder->setId(3);

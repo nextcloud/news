@@ -26,8 +26,10 @@ use OCA\News\Db\Mysql\ItemMapper as MysqlMapper;
 class MapperFactoryTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IDBConnection
+     */
     private $db;
-    private $settings;
 
     public function setUp(): void
     {

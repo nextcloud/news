@@ -21,9 +21,9 @@ use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\FolderService;
 use \OCA\News\Service\ItemService;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 class FolderApiController extends ApiController
 {

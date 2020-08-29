@@ -29,14 +29,14 @@ class StatusService
     public function __construct(
         IConfig $settings,
         IDBConnection $connection,
-        $AppName
+        string $AppName
     ) {
         $this->settings = $settings;
         $this->appName = $AppName;
         $this->connection = $connection;
     }
 
-    public function isProperlyConfigured()
+    public function isProperlyConfigured(): bool
     {
         $cronMode = $this->settings->getSystemValue('backgroundjobs_mode');
         $cronOff = !$this->settings->getAppValue(
@@ -50,7 +50,7 @@ class StatusService
     }
 
 
-    public function getStatus()
+    public function getStatus(): array
     {
         $version = $this->settings->getAppValue(
             $this->appName,

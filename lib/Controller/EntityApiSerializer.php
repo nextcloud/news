@@ -13,6 +13,12 @@ namespace OCA\News\Controller;
 
 use \OCA\News\Db\IAPI;
 
+/**
+ * Class EntityApiSerializer
+ *
+ * @package OCA\News\Controller
+ * @deprecated use ApiPayloadTrait
+ */
 class EntityApiSerializer
 {
 
