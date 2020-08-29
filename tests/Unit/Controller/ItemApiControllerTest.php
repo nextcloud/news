@@ -19,7 +19,7 @@ use OCA\News\Controller\ItemApiController;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Db\Item;
 use OCP\IRequest;
 use OCP\IUser;

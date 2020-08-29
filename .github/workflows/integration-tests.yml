@@ -100,9 +100,16 @@ jobs:
         run: |
           cd ../server
           ./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
+          ./occ news:folder:add 'admin' 'Something'
+          ./occ news:folder:list 'admin' | grep 'Something'
+          ./occ news:folder:delete 'admin' $(./occ news:folder:list 'admin' | grep 'Something' -1  | head -1 | grep -oE '[0-9]*')
+          ./occ news:feed:add 'admin' "https://nextcloud.com/blog/feed/"
+          ./occ news:feed:list 'admin' | grep 'nextcloud\.com'
+          ./occ news:feed:delete 'admin' $(./occ news:feed:list 'admin' | grep 'nextcloud\.com' -1  | head -1 | grep -oE '[0-9]*')
 
       - name: Prep PHP tests
         run: cd ../server/apps/news && make php-test-dependencies
       - name: Integration tests
         run: cd ../server/apps/news && make integration-test
+
 

@@ -15,6 +15,12 @@ namespace OCA\News\Db;
 
 use OCP\AppFramework\Db\Entity;
 
+/**
+ * Class Item
+ *
+ * @package OCA\News\Db
+ * @Embeddable
+ */
 class Item extends Entity implements IAPI, \JsonSerializable
 {
     use EntityJSONSerializer;

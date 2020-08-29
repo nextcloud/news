@@ -20,7 +20,7 @@ use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\ItemService;
-use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
 class ItemApiController extends ApiController
 {
@@ -223,7 +223,7 @@ class ItemApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
      */
     public function readMultiple($items)
     {
@@ -236,7 +236,7 @@ class ItemApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
      */
     public function unreadMultiple($items)
     {
@@ -266,7 +266,7 @@ class ItemApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
      */
     public function starMultiple($items)
     {
@@ -279,7 +279,7 @@ class ItemApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
      */
     public function unstarMultiple($items)
     {

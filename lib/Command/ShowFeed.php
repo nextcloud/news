@@ -60,7 +60,7 @@ class ShowFeed extends Command
             ->addOption('full-text', 'f', InputOption::VALUE_NONE, 'Usa a scraper to get full text');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url   = $input->getArgument('feed');
         $user = $input->getOption('user');
@@ -71,6 +71,7 @@ class ShowFeed extends Command
             list($feed, $items) = $this->feedFetcher->fetch($url, true, null, $fullTextEnabled, $user, $password);
             $output->writeln("Feed: " . json_encode($feed, JSON_PRETTY_PRINT));
             $output->writeln("Items: " . json_encode($items, JSON_PRETTY_PRINT));
+            return 0;
         } catch (\Throwable $ex) {
             $output->writeln('<error>Failed to fetch feed info:</error>');
             $output->writeln($ex->getMessage());

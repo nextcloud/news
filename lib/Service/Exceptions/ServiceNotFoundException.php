@@ -11,7 +11,7 @@
  * @copyright 2012-2014 Bernhard Posselt
  */
 
-namespace OCA\News\Service;
+namespace OCA\News\Service\Exceptions;
 
 class ServiceNotFoundException extends ServiceException
 {

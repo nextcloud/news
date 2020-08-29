@@ -15,10 +15,10 @@ use OC\BackgroundJob\TimedJob;
 
 use OCA\News\AppInfo\Application;
 use OCA\News\Service\StatusService;
-use OCA\News\Utility\Updater as UpdaterService;
+use OCA\News\Service\UpdaterService;
 use OCP\IConfig;
 
-class Updater extends TimedJob
+class UpdaterJob extends TimedJob
 {
 
     /**
@@ -28,7 +28,7 @@ class Updater extends TimedJob
     /**
      * @var StatusService
      */
-    private $status;
+    private $statusService;
     /**
      * @var UpdaterService
      */
@@ -40,7 +40,7 @@ class Updater extends TimedJob
         UpdaterService $updaterService
     ) {
         $this->config = $config;
-        $this->status = $status;
+        $this->statusService = $status;
         $this->updaterService = $updaterService;
 
         $interval = $this->config->getAppValue(
@@ -60,10 +60,12 @@ class Updater extends TimedJob
             Application::DEFAULT_SETTINGS['useCronUpdates']
         );
 
-        if ($uses_cron && $this->status->isProperlyConfigured()) {
-            $this->updaterService->beforeUpdate();
-            $this->updaterService->update();
-            $this->updaterService->afterUpdate();
+        if (!$uses_cron || !$this->statusService->isProperlyConfigured()) {
+            return;
         }
+
+        $this->updaterService->beforeUpdate();
+        $this->updaterService->update();
+        $this->updaterService->afterUpdate();
     }
 }

@@ -13,6 +13,8 @@
 
 namespace OCA\News\Utility;
 
+use \DOMDocument;
+use \DOMElement;
 use OCA\News\Db\Feed;
 
 /**
@@ -26,11 +28,11 @@ class OPMLExporter
      *
      * @param  \OCA\News\Db\Folder[] $folders
      * @param  \OCA\News\Db\Feed[]   $feeds
-     * @return \DomDocument the document
+     * @return DOMDocument the document
      */
-    public function build($folders, $feeds)
+    public function build(array $folders, array $feeds)
     {
-        $document = new \DomDocument('1.0', 'UTF-8');
+        $document = new DOMDocument('1.0', 'UTF-8');
         $document->formatOutput = true;
 
         $root = $document->createElement('opml');
@@ -81,10 +83,10 @@ class OPMLExporter
 
     /**
      * @param Feed $feed
-     * @param \DOMDocument $document
-     * @return \DOMElement
+     * @param DOMDocument $document
+     * @return DOMElement
      */
-    protected function createFeedOutline($feed, $document)
+    protected function createFeedOutline(Feed $feed, DOMDocument $document)
     {
         $feedOutline = $document->createElement('outline');
         $feedOutline->setAttribute('title', $feed->getTitle());
@@ -92,6 +94,7 @@ class OPMLExporter
         $feedOutline->setAttribute('type', 'rss');
         $feedOutline->setAttribute('xmlUrl', $feed->getUrl());
         $feedOutline->setAttribute('htmlUrl', $feed->getLink());
+
         return $feedOutline;
     }
 }

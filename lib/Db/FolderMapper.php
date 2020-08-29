@@ -14,18 +14,28 @@
 namespace OCA\News\Db;
 
 use OCA\News\Utility\Time;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
+/**
+ * Class LegacyFolderMapper
+ *
+ * @package OCA\News\Db
+ * @deprecated use FolderMapper
+ */
 class FolderMapper extends NewsMapper
 {
 
+    const TABLE_NAME = 'news_folders';
+
     public function __construct(IDBConnection $db, Time $time)
     {
-        parent::__construct($db, 'news_folders', Folder::class, $time);
+        parent::__construct($db, $time, Folder::class);
     }
 
-    public function find($id, $userId)
+    public function find(string $userId, int $id)
     {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `id` = ? ' .
@@ -35,7 +45,7 @@ class FolderMapper extends NewsMapper
     }
 
 
-    public function findAllFromUser($userId)
+    public function findAllFromUser(string $userId): array
     {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `user_id` = ? ' .
@@ -46,7 +56,7 @@ class FolderMapper extends NewsMapper
     }
 
 
-    public function findByName($folderName, $userId)
+    public function findByName(string $folderName, string $userId)
     {
         $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
             'WHERE `name` = ? ' .
@@ -57,7 +67,7 @@ class FolderMapper extends NewsMapper
     }
 
 
-    public function delete(Entity $entity)
+    public function delete(Entity $entity): Entity
     {
         parent::delete($entity);
 
@@ -73,6 +83,8 @@ class FolderMapper extends NewsMapper
 
         $stmt = $this->execute($sql);
         $stmt->closeCursor();
+
+        return $entity;
     }
 
 
@@ -109,9 +121,23 @@ class FolderMapper extends NewsMapper
      *
      * @param string $userId the name of the user
      */
-    public function deleteUser($userId)
+    public function deleteUser(string $userId)
     {
         $sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
         $this->execute($sql, [$userId]);
+    }
+
+    /**
+     * NO-OP
+     * @return array
+     */
+    public function findAll(): array
+    {
+        return [];
+    }
+
+    public function findFromUser(string $userId, int $id): Entity
+    {
+        return $this->find($id, $userId);
     }
 }

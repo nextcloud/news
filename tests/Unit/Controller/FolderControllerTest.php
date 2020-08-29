@@ -21,9 +21,9 @@ use \OCP\AppFramework\Http;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\IRequest;
 
 use PHPUnit\Framework\TestCase;
@@ -32,11 +32,9 @@ use PHPUnit\Framework\TestCase;
 class FolderControllerTest extends TestCase
 {
 
-    private $appName;
     private $folderService;
     private $itemService;
     private $feedService;
-    private $request;
     private $controller;
     private $msg;
 
@@ -46,7 +44,7 @@ class FolderControllerTest extends TestCase
      */
     public function setUp(): void
     {
-        $this->appName = 'news';
+        $appName = 'news';
         $this->user = 'jack';
         $this->folderService = $this->getMockBuilder(FolderService::class)
             ->disableOriginalConstructor()
@@ -57,11 +55,11 @@ class FolderControllerTest extends TestCase
         $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new FolderController(
-            $this->appName, $this->request,
+            $appName, $request,
             $this->folderService,
             $this->feedService,
             $this->itemService,

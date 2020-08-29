@@ -14,18 +14,22 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
+use Favicon\Favicon;
+use FeedIo\Adapter\ResponseInterface;
 use FeedIo\Feed\Item\Author;
 use FeedIo\Feed\Item\MediaInterface;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
+use FeedIo\FeedIo;
+use FeedIo\Reader\Result;
 use OC\L10N\L10N;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Fetcher\FeedFetcher;
-use OCA\News\Utility\PsrLogger;
 
-use OCP\ILogger;
+use OCA\News\Utility\Time;
+use OCP\IL10N;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -46,26 +50,26 @@ class FeedFetcherTest extends TestCase
     /**
      * Feed reader
      *
-     * @var \FeedIo\FeedIo
+     * @var FeedIo
      */
     private $reader;
 
     /**
      * Feed reader result
      *
-     * @var \FeedIo\Reader\Result
+     * @var Result
      */
     private $result;
 
     /**
      * Feed reader result object
      *
-     * @var \FeedIo\Adapter\ResponseInterface
+     * @var ResponseInterface
      */
     private $response;
 
     /**
-     * @var \Favicon\Favicon
+     * @var Favicon
      */
     private $favicon;
 
@@ -132,32 +136,32 @@ class FeedFetcherTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->l10n = $this->getMockBuilder(\OCP\IL10N::class)
+        $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->reader = $this->getMockBuilder(\FeedIo\FeedIo::class)
+        $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->favicon = $this->getMockBuilder(\Favicon\Favicon::class)
+        $this->favicon = $this->getMockBuilder(Favicon::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->result = $this->getMockBuilder(\FeedIo\Reader\Result::class)
+        $this->result = $this->getMockBuilder(Result::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->response = $this->getMockBuilder(\FeedIo\Adapter\ResponseInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $this->item_mock = $this->getMockBuilder(\FeedIo\Feed\ItemInterface::class)
+        $this->response = $this->getMockBuilder(ResponseInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->feed_mock = $this->getMockBuilder(\FeedIo\FeedInterface::class)
+        $this->item_mock = $this->getMockBuilder(ItemInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->feed_mock = $this->getMockBuilder(FeedInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->time = 2323;
-        $timeFactory = $this->getMockBuilder(\OCA\News\Utility\Time::class)
+        $timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())

@@ -17,13 +17,14 @@ use OC\L10N\L10N;
 use \OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapper;
 use OCA\News\Service\FolderService;
-use OCA\News\Service\ServiceConflictException;
-use OCA\News\Service\ServiceValidationException;
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Utility\Time;
 use OCP\IConfig;
 use OCP\IL10N;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 
 class FolderServiceTest extends TestCase
@@ -48,6 +49,11 @@ class FolderServiceTest extends TestCase
      * @var string
      */
     private $user;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
+     */
+    private $logger;
 
     /**
      * @var int
@@ -78,12 +84,15 @@ class FolderServiceTest extends TestCase
         $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $config->expects($this->any())
             ->method('getAppValue')
             ->with('news', 'autoPurgeMinimumInterval')
             ->will($this->returnValue($this->autoPurgeMinimumInterval));
         $this->folderService = new FolderService(
-            $this->folderMapper, $this->l10n, $timeFactory, $config
+            $this->folderMapper, $this->l10n, $timeFactory, $config, $this->logger
         );
         $this->user = 'hi';
     }
@@ -92,13 +101,13 @@ class FolderServiceTest extends TestCase
     public function testFindAll()
     {
         $userId = 'jack';
-        $return = 'hi';
+        $return = [];
         $this->folderMapper->expects($this->once())
             ->method('findAllFromUser')
             ->with($this->equalTo($userId))
             ->will($this->returnValue($return));
 
-        $result = $this->folderService->findAll($userId);
+        $result = $this->folderService->findAllForUser($userId);
 
         $this->assertEquals($return, $result);
     }
@@ -146,8 +155,7 @@ class FolderServiceTest extends TestCase
 
     public function testCreateThrowsExWhenFolderNameEmpty()
     {
-        $this->expectException('OCA\News\Service\ServiceValidationException');
-
+        $this->expectException('\OCA\News\Service\Exceptions\ServiceValidationException');
         $folderName = '';
 
         $this->folderMapper->expects($this->once())
@@ -165,7 +173,7 @@ class FolderServiceTest extends TestCase
 
         $this->folderMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo(3))
+            ->with('', 3)
             ->will($this->returnValue($folder));
 
         $this->folderMapper->expects($this->once())
@@ -186,7 +194,7 @@ class FolderServiceTest extends TestCase
 
         $this->folderMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo(3))
+            ->with('', 3)
             ->will($this->returnValue($folder));
 
         $this->folderMapper->expects($this->once())
@@ -244,7 +252,7 @@ class FolderServiceTest extends TestCase
 
         $this->folderMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo($id))
             ->will($this->returnValue($folder));
         $this->folderMapper->expects($this->once())
             ->method('update')
@@ -263,7 +271,7 @@ class FolderServiceTest extends TestCase
 
         $this->folderMapper->expects($this->once())
             ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+            ->with($this->equalTo($this->user), $this->equalTo($id))
             ->will($this->returnValue($folder));
         $this->folderMapper->expects($this->once())
             ->method('update')

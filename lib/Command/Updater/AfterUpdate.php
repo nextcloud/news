@@ -11,35 +11,43 @@
 
 namespace OCA\News\Command\Updater;
 
-use Exception;
-
+use OCA\News\Service\ItemServiceV2;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use \OCA\News\Utility\Updater;
-
 class AfterUpdate extends Command
 {
-    private $updater;
+    /**
+     * @var ItemServiceV2
+     */
+    private $itemService;
 
-    public function __construct(Updater $updater)
+    /**
+     * AfterUpdate constructor.
+     *
+     * @param ItemServiceV2 $itemService
+     */
+    public function __construct(ItemServiceV2 $itemService)
     {
         parent::__construct();
-        $this->updater = $updater;
+        $this->itemService = $itemService;
     }
 
     protected function configure()
     {
         $this->setName('news:updater:after-update')
-            ->setDescription(
-                'This is used to clean up the database. It ' .
-                'removes old read articles which are not starred'
-            );
+            ->setDescription('removes old read articles which are not starred')
+            ->addArgument('purge_count', InputArgument::OPTIONAL, 'The amount of items to purge');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->updater->afterUpdate();
+        $count = $input->getArgument('id');
+
+        echo $this->itemService->purgeOverThreshold($count);
+
+        return 0;
     }
 }

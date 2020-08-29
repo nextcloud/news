@@ -51,18 +51,19 @@ class FeedTest extends TestCase
 
         $this->assertEquals(
             [
-            'id' => 3,
-            'url' => 'http://google.com/some/weird/path',
-            'title' => 'title',
-            'faviconLink' => 'favicon',
-            'added' => 123,
-            'folderId' => 1,
-            'unreadCount' => 321,
-            'ordering' => 2,
-            'pinned' => true,
-            'link' => 'https://www.google.com/some/weird/path',
-            'updateErrorCount' => 2,
-            'lastUpdateError' => 'hi'
+                'id' => 3,
+                'url' => 'http://google.com/some/weird/path',
+                'title' => 'title',
+                'faviconLink' => 'favicon',
+                'added' => 123,
+                'folderId' => 1,
+                'unreadCount' => 321,
+                'ordering' => 2,
+                'pinned' => true,
+                'link' => 'https://www.google.com/some/weird/path',
+                'updateErrorCount' => 2,
+                'lastUpdateError' => 'hi',
+                'items' => [],
             ], $feed->toAPI()
         );
     }

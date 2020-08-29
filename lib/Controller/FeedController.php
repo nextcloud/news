@@ -13,6 +13,8 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\AppFramework\Controller;
@@ -21,8 +23,6 @@ use OCP\AppFramework\Http;
 use OCA\News\Service\ItemService;
 use OCA\News\Service\FeedService;
 use OCA\News\Service\FolderService;
-use OCA\News\Service\ServiceNotFoundException;
-use OCA\News\Service\ServiceConflictException;
 use OCA\News\Db\FeedType;
 
 class FeedController extends Controller
@@ -63,7 +63,7 @@ class FeedController extends Controller
         // because of this we also pass the starred count and the newest
         // item id which will be used for marking feeds read
         $params = [
-            'feeds' => $this->feedService->findAll($this->userId),
+            'feeds' => $this->feedService->findAllForUser($this->userId),
             'starred' => $this->itemService->starredCount($this->userId)
         ];
 
@@ -104,9 +104,9 @@ class FeedController extends Controller
         // check if feed or folder exists
         try {
             if ($feedType === FeedType::FOLDER) {
-                $this->folderService->find($feedId, $this->userId);
+                $this->folderService->find($this->userId, $feedId);
             } elseif ($feedType === FeedType::FEED) {
-                $this->feedService->find($feedId, $this->userId);
+                $this->feedService->find($this->userId, $feedId);
 
                 // if its the first launch, those values will be null
             } elseif ($feedType === null) {
@@ -203,7 +203,7 @@ class FeedController extends Controller
     public function update($feedId)
     {
         try {
-            $feed = $this->feedService->update($feedId, $this->userId);
+            $feed = $this->feedService->update($this->userId, $feedId);
 
             return [
                 'feeds' => [

@@ -50,7 +50,8 @@
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-libxml": "*",
-    "andreskrey/readability.php": "^2.1"
+    "andreskrey/readability.php": "^2.1",
+    "ext-dom": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "9.2.6",

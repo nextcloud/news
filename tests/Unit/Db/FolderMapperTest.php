@@ -62,7 +62,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->setMapperResult($sql, [$id, $userId], $rows);
 
-        $result = $this->folderMapper->find($id, $userId);
+        $result = $this->folderMapper->find($userId, $id);
         $this->assertEquals($this->folders[0], $result);
 
     }
@@ -79,7 +79,7 @@ class FolderMapperTest extends MapperTestUtility
         $this->setMapperResult($sql, [$id, $userId]);
 
         $this->expectException(DoesNotExistException::class);
-        $this->folderMapper->find($id, $userId);
+        $this->folderMapper->find($userId, $id);
     }
 
 
@@ -95,7 +95,7 @@ class FolderMapperTest extends MapperTestUtility
         $this->setMapperResult($sql, [$id, $userId], $rows);
 
         $this->expectException(MultipleObjectsReturnedException::class);
-        $this->folderMapper->find($id, $userId);
+        $this->folderMapper->find($userId, $id);
     }
 
 

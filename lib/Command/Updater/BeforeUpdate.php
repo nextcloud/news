@@ -11,22 +11,22 @@
 
 namespace OCA\News\Command\Updater;
 
-use Exception;
-
+use OCA\News\Service\UpdaterService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use \OCA\News\Utility\Updater;
-
 class BeforeUpdate extends Command
 {
-    private $updater;
+    /**
+     * @var UpdaterService Updater
+     */
+    private $updaterService;
 
-    public function __construct(Updater $updater)
+    public function __construct(UpdaterService $updater)
     {
         parent::__construct();
-        $this->updater = $updater;
+        $this->updaterService = $updater;
     }
 
     protected function configure()
@@ -39,8 +39,10 @@ class BeforeUpdate extends Command
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->updater->beforeUpdate();
+        $this->updaterService->beforeUpdate();
+
+        return 0;
     }
 }

@@ -18,10 +18,11 @@ namespace OCA\News\Tests\Unit\Controller;
 use OCA\News\Controller\FeedApiController;
 use OCA\News\Service\FeedService;
 use OCA\News\Service\ItemService;
+use OCA\News\Utility\PsrLogger;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
 use \OCA\News\Db\Feed;
 use OCP\ILogger;
 use OCP\IRequest;
@@ -29,6 +30,7 @@ use OCP\IUser;
 use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class FeedApiControllerTest extends TestCase
 {
@@ -36,10 +38,7 @@ class FeedApiControllerTest extends TestCase
     private $feedService;
     private $itemService;
     private $feedAPI;
-    private $appName;
-    private $userSession;
     private $user;
-    private $request;
     private $msg;
     private $logger;
     private $loggerParams;
@@ -47,20 +46,20 @@ class FeedApiControllerTest extends TestCase
     protected function setUp(): void
     {
         $this->loggerParams = ['hi'];
-        $this->logger = $this->getMockBuilder(ILogger::class)
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->appName = 'news';
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $appName = 'news';
+        $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(IUserSession::class)
+        $userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession->expects($this->any())
+        $userSession->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->user));
         $this->user->expects($this->any())
@@ -73,9 +72,9 @@ class FeedApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedAPI = new FeedApiController(
-            $this->appName,
-            $this->request,
-            $this->userSession,
+            $appName,
+            $request,
+            $userSession,
             $this->feedService,
             $this->itemService,
             $this->logger,
@@ -100,7 +99,7 @@ class FeedApiControllerTest extends TestCase
             ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($newestItemId));
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($feeds));
 
@@ -130,7 +129,7 @@ class FeedApiControllerTest extends TestCase
             ->with($this->equalTo($this->user->getUID()))
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($feeds));
 
@@ -377,7 +376,7 @@ class FeedApiControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($feedId), $this->equalTo($userId));
+            ->with($userId, $feedId);
 
         $this->feedAPI->update($userId, $feedId);
     }
@@ -392,10 +391,7 @@ class FeedApiControllerTest extends TestCase
             ->will($this->throwException(new \Exception($this->msg)));
         $this->logger->expects($this->once())
             ->method('debug')
-            ->with(
-                $this->equalTo('Could not update feed ' . $this->msg),
-                $this->equalTo($this->loggerParams)
-            );
+            ->with('Could not update feed ' . $this->msg);
 
         $this->feedAPI->update($userId, $feedId);
 

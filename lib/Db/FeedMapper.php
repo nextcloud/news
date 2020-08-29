@@ -14,20 +14,28 @@
 namespace OCA\News\Db;
 
 use OCA\News\Utility\Time;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
+/**
+ * Class LegacyFeedMapper
+ *
+ * @package OCA\News\Db
+ * @deprecated use FeedMapper
+ */
 class FeedMapper extends NewsMapper
 {
-
+    const TABLE_NAME = 'news_feeds';
 
     public function __construct(IDBConnection $db, Time $time)
     {
-        parent::__construct($db, 'news_feeds', Feed::class, $time);
+        parent::__construct($db, $time, Feed::class);
     }
 
 
-    public function find($id, $userId)
+    public function find(string $userId, int $id)
     {
         $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
@@ -52,7 +60,7 @@ class FeedMapper extends NewsMapper
     }
 
 
-    public function findAllFromUser($userId)
+    public function findAllFromUser(string $userId): array
     {
         $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
@@ -82,7 +90,7 @@ class FeedMapper extends NewsMapper
     }
 
 
-    public function findAll()
+    public function findAll(): array
     {
         $sql = 'SELECT `feeds`.*, `item_numbers`.`unread_count` ' .
             'FROM `*PREFIX*news_feeds` `feeds` ' .
@@ -135,15 +143,15 @@ class FeedMapper extends NewsMapper
     }
 
 
-    public function delete(Entity $entity)
+    public function delete(Entity $entity): Entity
     {
-        parent::delete($entity);
-
         // someone please slap me for doing this manually :P
         // we needz CASCADE + FKs please
         $sql = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` = ?';
         $params = [$entity->getId()];
         $this->execute($sql, $params);
+
+        return parent::delete($entity);
     }
 
 
@@ -185,5 +193,10 @@ class FeedMapper extends NewsMapper
     {
         $sql = 'DELETE FROM `*PREFIX*news_feeds` WHERE `user_id` = ?';
         $this->execute($sql, [$userId]);
+    }
+
+    public function findFromUser(string $userId, int $id): Entity
+    {
+        return $this->find($id, $userId);
     }
 }

@@ -15,6 +15,9 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Utility\PsrLogger;
 use \OCP\IRequest;
 use \OCP\ILogger;
 use \OCP\IUserSession;
@@ -22,17 +25,30 @@ use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
+use Psr\Log\LoggerInterface;
 
 class FeedApiController extends ApiController
 {
     use JSONHttpError;
 
+    /**
+     * @var ItemService
+     */
     private $itemService;
+
+    /**
+     * @var FeedService
+     */
     private $feedService;
+
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
-    private $loggerParams;
+
+    /**
+     * @var EntityApiSerializer
+     */
     private $serializer;
 
     public function __construct(
@@ -41,14 +57,12 @@ class FeedApiController extends ApiController
         IUserSession $userSession,
         FeedService $feedService,
         ItemService $itemService,
-        ILogger $logger,
-        $LoggerParameters
+        LoggerInterface $logger
     ) {
         parent::__construct($appName, $request, $userSession);
         $this->feedService = $feedService;
         $this->itemService = $itemService;
         $this->logger = $logger;
-        $this->loggerParams = $LoggerParameters;
         $this->serializer = new EntityApiSerializer('feeds');
     }
 
@@ -63,7 +77,7 @@ class FeedApiController extends ApiController
 
         $result = [
             'starredCount' => $this->itemService->starredCount($this->getUserId()),
-            'feeds' => $this->feedService->findAll($this->getUserId())
+            'feeds' => $this->feedService->findAllForUser($this->getUserId())
         ];
 
 
@@ -226,13 +240,10 @@ class FeedApiController extends ApiController
     public function update($userId, $feedId)
     {
         try {
-            $this->feedService->update($feedId, $userId);
+            $this->feedService->update($userId, $feedId);
             // ignore update failure
         } catch (\Exception $ex) {
-            $this->logger->debug(
-                'Could not update feed ' . $ex->getMessage(),
-                $this->loggerParams
-            );
+            $this->logger->debug('Could not update feed ' . $ex->getMessage());
         }
     }
 }

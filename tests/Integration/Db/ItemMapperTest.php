@@ -27,7 +27,7 @@ class ItemMapperTest extends IntegrationTest
 
         $item = $this->itemMapper->insert($item);
 
-        $fetched = $this->itemMapper->find($item->getId(), $this->user);
+        $fetched = $this->itemMapper->find($this->user, $item->getId());
 
         $this->assertEquals($item->getTitle(), $fetched->getTitle());
     }
@@ -44,7 +44,7 @@ class ItemMapperTest extends IntegrationTest
     }
 
     /**
-     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     * @expectedException \OCP\AppFramework\Db\DoesNotExistException
      */
     public function testFindNotFoundWhenDeletedFeed()
     {
@@ -52,12 +52,12 @@ class ItemMapperTest extends IntegrationTest
         $this->loadFixtures('default');
 
         $id = $this->whereTitleId('not found feed');
-        $this->itemMapper->find($id, $this->user);
+        $this->itemMapper->find($this->user, $id);
     }
 
 
     /**
-     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     * @expectedException \OCP\AppFramework\Db\DoesNotExistException
      */
     public function testFindNotFoundWhenDeletedFolder()
     {
@@ -66,7 +66,7 @@ class ItemMapperTest extends IntegrationTest
 
 
         $id = $this->whereTitleId('not found folder');
-        $this->itemMapper->find($id, $this->user);
+        $this->itemMapper->find($this->user, $id);
     }
 
 
@@ -76,15 +76,15 @@ class ItemMapperTest extends IntegrationTest
 
         $this->itemMapper->deleteReadOlderThanThreshold(1);
 
-        $this->itemMapper->find($this->whereTitleId('a title1'), $this->user);
-        $this->itemMapper->find($this->whereTitleId('a title2'), $this->user);
-        $this->itemMapper->find($this->whereTitleId('a title3'), $this->user);
-        $this->itemMapper->find($this->whereTitleId('del3'), $this->user);
-        $this->itemMapper->find($this->whereTitleId('del4'), $this->user);
+        $this->itemMapper->find($this->user, $this->whereTitleId('a title1'));
+        $this->itemMapper->find($this->user, $this->whereTitleId('a title2'));
+        $this->itemMapper->find($this->user, $this->whereTitleId('a title3'));
+        $this->itemMapper->find($this->user, $this->whereTitleId('del3'));
+        $this->itemMapper->find($this->user, $this->whereTitleId('del4'));
     }
 
     /**
-     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     * @expectedException \OCP\AppFramework\Db\DoesNotExistException
      */
     public function testDeleteOlderThanThresholdOne()
     {
@@ -94,11 +94,11 @@ class ItemMapperTest extends IntegrationTest
 
         $this->deleteReadOlderThanThreshold();
 
-        $this->itemMapper->find($id, $this->user);
+        $this->itemMapper->find($this->user, $id);
     }
 
     /**
-     * @expectedException OCP\AppFramework\Db\DoesNotExistException
+     * @expectedException \OCP\AppFramework\Db\DoesNotExistException
      */
     public function testDeleteOlderThanThresholdTwo()
     {
@@ -108,7 +108,7 @@ class ItemMapperTest extends IntegrationTest
 
         $this->deleteReadOlderThanThreshold();
 
-        $this->itemMapper->find($id, $this->user);
+        $this->itemMapper->find($this->user, $id);
     }
 
 
@@ -127,24 +127,24 @@ class ItemMapperTest extends IntegrationTest
 
         $this->itemMapper->readAll(PHP_INT_MAX, 10, $this->user);
 
-        $items = $this->itemMapper->findAll(
+        $items = $this->itemMapper->findAllItems(
             30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(0, count($items));
 
         $itemId = $this->whereTitleId('a title1');
-        $item = $this->itemMapper->find($itemId, $this->user);
+        $item = $this->itemMapper->find($this->user, $itemId);
 
         $this->assertEquals(10, $item->getLastModified());
 
         $itemId = $this->whereTitleId('a title3');
-        $item = $this->itemMapper->find($itemId, $this->user);
+        $item = $this->itemMapper->find($this->user, $itemId);
 
         $this->assertEquals(10, $item->getLastModified());
 
         $itemId = $this->whereTitleId('a title9');
-        $item = $this->itemMapper->find($itemId, $this->user);
+        $item = $this->itemMapper->find($this->user, $itemId);
 
         $this->assertEquals(10, $item->getLastModified());
     }
@@ -159,24 +159,24 @@ class ItemMapperTest extends IntegrationTest
             $folderId, PHP_INT_MAX, 10, $this->user
         );
 
-        $items = $this->itemMapper->findAll(
+        $items = $this->itemMapper->findAllItems(
             30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(1, count($items));
 
         $item = $this->findItemByTitle('a title1');
-        $item = $this->itemMapper->find($item->getId(), $this->user);
+        $item = $this->itemMapper->find($this->user, $item->getId());
 
         $this->assertEquals(10, $item->getLastModified());
 
         $item = $this->findItemByTitle('a title3');
-        $item = $this->itemMapper->find($item->getId(), $this->user);
+        $item = $this->itemMapper->find($this->user, $item->getId());
 
         $this->assertEquals(10, $item->getLastModified());
 
         $item = $this->findItemByTitle('a title9');
-        $item = $this->itemMapper->find($item->getId(), $this->user);
+        $item = $this->itemMapper->find($this->user, $item->getId());
 
         $this->assertTrue($item->isUnread());
     }
@@ -191,24 +191,24 @@ class ItemMapperTest extends IntegrationTest
             $feedId, PHP_INT_MAX, 10, $this->user
         );
 
-        $items = $this->itemMapper->findAll(
+        $items = $this->itemMapper->findAllItems(
             30, 0, 0, false, false, $this->user
         );
 
         $this->assertEquals(2, count($items));
 
         $item = $this->findItemByTitle('a title9');
-        $item = $this->itemMapper->find($item->getId(), $this->user);
+        $item = $this->itemMapper->find($this->user, $item->getId());
 
         $this->assertEquals(10, $item->getLastModified());
 
         $item = $this->findItemByTitle('a title3');
-        $item = $this->itemMapper->find($item->getId(), $this->user);
+        $item = $this->itemMapper->find($this->user, $item->getId());
         $this->assertTrue($item->isUnread());
 
 
         $item = $this->findItemByTitle('a title1');
-        $item = $this->itemMapper->find($item->getId(), $this->user);
+        $item = $this->itemMapper->find($this->user, $item->getId());
         $this->assertTrue($item->isUnread());
     }
 

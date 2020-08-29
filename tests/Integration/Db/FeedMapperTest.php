@@ -25,7 +25,7 @@ class FeedMapperTest extends IntegrationTest
         $feed = new FeedFixture();
         $feed = $this->feedMapper->insert($feed);
 
-        $fetched = $this->feedMapper->find($feed->getId(), $this->user);
+        $fetched = $this->feedMapper->find($this->user, $feed->getId());
 
         $this->assertInstanceOf(Feed::class, $fetched);
         $this->assertEquals($feed->getLink(), $fetched->getLink());
@@ -34,7 +34,7 @@ class FeedMapperTest extends IntegrationTest
     public function testFindNotExisting()
     {
         $this->expectException('OCP\AppFramework\Db\DoesNotExistException');
-        $this->feedMapper->find(0, $this->user);
+        $this->feedMapper->find($this->user, 0);
     }
 
 
@@ -252,22 +252,14 @@ class FeedMapperTest extends IntegrationTest
 
         $this->assertCount(4, $this->feedMapper->findAllFromUser($this->user));
 
-        $items = $this->itemMapper->findAll(100, 0, 0, true, false, $this->user);
+        $items = $this->itemMapper->findAllItems(100, 0, 0, true, false, $this->user);
         $this->assertCount(9, $items);
 
         $this->feedMapper->deleteUser($this->user);
 
         $this->assertCount(0, $this->feedMapper->findAllFromUser($this->user));
 
-        $items = $this->itemMapper->findAll(100, 0, 0, true, false, $this->user);
+        $items = $this->itemMapper->findAllItems(100, 0, 0, true, false, $this->user);
         $this->assertCount(0, $items);
-    }
-
-    /**
-     * @coversNothing
-     */
-    public function testDeleteUserNotExisting()
-    {
-        $this->feedMapper->deleteUser('notexistinguser');
     }
 }

@@ -15,13 +15,22 @@ namespace OCA\News\Service;
 
 use OCA\News\AppInfo\Application;
 use OCA\News\Db\Item;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCP\AppFramework\Db\Entity;
 use OCP\IConfig;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\FeedType;
 use OCA\News\Utility\Time;
+use Psr\Log\LoggerInterface;
 
+/**
+ * Class LegacyItemService
+ *
+ * @package OCA\News\Service
+ * @deprecated use ItemServiceV2
+ */
 class ItemService extends Service
 {
 
@@ -32,12 +41,13 @@ class ItemService extends Service
     public function __construct(
         ItemMapper $itemMapper,
         Time $timeFactory,
-        IConfig $config
+        IConfig $config,
+        LoggerInterface $logger
     ) {
-        parent::__construct($itemMapper);
+        parent::__construct($itemMapper, $logger);
+        $this->config = $config;
         $this->timeFactory = $timeFactory;
         $this->itemMapper = $itemMapper;
-        $this->config = $config;
     }
 
 
@@ -96,7 +106,7 @@ class ItemService extends Service
      *                               or body
      * @return array of items
      */
-    public function findAll(
+    public function findAllItems(
         $id,
         $type,
         $limit,
@@ -128,7 +138,7 @@ class ItemService extends Service
                     $search
                 );
             default:
-                return $this->itemMapper->findAll(
+                return $this->itemMapper->findAllItems(
                     $limit,
                     $offset,
                     $type,
@@ -138,6 +148,11 @@ class ItemService extends Service
                     $search
                 );
         }
+    }
+
+    public function findAllForUser(string $userId): array
+    {
+        return $this->itemMapper->findAllFromUser($userId);
     }
 
 
@@ -319,5 +334,10 @@ class ItemService extends Service
     public function generateSearchIndices()
     {
         $this->itemMapper->updateSearchIndices();
+    }
+
+    public function findAll(): array
+    {
+        return $this->mapper->findAll();
     }
 }
