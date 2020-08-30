@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.2.1
+
+### Fixed
+- Update Interval documentation fixes #773
+- Fix crash if full-text if feed doesn't provide an url #774
+- Fix admin page not saving settings #776
+
 ## 14.2.0
 
 ### Changed
@@ -14,6 +21,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - fixed double escaped intro (not rendering html) #694
 - translation updates and fixes
+- import crashing on wrong guid_hash #770
 
 ## 14.1.11
 
