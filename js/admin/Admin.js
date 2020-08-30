@@ -29,7 +29,7 @@
             $('#news input[name="news-max-size"]');
         var exploreUrlInput =
             $('#news input[name="news-explore-url"]');
-        var updateInterval =
+        var updateIntervalInput =
             $('#news input[name="news-update-interval"]');
         var savedMessage = $('#news-saved-message');
 
