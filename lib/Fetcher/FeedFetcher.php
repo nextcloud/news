@@ -119,9 +119,10 @@ class FeedFetcher implements IFeedFetcher
             $body = null;
             $currRTL = $RTL;
 
-            // Scrape content if enabled
+            // Scrape the content if full-text is enabled and if the feed provides a URL
             if ($fullTextEnabled) {
-                if ($this->scraper->scrape($item->getLink())) {
+                $itemLink = $item->getLink();
+                if ($itemLink !== null && $this->scraper->scrape($itemLink)) {
                     $body = $this->scraper->getContent();
                     $currRTL = $this->scraper->getRTL($currRTL);
                 }
