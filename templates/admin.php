@@ -134,7 +134,7 @@ style('news', 'admin');
         <p>
             <em>
                 <?php p($l->t(
-                    'Interval in which the feeds will be updated.'
+                    'Interval in seconds in which the feeds will be updated.'
                 )); ?>
             </em>
             <a href="https://github.com/nextcloud/news/tree/master/docs/updateInterval"><?php p($l->t(
