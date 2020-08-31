@@ -28,7 +28,6 @@
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Ако је дато, ова сервисна адреса ће бити упитана за приказивање у секцији за истраживање довода. За повратак на коришћење уграђеног сервиса за истраживање, оставите ово празно.",
     "For more information check the wiki." : "За више информација, погледајте вики.",
     "Update interval" : "Време ажурирања",
-    "Interval in which the feeds will be updated." : "Интервал времена у којем се доводи ажурирају.",
     "Saved" : "Сачувано",
     "Download" : "Преузми",
     "Close" : "Затвори",

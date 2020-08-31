@@ -30,7 +30,6 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Jeśli zostanie podany, adres URL tej usługi zostanie zapytany o wyświetlenie kanałów w sekcji przeglądania kanałów. Aby wrócić do wbudowanej usługi przeglądania, pozostaw to pole puste.",
     "For more information check the wiki." : "Więcej informacji znajdziesz na Wiki.",
     "Update interval" : "Interwał aktualizacji",
-    "Interval in which the feeds will be updated." : "Przedział czasu, w którym kanały będą zaktualizowane.",
     "Saved" : "Zapisano",
     "Download" : "Pobierz",
     "Close" : "Zamknij",

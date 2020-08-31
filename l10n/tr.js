@@ -30,7 +30,6 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Varsa, keşfetme bölümünde akışların görüntülenmesini sağlayacak hizmet adresi. İç keşfetme hizmeti için bu alanı boş bırakın.",
     "For more information check the wiki." : "Ayrıntılı bilgi almak için wiki sayfasına bakın.",
     "Update interval" : "Güncelleme sıklığı",
-    "Interval in which the feeds will be updated." : "Akışların güncellenme sıklığı.",
     "Saved" : "Kaydedildi",
     "Download" : "İndir",
     "Close" : "Kapat",

@@ -30,7 +30,6 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Εάν οριστεί, θα τεθεί η ροή της διεύθυνση URL αυτής της υπηρεσίας στην ουρά, για προβολή στο τμήμα ροών. Για επιστροφή στην προεπιλογή αφήστε το πεδίο κενό.",
     "For more information check the wiki." : "Για περισσότερες πληροφορίες δείτε στο wiki.",
     "Update interval" : "Εσωτερική ενημέρωση",
-    "Interval in which the feeds will be updated." : "Διάστημα στο οποίο θα γίνεται ενημέρωση των ροών.",
     "Saved" : "Αποθηκεύτηκαν",
     "Download" : "Λήψη",
     "Close" : "Κλείσιμο",

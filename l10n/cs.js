@@ -30,7 +30,6 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Pokud zadáno, bude tato URL dotazována na zobrazování kanálů v sekci prohledávání kanálu. Pro návrat k výchozí službě hledání ponechte tuto kolonku prázdnou.",
     "For more information check the wiki." : "Další informace jsou k dispozici na wiki projektu.",
     "Update interval" : "Interval aktualizace",
-    "Interval in which the feeds will be updated." : "Interval ve kterém budou kanály aktualizovány.",
     "Saved" : "Uloženo",
     "Download" : "Stáhnout",
     "Close" : "Zavřít",
