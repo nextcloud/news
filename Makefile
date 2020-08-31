@@ -186,16 +186,31 @@ endif
 	tar -czf $(appstore_package_name).tar.gz -C $(appstore_build_directory)/../ $(app_name)
 
 
+.PHONY: js-test
+js-test:
+	cd js && $(npm) run test
+
+.PHONY: php-test-dependencies
+php-test-dependencies:
+	$(composer) update --prefer-dist
+
+.PHONY: unit-test
+unit-test:
+	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
+
+# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
+.PHONY: integration-test
+integration-test:
+	env TRAVIS=1 ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
 # from the internet
 .PHONY: test
-test:
-	$(composer) update --prefer-dist
-	cd js && $(npm) run test
-	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
-	# \Test\TestCase is only allowed to access the db if TRAVIS environment variable is set
-	env TRAVIS=1 ./vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml
+test: php-test-dependencies
+	$(MAKE) unit-test
+	$(MAKE) integration-test
 	$(MAKE) phpcs
 	$(MAKE) phpstan
+	$(MAKE) js-test
 	./bin/tools/generate_authors.php
