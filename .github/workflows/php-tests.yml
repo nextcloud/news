@@ -1,0 +1,50 @@
+name: PHP Tests
+on:
+  pull_request
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    name: "PHP: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
+    strategy:
+      matrix:
+        php-versions: ['7.4']
+        nextcloud: ['19']
+        database: ['sqlite']
+        experimental: [false]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      ### Back to normal setup
+      - name: Set up server non MySQL
+        if: matrix.database != 'mysql'
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: true
+          version: ${{ matrix.nextcloud }}
+          database-type: ${{ matrix.database }}
+
+      - name: Prime app build
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: true
+
+      - name: Prep PHP tests
+        run: cd ../server/apps/news && make php-test-dependencies
+      - name: PHPCS
+        run: cd ../server/apps/news && make phpcs
+      - name: PHPStan
+        run: cd ../server/apps/news && make phpstan
+      - name: Unittests
+        run: cd ../server/apps/news && make unit-test
