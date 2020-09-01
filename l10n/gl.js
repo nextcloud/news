@@ -30,6 +30,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Se é fornecido, este URL de servizo requirirase para amosar as fontes na sección de exame da fonte. Para amparar co servizo de exame propio, deixe baldeira esta entrada.",
     "For more information check the wiki." : "Para obter máis información consulte a wiki.",
     "Update interval" : "Intervalo de actualización",
+    "Interval in seconds in which the feeds will be updated." : "Intervalo, en segundos, no que se actualizarán as fontes.",
     "Saved" : "Gardado",
     "Download" : "Descargar",
     "Close" : "Pechar",
