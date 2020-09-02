@@ -27,7 +27,7 @@ class ConfigTest extends TestCase
     private $configPath;
     private $loggerParams;
 
-    public function setUp() 
+    public function setUp()
     {
         $this->logger = $this->getMockBuilder('OCA\News\Utility\PsrLogger')
             ->disableOriginalConstructor()
@@ -41,19 +41,20 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testDefaults() 
+    public function testDefaults()
     {
         $this->assertEquals(60, $this->config->getAutoPurgeMinimumInterval());
         $this->assertEquals(200, $this->config->getAutoPurgeCount());
         $this->assertEquals(10, $this->config->getMaxRedirects());
         $this->assertEquals(60, $this->config->getFeedFetcherTimeout());
+        $this->assertEquals(3600, $this->config->getUpdateInterval());
         $this->assertEquals(true, $this->config->getUseCronUpdates());
         $this->assertEquals('', $this->config->getExploreUrl());
         $this->assertEquals(1024*1024*100, $this->config->getMaxSize());
     }
 
 
-    public function testRead() 
+    public function testRead()
     {
         $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
@@ -76,7 +77,7 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testReadIgnoresVeryLowPurgeInterval() 
+    public function testReadIgnoresVeryLowPurgeInterval()
     {
         $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
@@ -94,7 +95,7 @@ class ConfigTest extends TestCase
 
 
 
-    public function testReadBool() 
+    public function testReadBool()
     {
         $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
@@ -116,7 +117,7 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testReadLogsInvalidValue() 
+    public function testReadLogsInvalidValue()
     {
         $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
@@ -140,7 +141,7 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testReadLogsInvalidINI() 
+    public function testReadLogsInvalidINI()
     {
         $file = $this->getMockBuilder(File::class)->getMock();
         $this->fileSystem->expects($this->once())
@@ -161,7 +162,7 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testWrite() 
+    public function testWrite()
     {
         $json = 'autoPurgeMinimumInterval = 60' . "\n" .
             'autoPurgeCount = 3' . "\n" .
@@ -169,6 +170,7 @@ class ConfigTest extends TestCase
             'maxSize = 399' . "\n" .
             'exploreUrl = http://google.de' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
+            'updateInterval = 3600' . "\n" .
             'useCronUpdates = true';
         $this->config->setAutoPurgeCount(3);
         $this->config->setMaxSize(399);
@@ -188,7 +190,7 @@ class ConfigTest extends TestCase
 
 
 
-    public function testReadingNonExistentConfigWillWriteDefaults() 
+    public function testReadingNonExistentConfigWillWriteDefaults()
     {
         $this->fileSystem->expects($this->once())
             ->method('nodeExists')
@@ -203,6 +205,7 @@ class ConfigTest extends TestCase
             'maxSize = 104857600' . "\n" .
             'exploreUrl = ' . "\n" .
             'feedFetcherTimeout = 60' . "\n" .
+            'updateInterval = 3600' . "\n" .
             'useCronUpdates = false';
 
         $this->fileSystem->expects($this->once())
@@ -221,7 +224,7 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testNoLowMinimumAutoPurgeInterval() 
+    public function testNoLowMinimumAutoPurgeInterval()
     {
         $this->config->setAutoPurgeMinimumInterval(59);
         $interval = $this->config->getAutoPurgeMinimumInterval();
@@ -230,7 +233,7 @@ class ConfigTest extends TestCase
     }
 
 
-    public function testMinimumAutoPurgeInterval() 
+    public function testMinimumAutoPurgeInterval()
     {
         $this->config->setAutoPurgeMinimumInterval(61);
         $interval = $this->config->getAutoPurgeMinimumInterval();
@@ -238,7 +241,7 @@ class ConfigTest extends TestCase
         $this->assertSame(61, $interval);
     }
 
-    public function testMaxRedirects() 
+    public function testMaxRedirects()
     {
         $this->config->setMaxRedirects(21);
         $redirects = $this->config->getMaxRedirects();
@@ -246,7 +249,7 @@ class ConfigTest extends TestCase
         $this->assertSame(21, $redirects);
     }
 
-    public function testFeedFetcherTimeout() 
+    public function testFeedFetcherTimeout()
     {
         $this->config->setFeedFetcherTimeout(2);
         $timout = $this->config->getFeedFetcherTimeout();
