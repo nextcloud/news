@@ -110,7 +110,7 @@ class AdminController extends Controller
         $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
         $this->config->setUseCronUpdates($useCronUpdates);
         $this->config->setExploreUrl($exploreUrl);
-        $this->config->setupdateInterval($updateInterval);
+        $this->config->setUpdateInterval($updateInterval);
         $this->config->write($this->configPath);
 
         return [
@@ -122,7 +122,7 @@ class AdminController extends Controller
             'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
             'useCronUpdates' => $this->config->getUseCronUpdates(),
             'exploreUrl' => $this->config->getExploreUrl(),
-            'updateInterval' => $this->config->getupdateInterval(),
+            'updateInterval' => $this->config->getUpdateInterval(),
         ];
     }
 }

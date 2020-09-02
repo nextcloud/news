@@ -85,7 +85,7 @@
                 feedFetcherTimeoutInput.val(data.feedFetcherTimeout);
                 useCronUpdatesInput.prop('checked', data.useCronUpdates);
                 exploreUrlInput.val(data.exploreUrl);
-                updateInterval.val(data.updateInterval);
+                updateIntervalInput.val(data.updateInterval);
             });
 
         };

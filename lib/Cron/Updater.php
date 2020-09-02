@@ -42,7 +42,7 @@ class Updater extends TimedJob
         $this->status = $status;
         $this->updaterService = $updaterService;
 
-        parent::setInterval($this->config->getupdateInterval());
+        parent::setInterval($this->config->getUpdateInterval());
     }
 
     protected function run($argument)
