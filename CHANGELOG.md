@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 14.2.2
+
+### Changed
+- added support for Nextcloud 20 #781
+
+### Fixed
+- Update interval not saved to config file #783
+
 ## 14.2.1
 
 ### Fixed
