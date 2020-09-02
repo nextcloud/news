@@ -97,6 +97,13 @@
         "description": "Plattform für digitale Freiheitsrechte",
         "votes": 100
     }, {
+        "title": "tagesschau.de",
+        "favicon": "https:\/\/tagesschau.de\/favicon.ico",
+        "url": "https:\/\/tagesschau.de",
+        "feed": "https:\/\/www.tagesschau.de/xml/rss2_https",
+        "description": "Die Nachrichten der ARD",
+        "votes": 100
+    }, {
         "title": "Tarnkappe.info",
         "favicon": "https:\/\/tarnkappe.info\/favicon.ico",
         "url": "https:\/\/tarnkappe.info",
