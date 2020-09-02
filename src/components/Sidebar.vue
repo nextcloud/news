@@ -10,7 +10,10 @@
 					5
 				</AppNavigationCounter>
 			</AppNavigationItem>
-			<AppNavigationItem :title="t('news','New folder')" icon="icon-add" :new-item="true" />
+			<AppNavigationItem :title="t('news','New folder')"
+				icon="icon-add"
+				:new-item="true"
+				@new-item="newFolder" />
 		</ul>
 	</AppNavigation>
 </template>
@@ -27,6 +30,11 @@ export default {
 		AppNavigationNew,
 		AppNavigationItem,
 		AppNavigationCounter,
+	},
+	methods: {
+		newFolder(value) {
+			alert(value)
+		},
 	},
 }
 </script>
