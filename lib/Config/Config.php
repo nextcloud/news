@@ -199,7 +199,7 @@ class Config
             'updateInterval = ' .
                 $this->updateInterval . "\n" .
             'useCronUpdates = ' .
-                var_export($this->useCronUpdates, true);  
+                var_export($this->useCronUpdates, true);
         ;
 
         $this->fileSystem->get($configPath)->putContent($ini);

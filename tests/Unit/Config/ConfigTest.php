@@ -35,7 +35,9 @@ class ConfigTest extends TestCase
         $this->fileSystem = $this->getMockBuilder(Folder::class)->getMock();
         $this->loggerParams = ['hi'];
         $this->config = new Config(
-            $this->fileSystem, $this->logger, $this->loggerParams
+            $this->fileSystem,
+            $this->logger,
+            $this->loggerParams
         );
         $this->configPath = 'config.json';
     }
