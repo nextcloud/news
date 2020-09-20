@@ -21,13 +21,13 @@ class TextResponseTest extends TestCase
 {
 
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->response = new TextResponse('sometext');
     }
 
 
-    public function testRender() 
+    public function testRender()
     {
         $this->assertEquals('sometext', $this->response->render());
     }

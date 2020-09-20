@@ -21,9 +21,19 @@ use \OCA\News\Service\ItemService;
 class Updater
 {
 
-
+    /**
+     * @var FolderService
+     */
     private $folderService;
+
+    /**
+     * @var FeedService
+     */
     private $feedService;
+
+    /**
+     * @var ItemService
+     */
     private $itemService;
 
     public function __construct(

@@ -43,7 +43,7 @@ class ItemControllerTest extends TestCase
     /**
      * Gets run before each test
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->appName = 'news';
         $this->user = 'jackob';
@@ -96,7 +96,7 @@ class ItemControllerTest extends TestCase
     }
 
 
-    public function testReadMultiple() 
+    public function testReadMultiple()
     {
         $this->itemService->expects($this->at(0))
             ->method('read')
@@ -116,7 +116,7 @@ class ItemControllerTest extends TestCase
     }
 
 
-    public function testReadMultipleDontStopOnException() 
+    public function testReadMultipleDontStopOnException()
     {
         $this->itemService->expects($this->at(0))
             ->method('read')

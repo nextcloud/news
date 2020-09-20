@@ -27,6 +27,7 @@ use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
 use OCA\News\Scraper\Scraper;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 class FeedFetcher implements IFeedFetcher
@@ -44,7 +45,7 @@ class FeedFetcher implements IFeedFetcher
         Favicon $favicon,
         IL10N $l10n,
         Time $time,
-        PsrLogger $logger,
+        LoggerInterface $logger,
         Scraper $scraper
     ) {
         $this->reader         = $fetcher;

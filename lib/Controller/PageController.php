@@ -13,6 +13,7 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\AppInfo\Application;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
@@ -24,7 +25,6 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
-use OCA\News\Config\Config;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Explore\RecommendedSiteNotFoundException;
 use OCA\News\Db\FeedType;
@@ -33,32 +33,51 @@ class PageController extends Controller
 {
     use JSONHttpError;
 
+    /**
+     * @var IConfig
+     */
     private $settings;
+
+    /**
+     * @var IL10N
+     */
     private $l10n;
+
+    /**
+     * @var string
+     */
     private $userId;
+
+    /**
+     * @var IURLGenerator
+     */
     private $urlGenerator;
-    private $config;
+
+    /**
+     * @var RecommendedSites
+     */
     private $recommendedSites;
 
+    /**
+     * @var StatusService
+     */
     private $statusService;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         IConfig $settings,
         IURLGenerator $urlGenerator,
-        Config $config,
         IL10N $l10n,
         RecommendedSites $recommendedSites,
         StatusService $statusService,
-        $UserId
+        string $UserId
     ) {
         parent::__construct($appName, $request);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
         $this->l10n = $l10n;
         $this->userId = $UserId;
-        $this->config = $config;
         $this->recommendedSites = $recommendedSites;
         $this->statusService = $statusService;
     }
@@ -109,7 +128,11 @@ class PageController extends Controller
             'compactExpand'
         ];
 
-        $exploreUrl = $this->config->getExploreUrl();
+        $exploreUrl = $this->settings->getAppValue(
+            $this->appName,
+            'exploreUrl',
+            Application::DEFAULT_SETTINGS['exploreUrl']
+        );
         if (trim($exploreUrl) === '') {
             // default url should not feature the sites.en.json
             $exploreUrl = $this->urlGenerator->linkToRoute(
@@ -142,28 +165,25 @@ class PageController extends Controller
      * @param bool $compact
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
+     * @param bool $compactExpand
      */
     public function updateSettings(
-        $showAll,
-        $compact,
-        $preventReadOnScroll,
-        $oldestFirst,
-        $compactExpand
+        bool $showAll,
+        bool $compact,
+        bool $preventReadOnScroll,
+        bool $oldestFirst,
+        bool $compactExpand
     ) {
         $settings = [
-            'showAll',
-            'compact',
-            'preventReadOnScroll',
-            'oldestFirst',
-            'compactExpand'
+            'showAll'             => $showAll,
+            'compact'             => $compact,
+            'preventReadOnScroll' => $preventReadOnScroll,
+            'oldestFirst'         => $oldestFirst,
+            'compactExpand'       => $compactExpand,
         ];
 
-        foreach ($settings as $setting) {
-            if (${$setting}) {
-                $value = '1';
-            } else {
-                $value = '0';
-            }
+        foreach ($settings as $setting => $value) {
+            $value = $value ? '1' : '0';
             $this->settings->setUserValue(
                 $this->userId,
                 $this->appName,
@@ -178,7 +198,7 @@ class PageController extends Controller
      *
      * @param string $lang
      */
-    public function explore($lang)
+    public function explore(string $lang)
     {
         $this->settings->setUserValue(
             $this->userId,

@@ -22,15 +22,15 @@ class MigrateStatusFlagsTest extends TestCase
 {
 
     /**
-     * @var IDBConnection|\PHPUnit_Framework_MockObject_MockObject 
+     * @var IDBConnection|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $db;
     /**
-     * @var IConfig|\PHPUnit_Framework_MockObject_MockObject 
+     * @var IConfig|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $config;
     /**
-     * @var IOutput|\PHPUnit_Framework_MockObject_MockObject 
+     * @var IOutput|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $output;
 
@@ -41,7 +41,7 @@ class MigrateStatusFlagsTest extends TestCase
         $this->output = $this->createMock(IOutput::class);
     }
 
-    public function testRun() 
+    public function testRun()
     {
         $statement = $this->createMock(Statement::class);
         $statement->expects($this->exactly(1))
@@ -67,11 +67,11 @@ class MigrateStatusFlagsTest extends TestCase
         $migration->run($this->output);
     }
 
-    /**
-     * @expectedException \Exception
-     */
-    public function testRunException() 
+    public function testRunException()
     {
+        $this->expectException('\Exception');
+        $this->expectExceptionMessage('Could not migrate status');
+
         $statement = $this->createMock(Statement::class);
         $statement->expects($this->exactly(1))
             ->method('execute')
@@ -96,7 +96,7 @@ class MigrateStatusFlagsTest extends TestCase
         $migration->run($this->output);
     }
 
-    public function testRunNewerVersion() 
+    public function testRunNewerVersion()
     {
         $this->config->expects($this->exactly(1))
             ->method('getAppValue')

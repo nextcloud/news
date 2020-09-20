@@ -16,7 +16,7 @@ namespace OCA\News\Tests\Unit\Service;
 
 use FeedIo\Reader\ReadErrorException;
 
-use OCA\News\Config\Config;
+use OC\L10N\L10N;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Service\FeedService;
@@ -28,6 +28,7 @@ use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\FetcherException;
+use OCP\IConfig;
 use OCP\IL10N;
 use OCP\ILogger;
 
@@ -37,28 +38,60 @@ use PHPUnit\Framework\TestCase;
 class FeedServiceTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedMapper
+     */
     private $feedMapper;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemMapper
+     */
+    private $itemMapper;
+
     /** @var FeedService */
     private $feedService;
-    private $user;
-    private $response;
-    private $fetcher;
-    private $itemMapper;
-    private $threshold;
-    private $time;
-    private $importParser;
-    private $autoPurgeMinimumInterval;
-    private $purifier;
-    private $l10n;
-    private $logger;
-    private $loggerParams;
 
-    protected function setUp()
+    /**
+     * @var string
+     */
+    private $user;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|Fetcher
+     */
+    private $fetcher;
+
+    /**
+     * @var int
+     */
+    private $time;
+
+    /**
+     * @var int
+     */
+    private $autoPurgeMinimumInterval;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
+     */
+    private $purifier;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|L10N
+     */
+    private $l10n;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ILogger
+     */
+    private $logger;
+
+    protected function setUp(): void
     {
         $this->logger = $this->getMockBuilder(ILogger::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->loggerParams = ['hi'];
+        $loggerParams = ['hi'];
         $this->time = 222;
         $this->autoPurgeMinimumInterval = 10;
         $timeFactory = $this->getMockBuilder(Time::class)
@@ -86,31 +119,34 @@ class FeedServiceTest extends TestCase
             ->getMockBuilder(\HTMLPurifier::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $config = $this->getMockBuilder(Config::class)
+        $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $config->expects($this->any())
-            ->method('getAutoPurgeMinimumInterval')
+            ->method('getAppValue')
+            ->with('news', 'autoPurgeMinimumInterval')
             ->will($this->returnValue($this->autoPurgeMinimumInterval));
 
         $this->feedService = new FeedService(
             $this->feedMapper,
             $this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
-            $timeFactory, $config, $this->purifier, $this->loggerParams
+            $timeFactory, $config, $this->purifier, $loggerParams
         );
         $this->user = 'jack';
     }
 
-
+    /**
+     * @covers \OCA\News\Service\FeedService::findAll
+     */
     public function testFindAll()
     {
         $this->feedMapper->expects($this->once())
             ->method('findAllFromUser')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue($this->response));
+            ->with($this->user)
+            ->will($this->returnValue([]));
 
         $result = $this->feedService->findAll($this->user);
-        $this->assertEquals($this->response, $result);
+        $this->assertEquals([], $result);
     }
 
 
@@ -120,7 +156,7 @@ class FeedServiceTest extends TestCase
         $url = 'test';
         $this->fetcher->expects($this->once())
             ->method('fetch')
-            ->with($this->equalTo($url))
+            ->with($url)
             ->will($this->throwException($ex));
         $this->expectException(ServiceNotFoundException::class);
         $this->feedService->create($url, 1, $this->user);
@@ -1145,12 +1181,9 @@ class FeedServiceTest extends TestCase
         $this->feedService->patch(3, $this->user, ['fullTextEnabled' => true]);
     }
 
-
-    /**
-     * @expectedException OCA\News\Service\ServiceNotFoundException
-     */
     public function testPatchDoesNotExist()
     {
+        $this->expectException('OCA\News\Service\ServiceNotFoundException');
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
             ->method('find')

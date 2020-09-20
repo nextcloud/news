@@ -45,7 +45,7 @@ class FeedControllerTest extends TestCase
     /**
      * Gets run before each test
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->appName = 'news';
         $this->user = 'jack';
@@ -398,7 +398,7 @@ class FeedControllerTest extends TestCase
     }
 
 
-    public function testImport() 
+    public function testImport()
     {
         $feed = new Feed();
 
@@ -426,7 +426,7 @@ class FeedControllerTest extends TestCase
     }
 
 
-    public function testImportCreatesNoAdditionalFeed() 
+    public function testImportCreatesNoAdditionalFeed()
     {
         $this->feedService->expects($this->once())
             ->method('importArticles')
@@ -467,7 +467,7 @@ class FeedControllerTest extends TestCase
     }
 
 
-    public function testRestore() 
+    public function testRestore()
     {
         $this->feedService->expects($this->once())
             ->method('unmarkDeleted')
@@ -492,7 +492,7 @@ class FeedControllerTest extends TestCase
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
-    public function testPatch() 
+    public function testPatch()
     {
         $expected = [
             'pinned' => true,

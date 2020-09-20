@@ -13,10 +13,11 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\AppInfo\Application;
+use OCP\IConfig;
 use OCP\IL10N;
 use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapper;
-use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
 class FolderService extends Service
@@ -31,13 +32,16 @@ class FolderService extends Service
         FolderMapper $folderMapper,
         IL10N $l10n,
         Time $timeFactory,
-        Config $config
+        IConfig $config
     ) {
         parent::__construct($folderMapper);
         $this->l10n = $l10n;
         $this->timeFactory = $timeFactory;
-        $this->autoPurgeMinimumInterval =
-            $config->getAutoPurgeMinimumInterval();
+        $this->autoPurgeMinimumInterval = $config->getAppValue(
+            Application::NAME,
+            'autoPurgeMinimumInterval',
+            Application::DEFAULT_SETTINGS['autoPurgeMinimumInterval']
+        );
         $this->folderMapper = $folderMapper;
     }
 
@@ -91,6 +95,7 @@ class FolderService extends Service
         $folder->setUserId($userId);
         $folder->setParentId($parentId);
         $folder->setOpened(true);
+
         return $this->folderMapper->insert($folder);
     }
 
@@ -123,6 +128,7 @@ class FolderService extends Service
 
         $folder = $this->find($folderId, $userId);
         $folder->setName($folderName);
+
         return $this->folderMapper->update($folder);
     }
 
@@ -160,7 +166,7 @@ class FolderService extends Service
     /**
      * Deletes all deleted folders
      *
-     * @param string  $userId      if given it purges only folders of that user
+     * @param ?string $userId      if given it purges only folders of that user
      * @param boolean $useInterval defaults to true, if true it only purges
      *                             entries in a given interval to give the user a chance to undo the
      *                             deletion

@@ -44,7 +44,7 @@ class FeedApiControllerTest extends TestCase
     private $logger;
     private $loggerParams;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->loggerParams = ['hi'];
         $this->logger = $this->getMockBuilder(ILogger::class)
@@ -85,7 +85,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testIndex() 
+    public function testIndex()
     {
         $feeds = [new Feed()];
         $starredCount = 3;
@@ -116,7 +116,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testIndexNoNewestItemId() 
+    public function testIndexNoNewestItemId()
     {
         $feeds = [new Feed()];
         $starredCount = 3;
@@ -145,7 +145,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testDelete() 
+    public function testDelete()
     {
         $this->feedService->expects($this->once())
             ->method('delete')
@@ -158,7 +158,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testDeleteDoesNotExist() 
+    public function testDeleteDoesNotExist()
     {
         $this->feedService->expects($this->once())
             ->method('delete')
@@ -176,7 +176,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testCreate() 
+    public function testCreate()
     {
         $feeds = [new Feed()];
 
@@ -206,7 +206,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testCreateNoItems() 
+    public function testCreateNoItems()
     {
         $feeds = [new Feed()];
 
@@ -236,7 +236,7 @@ class FeedApiControllerTest extends TestCase
 
 
 
-    public function testCreateExists() 
+    public function testCreateExists()
     {
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
@@ -255,7 +255,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testCreateError() 
+    public function testCreateError()
     {
         $this->feedService->expects($this->once())
             ->method('create')
@@ -271,7 +271,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testRead() 
+    public function testRead()
     {
         $this->itemService->expects($this->once())
             ->method('readFeed')
@@ -285,7 +285,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testMove() 
+    public function testMove()
     {
         $this->feedService->expects($this->once())
             ->method('patch')
@@ -299,7 +299,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testMoveDoesNotExist() 
+    public function testMoveDoesNotExist()
     {
         $this->feedService->expects($this->once())
             ->method('patch')
@@ -315,7 +315,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testRename() 
+    public function testRename()
     {
         $feedId = 3;
         $feedTitle = 'test';
@@ -332,7 +332,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testRenameError() 
+    public function testRenameError()
     {
         $feedId = 3;
         $feedTitle = 'test';
@@ -370,7 +370,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testUpdate() 
+    public function testUpdate()
     {
         $feedId = 3;
         $userId = 'hi';
@@ -383,7 +383,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testUpdateError() 
+    public function testUpdateError()
     {
         $feedId = 3;
         $userId = 'hi';

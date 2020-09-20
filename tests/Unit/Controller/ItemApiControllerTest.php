@@ -39,7 +39,7 @@ class ItemApiControllerTest extends TestCase
     private $request;
     private $msg;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->user = 'tom';
         $this->appName = 'news';
@@ -71,7 +71,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testIndex() 
+    public function testIndex()
     {
         $item = new Item();
         $item->setId(5);
@@ -102,7 +102,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testIndexDefaultBatchSize() 
+    public function testIndexDefaultBatchSize()
     {
         $item = new Item();
         $item->setId(5);
@@ -133,7 +133,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUpdated() 
+    public function testUpdated()
     {
         $item = new Item();
         $item->setId(5);
@@ -162,7 +162,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testRead() 
+    public function testRead()
     {
         $this->itemService->expects($this->once())
             ->method('read')
@@ -176,7 +176,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testReadDoesNotExist() 
+    public function testReadDoesNotExist()
     {
         $this->itemService->expects($this->once())
             ->method('read')
@@ -194,7 +194,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnread() 
+    public function testUnread()
     {
         $this->itemService->expects($this->once())
             ->method('read')
@@ -208,7 +208,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnreadDoesNotExist() 
+    public function testUnreadDoesNotExist()
     {
         $this->itemService->expects($this->once())
             ->method('read')
@@ -226,7 +226,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testStar() 
+    public function testStar()
     {
         $this->itemService->expects($this->once())
             ->method('star')
@@ -241,7 +241,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testStarDoesNotExist() 
+    public function testStarDoesNotExist()
     {
         $this->itemService->expects($this->once())
             ->method('star')
@@ -259,7 +259,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnstar() 
+    public function testUnstar()
     {
         $this->itemService->expects($this->once())
             ->method('star')
@@ -274,7 +274,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnstarDoesNotExist() 
+    public function testUnstarDoesNotExist()
     {
         $this->itemService->expects($this->once())
             ->method('star')
@@ -292,7 +292,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testReadAll() 
+    public function testReadAll()
     {
         $this->itemService->expects($this->once())
             ->method('readAll')
@@ -306,7 +306,7 @@ class ItemApiControllerTest extends TestCase
 
 
 
-    public function testReadMultiple() 
+    public function testReadMultiple()
     {
         $this->itemService->expects($this->at(0))
             ->method('read')
@@ -326,7 +326,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testReadMultipleDoesntCareAboutException() 
+    public function testReadMultipleDoesntCareAboutException()
     {
         $this->itemService->expects($this->at(0))
             ->method('read')
@@ -342,7 +342,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnreadMultiple() 
+    public function testUnreadMultiple()
     {
         $this->itemService->expects($this->at(0))
             ->method('read')
@@ -362,7 +362,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testStarMultiple() 
+    public function testStarMultiple()
     {
         $ids = [
                     [
@@ -395,7 +395,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testStarMultipleDoesntCareAboutException() 
+    public function testStarMultipleDoesntCareAboutException()
     {
         $ids = [
                     [
@@ -423,7 +423,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnstarMultiple() 
+    public function testUnstarMultiple()
     {
         $ids = [
                     [

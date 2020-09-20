@@ -35,7 +35,7 @@ class YoutubeFetcherTest extends TestCase
      */
     private $feedFetcher;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->feedFetcher = $this->getMockBuilder(FeedFetcher::class)
             ->disableOriginalConstructor()

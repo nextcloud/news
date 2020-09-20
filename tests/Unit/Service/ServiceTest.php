@@ -37,7 +37,7 @@ class ServiceTest extends TestCase
     protected $mapper;
     protected $newsService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->mapper = $this->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()

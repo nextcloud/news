@@ -13,17 +13,14 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\AppInfo\Application;
 use OCP\IConfig;
 use OCP\IDBConnection;
-
-use OCA\News\Config\Config;
 
 class StatusService
 {
     /** @var IConfig */
     private $settings;
-    /** @var Config */
-    private $config;
     /** @var string */
     private $appName;
     /** @var IDBConnection */
@@ -32,22 +29,21 @@ class StatusService
     public function __construct(
         IConfig $settings,
         IDBConnection $connection,
-        Config $config,
         $AppName
     ) {
         $this->settings = $settings;
-        $this->config = $config;
         $this->appName = $AppName;
         $this->connection = $connection;
     }
 
     public function isProperlyConfigured()
     {
-        $cronMode = $this->settings->getAppValue(
-            'core',
-            'backgroundjobs_mode'
+        $cronMode = $this->settings->getSystemValue('backgroundjobs_mode');
+        $cronOff = !$this->settings->getAppValue(
+            Application::NAME,
+            'useCronUpdates',
+            Application::DEFAULT_SETTINGS['useCronUpdates']
         );
-        $cronOff = !$this->config->getUseCronUpdates();
 
         // check for cron modes which may lead to problems
         return $cronMode === 'cron' || $cronOff;

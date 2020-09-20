@@ -22,11 +22,11 @@ class ItemTest extends TestCase
 {
 
     /**
-     * @var Item 
+     * @var Item
      */
     private $item;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->item = new Item();
         $this->item->setStatus(0);
@@ -65,7 +65,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testToAPI() 
+    public function testToAPI()
     {
         $item = new Item();
         $item->setId(3);
@@ -117,7 +117,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testJSONSerialize() 
+    public function testJSONSerialize()
     {
         $item = new Item();
         $item->setId(3);
@@ -167,7 +167,7 @@ class ItemTest extends TestCase
         );
     }
 
-    public function testToExport() 
+    public function testToExport()
     {
         $item = new Item();
         $item->setId(3);
@@ -216,7 +216,7 @@ class ItemTest extends TestCase
     }
 
 
-    private function createImportItem($isRead) 
+    private function createImportItem($isRead)
     {
         $item = new Item();
         $item->setGuid('guid');
@@ -242,7 +242,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testSearchIndex() 
+    public function testSearchIndex()
     {
         $item = new Item();
         $item->setBody('<a>somEth&auml;ng</a>');
@@ -255,7 +255,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testFromImport() 
+    public function testFromImport()
     {
         $item = $this->createImportItem(false);
 
@@ -282,7 +282,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testFromImportRead() 
+    public function testFromImportRead()
     {
         $item = $this->createImportItem(true);
 
@@ -315,7 +315,7 @@ class ItemTest extends TestCase
         $item = new Item();
         $item->setAuthor('<a>my link</li>');
         $this->assertEquals('my link', $item->getAuthor());
-        $this->assertContains('author', $item->getUpdatedFields());
+        $this->assertArrayHasKey('author', $item->getUpdatedFields());
     }
 
 
@@ -324,11 +324,11 @@ class ItemTest extends TestCase
         $item = new Item();
         $item->setTitle('<a>my link</li>');
         $this->assertEquals('my link', $item->getTitle());
-        $this->assertContains('title', $item->getUpdatedFields());
+        $this->assertArrayHasKey('title', $item->getUpdatedFields());
     }
 
 
-    public function testSetXSSUrl() 
+    public function testSetXSSUrl()
     {
         $item = new Item();
         $item->setUrl('javascript:alert()');
@@ -336,7 +336,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testSetMagnetUrl() 
+    public function testSetMagnetUrl()
     {
         $item = new Item();
         $item->setUrl('magnet://link.com');
@@ -344,7 +344,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testMakeLinksInBodyOpenNewTab() 
+    public function testMakeLinksInBodyOpenNewTab()
     {
         $item = new Item();
         $item->setBody("<a href=\"test\">ha</a>");
@@ -354,7 +354,7 @@ class ItemTest extends TestCase
         );
     }
 
-    public function testComputeFingerPrint() 
+    public function testComputeFingerPrint()
     {
         $title = 'a';
         $body = 'b';

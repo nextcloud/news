@@ -13,13 +13,14 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use OCA\News\Config\Config;
+use OC\L10N\L10N;
 use \OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapper;
 use OCA\News\Service\FolderService;
 use OCA\News\Service\ServiceConflictException;
 use OCA\News\Service\ServiceValidationException;
 use OCA\News\Utility\Time;
+use OCP\IConfig;
 use OCP\IL10N;
 
 use PHPUnit\Framework\TestCase;
@@ -28,14 +29,37 @@ use PHPUnit\Framework\TestCase;
 class FolderServiceTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FolderMapper
+     */
     private $folderMapper;
+
+    /**
+     * @var FolderService
+     */
     private $folderService;
+
+    /**
+     * @var int
+     */
     private $time;
+
+    /**
+     * @var string
+     */
     private $user;
+
+    /**
+     * @var int
+     */
     private $autoPurgeMinimumInterval;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|L10N
+     */
     private $l10n;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
@@ -51,11 +75,12 @@ class FolderServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->autoPurgeMinimumInterval = 10;
-        $config = $this->getMockBuilder(Config::class)
+        $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $config->expects($this->any())
-            ->method('getAutoPurgeMinimumInterval')
+            ->method('getAppValue')
+            ->with('news', 'autoPurgeMinimumInterval')
             ->will($this->returnValue($this->autoPurgeMinimumInterval));
         $this->folderService = new FolderService(
             $this->folderMapper, $this->l10n, $timeFactory, $config
@@ -119,11 +144,10 @@ class FolderServiceTest extends TestCase
         $this->folderService->create($folderName, 'john', 3);
     }
 
-    /**
-     * @expectedException \OCA\News\Service\ServiceValidationException
-     */
     public function testCreateThrowsExWhenFolderNameEmpty()
     {
+        $this->expectException('OCA\News\Service\ServiceValidationException');
+
         $folderName = '';
 
         $this->folderMapper->expects($this->once())
@@ -211,7 +235,7 @@ class FolderServiceTest extends TestCase
     }
 
 
-    public function testMarkDeleted() 
+    public function testMarkDeleted()
     {
         $id = 3;
         $folder = new Folder();
@@ -230,7 +254,7 @@ class FolderServiceTest extends TestCase
     }
 
 
-    public function testUnmarkDeleted() 
+    public function testUnmarkDeleted()
     {
         $id = 3;
         $folder = new Folder();
@@ -295,7 +319,7 @@ class FolderServiceTest extends TestCase
     }
 
 
-    public function testDeleteUser() 
+    public function testDeleteUser()
     {
         $this->folderMapper->expects($this->once())
             ->method('deleteUser')

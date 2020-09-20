@@ -26,7 +26,7 @@ class JSONHttpErrorTest extends TestCase
 {
 
 
-    public function testError() 
+    public function testError()
     {
         $ex = new \Exception('hi');
         $test = new Test();

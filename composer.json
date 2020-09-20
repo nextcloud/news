@@ -42,10 +42,10 @@
   },
   "require": {
     "php": "^7.2",
-    "ezyang/htmlpurifier": "4.12.0",
+    "ezyang/htmlpurifier": "^4.13.0",
     "pear/net_url2": "2.2.2",
     "riimu/kit-pathjoin": "1.2.0",
-    "debril/feed-io": "^4.5",
+    "debril/feed-io": "^v4.7.8",
     "arthurhoaro/favicon": "^1.2",
     "ext-json": "*",
     "ext-simplexml": "*",
@@ -53,11 +53,11 @@
     "andreskrey/readability.php": "^2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.5",
-    "squizlabs/php_codesniffer": "^3.4",
+    "phpunit/phpunit": "9.2.6",
+    "squizlabs/php_codesniffer": "^3.5.6",
     "guzzlehttp/guzzle": "^6.3",
-    "symfony/service-contracts": "1.1.8",
-    "phpstan/phpstan": "^0.12.38"
+    "symfony/service-contracts": "2.2.0",
+    "phpstan/phpstan": "^0.12.43"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",

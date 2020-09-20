@@ -13,13 +13,13 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\AppInfo\Application;
 use OCA\News\Db\Item;
 use OCP\IConfig;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\FeedType;
-use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
 class ItemService extends Service
@@ -28,19 +28,16 @@ class ItemService extends Service
     private $config;
     private $timeFactory;
     private $itemMapper;
-    private $systemConfig;
 
     public function __construct(
         ItemMapper $itemMapper,
         Time $timeFactory,
-        Config $config,
-        IConfig $systemConfig
+        IConfig $config
     ) {
         parent::__construct($itemMapper);
-        $this->config = $config;
         $this->timeFactory = $timeFactory;
         $this->itemMapper = $itemMapper;
-        $this->systemConfig = $systemConfig;
+        $this->config = $config;
     }
 
 
@@ -255,7 +252,11 @@ class ItemService extends Service
      */
     public function autoPurgeOld()
     {
-        $count = $this->config->getAutoPurgeCount();
+        $count = $this->config->getAppValue(
+            Application::NAME,
+            'autoPurgeCount',
+            Application::DEFAULT_SETTINGS['autoPurgeCount']
+        );
         if ($count >= 0) {
             $this->itemMapper->deleteReadOlderThanThreshold($count);
         }

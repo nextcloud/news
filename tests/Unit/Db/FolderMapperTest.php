@@ -28,7 +28,7 @@ class FolderMapperTest extends MapperTestUtility
     /** @var string */
     private $user;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
