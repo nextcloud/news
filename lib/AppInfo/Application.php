@@ -18,28 +18,32 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Favicon\Favicon;
 
+use OC\Encryption\Update;
+use OCA\News\Config\LegacyConfig;
 use OCA\News\Config\FetcherConfig;
+use OCA\News\Db\FolderMapper;
+use OCA\News\Service\FeedService;
+use OCA\News\Service\FolderService;
+use OCA\News\Service\ItemService;
 use OCA\News\Utility\PsrLogger;
-use OCP\BackgroundJob\IJobList;
 
+use OCA\News\Utility\Updater;
 use OCP\IContainer;
-use OCP\INavigationManager;
-use OCP\IURLGenerator;
 use OCP\IConfig;
+use OCP\ILogger;
 use OCP\ITempManager;
 use OCP\AppFramework\App;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 
 
-use OCA\News\Config\AppConfig;
-use OCA\News\Config\Config;
 use OCA\News\Db\MapperFactory;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
 use OCA\News\Scraper\Scraper;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class Application
@@ -50,13 +54,31 @@ class Application extends App
 {
 
     /**
+     * App Name
+     */
+    public const NAME = 'news';
+
+    /**
+     * List of default settings
+     */
+    public const DEFAULT_SETTINGS = [
+        'autoPurgeMinimumInterval' => 60,
+        'autoPurgeCount'           => 200,
+        'maxRedirects'             => 10,
+        'feedFetcherTimeout'       => 60,
+        'useCronUpdates'           => true,
+        'exploreUrl'               => '',
+        'updateInterval'           => 3600,
+    ];
+
+    /**
      * Application constructor.
      *
      * @param array $urlParams Parameters
      */
     public function __construct(array $urlParams = [])
     {
-        parent::__construct('news', $urlParams);
+        parent::__construct(self::NAME, $urlParams);
 
         $container = $this->getContainer();
 
@@ -78,58 +100,30 @@ class Application extends App
         });
 
         /**
-         * App config parser.
-         */
-        $container->registerService(AppConfig::class, function (IContainer $c): AppConfig {
-            $config = new AppConfig(
-                $c->query(INavigationManager::class),
-                $c->query(IURLGenerator::class),
-                $c->query(IJobList::class)
-            );
-
-            $config->loadConfig($c->query('info'));
-            return $config;
-        });
-
-        /**
          * Core
          */
         $container->registerService('LoggerParameters', function (IContainer $c): array {
             return ['app' => $c->query('AppName')];
         });
 
-        $container->registerService('databaseType', function (IContainer $c) {
-            return $c->query(IConfig::class)->getSystemValue('dbtype');
-        });
-
-        $container->registerService('ConfigView', function (IContainer $c): Node {
+        $container->registerService('ConfigView', function (IContainer $c): ?Node {
             /** @var IRootFolder $fs */
             $fs = $c->query(IRootFolder::class);
             $path = 'news/config';
             if ($fs->nodeExists($path)) {
                 return $fs->get($path);
             } else {
-                return $fs->newFolder($path);
+                return null;
             }
         });
 
-        /**
-         * Logger base
-         */
-        $container->registerService(PsrLogger::class, function (IContainer $c): PsrLogger {
-            return new PsrLogger(
-                $c->query('ServerContainer')->getLogger(),
-                $c->query('AppName')
-            );
-        });
-
-        $container->registerService(Config::class, function (IContainer $c): Config {
-            $config = new Config(
+        $container->registerService(LegacyConfig::class, function (IContainer $c): LegacyConfig {
+            $config = new LegacyConfig(
                 $c->query('ConfigView'),
-                $c->query(PsrLogger::class),
+                $c->query(LoggerInterface::class),
                 $c->query('LoggerParameters')
             );
-            $config->read($c->query('configFile'), true);
+            $config->read($c->query('configFile'), false);
             return $config;
         });
 
@@ -175,7 +169,7 @@ class Application extends App
          */
         $container->registerService(FetcherConfig::class, function (IContainer $c): FetcherConfig {
             $fConfig = new FetcherConfig();
-            $fConfig->setConfig($c->query(Config::class))
+            $fConfig->setConfig($c->query(IConfig::class))
                     ->setProxy($c->query(IConfig::class));
 
             return $fConfig;
@@ -183,7 +177,7 @@ class Application extends App
 
         $container->registerService(FeedIo::class, function (IContainer $c): FeedIo {
             $config = $c->query(FetcherConfig::class);
-            return new FeedIo($config->getClient(), $c->query(PsrLogger::class));
+            return new FeedIo($config->getClient(), $c->query(LoggerInterface::class));
         });
 
         $container->registerService(Favicon::class, function (IContainer $c): Favicon {
@@ -209,7 +203,7 @@ class Application extends App
          */
         $container->registerService(Scraper::class, function (IContainer $c): Scraper {
             return new Scraper(
-                $c->query(PsrLogger::class)
+                $c->query(LoggerInterface::class)
             );
         });
     }

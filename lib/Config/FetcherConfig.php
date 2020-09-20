@@ -15,6 +15,7 @@ namespace OCA\News\Config;
 
 use FeedIo\Adapter\ClientInterface;
 use \GuzzleHttp\Client;
+use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use OCA\News\Fetcher\Client\LegacyGuzzleClient;
 use OCP\IConfig;
@@ -43,13 +44,6 @@ class FetcherConfig
      * @var string
      */
     protected $redirects;
-
-    /**
-     * Max size of the recieved data.
-     * @deprecated guzzle can't handle this
-     * @var string
-     */
-    protected $max_size;
 
     /**
      * User agent for the client.
@@ -96,8 +90,7 @@ class FetcherConfig
             $config['redirect.max'] = $this->redirects;
         }
 
-        $guzzle = new Client($config);
-        return $guzzle;
+        return new Client($config);
     }
 
     /**
@@ -121,22 +114,28 @@ class FetcherConfig
             $config['request.options']['redirect.max'] = $this->redirects;
         }
 
-        $guzzle = new Client($config);
-        return $guzzle;
+        return new Client($config);
     }
 
     /**
      * Set settings for config.
      *
-     * @param Config $config The shared configuration
+     * @param IConfig $config The shared configuration
      *
      * @return self
      */
-    public function setConfig(Config $config)
+    public function setConfig(IConfig $config)
     {
-        $this->client_timeout = $config->getFeedFetcherTimeout();
-        $this->redirects = $config->getMaxRedirects();
-        $this->max_size = $config->getMaxSize();
+        $this->client_timeout = $config->getAppValue(
+            Application::NAME,
+            'feedFetcherTimeout',
+            Application::DEFAULT_SETTINGS['feedFetcherTimeout']
+        );
+        $this->redirects = $config->getAppValue(
+            Application::NAME,
+            'maxRedirects',
+            Application::DEFAULT_SETTINGS['maxRedirects']
+        );
 
         return $this;
     }

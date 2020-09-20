@@ -37,7 +37,7 @@ class UtilityApiControllerTest extends TestCase
     private $appName;
     private $status;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->appName = 'news';
         $this->settings = $this->getMockBuilder(IConfig::class)

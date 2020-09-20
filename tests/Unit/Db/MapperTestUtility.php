@@ -43,7 +43,7 @@ abstract class MapperTestUtility extends TestCase
      * Run this function before the actual test to either set or initialize the
      * db. After this the db can be accessed by using $this->db
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -64,7 +64,7 @@ abstract class MapperTestUtility extends TestCase
      * @param  array $array
      * @return bool true if associative
      */
-    private function isAssocArray(array $array) 
+    private function isAssocArray(array $array)
     {
         return array_values($array) !== $array;
     }
@@ -75,7 +75,7 @@ abstract class MapperTestUtility extends TestCase
      * @param  $value
      * @return PDO constant
      */
-    private function getPDOType($value) 
+    private function getPDOType($value)
     {
         switch (gettype($value)) {
         case 'integer':

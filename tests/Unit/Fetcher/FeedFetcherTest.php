@@ -25,7 +25,9 @@ use OCA\News\Scraper\Scraper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Utility\PsrLogger;
 
+use OCP\ILogger;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class FeedFetcherTest
@@ -83,7 +85,7 @@ class FeedFetcherTest extends TestCase
     private $feed_mock;
 
     /**
-     * @var PsrLogger
+     * @var LoggerInterface
      */
     private $logger;
 
@@ -128,7 +130,7 @@ class FeedFetcherTest extends TestCase
     private $modified;
     private $location;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->l10n = $this->getMockBuilder(\OCP\IL10N::class)
             ->disableOriginalConstructor()
@@ -161,8 +163,7 @@ class FeedFetcherTest extends TestCase
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->logger = $this->getMockBuilder(PsrLogger::class)
-            ->disableOriginalConstructor()
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
             ->getMock();
         $this->scraper = $this->getMockBuilder(Scraper::class)
             ->disableOriginalConstructor()
@@ -373,7 +374,7 @@ class FeedFetcherTest extends TestCase
     {
         $this->setUpReader($this->url);
 
-        $feed = $this->createFeed(false);
+        $feed = $this->createFeed('de-DE', false);
 
         $this->favicon->expects($this->never())
             ->method('get');

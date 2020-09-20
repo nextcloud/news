@@ -13,7 +13,6 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use OCA\News\Config\Config;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Service\ItemService;
 use OCA\News\Service\ServiceNotFoundException;
@@ -30,20 +29,26 @@ use PHPUnit\Framework\TestCase;
 class ItemServiceTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemMapper
+     */
     private $mapper;
     /**
-     * @var  ItemService 
+     * @var  ItemService
      */
     private $itemService;
-    private $user;
-    private $response;
-    private $status;
-    private $time;
-    private $newestItemId;
-    private $config;
-    private $systemConfig;
 
-    protected function setUp()
+    /**
+     * @var int
+     */
+    private $time;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     */
+    private $config;
+
+    protected function setUp(): void
     {
         $this->time = 222;
         $this->timeFactory = $this->getMockBuilder(Time::class)
@@ -58,23 +63,10 @@ class ItemServiceTest extends TestCase
         $this->mapper = $this->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(Config::class)
+        $this->config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->systemConfig = $this->getMockBuilder(IConfig::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->itemService = new ItemService(
-            $this->mapper,
-            $this->timeFactory, $this->config, $this->systemConfig
-        );
-        $this->user = 'jack';
-        $this->id = 3;
-        $this->updatedSince = 20333;
-        $this->showAll = true;
-        $this->offset = 5;
-        $this->limit = 20;
-        $this->newestItemId = 4;
+        $this->itemService = new ItemService($this->mapper, $this->timeFactory, $this->config);
     }
 
 
@@ -84,18 +76,15 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAllNewFeed')
             ->with(
-                $this->equalTo($this->id),
-                $this->equalTo($this->updatedSince),
-                $this->equalTo($this->showAll),
-                $this->equalTo($this->user)
+                $this->equalTo(3),
+                $this->equalTo(20333),
+                $this->equalTo(true),
+                $this->equalTo('jack')
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue([]));
 
-        $result = $this->itemService->findAllNew(
-            $this->id, $type, $this->updatedSince, $this->showAll,
-            $this->user
-        );
-        $this->assertEquals($this->response, $result);
+        $result = $this->itemService->findAllNew(3, $type, 20333, true, 'jack');
+        $this->assertEquals([], $result);
     }
 
 
@@ -105,18 +94,15 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAllNewFolder')
             ->with(
-                $this->equalTo($this->id),
-                $this->equalTo($this->updatedSince),
-                $this->equalTo($this->showAll),
-                $this->equalTo($this->user)
+                $this->equalTo(3),
+                $this->equalTo(20333),
+                $this->equalTo(true),
+                $this->equalTo('jack')
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue(['val']));
 
-        $result = $this->itemService->findAllNew(
-            $this->id, $type, $this->updatedSince, $this->showAll,
-            $this->user
-        );
-        $this->assertEquals($this->response, $result);
+        $result = $this->itemService->findAllNew(3, $type, 20333, true, 'jack');
+        $this->assertEquals(['val'], $result);
     }
 
 
@@ -126,18 +112,18 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAllNew')
             ->with(
-                $this->equalTo($this->updatedSince),
+                $this->equalTo(20333),
                 $this->equalTo($type),
-                $this->equalTo($this->showAll),
-                $this->equalTo($this->user)
+                $this->equalTo(true),
+                $this->equalTo('jack')
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue(['val']));
 
         $result = $this->itemService->findAllNew(
-            $this->id, $type, $this->updatedSince, $this->showAll,
-            $this->user
+            3, $type, 20333, true,
+            'jack'
         );
-        $this->assertEquals($this->response, $result);
+        $this->assertEquals(['val'], $result);
     }
 
 
@@ -147,21 +133,21 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAllFeed')
             ->with(
-                $this->equalTo($this->id),
-                $this->equalTo($this->limit),
-                $this->equalTo($this->offset),
-                $this->equalTo($this->showAll),
+                $this->equalTo(3),
+                $this->equalTo(20),
+                $this->equalTo(5),
+                $this->equalTo(true),
                 $this->equalTo(false),
-                $this->equalTo($this->user),
+                $this->equalTo('jack'),
                 $this->equalTo([])
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue(['val']));
 
         $result = $this->itemService->findAll(
-            $this->id, $type, $this->limit, $this->offset,
-            $this->showAll, false, $this->user
+            3, $type, 20, 5,
+            true, false, 'jack'
         );
-        $this->assertEquals($this->response, $result);
+        $this->assertEquals(['val'], $result);
     }
 
 
@@ -171,21 +157,21 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAllFolder')
             ->with(
-                $this->equalTo($this->id),
-                $this->equalTo($this->limit),
-                $this->equalTo($this->offset),
-                $this->equalTo($this->showAll),
+                $this->equalTo(3),
+                $this->equalTo(20),
+                $this->equalTo(5),
                 $this->equalTo(true),
-                $this->equalTo($this->user),
+                $this->equalTo(true),
+                $this->equalTo('jack'),
                 $this->equalTo([])
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue(['val']));
 
         $result = $this->itemService->findAll(
-            $this->id, $type, $this->limit, $this->offset,
-            $this->showAll, true, $this->user
+            3, $type, 20, 5,
+            true, true, 'jack'
         );
-        $this->assertEquals($this->response, $result);
+        $this->assertEquals(['val'], $result);
     }
 
 
@@ -195,21 +181,21 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAll')
             ->with(
-                $this->equalTo($this->limit),
-                $this->equalTo($this->offset),
+                $this->equalTo(20),
+                $this->equalTo(5),
                 $this->equalTo($type),
-                $this->equalTo($this->showAll),
                 $this->equalTo(true),
-                $this->equalTo($this->user),
+                $this->equalTo(true),
+                $this->equalTo('jack'),
                 $this->equalTo([])
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue(['val']));
 
         $result = $this->itemService->findAll(
-            $this->id, $type, $this->limit, $this->offset,
-            $this->showAll, true, $this->user
+            3, $type, 20, 5,
+            true, true, 'jack'
         );
-        $this->assertEquals($this->response, $result);
+        $this->assertEquals(['val'], $result);
     }
 
 
@@ -220,21 +206,21 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->once())
             ->method('findAll')
             ->with(
-                $this->equalTo($this->limit),
-                $this->equalTo($this->offset),
+                $this->equalTo(20),
+                $this->equalTo(5),
                 $this->equalTo($type),
-                $this->equalTo($this->showAll),
                 $this->equalTo(true),
-                $this->equalTo($this->user),
+                $this->equalTo(true),
+                $this->equalTo('jack'),
                 $this->equalTo($search)
             )
-            ->will($this->returnValue($this->response));
+            ->will($this->returnValue(['val']));
 
         $result = $this->itemService->findAll(
-            $this->id, $type, $this->limit, $this->offset,
-            $this->showAll, true, $this->user, $search
+            3, $type, 20, 5,
+            true, true, 'jack', $search
         );
-        $this->assertEquals($this->response, $result);
+        $this->assertEquals(['val'], $result);
     }
 
 
@@ -260,7 +246,7 @@ class ItemServiceTest extends TestCase
             ->with(
                 $this->equalTo($guidHash),
                 $this->equalTo($feedId),
-                $this->equalTo($this->user)
+                $this->equalTo('jack')
             )
             ->will($this->returnValue($item));
 
@@ -268,7 +254,7 @@ class ItemServiceTest extends TestCase
             ->method('update')
             ->with($this->equalTo($expectedItem));
 
-        $this->itemService->star($feedId, $guidHash, true, $this->user);
+        $this->itemService->star($feedId, $guidHash, true, 'jack');
 
         $this->assertTrue($item->isStarred());
     }
@@ -296,7 +282,7 @@ class ItemServiceTest extends TestCase
             ->with(
                 $this->equalTo($guidHash),
                 $this->equalTo($feedId),
-                $this->equalTo($this->user)
+                $this->equalTo('jack')
             )
             ->will($this->returnValue($item));
 
@@ -304,7 +290,7 @@ class ItemServiceTest extends TestCase
             ->method('update')
             ->with($this->equalTo($expectedItem));
 
-        $this->itemService->star($feedId, $guidHash, false, $this->user);
+        $this->itemService->star($feedId, $guidHash, false, 'jack');
 
         $this->assertFalse($item->isStarred());
     }
@@ -329,11 +315,11 @@ class ItemServiceTest extends TestCase
                 $this->equalTo($itemId),
                 $this->equalTo(true),
                 $this->equalTo($this->time),
-                $this->equalTo($this->user)
+                $this->equalTo('jack')
             )
             ->will($this->returnValue($item));
 
-        $this->itemService->read($itemId, true, $this->user);
+        $this->itemService->read($itemId, true, 'jack');
     }
 
 
@@ -345,7 +331,7 @@ class ItemServiceTest extends TestCase
             ->method('readItem')
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->itemService->read(1, true, $this->user);
+        $this->itemService->read(1, true, 'jack');
     }
 
     public function testStarDoesNotExist()
@@ -356,7 +342,7 @@ class ItemServiceTest extends TestCase
             ->method('findByGuidHash')
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->itemService->star(1, 'hash', true, $this->user);
+        $this->itemService->star(1, 'hash', true, 'jack');
     }
 
 
@@ -369,10 +355,10 @@ class ItemServiceTest extends TestCase
             ->with(
                 $this->equalTo($highestItemId),
                 $this->equalTo($this->time),
-                $this->equalTo($this->user)
+                $this->equalTo('jack')
             );
 
-        $this->itemService->readAll($highestItemId, $this->user);
+        $this->itemService->readAll($highestItemId, 'jack');
     }
 
 
@@ -387,10 +373,10 @@ class ItemServiceTest extends TestCase
                 $this->equalTo($folderId),
                 $this->equalTo($highestItemId),
                 $this->equalTo($this->time),
-                $this->equalTo($this->user)
+                $this->equalTo('jack')
             );
 
-        $this->itemService->readFolder($folderId, $highestItemId, $this->user);
+        $this->itemService->readFolder($folderId, $highestItemId, 'jack');
     }
 
 
@@ -405,17 +391,18 @@ class ItemServiceTest extends TestCase
                 $this->equalTo($feedId),
                 $this->equalTo($highestItemId),
                 $this->equalTo($this->time),
-                $this->equalTo($this->user)
+                $this->equalTo('jack')
             );
 
-        $this->itemService->readFeed($feedId, $highestItemId, $this->user);
+        $this->itemService->readFeed($feedId, $highestItemId, 'jack');
     }
 
 
     public function testAutoPurgeOldWillPurgeOld()
     {
         $this->config->expects($this->once())
-            ->method('getAutoPurgeCount')
+            ->method('getAppValue')
+            ->with('news', 'autoPurgeCount')
             ->will($this->returnValue(2));
         $this->mapper->expects($this->once())
             ->method('deleteReadOlderThanThreshold')
@@ -427,7 +414,8 @@ class ItemServiceTest extends TestCase
     public function testAutoPurgeOldWontPurgeOld()
     {
         $this->config->expects($this->once())
-            ->method('getAutoPurgeCount')
+            ->method('getAppValue')
+            ->with('news', 'autoPurgeCount')
             ->will($this->returnValue(-1));
         $this->mapper->expects($this->never())
             ->method('deleteReadOlderThanThreshold');
@@ -436,23 +424,23 @@ class ItemServiceTest extends TestCase
     }
 
 
-    public function testGetNewestItemId() 
+    public function testGetNewestItemId()
     {
         $this->mapper->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo('jack'))
             ->will($this->returnValue(12));
 
-        $result = $this->itemService->getNewestItemId($this->user);
+        $result = $this->itemService->getNewestItemId('jack');
         $this->assertEquals(12, $result);
     }
 
 
-    public function testGetNewestItemIdDoesNotExist() 
+    public function testGetNewestItemIdDoesNotExist()
     {
         $this->mapper->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo('jack'))
             ->will(
                 $this->throwException(
                     new DoesNotExistException('There are no items')
@@ -460,7 +448,7 @@ class ItemServiceTest extends TestCase
             );
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->itemService->getNewestItemId($this->user);
+        $this->itemService->getNewestItemId('jack');
     }
 
 
@@ -470,10 +458,10 @@ class ItemServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo('jack'))
             ->will($this->returnValue($star));
 
-        $result = $this->itemService->starredCount($this->user);
+        $result = $this->itemService->starredCount('jack');
 
         $this->assertEquals($star, $result);
     }
@@ -485,22 +473,22 @@ class ItemServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('findAllUnreadOrStarred')
-            ->with($this->equalTo($this->user))
+            ->with($this->equalTo('jack'))
             ->will($this->returnValue($star));
 
-        $result = $this->itemService->getUnreadOrStarred($this->user);
+        $result = $this->itemService->getUnreadOrStarred('jack');
 
         $this->assertEquals($star, $result);
     }
 
 
-    public function testDeleteUser() 
+    public function testDeleteUser()
     {
         $this->mapper->expects($this->once())
             ->method('deleteUser')
-            ->will($this->returnValue($this->user));
+            ->will($this->returnValue('jack'));
 
-        $this->itemService->deleteUser($this->user);
+        $this->itemService->deleteUser('jack');
     }
 
 

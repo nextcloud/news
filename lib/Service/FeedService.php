@@ -16,6 +16,8 @@ namespace OCA\News\Service;
 use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
 
+use OCA\News\AppInfo\Application;
+use OCP\IConfig;
 use OCP\ILogger;
 use OCP\IL10N;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -25,7 +27,6 @@ use OCA\News\Db\Item;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
-use OCA\News\Config\Config;
 use OCA\News\Utility\Time;
 
 class FeedService extends Service
@@ -48,9 +49,8 @@ class FeedService extends Service
         ILogger $logger,
         IL10N $l10n,
         Time $timeFactory,
-        Config $config,
-        HTMLPurifier $purifier,
-        $LoggerParameters
+        IConfig $config,
+        HTMLPurifier $purifier
     ) {
         parent::__construct($feedMapper);
         $this->feedFetcher = $feedFetcher;
@@ -58,11 +58,14 @@ class FeedService extends Service
         $this->logger = $logger;
         $this->l10n = $l10n;
         $this->timeFactory = $timeFactory;
-        $this->autoPurgeMinimumInterval = $config->getAutoPurgeMinimumInterval(
+        $this->autoPurgeMinimumInterval = $config->getAppValue(
+            Application::NAME,
+            'autoPurgeMinimumInterval',
+            Application::DEFAULT_SETTINGS['autoPurgeMinimumInterval']
         );
         $this->purifier = $purifier;
         $this->feedMapper = $feedMapper;
-        $this->loggerParams = $LoggerParameters;
+        $this->loggerParams = ['app' => Application::NAME];
     }
 
     /**

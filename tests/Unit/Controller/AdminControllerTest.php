@@ -13,82 +13,84 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
-use OCA\News\Config\Config;
 use OCA\News\Controller\AdminController;
 use OCA\News\Service\ItemService;
+use OCP\IConfig;
 use OCP\IRequest;
 use PHPUnit\Framework\TestCase;
 
 class AdminControllerTest extends TestCase
 {
-
+    /**
+     * @var string
+     */
     private $appName;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IRequest
+     */
     private $request;
+
+    /**
+     * @var AdminController
+     */
     private $controller;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     */
     private $config;
-    private $configPath;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemService
+     */
     private $itemService;
 
     /**
      * Gets run before each test
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(Config::class)
+        $this->config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->configPath = 'my.ini';
-        $this->controller = new AdminController(
-            $this->appName, $this->request,
-            $this->config, $this->itemService, $this->configPath
-        );
+        $this->controller = new AdminController($this->appName, $this->request, $this->config, $this->itemService);
     }
 
-
-    public function testIndex() 
+    /**
+     * Test \OCA\News\Controller\AdminController::index
+     */
+    public function testIndex()
     {
         $expected = [
             'autoPurgeMinimumInterval' => 1,
             'autoPurgeCount' => 2,
             'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
-            'useCronUpdates' => 5,
-            'maxSize' => 7,
+            'useCronUpdates' => false,
             'exploreUrl' => 'test',
-            'updateInterval' => 3600
+            'updateInterval' => 3601
         ];
-        $this->config->expects($this->once())
-            ->method('getAutoPurgeMinimumInterval')
-            ->will($this->returnValue($expected['autoPurgeMinimumInterval']));
-        $this->config->expects($this->once())
-            ->method('getAutoPurgeCount')
-            ->will($this->returnValue($expected['autoPurgeCount']));
-        $this->config->expects($this->once())
-            ->method('getMaxRedirects')
-            ->will($this->returnValue($expected['maxRedirects']));
-        $this->config->expects($this->once())
-            ->method('getFeedFetcherTimeout')
-            ->will($this->returnValue($expected['feedFetcherTimeout']));
-        $this->config->expects($this->once())
-            ->method('getUseCronUpdates')
-            ->will($this->returnValue($expected['useCronUpdates']));
-        $this->config->expects($this->once())
-            ->method('getMaxSize')
-            ->will($this->returnValue($expected['maxSize']));
-        $this->config->expects($this->once())
-            ->method('getExploreUrl')
-            ->will($this->returnValue($expected['exploreUrl']));
-        $this->config->expects($this->once())
-            ->method('getUpdateInterval')
-            ->will($this->returnValue($expected['updateInterval']));
+        $map = [
+            ['news','autoPurgeMinimumInterval', 60, 1],
+            ['news','autoPurgeCount', 200, 2],
+            ['news','maxRedirects', 10, 3],
+            ['news','feedFetcherTimeout', 60, 4],
+            ['news','useCronUpdates', true, false,],
+            ['news','exploreUrl', '', 'test'],
+            ['news','updateInterval', 3600, 3601]
+        ];
+        $this->config->expects($this->exactly(count($map)))
+            ->method('getAppValue')
+            ->will($this->returnValueMap($map));
 
         $response = $this->controller->index();
         $data = $response->getParams();
@@ -101,75 +103,48 @@ class AdminControllerTest extends TestCase
     }
 
 
-    public function testUpdate() 
+    public function testUpdate()
     {
         $expected = [
             'autoPurgeMinimumInterval' => 1,
             'autoPurgeCount' => 2,
             'maxRedirects' => 3,
             'feedFetcherTimeout' => 4,
-            'useCronUpdates' => 5,
-            'maxSize' => 7,
+            'useCronUpdates' => false,
             'exploreUrl' => 'test',
-            'updateInterval' => 3600
+            'updateInterval' => 3601
         ];
 
-        $this->config->expects($this->once())
-            ->method('setAutoPurgeMinimumInterval')
-            ->with($this->equalTo($expected['autoPurgeMinimumInterval']));
-        $this->config->expects($this->once())
-            ->method('setAutoPurgeCount')
-            ->with($this->equalTo($expected['autoPurgeCount']));
-        $this->config->expects($this->once())
-            ->method('setMaxRedirects')
-            ->with($this->equalTo($expected['maxRedirects']));
-        $this->config->expects($this->once())
-            ->method('setFeedFetcherTimeout')
-            ->with($this->equalTo($expected['feedFetcherTimeout']));
-        $this->config->expects($this->once())
-            ->method('setUseCronUpdates')
-            ->with($this->equalTo($expected['useCronUpdates']));
-        $this->config->expects($this->once())
-            ->method('setExploreUrl')
-            ->with($this->equalTo($expected['exploreUrl']));
-        $this->config->expects($this->once())
-            ->method('setUpdateInterval')
-            ->with($this->equalTo($expected['updateInterval']));
-        $this->config->expects($this->once())
-            ->method('write')
-            ->with($this->equalTo($this->configPath));
+        $this->config->expects($this->exactly(count($expected)))
+            ->method('setAppValue')
+            ->withConsecutive(
+                ['news','autoPurgeMinimumInterval', 1],
+                ['news','autoPurgeCount', 2],
+                ['news','maxRedirects', 3],
+                ['news','feedFetcherTimeout', 4],
+                ['news','useCronUpdates', false],
+                ['news','exploreUrl', 'test'],
+                ['news','updateInterval', 3601]
+            );
 
-        $this->config->expects($this->once())
-            ->method('getAutoPurgeMinimumInterval')
-            ->will($this->returnValue($expected['autoPurgeMinimumInterval']));
-        $this->config->expects($this->once())
-            ->method('getAutoPurgeCount')
-            ->will($this->returnValue($expected['autoPurgeCount']));
-        $this->config->expects($this->once())
-            ->method('getMaxRedirects')
-            ->will($this->returnValue($expected['maxRedirects']));
-        $this->config->expects($this->once())
-            ->method('getFeedFetcherTimeout')
-            ->will($this->returnValue($expected['feedFetcherTimeout']));
-        $this->config->expects($this->once())
-            ->method('getUseCronUpdates')
-            ->will($this->returnValue($expected['useCronUpdates']));
-        $this->config->expects($this->once())
-            ->method('getMaxSize')
-            ->will($this->returnValue($expected['maxSize']));
-        $this->config->expects($this->once())
-            ->method('getExploreUrl')
-            ->will($this->returnValue($expected['exploreUrl']));
-        $this->config->expects($this->once())
-            ->method('getUpdateInterval')
-            ->will($this->returnValue($expected['updateInterval']));
+        $map = [
+            ['news','autoPurgeMinimumInterval', 60, 1],
+            ['news','autoPurgeCount', 200, 2],
+            ['news','maxRedirects', 10, 3],
+            ['news','feedFetcherTimeout', 60, 4],
+            ['news','useCronUpdates', true, false,],
+            ['news','exploreUrl', '', 'test'],
+            ['news','updateInterval', 3600, 3601]
+        ];
+        $this->config->expects($this->exactly(count($map)))
+            ->method('getAppValue')
+            ->will($this->returnValueMap($map));
 
         $response = $this->controller->update(
             $expected['autoPurgeMinimumInterval'],
             $expected['autoPurgeCount'],
             $expected['maxRedirects'],
             $expected['feedFetcherTimeout'],
-            $expected['maxSize'],
             $expected['useCronUpdates'],
             $expected['exploreUrl'],
             $expected['updateInterval']

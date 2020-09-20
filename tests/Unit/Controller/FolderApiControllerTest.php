@@ -44,7 +44,7 @@ class FolderApiControllerTest extends TestCase
     private $request;
     private $msg;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(IRequest::class)
@@ -79,7 +79,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testIndex() 
+    public function testIndex()
     {
         $folders = [new Folder()];
 
@@ -98,7 +98,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testCreate() 
+    public function testCreate()
     {
         $folderName = 'test';
         $folder = new Folder();
@@ -122,7 +122,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testCreateAlreadyExists() 
+    public function testCreateAlreadyExists()
     {
         $msg = 'exists';
 
@@ -141,7 +141,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testCreateInvalidFolderName() 
+    public function testCreateInvalidFolderName()
     {
         $msg = 'exists';
 
@@ -162,7 +162,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testDelete() 
+    public function testDelete()
     {
         $folderId = 23;
         $this->folderService->expects($this->once())
@@ -173,7 +173,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testDeleteDoesNotExist() 
+    public function testDeleteDoesNotExist()
     {
         $folderId = 23;
 
@@ -193,7 +193,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testUpdate() 
+    public function testUpdate()
     {
         $folderId = 23;
         $folderName = 'test';
@@ -209,7 +209,7 @@ class FolderApiControllerTest extends TestCase
         $this->folderAPI->update($folderId, $folderName);
     }
 
-    public function testUpdateDoesNotExist() 
+    public function testUpdateDoesNotExist()
     {
         $folderId = 23;
         $folderName = 'test';
@@ -230,7 +230,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testUpdateExists() 
+    public function testUpdateExists()
     {
         $folderId = 23;
         $folderName = 'test';
@@ -251,7 +251,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testUpdateInvalidFolderName() 
+    public function testUpdateInvalidFolderName()
     {
         $folderId = 23;
         $folderName = '';
@@ -274,7 +274,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testRead() 
+    public function testRead()
     {
         $this->itemService->expects($this->once())
             ->method('readFolder')

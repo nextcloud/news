@@ -28,7 +28,7 @@ class UpdaterTest extends TestCase
     private $itemService;
     private $updater;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->folderService = $this->getMockBuilder(FolderService::class)
             ->disableOriginalConstructor()
@@ -46,7 +46,7 @@ class UpdaterTest extends TestCase
         );
     }
 
-    public function testBeforeUpdate() 
+    public function testBeforeUpdate()
     {
         $this->folderService->expects($this->once())
             ->method('purgeDeleted');
@@ -56,14 +56,14 @@ class UpdaterTest extends TestCase
     }
 
 
-    public function testAfterUpdate() 
+    public function testAfterUpdate()
     {
         $this->itemService->expects($this->once())
             ->method('autoPurgeOld');
         $this->updater->afterUpdate();
     }
 
-    public function testUpdate() 
+    public function testUpdate()
     {
         $this->feedService->expects($this->once())
             ->method('updateAll');

@@ -29,26 +29,26 @@ class MapperFactoryTest extends TestCase
     private $db;
     private $settings;
 
-    public function setUp() 
+    public function setUp(): void
     {
         $this->db = $this->getMockBuilder(IDBConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
 
-    public function testGetItemMapperSqlite() 
+    public function testGetItemMapperSqlite()
     {
         $factory = new MapperFactory($this->db, 'sqlite', new Time());
         $this->assertTrue($factory->build() instanceof ItemMapper);
     }
 
-    public function testGetItemMapperPostgres() 
+    public function testGetItemMapperPostgres()
     {
         $factory = new MapperFactory($this->db, 'pgsql', new Time());
         $this->assertTrue($factory->build() instanceof ItemMapper);
     }
 
-    public function testGetItemMapperMysql() 
+    public function testGetItemMapperMysql()
     {
         $factory = new MapperFactory($this->db, 'mysql', new Time());
         $this->assertTrue($factory->build() instanceof MysqlMapper);

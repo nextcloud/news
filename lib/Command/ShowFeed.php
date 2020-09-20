@@ -13,7 +13,15 @@ namespace OCA\News\Command;
 use FeedIo\FeedIo;
 use Favicon\Favicon;
 
+use HTMLPurifier;
+use OCA\News\Db\FeedMapper;
+use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
+use OCA\News\Service\FeedService;
+use OCA\News\Utility\Time;
+use OCP\IConfig;
+use OCP\IL10N;
+use OCP\ILogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -38,8 +46,8 @@ class ShowFeed extends Command
      */
     public function __construct(Fetcher $feedFetcher)
     {
-        $this->feedFetcher  = $feedFetcher;
         parent::__construct();
+        $this->feedFetcher  = $feedFetcher;
     }
 
     protected function configure()

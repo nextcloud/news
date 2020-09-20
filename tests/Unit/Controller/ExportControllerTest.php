@@ -41,7 +41,7 @@ class ExportControllerTest extends TestCase
     /**
      * Gets run before each test
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->appName = 'news';
         $this->user = 'john';

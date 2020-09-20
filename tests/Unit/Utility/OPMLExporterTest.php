@@ -32,7 +32,7 @@ class OPMLExporterTest extends TestCase
     /** @var Folder */
     private $folder2;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->exporter = new OPMLExporter();
         $this->folder1 = new Folder();
@@ -55,7 +55,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    private function getAttribute($item, $name) 
+    private function getAttribute($item, $name)
     {
         // used to fix scrutinizer errors
         if ($item instanceof \DOMElement) {
@@ -75,7 +75,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    public function testBuildReturnsFolders() 
+    public function testBuildReturnsFolders()
     {
         $result = $this->exporter->build([$this->folder1, $this->folder2], []);
         $xpath = new \DOMXpath($result);
@@ -101,7 +101,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    public function testBuildReturnsOnlyOneFeedIfParentFolderNotThere() 
+    public function testBuildReturnsOnlyOneFeedIfParentFolderNotThere()
     {
         $result = $this->exporter->build([], [$this->feed1, $this->feed2]);
         $xpath = new \DOMXpath($result);
@@ -127,7 +127,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    public function testBuildReturnsFeedsAndFolders() 
+    public function testBuildReturnsFeedsAndFolders()
     {
         $result = $this->exporter->build(
             [$this->folder1, $this->folder2],

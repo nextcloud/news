@@ -13,15 +13,16 @@ namespace OCA\News\Cron;
 
 use OC\BackgroundJob\TimedJob;
 
-use OCA\News\Config\Config;
+use OCA\News\AppInfo\Application;
 use OCA\News\Service\StatusService;
 use OCA\News\Utility\Updater as UpdaterService;
+use OCP\IConfig;
 
 class Updater extends TimedJob
 {
 
     /**
-     * @var Config
+     * @var IConfig
      */
     private $config;
     /**
@@ -34,7 +35,7 @@ class Updater extends TimedJob
     private $updaterService;
 
     public function __construct(
-        Config $config,
+        IConfig $config,
         StatusService $status,
         UpdaterService $updaterService
     ) {
@@ -42,14 +43,24 @@ class Updater extends TimedJob
         $this->status = $status;
         $this->updaterService = $updaterService;
 
-        parent::setInterval($this->config->getUpdateInterval());
+        $interval = $this->config->getAppValue(
+            Application::NAME,
+            'updateInterval',
+            Application::DEFAULT_SETTINGS['updateInterval']
+        );
+
+        parent::setInterval($interval);
     }
 
     protected function run($argument)
     {
-        if ($this->config->getUseCronUpdates()
-            && $this->status->isProperlyConfigured()
-        ) {
+        $uses_cron = $this->config->getAppValue(
+            Application::NAME,
+            'useCronUpdates',
+            Application::DEFAULT_SETTINGS['useCronUpdates']
+        );
+
+        if ($uses_cron && $this->status->isProperlyConfigured()) {
             $this->updaterService->beforeUpdate();
             $this->updaterService->update();
             $this->updaterService->afterUpdate();

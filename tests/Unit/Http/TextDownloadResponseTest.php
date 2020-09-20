@@ -22,7 +22,7 @@ class TextDownloadResponseTest extends TestCase
 {
 
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->response = new TextDownloadResponse(
             'sometext', 'file', 'content'
@@ -30,7 +30,7 @@ class TextDownloadResponseTest extends TestCase
     }
 
 
-    public function testRender() 
+    public function testRender()
     {
         $this->assertEquals('sometext', $this->response->render());
     }

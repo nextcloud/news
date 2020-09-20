@@ -47,6 +47,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     <repair-steps>
         <post-migration>
             <step>OCA\News\Migration\MigrateStatusFlags</step>
+            <step>OCA\News\Migration\MigrateConfig</step>
         </post-migration>
     </repair-steps>
 
