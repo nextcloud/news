@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['7.4']
-        nextcloud: ['19']
+        nextcloud: ['20']
         database: ['sqlite']
         experimental: [false]
     steps:
