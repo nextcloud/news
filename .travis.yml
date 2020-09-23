@@ -8,7 +8,7 @@ php:
 env:
   global:
     - MOZ_HEADLESS=1
-    - CORE_BRANCH=stable19 DB=sqlite
+    - CORE_BRANCH=stable20 DB=sqlite
 
 before_install:
     - make
