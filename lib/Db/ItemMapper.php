@@ -357,20 +357,27 @@ class ItemMapper extends NewsMapper
         while ($row = $result->fetch()) {
             $size = (int)$row['size'];
             $limit = $size - $threshold;
+            $feed_id = $row['feed_id'];
 
             if ($limit > 0) {
-                $params = [false, false, $row['feed_id'], $limit];
-
-                $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE `id` IN (' .
-                    'SELECT `id` FROM `*PREFIX*news_items` ' .
+                $params = [false, false, $feed_id, $limit];
+                $sql = 'SELECT `id` FROM `*PREFIX*news_items` ' .
                     'WHERE `unread` = ? ' .
                     'AND `starred` = ? ' .
                     'AND `feed_id` = ? ' .
                     'ORDER BY `id` ASC ' .
-                    'LIMIT ?' .
-                    ')';
-
+                    'LIMIT 1 ' .
+                    'OFFSET ? ';
+            }
+            $limit_result = $this->execute($sql, $params);
+            if ($limit_row = $limit_result->fetch()) {
+                $limit_id = (int)$limit_row['id'];
+                $params = [false, false, $feed_id, $limit_id];
+                $sql = 'DELETE FROM `*PREFIX*news_items` ' .
+                    'WHERE `unread` = ? ' .
+                    'AND `starred` = ? ' .
+                    'AND `feed_id` = ? ' .
+                    'AND `id` < ? ';
                 $this->execute($sql, $params);
             }
         }

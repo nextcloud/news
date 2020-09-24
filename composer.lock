@@ -111,16 +111,16 @@
         },
         {
             "name": "debril/feed-io",
-            "version": "v4.7.8",
+            "version": "v4.7.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdebril/feed-io.git",
-                "reference": "2fe979f7e288fff334deaa0ddeaa1f229632ab6e"
+                "reference": "3fbc023b52d7b97fed7e7ab0dd9a83fb9c556414"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/2fe979f7e288fff334deaa0ddeaa1f229632ab6e",
-                "reference": "2fe979f7e288fff334deaa0ddeaa1f229632ab6e",
+                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/3fbc023b52d7b97fed7e7ab0dd9a83fb9c556414",
+                "reference": "3fbc023b52d7b97fed7e7ab0dd9a83fb9c556414",
                 "shasum": ""
             },
             "require": {
@@ -174,7 +174,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-17T13:46:18+00:00"
+            "time": "2020-09-21T08:29:55+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -826,16 +826,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.43",
+            "version": "0.12.44",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "54221b44766cb4bdfe40d1828d5bba5dd79c38c6"
+                "reference": "330b45776ea77f167b150e24787412414a8fa469"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/54221b44766cb4bdfe40d1828d5bba5dd79c38c6",
-                "reference": "54221b44766cb4bdfe40d1828d5bba5dd79c38c6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/330b45776ea77f167b150e24787412414a8fa469",
+                "reference": "330b45776ea77f167b150e24787412414a8fa469",
                 "shasum": ""
             },
             "require": {
@@ -878,7 +878,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-19T21:19:38+00:00"
+            "time": "2020-09-24T15:28:47+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
