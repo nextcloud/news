@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Tisztogatási időköz",
     "Maximum read count per feed" : "Maximális olvasási szám hífolyamonként",
     "Maximum redirects" : "Maximum átirányítás",
-    "Maximum feed page size" : "Maximum hírfolyam oldalméret",
     "Feed fetcher timeout" : "Hírfolyam letöltő időtúllépés",
     "Explore Service URL" : "Szolgáltatásfelderítési URL",
     "Saved" : "Elmentve",

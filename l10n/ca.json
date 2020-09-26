@@ -20,8 +20,6 @@
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Defineix la quantitat màxima d'articles que es poden llegir per font que no s'esborraran en el treball de neteja; si reapareixen articles antics després d'haver estat llegits, augmenteu aquest valor; valors negatius, com -1, desactivaran aquesta caracterí­stica.",
     "Maximum redirects" : "Màxim de redirigits",
     "How many redirects the feed fetcher should follow." : "Quantes redireccions hauria de suportar el descarregador de fonts.",
-    "Maximum feed page size" : "Grandària màxima de pàgina de la font",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Màxima grandària de la font en bytes. Si la pàgina RSS/Atom és més gran que aquest valor, l'actualització serà cancel·lada.",
     "Feed fetcher timeout" : "Temps d'espera exhaurit per a la descàrrega de la font",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nombre màxim de segons per esperar que carregui una font de RSS o Atom; si pren més temps, l'actualització serà cancel·lada.",
     "Explore Service URL" : "Explora l'URL del Servei",

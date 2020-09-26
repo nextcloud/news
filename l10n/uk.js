@@ -11,7 +11,6 @@ OC.L10N.register(
     "Purge interval" : "Очистити оновлення",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
     "Maximum redirects" : "Максимум перенаправлень",
-    "Maximum feed page size" : "Максимальний розмір сторінки для стрічки",
     "Feed fetcher timeout" : "Час очікування для завантажувача стрічки",
     "Explore Service URL" : "URL сервісу дослідження",
     "Saved" : "Збереженно",

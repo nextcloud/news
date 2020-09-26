@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Vynulovať interval",
     "Maximum read count per feed" : "Maximálny počet noviniek pre kanál",
     "Maximum redirects" : "Maximum presmerovaní",
-    "Maximum feed page size" : "Maximálna veľkosť stránky kanálu",
     "Feed fetcher timeout" : "Vypršal čas pre sťahovanie článkov",
     "Explore Service URL" : "Prehľadať URL služby",
     "Saved" : "Uložené",

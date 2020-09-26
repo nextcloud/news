@@ -15,7 +15,6 @@ OC.L10N.register(
     "Purge interval" : "გაწმენდის ინტერვალი",
     "Maximum read count per feed" : "თითო ლენტაზე მაქისმალური კითხვის რაოდენობა",
     "Maximum redirects" : " მაქს. გადამისამართებები",
-    "Maximum feed page size" : "ლენტის გვერდის მაქს. ზომა",
     "Feed fetcher timeout" : "ლენტის მომპოვებლის დროის ამოწურვა",
     "Explore Service URL" : "სერვის მისამართის დათვალიერება",
     "Saved" : "შენახულია",

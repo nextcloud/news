@@ -11,7 +11,6 @@ OC.L10N.register(
     "Purge interval" : "ช่วงเวลาที่ล้าง",
     "Maximum read count per feed" : "นับจำนวนอ่านสูงสุดต่อฟีด",
     "Maximum redirects" : "เปลี่ยนเส้นทางสูงสุด",
-    "Maximum feed page size" : "ขนาดหน้าฟีดสูงสุด",
     "Feed fetcher timeout" : "ตัวเรียกฟีดหมดเวลา",
     "Explore Service URL" : "สำรวจบริการ URL",
     "Saved" : "บันทึกแล้ว",

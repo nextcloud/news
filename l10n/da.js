@@ -15,7 +15,6 @@ OC.L10N.register(
     "Purge interval" : "Oprydningsinterval",
     "Maximum read count per feed" : "Det maksimale antal læsninger per feed",
     "Maximum redirects" : "Maksimum for videredirigeringer",
-    "Maximum feed page size" : "Maksimal størrelse for feed-side",
     "Feed fetcher timeout" : "Tidsudløb for feed-indhenter",
     "Explore Service URL" : "Udforsk tjenestens URL",
     "Saved" : "Gemt",

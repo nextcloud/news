@@ -15,7 +15,6 @@
     "Purge interval" : "מרווח להסרה ממסד הנתונים",
     "Maximum read count per feed" : "מספר מקסימלי של שורות קריאה מערוץ הזנת תוכן",
     "Maximum redirects" : "מספר ניתובים מירבי",
-    "Maximum feed page size" : "גודל מקסימלי לדף ערוץ הזנת תוכן",
     "Feed fetcher timeout" : "עבר זמן מרבי להזנת ערוץ התוכן",
     "Explore Service URL" : "חקירת נתיב שירות",
     "Saved" : "נשמר",

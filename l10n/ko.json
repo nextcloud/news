@@ -15,7 +15,6 @@
     "Purge interval" : "비우기 주기",
     "Maximum read count per feed" : "피드당 최대 읽은 글 개수",
     "Maximum redirects" : "최대 넘겨주기 수",
-    "Maximum feed page size" : "최대 피드 페이지 크기",
     "Feed fetcher timeout" : "피드 가져오기 시간 제한",
     "Explore Service URL" : "탐색 서비스 URL",
     "Saved" : "저장됨",

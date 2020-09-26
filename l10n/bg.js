@@ -16,7 +16,6 @@ OC.L10N.register(
     "Purge interval" : "Интервал за изтриване",
     "Maximum read count per feed" : "Максимален брой прочитания на емисия",
     "Maximum redirects" : "Максимален брой пренасочвания",
-    "Maximum feed page size" : "Максимален размер на страница от емисия",
     "Feed fetcher timeout" : "Максимално време за изчакване",
     "Saved" : "Запазено",
     "Download" : "Изтегли",

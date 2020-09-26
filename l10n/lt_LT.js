@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Išvalymo intervalas",
     "Maximum read count per feed" : "Didžiausias kanalo straipsnių kiekis",
     "Maximum redirects" : "Daugiausiai peradresavimų",
-    "Maximum feed page size" : "Didžiausias kanalo puslapio dydis",
     "Feed fetcher timeout" : "Kanalų gavimui skirtas laikas",
     "Explore Service URL" : "Išžvalgymo paslaugos URL",
     "Saved" : "Įrašyta",

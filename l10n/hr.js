@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Interval čišćenja",
     "Maximum read count per feed" : "Maksimalni broj čitanja po sažetku",
     "Maximum redirects" : "Maksimalni broj preusmjeravanja",
-    "Maximum feed page size" : "Maksimalna veličina stranice sažetaka",
     "Feed fetcher timeout" : "Vremensko ograničenje hvatača sažetaka",
     "Explore Service URL" : "Istražite URL servisa",
     "Saved" : "Spremljeno",

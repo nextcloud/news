@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "パージ周期",
     "Maximum read count per feed" : "フィード当たりの最大閲覧数",
     "Maximum redirects" : "最大リダイレクト数",
-    "Maximum feed page size" : "最大フィードページサイズ",
     "Feed fetcher timeout" : "フィードフェッチャーのタイムアウト",
     "Explore Service URL" : "サービスURLの探索",
     "Saved" : "保存しました",

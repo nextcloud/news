@@ -17,7 +17,6 @@ OC.L10N.register(
     "Purge interval" : "فاصله فاصله",
     "Maximum read count per feed" : "حداکثر تعداد خواندن در هر خوراک",
     "Maximum redirects" : "حداکثر تغییر مسیرها",
-    "Maximum feed page size" : "حداکثر اندازه صفحه خوراک",
     "Feed fetcher timeout" : "خاتمه دادن به فست فایر",
     "Explore Service URL" : "URL سرویس را کاوش کنید",
     "Saved" : "ذخیره شد",

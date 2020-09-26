@@ -14,7 +14,6 @@ OC.L10N.register(
     "Purge interval" : "Intervalu de purga",
     "Maximum read count per feed" : "Númberu máximu de llectura per feed",
     "Maximum redirects" : "Redirecciones máximes",
-    "Maximum feed page size" : "Máximu tamañu de páxina del feed",
     "Feed fetcher timeout" : "Tiempo escosao p'algamar el feed",
     "Explore Service URL" : "Esplorar URL del serviciu",
     "Saved" : "Guardáu",

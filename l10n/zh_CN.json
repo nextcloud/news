@@ -16,7 +16,6 @@
     "Purge interval" : "清理间隔",
     "Maximum read count per feed" : "每个订阅源的最大读取次数",
     "Maximum redirects" : "最大重定向次数",
-    "Maximum feed page size" : "最大订阅源页面大小",
     "Feed fetcher timeout" : "订阅源获取器超时",
     "Explore Service URL" : "资源管理服务URL",
     "Saved" : "已保存",

@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Garbiketa bitartea",
     "Maximum read count per feed" : "Gehienezko irakurketa kopurua jarioko",
     "Maximum redirects" : "Gehienezko birbideratzeak",
-    "Maximum feed page size" : "Jarioaren orriaren gehienezko tamaina",
     "Feed fetcher timeout" : "Jarioak hartzeko denbora-muga",
     "Explore Service URL" : "Arakatu zerbitzuaren URLa",
     "Saved" : "Gordeta",

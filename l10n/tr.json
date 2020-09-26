@@ -20,8 +20,6 @@
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Temizleme görevi tarafından silinmeyecek, bir akış için okunabilecek en fazla makale sayısını belirtir. Eski makaleler okunduktan sonra yeniden görüntüleniyorsa bu değeri arttırın. -1 gibi negatif değerler bu özelliği kapatır.",
     "Maximum redirects" : "En fazla yönlendirme",
     "How many redirects the feed fetcher should follow." : "Akış getiricinin izleyeceği yönlendirme sayısı.",
-    "Maximum feed page size" : "En büyük akış sayfa boyutu",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Bayt cinsinden en büyük akış boyutu. RSS/Atom sayfası bu değerden daha büyükse, güncellemeden vazgeçilir.",
     "Feed fetcher timeout" : "Akış alma zaman aşımı",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Bir RSS ya da Atom akışının yüklenmesi için beklenecek en fazla süre. İşlem bu süre içinde tamamlanmaz ise güncellemeden vazgeçilir.",
     "Explore Service URL" : "Keşfetme Hizmeti Adresi",

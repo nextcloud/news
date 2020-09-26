@@ -16,7 +16,6 @@
     "Maximum read count per feed" : "Syötekohtaisten lukukertojen enimmäismäärä",
     "Maximum redirects" : "Uudelleenohjausten enimmäismäärä",
     "How many redirects the feed fetcher should follow." : "Kuinka montaa uudelleenohjausta syötteen noutajan tulisi seurata.",
-    "Maximum feed page size" : "Syötteen sivun enimmäiskoko",
     "Feed fetcher timeout" : "Syötteen hakemisen aikakatkaisu",
     "For more information check the wiki." : "Lue lisätietoja wikistä.",
     "Update interval" : "Päivitysväli",

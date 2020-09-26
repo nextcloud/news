@@ -11,7 +11,6 @@
     "Purge interval" : "Puhastuse intervall",
     "Maximum read count per feed" : "Maksimaalne lugemiste arv voo kohta",
     "Maximum redirects" : "Maksimaalsed ümbersuunamised",
-    "Maximum feed page size" : "Maksimaalne voo lehekülje suurus",
     "Feed fetcher timeout" : "Voo ühenduse aegumine",
     "Explore Service URL" : "Sirvi teenuse URL-i",
     "Saved" : "Salvestatud",

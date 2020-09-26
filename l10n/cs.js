@@ -22,8 +22,6 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Určuje nejvyšší počet článků, které jsou dostupné ke čtení z jednotlivých kanálů a nebudou smazány při čištění; pokud se staré články po přečtení znovu objevují, navyšte tuto hodnotu; negativní hodnoty jako -1 tuto funkci úplně vypnou.",
     "Maximum redirects" : "Nejvyšší počet přesměrování",
     "How many redirects the feed fetcher should follow." : "Kolik přesměrování se může sledovat při stahování článků.",
-    "Maximum feed page size" : "Maximální velikost stránky kanálu",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Maximální velikost kanálu v bajtech. Pokud bude RSS/Atom stránka větší než tato hodnota, aktualizace bude ukončena.",
     "Feed fetcher timeout" : "Časový limit při stahování článků",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maximální počet sekund pro aktualizaci RSS nebo Atom zdroje; pokud bude interval překročen, aktualizace se ukončí.",
     "Explore Service URL" : "URL prohledávání",

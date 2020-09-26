@@ -20,8 +20,6 @@
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Définit la quantité maximale d'articles pouvant être lus par flux qui ne seront pas supprimés par la tâche de nettoyage. Si d'anciens articles réapparaissent après avoir été lus, augmentez cette valeur. Une valeur négative comme -1 désactivera complètement cette fonctionnalité",
     "Maximum redirects" : "Nombre maximal de redirections",
     "How many redirects the feed fetcher should follow." : "Nombre de redirections que le récupérateur de flux doit suivre",
-    "Maximum feed page size" : "Taille maximum de page de flux",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Taille maximum de flux en octets. Si la taille de la page RSS/Atom dépasse cette valeur, la mise à jour sera abandonnée.",
     "Feed fetcher timeout" : "Délai d'attente maximum du récupérateur de flux",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nombre maximal de secondes que peut prendre un flux RSS ou Atom pour être chargé. Si le délai est dépassé, la mise à jour sera annulée",
     "Explore Service URL" : "URL du service d'exploration",

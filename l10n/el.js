@@ -22,8 +22,6 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Ορίζει τη μέγιστη ποσότητα άρθρων που μπορούν να φορτωθούν ανά ροή, τα οποία δεν θα διαγραφούν από την υπηρεσία εκκαθάρισης; εάν τα παλαιά άρθρα επανεμφανιστούν μετά την ανάγνωσή τους, αυξήστε αυτήν την τιμή; οι αρνητικές τιμές, όπως το -1, θα απενεργοποιήσουν αυτή τη λειτουργία.",
     "Maximum redirects" : "Μέγιστος αριθμός ανακατευθύνσεων",
     "How many redirects the feed fetcher should follow." : "Πόσες ανακατευθύνσεις θα μπορεί να ακολουθεί η υπηρεσία ροών.",
-    "Maximum feed page size" : "Μέγιστο μέγεθος σελίδας ροής",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Μέγιστο μέγεθος ροής σε bytes. Εάν η σελίδα RSS/Atom είναι μεγαλύτερη από αυτήν την τιμή, η ενημέρωση θα ματαιωθεί.",
     "Feed fetcher timeout" : "Χρόνος λήξης δέκτη ροής",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Μέγιστος χρόνος σε δευτερόλεπτα, αναμονής φόρτωσης μιας ροής RSS ή Atom; εάν χρειαστεί περισσότερο χρόνο η ενημέρωση θα ματαιωθεί.",
     "Explore Service URL" : "URL Υπηρεσίας Εξερεύνησης",

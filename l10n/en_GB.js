@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Purge interval",
     "Maximum read count per feed" : "Maximum read count per feed",
     "Maximum redirects" : "Maximum redirects",
-    "Maximum feed page size" : "Maximum feed page size",
     "Feed fetcher timeout" : "Feed fetcher timeout",
     "Explore Service URL" : "Explore Service URL",
     "Saved" : "Saved",

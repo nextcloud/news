@@ -22,8 +22,6 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define a quantidade máxima de artigos que podem ser lidos pelo feed e qual não será excluído pela tarefa de limpeza; se artigos antigos reaparecerem após lidos, aumente este valor; valores negativos tais como -1 irão desativar este recurso.",
     "Maximum redirects" : "Redirecionamentos máximos",
     "How many redirects the feed fetcher should follow." : "Quantos redirecionamentos o alimentador de feed deve seguir.",
-    "Maximum feed page size" : "Tamanho máximo da página de feed",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Tamanho máximo do feed em bytes. Se a página de RSS/Atom é maior que esse valor, a atualização será cancelada.",
     "Feed fetcher timeout" : "Tempo limite do alimentador de feed",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "O número máximo de segundos para esperar por um feed RSS ou Atom carregar; se ele demorar muito a atualização será cancelada.",
     "Explore Service URL" : "Explorar Serviços URL",

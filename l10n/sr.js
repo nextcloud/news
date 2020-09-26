@@ -22,8 +22,6 @@ OC.L10N.register(
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Дефинише максимални број чланака који се могу прочитати по доводу, а који неће бити избрисани када крене чишћење; ако се стари чланци поново појављују након што их прочитате, повећајте ову вредност; негативне вредности попут -1 искључују ову функцију у потпуности.",
     "Maximum redirects" : "Највише преусмеравања",
     "How many redirects the feed fetcher should follow." : "Колико ће се преусмеравања следити.",
-    "Maximum feed page size" : "Највећа страница довода",
-    "Maximum feed size in bytes. If the RSS/Atom page is bigger than this value, the update will be aborted." : "Највећа величина довода у бајтовима. Ако је страница довода већа, ажурирање ће бити прекинуто.",
     "Feed fetcher timeout" : "Рок добављања довода",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Време у секундама које ће се чекати да се довод учита. Ако траје дуже, ажурирање ће се прекинути.",
     "Explore Service URL" : "Истражите сервисну адресу",

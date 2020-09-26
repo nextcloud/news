@@ -16,7 +16,6 @@ OC.L10N.register(
     "Purge interval" : "Opprenskingsinterval",
     "Maximum read count per feed" : "Maksimalt antall lest pr. strøm",
     "Maximum redirects" : "Maksimalt antall videresendinger",
-    "Maximum feed page size" : "Maksimal størrelse på strøm",
     "Feed fetcher timeout" : "Tidsavbrudd for henting av strøm",
     "Explore Service URL" : "URL for utforskertjeneste",
     "Saved" : "Lagret",
