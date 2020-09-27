@@ -1,0 +1,128 @@
+name: Upgrade Tests
+on:
+  pull_request
+
+env:
+  POSTGRES_PASSWORD: nc_test_db
+  MYSQL_USER: nc_test
+  MYSQL_PASSWORD: nc_test_db
+  MYSQL_DATABASE: nc_test
+  MYSQL_PORT: 3800
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    name: "Integration: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432 # Maps tcp port 5432 on service container to the host
+    strategy:
+      matrix:
+        php-versions: ['7.4']
+        nextcloud: ['20']
+        database: ['sqlite']
+        experimental: [false]
+        include:
+          - php-versions: 7.4
+            nextcloud: pre-release
+            database: sqlite
+            experimental: true
+        exclude: #unsupported combination
+          - php-versions: 7.4
+            nextcloud: 17
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      ### MySQL specific setup
+      - name: Setup mysql
+        if: matrix.database == 'mysql'
+        uses: getong/mariadb-action@v1.1
+        with:
+          host port: ${{ env.MYSQL_PORT }}
+          mysql database: ${{ env.MYSQL_DATABASE }}
+          mysql root password: ${{ env.MYSQL_PASSWORD }}
+          mysql user: ${{ env.MYSQL_USER }}
+          mysql password: ${{ env.MYSQL_PASSWORD }}
+
+      - name: Set up server MySQL
+        if: matrix.database == 'mysql'
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          version: ${{ matrix.nextcloud }}
+          cron: true
+          database-type: ${{ matrix.database }}
+          database-host: 127.0.0.1
+          database-port: ${{ env.MYSQL_PORT }}
+          database-name: ${{ env.MYSQL_DATABASE }}
+          database-user: root
+          database-password: ${{ env.MYSQL_PASSWORD }}
+
+      ### Back to normal setup
+      - name: Set up server non MySQL
+        if: matrix.database != 'mysql'
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          version: ${{ matrix.nextcloud }}
+          cron: true
+          database-type: ${{ matrix.database }}
+          database-host: localhost
+          database-port: 5432
+          database-name: postgres
+          database-user: postgres
+          database-password: ${{ env.POSTGRES_PASSWORD }}
+
+      - name: Build new news
+        run: |
+          make
+
+      - name: Upgrade tests
+        run: |
+
+          cd ../server
+
+          #mkdir apps
+          ls -l apps
+
+          ./occ app:install news
+          ./occ app:check-code news
+
+
+
+          #ls -l data
+          #mkdir data/news
+          #./occ app:enable news
+
+          #./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
+
+          #echo "Deleting old app to make a manual upgrade"
+          #rm -rf apps/news
+          #cp -r ../news apps/news
+
+          #./occ upgrade
+          #./occ maintenance:mode --off
+
+          #./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
+
+      - name: The job has failed
+        if: ${{ failure() }}
+        run: |
+          ls -l apps
+          ls -l apps/news
+
+
