@@ -22,7 +22,14 @@ class YoutubeFetcher implements IFeedFetcher
     }
 
 
-    private function buildUrl($url)
+    /**
+     * Build YouTube URL
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    private function buildUrl(string $url)
     {
         $baseRegex = '%(?:https?://|//)?(?:www.)?youtube.com';
         $playRegex = $baseRegex . '.*?list=([^&]*)%';
@@ -54,8 +61,14 @@ class YoutubeFetcher implements IFeedFetcher
      *
      * @inheritdoc
      */
-    public function fetch(string $url, bool $favicon, $lastModified, bool $fullTextEnabled, $user, $password): array
-    {
+    public function fetch(
+        string $url,
+        bool $favicon,
+        ?string $lastModified,
+        bool $fullTextEnabled,
+        ?string $user,
+        ?string $password
+    ): array {
         $transformedUrl = $this->buildUrl($url);
 
         $result = $this->feedFetcher->fetch(

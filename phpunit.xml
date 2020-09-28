@@ -8,14 +8,9 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./lib/</directory>
             <exclude>
-                <file>./lib/Config/DependencyException.php</file>
-                <file>./lib/Explore/feeds/RecommendedSiteNotFoundException.php</file>
-                <file>./lib/Explore/feeds/RecommendedSiteNotFoundException.php</file>
-                <file>./lib/Fetcher/FetcherException.php</file>
-                <file>./lib/Service/ServiceConflictException.php</file>
-                <file>./lib/Service/ServiceException.php</file>
-                <file>./lib/Service/ServiceNotFoundException.php</file>
-                <file>./lib/Service/ServiceValidationException.php</file>
+                <file>./lib/AppInfo/Application.php</file>
+                <file>./lib/Controller/JSONHttpErrorTrait.php</file>
+                <file>./lib/**Exception.php</file>
             </exclude>
         </whitelist>
     </filter>

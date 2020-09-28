@@ -24,7 +24,7 @@ use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
 class ItemApiController extends ApiController
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
     private $itemService;
     private $serializer;

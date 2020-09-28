@@ -25,7 +25,7 @@ use \OCA\News\Service\FeedService;
 
 class ItemController extends Controller
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
     private $itemService;
     private $feedService;

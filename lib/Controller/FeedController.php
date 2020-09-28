@@ -27,7 +27,7 @@ use OCA\News\Db\FeedType;
 
 class FeedController extends Controller
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
     private $feedService;
     private $folderService;

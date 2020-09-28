@@ -31,7 +31,7 @@ use OCA\News\Db\FeedType;
 
 class PageController extends Controller
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
     /**
      * @var IConfig
