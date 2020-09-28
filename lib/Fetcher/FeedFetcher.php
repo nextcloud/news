@@ -75,8 +75,14 @@ class FeedFetcher implements IFeedFetcher
      *
      * @inheritdoc
      */
-    public function fetch(string $url, bool $favicon, $lastModified, bool $fullTextEnabled, $user, $password): array
-    {
+    public function fetch(
+        string $url,
+        bool $favicon,
+        ?string $lastModified,
+        bool $fullTextEnabled,
+        ?string $user,
+        ?string $password
+    ): array {
         $url2 = new Net_URL2($url);
         if (!empty($user) && !empty(trim($user))) {
             $url2->setUserinfo(urlencode($user), urlencode($password));
@@ -148,7 +154,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return string
      */
-    private function decodeTwice($string): string
+    private function decodeTwice(string $string): string
     {
         return html_entity_decode(
             html_entity_decode(
@@ -195,12 +201,12 @@ class FeedFetcher implements IFeedFetcher
      * Build an item based on a feed.
      *
      * @param ItemInterface $parsedItem The item to use
-     * @param string        $body       Text of the item, if not provided use description from $parsedItem
+     * @param string|null   $body       Text of the item, if not provided use description from $parsedItem
      * @param bool          $RTL        True if the feed is RTL (Right-to-left)
      *
      * @return Item
      */
-    protected function buildItem(ItemInterface $parsedItem, string $body = null, bool $RTL = false): Item
+    protected function buildItem(ItemInterface $parsedItem, ?string $body = null, bool $RTL = false): Item
     {
         $item = new Item();
         $item->setUnread(true);
@@ -208,18 +214,18 @@ class FeedFetcher implements IFeedFetcher
         $item->setGuid($parsedItem->getPublicId());
         $item->setGuidHash(md5($item->getGuid()));
 
-        $lastmodified = $parsedItem->getLastModified() ?? new DateTime();
+        $lastModified = $parsedItem->getLastModified() ?? new DateTime();
         if ($parsedItem->getValue('pubDate') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('pubDate'));
         } elseif ($parsedItem->getValue('published') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('published'));
         } else {
-            $pubDT = $lastmodified;
+            $pubDT = $lastModified;
         }
 
         $item->setPubDate($pubDT->getTimestamp());
 
-        $item->setLastModified($lastmodified->getTimestamp());
+        $item->setLastModified($lastModified->getTimestamp());
         $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS

@@ -39,8 +39,7 @@ class LegacyConfig
 
     public function __construct(
         ?Folder $fileSystem,
-        LoggerInterface $logger,
-        $LoggerParameters
+        LoggerInterface $logger
     ) {
         $this->fileSystem = $fileSystem;
         $this->autoPurgeMinimumInterval = 60;
@@ -51,7 +50,7 @@ class LegacyConfig
         $this->useCronUpdates = true;
         $this->logger = $logger;
         $this->exploreUrl = '';
-        $this->loggerParams = $LoggerParameters;
+        $this->loggerParams = ['app' => Application::NAME];
         $this->updateInterval = 3600;
     }
 

@@ -29,7 +29,7 @@ use Psr\Log\LoggerInterface;
 
 class FeedApiController extends ApiController
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
     /**
      * @var ItemService

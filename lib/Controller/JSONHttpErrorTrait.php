@@ -13,10 +13,8 @@ namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http\JSONResponse;
 
-trait JSONHttpError
+trait JSONHttpErrorTrait
 {
-
-
     /**
      * @param \Exception $exception The exception to report
      * @param int        $code      The http error code

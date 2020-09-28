@@ -22,13 +22,20 @@ class RecommendedSites
      * @param string $exploreDir the absolute path to where the recommendation
      *                           config files lie without a trailing slash
      */
-    public function __construct($exploreDir)
+    public function __construct(string $exploreDir)
     {
         $this->directory = $exploreDir;
     }
 
 
-    public function forLanguage($languageCode)
+    /**
+     * @param string $languageCode
+     *
+     * @return array
+     *
+     * @throws RecommendedSiteNotFoundException
+     */
+    public function forLanguage(string $languageCode)
     {
         $file = $this->directory . '/feeds.' . $languageCode . '.json';
 

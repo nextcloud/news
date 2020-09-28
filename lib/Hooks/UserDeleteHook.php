@@ -17,20 +17,28 @@ use OCA\News\AppInfo\Application;
 use OCA\News\Service\ItemService;
 use OCA\News\Service\FeedService;
 use OCA\News\Service\FolderService;
+use OCP\EventDispatcher\Event;
+use OCP\EventDispatcher\IEventListener;
+use OCP\User\Events\BeforeUserDeletedEvent;
 
-class User
+class UserDeleteHook implements IEventListener
 {
 
-    public static function deleteUser($params)
+    /**
+     * Handle user deletion
+     *
+     * @param BeforeUserDeletedEvent $event
+     */
+    public function handle(Event $event): void
     {
-        $userId = $params['uid'];
+        $userId = $event->getUser()->getUID();
 
         $app = new Application();
         $container = $app->getContainer();
 
         // order is important!
-        $container->query(ItemService::class)->deleteUser($userId);
-        $container->query(FeedService::class)->deleteUser($userId);
-        $container->query(FolderService::class)->deleteUser($userId);
+        $container->get(ItemService::class)->deleteUser($userId);
+        $container->get(FeedService::class)->deleteUser($userId);
+        $container->get(FolderService::class)->deleteUser($userId);
     }
 }

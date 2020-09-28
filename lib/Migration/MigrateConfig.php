@@ -52,7 +52,14 @@ class MigrateConfig implements IRepairStep
             return;
         }
 
+        $app_keys = $this->iConfig->getAppKeys(Application::NAME);
         foreach ($this->config as $key => $value) {
+            if (!isset(Application::DEFAULT_SETTINGS[$key])) {
+                continue;
+            }
+            if (in_array($key, $app_keys)) {
+                continue;
+            }
             $this->iConfig->setAppValue(Application::NAME, $key, $value);
         }
     }

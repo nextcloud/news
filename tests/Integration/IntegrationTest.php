@@ -30,6 +30,7 @@ use OCA\News\Tests\Integration\Fixtures\FolderFixture;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\FolderMapper;
+use Psr\Container\ContainerInterface;
 
 
 abstract class IntegrationTest extends \Test\TestCase
@@ -67,9 +68,9 @@ abstract class IntegrationTest extends \Test\TestCase
         $this->setupUser($this->user, $this->userPassword);
 
         // set up database layers
-        $this->itemMapper = $this->container->query(ItemMapper::class);
-        $this->feedMapper = $this->container->query(FeedMapper::class);
-        $this->folderMapper = $this->container->query(FolderMapper::class);
+        $this->itemMapper = $this->container->get(ItemMapper::class);
+        $this->feedMapper = $this->container->get(FeedMapper::class);
+        $this->folderMapper = $this->container->get(FolderMapper::class);
     }
 
     protected function findItemByTitle($title)

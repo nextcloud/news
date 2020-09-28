@@ -18,19 +18,13 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Favicon\Favicon;
 
-use OC\Encryption\Update;
 use OCA\News\Config\LegacyConfig;
 use OCA\News\Config\FetcherConfig;
-use OCA\News\Db\FolderMapper;
-use OCA\News\Service\FeedService;
-use OCA\News\Service\FolderService;
-use OCA\News\Service\ItemService;
-use OCA\News\Utility\PsrLogger;
+use OCA\News\Hooks\UserDeleteHook;
 
-use OCA\News\Utility\Updater;
-use OCP\IContainer;
-use OCP\IConfig;
-use OCP\ILogger;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\ITempManager;
 use OCP\AppFramework\App;
 use OCP\Files\IRootFolder;
@@ -42,7 +36,8 @@ use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\YoutubeFetcher;
-use OCA\News\Scraper\Scraper;
+use OCP\User\Events\BeforeUserDeletedEvent;
+use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -50,7 +45,7 @@ use Psr\Log\LoggerInterface;
  *
  * @package OCA\News\AppInfo
  */
-class Application extends App
+class Application extends App implements IBootstrap
 {
 
     /**
@@ -71,64 +66,38 @@ class Application extends App
         'updateInterval'           => 3600,
     ];
 
-    /**
-     * Application constructor.
-     *
-     * @param array $urlParams Parameters
-     */
     public function __construct(array $urlParams = [])
     {
         parent::__construct(self::NAME, $urlParams);
+    }
 
-        $container = $this->getContainer();
+    public function register(IRegistrationContext $context): void
+    {
+        @include_once __DIR__ . '/../../vendor/autoload.php';
 
-        // files
-        $container->registerService('checksums', function () {
-            return file_get_contents(__DIR__ . '/checksum.json');
+        $context->registerService(Fetcher::class, function (ContainerInterface $container): Fetcher {
+            $fetcher = new Fetcher();
+
+            // register fetchers in order, the most generic fetcher should be
+            // the last one
+            $fetcher->registerFetcher($container->get(YoutubeFetcher::class));
+            $fetcher->registerFetcher($container->get(FeedFetcher::class));
+            return $fetcher;
         });
-        $container->registerService('info', function () {
-            return file_get_contents(__DIR__ . '/../../appinfo/info.xml');
-        });
+
+        $context->registerEventListener(BeforeUserDeletedEvent::class, UserDeleteHook::class);
 
         // parameters
-        $container->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
-        $container->registerParameter('configFile', 'config.ini');
+        $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
+        $context->registerParameter('configFile', 'config.ini');
 
         // factories
-        $container->registerService(ItemMapper::class, function (IContainer $c): ItemMapper {
-            return $c->query(MapperFactory::class)->build();
+        $context->registerService(ItemMapper::class, function (ContainerInterface $c): ItemMapper {
+            return $c->get(MapperFactory::class)->build();
         });
 
-        /**
-         * Core
-         */
-        $container->registerService('LoggerParameters', function (IContainer $c): array {
-            return ['app' => $c->query('AppName')];
-        });
-
-        $container->registerService('ConfigView', function (IContainer $c): ?Node {
-            /** @var IRootFolder $fs */
-            $fs = $c->query(IRootFolder::class);
-            $path = 'news/config';
-            if ($fs->nodeExists($path)) {
-                return $fs->get($path);
-            } else {
-                return null;
-            }
-        });
-
-        $container->registerService(LegacyConfig::class, function (IContainer $c): LegacyConfig {
-            $config = new LegacyConfig(
-                $c->query('ConfigView'),
-                $c->query(LoggerInterface::class),
-                $c->query('LoggerParameters')
-            );
-            $config->read($c->query('configFile'), false);
-            return $config;
-        });
-
-        $container->registerService(HTMLPurifier::class, function (IContainer $c): HTMLPurifier {
-            $directory = $c->query(IConfig::class)->getSystemValue('datadirectory') . '/news/cache/purifier';
+        $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
+            $directory = $c->get(ITempManager::class)->getTempBaseDir() . '/news/cache/purifier';
 
             if (!is_dir($directory)) {
                 mkdir($directory, 0770, true);
@@ -164,47 +133,42 @@ class Application extends App
             return new HTMLPurifier($config);
         });
 
-        /**
-         * Fetchers
-         */
-        $container->registerService(FetcherConfig::class, function (IContainer $c): FetcherConfig {
-            $fConfig = new FetcherConfig();
-            $fConfig->setConfig($c->query(IConfig::class))
-                    ->setProxy($c->query(IConfig::class));
-
-            return $fConfig;
+        $context->registerService(FeedIo::class, function (ContainerInterface $c): FeedIo {
+            $config = $c->get(FetcherConfig::class);
+            return new FeedIo($config->getClient(), $c->get(LoggerInterface::class));
         });
 
-        $container->registerService(FeedIo::class, function (IContainer $c): FeedIo {
-            $config = $c->query(FetcherConfig::class);
-            return new FeedIo($config->getClient(), $c->query(LoggerInterface::class));
-        });
-
-        $container->registerService(Favicon::class, function (IContainer $c): Favicon {
+        $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {
             $favicon = new Favicon();
-            $tempManager = $c->query(ITempManager::class);
-            $settings = ['dir' => $tempManager->getTempBaseDir()];
-            $favicon->cache($settings);
+            $favicon->cache(['dir' => $c->get(ITempManager::class)->getTempBaseDir()]);
             return $favicon;
         });
 
-        $container->registerService(Fetcher::class, function (IContainer $c): Fetcher {
-            $fetcher = new Fetcher();
-
-            // register fetchers in order, the most generic fetcher should be
-            // the last one
-            $fetcher->registerFetcher($c->query(YoutubeFetcher::class));
-            $fetcher->registerFetcher($c->query(FeedFetcher::class));
-            return $fetcher;
+        //TODO: Remove code after 15.1
+        $context->registerService('ConfigView', function (ContainerInterface $c): ?Node {
+            /** @var IRootFolder $fs */
+            $fs = $c->get(IRootFolder::class);
+            $path = 'news/config';
+            if ($fs->nodeExists($path)) {
+                return $fs->get($path);
+            } else {
+                return null;
+            }
         });
 
-        /**
-         * Scrapers
-         */
-        $container->registerService(Scraper::class, function (IContainer $c): Scraper {
-            return new Scraper(
-                $c->query(LoggerInterface::class)
+        //TODO: Remove code after 15.1
+        $context->registerService(LegacyConfig::class, function (ContainerInterface $c): LegacyConfig {
+            $config = new LegacyConfig(
+                $c->get('ConfigView'),
+                $c->get(LoggerInterface::class)
             );
+            $config->read($c->get('configFile'), false);
+            return $config;
         });
+    }
+
+    public function boot(IBootContext $context): void
+    {
+        //NO-OP
     }
 }

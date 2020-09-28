@@ -27,7 +27,7 @@ use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 class FolderApiController extends ApiController
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
     private $folderService;
     private $itemService;
