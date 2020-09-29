@@ -18,6 +18,8 @@ You also need some PHP extensions:
 * MySQL >= 8.0
 * SQLite (discouraged)
 
+Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/linux_database_configuration.html?highlight=database). Oracle is currently not supported by news.
+
 ## Performance Notices
 * Use MySQL/MariaDB or PostgreSQL for better database performance
 * Use the [updater script to thread and speed up the update](https://github.com/nextcloud/news-updater)
