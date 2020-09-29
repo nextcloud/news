@@ -43,13 +43,14 @@ class FolderServiceV2 extends Service
     /**
      * Finds all folders of a user
      *
-     * @param string $userId the name of the user
+     * @param string $userId The name/ID of the user
+     * @param array  $params Filter parameters
      *
      * @return Folder[]
      */
     public function findAllForUser(string $userId, array $params = []): array
     {
-        return $this->mapper->findAllFromUser($userId);
+        return $this->mapper->findAllFromUser($userId, $params);
     }
 
     /**
@@ -60,7 +61,7 @@ class FolderServiceV2 extends Service
     public function findAllForUserRecursive(string $userId): array
     {
         $folders = $this->findAllForUser($userId);
-        foreach ($folders as &$folder) {
+        foreach ($folders as $folder) {
             $feeds = $this->feedService->findAllFromFolder($folder->getId());
             $folder->feeds = $feeds;
         }
@@ -81,9 +82,9 @@ class FolderServiceV2 extends Service
     public function create(string $userId, string $name, int $parent = 0): void
     {
         $folder = new Folder();
-        $folder->setUserId($userId);
-        $folder->setName($name);
-        $folder->setParentId($parent);
+        $folder->setUserId($userId)
+               ->setName($name)
+               ->setParentId($parent);
 
         $this->mapper->insert($folder);
     }

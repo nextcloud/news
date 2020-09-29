@@ -175,10 +175,10 @@ class FeedFetcherTest extends TestCase
         $this->fetcher = new FeedFetcher(
             $this->reader,
             $this->favicon,
+            $this->scraper,
             $this->l10n,
             $timeFactory,
-            $this->logger,
-            $this->scraper
+            $this->logger
         );
         $this->url = 'http://tests/';
 

@@ -13,6 +13,7 @@
 
 namespace OCA\News\Service;
 
+use FeedIo\Explorer;
 use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
 
@@ -58,6 +59,11 @@ class FeedServiceV2 extends Service
      * @var HTMLPurifier
      */
     protected $purifier;
+    /**
+     * Feed Explorer
+     * @var Explorer
+     */
+    protected $explorer;
 
     /**
      * FeedService constructor.
@@ -65,6 +71,7 @@ class FeedServiceV2 extends Service
      * @param FeedMapperV2    $mapper      DB layer for feeds
      * @param FeedFetcher     $feedFetcher FeedIO interface
      * @param ItemServiceV2   $itemService Service to manage items
+     * @param Explorer        $explorer    Feed Explorer
      * @param HTMLPurifier    $purifier    HTML Purifier
      * @param LoggerInterface $logger      Logger
      */
@@ -72,6 +79,7 @@ class FeedServiceV2 extends Service
         FeedMapperV2 $mapper,
         FeedFetcher $feedFetcher,
         ItemServiceV2 $itemService,
+        Explorer $explorer,
         HTMLPurifier $purifier,
         LoggerInterface $logger
     ) {
@@ -79,19 +87,21 @@ class FeedServiceV2 extends Service
 
         $this->feedFetcher = $feedFetcher;
         $this->itemService = $itemService;
-        $this->purifier = $purifier;
+        $this->explorer    = $explorer;
+        $this->purifier    = $purifier;
     }
 
     /**
      * Finds all feeds of a user
      *
-     * @param  string $userId the name of the user
+     * @param string $userId the name/ID of the user
+     * @param array  $params Filter parameters
      *
      * @return Feed[]
      */
     public function findAllForUser(string $userId, array $params = []): array
     {
-        return $this->mapper->findAllFromUser($userId);
+        return $this->mapper->findAllFromUser($userId, $params);
     }
 
     /**
@@ -170,14 +180,15 @@ class FeedServiceV2 extends Service
     /**
      * Creates a new feed
      *
-     * @param string      $userId   Feed owner
-     * @param string      $feedUrl  Feed URL
-     * @param int         $folderId Target folder, defaults to root
-     * @param string|null $title    The OPML feed title
-     * @param string|null $user     Basic auth username, if set
-     * @param string|null $password Basic auth password if username is set
+     * @param string      $userId    Feed owner
+     * @param string      $feedUrl   Feed URL
+     * @param int         $folderId  Target folder, defaults to root
+     * @param bool        $full_text Scrape the feed for full text
+     * @param string|null $title     The feed title
+     * @param string|null $user      Basic auth username, if set
+     * @param string|null $password  Basic auth password if username is set
      *
-     * @return Feed the newly created feed
+     * @return Feed|Entity
      *
      * @throws ServiceConflictException The feed already exists
      * @throws ServiceNotFoundException The url points to an invalid feed
@@ -190,9 +201,14 @@ class FeedServiceV2 extends Service
         ?string $title = null,
         ?string $user = null,
         ?string $password = null
-    ): Feed {
+    ): Entity {
         if ($this->existsForUser($userId, $feedUrl)) {
             throw new ServiceConflictException('Feed with this URL exists');
+        }
+
+        $feeds = $this->explorer->discover($feedUrl);
+        if ($feeds !== []) {
+            $feedUrl = array_shift($feeds);
         }
 
         try {
@@ -200,43 +216,41 @@ class FeedServiceV2 extends Service
              * @var Feed   $feed
              * @var Item[] $items
              */
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, $full_text, false, $user, $password);
-            if ($feed === null) {
-                throw new ServiceNotFoundException('Failed to fetch feed');
-            }
-
-            $feed->setFolderId($folderId)
-                ->setUserId($userId)
-                ->setArticlesPerUpdate(count($items));
-
-            if (!is_null($title)) {
-                $feed->setTitle($title);
-            }
-
-            if (!is_null($user)) {
-                $feed->setBasicAuthUser($user)
-                    ->setBasicAuthUser($password);
-            }
-
-            $feed = $this->mapper->insert($feed);
-
-            return $feed;
+            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, '0', $full_text, $user, $password);
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
             throw new ServiceNotFoundException($ex->getMessage());
         }
+
+        if ($feed === null) {
+            throw new ServiceNotFoundException('Failed to fetch feed');
+        }
+
+        $feed->setFolderId($folderId)
+            ->setUserId($userId)
+            ->setArticlesPerUpdate(count($items));
+
+        if (!is_null($title)) {
+            $feed->setTitle($title);
+        }
+
+        if (!is_null($user)) {
+            $feed->setBasicAuthUser($user)
+                ->setBasicAuthUser($password);
+        }
+
+        return $this->mapper->insert($feed);
     }
 
 
     /**
      * Update a feed
      *
-     * @param  Feed   $feed   Feed item
-     * @param  bool   $force  update even if the article exists already
+     * @param Feed $feed Feed item
      *
      * @return Feed|Entity Database feed entity
      */
-    public function fetch(Feed $feed, bool $force = false)
+    public function fetch(Feed $feed)
     {
         if ($feed->getPreventUpdate() === true) {
             return $feed;
@@ -277,27 +291,16 @@ class FeedServiceV2 extends Service
                 $feed->setArticlesPerUpdate($itemCount);
             }
 
-            $feed->setHttpLastModified($fetchedFeed->getHttpLastModified());
-            $feed->setHttpEtag($fetchedFeed->getHttpEtag());
-            $feed->setLocation($fetchedFeed->getLocation());
+            $feed->setHttpLastModified($fetchedFeed->getHttpLastModified())
+                 ->setHttpEtag($fetchedFeed->getHttpEtag())
+                 ->setLocation($fetchedFeed->getLocation());
 
             // insert items in reverse order because the first one is
             // usually the newest item
             for ($i = $itemCount - 1; $i >= 0; $i--) {
                 $item = $items[$i];
-                $item->setFeedId($feed->getId());
-
-                $item->setTitle($item->getTitle());
-                $item->setUrl($item->getUrl());
-                $item->setAuthor($item->getAuthor());
-                $item->setSearchIndex($item->getSearchIndex());
-                $item->setRtl($item->getRtl());
-                $item->setLastModified($item->getLastModified());
-                $item->setPubDate($item->getPubDate());
-                $item->setUpdatedDate($item->getUpdatedDate());
-                $item->setEnclosureMime($item->getEnclosureMime());
-                $item->setEnclosureLink($item->getEnclosureLink());
-                $item->setBody($this->purifier->purify($item->getBody()));
+                $item->setFeedId($feed->getId())
+                     ->setBody($this->purifier->purify($item->getBody()));
 
                 // update modes: 0 nothing, 1 set unread
                 if ($feed->getUpdateMode() === 1) {

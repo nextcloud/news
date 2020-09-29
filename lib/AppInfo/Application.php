@@ -13,6 +13,7 @@
 
 namespace OCA\News\AppInfo;
 
+use FeedIo\Explorer;
 use FeedIo\FeedIo;
 use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -136,6 +137,11 @@ class Application extends App implements IBootstrap
         $context->registerService(FeedIo::class, function (ContainerInterface $c): FeedIo {
             $config = $c->get(FetcherConfig::class);
             return new FeedIo($config->getClient(), $c->get(LoggerInterface::class));
+        });
+
+        $context->registerService(Explorer::class, function (ContainerInterface $c): Explorer {
+            $config = $c->get(FetcherConfig::class);
+            return new Explorer($config->getClient(), $c->get(LoggerInterface::class));
         });
 
         $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {

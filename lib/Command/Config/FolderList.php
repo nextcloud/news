@@ -58,5 +58,7 @@ class FolderList extends Command
         }
 
         $output->writeln(json_encode($this->serialize($folders), JSON_PRETTY_PRINT));
+
+        return 0;
     }
 }

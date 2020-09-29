@@ -95,61 +95,75 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         );
     }
 
-    public function setDeletedAt(?int $deletedAt = null): void
+    public function setDeletedAt(?int $deletedAt = null): self
     {
         if ($this->deletedAt !== $deletedAt) {
             $this->deletedAt = $deletedAt;
             $this->markFieldUpdated('deletedAt');
         }
+
+        return $this;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): self
     {
         if ($this->id !== $id) {
             $this->id = $id;
             $this->markFieldUpdated('id');
         }
+
+        return $this;
     }
 
-    public function setLastModified(?string $lastModified = null): void
+    public function setLastModified(?string $lastModified = null): self
     {
 
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
             $this->markFieldUpdated('lastModified');
         }
+
+        return $this;
     }
 
-    public function setName(string $name): void
+    public function setName(string $name): self
     {
         if ($this->name !== $name) {
             $this->name = $name;
             $this->markFieldUpdated('name');
         }
+
+        return $this;
     }
 
-    public function setOpened(bool $opened): void
+    public function setOpened(bool $opened): self
     {
         if ($this->opened !== $opened) {
             $this->opened = $opened;
             $this->markFieldUpdated('opened');
         }
+
+        return $this;
     }
 
-    public function setParentId(int $parentId = 0): void
+    public function setParentId(int $parentId = 0): self
     {
         if ($this->parentId !== $parentId) {
             $this->parentId = $parentId;
             $this->markFieldUpdated('parentId');
         }
+
+        return $this;
     }
 
-    public function setUserId(string $userId): void
+    public function setUserId(string $userId): self
     {
         if ($this->userId !== $userId) {
             $this->userId = $userId;
             $this->markFieldUpdated('userId');
         }
+
+        return $this;
     }
 
     public function toAPI(): array
