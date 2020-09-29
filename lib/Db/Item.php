@@ -299,7 +299,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         ];
     }
 
-    public function setAuthor(string $author = null): void
+    public function setAuthor(string $author = null): self
     {
         $author = strip_tags($author);
 
@@ -307,9 +307,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->author = $author;
             $this->markFieldUpdated('author');
         }
+
+        return $this;
     }
 
-    public function setBody(string $body = null): void
+    public function setBody(string $body = null): self
     {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
@@ -319,129 +321,161 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->body = $body;
             $this->markFieldUpdated('body');
         }
+
+        return $this;
     }
 
-    public function setContentHash(string $contentHash = null): void
+    public function setContentHash(string $contentHash = null): self
     {
         if ($this->contentHash !== $contentHash) {
             $this->contentHash = $contentHash;
             $this->markFieldUpdated('contentHash');
         }
+
+        return $this;
     }
 
-    public function setEnclosureLink(string $enclosureLink = null): void
+    public function setEnclosureLink(string $enclosureLink = null): self
     {
         if ($this->enclosureLink !== $enclosureLink) {
             $this->enclosureLink = $enclosureLink;
             $this->markFieldUpdated('enclosureLink');
         }
+
+        return $this;
     }
 
-    public function setEnclosureMime(string $enclosureMime = null): void
+    public function setEnclosureMime(string $enclosureMime = null): self
     {
         if ($this->enclosureMime !== $enclosureMime) {
             $this->enclosureMime = $enclosureMime;
             $this->markFieldUpdated('enclosureMime');
         }
+
+        return $this;
     }
 
-    public function setMediaThumbnail(string $mediaThumbnail = null): void
+    public function setMediaThumbnail(string $mediaThumbnail = null): self
     {
         if ($this->mediaThumbnail !== $mediaThumbnail) {
             $this->mediaThumbnail = $mediaThumbnail;
             $this->markFieldUpdated('mediaThumbnail');
         }
+
+        return $this;
     }
 
-    public function setMediaDescription(string $mediaDescription = null): void
+    public function setMediaDescription(string $mediaDescription = null): self
     {
         if ($this->mediaDescription !== $mediaDescription) {
             $this->mediaDescription = $mediaDescription;
             $this->markFieldUpdated('mediaDescription');
         }
+
+        return $this;
     }
 
-    public function setFeedId(int $feedId): void
+    public function setFeedId(int $feedId): self
     {
         if ($this->feedId !== $feedId) {
             $this->feedId = $feedId;
             $this->markFieldUpdated('feedId');
         }
+
+        return $this;
     }
 
-    public function setFingerprint(string $fingerprint = null): void
+    public function setFingerprint(string $fingerprint = null): self
     {
         if ($this->fingerprint !== $fingerprint) {
             $this->fingerprint = $fingerprint;
             $this->markFieldUpdated('fingerprint');
         }
+
+        return $this;
     }
 
-    public function setGuid(string $guid): void
+    public function setGuid(string $guid): self
     {
         if ($this->guid !== $guid) {
             $this->guid = $guid;
             $this->markFieldUpdated('guid');
         }
+
+        return $this;
     }
 
-    public function setGuidHash(string $guidHash): void
+    public function setGuidHash(string $guidHash): self
     {
         if ($this->guidHash !== $guidHash) {
             $this->guidHash = $guidHash;
             $this->markFieldUpdated('guidHash');
         }
+
+        return $this;
     }
 
-    public function setId(int $id): void
+    public function setId(int $id): self
     {
         if ($this->id !== $id) {
             $this->id = $id;
             $this->markFieldUpdated('id');
         }
+
+        return $this;
     }
 
-    public function setLastModified(string $lastModified = null): void
+    public function setLastModified(string $lastModified = null): self
     {
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
             $this->markFieldUpdated('lastModified');
         }
+
+        return $this;
     }
 
-    public function setPubDate(int $pubDate = null): void
+    public function setPubDate(int $pubDate = null): self
     {
         if ($this->pubDate !== $pubDate) {
             $this->pubDate = $pubDate;
             $this->markFieldUpdated('pubDate');
         }
+
+        return $this;
     }
 
-    public function setRtl(bool $rtl): void
+    public function setRtl(bool $rtl): self
     {
         if ($this->rtl !== $rtl) {
             $this->rtl = $rtl;
             $this->markFieldUpdated('rtl');
         }
+
+        return $this;
     }
 
-    public function setSearchIndex(string $searchIndex = null): void
+    public function setSearchIndex(string $searchIndex = null): self
     {
         if ($this->searchIndex !== $searchIndex) {
             $this->searchIndex = $searchIndex;
             $this->markFieldUpdated('searchIndex');
         }
+
+        return $this;
     }
 
-    public function setStarred(bool $starred): void
+    public function setStarred(bool $starred): self
     {
         if ($this->starred !== $starred) {
             $this->starred = $starred;
             $this->markFieldUpdated('starred');
         }
+
+        return $this;
     }
 
-    public function setTitle(string $title = null): void
+    public function setTitle(string $title = null): self
     {
         $title = strip_tags($title);
 
@@ -449,25 +483,31 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->title = $title;
             $this->markFieldUpdated('title');
         }
+
+        return $this;
     }
 
-    public function setUnread(bool $unread): void
+    public function setUnread(bool $unread): self
     {
         if ($this->unread !== $unread) {
             $this->unread = $unread;
             $this->markFieldUpdated('unread');
         }
+
+        return $this;
     }
 
-    public function setUpdatedDate(int $updatedDate = null): void
+    public function setUpdatedDate(int $updatedDate = null): self
     {
         if ($this->updatedDate !== $updatedDate) {
             $this->updatedDate = $updatedDate;
             $this->markFieldUpdated('updatedDate');
         }
+
+        return $this;
     }
 
-    public function setUrl(string $url = null): void
+    public function setUrl(string $url = null): self
     {
         $url = trim($url);
         if ((strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0)
@@ -476,6 +516,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->url = $url;
             $this->markFieldUpdated('url');
         }
+
+        return $this;
     }
 
     public function toAPI(): array

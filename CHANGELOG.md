@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 - Update feed-io to v4.7.9
+- Feed autodiscovery
 - Drop support before nextcloud 20 #794
 - Move to modern SQL syntax #750
 - Add management commands #804 #750

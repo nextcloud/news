@@ -57,5 +57,7 @@ class FeedList extends Command
         }
 
         $output->writeln(json_encode($this->serialize($feeds), JSON_PRETTY_PRINT));
+
+        return 0;
     }
 }

@@ -20,7 +20,6 @@ use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 
 use Net_URL2;
-use OCA\News\Utility\PsrLogger;
 use OCP\IL10N;
 
 use OCA\News\Db\Item;
@@ -33,27 +32,50 @@ use SimpleXMLElement;
 class FeedFetcher implements IFeedFetcher
 {
 
+    /**
+     * @var Favicon
+     */
     private $faviconFactory;
+
+    /**
+     * @var FeedIo
+     */
     private $reader;
-    private $l10n;
-    private $time;
-    private $logger;
+
+    /**
+     * @var Scraper
+     */
     private $scraper;
+
+    /**
+     * @var IL10N
+     */
+    private $l10n;
+
+    /**
+     * @var Time
+     */
+    private $time;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
+        Scraper $scraper,
         IL10N $l10n,
         Time $time,
-        LoggerInterface $logger,
-        Scraper $scraper
+        LoggerInterface $logger
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
+        $this->scraper        = $scraper;
         $this->l10n           = $l10n;
         $this->time           = $time;
         $this->logger         = $logger;
-        $this->scraper        = $scraper;
     }
 
 

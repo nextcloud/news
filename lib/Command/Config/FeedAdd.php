@@ -63,7 +63,7 @@ class FeedAdd extends Command
         $password = $input->getOption('password');
 
         $feed = $this->feedService->create($user, $url, $folder, $full_text, $title, $username, $password);
-        $this->feedService->fetch($feed, true);
+        $this->feedService->fetch($feed);
 
         $output->writeln(json_encode($feed->toAPI(), JSON_PRETTY_PRINT));
 
