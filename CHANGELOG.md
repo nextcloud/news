@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
-- Drop support before nextcloud 20
-- Move to modern SQL syntax
-- Add management commands
+### Changed
+
+- Update feed-io to v4.7.9
+- Drop support before nextcloud 20 #794
+- Move to modern SQL syntax #750
+- Add management commands #804 #750
 ```shell script
 ./occ news:opml:export <userID>
 
