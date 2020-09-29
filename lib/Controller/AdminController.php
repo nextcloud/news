@@ -67,12 +67,17 @@ class AdminController extends Controller
      *
      * @return TemplateResponse
      */
-    public function index()
+    public function index(): TemplateResponse
     {
         return new TemplateResponse($this->appName, 'admin', $this->getData(), 'blank');
     }
 
-    private function getData()
+    /**
+     * Get admin data.
+     *
+     * @return array
+     */
+    private function getData(): array
     {
         $data = [];
 
@@ -108,7 +113,7 @@ class AdminController extends Controller
         bool $useCronUpdates,
         string $exploreUrl,
         int $updateInterval
-    ) {
+    ): array {
         $this->config->setAppValue($this->appName, 'autoPurgeMinimumInterval', $autoPurgeMinimumInterval);
         $this->config->setAppValue($this->appName, 'autoPurgeCount', $autoPurgeCount);
         $this->config->setAppValue($this->appName, 'maxRedirects', $maxRedirects);

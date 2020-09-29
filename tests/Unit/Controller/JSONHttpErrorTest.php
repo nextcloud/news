@@ -14,13 +14,7 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\JSONHttpErrorTrait;
-
 use PHPUnit\Framework\TestCase;
-
-class Test
-{
-    use JSONHttpErrorTrait;
-}
 
 class JSONHttpErrorTest extends TestCase
 {
@@ -29,7 +23,7 @@ class JSONHttpErrorTest extends TestCase
     public function testError()
     {
         $ex = new \Exception('hi');
-        $test = new Test();
+        $test = new DummyTraitingClass();
         $result = $test->error($ex, 3);
 
         $this->assertEquals(['message' => 'hi'], $result->getData());
@@ -37,4 +31,10 @@ class JSONHttpErrorTest extends TestCase
     }
 
 
+}
+
+
+class DummyTraitingClass
+{
+    use JSONHttpErrorTrait;
 }

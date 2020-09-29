@@ -20,7 +20,7 @@ trait JSONHttpErrorTrait
      * @param int        $code      The http error code
      * @return JSONResponse
      */
-    public function error(\Exception $exception, $code)
+    public function error(\Exception $exception, int $code)
     {
         return new JSONResponse(['message' => $exception->getMessage()], $code);
     }

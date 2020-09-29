@@ -35,7 +35,7 @@ class RecommendedSites
      *
      * @throws RecommendedSiteNotFoundException
      */
-    public function forLanguage(string $languageCode)
+    public function forLanguage(string $languageCode): array
     {
         $file = $this->directory . '/feeds.' . $languageCode . '.json';
 

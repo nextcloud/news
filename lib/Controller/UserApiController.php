@@ -24,11 +24,10 @@ use \OCP\AppFramework\Http;
 class UserApiController extends ApiController
 {
 
-    private $userSession;
     private $rootFolder;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         IUserSession $userSession,
         IRootFolder $rootFolder
@@ -42,7 +41,7 @@ class UserApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index()
+    public function index(): array
     {
         $user = $this->getUser();
 

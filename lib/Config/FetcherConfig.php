@@ -98,9 +98,9 @@ class FetcherConfig
     /**
      * Configure a guzzle client
      *
-     * @return ClientInterface Legacy client to guzzle.
+     * @return ClientInterface Client to guzzle.
      */
-    public function getClient()
+    public function getClient(): ClientInterface
     {
         $config = [
             'timeout' => $this->client_timeout,

@@ -51,7 +51,8 @@
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-libxml": "*",
-    "ext-dom": "*"
+    "ext-dom": "*",
+    "ext-curl": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "9.2.*",

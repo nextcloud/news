@@ -44,7 +44,7 @@ class FolderMapperV2 extends NewsMapperV2
      *
      * @return Entity[]
      */
-    public function findAllFromUser($userId): array
+    public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')

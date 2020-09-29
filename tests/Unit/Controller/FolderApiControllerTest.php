@@ -81,7 +81,7 @@ class FolderApiControllerTest extends TestCase
         $folders = [new Folder()];
 
         $this->folderService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($folders));
 

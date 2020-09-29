@@ -150,7 +150,7 @@ class ItemService extends Service
         }
     }
 
-    public function findAllForUser(string $userId): array
+    public function findAllForUser(string $userId, array $params = []): array
     {
         return $this->itemMapper->findAllFromUser($userId);
     }

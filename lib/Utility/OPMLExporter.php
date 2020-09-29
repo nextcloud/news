@@ -16,6 +16,7 @@ namespace OCA\News\Utility;
 use \DOMDocument;
 use \DOMElement;
 use OCA\News\Db\Feed;
+use OCA\News\Db\Folder;
 
 /**
  * Exports the OPML
@@ -26,8 +27,8 @@ class OPMLExporter
     /**
      * Generates the OPML for the active user
      *
-     * @param  \OCA\News\Db\Folder[] $folders
-     * @param  \OCA\News\Db\Feed[]   $feeds
+     * @param Folder[] $folders
+     * @param Feed[]    $feeds
      * @return DOMDocument the document
      */
     public function build(array $folders, array $feeds)

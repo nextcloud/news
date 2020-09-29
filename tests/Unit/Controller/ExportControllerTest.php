@@ -14,14 +14,15 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ExportController;
-use OCA\News\Service\FeedService;
-use OCA\News\Service\FolderService;
-use OCA\News\Service\ItemService;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FolderServiceV2;
 
-use \OCA\News\Http\TextDownloadResponse;
+use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\OpmlService;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
+use OCP\AppFramework\Http\DataDownloadResponse;
 use OCP\IRequest;
 
 use PHPUnit\Framework\TestCase;
@@ -29,39 +30,55 @@ use PHPUnit\Framework\TestCase;
 class ExportControllerTest extends TestCase
 {
 
-    private $appName;
-    private $request;
     private $controller;
     private $user;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedServiceV2
+     */
     private $feedService;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FolderServiceV2
+     */
     private $folderService;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
+     */
     private $itemService;
-    private $opmlExporter;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|OpmlService
+     */
+    private $opmlService;
 
     /**
      * Gets run before each test
      */
     public function setUp(): void
     {
-        $this->appName = 'news';
+        $appName = 'news';
         $this->user = 'john';
-        $this->itemService = $this->getMockBuilder(ItemService::class)
+        $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder(FeedService::class)
+        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->folderService = $this->getMockBuilder(FolderService::class)
+        $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $this->opmlService = $this->getMockBuilder(OpmlService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->opmlExporter = new OPMLExporter();
+        $request = $this->getMockBuilder(IRequest::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->controller = new ExportController(
-            $this->appName, $this->request,
-            $this->folderService, $this->feedService,
-            $this->itemService, $this->opmlExporter, $this->user
+            $appName,
+            $request,
+            $this->folderService,
+            $this->feedService,
+            $this->itemService,
+            $this->opmlService,
+            $this->user
         );
     }
 
@@ -77,17 +94,13 @@ class ExportControllerTest extends TestCase
         "  <body/>\n" .
         "</opml>\n";
 
-        $this->feedService->expects($this->once())
-            ->method('findAll')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue([]));
-        $this->folderService->expects($this->once())
-            ->method('findAll')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue([]));
+        $this->opmlService->expects($this->once())
+            ->method('export')
+            ->with($this->user)
+            ->will($this->returnValue($opml));
 
         $return = $this->controller->opml();
-        $this->assertTrue($return instanceof TextDownloadResponse);
+        $this->assertTrue($return instanceof DataDownloadResponse);
         $this->assertEquals($opml, $return->render());
     }
 
@@ -112,12 +125,12 @@ class ExportControllerTest extends TestCase
         $articles = [$item1, $item2];
 
         $this->feedService->expects($this->once())
-            ->method('findAll')
-            ->with($this->equalTo($this->user))
+            ->method('findAllForUser')
+            ->with($this->user)
             ->will($this->returnValue($feeds));
         $this->itemService->expects($this->once())
-            ->method('getUnreadOrStarred')
-            ->with($this->equalTo($this->user))
+            ->method('findAllForUser')
+            ->with($this->user, ['unread' => true, 'starred' => true])
             ->will($this->returnValue($articles));
 
 

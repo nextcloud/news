@@ -47,7 +47,7 @@ class FolderServiceV2 extends Service
      *
      * @return Folder[]
      */
-    public function findAllForUser(string $userId): array
+    public function findAllForUser(string $userId, array $params = []): array
     {
         return $this->mapper->findAllFromUser($userId);
     }

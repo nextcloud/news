@@ -14,7 +14,9 @@
 
 namespace OCA\News\Service;
 
-class UpdaterService
+use OCA\News\Utility\OPMLExporter;
+
+class OpmlService
 {
 
     /**
@@ -32,32 +34,36 @@ class UpdaterService
      */
     private $itemService;
 
+    /**
+     * @var OPMLExporter
+     */
+    private $exporter;
+
     public function __construct(
         FolderServiceV2 $folderService,
         FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService
+        ItemServiceV2 $itemService,
+        OPMLExporter $exporter
     ) {
         $this->folderService = $folderService;
         $this->feedService = $feedService;
         $this->itemService = $itemService;
+        $this->exporter = $exporter;
     }
 
-
-    public function beforeUpdate()
+    /**
+     * Export all feeds for a user.
+     *
+     * @param string $userId User ID
+     *
+     * @return string Exported OPML data
+     */
+    public function export(string $userId): string
     {
-        $this->folderService->purgeDeleted();
-        $this->feedService->purgeDeleted();
-    }
+        $feeds   = $this->feedService->findAllForUser($userId);
+        $folders = $this->folderService->findAllForUser($userId);
 
-
-    public function update()
-    {
-        $this->feedService->fetchAll();
-    }
-
-
-    public function afterUpdate()
-    {
-        $this->itemService->purgeOverThreshold(null);
+        return $this->exporter->build($folders, $feeds)
+                              ->saveXML();
     }
 }

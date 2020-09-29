@@ -15,6 +15,7 @@
 
 namespace OCA\News\Controller;
 
+use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
@@ -30,7 +31,7 @@ class ItemApiController extends ApiController
     private $serializer;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         IUserSession $userSession,
         ItemService $itemService
@@ -55,15 +56,15 @@ class ItemApiController extends ApiController
      * @return array|mixed
      */
     public function index(
-        $type = 3,
-        $id = 0,
-        $getRead = true,
-        $batchSize = -1,
-        $offset = 0,
-        $oldestFirst = false
+        int $type = 3,
+        int $id = 0,
+        bool $getRead = true,
+        int $batchSize = -1,
+        int $offset = 0,
+        bool $oldestFirst = false
     ) {
         return $this->serializer->serialize(
-            $this->itemService->findAll(
+            $this->itemService->findAllItems(
                 $id,
                 $type,
                 $batchSize,
@@ -124,9 +125,10 @@ class ItemApiController extends ApiController
      * @CORS
      *
      * @param int $itemId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function read($itemId)
+    public function read(int $itemId)
     {
         return $this->setRead(true, $itemId);
     }
@@ -138,9 +140,10 @@ class ItemApiController extends ApiController
      * @CORS
      *
      * @param int $itemId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function unread($itemId)
+    public function unread(int $itemId)
     {
         return $this->setRead(false, $itemId);
     }
@@ -170,9 +173,10 @@ class ItemApiController extends ApiController
      *
      * @param int    $feedId
      * @param string $guidHash
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function star($feedId, $guidHash)
+    public function star(int $feedId, string $guidHash)
     {
         return $this->setStarred(true, $feedId, $guidHash);
     }
@@ -185,9 +189,10 @@ class ItemApiController extends ApiController
      *
      * @param int    $feedId
      * @param string $guidHash
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function unstar($feedId, $guidHash)
+    public function unstar(int $feedId, string $guidHash)
     {
         return $this->setStarred(false, $feedId, $guidHash);
     }
@@ -200,7 +205,7 @@ class ItemApiController extends ApiController
      *
      * @param int $newestItemId
      */
-    public function readAll($newestItemId)
+    public function readAll(int $newestItemId)
     {
         $this->itemService->readAll($newestItemId, $this->getUserId());
     }
@@ -225,7 +230,7 @@ class ItemApiController extends ApiController
      *
      * @param int[] $items item ids
      */
-    public function readMultiple($items)
+    public function readMultiple(array $items)
     {
         $this->setMultipleRead(true, $items);
     }
@@ -238,7 +243,7 @@ class ItemApiController extends ApiController
      *
      * @param int[] $items item ids
      */
-    public function unreadMultiple($items)
+    public function unreadMultiple(array $items)
     {
         $this->setMultipleRead(false, $items);
     }
@@ -268,7 +273,7 @@ class ItemApiController extends ApiController
      *
      * @param int[] $items item ids
      */
-    public function starMultiple($items)
+    public function starMultiple(array $items)
     {
         $this->setMultipleStarred(true, $items);
     }
@@ -281,7 +286,7 @@ class ItemApiController extends ApiController
      *
      * @param int[] $items item ids
      */
-    public function unstarMultiple($items)
+    public function unstarMultiple(array $items)
     {
         $this->setMultipleStarred(false, $items);
     }

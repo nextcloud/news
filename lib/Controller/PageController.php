@@ -87,7 +87,7 @@ class PageController extends Controller
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function index()
+    public function index(): TemplateResponse
     {
         $status = $this->statusService->getStatus();
         $response = new TemplateResponse(
@@ -118,7 +118,7 @@ class PageController extends Controller
     /**
      * @NoAdminRequired
      */
-    public function settings()
+    public function settings(): array
     {
         $settings = [
             'showAll',
@@ -173,7 +173,7 @@ class PageController extends Controller
         bool $preventReadOnScroll,
         bool $oldestFirst,
         bool $compactExpand
-    ) {
+    ): void {
         $settings = [
             'showAll'             => $showAll,
             'compact'             => $compact,

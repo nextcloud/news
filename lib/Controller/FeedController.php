@@ -15,6 +15,7 @@ namespace OCA\News\Controller;
 
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\AppFramework\Controller;
@@ -36,13 +37,13 @@ class FeedController extends Controller
     private $settings;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         FolderService $folderService,
         FeedService $feedService,
         ItemService $itemService,
         IConfig $settings,
-        $UserId
+        string $UserId
     ) {
         parent::__construct($appName, $request);
         $this->feedService = $feedService;
@@ -56,7 +57,7 @@ class FeedController extends Controller
     /**
      * @NoAdminRequired
      */
-    public function index()
+    public function index(): array
     {
 
         // this method is also used to update the interface
@@ -83,7 +84,7 @@ class FeedController extends Controller
     /**
      * @NoAdminRequired
      */
-    public function active()
+    public function active(): array
     {
         $feedId = (int) $this->settings->getUserValue(
             $this->userId,
@@ -134,14 +135,15 @@ class FeedController extends Controller
      * @param string $title
      * @param string $user
      * @param string $password
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
     public function create(
-        $url,
-        $parentFolderId,
-        $title = null,
-        $user = null,
-        $password = null
+        string $url,
+        int $parentFolderId,
+        ?string $title = null,
+        ?string $user = null,
+        ?string $password = null
     ) {
         try {
             // we need to purge deleted feeds if a feed is created to
@@ -180,9 +182,10 @@ class FeedController extends Controller
      * @NoAdminRequired
      *
      * @param int $feedId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function delete($feedId)
+    public function delete(int $feedId)
     {
         try {
             $this->feedService->markDeleted($feedId, $this->userId);
@@ -198,9 +201,10 @@ class FeedController extends Controller
      * @NoAdminRequired
      *
      * @param int $feedId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function update($feedId)
+    public function update(int $feedId)
     {
         try {
             $feed = $this->feedService->update($this->userId, $feedId);
@@ -227,7 +231,7 @@ class FeedController extends Controller
      * @param array $json
      * @return array
      */
-    public function import($json)
+    public function import(array $json): array
     {
         $feed = $this->feedService->importArticles($json, $this->userId);
 
@@ -250,7 +254,7 @@ class FeedController extends Controller
      * @param int $highestItemId
      * @return array
      */
-    public function read($feedId, $highestItemId)
+    public function read(int $feedId, int $highestItemId): array
     {
         $this->itemService->readFeed($feedId, $highestItemId, $this->userId);
 
@@ -269,9 +273,10 @@ class FeedController extends Controller
      * @NoAdminRequired
      *
      * @param int $feedId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function restore($feedId)
+    public function restore(int $feedId)
     {
         try {
             $this->feedService->unmarkDeleted($feedId, $this->userId);
@@ -292,15 +297,17 @@ class FeedController extends Controller
      * @param int    $ordering
      * @param int    $folderId
      * @param string $title
+     *
+     * @return array|JSONResponse
      */
     public function patch(
-        $feedId,
-        $pinned = null,
-        $fullTextEnabled = null,
-        $updateMode = null,
-        $ordering = null,
-        $title = null,
-        $folderId = null
+        int $feedId,
+        ?bool $pinned = null,
+        ?bool $fullTextEnabled = null,
+        ?int $updateMode = null,
+        ?int $ordering = null,
+        ?int $folderId = null,
+        ?string $title = null
     ) {
         $attributes = [
             'pinned' => $pinned,

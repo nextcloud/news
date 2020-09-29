@@ -35,7 +35,7 @@ class Fetcher
      *
      * @param IFeedFetcher $fetcher the fetcher
      */
-    public function registerFetcher(IFeedFetcher $fetcher)
+    public function registerFetcher(IFeedFetcher $fetcher): void
     {
         $this->fetchers[] = $fetcher;
     }
@@ -62,7 +62,7 @@ class Fetcher
         bool $fullTextEnabled = false,
         ?string $user = null,
         ?string $password = null
-    ) {
+    ): array {
         foreach ($this->fetchers as $fetcher) {
             if (!$fetcher->canHandle($url)) {
                 continue;

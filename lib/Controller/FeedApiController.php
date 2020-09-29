@@ -18,6 +18,7 @@ namespace OCA\News\Controller;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Utility\PsrLogger;
+use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\ILogger;
 use \OCP\IUserSession;
@@ -52,7 +53,7 @@ class FeedApiController extends ApiController
     private $serializer;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         IUserSession $userSession,
         FeedService $feedService,
@@ -72,7 +73,7 @@ class FeedApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index()
+    public function index(): array
     {
 
         $result = [
@@ -100,9 +101,10 @@ class FeedApiController extends ApiController
      *
      * @param string $url
      * @param int    $folderId
-     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|mixed|JSONResponse
      */
-    public function create($url, $folderId = 0)
+    public function create(string $url, int $folderId = 0)
     {
         try {
             $this->feedService->purgeDeleted($this->getUserId(), false);
@@ -133,9 +135,10 @@ class FeedApiController extends ApiController
      * @CORS
      *
      * @param int $feedId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function delete($feedId)
+    public function delete(int $feedId)
     {
         try {
             $this->feedService->delete($feedId, $this->getUserId());
@@ -155,7 +158,7 @@ class FeedApiController extends ApiController
      * @param int $feedId
      * @param int $newestItemId
      */
-    public function read($feedId, $newestItemId)
+    public function read(int $feedId, int $newestItemId): void
     {
         $this->itemService->readFeed($feedId, $newestItemId, $this->getUserId());
     }
@@ -168,9 +171,10 @@ class FeedApiController extends ApiController
      *
      * @param int $feedId
      * @param int $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function move($feedId, $folderId)
+    public function move(int $feedId, int $folderId)
     {
         try {
             $this->feedService->patch(
@@ -193,9 +197,10 @@ class FeedApiController extends ApiController
      *
      * @param int    $feedId
      * @param string $feedTitle
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function rename($feedId, $feedTitle)
+    public function rename(int $feedId, string $feedTitle)
     {
         try {
             $this->feedService->patch(
@@ -215,7 +220,7 @@ class FeedApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function fromAllUsers()
+    public function fromAllUsers(): array
     {
         $feeds = $this->feedService->findAllFromAllUsers();
         $result = ['feeds' => []];
@@ -237,7 +242,7 @@ class FeedApiController extends ApiController
      * @param string $userId
      * @param int    $feedId
      */
-    public function update($userId, $feedId)
+    public function update(string $userId, int $feedId): void
     {
         try {
             $this->feedService->update($userId, $feedId);

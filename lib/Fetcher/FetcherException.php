@@ -21,7 +21,7 @@ class FetcherException extends \Exception
      *
      * @param string $msg the error message
      */
-    public function __construct($msg)
+    public function __construct(string $msg)
     {
         parent::__construct($msg);
     }

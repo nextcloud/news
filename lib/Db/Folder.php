@@ -37,7 +37,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int|null
      */
-    public function getDeletedAt()
+    public function getDeletedAt(): ?int
     {
         return $this->deletedAt;
     }
@@ -50,7 +50,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getLastModified()
+    public function getLastModified(): ?string
     {
         return $this->lastModified;
     }
@@ -68,7 +68,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int|null
      */
-    public function getParentId()
+    public function getParentId(): ?int
     {
         return $this->parentId;
     }
@@ -95,7 +95,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         );
     }
 
-    public function setDeletedAt(int $deletedAt = null)
+    public function setDeletedAt(?int $deletedAt = null): void
     {
         if ($this->deletedAt !== $deletedAt) {
             $this->deletedAt = $deletedAt;
@@ -103,7 +103,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         if ($this->id !== $id) {
             $this->id = $id;
@@ -111,7 +111,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setLastModified(string $lastModified = null)
+    public function setLastModified(?string $lastModified = null): void
     {
 
         if ($this->lastModified !== $lastModified) {
@@ -120,7 +120,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         if ($this->name !== $name) {
             $this->name = $name;
@@ -128,7 +128,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setOpened(bool $opened)
+    public function setOpened(bool $opened): void
     {
         if ($this->opened !== $opened) {
             $this->opened = $opened;
@@ -136,7 +136,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setParentId(int $parentId = 0)
+    public function setParentId(int $parentId = 0): void
     {
         if ($this->parentId !== $parentId) {
             $this->parentId = $parentId;
@@ -144,7 +144,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         }
     }
 
-    public function setUserId(string $userId)
+    public function setUserId(string $userId): void
     {
         if ($this->userId !== $userId) {
             $this->userId = $userId;

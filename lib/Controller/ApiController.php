@@ -16,6 +16,7 @@
 namespace OCA\News\Controller;
 
 use \OCP\IRequest;
+use OCP\IUser;
 use \OCP\IUserSession;
 use \OCP\AppFramework\ApiController as BaseApiController;
 

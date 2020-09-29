@@ -16,8 +16,14 @@ namespace OCA\News\Db;
 trait EntityJSONSerializer
 {
 
-
-    public function serializeFields($properties)
+    /**
+     * Serialize object properties.
+     *
+     * @param array $properties Serializable properties
+     *
+     * @return array
+     */
+    public function serializeFields(array $properties): array
     {
         $result = [];
         foreach ($properties as $property) {

@@ -29,7 +29,7 @@ class YoutubeFetcher implements IFeedFetcher
      *
      * @return string
      */
-    private function buildUrl(string $url)
+    private function buildUrl(string $url): string
     {
         $baseRegex = '%(?:https?://|//)?(?:www.)?youtube.com';
         $playRegex = $baseRegex . '.*?list=([^&]*)%';
