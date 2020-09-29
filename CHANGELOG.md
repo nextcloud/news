@@ -3,6 +3,21 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Drop support before nextcloud 20
+- Move to modern SQL syntax
+- Add management commands
+```shell script
+./occ news:opml:export <userID>
+
+./occ news:folder:add <userID> <name>
+./occ news:folder:list <userID>
+./occ news:folder:delete <userID>
+
+./occ news:feed:add <userID> <URL>
+./occ news:feed:list <userID>
+./occ news:feed:delete <userID>
+```
+
 ## 14.2.2
 
 ### Changed
@@ -99,7 +114,7 @@ All notable changes to this project will be documented in this file.
 ## 14.1.2
 
 ## Changed
-- Updated js packages 
+- Updated js packages
 
 ### Fixed
 - Signature was missing
@@ -163,7 +178,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Fixed some feeds with a empty body #474
 - Restored full text by default for some feeds #479
-- Some smaller adjustments for the design #463 #464 
+- Some smaller adjustments for the design #463 #464
 
 ## 13.1.4
 
@@ -187,7 +202,7 @@ All notable changes to this project will be documented in this file.
 - Highlight in compact mode #109
 - Prevent raw angluar templates from flashing on page load #429
 - HTML elements where not rendered #428
-- Provide UserAgent to prevent HTTP 403 errors #428 
+- Provide UserAgent to prevent HTTP 403 errors #428
 
 ## 13.1.1
 

@@ -51,13 +51,15 @@ class ItemServiceV2 extends Service
     /**
      * Finds all items of a user
      *
-     * @param string $userId the name of the user
+     * @param string $userId The ID/name of the user
+     * @param array $params Filter parameters
+     *
      *
      * @return Item[]
      */
-    public function findAllForUser($userId): array
+    public function findAllForUser(string $userId, array $params = []): array
     {
-        return $this->mapper->findAllFromUser($userId);
+        return $this->mapper->findAllFromUser($userId, $params);
     }
 
     /**
@@ -86,7 +88,7 @@ class ItemServiceV2 extends Service
         return $this->mapper->findAllForFeed($feedId);
     }
 
-    public function purgeOverThreshold($threshold = null)
+    public function purgeOverThreshold(int $threshold = null)
     {
 
         $threshold = (int) $threshold ?? $this->config->getAppValue(

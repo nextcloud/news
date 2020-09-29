@@ -65,11 +65,12 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <command>OCA\News\Command\Config\FeedAdd</command>
         <command>OCA\News\Command\Config\FeedDelete</command>
         <command>OCA\News\Command\Config\FeedDelete</command>
+        <command>OCA\News\Command\Config\OpmlExport</command>
     </commands>
 
     <settings>
-        <admin>OCA\News\Settings\Admin</admin>
-        <admin-section>OCA\News\Settings\Section</admin-section>
+        <admin>OCA\News\Settings\AdminSettings</admin>
+        <admin-section>OCA\News\Settings\AdminSection</admin-section>
     </settings>
 
     <navigations>

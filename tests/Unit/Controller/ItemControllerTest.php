@@ -181,7 +181,7 @@ class ItemControllerTest extends TestCase
                 $this->equalTo($this->user)
             );
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue([$feed]));
 
@@ -240,7 +240,7 @@ class ItemControllerTest extends TestCase
         $this->itemsApiExpects(2, FeedType::FEED, '0');
 
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue($feeds));
 
@@ -255,7 +255,7 @@ class ItemControllerTest extends TestCase
             ->will($this->returnValue(3111));
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(FeedType::FEED),
@@ -286,7 +286,7 @@ class ItemControllerTest extends TestCase
         $this->itemsApiExpects(2, FeedType::FEED, '0');
 
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue($feeds));
 
@@ -301,7 +301,7 @@ class ItemControllerTest extends TestCase
             ->will($this->returnValue(3111));
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(FeedType::FEED),
@@ -329,7 +329,7 @@ class ItemControllerTest extends TestCase
         $this->itemsApiExpects(2, FeedType::FEED);
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(FeedType::FEED),
@@ -342,7 +342,7 @@ class ItemControllerTest extends TestCase
             ->will($this->returnValue($result['items']));
 
         $this->feedService->expects($this->never())
-            ->method('findAll');
+            ->method('findAllForUser');
 
         $response = $this->controller->index(FeedType::FEED, 2, 3, 10);
         $this->assertEquals($result, $response);
@@ -383,7 +383,7 @@ class ItemControllerTest extends TestCase
             ->will($this->returnValue('1'));
 
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue($feeds));
 

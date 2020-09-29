@@ -89,7 +89,7 @@ class FeedServiceV2 extends Service
      *
      * @return Feed[]
      */
-    public function findAllForUser(string $userId): array
+    public function findAllForUser(string $userId, array $params = []): array
     {
         return $this->mapper->findAllFromUser($userId);
     }

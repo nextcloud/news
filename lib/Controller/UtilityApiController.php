@@ -30,7 +30,7 @@ class UtilityApiController extends ApiController
     private $statusService;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         IUserSession $userSession,
         UpdaterService $updater,

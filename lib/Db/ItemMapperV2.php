@@ -43,10 +43,11 @@ class ItemMapperV2 extends NewsMapperV2
      * Find all feeds for a user.
      *
      * @param string $userId The user identifier
+     * @param array  $params Filter parameters
      *
      * @return Entity[]
      */
-    public function findAllFromUser($userId): array
+    public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('items.*')
@@ -55,6 +56,11 @@ class ItemMapperV2 extends NewsMapperV2
                 ->where('feeds.user_id = :user_id')
                 ->andWhere('deleted_at = 0')
                 ->setParameter(':user_id', $userId, IQueryBuilder::PARAM_STR);
+
+        foreach ($params as $key => $value) {
+            $builder->andWhere("${key} = :${key}")
+                    ->setParameter(":${key}", $value);
+        }
 
         return $this->findEntities($builder);
     }
@@ -110,7 +116,7 @@ class ItemMapperV2 extends NewsMapperV2
      *
      * @param int $threshold Deletion threshold
      */
-    public function deleteOverThreshold($threshold)
+    public function deleteOverThreshold(int $threshold)
     {
         $builder = $this->db->getQueryBuilder();
 

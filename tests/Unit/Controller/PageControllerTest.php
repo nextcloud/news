@@ -255,7 +255,7 @@ class PageControllerTest extends TestCase
 
     public function testExplore()
     {
-        $in = 'test';
+        $in = ['test'];
         $this->settings->expects($this->at(0))
             ->method('setUserValue')
             ->with('becka', 'news', 'lastViewedFeedId', 0);

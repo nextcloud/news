@@ -52,11 +52,12 @@ abstract class Service
     /**
      * Finds all items of a user
      *
-     * @param string $userId the name of the user
+     * @param string $userId The ID/name of the user
+     * @param array  $params Filter parameters
      *
      * @return Entity[]
      */
-    abstract public function findAllForUser(string $userId): array;
+    abstract public function findAllForUser(string $userId, array $params = []): array;
 
     /**
      * Finds all items
@@ -89,7 +90,7 @@ abstract class Service
      * @param int    $id     the id of the entity
      * @param string $userId the name of the user for security reasons
      *
-     * @return \OCP\AppFramework\Db\Entity the entity
+     * @return Entity the entity
      * @throws ServiceNotFoundException if the entity does not exist, or there
      * are more than one of it
      */

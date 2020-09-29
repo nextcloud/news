@@ -95,7 +95,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getBasicAuthPassword()
+    public function getBasicAuthPassword(): ?string
     {
         return $this->basicAuthPassword;
     }
@@ -103,7 +103,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getBasicAuthUser()
+    public function getBasicAuthUser(): ?string
     {
         return $this->basicAuthUser;
     }
@@ -111,7 +111,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int|null
      */
-    public function getDeletedAt()
+    public function getDeletedAt(): ?int
     {
         return $this->deletedAt;
     }
@@ -119,7 +119,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getFaviconLink()
+    public function getFaviconLink(): ?string
     {
         return $this->faviconLink;
     }
@@ -167,7 +167,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getLastModified()
+    public function getLastModified(): ?string
     {
         return $this->lastModified;
     }
@@ -175,7 +175,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getLastUpdateError()
+    public function getLastUpdateError(): ?string
     {
         return $this->lastUpdateError;
     }
@@ -183,7 +183,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getLink()
+    public function getLink(): ?string
     {
         return $this->link;
     }
@@ -191,7 +191,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getLocation()
+    public function getLocation(): ?string
     {
         return $this->location;
     }
@@ -321,7 +321,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int|null $added
      */
-    public function setAdded(int $added = null): Feed
+    public function setAdded(?int $added = null): Feed
     {
         if ($this->added !== $added) {
             $this->added = $added;
@@ -347,7 +347,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $basicAuthPassword
      */
-    public function setBasicAuthPassword(string $basicAuthPassword = null): Feed
+    public function setBasicAuthPassword(?string $basicAuthPassword = null): Feed
     {
         if ($this->basicAuthPassword !== $basicAuthPassword) {
             $this->basicAuthPassword = $basicAuthPassword;
@@ -360,7 +360,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $basicAuthUser
      */
-    public function setBasicAuthUser(string $basicAuthUser = null): Feed
+    public function setBasicAuthUser(?string $basicAuthUser = null): Feed
     {
         if ($this->basicAuthUser !== $basicAuthUser) {
             $this->basicAuthUser = $basicAuthUser;
@@ -373,7 +373,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int|null $deletedAt
      */
-    public function setDeletedAt(int $deletedAt = null): Feed
+    public function setDeletedAt(?int $deletedAt = null): Feed
     {
         if ($this->deletedAt !== $deletedAt) {
             $this->deletedAt = $deletedAt;
@@ -386,7 +386,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $faviconLink
      */
-    public function setFaviconLink(string $faviconLink = null): Feed
+    public function setFaviconLink(?string $faviconLink = null): Feed
     {
         if ($this->faviconLink !== $faviconLink) {
             $this->faviconLink = $faviconLink;
@@ -425,7 +425,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $httpEtag
      */
-    public function setHttpEtag(string $httpEtag = null): Feed
+    public function setHttpEtag(?string $httpEtag = null): Feed
     {
         if ($this->httpEtag !== $httpEtag) {
             $this->httpEtag = $httpEtag;
@@ -438,7 +438,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $httpLastModified
      */
-    public function setHttpLastModified(string $httpLastModified = null): Feed
+    public function setHttpLastModified(?string $httpLastModified = null): Feed
     {
         if ($this->httpLastModified !== $httpLastModified) {
             $this->httpLastModified = $httpLastModified;
@@ -464,7 +464,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $lastModified
      */
-    public function setLastModified(string $lastModified = null): Feed
+    public function setLastModified(?string $lastModified = null): Feed
     {
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
@@ -477,7 +477,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $lastUpdateError
      */
-    public function setLastUpdateError(string $lastUpdateError = null): Feed
+    public function setLastUpdateError(?string $lastUpdateError = null): Feed
     {
         if ($this->lastUpdateError !== $lastUpdateError) {
             $this->lastUpdateError = $lastUpdateError;
@@ -490,7 +490,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $link
      */
-    public function setLink(string $link = null): Feed
+    public function setLink(?string $link = null): Feed
     {
         $link = trim($link);
         if (strpos($link, 'http') === 0 && $this->link !== $link) {
@@ -504,7 +504,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param string|null $location
      */
-    public function setLocation(string $location = null): Feed
+    public function setLocation(?string $location = null): Feed
     {
         if ($this->location !== $location) {
             $this->location = $location;

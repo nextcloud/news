@@ -15,6 +15,7 @@
 
 namespace OCA\News\Controller;
 
+use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
@@ -34,7 +35,7 @@ class FolderApiController extends ApiController
     private $serializer;
 
     public function __construct(
-        $appName,
+        string $appName,
         IRequest $request,
         IUserSession $userSession,
         FolderService $folderService,
@@ -55,7 +56,7 @@ class FolderApiController extends ApiController
     public function index()
     {
         return $this->serializer->serialize(
-            $this->folderService->findAll($this->getUserId())
+            $this->folderService->findAllForUser($this->getUserId())
         );
     }
 
@@ -66,9 +67,10 @@ class FolderApiController extends ApiController
      * @CORS
      *
      * @param string $name
-     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|mixed|JSONResponse
      */
-    public function create($name)
+    public function create(string $name)
     {
         try {
             $this->folderService->purgeDeleted($this->getUserId(), false);
@@ -89,9 +91,10 @@ class FolderApiController extends ApiController
      * @CORS
      *
      * @param int $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function delete($folderId)
+    public function delete(int $folderId)
     {
         try {
             $this->folderService->delete($folderId, $this->getUserId());
@@ -107,11 +110,13 @@ class FolderApiController extends ApiController
      * @NoAdminRequired
      * @NoCSRFRequired
      * @CORS
+     *
      * @param int    $folderId
      * @param string $name
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
      */
-    public function update($folderId, $name)
+    public function update(int $folderId, string $name)
     {
         try {
             $this->folderService->rename($folderId, $name, $this->getUserId());
@@ -135,7 +140,7 @@ class FolderApiController extends ApiController
      * @param int $folderId
      * @param int $newestItemId
      */
-    public function read($folderId, $newestItemId)
+    public function read(int $folderId, int $newestItemId): void
     {
         $this->itemService->readFolder($folderId, $newestItemId, $this->getUserId());
     }

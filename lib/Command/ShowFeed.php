@@ -50,6 +50,9 @@ class ShowFeed extends Command
         $this->feedFetcher  = $feedFetcher;
     }
 
+    /**
+     * Configure the command
+     */
     protected function configure()
     {
         $this->setName('news:show-feed')
@@ -60,6 +63,14 @@ class ShowFeed extends Command
             ->addOption('full-text', 'f', InputOption::VALUE_NONE, 'Usa a scraper to get full text');
     }
 
+    /**
+     * Execute the command
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url   = $input->getArgument('feed');

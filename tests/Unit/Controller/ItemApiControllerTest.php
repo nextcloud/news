@@ -80,7 +80,7 @@ class ItemApiControllerTest extends TestCase
         $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(1),
@@ -111,7 +111,7 @@ class ItemApiControllerTest extends TestCase
         $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllItems')
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(1),

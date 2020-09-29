@@ -46,7 +46,7 @@ class FeedMapperV2 extends NewsMapperV2
      *
      * @return Entity[]
      */
-    public function findAllFromUser(string $userId): array
+    public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
         $builder->addSelect('*')

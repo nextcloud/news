@@ -57,7 +57,7 @@ class EntityApiSerializer
     }
 
 
-    private function convert($entities)
+    private function convert(array $entities)
     {
         $converted = [];
 

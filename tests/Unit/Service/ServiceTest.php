@@ -32,7 +32,7 @@ class TestLegacyService extends Service
         parent::__construct($mapper, $logger);
     }
 
-    public function findAllForUser(string $userId): array
+    public function findAllForUser(string $userId, array $params = []): array
     {
         // TODO: Implement findAllForUser() method.
     }

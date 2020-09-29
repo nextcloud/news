@@ -72,7 +72,7 @@ class FolderControllerTest extends TestCase
     {
         $return = [new Folder(), new Folder()];
         $this->folderService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->will($this->returnValue($return));
 
         $response = $this->controller->index();
@@ -303,7 +303,7 @@ class FolderControllerTest extends TestCase
                 $this->equalTo($this->user)
             );
         $this->feedService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user))
             ->will($this->returnValue([$feed]));
 

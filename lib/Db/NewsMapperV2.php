@@ -88,10 +88,11 @@ abstract class NewsMapperV2 extends QBMapper
      * Find all items for a user.
      *
      * @param string $userId ID of the user
+     * @param array  $params Filter parameters
      *
      * @return Entity[]
      */
-    abstract public function findAllFromUser(string $userId): array;
+    abstract public function findAllFromUser(string $userId, array $params = []): array;
 
     /**
      * Find item for a user.

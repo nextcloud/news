@@ -61,13 +61,13 @@ class ItemController extends Controller
      * @return array
      */
     public function index(
-        $type = 3,
-        $id = 0,
-        $limit = 50,
-        $offset = 0,
-        $showAll = null,
-        $oldestFirst = null,
-        $search = ''
+        int $type = 3,
+        int $id = 0,
+        int $limit = 50,
+        int $offset = 0,
+        ?bool $showAll = null,
+        ?bool $oldestFirst = null,
+        string $search = ''
     ) {
 
         // in case this is called directly and not from the website use the
@@ -119,12 +119,12 @@ class ItemController extends Controller
             if ($offset === 0) {
                 $params['newestItemId'] =
                     $this->itemService->getNewestItemId($this->userId);
-                $params['feeds'] = $this->feedService->findAll($this->userId);
+                $params['feeds'] = $this->feedService->findAllForUser($this->userId);
                 $params['starred'] =
                     $this->itemService->starredCount($this->userId);
             }
 
-            $params['items'] = $this->itemService->findAll(
+            $params['items'] = $this->itemService->findAllItems(
                 $id,
                 $type,
                 $limit,
@@ -165,7 +165,7 @@ class ItemController extends Controller
         try {
             $params['newestItemId'] =
                 $this->itemService->getNewestItemId($this->userId);
-            $params['feeds'] = $this->feedService->findAll($this->userId);
+            $params['feeds'] = $this->feedService->findAllForUser($this->userId);
             $params['starred'] =
                 $this->itemService->starredCount($this->userId);
             $params['items'] = $this->itemService->findAllNew(
@@ -238,7 +238,7 @@ class ItemController extends Controller
     public function readAll($highestItemId)
     {
         $this->itemService->readAll($highestItemId, $this->userId);
-        return ['feeds' => $this->feedService->findAll($this->userId)];
+        return ['feeds' => $this->feedService->findAllForUser($this->userId)];
     }
 
 
