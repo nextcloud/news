@@ -111,20 +111,22 @@
         },
         {
             "name": "debril/feed-io",
-            "version": "v4.7.9",
+            "version": "v4.7.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdebril/feed-io.git",
-                "reference": "3fbc023b52d7b97fed7e7ab0dd9a83fb9c556414"
+                "reference": "96ca6d03eaf5e638273248c07a348ed76148bc25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/3fbc023b52d7b97fed7e7ab0dd9a83fb9c556414",
-                "reference": "3fbc023b52d7b97fed7e7ab0dd9a83fb9c556414",
+                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/96ca6d03eaf5e638273248c07a348ed76148bc25",
+                "reference": "96ca6d03eaf5e638273248c07a348ed76148bc25",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
+                "ext-json": "*",
+                "ext-libxml": "*",
                 "guzzlehttp/guzzle": "~6.2|~7.0",
                 "php": ">=7.1",
                 "psr/log": "~1.0",
@@ -133,7 +135,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.4",
                 "monolog/monolog": "1.*",
-                "phpunit/phpunit": "~7.5.0"
+                "phpunit/phpunit": "~9.3.0"
             },
             "suggest": {
                 "monolog/monolog": "Allows to handle logs"
@@ -174,7 +176,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-09-21T08:29:55+00:00"
+            "time": "2020-09-30T14:50:31+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
