@@ -120,7 +120,6 @@ Check the **nextcloud/data/nextcloud.log** for hints why it failed. After the is
 Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/tree/master/docs/externalapi), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
-* Check if your configuration is set to use the system cron, [check here](https://github.com/nextcloud/news/blob/master/docs/configuration.md).
 * Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
@@ -143,7 +142,7 @@ System Cron:
 * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
 
 [Nextcloud News Updater](https://github.com/nextcloud/news-updater):
-* Check if your configuration is set to **not** use the system cron, [check here](https://github.com/nextcloud/news/blob/master/docs/configuration.md).
+* Check if your configuration is set to **not** use the system cron.
 * Start the updater in loglevel info mode and check if the feed update urls are polled, e.g.:
 
     nextcloud_news_updater --loglevel info -c /path/to/config.ini

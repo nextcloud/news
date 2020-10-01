@@ -6,8 +6,8 @@
 
 The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/tree/master/docs/externalapi/Legacy.md) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
-## Install and configuration
-See the [install document](https://github.com/nextcloud/news/blob/master/docs/install.md) and the [configuration overview](https://github.com/nextcloud/news/blob/master/docs/configuration.md)
+## Install
+See the [install document](https://github.com/nextcloud/news/blob/master/docs/install.md)
 
 ## FAQ
 * [My browser shows a mixed content warning](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#my-browser-shows-a-mixed-content-warning-connection-is-not-secure)
