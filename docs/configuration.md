@@ -1,5 +1,29 @@
 # Configuration
 
+The configuration is saved in the database, you can change and view them via the admin interface.
+
+You can find them in the appconfig table.
+
+```sql
+mysql> select * from oc_appconfig where appid = 'news';
++-------+--------------------------+-------------+
+| appid | configkey                | configvalue |
++-------+--------------------------+-------------+
+| news  | autoPurgeCount           | 200         |
+| news  | autoPurgeMinimumInterval | 60          |
+| news  | enabled                  | yes         |
+| news  | exploreUrl               |             |
+| news  | feedFetcherTimeout       | 60          |
+| news  | installed_version        | 15.0.0      |
+| news  | maxRedirects             | 10          |
+| news  | types                    |             |
+| news  | updateInterval           | 3600        |
+| news  | useCronUpdates           | 1           |
++-------+--------------------------+-------------+
+```
+
+# Legacy Configuration before News 15.0.0
+
 All configuration values are set inside **nextcloud/data/news/config/config.ini** and can be edited in the admin panel.
 
 The configuration is in **INI** format and looks like this:
