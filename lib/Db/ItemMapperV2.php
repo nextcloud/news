@@ -95,12 +95,18 @@ class ItemMapperV2 extends NewsMapperV2
         return $this->findEntity($builder);
     }
 
-    public function findByGuidHash(string $getGuidHash): Item
+    public function findByGuidHash(string $guidHash): Item
     {
-        throw new DoesNotExistException('fasi');
+        $builder = $this->db->getQueryBuilder();
+        $builder->addSelect('*')
+            ->from($this->tableName)
+            ->andWhere('guid_hash = :guid_hash')
+            ->setParameter(':guid_hash', $guidHash, IQueryBuilder::PARAM_STR);
+
+        return $this->findEntity($builder);
     }
 
-    public function findAllForFeed(int $feedId)
+    public function findAllForFeed(int $feedId): array
     {
         $builder = $this->db->getQueryBuilder();
         $builder->addSelect('*')

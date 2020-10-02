@@ -591,9 +591,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
      *
      * @return boolean
      */
-    public function isSupportedMime(string $mime): bool
+    public function isSupportedMime(?string $mime): bool
     {
+
         return (
+            $mime !== null ||
             stripos($mime, 'audio/') !== false ||
             stripos($mime, 'image/') !== false ||
             stripos($mime, 'video/') !== false);
