@@ -71,7 +71,7 @@ class PageController extends Controller
         IL10N $l10n,
         RecommendedSites $recommendedSites,
         StatusService $statusService,
-        string $UserId
+        ?string $UserId
     ) {
         parent::__construct($appName, $request);
         $this->settings = $settings;
