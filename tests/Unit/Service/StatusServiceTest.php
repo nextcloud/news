@@ -52,21 +52,18 @@ class StatusServiceTest extends TestCase
      */
     public function testGetStatus()
     {
-        $this->settings->expects($this->exactly(2))
+        $this->settings->expects($this->exactly(3))
             ->method('getAppValue')
             ->withConsecutive(
                 ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
                 ['news', 'useCronUpdates']
             )
             ->will($this->returnValueMap([
                 ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'cron'],
                 ['news', 'useCronUpdates', true, true],
             ]));
-
-        $this->settings->expects($this->exactly(1))
-            ->method('getSystemValue')
-            ->with('backgroundjobs_mode')
-            ->will($this->returnValue('cron'));
 
         $this->connection->expects($this->exactly(1))
             ->method('supports4ByteText')
@@ -88,21 +85,18 @@ class StatusServiceTest extends TestCase
      */
     public function testGetStatusNoCorrectCronAjax()
     {
-        $this->settings->expects($this->exactly(2))
+        $this->settings->expects($this->exactly(3))
             ->method('getAppValue')
             ->withConsecutive(
                 ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
                 ['news', 'useCronUpdates']
             )
             ->will($this->returnValueMap([
                 ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
                 ['news', 'useCronUpdates', true, true],
             ]));
-
-        $this->settings->expects($this->exactly(1))
-            ->method('getSystemValue')
-            ->with('backgroundjobs_mode')
-            ->will($this->returnValue('ajax'));
 
         $this->connection->expects($this->exactly(1))
             ->method('supports4ByteText')
@@ -124,21 +118,18 @@ class StatusServiceTest extends TestCase
      */
     public function testGetStatusNoCorrectCronTurnedOff()
     {
-        $this->settings->expects($this->exactly(2))
+        $this->settings->expects($this->exactly(3))
             ->method('getAppValue')
             ->withConsecutive(
                 ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
                 ['news', 'useCronUpdates']
             )
             ->will($this->returnValueMap([
                 ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
                 ['news', 'useCronUpdates', true, false],
             ]));
-
-        $this->settings->expects($this->exactly(1))
-            ->method('getSystemValue')
-            ->with('backgroundjobs_mode')
-            ->will($this->returnValue('ajax'));
 
         $this->connection->expects($this->exactly(1))
             ->method('supports4ByteText')
@@ -160,21 +151,18 @@ class StatusServiceTest extends TestCase
      */
     public function testGetStatusReportsNon4ByteText()
     {
-        $this->settings->expects($this->exactly(2))
+        $this->settings->expects($this->exactly(3))
             ->method('getAppValue')
             ->withConsecutive(
                 ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
                 ['news', 'useCronUpdates']
             )
             ->will($this->returnValueMap([
                 ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
                 ['news', 'useCronUpdates', true, false],
             ]));
-
-        $this->settings->expects($this->exactly(1))
-            ->method('getSystemValue')
-            ->with('backgroundjobs_mode')
-            ->will($this->returnValue('ajax'));
 
         $this->connection->expects($this->exactly(1))
             ->method('supports4ByteText')
