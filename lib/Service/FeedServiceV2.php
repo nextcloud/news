@@ -250,7 +250,7 @@ class FeedServiceV2 extends Service
      *
      * @return Feed|Entity Database feed entity
      */
-    public function fetch(Feed $feed)
+    public function fetch(Feed $feed): Entity
     {
         if ($feed->getPreventUpdate() === true) {
             return $feed;
@@ -321,19 +321,21 @@ class FeedServiceV2 extends Service
         return $this->mapper->update($feed);
     }
 
-    public function delete(string $user, int $id)
+    public function delete(string $user, int $id): void
     {
         $feed = $this->mapper->findFromUser($user, $id);
         $this->mapper->delete($feed);
     }
 
-    public function purgeDeleted()
+    public function purgeDeleted(): void
     {
         $this->mapper->purgeDeleted();
     }
 
-    public function fetchAll()
+    public function fetchAll(): void
     {
-        return $this->mapper->findAll();
+        foreach ($this->findAll() as $feed) {
+            $this->fetch($feed);
+        }
     }
 }

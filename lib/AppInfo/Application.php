@@ -151,7 +151,7 @@ class Application extends App implements IBootstrap
         });
 
         //TODO: Remove code after 15.1
-        $context->registerService('ConfigView', function (ContainerInterface $c): ?Node {
+        $context->registerService('ConfigFolder', function (ContainerInterface $c): ?Node {
             /** @var IRootFolder $fs */
             $fs = $c->get(IRootFolder::class);
             $path = 'news/config';
@@ -165,7 +165,7 @@ class Application extends App implements IBootstrap
         //TODO: Remove code after 15.1
         $context->registerService(LegacyConfig::class, function (ContainerInterface $c): LegacyConfig {
             $config = new LegacyConfig(
-                $c->get('ConfigView'),
+                $c->get('ConfigFolder'),
                 $c->get(LoggerInterface::class)
             );
             $config->read($c->get('configFile'), false);
