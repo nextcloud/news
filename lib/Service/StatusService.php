@@ -38,7 +38,7 @@ class StatusService
 
     public function isProperlyConfigured(): bool
     {
-        $cronMode = $this->settings->getSystemValue('backgroundjobs_mode');
+        $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
         $cronOff = !$this->settings->getAppValue(
             Application::NAME,
             'useCronUpdates',
