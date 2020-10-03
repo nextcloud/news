@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.1
+
+### Changed
+
+- Update feed-io to v4.7.10
+
+### Fixed
+
+- Fix false cron notifaction #823
+- Fix cron updater not working #819 #824
+- Fix invalid UserId when logged out #822
+- Fix autoPurge not working #824
+- Fix undefined class constant 'Name' #824
+
 ## 15.0.0
 
 ### Changed
