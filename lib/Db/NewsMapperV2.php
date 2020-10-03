@@ -73,7 +73,6 @@ abstract class NewsMapperV2 extends QBMapper
         $builder = $this->db->getQueryBuilder();
         $builder->delete($this->tableName)
             ->where('deleted_at != 0')
-            ->execute()
             ->execute();
     }
 
