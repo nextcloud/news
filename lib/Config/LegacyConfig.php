@@ -43,7 +43,7 @@ class LegacyConfig
     ) {
         $this->fileSystem = $fileSystem;
         $this->logger = $logger;
-        
+
         $this->autoPurgeMinimumInterval = 60;
         $this->autoPurgeCount = 200;
         $this->maxRedirects = 10;
@@ -73,8 +73,7 @@ class LegacyConfig
                 } else {
                     $this->logger->warning(
                         'Configuration value "' . $key .
-                        '" does not exist. Ignored value.',
-                        $this->loggerParams
+                        '" does not exist. Ignored value.'
                     );
                 }
             }
