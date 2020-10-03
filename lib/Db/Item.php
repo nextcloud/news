@@ -595,7 +595,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     {
 
         return (
-            $mime !== null ||
+            $mime !== null &&
             stripos($mime, 'audio/') !== false ||
             stripos($mime, 'image/') !== false ||
             stripos($mime, 'video/') !== false);
