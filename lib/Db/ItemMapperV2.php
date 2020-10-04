@@ -16,6 +16,7 @@ use Doctrine\DBAL\FetchMode;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
@@ -95,6 +96,16 @@ class ItemMapperV2 extends NewsMapperV2
         return $this->findEntity($builder);
     }
 
+    /**
+     * Find an item by a GUID hash.
+     *
+     * @param string $guidHash hash to find with
+     *
+     * @return Item|Entity
+     *
+     * @throws DoesNotExistException
+     * @throws MultipleObjectsReturnedException
+     */
     public function findByGuidHash(string $guidHash): Item
     {
         $builder = $this->db->getQueryBuilder();
