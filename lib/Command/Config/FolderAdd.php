@@ -47,9 +47,13 @@ class FolderAdd extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $user = $input->getArgument('user-id');
-        $name = $input->getArgument('name');
-        $parent = (int) $input->getOption('parent') ?? 0;
+        $user   = $input->getArgument('user-id');
+        $name   = $input->getArgument('name');
+        $parent = $input->getOption('parent');
+
+        if ($parent !== null) {
+            $parent = intval($parent);
+        }
 
         $this->folderService->create($user, $name, $parent);
 

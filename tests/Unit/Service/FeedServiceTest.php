@@ -913,7 +913,7 @@ class FeedServiceTest extends TestCase
         $insertFeed->setTitle('Articles without feed');
         $insertFeed->setAdded($this->time);
         $insertFeed->setPreventUpdate(true);
-        $insertFeed->setFolderId(0);
+        $insertFeed->setFolderId(null);
 
         $this->l10n->expects($this->once())
             ->method('t')

@@ -43,6 +43,7 @@ class FeedMapperV2 extends NewsMapperV2
      * Find all feeds for a user.
      *
      * @param string $userId The user identifier
+     * @param array  $params Filter parameters
      *
      * @return Entity[]
      */
@@ -62,7 +63,7 @@ class FeedMapperV2 extends NewsMapperV2
      * Find all feeds for a user.
      *
      * @param string $userId The user identifier
-     * @param int $id     The feed identifier
+     * @param int    $id     The feed identifier
      *
      * @return Entity
      *
@@ -124,17 +125,22 @@ class FeedMapperV2 extends NewsMapperV2
     /**
      * Find all feeds in a folder
      *
-     * @param int $id ID of the folder
+     * @param int|null $id ID of the folder
      *
      * @return Feed[]
      */
-    public function findAllFromFolder(int $id): array
+    public function findAllFromFolder(?int $id): array
     {
         $builder = $this->db->getQueryBuilder();
         $builder->addSelect('*')
-                ->from($this->tableName)
-                ->where('folder_id = :folder_id')
-                ->setParameter(':folder_id', $id);
+                ->from($this->tableName);
+
+        if (is_null($id)) {
+            $builder->where('folder_id IS NULL');
+        } else {
+            $builder->where('folder_id = :folder_id')
+                    ->setParameter(':folder_id', $id);
+        }
 
         return $this->findEntities($builder);
     }

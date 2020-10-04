@@ -64,13 +64,15 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int  $folderId
-     * @param bool $open
+     * @param int|null $folderId
+     * @param bool     $open
      *
      * @return array|JSONResponse
      */
-    public function open(int $folderId, bool $open)
+    public function open(?int $folderId, bool $open)
     {
+        $folderId = $folderId === 0 ? null : $folderId;
+
         try {
             $this->folderService->open($folderId, $open, $this->userId);
         } catch (ServiceException $ex) {
@@ -108,12 +110,15 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
+     * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
-    public function delete(int $folderId)
+    public function delete(?int $folderId)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
         try {
             $this->folderService->markDeleted($folderId, $this->userId);
         } catch (ServiceNotFoundException $ex) {
@@ -127,13 +132,16 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param string $folderName
-     * @param int    $folderId
+     * @param string   $folderName
+     * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
-    public function rename(string $folderName, int $folderId)
+    public function rename(string $folderName, ?int $folderId)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
         try {
             $folder = $this->folderService->rename(
                 $folderId,
@@ -154,12 +162,15 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
-     * @param int $highestItemId
+     * @param int|null $folderId
+     * @param int      $highestItemId
+     *
      * @return array
      */
-    public function read(int $folderId, int $highestItemId): array
+    public function read(?int $folderId, int $highestItemId): array
     {
+        $folderId = $folderId === 0 ? null : $folderId;
+
         $this->itemService->readFolder(
             $folderId,
             $highestItemId,
@@ -173,12 +184,14 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
+     * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
-    public function restore(int $folderId)
+    public function restore(?int $folderId)
     {
+        $folderId = $folderId === 0 ? null : $folderId;
+
         try {
             $this->folderService->unmarkDeleted($folderId, $this->userId);
         } catch (ServiceNotFoundException $ex) {

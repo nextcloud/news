@@ -69,7 +69,7 @@ class OPMLExporter
 
         // feeds without folders
         foreach ($feeds as $feed) {
-            if ($feed->getFolderId() === 0) {
+            if ($feed->getFolderId() === null) {
                 $feedOutline = $this->createFeedOutline($feed, $document);
                 $body->appendChild($feedOutline);
             }

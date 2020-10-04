@@ -54,16 +54,17 @@ class ItemService extends Service
     /**
      * Returns all new items
      *
-     * @param  int     $id           the id of the feed, 0 for starred or all items
-     * @param  int     $type         the type of the feed
-     * @param  int     $updatedSince a timestamp with the last modification date
+     * @param int|null $id           the id of the feed, 0 for starred or all items
+     * @param int      $type         the type of the feed
+     * @param int      $updatedSince a timestamp with the last modification date
      *                               returns only items with a >= modified
      *                               timestamp
-     * @param  boolean $showAll      if unread items should also be returned
-     * @param  string  $userId       the name of the user
+     * @param boolean  $showAll      if unread items should also be returned
+     * @param string   $userId       the name of the user
+     *
      * @return array of items
      */
-    public function findAllNew($id, $type, $updatedSince, $showAll, $userId)
+    public function findAllNew(?int $id, $type, $updatedSince, $showAll, $userId)
     {
         switch ($type) {
             case FeedType::FEED:
@@ -94,20 +95,21 @@ class ItemService extends Service
     /**
      * Returns all items
      *
-     * @param  int      $id          the id of the feed, 0 for starred or all items
-     * @param  int      $type        the type of the feed
-     * @param  int      $limit       how many items should be returned
-     * @param  int      $offset      the offset
-     * @param  boolean  $showAll     if unread items should also be returned
-     * @param  boolean  $oldestFirst if it should be ordered by oldest first
-     * @param  string   $userId      the name of the user
-     * @param  string[] $search      an array of keywords that the result should
+     * @param int|null $id           the id of the feed, 0 for starred or all items
+     * @param int      $type         the type of the feed
+     * @param int      $limit        how many items should be returned
+     * @param int      $offset       the offset
+     * @param boolean  $showAll      if unread items should also be returned
+     * @param boolean  $oldestFirst  if it should be ordered by oldest first
+     * @param string   $userId       the name of the user
+     * @param string[] $search       an array of keywords that the result should
      *                               contain in either the author, title, link
      *                               or body
+     *
      * @return array of items
      */
     public function findAllItems(
-        $id,
+        ?int $id,
         $type,
         $limit,
         $offset,
@@ -225,13 +227,13 @@ class ItemService extends Service
     /**
      * Set a folder read
      *
-     * @param int    $folderId      the id of the folder that should be marked read
-     * @param int    $highestItemId all items below that are marked read. This is
-     *                              used to prevent marking items as read that
-     *                              the users hasn't seen yet
-     * @param string $userId        the name of the user
+     * @param int|null $folderId      the id of the folder that should be marked read
+     * @param int      $highestItemId all items below that are marked read. This is
+     *                                used to prevent marking items as read that
+     *                                the users hasn't seen yet
+     * @param string   $userId        the name of the user
      */
-    public function readFolder($folderId, $highestItemId, $userId)
+    public function readFolder(?int $folderId, $highestItemId, $userId)
     {
         $time = $this->timeFactory->getMicroTime();
         $this->itemMapper->readFolder(

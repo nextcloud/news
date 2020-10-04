@@ -19,11 +19,11 @@ class FolderFixture extends Folder
 {
     use Fixture;
 
-    public function __construct(array $defaults=[])  
+    public function __construct(array $defaults=[])
     {
         $defaults = array_merge(
             [
-            'parentId' => 0,
+            'parentId' => null,
             'name' => 'folder',
             'userId' => 'test',
             'opened' => true,

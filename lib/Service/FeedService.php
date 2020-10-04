@@ -103,21 +103,27 @@ class FeedService extends Service
     /**
      * Creates a new feed
      *
-     * @param  string $feedUrl           the url to the feed
-     * @param  int    $folderId          the folder where it should be put into, 0 for root
+     * @param string   $feedUrl          the url to the feed
+     * @param int|null $folderId         the folder where it should be put into, null for root
      *                                   folder
-     * @param  string $userId            for which user the feed should be created
-     * @param  string $title             if given, this is used for the opml feed title
-     * @param  string $user              if given, basic auth is set for this feed
-     * @param  string $password          if given, basic auth is set for this
+     * @param string   $userId           for which user the feed should be created
+     * @param string|null     $title            if given, this is used for the opml feed title
+     * @param string|null     $user             if given, basic auth is set for this feed
+     * @param string|null     $password         if given, basic auth is set for this
      *                                   feed. Ignored if user is null or an empty string
      *
+     * @return Feed the newly created feed
      * @throws ServiceConflictException if the feed exists already
      * @throws ServiceNotFoundException if the url points to an invalid feed
-     * @return Feed the newly created feed
      */
-    public function create($feedUrl, $folderId, $userId, $title = null, $user = null, $password = null)
-    {
+    public function create(
+        string $feedUrl,
+        ?int $folderId,
+        string $userId,
+        string $title = null,
+        string $user = null,
+        string $password = null
+    ) {
         // first try if the feed exists already
         try {
             /**
@@ -369,7 +375,7 @@ class FeedService extends Service
                 $feed->setUrl($url);
                 $feed->setTitle($this->l10n->t('Articles without feed'));
                 $feed->setAdded($this->timeFactory->getTime());
-                $feed->setFolderId(0);
+                $feed->setFolderId(null);
                 $feed->setPreventUpdate(true);
                 /** @var Feed $feed */
                 $feed = $this->feedMapper->insert($feed);

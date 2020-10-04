@@ -41,6 +41,7 @@ class FolderMapperV2 extends NewsMapperV2
      * Find all feeds for a user.
      *
      * @param string $userId The user identifier
+     * @param array  $params Filter parameters
      *
      * @return Entity[]
      */

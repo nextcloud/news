@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Stop overloading DB ids
 - Unittest commands and utilities
 - Upload codecoverage to codecov.io
+- Use foreign keys in db
 
 ## 15.0.6
 

@@ -37,7 +37,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected $faviconLink = null;
     /** @var int|null */
     protected $added = 0;
-    /** @var int */
+    /** @var int|null */
     protected $folderId;
     /** @var int */
     protected $unreadCount;
@@ -152,9 +152,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getFolderId(): int
+    public function getFolderId(): ?int
     {
         return $this->folderId;
     }
@@ -416,9 +416,11 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param int $folderId
+     * @param int|null $folderId
+     *
+     * @return Feed
      */
-    public function setFolderId(int $folderId): Feed
+    public function setFolderId(?int $folderId): Feed
     {
         if ($this->folderId !== $folderId) {
             $this->folderId = $folderId;

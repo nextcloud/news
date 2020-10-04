@@ -27,6 +27,7 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
 use Psr\Log\LoggerInterface;
+use function GuzzleHttp\Psr7\uri_for;
 
 class FeedApiController extends ApiController
 {
@@ -99,13 +100,17 @@ class FeedApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param string $url
-     * @param int    $folderId
+     * @param string   $url
+     * @param int|null $folderId
      *
      * @return array|mixed|JSONResponse
      */
-    public function create(string $url, int $folderId = 0)
+    public function create(string $url, ?int $folderId = null)
     {
+        if ($folderId === 0) {
+            $folderId = null;
+        }
+
         try {
             $this->feedService->purgeDeleted($this->getUserId(), false);
 
@@ -169,13 +174,17 @@ class FeedApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $feedId
-     * @param int $folderId
+     * @param int      $feedId
+     * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
-    public function move(int $feedId, int $folderId)
+    public function move(int $feedId, ?int $folderId)
     {
+        if ($folderId === 0) {
+            $folderId = null;
+        }
+
         try {
             $this->feedService->patch(
                 $feedId,

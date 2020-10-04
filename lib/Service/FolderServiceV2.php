@@ -80,7 +80,7 @@ class FolderServiceV2 extends Service
         return $this->mapper->findAll();
     }
 
-    public function create(string $userId, string $name, int $parent = 0): Entity
+    public function create(string $userId, string $name, ?int $parent = null): Entity
     {
         $folder = new Folder();
         $folder->setUserId($userId)

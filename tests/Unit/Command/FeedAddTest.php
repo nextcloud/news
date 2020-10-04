@@ -69,7 +69,7 @@ class FeedAddTest extends TestCase
         $this->consoleInput->expects($this->exactly(5))
                            ->method('getOption')
                            ->will($this->returnValueMap([
-                               ['folder', '0'],
+                               ['folder', null],
                                ['title', 'title'],
                                ['username', 'user'],
                                ['password', 'pass'],
@@ -80,7 +80,7 @@ class FeedAddTest extends TestCase
 
         $this->service->expects($this->exactly(1))
                            ->method('create')
-                           ->with('admin', 'http://feed', 0, true, 'title', 'user', 'pass')
+                           ->with('admin', 'http://feed', null, true, 'title', 'user', 'pass')
                            ->willReturn($feed);
 
         $this->service->expects($this->exactly(1))

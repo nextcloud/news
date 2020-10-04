@@ -55,7 +55,7 @@ class ItemMapper extends NewsMapper
         $prependTo .
         'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
         'ON `folders`.`id` = `feeds`.`folder_id` ' .
-        'WHERE `feeds`.`folder_id` = 0 ' .
+        'WHERE `feeds`.`folder_id` IS NULL ' .
         'OR `folders`.`deleted_at` = 0 ' .
         'ORDER BY `items`.`id` ' . $ordering;
     }
@@ -125,7 +125,7 @@ class ItemMapper extends NewsMapper
             'AND `items`.`starred` = ? ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
             'ON `folders`.`id` = `feeds`.`folder_id` ' .
-            'WHERE `feeds`.`folder_id` = 0 ' .
+            'WHERE `feeds`.`folder_id` IS NULL ' .
             'OR `folders`.`deleted_at` = 0';
 
         $params = [$userId, true];
@@ -151,14 +151,15 @@ class ItemMapper extends NewsMapper
     }
 
 
-    public function readFolder($folderId, $highestItemId, $time, $userId)
+    public function readFolder(?int $folderId, $highestItemId, $time, $userId)
     {
+        $folderWhere = is_null($folderId) ? 'IS' : '=';
         $sql = 'UPDATE `*PREFIX*news_items` ' .
             'SET unread = ? ' .
             ', `last_modified` = ? ' .
             'WHERE `feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
-            'WHERE `folder_id` = ? ' .
+            "WHERE `folder_id` ${folderWhere} ? " .
             'AND `user_id` = ? ' .
             ') ' .
             'AND `id` <= ?';
@@ -207,11 +208,12 @@ class ItemMapper extends NewsMapper
     }
 
 
-    public function findAllNewFolder($id, $updatedSince, $showAll, $userId)
+    public function findAllNewFolder(?int $id, $updatedSince, $showAll, $userId)
     {
         $sql = $this->buildStatusQueryPart($showAll);
 
-        $sql .= 'AND `feeds`.`folder_id` = ? ' .
+        $folderWhere = is_null($id) ? 'IS' : '=';
+        $sql .= "AND `feeds`.`folder_id` ${$folderWhere} ? " .
             'AND `items`.`last_modified` >= ? ';
         $sql = $this->makeSelectQuery($sql);
         $params = [$userId, $id, $updatedSince];
@@ -270,7 +272,7 @@ class ItemMapper extends NewsMapper
 
 
     public function findAllFolder(
-        $id,
+        ?int $id,
         $limit,
         $offset,
         $showAll,
@@ -285,10 +287,10 @@ class ItemMapper extends NewsMapper
         $sql = $this->buildStatusQueryPart($showAll);
         $sql .= $this->buildSearchQueryPart($search);
 
-        $sql .= 'AND `feeds`.`folder_id` = ? ';
+        $folderWhere = is_null($id) ? 'IS' : '=';
+        $sql .= "AND `feeds`.`folder_id` ${folderWhere} ? ";
         if ($offset !== 0) {
-            $sql .= 'AND `items`.`id` ' .
-                $this->getOperator($oldestFirst) . ' ? ';
+            $sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
         $sql = $this->makeSelectQuery($sql, $oldestFirst, $search);

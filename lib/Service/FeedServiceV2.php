@@ -121,11 +121,11 @@ class FeedServiceV2 extends Service
     }
 
     /**
-     * @param int $id
+     * @param int|null $id
      *
      * @return Feed[]
      */
-    public function findAllFromFolder(int $id): array
+    public function findAllFromFolder(?int $id): array
     {
         return $this->mapper->findAllFromFolder($id);
     }
@@ -182,7 +182,7 @@ class FeedServiceV2 extends Service
      *
      * @param string      $userId    Feed owner
      * @param string      $feedUrl   Feed URL
-     * @param int         $folderId  Target folder, defaults to root
+     * @param int|null    $folderId  Target folder, defaults to root
      * @param bool        $full_text Scrape the feed for full text
      * @param string|null $title     The feed title
      * @param string|null $user      Basic auth username, if set
@@ -196,7 +196,7 @@ class FeedServiceV2 extends Service
     public function create(
         string $userId,
         string $feedUrl,
-        int $folderId = 0,
+        ?int $folderId = null,
         bool $full_text = false,
         ?string $title = null,
         ?string $user = null,
