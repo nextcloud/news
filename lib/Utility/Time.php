@@ -19,9 +19,9 @@ class Time
     }
 
     /**
-     * @return int the current unix time in miliseconds
+     * @return string the current unix time in miliseconds
      */
-    public function getMicroTime(): int
+    public function getMicroTime(): string
     {
         list($millisecs, $secs) = explode(" ", microtime());
         return $secs . substr($millisecs, 2, 6);
