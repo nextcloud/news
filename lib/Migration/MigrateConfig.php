@@ -33,8 +33,9 @@ class MigrateConfig implements IRepairStep
     /**
      * @param LegacyConfig $config
      * @param IConfig      $iConfig
+     * @param Application  $application To make sure the class is found below
      */
-    public function __construct(LegacyConfig $config, IConfig $iConfig)
+    public function __construct(LegacyConfig $config, IConfig $iConfig, Application $application)
     {
         $this->config = $config;
         $this->iConfig = $iConfig;
