@@ -76,7 +76,12 @@ class ItemServiceV2 extends Service
     {
         try {
             $db_item = $this->mapper->findByGuidHash($item->getGuidHash());
-            $item->setId($db_item->getId());
+
+            // Transfer user modifications
+            $item->setUnread($db_item->isUnread())
+                 ->setStarred($db_item->isStarred())
+                 ->setId($db_item->getId());
+
             $this->mapper->update($item);
         } catch (DoesNotExistException $exception) {
             $this->mapper->insert($item);
