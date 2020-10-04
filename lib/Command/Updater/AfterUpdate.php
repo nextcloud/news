@@ -44,7 +44,7 @@ class AfterUpdate extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $count = $input->getArgument('id');
+        $count = $input->getArgument('purge_count');
 
         echo $this->itemService->purgeOverThreshold($count);
 
