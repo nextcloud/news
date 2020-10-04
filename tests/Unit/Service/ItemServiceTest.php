@@ -62,14 +62,14 @@ class ItemServiceTest extends TestCase
     private $newestItemId;
 
     /**
-     * @var int
+     * @var string
      */
     private $time;
 
 
     protected function setUp(): void
     {
-        $this->time = 222;
+        $this->time = '222';
         $this->timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
