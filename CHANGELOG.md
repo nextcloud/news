@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.2
+
+### Fixed
+
+- Fix failing cron update #823
+
 ## 15.0.1
 
 ### Changed
