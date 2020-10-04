@@ -477,7 +477,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function setTitle(string $title = null): self
     {
-        $title = strip_tags($title);
+        $title = trim(strip_tags($title));
 
         if ($this->title !== $title) {
             $this->title = $title;
