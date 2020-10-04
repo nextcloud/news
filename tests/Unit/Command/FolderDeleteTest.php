@@ -88,7 +88,7 @@ class FolderDeleteTest extends TestCase
         $this->consoleInput->expects($this->exactly(2))
                            ->method('getArgument')
                            ->will($this->returnValueMap([
-                               ['folder-id', '0'],
+                               ['folder-id', null],
                                ['user-id', 'admin'],
                            ]));
 

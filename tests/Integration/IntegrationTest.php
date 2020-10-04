@@ -141,7 +141,7 @@ abstract class IntegrationTest extends \Test\TestCase
         }
     }
 
-    protected function loadFeedFixtures(array $feedFixtures = [], $folderId = 0)
+    protected function loadFeedFixtures(array $feedFixtures = [], $folderId = null)
     {
         foreach ($feedFixtures as $feedFixture) {
             $feed = new FeedFixture($feedFixture);

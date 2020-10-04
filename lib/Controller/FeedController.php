@@ -105,6 +105,9 @@ class FeedController extends Controller
         // check if feed or folder exists
         try {
             if ($feedType === FeedType::FOLDER) {
+                if ($feedId === 0) {
+                    $feedId = null;
+                }
                 $this->folderService->find($this->userId, $feedId);
             } elseif ($feedType === FeedType::FEED) {
                 $this->feedService->find($this->userId, $feedId);
@@ -131,20 +134,23 @@ class FeedController extends Controller
      * @NoAdminRequired
      *
      * @param string $url
-     * @param int    $parentFolderId
-     * @param string $title
-     * @param string $user
-     * @param string $password
+     * @param int|null    $parentFolderId
+     * @param string|null $title
+     * @param string|null $user
+     * @param string|null $password
      *
      * @return array|JSONResponse
      */
     public function create(
         string $url,
-        int $parentFolderId,
+        ?int $parentFolderId,
         ?string $title = null,
         ?string $user = null,
         ?string $password = null
     ) {
+        if ($parentFolderId === 0) {
+            $parentFolderId = null;
+        }
         try {
             // we need to purge deleted feeds if a feed is created to
             // prevent already exists exceptions
@@ -290,13 +296,13 @@ class FeedController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int    $feedId
-     * @param bool   $pinned
-     * @param bool   $fullTextEnabled
-     * @param int    $updateMode
-     * @param int    $ordering
-     * @param int    $folderId
-     * @param string $title
+     * @param int         $feedId
+     * @param bool        $pinned
+     * @param bool        $fullTextEnabled
+     * @param int|null    $updateMode
+     * @param int|null    $ordering
+     * @param int|null    $folderId
+     * @param string|null $title
      *
      * @return array|JSONResponse
      */
@@ -315,7 +321,7 @@ class FeedController extends Controller
             'updateMode' => $updateMode,
             'ordering' => $ordering,
             'title' => $title,
-            'folderId' => $folderId
+            'folderId' => $folderId === 0 ? null : $folderId
         ];
 
         $diff = array_filter(

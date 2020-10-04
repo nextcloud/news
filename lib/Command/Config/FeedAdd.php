@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace OCA\News\Command\Config;
 
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -56,13 +58,31 @@ class FeedAdd extends Command
     {
         $user      = $input->getArgument('user-id');
         $url       = $input->getArgument('feed');
-        $folder    = (int) $input->getOption('folder') ?? 0;
+        $folder    = $input->getOption('folder');
         $title     = $input->getOption('title');
         $full_text = (bool) $input->getOption('full-text');
         $username  = $input->getOption('username');
         $password  = $input->getOption('password');
 
-        $feed = $this->feedService->create($user, $url, $folder, $full_text, $title, $username, $password);
+        if ($folder !== null) {
+            $folder = intval($folder);
+        }
+
+        try {
+            $feed = $this->feedService->create(
+                $user,
+                $url,
+                $folder,
+                $full_text,
+                $title,
+                $username,
+                $password
+            );
+        } catch (ServiceNotFoundException|ServiceConflictException $e) {
+            $output->write($e->getMessage());
+            return 1;
+        }
+
         $this->feedService->fetch($feed);
 
         $output->writeln(json_encode($feed->toAPI(), JSON_PRETTY_PRINT));

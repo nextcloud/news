@@ -50,11 +50,11 @@ class FolderDelete extends Command
         $user = $input->getArgument('user-id');
         $id = $input->getArgument('folder-id');
 
-        if ($id === '0') {
+        if ($id === null) {
             throw new ServiceException('Can not remove root folder!');
         }
 
-        $this->folderService->delete($user, $id);
+        $this->folderService->delete($user, intval($id));
 
         return 0;
     }

@@ -141,7 +141,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setParentId(int $parentId = 0): self
+    public function setParentId(?int $parentId = null): self
     {
         if ($this->parentId !== $parentId) {
             $this->parentId = $parentId;

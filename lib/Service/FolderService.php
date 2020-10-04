@@ -101,24 +101,28 @@ class FolderService extends Service
      * @throws ServiceValidationException if the folder has invalid parameters
      * @throws ServiceConflictException if name exists already
      */
-    public function create(string $folderName, string $userId, int $parentId = 0)
+    public function create(string $folderName, string $userId, ?int $parentId = null)
     {
         $this->validateFolder($folderName, $userId);
 
         $folder = new Folder();
-        $folder->setName($folderName);
-        $folder->setUserId($userId);
-        $folder->setParentId($parentId);
-        $folder->setOpened(true);
+        $folder->setName($folderName)
+               ->setUserId($userId)
+               ->setParentId($parentId)
+               ->setOpened(true);
 
         return $this->folderMapper->insert($folder);
     }
 
 
     /**
-     * @throws ServiceException if the folder does not exist
+     * @param int|null $folderId
+     * @param bool     $opened
+     * @param string   $userId
+     *
+     * @throws ServiceNotFoundException
      */
-    public function open(int $folderId, bool $opened, string $userId)
+    public function open(?int $folderId, bool $opened, string $userId)
     {
         $folder = $this->find($userId, $folderId);
         $folder->setOpened($opened);

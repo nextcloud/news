@@ -30,7 +30,7 @@ class FeedFixture extends Feed
             'title' => 'title',
             'faviconLink' => 'http://feed.com/favicon.ico',
             'added' => 3000,
-            'folderId' => 0,
+            'folderId' => null,
             'link' => 'http://feed.com/rss',
             'preventUpdate' => false,
             'deletedAt' => 0,

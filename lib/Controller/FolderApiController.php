@@ -90,12 +90,16 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $folderId
+     * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
-    public function delete(int $folderId)
+    public function delete(?int $folderId)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
         try {
             $this->folderService->delete($folderId, $this->getUserId());
         } catch (ServiceNotFoundException $ex) {
@@ -111,13 +115,17 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int    $folderId
-     * @param string $name
+     * @param int|null $folderId
+     * @param string   $name
      *
      * @return array|JSONResponse
      */
-    public function update(int $folderId, string $name)
+    public function update(?int $folderId, string $name)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
         try {
             $this->folderService->rename($folderId, $name, $this->getUserId());
         } catch (ServiceValidationException $ex) {
@@ -137,11 +145,14 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $folderId
-     * @param int $newestItemId
+     * @param int|null $folderId
+     * @param int      $newestItemId
      */
-    public function read(int $folderId, int $newestItemId): void
+    public function read(?int $folderId, int $newestItemId): void
     {
+        if ($folderId === 0) {
+            $folderId = null;
+        }
         $this->itemService->readFolder($folderId, $newestItemId, $this->getUserId());
     }
 }
