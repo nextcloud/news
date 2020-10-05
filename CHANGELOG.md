@@ -3,6 +3,19 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.3
+
+### Changed
+
+- Trim whitespaces in item titles #831
+- update only relevant item fields #830
+
+### Fixed
+
+- Fix 'news:updater:after-update' command #832
+- Define microtime as string #836
+- Fix Application class loading in config #833
+
 ## 15.0.2
 
 ### Fixed
