@@ -39,13 +39,6 @@
 
     ],
     "Tech": [{
-        "title": "Slashdot",
-        "favicon": "https://slashdot.org/favicon.ico",
-        "url": "https://slashdot.org",
-        "feed": "https://rss.slashdot.org/Slashdot/slashdot",
-        "description": "Slashdot: News for nerds, stuff that matters",
-        "votes": 500
-    }, {
         "title": "Lifehacker",
         "favicon": "https://lifehacker.com/favicon.ico",
         "url": "https://lifehacker.com",
