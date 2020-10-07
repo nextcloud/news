@@ -52,7 +52,7 @@
     "natives": "^1.1.6"
   },
   "dependencies": {
-    "angular": "^1.8.0",
+    "angular": "^1.8.1",
     "angular-animate": "^1.8.1",
     "angular-mocks": "^1.8.0",
     "angular-route": "^1.8.0",
