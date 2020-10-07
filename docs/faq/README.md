@@ -35,88 +35,10 @@ Because we care about our users' security and don't want to hide security warnin
 
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
-### I am getting: Doctrine DBAL Exception InvalidFieldNameException: Column not found: 1054 Unknown column some_column Or BadFunctionCallException: someColumn is not a valid attribute
-
-The exception name itself will give you a hint about what is wrong:
-* **BadFunctionCallException**: Is usually thrown when there are more columns in the database than in the code, e.g.:
-
-      BadFunctionCallException, Message: basicAuthUser is not a valid attribute
-
-    means that the attribute **basicAuthUser** was retrieved from the database but could not be found on the corresponding data object (item.php/feed.php/folder.php) in the **db/** folder
-
-* **InvalidFieldNameException**: Is usually thrown when there are more columns in the code than the database
-
-One reason for this error could be old files which were not overwritten properly when the app was upgraded. Make sure that all files match the files in the release archive!
-Most of the time however this is caused by users trying to downgrade (**not supported!!!**) or by failed/timed out database migrations. To prevent future timeouts use
-
-    php -f nextcloud/occ upgrade
-
-instead of clicking the upgrade button on the web interface.
-
-If you have made sure that old files are not the cause of this issue, the solution is to either automatically or manually remove or add columns to your database. The automatic way to do this is to trigger a database migration. The manual way is to manually check which database columns have to be removed from or added to the News database tables.
-
-#### Triggering a database migration
-Databases are migrated when a newer version is found in **appinfo/info.xml** than in the database. To trigger a migration you can therefore simply increase that version number and refresh the web interface to run an update:
-
-First, get the current version by executing the following Sql query:
-
-```sql
-SELECT configvalue FROM oc_appconfig WHERE appid = 'news' and configkey = 'installed_version';
-```
-
-This will output something like this:
-
-    7.1.1
-
-Then edit the **appinfo/info.xml** and increase the number on the farthest right in the version field by 1, e.g.:
-
-```xml
-<?xml version="1.0"?>
-<info>
-    <!-- etc -->
-    <version>7.1.2</version>
-    <!-- etc -->
-</info>
-```
-
-Now run the update in the web interface by reloading the page.
-
-Finally set back the old version number in the database, so the next News app update will be handled propery, e.g.:
-
-```sql
-UPDATE oc_appconfig SET configvalue = '7.1.1' WHERE appid = 'news' and configkey = 'installed_version';
-```
-
-#### Manually adding/removing the field
-Instead of triggering an automatic migration, you can of course also add or remove the offending columns manually.
-
-To find out what you need to add or remove, check the current **appinfo/database.xml** and compare it to your tables in the database and add/remove the appropriate fields.
-
-Some hints:
-* type text is usually an Sql VARCHAR
-* type clob is usually an Sql TEXT
-* length for integer fields means bytes, so an integer with length 8 means its 64bit
-
 ### I am getting: Exception: Some\\Class does not exist erros in my nextcloud.log
 This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
-### How do I reset the News app
-Delete the folder **nextcloud/apps/news/** and **nextcloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
-
-```sql
-DELETE FROM oc_appconfig WHERE appid = 'news';
-DROP TABLE oc_news_items;
-DROP TABLE oc_news_feeds;
-DROP TABLE oc_news_folders;
-```
-
-### App is stuck in maintenance mode after failed update
-
-Check the **nextcloud/data/nextcloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **nextcloud/config/config.php** by setting the **maintenance** key to false:
-
-    "maintenance" => false,
-
-### Feeds are not updated
+### Feeds not updated
 Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/tree/master/docs/externalapi), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
