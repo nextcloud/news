@@ -99,6 +99,7 @@ class ItemMapperV2 extends NewsMapperV2
     /**
      * Find an item by a GUID hash.
      *
+     * @param int    $feedId   ID of the feed
      * @param string $guidHash hash to find with
      *
      * @return Item|Entity
@@ -106,12 +107,14 @@ class ItemMapperV2 extends NewsMapperV2
      * @throws DoesNotExistException
      * @throws MultipleObjectsReturnedException
      */
-    public function findByGuidHash(string $guidHash): Item
+    public function findByGuidHash(int $feedId, string $guidHash): Item
     {
         $builder = $this->db->getQueryBuilder();
         $builder->addSelect('*')
             ->from($this->tableName)
+            ->andWhere('feed_id = :feed_id')
             ->andWhere('guid_hash = :guid_hash')
+            ->setParameter(':feed_id', $feedId, IQueryBuilder::PARAM_INT)
             ->setParameter(':guid_hash', $guidHash, IQueryBuilder::PARAM_STR);
 
         return $this->findEntity($builder);
