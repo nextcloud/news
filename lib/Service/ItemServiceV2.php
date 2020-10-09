@@ -75,7 +75,7 @@ class ItemServiceV2 extends Service
     public function insertOrUpdate(Item $item)
     {
         try {
-            $db_item = $this->mapper->findByGuidHash($item->getGuidHash());
+            $db_item = $this->mapper->findByGuidHash($item->getFeedId(), $item->getGuidHash());
 
             // Transfer user modifications
             $item->setUnread($db_item->isUnread())
