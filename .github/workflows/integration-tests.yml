@@ -37,6 +37,10 @@ jobs:
             nextcloud: pre-release
             database: sqlite
             experimental: true
+          - php-versions: 8.0
+            nextcloud: pre-release
+            database: sqlite
+            experimental: true
         exclude: #unsupported combination
           - php-versions: 7.4
             nextcloud: 17
