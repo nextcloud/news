@@ -68,6 +68,31 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /** @var bool */
     protected $starred = false;
 
+    public function __construct()
+    {
+        $this->addType('contentHash', 'string');
+        $this->addType('guidHash', 'string');
+        $this->addType('guid', 'string');
+        $this->addType('url', 'string');
+        $this->addType('title', 'string');
+        $this->addType('author', 'string');
+        $this->addType('pubDate', 'integer');
+        $this->addType('updatedDate', 'integer');
+        $this->addType('body', 'string');
+        $this->addType('enclosureMime', 'string');
+        $this->addType('enclosureLink', 'string');
+        $this->addType('mediaThumbnail', 'string');
+        $this->addType('mediaDescription', 'string');
+        $this->addType('feedId', 'integer');
+        $this->addType('status', 'integer');
+        $this->addType('lastModified', 'string');
+        $this->addType('searchIndex', 'string');
+        $this->addType('rtl', 'boolean');
+        $this->addType('fingerprint', 'string');
+        $this->addType('unread', 'boolean');
+        $this->addType('starred', 'boolean');
+    }
+
     /**
      * @return int
      */
