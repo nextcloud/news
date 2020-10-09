@@ -76,6 +76,33 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /** @var Item[] */
     public $items = [];
 
+    public function __construct()
+    {
+        $this->addType('userId', 'string');
+        $this->addType('urlHash', 'string');
+        $this->addType('url', 'string');
+        $this->addType('title', 'string');
+        $this->addType('faviconLink', 'string');
+        $this->addType('added', 'integer');
+        $this->addType('folderId', 'integer');
+        $this->addType('link', 'string');
+        $this->addType('preventUpdate', 'boolean');
+        $this->addType('deletedAt', 'integer');
+        $this->addType('articlesPerUpdate', 'integer');
+        $this->addType('httpLastModified', 'string');
+        $this->addType('lastModified', 'string');
+        $this->addType('httpEtag', 'string');
+        $this->addType('location', 'string');
+        $this->addType('ordering', 'integer');
+        $this->addType('fullTextEnabled', 'boolean');
+        $this->addType('pinned', 'boolean');
+        $this->addType('updateMode', 'integer');
+        $this->addType('updateErrorCount', 'integer');
+        $this->addType('lastUpdateError', 'string');
+        $this->addType('basicAuthUser', 'string');
+        $this->addType('basicAuthPassword', 'string');
+    }
+
     /**
      * @return int|null
      */

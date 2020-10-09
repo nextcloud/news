@@ -34,6 +34,16 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     /** @var Feed[] */
     public $feeds = [];
 
+    public function __construct()
+    {
+        $this->addType('parentId', 'integer');
+        $this->addType('name', 'string');
+        $this->addType('userId', 'string');
+        $this->addType('opened', 'boolean');
+        $this->addType('deletedAt', 'integer');
+        $this->addType('lastModified', 'string');
+    }
+
     /**
      * @return int|null
      */
