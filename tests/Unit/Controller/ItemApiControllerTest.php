@@ -308,19 +308,11 @@ class ItemApiControllerTest extends TestCase
 
     public function testReadMultiple()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
+            ->withConsecutive(
+                [2, true, $this->user->getUID()],
+                [4, true, $this->user->getUID()]
             );
         $this->itemAPI->readMultiple([2, 4]);
     }
@@ -328,35 +320,24 @@ class ItemApiControllerTest extends TestCase
 
     public function testReadMultipleDoesntCareAboutException()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->will($this->throwException(new ServiceNotFoundException('')));
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
+            ->withConsecutive(
+                [2, true, $this->user->getUID()],
+                [4, true, $this->user->getUID()]
+            )
+            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), null);
         $this->itemAPI->readMultiple([2, 4]);
     }
 
 
     public function testUnreadMultiple()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
+            ->withConsecutive(
+                [2, false, $this->user->getUID()],
+                [4, false, $this->user->getUID()]
             );
         $this->itemAPI->unreadMultiple([2, 4]);
     }
@@ -375,21 +356,11 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('star')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo('a'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemService->expects($this->at(1))
-            ->method('star')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('b'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
+            ->withConsecutive(
+                [2, 'a', true, $this->user->getUID()],
+                [4, 'b', true, $this->user->getUID()]
             );
         $this->itemAPI->starMultiple($ids);
     }
@@ -408,17 +379,14 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('star')
-            ->will($this->throwException(new ServiceNotFoundException('')));
-        $this->itemService->expects($this->at(1))
-            ->method('star')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('b'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
+            ->withConsecutive(
+                [2, 'a', true, $this->user->getUID()],
+                [4, 'b', true, $this->user->getUID()]
+            )
+            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), null);
+
         $this->itemAPI->starMultiple($ids);
     }
 
@@ -436,22 +404,13 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('star')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo('a'),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
+            ->withConsecutive(
+                [2, 'a', false, $this->user->getUID()],
+                [4, 'b', false, $this->user->getUID()]
             );
-        $this->itemService->expects($this->at(1))
-            ->method('star')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('b'),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
-            );
+
         $this->itemAPI->unstarMultiple($ids);
     }
 

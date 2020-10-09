@@ -293,12 +293,9 @@ class FolderServiceTest extends TestCase
             ->method('getToDelete')
             ->with($this->equalTo($time), $this->equalTo($this->user))
             ->will($this->returnValue($feeds));
-        $this->folderMapper->expects($this->at(1))
+        $this->folderMapper->expects($this->exactly(2))
             ->method('delete')
-            ->with($this->equalTo($folder1));
-        $this->folderMapper->expects($this->at(2))
-            ->method('delete')
-            ->with($this->equalTo($folder2));
+            ->withConsecutive([$folder1], [$folder2]);
 
         $this->folderService->purgeDeleted($this->user);
     }
@@ -316,12 +313,9 @@ class FolderServiceTest extends TestCase
             ->method('getToDelete')
             ->with($this->equalTo(null), $this->equalTo($this->user))
             ->will($this->returnValue($feeds));
-        $this->folderMapper->expects($this->at(1))
+        $this->folderMapper->expects($this->exactly(2))
             ->method('delete')
-            ->with($this->equalTo($folder1));
-        $this->folderMapper->expects($this->at(2))
-            ->method('delete')
-            ->with($this->equalTo($folder2));
+            ->withConsecutive([$folder1], [$folder2]);
 
         $this->folderService->purgeDeleted($this->user, false);
     }

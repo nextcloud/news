@@ -36,6 +36,7 @@ class ItemControllerTest extends TestCase
     private $itemService;
     private $feedService;
     private $request;
+    private $user;
     private $controller;
     private $newestItemId;
 
@@ -98,41 +99,27 @@ class ItemControllerTest extends TestCase
 
     public function testReadMultiple()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(true),
-                $this->equalTo($this->user)
+            ->withConsecutive(
+                [2, true, $this->user],
+                [4, true, $this->user]
             );
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(true),
-                $this->equalTo($this->user)
-            );
+
         $this->controller->readMultiple([2, 4]);
     }
 
 
     public function testReadMultipleDontStopOnException()
     {
-        $this->itemService->expects($this->at(0))
+
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(true),
-                $this->equalTo($this->user)
+            ->withConsecutive(
+                [2, true, $this->user],
+                [4, true, $this->user]
             )
-            ->will($this->throwException(new ServiceNotFoundException('yo')));
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(true),
-                $this->equalTo($this->user)
-            );
+            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('yo')), null);
         $this->controller->readMultiple([2, 4]);
     }
 
@@ -190,39 +177,20 @@ class ItemControllerTest extends TestCase
     }
 
 
-    private function itemsApiExpects($id, $type, $oldestFirst='1')
+    private function itemsApiExpects($id, $type, $oldestFirst = '1')
     {
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(2))
             ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('showAll')
+            ->withConsecutive(
+                [$this->user, $this->appName, 'showAll'],
+                [$this->user, $this->appName, 'oldestFirst']
             )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(1))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst')
-            )
-            ->will($this->returnValue($oldestFirst));
-        $this->settings->expects($this->at(2))
+            ->willReturnOnConsecutiveCalls('1', $oldestFirst);
+        $this->settings->expects($this->exactly(2))
             ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedId'),
-                $this->equalTo($id)
-            );
-        $this->settings->expects($this->at(3))
-            ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedType'),
-                $this->equalTo($type)
+            ->withConsecutive(
+                [$this->user, $this->appName, 'lastViewedFeedId', $id],
+                [$this->user, $this->appName, 'lastViewedFeedType', $type]
             );
     }
 
@@ -256,16 +224,7 @@ class ItemControllerTest extends TestCase
 
         $this->itemService->expects($this->once())
             ->method('findAllItems')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(FeedType::FEED),
-                $this->equalTo(3),
-                $this->equalTo(0),
-                $this->equalTo(true),
-                $this->equalTo(false),
-                $this->equalTo($this->user),
-                $this->equalTo([])
-            )
+            ->with(2, FeedType::FEED, 3, 0, true, false, $this->user, [])
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->index(FeedType::FEED, 2, 3);

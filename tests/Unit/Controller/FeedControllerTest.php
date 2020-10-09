@@ -142,22 +142,13 @@ class FeedControllerTest extends TestCase
 
     private function activeInitMocks($id, $type)
     {
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(2))
             ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedId')
+            ->withConsecutive(
+                [$this->user, $this->appName, 'lastViewedFeedId'],
+                [$this->user, $this->appName, 'lastViewedFeedType']
             )
-            ->will($this->returnValue($id));
-        $this->settings->expects($this->at(1))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedType')
-            )
-            ->will($this->returnValue($type));
+            ->willReturnOnConsecutiveCalls($id, $type);
     }
 
 

@@ -136,13 +136,9 @@ class ExploreGeneratorTest extends TestCase {
             ->with('votes')
             ->willReturn(100);
 
-        $this->consoleOutput->expects($this->at(0))
+        $this->consoleOutput->expects($this->exactly(2))
             ->method('writeln')
-            ->with($this->stringContains('<error>'));
-
-        $this->consoleOutput->expects($this->at(1))
-            ->method('writeln')
-            ->with($this->stringContains('Failure'));
+            ->withConsecutive(['<error>Failed to fetch feed info:</error>'], ['Failure']);
 
         self::invokePrivate($this->command, 'execute', [$this->consoleInput, $this->consoleOutput]);
     }
