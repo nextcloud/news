@@ -234,21 +234,15 @@ class PageControllerTest extends TestCase
      */
     public function testUpdateSettings()
     {
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(5))
             ->method('setUserValue')
-            ->with('becka', 'news', 'showAll', '1');
-        $this->settings->expects($this->at(1))
-            ->method('setUserValue')
-            ->with('becka', 'news', 'compact', '1');
-        $this->settings->expects($this->at(2))
-            ->method('setUserValue')
-            ->with('becka', 'news', 'preventReadOnScroll', '0');
-        $this->settings->expects($this->at(3))
-            ->method('setUserValue')
-            ->with('becka', 'news', 'oldestFirst', '1');
-        $this->settings->expects($this->at(4))
-            ->method('setUserValue')
-            ->with('becka', 'news', 'compactExpand', '1');
+            ->withConsecutive(
+                ['becka', 'news', 'showAll', '1'],
+                ['becka', 'news', 'compact', '1'],
+                ['becka', 'news', 'preventReadOnScroll', '0'],
+                ['becka', 'news', 'oldestFirst', '1'],
+                ['becka', 'news', 'compactExpand', '1']
+            );
 
         $this->controller->updateSettings(true, true, false, true, true);
     }
@@ -256,13 +250,12 @@ class PageControllerTest extends TestCase
     public function testExplore()
     {
         $in = ['test'];
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(2))
             ->method('setUserValue')
-            ->with('becka', 'news', 'lastViewedFeedId', 0);
-
-        $this->settings->expects($this->at(1))
-            ->method('setUserValue')
-            ->with('becka', 'news', 'lastViewedFeedType', FeedType::EXPLORE);
+            ->withConsecutive(
+                ['becka', 'news', 'lastViewedFeedId', 0],
+                ['becka', 'news', 'lastViewedFeedType', FeedType::EXPLORE]
+            );
 
         $this->recommended->expects($this->once())
             ->method('forLanguage')
