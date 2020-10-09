@@ -31,6 +31,13 @@ class MigrateConfig implements IRepairStep
     private $iConfig;
 
     /**
+     * Array of defaults
+     *
+     * @var array
+     */
+    private $defaults;
+
+    /**
      * @param LegacyConfig $config
      * @param IConfig      $iConfig
      * @param Application  $application To make sure the class is found below
@@ -39,6 +46,7 @@ class MigrateConfig implements IRepairStep
     {
         $this->config = $config;
         $this->iConfig = $iConfig;
+        $this->defaults = $application::DEFAULT_SETTINGS;
     }
 
     public function getName()
@@ -53,15 +61,15 @@ class MigrateConfig implements IRepairStep
             return;
         }
 
-        $app_keys = $this->iConfig->getAppKeys(Application::NAME);
+        $app_keys = $this->iConfig->getAppKeys('news');
         foreach ($this->config as $key => $value) {
-            if (!isset(Application::DEFAULT_SETTINGS[$key])) {
+            if (!isset($this->defaults[$key])) {
                 continue;
             }
             if (in_array($key, $app_keys)) {
                 continue;
             }
-            $this->iConfig->setAppValue(Application::NAME, $key, $value);
+            $this->iConfig->setAppValue('news', $key, $value);
         }
     }
 }

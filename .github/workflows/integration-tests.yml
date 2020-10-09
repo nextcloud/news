@@ -96,23 +96,44 @@ jobs:
           app: 'news'
           check-code: true
 
-      - name: Functional tests
+      - name: Functional tests maintenance
+        working-directory: ../server
         run: |
-          cd ../server
           ./occ migrations:migrate news
           ./occ maintenance:repair
-          ./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
+
+      - name: Functional tests explore
+        working-directory: ../server
+        run: ./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
+
+      - name: Functional tests folder
+        working-directory: ../server
+        run: |
           ./occ news:folder:add 'admin' 'Something'
           ./occ news:folder:list 'admin' | grep 'Something'
+
+      - name: Functional tests feed
+        working-directory: ../server
+        run: |
           ./occ news:feed:add 'admin' "https://nextcloud.com/blog/feed/"
           ./occ news:feed:list 'admin' | grep 'nextcloud\.com'
-          ./occ news:opml:export 'admin' | grep 'nextcloud\.com'
+
+      - name: Functional tests opml
+        working-directory: ../server
+        run: ./occ news:opml:export 'admin' | grep 'nextcloud\.com'
+
+      - name: Functional tests cleanup
+        working-directory: ../server
+        run: |
           ./occ news:folder:delete 'admin' $(./occ news:folder:list 'admin' | grep 'Something' -1  | head -1 | grep -oE '[0-9]*')
           ./occ news:feed:delete 'admin' $(./occ news:feed:list 'admin' | grep 'nextcloud\.com' -1  | head -1 | grep -oE '[0-9]*')
 
       - name: Prep PHP tests
-        run: cd ../server/apps/news && make php-test-dependencies
+        working-directory: ../server/apps/news
+        run: make php-test-dependencies
       - name: Integration tests
-        run: cd ../server/apps/news && make integration-test
-
-
+        working-directory: ../server/apps/news
+        run: make integration-test
+      - name: Feed tests
+        working-directory: ../server/apps/news
+        run: make feed-test
