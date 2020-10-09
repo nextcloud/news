@@ -214,3 +214,7 @@ test: php-test-dependencies
 	$(MAKE) phpstan
 	$(MAKE) js-test
 	./bin/tools/generate_authors.php
+
+.PHONY: feed-test
+feed-test:
+	./bin/tools/check_feeds.sh
