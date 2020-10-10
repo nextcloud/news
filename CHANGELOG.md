@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.4
+
+### Changed
+- Update Explore page feeds and design #860
+
+### Fixed
+- Fix usage of at() in unittests #864
+- Fix minor issues, prepare for foreign keys and check feeds #862
+- Fix multiple results for guid_hash #861
+- Fix missing type info of entities #858
+
 ## 15.0.3
 
 ### Changed
