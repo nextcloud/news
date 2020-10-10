@@ -8,7 +8,6 @@ OC.L10N.register(
     "Saved" : "حفظ",
     "Download" : "تنزيل",
     "Close" : "إغلاق",
-    "Language" : "اللغة",
     "by" : "من قبل",
     "from" : "من",
     "Description" : "وصف",

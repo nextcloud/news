@@ -3,12 +3,11 @@ OC.L10N.register(
     {
     "Download" : "බාන්න",
     "Close" : "වසන්න",
-    "Language" : "භාෂාව",
-    "Subscribe" : "දායකවන්න",
     "by" : "විසින්",
     "from" : "වෙතින්",
     "Description" : "විස්තරය",
     "Refresh" : "නැවුම් කරන්න",
+    "Subscribe" : "දායකවන්න",
     "Web address" : "අන්තර්ජාල ලිපිනය",
     "Folder" : "ෆෝල්ඩරය",
     "Folder name" : "ෆොල්ඩරයේ නම",

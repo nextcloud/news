@@ -4,7 +4,6 @@ OC.L10N.register(
     "Saved" : "Enrollet",
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
-    "Language" : "Yezh",
     "Open website" : "Digor al lec'hienn-web",
     "by" : "gant",
     "Play audio" : "Loc'hañ an audio",

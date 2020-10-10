@@ -4,7 +4,6 @@ OC.L10N.register(
     "Saved" : "Պահված",
     "Download" : "Բեռնել",
     "Close" : "Փակել",
-    "Language" : "Լեզու",
     "Description" : "Նկարագրություն",
     "Refresh" : "Թարմացնել",
     "Folder" : "Պանակ",

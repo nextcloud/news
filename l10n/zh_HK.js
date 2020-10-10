@@ -4,7 +4,6 @@ OC.L10N.register(
     "Saved" : "已儲存",
     "Download" : "下載",
     "Close" : "關閉",
-    "Language" : "語言",
     "from" : "由",
     "Description" : "描述",
     "Refresh" : "重新整理",

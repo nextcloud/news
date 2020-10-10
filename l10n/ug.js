@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Download" : "چۈشۈر",
     "Close" : "ياپ",
-    "Language" : "تىل",
     "by" : "سەنئەتكار",
     "Description" : "چۈشەندۈرۈش",
     "Refresh" : "يېڭىلا",

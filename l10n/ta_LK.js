@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Download" : "பதிவிறக்குக",
     "Close" : "மூடுக",
-    "Language" : "மொழி",
     "by" : "மூலம்",
     "from" : "இலிருந்து",
     "Description" : "விவரிப்பு",

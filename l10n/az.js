@@ -7,7 +7,6 @@ OC.L10N.register(
     "Saved" : "Saxlanıldı",
     "Download" : "Yüklə",
     "Close" : "Bağla",
-    "Language" : "Dil",
     "by" : "onunla",
     "from" : "ondan",
     "Description" : "Açıqlanma",

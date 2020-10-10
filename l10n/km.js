@@ -7,7 +7,6 @@ OC.L10N.register(
     "Saved" : "បាន​រក្សាទុក",
     "Download" : "ទាញយក",
     "Close" : "បិទ",
-    "Language" : "ភាសា",
     "by" : "ដោយ",
     "from" : "ពី",
     "Description" : "ការ​អធិប្បាយ",
