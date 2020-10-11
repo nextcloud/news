@@ -32,6 +32,7 @@ OC.L10N.register(
     "Saved" : "Gardado",
     "Download" : "Descargar",
     "Close" : "Pechar",
+    "Subscribe to" : "Subscribirse a",
     "No articles available" : "Non hai artigos dispoñíbeis",
     "No unread articles available" : "Non hai artigos sen ler dispoñíbeis",
     "Open website" : "Abrir o sitio web",

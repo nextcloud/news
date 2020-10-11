@@ -32,6 +32,7 @@ OC.L10N.register(
     "Saved" : "Gespeichert",
     "Download" : "Herunterladen",
     "Close" : "Schließen",
+    "Subscribe to" : "Abonnieren von",
     "No articles available" : "Keine Artikel verfügbar",
     "No unread articles available" : "Keine ungelesenen Artikel verfügbar",
     "Open website" : "Internetseite öffnen",
