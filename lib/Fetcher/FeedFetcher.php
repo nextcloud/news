@@ -251,9 +251,11 @@ class FeedFetcher implements IFeedFetcher
         $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS
-        $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        if ($parsedItem->getTitle() !== null) {
+            $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        }
         $author = $parsedItem->getAuthor();
-        if (!is_null($author)) {
+        if ($author !== null && $author->getName() !== null) {
             $item->setAuthor($this->decodeTwice($author->getName()));
         }
 
@@ -321,8 +323,10 @@ class FeedFetcher implements IFeedFetcher
         $newFeed = new Feed();
 
         // unescape content because angularjs helps against XSS
-        $title = strip_tags($this->decodeTwice($feed->getTitle()));
-        $newFeed->setTitle($title);
+        if ($feed->getTitle() !== null) {
+            $title = strip_tags($this->decodeTwice($feed->getTitle()));
+            $newFeed->setTitle($title);
+        }
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed

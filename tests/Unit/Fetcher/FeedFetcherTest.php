@@ -30,6 +30,7 @@ use OCA\News\Fetcher\FeedFetcher;
 
 use OCA\News\Utility\Time;
 use OCP\IL10N;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -43,55 +44,60 @@ class FeedFetcherTest extends TestCase
     /**
      * The class to test
      *
-     * @var FeedFetcher
+     * @var MockObject|FeedFetcher
      */
     private $fetcher;
 
     /**
      * Feed reader
      *
-     * @var FeedIo
+     * @var MockObject|FeedIo
      */
     private $reader;
 
     /**
      * Feed reader result
      *
-     * @var Result
+     * @var MockObject|Result
      */
     private $result;
 
     /**
      * Feed reader result object
      *
-     * @var ResponseInterface
+     * @var MockObject|ResponseInterface
      */
     private $response;
 
     /**
-     * @var Favicon
+     * @var MockObject|Favicon
      */
     private $favicon;
 
     /**
-     * @var L10N
+     * @var MockObject|L10N
      */
     private $l10n;
 
     /**
-     * @var ItemInterface
+     * @var MockObject|ItemInterface
      */
     private $item_mock;
 
     /**
-     * @var FeedInterface
+     * @var MockObject|FeedInterface
      */
     private $feed_mock;
 
     /**
-     * @var LoggerInterface
+     * @var MockObject|LoggerInterface
      */
     private $logger;
+
+    /**
+     * @var MockObject|Scraper
+     */
+    private $scraper;
 
     //metadata
     /**
@@ -280,7 +286,7 @@ class FeedFetcherTest extends TestCase
      * @param string $body        The body before parsing.
      * @param string $parsed_body The body after parsing.
      */
-    public function testFetchWithFeedContent($body, $parsed_body)
+    public function testFetchWithFeedContent(string $body, string $parsed_body)
     {
         $bodyBackup = $this->body;
         $parsedBackup = $this->parsed_body;
@@ -323,7 +329,14 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed('de-DE', false, 'http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests/');
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '@1553118393', false, 'account@email.com', 'F9sEU*Rt%:KFK8HMHT&');
+        $result = $this->fetcher->fetch(
+            $this->url,
+            false,
+            '@1553118393',
+            false,
+            'account@email.com',
+            'F9sEU*Rt%:KFK8HMHT&'
+        );
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -399,7 +412,7 @@ class FeedFetcherTest extends TestCase
         $this->createFeed('he-IL');
         $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        list($_, $items) = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
         $this->assertTrue($items[0]->getRtl());
     }
 
@@ -463,7 +476,7 @@ class FeedFetcherTest extends TestCase
      *
      * @return mixed
      */
-    private function mockIterator($iteratorMock, array $items)
+    private function mockIterator(object $iteratorMock, array $items)
     {
         $iteratorData = new \stdClass();
         $iteratorData->array = $items;
@@ -535,11 +548,11 @@ class FeedFetcherTest extends TestCase
     /**
      * Set up a FeedIO mock instance
      *
-     * @param string $url          URL that will be read.
-     * @param string $modifiedDate Date of last fetch
-     * @param bool   $modified     If the feed will be modified
+     * @param string      $url          URL that will be read.
+     * @param string|null $modifiedDate Date of last fetch
+     * @param bool        $modified     If the feed will be modified
      */
-    private function setUpReader($url = '', $modifiedDate = '@1553118393', $modified = true)
+    private function setUpReader(string $url = '', ?string $modifiedDate = '@1553118393', bool $modified = true)
     {
         if (is_null($modifiedDate)) {
             $this->reader->expects($this->once())
@@ -586,7 +599,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->expects($this->exactly(1))
             ->method('getLink')
             ->will($this->returnValue($this->permalink));
-        $this->item_mock->expects($this->exactly(1))
+        $this->item_mock->expects($this->exactly(2))
             ->method('getTitle')
             ->will($this->returnValue($this->title));
         $this->item_mock->expects($this->exactly(1))
@@ -604,17 +617,17 @@ class FeedFetcherTest extends TestCase
 
         $item = new Item();
 
-        $item->setStatus(0);
-        $item->setUnread(true);
-        $item->setUrl($this->permalink);
-        $item->setTitle('my<\' title');
-        $item->setGuid($this->guid);
-        $item->setGuidHash($this->guid_hash);
-        $item->setBody($this->parsed_body);
-        $item->setRtl(false);
-        $item->setLastModified(3);
-        $item->setPubDate(3);
-        $item->setAuthor(html_entity_decode($this->author->getName()));
+        $item->setUnread(true)
+             ->setUrl($this->permalink)
+             ->setTitle('my<\' title')
+             ->setGuid($this->guid)
+             ->setGuidHash($this->guid_hash)
+             ->setBody($this->parsed_body)
+             ->setRtl(false)
+             ->setLastModified(3)
+             ->setPubDate(3)
+             ->setAuthor(html_entity_decode($this->author->getName()))
+             ->setStatus(0);
 
         if ($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
             $media = $this->getMockbuilder(MediaInterface::class)->getMock();
@@ -657,7 +670,7 @@ class FeedFetcherTest extends TestCase
     private function createFeed($lang = 'de-DE', $favicon = false, $url = null)
     {
         $url = $url ?? $this->url;
-        $this->feed_mock->expects($this->exactly(2))
+        $this->feed_mock->expects($this->exactly(3))
             ->method('getTitle')
             ->will($this->returnValue($this->feed_title));
         $this->feed_mock->expects($this->exactly(1))
