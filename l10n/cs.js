@@ -32,6 +32,7 @@ OC.L10N.register(
     "Saved" : "Uloženo",
     "Download" : "Stáhnout",
     "Close" : "Zavřít",
+    "Subscribe to" : "Přihlásit k odběru",
     "No articles available" : "Nejsou dostupné žádné články",
     "No unread articles available" : "Nejsou dostupné žádné nepřečtené články",
     "Open website" : "Otevřít webovou stránku",

@@ -32,6 +32,7 @@ OC.L10N.register(
     "Saved" : "Kaydedildi",
     "Download" : "İndir",
     "Close" : "Kapat",
+    "Subscribe to" : "Şuna abone ol",
     "No articles available" : "Henüz bir makale yok",
     "No unread articles available" : "Okunmamış bir makale yok",
     "Open website" : "Web sitesini aç",
