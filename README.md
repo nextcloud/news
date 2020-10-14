@@ -44,7 +44,6 @@ Nextcloud News can be synced with the following apps:
   * [py3status](https://github.com/ultrabug/py3status/) for [i3 (UNIX-like)](http://i3wm.org/), [open source](https://github.com/i3/i3)
   * [newsboat](http://newsboat.org/) for Unix terminal, [open source](https://github.com/newsboat/newsboat)
   * [Newsie (Ubuntu Touch)](https://open-store.io/app/newsie.martinferretti), [open source](https://gitlab.com/ferrettim/newsie)
-  * [Liferea (Linux desktop)](https://lzone.de/liferea), [open source](https://github.com/lwindolf/liferea)
 
 ## Custom Themes
 Nextcloud News can look different with the following themes:
