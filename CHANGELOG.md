@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.5
+
+### Fixed
+- Fix exception when title is null #869
+
 ## 15.0.4
 
 ### Changed
