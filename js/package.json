@@ -4,7 +4,7 @@
   "main": "build/app.min.js",
   "scripts": {
     "test": "node node_modules/gulp-cli/bin/gulp.js karma",
-    "prebuild": "npm install && npm update",
+    "prebuild": "npm ci",
     "build": "node node_modules/gulp-cli/bin/gulp.js"
   },
   "repository": {
