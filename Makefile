@@ -47,29 +47,14 @@ source_package_name:=$(source_artifact_directory)/$(app_name)
 appstore_build_directory:=$(CURDIR)/build/appstore/$(app_name)
 appstore_artifact_directory:=$(CURDIR)/build/artifacts/appstore
 appstore_package_name:=$(appstore_artifact_directory)/$(app_name)
+appstore_sign_dir=$(appstore_build_directory)/sign
+cert_dir=$(HOME)/.nextcloud/certificates
 npm:=$(shell which npm 2> /dev/null)
 composer:=$(shell which composer 2> /dev/null)
 ifeq (,$(composer))
 	composer:=php $(build_tools_directory)/composer.phar
 endif
 
-# code signing
-# assumes the following:
-# * the app is inside the nextcloud/apps folder
-# * the private key is located in ~/.nextcloud/news.key
-# * the certificate is located in ~/.nextcloud/news.crt
-occ:=$(CURDIR)/../../occ
-private_key:=$(HOME)/.nextcloud/$(app_name).key
-certificate:=$(HOME)/.nextcloud/$(app_name).crt
-sign:=php -f $(occ) integrity:sign-app --privateKey="$(private_key)" --certificate="$(certificate)"
-sign_skip_msg:="Skipping signing, either no key and certificate found in $(private_key) and $(certificate) or occ can not be found at $(occ)"
-ifneq (,$(wildcard $(private_key)))
-ifneq (,$(wildcard $(certificate)))
-ifneq (,$(wildcard $(occ)))
-	CAN_SIGN=true
-endif
-endif
-endif
 
 all: build
 
@@ -155,9 +140,8 @@ endif
 # Builds the source package for the app store, ignores php and js tests
 .PHONY: appstore
 appstore:
-	rm -rf $(appstore_build_directory) $(appstore_artifact_directory)
-	mkdir -p $(appstore_build_directory) $(appstore_artifact_directory)
-	./bin/tools/generate_authors.php
+	rm -rf $(appstore_build_directory) $(appstore_sign_dir) $(appstore_artifact_directory)
+	mkdir -p $(appstore_sign_dir)/$(app_name)
 	cp -r \
 	"appinfo" \
 	"css" \
@@ -169,21 +153,30 @@ appstore:
 	"COPYING" \
 	"AUTHORS.md" \
 	"CHANGELOG.md" \
-	$(appstore_build_directory)
+	$(appstore_sign_dir)/$(app_name)
 
 	#remove stray .htaccess files since they are filtered by nextcloud
-	find $(appstore_build_directory) -name .htaccess -exec rm {} \;
-
+	find $(appstore_sign_dir) -name .htaccess -exec rm {} \;
+	
 	# on macOS there is no option "--parents" for the "cp" command
-	mkdir -p $(appstore_build_directory)/js/build $(appstore_build_directory)/js/admin
-	cp js/build/app.min.js $(appstore_build_directory)/js/build
-	cp js/admin/Admin.js $(appstore_build_directory)/js/admin
-ifdef CAN_SIGN
-	$(sign) --path="$(appstore_build_directory)"
-else
-	@echo $(sign_skip_msg)
-endif
-	tar -czf $(appstore_package_name).tar.gz -C $(appstore_build_directory)/../ $(app_name)
+	mkdir -p $(appstore_sign_dir)/$(app_name)/js/build $(appstore_sign_dir)/$(app_name)/js/admin
+	cp js/build/app.min.js $(appstore_sign_dir)/$(app_name)/js/build
+	cp js/admin/Admin.js $(appstore_sign_dir)/$(app_name)/js/admin
+
+	# export the key and cert to a file 
+	echo ${app_private_key} > $(cert_dir)/$(app_name).key
+	echo ${app_public_cert} > $(cert_dir)/$(app_name).crt
+
+	@if [ -f $(cert_dir)/$(app_name).key ]; then \
+		echo "Signing app files…"; \
+		php ../../occ integrity:sign-app \
+			--privateKey=$(cert_dir)/$(app_name).key\
+			--certificate=$(cert_dir)/$(app_name).crt\
+			--path=$(appstore_sign_dir)/$(app_name); \
+		echo "Signing app files ... done"; \
+	fi
+	mkdir -p $(appstore_artifact_directory)
+	tar -czf $(appstore_package_name).tar.gz -C $(appstore_sign_dir) $(app_name)
 
 
 .PHONY: js-test

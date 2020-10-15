@@ -16,7 +16,7 @@ jobs:
         with:
           path: ${{ env.APP_NAME }}
       - name: Run build
-        run: cd ${{ env.APP_NAME }} && make appstore
+        run: cd ${{ env.APP_NAME }} && make && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
