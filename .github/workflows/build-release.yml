@@ -1,0 +1,39 @@
+name: Build and publish app release
+
+on:
+  release:
+      types: [published]
+
+env:
+  APP_NAME: news
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.APP_NAME }}
+      - name: Run build
+        run: cd ${{ env.APP_NAME }} && make appstore
+        env:
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
+      - name: Upload app tarball to release
+        uses: svenstaro/upload-release-action@v2
+        id: attach_to_release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
+          asset_name: ${{ env.APP_NAME }}.tar.gz 
+          tag: ${{ github.ref }}
+          overwrite: true
+#      - name: Upload app to Nextcloud appstore
+#        uses: R0Wi/nextcloud-appstore-push-action@v1
+#        with:
+#          app_name: ${{ env.APP_NAME }}
+#          appstore_token: ${{ secrets.APPSTORE_TOKEN }}
+#          download_url: ${{ steps.attach_to_release.outputs.browser_download_url }}
+#          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+#          nightly: ${{ github.event.release.prerelease }}
