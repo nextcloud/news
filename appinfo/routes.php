@@ -94,8 +94,11 @@ return ['routes' => [
 ['name' => 'item_api#read_multiple', 'url' => '/api/v1-2/items/read/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ['name' => 'item_api#unread_multiple', 'url' => '/api/v1-2/items/unread/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ['name' => 'item_api#star', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/star', 'verb' => 'PUT'], // FIXME: POST would be more correct
+['name' => 'item_api#star_by_id', 'url' => '/api/v1-2/items/{itemId}/star', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ['name' => 'item_api#unstar', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'], // FIXME: POST would be more correct
+['name' => 'item_api#unstar_by_id', 'url' => '/api/v1-2/items/{itemId}/unstar', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
+['name' => 'item_api#star_multiple_by_id', 'url' => '/api/v1-2/items/star/multiple_by_id', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
-
+['name' => 'item_api#unstar_multiple_by_id', 'url' => '/api/v1-2/items/unstar/multiple_by_id', 'verb' => 'PUT'], // FIXME: POST would be more correct
 ]];

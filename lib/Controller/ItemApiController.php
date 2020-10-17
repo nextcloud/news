@@ -166,6 +166,22 @@ class ItemApiController extends ApiController
     }
 
 
+    private function setStarredById($isStarred, $itemId)
+    {
+        try {
+            $this->itemService->starById(
+                $itemId,
+                $isStarred,
+                $this->getUserId()
+            );
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        return [];
+    }
+
+
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
@@ -187,6 +203,21 @@ class ItemApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
+     * @param int    $itemId
+     *
+     * @return array|JSONResponse
+     */
+    public function starById(int $itemId)
+    {
+        return $this->setStarredById(true, $itemId);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
      * @param int    $feedId
      * @param string $guidHash
      *
@@ -195,6 +226,21 @@ class ItemApiController extends ApiController
     public function unstar(int $feedId, string $guidHash)
     {
         return $this->setStarred(false, $feedId, $guidHash);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int    $itemId
+     *
+     * @return array|JSONResponse
+     */
+    public function unstarById(int $itemId)
+    {
+        return $this->setStarredById(false, $itemId);
     }
 
 
@@ -266,6 +312,18 @@ class ItemApiController extends ApiController
     }
 
 
+    private function setMultipleStarredById($isStarred, $items)
+    {
+        foreach ($items as $id) {
+            try {
+                $this->itemService->starById($id, $isStarred, $this->getUserId());
+            } catch (ServiceNotFoundException $ex) {
+                continue;
+            }
+        }
+    }
+
+
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
@@ -286,8 +344,35 @@ class ItemApiController extends ApiController
      *
      * @param int[] $items item ids
      */
+    public function starMultipleById(array $items)
+    {
+        $this->setMultipleStarredById(true, $items);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int[] $items item ids
+     */
     public function unstarMultiple(array $items)
     {
         $this->setMultipleStarred(false, $items);
     }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int[] $items item ids
+     */
+    public function unstarMultipleById(array $items)
+    {
+        $this->setMultipleStarredById(false, $items);
+    }
+
 }

@@ -188,6 +188,35 @@ class ItemService extends Service
 
 
     /**
+     * Star or unstar an item
+     *
+     * @param  int     $itemId    the id of the item that should be read
+     * @param  boolean $isStarred if true the item will be marked as starred,
+     *                            if false unstar
+     * @param  string  $userId    the name of the user for security reasons
+     * @throws ServiceNotFoundException if the item does not exist
+     */
+    public function starById($itemId, $isStarred, $userId)
+    {
+        try {
+            /**
+             * @var Item $item
+             */
+            $item = $this->itemMapper->find(
+                $userId,
+                $itemId
+            );
+
+            $item->setStarred($isStarred);
+
+            $this->itemMapper->update($item);
+        } catch (DoesNotExistException $ex) {
+            throw new ServiceNotFoundException($ex->getMessage());
+        }
+    }
+
+
+    /**
      * Read or unread an item
      *
      * @param  int     $itemId the id of the item that should be read
