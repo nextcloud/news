@@ -15,7 +15,7 @@ See the [install document](https://github.com/nextcloud/news/blob/master/docs/in
 * [I am getting: Exception: Some\\Class does not exist erros in my nextcloud.log](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#i-am-getting-exception-someclass-does-not-exist-erros-in-my-nextcloudlog)
 * [How do I reset the News app](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#how-do-i-reset-the-news-app)
 * [App is stuck in maintenance mode after failed update](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#app-is-stuck-in-maintenance-mode-after-failed-update)
-* [Feeds are not updated](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#feeds-are-not-updated)
+* [Feeds are not updated](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#feeds-not-updated)
 * [Adding feeds that use self-signed certificates](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#adding-feeds-that-use-self-signed-certificates)
 * [Is There An Subscription URL To Easily Subscribe To Feeds](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#is-there-an-subscription-url-to-easily-subscribe-to-feeds)
 
