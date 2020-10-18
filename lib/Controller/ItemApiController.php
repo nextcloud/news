@@ -374,5 +374,4 @@ class ItemApiController extends ApiController
     {
         $this->setMultipleStarredById(false, $items);
     }
-
 }
