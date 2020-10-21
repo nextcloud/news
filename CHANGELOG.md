@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.6-rc1
+
+### Changed
+- Updated dependencies
+- New release process
+
 ## 15.0.5
 
 ### Fixed
