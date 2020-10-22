@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "angular": "^1.8.2",
-    "angular-animate": "^1.8.1",
+    "angular-animate": "^1.8.2",
     "angular-mocks": "^1.8.1",
     "angular-route": "^1.8.2",
     "angular-sanitize": "^1.8.2",
