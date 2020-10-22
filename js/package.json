@@ -55,7 +55,7 @@
     "angular": "^1.8.1",
     "angular-animate": "^1.8.1",
     "angular-mocks": "^1.8.1",
-    "angular-route": "^1.8.1",
+    "angular-route": "^1.8.2",
     "angular-sanitize": "^1.8.1",
     "debug": "^4.2.0",
     "masonry-layout": "^4.2.2",
