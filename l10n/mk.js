@@ -11,6 +11,7 @@ OC.L10N.register(
     "Open website" : "Отвори вебсајт",
     "by" : "од",
     "from" : "од",
+    "Keyboard shortcut" : "Кратенка преку тастатура",
     "Description" : "Опис",
     "right" : "десно",
     "left" : "лево",
