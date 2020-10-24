@@ -157,15 +157,15 @@ appstore:
 
 	#remove stray .htaccess files since they are filtered by nextcloud
 	find $(appstore_sign_dir) -name .htaccess -exec rm {} \;
-	
+
 	# on macOS there is no option "--parents" for the "cp" command
 	mkdir -p $(appstore_sign_dir)/$(app_name)/js/build $(appstore_sign_dir)/$(app_name)/js/admin
 	cp js/build/app.min.js $(appstore_sign_dir)/$(app_name)/js/build
 	cp js/admin/Admin.js $(appstore_sign_dir)/$(app_name)/js/admin
 
-	# export the key and cert to a file 
-	echo ${app_private_key} > $(cert_dir)/$(app_name).key
-	echo ${app_public_cert} > $(cert_dir)/$(app_name).crt
+	# export the key and cert to a file
+	printf "%s" "$(app_private_key)" > "$(cert_dir)/$(app_name).key"
+	printf "%s" "$(app_public_crt)" > "$(cert_dir)/$(app_name).crt"
 
 	@if [ -f $(cert_dir)/$(app_name).key ]; then \
 		echo "Signing app files…"; \
