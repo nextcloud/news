@@ -164,8 +164,8 @@ appstore:
 	cp js/admin/Admin.js $(appstore_sign_dir)/$(app_name)/js/admin
 
 	# export the key and cert to a file
-	printf "%s" "$(app_private_key)" > "$(cert_dir)/$(app_name).key"
-	printf "%s" "$(app_public_crt)" > "$(cert_dir)/$(app_name).crt"
+	php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"
+	php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"
 
 	@if [ -f $(cert_dir)/$(app_name).key ]; then \
 		echo "Signing app files…"; \
