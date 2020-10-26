@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+- Added changelog enforcer action
 
 ## 15.0.6
 
