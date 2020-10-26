@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.0.6
+
+### Changed
+- New release approach to prevent mistakes
+- Re-release of 15.0.5
+
 ## 15.0.6-rc5
 
 ### Fixed
