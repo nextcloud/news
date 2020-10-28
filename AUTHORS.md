@@ -1,8 +1,8 @@
 # Authors
 * [Bernhard Posselt](mailto:dev@bernhard-posselt.com)
 * [Alessandro Cosentino](mailto:cosenal@gmail.com)
-* [Robin Appelman](mailto:icewind@owncloud.com)
 * [Benjamin Brahmer](mailto:info@b-brahmer.de)
+* [Robin Appelman](mailto:icewind@owncloud.com)
 * [Gregor Tätzner](mailto:gregor@freenet.de)
 * [Morris Jobke](mailto:hey@morrisjobke.de)
 * [Sean Molenaar](mailto:SMillerDev@users.noreply.github.com)
@@ -43,6 +43,7 @@
 * [Andreas Fischer](mailto:bantu@owncloud.com)
 * [David Guillot](mailto:david@guillot.me)
 * [Gioele Falcetti](mailto:thegio.f@gmail.com)
+* [Igor Bubelov](mailto:igor@bubelov.com)
 * [Jan C. Borchardt](mailto:hey@jancborchardt.net)
 * [John Kristensen](mailto:john@jerrykan.com)
 * [Konrad Graefe](mailto:konradgraefe@aol.com)

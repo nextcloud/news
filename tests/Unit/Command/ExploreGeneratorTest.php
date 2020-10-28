@@ -30,7 +30,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Test\TestCase;
 
-class ExploreGeneratorTest extends TestCase {
+class ExploreGeneratorTest extends TestCase
+{
     /** @var \PHPUnit_Framework_MockObject_MockObject */
     protected $favicon;
     /** @var \PHPUnit_Framework_MockObject_MockObject */
