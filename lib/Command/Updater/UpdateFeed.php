@@ -11,15 +11,11 @@
 
 namespace OCA\News\Command\Updater;
 
-use Exception;
-
 use OCA\News\Service\FeedServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-
-use OCA\News\Service\FeedService;
 
 class UpdateFeed extends Command
 {
@@ -57,12 +53,13 @@ class UpdateFeed extends Command
         try {
             $feed = $this->feedService->findForUser($userId, $feedId);
             $this->feedService->fetch($feed);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $output->writeln(
                 '<error>Could not update feed with id ' . $feedId .
                              ' and user ' . $userId . ': ' . $e->getMessage() .
                 '</error> '
             );
+            return 1;
         }
 
         return 0;

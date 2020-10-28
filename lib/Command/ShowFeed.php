@@ -10,18 +10,7 @@
  */
 namespace OCA\News\Command;
 
-use FeedIo\FeedIo;
-use Favicon\Favicon;
-
-use HTMLPurifier;
-use OCA\News\Db\FeedMapper;
-use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\Fetcher;
-use OCA\News\Service\FeedService;
-use OCA\News\Utility\Time;
-use OCP\IConfig;
-use OCP\IL10N;
-use OCP\ILogger;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -80,13 +69,15 @@ class ShowFeed extends Command
 
         try {
             list($feed, $items) = $this->feedFetcher->fetch($url, true, null, $fullTextEnabled, $user, $password);
-            $output->writeln("Feed: " . json_encode($feed, JSON_PRETTY_PRINT));
-            $output->writeln("Items: " . json_encode($items, JSON_PRETTY_PRINT));
-            return 0;
-        } catch (\Throwable $ex) {
+        } catch (\Exception $ex) {
             $output->writeln('<error>Failed to fetch feed info:</error>');
             $output->writeln($ex->getMessage());
             return 1;
         }
+
+        $output->writeln("Feed: " . json_encode($feed, JSON_PRETTY_PRINT));
+        $output->writeln("Items: " . json_encode($items, JSON_PRETTY_PRINT));
+
+        return 0;
     }
 }

@@ -35,7 +35,7 @@ class FeedAdd extends Command
     {
         $this->setName('news:feed:add')
             ->setDescription('Add a feed')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User to add the feed for')
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User to add the feed for')
             ->addArgument('feed', InputArgument::REQUIRED, 'Feed to parse')
             ->addOption('folder', null, InputOption::VALUE_OPTIONAL, 'Folder ID')
             ->addOption('title', null, InputOption::VALUE_OPTIONAL, 'Feed title')
@@ -54,13 +54,13 @@ class FeedAdd extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $url = $input->getArgument('feed');
-        $user = $input->getArgument('userID');
-        $folder = (int) $input->getOption('folder') ?? 0;
-        $title = $input->getOption('title');
-        $username = $input->getOption('username');
-        $full_text = $input->getOption('full-text');
-        $password = $input->getOption('password');
+        $user      = $input->getArgument('user-id');
+        $url       = $input->getArgument('feed');
+        $folder    = (int) $input->getOption('folder') ?? 0;
+        $title     = $input->getOption('title');
+        $full_text = (bool) $input->getOption('full-text');
+        $username  = $input->getOption('username');
+        $password  = $input->getOption('password');
 
         $feed = $this->feedService->create($user, $url, $folder, $full_text, $title, $username, $password);
         $this->feedService->fetch($feed);

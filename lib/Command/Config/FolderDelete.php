@@ -33,8 +33,8 @@ class FolderDelete extends Command
     {
         $this->setName('news:folder:delete')
             ->setDescription('Remove a folder')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User to remove the folder from')
-            ->addArgument('id', InputArgument::REQUIRED, 'Folder ID', null);
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User to remove the folder from')
+            ->addArgument('folder-id', InputArgument::REQUIRED, 'Folder ID', null);
     }
 
     /**
@@ -47,8 +47,8 @@ class FolderDelete extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $user = $input->getArgument('userID');
-        $id = $input->getArgument('id');
+        $user = $input->getArgument('user-id');
+        $id = $input->getArgument('folder-id');
 
         if ($id === '0') {
             throw new ServiceException('Can not remove root folder!');

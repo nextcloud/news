@@ -29,7 +29,7 @@ class OpmlExport extends Command
     {
         $this->setName('news:opml:export')
             ->setDescription('Print OPML file')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User data to export');
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User data to export');
     }
 
     /**
@@ -42,7 +42,7 @@ class OpmlExport extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $user = $input->getArgument('userID');
+        $user = $input->getArgument('user-id');
 
         $output->write($this->opmlService->export($user));
         return 0;

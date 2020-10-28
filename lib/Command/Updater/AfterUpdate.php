@@ -46,7 +46,7 @@ class AfterUpdate extends Command
     {
         $count = $input->getArgument('purge_count');
 
-        echo $this->itemService->purgeOverThreshold($count);
+        $output->writeln($this->itemService->purgeOverThreshold($count));
 
         return 0;
     }
