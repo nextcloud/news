@@ -52,11 +52,6 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         return $this->deletedAt;
     }
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
     /**
      * @return string|null
      */
@@ -110,16 +105,6 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         if ($this->deletedAt !== $deletedAt) {
             $this->deletedAt = $deletedAt;
             $this->markFieldUpdated('deletedAt');
-        }
-
-        return $this;
-    }
-
-    public function setId(int $id): self
-    {
-        if ($this->id !== $id) {
-            $this->id = $id;
-            $this->markFieldUpdated('id');
         }
 
         return $this;

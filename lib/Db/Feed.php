@@ -184,14 +184,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string|null
      */
     public function getLastModified(): ?string
@@ -470,19 +462,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         if ($this->httpLastModified !== $httpLastModified) {
             $this->httpLastModified = $httpLastModified;
             $this->markFieldUpdated('httpLastModified');
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id): Feed
-    {
-        if ($this->id !== $id) {
-            $this->id = $id;
-            $this->markFieldUpdated('id');
         }
 
         return $this;

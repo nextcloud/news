@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 - Added changelog enforcer action
+- Stop overloading DB ids
 
 ## 15.0.6
 

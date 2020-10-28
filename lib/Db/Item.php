@@ -222,11 +222,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->guidHash;
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
     public function getIntro(): string
     {
         return strip_tags($this->getBody());
@@ -435,16 +430,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
         if ($this->guidHash !== $guidHash) {
             $this->guidHash = $guidHash;
             $this->markFieldUpdated('guidHash');
-        }
-
-        return $this;
-    }
-
-    public function setId(int $id): self
-    {
-        if ($this->id !== $id) {
-            $this->id = $id;
-            $this->markFieldUpdated('id');
         }
 
         return $this;
