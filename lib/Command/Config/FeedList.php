@@ -33,7 +33,7 @@ class FeedList extends Command
     {
         $this->setName('news:feed:list')
             ->setDescription('List all feeds')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User to list the feeds for')
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User to list the feeds for')
             ->addOption('recursive', null, InputOption::VALUE_NONE, 'Fetch the feed recursively');
     }
 
@@ -47,7 +47,7 @@ class FeedList extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $user = $input->getArgument('userID');
+        $user = $input->getArgument('user-id');
         $recursive = $input->getOption('recursive');
 
         if ($recursive !== false) {

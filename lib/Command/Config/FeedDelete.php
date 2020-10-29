@@ -32,8 +32,8 @@ class FeedDelete extends Command
     {
         $this->setName('news:feed:delete')
             ->setDescription('Remove a feed')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User to remove the feed from')
-            ->addArgument('id', InputArgument::REQUIRED, 'Feed ID', null);
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User to remove the feed from')
+            ->addArgument('feed-id', InputArgument::REQUIRED, 'Feed ID', null);
     }
 
     /**
@@ -46,8 +46,8 @@ class FeedDelete extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $user = $input->getArgument('userID');
-        $id = $input->getArgument('id');
+        $user = $input->getArgument('user-id');
+        $id = $input->getArgument('feed-id');
 
         $this->feedService->delete($user, $id);
 

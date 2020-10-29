@@ -34,7 +34,7 @@ class FolderList extends Command
     {
         $this->setName('news:folder:list')
             ->setDescription('List all folders')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User to list the folders for')
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User to list the folders for')
             ->addOption('recursive', null, InputOption::VALUE_NONE, 'Fetch the folder recursively');
     }
 
@@ -48,7 +48,7 @@ class FolderList extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $user = $input->getArgument('userID');
+        $user = $input->getArgument('user-id');
         $recursive = $input->getOption('recursive');
 
         if ($recursive !== false) {

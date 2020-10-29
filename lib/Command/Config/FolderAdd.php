@@ -32,7 +32,7 @@ class FolderAdd extends Command
     {
         $this->setName('news:folder:add')
             ->setDescription('Add a folder')
-            ->addArgument('userID', InputArgument::REQUIRED, 'User to add the folder for')
+            ->addArgument('user-id', InputArgument::REQUIRED, 'User to add the folder for')
             ->addArgument('name', InputArgument::REQUIRED, 'Folder name', null)
             ->addOption('parent', null, InputOption::VALUE_OPTIONAL, 'Parent folder');
     }
@@ -47,9 +47,9 @@ class FolderAdd extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $user = $input->getArgument('userID');
+        $user = $input->getArgument('user-id');
         $name = $input->getArgument('name');
-        $parent = $input->getOption('parent') ?? 0;
+        $parent = (int) $input->getOption('parent') ?? 0;
 
         $this->folderService->create($user, $name, $parent);
 

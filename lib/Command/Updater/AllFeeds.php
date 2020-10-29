@@ -16,6 +16,12 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class AllFeeds
+ *
+ * @deprecated use news:feed:list instead
+ * @package OCA\News\Command\Updater
+ */
 class AllFeeds extends Command
 {
     /**

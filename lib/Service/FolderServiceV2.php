@@ -17,6 +17,7 @@ use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
+use OCP\AppFramework\Db\Entity;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -79,14 +80,14 @@ class FolderServiceV2 extends Service
         return $this->mapper->findAll();
     }
 
-    public function create(string $userId, string $name, int $parent = 0): void
+    public function create(string $userId, string $name, int $parent = 0): Entity
     {
         $folder = new Folder();
         $folder->setUserId($userId)
                ->setName($name)
                ->setParentId($parent);
 
-        $this->mapper->insert($folder);
+        return $this->mapper->insert($folder);
     }
 
     public function delete(string $user, int $id)
