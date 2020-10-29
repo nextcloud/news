@@ -48,3 +48,5 @@ jobs:
         run: cd ../server/apps/news && make phpstan
       - name: Unittests
         run: cd ../server/apps/news && make unit-test
+      - name: Upload codecoverage
+        run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover

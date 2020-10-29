@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 - Added changelog enforcer action
 - Stop overloading DB ids
 - Unittest commands and utilities
-
+- Upload codecoverage to codecov.io
 
 ## 15.0.6
 
