@@ -11,7 +11,6 @@
 
 namespace OCA\News\Migration;
 
-use OCA\News\AppInfo\Application;
 use OCA\News\Config\LegacyConfig;
 use OCP\IConfig;
 use OCP\Migration\IRepairStep;
@@ -40,13 +39,22 @@ class MigrateConfig implements IRepairStep
     /**
      * @param LegacyConfig $config
      * @param IConfig      $iConfig
-     * @param Application  $application To make sure the class is found below
      */
-    public function __construct(LegacyConfig $config, IConfig $iConfig, Application $application)
+    public function __construct(LegacyConfig $config, IConfig $iConfig)
     {
         $this->config = $config;
         $this->iConfig = $iConfig;
-        $this->defaults = $application::DEFAULT_SETTINGS;
+
+        // copied from Application::default_settings
+        $this->defaults = [
+            'autoPurgeMinimumInterval' => 60,
+            'autoPurgeCount'           => 200,
+            'maxRedirects'             => 10,
+            'feedFetcherTimeout'       => 60,
+            'useCronUpdates'           => true,
+            'exploreUrl'               => '',
+            'updateInterval'           => 3600,
+        ];
     }
 
     public function getName()
@@ -57,7 +65,7 @@ class MigrateConfig implements IRepairStep
     public function run(IOutput $output)
     {
         $version = $this->iConfig->getAppValue('news', 'installed_version', '0.0.0');
-        if (version_compare($version, '15.0.0', '>')) {
+        if (version_compare($version, '15.0.6', '>')) {
             return;
         }
 
