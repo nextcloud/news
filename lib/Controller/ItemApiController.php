@@ -21,6 +21,7 @@ use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\ItemService;
+use \OCA\News\Service\ItemServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
 class ItemApiController extends ApiController
@@ -28,16 +29,19 @@ class ItemApiController extends ApiController
     use JSONHttpErrorTrait;
 
     private $itemService;
+    private $itemServiceV2;
     private $serializer;
 
     public function __construct(
         string $appName,
         IRequest $request,
         IUserSession $userSession,
-        ItemService $itemService
+        ItemService $itemService,
+        ItemServiceV2 $itemServiceV2
     ) {
         parent::__construct($appName, $request, $userSession);
         $this->itemService = $itemService;
+        $this->itemServiceV2 = $itemServiceV2;
         $this->serializer = new EntityApiSerializer('items');
     }
 
@@ -166,19 +170,13 @@ class ItemApiController extends ApiController
     }
 
 
-    private function setStarredById($isStarred, $itemId)
+    private function setStarredById($itemId, $starred)
     {
-        try {
-            $this->itemService->starById(
-                $itemId,
-                $isStarred,
-                $this->getUserId()
-            );
-        } catch (ServiceNotFoundException $ex) {
-            return $this->error($ex, Http::STATUS_NOT_FOUND);
-        }
-
-        return [];
+        $this->itemServiceV2->star(
+            $this->getUserId(),
+            array($itemId),
+            $starred
+        );
     }
 
 
@@ -209,7 +207,7 @@ class ItemApiController extends ApiController
      */
     public function starById(int $itemId)
     {
-        return $this->setStarredById(true, $itemId);
+        return $this->setStarredById($itemId, true);
     }
 
 
@@ -240,7 +238,7 @@ class ItemApiController extends ApiController
      */
     public function unstarById(int $itemId)
     {
-        return $this->setStarredById(false, $itemId);
+        return $this->setStarredById($itemId, false);
     }
 
 
@@ -312,15 +310,13 @@ class ItemApiController extends ApiController
     }
 
 
-    private function setMultipleStarredById($isStarred, $items)
+    private function setMultipleStarredById($itemIds, $starred)
     {
-        foreach ($items as $id) {
-            try {
-                $this->itemService->starById($id, $isStarred, $this->getUserId());
-            } catch (ServiceNotFoundException $ex) {
-                continue;
-            }
-        }
+        $this->itemServiceV2->star(
+            $this->getUserId(),
+            $itemIds,
+            $starred
+        );
     }
 
 
@@ -346,7 +342,7 @@ class ItemApiController extends ApiController
      */
     public function starMultipleById(array $items)
     {
-        $this->setMultipleStarredById(true, $items);
+        $this->setMultipleStarredById($items, true);
     }
 
 

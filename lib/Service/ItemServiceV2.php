@@ -15,6 +15,7 @@ namespace OCA\News\Service;
 use OCA\News\AppInfo\Application;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IConfig;
 use Psr\Log\LoggerInterface;
@@ -107,5 +108,18 @@ class ItemServiceV2 extends Service
         }
 
         return $this->mapper->deleteOverThreshold($threshold);
+    }
+
+    public function star(string $userId, array $itemIds, bool $starred)
+    {
+        foreach ($itemIds as $itemId) {
+            try {
+                $item = $this->find($userId, $itemId);
+                $item->setStarred($starred);
+                $this->mapper->update($item);
+            } catch (ServiceNotFoundException $exception) {
+                continue;
+            }
+        }
     }
 }
