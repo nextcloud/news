@@ -23,6 +23,7 @@ OC.L10N.register(
     "Saved" : "Įrašyta",
     "Download" : "Atsisiųsti",
     "Close" : "Užverti",
+    "Subscribe to" : "Prenumeruoti",
     "No articles available" : "Nėra straipsnių",
     "No unread articles available" : "Nėra neperskaitytų straipsnių",
     "Open website" : "Atverti svetainę",

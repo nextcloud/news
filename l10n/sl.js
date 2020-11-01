@@ -4,7 +4,7 @@ OC.L10N.register(
     "Request failed, network connection unavailable!" : "Zahteva je spodletela. Omrežna povezava trenutno ni na voljo!",
     "Request unauthorized. Are you logged in?" : "Zahteva ni ustrezno overjena. Ali ste prijavljeni?",
     "Request forbidden. Are you an admin?" : "Zahteva je zavrnjena. Ali ste prijavljeni kot skrbnik?",
-    "Token expired or app not enabled! Reload the page!" : "Žeton je potekel ali pa program ni omogočen! Poskusite osvežiti stran!",
+    "Token expired or app not enabled! Reload the page!" : "Žeton je pretekel ali pa program ni omogočen! Poskusite osvežiti stran!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Notranja napaka strežnika! Preverite datoteko data/nextcloud.log za podrobnosti!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Zahteva je spodletela! Okolje Nextcloud je trenutno v vzdrževalnem načinu!",
     "Can not add feed: Unable to parse feed" : "Vira ni mogoče dodati: podatkov ni mogoče razčleniti",
