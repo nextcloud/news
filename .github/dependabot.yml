@@ -10,9 +10,15 @@ updates:
     directory: "/js"
     schedule:
       interval: "daily"
+    default_labels:
+      - "Skip-Changelog"
+      - "javascript"
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
     directory: "/"
     schedule:
       interval: "daily"
+    default_labels:
+      - "Skip-Changelog"
+      - "php"
