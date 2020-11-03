@@ -30,8 +30,11 @@ class FeedController extends Controller
 {
     use JSONHttpErrorTrait;
 
+    //TODO: Remove
     private $feedService;
+    //TODO: Remove
     private $folderService;
+    //TODO: Remove
     private $itemService;
     private $userId;
     private $settings;

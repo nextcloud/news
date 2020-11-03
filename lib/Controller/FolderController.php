@@ -30,8 +30,11 @@ class FolderController extends Controller
 {
     use JSONHttpErrorTrait;
 
+    //TODO: Remove
     private $folderService;
+    //TODO: Remove
     private $feedService;
+    //TODO: Remove
     private $itemService;
     private $userId;
 

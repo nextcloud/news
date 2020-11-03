@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Upload codecoverage to codecov.io
 - Use foreign keys in db
 - Fix delete api not working
+- Move controllers to use V2 services
 
 ## 15.0.6
 

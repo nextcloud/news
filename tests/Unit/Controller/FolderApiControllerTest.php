@@ -17,6 +17,7 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FolderApiController;
 use OCA\News\Service\FolderService;
+use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
@@ -59,7 +60,7 @@ class FolderApiControllerTest extends TestCase
         $this->user->expects($this->any())
             ->method('getUID')
             ->will($this->returnValue('123'));
-        $this->folderService = $this->getMockBuilder(FolderService::class)
+        $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(ItemService::class)
@@ -102,11 +103,11 @@ class FolderApiControllerTest extends TestCase
         $folder->setName($folderName);
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->folderService->expects($this->once())
             ->method('create')
-            ->with($this->equalTo($folderName), $this->equalTo($this->user->getUID()))
+            ->with($this->user->getUID(), $folderName)
             ->will($this->returnValue($folder));
 
         $response = $this->folderAPI->create($folderName);
@@ -124,8 +125,8 @@ class FolderApiControllerTest extends TestCase
         $msg = 'exists';
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceConflictException($msg)));
@@ -143,8 +144,8 @@ class FolderApiControllerTest extends TestCase
         $msg = 'exists';
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceValidationException($msg)));
@@ -161,10 +162,9 @@ class FolderApiControllerTest extends TestCase
 
     public function testDelete()
     {
-        $folderId = 23;
         $this->folderService->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo($folderId), $this->equalTo($this->user->getUID()));
+            ->with($this->user->getUID(), 23);
 
         $this->folderAPI->delete(23);
     }
@@ -197,11 +197,7 @@ class FolderApiControllerTest extends TestCase
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->with(
-                $this->equalTo($folderId),
-                $this->equalTo($folderName),
-                $this->equalTo($this->user->getUID())
-            );
+            ->with($this->user->getUID(), $folderId, $folderName);
 
         $this->folderAPI->update($folderId, $folderName);
     }
