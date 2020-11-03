@@ -149,8 +149,8 @@ class FeedApiControllerTest extends TestCase
         $this->feedService->expects($this->once())
             ->method('delete')
             ->with(
-                $this->equalTo(2),
-                $this->equalTo($this->user->getUID())
+                $this->equalTo($this->user->getUID()),
+                $this->equalTo(2)
             );
 
         $this->feedAPI->delete(2);
