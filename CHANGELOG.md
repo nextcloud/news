@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Unittest commands and utilities
 - Upload codecoverage to codecov.io
 - Use foreign keys in db
+- Fix delete api not working
 
 ## 15.0.6
 
