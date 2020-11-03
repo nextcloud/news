@@ -20,31 +20,31 @@ use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\FolderService;
 use \OCA\News\Service\ItemService;
+use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\Exceptions\ServiceConflictException;
 use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 class FolderApiController extends ApiController
 {
-    use JSONHttpErrorTrait;
+    use JSONHttpErrorTrait, ApiPayloadTrait;
 
     private $folderService;
+    //TODO: Remove
     private $itemService;
-    private $serializer;
 
     public function __construct(
         string $appName,
         IRequest $request,
         IUserSession $userSession,
-        FolderService $folderService,
+        FolderServiceV2 $folderService,
         ItemService $itemService
     ) {
         parent::__construct($appName, $request, $userSession);
+
         $this->folderService = $folderService;
         $this->itemService = $itemService;
-        $this->serializer = new EntityApiSerializer('folders');
     }
 
 
@@ -55,9 +55,8 @@ class FolderApiController extends ApiController
      */
     public function index()
     {
-        return $this->serializer->serialize(
-            $this->folderService->findAllForUser($this->getUserId())
-        );
+        $folders = $this->folderService->findAllForUser($this->getUserId());
+        return ['folders' => $this->serialize($folders)];
     }
 
 
@@ -73,10 +72,9 @@ class FolderApiController extends ApiController
     public function create(string $name)
     {
         try {
-            $this->folderService->purgeDeleted($this->getUserId(), false);
-            return $this->serializer->serialize(
-                $this->folderService->create($name, $this->getUserId())
-            );
+            $this->folderService->purgeDeleted();
+            $folder = $this->folderService->create($this->getUserId(), $name);
+            return ['folders' => $this->serialize($folder)];
         } catch (ServiceValidationException $ex) {
             return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceConflictException $ex) {
@@ -101,7 +99,7 @@ class FolderApiController extends ApiController
         }
 
         try {
-            $this->folderService->delete($folderId, $this->getUserId());
+            $this->folderService->delete($this->getUserId(), $folderId);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -127,7 +125,7 @@ class FolderApiController extends ApiController
         }
 
         try {
-            $this->folderService->rename($folderId, $name, $this->getUserId());
+            $this->folderService->rename($this->getUserId(), $folderId, $name);
         } catch (ServiceValidationException $ex) {
             return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceConflictException $ex) {

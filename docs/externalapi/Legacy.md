@@ -132,7 +132,7 @@ angular.module('YourApp', [])
 In general the input parameters can be in the URL or request body, the App Framework doesnt differentiate between them.
 
 So JSON in the request body like:
-```js
+```json
 {
   "id": 3
 }
@@ -159,7 +159,7 @@ The output is JSON.
 * **Route**: /folders
 * **Parameters**: none
 * **Returns**:
-```js
+```json
 {
   "folders": [
     {
@@ -177,7 +177,7 @@ Creates a new folder and returns a new folder object
 * **Method**: POST
 * **Route**: /folders
 * **Parameters**:
-```js
+```json
 {
   "name": "folder name"
 }
@@ -186,7 +186,7 @@ Creates a new folder and returns a new folder object
  * **HTTP 409**: If the folder exists already
  * **HTTP 422**: If the folder name is invalid (for instance empty)
 * **Returns**:
-```js
+```json
 {
   "folders": [
     {
@@ -215,7 +215,7 @@ Only the name can be updated
 * **Method**: PUT
 * **Route**: /folders/{folderId}
 * **Parameters**:
-```js
+```json
 {
   "name": "folder name"
 }
@@ -232,7 +232,7 @@ Only the name can be updated
 * **Method**: PUT
 * **Route**: /folders/{folderId}/read
 * **Parameters**:
-```js
+```json
 {
     // mark all items read lower than equal that id
     // this is mean to prevent marking items as read which the client/user does not yet know of
@@ -259,7 +259,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **Route**: /feeds
 * **Parameters**: none
 * **Returns**:
-```js
+```json
 {
   "feeds": [
     {
@@ -294,7 +294,7 @@ Creates a new feed and returns the feed
 * **Method**: POST
 * **Route**: /feeds
 * **Parameters**:
-```js
+```json
 {
   "url": "http:\/\/www.cyanogenmod.org\/wp-content\/themes\/cyanogenmod\/images\/favicon.ico",
   "folderId": 81 //  id of the parent folder, 0 for root
@@ -304,7 +304,7 @@ Creates a new feed and returns the feed
  * **HTTP 409**: If the feed exists already
  * **HTTP 422**: If the feed cant be read (most likely contains errors)
 * **Returns**:
-```js
+```json
 {
   "feeds": [
     {
@@ -341,7 +341,7 @@ Deletes a feed with the id feedId and all of its  items
 * **Method**: PUT
 * **Route**: /feeds/{feedId}/move
 * **Parameters**:
-```js
+```json
 {
   "folderId": 0 //  id of the parent folder, 0 for root
 }
@@ -356,7 +356,7 @@ Deletes a feed with the id feedId and all of its  items
 * **Method**: PUT
 * **Route**: /feeds/{feedId}/rename
 * **Parameters**:
-```js
+```json
 {
   "feedTitle": 'New Title'
 }
@@ -371,7 +371,7 @@ Deletes a feed with the id feedId and all of its  items
 * **Method**: PUT
 * **Route**: /feeds/{feedId}/read
 * **Parameters**:
-```js
+```json
 {
   // mark all items read lower than equal that id
   // this is mean to prevent marking items as read which the client/user does not yet know of
@@ -402,7 +402,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **Method**: GET
 * **Route**: /items
 * **Parameters**:
-```js
+```json
 {
   "batchSize": 10, //  the number of items that should be returned, defaults to -1, new in 5.2.3: -1 returns all items
   "offset": 30, // only return older (lower than equal that id) items than the one with id 30
@@ -413,7 +413,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 }
 ```
 * **Returns**:
-```js
+```json
 {
   "items": [
     {
@@ -446,7 +446,7 @@ Autopaging would work like this:
 * Get the **first 20** items from a feed with **id 12**
 
 **GET /items**:
-```js
+```json
 {
   "batchSize": 20,
   "offset": 0,
@@ -460,7 +460,7 @@ The item with the lowest item id is 43.
 
 * Get the next **20** items: **GET /items**:
 
-```js
+```json
 {
   "batchSize": 20,
   "offset": 43,
@@ -478,7 +478,7 @@ This is used to stay up to date.
 * **Method**: GET
 * **Route**: /items/updated
 * **Parameters**:
-```js
+```json
 {
   "lastModified": 123231, // returns only items with a lastModified timestamp >= than this one
                           // this may also return already existing items whose read or starred status
@@ -488,7 +488,7 @@ This is used to stay up to date.
 }
 ```
 * **Returns**:
-```js
+```json
 {
   "items": [
     {
@@ -526,7 +526,7 @@ This is used to stay up to date.
 * **Method**: PUT
 * **Route**: /items/read/multiple
 * **Parameters**:
-```js
+```json
 {
   "items": [2, 3] // ids of the items
 }
@@ -547,7 +547,7 @@ This is used to stay up to date.
 * **Method**: PUT
 * **Route**: /items/unread/multiple
 * **Parameters**:
-```js
+```json
 {
   "items": [2, 3] // ids of the items
 }
@@ -568,7 +568,7 @@ This is used to stay up to date.
 * **Method**: PUT
 * **Route**: /items/star/multiple
 * **Parameters**:
-```js
+```json
 {
   "items": [
     {
@@ -594,7 +594,7 @@ This is used to stay up to date.
 * **Method**: PUT
 * **Route**: /items/unstar/multiple
 * **Parameters**:
-```js
+```json
 {
   "items": [
     {
@@ -612,7 +612,7 @@ This is used to stay up to date.
 * **Method**: PUT
 * **Route**: /items/read
 * **Parameters**:
-```js
+```json
 {
     // mark all items read lower than equal that id
     // this is mean to prevent marking items as read which the client/user does not yet know of
@@ -657,7 +657,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 * **Route**: /feeds/all
 * **Parameters**: none
 * **Returns**:
-```js
+```json
 {
   "feeds": [
     {
@@ -680,7 +680,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 * **Method**: GET
 * **Route**: /feeds/update
 * **Parameters**:
-```js
+```json
 {
   "userId": "john",
   "feedId": 3
@@ -716,7 +716,7 @@ This is used to clean up the database. It removes old read articles which are no
 * **Route**: /version
 * **Parameters**: none
 * **Returns**:
-```js
+```json
 {
   "version": "5.2.3"
 }
@@ -733,7 +733,7 @@ This API can be used to display warnings and errors in your client if the web ap
 * **Route**: /status
 * **Parameters**: none
 * **Returns**:
-```js
+```json
 {
   "version": "5.2.4",
   "warnings": {
@@ -756,7 +756,9 @@ If **incorrectDbCharset** is true you should display a warning that database cha
 
 # User
 
-This API can be used to retrieve metadata about the current user
+This API can be used to retrieve metadata about the current user.
+
+DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.
 
 ## Get the status
 
@@ -765,7 +767,7 @@ This API can be used to retrieve metadata about the current user
 * **Route**: /user
 * **Parameters**: none
 * **Returns**:
-```js
+```json
 {
   "userId": "john",
   "displayName": "John Doe",

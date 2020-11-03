@@ -41,7 +41,7 @@ class ApiController extends BaseApiController
      * @param IRequest      $request        The request
      * @param IUserSession  $userSession    The user session
      */
-    public function __construct($appName, IRequest $request, IUserSession $userSession)
+    public function __construct(string $appName, IRequest $request, IUserSession $userSession)
     {
         parent::__construct($appName, $request);
         $this->userSession = $userSession;

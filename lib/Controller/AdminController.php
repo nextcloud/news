@@ -20,8 +20,6 @@ use OCP\IConfig;
 use OCP\IRequest;
 use OCP\AppFramework\Controller;
 
-use OCA\News\Service\ItemService;
-
 /**
  * Class AdminController
  *
@@ -36,27 +34,17 @@ class AdminController extends Controller
     private $config;
 
     /**
-     * @var ItemService
-     */
-    private $itemService;
-
-    /**
      * AdminController constructor.
      *
      * @param string      $appName     The name of the app
      * @param IRequest    $request     The request
      * @param IConfig     $config      Config for nextcloud
-     * @param ItemService $itemService Service for items
      */
-    public function __construct(
-        string $appName,
-        IRequest $request,
-        IConfig $config,
-        ItemService $itemService
-    ) {
+    public function __construct(string $appName, IRequest $request, IConfig $config)
+    {
         parent::__construct($appName, $request);
-        $this->config      = $config;
-        $this->itemService = $itemService;
+
+        $this->config = $config;
     }
 
     /**

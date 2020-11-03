@@ -101,4 +101,12 @@ class FolderServiceV2 extends Service
     {
         $this->mapper->purgeDeleted();
     }
+
+    public function rename(string $userId, int $folderId, string $newName)
+    {
+        /** @var Folder $folder */
+        $folder = $this->mapper->find($userId, $folderId);
+        $folder->setName($newName);
+        $this->mapper->update($folder);
+    }
 }

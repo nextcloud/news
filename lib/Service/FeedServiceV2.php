@@ -246,11 +246,11 @@ class FeedServiceV2 extends Service
     /**
      * Update a feed
      *
-     * @param Feed $feed Feed item
+     * @param Feed|Entity $feed Feed item
      *
      * @return Feed|Entity Database feed entity
      */
-    public function fetch(Feed $feed): Entity
+    public function fetch(Entity $feed): Entity
     {
         if ($feed->getPreventUpdate() === true) {
             return $feed;

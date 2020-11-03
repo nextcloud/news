@@ -15,12 +15,12 @@
 
 namespace OCA\News\Controller;
 
+use Exception;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
-use OCA\News\Utility\PsrLogger;
+use OCA\News\Service\FeedServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
-use \OCP\ILogger;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
@@ -31,17 +31,24 @@ use function GuzzleHttp\Psr7\uri_for;
 
 class FeedApiController extends ApiController
 {
-    use JSONHttpErrorTrait;
+    use JSONHttpErrorTrait, ApiPayloadTrait;
 
     /**
+     * TODO: Remove
      * @var ItemService
      */
-    private $itemService;
+    private $oldItemService;
 
     /**
-     * @var FeedService
+     * @var FeedServiceV2
      */
     private $feedService;
+
+    /**
+     * TODO: Remove
+     * @var FeedService
+     */
+    private $oldFeedService;
 
     /**
      * @var LoggerInterface
@@ -57,15 +64,16 @@ class FeedApiController extends ApiController
         string $appName,
         IRequest $request,
         IUserSession $userSession,
-        FeedService $feedService,
-        ItemService $itemService,
+        FeedService $oldFeedService,
+        FeedServiceV2 $feedService,
+        ItemService $oldItemService,
         LoggerInterface $logger
     ) {
         parent::__construct($appName, $request, $userSession);
         $this->feedService = $feedService;
-        $this->itemService = $itemService;
+        $this->oldFeedService = $oldFeedService;
+        $this->oldItemService = $oldItemService;
         $this->logger = $logger;
-        $this->serializer = new EntityApiSerializer('feeds');
     }
 
 
@@ -78,20 +86,17 @@ class FeedApiController extends ApiController
     {
 
         $result = [
-            'starredCount' => $this->itemService->starredCount($this->getUserId()),
-            'feeds' => $this->feedService->findAllForUser($this->getUserId())
+            'starredCount' => $this->oldItemService->starredCount($this->getUserId()),
+            'feeds' => $this->serialize($this->feedService->findAllForUser($this->getUserId()))
         ];
 
-
         try {
-            $result['newestItemId'] =
-                $this->itemService->getNewestItemId($this->getUserId());
-
-            // in case there are no items, ignore
+            $result['newestItemId'] = $this->oldItemService->getNewestItemId($this->getUserId());
         } catch (ServiceNotFoundException $ex) {
+            // in case there are no items, ignore
         }
 
-        return $this->serializer->serialize($result);
+        return $result;
     }
 
 
@@ -112,20 +117,18 @@ class FeedApiController extends ApiController
         }
 
         try {
-            $this->feedService->purgeDeleted($this->getUserId(), false);
+            $this->feedService->purgeDeleted();
 
-            $feed = $this->feedService->create($url, $folderId, $this->getUserId());
-            $result = ['feeds' => [$feed]];
+            $feed = $this->feedService->create($this->getUserId(), $url, $folderId);
+            $result = ['feeds' => $this->serialize($feed)];
 
             try {
-                $result['newestItemId'] =
-                    $this->itemService->getNewestItemId($this->getUserId());
-
-                // in case there are no items, ignore
+                $result['newestItemId'] = $this->oldItemService->getNewestItemId($this->getUserId());
             } catch (ServiceNotFoundException $ex) {
+                // in case there are no items, ignore
             }
 
-            return $this->serializer->serialize($result);
+            return $result;
         } catch (ServiceConflictException $ex) {
             return $this->error($ex, Http::STATUS_CONFLICT);
         } catch (ServiceNotFoundException $ex) {
@@ -165,7 +168,7 @@ class FeedApiController extends ApiController
      */
     public function read(int $feedId, int $newestItemId): void
     {
-        $this->itemService->readFeed($feedId, $newestItemId, $this->getUserId());
+        $this->oldItemService->readFeed($feedId, $newestItemId, $this->getUserId());
     }
 
 
@@ -186,7 +189,7 @@ class FeedApiController extends ApiController
         }
 
         try {
-            $this->feedService->patch(
+            $this->oldFeedService->patch(
                 $feedId,
                 $this->getUserId(),
                 ['folderId' => $folderId]
@@ -212,7 +215,7 @@ class FeedApiController extends ApiController
     public function rename(int $feedId, string $feedTitle)
     {
         try {
-            $this->feedService->patch(
+            $this->oldFeedService->patch(
                 $feedId,
                 $this->getUserId(),
                 ['title' => $feedTitle]
@@ -231,7 +234,7 @@ class FeedApiController extends ApiController
      */
     public function fromAllUsers(): array
     {
-        $feeds = $this->feedService->findAllFromAllUsers();
+        $feeds = $this->feedService->findAll();
         $result = ['feeds' => []];
 
         foreach ($feeds as $feed) {
@@ -254,9 +257,10 @@ class FeedApiController extends ApiController
     public function update(string $userId, int $feedId): void
     {
         try {
-            $this->feedService->update($userId, $feedId);
+            $feed = $this->feedService->find($userId, $feedId);
+            $this->feedService->fetch($feed);
             // ignore update failure
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             $this->logger->debug('Could not update feed ' . $ex->getMessage());
         }
     }

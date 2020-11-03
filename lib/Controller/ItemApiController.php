@@ -15,30 +15,33 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\ItemService;
+use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ItemService;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
 class ItemApiController extends ApiController
 {
-    use JSONHttpErrorTrait;
+    use JSONHttpErrorTrait, ApiPayloadTrait;
 
+    private $oldItemService;
     private $itemService;
-    private $serializer;
 
     public function __construct(
         string $appName,
         IRequest $request,
         IUserSession $userSession,
-        ItemService $itemService
+        ItemService $oldItemService,
+        ItemServiceV2 $itemService
     ) {
         parent::__construct($appName, $request, $userSession);
+
+        $this->oldItemService = $oldItemService;
         $this->itemService = $itemService;
-        $this->serializer = new EntityApiSerializer('items');
     }
 
 
@@ -63,17 +66,17 @@ class ItemApiController extends ApiController
         int $offset = 0,
         bool $oldestFirst = false
     ) {
-        return $this->serializer->serialize(
-            $this->itemService->findAllItems(
-                $id,
-                $type,
-                $batchSize,
-                $offset,
-                $getRead,
-                $oldestFirst,
-                $this->getUserId()
-            )
+        $items = $this->oldItemService->findAllItems(
+            $id,
+            $type,
+            $batchSize,
+            $offset,
+            $getRead,
+            $oldestFirst,
+            $this->getUserId()
         );
+
+        return ['items' => $this->serialize($items)];
     }
 
 
@@ -87,7 +90,7 @@ class ItemApiController extends ApiController
      * @param int $lastModified
      * @return array|mixed
      */
-    public function updated($type = 3, $id = 0, $lastModified = 0)
+    public function updated(int $type = 3, int $id = 0, int $lastModified = 0)
     {
         // needs to be turned into a millisecond timestamp to work properly
         if (strlen((string) $lastModified) <= 10) {
@@ -95,22 +98,22 @@ class ItemApiController extends ApiController
         } else {
             $paddedLastModified = $lastModified;
         }
-        return $this->serializer->serialize(
-            $this->itemService->findAllNew(
-                $id,
-                $type,
-                $paddedLastModified,
-                true,
-                $this->getUserId()
-            )
+        $items = $this->oldItemService->findAllNew(
+            $id,
+            $type,
+            $paddedLastModified,
+            true,
+            $this->getUserId()
         );
+
+        return ['items' => $this->serialize($items)];
     }
 
 
-    private function setRead($isRead, $itemId)
+    private function setRead(bool $isRead, int $itemId)
     {
         try {
-            $this->itemService->read($itemId, $isRead, $this->getUserId());
+            $this->oldItemService->read($itemId, $isRead, $this->getUserId());
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -149,10 +152,10 @@ class ItemApiController extends ApiController
     }
 
 
-    private function setStarred($isStarred, $feedId, $guidHash)
+    private function setStarred(bool $isStarred, int $feedId, string $guidHash)
     {
         try {
-            $this->itemService->star(
+            $this->oldItemService->star(
                 $feedId,
                 $guidHash,
                 $isStarred,
@@ -207,15 +210,15 @@ class ItemApiController extends ApiController
      */
     public function readAll(int $newestItemId)
     {
-        $this->itemService->readAll($newestItemId, $this->getUserId());
+        $this->oldItemService->readAll($newestItemId, $this->getUserId());
     }
 
 
-    private function setMultipleRead($isRead, $items)
+    private function setMultipleRead(bool $isRead, array $items)
     {
         foreach ($items as $id) {
             try {
-                $this->itemService->read($id, $isRead, $this->getUserId());
+                $this->oldItemService->read($id, $isRead, $this->getUserId());
             } catch (ServiceNotFoundException $ex) {
                 continue;
             }
@@ -249,11 +252,15 @@ class ItemApiController extends ApiController
     }
 
 
-    private function setMultipleStarred($isStarred, $items)
+    /**
+     * @param bool  $isStarred
+     * @param array $items
+     */
+    private function setMultipleStarred(bool $isStarred, array $items)
     {
         foreach ($items as $item) {
             try {
-                $this->itemService->star(
+                $this->oldItemService->star(
                     $item['feedId'],
                     $item['guidHash'],
                     $isStarred,
@@ -284,7 +291,7 @@ class ItemApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int[] $items item ids
+     * @param array $items item ids
      */
     public function unstarMultiple(array $items)
     {
