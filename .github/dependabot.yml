@@ -10,7 +10,7 @@ updates:
     directory: "/js"
     schedule:
       interval: "daily"
-    default_labels:
+    labels:
       - "Skip-Changelog"
       - "javascript"
 
@@ -19,6 +19,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    default_labels:
+    labels:
       - "Skip-Changelog"
       - "php"
