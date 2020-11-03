@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+
+## 15.1.0-rc1
+
+### Changed
 - Added changelog enforcer action
 - Stop overloading DB ids
 - Unittest commands and utilities
