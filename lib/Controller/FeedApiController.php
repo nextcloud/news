@@ -146,7 +146,7 @@ class FeedApiController extends ApiController
     public function delete(int $feedId)
     {
         try {
-            $this->feedService->delete($feedId, $this->getUserId());
+            $this->feedService->delete($this->getUserId(), $feedId);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
