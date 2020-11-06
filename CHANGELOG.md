@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+- Remove deprecated YouTube playlist API
 
 ## 15.1.0-rc1
 
