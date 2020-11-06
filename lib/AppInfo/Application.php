@@ -36,7 +36,6 @@ use OCA\News\Db\MapperFactory;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
-use OCA\News\Fetcher\YoutubeFetcher;
 use OCP\User\Events\BeforeUserDeletedEvent;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -81,7 +80,6 @@ class Application extends App implements IBootstrap
 
             // register fetchers in order, the most generic fetcher should be
             // the last one
-            $fetcher->registerFetcher($container->get(YoutubeFetcher::class));
             $fetcher->registerFetcher($container->get(FeedFetcher::class));
             return $fetcher;
         });
