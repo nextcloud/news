@@ -88,7 +88,7 @@ OC.L10N.register(
     "Unread updated" : "Markera som oläst",
     "Ignore updated" : "Ignorera uppdaterad",
     "Open feed URL" : "Öppna flödeswebbadress",
-    "Delete" : "Radera",
+    "Delete" : "Ta bort",
     "Dismiss" : "Avfärda",
     "Collapse" : "Dölj",
     "Deleted folder" : "Raderad mapp",

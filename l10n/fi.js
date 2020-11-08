@@ -1,7 +1,7 @@
 OC.L10N.register(
     "news",
     {
-    "Request failed, network connection unavailable!" : "Pyyntö epäonnistui, verkkoyhteys ei ole käytettävissä!",
+    "Request failed, network connection unavailable!" : "Pyyntö epäonnistui, yhteys ei ole käytettävissä!",
     "Request unauthorized. Are you logged in?" : "Pyyntö ei ole valtutettu. Oletko sisäänkirjautuneena?",
     "Request forbidden. Are you an admin?" : "Pyyntö evätty. Oletko ylläpitäjä?",
     "Token expired or app not enabled! Reload the page!" : "Valtuutus vanheni tai sovellus ei ole käytössä! Lataa sivu uudelleen!",
@@ -28,6 +28,7 @@ OC.L10N.register(
     "Saved" : "Tallennettu",
     "Download" : "Lataa",
     "Close" : "Sulje",
+    "Subscribe to" : "Tilaa",
     "No articles available" : "Artikkeleita ei ole saatavilla",
     "No unread articles available" : "Lukemattomia artikkeleita ei ole saatavilla",
     "Open website" : "Avaa verkkosivu",
