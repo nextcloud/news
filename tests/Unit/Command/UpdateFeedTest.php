@@ -67,6 +67,12 @@ class UpdateFeedTest extends TestCase
 
         $feed = $this->createMock(Feed::class);
 
+        $feed->expects($this->exactly(1))
+            ->method('getUpdateErrorCount')
+            ->willReturn(0);
+        $feed->expects($this->exactly(0))
+            ->method('getLastUpdateError');
+
         $this->service->expects($this->exactly(1))
                            ->method('findForUser')
                            ->with('admin', '1')
@@ -74,10 +80,49 @@ class UpdateFeedTest extends TestCase
 
         $this->service->expects($this->exactly(1))
                            ->method('fetch')
-                           ->with($feed);
+                           ->with($feed)
+                           ->willReturn($feed);
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(0, $result);
+    }
+
+    /**
+     * Test a valid call will work
+     */
+    public function testValidFeedError()
+    {
+        $this->consoleInput->expects($this->exactly(2))
+                           ->method('getArgument')
+                           ->will($this->returnValueMap([
+                               ['feed-id', '1'],
+                               ['user-id', 'admin'],
+                           ]));
+
+        $feed = $this->createMock(Feed::class);
+        $feed->expects($this->exactly(1))
+             ->method('getUpdateErrorCount')
+             ->willReturn(10);
+        $feed->expects($this->exactly(1))
+             ->method('getLastUpdateError')
+             ->willReturn('Problem');
+
+        $this->service->expects($this->exactly(1))
+                           ->method('findForUser')
+                           ->with('admin', '1')
+                           ->willReturn($feed);
+
+        $this->service->expects($this->exactly(1))
+                           ->method('fetch')
+                           ->with($feed)
+                           ->willReturn($feed);
+
+        $this->consoleOutput->expects($this->exactly(1))
+                           ->method('writeln')
+                           ->with('Problem');
+
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(255, $result);
     }
 
     /**

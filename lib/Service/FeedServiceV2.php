@@ -228,6 +228,7 @@ class FeedServiceV2 extends Service
 
         $feed->setFolderId($folderId)
             ->setUserId($userId)
+            ->setHttpLastModified(null)
             ->setArticlesPerUpdate(count($items));
 
         if (!is_null($title)) {
@@ -236,7 +237,7 @@ class FeedServiceV2 extends Service
 
         if (!is_null($user)) {
             $feed->setBasicAuthUser($user)
-                ->setBasicAuthUser($password);
+                 ->setBasicAuthPassword($password);
         }
 
         return $this->mapper->insert($feed);

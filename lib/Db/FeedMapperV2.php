@@ -16,6 +16,7 @@ namespace OCA\News\Db;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Entity;
 
@@ -50,10 +51,18 @@ class FeedMapperV2 extends NewsMapperV2
     public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
-                ->from($this->tableName)
-                ->where('user_id = :user_id')
-                ->andWhere('deleted_at = 0')
+        $builder->select('feeds.*', $builder->func()->count('items.id', 'unreadCount'))
+                ->from($this->tableName, 'feeds')
+                ->leftJoin(
+                    'feeds',
+                    ItemMapperV2::TABLE_NAME,
+                    'items',
+                    'items.feed_id = feeds.id AND items.unread = :unread'
+                )
+                ->where('feeds.user_id = :user_id')
+                ->andWhere('feeds.deleted_at = 0')
+                ->groupBy('feeds.id')
+                ->setParameter(':unread', true, IQueryBuilder::PARAM_BOOL)
                 ->setParameter(':user_id', $userId);
 
         return $this->findEntities($builder);

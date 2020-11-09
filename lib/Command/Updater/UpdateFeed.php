@@ -52,7 +52,7 @@ class UpdateFeed extends Command
         $userId = $input->getArgument('user-id');
         try {
             $feed = $this->feedService->findForUser($userId, $feedId);
-            $this->feedService->fetch($feed);
+            $updated_feed = $this->feedService->fetch($feed);
         } catch (\Exception $e) {
             $output->writeln(
                 '<error>Could not update feed with id ' . $feedId .
@@ -60,6 +60,11 @@ class UpdateFeed extends Command
                 '</error> '
             );
             return 1;
+        }
+
+        if ($updated_feed->getUpdateErrorCount() !== 0) {
+            $output->writeln($updated_feed->getLastUpdateError());
+            return 255;
         }
 
         return 0;
