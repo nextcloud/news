@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 - Remove deprecated YouTube playlist API
+- Locale-aware sorting for folders and feeds
 
 ## 15.1.0-rc1
 

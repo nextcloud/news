@@ -406,4 +406,11 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
         setSelectedFolderForRoute();
     });
 
+    $rootScope.localeComparator = function(v1, v2) {
+        if (v1.type === 'string' && v2.type === 'string') {
+            return v1.value.localeCompare(v2.value);
+        }
+
+        return (v1.value === v2.value) ? 0 : ((v1.value < v2.value) ? -1 : 1);
+    };
 });

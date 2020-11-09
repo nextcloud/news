@@ -7,7 +7,7 @@
         'icon-loading-small': !(feed.id || feed.error)
     }"
     ng-repeat="feed in Navigation.getFeedsOfFolder(<?php p($_['folderId']); ?>)
-        | orderBy:['-pinned', 'title.toLowerCase()'] track by feed.url"
+        | orderBy:['-pinned', 'title.toLowerCase()']:false:localeComparator track by feed.url"
     ng-show="Navigation.isFeedUnread(feed.id)
             || Navigation.isShowAll()
             || Navigation.isFeedActive(feed.id)
