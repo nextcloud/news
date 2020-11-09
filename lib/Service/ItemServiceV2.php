@@ -72,6 +72,11 @@ class ItemServiceV2 extends Service
         return $this->mapper->findAll();
     }
 
+    /**
+     * Insert an item or update.
+     *
+     * @param Item $item
+     */
     public function insertOrUpdate(Item $item)
     {
         try {

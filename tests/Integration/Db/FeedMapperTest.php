@@ -119,9 +119,6 @@ class FeedMapperTest extends IntegrationTest
         $this->assertEquals($feed->getTitle(), $fetched->getTitle());
     }
 
-    /**
-     * @expectedException OCP\AppFramework\Db\MultipleObjectsReturnedException
-     */
     public function testFindByUrlHashMoreThanOneResult()
     {
         $this->expectException('OCP\AppFramework\Db\MultipleObjectsReturnedException');
@@ -143,10 +140,6 @@ class FeedMapperTest extends IntegrationTest
         $this->feedMapper->findByUrlHash($feed1->getUrlHash(), $this->user);
     }
 
-
-    /**
-     * @expectedException OCP\AppFramework\Db\DoesNotExistException
-     */
     public function testFindByUrlHashNotExisting()
     {
         $this->expectException('OCP\AppFramework\Db\DoesNotExistException');

@@ -134,6 +134,8 @@ class ItemMapperV2 extends NewsMapperV2
     /**
      * Delete items from feed that are over the max item threshold
      *
+     * TODO: Implement
+     *
      * @param int $threshold Deletion threshold
      */
     public function deleteOverThreshold(int $threshold)
