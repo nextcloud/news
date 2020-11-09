@@ -5,7 +5,7 @@
         deleted: folder.deleted,
         editing: folder.editing
     }"
-    ng-repeat="folder in Navigation.getFolders() | orderBy:'name.toLowerCase()'"
+    ng-repeat="folder in Navigation.getFolders() | orderBy:'name.toLowerCase()':false:localeComparator"
     ng-show="Navigation.isFolderUnread(folder.id)
             || Navigation.isShowAll()
             || Navigation.isFolderActive(folder.id)
