@@ -2,7 +2,7 @@
 
 **We need help with the frontend, check the issue tracker if you are interessted!**
 
-![Release status](https://github.com/nextcloud/news/workflows/Build%20and%20publish%20app%20release/badge.svg)![Integration Tests](https://github.com/nextcloud/news/workflows/Integration%20Tests/badge.svg)[![Frontend status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud/news.svg?style=flat-square)](https://codecov.io/gh/nextcloud/news/) [![irc](https://img.shields.io/badge/irc%20channel-%23nextcloud--news%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-news)
+![Release status](https://github.com/nextcloud/news/workflows/Build%20and%20publish%20app%20release/badge.svg)![Integration Tests](https://github.com/nextcloud/news/workflows/Integration%20Tests/badge.svg)[![Frontend status](https://travis-ci.org/nextcloud/news.svg?branch=master)](https://travis-ci.org/nextcloud/news) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud/news.svg?style=flat-square)](https://codecov.io/gh/nextcloud/news/)
 
 The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/tree/master/docs/externalapi/Legacy.md) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
