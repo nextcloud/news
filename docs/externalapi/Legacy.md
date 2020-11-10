@@ -759,6 +759,8 @@ If **incorrectDbCharset** is true you should display a warning that database cha
 This API can be used to retrieve metadata about the current user.
 
 DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.
+- https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata for user data
+- `https://nc.url/avatar/{userid}/{size}?v={1|2}` for the avatar
 
 ## Get the status
 

@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 - Remove deprecated YouTube playlist API
 - Locale-aware sorting for folders and feeds
 - Fix empty unread item count
+- Deprecate User API: https://github.com/nextcloud/news/blob/master/docs/externalapi/Legacy.md#user
 
 ## 15.1.0-rc1
 
