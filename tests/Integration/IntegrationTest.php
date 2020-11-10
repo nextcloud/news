@@ -12,15 +12,11 @@
 
 namespace OCA\News\Tests\Integration;
 
-use PHPUnit\Framework\TestCase;
-
-use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\IAppContainer;
 
 use OCP\IDBConnection;
-use OCP\IUserSession;
 use OCP\IUserManager;
 
 use OCA\News\AppInfo\Application;
@@ -30,8 +26,6 @@ use OCA\News\Tests\Integration\Fixtures\FolderFixture;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
 use OCA\News\Db\FolderMapper;
-use Psr\Container\ContainerInterface;
-
 
 abstract class IntegrationTest extends \Test\TestCase
 {
