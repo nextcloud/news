@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Fix API allows access to folders of other users
+
 ## 15.1.0-rc2
 
 ### Changed

@@ -85,7 +85,7 @@ class FeedMapperV2 extends NewsMapperV2
         $builder->addSelect('*')
                 ->from($this->tableName)
                 ->where('user_id = :user_id')
-                ->where('id = :id')
+                ->andWhere('id = :id')
                 ->setParameter(':user_id', $userId)
                 ->setParameter(':id', $id);
 
