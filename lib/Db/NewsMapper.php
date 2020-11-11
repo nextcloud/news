@@ -73,7 +73,6 @@ abstract class NewsMapper extends Mapper
         $builder = $this->db->getQueryBuilder();
         $builder->delete($this->tableName)
             ->where('deleted_at != 0')
-            ->execute()
             ->execute();
     }
 
