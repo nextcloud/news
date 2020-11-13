@@ -18,7 +18,7 @@ class UpdaterService
 {
 
     /**
-     * @var FolderService
+     * @var FolderServiceV2
      */
     private $folderService;
 
@@ -28,7 +28,7 @@ class UpdaterService
     private $feedService;
 
     /**
-     * @var ItemService
+     * @var ItemServiceV2
      */
     private $itemService;
 

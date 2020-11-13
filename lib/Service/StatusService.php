@@ -36,9 +36,16 @@ class StatusService
         $this->connection = $connection;
     }
 
-    public function isProperlyConfigured(): bool
+    /**
+     * Check if cron is properly configured
+     *
+     * @return bool
+     */
+    public function isCronProperlyConfigured(): bool
     {
+        //Is NC cron enabled?
         $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
+        //Expect nextcloud cron
         $cronOff = !$this->settings->getAppValue(
             Application::NAME,
             'useCronUpdates',
@@ -50,6 +57,11 @@ class StatusService
     }
 
 
+    /**
+     * Get the app status
+     *
+     * @return array
+     */
     public function getStatus(): array
     {
         $version = $this->settings->getAppValue(
@@ -60,7 +72,7 @@ class StatusService
         return [
             'version' => $version,
             'warnings' => [
-                'improperlyConfiguredCron' => !$this->isProperlyConfigured(),
+                'improperlyConfiguredCron' => !$this->isCronProperlyConfigured(),
                 'incorrectDbCharset' => !$this->connection->supports4ByteText()
             ]
         ];

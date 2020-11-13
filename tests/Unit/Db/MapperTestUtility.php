@@ -24,6 +24,9 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use Doctrine\DBAL\Driver\PDOStatement;
+use Doctrine\DBAL\Driver\Statement;
+use OCA\News\Tests\Unit\Service\ServiceTest;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -45,6 +48,16 @@ abstract class MapperTestUtility extends TestCase
      */
     protected $query;
 
+    /**
+     * @var MockObject|IQueryBuilder
+     */
+    protected $builder;
+
+    /**
+     * @var MockObject|Statement
+     */
+    protected $cursor;
+
 
     /**
      * Run this function before the actual test to either set or initialize the
@@ -60,5 +73,11 @@ abstract class MapperTestUtility extends TestCase
 
         $this->query = $this->getMockBuilder(\PDOStatement::class)
                             ->getMock();
+
+        $this->builder = $this->getMockBuilder(IQueryBuilder::class)
+                              ->getMock();
+
+        $this->cursor = $this->getMockBuilder(Statement::class)
+                              ->getMock();
     }
 }

@@ -12,24 +12,26 @@
 
 namespace OCA\News\Tests\Integration\Fixtures;
 
-
 use OCA\News\Db\Folder;
 
 class FolderFixture extends Folder
 {
     use Fixture;
 
-    public function __construct(array $defaults=[])
+    public function __construct(array $defaults = [])
     {
+        parent::__construct();
+
         $defaults = array_merge(
             [
-            'parentId' => null,
-            'name' => 'folder',
-            'userId' => 'test',
-            'opened' => true,
-            'deletedAt' => 0,
-            'lastModified' => 9
-            ], $defaults
+                'parentId' => null,
+                'name' => 'folder',
+                'userId' => 'test',
+                'opened' => true,
+                'deletedAt' => 0,
+                'lastModified' => 9
+            ],
+            $defaults
         );
         unset($defaults['feeds']);
         $this->fillDefaults($defaults);

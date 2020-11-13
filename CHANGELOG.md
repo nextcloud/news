@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## Changed
+- Remove outdated folder DB code
+
 ## 15.1.0
 
 ### Changed

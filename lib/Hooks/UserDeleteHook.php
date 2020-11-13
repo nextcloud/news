@@ -16,7 +16,7 @@ namespace OCA\News\Hooks;
 use OCA\News\AppInfo\Application;
 use OCA\News\Service\ItemService;
 use OCA\News\Service\FeedService;
-use OCA\News\Service\FolderService;
+use OCA\News\Service\FolderServiceV2;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\User\Events\BeforeUserDeletedEvent;
@@ -39,6 +39,6 @@ class UserDeleteHook implements IEventListener
         // order is important!
         $container->get(ItemService::class)->deleteUser($userId);
         $container->get(FeedService::class)->deleteUser($userId);
-        $container->get(FolderService::class)->deleteUser($userId);
+        $container->get(FolderServiceV2::class)->deleteUser($userId);
     }
 }

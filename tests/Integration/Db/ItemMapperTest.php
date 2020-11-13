@@ -150,38 +150,6 @@ class ItemMapperTest extends IntegrationTest
     }
 
 
-    public function testReadFolder()
-    {
-        $this->loadFixtures('default');
-
-        $folderId = $this->findFolderByName('first folder')->getId();
-        $this->itemMapper->readFolder(
-            $folderId, PHP_INT_MAX, 10, $this->user
-        );
-
-        $items = $this->itemMapper->findAllItems(
-            30, 0, 0, false, false, $this->user
-        );
-
-        $this->assertEquals(1, count($items));
-
-        $item = $this->findItemByTitle('a title1');
-        $item = $this->itemMapper->find($this->user, $item->getId());
-
-        $this->assertEquals(10, $item->getLastModified());
-
-        $item = $this->findItemByTitle('a title3');
-        $item = $this->itemMapper->find($this->user, $item->getId());
-
-        $this->assertEquals(10, $item->getLastModified());
-
-        $item = $this->findItemByTitle('a title9');
-        $item = $this->itemMapper->find($this->user, $item->getId());
-
-        $this->assertTrue($item->isUnread());
-    }
-
-
     public function testReadFeed()
     {
         $this->loadFixtures('default');
