@@ -60,7 +60,7 @@ class UpdaterJob extends TimedJob
             Application::DEFAULT_SETTINGS['useCronUpdates']
         );
 
-        if (!$uses_cron || !$this->statusService->isProperlyConfigured()) {
+        if (!$uses_cron || !$this->statusService->isCronProperlyConfigured()) {
             return;
         }
 

@@ -16,7 +16,6 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FolderApiController;
-use OCA\News\Service\FolderService;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;

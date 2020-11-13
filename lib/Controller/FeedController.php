@@ -15,6 +15,7 @@ namespace OCA\News\Controller;
 
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\FolderServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\IConfig;
@@ -23,8 +24,9 @@ use OCP\AppFramework\Http;
 
 use OCA\News\Service\ItemService;
 use OCA\News\Service\FeedService;
-use OCA\News\Service\FolderService;
 use OCA\News\Db\FeedType;
+use OCP\IUser;
+use OCP\IUserSession;
 
 class FeedController extends Controller
 {
@@ -33,27 +35,29 @@ class FeedController extends Controller
     //TODO: Remove
     private $feedService;
     //TODO: Remove
-    private $folderService;
-    //TODO: Remove
     private $itemService;
+    /**
+     * @var FolderServiceV2
+     */
+    private $folderService;
     private $userId;
     private $settings;
 
     public function __construct(
         string $appName,
         IRequest $request,
-        FolderService $folderService,
+        FolderServiceV2 $folderService,
         FeedService $feedService,
         ItemService $itemService,
         IConfig $settings,
-        string $UserId
+        IUser $user
     ) {
         parent::__construct($appName, $request);
-        $this->feedService = $feedService;
         $this->folderService = $folderService;
-        $this->itemService = $itemService;
-        $this->userId = $UserId;
-        $this->settings = $settings;
+        $this->feedService   = $feedService;
+        $this->itemService   = $itemService;
+        $this->settings      = $settings;
+        $this->userId        = $user->getUID();
     }
 
 

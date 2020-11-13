@@ -13,11 +13,14 @@
 
 namespace OCA\News\Service;
 
-use OCA\News\Db\Feed;
-use OCA\News\Db\FeedMapperV2;
+use OC\AppFramework\Utility\TimeFactory;
 use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -31,14 +34,20 @@ class FolderServiceV2 extends Service
      * @var FeedServiceV2
      */
     private $feedService;
+    /**
+     * @var FeedServiceV2
+     */
+    private $timeFactory;
 
     public function __construct(
         FolderMapperV2 $mapper,
         FeedServiceV2 $feedService,
+        TimeFactory $timeFactory,
         LoggerInterface $logger
     ) {
         parent::__construct($mapper, $logger);
         $this->feedService = $feedService;
+        $this->timeFactory = $timeFactory;
     }
 
     /**
@@ -55,7 +64,31 @@ class FolderServiceV2 extends Service
     }
 
     /**
-     * @param string $userId
+     * Finds a folder of a user
+     *
+     * @param string   $userId   The name/ID of the user
+     * @param int|null $folderId ID of the folder
+     *
+     * @return Folder
+     *
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function findForUser(string $userId, ?int $folderId): Entity
+    {
+        try {
+            return $this->mapper->findFromUser($userId, $folderId);
+        } catch (DoesNotExistException $e) {
+            throw new ServiceNotFoundException('Folder not found');
+        } catch (MultipleObjectsReturnedException $e) {
+            throw new ServiceConflictException('Multiple folders found');
+        }
+    }
+
+    /**
+     * Find all folders and it's feeds.
+     *
+     * @param string $userId The name/ID of the owner
      *
      * @return Folder[]
      */
@@ -80,33 +113,117 @@ class FolderServiceV2 extends Service
         return $this->mapper->findAll();
     }
 
+    /**
+     * Create a folder
+     *
+     * @param string   $userId
+     * @param string   $name
+     * @param int|null $parent
+     *
+     * @return Folder
+     */
     public function create(string $userId, string $name, ?int $parent = null): Entity
     {
         $folder = new Folder();
         $folder->setUserId($userId)
                ->setName($name)
-               ->setParentId($parent);
+               ->setParentId($parent)
+               ->setOpened(true);
 
         return $this->mapper->insert($folder);
     }
 
-    public function delete(string $user, int $id)
+    /**
+     * Delete a feed.
+     *
+     * @param string $userId   Folder owner
+     * @param int    $folderId Folder ID
+     *
+     * @return Folder
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function delete(string $userId, int $folderId): Entity
     {
-        $entity = $this->mapper->findFromUser($user, $id);
+        $folder = $this->findForUser($userId, $folderId);
 
-        $this->mapper->delete($entity);
+        return $this->mapper->delete($folder);
     }
 
+    /**
+     * Purge all deleted folders.
+     */
     public function purgeDeleted()
     {
         $this->mapper->purgeDeleted();
     }
 
-    public function rename(string $userId, int $folderId, string $newName)
+    /**
+     * Rename a folder
+     *
+     * @param string $userId   Folder owner
+     * @param int    $folderId Folder ID
+     * @param string $newName  New name
+     *
+     * @return Folder
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function rename(string $userId, int $folderId, string $newName): Entity
     {
-        /** @var Folder $folder */
-        $folder = $this->mapper->find($userId, $folderId);
+        $folder = $this->findForUser($userId, $folderId);
         $folder->setName($newName);
-        $this->mapper->update($folder);
+        return $this->mapper->update($folder);
+    }
+
+    /**
+     * Mark a folder as deleted
+     *
+     * @param string $userId   Folder owner
+     * @param int    $folderId Folder ID
+     * @param bool   $mark     If the mark should be added or removed
+     *
+     * @return Folder
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function markDelete(string $userId, int $folderId, bool $mark): Entity
+    {
+        $folder = $this->findForUser($userId, $folderId);
+        $time = $mark ? $this->timeFactory->getTime() : 0;
+        $folder->setDeletedAt($time);
+
+        return $this->mapper->update($folder);
+    }
+
+    /**
+     * Mark a folder as opened
+     *
+     * @param string   $userId   Folder owner
+     * @param int|null $folderId Folder ID
+     * @param bool     $open     If the mark should be added or removed
+     *
+     * @return Folder
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function open(string $userId, ?int $folderId, bool $open): Entity
+    {
+        $folder = $this->findForUser($userId, $folderId);
+        $folder->setOpened($open);
+        return $this->mapper->update($folder);
+    }
+
+    /**
+     * Delete all folders of a user
+     *
+     * @param string $userId User ID/name
+     */
+    public function deleteUser(string $userId): void
+    {
+        $folders = $this->findAllForUser($userId);
+        foreach ($folders as $folder) {
+            $this->mapper->delete($folder);
+        }
     }
 }

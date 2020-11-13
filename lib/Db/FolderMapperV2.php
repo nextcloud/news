@@ -43,7 +43,7 @@ class FolderMapperV2 extends NewsMapperV2
      * @param string $userId The user identifier
      * @param array  $params Filter parameters
      *
-     * @return Entity[]
+     * @return Folder[]
      */
     public function findAllFromUser(string $userId, array $params = []): array
     {
@@ -60,7 +60,7 @@ class FolderMapperV2 extends NewsMapperV2
     /**
      * Find all items
      *
-     * @return Entity[]
+     * @return Folder[]
      */
     public function findAll(): array
     {
@@ -72,6 +72,16 @@ class FolderMapperV2 extends NewsMapperV2
         return $this->findEntities($builder);
     }
 
+    /**
+     * Find a single feed for a user
+     *
+     * @param string $userId The user identifier
+     * @param int    $id     The feed ID
+     *
+     * @return Folder
+     * @throws \OCP\AppFramework\Db\DoesNotExistException
+     * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
+     */
     public function findFromUser(string $userId, int $id): Entity
     {
         $builder = $this->db->getQueryBuilder();

@@ -29,7 +29,7 @@ use Psr\Log\LoggerInterface;
 abstract class Service
 {
     /**
-     * @var NewsMapper|NewsMapperV2
+     * @var NewsMapperV2
      */
     protected $mapper;
     /**
@@ -40,7 +40,7 @@ abstract class Service
     /**
      * Service constructor.
      *
-     * @param NewsMapper|NewsMapperV2 $mapper
+     * @param NewsMapperV2 $mapper
      * @param LoggerInterface         $logger
      */
     public function __construct($mapper, LoggerInterface $logger)

@@ -15,8 +15,7 @@ namespace OCA\News\Tests\Integration\Fixtures;
 
 trait Fixture
 {
-
-    protected function fillDefaults(array $defaults=[]) 
+    protected function fillDefaults(array $defaults = [])
     {
         foreach ($defaults as $key => $value) {
             $method = 'set' . ucfirst($key);

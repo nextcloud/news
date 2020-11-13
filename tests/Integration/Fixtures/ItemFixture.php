@@ -12,32 +12,33 @@
 
 namespace OCA\News\Tests\Integration\Fixtures;
 
-
 use OCA\News\Db\Item;
 
 class ItemFixture extends Item
 {
     use Fixture;
 
-    public function __construct(array $defaults=[])  
+    public function __construct(array $defaults = [])
     {
+        parent::__construct();
         $defaults = array_merge(
             [
-            'url' => 'http://google.de',
-            'title' => 'title',
-            'author' => 'my author',
-            'pubDate' => 2323,
-            'body' => 'this is a body',
-            'enclosureMime' => 'video/mpeg',
-            'enclosureLink' => 'http://google.de/web.webm',
-            'mediaThumbnail' => 'https://i3.ytimg.com/vi/Zgge1O9wdPY/hqdefault.jpg',
-            'mediaDescription' => 'The best video ever',
-            'feedId' => 0,
-            'unread' => true,
-            'starred' => false,
-            'lastModified' => 113,
-            'rtl' => false,
-            ], $defaults
+                'url' => 'http://google.de',
+                'title' => 'title',
+                'author' => 'my author',
+                'pubDate' => 2323,
+                'body' => 'this is a body',
+                'enclosureMime' => 'video/mpeg',
+                'enclosureLink' => 'http://google.de/web.webm',
+                'mediaThumbnail' => 'https://i3.ytimg.com/vi/Zgge1O9wdPY/hqdefault.jpg',
+                'mediaDescription' => 'The best video ever',
+                'feedId' => 0,
+                'unread' => true,
+                'starred' => false,
+                'lastModified' => 113,
+                'rtl' => false,
+            ],
+            $defaults
         );
 
         if (!array_key_exists('guid', $defaults)) {

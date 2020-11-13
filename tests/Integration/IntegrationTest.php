@@ -12,6 +12,7 @@
 
 namespace OCA\News\Tests\Integration;
 
+use OCA\News\Db\FolderMapperV2;
 use OCA\News\Db\Item;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\IAppContainer;
@@ -44,7 +45,7 @@ abstract class IntegrationTest extends \Test\TestCase
     protected $feedMapper;
 
     /**
-     * @var FolderMapper
+     * @var FolderMapperV2
      */
     protected $folderMapper;
 
@@ -64,7 +65,7 @@ abstract class IntegrationTest extends \Test\TestCase
         // set up database layers
         $this->itemMapper = $this->container->get(ItemMapper::class);
         $this->feedMapper = $this->container->get(FeedMapper::class);
-        $this->folderMapper = $this->container->get(FolderMapper::class);
+        $this->folderMapper = $this->container->get(FolderMapperV2::class);
     }
 
     protected function findItemByTitle($title)
@@ -92,16 +93,6 @@ abstract class IntegrationTest extends \Test\TestCase
         return $result;
     }
 
-    protected function findFolderByName($name)
-    {
-        return $this->folderMapper->where(
-            [
-            'userId' => $this->user,
-            'name' => $name
-            ]
-        )[0];
-    }
-
     protected function findFeedByTitle($title)
     {
         return $this->feedMapper->where(
@@ -115,7 +106,7 @@ abstract class IntegrationTest extends \Test\TestCase
     /**
      * @param string $name loads fixtures from a given file
      */
-    protected function loadFixtures($name)
+    protected function loadFixtures(string $name)
     {
         $fixtures = include __DIR__ . '/Fixtures/data/' . $name . '.php';
         if (array_key_exists('folders', $fixtures)) {
@@ -184,7 +175,7 @@ abstract class IntegrationTest extends \Test\TestCase
      */
     protected function setupUser($user, $password)
     {
-        $userManager = $this->container->query(IUserManager::class);
+        $userManager = $this->container->get(IUserManager::class);
         $userManager->createUser($user, $password);
 
         $this->loginAsUser($user);
@@ -197,7 +188,7 @@ abstract class IntegrationTest extends \Test\TestCase
      */
     protected function tearDownUser($user)
     {
-        $userManager = $this->container->query(IUserManager::class);
+        $userManager = $this->container->get(IUserManager::class);
 
         if ($userManager->userExists($user)) {
             $userManager->get($user)->delete();
@@ -211,7 +202,7 @@ abstract class IntegrationTest extends \Test\TestCase
      *
      * @param string $user
      */
-    protected function clearUserNewsDatabase($user)
+    protected function clearUserNewsDatabase(string $user)
     {
         $sql = [
             'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` IN
@@ -220,7 +211,7 @@ abstract class IntegrationTest extends \Test\TestCase
             'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?'
         ];
 
-        $db = $this->container->query(IDBConnection::class);
+        $db = $this->container->get(IDBConnection::class);
         foreach ($sql as $query) {
             $db->prepare($query)->execute([$user]);
         }
