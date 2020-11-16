@@ -27,6 +27,7 @@ use \OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\IRequest;
 
 use OCP\IUser;
+use OCP\IUserSession;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +44,7 @@ class FolderControllerTest extends TestCase
      * @var MockObject|IUser
      */
     private $user;
+    private $userSession;
     private $class;
     private $msg;
 
@@ -55,9 +57,6 @@ class FolderControllerTest extends TestCase
         $appName = 'news';
         $this->user = $this->getMockBuilder(IUser::class)
                            ->getMock();
-        $this->user->expects($this->once())
-                   ->method('getUID')
-                   ->willReturn('jack');
         $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -70,13 +69,22 @@ class FolderControllerTest extends TestCase
         $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->user = $this->getMockBuilder(IUser::class)->getMock();
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('jack'));
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
         $this->class = new FolderController(
             $appName,
             $request,
             $this->folderService,
             $this->feedService,
             $this->itemService,
-            $this->user
+            $this->userSession
         );
         $this->msg = 'ron';
     }

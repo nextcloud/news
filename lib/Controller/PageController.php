@@ -18,9 +18,7 @@ use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
-use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
@@ -28,6 +26,7 @@ use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Explore\RecommendedSiteNotFoundException;
 use OCA\News\Db\FeedType;
+use OCP\IUserSession;
 
 class PageController extends Controller
 {
@@ -42,11 +41,6 @@ class PageController extends Controller
      * @var IL10N
      */
     private $l10n;
-
-    /**
-     * @var string
-     */
-    private $userId;
 
     /**
      * @var IURLGenerator
@@ -71,13 +65,12 @@ class PageController extends Controller
         IL10N $l10n,
         RecommendedSites $recommendedSites,
         StatusService $statusService,
-        ?string $UserId
+        IUserSession $userSession
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($appName, $request, $userSession);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
         $this->l10n = $l10n;
-        $this->userId = $UserId;
         $this->recommendedSites = $recommendedSites;
         $this->statusService = $statusService;
     }
@@ -149,7 +142,7 @@ class PageController extends Controller
 
         foreach ($settings as $setting) {
             $result[$setting] = $this->settings->getUserValue(
-                $this->userId,
+                $this->getUserId(),
                 $this->appName,
                 $setting
             ) === '1';
@@ -185,7 +178,7 @@ class PageController extends Controller
         foreach ($settings as $setting => $value) {
             $value = $value ? '1' : '0';
             $this->settings->setUserValue(
-                $this->userId,
+                $this->getUserId(),
                 $this->appName,
                 $setting,
                 $value
@@ -201,13 +194,13 @@ class PageController extends Controller
     public function explore(string $lang)
     {
         $this->settings->setUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             0
         );
         $this->settings->setUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',
             FeedType::EXPLORE

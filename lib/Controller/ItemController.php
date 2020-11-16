@@ -15,13 +15,13 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\IConfig;
-use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\Exceptions\ServiceException;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\ItemService;
 use \OCA\News\Service\FeedService;
+use OCP\IUserSession;
 
 class ItemController extends Controller
 {
@@ -29,7 +29,6 @@ class ItemController extends Controller
 
     private $itemService;
     private $feedService;
-    private $userId;
     private $settings;
 
     public function __construct(
@@ -38,12 +37,11 @@ class ItemController extends Controller
         FeedService $feedService,
         ItemService $itemService,
         IConfig $settings,
-        $UserId
+        IUserSession $userSession
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($appName, $request, $userSession);
         $this->itemService = $itemService;
         $this->feedService = $feedService;
-        $this->userId = $UserId;
         $this->settings = $settings;
     }
 
@@ -74,7 +72,7 @@ class ItemController extends Controller
         // internal state
         if ($showAll === null) {
             $showAll = $this->settings->getUserValue(
-                $this->userId,
+                $this->getUserId(),
                 $this->appName,
                 'showAll'
             ) === '1';
@@ -82,20 +80,20 @@ class ItemController extends Controller
 
         if ($oldestFirst === null) {
             $oldestFirst = $this->settings->getUserValue(
-                $this->userId,
+                $this->getUserId(),
                 $this->appName,
                 'oldestFirst'
             ) === '1';
         }
 
         $this->settings->setUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             $id
         );
         $this->settings->setUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',
             $type
@@ -118,10 +116,10 @@ class ItemController extends Controller
             // out of sync
             if ($offset === 0) {
                 $params['newestItemId'] =
-                    $this->itemService->getNewestItemId($this->userId);
-                $params['feeds'] = $this->feedService->findAllForUser($this->userId);
+                    $this->itemService->getNewestItemId($this->getUserId());
+                $params['feeds'] = $this->feedService->findAllForUser($this->getUserId());
                 $params['starred'] =
-                    $this->itemService->starredCount($this->userId);
+                    $this->itemService->starredCount($this->getUserId());
             }
 
             $params['items'] = $this->itemService->findAllItems(
@@ -131,7 +129,7 @@ class ItemController extends Controller
                 $offset,
                 $showAll,
                 $oldestFirst,
-                $this->userId,
+                $this->getUserId(),
                 $search
             );
 
@@ -155,7 +153,7 @@ class ItemController extends Controller
     public function newItems($type, $id, $lastModified = 0)
     {
         $showAll = $this->settings->getUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'showAll'
         ) === '1';
@@ -164,16 +162,16 @@ class ItemController extends Controller
 
         try {
             $params['newestItemId'] =
-                $this->itemService->getNewestItemId($this->userId);
-            $params['feeds'] = $this->feedService->findAllForUser($this->userId);
+                $this->itemService->getNewestItemId($this->getUserId());
+            $params['feeds'] = $this->feedService->findAllForUser($this->getUserId());
             $params['starred'] =
-                $this->itemService->starredCount($this->userId);
+                $this->itemService->starredCount($this->getUserId());
             $params['items'] = $this->itemService->findAllNew(
                 $id,
                 $type,
                 $lastModified,
                 $showAll,
-                $this->userId
+                $this->getUserId()
             );
 
             // this gets thrown if there are no items
@@ -200,7 +198,7 @@ class ItemController extends Controller
                 $feedId,
                 $guidHash,
                 $isStarred,
-                $this->userId
+                $this->getUserId()
             );
         } catch (ServiceException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
@@ -220,7 +218,7 @@ class ItemController extends Controller
     public function read($itemId, $isRead = true)
     {
         try {
-            $this->itemService->read($itemId, $isRead, $this->userId);
+            $this->itemService->read($itemId, $isRead, $this->getUserId());
         } catch (ServiceException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -237,8 +235,8 @@ class ItemController extends Controller
      */
     public function readAll($highestItemId)
     {
-        $this->itemService->readAll($highestItemId, $this->userId);
-        return ['feeds' => $this->feedService->findAllForUser($this->userId)];
+        $this->itemService->readAll($highestItemId, $this->getUserId());
+        return ['feeds' => $this->feedService->findAllForUser($this->getUserId())];
     }
 
 
@@ -251,7 +249,7 @@ class ItemController extends Controller
     {
         foreach ($itemIds as $id) {
             try {
-                $this->itemService->read($id, true, $this->userId);
+                $this->itemService->read($id, true, $this->getUserId());
             } catch (ServiceNotFoundException $ex) {
                 continue;
             }

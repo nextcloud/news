@@ -328,9 +328,17 @@ class FeedServiceV2 extends Service
         $this->mapper->delete($feed);
     }
 
-    public function purgeDeleted(): void
+    /**
+     * Remove deleted entities.
+     *
+     * @param string|null $userID       The user to purge
+     * @param int|null    $minTimestamp The timestamp to purge from
+     *
+     * @return void
+     */
+    public function purgeDeleted(?string $userID, ?int $minTimestamp): void
     {
-        $this->mapper->purgeDeleted();
+        $this->mapper->purgeDeleted($userID, $minTimestamp);
     }
 
     public function fetchAll(): void

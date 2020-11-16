@@ -26,7 +26,6 @@ use OCA\News\Tests\Integration\Fixtures\FeedFixture;
 use OCA\News\Tests\Integration\Fixtures\FolderFixture;
 use OCA\News\Db\FeedMapper;
 use OCA\News\Db\ItemMapper;
-use OCA\News\Db\FolderMapper;
 
 abstract class IntegrationTest extends \Test\TestCase
 {

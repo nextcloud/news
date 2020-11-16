@@ -149,4 +149,15 @@ class ItemMapperV2 extends NewsMapperV2
 
         return $this->db->executeQuery($query)->fetch(FetchMode::ASSOCIATIVE);
     }
+
+    /**
+     * No-op clear deleted items.
+     *
+     * @param string|null $userID
+     * @param int|null    $oldestDelete
+     */
+    public function purgeDeleted(?string $userID, ?int $oldestDelete): void
+    {
+        //NO-OP
+    }
 }

@@ -19,8 +19,8 @@ use OCA\News\Service\ItemServiceV2;
 use OCA\News\Service\OpmlService;
 use OCP\AppFramework\Http\DataDownloadResponse;
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http\JSONResponse;
+use OCP\IUserSession;
 
 class ExportController extends Controller
 {
@@ -29,7 +29,6 @@ class ExportController extends Controller
     private $folderService;
     private $feedService;
     private $itemService;
-    private $userId;
 
     public function __construct(
         string $appName,
@@ -38,14 +37,13 @@ class ExportController extends Controller
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
         OpmlService $opmlService,
-        string $UserId
+        IUserSession $userSession
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($appName, $request, $userSession);
         $this->feedService = $feedService;
         $this->folderService = $folderService;
         $this->opmlService = $opmlService;
         $this->itemService = $itemService;
-        $this->userId = $UserId;
     }
 
 
@@ -58,7 +56,7 @@ class ExportController extends Controller
         $date = date('Y-m-d');
 
         return new DataDownloadResponse(
-            $this->opmlService->export($this->userId),
+            $this->opmlService->export($this->getUserId()),
             "subscriptions-${date}.opml",
             'text/xml'
         );
@@ -71,8 +69,8 @@ class ExportController extends Controller
      */
     public function articles(): JSONResponse
     {
-        $feeds = $this->feedService->findAllForUser($this->userId);
-        $items = $this->itemService->findAllForUser($this->userId, ['unread' => true, 'starred' => true]);
+        $feeds = $this->feedService->findAllForUser($this->getUserId());
+        $items = $this->itemService->findAllForUser($this->getUserId(), ['unread' => true, 'starred' => true]);
 
         // build assoc array for fast access
         $feedsDict = [];

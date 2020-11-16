@@ -117,7 +117,7 @@ class FeedApiController extends ApiController
         }
 
         try {
-            $this->feedService->purgeDeleted();
+            $this->feedService->purgeDeleted($this->getUserId(), time() - 600);
 
             $feed = $this->feedService->create($this->getUserId(), $url, $folderId);
             $result = ['feeds' => $this->serialize($feed)];
