@@ -27,6 +27,7 @@ use OCP\IConfig;
 use OCP\IRequest;
 
 use OCP\IUser;
+use OCP\IUserSession;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -77,12 +78,6 @@ class FeedControllerTest extends TestCase
     {
         $this->appName = 'news';
         $this->uid = 'jack';
-        $this->user = $this->getMockBuilder(IUser::class)
-                           ->getMock();
-
-        $this->user->expects($this->once())
-                   ->method('getUID')
-                   ->willReturn($this->uid);
         $this->settings = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -98,6 +93,15 @@ class FeedControllerTest extends TestCase
             ->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->user = $this->getMockBuilder(IUser::class)->getMock();
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue($this->uid));
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
         $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -108,7 +112,7 @@ class FeedControllerTest extends TestCase
             $this->feedService,
             $this->itemService,
             $this->settings,
-            $this->user
+            $this->userSession
         );
         $this->exampleResult = [
             'activeFeed' => [

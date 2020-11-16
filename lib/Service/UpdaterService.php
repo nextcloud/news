@@ -45,8 +45,8 @@ class UpdaterService
 
     public function beforeUpdate()
     {
-        $this->folderService->purgeDeleted();
-        $this->feedService->purgeDeleted();
+        $this->folderService->purgeDeleted(null, null);
+        $this->feedService->purgeDeleted(null, null);
     }
 
 

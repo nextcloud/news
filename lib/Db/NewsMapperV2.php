@@ -64,16 +64,30 @@ abstract class NewsMapperV2 extends QBMapper
     }
 
     /**
-     * Remove deleted items.
+     * Remove deleted entities.
+     *
+     * @param string|null $userID       The user to purge
+     * @param int|null    $oldestDelete The timestamp to purge from
      *
      * @return void
      */
-    public function purgeDeleted(): void
+    public function purgeDeleted(?string $userID, ?int $oldestDelete): void
     {
         $builder = $this->db->getQueryBuilder();
         $builder->delete($this->tableName)
-            ->where('deleted_at != 0')
-            ->execute();
+                ->andWhere('deleted_at != 0');
+
+        if ($userID !== null) {
+            $builder->andWhere('user_id = :user_id')
+                ->setParameter(':user_id', $userID);
+        }
+
+        if ($oldestDelete !== null) {
+            $builder->andWhere('deleted_at < :deleted_at')
+                    ->setParameter(':deleted_at', $oldestDelete);
+        }
+
+        $builder->execute();
     }
 
     /**

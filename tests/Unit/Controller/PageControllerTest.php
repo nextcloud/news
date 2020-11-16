@@ -22,6 +22,8 @@ use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
+use OCP\IUser;
+use OCP\IUserSession;
 use PHPUnit\Framework\TestCase;
 
 
@@ -101,6 +103,15 @@ class PageControllerTest extends TestCase
         $this->status = $this->getMockBuilder(StatusService::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->user = $this->getMockBuilder(IUser::class)->getMock();
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('becka'));
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
         $this->controller = new PageController(
             'news',
             $this->request,
@@ -109,7 +120,7 @@ class PageControllerTest extends TestCase
             $this->l10n,
             $this->recommended,
             $this->status,
-            'becka'
+            $this->userSession
         );
     }
 

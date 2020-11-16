@@ -14,22 +14,15 @@
 namespace OCA\News\Tests\Unit\Service;
 
 use OC\AppFramework\Utility\TimeFactory;
-use OC\L10N\L10N;
 use OCA\News\Db\Feed;
 use \OCA\News\Db\Folder;
-use OCA\News\Db\FolderMapper;
 use OCA\News\Db\FolderMapperV2;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
-use OCA\News\Service\FolderService;
 use OCA\News\Service\Exceptions\ServiceConflictException;
-use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\FolderServiceV2;
-use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\IConfig;
-use OCP\IL10N;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -271,9 +264,10 @@ class FolderServiceTest extends TestCase
     public function testPurgeDeleted()
     {
         $this->mapper->expects($this->exactly(1))
-            ->method('purgeDeleted');
+            ->method('purgeDeleted')
+            ->with('jack', null);
 
-        $this->class->purgeDeleted();
+        $this->class->purgeDeleted('jack', null);
     }
 
     public function testDelete()

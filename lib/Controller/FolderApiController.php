@@ -72,7 +72,7 @@ class FolderApiController extends ApiController
     public function create(string $name)
     {
         try {
-            $this->folderService->purgeDeleted();
+            $this->folderService->purgeDeleted($this->getUserId(), time() - 600);
             $folder = $this->folderService->create($this->getUserId(), $name);
             return ['folders' => $this->serialize($folder)];
         } catch (ServiceValidationException $ex) {

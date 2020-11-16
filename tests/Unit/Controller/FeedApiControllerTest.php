@@ -213,9 +213,10 @@ class FeedApiControllerTest extends TestCase
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()],
-            'newestItemId' => 3
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()],
+                'newestItemId' => 3
+            ],
+            $response
         );
     }
 
