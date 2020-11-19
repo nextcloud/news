@@ -66,5 +66,6 @@ class AllFeeds extends Command
         }
 
         $output->write(json_encode($result));
+        return 0;
     }
 }
