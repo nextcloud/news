@@ -58,6 +58,7 @@
     "squizlabs/php_codesniffer": "^3.5.6",
     "phpstan/phpstan": "^0.12.43",
     "phpstan/phpstan-doctrine": "^0.12.22",
+    "phpstan/phpstan-strict-rules": "^0.12.5",
     "phpstan/phpstan-phpunit": "^0.12.16",
     "phpstan/extension-installer": "^1.0",
     "guzzlehttp/guzzle": "^7.2",

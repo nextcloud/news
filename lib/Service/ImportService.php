@@ -106,6 +106,7 @@ class ImportService
                      ->setFolderId(null)
                      ->setPreventUpdate(true);
 
+                /** @var Feed $feed */
                 $feed = $this->feedService->insert($feed);
                 $feedsDict[$feed->getLink()] = $feed;
             }

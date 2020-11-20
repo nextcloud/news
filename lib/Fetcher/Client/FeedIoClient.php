@@ -61,7 +61,7 @@ class FeedIoClient implements ClientInterface
 
             return new Response($psrResponse, $duration);
         } catch (BadResponseException $e) {
-            switch ((int) $e->getResponse()->getStatusCode()) {
+            switch ($e->getResponse()->getStatusCode()) {
                 case 404:
                     throw new NotFoundException($e->getMessage());
                 default:

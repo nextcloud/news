@@ -266,7 +266,7 @@ class FeedController extends Controller
             'starred' => count($this->itemService->starred($this->getUserId()))
         ];
 
-        if ($feed) {
+        if (!is_null($feed)) {
             $params['feeds'] = [$feed];
         }
 
