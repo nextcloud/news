@@ -27,7 +27,7 @@ trait EntityJSONSerializer
     {
         $result = [];
         foreach ($properties as $property) {
-            $result[$property] = $this->$property;
+            $result[$property] = $this->$property; //@phpstan-ignore-line
         }
         return $result;
     }

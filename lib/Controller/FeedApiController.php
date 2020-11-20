@@ -16,6 +16,7 @@
 namespace OCA\News\Controller;
 
 use Exception;
+use OCA\News\Db\Feed;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
@@ -170,6 +171,7 @@ class FeedApiController extends ApiController
         $folderId = $folderId === 0 ? null : $folderId;
 
         try {
+            /** @var Feed $feed */
             $feed = $this->feedService->find($this->getUserId(), $feedId);
             $feed->setFolderId($folderId);
             $this->feedService->update($this->getUserId(), $feed);
@@ -194,6 +196,7 @@ class FeedApiController extends ApiController
     public function rename(int $feedId, string $feedTitle)
     {
         try {
+            /** @var Feed $feed */
             $feed = $this->feedService->find($this->getUserId(), $feedId);
             $feed->setTitle($feedTitle);
             $this->feedService->update($this->getUserId(), $feed);

@@ -126,7 +126,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function generateSearchIndex(): void
     {
-        $categoriesString = !empty($this->getCategories())
+        $categoriesString = !is_null($this->getCategories())
             ? implode('', $this->getCategories())
             : '';
 
@@ -542,7 +542,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function setCategories(array $categories = null): self
     {
-        $categoriesJson = !empty($categories) ? json_encode($categories) : null;
+        $categoriesJson = !is_null($categories) ? json_encode($categories) : null;
         $this->setCategoriesJson($categoriesJson);
 
         return $this;
@@ -577,11 +577,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * Format for exporting.
      *
-     * @param $feeds
+     * @param array $feeds List of feeds
      *
      * @return array
      */
-    public function toExport($feeds): array
+    public function toExport(array $feeds): array
     {
         return [
             'guid' => $this->getGuid(),
@@ -622,7 +622,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * Check if a given mimetype is supported
      *
-     * @param string $mime mimetype to check
+     * @param string|null $mime mimetype to check
      *
      * @return boolean
      */

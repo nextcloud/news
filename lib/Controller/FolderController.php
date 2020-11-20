@@ -104,7 +104,7 @@ class FolderController extends Controller
      */
     public function delete(?int $folderId)
     {
-        if (empty($folderId)) {
+        if (is_null($folderId)) {
             return new JSONResponse([], Http::STATUS_BAD_REQUEST);
         }
         try {
@@ -129,7 +129,7 @@ class FolderController extends Controller
      */
     public function rename(?int $folderId, string $folderName)
     {
-        if (empty($folderId)) {
+        if (is_null($folderId)) {
             return new JSONResponse([], Http::STATUS_BAD_REQUEST);
         }
         try {

@@ -57,7 +57,7 @@ class UpdaterJob extends TimedJob
      */
     protected function run($argument)
     {
-        $uses_cron = $this->config->getAppValue(
+        $uses_cron = (bool) $this->config->getAppValue(
             Application::NAME,
             'useCronUpdates',
             Application::DEFAULT_SETTINGS['useCronUpdates']

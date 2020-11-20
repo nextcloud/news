@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace OCA\News\Command\Config;
 
+use OCA\News\Db\Feed;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
@@ -71,6 +72,7 @@ class FeedAdd extends Command
         }
 
         try {
+            /** @var Feed $feed */
             $feed = $this->feedService->create(
                 $user,
                 $url,

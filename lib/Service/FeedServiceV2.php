@@ -18,7 +18,6 @@ use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
 
 use OCA\News\Db\FeedMapperV2;
-use OCA\News\Db\Folder;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -206,7 +205,7 @@ class FeedServiceV2 extends Service
              * @var Feed   $feed
              * @var Item[] $items
              */
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, true, '0', $full_text, $user, $password);
+            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
             throw new ServiceNotFoundException($ex->getMessage());
@@ -307,7 +306,7 @@ class FeedServiceV2 extends Service
         $feed->setLastUpdateError(null);
 
         $unreadCount = 0;
-        array_map(function (Item $item) use (&$unreadCount) {
+        array_map(function (Item $item) use (&$unreadCount): void {
             if ($item->isUnread()) {
                 $unreadCount++;
             }

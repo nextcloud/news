@@ -45,11 +45,11 @@ class StatusService
         //Is NC cron enabled?
         $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
         //Expect nextcloud cron
-        $cronOff = !$this->settings->getAppValue(
+        $cronOff = !boolval($this->settings->getAppValue(
             Application::NAME,
             'useCronUpdates',
             Application::DEFAULT_SETTINGS['useCronUpdates']
-        );
+        ));
 
         // check for cron modes which may lead to problems
         return $cronMode === 'cron' || $cronOff;

@@ -27,9 +27,9 @@ abstract class ServiceException extends Exception
     /**
      * Constructor
      *
-     * @param string $msg the error message
-     * @param int    $code
-     * @param Exception|null   $previous
+     * @param string         $msg the error message
+     * @param int            $code
+     * @param Exception|null $previous
      */
     final public function __construct(string $msg, int $code = 0, ?Exception $previous = null)
     {
@@ -39,7 +39,7 @@ abstract class ServiceException extends Exception
     /**
      * Create exception from Mapper exception.
      *
-     * @param IMapperException|Exception $exception Existing exception
+     * @param IMapperException $exception Existing exception
      *
      * @return static
      */

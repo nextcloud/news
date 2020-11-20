@@ -84,7 +84,7 @@ class FetcherConfig
         $url = new \Net_URL2($proxy);
 
         $creds = $config->getSystemValue('proxyuserpwd', null);
-        if ($creds) {
+        if ($creds !== null) {
             $auth = explode(':', $creds, 2);
             $url->setUserinfo($auth[0], $auth[1]);
         }
@@ -106,10 +106,10 @@ class FetcherConfig
             'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT, 'Accept' => static::DEFAULT_ACCEPT],
         ];
 
-        if (!empty($this->proxy)) {
+        if (!is_null($this->proxy)) {
             $config['proxy'] = $this->proxy;
         }
-        if (!empty($this->redirects)) {
+        if (!is_null($this->redirects)) {
             $config['redirect.max'] = $this->redirects;
         }
 

@@ -91,7 +91,7 @@ class FolderApiController extends ApiController
      */
     public function delete(?int $folderId)
     {
-        if (empty($folderId)) {
+        if (is_null($folderId)) {
             return new JSONResponse([], Http::STATUS_BAD_REQUEST);
         }
 
@@ -117,7 +117,7 @@ class FolderApiController extends ApiController
      */
     public function update(?int $folderId, string $name)
     {
-        if (empty($folderId)) {
+        if (is_null($folderId)) {
             return new JSONResponse([], Http::STATUS_BAD_REQUEST);
         }
 

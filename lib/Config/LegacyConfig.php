@@ -69,9 +69,8 @@ class LegacyConfig
         } else {
             foreach ($configValues as $key => $value) {
                 if (property_exists($this, $key)) {
-                    $type = gettype($this->$key);
-                    settype($value, $type);
-                    $this->$key = $value;
+                    settype($value, gettype($this->$key)); //@phpstan-ignore-line
+                    $this->$key = $value; //@phpstan-ignore-line
                 } else {
                     $this->logger->warning(
                         'Configuration value "' . $key .

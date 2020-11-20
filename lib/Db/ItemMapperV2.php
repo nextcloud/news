@@ -132,12 +132,12 @@ class ItemMapperV2 extends NewsMapperV2
      * @param int    $feedId   ID of the feed
      * @param string $guidHash hash to find with
      *
-     * @return Item|Entity
+     * @return Item
      *
      * @throws DoesNotExistException
      * @throws MultipleObjectsReturnedException
      */
-    public function findForUserByGuidHash(string $userId, int $feedId, string $guidHash): Item
+    public function findForUserByGuidHash(string $userId, int $feedId, string $guidHash): Entity
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('items.*')
