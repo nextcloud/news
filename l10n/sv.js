@@ -110,7 +110,7 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Olästa/Stjärnmärkta artiklar",
     "Error when importing: file does not contain valid JSON" : "Fel vid import: filen innehåller inte giltig JSON",
     "Help" : "Hjälp",
-    "Keyboard shortcuts" : "Kortkommandon",
+    "Keyboard shortcuts" : "Tangentbordsgenvägar",
     "Documentation" : "Dokumentation",
     "Report a bug" : "Rapportera ett problem"
 },
