@@ -100,7 +100,7 @@ OC.L10N.register(
     "Ignore updated" : "Zignoruj zaktualizowane",
     "Open feed URL" : "Otwórz URL kanału",
     "Delete" : "Usuń",
-    "Dismiss" : "Anuluj",
+    "Dismiss" : "Odrzuć",
     "Collapse" : "Zwiń",
     "Deleted folder" : "Usuń folder",
     "Undo delete folder" : "Cofnij usunięcie katalogu",
