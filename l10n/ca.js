@@ -32,6 +32,7 @@ OC.L10N.register(
     "Saved" : "S'ha desat",
     "Download" : "Baixa",
     "Close" : "Tanca",
+    "Subscribe to" : "Subscriu a",
     "No articles available" : "No hi ha articles disponibles",
     "No unread articles available" : "No hi ha articles disponibles sense llegir",
     "Open website" : "Obre el lloc web",
