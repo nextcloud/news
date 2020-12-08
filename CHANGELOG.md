@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.1.0
+
+### Changed
+- This version brings some major changes, be aware that some clients may not support this news version.
+
 ## 15.1.0-rc3
 
 ### Fixed
