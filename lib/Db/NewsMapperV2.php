@@ -28,7 +28,12 @@ use OCP\AppFramework\Db\Entity;
  */
 abstract class NewsMapperV2 extends QBMapper
 {
-    const TABLE_NAME = '';
+    /**
+     * Name of the table
+     *
+     * @var ?string
+     */
+    const TABLE_NAME = null;
 
     /**
      * @var Time
