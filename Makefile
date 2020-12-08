@@ -55,6 +55,8 @@ ifeq (,$(composer))
 	composer:=php $(build_tools_directory)/composer.phar
 endif
 
+#Support xDebug 3.0+
+export XDEBUG_MODE=coverage
 
 all: build
 
