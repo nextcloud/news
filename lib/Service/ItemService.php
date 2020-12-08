@@ -274,8 +274,10 @@ class ItemService extends Service
             'autoPurgeCount',
             Application::DEFAULT_SETTINGS['autoPurgeCount']
         );
+        $purgeUnread = $this->readConfigParam('purgeUnread');
+
         if ($count >= 0) {
-            $this->itemMapper->deleteReadOlderThanThreshold($count);
+            $this->itemMapper->deleteReadOlderThanThreshold($count, $purgeUnread);
         }
     }
 
@@ -341,5 +343,20 @@ class ItemService extends Service
     public function findAll(): array
     {
         return $this->mapper->findAll();
+    }
+
+
+    /**
+     * Read configuration parameter from DB or take its default value from
+     * application.
+     *
+     * @param string $name  Name of the configuration parameter.
+     */
+    private function readConfigParam($name) {
+        return $this->config->getAppValue(
+            Application::NAME,
+            $name,
+            Application::DEFAULT_SETTINGS[$name]
+        );
     }
 }

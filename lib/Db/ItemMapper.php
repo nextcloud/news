@@ -346,11 +346,74 @@ class ItemMapper extends NewsMapper
 
     /**
      * Delete all items for feeds that have over $threshold unread and not
-     * starred items
+     * starred items.
+     *
+     * This method uses 'purgeUnread' configuration parameter to decide
+     * whether unread items should be purged as well.
      *
      * @param int $threshold the number of items that should be deleted
      */
-    public function deleteReadOlderThanThreshold($threshold)
+    public function deleteReadOlderThanThreshold($threshold, $purgeUnread = false)
+    {
+        // Count excessive items, i.e. those above the threshold, taking
+        // purging strategy into account.
+        $result = $purgeUnread
+                ? $this->countAllItemsToPurge($threshold)
+                : $this->countUnreadItemsToPurge($threshold);
+
+        while ($row = $result->fetch()) {
+            $size = (int)$row['size'];
+            $limit = $size - $threshold;
+            $feed_id = $row['feed_id'];
+
+            if ($limit > 0) {
+                $params = $purgeUnread
+                        ? [false, false, $feed_id, $limit]
+                        : [false, $feed_id, $limit];
+                $sql = 'SELECT `id` FROM `*PREFIX*news_items` ' .
+                    'WHERE `starred` = ? ' .
+                     ($purgeUnread ? '' : 'AND `unread` = ? ') .
+                    'AND `feed_id` = ? ' .
+                    'ORDER BY `id` ASC ' .
+                    'LIMIT 1 ' .
+                    'OFFSET ? ';
+            }
+            $limit_result = $this->execute($sql, $params);
+
+            if ($limit_row = $limit_result->fetch()) {
+                $limit_id = (int)$limit_row['id'];
+                $params = $purgeUnread
+                        ? [false, false, $feed_id, $limit_id]
+                        : [false, $feed_id, $limit_id];
+                $sql = 'DELETE FROM `*PREFIX*news_items` ' .
+                    'WHERE `starred` = ? ' .
+                     ($purgeUnread ? '' : 'AND `unread` = ? ') .
+                    'AND `feed_id` = ? ' .
+                    'AND `id` < ? ';
+                $this->execute($sql, $params);
+            }
+        }
+    }
+
+
+    private function countAllItemsToPurge($threshold)
+    {
+        $params = [false, $threshold];
+
+        $sql = 'SELECT (COUNT(*) - `feeds`.`articles_per_update`) AS `size`, ' .
+            '`feeds`.`id` AS `feed_id`, `feeds`.`articles_per_update` ' .
+            'FROM `*PREFIX*news_items` `items` ' .
+            'JOIN `*PREFIX*news_feeds` `feeds` ' .
+            'ON `feeds`.`id` = `items`.`feed_id` ' .
+            'AND `items`.`starred` = ? ' .
+            'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
+            'HAVING COUNT(*) > ?';
+
+        return $this->execute($sql, $params);
+    }
+
+
+    private function countUnreadItemsToPurge($threshold)
     {
         $params = [false, false, $threshold];
 
@@ -364,35 +427,7 @@ class ItemMapper extends NewsMapper
             'GROUP BY `feeds`.`id`, `feeds`.`articles_per_update` ' .
             'HAVING COUNT(*) > ?';
 
-        $result = $this->execute($sql, $params);
-
-        while ($row = $result->fetch()) {
-            $size = (int)$row['size'];
-            $limit = $size - $threshold;
-            $feed_id = $row['feed_id'];
-
-            if ($limit > 0) {
-                $params = [false, false, $feed_id, $limit];
-                $sql = 'SELECT `id` FROM `*PREFIX*news_items` ' .
-                    'WHERE `unread` = ? ' .
-                    'AND `starred` = ? ' .
-                    'AND `feed_id` = ? ' .
-                    'ORDER BY `id` ASC ' .
-                    'LIMIT 1 ' .
-                    'OFFSET ? ';
-            }
-            $limit_result = $this->execute($sql, $params);
-            if ($limit_row = $limit_result->fetch()) {
-                $limit_id = (int)$limit_row['id'];
-                $params = [false, false, $feed_id, $limit_id];
-                $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-                    'WHERE `unread` = ? ' .
-                    'AND `starred` = ? ' .
-                    'AND `feed_id` = ? ' .
-                    'AND `id` < ? ';
-                $this->execute($sql, $params);
-            }
-        }
+        return $this->execute($sql, $params);
     }
 
 
