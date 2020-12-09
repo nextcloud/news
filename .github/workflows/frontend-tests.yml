@@ -6,7 +6,7 @@ jobs:
   php:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
-    name: "PHP: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
+    name: "Frontend: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
     strategy:
       matrix:
         php-versions: ['7.4']
