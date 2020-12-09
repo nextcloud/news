@@ -24,7 +24,6 @@ jobs:
 
       ### Back to normal setup
       - name: Set up server non MySQL
-        if: matrix.database != 'mysql'
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
         with:
           cron: true
