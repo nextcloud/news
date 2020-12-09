@@ -225,25 +225,9 @@ class FeedFetcherTest extends TestCase
     /**
      * Test if empty is logged when the feed remain the same.
      */
-    public function testNoFetchIfNotModified()
-    {
-        $this->setUpReader($this->url, '@0', false);
-        $this->logger->expects($this->once())
-            ->method('debug')
-            ->with(
-                'Feed {url} was not modified since last fetch. old: {old}, new: {new}'
-            );
-        $result = $this->fetcher->fetch($this->url, false, '@0', false, null, null);
-
-        $this->assertSame([null, []], $result);
-    }
-
-    /**
-     * Test if empty is logged when the feed remain the same.
-     */
     public function testFetchIfNoModifiedExists()
     {
-        $this->setUpReader($this->url, null, true);
+        $this->setUpReader($this->url, true);
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
@@ -294,7 +278,7 @@ class FeedFetcherTest extends TestCase
         $this->body = $body;
         $this->parsed_body = $parsed_body;
 
-        $this->setUpReader($this->url, null, true);
+        $this->setUpReader($this->url, true);
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
@@ -552,26 +536,13 @@ class FeedFetcherTest extends TestCase
      * @param string|null $modifiedDate Date of last fetch
      * @param bool        $modified     If the feed will be modified
      */
-    private function setUpReader(string $url = '', ?string $modifiedDate = '@1553118393', bool $modified = true)
+    private function setUpReader(string $url = '', bool $modified = true)
     {
-        if (is_null($modifiedDate)) {
-            $this->reader->expects($this->once())
-                ->method('read')
-                ->with($url)
-                ->will($this->returnValue($this->result));
-        } else {
-            $this->reader->expects($this->once())
-                ->method('readSince')
-                ->with($url, new DateTime($modifiedDate))
-                ->will($this->returnValue($this->result));
-        }
+        $this->reader->expects($this->once())
+            ->method('read')
+            ->with($url)
+            ->will($this->returnValue($this->result));
 
-        $this->result->expects($this->once())
-            ->method('getResponse')
-            ->will($this->returnValue($this->response));
-        $this->response->expects($this->once())
-            ->method('isModified')
-            ->will($this->returnValue($modified !== false));
         $this->location = $url;
 
         if (!$modified) {

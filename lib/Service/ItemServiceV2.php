@@ -87,6 +87,13 @@ class ItemServiceV2 extends Service
                  ->setStarred($db_item->isStarred())
                  ->setId($db_item->getId());
 
+            $item->generateSearchIndex();
+            // We don't want to update the database record if there is no
+            // change in the fetched item
+            if ($db_item->getFingerprint() === $item->getFingerprint()) {
+                $item->resetUpdatedFields();
+            }
+
             $this->mapper->update($item);
         } catch (DoesNotExistException $exception) {
             $this->mapper->insert($item);

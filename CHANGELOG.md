@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ## Changed
 - Remove outdated folder DB code
 - Fix #963
+- Fix #921
 
 ## 15.1.0
 

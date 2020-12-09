@@ -58,7 +58,9 @@ abstract class NewsMapperV2 extends QBMapper
 
     public function update(Entity $entity): Entity
     {
-        $entity->setLastModified($this->time->getMicroTime());
+        if ([] !== $entity->getUpdatedFields()) {
+            $entity->setLastModified($this->time->getMicroTime());
+        }
         return parent::update($entity);
     }
 
