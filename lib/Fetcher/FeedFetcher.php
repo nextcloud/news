@@ -111,21 +111,7 @@ class FeedFetcher implements IFeedFetcher
         }
         $url = $url2->getNormalizedURL();
         $this->reader->resetFilters();
-        if (empty($lastModified) || !is_string($lastModified)) {
-            $resource = $this->reader->read($url);
-        } else {
-            $resource = $this->reader->readSince($url, new DateTime($lastModified));
-        }
-
-        $response = $resource->getResponse();
-        if (!$response->isModified()) {
-            $this->logger->debug('Feed {url} was not modified since last fetch. old: {old}, new: {new}', [
-                 'url' => $url,
-                 'old' => print_r($lastModified, true),
-                 'new' => print_r($response->getLastModified(), true),
-            ]);
-            return [null, []];
-        }
+        $resource = $this->reader->read($url);
 
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();
