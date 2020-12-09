@@ -88,6 +88,24 @@
                             ?>">
                         </button>
                     </li>
+                    <!-- DROPDOWN SHARE -->
+                    <div class="dropdown">
+                        <li ng-click=""
+                            class="util"
+                            dropdownToggle
+                            news-stop-propagation>
+                            <button class="arrow svg dropbtn"
+                                title="<?php p($l->t('test')); ?>">
+                            </button>
+                        </li>
+                        <div class="dropdown-content">
+                                <!-- Contact -->
+                                <a>Liste contact</a>
+                                <a>Partage réseaux sociaux </a>
+                      </div>
+                    </div>
+                    <!-- END DROPDOWN -->
+
                     <li class="util more" news-stop-propagation ng-hide="noPlugins">
                         <button class="icon-more" news-toggle-show="#actions-{{item.id}}"></button>
                         <div class="article-actions" id="actions-{{item.id}}">
