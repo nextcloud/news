@@ -10,7 +10,6 @@ OC.L10N.register(
     "Can not add feed: Unable to parse feed" : "לא ניתן להוסיף הזנה: אין אפשרות לפענח הזנה",
     "Can not add feed: Exists already" : "לא ניתן להוסיף הזנת ערוץ תוכן: כבר קיים",
     "Articles without feed" : "מאמרים ללא ערוץ הזנת תוכן",
-    "Can not add folder: Exists already" : "לא ניתן להוסיף תיקייה: כבר קיימת",
     "News" : "חדשות",
     "An RSS/Atom feed reader" : "קורא ערוצי תוכן מסוג RSS/Atom",
     "Use system cron for updates" : "שימוש ב־cron של המערכת לעדכונים",

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Can not add feed: Exists already" : "ফিড যুক্ত করা যাবেনা: এটি আপনার রয়েছে",
     "Articles without feed" : "ফিডবিহীন লেখা",
-    "Can not add folder: Exists already" : "ফোল্ডার যুক্ত করা যাবেনা: এটি আপনার রয়েছে",
     "Saved" : "সংরক্ষণ করা হলো",
     "Download" : "ডাউনলোড",
     "Close" : "বন্ধ",

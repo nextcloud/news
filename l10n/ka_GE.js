@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "მოთხოვნა არ შედგა, Nextcloud ახლა სარემონტო რეჟიმშია!",
     "Can not add feed: Exists already" : "ლენტის დამატება შეუძლებელია: უკვე არსებობს",
     "Articles without feed" : "არტიკლები ლენტის გარეშე",
-    "Can not add folder: Exists already" : "დირექტორიის დამატება შეუძლებელია: უკვე არსებობს",
     "News" : "სიახლეები",
     "Use system cron for updates" : "განახლებისთვის გამოიყენეთ სისტემური კრონი",
     "Purge interval" : "გაწმენდის ინტერვალი",

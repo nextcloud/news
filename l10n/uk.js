@@ -7,7 +7,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Термін дії токена закінчився або програма не задіяна! Перезагрузіть сторінку!",
     "Can not add feed: Exists already" : "Неможливо додати стрічку: вона вже існує",
     "Articles without feed" : "Статті без стрічки",
-    "Can not add folder: Exists already" : "Неможливо додати теку: вона вже існує",
     "Purge interval" : "Очистити оновлення",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
     "Maximum redirects" : "Максимум перенаправлень",

@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Forespørsel mislyktes, Nextcloud er i vedlikeholdsmodus!",
     "Can not add feed: Exists already" : "Kan ikke legge til strøm: Finnes allerede",
     "Articles without feed" : "Artikler uten strøm",
-    "Can not add folder: Exists already" : "Kan ikke legge til mappe: Finnes allerede",
     "News" : "Nyheter",
     "An RSS/Atom feed reader" : "En RSS/Atom-leser",
     "Use system cron for updates" : "Bruk system-cron for oppdateringer",

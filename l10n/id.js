@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Permintaan gagal, Nextcloud sedang dalam mode pemeliharaan!",
     "Can not add feed: Exists already" : "Tidak dapat menambah feed: Sudah ada",
     "Articles without feed" : "Artikel tanpa feed",
-    "Can not add folder: Exists already" : "Tidak dapat menambah folder: Sudah ada",
     "Use system cron for updates" : "Gunakan cron sistem untuk pembaruan",
     "Purge interval" : "Singkirkan interval",
     "Maximum read count per feed" : "Jumlah baca maksimum per feed",

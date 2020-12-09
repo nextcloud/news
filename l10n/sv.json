@@ -8,7 +8,6 @@
     "Can not add feed: Unable to parse feed" : "Kan inte lägga till flöde: Går inte att läsa flöde",
     "Can not add feed: Exists already" : "Kan inte lägga till: flödet existerar redan",
     "Articles without feed" : "Artiklar utan flöde",
-    "Can not add folder: Exists already" : "Kan inte lägga till: mappen existerar redan",
     "News" : "Nyheter",
     "An RSS/Atom feed reader" : "En RSS/Atom feed-läsare",
     "Use system cron for updates" : "Använda \"system cron\" för uppdateringar",

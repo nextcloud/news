@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Se presentó una falla en la solicitud, por el momento Nextcloud se encuentra en modo mantenimiento!",
     "Can not add feed: Exists already" : "No es posible agregar la fuente: ya existe",
     "Articles without feed" : "Artículos sin fuente",
-    "Can not add folder: Exists already" : "No se puede agregar la carpeta: ya existe",
     "News" : "Noticias",
     "An RSS/Atom feed reader" : "Un lector de fuentes RSS/Atom",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",

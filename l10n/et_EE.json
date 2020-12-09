@@ -5,7 +5,6 @@
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Päring ebaõnnestus, Nextcloud on hetkel hooldusrežiimis.",
     "Can not add feed: Exists already" : "Voogu ei saa lisada:  on juba olemas",
     "Articles without feed" : "Artiklid ilma voota",
-    "Can not add folder: Exists already" : "Kausta ei saa lisada: on juba olemas",
     "News" : "News",
     "Use system cron for updates" : "Kasuta süsteemi croni uuendusteks",
     "Purge interval" : "Puhastuse intervall",

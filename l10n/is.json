@@ -8,7 +8,6 @@
     "Can not add feed: Unable to parse feed" : "Gat ekki bætt við streymi: Það tókst ekki að þátta streymið",
     "Can not add feed: Exists already" : "Gat ekki bætt við streymi: streymið er þegar til",
     "Articles without feed" : "Greinar án fréttastreymis",
-    "Can not add folder: Exists already" : "Gat ekki bætt við möppu: mappan er þegar til",
     "News" : "Fréttir",
     "An RSS/Atom feed reader" : "RSS/Atom streymislesari",
     "Use system cron for updates" : "Nota kerfis-cron fyrir uppfærslur",

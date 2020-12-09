@@ -10,7 +10,6 @@ OC.L10N.register(
     "Can not add feed: Unable to parse feed" : "Syötettä ei voi lisätä: syötteen jäsentäminen epäonnistui",
     "Can not add feed: Exists already" : "Syötettä ei voi lisätä: se on jo olemassa",
     "Articles without feed" : "Vailla syötettä olevat artikkelit",
-    "Can not add folder: Exists already" : "Kansiota ei voi lisätä: se on jo olemassa",
     "News" : "Uutiset",
     "An RSS/Atom feed reader" : "RSS-/Atom-syötteiden lukija",
     "Use system cron for updates" : "Käytä järjestelmän cronia päivityksille",

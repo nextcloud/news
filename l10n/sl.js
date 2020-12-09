@@ -10,7 +10,6 @@ OC.L10N.register(
     "Can not add feed: Unable to parse feed" : "Vira ni mogoče dodati: podatkov ni mogoče razčleniti",
     "Can not add feed: Exists already" : "Vira ni mogoče dodati: vir že obstaja",
     "Articles without feed" : "Prispevki brez virov",
-    "Can not add folder: Exists already" : "Mape ni mogoče dodati: mapa že obstaja",
     "News" : "Novice",
     "An RSS/Atom feed reader" : "Bralnik virov RSS/Atom",
     "Use system cron for updates" : "Za posodobitve uporabi sistemski program »cron«",

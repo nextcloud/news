@@ -7,7 +7,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "โทเค็นหมดอายุหรือไม่เปิดใช้งานแอพพลิเคชัน! โหลดหน้าใหม่อีกครั้ง!",
     "Can not add feed: Exists already" : "ไม่สามารถเพิ่มฟีด: มันมีอยู่แล้ว",
     "Articles without feed" : "บทความไม่มีฟีด",
-    "Can not add folder: Exists already" : "ไม่สามารถเพิ่มโฟลเดอร์: มีอยู่แล้ว",
     "Purge interval" : "ช่วงเวลาที่ล้าง",
     "Maximum read count per feed" : "นับจำนวนอ่านสูงสุดต่อฟีด",
     "Maximum redirects" : "เปลี่ยนเส้นทางสูงสุด",

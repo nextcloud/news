@@ -7,7 +7,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Token expirou ou aplicação não ativa! Recarregue a página!",
     "Can not add feed: Exists already" : "Não é possível adicionar o feed: Já existe",
     "Articles without feed" : "Artigos sem feed",
-    "Can not add folder: Exists already" : "Não é possível adicionar a pasta: Já existe",
     "Purge interval" : "Intervalo de Purgar",
     "Maximum read count per feed" : "Número máximo de leituras por feed",
     "Maximum redirects" : "Máximo de redirecionamentos",

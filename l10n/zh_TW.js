@@ -5,7 +5,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "請求未授權，您已經登入了嗎？",
     "Request forbidden. Are you an admin?" : "請求被拒，您是管理員嗎？",
     "Can not add feed: Exists already" : "無法新增饋流：已經存在",
-    "Can not add folder: Exists already" : "無法新增資料夾：已經存在",
     "News" : "新聞",
     "Explore Service URL" : "探索服務網址",
     "Saved" : "已儲存",

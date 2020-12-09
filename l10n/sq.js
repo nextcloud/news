@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Kërkesa dështoi, Nextcloud është aktualisht më gjëndjen e mirëmbajtjes!",
     "Can not add feed: Exists already" : "Prurja s’shtohet dot: ekziston tashmë",
     "Articles without feed" : "Artikuj pa prurje",
-    "Can not add folder: Exists already" : "S’shtohet dot dosje: ekziston tashmë",
     "News" : "Lajme",
     "Use system cron for updates" : "Përdor sistemin cron për përditësime",
     "Purge interval" : "Interval pastrimi",

@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Falló la solicitú! Anguaño Nextcloud ta en mou de caltenimientu.",
     "Can not add feed: Exists already" : "Nun pue amestase'l feed: Yá esiste",
     "Articles without feed" : "Artículos ensin fonte",
-    "Can not add folder: Exists already" : "Nun pue amestase la carpeta: Yá esiste",
     "News" : "Anuncies",
     "Purge interval" : "Intervalu de purga",
     "Maximum read count per feed" : "Númberu máximu de llectura per feed",

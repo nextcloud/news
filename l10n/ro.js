@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Solecitare nereușită, Nexcloud este în întreţinere!",
     "Can not add feed: Exists already" : "Nu pot adăuga fluxul: Deja există!",
     "Articles without feed" : "Articole fără flux",
-    "Can not add folder: Exists already" : "Nu se poate adăuga directorul : Există deja",
     "News" : "Noutăți",
     "Saved" : "Salvat",
     "Download" : "Descarcă",
