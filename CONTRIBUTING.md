@@ -69,9 +69,7 @@ If approved, the translation will be automatically ported to the code within 24 
 You can help to improve our explore feeds section by [providing more feeds](https://github.com/nextcloud/news/tree/master/docs/explore)
 
 ## Development
-In general it's a good idea to **first create an issue where you explain why, what and how** you want to make a change **before writing any code**.
-
-That way we can talk about the problem first and discuss the implementation (and of course help you with your code)
+You can first create a discussion where you explain why, what and how you want to make a change before writing any code. If you want to agree on a solution first.
 
 ### How to set up a development environment
 To get started after [cloning the repository](https://github.com/nextcloud/news#installing-from-git-development-version), install the [build dependencies](https://github.com/nextcloud/news#development-dependencies) and run:
