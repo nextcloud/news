@@ -321,6 +321,10 @@
     background-image: url('../img/hover_star.svg');
 }
 
+#app-content .utils .share {
+    background-image: url('../img/share.svg');
+}
+
 #app-content .utils .more button {
     opacity: .3;
 }

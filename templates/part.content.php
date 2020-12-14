@@ -94,7 +94,7 @@
                             class="util"
                             dropdownToggle
                             news-stop-propagation>
-                            <button class="arrow svg dropbtn"
+                            <button class="share svg dropbtn"
                                 title="<?php p($l->t('test')); ?>">
                             </button>
                         </li>
