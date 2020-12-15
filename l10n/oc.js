@@ -44,7 +44,7 @@ OC.L10N.register(
     "Load next folder" : "Cargar lo dorsièr seguent",
     "Load previous folder" : "Cargar lo dorsièr precedent",
     "Scroll to active navigation entry" : "Anar vers lo camp de navigacion actif",
-    "Focus search field" : "Sélectionner lo camp de recherche",
+    "Focus search field" : "Centrar sul camp de recèrca",
     "Mark current article's feed/folder read" : "Marcar coma legit lo flux / lo repertòri de l'article en cours",
     "How to set up the operating system cron" : "Cossí configurar lo cron del sistèma operatiu",
     "Subscribe" : "S'abonar",
