@@ -52,16 +52,18 @@ System Cron:
 * Check if the **oc_jobs** table has a **reserved_at** entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:
 
   ```sql
-  SELECT reserved_at FROM oc_jobs WHERE (argument = '["OCA\\News\\Cron\\Updater","run"]' OR class = 'OCA\\News\\Cron\\Updater');
+  SELECT * from oc_jobs WHERE class LIKE '%News%' ORDER BY id;
   ```
 
- and reset it by executing
+You will get two rows where column `class`will be `OCA\News\Cron\Updater` and `OCA\News\Cron\UpdaterJob`.
+
+ Reset the `reserved_at` by executing
 
   ```sql
-  UPDATE oc_jobs SET reserved_at = 0 WHERE (argument = '["OCA\\News\\Cron\\Updater","run"]' OR class = 'OCA\\News\\Cron\\Updater');
+  UPDATE oc_jobs SET reserved_at = 0 WHERE id = <id from above SELECT statement>;
   ```
-
-* If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
+  
+ * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
 
 [Nextcloud News Updater](https://github.com/nextcloud/news-updater):
 * Check if your configuration is set to **not** use the system cron.
