@@ -30,14 +30,13 @@ class UtilityApiController extends ApiController
     private $statusService;
 
     public function __construct(
-        string $appName,
         IRequest $request,
-        IUserSession $userSession,
+        ?IUserSession $userSession,
         UpdaterService $updater,
         IConfig $settings,
         StatusService $statusService
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
         $this->updaterService = $updater;
         $this->settings = $settings;
         $this->statusService = $statusService;

@@ -349,7 +349,7 @@ class FeedServiceTest extends TestCase
         $fetchReturn = [$feed, $items];
 
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
@@ -408,7 +408,7 @@ class FeedServiceTest extends TestCase
         $fetchReturn = [$feed, $items];
 
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
@@ -498,7 +498,7 @@ class FeedServiceTest extends TestCase
         $fetchReturn = [$feed, $items];
 
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -536,7 +536,7 @@ class FeedServiceTest extends TestCase
         $fetchReturn = [$feed, $items];
 
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
             ->method('fetch')
@@ -577,7 +577,7 @@ class FeedServiceTest extends TestCase
         $items = [$item];
 
         $this->feedMapper->expects($this->any())
-            ->method('find')
+            ->method('findFromUser')
             ->will($this->returnValue($existingFeed));
 
         $this->fetcher->expects($this->once())
@@ -612,7 +612,7 @@ class FeedServiceTest extends TestCase
         $ex = new ReadErrorException('hi');
 
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->willReturnOnConsecutiveCalls($feed, $expectedFeed);
         $this->fetcher->expects($this->once())
@@ -640,7 +640,7 @@ class FeedServiceTest extends TestCase
         $ex = new DoesNotExistException('');
 
         $this->feedMapper->expects($this->exactly(1))
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->throwException($ex));
 
@@ -660,7 +660,7 @@ class FeedServiceTest extends TestCase
         $ex = new DoesNotExistException('');
 
         $this->feedMapper->expects($this->exactly(1))
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
 
@@ -699,7 +699,7 @@ class FeedServiceTest extends TestCase
         $ex = new DoesNotExistException('');
 
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->willReturnOnConsecutiveCalls($feed, $this->throwException($ex));
         $this->feedMapper->expects($this->exactly(1))
@@ -731,7 +731,7 @@ class FeedServiceTest extends TestCase
         $feed->setPreventUpdate(true);
 
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->never())
@@ -750,7 +750,7 @@ class FeedServiceTest extends TestCase
         $feed->setUrl('http://example.com');
 
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
@@ -771,7 +771,7 @@ class FeedServiceTest extends TestCase
         $feed->setId($feedId);
 
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feedId)
             ->will($this->returnValue($feed));
 
@@ -796,7 +796,7 @@ class FeedServiceTest extends TestCase
         $feed->setId($feedId);
 
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->equalTo($this->user), $this->equalTo($feedId))
             ->will($this->returnValue($feed));
 
@@ -968,7 +968,7 @@ class FeedServiceTest extends TestCase
         $feed2->setDeletedAt($this->time);
 
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->equalTo($this->user), $this->equalTo($id))
             ->will($this->returnValue($feed));
         $this->feedMapper->expects($this->once())
@@ -987,7 +987,7 @@ class FeedServiceTest extends TestCase
         $feed2->setDeletedAt(0);
 
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->equalTo($this->user), $this->equalTo($id))
             ->will($this->returnValue($feed));
         $this->feedMapper->expects($this->once())
@@ -1064,7 +1064,7 @@ class FeedServiceTest extends TestCase
     {
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with(
                 $this->equalTo($this->user),
                 $this->equalTo($feed->getId())
@@ -1092,7 +1092,7 @@ class FeedServiceTest extends TestCase
         );
         $feed2 = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->exactly(2))
-            ->method('find')
+            ->method('findFromUser')
             ->with(
                 $this->equalTo($this->user),
                 $this->equalTo($feed->getId())
@@ -1116,7 +1116,7 @@ class FeedServiceTest extends TestCase
         $this->expectException('OCA\News\Service\Exceptions\ServiceNotFoundException');
         $feed = Feed::fromRow(['id' => 3]);
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->will($this->throwException(new DoesNotExistException('')));
 
         $this->feedService->patch(3, $this->user);
@@ -1127,7 +1127,7 @@ class FeedServiceTest extends TestCase
     {
         $feed = Feed::fromRow(['id' => 3, 'pinned' => false]);
         $this->feedMapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->user, $feed->getId())
             ->will($this->returnValue($feed));
 

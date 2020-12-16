@@ -58,16 +58,15 @@ class PageController extends Controller
     private $statusService;
 
     public function __construct(
-        string $appName,
         IRequest $request,
         IConfig $settings,
         IURLGenerator $urlGenerator,
         IL10N $l10n,
         RecommendedSites $recommendedSites,
         StatusService $statusService,
-        IUserSession $userSession
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
         $this->l10n = $l10n;

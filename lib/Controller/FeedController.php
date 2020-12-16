@@ -44,15 +44,14 @@ class FeedController extends Controller
     private $settings;
 
     public function __construct(
-        string $appName,
         IRequest $request,
         FolderServiceV2 $folderService,
         FeedService $feedService,
         ItemService $itemService,
         IConfig $settings,
-        IUserSession $userSession
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
         $this->folderService = $folderService;
         $this->feedService   = $feedService;
         $this->itemService   = $itemService;

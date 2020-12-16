@@ -86,7 +86,6 @@ class ExportControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new ExportController(
-            $appName,
             $request,
             $this->folderService,
             $this->feedService,

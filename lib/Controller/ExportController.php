@@ -31,15 +31,14 @@ class ExportController extends Controller
     private $itemService;
 
     public function __construct(
-        string $appName,
         IRequest $request,
         FolderServiceV2 $folderService,
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
         OpmlService $opmlService,
-        IUserSession $userSession
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
         $this->feedService = $feedService;
         $this->folderService = $folderService;
         $this->opmlService = $opmlService;

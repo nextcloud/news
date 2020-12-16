@@ -15,8 +15,10 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\AppInfo\Application;
+use OCA\News\Controller\Exceptions\NotLoggedInException;
+use \OCP\IUser;
 use \OCP\IRequest;
-use OCP\IUser;
 use \OCP\IUserSession;
 use \OCP\AppFramework\ApiController as BaseApiController;
 
@@ -28,7 +30,7 @@ use \OCP\AppFramework\ApiController as BaseApiController;
 class ApiController extends BaseApiController
 {
     /**
-     * @var IUserSession
+     * @var IUserSession|null
      */
     private $userSession;
 
@@ -37,13 +39,12 @@ class ApiController extends BaseApiController
      *
      * Stores the user session to be able to leverage the user in further methods
      *
-     * @param string        $appName        The name of the app
-     * @param IRequest      $request        The request
-     * @param IUserSession  $userSession    The user session
+     * @param IRequest          $request        The request
+     * @param IUserSession|null $userSession    The user session
      */
-    public function __construct(string $appName, IRequest $request, IUserSession $userSession)
+    public function __construct(IRequest $request, ?IUserSession $userSession)
     {
-        parent::__construct($appName, $request);
+        parent::__construct(Application::NAME, $request);
         $this->userSession = $userSession;
     }
 
@@ -52,6 +53,10 @@ class ApiController extends BaseApiController
      */
     protected function getUser()
     {
+        if ($this->userSession === null) {
+            throw new NotLoggedInException();
+        }
+
         return $this->userSession->getUser();
     }
 

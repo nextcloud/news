@@ -24,11 +24,10 @@ use \OCP\AppFramework\Http;
 class UserApiController extends ApiController
 {
     public function __construct(
-        string $appName,
         IRequest $request,
-        IUserSession $userSession
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
     }
 
     /**

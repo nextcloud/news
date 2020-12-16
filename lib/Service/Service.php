@@ -40,8 +40,8 @@ abstract class Service
     /**
      * Service constructor.
      *
-     * @param NewsMapperV2 $mapper
-     * @param LoggerInterface         $logger
+     * @param NewsMapperV2    $mapper
+     * @param LoggerInterface $logger
      */
     public function __construct($mapper, LoggerInterface $logger)
     {
@@ -97,7 +97,7 @@ abstract class Service
     public function find(string $userId, int $id): Entity
     {
         try {
-            return $this->mapper->find($userId, $id);
+            return $this->mapper->findFromUser($userId, $id);
         } catch (DoesNotExistException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
         } catch (MultipleObjectsReturnedException $ex) {

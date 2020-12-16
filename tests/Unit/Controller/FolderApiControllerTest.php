@@ -66,7 +66,6 @@ class FolderApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderAPI = new FolderApiController(
-            $appName,
             $request,
             $userSession,
             $this->folderService,

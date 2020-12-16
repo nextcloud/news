@@ -79,7 +79,6 @@ class FolderControllerTest extends TestCase
             ->method('getUser')
             ->will($this->returnValue($this->user));
         $this->class = new FolderController(
-            $appName,
             $request,
             $this->folderService,
             $this->feedService,

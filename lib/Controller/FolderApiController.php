@@ -35,13 +35,12 @@ class FolderApiController extends ApiController
     private $itemService;
 
     public function __construct(
-        string $appName,
         IRequest $request,
-        IUserSession $userSession,
+        ?IUserSession $userSession,
         FolderServiceV2 $folderService,
         ItemService $itemService
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
 
         $this->folderService = $folderService;
         $this->itemService = $itemService;

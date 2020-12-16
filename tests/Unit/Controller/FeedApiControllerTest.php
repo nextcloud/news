@@ -91,7 +91,6 @@ class FeedApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->class = new FeedApiController(
-            $appName,
             $request,
             $userSession,
             $this->oldFeedService,

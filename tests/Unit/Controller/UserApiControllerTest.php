@@ -52,7 +52,8 @@ class UserApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new UserApiController(
-            $this->appName, $this->request, $this->userSession,
+            $this->request,
+            $this->userSession,
             $this->rootFolder
         );
 

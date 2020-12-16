@@ -106,7 +106,6 @@ class FeedControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->class = new FeedController(
-            $this->appName,
             $request,
             $this->folderService,
             $this->feedService,
