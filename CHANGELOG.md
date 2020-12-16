@@ -3,10 +3,14 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 15.1.1-rc1
+
 ## Changed
 - Remove outdated folder DB code
-- Fix #963
-- Fix #921
+
+## Fixed
+- Export Unread/Starred Articles gives Error Message #963
+- Some events don't appear in feed #921
 
 ## 15.1.0
 
