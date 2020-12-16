@@ -39,14 +39,13 @@ class FolderController extends Controller
     private $itemService;
 
     public function __construct(
-        string $appName,
         IRequest $request,
         FolderServiceV2 $folderService,
         FeedService $feedService,
         ItemService $itemService,
-        IUserSession $userSession
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
         $this->folderService = $folderService;
         $this->feedService = $feedService;
         $this->itemService = $itemService;

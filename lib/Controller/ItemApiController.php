@@ -32,13 +32,12 @@ class ItemApiController extends ApiController
     private $itemService;
 
     public function __construct(
-        string $appName,
         IRequest $request,
-        IUserSession $userSession,
+        ?IUserSession $userSession,
         ItemService $oldItemService,
         ItemServiceV2 $itemService
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
 
         $this->oldItemService = $oldItemService;
         $this->itemService = $itemService;

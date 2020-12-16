@@ -13,9 +13,11 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\AppInfo\Application;
+use OCA\News\Controller\Exceptions\NotLoggedInException;
 use OCP\AppFramework\Controller as BaseController;
+use \OCP\IUser;
 use \OCP\IRequest;
-use OCP\IUser;
 use \OCP\IUserSession;
 
 /**
@@ -26,7 +28,7 @@ use \OCP\IUserSession;
 class Controller extends BaseController
 {
     /**
-     * @var IUserSession
+     * @var IUserSession|null
      */
     private $userSession;
 
@@ -35,13 +37,13 @@ class Controller extends BaseController
      *
      * Stores the user session to be able to leverage the user in further methods
      *
-     * @param string        $appName        The name of the app
-     * @param IRequest      $request        The request
-     * @param IUserSession  $userSession    The user session
+     * @param IRequest          $request        The request
+     * @param IUserSession|null $userSession    The user session
      */
-    public function __construct(string $appName, IRequest $request, IUserSession $userSession)
+    public function __construct(IRequest $request, ?IUserSession $userSession)
     {
-        parent::__construct($appName, $request);
+        parent::__construct(Application::NAME, $request);
+
         $this->userSession = $userSession;
     }
 
@@ -50,6 +52,10 @@ class Controller extends BaseController
      */
     protected function getUser()
     {
+        if ($this->userSession === null) {
+            throw new NotLoggedInException();
+        }
+
         return $this->userSession->getUser();
     }
 

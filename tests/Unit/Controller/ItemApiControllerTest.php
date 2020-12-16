@@ -66,7 +66,6 @@ class ItemApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->class = new ItemApiController(
-            $this->appName,
             $this->request,
             $this->userSession,
             $this->oldItemService,

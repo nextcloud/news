@@ -36,13 +36,12 @@ class AdminController extends Controller
     /**
      * AdminController constructor.
      *
-     * @param string      $appName     The name of the app
      * @param IRequest    $request     The request
      * @param IConfig     $config      Config for nextcloud
      */
-    public function __construct(string $appName, IRequest $request, IConfig $config)
+    public function __construct(IRequest $request, IConfig $config)
     {
-        parent::__construct($appName, $request);
+        parent::__construct(Application::NAME, $request);
 
         $this->config = $config;
     }

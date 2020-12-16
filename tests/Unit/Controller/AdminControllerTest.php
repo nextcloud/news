@@ -62,7 +62,7 @@ class AdminControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->controller = new AdminController($this->appName, $this->request, $this->config, $this->itemService);
+        $this->controller = new AdminController($this->request, $this->config, $this->itemService);
     }
 
     /**

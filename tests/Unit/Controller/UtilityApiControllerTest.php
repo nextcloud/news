@@ -93,7 +93,6 @@ class UtilityApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->newsAPI = new UtilityApiController(
-            $this->appName,
             $this->request,
             $this->userSession,
             $this->updateService,

@@ -73,7 +73,7 @@ class ServiceTest extends TestCase
             ->method('delete')
             ->with($this->equalTo($folder));
         $this->mapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->equalTo($user), $this->equalTo($id))
             ->will($this->returnValue($folder));
 
@@ -87,7 +87,7 @@ class ServiceTest extends TestCase
         $user = 'ken';
 
         $this->mapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->with($this->equalTo($user), $this->equalTo($id))
             ->will($this->returnValue(new Feed()));
 
@@ -100,7 +100,7 @@ class ServiceTest extends TestCase
         $ex = new DoesNotExistException('hi');
 
         $this->mapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->will($this->throwException($ex));
 
         $this->expectException(ServiceNotFoundException::class);
@@ -113,7 +113,7 @@ class ServiceTest extends TestCase
         $ex = new MultipleObjectsReturnedException('hi');
 
         $this->mapper->expects($this->once())
-            ->method('find')
+            ->method('findFromUser')
             ->will($this->throwException($ex));
 
         $this->expectException(ServiceNotFoundException::class);

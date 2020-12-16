@@ -113,7 +113,6 @@ class PageControllerTest extends TestCase
             ->method('getUser')
             ->will($this->returnValue($this->user));
         $this->controller = new PageController(
-            'news',
             $this->request,
             $this->settings,
             $this->urlGenerator,

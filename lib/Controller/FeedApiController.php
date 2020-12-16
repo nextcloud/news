@@ -16,6 +16,7 @@
 namespace OCA\News\Controller;
 
 use Exception;
+use OCA\News\AppInfo\Application;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
@@ -61,15 +62,14 @@ class FeedApiController extends ApiController
     private $serializer;
 
     public function __construct(
-        string $appName,
         IRequest $request,
-        IUserSession $userSession,
+        ?IUserSession $userSession,
         FeedService $oldFeedService,
         FeedServiceV2 $feedService,
         ItemService $oldItemService,
         LoggerInterface $logger
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
         $this->feedService = $feedService;
         $this->oldFeedService = $oldFeedService;
         $this->oldItemService = $oldItemService;

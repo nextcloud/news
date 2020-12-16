@@ -80,7 +80,6 @@ class ItemControllerTest extends TestCase
             ->method('getUser')
             ->will($this->returnValue($this->user));
         $this->controller = new ItemController(
-            $this->appName,
             $this->request,
             $this->feedService,
             $this->itemService,
