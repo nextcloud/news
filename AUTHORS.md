@@ -35,6 +35,7 @@
 * [darkside40](mailto:darkside401@googlemail.com)
 * [nachoparker](mailto:nacho@ownyourbits.com)
 * [Brice Maron](mailto:brice@bmaron.net)
+* [Christoph Stenglein](mailto:christoph@christophstenglein.com)
 * [Daniel Kesselberg](mailto:mail@danielkesselberg.de)
 * [Jakob Sack](mailto:mail@jakobsack.de)
 * [Qingping Hou](mailto:dave2008713@gmail.com)
