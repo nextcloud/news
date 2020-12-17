@@ -97,6 +97,14 @@
     background-image: url('../img/rss.svg') !important;
 }
 
+.icon-facebook {
+    background-image: url('../img/facebook.svg') !important;
+}
+
+.icon-twitter {
+    background-image: url('../img/twitter.svg') !important;
+}
+
 .icon-full-text-enabled {
     background-image: url('../img/fulltext.svg');
     background-size: 50%;
