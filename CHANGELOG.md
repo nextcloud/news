@@ -2,11 +2,15 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-- add background & hover for entries
+
+## 15.1.1-rc2
+
+### Changed
+- add background & hover for entries for compact mode
 
 ### Fixed
-- Fix #985
-- Fix #981
+- Handle unauthorized users #985
+- Call to undefined method OCA\News\Db\FeedMapperV2::find() #981
 
 ## 15.1.1-rc1
 
