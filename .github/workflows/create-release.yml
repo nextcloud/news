@@ -1,0 +1,61 @@
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - '15.*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+name: Create Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get version from tag
+        id: tag_name
+        run: |
+          echo ::set-output name=current_version::${GITHUB_REF/refs\/tags\//}
+        shell: bash
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Get Changelog Entry
+        id: changelog_reader
+        uses: mindsers/changelog-reader-action@v2
+        with:
+          version: ${{ steps.tag_name.outputs.current_version }}
+          path: ./CHANGELOG.md
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the "Get Changelog Entry" step above, referencing it's ID to get its outputs object.
+          # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          tag_name: ${{ steps.changelog_reader.outputs.version }}
+          release_name: Release ${{ steps.changelog_reader.outputs.version }}
+          body: ${{ steps.changelog_reader.outputs.changes }}
+          prerelease: ${{ steps.changelog_reader.outputs.status == 'prereleased' }}
+          draft: ${{ steps.changelog_reader.outputs.status == 'unreleased' }}
+      - name: Run build
+        run: make && make appstore
+        env:
+          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
+      - name: Upload app tarball to release
+        uses: svenstaro/upload-release-action@v2
+        id: attach_to_release
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./build/artifacts/appstore/news.tar.gz
+          asset_name: news.tar.gz 
+          tag: ${{ github.ref }}
+          overwrite: true
+     - name: Upload app to Nextcloud appstore
+       uses: R0Wi/nextcloud-appstore-push-action@v1
+       with:
+         app_name: news
+         appstore_token: ${{ secrets.APPSTORE_TOKEN }}
+         download_url: ${{ steps.attach_to_release.outputs.browser_download_url }}
+         app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
+         nightly: ${{ github.event.release.prerelease }}
