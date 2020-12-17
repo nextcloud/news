@@ -95,13 +95,25 @@
                             dropdownToggle
                             news-stop-propagation>
                             <button class="share svg dropbtn"
-                                title="<?php p($l->t('test')); ?>">
+                                title="Partager">
                             </button>
                         </li>
                         <div class="dropdown-content">
                                 <!-- Contact -->
                                 <a>Liste contact</a>
-                                <a>Partage réseaux sociaux </a>
+                                <a>Arnaud</a>
+                                <a>Antoine</a>
+                                <a>Adrien</a>
+
+                                <a ng-click="">
+                                    <span class="icon-checkmark pl-2"></span>
+                                    <span> Facebook </span>
+                                </a>
+                                <a ng-click="">
+                                    <span class="icon-checkmark pl-2"></span>
+                                    <span> Twitter </span>
+                                </a>
+
                       </div>
                     </div>
                     <!-- END DROPDOWN -->
