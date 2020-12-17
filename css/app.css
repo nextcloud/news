@@ -76,7 +76,8 @@
 
 .dropdown-content a{
   color: black;
-  padding: 12px 16px;
+  padding: 0 12px 0 44px;
+  background-position: 14px center;
   text-decoration: none;
   display: block;
 }

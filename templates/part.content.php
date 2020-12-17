@@ -105,12 +105,12 @@
                                 <a>Antoine</a>
                                 <a>Adrien</a>
 
-                                <a class="icon-facebook" ng-click="">
+                                <a class="icon-facebook pr-5" ng-click="">
                                     <span>
                                         Facebook
                                     </span>
                                 </a>
-                                <a class="icon-twitter" ng-click="">
+                                <a class="icon-twitter pr-5" ng-click="">
                                     <span> Twitter </span>
                                 </a>
 
