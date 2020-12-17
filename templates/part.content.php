@@ -105,12 +105,12 @@
                                 <a>Antoine</a>
                                 <a>Adrien</a>
 
-                                <a ng-click="">
-                                    <span class="icon-checkmark pl-2"></span>
-                                    <span> Facebook </span>
+                                <a class="icon-facebook" ng-click="">
+                                    <span>
+                                        Facebook
+                                    </span>
                                 </a>
-                                <a ng-click="">
-                                    <span class="icon-checkmark pl-2"></span>
+                                <a class="icon-twitter" ng-click="">
                                     <span> Twitter </span>
                                 </a>
 
