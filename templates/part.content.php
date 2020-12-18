@@ -122,12 +122,18 @@
 
                                 <p class="label-group">Partage réseaux sociaux</p>
 
-                                <a class="icon-facebook pr-5" ng-click="">
+                                <a class="icon-facebook pr-5"
+                                   ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"
+
+                                >
                                     <span>
                                         Facebook
                                     </span>
                                 </a>
-                                <a class="icon-twitter pr-5" ng-click="">
+                                <a class="icon-twitter pr-5"
+                                   ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"
+
+                                >
                                     <span> Twitter </span>
                                 </a>
 
