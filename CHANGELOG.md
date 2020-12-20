@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
+- add background & hover for entries
 
 ### Fixed
 - Fix #985
