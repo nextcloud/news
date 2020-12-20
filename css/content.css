@@ -203,6 +203,14 @@
     background-image: linear-gradient(to right, orange 0, orange 2px, transparent 2px);
 }
 
+#app-content li.item:nth-child(odd) div.utils {
+    background-color: var(--color-primary-light);
+}
+
+#app-content li.item div.utils:hover {
+    background-color: var(--color-background-hover);
+}
+
 #app-content :not(.compact) .item {
 }
 
