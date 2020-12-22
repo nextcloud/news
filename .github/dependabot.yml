@@ -11,8 +11,8 @@ updates:
     schedule:
       interval: "daily"
     labels:
+      - "dependencies"
       - "Skip-Changelog"
-      - "javascript"
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
@@ -20,5 +20,5 @@ updates:
     schedule:
       interval: "daily"
     labels:
+      - "dependencies"
       - "Skip-Changelog"
-      - "php"
