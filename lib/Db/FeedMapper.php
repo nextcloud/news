@@ -197,6 +197,6 @@ class FeedMapper extends NewsMapper
 
     public function findFromUser(string $userId, int $id): Entity
     {
-        return $this->find($id, $userId);
+        return $this->find($userId, $id);
     }
 }
