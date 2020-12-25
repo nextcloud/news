@@ -574,6 +574,28 @@ class Item extends Entity implements IAPI, \JsonSerializable
         ];
     }
 
+    public function toAPI2(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'url' => $this->getUrl(),
+            'title' => $this->getTitle(),
+            'author' => $this->getAuthor(),
+            'publishedAt' => date('c', $this->getPubDate()),
+            'updatedAt' => date('c', $this->getUpdatedDate()),
+            'enclosure' => [
+                'mimeType' => $this->getEnclosureMime(),
+                'url' => $this->getEnclosureLink()
+            ],
+            'body' => $this->getBody(),
+            'feedId' => $this->getFeedId(),
+            'isUnread' => $this->isUnread(),
+            'isStarred' => $this->isStarred(),
+            'fingerprint' => $this->getFingerprint(),
+            'contentHash' => $this->getContentHash()
+        ];
+    }
+
     /**
      * Format for exporting.
      *
