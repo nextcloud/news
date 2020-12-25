@@ -172,4 +172,10 @@ class Folder extends Entity implements IAPI, \JsonSerializable
             ]
         );
     }
+
+    public function toAPI2(): array
+    {
+        return $this->toAPI();
+    }
+
 }

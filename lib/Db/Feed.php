@@ -660,4 +660,28 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             ]
         );
     }
+
+    public function toAPI2(): array
+    {
+        $result = [
+            'id' => $this->getId(),
+            'name' => $this->getTitle(),
+            'faviconLink' => $this->getFaviconLink(),
+            'folderId' => $this->getFolderId(),
+            'ordering' => $this->getOrdering(),
+            'fullTextEnabled' => $this->getFullTextEnabled(),
+            'updateMode' => $this->getUpdateMode(),
+            'isPinned' => $this->getPinned()
+        ];
+
+        if (!empty($this->getLastUpdateError())) {
+            $result['error'] = [
+                'code' => 1,
+                'message' => $this->getLastUpdateError()
+            ];
+        }
+
+        return $result;
+    }
+
 }
