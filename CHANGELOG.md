@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Changed
+- Remove PHPunit based integration tests
+
 ### Fixed
 - Argument 2 passed to OCA\News\Db\FeedMapper::find() must be of the type int, string given #996
 
