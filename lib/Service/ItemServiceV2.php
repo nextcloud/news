@@ -16,6 +16,7 @@ use OCA\News\AppInfo\Application;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\Entity;
 use OCP\IConfig;
 use Psr\Log\LoggerInterface;
 
@@ -76,8 +77,10 @@ class ItemServiceV2 extends Service
      * Insert an item or update.
      *
      * @param Item $item
+     *
+     * @return Entity|Item The updated/inserted item
      */
-    public function insertOrUpdate(Item $item)
+    public function insertOrUpdate(Item $item): Entity
     {
         try {
             $db_item = $this->mapper->findByGuidHash($item->getFeedId(), $item->getGuidHash());
@@ -94,16 +97,23 @@ class ItemServiceV2 extends Service
                 $item->resetUpdatedFields();
             }
 
-            $this->mapper->update($item);
+            return $this->mapper->update($item);
         } catch (DoesNotExistException $exception) {
-            $this->mapper->insert($item);
+            return $this->mapper->insert($item);
         }
     }
 
+    /**
+     * @param int $feedId
+     *
+     * @return array
+     */
     public function findAllForFeed(int $feedId): array
     {
         return $this->mapper->findAllForFeed($feedId);
     }
+
+
 
     public function purgeOverThreshold(int $threshold = null)
     {
@@ -119,5 +129,14 @@ class ItemServiceV2 extends Service
         }
 
         return $this->mapper->deleteOverThreshold($threshold);
+    }
+
+    /**
+     * @param int    $feedId
+     * @param string $guidHash
+     */
+    public function findForGuidHash(int $feedId, string $guidHash)
+    {
+        return $this->mapper->findByGuidHash($feedId, $guidHash);
     }
 }

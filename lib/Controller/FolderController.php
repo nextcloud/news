@@ -14,12 +14,12 @@
 namespace OCA\News\Controller;
 
 use OCA\News\Service\Exceptions\ServiceException;
+use OCA\News\Service\FeedServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\FolderServiceV2;
-use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\Exceptions\ServiceConflictException;
@@ -33,7 +33,9 @@ class FolderController extends Controller
      * @var FolderServiceV2
      */
     private $folderService;
-    //TODO: Remove
+    /**
+     * @var FeedServiceV2
+     */
     private $feedService;
     //TODO: Remove
     private $itemService;
@@ -41,7 +43,7 @@ class FolderController extends Controller
     public function __construct(
         IRequest $request,
         FolderServiceV2 $folderService,
-        FeedService $feedService,
+        FeedServiceV2 $feedService,
         ItemService $itemService,
         ?IUserSession $userSession
     ) {

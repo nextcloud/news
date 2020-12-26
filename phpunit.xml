@@ -11,6 +11,7 @@
                 <file>./lib/AppInfo/Application.php</file>
                 <file>./lib/Controller/JSONHttpErrorTrait.php</file>
                 <file>./lib/**Exception.php</file>
+                <file>./lib/Migration/**.php</file>
             </exclude>
         </whitelist>
     </filter>

@@ -1,9 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-
 The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 ## [Unreleased]
+
+### Changed
+- Remove outdated feed DB code
+- add background & hover for entries
 
 ## [15.1.1] - 2020-12-27
 

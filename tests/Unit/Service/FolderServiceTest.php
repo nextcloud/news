@@ -132,45 +132,6 @@ class FolderServiceTest extends TestCase
         $this->assertEquals($result[0]->feeds, $feeds);
     }
 
-    public function testFindForUser()
-    {
-        $return = new Folder();
-        $this->mapper->expects($this->once())
-            ->method('findFromUser')
-            ->with('jack', 1)
-            ->will($this->returnValue($return));
-
-        $result = $this->class->findForUser('jack', 1);
-
-        $this->assertEquals($return, $result);
-    }
-
-    public function testFindForUserEmpty()
-    {
-        $this->expectException(ServiceNotFoundException::class);
-        $this->expectExceptionMessage('Folder not found');
-
-        $this->mapper->expects($this->once())
-            ->method('findFromUser')
-            ->with('jack', 1)
-            ->will($this->throwException(new DoesNotExistException('')));
-
-        $this->class->findForUser('jack', 1);
-    }
-
-    public function testFindForUserDupe()
-    {
-        $this->expectException(ServiceConflictException::class);
-        $this->expectExceptionMessage('Multiple folders found');
-
-        $this->mapper->expects($this->once())
-            ->method('findFromUser')
-            ->with('jack', 1)
-            ->will($this->throwException(new MultipleObjectsReturnedException('')));
-
-        $this->class->findForUser('jack', 1);
-    }
-
 
     public function testCreate()
     {

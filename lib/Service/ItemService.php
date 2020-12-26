@@ -15,6 +15,7 @@ namespace OCA\News\Service;
 
 use OCA\News\AppInfo\Application;
 use OCA\News\Db\Item;
+use OCA\News\Db\ItemMapperV2;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\Entity;
 use OCP\IConfig;
@@ -34,12 +35,22 @@ use Psr\Log\LoggerInterface;
 class ItemService extends Service
 {
 
+    /**
+     * @var IConfig
+     */
     private $config;
+    /**
+     * @var Time
+     */
     private $timeFactory;
-    private $itemMapper;
+    /**
+     * @var ItemMapper
+     */
+    private $oldItemMapper;
 
     public function __construct(
-        ItemMapper $itemMapper,
+        ItemMapperV2 $itemMapper,
+        ItemMapper $oldItemMapper,
         Time $timeFactory,
         IConfig $config,
         LoggerInterface $logger
@@ -47,7 +58,7 @@ class ItemService extends Service
         parent::__construct($itemMapper, $logger);
         $this->config = $config;
         $this->timeFactory = $timeFactory;
-        $this->itemMapper = $itemMapper;
+        $this->oldItemMapper = $oldItemMapper;
     }
 
 
@@ -68,21 +79,21 @@ class ItemService extends Service
     {
         switch ($type) {
             case FeedType::FEED:
-                return $this->itemMapper->findAllNewFeed(
+                return $this->oldItemMapper->findAllNewFeed(
                     $id,
                     $updatedSince,
                     $showAll,
                     $userId
                 );
             case FeedType::FOLDER:
-                return $this->itemMapper->findAllNewFolder(
+                return $this->oldItemMapper->findAllNewFolder(
                     $id,
                     $updatedSince,
                     $showAll,
                     $userId
                 );
             default:
-                return $this->itemMapper->findAllNew(
+                return $this->oldItemMapper->findAllNew(
                     $updatedSince,
                     $type,
                     $showAll,
@@ -120,7 +131,7 @@ class ItemService extends Service
     ) {
         switch ($type) {
             case FeedType::FEED:
-                return $this->itemMapper->findAllFeed(
+                return $this->oldItemMapper->findAllFeed(
                     $id,
                     $limit,
                     $offset,
@@ -130,7 +141,7 @@ class ItemService extends Service
                     $search
                 );
             case FeedType::FOLDER:
-                return $this->itemMapper->findAllFolder(
+                return $this->oldItemMapper->findAllFolder(
                     $id,
                     $limit,
                     $offset,
@@ -140,7 +151,7 @@ class ItemService extends Service
                     $search
                 );
             default:
-                return $this->itemMapper->findAllItems(
+                return $this->oldItemMapper->findAllItems(
                     $limit,
                     $offset,
                     $type,
@@ -154,7 +165,7 @@ class ItemService extends Service
 
     public function findAllForUser(string $userId, array $params = []): array
     {
-        return $this->itemMapper->findAllFromUser($userId);
+        return $this->mapper->findAllFromUser($userId, $params);
     }
 
 
@@ -171,18 +182,11 @@ class ItemService extends Service
     public function star($feedId, $guidHash, $isStarred, $userId)
     {
         try {
-            /**
- * @var Item $item
-*/
-            $item = $this->itemMapper->findByGuidHash(
-                $guidHash,
-                $feedId,
-                $userId
-            );
+            $item = $this->mapper->findByGuidHash($feedId, $guidHash);
 
             $item->setStarred($isStarred);
 
-            $this->itemMapper->update($item);
+            $this->mapper->update($item);
         } catch (DoesNotExistException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
         }
@@ -202,7 +206,7 @@ class ItemService extends Service
     {
         try {
             $lastModified = $this->timeFactory->getMicroTime();
-            $this->itemMapper->readItem($itemId, $isRead, $lastModified, $userId);
+            $this->oldItemMapper->readItem($itemId, $isRead, $lastModified, $userId);
         } catch (DoesNotExistException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
         }
@@ -220,7 +224,7 @@ class ItemService extends Service
     public function readAll($highestItemId, $userId)
     {
         $time = $this->timeFactory->getMicroTime();
-        $this->itemMapper->readAll($highestItemId, $time, $userId);
+        $this->oldItemMapper->readAll($highestItemId, $time, $userId);
     }
 
 
@@ -236,7 +240,7 @@ class ItemService extends Service
     public function readFolder(?int $folderId, $highestItemId, $userId)
     {
         $time = $this->timeFactory->getMicroTime();
-        $this->itemMapper->readFolder(
+        $this->oldItemMapper->readFolder(
             $folderId,
             $highestItemId,
             $time,
@@ -257,7 +261,7 @@ class ItemService extends Service
     public function readFeed($feedId, $highestItemId, $userId)
     {
         $time = $this->timeFactory->getMicroTime();
-        $this->itemMapper->readFeed($feedId, $highestItemId, $time, $userId);
+        $this->oldItemMapper->readFeed($feedId, $highestItemId, $time, $userId);
     }
 
 
@@ -275,7 +279,7 @@ class ItemService extends Service
             Application::DEFAULT_SETTINGS['autoPurgeCount']
         );
         if ($count >= 0) {
-            $this->itemMapper->deleteReadOlderThanThreshold($count);
+            $this->oldItemMapper->deleteReadOlderThanThreshold($count);
         }
     }
 
@@ -290,7 +294,7 @@ class ItemService extends Service
     public function getNewestItemId($userId)
     {
         try {
-            return $this->itemMapper->getNewestItemId($userId);
+            return $this->oldItemMapper->getNewestItemId($userId);
         } catch (DoesNotExistException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
         }
@@ -305,7 +309,7 @@ class ItemService extends Service
      */
     public function starredCount($userId)
     {
-        return $this->itemMapper->starredCount($userId);
+        return $this->oldItemMapper->starredCount($userId);
     }
 
 
@@ -315,18 +319,7 @@ class ItemService extends Service
      */
     public function getUnreadOrStarred($userId)
     {
-        return $this->itemMapper->findAllUnreadOrStarred($userId);
-    }
-
-
-    /**
-     * Deletes all items of a user
-     *
-     * @param string $userId the name of the user
-     */
-    public function deleteUser($userId)
-    {
-        $this->itemMapper->deleteUser($userId);
+        return $this->oldItemMapper->findAllUnreadOrStarred($userId);
     }
 
 
@@ -335,7 +328,7 @@ class ItemService extends Service
      */
     public function generateSearchIndices()
     {
-        $this->itemMapper->updateSearchIndices();
+        $this->oldItemMapper->updateSearchIndices();
     }
 
     public function findAll(): array

@@ -15,6 +15,7 @@ namespace OCA\News\Tests\Unit\Service;
 
 use OC\Log;
 use OCA\News\Db\ItemMapper;
+use OCA\News\Db\ItemMapperV2;
 use OCA\News\Service\ItemService;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Utility\PsrLogger;
@@ -34,6 +35,11 @@ class ItemServiceTest extends TestCase
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|ItemMapper
+     */
+    private $oldItemMapper;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemMapperV2
      */
     private $mapper;
     /**
@@ -79,7 +85,10 @@ class ItemServiceTest extends TestCase
         $this->timeFactory->expects($this->any())
             ->method('getMicroTime')
             ->will($this->returnValue($this->time));
-        $this->mapper = $this->getMockBuilder(ItemMapper::class)
+        $this->mapper = $this->getMockBuilder(ItemMapperV2::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->oldItemMapper = $this->getMockBuilder(ItemMapper::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this->getMockBuilder(IConfig::class)
@@ -92,6 +101,7 @@ class ItemServiceTest extends TestCase
 
         $this->itemService = new ItemService(
             $this->mapper,
+            $this->oldItemMapper,
             $this->timeFactory,
             $this->config,
             $this->logger
@@ -109,7 +119,7 @@ class ItemServiceTest extends TestCase
     public function testFindAllNewFeed()
     {
         $type = FeedType::FEED;
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllNewFeed')
             ->with(
                 $this->equalTo(3),
@@ -127,7 +137,7 @@ class ItemServiceTest extends TestCase
     public function testFindAllNewFolder()
     {
         $type = FeedType::FOLDER;
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllNewFolder')
             ->with(
                 $this->equalTo(3),
@@ -145,7 +155,7 @@ class ItemServiceTest extends TestCase
     public function testFindAllNew()
     {
         $type = FeedType::STARRED;
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllNew')
             ->with(
                 $this->equalTo(20333),
@@ -166,7 +176,7 @@ class ItemServiceTest extends TestCase
     public function testFindAllFeed()
     {
         $type = FeedType::FEED;
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllFeed')
             ->with(
                 $this->equalTo(3),
@@ -190,7 +200,7 @@ class ItemServiceTest extends TestCase
     public function testFindAllFolder()
     {
         $type = FeedType::FOLDER;
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllFolder')
             ->with(
                 $this->equalTo(3),
@@ -214,7 +224,7 @@ class ItemServiceTest extends TestCase
     public function testFindAll()
     {
         $type = FeedType::STARRED;
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllItems')
             ->with(
                 $this->equalTo(20),
@@ -240,7 +250,7 @@ class ItemServiceTest extends TestCase
         $type = FeedType::STARRED;
         $search = ['test'];
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllItems')
             ->with(
                 $this->equalTo(20),
@@ -269,22 +279,16 @@ class ItemServiceTest extends TestCase
         $guidHash = md5('hihi');
 
         $item = new Item();
-        $item->setStatus(128);
         $item->setId($itemId);
         $item->setStarred(false);
 
         $expectedItem = new Item();
-        $expectedItem->setStatus(128);
         $expectedItem->setStarred(true);
         $expectedItem->setId($itemId);
 
         $this->mapper->expects($this->once())
             ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($guidHash),
-                $this->equalTo($feedId),
-                $this->equalTo('jack')
-            )
+            ->with($feedId, $guidHash)
             ->will($this->returnValue($item));
 
         $this->mapper->expects($this->once())
@@ -316,11 +320,7 @@ class ItemServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($guidHash),
-                $this->equalTo($feedId),
-                $this->equalTo('jack')
-            )
+            ->with($feedId, $guidHash)
             ->will($this->returnValue($item));
 
         $this->mapper->expects($this->once())
@@ -346,7 +346,7 @@ class ItemServiceTest extends TestCase
         $expectedItem->setId($itemId);
         $expectedItem->setLastModified($this->time);
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('readItem')
             ->with(
                 $this->equalTo($itemId),
@@ -364,7 +364,7 @@ class ItemServiceTest extends TestCase
     {
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('readItem')
             ->will($this->throwException(new DoesNotExistException('')));
 
@@ -387,7 +387,7 @@ class ItemServiceTest extends TestCase
     {
         $highestItemId = 6;
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('readAll')
             ->with(
                 $this->equalTo($highestItemId),
@@ -404,7 +404,7 @@ class ItemServiceTest extends TestCase
         $folderId = 3;
         $highestItemId = 6;
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('readFolder')
             ->with(
                 $this->equalTo($folderId),
@@ -422,7 +422,7 @@ class ItemServiceTest extends TestCase
         $feedId = 3;
         $highestItemId = 6;
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('readFeed')
             ->with(
                 $this->equalTo($feedId),
@@ -441,7 +441,7 @@ class ItemServiceTest extends TestCase
             ->method('getAppValue')
             ->with('news', 'autoPurgeCount')
             ->will($this->returnValue(2));
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('deleteReadOlderThanThreshold')
             ->with($this->equalTo(2));
 
@@ -454,7 +454,7 @@ class ItemServiceTest extends TestCase
             ->method('getAppValue')
             ->with('news', 'autoPurgeCount')
             ->will($this->returnValue(-1));
-        $this->mapper->expects($this->never())
+        $this->oldItemMapper->expects($this->never())
             ->method('deleteReadOlderThanThreshold');
 
         $this->itemService->autoPurgeOld();
@@ -463,7 +463,7 @@ class ItemServiceTest extends TestCase
 
     public function testGetNewestItemId()
     {
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('getNewestItemId')
             ->with($this->equalTo('jack'))
             ->will($this->returnValue(12));
@@ -475,7 +475,7 @@ class ItemServiceTest extends TestCase
 
     public function testGetNewestItemIdDoesNotExist()
     {
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('getNewestItemId')
             ->with($this->equalTo('jack'))
             ->will(
@@ -493,7 +493,7 @@ class ItemServiceTest extends TestCase
     {
         $star = 18;
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('starredCount')
             ->with($this->equalTo('jack'))
             ->will($this->returnValue($star));
@@ -508,7 +508,7 @@ class ItemServiceTest extends TestCase
     {
         $star = 18;
 
-        $this->mapper->expects($this->once())
+        $this->oldItemMapper->expects($this->once())
             ->method('findAllUnreadOrStarred')
             ->with($this->equalTo('jack'))
             ->will($this->returnValue($star));
@@ -516,16 +516,6 @@ class ItemServiceTest extends TestCase
         $result = $this->itemService->getUnreadOrStarred('jack');
 
         $this->assertEquals($star, $result);
-    }
-
-
-    public function testDeleteUser()
-    {
-        $this->mapper->expects($this->once())
-            ->method('deleteUser')
-            ->will($this->returnValue('jack'));
-
-        $this->itemService->deleteUser('jack');
     }
 
 

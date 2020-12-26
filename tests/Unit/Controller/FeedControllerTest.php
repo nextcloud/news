@@ -14,8 +14,10 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FeedController;
-use OCA\News\Service\FeedService;
+use OCA\News\Db\Folder;
+use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
+use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemService;
 use OCP\AppFramework\Http;
 
@@ -45,10 +47,13 @@ class FeedControllerTest extends TestCase
      */
     private $folderService;
     /**
-     * TODO: Remove
-     * @var MockObject|FeedService
+     * @var MockObject|FeedServiceV2
      */
     private $feedService;
+    /**
+     * @var MockObject|ImportService
+     */
+    private $importService;
     /**
      * TODO: Remove
      * @var MockObject|ItemService
@@ -86,7 +91,11 @@ class FeedControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedService = $this
-            ->getMockBuilder(FeedService::class)
+            ->getMockBuilder(FeedServiceV2::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->importService = $this
+            ->getMockBuilder(ImportService::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->folderService = $this
@@ -110,6 +119,7 @@ class FeedControllerTest extends TestCase
             $this->folderService,
             $this->feedService,
             $this->itemService,
+            $this->importService,
             $this->settings,
             $this->userSession
         );
@@ -136,11 +146,11 @@ class FeedControllerTest extends TestCase
             ->will($this->returnValue($result['feeds']));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->returnValue($result['starred']));
 
         $response = $this->class->index();
@@ -160,15 +170,15 @@ class FeedControllerTest extends TestCase
         ];
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->returnValue($result['feeds']));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->returnValue($result['newestItemId']));
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->returnValue($result['starred']));
 
         $response = $this->class->index();
@@ -229,6 +239,32 @@ class FeedControllerTest extends TestCase
     }
 
 
+    public function testActiveFolder()
+    {
+        $type = FeedType::FOLDER;
+        $folder = new Folder();
+        $folder->setId(3);
+
+        $result = [
+            'activeFeed' => [
+                'id' => 3,
+                'type' => 1
+            ]
+        ];
+
+        $this->folderService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 3)
+            ->will($this->returnValue($folder));
+
+        $this->activeInitMocks(3, $type);
+
+        $response = $this->class->active();
+
+        $this->assertEquals($result, $response);
+    }
+
+
     public function testActiveFolderDoesNotExist()
     {
         $id = 3;
@@ -276,18 +312,37 @@ class FeedControllerTest extends TestCase
             ->will($this->returnValue($result['newestItemId']));
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->uid), $this->equalTo(false));
+            ->with($this->uid, false);
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with(
-                $this->equalTo('hi'),
-                $this->equalTo(4),
-                $this->equalTo($this->uid),
-                $this->equalTo('yo')
-            )
+            ->with($this->uid, 'hi', 4, false, 'yo')
             ->will($this->returnValue($result['feeds'][0]));
 
         $response = $this->class->create('hi', 4, 'yo');
+
+        $this->assertEquals($result, $response);
+    }
+
+
+    public function testCreateOldFolderId()
+    {
+        $result = [
+            'feeds' => [new Feed()],
+            'newestItemId' => 3
+        ];
+
+        $this->itemService->expects($this->once())
+            ->method('getNewestItemId')
+            ->will($this->returnValue($result['newestItemId']));
+        $this->feedService->expects($this->once())
+            ->method('purgeDeleted')
+            ->with($this->uid, false);
+        $this->feedService->expects($this->once())
+            ->method('create')
+            ->with($this->uid, 'hi', null, false, 'yo')
+            ->will($this->returnValue($result['feeds'][0]));
+
+        $response = $this->class->create('hi', 0, 'yo');
 
         $this->assertEquals($result, $response);
     }
@@ -299,7 +354,7 @@ class FeedControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->uid), $this->equalTo(false));
+            ->with($this->uid, false);
 
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
@@ -307,12 +362,7 @@ class FeedControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with(
-                $this->equalTo('hi'),
-                $this->equalTo(4),
-                $this->equalTo($this->uid),
-                $this->equalTo('yo')
-            )
+            ->with($this->uid, 'hi', 4, false, 'yo')
             ->will($this->returnValue($result['feeds'][0]));
 
         $response = $this->class->create('hi', 4, 'yo');
@@ -327,7 +377,7 @@ class FeedControllerTest extends TestCase
         $ex = new ServiceNotFoundException($msg);
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->uid), $this->equalTo(false));
+            ->with($this->uid, false);
         $this->feedService->expects($this->once())
             ->method('create')
             ->will($this->throwException($ex));
@@ -348,7 +398,7 @@ class FeedControllerTest extends TestCase
         $ex = new ServiceConflictException($msg);
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
-            ->with($this->equalTo($this->uid), $this->equalTo(false));
+            ->with($this->uid, false);
         $this->feedService->expects($this->once())
             ->method('create')
             ->will($this->throwException($ex));
@@ -363,9 +413,17 @@ class FeedControllerTest extends TestCase
 
     public function testDelete()
     {
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->getMock();
+        $feed->expects($this->once())
+             ->method('setDeletedAt');
         $this->feedService->expects($this->once())
-            ->method('markDeleted')
-            ->with($this->equalTo(4));
+            ->method('find')
+            ->with('jack', 4)
+            ->willReturn($feed);
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with('jack', $feed);
 
         $this->class->delete(4);
     }
@@ -376,7 +434,7 @@ class FeedControllerTest extends TestCase
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())
-            ->method('markDeleted')
+            ->method('find')
             ->will($this->throwException(new ServiceNotFoundException($msg)));
 
         $response = $this->class->delete(4);
@@ -402,8 +460,13 @@ class FeedControllerTest extends TestCase
         ];
 
         $this->feedService->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($this->uid), $this->equalTo(4))
+            ->method('find')
+            ->with($this->uid, 4)
+            ->will($this->returnValue($feed));
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($feed)
             ->will($this->returnValue($feed));
 
         $response = $this->class->update(4);
@@ -415,8 +478,8 @@ class FeedControllerTest extends TestCase
     public function testUpdateReturnsJSONError()
     {
         $this->feedService->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($this->uid), $this->equalTo(4))
+            ->method('find')
+            ->with($this->uid, 4)
             ->will($this->throwException(new ServiceNotFoundException('NO!')));
 
         $response = $this->class->update(4);
@@ -436,17 +499,14 @@ class FeedControllerTest extends TestCase
             'feeds' => [$feed]
         ];
 
-        $this->feedService->expects($this->once())
+        $this->importService->expects($this->once())
             ->method('importArticles')
-            ->with(
-                $this->equalTo(['json']),
-                $this->equalTo($this->uid)
-            )
+            ->with($this->uid, ['json'],)
             ->will($this->returnValue($feed));
 
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->returnValue(3));
 
         $response = $this->class->import(['json']);
@@ -457,17 +517,14 @@ class FeedControllerTest extends TestCase
 
     public function testImportCreatesNoAdditionalFeed()
     {
-        $this->feedService->expects($this->once())
+        $this->importService->expects($this->once())
             ->method('importArticles')
-            ->with(
-                $this->equalTo(['json']),
-                $this->equalTo($this->uid)
-            )
+            ->with($this->uid, ['json'])
             ->will($this->returnValue(null));
 
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->uid))
+            ->with($this->uid)
             ->will($this->returnValue(3));
 
         $response = $this->class->import(['json']);
@@ -489,7 +546,7 @@ class FeedControllerTest extends TestCase
 
         $this->itemService->expects($this->once())
             ->method('readFeed')
-            ->with($this->equalTo(4), $this->equalTo(5), $this->uid);
+            ->with(4, 5, $this->uid);
 
         $response = $this->class->read(4, 5);
         $this->assertEquals($expected, $response);
@@ -498,9 +555,21 @@ class FeedControllerTest extends TestCase
 
     public function testRestore()
     {
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->getMock();
+
+        $feed->expects($this->once())
+             ->method('setDeletedAt')
+             ->with(null);
+
         $this->feedService->expects($this->once())
-            ->method('unmarkDeleted')
-            ->with($this->equalTo(4));
+            ->method('find')
+            ->with($this->uid, 4)
+            ->willReturn($feed);
+
+        $this->feedService->expects($this->once())
+                          ->method('update')
+                          ->with($this->uid, $feed);
 
         $this->class->restore(4);
     }
@@ -511,7 +580,8 @@ class FeedControllerTest extends TestCase
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())
-            ->method('unmarkDeleted')
+            ->method('find')
+            ->with($this->uid, 4)
             ->will($this->throwException(new ServiceNotFoundException($msg)));
 
         $response = $this->class->restore(4);
@@ -523,17 +593,46 @@ class FeedControllerTest extends TestCase
 
     public function testPatch()
     {
-        $expected = [
-            'pinned' => true,
-            'fullTextEnabled' => true,
-            'updateMode' => 1
-        ];
-        $this->feedService->expects($this->once())
-            ->method('patch')
-            ->with(4, $this->uid, $expected)
-            ->will($this->returnValue(1));
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->getMock();
 
-        $this->class->patch(4, true, true, 1);
+        $feed->expects($this->once())
+             ->method('setFolderId')
+             ->with(null);
+
+        $feed->expects($this->once())
+             ->method('setPinned')
+             ->with(true);
+
+        $feed->expects($this->once())
+             ->method('setFullTextEnabled')
+             ->with(false);
+
+
+        $feed->expects($this->once())
+             ->method('setUpdateMode')
+             ->with(1);
+
+
+        $feed->expects($this->never())
+             ->method('setOrdering')
+             ->with(true);
+
+
+        $feed->expects($this->never())
+             ->method('setTitle')
+             ->with(true);
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 4)
+            ->will($this->returnValue($feed));
+
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->uid, $feed);
+
+        $this->class->patch(4, true, false, 1);
     }
 
     public function testPatchDoesNotExist()
@@ -541,13 +640,63 @@ class FeedControllerTest extends TestCase
         $msg = 'hehe';
 
         $this->feedService->expects($this->once())
-            ->method('patch')
+            ->method('find')
+            ->with($this->uid, 4)
             ->will($this->throwException(new ServiceNotFoundException($msg)));
 
         $response = $this->class->patch(4, 2);
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($msg, $params['message']);
+        $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+    }
+
+    public function testPatchDoesNotExistOnUpdate()
+    {
+        $feed = $this->getMockBuilder(Feed::class)
+            ->getMock();
+
+        $feed->expects($this->once())
+            ->method('setFolderId')
+            ->with(1);
+
+        $feed->expects($this->once())
+            ->method('setPinned')
+            ->with(true);
+
+        $feed->expects($this->once())
+            ->method('setFullTextEnabled')
+            ->with(false);
+
+
+        $feed->expects($this->once())
+            ->method('setUpdateMode')
+            ->with(1);
+
+
+        $feed->expects($this->once())
+            ->method('setOrdering')
+            ->with(1);
+
+
+        $feed->expects($this->once())
+            ->method('setTitle')
+            ->with('title');
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 4)
+            ->will($this->returnValue($feed));
+
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->uid, $feed)
+            ->will($this->throwException(new ServiceNotFoundException('test')));
+
+        $response = $this->class->patch(4, 2, false, 1, 1, 1, 'title');
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals('test', $params['message']);
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 

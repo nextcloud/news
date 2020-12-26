@@ -17,6 +17,7 @@ use Exception;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\Mapper;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
@@ -27,13 +28,25 @@ use OCP\IDBConnection;
  * @package OCA\News\Db
  * @deprecated use ItemMapper
  */
-class ItemMapper extends NewsMapper
+class ItemMapper extends Mapper
 {
 
     const TABLE_NAME = 'news_items';
+    /**
+     * @var Time
+     */
+    private $time;
+
+    /**
+     * NewsMapper constructor.
+     *
+     * @param IDBConnection $db     Database connection
+     * @param Time          $time   Time class
+     */
     public function __construct(IDBConnection $db, Time $time)
     {
-        parent::__construct($db, $time, Item::class);
+        parent::__construct($db, static::TABLE_NAME, Item::class);
+        $this->time = $time;
     }
 
     private function makeSelectQuery(
@@ -107,7 +120,7 @@ class ItemMapper extends NewsMapper
     /**
      * @param int    $id
      * @param string $userId
-     * @return \OCA\News\Db\Item
+     * @return \OCA\News\Db\Item|Entity
      */
     public function find(string $userId, int $id)
     {
@@ -332,7 +345,15 @@ class ItemMapper extends NewsMapper
         return $this->findEntities($sql, $params);
     }
 
-
+    /**
+     * @param $guidHash
+     * @param $feedId
+     * @param $userId
+     *
+     * @return Entity|Item
+     * @throws DoesNotExistException
+     * @throws MultipleObjectsReturnedException
+     */
     public function findByGuidHash($guidHash, $feedId, $userId)
     {
         $sql = $this->makeSelectQuery(
@@ -412,23 +433,6 @@ class ItemMapper extends NewsMapper
 
 
     /**
-     * Deletes all items of a user
-     *
-     * @param string $userId the name of the user
-     */
-    public function deleteUser($userId)
-    {
-        $sql = 'DELETE FROM `*PREFIX*news_items` ' .
-            'WHERE `feed_id` IN (' .
-            'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
-            'WHERE `feeds`.`user_id` = ?' .
-            ')';
-
-        $this->execute($sql, [$userId]);
-    }
-
-
-    /**
      * Returns a list of ids and userid of all items
      */
     public function findAllIds($limit = null, $offset = null)
@@ -492,29 +496,74 @@ class ItemMapper extends NewsMapper
         }
     }
 
-    /**
-     * NO-OP
-     *
-     * @param string $userId
-     *
-     * @return array
-     */
-    public function findAllFromUser(string $userId): array
+    public function update(Entity $entity): Entity
     {
-        return [];
+        $entity->setLastModified($this->time->getMicroTime());
+        return parent::update($entity);
     }
 
-    public function findFromUser(string $userId, int $id): Entity
+    public function insert(Entity $entity): Entity
     {
-        return $this->find($id, $userId);
+        $entity->setLastModified($this->time->getMicroTime());
+        return parent::insert($entity);
     }
 
     /**
-     * NO-OP
-     * @return array
+     * Remove deleted items.
+     *
+     * @return void
      */
-    public function findAll(): array
+    public function purgeDeleted(): void
     {
-        return [];
+        $builder = $this->db->getQueryBuilder();
+        $builder->delete($this->tableName)
+            ->where('deleted_at != 0')
+            ->execute();
+    }
+    /**
+     * Performs a SELECT query with all arguments appened to the WHERE clause
+     * The SELECT will be performed on the current table and take the entity
+     * that is related for transforming the properties into column names
+     *
+     * Important: This method does not filter marked as deleted rows!
+     *
+     * @param array $search an assoc array from property to filter value
+     * @param int|null $limit  Output limit
+     * @param int|null $offset Output offset
+     *
+     * @depreacted Legacy function
+     *
+     * @return Entity[]
+     */
+    public function where(array $search = [], ?int $limit = null, ?int $offset = null)
+    {
+        $entity = new $this->entityClass();
+
+        // turn keys into sql query filter, e.g. feedId -> feed_id = :feedId
+        $filter = array_map(
+            function ($property) use ($entity) {
+                // check if the property actually exists on the entity to prevent
+                // accidental Sql injection
+                if (!property_exists($entity, $property)) {
+                    $msg = 'Property ' . $property . ' does not exist on '
+                        . $this->entityClass;
+                    throw new \BadFunctionCallException($msg);
+                }
+
+                $column = $entity->propertyToColumn($property);
+                return $column . ' = :' . $property;
+            },
+            array_keys($search)
+        );
+
+        $andStatement = implode(' AND ', $filter);
+
+        $sql = 'SELECT * FROM `' . $this->getTableName() . '`';
+
+        if (count($search) > 0) {
+            $sql .= 'WHERE ' . $andStatement;
+        }
+
+        return $this->findEntities($sql, $search, $limit, $offset);
     }
 }

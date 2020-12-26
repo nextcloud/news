@@ -14,7 +14,7 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ItemController;
-use OCA\News\Service\FeedService;
+use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
@@ -34,9 +34,21 @@ class ItemControllerTest extends TestCase
 {
 
     private $appName;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     */
     private $settings;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemService
+     */
     private $itemService;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedServiceV2
+     */
     private $feedService;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IRequest
+     */
     private $request;
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|IUser
@@ -64,7 +76,7 @@ class ItemControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedService =
-        $this->getMockBuilder(FeedService::class)
+        $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(IRequest::class)

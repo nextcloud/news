@@ -13,6 +13,7 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\FeedServiceV2;
 use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\Http;
@@ -20,7 +21,6 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\Exceptions\ServiceException;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\ItemService;
-use \OCA\News\Service\FeedService;
 use OCP\IUserSession;
 
 class ItemController extends Controller
@@ -28,12 +28,18 @@ class ItemController extends Controller
     use JSONHttpErrorTrait;
 
     private $itemService;
+    /**
+     * @var FeedServiceV2
+     */
     private $feedService;
+    /**
+     * @var IConfig
+     */
     private $settings;
 
     public function __construct(
         IRequest $request,
-        FeedService $feedService,
+        FeedServiceV2 $feedService,
         ItemService $itemService,
         IConfig $settings,
         ?IUserSession $userSession

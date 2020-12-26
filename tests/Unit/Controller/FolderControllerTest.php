@@ -14,7 +14,7 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FolderController;
-use OCA\News\Service\FeedService;
+use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
@@ -39,6 +39,9 @@ class FolderControllerTest extends TestCase
      */
     private $folderService;
     private $itemService;
+    /**
+     * @var MockObject|FeedServiceV2
+     */
     private $feedService;
     /**
      * @var MockObject|IUser
@@ -60,7 +63,7 @@ class FolderControllerTest extends TestCase
         $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder(FeedService::class)
+        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(ItemService::class)
