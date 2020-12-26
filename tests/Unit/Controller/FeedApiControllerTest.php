@@ -15,18 +15,15 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
+use Exception;
 use OCA\News\Controller\FeedApiController;
-use OCA\News\Service\FeedService;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemService;
-use OCA\News\Service\ItemServiceV2;
-use OCA\News\Utility\PsrLogger;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\Exceptions\ServiceConflictException;
 use \OCA\News\Db\Feed;
-use OCP\ILogger;
 use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserSession;
@@ -36,10 +33,6 @@ use Psr\Log\LoggerInterface;
 
 class FeedApiControllerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|FeedService
-     */
-    private $oldFeedService;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|FeedServiceV2
@@ -57,7 +50,10 @@ class FeedApiControllerTest extends TestCase
     private $logger;
 
     private $class;
-    private $user;
+    /**
+     * @var string
+     */
+    private $userID = '123';
     private $msg;
 
     protected function setUp(): void
@@ -72,18 +68,15 @@ class FeedApiControllerTest extends TestCase
         $userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(IUser::class)
+        $user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
         $userSession->expects($this->any())
             ->method('getUser')
-            ->will($this->returnValue($this->user));
-        $this->user->expects($this->any())
+            ->will($this->returnValue($user));
+        $user->expects($this->any())
             ->method('getUID')
-            ->will($this->returnValue('123'));
-        $this->oldFeedService = $this->getMockBuilder(FeedService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+            ->will($this->returnValue($this->userID));
         $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -93,7 +86,6 @@ class FeedApiControllerTest extends TestCase
         $this->class = new FeedApiController(
             $request,
             $userSession,
-            $this->oldFeedService,
             $this->feedService,
             $this->itemService,
             $this->logger
@@ -110,25 +102,26 @@ class FeedApiControllerTest extends TestCase
 
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->user->getUID()))
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($starredCount));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->user->getUID()))
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($newestItemId));
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
-            ->with($this->equalTo($this->user->getUID()))
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($feeds));
 
         $response = $this->class->index();
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()],
-            'starredCount' => $starredCount,
-            'newestItemId' => $newestItemId
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()],
+                'starredCount' => $starredCount,
+                'newestItemId' => $newestItemId
+            ],
+            $response
         );
     }
 
@@ -140,24 +133,25 @@ class FeedApiControllerTest extends TestCase
 
         $this->itemService->expects($this->once())
             ->method('starredCount')
-            ->with($this->equalTo($this->user->getUID()))
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($starredCount));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
-            ->with($this->equalTo($this->user->getUID()))
+            ->with($this->equalTo($this->userID))
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
-            ->with($this->equalTo($this->user->getUID()))
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($feeds));
 
         $response = $this->class->index();
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()],
-            'starredCount' => $starredCount,
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()],
+                'starredCount' => $starredCount,
+            ],
+            $response
         );
     }
 
@@ -167,7 +161,7 @@ class FeedApiControllerTest extends TestCase
         $this->feedService->expects($this->once())
             ->method('delete')
             ->with(
-                $this->equalTo($this->user->getUID()),
+                $this->equalTo($this->userID),
                 $this->equalTo(2)
             );
 
@@ -202,7 +196,7 @@ class FeedApiControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with($this->user->getUID(), 'url', 3)
+            ->with($this->userID, 'url', 3)
             ->will($this->returnValue($feeds[0]));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
@@ -229,7 +223,7 @@ class FeedApiControllerTest extends TestCase
 
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with($this->user->getUID(), 'ho', 3)
+            ->with($this->userID, 'ho', 3)
             ->will($this->returnValue($feeds[0]));
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
@@ -239,8 +233,9 @@ class FeedApiControllerTest extends TestCase
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()]
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()]
+            ],
+            $response
         );
     }
 
@@ -288,7 +283,7 @@ class FeedApiControllerTest extends TestCase
             ->with(
                 $this->equalTo(3),
                 $this->equalTo(30),
-                $this->equalTo($this->user->getUID())
+                $this->equalTo($this->userID)
             );
 
         $this->class->read(3, 30);
@@ -297,13 +292,18 @@ class FeedApiControllerTest extends TestCase
 
     public function testMove()
     {
-        $this->oldFeedService->expects($this->once())
-            ->method('patch')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo(['folderId' => 30])
-            );
+        $feed = $this->getMockBuilder(Feed::class)->getMock();
+        $feed->expects($this->once())
+             ->method('setFolderId')
+             ->with(30)
+             ->will($this->returnSelf());
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 3)
+            ->will($this->returnValue($feed));
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->userID, $feed);
 
         $this->class->move(3, 30);
     }
@@ -311,8 +311,8 @@ class FeedApiControllerTest extends TestCase
 
     public function testMoveDoesNotExist()
     {
-        $this->oldFeedService->expects($this->once())
-            ->method('patch')
+        $this->feedService->expects($this->once())
+            ->method('update')
             ->will(
                 $this->throwException(new ServiceNotFoundException($this->msg))
             );
@@ -327,18 +327,20 @@ class FeedApiControllerTest extends TestCase
 
     public function testRename()
     {
-        $feedId = 3;
-        $feedTitle = 'test';
+        $feed = $this->getMockBuilder(Feed::class)->getMock();
+        $feed->expects($this->once())
+            ->method('setTitle')
+            ->with('test')
+            ->will($this->returnSelf());
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 3)
+            ->will($this->returnValue($feed));
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->userID, $feed);
 
-        $this->oldFeedService->expects($this->once())
-            ->method('patch')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo(['title' => $feedTitle])
-            );
-
-        $this->class->rename($feedId, $feedTitle);
+        $this->class->rename(3, 'test');
     }
 
 
@@ -347,13 +349,9 @@ class FeedApiControllerTest extends TestCase
         $feedId = 3;
         $feedTitle = 'test';
 
-        $this->oldFeedService->expects($this->once())
-            ->method('patch')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo(['title' => $feedTitle])
-            )
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 3)
             ->will($this->throwException(new ServiceNotFoundException('hi')));
 
         $result = $this->class->rename($feedId, $feedTitle);
@@ -365,7 +363,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testfromAllUsers()
+    public function testFromAllUsers()
     {
         $feed = new Feed();
         $feed->setUrl(3);
@@ -405,7 +403,7 @@ class FeedApiControllerTest extends TestCase
         $userId = 'hi';
         $this->feedService->expects($this->once())
             ->method('find')
-            ->will($this->throwException(new \Exception($this->msg)));
+            ->will($this->throwException(new Exception($this->msg)));
 
         $this->logger->expects($this->once())
             ->method('debug')

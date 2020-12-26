@@ -120,6 +120,11 @@ class ItemMapperV2 extends NewsMapperV2
         return $this->findEntity($builder);
     }
 
+    /**
+     * @param int $feedId
+     *
+     * @return array
+     */
     public function findAllForFeed(int $feedId): array
     {
         $builder = $this->db->getQueryBuilder();

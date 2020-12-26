@@ -64,28 +64,6 @@ class FolderServiceV2 extends Service
     }
 
     /**
-     * Finds a folder of a user
-     *
-     * @param string   $userId   The name/ID of the user
-     * @param int|null $folderId ID of the folder
-     *
-     * @return Folder
-     *
-     * @throws ServiceConflictException
-     * @throws ServiceNotFoundException
-     */
-    public function findForUser(string $userId, ?int $folderId): Entity
-    {
-        try {
-            return $this->mapper->findFromUser($userId, $folderId);
-        } catch (DoesNotExistException $e) {
-            throw new ServiceNotFoundException('Folder not found');
-        } catch (MultipleObjectsReturnedException $e) {
-            throw new ServiceConflictException('Multiple folders found');
-        }
-    }
-
-    /**
      * Find all folders and it's feeds.
      *
      * @param string $userId The name/ID of the owner
@@ -134,23 +112,6 @@ class FolderServiceV2 extends Service
     }
 
     /**
-     * Delete a feed.
-     *
-     * @param string $userId   Folder owner
-     * @param int    $folderId Folder ID
-     *
-     * @return Folder
-     * @throws ServiceConflictException
-     * @throws ServiceNotFoundException
-     */
-    public function delete(string $userId, int $folderId): Entity
-    {
-        $folder = $this->findForUser($userId, $folderId);
-
-        return $this->mapper->delete($folder);
-    }
-
-    /**
      * Purge all deleted folders.
      *
      * @param string|null $userID       The user to purge
@@ -174,8 +135,9 @@ class FolderServiceV2 extends Service
      */
     public function rename(string $userId, int $folderId, string $newName): Entity
     {
-        $folder = $this->findForUser($userId, $folderId);
+        $folder = $this->find($userId, $folderId);
         $folder->setName($newName);
+
         return $this->mapper->update($folder);
     }
 
@@ -192,7 +154,7 @@ class FolderServiceV2 extends Service
      */
     public function markDelete(string $userId, int $folderId, bool $mark): Entity
     {
-        $folder = $this->findForUser($userId, $folderId);
+        $folder = $this->find($userId, $folderId);
         $time = $mark ? $this->timeFactory->getTime() : 0;
         $folder->setDeletedAt($time);
 
@@ -212,21 +174,8 @@ class FolderServiceV2 extends Service
      */
     public function open(string $userId, ?int $folderId, bool $open): Entity
     {
-        $folder = $this->findForUser($userId, $folderId);
+        $folder = $this->find($userId, $folderId);
         $folder->setOpened($open);
         return $this->mapper->update($folder);
-    }
-
-    /**
-     * Delete all folders of a user
-     *
-     * @param string $userId User ID/name
-     */
-    public function deleteUser(string $userId): void
-    {
-        $folders = $this->findAllForUser($userId);
-        foreach ($folders as $folder) {
-            $this->mapper->delete($folder);
-        }
     }
 }

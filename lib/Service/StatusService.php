@@ -28,12 +28,11 @@ class StatusService
 
     public function __construct(
         IConfig $settings,
-        IDBConnection $connection,
-        string $AppName
+        IDBConnection $connection
     ) {
         $this->settings = $settings;
-        $this->appName = $AppName;
         $this->connection = $connection;
+        $this->appName = Application::NAME;
     }
 
     /**

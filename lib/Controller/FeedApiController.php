@@ -25,10 +25,8 @@ use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\FeedService;
 use \OCA\News\Service\ItemService;
 use Psr\Log\LoggerInterface;
-use function GuzzleHttp\Psr7\uri_for;
 
 class FeedApiController extends ApiController
 {
@@ -46,12 +44,6 @@ class FeedApiController extends ApiController
     private $feedService;
 
     /**
-     * TODO: Remove
-     * @var FeedService
-     */
-    private $oldFeedService;
-
-    /**
      * @var LoggerInterface
      */
     private $logger;
@@ -64,14 +56,12 @@ class FeedApiController extends ApiController
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        FeedService $oldFeedService,
         FeedServiceV2 $feedService,
         ItemService $oldItemService,
         LoggerInterface $logger
     ) {
         parent::__construct($request, $userSession);
         $this->feedService = $feedService;
-        $this->oldFeedService = $oldFeedService;
         $this->oldItemService = $oldItemService;
         $this->logger = $logger;
     }
@@ -189,11 +179,9 @@ class FeedApiController extends ApiController
         }
 
         try {
-            $this->oldFeedService->patch(
-                $feedId,
-                $this->getUserId(),
-                ['folderId' => $folderId]
-            );
+            $feed = $this->feedService->find($this->getUserId(), $feedId);
+            $feed->setFolderId($folderId);
+            $this->feedService->update($this->getUserId(), $feed);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -215,11 +203,9 @@ class FeedApiController extends ApiController
     public function rename(int $feedId, string $feedTitle)
     {
         try {
-            $this->oldFeedService->patch(
-                $feedId,
-                $this->getUserId(),
-                ['title' => $feedTitle]
-            );
+            $feed = $this->feedService->find($this->getUserId(), $feedId);
+            $feed->setTitle($feedTitle);
+            $this->feedService->update($this->getUserId(), $feed);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }

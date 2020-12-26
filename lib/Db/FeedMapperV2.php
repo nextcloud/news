@@ -52,7 +52,7 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('feeds.*', $builder->func()->count('items.id', 'unreadCount'))
-                ->from($this->tableName, 'feeds')
+                ->from(static::TABLE_NAME, 'feeds')
                 ->leftJoin(
                     'feeds',
                     ItemMapperV2::TABLE_NAME,
@@ -82,8 +82,8 @@ class FeedMapperV2 extends NewsMapperV2
     public function findFromUser(string $userId, int $id): Entity
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
-                ->from($this->tableName)
+        $builder->select('*')
+                ->from(static::TABLE_NAME)
                 ->where('user_id = :user_id')
                 ->andWhere('id = :id')
                 ->setParameter(':user_id', $userId)
@@ -101,7 +101,7 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-                ->from($this->tableName)
+                ->from(static::TABLE_NAME)
                 ->where('deleted_at = 0');
 
         return $this->findEntities($builder);
@@ -121,8 +121,8 @@ class FeedMapperV2 extends NewsMapperV2
     public function findByURL(string $userId, string $url): Entity
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
-                ->from($this->tableName)
+        $builder->select('*')
+                ->from(static::TABLE_NAME)
                 ->where('user_id = :user_id')
                 ->andWhere('url = :url')
                 ->setParameter(':user_id', $userId)
@@ -141,8 +141,8 @@ class FeedMapperV2 extends NewsMapperV2
     public function findAllFromFolder(?int $id): array
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
-                ->from($this->tableName);
+        $builder->select('*')
+                ->from(static::TABLE_NAME);
 
         if (is_null($id)) {
             $builder->where('folder_id IS NULL');

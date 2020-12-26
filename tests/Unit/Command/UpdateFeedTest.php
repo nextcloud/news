@@ -74,7 +74,7 @@ class UpdateFeedTest extends TestCase
             ->method('getLastUpdateError');
 
         $this->service->expects($this->exactly(1))
-                           ->method('findForUser')
+                           ->method('find')
                            ->with('admin', '1')
                            ->willReturn($feed);
 
@@ -108,7 +108,7 @@ class UpdateFeedTest extends TestCase
              ->willReturn('Problem');
 
         $this->service->expects($this->exactly(1))
-                           ->method('findForUser')
+                           ->method('find')
                            ->with('admin', '1')
                            ->willReturn($feed);
 
@@ -140,7 +140,7 @@ class UpdateFeedTest extends TestCase
         $feed = $this->createMock(Feed::class);
 
         $this->service->expects($this->exactly(1))
-            ->method('findForUser')
+            ->method('find')
             ->with('admin', '1')
             ->willReturn($feed);
 

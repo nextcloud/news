@@ -43,7 +43,7 @@ abstract class Service
      * @param NewsMapperV2    $mapper
      * @param LoggerInterface $logger
      */
-    public function __construct($mapper, LoggerInterface $logger)
+    public function __construct(NewsMapperV2 $mapper, LoggerInterface $logger)
     {
         $this->mapper = $mapper;
         $this->logger = $logger;
@@ -76,11 +76,40 @@ abstract class Service
      * @throws ServiceNotFoundException if the entity does not exist, or there
      * are more than one of it
      */
-    public function delete(string $userId, int $id)
+    public function delete(string $userId, int $id): Entity
     {
         $entity = $this->find($userId, $id);
 
-        $this->mapper->delete($entity);
+        return $this->mapper->delete($entity);
+    }
+
+
+    /**
+     * Insert an entity
+     *
+     * @param Entity $entity The entity to insert
+     *
+     * @return Entity The inserted entity
+     */
+    public function insert(Entity $entity): Entity
+    {
+        return $this->mapper->insert($entity);
+    }
+
+
+    /**
+     * Update an entity
+     *
+     * @param string $userId the name of the user for security reasons
+     * @param Entity $entity the entity
+     *
+     * @throws ServiceNotFoundException if the entity does not exist, or there
+     * are more than one of it
+     */
+    public function update(string $userId, Entity $entity): Entity
+    {
+        $this->find($userId, $entity->getId());
+        return $this->mapper->update($entity);
     }
 
 
@@ -102,6 +131,19 @@ abstract class Service
             throw new ServiceNotFoundException($ex->getMessage());
         } catch (MultipleObjectsReturnedException $ex) {
             throw new ServiceNotFoundException($ex->getMessage());
+        }
+    }
+
+    /**
+     * Delete all items of a user
+     *
+     * @param string $userId User ID/name
+     */
+    public function deleteUser(string $userId): void
+    {
+        $items = $this->findAllForUser($userId);
+        foreach ($items as $item) {
+            $this->mapper->delete($item);
         }
     }
 }

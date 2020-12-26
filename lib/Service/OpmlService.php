@@ -30,11 +30,6 @@ class OpmlService
     private $feedService;
 
     /**
-     * @var ItemService
-     */
-    private $itemService;
-
-    /**
      * @var OPMLExporter
      */
     private $exporter;
@@ -42,12 +37,10 @@ class OpmlService
     public function __construct(
         FolderServiceV2 $folderService,
         FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService,
         OPMLExporter $exporter
     ) {
         $this->folderService = $folderService;
         $this->feedService = $feedService;
-        $this->itemService = $itemService;
         $this->exporter = $exporter;
     }
 

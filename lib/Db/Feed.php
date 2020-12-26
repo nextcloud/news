@@ -25,6 +25,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
 {
     use EntityJSONSerializer;
 
+    /**
+     * Silently import new items
+     */
+    const UPDATE_MODE_SILENT = 0;
+
+    /**
+     * Mark new items as unread.
+     */
+    const UPDATE_MODE_NORMAL = 1;
+
     /** @var string */
     protected $userId = '';
     /** @var string */

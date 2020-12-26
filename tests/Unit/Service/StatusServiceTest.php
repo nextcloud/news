@@ -45,12 +45,9 @@ class StatusServiceTest extends TestCase
         $this->connection = $this->getMockBuilder(IDBConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->service = new StatusService($this->settings, $this->connection, 'news');
+        $this->service = new StatusService($this->settings, $this->connection);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::getStatus
-     */
     public function testGetStatus()
     {
         $this->settings->expects($this->exactly(3))
@@ -81,9 +78,6 @@ class StatusServiceTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::getStatus
-     */
     public function testGetStatusNoCorrectCronAjax()
     {
         $this->settings->expects($this->exactly(3))
@@ -114,9 +108,6 @@ class StatusServiceTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::getStatus
-     */
     public function testGetStatusNoCorrectCronTurnedOff()
     {
         $this->settings->expects($this->exactly(3))
@@ -147,9 +138,6 @@ class StatusServiceTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::getStatus
-     */
     public function testGetStatusReportsNon4ByteText()
     {
         $this->settings->expects($this->exactly(3))
@@ -180,9 +168,6 @@ class StatusServiceTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::isCronProperlyConfigured
-     */
     public function testIsProperlyConfiguredNone()
     {
         $this->settings->expects($this->exactly(2))
@@ -200,9 +185,6 @@ class StatusServiceTest extends TestCase
         $this->assertFalse($response);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::isCronProperlyConfigured
-     */
     public function testIsProperlyConfiguredModeCronNoSystem()
     {
         $this->settings->expects($this->exactly(2))
@@ -220,9 +202,6 @@ class StatusServiceTest extends TestCase
         $this->assertTrue($response);
     }
 
-    /**
-     * @covers \OCA\News\Service\StatusService::isCronProperlyConfigured
-     */
     public function testIsProperlyConfiguredModeCron()
     {
         $this->settings->expects($this->exactly(2))

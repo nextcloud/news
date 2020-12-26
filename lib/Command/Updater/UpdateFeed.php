@@ -51,7 +51,7 @@ class UpdateFeed extends Command
         $feedId = $input->getArgument('feed-id');
         $userId = $input->getArgument('user-id');
         try {
-            $feed = $this->feedService->findForUser($userId, $feedId);
+            $feed = $this->feedService->find($userId, $feedId);
             $updated_feed = $this->feedService->fetch($feed);
         } catch (\Exception $e) {
             $output->writeln(
