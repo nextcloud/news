@@ -135,9 +135,6 @@ jobs:
       - name: Prep PHP tests
         working-directory: ../server/apps/news
         run: make php-test-dependencies
-      - name: Integration tests
-        working-directory: ../server/apps/news
-        run: make integration-test
       - name: Feed tests
         working-directory: ../server/apps/news
         run: make feed-test

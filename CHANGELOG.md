@@ -7,6 +7,9 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [15.1.1] - 2020-12-27
 
+### Changed
+- Remove PHPunit based integration tests
+
 ### Fixed
 - Argument 2 passed to OCA\News\Db\FeedMapper::find() must be of the type int, string given #996
 
