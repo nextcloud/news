@@ -521,8 +521,8 @@ class ItemMapper extends Mapper
             ->execute();
     }
     /**
-     * Performs a SELECT query with all arguments appened to the WHERE clause
-     * The SELECT will be performed on the current table and take the entity
+     * Performs a SELECT query with all arguments appended to the WHERE clause
+     * The SELECT will be performed on the current table and takes the entity
      * that is related for transforming the properties into column names
      *
      * Important: This method does not filter marked as deleted rows!
