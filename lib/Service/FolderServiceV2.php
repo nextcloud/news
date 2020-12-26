@@ -49,6 +49,17 @@ class FolderServiceV2 extends Service
     }
 
     /**
+     * @param $userId
+     * @param $folderName
+     *
+     * @return Folder
+     */
+    public function findByName($userId, $folderName)
+    {
+        return $this->mapper->findByName($userId, $folderName);
+    }
+
+    /**
      * Finds all folders of a user
      *
      * @param string $userId The name/ID of the user
