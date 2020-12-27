@@ -27,10 +27,10 @@ trait ApiV2ResponseTrait
      *
      * @return array
      */
-    public function serialize($data): array
+    public function serialize($data, bool $reduced = false): array
     {
         if ($data instanceof IAPI) {
-            return $data->toAPI2();
+            return $data->toAPI2($reduced);
         }
 
         $return = [];
@@ -40,7 +40,7 @@ trait ApiV2ResponseTrait
 
         foreach ($data as $entity) {
             if ($entity instanceof IAPI) {
-                $return[] = $entity->toAPI2();
+                $return[] = $entity->toAPI2($reduced);
             }
         }
         return $return;

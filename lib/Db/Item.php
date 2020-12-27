@@ -576,8 +576,16 @@ class Item extends Entity implements IAPI, \JsonSerializable
         ];
     }
 
-    public function toAPI2(): array
+    public function toAPI2(bool $reduced = false): array
     {
+        if ($reduced) {
+            return [
+                'id' => $this->getId(),
+                'isUnread' => $this->isUnread(),
+                'isStarred' => $this->isStarred()
+            ];
+        }
+
         return [
             'id' => $this->getId(),
             'url' => $this->getUrl(),
