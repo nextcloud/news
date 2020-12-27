@@ -7,8 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, data, $route,
-                                              $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
+app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, UserResource,
+                                              data, $route, $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE,
+                                              Loading, $filter) {
     'use strict';
 
     var self = this;
@@ -38,7 +39,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         var firstItem = orderedItems[0];
         // If getOrdering == 1, then the sorting is set to
         // newest first. So, item should be the first item
-        // 
+        //
         if (getOrdering()) {
             item = firstItem;
         }
@@ -106,7 +107,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
 
         item.keepUnread = !item.keepUnread;
     };
-    
+
     this.sortIds = function(first, second) {
         var firstInt = parseInt(first.value);
         var secondInt = parseInt(second.value);
@@ -221,4 +222,9 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     };
 
     this.activeItem = this.getFirstItem();
+
+    this.searchUsers = function(search) {
+        return UserResource.getUsers(search);
+    };
+
 });
