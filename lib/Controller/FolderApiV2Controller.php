@@ -126,5 +126,4 @@ class FolderApiV2Controller extends ApiController
             return $this->errorResponse($ex, Http::STATUS_NOT_FOUND);
         }
     }
-
 }

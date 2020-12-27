@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Nextcloud - News
+ *
+ * This file is licensed under the Affero General Public License version 3 or
+ * later. See the COPYING file.
+ *
+ * @author    Paul Tirk <paultirk@paultirk.com>
+ * @copyright 2020 Paul Tirk
+ */
+
 namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http;
@@ -36,7 +46,7 @@ trait ApiV2ResponseTrait
         return $return;
     }
 
-    public function response($data, $code=Http::STATUS_OK)
+    public function response($data, $code = Http::STATUS_OK)
     {
         return new JSONResponse($data, $code);
     }
@@ -55,5 +65,4 @@ trait ApiV2ResponseTrait
             ]
         ], $code);
     }
-
 }
