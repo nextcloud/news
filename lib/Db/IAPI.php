@@ -18,5 +18,5 @@ namespace OCA\News\Db;
 interface IAPI
 {
     public function toAPI();
-    public function toAPI2();
+    public function toAPI2(bool $reduced = false);
 }
