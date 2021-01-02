@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
   <file src="lib/AppInfo/Application.php">
-    <MissingDependency occurrences="5">
+    <MissingDependency occurrences="4">
       <code>$fs</code>
       <code>$fs</code>
       <code>$fs</code>
-      <code>BeforeUserDeletedEvent</code>
       <code>IRootFolder</code>
     </MissingDependency>
   </file>
@@ -21,18 +20,30 @@
     </InvalidReturnType>
   </file>
   <file src="lib/Hooks/UserDeleteHook.php">
-    <MissingDependency occurrences="2">
-      <code>BeforeUserDeletedEvent</code>
-      <code>UserDeleteHook</code>
-    </MissingDependency>
     <MoreSpecificImplementedParamType occurrences="1">
       <code>$event</code>
     </MoreSpecificImplementedParamType>
   </file>
+  <file src="lib/Service/Exceptions/ServiceConflictException.php">
+    <MoreSpecificImplementedParamType occurrences="1">
+      <code>$exception</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="lib/Service/Exceptions/ServiceNotFoundException.php">
+    <MoreSpecificImplementedParamType occurrences="1">
+      <code>$exception</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="lib/Service/Exceptions/ServiceValidationException.php">
+    <MoreSpecificImplementedParamType occurrences="1">
+      <code>$exception</code>
+    </MoreSpecificImplementedParamType>
+  </file>
   <file src="lib/Service/FeedServiceV2.php">
-    <UndefinedMethod occurrences="2">
+    <UndefinedMethod occurrences="3">
       <code>findAllFromFolder</code>
       <code>findByURL</code>
+      <code>read</code>
     </UndefinedMethod>
   </file>
   <file src="lib/Service/FolderServiceV2.php">
@@ -43,18 +54,23 @@
       <code>$this-&gt;timeFactory</code>
       <code>TimeFactory</code>
     </UndefinedDocblockClass>
-  </file>
-  <file src="lib/Service/ItemService.php">
     <UndefinedMethod occurrences="1">
-      <code>findByGuidHash</code>
+      <code>read</code>
     </UndefinedMethod>
   </file>
   <file src="lib/Service/ItemServiceV2.php">
-    <UndefinedMethod occurrences="4">
+    <UndefinedMethod occurrences="11">
       <code>deleteOverThreshold</code>
-      <code>findAllForFeed</code>
+      <code>findAllAfter</code>
+      <code>findAllFeed</code>
+      <code>findAllFolder</code>
+      <code>findAllInFeedAfter</code>
+      <code>findAllInFolderAfter</code>
+      <code>findAllItems</code>
       <code>findByGuidHash</code>
-      <code>findByGuidHash</code>
+      <code>findForUserByGuidHash</code>
+      <code>newest</code>
+      <code>readAll</code>
     </UndefinedMethod>
   </file>
 </files>

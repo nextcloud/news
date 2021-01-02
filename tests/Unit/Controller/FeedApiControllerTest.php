@@ -18,7 +18,7 @@ namespace OCA\News\Tests\Unit\Controller;
 use Exception;
 use OCA\News\Controller\FeedApiController;
 use OCA\News\Service\FeedServiceV2;
-use OCA\News\Service\ItemService;
+use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -40,7 +40,7 @@ class FeedApiControllerTest extends TestCase
     private $feedService;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|ItemService
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
      */
     private $itemService;
 
@@ -80,7 +80,7 @@ class FeedApiControllerTest extends TestCase
         $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(ItemService::class)
+        $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->class = new FeedApiController(
@@ -96,18 +96,17 @@ class FeedApiControllerTest extends TestCase
 
     public function testIndex()
     {
-        $feeds = [new Feed()];
-        $starredCount = 3;
-        $newestItemId = 2;
+        $feed = Feed::fromParams(['id' => 5]);
+        $feeds = [$feed];
 
         $this->itemService->expects($this->once())
-            ->method('starredCount')
+            ->method('starred')
             ->with($this->equalTo($this->userID))
-            ->will($this->returnValue($starredCount));
+            ->will($this->returnValue([1, 2, 3]));
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->with($this->equalTo($this->userID))
-            ->will($this->returnValue($newestItemId));
+            ->will($this->returnValue($feeds[0]));
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
             ->with($this->equalTo($this->userID))
@@ -118,8 +117,8 @@ class FeedApiControllerTest extends TestCase
         $this->assertEquals(
             [
                 'feeds' => [$feeds[0]->toAPI()],
-                'starredCount' => $starredCount,
-                'newestItemId' => $newestItemId
+                'starredCount' => 3,
+                'newestItemId' => 5
             ],
             $response
         );
@@ -129,14 +128,13 @@ class FeedApiControllerTest extends TestCase
     public function testIndexNoNewestItemId()
     {
         $feeds = [new Feed()];
-        $starredCount = 3;
 
         $this->itemService->expects($this->once())
-            ->method('starredCount')
+            ->method('starred')
             ->with($this->equalTo($this->userID))
-            ->will($this->returnValue($starredCount));
+            ->will($this->returnValue([1, 2, 3]));
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->with($this->equalTo($this->userID))
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->feedService->expects($this->once())
@@ -149,7 +147,7 @@ class FeedApiControllerTest extends TestCase
         $this->assertEquals(
             [
                 'feeds' => [$feeds[0]->toAPI()],
-                'starredCount' => $starredCount,
+                'starredCount' => 3,
             ],
             $response
         );
@@ -203,8 +201,8 @@ class FeedApiControllerTest extends TestCase
             ->method('fetch')
             ->with($feeds[0]);
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
-            ->will($this->returnValue(3));
+            ->method('newest')
+            ->will($this->returnValue(Feed::fromParams(['id' => 3])));
 
         $response = $this->class->create('url', 3);
 
@@ -234,7 +232,7 @@ class FeedApiControllerTest extends TestCase
             ->method('fetch')
             ->with($feeds[0]);
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->will($this->throwException(new ServiceNotFoundException('')));
 
         $response = $this->class->create('ho', 3);
@@ -287,12 +285,8 @@ class FeedApiControllerTest extends TestCase
     public function testRead()
     {
         $this->itemService->expects($this->once())
-            ->method('readFeed')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo(30),
-                $this->equalTo($this->userID)
-            );
+            ->method('read')
+            ->with($this->userID,3,30);
 
         $this->class->read(3, 30);
     }

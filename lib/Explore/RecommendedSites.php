@@ -13,6 +13,8 @@
 
 namespace OCA\News\Explore;
 
+use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
+
 class RecommendedSites
 {
 

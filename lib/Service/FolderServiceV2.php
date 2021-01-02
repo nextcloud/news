@@ -178,4 +178,21 @@ class FolderServiceV2 extends Service
         $folder->setOpened($open);
         return $this->mapper->update($folder);
     }
+
+    /**
+     * Mark a folder as read
+     *
+     * @param string   $userId    Folder owner
+     * @param int      $id        Folder ID
+     * @param int|null $maxItemID Highest item ID to mark as read
+     *
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function read(string $userId, int $id, ?int $maxItemID = null): void
+    {
+        $folder = $this->find($userId, $id);
+
+        $this->mapper->read($userId, $folder->getId(), $maxItemID);
+    }
 }

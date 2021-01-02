@@ -6,6 +6,7 @@
             <directory>./tests/Unit</directory>
         </testsuite>
     </testsuites>
+
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./lib/</directory>
@@ -13,7 +14,10 @@
         <exclude>
             <file>./lib/AppInfo/Application.php</file>
             <file>./lib/Controller/JSONHttpErrorTrait.php</file>
-            <file>./lib/**Exception.php</file>
+            <directory suffix=".php">./lib/*/Exceptions</directory>
+            <directory suffix=".php">./lib/Migration</directory>
+            <file>./lib/Db/FeedType.php</file>
+            <file>./lib/Db/IAPI.php</file>
         </exclude>
         <report>
             <clover outputFile="./build/coverage.xml"/>

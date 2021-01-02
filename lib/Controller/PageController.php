@@ -14,6 +14,7 @@
 namespace OCA\News\Controller;
 
 use OCA\News\AppInfo\Application;
+use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
@@ -24,7 +25,6 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
-use OCA\News\Explore\RecommendedSiteNotFoundException;
 use OCA\News\Db\FeedType;
 use OCP\IUserSession;
 

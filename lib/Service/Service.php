@@ -14,6 +14,7 @@
 namespace OCA\News\Service;
 
 use OCA\News\Db\NewsMapperV2;
+use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
@@ -65,14 +66,13 @@ abstract class Service
      */
     abstract public function findAll(): array;
 
-
     /**
      * Delete an entity
      *
      * @param int    $id     the id of the entity
      * @param string $userId the name of the user for security reasons
      *
-     * @throws ServiceNotFoundException if the entity does not exist, or there
+     * @throws ServiceNotFoundException|ServiceConflictException if the entity does not exist, or there
      * are more than one of it
      */
     public function delete(string $userId, int $id): Entity
@@ -102,7 +102,7 @@ abstract class Service
      * @param string $userId the name of the user for security reasons
      * @param Entity $entity the entity
      *
-     * @throws ServiceNotFoundException if the entity does not exist, or there
+     * @throws ServiceNotFoundException|ServiceConflictException if the entity does not exist, or there
      * are more than one of it
      */
     public function update(string $userId, Entity $entity): Entity
@@ -119,7 +119,7 @@ abstract class Service
      * @param string $userId the name of the user for security reasons
      *
      * @return Entity the entity
-     * @throws ServiceNotFoundException if the entity does not exist, or there
+     * @throws ServiceNotFoundException|ServiceConflictException if the entity does not exist, or there
      * are more than one of it
      */
     public function find(string $userId, int $id): Entity
@@ -127,9 +127,9 @@ abstract class Service
         try {
             return $this->mapper->findFromUser($userId, $id);
         } catch (DoesNotExistException $ex) {
-            throw new ServiceNotFoundException($ex->getMessage());
+            throw ServiceNotFoundException::from($ex);
         } catch (MultipleObjectsReturnedException $ex) {
-            throw new ServiceNotFoundException($ex->getMessage());
+            throw ServiceConflictException::from($ex);
         }
     }
 

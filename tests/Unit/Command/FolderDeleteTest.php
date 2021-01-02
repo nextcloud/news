@@ -82,7 +82,7 @@ class FolderDeleteTest extends TestCase
      */
     public function testInValid()
     {
-        $this->expectException('OCA\News\Service\Exceptions\ServiceException');
+        $this->expectException('OCA\News\Service\Exceptions\ServiceValidationException');
         $this->expectExceptionMessage('Can not remove root folder!');
 
         $this->consoleInput->expects($this->exactly(2))

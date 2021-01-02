@@ -815,13 +815,30 @@ class FeedServiceTest extends TestCase
             ->will($this->returnValue([$feed1, $feed2]));
 
         $this->itemService->expects($this->exactly(2))
-                          ->method('findAllForFeed')
-                          ->withConsecutive([1], [2])
+                          ->method('findAllInFeed')
+                          ->withConsecutive(['jack', 1], ['jack', 2])
                           ->willReturn(['a']);
 
         $feeds = $this->class->findAllForUserRecursive($this->uid);
         $this->assertEquals(['a'], $feeds[0]->items);
         $this->assertEquals(['a'], $feeds[1]->items);
+    }
+
+    public function testRead()
+    {
+        $feed1 = new Feed();
+        $feed1->setId(1);
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with($this->uid, 1)
+            ->will($this->returnValue($feed1));
+
+        $this->mapper->expects($this->exactly(1))
+                     ->method('read')
+                     ->withConsecutive(['jack', 1, null]);
+
+        $this->class->read($this->uid, 1);
     }
 
 }

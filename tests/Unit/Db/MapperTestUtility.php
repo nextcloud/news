@@ -24,6 +24,7 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use Doctrine\DBAL\Driver\Statement;
+use OC\DB\QueryBuilder\QueryBuilder;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
@@ -74,6 +75,7 @@ abstract class MapperTestUtility extends TestCase
                             ->getMock();
 
         $this->builder = $this->getMockBuilder(IQueryBuilder::class)
+                              ->disableOriginalConstructor()
                               ->getMock();
 
         $this->cursor = $this->getMockBuilder(Statement::class)

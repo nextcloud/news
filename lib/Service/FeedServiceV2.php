@@ -18,6 +18,7 @@ use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
 
 use OCA\News\Db\FeedMapperV2;
+use OCA\News\Db\Folder;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -119,7 +120,7 @@ class FeedServiceV2 extends Service
         $feeds = $this->mapper->findAllFromUser($userId);
 
         foreach ($feeds as &$feed) {
-            $items = $this->itemService->findAllForFeed($feed->getId());
+            $items = $this->itemService->findAllInFeed($userId, $feed->getId());
             $feed->items = $items;
         }
         return $feeds;
@@ -340,5 +341,22 @@ class FeedServiceV2 extends Service
         foreach ($this->findAll() as $feed) {
             $this->fetch($feed);
         }
+    }
+
+    /**
+     * Mark a feed as read
+     *
+     * @param string   $userId    Feed owner
+     * @param int      $id        Feed ID
+     * @param int|null $maxItemID Highest item ID to mark as read
+     *
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
+     */
+    public function read(string $userId, int $id, ?int $maxItemID = null): void
+    {
+        $feed = $this->find($userId, $id);
+
+        $this->mapper->read($userId, $feed->getId(), $maxItemID);
     }
 }

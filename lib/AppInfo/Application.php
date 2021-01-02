@@ -31,9 +31,6 @@ use OCP\AppFramework\App;
 use OCP\Files\IRootFolder;
 use OCP\Files\Node;
 
-
-use OCA\News\Db\MapperFactory;
-use OCA\News\Db\ItemMapper;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCP\User\Events\BeforeUserDeletedEvent;
@@ -89,11 +86,6 @@ class Application extends App implements IBootstrap
         // parameters
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
         $context->registerParameter('configFile', 'config.ini');
-
-        // factories
-        $context->registerService(ItemMapper::class, function (ContainerInterface $c): ItemMapper {
-            return $c->get(MapperFactory::class)->build();
-        });
 
         $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
             $directory = $c->get(ITempManager::class)->getTempBaseDir() . '/news/cache/purifier';

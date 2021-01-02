@@ -14,8 +14,8 @@
 namespace OCA\News\Tests\Unit\Service;
 
 use OCA\News\Db\Feed;
-use OCA\News\Db\ItemMapper;
 use OCA\News\Db\ItemMapperV2;
+use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Service;
 use \OCP\AppFramework\Db\DoesNotExistException;
@@ -112,7 +112,7 @@ class ServiceTest extends TestCase
             ->method('findFromUser')
             ->will($this->throwException($ex));
 
-        $this->expectException(ServiceNotFoundException::class);
+        $this->expectException(ServiceConflictException::class);
         $this->class->find('', 1);
     }
 

@@ -84,8 +84,6 @@ class FolderControllerTest extends TestCase
         $this->class = new FolderController(
             $request,
             $this->folderService,
-            $this->feedService,
-            $this->itemService,
             $this->userSession
         );
         $this->msg = 'ron';
@@ -162,6 +160,16 @@ class FolderControllerTest extends TestCase
         $this->class->delete(5);
     }
 
+    public function testDeleteRoot()
+    {
+        $this->folderService->expects($this->never())
+            ->method('markDelete')
+            ->with('jack', 5, true);
+
+        $response = $this->class->delete(null);
+        $this->assertEquals(400, $response->getStatus());
+    }
+
     public function testDeleteDoesNotExist()
     {
         $this->folderService->expects($this->once())
@@ -176,6 +184,20 @@ class FolderControllerTest extends TestCase
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
+    public function testDeleteConflict()
+    {
+        $this->folderService->expects($this->once())
+            ->method('markDelete')
+            ->will($this->throwException(new ServiceConflictException($this->msg)));
+
+        $response = $this->class->delete(5);
+
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals($this->msg, $params['message']);
+        $this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
+    }
+
     public function testRename()
     {
         $folder = new Folder();
@@ -186,9 +208,19 @@ class FolderControllerTest extends TestCase
             ->with('jack', 4, 'tech')
             ->will($this->returnValue($folder));
 
-        $response = $this->class->rename('tech', 4);
+        $response = $this->class->rename(4, 'tech');
 
         $this->assertEquals($result, $response);
+    }
+
+    public function testRenameRoot()
+    {
+        $this->folderService->expects($this->never())
+            ->method('rename');
+
+        $response = $this->class->rename(null, 'tech');
+
+        $this->assertEquals(400, $response->getStatus());
     }
 
     public function testRenameDoesNotExist()
@@ -199,7 +231,7 @@ class FolderControllerTest extends TestCase
             ->method('rename')
             ->will($this->throwException($ex));
 
-        $response = $this->class->rename('tech', 5);
+        $response = $this->class->rename(5, 'tech');
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
@@ -215,7 +247,7 @@ class FolderControllerTest extends TestCase
             ->method('rename')
             ->will($this->throwException($ex));
 
-        $response = $this->class->rename('tech', 1);
+        $response = $this->class->rename(1, 'tech');
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
@@ -226,19 +258,11 @@ class FolderControllerTest extends TestCase
 
     public function testRead()
     {
-        $feed = new Feed();
-        $expected = ['feeds' => [$feed->toAPI()]];
+        $this->folderService->expects($this->once())
+            ->method('read')
+            ->with('jack', 4, 5);
 
-        $this->itemService->expects($this->once())
-            ->method('readFolder')
-            ->with(4, 5, 'jack');
-        $this->feedService->expects($this->once())
-            ->method('findAllForUser')
-            ->with('jack')
-            ->will($this->returnValue([$feed]));
-
-        $response = $this->class->read(4, 5);
-        $this->assertEquals($expected, $response);
+        $this->class->read(4, 5);
     }
 
 
@@ -264,6 +288,22 @@ class FolderControllerTest extends TestCase
         $params = json_decode($response->render(), true);
 
         $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+        $this->assertEquals($this->msg, $params['message']);
+    }
+
+
+    public function testRestoreConflict()
+    {
+        $this->folderService->expects($this->once())
+            ->method('markDelete')
+            ->with('jack', 5, false)
+            ->will($this->throwException(new ServiceConflictException($this->msg)));
+
+        $response = $this->class->restore(5);
+
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
         $this->assertEquals($this->msg, $params['message']);
     }
 

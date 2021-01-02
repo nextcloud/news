@@ -12,6 +12,7 @@
 
 namespace OCA\News\Db;
 
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use Doctrine\DBAL\FetchMode;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -55,12 +56,11 @@ class ItemMapperV2 extends NewsMapperV2
                 ->from($this->tableName, 'items')
                 ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                 ->where('feeds.user_id = :user_id')
-                ->andWhere('deleted_at = 0')
+                ->andWhere('feeds.deleted_at = 0')
                 ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR);
 
         foreach ($params as $key => $value) {
-            $builder->andWhere("${key} = :${key}")
-                    ->setParameter($key, $value);
+            $builder->andWhere("${key} = " . $builder->createNamedParameter($value));
         }
 
         return $this->findEntities($builder);
@@ -74,13 +74,17 @@ class ItemMapperV2 extends NewsMapperV2
     public function findAll(): array
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
+        $builder->select('*')
             ->from($this->tableName)
-            ->andWhere('deleted_at = 0');
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.deleted_at = 0');
 
         return $this->findEntities($builder);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findFromUser(string $userId, int $id): Entity
     {
         $builder = $this->db->getQueryBuilder();
@@ -89,9 +93,9 @@ class ItemMapperV2 extends NewsMapperV2
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->where('feeds.user_id = :user_id')
             ->andWhere('items.id = :item_id')
-            ->andWhere('deleted_at = 0')
+            ->andWhere('feeds.deleted_at = 0')
             ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR)
-            ->setParameter('item_id', $id, IQueryBuilder::PARAM_STR);
+            ->setParameter('item_id', $id, IQueryBuilder::PARAM_INT);
 
         return $this->findEntity($builder);
     }
@@ -102,18 +106,46 @@ class ItemMapperV2 extends NewsMapperV2
      * @param int    $feedId   ID of the feed
      * @param string $guidHash hash to find with
      *
-     * @return Item
+     * @return Item|Entity
      *
      * @throws DoesNotExistException
      * @throws MultipleObjectsReturnedException
      */
-    public function findByGuidHash(int $feedId, string $guidHash): Item
+    public function findByGuidHash(int $feedId, string $guidHash): Entity
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
+        $builder->select('*')
             ->from($this->tableName)
             ->andWhere('feed_id = :feed_id')
             ->andWhere('guid_hash = :guid_hash')
+            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT)
+            ->setParameter('guid_hash', $guidHash, IQueryBuilder::PARAM_STR);
+
+        return $this->findEntity($builder);
+    }
+
+    /**
+     * Find a user item by a GUID hash.
+     *
+     * @param string $userId
+     * @param int    $feedId   ID of the feed
+     * @param string $guidHash hash to find with
+     *
+     * @return Item|Entity
+     *
+     * @throws DoesNotExistException
+     * @throws MultipleObjectsReturnedException
+     */
+    public function findForUserByGuidHash(string $userId, int $feedId, string $guidHash): Item
+    {
+        $builder = $this->db->getQueryBuilder();
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.user_id = :user_id')
+            ->andWhere('feeds.id = :feed_id')
+            ->andWhere('items.guid_hash = :guid_hash')
+            ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR)
             ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT)
             ->setParameter('guid_hash', $guidHash, IQueryBuilder::PARAM_STR);
 
@@ -128,10 +160,10 @@ class ItemMapperV2 extends NewsMapperV2
     public function findAllForFeed(int $feedId): array
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->addSelect('*')
+        $builder->select('*')
             ->from($this->tableName)
-            ->andWhere('feed_id = :feed_id')
-            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT);
+            ->where('feed_id = :feed_identifier')
+            ->setParameter('feed_identifier', $feedId, IQueryBuilder::PARAM_INT);
 
         return $this->findEntities($builder);
     }
@@ -213,5 +245,313 @@ class ItemMapperV2 extends NewsMapperV2
     public function purgeDeleted(?string $userID, ?int $oldestDelete): void
     {
         //NO-OP
+    }
+
+
+    /**
+     * @param string $userId
+     * @param int    $maxItemId
+     *
+     * @TODO: Update this for NC 21
+     */
+    public function readAll(string $userId, int $maxItemId): void
+    {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->update($this->tableName, 'items')
+                ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+                ->setValue('unread', 0)
+                ->andWhere('items.id =< :maxItemId')
+                ->andWhere('feeds.user_id = :userId')
+                ->setParameter('maxItemId', $maxItemId)
+                ->setParameter('userId', $userId);
+
+        $this->db->executeUpdate($builder->getSQL());
+    }
+
+    /**
+     * @param string $userId
+     *
+     * @return Entity|Item
+     *
+     * @throws DoesNotExistException            The item is not found
+     * @throws MultipleObjectsReturnedException Multiple items found
+     */
+    public function newest(string $userId): Entity
+    {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+                ->from($this->tableName, 'items')
+                ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+                ->where('feeds.user_id = :userId')
+                ->setParameter('userId', $userId)
+                ->orderBy('items.updated_date', 'DESC')
+                ->addOrderBy('items.id', 'DESC')
+                ->setMaxResults(1);
+
+        return $this->findEntity($builder);
+    }
+
+    /**
+     * @param string $userId
+     * @param int    $feedId
+     * @param int    $updatedSince
+     * @param bool   $hideRead
+     *
+     * @return Item[]
+     */
+    public function findAllInFeedAfter(
+        string $userId,
+        int $feedId,
+        int $updatedSince,
+        bool $hideRead
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('items.updated_date >= :updatedSince')
+            ->andWhere('feeds.user_id = :userId')
+            ->andWhere('feeds.id = :feedId')
+            ->setParameters([
+                'updatedSince' => $updatedSince,
+                'feedId' => $feedId,
+                'userId'=> $userId,
+            ])
+            ->orderBy('items.updated_date', 'DESC')
+            ->addOrderBy('items.id', 'DESC');
+
+        if ($hideRead === true) {
+            $builder->andWhere('items.unread = 1');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
+     * @param string   $userId
+     * @param int|null $folderId
+     * @param int      $updatedSince
+     * @param bool     $hideRead
+     *
+     * @return Item[]
+     */
+    public function findAllInFolderAfter(
+        string $userId,
+        ?int $folderId,
+        int $updatedSince,
+        bool $hideRead
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->innerJoin('feeds', FolderMapperV2::TABLE_NAME, 'folders', 'feeds.folder_id = folders.id')
+            ->andWhere('items.updated_date >= :updatedSince')
+            ->andWhere('feeds.user_id = :userId')
+            ->andWhere('folders.id = :folderId')
+            ->setParameters(['updatedSince' => $updatedSince, 'folderId' => $folderId, 'userId' => $userId])
+            ->orderBy('items.updated_date', 'DESC')
+            ->addOrderBy('items.id', 'DESC');
+
+        if ($hideRead === true) {
+            $builder->andWhere('items.unread = 1');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
+     * @param string $userId
+     * @param int    $updatedSince
+     * @param int    $feedType
+     *
+     * @return Item[]|Entity[]
+     * @throws ServiceValidationException
+     */
+    public function findAllAfter(string $userId, int $feedType, int $updatedSince): array
+    {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('items.updated_date >= :updatedSince')
+            ->andWhere('feeds.user_id = :userId')
+            ->setParameters(['updatedSince' => $updatedSince, 'userId' => $userId])
+            ->orderBy('items.updated_date', 'DESC')
+            ->addOrderBy('items.id', 'DESC');
+
+        switch ($feedType) {
+            case FeedType::STARRED:
+                $builder->andWhere('items.starred = 1');
+                break;
+            case FeedType::UNREAD:
+                $builder->andWhere('items.unread = 1');
+                break;
+            default:
+                throw new ServiceValidationException('Unexpected Feed type in call');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
+     * @param string $userId
+     * @param int    $feedId
+     * @param int    $limit
+     * @param int    $offset
+     * @param bool   $hideRead
+     * @param bool   $oldestFirst
+     * @param array  $search
+     *
+     * @return Item[]
+     */
+    public function findAllFeed(
+        string $userId,
+        int $feedId,
+        int $limit,
+        int $offset,
+        bool $hideRead,
+        bool $oldestFirst,
+        array $search
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.user_id = :userId')
+            ->andWhere('items.feed_id = :feedId')
+            ->setParameter('userId', $userId)
+            ->setParameter('feedId', $feedId)
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy('items.updated_date', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
+
+        if ($search !== []) {
+            foreach ($search as $key => $term) {
+                $term = $this->db->escapeLikeParameter($term);
+                $builder->andWhere("items.search_index LIKE :term${key}")
+                    ->setParameter("term${key}", "%$term%");
+            }
+        }
+
+        if ($hideRead === true) {
+            $builder->andWhere('items.unread = 1');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
+     * @param string   $userId
+     * @param int|null $folderId
+     * @param int      $limit
+     * @param int      $offset
+     * @param bool     $hideRead
+     * @param bool     $oldestFirst
+     * @param array    $search
+     *
+     * @return Item[]
+     */
+    public function findAllFolder(
+        string $userId,
+        ?int $folderId,
+        int $limit,
+        int $offset,
+        bool $hideRead,
+        bool $oldestFirst,
+        array $search
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        if ($folderId === null) {
+            $folderWhere = $builder->expr()->isNull('feeds.folder_id');
+        } else {
+            $folderWhere = $builder->expr()->eq('feeds.folder_id', $folderId);
+        }
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.user_id = :userId')
+            ->andWhere($folderWhere)
+            ->setParameter('userId', $userId)
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy('items.updated_date', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
+
+        if ($search !== []) {
+            foreach ($search as $key => $term) {
+                $term = $this->db->escapeLikeParameter($term);
+                $builder->andWhere("items.search_index LIKE :term${key}")
+                    ->setParameter("term${key}", "%$term%");
+            }
+        }
+
+        if ($hideRead === true) {
+            $builder->andWhere('items.unread = 1');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
+     * @param string $userId
+     * @param int    $type
+     * @param int    $limit
+     * @param int    $offset
+     * @param bool   $oldestFirst
+     * @param array  $search
+     *
+     * @return Item[]
+     * @throws ServiceValidationException
+     */
+    public function findAllItems(
+        string $userId,
+        int $type,
+        int $limit,
+        int $offset,
+        bool $oldestFirst,
+        array $search
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.user_id = :userId')
+            ->setParameter('userId', $userId)
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy('items.updated_date', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
+
+        if ($search !== []) {
+            foreach ($search as $key => $term) {
+                $term = $this->db->escapeLikeParameter($term);
+                $builder->andWhere("items.search_index LIKE :term${key}")
+                        ->setParameter("term${key}", "%$term%");
+            }
+        }
+
+        switch ($type) {
+            case FeedType::STARRED:
+                $builder->andWhere('items.starred = 1');
+                break;
+            case FeedType::UNREAD:
+                $builder->andWhere('items.unread = 1');
+                break;
+            default:
+                throw new ServiceValidationException('Unexpected Feed type in call');
+        }
+
+        return $this->findEntities($builder);
     }
 }

@@ -13,16 +13,22 @@
 
 namespace OCA\News\Service\Exceptions;
 
+use Exception;
+use OCP\AppFramework\Db\IMapperException;
+
+/**
+ * Class ServiceValidationException
+ *
+ * @package OCA\News\Service\Exceptions
+ */
 class ServiceValidationException extends ServiceException
 {
 
     /**
-     * Constructor
-     *
-     * @param string $msg the error message
+     * @inheritDoc
      */
-    public function __construct(string $msg)
+    public static function from(IMapperException $exception): ServiceException
     {
-        parent::__construct($msg);
+        return new self($exception->getMessage(), $exception->getCode(), $exception);
     }
 }
