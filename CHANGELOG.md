@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 - Remove outdated feed DB code
 - add background & hover for entries
+- Improve spacing of open articles in compact mode (nextcloud/news#1017)
 
 ## [15.1.1] - 2020-12-27
 
