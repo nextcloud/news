@@ -239,6 +239,10 @@
     opacity: 0.9;
 }
 
+#app-content .compact .open .utils {
+    padding-top: 15px;
+}
+
 #app-content .utils ul {
     height: 40px;
     list-style-type: none;
