@@ -529,7 +529,7 @@
     color: var(--color-text-lighter);
     font-size: 15px;
     max-width: 770px;
-    padding-bottom: 25px;
+    padding: 25px 0;
 }
 
 #app-content .subtitle a {
