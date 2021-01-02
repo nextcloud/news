@@ -14,13 +14,11 @@
 namespace OCA\News\Controller;
 
 use OCA\News\Service\Exceptions\ServiceException;
-use OCA\News\Service\FeedServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\FolderServiceV2;
-use \OCA\News\Service\ItemService;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\Exceptions\ServiceConflictException;
 use OCP\IUserSession;
@@ -33,24 +31,14 @@ class FolderController extends Controller
      * @var FolderServiceV2
      */
     private $folderService;
-    /**
-     * @var FeedServiceV2
-     */
-    private $feedService;
-    //TODO: Remove
-    private $itemService;
 
     public function __construct(
         IRequest $request,
         FolderServiceV2 $folderService,
-        FeedServiceV2 $feedService,
-        ItemService $itemService,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
         $this->folderService = $folderService;
-        $this->feedService = $feedService;
-        $this->itemService = $itemService;
     }
 
 
@@ -134,12 +122,12 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param string   $folderName
-     * @param int|null $folderId
+     * @param int|null $folderId   The ID of the folder
+     * @param string   $folderName The new name of the folder
      *
      * @return array|JSONResponse
      */
-    public function rename(string $folderName, ?int $folderId)
+    public function rename(?int $folderId, string $folderName)
     {
         if (empty($folderId)) {
             return new JSONResponse([], Http::STATUS_BAD_REQUEST);
@@ -159,21 +147,18 @@ class FolderController extends Controller
      * @NoAdminRequired
      *
      * @param int|null $folderId
-     * @param int      $highestItemId
+     * @param int      $maxItemId
      *
-     * @return array
+     * @return void
+     *
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
      */
-    public function read(?int $folderId, int $highestItemId): array
+    public function read(?int $folderId, int $maxItemId): void
     {
         $folderId = $folderId === 0 ? null : $folderId;
 
-        $this->itemService->readFolder(
-            $folderId,
-            $highestItemId,
-            $this->getUserId()
-        );
-        $feeds = $this->feedService->findAllForUser($this->getUserId());
-        return ['feeds' => $this->serialize($feeds)];
+        $this->folderService->read($this->getUserId(), $folderId, $maxItemId);
     }
 
 

@@ -69,7 +69,7 @@ class FeedMapperTest extends MapperTestUtility
                             ->getMock();
 
         $func = $this->getMockBuilder(IQueryFunction::class)
-                            ->getMock();
+                     ->getMock();
 
         $funcbuilder->expects($this->once())
                     ->method('count')
@@ -450,5 +450,95 @@ class FeedMapperTest extends MapperTestUtility
 
         $result = $this->class->findAllFromFolder(null);
         $this->assertEquals($this->feeds, $result);
+    }
+
+    /**
+     * @covers \OCA\News\Db\FeedMapperV2::read
+     */
+    public function testRead()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('innerJoin')
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('setValue')
+            ->with('unread', 0)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['userId', 'admin'], ['feedId', 1])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('QUERY'));
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeUpdate')
+            ->with('QUERY');
+
+        $this->class->read('admin', 1);
+    }
+
+    /**
+     * @covers \OCA\News\Db\FeedMapperV2::read
+     */
+    public function testReadWithMaxId()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('innerJoin')
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('setValue')
+            ->with('unread', 0)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(3))
+            ->method('andWhere')
+            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'], ['items.id =< :maxItemId'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(3))
+            ->method('setParameter')
+            ->withConsecutive(['userId', 'admin'], ['feedId', 1], ['maxItemId', 4])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('QUERY'));
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeUpdate')
+            ->with('QUERY');
+
+        $this->class->read('admin', 1, 4);
     }
 }

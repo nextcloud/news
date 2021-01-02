@@ -18,7 +18,7 @@ use OCA\News\Db\Folder;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ImportService;
-use OCA\News\Service\ItemService;
+use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http;
 
 use OCA\News\Db\Feed;
@@ -55,8 +55,7 @@ class FeedControllerTest extends TestCase
      */
     private $importService;
     /**
-     * TODO: Remove
-     * @var MockObject|ItemService
+     * @var MockObject|ItemServiceV2
      */
     private $itemService;
 
@@ -87,7 +86,7 @@ class FeedControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this
-            ->getMockBuilder(ItemService::class)
+            ->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->feedService = $this
@@ -138,20 +137,20 @@ class FeedControllerTest extends TestCase
             'feeds' => [
                 ['a feed'],
             ],
-            'starred' => 13
+            'starred' => 4
         ];
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
             ->with($this->uid)
             ->will($this->returnValue($result['feeds']));
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->with($this->uid)
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->itemService->expects($this->once())
-            ->method('starredCount')
+            ->method('starred')
             ->with($this->uid)
-            ->will($this->returnValue($result['starred']));
+            ->will($this->returnValue([1, 2, 3, 4]));
 
         $response = $this->class->index();
 
@@ -165,7 +164,7 @@ class FeedControllerTest extends TestCase
             'feeds' => [
                 ['a feed'],
             ],
-            'starred' => 13,
+            'starred' => 2,
             'newestItemId' => 5
         ];
         $this->feedService->expects($this->once())
@@ -173,13 +172,13 @@ class FeedControllerTest extends TestCase
             ->with($this->uid)
             ->will($this->returnValue($result['feeds']));
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->with($this->uid)
-            ->will($this->returnValue($result['newestItemId']));
+            ->will($this->returnValue(Feed::fromParams(['id' => 5])));
         $this->itemService->expects($this->once())
-            ->method('starredCount')
+            ->method('starred')
             ->with($this->uid)
-            ->will($this->returnValue($result['starred']));
+            ->will($this->returnValue([1, 2]));
 
         $response = $this->class->index();
 
@@ -215,6 +214,30 @@ class FeedControllerTest extends TestCase
                 'type' => $type
             ]
         ];
+
+        $this->activeInitMocks($id, $type);
+
+        $response = $this->class->active();
+
+        $this->assertEquals($result, $response);
+    }
+
+
+    public function testActiveFeed()
+    {
+        $id = 3;
+        $type = FeedType::FEED;
+        $result = [
+            'activeFeed' => [
+                'id' => $id,
+                'type' => $type
+            ]
+        ];
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, $id)
+            ->will($this->returnValue(new Feed()));
 
         $this->activeInitMocks($id, $type);
 
@@ -313,8 +336,8 @@ class FeedControllerTest extends TestCase
         ];
 
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
-            ->will($this->returnValue($result['newestItemId']));
+            ->method('newest')
+            ->will($this->returnValue(Feed::fromParams(['id' => 3])));
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->uid, false);
@@ -341,8 +364,8 @@ class FeedControllerTest extends TestCase
         ];
 
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
-            ->will($this->returnValue($result['newestItemId']));
+            ->method('newest')
+            ->will($this->returnValue(Feed::fromParams(['id' => 3])));
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->uid, false);
@@ -370,7 +393,7 @@ class FeedControllerTest extends TestCase
             ->with($this->uid, false);
 
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->will($this->throwException(new ServiceNotFoundException('')));
 
         $this->feedService->expects($this->once())
@@ -522,9 +545,9 @@ class FeedControllerTest extends TestCase
             ->will($this->returnValue($feed));
 
         $this->itemService->expects($this->once())
-            ->method('starredCount')
+            ->method('starred')
             ->with($this->uid)
-            ->will($this->returnValue(3));
+            ->will($this->returnValue([1, 2, 3]));
 
         $response = $this->class->import(['json']);
 
@@ -540,9 +563,9 @@ class FeedControllerTest extends TestCase
             ->will($this->returnValue(null));
 
         $this->itemService->expects($this->once())
-            ->method('starredCount')
+            ->method('starred')
             ->with($this->uid)
-            ->will($this->returnValue(3));
+            ->will($this->returnValue([1, 2, 3]));
 
         $response = $this->class->import(['json']);
 
@@ -561,9 +584,9 @@ class FeedControllerTest extends TestCase
             ]
         ];
 
-        $this->itemService->expects($this->once())
-            ->method('readFeed')
-            ->with(4, 5, $this->uid);
+        $this->feedService->expects($this->once())
+            ->method('read')
+            ->with($this->uid, 4, 5);
 
         $response = $this->class->read(4, 5);
         $this->assertEquals($expected, $response);

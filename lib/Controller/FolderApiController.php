@@ -20,7 +20,6 @@ use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ItemService;
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\Exceptions\ServiceConflictException;
@@ -30,20 +29,19 @@ class FolderApiController extends ApiController
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
 
+    /**
+     * @var FolderServiceV2
+     */
     private $folderService;
-    //TODO: Remove
-    private $itemService;
 
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        FolderServiceV2 $folderService,
-        ItemService $itemService
+        FolderServiceV2 $folderService
     ) {
         parent::__construct($request, $userSession);
 
         $this->folderService = $folderService;
-        $this->itemService = $itemService;
     }
 
 
@@ -52,7 +50,7 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index()
+    public function index(): array
     {
         $folders = $this->folderService->findAllForUser($this->getUserId());
         return ['folders' => $this->serialize($folders)];
@@ -142,14 +140,13 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int|null $folderId
-     * @param int      $newestItemId
+     * @param int|null $folderId  ID of the folder
+     * @param int      $maxItemId The newest read item
      */
-    public function read(?int $folderId, int $newestItemId): void
+    public function read(?int $folderId, int $maxItemId): void
     {
-        if ($folderId === 0) {
-            $folderId = null;
-        }
-        $this->itemService->readFolder($folderId, $newestItemId, $this->getUserId());
+        $folderId = $folderId === 0 ? null : $folderId;
+
+        $this->folderService->read($this->getUserId(), $folderId, $maxItemId);
     }
 }

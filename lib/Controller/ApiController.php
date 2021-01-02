@@ -77,7 +77,7 @@ class ApiController extends BaseApiController
      *
      * @return array
      */
-    public function index()
+    public function index(): array
     {
         return [
             'apiLevels' => ['v1-2']

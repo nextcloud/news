@@ -95,4 +95,30 @@ class FolderMapperV2 extends NewsMapperV2
 
         return $this->findEntity($builder);
     }
+
+    /**
+     * @param string   $userId
+     * @param int      $id
+     * @param int|null $maxItemID
+     *
+     * @return void
+     */
+    public function read(string $userId, int $id, ?int $maxItemID = null): void
+    {
+        $builder = $this->db->getQueryBuilder();
+        $builder->update(ItemMapperV2::TABLE_NAME, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->setValue('unread', 0)
+            ->andWhere('feeds.user_id = :userId')
+            ->andWhere('feeds.folder_id = :folderId')
+            ->setParameter('userId', $userId)
+            ->setParameter('folderId', $id);
+
+        if ($maxItemID !== null) {
+            $builder->andWhere('items.id =< :maxItemId')
+                    ->setParameter('maxItemId', $maxItemID);
+        }
+
+        $this->db->executeUpdate($builder->getSQL());
+    }
 }

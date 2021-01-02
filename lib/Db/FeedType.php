@@ -13,6 +13,11 @@
 
 namespace OCA\News\Db;
 
+/**
+ * Enum FeedType
+ *
+ * @package OCA\News\Db
+ */
 class FeedType
 {
     const FEED          = 0;

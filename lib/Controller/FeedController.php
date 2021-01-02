@@ -18,12 +18,12 @@ use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ImportService;
+use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\AppFramework\Http;
 
-use OCA\News\Service\ItemService;
 use OCA\News\Db\FeedType;
 use OCP\IUserSession;
 
@@ -35,7 +35,9 @@ class FeedController extends Controller
      * @var FeedServiceV2
      */
     private $feedService;
-    //TODO: Remove
+    /**
+     * @var ItemServiceV2
+     */
     private $itemService;
     /**
      * @var FolderServiceV2
@@ -54,7 +56,7 @@ class FeedController extends Controller
         IRequest $request,
         FolderServiceV2 $folderService,
         FeedServiceV2 $feedService,
-        ItemService $itemService,
+        ItemServiceV2 $itemService,
         ImportService $importService,
         IConfig $settings,
         ?IUserSession $userSession
@@ -79,11 +81,11 @@ class FeedController extends Controller
         // item id which will be used for marking feeds read
         $params = [
             'feeds' => $this->feedService->findAllForUser($this->getUserId()),
-            'starred' => $this->itemService->starredCount($this->getUserId())
+            'starred' => count($this->itemService->starred($this->getUserId()))
         ];
 
         try {
-            $id = $this->itemService->getNewestItemId($this->getUserId());
+            $id = $this->itemService->newest($this->getUserId())->getId();
 
             // An exception occurs if there is a newest item. If there is none,
             // simply ignore it and do not add the newestItemId
@@ -183,7 +185,7 @@ class FeedController extends Controller
             $this->feedService->fetch($feed);
 
             try {
-                $id = $this->itemService->getNewestItemId($this->getUserId());
+                $id = $this->itemService->newest($this->getUserId())->getId();
                 // An exception occurs if there is a newest item. If there is none,
                 // simply ignore it and do not add the newestItemId
                 $params['newestItemId'] = $id;
@@ -261,7 +263,7 @@ class FeedController extends Controller
         $feed = $this->importService->importArticles($this->getUserId(), $json);
 
         $params = [
-            'starred' => $this->itemService->starredCount($this->getUserId())
+            'starred' => count($this->itemService->starred($this->getUserId()))
         ];
 
         if ($feed) {
@@ -281,7 +283,7 @@ class FeedController extends Controller
      */
     public function read(int $feedId, int $highestItemId): array
     {
-        $this->itemService->readFeed($feedId, $highestItemId, $this->getUserId());
+        $this->feedService->read($this->getUserId(), $feedId, $highestItemId);
 
         return [
             'feeds' => [

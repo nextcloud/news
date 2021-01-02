@@ -2,7 +2,7 @@
 
 namespace OCA\News\Command\Config;
 
-use OCA\News\Service\Exceptions\ServiceException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\FolderServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -50,7 +50,7 @@ class FolderDelete extends Command
         $id = $input->getArgument('folder-id');
 
         if ($id === null) {
-            throw new ServiceException('Can not remove root folder!');
+            throw new ServiceValidationException('Can not remove root folder!');
         }
 
         $this->folderService->delete($user, intval($id));

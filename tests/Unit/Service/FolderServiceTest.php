@@ -262,4 +262,21 @@ class FolderServiceTest extends TestCase
     }
 
 
+    public function testRead()
+    {
+        $folder = new Folder();
+        $folder->setId(1);
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 1)
+            ->will($this->returnValue($folder));
+
+        $this->mapper->expects($this->exactly(1))
+            ->method('read')
+            ->withConsecutive(['jack', 1, null]);
+
+        $this->class->read('jack', 1);
+    }
+
 }

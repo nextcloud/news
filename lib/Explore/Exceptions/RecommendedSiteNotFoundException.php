@@ -11,18 +11,11 @@
  * @copyright 2012-2014 Bernhard Posselt
  */
 
-namespace OCA\News\Fetcher;
+namespace OCA\News\Explore\Exceptions;
 
-class FetcherException extends \Exception
+use Exception;
+
+class RecommendedSiteNotFoundException extends Exception
 {
 
-    /**
-     * Constructor
-     *
-     * @param string $msg the error message
-     */
-    public function __construct(string $msg)
-    {
-        parent::__construct($msg);
-    }
 }
