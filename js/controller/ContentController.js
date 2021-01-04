@@ -223,8 +223,18 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
 
     this.activeItem = this.getFirstItem();
 
+    this.userList = [];
+
     this.searchUsers = function(search) {
-        return UserResource.getUsers(search);
+        if (search === '') {
+            this.userList = [];
+            return;
+        }
+
+        var response = UserResource.getUsers(search);
+        response.then((response) => {
+            this.userList = response.ocs.data.users;
+        });
     };
 
 });
