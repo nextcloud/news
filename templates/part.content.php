@@ -103,22 +103,25 @@
                                 <p class="label-group">Contacts</p>
                                 <form ng-submit="" name="contactForm">
                                     <fieldset>
-                                        <input type="text"
-                                               class="contact-input"
-                                               placeholder="Nom de contact"
-                                               title="Nom de contact"
-                                               name="contactName"
-                                               required>
+                                        <input 
+                                            ng-model="nameQuery"
+                                            ng-change="Content.searchUsers(nameQuery)"
+                                            type="text"
+                                            class="contact-input"
+                                            placeholder="Nom de contact"
+                                            title="Nom de contact"
+                                            name="contactName"
+                                            required>
                                         <input type="submit"
-                                               value="Ajouter"
-                                               class="primary">
+                                            value="Ajouter"
+                                            class="primary">
                                     </fieldset>
                                 </form>
 
 
-                                <a>Arnaud</a>
-                                <a>Antoine</a>
-                                <a>Adrien</a>
+                                <a ng-repeat="user in Content.userList">
+                                    {{ user }}
+                                </a>
 
                                 <p class="label-group">Partage réseaux sociaux</p>
 
