@@ -199,7 +199,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->enclosureMime;
     }
 
-    public function getFeedId(): string
+    public function getFeedId(): int
     {
         return $this->feedId;
     }

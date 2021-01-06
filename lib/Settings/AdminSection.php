@@ -17,6 +17,9 @@ class AdminSection implements IIconSection
         $this->l = $l;
     }
 
+    /**
+     * @return string
+     */
     public function getID()
     {
         return 'news';
@@ -32,6 +35,9 @@ class AdminSection implements IIconSection
         return 10;
     }
 
+    /**
+     * @return string
+     */
     public function getIcon()
     {
         return $this->url->imagePath('news', 'app-dark.svg');

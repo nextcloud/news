@@ -56,8 +56,12 @@ class FolderController extends Controller
 
     /**
      * @NoAdminRequired
+     *
+     * @return array[]
+     *
+     * @psalm-return array{folders: array}
      */
-    public function index()
+    public function index(): array
     {
         $folders = $this->folderService->findAllForUser($this->getUserId());
         return ['folders' => $this->serialize($folders)];

@@ -43,20 +43,20 @@ class UpdaterService
     }
 
 
-    public function beforeUpdate()
+    public function beforeUpdate(): void
     {
         $this->folderService->purgeDeleted(null, null);
         $this->feedService->purgeDeleted(null, null);
     }
 
 
-    public function update()
+    public function update(): void
     {
         $this->feedService->fetchAll();
     }
 
 
-    public function afterUpdate()
+    public function afterUpdate(): void
     {
         $this->itemService->purgeOverThreshold(null);
     }

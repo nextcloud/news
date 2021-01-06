@@ -36,6 +36,8 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
      * starred items
      *
      * @param int $threshold the number of items that should be deleted
+     *
+     * @return void
      */
     public function deleteReadOlderThanThreshold($threshold)
     {
@@ -70,6 +72,9 @@ class ItemMapper extends \OCA\News\Db\ItemMapper
         }
     }
 
+    /**
+     * @return void
+     */
     public function readItem($itemId, $isRead, $lastModified, $userId)
     {
         $item = $this->find($itemId, $userId);

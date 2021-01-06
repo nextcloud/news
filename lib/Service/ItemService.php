@@ -172,14 +172,17 @@ class ItemService extends Service
     /**
      * Star or unstar an item
      *
-     * @param  int     $feedId    the id of the item's feed that should be starred
-     * @param  string  $guidHash  the guidHash of the item that should be starred
-     * @param  boolean $isStarred if true the item will be marked as starred,
+     * @param int     $feedId    the id of the item's feed that should be starred
+     * @param string  $guidHash  the guidHash of the item that should be starred
+     * @param boolean $isStarred if true the item will be marked as starred,
      *                            if false unstar
-     * @param  string  $userId    the name of the user for security reasons
+     * @param string  $userId    the name of the user for security reasons
+     *
      * @throws ServiceNotFoundException if the item does not exist
+     *
+     * @return void
      */
-    public function star($feedId, $guidHash, $isStarred, $userId)
+    public function star($feedId, $guidHash, $isStarred, $userId): void
     {
         try {
             $item = $this->mapper->findByGuidHash($feedId, $guidHash);
@@ -196,13 +199,16 @@ class ItemService extends Service
     /**
      * Read or unread an item
      *
-     * @param  int     $itemId the id of the item that should be read
-     * @param  boolean $isRead if true the item will be marked as read,
+     * @param int     $itemId the id of the item that should be read
+     * @param boolean $isRead if true the item will be marked as read,
      *                         if false unread
-     * @param  string  $userId the name of the user for security reasons
+     * @param string  $userId the name of the user for security reasons
+     *
      * @throws ServiceNotFoundException if the item does not exist
+     *
+     * @return void
      */
-    public function read($itemId, $isRead, $userId)
+    public function read($itemId, $isRead, $userId): void
     {
         try {
             $lastModified = $this->timeFactory->getMicroTime();
@@ -220,8 +226,10 @@ class ItemService extends Service
      *                              used to prevent marking items as read that
      *                              the users hasn't seen yet
      * @param string $userId        the name of the user
+     *
+     * @return void
      */
-    public function readAll($highestItemId, $userId)
+    public function readAll($highestItemId, $userId): void
     {
         $time = $this->timeFactory->getMicroTime();
         $this->oldItemMapper->readAll($highestItemId, $time, $userId);
@@ -236,8 +244,10 @@ class ItemService extends Service
      *                                used to prevent marking items as read that
      *                                the users hasn't seen yet
      * @param string   $userId        the name of the user
+     *
+     * @return void
      */
-    public function readFolder(?int $folderId, $highestItemId, $userId)
+    public function readFolder(?int $folderId, $highestItemId, $userId): void
     {
         $time = $this->timeFactory->getMicroTime();
         $this->oldItemMapper->readFolder(
@@ -257,8 +267,10 @@ class ItemService extends Service
      *                              used to prevent marking items as read that
      *                              the users hasn't seen yet
      * @param string $userId        the name of the user
+     *
+     * @return void
      */
-    public function readFeed($feedId, $highestItemId, $userId)
+    public function readFeed($feedId, $highestItemId, $userId): void
     {
         $time = $this->timeFactory->getMicroTime();
         $this->oldItemMapper->readFeed($feedId, $highestItemId, $time, $userId);
@@ -270,8 +282,10 @@ class ItemService extends Service
      * count of $this->autoPurgeCount starting by the oldest. This is to clean
      * up the database so that old entries don't spam your db. As criteria for
      * old, the id is taken
+     *
+     * @return void
      */
-    public function autoPurgeOld()
+    public function autoPurgeOld(): void
     {
         $count = $this->config->getAppValue(
             Application::NAME,
@@ -325,8 +339,10 @@ class ItemService extends Service
 
     /**
      * Regenerates the search index for all items
+     *
+     * @return void
      */
-    public function generateSearchIndices()
+    public function generateSearchIndices(): void
     {
         $this->oldItemMapper->updateSearchIndices();
     }

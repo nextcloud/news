@@ -102,7 +102,7 @@ class ItemMapperV2 extends NewsMapperV2
      * @param int    $feedId   ID of the feed
      * @param string $guidHash hash to find with
      *
-     * @return Item|Entity
+     * @return Item
      *
      * @throws DoesNotExistException
      * @throws MultipleObjectsReturnedException

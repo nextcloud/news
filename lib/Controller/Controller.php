@@ -48,9 +48,9 @@ class Controller extends BaseController
     }
 
     /**
-     * @return IUser
+     * @return IUser|null
      */
-    protected function getUser()
+    protected function getUser(): ?IUser
     {
         if ($this->userSession === null) {
             throw new NotLoggedInException();

@@ -50,10 +50,10 @@ class ItemMapper extends Mapper
     }
 
     private function makeSelectQuery(
-        $prependTo = '',
+        string $prependTo = '',
         $oldestFirst = false,
         $distinctFingerprint = false
-    ) {
+    ): string {
         if ($oldestFirst) {
             $ordering = 'ASC';
         } else {
@@ -95,7 +95,7 @@ class ItemMapper extends Mapper
         return $sql;
     }
 
-    private function buildSearchQueryPart(array $search = [])
+    private function buildSearchQueryPart(array $search = []): string
     {
         return str_repeat('AND `items`.`search_index` LIKE ? ', count($search));
     }
@@ -128,7 +128,7 @@ class ItemMapper extends Mapper
         return $this->findEntity($sql, [$userId, $id]);
     }
 
-    public function starredCount(string $userId)
+    public function starredCount(string $userId): int
     {
         $sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
@@ -149,7 +149,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function readAll(int $highestItemId, $time, string $userId)
+    public function readAll(int $highestItemId, string $time, string $userId): void
     {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
             'SET unread = ? ' .
@@ -164,7 +164,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function readFolder(?int $folderId, $highestItemId, $time, $userId)
+    public function readFolder(?int $folderId, int $highestItemId, string $time, string $userId): void
     {
         $folderWhere = is_null($folderId) ? 'IS' : '=';
         $sql = 'UPDATE `*PREFIX*news_items` ' .
@@ -182,7 +182,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function readFeed($feedId, $highestItemId, $time, $userId)
+    public function readFeed(int $feedId, int $highestItemId, string $time, string $userId): void
     {
         $sql = 'UPDATE `*PREFIX*news_items` ' .
             'SET unread = ? ' .
@@ -200,7 +200,7 @@ class ItemMapper extends Mapper
     }
 
 
-    private function getOperator($oldestFirst)
+    private function getOperator($oldestFirst): string
     {
         if ($oldestFirst) {
             return '>';
@@ -210,7 +210,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function findAllNew($updatedSince, $type, $showAll, $userId)
+    public function findAllNew(int $updatedSince, int $type, bool $showAll, string $userId): array
     {
         $sql = $this->buildStatusQueryPart($showAll, $type);
 
@@ -221,7 +221,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function findAllNewFolder(?int $id, $updatedSince, $showAll, $userId)
+    public function findAllNewFolder(?int $id, int $updatedSince, bool $showAll, string $userId): array
     {
         $sql = $this->buildStatusQueryPart($showAll);
 
@@ -234,7 +234,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function findAllNewFeed($id, $updatedSince, $showAll, $userId)
+    public function findAllNewFeed(?int $id, int $updatedSince, bool $showAll, string $userId): array
     {
         $sql = $this->buildStatusQueryPart($showAll);
 
@@ -246,7 +246,10 @@ class ItemMapper extends Mapper
     }
 
 
-    private function findEntitiesIgnoringNegativeLimit($sql, $params, $limit): array
+    /**
+     * @param (int|mixed|null)[] $params
+     */
+    private function findEntitiesIgnoringNegativeLimit($sql, array $params, $limit): array
     {
         // ignore limit if negative to offer a way to return all feeds
         if ($limit >= 0) {
@@ -258,14 +261,14 @@ class ItemMapper extends Mapper
 
 
     public function findAllFeed(
-        $id,
-        $limit,
-        $offset,
-        $showAll,
-        $oldestFirst,
-        $userId,
-        $search = []
-    ) {
+        ?int $id,
+        int $limit,
+        int $offset,
+        bool $showAll,
+        bool $oldestFirst,
+        string $userId,
+        array $search = []
+    ): array {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $params[] = $id;
@@ -286,13 +289,13 @@ class ItemMapper extends Mapper
 
     public function findAllFolder(
         ?int $id,
-        $limit,
-        $offset,
-        $showAll,
-        $oldestFirst,
-        $userId,
-        $search = []
-    ) {
+        int $limit,
+        int $offset,
+        bool $showAll,
+        bool $oldestFirst,
+        string $userId,
+        array $search = []
+    ): array {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $params[] = $id;
@@ -311,14 +314,17 @@ class ItemMapper extends Mapper
     }
 
 
+    /**
+     * @param string[] $search
+     */
     public function findAllItems(
-        $limit,
-        $offset,
-        $type,
-        $showAll,
-        $oldestFirst,
-        $userId,
-        $search = []
+        int $limit,
+        int $offset,
+        int $type,
+        bool $showAll,
+        bool $oldestFirst,
+        string $userId,
+        array $search = []
     ): array {
         $params = [$userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
@@ -337,7 +343,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function findAllUnreadOrStarred($userId)
+    public function findAllUnreadOrStarred(string $userId): array
     {
         $params = [$userId, true, true];
         $sql = 'AND (`items`.`unread` = ? OR `items`.`starred` = ?) ';
@@ -370,6 +376,8 @@ class ItemMapper extends Mapper
      * starred items
      *
      * @param int $threshold the number of items that should be deleted
+     *
+     * @return void
      */
     public function deleteReadOlderThanThreshold($threshold)
     {
@@ -417,7 +425,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function getNewestItemId($userId)
+    public function getNewestItemId(string $userId): int
     {
         $sql = 'SELECT MAX(`items`.`id`) AS `max_id` ' .
             'FROM `*PREFIX*news_items` `items` ' .
@@ -434,8 +442,13 @@ class ItemMapper extends Mapper
 
     /**
      * Returns a list of ids and userid of all items
+     *
+     * @param int|null $limit
+     * @param int|null $offset
+     *
+     * @return array|false
      */
-    public function findAllIds($limit = null, $offset = null)
+    public function findAllIds(?int $limit = null, ?int $offset = null)
     {
         $sql = 'SELECT `id` FROM `*PREFIX*news_items`';
         return $this->execute($sql, [], $limit, $offset)->fetchAll();
@@ -443,8 +456,10 @@ class ItemMapper extends Mapper
 
     /**
      * Update search indices of all items
+     *
+     * @return void
      */
-    public function updateSearchIndices()
+    public function updateSearchIndices(): void
     {
         // update indices in steps to prevent memory issues on larger systems
         $step = 1000;  // update 1000 items at a time
@@ -460,7 +475,7 @@ class ItemMapper extends Mapper
         }
     }
 
-    private function updateSearchIndex(array $items = [])
+    private function updateSearchIndex(array $items = []): void
     {
         foreach ($items as $row) {
             $sql = 'SELECT * FROM `*PREFIX*news_items` WHERE `id` = ?';
@@ -471,7 +486,10 @@ class ItemMapper extends Mapper
         }
     }
 
-    public function readItem($itemId, $isRead, $lastModified, $userId)
+    /**
+     * @return void
+     */
+    public function readItem(int $itemId, bool $isRead, string $lastModified, string $userId)
     {
         $item = $this->find($userId, $itemId);
 

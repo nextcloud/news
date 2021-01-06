@@ -26,12 +26,12 @@ class Plugin
     private static $scripts = [];
     private static $styles = [];
 
-    public static function registerStyle($appName, $styleName)
+    public static function registerStyle($appName, $styleName): void
     {
         self::$styles[$appName] = $styleName;
     }
 
-    public static function registerScript($appName, $scriptName)
+    public static function registerScript($appName, $scriptName): void
     {
         self::$scripts[$appName] = $scriptName;
     }

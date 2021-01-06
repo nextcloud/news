@@ -189,6 +189,8 @@ class PageController extends Controller
      * @NoAdminRequired
      *
      * @param string $lang
+     *
+     * @return Http\JSONResponse|array
      */
     public function explore(string $lang)
     {

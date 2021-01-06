@@ -249,8 +249,10 @@ class ItemController extends Controller
      * @NoAdminRequired
      *
      * @param int[] $itemIds item ids
+     *
+     * @return void
      */
-    public function readMultiple($itemIds)
+    public function readMultiple($itemIds): void
     {
         foreach ($itemIds as $id) {
             try {
