@@ -71,9 +71,9 @@ class ImportService
      * @param string $userId
      * @param array  $json
      *
-     * @return array|null
+     * @return \OCP\AppFramework\Db\Entity|null
      */
-    public function importArticles(string $userId, array $json)
+    public function importArticles(string $userId, array $json): ?\OCP\AppFramework\Db\Entity
     {
         $url = 'http://nextcloud/nofeed';
 

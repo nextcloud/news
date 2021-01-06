@@ -62,6 +62,9 @@ class MigrateConfig implements IRepairStep
         return 'Migrate config to nextcloud managed config';
     }
 
+    /**
+     * @return void
+     */
     public function run(IOutput $output)
     {
         $version = $this->iConfig->getAppValue('news', 'installed_version', '0.0.0');

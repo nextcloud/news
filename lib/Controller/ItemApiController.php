@@ -109,6 +109,11 @@ class ItemApiController extends ApiController
     }
 
 
+    /**
+     * @return JSONResponse|array
+     *
+     * @psalm-return JSONResponse|array<empty, empty>
+     */
     private function setRead(bool $isRead, int $itemId)
     {
         try {
@@ -151,6 +156,11 @@ class ItemApiController extends ApiController
     }
 
 
+    /**
+     * @return JSONResponse|array
+     *
+     * @psalm-return JSONResponse|array<empty, empty>
+     */
     private function setStarred(bool $isStarred, int $feedId, string $guidHash)
     {
         try {
@@ -202,18 +212,22 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
      * @param int $newestItemId
+     *
+     * @return void
      */
-    public function readAll(int $newestItemId)
+    public function readAll(int $newestItemId): void
     {
         $this->oldItemService->readAll($newestItemId, $this->getUserId());
     }
 
 
-    private function setMultipleRead(bool $isRead, array $items)
+    private function setMultipleRead(bool $isRead, array $items): void
     {
         foreach ($items as $id) {
             try {
@@ -227,12 +241,16 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
      * @param int[] $items item ids
+     *
+     * @return void
      */
-    public function readMultiple(array $items)
+    public function readMultiple(array $items): void
     {
         $this->setMultipleRead(true, $items);
     }
@@ -240,12 +258,16 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
      * @param int[] $items item ids
+     *
+     * @return void
      */
-    public function unreadMultiple(array $items)
+    public function unreadMultiple(array $items): void
     {
         $this->setMultipleRead(false, $items);
     }
@@ -254,8 +276,10 @@ class ItemApiController extends ApiController
     /**
      * @param bool  $isStarred
      * @param array $items
+     *
+     * @return void
      */
-    private function setMultipleStarred(bool $isStarred, array $items)
+    private function setMultipleStarred(bool $isStarred, array $items): void
     {
         foreach ($items as $item) {
             try {
@@ -274,12 +298,16 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
      * @param int[] $items item ids
+     *
+     * @return void
      */
-    public function starMultiple(array $items)
+    public function starMultiple(array $items): void
     {
         $this->setMultipleStarred(true, $items);
     }
@@ -287,12 +315,16 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
      * @param array $items item ids
+     *
+     * @return void
      */
-    public function unstarMultiple(array $items)
+    public function unstarMultiple(array $items): void
     {
         $this->setMultipleStarred(false, $items);
     }

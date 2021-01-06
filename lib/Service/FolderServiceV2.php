@@ -116,8 +116,10 @@ class FolderServiceV2 extends Service
      *
      * @param string|null $userID       The user to purge
      * @param int|null    $minTimestamp The timestamp to purge from
+     *
+     * @return void
      */
-    public function purgeDeleted(?string $userID, ?int $minTimestamp)
+    public function purgeDeleted(?string $userID, ?int $minTimestamp): void
     {
         $this->mapper->purgeDeleted($userID, $minTimestamp);
     }
