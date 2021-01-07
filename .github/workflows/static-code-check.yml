@@ -7,7 +7,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        ocp-version: [ 'dev-master', 'v20.0.0' ]
+        ocp-version: [ 'dev-master', 'v20.0.4' ]
     name: Nextcloud ${{ matrix.ocp-version }}
     steps:
       - name: Checkout
@@ -18,7 +18,7 @@ jobs:
           php-version: 7.4
           coverage: none
       - name: Install dependencies
-        run: composer i
+        run: composer install
       - name: Install dependencies
         run: composer require --dev christophwurst/nextcloud:${{ matrix.ocp-version }}
       - name: Run coding standards check
