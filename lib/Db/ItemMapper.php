@@ -200,7 +200,7 @@ class ItemMapper extends Mapper
     }
 
 
-    private function getOperator($oldestFirst): string
+    private function getOperator(bool $oldestFirst): string
     {
         if ($oldestFirst) {
             return '>';
@@ -249,7 +249,7 @@ class ItemMapper extends Mapper
     /**
      * @param (int|mixed|null)[] $params
      */
-    private function findEntitiesIgnoringNegativeLimit($sql, array $params, $limit): array
+    private function findEntitiesIgnoringNegativeLimit(string $sql, array $params, int $limit): array
     {
         // ignore limit if negative to offer a way to return all feeds
         if ($limit >= 0) {
@@ -343,7 +343,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function findAllUnreadOrStarred(string $userId): int
+    public function findAllUnreadOrStarred(string $userId): array
     {
         $params = [$userId, true, true];
         $sql = 'AND (`items`.`unread` = ? OR `items`.`starred` = ?) ';
