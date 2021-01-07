@@ -51,8 +51,8 @@ class ItemMapper extends Mapper
 
     private function makeSelectQuery(
         string $prependTo = '',
-        $oldestFirst = false,
-        $distinctFingerprint = false
+        bool $oldestFirst = false,
+        bool $distinctFingerprint = false
     ): string {
         if ($oldestFirst) {
             $ordering = 'ASC';
@@ -343,7 +343,7 @@ class ItemMapper extends Mapper
     }
 
 
-    public function findAllUnreadOrStarred(string $userId): array
+    public function findAllUnreadOrStarred(string $userId): int
     {
         $params = [$userId, true, true];
         $sql = 'AND (`items`.`unread` = ? OR `items`.`starred` = ?) ';
