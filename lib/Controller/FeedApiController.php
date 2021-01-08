@@ -16,7 +16,6 @@
 namespace OCA\News\Controller;
 
 use Exception;
-use OCA\News\AppInfo\Application;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;

@@ -35,6 +35,9 @@ class AfterUpdate extends Command
         $this->itemService = $itemService;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('news:updater:after-update')
@@ -44,7 +47,7 @@ class AfterUpdate extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $count = $input->getArgument('purge_count');
+        $count = (int) $input->getArgument('purge_count');
 
         $output->writeln($this->itemService->purgeOverThreshold($count));
 

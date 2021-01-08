@@ -2,13 +2,10 @@
 
 namespace OCA\News\Command\Config;
 
-use OCA\News\Db\Feed;
 use OCA\News\Service\FeedServiceV2;
-use OCA\News\Service\FolderServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FeedDelete extends Command
@@ -27,6 +24,8 @@ class FeedDelete extends Command
 
     /**
      * Configure command
+     *
+     * @return void
      */
     protected function configure()
     {
@@ -47,7 +46,7 @@ class FeedDelete extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $user = $input->getArgument('user-id');
-        $id = $input->getArgument('feed-id');
+        $id = (int) $input->getArgument('feed-id');
 
         $this->feedService->delete($user, $id);
 

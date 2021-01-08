@@ -3,7 +3,6 @@
 namespace OCA\News\Command\Config;
 
 use OCA\News\Controller\ApiPayloadTrait;
-use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,6 +28,8 @@ class FolderList extends Command
 
     /**
      * Configure command
+     *
+     * @return void
      */
     protected function configure()
     {

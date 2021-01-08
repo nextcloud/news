@@ -18,7 +18,6 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\IDBConnection;
-use OCP\AppFramework\Db\Mapper;
 use OCP\AppFramework\Db\Entity;
 
 /**

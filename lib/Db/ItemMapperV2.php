@@ -12,7 +12,6 @@
 
 namespace OCA\News\Db;
 
-use Doctrine\DBAL\FetchMode;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
@@ -152,7 +151,7 @@ class ItemMapperV2 extends NewsMapperV2
                          ->groupBy('feed_id')
                          ->where('');
 
-        return $this->db->executeQuery($query)->fetch(FetchMode::ASSOCIATIVE);
+        return $this->db->executeQuery($query->getSQL());
     }
 
     /**

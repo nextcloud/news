@@ -31,7 +31,7 @@ interface IFeedFetcher
      * @param  string|null $user          if given, basic auth is set for this feed
      * @param  string|null $password      if given, basic auth is set for this feed. Ignored if user is empty
      *
-     * @return <Feed, Item[]> an array containing the new feed and its items, first
+     * @return array<Feed, Item[]> an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
      *
      * @throws ReadErrorException if the Feed-IO fetcher encounters a problem

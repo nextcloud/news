@@ -17,7 +17,6 @@ use FeedIo\Adapter\ClientInterface;
 use \GuzzleHttp\Client;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
-use OCA\News\Fetcher\Client\LegacyGuzzleClient;
 use OCP\IConfig;
 
 /**

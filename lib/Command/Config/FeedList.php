@@ -28,6 +28,8 @@ class FeedList extends Command
 
     /**
      * Configure command
+     *
+     * @return void
      */
     protected function configure()
     {

@@ -29,6 +29,9 @@ class BeforeUpdate extends Command
         $this->updaterService = $updater;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('news:updater:before-update')

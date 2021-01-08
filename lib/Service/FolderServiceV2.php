@@ -18,9 +18,7 @@ use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
-use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -35,7 +33,7 @@ class FolderServiceV2 extends Service
      */
     private $feedService;
     /**
-     * @var FeedServiceV2
+     * @var TimeFactory
      */
     private $timeFactory;
 

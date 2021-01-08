@@ -20,12 +20,12 @@ class OpmlService
 {
 
     /**
-     * @var FolderService
+     * @var FolderServiceV2
      */
     private $folderService;
 
     /**
-     * @var FeedService
+     * @var FeedServiceV2
      */
     private $feedService;
 

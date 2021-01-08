@@ -52,6 +52,9 @@ class UpdaterJob extends TimedJob
         parent::setInterval($interval);
     }
 
+    /**
+     * @return void
+     */
     protected function run($argument)
     {
         $uses_cron = $this->config->getAppValue(

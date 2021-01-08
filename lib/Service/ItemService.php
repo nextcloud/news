@@ -14,10 +14,8 @@
 namespace OCA\News\Service;
 
 use OCA\News\AppInfo\Application;
-use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
-use OCP\AppFramework\Db\Entity;
 use OCP\IConfig;
 use OCP\AppFramework\Db\DoesNotExistException;
 

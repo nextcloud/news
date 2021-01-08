@@ -13,7 +13,6 @@
 
 namespace OCA\News\Service;
 
-use OCA\News\Db\NewsMapper;
 use OCA\News\Db\NewsMapperV2;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;

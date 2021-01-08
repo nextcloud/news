@@ -40,6 +40,9 @@ class AllFeeds extends Command
         $this->feedService = $feedService;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $json = '{"feeds": [{"id": 39, "userId": "john"}, // etc ]}';

@@ -22,17 +22,10 @@ use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\Entity;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\ILogger;
-use OCP\IL10N;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
-use OCA\News\Db\ItemMapper;
-use OCA\News\Fetcher\Fetcher;
-use OCA\News\Config\Config;
-use OCA\News\Utility\Time;
 use Psr\Log\LoggerInterface;
 
 /**
