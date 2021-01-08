@@ -329,9 +329,9 @@ class ItemService extends Service
 
     /**
      * @param string $userId from which user the items should be taken
-     * @return int of items which are starred or unread
+     * @return array of items which are starred or unread
      */
-    public function getUnreadOrStarred($userId)
+    public function getUnreadOrStarred($userId): array
     {
         return $this->oldItemMapper->findAllUnreadOrStarred($userId);
     }
