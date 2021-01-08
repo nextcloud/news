@@ -15,17 +15,17 @@ namespace OCA\News\Tests\Unit\Db;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
-use OCA\News\Db\Folder;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IFunctionBuilder;
+use OCP\DB\QueryBuilder\IQueryFunction;
 
 class FeedMapperTest extends MapperTestUtility
 {
     /** @var FeedMapperV2 */
     private $class;
-    /** @var Feeds[] */
+    /** @var Feed[] */
     private $feeds;
 
     /**
@@ -68,10 +68,13 @@ class FeedMapperTest extends MapperTestUtility
         $funcbuilder = $this->getMockBuilder(IFunctionBuilder::class)
                             ->getMock();
 
+        $func = $this->getMockBuilder(IQueryFunction::class)
+                            ->getMock();
+
         $funcbuilder->expects($this->once())
                     ->method('count')
                     ->with('items.id', 'unreadCount')
-                    ->will($this->returnValue('COUNT_FUNC'));
+                    ->will($this->returnValue($func));
 
         $this->builder->expects($this->once())
                       ->method('func')
@@ -79,7 +82,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
                       ->method('select')
-                      ->with('feeds.*', 'COUNT_FUNC')
+                      ->with('feeds.*', $func)
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
