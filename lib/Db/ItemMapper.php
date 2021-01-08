@@ -13,7 +13,6 @@
 
 namespace OCA\News\Db;
 
-use Exception;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;

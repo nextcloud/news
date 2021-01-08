@@ -23,7 +23,7 @@ class UpdaterService
     private $folderService;
 
     /**
-     * @var FeedService
+     * @var FeedServiceV2
      */
     private $feedService;
 

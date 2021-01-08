@@ -30,6 +30,9 @@ class UpdateFeed extends Command
         $this->feedService = $feedService;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('news:updater:update-feed')
@@ -48,8 +51,8 @@ class UpdateFeed extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $feedId = $input->getArgument('feed-id');
         $userId = $input->getArgument('user-id');
+        $feedId = (int) $input->getArgument('feed-id');
         try {
             $feed = $this->feedService->find($userId, $feedId);
             $updated_feed = $this->feedService->fetch($feed);

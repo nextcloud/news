@@ -2,14 +2,11 @@
 
 namespace OCA\News\Command\Config;
 
-use OCA\News\Db\Feed;
 use OCA\News\Service\Exceptions\ServiceException;
-use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FolderDelete extends Command
@@ -28,6 +25,8 @@ class FolderDelete extends Command
 
     /**
      * Configure command
+     *
+     * @return void
      */
     protected function configure()
     {

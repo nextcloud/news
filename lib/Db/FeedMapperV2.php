@@ -74,7 +74,7 @@ class FeedMapperV2 extends NewsMapperV2
      * @param string $userId The user identifier
      * @param int    $id     The feed identifier
      *
-     * @return Entity
+     * @return Feed
      *
      * @throws DoesNotExistException
      * @throws MultipleObjectsReturnedException

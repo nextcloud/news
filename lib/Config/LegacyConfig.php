@@ -13,10 +13,7 @@
 
 namespace OCA\News\Config;
 
-use OCA\News\AppInfo\Application;
-use OCA\News\Utility\PsrLogger;
 use OCP\Files\Folder;
-use OCP\IConfig;
 use Psr\Log\LoggerInterface;
 
 class LegacyConfig
