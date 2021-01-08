@@ -506,16 +506,14 @@ class ItemServiceTest extends TestCase
 
     public function testGetUnreadOrStarred()
     {
-        $star = 18;
-
         $this->oldItemMapper->expects($this->once())
             ->method('findAllUnreadOrStarred')
             ->with($this->equalTo('jack'))
-            ->will($this->returnValue($star));
+            ->will($this->returnValue([]));
 
         $result = $this->itemService->getUnreadOrStarred('jack');
 
-        $this->assertEquals($star, $result);
+        $this->assertEquals([], $result);
     }
 
 
