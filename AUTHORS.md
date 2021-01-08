@@ -41,6 +41,7 @@
 * [Qingping Hou](mailto:dave2008713@gmail.com)
 * [Roman](mailto:reverse@jamm.me)
 * [b_b](mailto:bruno@eliaz.fr)
+* [heyarne](mailto:arne@schlueter.is)
 * [Andreas Fischer](mailto:bantu@owncloud.com)
 * [David Guillot](mailto:david@guillot.me)
 * [Gioele Falcetti](mailto:thegio.f@gmail.com)

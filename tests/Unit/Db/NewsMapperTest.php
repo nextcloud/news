@@ -14,21 +14,26 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use OCA\News\Db\Feed;
-use OCA\News\Db\FeedMapperV2;
-use OCA\News\Db\Folder;
 use OCA\News\Db\NewsMapperV2;
 use OCA\News\Utility\Time;
-use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\DB\QueryBuilder\IFunctionBuilder;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
-use Test\TestCase;
+use PHPUnit\Framework\TestCase;
 
+/**
+ * Class TmpNewsMapper
+ *
+ * @package OCA\News\Tests\Unit\Db
+ */
 abstract class TmpNewsMapper extends NewsMapperV2 {
     const TABLE_NAME = 'NAME';
 }
 
+/**
+ * Class NewsMapperTest
+ *
+ * @package OCA\News\Tests\Unit\Db
+ */
 class NewsMapperTest extends TestCase
 {
     /** @var IDBConnection */
