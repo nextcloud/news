@@ -74,7 +74,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
                       ->method('setParameter')
-                      ->with(':user_id', 'jack')
+                      ->with('user_id', 'jack')
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -124,7 +124,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
                       ->method('setParameter')
-                      ->withConsecutive([':user_id', 'jack'], [':id', 1])
+                      ->withConsecutive(['user_id', 'jack'], ['id', 1])
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -173,7 +173,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive([':user_id', 'jack'], [':id', 1])
+            ->withConsecutive(['user_id', 'jack'], ['id', 1])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -222,7 +222,7 @@ class FolderMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive([':user_id', 'jack'], [':id', 1])
+            ->withConsecutive(['user_id', 'jack'], ['id', 1])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())

@@ -86,12 +86,12 @@ abstract class NewsMapperV2 extends QBMapper
 
         if ($userID !== null) {
             $builder->andWhere('user_id = :user_id')
-                ->setParameter(':user_id', $userID);
+                ->setParameter('user_id', $userID);
         }
 
         if ($oldestDelete !== null) {
             $builder->andWhere('deleted_at < :deleted_at')
-                    ->setParameter(':deleted_at', $oldestDelete);
+                    ->setParameter('deleted_at', $oldestDelete);
         }
 
         $builder->execute();

@@ -109,7 +109,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
                       ->method('setParameter')
-                      ->withConsecutive([':unread', true], [':user_id', 'jack'])
+                      ->withConsecutive(['unread', true], ['user_id', 'jack'])
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -159,7 +159,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
                       ->method('setParameter')
-                      ->withConsecutive([':user_id', 'jack'], [':id', 1])
+                      ->withConsecutive(['user_id', 'jack'], ['id', 1])
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -208,7 +208,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive([':user_id', 'jack'], [':id', 1])
+            ->withConsecutive(['user_id', 'jack'], ['id', 1])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -256,7 +256,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive([':user_id', 'jack'], [':url', 'https://url.com'])
+            ->withConsecutive(['user_id', 'jack'], ['url', 'https://url.com'])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -306,7 +306,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive([':user_id', 'jack'], [':id', 1])
+            ->withConsecutive(['user_id', 'jack'], ['id', 1])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -390,7 +390,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameter')
-            ->withConsecutive([':folder_id', 1])
+            ->withConsecutive(['folder_id', 1])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())

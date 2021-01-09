@@ -52,7 +52,7 @@ class FolderMapperV2 extends NewsMapperV2
                 ->from($this->tableName)
                 ->where('user_id = :user_id')
                 ->andWhere('deleted_at = 0')
-                ->setParameter(':user_id', $userId);
+                ->setParameter('user_id', $userId);
 
         return $this->findEntities($builder);
     }
@@ -90,8 +90,8 @@ class FolderMapperV2 extends NewsMapperV2
             ->where('user_id = :user_id')
             ->andWhere('id = :id')
             ->andWhere('deleted_at = 0')
-            ->setParameter(':user_id', $userId)
-            ->setParameter(':id', $id);
+            ->setParameter('user_id', $userId)
+            ->setParameter('id', $id);
 
         return $this->findEntity($builder);
     }

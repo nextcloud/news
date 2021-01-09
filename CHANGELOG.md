@@ -9,6 +9,9 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - add background & hover for entries
 - Improve spacing of open articles in compact mode (nextcloud/news#1017)
 
+### Fixed
+- `MissingNamedParameter` exception after upgrading to NC 21 beta5 (#1030)
+
 ## [15.1.1] - 2020-12-27
 
 ### Changed
