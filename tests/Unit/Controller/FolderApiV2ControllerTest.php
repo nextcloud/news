@@ -84,7 +84,7 @@ class FolderApiV2ControllerTest extends TestCase
             ->with($this->equalTo($this->user->getUID()), $this->equalTo($folderName))
             ->will($this->returnValue($folder));
 
-        $response = $this->folderAPI->createFolder($folderName);
+        $response = $this->folderAPI->create($folderName);
 
         $data = $response->getData();
         $this->assertEquals(
@@ -105,7 +105,7 @@ class FolderApiV2ControllerTest extends TestCase
             ->method('create')
             ->will($this->throwException(new ServiceConflictException('exists')));
 
-        $response = $this->folderAPI->createFolder('hi');
+        $response = $this->folderAPI->create('hi');
 
         $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
     }
@@ -122,7 +122,7 @@ class FolderApiV2ControllerTest extends TestCase
             ->method('create')
             ->will($this->throwException(new ServiceValidationException($msg)));
 
-        $response = $this->folderAPI->createFolder('hi');
+        $response = $this->folderAPI->create('hi');
 
         $data = $response->getData();
         $this->assertEquals($msg, $data['error']['message']);
@@ -140,7 +140,7 @@ class FolderApiV2ControllerTest extends TestCase
             ->with($this->equalTo($this->user->getUID()), $this->equalTo($folderId))
             ->will($this->returnValue($folder));
 
-        $response = $this->folderAPI->deleteFolder(23);
+        $response = $this->folderAPI->delete(23);
 
         $data = $response->getData();
         $this->assertEquals(
@@ -164,7 +164,7 @@ class FolderApiV2ControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->deleteFolder($folderId);
+        $response = $this->folderAPI->delete($folderId);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['error']['message']);
@@ -185,7 +185,7 @@ class FolderApiV2ControllerTest extends TestCase
                 $this->equalTo($folderName)
             );
 
-        $this->folderAPI->updateFolder($folderId, $folderName);
+        $this->folderAPI->update($folderId, $folderName);
     }
 
     public function testUpdateDoesNotExist()
@@ -201,7 +201,7 @@ class FolderApiV2ControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->updateFolder($folderId, $folderName);
+        $response = $this->folderAPI->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['error']['message']);
@@ -222,7 +222,7 @@ class FolderApiV2ControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->updateFolder($folderId, $folderName);
+        $response = $this->folderAPI->update($folderId, $folderName);
 
         $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
     }
@@ -241,7 +241,7 @@ class FolderApiV2ControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->updateFolder($folderId, $folderName);
+        $response = $this->folderAPI->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['error']['message']);

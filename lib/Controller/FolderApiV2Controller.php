@@ -48,7 +48,7 @@ class FolderApiV2Controller extends ApiController
      * @param string $name
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
-    public function createFolder($name)
+    public function create($name)
     {
         try {
             $this->folderService->purgeDeleted($this->getUserId(), false);
@@ -73,7 +73,7 @@ class FolderApiV2Controller extends ApiController
      * @param string $name
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function updateFolder($folderId, $name)
+    public function update($folderId, $name)
     {
         $response = null;
         try {
@@ -100,7 +100,7 @@ class FolderApiV2Controller extends ApiController
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function deleteFolder($folderId)
+    public function delete($folderId)
     {
         try {
             $responseData = $this->serializeEntity(

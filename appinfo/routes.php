@@ -61,9 +61,9 @@ return ['routes' => [
 ['name' => 'api#index', 'url' => '/api', 'verb' => 'GET'],
 
 // API 2
-['name' => 'folder_api_v2#create_folder', 'url' => '/api/v2/folders', 'verb' => 'POST'],
-['name' => 'folder_api_v2#update_folder', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
-['name' => 'folder_api_v2#delete_folder', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
+['name' => 'folder_api_v2#create', 'url' => '/api/v2/folders', 'verb' => 'POST'],
+['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
+['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
 
 // API 1.2
 ['name' => 'user_api#index', 'url' => '/api/v1-2/user', 'verb' => 'GET'],
