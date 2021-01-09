@@ -23,7 +23,8 @@ use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 class FolderApiV2Controller extends ApiController
 {
-    use ApiV2ResponseTrait;
+    use ApiPayloadTrait;
+    use JSONHttpErrorTrait;
 
     private $folderService;
     private $itemService;
@@ -52,16 +53,16 @@ class FolderApiV2Controller extends ApiController
     {
         try {
             $this->folderService->purgeDeleted($this->getUserId(), false);
-            $responseData = $this->serializeEntity(
+            $responseData = $this->serializeEntityV2(
                 $this->folderService->create($this->getUserId(), $name)
             );
-            return $this->response([
+            return $this->responseV2([
                 'folder' => $responseData
             ]);
         } catch (ServiceValidationException $ex) {
-            return $this->errorResponse($ex, Http::STATUS_BAD_REQUEST);
+            return $this->errorResponseV2($ex, Http::STATUS_BAD_REQUEST);
         } catch (ServiceConflictException $ex) {
-            return $this->errorResponse($ex, Http::STATUS_CONFLICT);
+            return $this->errorResponseV2($ex, Http::STATUS_CONFLICT);
         }
     }
 
@@ -79,14 +80,14 @@ class FolderApiV2Controller extends ApiController
         try {
             $response = $this->folderService->rename($this->getUserId(), $folderId, $name);
         } catch (ServiceValidationException $ex) {
-            return $this->errorResponse($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
+            return $this->errorResponseV2($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceConflictException $ex) {
-            return $this->errorResponse($ex, Http::STATUS_CONFLICT);
+            return $this->errorResponseV2($ex, Http::STATUS_CONFLICT);
         } catch (ServiceNotFoundException $ex) {
-            return $this->errorResponse($ex, Http::STATUS_NOT_FOUND);
+            return $this->errorResponseV2($ex, Http::STATUS_NOT_FOUND);
         }
 
-        return $this->response([
+        return $this->responseV2([
             'folder' => $response
         ]);
     }
@@ -103,14 +104,14 @@ class FolderApiV2Controller extends ApiController
     public function delete($folderId)
     {
         try {
-            $responseData = $this->serializeEntity(
+            $responseData = $this->serializeEntityV2(
                 $this->folderService->delete($this->getUserId(), $folderId)
             );
-            return $this->response([
+            return $this->responseV2([
                 'folder' => $responseData
             ]);
         } catch (ServiceNotFoundException $ex) {
-            return $this->errorResponse($ex, Http::STATUS_NOT_FOUND);
+            return $this->errorResponseV2($ex, Http::STATUS_NOT_FOUND);
         }
     }
 }

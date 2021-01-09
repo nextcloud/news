@@ -24,4 +24,19 @@ trait JSONHttpErrorTrait
     {
         return new JSONResponse(['message' => $exception->getMessage()], $code);
     }
+
+    /**
+     * @param \Exception $exception
+     * @param int $code
+     * @return \OCP\AppFramework\Http\JSONResponse
+     */
+    public function errorResponseV2(\Exception $exception, $code)
+    {
+        return new JSONResponse([
+            'error' => [
+                'code' => $exception->getCode(),
+                'message' => $exception->getMessage()
+            ]
+        ], $code);
+    }
 }
