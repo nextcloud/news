@@ -182,9 +182,9 @@ class FolderApiV2ControllerTest extends TestCase
         $this->folderService->expects($this->once())
             ->method('rename')
             ->with(
-                $this->equalTo($this->user->getUID(),
+                $this->equalTo($this->user->getUID()),
                 $this->equalTo($folderId),
-                $this->equalTo($folderName))
+                $this->equalTo($folderName)
             );
 
         $this->folderAPI->updateFolder($folderId, $folderName);
