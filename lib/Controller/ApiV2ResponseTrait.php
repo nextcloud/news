@@ -20,28 +20,29 @@ use \OCA\News\Db\IAPI;
 trait ApiV2ResponseTrait
 {
     /**
-     * Serialize all data
+     * Serialize an entity
      *
-     * @param mixed $data IAPI or array,
-     *                    anything else will return an empty array
+     * @param IAPI $data
      *
      * @return array
      */
-    public function serialize($data, bool $reduced = false): array
+    public function serializeEntity($data, bool $reduced = false): array
     {
-        if ($data instanceof IAPI) {
-            return $data->toAPI2($reduced);
-        }
+        return $data->toAPI2($reduced);
+    }
 
+    /**
+     * Serialize array of entities
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function serializeEntities($data, bool $reduced = false): array
+    {
         $return = [];
-        if (!is_array($data)) {
-            return $return;
-        }
-
         foreach ($data as $entity) {
-            if ($entity instanceof IAPI) {
-                $return[] = $entity->toAPI2($reduced);
-            }
+            $return[] = $entity->toAPI2($reduced);
         }
         return $return;
     }
