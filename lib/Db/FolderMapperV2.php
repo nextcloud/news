@@ -40,27 +40,6 @@ class FolderMapperV2 extends NewsMapperV2
     }
 
     /**
-     * Find feed by name
-     *
-     * @param string $userId The user identifier
-     * @param string $folderName The folder name
-     *
-     * @return Folder
-     */
-    public function findByName(string $userId, string $folderName): Folder
-    {
-        $builder = $this->db->getQueryBuilder();
-        $builder->select('*')
-                ->from($this->tableName)
-                ->where('name = :folder_name')
-                ->andWhere('user_id = :user_id')
-                ->setParameter(':folder_name', $folderName)
-                ->setParameter(':user_id', $userId);
-
-        return $this->findEntity($builder);
-    }
-
-    /**
      * Find all feeds for a user.
      *
      * @param string $userId The user identifier
