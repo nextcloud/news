@@ -126,9 +126,7 @@ class FolderApiV2ControllerTest extends TestCase
 
         $data = $response->getData();
         $this->assertEquals($msg, $data['error']['message']);
-        $this->assertEquals(
-            Http::STATUS_BAD_REQUEST, $response->getStatus()
-        );
+        $this->assertEquals(Http::STATUS_BAD_REQUEST, $response->getStatus());
     }
 
 
@@ -247,9 +245,6 @@ class FolderApiV2ControllerTest extends TestCase
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['error']['message']);
-        $this->assertEquals(
-            Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus()
-        );
+        $this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
     }
-
 }
