@@ -61,12 +61,7 @@ class FolderApiV2Controller extends ApiController
         } catch (ServiceValidationException $ex) {
             return $this->errorResponse($ex, Http::STATUS_BAD_REQUEST);
         } catch (ServiceConflictException $ex) {
-            $responseData = $this->serialize(
-                $this->folderService->findByName($this->getUserId(), $name)
-            );
-            return $this->response([
-                'folder' => $responseData
-            ], Http::STATUS_CONFLICT);
+            return $this->errorResponse($ex, Http::STATUS_CONFLICT);
         }
     }
 
@@ -86,15 +81,7 @@ class FolderApiV2Controller extends ApiController
         } catch (ServiceValidationException $ex) {
             return $this->errorResponse($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceConflictException $ex) {
-            $responseData = $this->serialize(
-                $this->folderService->findByName($this->getUserId(), $name)
-            );
-            return $this->response(
-                [
-                    'folder' => $responseData
-                ],
-                Http::STATUS_CONFLICT
-            );
+            return $this->errorResponse($ex, Http::STATUS_CONFLICT);
         } catch (ServiceNotFoundException $ex) {
             return $this->errorResponse($ex, Http::STATUS_NOT_FOUND);
         }

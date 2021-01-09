@@ -98,29 +98,15 @@ class FolderApiV2ControllerTest extends TestCase
 
     public function testCreateAlreadyExists()
     {
-        $existingFolder = new Folder();
-        $folderName = 'hi';
-
         $this->folderService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceConflictException('exists')));
-        $this->folderService->expects($this->once())
-            ->method('findByName')
-            ->with($this->equalTo(($this->user->getUID()), $this->equalTo($folderName)))
-            ->will($this->returnValue($existingFolder));
 
         $response = $this->folderAPI->createFolder('hi');
 
-        $data = $response->getData();
-        $this->assertEquals(
-            [
-                'folder' => $existingFolder->toAPI2()
-            ],
-            $data
-        );
         $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
     }
 
@@ -229,7 +215,6 @@ class FolderApiV2ControllerTest extends TestCase
     {
         $folderId = 23;
         $folderName = 'test';
-        $existingFolder = new Folder();
 
         $this->folderService->expects($this->once())
             ->method('rename')
@@ -238,23 +223,9 @@ class FolderApiV2ControllerTest extends TestCase
                     new ServiceConflictException($this->msg)
                 )
             );
-        $this->folderService->expects($this->once())
-            ->method('findByName')
-            ->with(
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo($folderName)
-            )
-            ->will($this->returnValue($existingFolder));
 
         $response = $this->folderAPI->updateFolder($folderId, $folderName);
 
-        $data = $response->getData();
-        $this->assertEquals(
-            [
-                'folder' => $existingFolder->toAPI2()
-            ],
-            $data
-        );
         $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
     }
 
