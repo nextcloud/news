@@ -4,6 +4,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [Unreleased]
 
+- v2 API implementation (folder part)
+
 ### Changed
 
 ### Fixed
