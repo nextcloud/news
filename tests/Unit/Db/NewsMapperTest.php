@@ -193,7 +193,7 @@ class NewsMapperTest extends TestCase
 
         $qb->expects($this->once())
             ->method('setParameter')
-            ->with(':user_id', 'jack')
+            ->with('user_id', 'jack')
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
@@ -226,7 +226,7 @@ class NewsMapperTest extends TestCase
 
         $qb->expects($this->once())
             ->method('setParameter')
-            ->with(':deleted_at', 1)
+            ->with('deleted_at', 1)
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
@@ -259,7 +259,7 @@ class NewsMapperTest extends TestCase
 
         $qb->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive([':user_id', 'jack'], [':deleted_at', 1])
+            ->withConsecutive(['user_id', 'jack'], ['deleted_at', 1])
             ->will($this->returnSelf());
 
         $qb->expects($this->once())

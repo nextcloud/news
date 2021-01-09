@@ -62,8 +62,8 @@ class FeedMapperV2 extends NewsMapperV2
                 ->where('feeds.user_id = :user_id')
                 ->andWhere('feeds.deleted_at = 0')
                 ->groupBy('feeds.id')
-                ->setParameter(':unread', true, IQueryBuilder::PARAM_BOOL)
-                ->setParameter(':user_id', $userId);
+                ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
+                ->setParameter('user_id', $userId);
 
         return $this->findEntities($builder);
     }
@@ -86,8 +86,8 @@ class FeedMapperV2 extends NewsMapperV2
                 ->from(static::TABLE_NAME)
                 ->where('user_id = :user_id')
                 ->andWhere('id = :id')
-                ->setParameter(':user_id', $userId)
-                ->setParameter(':id', $id);
+                ->setParameter('user_id', $userId)
+                ->setParameter('id', $id);
 
         return $this->findEntity($builder);
     }
@@ -125,8 +125,8 @@ class FeedMapperV2 extends NewsMapperV2
                 ->from(static::TABLE_NAME)
                 ->where('user_id = :user_id')
                 ->andWhere('url = :url')
-                ->setParameter(':user_id', $userId)
-                ->setParameter(':url', $url);
+                ->setParameter('user_id', $userId)
+                ->setParameter('url', $url);
 
         return $this->findEntity($builder);
     }
@@ -148,7 +148,7 @@ class FeedMapperV2 extends NewsMapperV2
             $builder->where('folder_id IS NULL');
         } else {
             $builder->where('folder_id = :folder_id')
-                    ->setParameter(':folder_id', $id);
+                    ->setParameter('folder_id', $id);
         }
 
         return $this->findEntities($builder);

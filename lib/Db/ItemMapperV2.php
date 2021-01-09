@@ -56,11 +56,11 @@ class ItemMapperV2 extends NewsMapperV2
                 ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                 ->where('feeds.user_id = :user_id')
                 ->andWhere('deleted_at = 0')
-                ->setParameter(':user_id', $userId, IQueryBuilder::PARAM_STR);
+                ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR);
 
         foreach ($params as $key => $value) {
             $builder->andWhere("${key} = :${key}")
-                    ->setParameter(":${key}", $value);
+                    ->setParameter($key, $value);
         }
 
         return $this->findEntities($builder);
@@ -90,8 +90,8 @@ class ItemMapperV2 extends NewsMapperV2
             ->where('feeds.user_id = :user_id')
             ->andWhere('items.id = :item_id')
             ->andWhere('deleted_at = 0')
-            ->setParameter(':user_id', $userId, IQueryBuilder::PARAM_STR)
-            ->setParameter(':item_id', $id, IQueryBuilder::PARAM_STR);
+            ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR)
+            ->setParameter('item_id', $id, IQueryBuilder::PARAM_STR);
 
         return $this->findEntity($builder);
     }
@@ -114,8 +114,8 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName)
             ->andWhere('feed_id = :feed_id')
             ->andWhere('guid_hash = :guid_hash')
-            ->setParameter(':feed_id', $feedId, IQueryBuilder::PARAM_INT)
-            ->setParameter(':guid_hash', $guidHash, IQueryBuilder::PARAM_STR);
+            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT)
+            ->setParameter('guid_hash', $guidHash, IQueryBuilder::PARAM_STR);
 
         return $this->findEntity($builder);
     }
@@ -131,7 +131,7 @@ class ItemMapperV2 extends NewsMapperV2
         $builder->addSelect('*')
             ->from($this->tableName)
             ->andWhere('feed_id = :feed_id')
-            ->setParameter(':feed_id', $feedId, IQueryBuilder::PARAM_INT);
+            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT);
 
         return $this->findEntities($builder);
     }
