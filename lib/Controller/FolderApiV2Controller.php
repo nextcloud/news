@@ -52,7 +52,7 @@ class FolderApiV2Controller extends ApiController
     {
         try {
             $this->folderService->purgeDeleted($this->getUserId(), false);
-            $responseData = $this->serialize(
+            $responseData = $this->serializeEntity(
                 $this->folderService->create($this->getUserId(), $name)
             );
             return $this->response([
@@ -103,7 +103,7 @@ class FolderApiV2Controller extends ApiController
     public function deleteFolder($folderId)
     {
         try {
-            $responseData = $this->serialize(
+            $responseData = $this->serializeEntity(
                 $this->folderService->delete($this->getUserId(), $folderId)
             );
             return $this->response([
