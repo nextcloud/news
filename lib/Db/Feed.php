@@ -663,7 +663,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         );
     }
 
-    public function toAPI2(): array
+    public function toAPI2(bool $reduced = false): array
     {
         $result = [
             'id' => $this->getId(),
