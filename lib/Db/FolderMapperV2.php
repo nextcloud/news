@@ -7,10 +7,8 @@
  *
  * @author    Alessandro Cosentino <cosenal@gmail.com>
  * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @author    Paul Tirk <paultirk@paultirk.com>
  * @copyright 2012 Alessandro Cosentino
  * @copyright 2012-2014 Bernhard Posselt
- * @copyright 2020 Paul Tirk
  */
 
 namespace OCA\News\Db;
