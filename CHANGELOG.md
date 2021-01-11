@@ -4,6 +4,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [Unreleased]
 
+## [15.2.0] - 2021-01-11
+
 ### Changed
 - Remove outdated feed DB code
 - add background & hover for entries
