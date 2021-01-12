@@ -226,11 +226,13 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     this.userList = [];
 
     this.searchUsers = function(search) {
-        if (search === '') {
+        // TODO: search === undefined 🤢 je pense pas que c'est ouf comme syntaxe
+        if (search === '' || search === undefined) {
             this.userList = [];
             return;
         }
 
+        // TODO: bug - requetes retardataires (regarder issues git)
         var response = UserResource.getUsers(search);
         response.then((response) => {
             this.userList = response.ocs.data.users;
