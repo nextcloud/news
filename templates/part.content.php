@@ -98,14 +98,16 @@
                                 title="Partager">
                             </button>
                         </li>
-                        <div class="dropdown-content">
+                        <div
+                            class="dropdown-content"
+                            ng-controller="ShareController as Share">
                                 <!-- Contact -->
                                 <p class="label-group">Contacts</p>
                                 <form ng-submit="" name="contactForm">
                                     <fieldset>
-                                        <input 
+                                        <input
                                             ng-model="nameQuery"
-                                            ng-change="Content.searchUsers(nameQuery)"
+                                            ng-change="Share.searchUsers(nameQuery)"
                                             type="text"
                                             class="contact-input"
                                             placeholder="Nom de contact"
@@ -119,7 +121,7 @@
                                 </form>
 
 
-                                <a ng-repeat="user in Content.userList">
+                                <a ng-repeat="user in Share.userList">
                                     {{ user.value.shareWith }}
                                 </a>
 
