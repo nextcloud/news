@@ -13,8 +13,9 @@ app.factory('UserResource', function (Resource, $http, BASE_URL) {
     UserResource.prototype = Object.create(Resource.prototype);
 
     UserResource.prototype.getUsers = function (search) {
+        console.log(search);
         return this.http({
-            url: OC.linkToOCS(`cloud/users?search=${search}&offset=0&limit=5`, 2),
+            url: OC.linkToOCS(`apps/files_sharing/api/v1/sharees?search=${search}&itemType=file`, 1),
             method: 'GET',
         }).then(function(response) {
             return response.data;

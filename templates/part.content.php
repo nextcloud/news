@@ -120,7 +120,7 @@
 
 
                                 <a ng-repeat="user in Content.userList">
-                                    {{ user }}
+                                    {{ user.value.shareWith }}
                                 </a>
 
                                 <p class="label-group">Partage réseaux sociaux</p>
