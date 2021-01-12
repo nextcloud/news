@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, UserResource,
+app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, ShareResource,
                                               data, $route, $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE,
                                               Loading, $filter) {
     'use strict';
@@ -233,7 +233,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         }
 
         // TODO: bug - requetes retardataires (regarder issues git)
-        var response = UserResource.getUsers(search);
+        var response = ShareResource.getUsers(search);
         response.then((response) => {
             this.userList = response.ocs.data.users;
         });
