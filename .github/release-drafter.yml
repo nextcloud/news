@@ -1,15 +1,18 @@
 name-template: '$RESOLVED_VERSION'
 tag-template: '$RESOLVED_VERSION'
 categories:
-  - title: 'Changes'
+  - title: 'Changed'
     labels:
       - 'change'
       - 'enhancement'
-  - title: 'Fixes'
+  - title: 'Fixed'
     labels:
       - 'fix'
       - 'bugfix'
       - 'bug'
+  - title: 'Dependencies'
+    lables:
+      - 'dependencies'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&'
 version-resolver:
