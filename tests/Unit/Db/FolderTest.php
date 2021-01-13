@@ -25,11 +25,13 @@ class FolderTest extends TestCase
         $folder = new Folder();
         $folder->setId(3);
         $folder->setName('name');
+        $folder->setOpened(false);
 
         $this->assertEquals(
             [
                 'id' => 3,
                 'name' => 'name',
+                'opened' => false,
                 'feeds' => [],
             ], $folder->toAPI()
         );
