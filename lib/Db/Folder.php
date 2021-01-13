@@ -167,6 +167,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
             [
                 'id',
                 'name',
+                'opened',
                 'feeds'
             ]
         );
