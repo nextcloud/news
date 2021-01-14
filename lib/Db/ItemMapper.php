@@ -281,7 +281,7 @@ class ItemMapper extends Mapper
                 $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQuery($sql, $oldestFirst, $search);
+        $sql = $this->makeSelectQuery($sql, $oldestFirst);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
@@ -308,7 +308,7 @@ class ItemMapper extends Mapper
             $sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
             $params[] = $offset;
         }
-        $sql = $this->makeSelectQuery($sql, $oldestFirst, $search);
+        $sql = $this->makeSelectQuery($sql, $oldestFirst);
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
 
