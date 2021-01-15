@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 - opened state of folders is not restored (#1040)
 - Argument 3 passed to OCA\News\Db\ItemMapper::makeSelectQuery() must be of the type bool, array given (#1044)
+- Argument 2 passed to OCA\News\Db\ItemMapper::findAllNewFeed() must be of the type int, string given (#1049)
 
 ## [15.2.0-beta1] - 2021-01-11
 
