@@ -11,7 +11,7 @@ categories:
       - 'bugfix'
       - 'bug'
   - title: 'Dependencies'
-    lables:
+    labels:
       - 'dependencies'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&'
