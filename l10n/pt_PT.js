@@ -5,8 +5,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Pedido não autorizado. Fez o login?",
     "Request forbidden. Are you an admin?" : "Pedido proibido. É um administrador?",
     "Token expired or app not enabled! Reload the page!" : "Token expirou ou aplicação não ativa! Recarregue a página!",
-    "Can not add feed: Exists already" : "Não é possível adicionar o feed: Já existe",
-    "Articles without feed" : "Artigos sem feed",
     "Purge interval" : "Intervalo de Purgar",
     "Maximum read count per feed" : "Número máximo de leituras por feed",
     "Maximum redirects" : "Máximo de redirecionamentos",

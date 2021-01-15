@@ -5,8 +5,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Päring pole lubatud. Oled sa sisse loginud?",
     "Request forbidden. Are you an admin?" : "Päring on keelatud. Kas sa oled admin?",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Päring ebaõnnestus, Nextcloud on hetkel hooldusrežiimis.",
-    "Can not add feed: Exists already" : "Voogu ei saa lisada:  on juba olemas",
-    "Articles without feed" : "Artiklid ilma voota",
     "News" : "News",
     "Use system cron for updates" : "Kasuta süsteemi croni uuendusteks",
     "Purge interval" : "Puhastuse intervall",

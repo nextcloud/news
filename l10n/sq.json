@@ -5,8 +5,6 @@
     "Token expired or app not enabled! Reload the page!" : "Token-i ka skaduar ose s’është aktivizuar aplikacioni! Ringarkoni faqen!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Gabim i brendshëm serveri! Ju lutemi kontrolloni skedarin tuaj data/nextcloud.log për informacion shtesë!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Kërkesa dështoi, Nextcloud është aktualisht më gjëndjen e mirëmbajtjes!",
-    "Can not add feed: Exists already" : "Prurja s’shtohet dot: ekziston tashmë",
-    "Articles without feed" : "Artikuj pa prurje",
     "News" : "Lajme",
     "Use system cron for updates" : "Përdor sistemin cron për përditësime",
     "Purge interval" : "Interval pastrimi",

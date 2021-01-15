@@ -3,8 +3,6 @@
     "Request unauthorized. Are you logged in?" : "Requèsta pas autorizada. Sètz plan connectat amb vòstres identificants ?",
     "Request forbidden. Are you an admin?" : "Requèsta interdicha. Avètz los dreches admin ?",
     "Token expired or app not enabled! Reload the page!" : "Lo geton a expirat o l'aplicacion es pas activada ! Recargatz la pagina !",
-    "Can not add feed: Exists already" : "Impossible d'apondre lo flux : ja present",
-    "Articles without feed" : "Articles sens flux",
     "Purge interval" : "Interval de purga",
     "Maximum read count per feed" : "Nombre maximum de lectura per flux",
     "Maximum redirects" : "Nombre maximal de redireccions",

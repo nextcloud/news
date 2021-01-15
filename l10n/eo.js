@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Can not add feed: Exists already" : "Ne eblas aldoni fluon: ĝi jam ekzistas",
     "News" : "Novaĵo",
     "Saved" : "Konservita",
     "Download" : "Elŝuti",

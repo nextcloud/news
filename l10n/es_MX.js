@@ -7,8 +7,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "¡La ficha expiró o la aplicación no está habilitada! ¡Por favor recarga la página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Se presentó un error interno del servidor! ¡Por favor verifica el archivo data/nextcloud.log para más informacón!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Se presentó una falla en la solicitud, por el momento Nextcloud se encuentra en modo mantenimiento!",
-    "Can not add feed: Exists already" : "No es posible agregar la fuente: ya existe",
-    "Articles without feed" : "Artículos sin fuente",
     "News" : "Noticias",
     "An RSS/Atom feed reader" : "Un lector de fuentes RSS/Atom",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",

@@ -1,8 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Can not add feed: Exists already" : "Не можам да додадам канал: Веќе постои",
-    "Articles without feed" : "Статии без фид",
     "News" : "Новости",
     "Saved" : "Снимено",
     "Download" : "Преземи",

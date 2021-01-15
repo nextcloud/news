@@ -3,8 +3,6 @@
     "Request unauthorized. Are you logged in?" : "Запит не авторизований. Ви увійшли в систему?",
     "Request forbidden. Are you an admin?" : "Запит заборонений. Ви справді адміністратор?",
     "Token expired or app not enabled! Reload the page!" : "Термін дії токена закінчився або програма не задіяна! Перезагрузіть сторінку!",
-    "Can not add feed: Exists already" : "Неможливо додати стрічку: вона вже існує",
-    "Articles without feed" : "Статті без стрічки",
     "Purge interval" : "Очистити оновлення",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
     "Maximum redirects" : "Максимум перенаправлень",

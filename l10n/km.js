@@ -1,8 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Can not add feed: Exists already" : "មិន​អាច​បន្ថែម​ព័ត៌មាន៖ មាន​រួច​ហើយ",
-    "Articles without feed" : "អត្ថបទគ្មាន feed",
     "Saved" : "បាន​រក្សាទុក",
     "Download" : "ទាញយក",
     "Close" : "បិទ",

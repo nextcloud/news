@@ -5,8 +5,6 @@
     "Token expired or app not enabled! Reload the page!" : "Изтекла парола или приложението не е активирано! Презаредете страницата!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Вътрешно сървърна грешка! За допълнителна информация проверете файла data/nextcloud.log !",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Заявка се провали, Nextcloud в момента е в режим на поддръжка!",
-    "Can not add feed: Exists already" : "Емисията не може да бъде добавена: Вече съществува",
-    "Articles without feed" : "Статии без емисия",
     "News" : "Новини",
     "An RSS/Atom feed reader" : "Четец за RSS/Atom емисии",
     "Use system cron for updates" : "Използване на системния cron за актуализации",

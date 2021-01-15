@@ -7,8 +7,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Token telah kadaluarsa atau aplikasi tidak diaktifkan! Muat ulang halaman!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Kesalahan internal server! Mohon cek berkas data/nextcloud.log Anda untuk informasi lebih lanjut!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Permintaan gagal, Nextcloud sedang dalam mode pemeliharaan!",
-    "Can not add feed: Exists already" : "Tidak dapat menambah feed: Sudah ada",
-    "Articles without feed" : "Artikel tanpa feed",
     "Use system cron for updates" : "Gunakan cron sistem untuk pembaruan",
     "Purge interval" : "Singkirkan interval",
     "Maximum read count per feed" : "Jumlah baca maksimum per feed",

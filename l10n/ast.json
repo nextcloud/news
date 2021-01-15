@@ -5,8 +5,6 @@
     "Token expired or app not enabled! Reload the page!" : "¡Token caducáu o l'aplicación nun ta activada! ¡Recarga la páxina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Fallu internu del sirvidor! Comprueba'l ficheru de rexistru en data/nextcloud.log pa más información",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Falló la solicitú! Anguaño Nextcloud ta en mou de caltenimientu.",
-    "Can not add feed: Exists already" : "Nun pue amestase'l feed: Yá esiste",
-    "Articles without feed" : "Artículos ensin fonte",
     "News" : "Anuncies",
     "Purge interval" : "Intervalu de purga",
     "Maximum read count per feed" : "Númberu máximu de llectura per feed",

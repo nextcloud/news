@@ -1,8 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Can not add feed: Exists already" : "Ötürməni əlavə etmək olmadı: Artıq mövcuddur",
-    "Articles without feed" : "Ötürməsiz məqalələr",
     "Saved" : "Saxlanıldı",
     "Download" : "Yüklə",
     "Close" : "Bağla",

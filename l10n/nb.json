@@ -5,8 +5,6 @@
     "Token expired or app not enabled! Reload the page!" : "Nøkkel utløpt eller app ikke aktivert! Last siden på nytt!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Intern feil! Sjekk dine data/nextcloud.log fil for mer informasjon.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Forespørsel mislyktes, Nextcloud er i vedlikeholdsmodus!",
-    "Can not add feed: Exists already" : "Kan ikke legge til strøm: Finnes allerede",
-    "Articles without feed" : "Artikler uten strøm",
     "News" : "Nyheter",
     "An RSS/Atom feed reader" : "En RSS/Atom-leser",
     "Use system cron for updates" : "Bruk system-cron for oppdateringer",

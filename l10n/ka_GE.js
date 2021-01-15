@@ -7,8 +7,6 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "ტოკენს ამოეწურა ვადა ან აპლიკაცია არაა მოქმედი! გადატვირთეთ გვერდი! ",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "შიდა სერვერის შეცდომა! დამატებიტი ინფორმაციისთვის გთხოვთ შეამოწმოთ თქვენი data/nextcloud.log ფაილი.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "მოთხოვნა არ შედგა, Nextcloud ახლა სარემონტო რეჟიმშია!",
-    "Can not add feed: Exists already" : "ლენტის დამატება შეუძლებელია: უკვე არსებობს",
-    "Articles without feed" : "არტიკლები ლენტის გარეშე",
     "News" : "სიახლეები",
     "Use system cron for updates" : "განახლებისთვის გამოიყენეთ სისტემური კრონი",
     "Purge interval" : "გაწმენდის ინტერვალი",

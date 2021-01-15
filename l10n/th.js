@@ -5,8 +5,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "คำขอไม่ได้รับอนุญาต คุณเข้าสู่ระบบ?",
     "Request forbidden. Are you an admin?" : "คำขอถูกปฏิเสธ คุณเป็นผู้ดูแลระบบ?",
     "Token expired or app not enabled! Reload the page!" : "โทเค็นหมดอายุหรือไม่เปิดใช้งานแอพพลิเคชัน! โหลดหน้าใหม่อีกครั้ง!",
-    "Can not add feed: Exists already" : "ไม่สามารถเพิ่มฟีด: มันมีอยู่แล้ว",
-    "Articles without feed" : "บทความไม่มีฟีด",
     "Purge interval" : "ช่วงเวลาที่ล้าง",
     "Maximum read count per feed" : "นับจำนวนอ่านสูงสุดต่อฟีด",
     "Maximum redirects" : "เปลี่ยนเส้นทางสูงสุด",

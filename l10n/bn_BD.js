@@ -1,8 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Can not add feed: Exists already" : "ফিড যুক্ত করা যাবেনা: এটি আপনার রয়েছে",
-    "Articles without feed" : "ফিডবিহীন লেখা",
     "Saved" : "সংরক্ষণ করা হলো",
     "Download" : "ডাউনলোড",
     "Close" : "বন্ধ",
