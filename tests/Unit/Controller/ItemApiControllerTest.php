@@ -150,7 +150,7 @@ class ItemApiControllerTest extends TestCase
             ->with(
                 $this->equalTo(2),
                 $this->equalTo(1),
-                $this->equalTo('30000000'),
+                $this->equalTo(30000000),
                 $this->equalTo(true),
                 $this->equalTo($this->user->getUID())
             )

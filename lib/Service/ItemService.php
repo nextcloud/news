@@ -73,7 +73,7 @@ class ItemService extends Service
      *
      * @return array of items
      */
-    public function findAllNew(?int $id, $type, $updatedSince, $showAll, $userId)
+    public function findAllNew(?int $id, $type, int $updatedSince, bool $showAll, string $userId)
     {
         switch ($type) {
             case FeedType::FEED:

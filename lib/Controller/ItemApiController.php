@@ -93,14 +93,14 @@ class ItemApiController extends ApiController
     {
         // needs to be turned into a millisecond timestamp to work properly
         if (strlen((string) $lastModified) <= 10) {
-            $paddedLastModified = $lastModified . '000000';
+            $paddedLastModified = $lastModified * 1000000;
         } else {
             $paddedLastModified = $lastModified;
         }
         $items = $this->oldItemService->findAllNew(
             $id,
             $type,
-            $paddedLastModified,
+            (int) $paddedLastModified,
             true,
             $this->getUserId()
         );
