@@ -225,7 +225,7 @@ class ItemMapper extends Mapper
         $sql = $this->buildStatusQueryPart($showAll);
 
         $folderWhere = is_null($id) ? 'IS' : '=';
-        $sql .= "AND `feeds`.`folder_id` ${$folderWhere} ? " .
+        $sql .= "AND `feeds`.`folder_id` ${folderWhere} ? " .
             'AND `items`.`last_modified` >= ? ';
         $sql = $this->makeSelectQuery($sql);
         $params = [$userId, $id, $updatedSince];
