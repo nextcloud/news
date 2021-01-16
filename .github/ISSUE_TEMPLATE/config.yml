@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature requests and suggestions
+    url: https://github.com/nextcloud/news/discussions
+    about: Please submit your suggestions and requests here.
