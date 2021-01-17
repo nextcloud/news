@@ -22,6 +22,16 @@ app.factory('ShareResource', function (Resource, $http, BASE_URL) {
         });
     };
 
+    ShareResource.prototype.shareItem = function (itemId, userId) {
+        var url = this.BASE_URL +
+            '/items/' + itemId + '/share/' + userId;
+
+        return this.http({
+            url: url,
+            method: 'POST',
+        });
+    };
+
 
     return new ShareResource($http, BASE_URL);
 });

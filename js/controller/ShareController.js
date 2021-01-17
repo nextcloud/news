@@ -25,4 +25,11 @@ app.controller('ShareController', function (ShareResource) {
         });
     };
 
+    this.shareItem = function(itemId, userId) {
+        var response = ShareResource.shareItem(itemId, userId);
+        response.then((result) => {
+            return result;
+        });
+    };
+
 });
