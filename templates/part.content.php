@@ -121,7 +121,9 @@
                                 </form>
 
 
-                                <a ng-repeat="user in Share.userList">
+                                <a
+                                    ng-repeat="user in Share.userList"
+                                    ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                     {{ user.value.shareWith }}
                                 </a>
 
