@@ -6,6 +6,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Changed
 
+- Use signed integer for pubdate (#997)
+
 ### Fixed
 
 ## [15.2.0-beta2] - 2021-01-17
