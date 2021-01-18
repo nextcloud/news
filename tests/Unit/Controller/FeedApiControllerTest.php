@@ -198,6 +198,10 @@ class FeedApiControllerTest extends TestCase
             ->method('create')
             ->with($this->userID, 'url', 3)
             ->will($this->returnValue($feeds[0]));
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($feeds[0]);
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
             ->will($this->returnValue(3));
@@ -225,6 +229,10 @@ class FeedApiControllerTest extends TestCase
             ->method('create')
             ->with($this->userID, 'ho', 3)
             ->will($this->returnValue($feeds[0]));
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($feeds[0]);
         $this->itemService->expects($this->once())
             ->method('getNewestItemId')
             ->will($this->throwException(new ServiceNotFoundException('')));
