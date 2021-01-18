@@ -7,8 +7,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        ocp-version: [ 'dev-master', 'v20.0.4' ]
-    name: Nextcloud ${{ matrix.ocp-version }}
+        ocp-version: [ 'dev-master', 'v20.0.5' ]
+    name: "Psalm: Nextcloud ${{ matrix.ocp-version }}"
     steps:
       - name: Checkout
         uses: actions/checkout@master
