@@ -203,10 +203,6 @@
     background-image: linear-gradient(to right, orange 0, orange 2px, transparent 2px);
 }
 
-#app-content .compact li.item:nth-child(odd) div.utils {
-    background-color: var(--color-primary-light);
-}
-
 #app-content .compact li.item div.utils:hover {
     background-color: var(--color-background-hover);
 }
@@ -235,16 +231,12 @@
     position: sticky;
     top: 50px;
     background-color: var(--color-main-background);
-    min-height: 41px;
+    min-height: 43px;
     opacity: 0.9;
 }
 
-#app-content .compact .open .utils {
-    padding-top: 15px;
-}
-
 #app-content .utils ul {
-    height: 40px;
+    height: 43px;
     list-style-type: none;
     display: flex;
     margin: 0;
@@ -268,7 +260,7 @@
 }
 
 #app-content .utils li {
-    line-height: 40px;
+    line-height: 43px;
     vertical-align: middle;
 }
 
@@ -292,7 +284,7 @@
 #app-content .utils .external {
     padding: 0;
     margin: 0;
-    height: 40px;
+    height: 43px;
     width: 40px;
     border: 0;
     float: left;
@@ -414,9 +406,13 @@
 #app-content .utils .title {
     width: 100%;
     padding-left: 45px;
-    background-position: 10px 10px;
+    background-position: 10px 12px;
     background-size: 20px 20px;
     background-repeat: no-repeat;
+}
+
+#app-content .compact .utils .title h1 {
+    line-height: 1;
 }
 
 #app-content .feed-view .utils .title {
