@@ -111,6 +111,8 @@ class FeedApiController extends ApiController
             $feed = $this->feedService->create($this->getUserId(), $url, $folderId);
             $result = ['feeds' => $this->serialize($feed)];
 
+            $this->feedService->fetch($feed);
+
             try {
                 $result['newestItemId'] = $this->oldItemService->getNewestItemId($this->getUserId());
             } catch (ServiceNotFoundException $ex) {

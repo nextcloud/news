@@ -187,8 +187,13 @@ class FeedControllerTest extends TestCase
     }
 
 
-
-    private function activeInitMocks($id, $type)
+    /**
+     * Configure settings with active mocks
+     *
+     * @param $id
+     * @param $type
+     */
+    private function activeInitMocks($id, $type): void
     {
         $this->settings->expects($this->exactly(2))
             ->method('getUserValue')
@@ -313,6 +318,10 @@ class FeedControllerTest extends TestCase
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->uid, false);
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($result['feeds'][0]);
         $this->feedService->expects($this->once())
             ->method('create')
             ->with($this->uid, 'hi', 4, false, 'yo')
@@ -337,6 +346,10 @@ class FeedControllerTest extends TestCase
         $this->feedService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->uid, false);
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($result['feeds'][0]);
         $this->feedService->expects($this->once())
             ->method('create')
             ->with($this->uid, 'hi', null, false, 'yo')
@@ -364,6 +377,10 @@ class FeedControllerTest extends TestCase
             ->method('create')
             ->with($this->uid, 'hi', 4, false, 'yo')
             ->will($this->returnValue($result['feeds'][0]));
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($result['feeds'][0]);
 
         $response = $this->class->create('hi', 4, 'yo');
 

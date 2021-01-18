@@ -180,6 +180,8 @@ class FeedController extends Controller
             );
             $params = ['feeds' => [$feed]];
 
+            $this->feedService->fetch($feed);
+
             try {
                 $id = $this->itemService->getNewestItemId($this->getUserId());
                 // An exception occurs if there is a newest item. If there is none,
