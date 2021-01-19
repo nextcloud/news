@@ -12,6 +12,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 - Fetch feed after creation (#1058)
+- Implement missing item purger (#1063)
 - Update FeedIO Response call and add tests
 - Improve Psalm tests and dependency definition
 

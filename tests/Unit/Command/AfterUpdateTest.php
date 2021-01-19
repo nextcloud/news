@@ -62,17 +62,77 @@ class AfterUpdateTest extends TestCase
     {
         $this->consoleInput->expects($this->once())
                            ->method('getArgument')
-                           ->with('purge_count')
+                           ->with('purge-count')
                            ->willReturn('1');
+        $this->consoleInput->expects($this->once())
+                           ->method('getOption')
+                           ->with('purge-unread')
+                           ->willReturn(false);
 
         $this->service->expects($this->exactly(1))
                            ->method('purgeOverThreshold')
-                           ->with('1')
-                           ->willReturn('test');
+                           ->with('1', false)
+                           ->willReturn(1);
 
         $this->consoleOutput->expects($this->exactly(1))
             ->method('writeln')
-            ->with('test');
+            ->with('Removed 1 item(s)');
+
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(0, $result);
+    }
+
+    /**
+     * Test a valid call will work
+     */
+    public function testValidEmpty()
+    {
+        $this->consoleInput->expects($this->once())
+                           ->method('getArgument')
+                           ->with('purge-count')
+                           ->willReturn('1');
+        $this->consoleInput->expects($this->once())
+                           ->method('getOption')
+                           ->with('purge-unread')
+                           ->willReturn(false);
+
+
+        $this->service->expects($this->exactly(1))
+                           ->method('purgeOverThreshold')
+                           ->with('1', false)
+                           ->willReturn(null);
+
+        $this->consoleOutput->expects($this->exactly(1))
+            ->method('writeln')
+            ->with('No cleanup needed');
+
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(0, $result);
+    }
+
+    /**
+     * Test a valid call will work
+     */
+    public function testValidEmptyUnread()
+    {
+        $this->consoleInput->expects($this->once())
+                           ->method('getArgument')
+                           ->with('purge-count')
+                           ->willReturn('1');
+        $this->consoleInput->expects($this->once())
+                           ->method('getOption')
+                           ->with('purge-unread')
+                           ->willReturn(true);
+
+
+        $this->service->expects($this->exactly(1))
+                           ->method('purgeOverThreshold')
+                           ->with('1', true)
+                           ->willReturn(null);
+
+        $this->consoleOutput->expects($this->exactly(1))
+            ->method('writeln')
+            ->with('No cleanup needed');
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(0, $result);
