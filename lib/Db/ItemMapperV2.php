@@ -12,6 +12,7 @@
 
 namespace OCA\News\Db;
 
+use Doctrine\DBAL\FetchMode;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
@@ -138,20 +139,58 @@ class ItemMapperV2 extends NewsMapperV2
     /**
      * Delete items from feed that are over the max item threshold
      *
-     * TODO: Implement
+     * @param int  $threshold    Deletion threshold
+     * @param bool $removeUnread If unread articles should be removed
      *
-     * @param int $threshold Deletion threshold
+     * @return int|null Removed items
+     *
+     * @throws \Doctrine\DBAL\Exception|\OCP\DB\Exception
      */
-    public function deleteOverThreshold(int $threshold)
+    public function deleteOverThreshold(int $threshold, bool $removeUnread = false): ?int
     {
-        $builder = $this->db->getQueryBuilder();
+        $feedQb = $this->db->getQueryBuilder();
+        $feedQb->addSelect('feed_id', $feedQb->func()->count('*', 'itemCount'), 'feeds.articles_per_update')
+               ->from($this->tableName, 'items')
+               ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+               ->groupBy('feed_id');
 
-        $query = $builder->addSelect('COUNT(*)')
-                         ->from($this->tableName)
-                         ->groupBy('feed_id')
-                         ->where('');
+        $feeds = $this->db->executeQuery($feedQb->getSQL())
+                          ->fetchAll(FetchMode::ASSOCIATIVE);
 
-        return $this->db->executeQuery($query->getSQL());
+        if ($feeds === []) {
+            return null;
+        }
+
+        $rangeQuery = $this->db->getQueryBuilder();
+        $rangeQuery->select('id')
+            ->from($this->tableName)
+            ->where('feed_id = :feedId')
+            ->andWhere('starred = 0')
+            ->orderBy('updated_date', 'DESC');
+
+        if ($removeUnread === false) {
+            $rangeQuery->andWhere('unread = 0');
+        }
+
+        $total_items = [];
+        foreach ($feeds as $feed) {
+            if ($feed['itemCount'] < $threshold) {
+                continue;
+            }
+
+            $rangeQuery->setFirstResult(max($threshold, $feed['articles_per_update']));
+
+            $items = $this->db->executeQuery($rangeQuery->getSQL(), ['feedId' => $feed['feed_id']])
+                              ->fetchAll(FetchMode::COLUMN);
+
+            $total_items = array_merge($total_items, $items);
+        }
+
+        $deleteQb = $this->db->getQueryBuilder();
+        $deleteQb->delete($this->tableName)
+                 ->where('id IN (?)');
+
+        return $this->db->executeUpdate($deleteQb->getSQL(), [$total_items], [IQueryBuilder::PARAM_INT_ARRAY]);
     }
 
     /**

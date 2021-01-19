@@ -113,22 +113,25 @@ class ItemServiceV2 extends Service
         return $this->mapper->findAllForFeed($feedId);
     }
 
-
-
-    public function purgeOverThreshold(int $threshold = null)
+    /**
+     * @param int|null $threshold
+     * @param bool     $removeUnread
+     *
+     * @return int|null Amount of deleted items or null if not applicable
+     */
+    public function purgeOverThreshold(int $threshold = null, bool $removeUnread = false): ?int
     {
-
-        $threshold = (int) $threshold ?? $this->config->getAppValue(
+        $threshold = (int) ($threshold ?? $this->config->getAppValue(
             Application::NAME,
             'autoPurgeCount',
             Application::DEFAULT_SETTINGS['autoPurgeCount']
-        );
+        ));
 
-        if ($threshold === 0) {
-            return '';
+        if ($threshold <= 0) {
+            return null;
         }
 
-        return $this->mapper->deleteOverThreshold($threshold);
+        return $this->mapper->deleteOverThreshold($threshold, $removeUnread);
     }
 
     /**
