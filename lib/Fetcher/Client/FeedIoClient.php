@@ -10,12 +10,14 @@
 
 namespace OCA\News\Fetcher\Client;
 
+use DateTime;
 use FeedIo\Adapter\ClientInterface;
 use FeedIo\Adapter\ResponseInterface;
 use FeedIo\Adapter\Guzzle\Response;
 use FeedIo\Adapter\NotFoundException;
 use FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Guzzle dependent HTTP client
@@ -23,7 +25,7 @@ use GuzzleHttp\Exception\BadResponseException;
 class FeedIoClient implements ClientInterface
 {
     /**
-     * @var \GuzzleHttp\ClientInterface
+     * @param \GuzzleHttp\ClientInterface $guzzleClient
      */
     protected $guzzleClient;
 
@@ -37,12 +39,13 @@ class FeedIoClient implements ClientInterface
 
     /**
      * @param  string                               $url
-     * @param  \DateTime                            $modifiedSince
-     * @throws \FeedIo\Adapter\NotFoundException
-     * @throws \FeedIo\Adapter\ServerErrorException
-     * @return \FeedIo\Adapter\ResponseInterface
+     * @param  DateTime                            $modifiedSince
+     *
+     * @return ResponseInterface
+     * @throws ServerErrorException|GuzzleException
+     * @throws NotFoundException
      */
-    public function getResponse(string $url, \DateTime $modifiedSince) : ResponseInterface
+    public function getResponse(string $url, DateTime $modifiedSince) : ResponseInterface
     {
         $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
         try {
@@ -52,7 +55,11 @@ class FeedIoClient implements ClientInterface
                 ]
             ];
 
-            return new Response($this->guzzleClient->request('get', $url, $options));
+            $start = microtime(true);
+            $psrResponse = $this->guzzleClient->request('get', $url, $options);
+            $duration = intval(round(microtime(true) - $start, 3) * 1000);
+
+            return new Response($psrResponse, $duration);
         } catch (BadResponseException $e) {
             switch ((int) $e->getResponse()->getStatusCode()) {
                 case 404:
