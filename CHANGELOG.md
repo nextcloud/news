@@ -12,6 +12,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 - Fetch feed after creation (#1058)
+- Update FeedIO Response call and add tests
 
 ## [15.2.0-beta2] - 2021-01-17
 
