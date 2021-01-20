@@ -4,7 +4,7 @@ on:
       types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 jobs:
-  # Enforces the update of a changelog file on every pull request 
+  # Enforces the update of a changelog file on every pull request
   changelog:
     runs-on: ubuntu-latest
     steps:
@@ -12,4 +12,4 @@ jobs:
     - uses: dangoslen/changelog-enforcer@v2
       with:
         changeLogPath: 'CHANGELOG.md'
-        skipLabel: 'Skip-Changelog'
+        skipLabels: 'Skip-Changelog'
