@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
+  <file src="lib/AppInfo/Application.php">
+    <MissingDependency occurrences="1">
+      <code>BeforeUserDeletedEvent</code>
+    </MissingDependency>
+    <UndefinedClass occurrences="8">
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+      <code>ContainerInterface</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/FeedAdd.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/FeedDelete.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/FeedList.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/FolderAdd.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/FolderDelete.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/FolderList.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Config/OpmlExport.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/ExploreGenerator.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/ShowFeed.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Updater/AfterUpdate.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Updater/AllFeeds.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Updater/BeforeUpdate.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Command/Updater/UpdateFeed.php">
+    <UndefinedClass occurrences="1">
+      <code>Command</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Config/FetcherConfig.php">
+    <UndefinedClass occurrences="1">
+      <code>Client</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Controller/FeedApiController.php">
+    <UndefinedDocblockClass occurrences="1">
+      <code>EntityApiSerializer</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Controller/ItemApiController.php">
+    <LessSpecificImplementedReturnType occurrences="1">
+      <code>array|mixed</code>
+    </LessSpecificImplementedReturnType>
+  </file>
+  <file src="lib/Cron/UpdaterJob.php">
+    <UndefinedClass occurrences="1">
+      <code>TimedJob</code>
+    </UndefinedClass>
+  </file>
+  <file src="lib/Fetcher/Client/FeedIoClient.php">
+    <UndefinedClass occurrences="2">
+      <code>BadResponseException</code>
+      <code>\GuzzleHttp\ClientInterface</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>$this-&gt;guzzleClient</code>
+      <code>\GuzzleHttp\ClientInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Fetcher/Fetcher.php">
+    <InvalidReturnStatement occurrences="1"/>
+    <InvalidReturnType occurrences="1">
+      <code>array</code>
+    </InvalidReturnType>
+  </file>
+  <file src="lib/Hooks/UserDeleteHook.php">
+    <MissingDependency occurrences="2">
+      <code>BeforeUserDeletedEvent</code>
+      <code>UserDeleteHook</code>
+    </MissingDependency>
+    <MoreSpecificImplementedParamType occurrences="1">
+      <code>$event</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="lib/Service/FeedServiceV2.php">
+    <UndefinedMethod occurrences="2">
+      <code>findAllFromFolder</code>
+      <code>findByURL</code>
+    </UndefinedMethod>
+  </file>
+  <file src="lib/Service/FolderServiceV2.php">
+    <UndefinedClass occurrences="1">
+      <code>TimeFactory</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>$this-&gt;timeFactory</code>
+      <code>TimeFactory</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Service/ItemService.php">
+    <UndefinedMethod occurrences="1">
+      <code>findByGuidHash</code>
+    </UndefinedMethod>
+  </file>
+  <file src="lib/Service/ItemServiceV2.php">
+    <UndefinedMethod occurrences="4">
+      <code>deleteOverThreshold</code>
+      <code>findAllForFeed</code>
+      <code>findByGuidHash</code>
+      <code>findByGuidHash</code>
+    </UndefinedMethod>
+  </file>
+</files>
