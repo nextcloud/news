@@ -66,6 +66,8 @@ If approved, the translation will be automatically ported to the code within 24 
 ## Development
 You can first create a [discussion](https://github.com/nextcloud/news/discussions/categories/features) where you explain why, what and how you want to make a change before writing any code. If you want to agree on a solution first.
 
+This not required however.
+
 ### How to set up a development environment
 To get started setup an developer [environment](https://docs.nextcloud.com/server/latest/developer_manual/getting_started/devenv.html). Inside the apps directory clone the news repository and enable the app with occ.
 Make sure you have all [dependencies](https://github.com/nextcloud/news/blob/master/docs/install.md#build-dependencies) installed.
