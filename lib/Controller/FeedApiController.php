@@ -47,11 +47,6 @@ class FeedApiController extends ApiController
      */
     private $logger;
 
-    /**
-     * @var EntityApiSerializer
-     */
-    private $serializer;
-
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
