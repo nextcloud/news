@@ -55,7 +55,7 @@ class ItemApiController extends ApiController
      * @param int  $batchSize
      * @param int  $offset
      * @param bool $oldestFirst
-     * @return array|mixed
+     * @return array|JSONResponse
      */
     public function index(
         int $type = 3,
@@ -87,7 +87,7 @@ class ItemApiController extends ApiController
      * @param int $type
      * @param int $id
      * @param int $lastModified
-     * @return array|mixed
+     * @return array|JSONResponse
      */
     public function updated(int $type = 3, int $id = 0, int $lastModified = 0)
     {

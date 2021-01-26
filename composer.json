@@ -1,7 +1,7 @@
 {
   "type": "project",
   "license": "AGPL-3.0",
-  "description": "An RSS/Atom feed reader. Requires Nextcloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+  "description": "An RSS/Atom feed reader. Requires Nextcloud background jobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
   "homepage": "https://github.com/nextcloud/news",
   "authors": [
     {
@@ -36,7 +36,6 @@
     }
   ],
   "support": {
-    "irc": "irc://irc.freenode.org/nextcloud-news",
     "issues": "https://github.com/nextcloud/news/issues",
     "source": "https://github.com/nextcloud/news/"
   },
@@ -58,12 +57,11 @@
     "phpunit/phpunit": "9.5.*",
     "squizlabs/php_codesniffer": "^3.5.6",
     "phpstan/phpstan": "^0.12.43",
-    "christophwurst/nextcloud": "v20.0.5",
-    "vimeo/psalm": "^4.0"
-  },
-  "replace": {
-    "guzzlehttp/guzzle": "*",
-    "symfony/console": "*"
+    "vimeo/psalm": "^4.0",
+    "christophwurst/nextcloud": "^v21.0.0-beta6",
+    "guzzlehttp/guzzle": "^7.2",
+    "doctrine/dbal": "^3.0",
+    "symfony/console": "^4.4.18"
   },
   "autoload": {
     "psr-4": {

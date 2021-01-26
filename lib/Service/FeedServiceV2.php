@@ -246,7 +246,7 @@ class FeedServiceV2 extends Service
             return $feed;
         }
 
-        // for backwards compability it can be that the location is not set
+        // for backwards compatibility it can be that the location is not set
         // yet, if so use the url
         $location = $feed->getLocation() ?? $feed->getUrl();
 
