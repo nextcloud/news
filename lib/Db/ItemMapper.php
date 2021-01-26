@@ -550,7 +550,7 @@ class ItemMapper extends NewsMapper
     {
         $sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` ' .
             'WHERE `items`.`shared_with` = ? ' .
-            'AND `items`.`unread` = `1`';
+            'AND `items`.`unread` = 1';
 
         $params = [$userId];
 
