@@ -191,6 +191,12 @@ app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider)
             resolve: getItemResolve(feedType.STARRED),
             type: feedType.STARRED
         })
+        .when('/items/shared', {
+            controller: 'ContentController as Content',
+            templateUrl: 'content.html',
+            resolve: getItemResolve(feedType.SHARED),
+            type: feedType.SHARED
+        })
         .when('/items/unread', {
             controller: 'ContentController as Content',
             templateUrl: 'content.html',
