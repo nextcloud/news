@@ -368,7 +368,7 @@ class ItemService extends Service
      * @param  string $userId the name of the user
      * @return int the count
      */
-    public function starredShared($userId)
+    public function sharedCount($userId)
     {
         return $this->itemMapper->sharedCount($userId);
     }
