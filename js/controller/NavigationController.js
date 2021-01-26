@@ -114,7 +114,7 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
     };
 
     this.isSharedUnread = function () {
-        return true;
+        return true; // TODO:: waiting for Nicolas' request to receive the number of shared articles
         //return this.getSharedCount() > 0;
     };
 
@@ -156,6 +156,7 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
     };
 
     this.isSharedActive = function () {
+        console.log("hey i'm : " + $route.current.$$route.type);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.SHARED;
     };
