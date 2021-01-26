@@ -143,6 +143,16 @@
                                 >
                                     <span> Twitter </span>
                                 </a>
+                                <a class="icon-google pr-5"
+                                   ng-href="https://google.com/{{ ::item.url }}" 
+                                >
+                                    <span> Google </span>
+                                </a>
+                                <a class="icon-mail pr-5"
+                                   ng-href="https://google.com/{{ ::item.url }}" 
+                                >
+                                    <span> Mail </span>
+                                </a>
 
                       </div>
                     </div>
