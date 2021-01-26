@@ -56,6 +56,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             <?php print_unescaped($this->inc('part.navigation.addfolder')) ?>
             <?php print_unescaped($this->inc('part.navigation.unreadfeed')) ?>
             <?php print_unescaped($this->inc('part.navigation.starredfeed')) ?>
+            <?php print_unescaped($this->inc('part.navigation.sharedfeed')) ?>
             <?php print_unescaped($this->inc(
                 'part.navigation.feed', ['folderId' => 'null']
             )) ?>
