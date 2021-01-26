@@ -101,14 +101,10 @@
     </UndefinedClass>
   </file>
   <file src="lib/Fetcher/Client/FeedIoClient.php">
-    <UndefinedClass occurrences="2">
+    <UndefinedClass occurrences="3">
       <code>BadResponseException</code>
-      <code>\GuzzleHttp\ClientInterface</code>
     </UndefinedClass>
-    <UndefinedDocblockClass occurrences="2">
-      <code>$this-&gt;guzzleClient</code>
-      <code>\GuzzleHttp\ClientInterface</code>
-    </UndefinedDocblockClass>
+    <UndefinedDocblockClass occurrences="1"/>
   </file>
   <file src="lib/Fetcher/Fetcher.php">
     <InvalidReturnStatement occurrences="1"/>
