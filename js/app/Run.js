@@ -17,7 +17,7 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, 
     // listen to keys in returned queries to automatically distribute the
     // incoming values to models
     Publisher.subscribe(ItemResource).toChannels(['items', 'newestItemId',
-        'starred', 'unread']);
+        'starred', 'unread', 'shared']);
     Publisher.subscribe(FolderResource).toChannels(['folders']);
     Publisher.subscribe(FeedResource).toChannels(['feeds']);
     Publisher.subscribe(SettingsResource).toChannels(['settings']);
