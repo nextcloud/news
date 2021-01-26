@@ -518,6 +518,30 @@ class ItemMapper extends NewsMapper
         return [];
     }
 
+    /** 
+     * Returns all items shared with $userId
+     */
+    public function findAllShared($limit, $offset, $showAll, $oldestFirst, $userId, $search)
+    {
+        $sql = 'SELECT `*` FROM `*PREFIX*news_items`' .
+            'WHERE `shared_with` = ? ';
+        $sql .= $this->buildStatusQueryPart($showAll);       
+        
+        if ($offset !== 0) {
+            $sql .= 'AND `items`.`id` ' . $this->getOperator($oldestFirst) . ' ? ';
+            $params[] = $offset;
+        }
+
+        if ($oldestFirst) {
+            $sql .= ' ORDER BY `items`.`id`  ASC';
+        } else {
+            $sql .= ' ORDER BY `items`.`id` DESC';
+        }
+
+        $params = [$userId];
+
+        return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
+    }
     
     public function shareItem($itemId, $shareWithId, $userId)
     {
