@@ -101,6 +101,8 @@ OC.L10N.register(
     "Deleted folder" : "Dossier supprimé",
     "Undo delete folder" : "Annuler la suppression du dossier",
     "Starred" : "Épinglés",
+    "Shared": "Partagés avec moi",
+    "Shared articles": "Articles partagés avec moi",
     "Unread articles" : "Articles non lus",
     "All articles" : "Tous les articles",
     "Settings" : "Paramètres",
