@@ -361,4 +361,15 @@ class ItemService extends Service
             throw new ServiceNotFoundException($ex->getMessage());
         }
     }
+
+    /**
+     * Returns the shared count
+     *
+     * @param  string $userId the name of the user
+     * @return int the count
+     */
+    public function starredShared($userId)
+    {
+        return $this->itemMapper->sharedCount($userId);
+    }
 }

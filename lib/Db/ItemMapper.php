@@ -542,6 +542,22 @@ class ItemMapper extends NewsMapper
 
         return $this->findEntitiesIgnoringNegativeLimit($sql, $params, $limit);
     }
+
+    /**
+     * Returns the count of unread shared items for user $userId
+     */
+    public function sharedCount(string $userId)
+    {
+        $sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` ' .
+            'WHERE `items`.`shared_with` = ? ' .
+            'AND `items`.`unread` = `1`';
+
+        $params = [$userId];
+
+        $result = $this->execute($sql, $params)->fetch();
+
+        return (int)$result['size'];
+    }
     
     public function shareItem($itemId, $shareWithId, $userId)
     {
