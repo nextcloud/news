@@ -311,6 +311,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->starred;
     }
 
+    public function isShared(): bool
+    {
+        return $this->getSharedBy == '' && $this->getSharedWith == '';
+    }
+
     public function isUnread(): bool
     {
         return $this->unread;
