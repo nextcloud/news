@@ -130,9 +130,13 @@ class ItemController extends Controller
             // we need to pass the newest feeds to not let the unread count get
             // out of sync
             if ($offset === 0) {
-                $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
-                $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
-                $return['starred'] = count($this->itemService->starred($this->getUserId()));
+                $params['newestItemId'] =
+                    $this->itemService->getNewestItemId($this->userId);
+                $params['feeds'] = $this->feedService->findAllForUser($this->userId);
+                $params['starred'] =
+                    $this->itemService->starredCount($this->userId);
+                $params['shared'] =
+                    $this->itemService->sharedCount($this->userId);
             }
 
             switch ($type) {
@@ -337,5 +341,5 @@ class ItemController extends Controller
 
         return [];
     }
-    
+
 }
