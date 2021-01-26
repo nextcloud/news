@@ -156,7 +156,7 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
     };
 
     this.isSharedActive = function () {
-        console.log("hey i'm : " + $route.current.$$route.type);
+        console.log('hey i\'m : ' + $route.current.$$route.type);
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.SHARED;
     };
