@@ -552,7 +552,7 @@ class ItemMapper extends NewsMapper
         $newItem = Item::fromImport($item->jsonSerialize());
 
         // copy/initialize fields
-        $newItem->setUnread(false);
+        $newItem->setUnread(true);
         $newItem->setStarred(false);
         $newItem->setFeedId(null);
         $newItem->setFingerprint($item->getFingerprint());
