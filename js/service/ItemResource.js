@@ -20,6 +20,7 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL, ITEM_BATCH_SIZE
 
     ItemResource.prototype.clear = function () {
         this.starredCount = 0;
+        this.sharedCount = 0;
         this.lowestId = 0;
         this.highestId = 0;
         this.fingerprints = {};
@@ -34,6 +35,10 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL, ITEM_BATCH_SIZE
 
             case 'starred':
                 this.starredCount = value;
+                break;
+
+            case 'shared':
+                this.sharedCount = value;
                 break;
 
             default:
@@ -74,6 +79,11 @@ app.factory('ItemResource', function (Resource, $http, BASE_URL, ITEM_BATCH_SIZE
 
     ItemResource.prototype.getStarredCount = function () {
         return this.starredCount;
+    };
+
+
+    ItemResource.prototype.getSharedCount = function () {
+        return this.sharedCount;
     };
 
 
