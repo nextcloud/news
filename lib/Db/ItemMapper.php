@@ -523,7 +523,7 @@ class ItemMapper extends NewsMapper
      */
     public function findAllShared($limit, $offset, $showAll, $oldestFirst, $userId, $search)
     {
-        $sql = 'SELECT `*` FROM `*PREFIX*news_items`' .
+        $sql = 'SELECT `items`.* FROM `*PREFIX*news_items` `items`' .
             'WHERE `shared_with` = ? ';
         $sql .= $this->buildStatusQueryPart($showAll);       
         
