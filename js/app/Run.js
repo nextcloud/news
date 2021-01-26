@@ -44,11 +44,12 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, 
                 case FEED_TYPE.STARRED:
                     url = '/items/starred';
                     break;
-
+                case FEED_TYPE.SHARED:
+                    url = '/items/shared';
+                    break;
                 case FEED_TYPE.EXPLORE:
                     url = '/explore';
                     break;
-
                 case FEED_TYPE.UNREAD:
                     url = '/items/unread';
                     break;
