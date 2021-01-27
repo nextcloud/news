@@ -44,9 +44,6 @@ class Version150006Date20210117163638 extends SimpleMigrationStep {
 					'length' => 64,
 					'default' => '',
 				]);
-			$table->changeColumn('feed_id', [
-					'notnull' => false
-				]);
 		}
 
         return $schema;

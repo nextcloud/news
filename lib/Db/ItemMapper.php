@@ -570,7 +570,7 @@ class ItemMapper extends NewsMapper
         // copy/initialize fields
         $newItem->setUnread(true);
         $newItem->setStarred(false);
-        $newItem->setFeedId(null);
+        $newItem->setFeedId($item->getFeedId());
         $newItem->setFingerprint($item->getFingerprint());
         $newItem->setContentHash($item->getContentHash());
         $newItem->setSearchIndex($item->getSearchIndex());
