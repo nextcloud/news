@@ -144,13 +144,13 @@
                                     <span> Twitter </span>
                                 </a>
                                 <a class="icon-google pr-5"
-                                   ng-href="https://google.com/{{ ::item.url }}" 
+                                   ng-href="https://plus.google.com/share?url={{ ::item.url }}" 
                                 >
                                     <span> Google </span>
                                 </a>
-                                <a class="icon-mail pr-5"
-                                   ng-href="https://google.com/{{ ::item.url }}" 
-                                >
+                                <a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
+                                    title="Share by Email">
+                                <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png">
                                     <span> Mail </span>
                                 </a>
 
