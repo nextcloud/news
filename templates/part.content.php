@@ -148,9 +148,10 @@
                                 >
                                     <span> Google </span>
                                 </a>
-                                <a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com."
-                                    title="Share by Email">
-                                <img src="http://png-2.findicons.com/files/icons/573/must_have/48/mail.png">
+                                <a 
+                                class="icon-mail pr-5"
+                                   ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}" 
+                                    >
                                     <span> Mail </span>
                                 </a>
 
