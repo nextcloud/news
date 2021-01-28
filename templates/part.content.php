@@ -103,10 +103,11 @@
                             ng-controller="ShareController as Share">
                                 <!-- Contact -->
                                 <p class="label-group">Contacts</p>
-                                <form ng-submit="" name="contactForm">
+                                <form ng-submit="" name="contactForm" autocomplete="off">
                                     <fieldset>
                                         <input
                                             ng-model="nameQuery"
+                                            ng-model-options="{debounce: 400}"
                                             ng-change="Share.searchUsers(nameQuery)"
                                             type="text"
                                             class="contact-input"
@@ -114,9 +115,6 @@
                                             title="Nom de contact"
                                             name="contactName"
                                             required>
-                                        <input type="submit"
-                                            value="Ajouter"
-                                            class="primary">
                                     </fieldset>
                                 </form>
 
