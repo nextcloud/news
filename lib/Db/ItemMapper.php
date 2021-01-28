@@ -582,4 +582,23 @@ class ItemMapper extends NewsMapper
         // persist new item
         $this->insert($newItem);
     }
+
+    /**
+     * Check if the article is already shared between the users
+     */
+    public function checkSharing($itemId, $shareWithId, $userId)
+    {
+        $item = $this->find($userId, $itemId);
+
+        $sql = 'SELECT COUNT(*) AS size FROM `*PREFIX*news_items` `items` ' .
+            'WHERE `items`.`shared_by` = ? '.
+            'AND `items`.`shared_with` = ?'.
+            'AND `items`.`guid_hash` = ?';
+
+            $params = [$userId ,$shareWithId, $item->getGuidHash()];
+
+        $result = $this->execute($sql, $params)->fetch();
+
+        return (int)$result['size'];
+    }
 }
