@@ -90,7 +90,9 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
 
         if (!item.keepUnread && item.unread === true) {
             ItemResource.markItemRead(itemId);
-            FeedResource.markItemOfFeedRead(item.feedId);
+            if (item.isShared === false) {
+                FeedResource.markItemOfFeedRead(item.feedId);
+            }
         }
     };
 
@@ -101,8 +103,10 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     this.toggleKeepUnread = function (itemId) {
         var item = ItemResource.get(itemId);
         if (!item.unread) {
-            FeedResource.markItemOfFeedUnread(item.feedId);
             ItemResource.markItemRead(itemId, false);
+            if (item.isShared === false) {
+                FeedResource.markItemOfFeedUnread(item.feedId);
+            }
         }
 
         item.keepUnread = !item.keepUnread;
@@ -137,8 +141,10 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         itemIds.forEach(function (itemId) {
             var item = ItemResource.get(itemId);
             if (!item.keepUnread) {
-                ids.push(itemId);
-                feedIds.push(item.feedId);
+                if (item.isShared === false) {
+                    ids.push(itemId);
+                    feedIds.push(item.feedId);
+                }
             }
         });
 
