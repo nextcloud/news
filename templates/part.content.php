@@ -119,10 +119,14 @@
                                 </form>
 
 
+                                <div ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
+                                </div>
                                 <a  
                                     ng-repeat="user in Share.userList"
                                     ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                     {{ user.value.shareWith }}
+                                    <span class="right" 
+                                            ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith)}"></span>
                                 </a>
 
                                 <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
