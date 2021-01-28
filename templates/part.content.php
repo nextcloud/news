@@ -111,8 +111,8 @@
                                             ng-change="Share.searchUsers(nameQuery)"
                                             type="text"
                                             class="contact-input"
-                                            placeholder="Nom de contact"
-                                            title="Nom de contact"
+                                            placeholder="<?php p($l->t('Contact name')) ?>"
+                                            title="<?php p($l->t('Contact name')) ?>"
                                             name="contactName"
                                             required>
                                     </fieldset>
@@ -125,7 +125,7 @@
                                     {{ user.value.shareWith }}
                                 </a>
 
-                                <p class="label-group">Partage réseaux sociaux</p>
+                                <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
 
                                 <a class="icon-facebook pr-5"
                                    ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"
