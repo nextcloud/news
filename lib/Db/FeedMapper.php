@@ -76,9 +76,7 @@ class FeedMapper extends NewsMapper
                     // POSSIBLE SQL INJECTION RISK WHEN MODIFIED WITHOUT THOUGHT.
                     // think twice when changing this
                     'AND `items`.`unread` = ? ' .
-                'WHERE (`feeds`.`user_id` = ? OR `feeds`.`id` IN (' .
-                    'SELECT `feed_id` FROM `*PREFIX*news_items` WHERE `shared_with` = ?)' .
-                ') ' .
+                'WHERE `feeds`.`user_id` = ? ' .
                 'AND (`feeds`.`folder_id` IS NULL ' .
                 'OR `folders`.`deleted_at` = 0 ' .
                 ') ' .
@@ -86,7 +84,7 @@ class FeedMapper extends NewsMapper
                 'GROUP BY `feeds`.`id` ' .
             ') `item_numbers` ' .
             'ON `item_numbers`.`id` = `feeds`.`id` ';
-        $params = [true, $userId, $userId];
+        $params = [true, $userId];
 
         return $this->findEntities($sql, $params);
     }
