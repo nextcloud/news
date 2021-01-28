@@ -372,4 +372,17 @@ class ItemService extends Service
     {
         return $this->itemMapper->sharedCount($userId);
     }
+
+    /**
+     * Check if the article is already shared between the users
+     *
+     * @param string $itemId the id article
+     * @param string $userId the name of the user
+     * @param string $shareWithId the name of the second user
+     * @return int 0 if not exists or > 0
+     */
+    public function checkSharing($itemId, $shareWithId, $userId)
+    {
+        return $this->itemMapper->checkSharing($itemId, $shareWithId, $userId);
+    }
 }
