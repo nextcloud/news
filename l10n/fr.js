@@ -122,6 +122,8 @@ OC.L10N.register(
     "Help" : "Aide",
     "Keyboard shortcuts" : "Raccourcis clavier",
     "Documentation" : "Documentation",
-    "Report a bug" : "Signaler un bogue"
+    "Report a bug" : "Signaler un bogue",
+    "Share on social media" : "partager sur les reseaux sociaux",
+    "Contact name" : "Nom de contact"
 },
 "nplurals=2; plural=(n > 1);");
