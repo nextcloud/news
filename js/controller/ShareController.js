@@ -25,7 +25,17 @@ app.controller('ShareController', function (ShareResource) {
         });
     };
 
+    // Dict <itemId, List<Int>(user_id)>: Local mapping b/w users & articles: [Article 1 : <Jimmy, Aurelien, ...>, Article 2: <...>]
+    this.usersSharedArticles = {};
+
     this.shareItem = function(itemId, userId) {
+        if (this.usersSharedArticles[itemId] && this.usersSharedArticles[itemId].includes(userId)) {return ; }
+
+        // quick initialization (instead of if (...) : [])
+        this.usersSharedArticles[itemId] = this.usersSharedArticles[itemId] ? this.usersSharedArticles[itemId] : [];
+
+        this.usersSharedArticles[itemId].push(userId);
+        
         var response = ShareResource.shareItem(itemId, userId);
         response.then((result) => {
             return result;
