@@ -51,7 +51,10 @@ class ItemMapper extends NewsMapper
         'JOIN `*PREFIX*news_feeds` `feeds` ' .
         'ON `feeds`.`id` = `items`.`feed_id` ' .
         'AND `feeds`.`deleted_at` = 0 ' .
-        'AND `feeds`.`user_id` = ? ' .
+        'AND ('.
+            '(`feeds`.`user_id` = ? AND `items`.`shared_by` LIKE \'\')'.
+            ' XOR `items`.`shared_with` = ?' .
+        ') ' .
         $prependTo .
         'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
         'ON `folders`.`id` = `feeds`.`folder_id` ' .
@@ -112,7 +115,7 @@ class ItemMapper extends NewsMapper
     public function find(string $userId, int $id)
     {
         $sql = $this->makeSelectQuery('AND `items`.`id` = ? ');
-        return $this->findEntity($sql, [$userId, $id]);
+        return $this->findEntity($sql, [$userId, $userId, $id]);
     }
 
     public function starredCount(string $userId)
@@ -121,14 +124,17 @@ class ItemMapper extends NewsMapper
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
             'ON `feeds`.`id` = `items`.`feed_id` ' .
             'AND `feeds`.`deleted_at` = 0 ' .
-            'AND `feeds`.`user_id` = ? ' .
+            'AND ('.
+                '(`feeds`.`user_id` = ? AND `items`.`shared_by` LIKE \'\')'.
+                ' XOR `items`.`shared_with` = ?' .
+            ') ' .
             'AND `items`.`starred` = ? ' .
             'LEFT OUTER JOIN `*PREFIX*news_folders` `folders` ' .
             'ON `folders`.`id` = `feeds`.`folder_id` ' .
             'WHERE `feeds`.`folder_id` IS NULL ' .
             'OR `folders`.`deleted_at` = 0';
 
-        $params = [$userId, true];
+        $params = [$userId, $userId, true];
 
         $result = $this->execute($sql, $params)->fetch();
 
@@ -203,7 +209,7 @@ class ItemMapper extends NewsMapper
 
         $sql .= 'AND `items`.`last_modified` >= ? ';
         $sql = $this->makeSelectQuery($sql);
-        $params = [$userId, $updatedSince];
+        $params = [$userId, $userId, $updatedSince];
         return $this->findEntities($sql, $params);
     }
 
@@ -216,7 +222,7 @@ class ItemMapper extends NewsMapper
         $sql .= "AND `feeds`.`folder_id` ${$folderWhere} ? " .
             'AND `items`.`last_modified` >= ? ';
         $sql = $this->makeSelectQuery($sql);
-        $params = [$userId, $id, $updatedSince];
+        $params = [$userId, $userId, $id, $updatedSince];
         return $this->findEntities($sql, $params);
     }
 
@@ -228,7 +234,7 @@ class ItemMapper extends NewsMapper
         $sql .= 'AND `items`.`feed_id` = ? ' .
             'AND `items`.`last_modified` >= ? ';
         $sql = $this->makeSelectQuery($sql);
-        $params = [$userId, $id, $updatedSince];
+        $params = [$userId, $userId, $id, $updatedSince];
         return $this->findEntities($sql, $params);
     }
 
@@ -253,7 +259,7 @@ class ItemMapper extends NewsMapper
         $userId,
         $search = []
     ) {
-        $params = [$userId];
+        $params = [$userId, $userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $params[] = $id;
 
@@ -280,7 +286,7 @@ class ItemMapper extends NewsMapper
         $userId,
         $search = []
     ) {
-        $params = [$userId];
+        $params = [$userId, $userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $params[] = $id;
 
@@ -307,7 +313,7 @@ class ItemMapper extends NewsMapper
         $userId,
         $search = []
     ): array {
-        $params = [$userId];
+        $params = [$userId, $userId];
         $params = array_merge($params, $this->buildLikeParameters($search));
         $sql = $this->buildStatusQueryPart($showAll, $type);
         $sql .= $this->buildSearchQueryPart($search);
@@ -326,7 +332,7 @@ class ItemMapper extends NewsMapper
 
     public function findAllUnreadOrStarred($userId)
     {
-        $params = [$userId, true, true];
+        $params = [$userId, $userId, true, true];
         $sql = 'AND (`items`.`unread` = ? OR `items`.`starred` = ?) ';
         $sql = $this->makeSelectQuery($sql);
         return $this->findEntities($sql, $params);
@@ -340,7 +346,7 @@ class ItemMapper extends NewsMapper
             'AND `feeds`.`id` = ? '
         );
 
-        return $this->findEntity($sql, [$userId, $guidHash, $feedId]);
+        return $this->findEntity($sql, [$userId, $userId, $guidHash, $feedId]);
     }
 
 
@@ -481,9 +487,12 @@ class ItemMapper extends NewsMapper
                 WHERE `fingerprint` = ?
                     AND `feed_id` IN (
                         SELECT `f`.`id` FROM `*PREFIX*news_feeds` AS `f`
-                            WHERE `f`.`user_id` = ?
-                    )';
-            $params = [false, $lastModified, $item->getFingerprint(), $userId];
+                        WHERE ('.
+                            '(`f`.`user_id` = ? AND `shared_by` LIKE \'\')'.
+                            ' XOR `shared_with` = ?' .
+                        ')' .
+                    ')';
+            $params = [false, $lastModified, $item->getFingerprint(), $userId, $userId];
             $this->execute($sql, $params);
         } else {
             $item->setLastModified($lastModified);
