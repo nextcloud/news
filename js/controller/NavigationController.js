@@ -118,8 +118,7 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
     };
 
     this.isSharedUnread = function () {
-        return true; // TODO:: waiting for Nicolas' request to receive the number of shared articles
-        //return this.getSharedCount() > 0;
+        return this.getSharedCount() > 0;
     };
 
     this.toggleFolder = function (folderName) {
