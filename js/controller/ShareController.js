@@ -36,7 +36,10 @@ app.controller('ShareController', function (ShareResource, Loading) {
 
     this.shareItem = function(itemId, userId) {
         Loading.setLoading(userId, true);
-        if (this.usersSharedArticles[itemId] && this.usersSharedArticles[itemId].includes(userId)) {return ; }
+        if (this.usersSharedArticles[itemId] && this.usersSharedArticles[itemId].includes(userId)) {
+            Loading.setLoading(userId, false);
+            return;
+         }
 
         // quick initialization (instead of if (...) : [])
         this.usersSharedArticles[itemId] = this.usersSharedArticles[itemId] ? this.usersSharedArticles[itemId] : [];
