@@ -13,9 +13,8 @@ app.factory('ShareResource', function (Resource, $http, BASE_URL) {
     ShareResource.prototype = Object.create(Resource.prototype);
 
     ShareResource.prototype.getUsers = function (search) {
-        console.log(search);
         return this.http({
-            url: OC.linkToOCS(`apps/files_sharing/api/v1/sharees?search=${search}&itemType=file`, 1),
+            url: OC.linkToOCS(`apps/files_sharing/api/v1/sharees?search=${search}&itemType=file&perPage=5`, 1),
             method: 'GET',
         }).then(function(response) {
             return response.data;
