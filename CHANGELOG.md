@@ -6,11 +6,15 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Changed
 
+### Fixed
+
+## [15.2.0-rc1] - 2021-01-31
+
+### Changed
 - Use signed integer for pubdate (#997)
 - revert alternating row colors and increase row height (#1012)
 
 ### Fixed
-
 - Fetch feed after creation (#1058)
 - Implement missing item purger (#1063)
 - Update FeedIO Response call and add tests
