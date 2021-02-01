@@ -35,6 +35,13 @@ abstract class NewsMapperV2 extends QBMapper
     const TABLE_NAME = null;
 
     /**
+     * Maximum number of prepared parameters that PDO can handle
+     *
+     * @var int
+     */
+    const PDO_PARAMS_LIMIT = 65535;
+
+    /**
      * @var Time
      */
     private $time;
