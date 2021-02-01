@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Item purger does not work with PostgreSQL (#1094)
 
 ## [15.2.0-rc1] - 2021-01-31
 

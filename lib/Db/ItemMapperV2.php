@@ -149,7 +149,8 @@ class ItemMapperV2 extends NewsMapperV2
     public function deleteOverThreshold(int $threshold, bool $removeUnread = false): ?int
     {
         $feedQb = $this->db->getQueryBuilder();
-        $feedQb->addSelect('feed_id', $feedQb->func()->count('*', 'itemCount'), 'feeds.articles_per_update')
+        $feedQb->select('feed_id', $feedQb->func()->count('*', 'itemCount'))
+               ->addSelect($feedQb->func()->max('feeds.articles_per_update', 'articlesPerUpdate'))
                ->from($this->tableName, 'items')
                ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                ->groupBy('feed_id');
@@ -165,11 +166,11 @@ class ItemMapperV2 extends NewsMapperV2
         $rangeQuery->select('id')
             ->from($this->tableName)
             ->where('feed_id = :feedId')
-            ->andWhere('starred = 0')
+            ->andWhere('starred = false')
             ->orderBy('updated_date', 'DESC');
 
         if ($removeUnread === false) {
-            $rangeQuery->andWhere('unread = 0');
+            $rangeQuery->andWhere('unread = false');
         }
 
         $total_items = [];
@@ -178,7 +179,7 @@ class ItemMapperV2 extends NewsMapperV2
                 continue;
             }
 
-            $rangeQuery->setFirstResult(max($threshold, $feed['articles_per_update']));
+            $rangeQuery->setFirstResult(max($threshold, $feed['articlesPerUpdate']));
 
             $items = $this->db->executeQuery($rangeQuery->getSQL(), ['feedId' => $feed['feed_id']])
                               ->fetchAll(FetchMode::COLUMN);
@@ -190,7 +191,16 @@ class ItemMapperV2 extends NewsMapperV2
         $deleteQb->delete($this->tableName)
                  ->where('id IN (?)');
 
-        return $this->db->executeUpdate($deleteQb->getSQL(), [$total_items], [IQueryBuilder::PARAM_INT_ARRAY]);
+        $affected_rows = 0;
+        // split $total_items into multiple chunks because of the parameter limit
+        foreach (array_chunk($total_items, NewsMapperV2::PDO_PARAMS_LIMIT) as $items_chunk) {
+            $affected_rows += $this->db->executeUpdate(
+                $deleteQb->getSQL(),
+                [$items_chunk],
+                [IQueryBuilder::PARAM_INT_ARRAY]
+            );
+        }
+        return $affected_rows;
     }
 
     /**
