@@ -8,6 +8,11 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 
+## [15.2.2] - 2021-02-02
+
+### Fixed
+- Remove a .git dir from the release archive
+
 ## [15.2.1] - 2021-02-02
 
 ### Fixed
