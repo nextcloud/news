@@ -144,7 +144,7 @@ endif
 appstore:
 	rm -rf $(appstore_build_directory) $(appstore_sign_dir) $(appstore_artifact_directory)
 	mkdir -p $(appstore_sign_dir)/$(app_name)
-	cp -r \
+	rsync -rv \
 	"appinfo" \
 	"css" \
 	"img" \
