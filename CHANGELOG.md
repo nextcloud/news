@@ -7,8 +7,15 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Item purger does not work with PostgreSQL (#1094)
 
+## [15.2.0] - 2021-02-02
+
+### Changed
+You can now delete unread items via occ:
+`occ news:updater:after-update --purge-unread [<purge-count>]`
+
+### Fixed
+- Item purger does not work with PostgreSQL (#1094)
 - Export starred/unread correctly (#1010)
 
 ## [15.2.0-rc1] - 2021-01-31
