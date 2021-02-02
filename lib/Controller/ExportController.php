@@ -22,6 +22,11 @@ use \OCP\IRequest;
 use \OCP\AppFramework\Http\JSONResponse;
 use OCP\IUserSession;
 
+/**
+ * Class ExportController
+ *
+ * @package OCA\News\Controller
+ */
 class ExportController extends Controller
 {
 
@@ -69,7 +74,10 @@ class ExportController extends Controller
     public function articles(): JSONResponse
     {
         $feeds = $this->feedService->findAllForUser($this->getUserId());
-        $items = $this->itemService->findAllForUser($this->getUserId(), ['unread' => true, 'starred' => true]);
+        $starred = $this->itemService->findAllForUser($this->getUserId(), ['unread' => false, 'starred' => true]);
+        $unread = $this->itemService->findAllForUser($this->getUserId(), ['unread' => true]);
+
+        $items = array_merge($starred, $unread);
 
         // build assoc array for fast access
         $feedsDict = [];
