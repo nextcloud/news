@@ -8,6 +8,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 
+- Clean up install files
+
 ## [15.2.0] - 2021-02-02
 
 ### Changed

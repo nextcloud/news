@@ -143,7 +143,7 @@ endif
 .PHONY: appstore
 appstore:
 	rm -rf $(appstore_build_directory) $(appstore_sign_dir) $(appstore_artifact_directory)
-	mkdir -p $(appstore_sign_dir)/$(app_name)
+	install -d $(appstore_sign_dir)/$(app_name)
 	cp -r \
 	"appinfo" \
 	"css" \
@@ -152,10 +152,14 @@ appstore:
 	"lib" \
 	"templates" \
 	"vendor" \
-	"COPYING" \
-	"AUTHORS.md" \
-	"CHANGELOG.md" \
 	$(appstore_sign_dir)/$(app_name)
+
+	#remove composer binaries, those aren't needed
+	rm -rf $(appstore_sign_dir)/$(app_name)/vendor/bin
+
+	install "COPYING" $(appstore_sign_dir)/$(app_name)
+	install "AUTHORS.md" $(appstore_sign_dir)/$(app_name)
+	install "CHANGELOG.md" $(appstore_sign_dir)/$(app_name)
 
 	#remove stray .htaccess files since they are filtered by nextcloud
 	find $(appstore_sign_dir) -name .htaccess -exec rm {} \;
