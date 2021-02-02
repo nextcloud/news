@@ -154,8 +154,10 @@ appstore:
 	"vendor" \
 	$(appstore_sign_dir)/$(app_name)
 
-	#remove composer binaries, those aren't needed
+	# remove composer binaries, those aren't needed
 	rm -rf $(appstore_sign_dir)/$(app_name)/vendor/bin
+	# the App Store doesn't like .git
+	rm -rf $(appstore_sign_dir)/$(app_name)/vendor/arthurhoaro/favicon/.git
 
 	install "COPYING" $(appstore_sign_dir)/$(app_name)
 	install "AUTHORS.md" $(appstore_sign_dir)/$(app_name)
