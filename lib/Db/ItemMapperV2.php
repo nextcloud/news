@@ -150,7 +150,7 @@ class ItemMapperV2 extends NewsMapperV2
     {
         $feedQb = $this->db->getQueryBuilder();
         $feedQb->select('feed_id', $feedQb->func()->count('*', 'itemCount'))
-               ->addSelect($feedQb->func()->max('feeds.articles_per_update', 'articlesPerUpdate'))
+               ->selectAlias($feedQb->func()->max('feeds.articles_per_update'), 'articlesPerUpdate')
                ->from($this->tableName, 'items')
                ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                ->groupBy('feed_id');

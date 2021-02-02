@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Purging error "Undefined index: articlesPerUpdate"
 
 ## [15.2.0] - 2021-02-02
 
