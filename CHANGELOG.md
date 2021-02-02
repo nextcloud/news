@@ -9,6 +9,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 - Item purger does not work with PostgreSQL (#1094)
 
+- Export starred/unread correctly (#1010)
+
 ## [15.2.0-rc1] - 2021-01-31
 
 ### Changed
