@@ -36,7 +36,7 @@ jobs:
           database-type: ${{ matrix.database }}
 
       - name: build and create archive
-        run: cd ../server/apps/news && make && make appstore
+        run: pwd && cd news && make && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
