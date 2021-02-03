@@ -38,12 +38,16 @@ Explain what you did to encounter the issue
 <details>
 <summary>Contents of <em>nextcloud/data/nextcloud.log</em></summary>
 
-    Paste output here, don't forget the 4 space indentation.
+```json
+Paste output here
+```
 </details>
 
 <details>
 <summary>Contents of <em>Browser Error Console</em></summary>
 Read http://ggnome.com/wiki/Using_The_Browser_Error_Console if you are unsure what to put here
 
-    Paste output here, don't forget the 4 space indentation.
+```
+Paste output here
+```
 </details>
