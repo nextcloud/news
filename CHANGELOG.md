@@ -3,10 +3,13 @@ All notable changes to this project will be documented in this file.
 The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 ## [Unreleased]
+
 ### Changed
 
 ### Fixed
 - Release: create signature file (#1117)
+- Articles are refetched after purging leaving them unread again (#1122)
+
 ## [15.2.2] - 2021-02-02
 
 ### Fixed
