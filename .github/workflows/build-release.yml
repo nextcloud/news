@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['7.4']
-        nextcloud: ['v21.0.0beta6']
+        nextcloud: ['stable20']
         database: ['sqlite']
         experimental: [false]
     steps:
@@ -33,9 +33,6 @@ jobs:
           cron: true
           version: ${{ matrix.nextcloud }}
           database-type: ${{ matrix.database }}
-
-      - name: Copy APP to the apps/ directory
-        run: cp -r ../${{ env.APP_NAME }} ../server/apps/
 
       - name: build and create archive
         run: cd ../server/apps/${{ env.APP_NAME }} && make && make appstore
