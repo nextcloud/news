@@ -9,7 +9,7 @@ env:
 
 jobs:
   build_and_publish:
-  environment: release
+    environment: release
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     name: "PHP: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
