@@ -9,27 +9,50 @@ env:
 
 jobs:
   build_and_publish:
-    runs-on: ubuntu-latest
     environment: release
+    runs-on: ubuntu-latest
+    name: "Release: build, sign and upload the app"
+    strategy:
+      matrix:
+        php-versions: ['7.4']
+        nextcloud: ['v21.0.0beta6']
+        database: ['sqlite']
+        experimental: [false]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          path: ${{ env.APP_NAME }}
-      - name: Run build
-        run: cd ${{ env.APP_NAME }} && make && make appstore
+          php-version: ${{ matrix.php-versions }}
+
+      - name: Set up server non MySQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: true
+          version: ${{ matrix.nextcloud }}
+          database-type: ${{ matrix.database }}
+
+      - name: Copy APP to the apps/ directory
+        run: cp -r ../${{ env.APP_NAME }} ../server/apps/
+
+      - name: build and create archive
+        run: cd ../server/apps/${{ env.APP_NAME }} && make && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
+
       - name: Upload app tarball to release
         uses: svenstaro/upload-release-action@v2
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
-          asset_name: ${{ env.APP_NAME }}.tar.gz 
+          file: ../server/apps/${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
+          asset_name: ${{ env.APP_NAME }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
+
       - name: Upload app to Nextcloud appstore
         uses: R0Wi/nextcloud-appstore-push-action@v1
         with:
