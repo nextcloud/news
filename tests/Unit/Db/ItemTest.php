@@ -29,7 +29,6 @@ class ItemTest extends TestCase
     protected function setUp(): void
     {
         $this->item = new Item();
-        $this->item->setStatus(0);
     }
 
 
@@ -75,7 +74,6 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -83,7 +81,6 @@ class ItemTest extends TestCase
         $item->setMediaDescription('The best video ever');
         $item->setRtl(true);
         $item->setFeedId(1);
-        $item->setStatus(0);
         $item->setUnread(true);
         $item->setStarred(true);
         $item->setLastModified('1111111111234567');
@@ -99,7 +96,7 @@ class ItemTest extends TestCase
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'updatedDate' => 234,
+            'updatedDate' => null,
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -112,7 +109,8 @@ class ItemTest extends TestCase
             'rtl' => true,
             'fingerprint' => 'fingerprint',
             'contentHash' => 'contentHash'
-            ], $item->toAPI()
+            ],
+            $item->toAPI()
         );
     }
 
@@ -127,14 +125,12 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('<body><div>this is a test</body>');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
         $item->setMediaThumbnail('https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg');
         $item->setMediaDescription('The best video ever');
         $item->setFeedId(1);
-        $item->setStatus(0);
         $item->setRtl(true);
         $item->setUnread(true);
         $item->setFingerprint('fingerprint');
@@ -150,7 +146,7 @@ class ItemTest extends TestCase
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'updatedDate' => 234,
+            'updatedDate' => null,
             'body' => '<body><div>this is a test</body>',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -177,7 +173,6 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -185,7 +180,6 @@ class ItemTest extends TestCase
         $item->setMediaDescription('The best video ever');
         $item->setFeedId(1);
         $item->setRtl(true);
-        $item->setStatus(0);
         $item->setUnread(false);
         $item->setStarred(true);
         $item->setLastModified(321);
@@ -201,7 +195,7 @@ class ItemTest extends TestCase
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'updatedDate' => 234,
+            'updatedDate' => null,
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -225,7 +219,6 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -265,7 +258,7 @@ class ItemTest extends TestCase
             'title' => $item->getTitle(),
             'author' => $item->getAuthor(),
             'pubDate' => $item->getPubDate(),
-            'updatedDate' => $item->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
@@ -292,7 +285,7 @@ class ItemTest extends TestCase
             'title' => $item->getTitle(),
             'author' => $item->getAuthor(),
             'pubDate' => $item->getPubDate(),
-            'updatedDate' => $item->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),

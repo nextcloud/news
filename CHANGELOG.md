@@ -5,6 +5,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [Unreleased]
 
 ### Changed
+- DB: Remove unused fields
 
 ### Fixed
 - Release: create signature file (#1117)

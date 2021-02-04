@@ -308,12 +308,10 @@ class ItemServiceTest extends TestCase
         $guidHash = md5('hihi');
 
         $item = new Item();
-        $item->setStatus(128);
         $item->setId($itemId);
         $item->setStarred(true);
 
         $expectedItem = new Item();
-        $expectedItem->setStatus(128);
         $expectedItem->setStarred(true); //workaround to set starred as updated field
         $expectedItem->setStarred(false);
         $expectedItem->setId($itemId);
@@ -336,12 +334,10 @@ class ItemServiceTest extends TestCase
     {
         $itemId = 3;
         $item = new Item();
-        $item->setStatus(128);
         $item->setId($itemId);
         $item->setUnread(true);
 
         $expectedItem = new Item();
-        $expectedItem->setStatus(128);
         $expectedItem->setUnread(false);
         $expectedItem->setId($itemId);
         $expectedItem->setLastModified($this->time);
