@@ -59,4 +59,28 @@ class FolderTest extends TestCase
             ], $folder->jsonSerialize()
         );
     }
+    public function testSetDeletedAt()
+    {
+        $folder = new Folder();
+        $folder->setDeletedAt(15);
+        $this->assertEquals(15, $folder->getDeletedAt());
+    }
+    public function testSetLastModified()
+    {
+        $folder = new Folder();
+        $folder->setLastModified('15');
+        $this->assertEquals('15', $folder->getLastModified());
+    }
+    public function testSetParentId()
+    {
+        $folder = new Folder();
+        $folder->setParentId(15);
+        $this->assertEquals(15, $folder->getParentId());
+    }
+    public function testSetUserId()
+    {
+        $folder = new Folder();
+        $folder->setUserId('15');
+        $this->assertEquals('15', $folder->getUserId());
+    }
 }

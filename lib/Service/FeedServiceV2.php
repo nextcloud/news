@@ -288,7 +288,6 @@ class FeedServiceV2 extends Service
         }
 
         $feed->setHttpLastModified($fetchedFeed->getHttpLastModified())
-             ->setHttpEtag($fetchedFeed->getHttpEtag())
              ->setLocation($fetchedFeed->getLocation());
 
         foreach (array_reverse($items) as &$item) {

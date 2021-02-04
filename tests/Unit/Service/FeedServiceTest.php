@@ -710,7 +710,6 @@ class FeedServiceTest extends TestCase
         $feed = Feed::fromRow(
             [
                 'id' => 3,
-                'http_etag' => 'a',
                 'http_last_modified' => 1,
                 'full_text_enabled' => false
             ]
@@ -722,7 +721,6 @@ class FeedServiceTest extends TestCase
             ->willReturnOnConsecutiveCalls($this->returnValue($feed));
 
         $feed2->setFullTextEnabled(false);
-        $feed2->setHttpEtag('a');
         $feed2->setHttpLastModified('1');
         $feed2->resetUpdatedFields();
 

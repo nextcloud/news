@@ -597,8 +597,7 @@ class FeedFetcherTest extends TestCase
              ->setRtl(false)
              ->setLastModified(3)
              ->setPubDate(3)
-             ->setAuthor(html_entity_decode($this->author->getName()))
-             ->setStatus(0);
+             ->setAuthor(html_entity_decode($this->author->getName()));
 
         if ($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
             $media = $this->getMockbuilder(MediaInterface::class)->getMock();

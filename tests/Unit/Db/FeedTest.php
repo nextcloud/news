@@ -25,7 +25,6 @@ class FeedTest extends TestCase
         $feed = new Feed();
         $feed->setId(3);
         $feed->setHttpLastModified(44);
-        $feed->setHttpEtag(45);
         $feed->setUrl('http://google.com/some/weird/path');
         $feed->setTitle('title');
         $feed->setFaviconLink('favicon');
@@ -126,6 +125,56 @@ class FeedTest extends TestCase
         $feed = new Feed();
         $feed->setLink('javascript:alert()');
         $this->assertEquals('', $feed->getLink());
+    }
+
+
+    public function testSetAdded()
+    {
+        $feed = new Feed();
+        $feed->setAdded(15);
+        $this->assertEquals(15, $feed->getAdded());
+    }
+    public function testSetDeletedAt()
+    {
+        $feed = new Feed();
+        $feed->setDeletedAt(15);
+        $this->assertEquals(15, $feed->getDeletedAt());
+    }
+    public function testSetFaviconLink()
+    {
+        $feed = new Feed();
+        $feed->setFaviconLink('https://url');
+        $this->assertEquals('https://url', $feed->getFaviconLink());
+    }
+    public function testSetLastModified()
+    {
+        $feed = new Feed();
+        $feed->setLastModified('15');
+        $this->assertEquals('15', $feed->getLastModified());
+    }
+    public function testSetLastUpdateError()
+    {
+        $feed = new Feed();
+        $feed->setLastUpdateError('NO');
+        $this->assertEquals('NO', $feed->getLastUpdateError());
+    }
+    public function testSetUpdateErrorCount()
+    {
+        $feed = new Feed();
+        $feed->setUpdateErrorCount('5');
+        $this->assertEquals('5', $feed->getUpdateErrorCount());
+    }
+    public function testSetOrdering()
+    {
+        $feed = new Feed();
+        $feed->setOrdering(1);
+        $this->assertEquals(1, $feed->getOrdering());
+    }
+    public function testSetPinned()
+    {
+        $feed = new Feed();
+        $feed->setPinned(true);
+        $this->assertEquals(true, $feed->getPinned());
     }
 
 
