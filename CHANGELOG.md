@@ -7,6 +7,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+
+## [15.2.3] - 2021-02-04
+
+### Fixed
 - Release: create signature file (#1117)
 - Articles are refetched after purging leaving them unread again (#1122)
 
