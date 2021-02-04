@@ -1,0 +1,52 @@
+name: Post-merge tasks
+on:
+  push:
+    branches:
+      - master
+jobs:
+  update-release-draft:
+    runs-on: ubuntu-latest
+    name: "Release Drafter"
+    steps:
+      - uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  php:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    name: "Coverage: Nextcloud PHP ${{ matrix.php-versions }}"
+    strategy:
+      matrix:
+        nextcloud: ['stable21']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      ### Back to normal setup
+      - name: Set up server non MySQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: true
+          version: ${{ matrix.nextcloud }}
+          database-type: sqlite
+
+      - name: Prime app build
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: true
+
+      - name: Prep PHP tests
+        run: cd ../server/apps/news && make php-test-dependencies
+      - name: Unittests
+        run: cd ../server/apps/news && make unit-test
+      - name: Upload codecoverage
+        run: cd ../server/apps/news && bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover
