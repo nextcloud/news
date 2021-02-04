@@ -144,7 +144,7 @@ class ItemMapperV2 extends NewsMapperV2
      *
      * @return int|null Removed items
      *
-     * @throws \Doctrine\DBAL\Exception|\OCP\DB\Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     public function deleteOverThreshold(int $threshold, bool $removeUnread = false): ?int
     {

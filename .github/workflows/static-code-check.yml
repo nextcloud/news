@@ -7,8 +7,10 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        ocp-version: [ '21.0.0.x-dev', 'v20.0.5' ]
-    name: "Psalm: Nextcloud ${{ matrix.ocp-version }}"
+        php-versions: [ '7.4' ]
+        nextcloud: [ 'stable20', 'v21.0.0RC1' ]
+        database: [ 'sqlite' ]
+    name: "Psalm: Nextcloud ${{ matrix.nextcloud }}"
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -16,10 +18,25 @@ jobs:
         uses: shivammathur/setup-php@master
         with:
           php-version: 7.4
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
+
+      - name: Set up server non MySQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: true
+          version: ${{ matrix.nextcloud }}
+          database-type: ${{ matrix.database }}
+
       - name: Install dependencies
         run: composer install
-      - name: Install dependencies
-        run: composer require --dev christophwurst/nextcloud:${{ matrix.ocp-version }}
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: false
+
       - name: Run coding standards check
+        working-directory: ../server/apps/news
         run: ./vendor/bin/psalm
