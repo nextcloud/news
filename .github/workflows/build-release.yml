@@ -17,7 +17,6 @@ jobs:
         php-versions: ['7.4']
         nextcloud: ['stable20']
         database: ['sqlite']
-        experimental: [false]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,6 +25,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
+          coverage: none
 
       - name: Set up server non MySQL
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
@@ -35,7 +36,8 @@ jobs:
           database-type: ${{ matrix.database }}
 
       - name: build and create archive
-        run: cd ../server/apps/${{ env.APP_NAME }} && make && make appstore
+        working-directory: ../server/apps/${{ env.APP_NAME }}
+        run: make && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}

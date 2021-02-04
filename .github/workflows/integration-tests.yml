@@ -52,6 +52,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
+          coverage: none
 
       ### MySQL specific setup
       - name: Setup mysql
@@ -99,6 +101,9 @@ jobs:
         with:
           app: 'news'
           check-code: true
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
 
       - name: Functional tests maintenance
         working-directory: ../server
