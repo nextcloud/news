@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb823a38907b7a4dbc29c4f666c18551",
+    "content-hash": "3ac5f7676d857ef288dcf2998c4203f2",
     "packages": [
         {
             "name": "andreskrey/readability.php",
@@ -65,11 +65,17 @@
         },
         {
             "name": "arthurhoaro/favicon",
-            "version": "dev-master",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/SMillerDev/favicon",
-                "reference": "6ffd4cf0c5e162d084e0d136ae4326a5351d8603"
+                "url": "https://github.com/ArthurHoaro/favicon.git",
+                "reference": "ed3c3f6fd9ab39b28eb86567c4b0a0583ca264a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ArthurHoaro/favicon/zipball/ed3c3f6fd9ab39b28eb86567c4b0a0583ca264a6",
+                "reference": "ed3c3f6fd9ab39b28eb86567c4b0a0583ca264a6",
+                "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
@@ -81,13 +87,13 @@
                 "squizlabs/php_codesniffer": "^3.5",
                 "weew/helpers-filesystem": "~1.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Favicon\\": "src/Favicon/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -110,9 +116,10 @@
             ],
             "support": {
                 "issues": "https://github.com/ArthurHoaro/favicon/issues",
+                "source": "https://github.com/ArthurHoaro/favicon/tree/v1.3.2",
                 "sources": "https://github.com/ArthurHoaro/favicon"
             },
-            "time": "2021-02-02T20:16:04+00:00"
+            "time": "2021-02-03T12:26:59+00:00"
         },
         {
             "name": "debril/feed-io",
@@ -527,16 +534,16 @@
         },
         {
             "name": "christophwurst/nextcloud",
-            "version": "v21.0.0-beta6",
+            "version": "v21.0.0-beta8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ChristophWurst/nextcloud_composer.git",
-                "reference": "1a47a3cba5ce8185e84e8ffcb5ca1a3b050f5adc"
+                "reference": "7c7a5bd142ec8799c8bff8c34abc0d22c97c6c87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ChristophWurst/nextcloud_composer/zipball/1a47a3cba5ce8185e84e8ffcb5ca1a3b050f5adc",
-                "reference": "1a47a3cba5ce8185e84e8ffcb5ca1a3b050f5adc",
+                "url": "https://api.github.com/repos/ChristophWurst/nextcloud_composer/zipball/7c7a5bd142ec8799c8bff8c34abc0d22c97c6c87",
+                "reference": "7c7a5bd142ec8799c8bff8c34abc0d22c97c6c87",
                 "shasum": ""
             },
             "require": {
@@ -561,9 +568,9 @@
             "description": "Composer package containing Nextcloud's public API (classes, interfaces)",
             "support": {
                 "issues": "https://github.com/ChristophWurst/nextcloud_composer/issues",
-                "source": "https://github.com/ChristophWurst/nextcloud_composer/tree/v21.0.0-beta6"
+                "source": "https://github.com/ChristophWurst/nextcloud_composer/tree/v21.0.0-beta8"
             },
-            "time": "2021-01-20T09:09:58+00:00"
+            "time": "2021-02-03T07:55:40+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -3689,7 +3696,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "arthurhoaro/favicon": 20,
         "christophwurst/nextcloud": 10
     },
     "prefer-stable": false,
