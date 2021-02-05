@@ -5,7 +5,13 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [Unreleased]
 
 ### Changed
-- DB: Remove unused fields
+
+### Fixed
+
+## [15.3.0] - 2021-02-05
+
+### Changed
+- DB: Remove unused fields and migrate last_modified to signed, to support dates before 1970
 
 ### Fixed
 - Release: create signature file (#1117)
