@@ -4,7 +4,7 @@
     "Request forbidden. Are you an admin?" : "Cerere interzisă. Ești un administrator ?",
     "Token expired or app not enabled! Reload the page!" : "Token expirat sau aplicatie inactivă. Reîncarcă pagina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Eroare server internă! Controlați fișierul data/nextcloud.log pentru mai multe informații!",
-    "Request failed, Nextcloud is in currently in maintenance mode!" : "Solecitare nereușită, Nexcloud este în întreţinere!",
+    "Request failed, Nextcloud is in currently in maintenance mode!" : "Solicitare nereușită, Nexcloud este momentan în mentenanță!",
     "News" : "Noutăți",
     "Saved" : "Salvat",
     "Download" : "Descarcă",
