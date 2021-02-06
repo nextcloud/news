@@ -36,8 +36,7 @@ jobs:
           database-type: ${{ matrix.database }}
 
       - name: build and create archive
-        working-directory: ${{ github.workspace }}/server/apps/${{ env.APP_NAME }}
-        run: make && make appstore
+        run: cd ../server/apps/${{ env.APP_NAME }} && make && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
@@ -47,7 +46,7 @@ jobs:
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ github.workspace }}/server/apps/${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
+          file: ../server/apps/${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
           asset_name: ${{ env.APP_NAME }}.tar.gz
           tag: ${{ github.ref }}
           overwrite: true
