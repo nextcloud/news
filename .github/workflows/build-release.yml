@@ -44,7 +44,7 @@ jobs:
           app: ${{ env.APP_NAME }}
           check-code: false
 
-      - name: build and create archive
+      - name: Create signed release archive
         run: cd ../server/apps/${{ env.APP_NAME }} && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
