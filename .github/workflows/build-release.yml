@@ -31,12 +31,21 @@ jobs:
       - name: Set up server non MySQL
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
         with:
-          cron: true
+          cron: false
           version: ${{ matrix.nextcloud }}
           database-type: ${{ matrix.database }}
 
+      - name: Prime app build
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: ${{ env.APP_NAME }}
+          check-code: false
+
       - name: build and create archive
-        run: cd ../server/apps/${{ env.APP_NAME }} && make && make appstore
+        run: cd ../server/apps/${{ env.APP_NAME }} && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
