@@ -8,6 +8,11 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 
+## [15.3.1-rc2] - 2021-02-06
+
+### Changed
+- re-re-release of 15.3.0
+
 ## [15.3.1-rc1] - 2021-02-05
 
 ### Changed
