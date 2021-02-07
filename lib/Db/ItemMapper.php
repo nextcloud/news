@@ -410,8 +410,10 @@ class ItemMapper extends NewsMapper
             'FROM `*PREFIX*news_items` `items` ' .
             'JOIN `*PREFIX*news_feeds` `feeds` ' .
             'ON `feeds`.`id` = `items`.`feed_id` ' .
-            'AND `feeds`.`user_id` = ?';
-        $params = [$userId];
+            'AND ((`feeds`.`user_id` = ? ' .
+            'AND `items`.`shared_by` = \'\') ' .
+            'OR `items`.`shared_with` = ?)';
+        $params = [$userId, $userId];
 
         $result = $this->findOneQuery($sql, $params);
 
