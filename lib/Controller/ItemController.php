@@ -204,36 +204,20 @@ class ItemController extends Controller
         $return = [];
 
         try {
-            switch ($type) {
-                case ListType::FEED:
-                    $items = $this->itemService->findAllInFeedAfter(
-                        $this->getUserId(),
-                        $id,
-                        $lastModified,
-                        !$showAll
-                    );
-                    break;
-                case ListType::FOLDER:
-                    $items = $this->itemService->findAllInFolderAfter(
-                        $this->getUserId(),
-                        $id,
-                        $lastModified,
-                        !$showAll
-                    );
-                    break;
-                default:
-                    $items = $this->itemService->findAllAfter(
-                        $this->getUserId(),
-                        $type,
-                        $lastModified
-                    );
-                    break;
-            }
-
-            $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
-            $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
-            $return['starred'] = count($this->itemService->starred($this->getUserId()));
-            $return['items'] = $items;
+            $params['newestItemId'] =
+                $this->itemService->getNewestItemId($this->userId);
+            $params['feeds'] = $this->feedService->findAllForUser($this->userId);
+            $params['starred'] =
+                $this->itemService->starredCount($this->userId);
+            $params['shared'] =
+                $this->itemService->sharedCount($this->userId);
+            $params['items'] = $this->itemService->findAllNew(
+                $id,
+                $type,
+                $lastModified,
+                $showAll,
+                $this->userId
+            );
 
             // this gets thrown if there are no items
             // in that case just return an empty array
