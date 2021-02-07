@@ -432,9 +432,9 @@ class ItemMapper extends NewsMapper
             'WHERE `feed_id` IN (' .
             'SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds` ' .
             'WHERE `feeds`.`user_id` = ?' .
-            ')';
+            ') OR `shared_with` = ?';
 
-        $this->execute($sql, [$userId]);
+        $this->execute($sql, [$userId, $userId]);
     }
 
 
