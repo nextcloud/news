@@ -147,13 +147,14 @@ class ItemMapper extends NewsMapper
         $sql = 'UPDATE `*PREFIX*news_items` ' .
             'SET unread = ? ' .
             ', `last_modified` = ? ' .
-            'WHERE `feed_id` IN (' .
+            'WHERE ((`feed_id` IN (' .
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             ') ' .
-            'AND `shared_by` = \'\' ' .
+            'AND `shared_by` = \'\') ' .
+            'OR `shared_with` = ?) ' .
             'AND `id` <= ?';
-        $params = [false, $time, $userId, $highestItemId];
+        $params = [false, $time, $userId, $userId, $highestItemId];
         $this->execute($sql, $params);
     }
 
