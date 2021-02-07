@@ -231,7 +231,8 @@ class ItemControllerTest extends TestCase
             'items' => [new Item()],
             'feeds' => $feeds,
             'newestItemId' => $this->newestItemId,
-            'starred' => 3
+            'starred' => 3,
+            // 'shared' => 99 // TODO: uncomment when implement shared
         ];
 
         $this->itemsApiExpects(2, ListType::FEED, '0');
@@ -251,6 +252,12 @@ class ItemControllerTest extends TestCase
             ->with('user')
             ->will($this->returnValue([1, 2, 3]));
 
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
+
         $this->itemService->expects($this->once())
             ->method('findAllInFeedWithFilters')
             ->with('user', 2, 3, 0, false, false, [])
@@ -268,7 +275,8 @@ class ItemControllerTest extends TestCase
             'items' => [new Item()],
             'feeds' => $feeds,
             'newestItemId' => $this->newestItemId,
-            'starred' => 3
+            'starred' => 3,
+            // 'shared' => 99   // TODO: uncomment when implemented
         ];
 
         $this->itemsApiExpects(2, ListType::FOLDER, '0');
@@ -287,6 +295,12 @@ class ItemControllerTest extends TestCase
             ->method('starred')
             ->with('user')
             ->will($this->returnValue([1, 2, 3]));
+
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
 
         $this->itemService->expects($this->once())
             ->method('findAllInFolderWithFilters')
@@ -412,7 +426,8 @@ class ItemControllerTest extends TestCase
             'items' => [new Item()],
             'feeds' => $feeds,
             'newestItemId' => $this->newestItemId,
-            'starred' => 3
+            'starred' => 3,
+            // 'shared' => 99   // TODO: uncomment when implemented
         ];
 
         $this->settings->expects($this->once())
@@ -434,6 +449,12 @@ class ItemControllerTest extends TestCase
             ->method('starred')
             ->with('user')
             ->will($this->returnValue([1, 2, 3]));
+
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
 
         $this->itemService->expects($this->once())
             ->method('findAllInFeedAfter')

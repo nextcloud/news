@@ -200,6 +200,8 @@ class ItemTest extends TestCase
         $item->setStarred(true);
         $item->setLastModified(321);
         $item->setCategories(['food']);
+        $item->setSharedBy('jack');
+        $item->setSharedWith('mclovin');
 
         $this->assertEquals(
             [
@@ -223,7 +225,10 @@ class ItemTest extends TestCase
             'rtl' => true,
             'intro' => 'this is a test',
             'fingerprint' => 'fingerprint',
-            'categories' => ['food']
+            'categories' => ['food'],
+            'sharedBy' => 'jack',
+            'sharedWith' => 'mclovin',
+            'isShared' => true,
             ], $item->jsonSerialize()
         );
     }
