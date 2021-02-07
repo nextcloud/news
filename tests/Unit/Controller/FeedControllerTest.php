@@ -137,7 +137,8 @@ class FeedControllerTest extends TestCase
             'feeds' => [
                 ['a feed'],
             ],
-            'starred' => 4
+            'starred' => 4,
+            // 'shared' => 3 // TODO: uncomment when implemented
         ];
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
@@ -151,6 +152,11 @@ class FeedControllerTest extends TestCase
             ->method('starred')
             ->with($this->uid)
             ->will($this->returnValue([1, 2, 3, 4]));
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
 
         $response = $this->class->index();
 
@@ -165,6 +171,7 @@ class FeedControllerTest extends TestCase
                 ['a feed'],
             ],
             'starred' => 2,
+            // 'shared' => 3, // TODO: uncomment when implemented
             'newestItemId' => 5
         ];
         $this->feedService->expects($this->once())
@@ -179,6 +186,11 @@ class FeedControllerTest extends TestCase
             ->method('starred')
             ->with($this->uid)
             ->will($this->returnValue([1, 2]));
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
 
         $response = $this->class->index();
 
