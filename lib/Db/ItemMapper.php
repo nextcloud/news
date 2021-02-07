@@ -151,6 +151,7 @@ class ItemMapper extends NewsMapper
             'SELECT `id` FROM `*PREFIX*news_feeds` ' .
             'WHERE `user_id` = ? ' .
             ') ' .
+            'AND `shared_by` = \'\' ' .
             'AND `id` <= ?';
         $params = [false, $time, $userId, $highestItemId];
         $this->execute($sql, $params);
