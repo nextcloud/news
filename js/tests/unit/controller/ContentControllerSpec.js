@@ -123,19 +123,22 @@ describe('ContentController', function () {
                         id: 3,
                         feedId: 4,
                         fingerprint: 'a',
-                        unread: true
+                        unread: true,
+                        isShared: false
                     },
                     {
                         id: 5,
                         feedId: 4,
                         fingerprint: 'b',
-                        keepUnread: true
+                        keepUnread: true,
+                        isShared: false
                     },
                     {
                         id: 9,
                         feedId: 5,
                         fingerprint: 'c',
-                        unread: false
+                        unread: false,
+                        isShared: false
                     }]
             },
         });
@@ -189,7 +192,8 @@ describe('ContentController', function () {
                         id: 3,
                         feedId: 4,
                         unread: false,
-                        keepUnread: true
+                        keepUnread: true,
+                        isShared: false
                     }]
                 },
             });
@@ -301,18 +305,21 @@ describe('ContentController', function () {
                         {
                             id: 3,
                             fingerprint: 'a',
-                            feedId: 6
+                            feedId: 6,
+                            isShared: false
                         },
                         {
                             id: 2,
                             fingerprint: 'b',
                             feedId: 4,
-                            keepUnread: true
+                            keepUnread: true,
+                            isShared: false
                         },
                         {
                             id: 1,
                             fingerprint: 'c',
-                            feedId: 4
+                            feedId: 4,
+                            isShared: false
                         },]
                 },
             });
