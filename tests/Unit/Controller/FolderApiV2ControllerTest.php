@@ -17,8 +17,6 @@ use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
-use \OCA\News\Service\Exceptions\ServiceConflictException;
-use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 use \OCA\News\Db\Folder;
 use OCP\IRequest;
@@ -96,21 +94,6 @@ class FolderApiV2ControllerTest extends TestCase
     }
 
 
-    public function testCreateAlreadyExists()
-    {
-        $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
-        $this->folderService->expects($this->once())
-            ->method('create')
-            ->will($this->throwException(new ServiceConflictException('exists')));
-
-        $response = $this->folderAPI->create('hi');
-
-        $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
-    }
-
-
     public function testCreateInvalidFolderName()
     {
         $msg = 'exists';
@@ -118,9 +101,6 @@ class FolderApiV2ControllerTest extends TestCase
         $this->folderService->expects($this->once())
             ->method('purgeDeleted')
             ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
-        $this->folderService->expects($this->once())
-            ->method('create')
-            ->will($this->throwException(new ServiceValidationException($msg)));
 
         $response = $this->folderAPI->create('hi');
 
@@ -209,42 +189,15 @@ class FolderApiV2ControllerTest extends TestCase
     }
 
 
-    public function testUpdateExists()
-    {
-        $folderId = 23;
-        $folderName = 'test';
-
-        $this->folderService->expects($this->once())
-            ->method('rename')
-            ->will(
-                $this->throwException(
-                    new ServiceConflictException($this->msg)
-                )
-            );
-
-        $response = $this->folderAPI->update($folderId, $folderName);
-
-        $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
-    }
-
-
     public function testUpdateInvalidFolderName()
     {
         $folderId = 23;
         $folderName = '';
 
-        $this->folderService->expects($this->once())
-            ->method('rename')
-            ->will(
-                $this->throwException(
-                    new ServiceValidationException($this->msg)
-                )
-            );
-
         $response = $this->folderAPI->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['error']['message']);
-        $this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
+        $this->assertEquals(Http::STATUS_BAD_REQUEST, $response->getStatus());
     }
 }
