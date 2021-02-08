@@ -356,7 +356,6 @@ Status codes:
 * **200**: Folder was created successfully
 * **400**: Folder creation error, check the error object:
   * **code**: 1: folder name is empty
-* **409**: Folder with given name exists already
 
 In case of an HTTP 200, the created or already existing folder is returned in full in the response, e.g.:
 
@@ -392,7 +391,6 @@ Status codes:
 * **200**: Folder was created successfully
 * **400**: Folder creation error, check the error object:
   * **code**: 1: folder name is empty
-* **409**: Folder with given name exists already
 * Other ownCloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the changed or already existing folder is returned in full in the response, e.g.:

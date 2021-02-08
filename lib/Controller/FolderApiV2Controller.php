@@ -18,8 +18,6 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\ItemServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
-use \OCA\News\Service\Exceptions\ServiceConflictException;
-use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 class FolderApiV2Controller extends ApiController
 {
@@ -79,10 +77,6 @@ class FolderApiV2Controller extends ApiController
         $response = null;
         try {
             $response = $this->folderService->rename($this->getUserId(), $folderId, $name);
-        } catch (ServiceValidationException $ex) {
-            return $this->errorResponseV2($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
-        } catch (ServiceConflictException $ex) {
-            return $this->errorResponseV2($ex, Http::STATUS_CONFLICT);
         } catch (ServiceNotFoundException $ex) {
             return $this->errorResponseV2($ex, Http::STATUS_NOT_FOUND);
         }
