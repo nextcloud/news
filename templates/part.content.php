@@ -19,7 +19,7 @@
     <ul>
         <li class="item {{ ::Content.getFeed(item.feedId).cssClass }}"
             ng-repeat="item in Content.getItems() |
-                orderBy:[Content.orderBy()] track by item.id"
+                orderBy:'id':Content.oldestFirst:Content.sortIds track by item.id"
             ng-mouseup="Content.markRead(item.id)"
             ng-click="Content.markRead(item.id); Content.setItemActive(item.id)"
             news-on-active="Content.setItemActive(item.id)"

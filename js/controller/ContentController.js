@@ -8,8 +8,7 @@
  * @copyright Bernhard Posselt 2014
  */
 app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, data, $route,
-                                              $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading,
-                                              $filter) {
+                                              $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading) {
     'use strict';
 
     var self = this;
@@ -18,14 +17,36 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     // distribute data to models based on key
     Publisher.publishAll(data);
 
+    var getOrdering = function () {
+        var ordering = SettingsResource.get('oldestFirst');
+
+        if (self.isFeed()) {
+            var feed = FeedResource.getById($routeParams.id);
+            if (feed && feed.ordering === 1) {
+                ordering = true;
+            } else if (feed && feed.ordering === 2) {
+                ordering = false;
+            }
+        }
+
+        return ordering;
+    };
+
     this.getFirstItem = function () {
-        var orderFilter = $filter('orderBy');
-        var orderedItems = orderFilter(this.getItems(), this.orderBy());
+        var orderedItems = this.getItems();
+        var item = orderedItems[orderedItems.length - 1];
         var firstItem = orderedItems[0];
-        if (firstItem === undefined) {
+        // If getOrdering == 1, then the sorting is set to
+        // newest first. So, item should be the first item
+        // 
+        if (getOrdering()) {
+            item = firstItem;
+        }
+        if (item === undefined) {
             return undefined;
-        } else {
-            return firstItem.id;
+        }
+        else {
+            return item.id;
         }
     };
 
@@ -85,28 +106,11 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
 
         item.keepUnread = !item.keepUnread;
     };
-
-    var getOrdering = function () {
-        var ordering = SettingsResource.get('oldestFirst');
-
-        if (self.isFeed()) {
-            var feed = FeedResource.getById($routeParams.id);
-            if (feed && feed.ordering === 1) {
-                ordering = true;
-            } else if (feed && feed.ordering === 2) {
-                ordering = false;
-            }
-        }
-
-        return ordering;
-    };
-
-    this.orderBy = function () {
-        if (getOrdering()) {
-            return 'id';
-        } else {
-            return '-id';
-        }
+    
+    this.sortIds = function(first, second) {
+        var firstInt = parseInt(first.value);
+        var secondInt = parseInt(second.value);
+        return (firstInt < secondInt) ? 1 : -1;
     };
 
     this.isCompactView = function () {
@@ -147,6 +151,8 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         return $route.current.$$route.type === FEED_TYPE.FEED;
     };
 
+    this.oldestFirst = getOrdering();
+
     this.autoPage = function () {
         if (this.isNothingMoreToAutoPage) {
             return;
@@ -165,14 +171,13 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
 
         var type = $route.current.$$route.type;
         var id = $routeParams.id;
-        var oldestFirst = getOrdering();
         var showAll = SettingsResource.get('showAll');
         var self = this;
         var search = $location.search().search;
 
         Loading.setLoading('autopaging', true);
 
-        ItemResource.autoPage(type, id, oldestFirst, showAll, search).then(function (response) {
+        ItemResource.autoPage(type, id, this.oldestFirst, showAll, search).then(function (response) {
             Publisher.publishAll(response.data);
 
             if (response.data.items.length >= ITEM_AUTO_PAGE_SIZE) {
