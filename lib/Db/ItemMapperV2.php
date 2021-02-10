@@ -167,7 +167,8 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName)
             ->where('feed_id = :feedId')
             ->andWhere('starred = false')
-            ->orderBy('last_modified', 'DESC');
+            ->orderBy('last_modified', 'DESC')
+            ->addOrderBy('id', 'DESC');
 
         if ($removeUnread === false) {
             $rangeQuery->andWhere('unread = false');
