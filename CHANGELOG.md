@@ -7,6 +7,11 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+
+## [15.3.2-rc1] - 2021-02-10
+
+### Fixed
+- Missing certificate in signature file (#1143)
 - Refetching of already read articles after purging (#1142)
 
 ## [15.3.1] - 2021-02-06
