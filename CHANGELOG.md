@@ -8,6 +8,9 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 
+## [15.3.2] - 2021-02-10
+No changes compared to RC2
+
 ## [15.3.2-rc2] - 2021-02-10
 ### Fixed
 - Missing certificate in signature file (#1143)
