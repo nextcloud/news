@@ -48,7 +48,7 @@ jobs:
         run: cd ../server/apps/${{ env.APP_NAME }} && make appstore
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-          app_public_cert: ${{ secrets.APP_PUBLIC_CERT }}
+          app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
 
       - name: Upload app tarball to release
         uses: svenstaro/upload-release-action@v2
