@@ -310,7 +310,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -326,7 +326,6 @@ class FeedFetcherTest extends TestCase
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
         $result = $this->fetcher->fetch(
             $this->url,
-            '@1553118393',
             false,
             'account@email.com',
             'F9sEU*Rt%:KFK8HMHT&'
@@ -344,7 +343,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem('audio/ogg');
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -358,7 +357,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem('video/ogg');
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -373,7 +372,7 @@ class FeedFetcherTest extends TestCase
         $feed = $this->createFeed('de-DE');
         $item = $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -387,7 +386,7 @@ class FeedFetcherTest extends TestCase
         $this->createFeed('he-IL');
         $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($_, $items) = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        list($_, $items) = $this->fetcher->fetch($this->url, false, null, null);
         $this->assertTrue($items[0]->getRtl());
     }
 
@@ -413,7 +412,7 @@ class FeedFetcherTest extends TestCase
 
 
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null);
         $this->assertSame($items[0]->getPubDate(), 1522180229);
     }
 
@@ -439,7 +438,7 @@ class FeedFetcherTest extends TestCase
 
 
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null);
         $this->assertSame($items[0]->getPubDate(), 1519761029);
     }
 

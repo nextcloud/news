@@ -44,8 +44,6 @@ class Fetcher
      * Fetch a feed from remote
      *
      * @param  string      $url               remote url of the feed
-     * @param  string|null $lastModified      a last modified value from an http header defaults to false.
-     *                                    If lastModified matches the http header from the feed no results are fetched
      * @param  bool        $fullTextEnabled   If true use a scraper to download the full article
      * @param  string|null $user              if given, basic auth is set for this feed
      * @param  string|null $password          if given, basic auth is set for this feed. Ignored if user is empty
@@ -56,7 +54,6 @@ class Fetcher
      */
     public function fetch(
         string $url,
-        ?string $lastModified = null,
         bool $fullTextEnabled = false,
         ?string $user = null,
         ?string $password = null
@@ -67,7 +64,6 @@ class Fetcher
             }
             return $fetcher->fetch(
                 $url,
-                $lastModified,
                 $fullTextEnabled,
                 $user,
                 $password

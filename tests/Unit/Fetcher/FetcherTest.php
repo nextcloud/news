@@ -54,14 +54,13 @@ class FetcherTest extends TestCase
             ->method('fetch')
             ->with(
                 $this->equalTo($url),
-                $this->equalTo(true),
                 $this->equalTo(1),
                 $this->equalTo(2),
                 $this->equalTo(3)
             );
         $this->fetcher->registerFetcher($mockFetcher);
 
-        $this->fetcher->fetch($url, true, 1, 2, 3);
+        $this->fetcher->fetch($url, 1, 2, 3);
     }
 
 

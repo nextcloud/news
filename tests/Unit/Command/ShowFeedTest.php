@@ -72,7 +72,7 @@ class ShowFeedTest extends TestCase
 
         $this->fetcher->expects($this->exactly(1))
                            ->method('fetch')
-                           ->with('feed', null, true, 'user', 'user')
+                           ->with('feed', true, 'user', 'user')
                            ->willReturn([['feed'], [['items']]]);
 
         $this->consoleOutput->expects($this->exactly(2))
@@ -106,7 +106,7 @@ class ShowFeedTest extends TestCase
 
         $this->fetcher->expects($this->exactly(1))
                            ->method('fetch')
-                           ->with('feed', null, true, 'user', 'user')
+                           ->with('feed', true, 'user', 'user')
                            ->will($this->throwException(new ServiceNotFoundException('test')));
 
         $this->consoleOutput->expects($this->exactly(2))

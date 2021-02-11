@@ -258,7 +258,6 @@ class FeedServiceV2 extends Service
              */
             list($fetchedFeed, $items) = $this->feedFetcher->fetch(
                 $location,
-                $feed->getHttpLastModified(),
                 $feed->getFullTextEnabled(),
                 $feed->getBasicAuthUser(),
                 $feed->getBasicAuthPassword()
