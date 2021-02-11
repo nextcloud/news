@@ -127,6 +127,7 @@ jobs:
         run: |
           ./occ news:feed:add 'admin' "https://nextcloud.com/blog/feed/"
           ./occ news:feed:list 'admin' | grep 'nextcloud\.com'
+          ./occ news:feed:list 'admin' | grep -F '"faviconLink": "https:\/\/nextcloud.com\/media\/screenshot-150x150.png"'
 
       - name: Functional tests opml
         working-directory: ../server

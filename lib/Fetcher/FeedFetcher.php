@@ -21,6 +21,7 @@ use FeedIo\FeedIo;
 
 use Net_URL2;
 use OCP\IL10N;
+use OCP\ITempManager;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
@@ -53,6 +54,11 @@ class FeedFetcher implements IFeedFetcher
     private $l10n;
 
     /**
+     * @var ITempManager
+     */
+    private $ITempManager;
+
+    /**
      * @var Time
      */
     private $time;
@@ -67,6 +73,7 @@ class FeedFetcher implements IFeedFetcher
         Favicon $favicon,
         Scraper $scraper,
         IL10N $l10n,
+        ITempManager $ITempManager,
         Time $time,
         LoggerInterface $logger
     ) {
@@ -74,6 +81,7 @@ class FeedFetcher implements IFeedFetcher
         $this->faviconFactory = $favicon;
         $this->scraper        = $scraper;
         $this->l10n           = $l10n;
+        $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
     }
@@ -99,7 +107,6 @@ class FeedFetcher implements IFeedFetcher
      */
     public function fetch(
         string $url,
-        bool $favicon,
         ?string $lastModified,
         bool $fullTextEnabled,
         ?string $user,
@@ -118,17 +125,19 @@ class FeedFetcher implements IFeedFetcher
         $feed = $this->buildFeed(
             $parsedFeed,
             $url,
-            $favicon,
             $location
         );
 
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
         $feedName = $parsedFeed->getTitle();
-        $this->logger->debug('Feed {url} was modified since last fetch. #{count} items', [
+        $this->logger->debug(
+            'Feed {url} was modified since last fetch. #{count} items',
+            [
             'url'   => $url,
             'count' => count($parsedFeed),
-        ]);
+            ]
+        );
 
         foreach ($parsedFeed as $item) {
             $body = null;
@@ -144,11 +153,14 @@ class FeedFetcher implements IFeedFetcher
             }
 
             $builtItem = $this->buildItem($item, $body, $currRTL);
-            $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
+            $this->logger->debug(
+                'Added item {title} for feed {feed} lastmodified: {datetime}',
+                [
                 'title' => $builtItem->getTitle(),
                 'feed'  => $feedName,
                 'datetime'  => $builtItem->getLastModified(),
-            ]);
+                ]
+            );
             $items[] = $builtItem;
         }
 
@@ -295,16 +307,54 @@ class FeedFetcher implements IFeedFetcher
     }
 
     /**
+     * Return the favicon for a given feed and url
+     *
+     * @param FeedInterface $feed     Feed to check for a logo
+     * @param string        $url      Original URL for the feed
+     *
+     * @return string|mixed|bool
+     */
+    protected function getFavicon(FeedInterface $feed, string $url)
+    {
+        $favicon = $feed->getLogo();
+
+        // check if feed has a logo
+        if (is_null($favicon)) {
+            return $this->faviconFactory->get($url);
+        }
+
+        $favicon_path = join("/", [$this->ITempManager->getTempBaseDir(), basename($favicon)]);
+        copy(
+            $favicon,
+            $favicon_path
+        );
+
+        $is_image = substr(mime_content_type($favicon_path), 0, 5) === "image";
+
+        // check if file is actually an image
+        if (!$is_image) {
+            return $this->faviconFactory->get($url);
+        }
+
+        list($width, $height, $type, $attr) = getimagesize($favicon_path);
+        // check if image is square else fall back to favicon
+        if ($width !== $height) {
+            return $this->faviconFactory->get($url);
+        }
+
+        return $favicon;
+    }
+
+    /**
      * Build a feed based on provided info
      *
-     * @param FeedInterface $feed       Feed to build from
-     * @param string        $url        URL to use
-     * @param boolean       $getFavicon To get the favicon
-     * @param string        $location   String base URL
+     * @param FeedInterface $feed     Feed to build from
+     * @param string        $url      URL to use
+     * @param string        $location String base URL
      *
      * @return Feed
      */
-    protected function buildFeed(FeedInterface $feed, string $url, bool $getFavicon, string $location): Feed
+    protected function buildFeed(FeedInterface $feed, string $url, string $location): Feed
     {
         $newFeed = new Feed();
 
@@ -321,10 +371,9 @@ class FeedFetcher implements IFeedFetcher
         }
         $newFeed->setAdded($this->time->getTime());
 
-        if (!$getFavicon) {
-            return $newFeed;
-        }
-        $favicon = $this->faviconFactory->get($url);
+
+
+        $favicon = $this->getFavicon($feed, $url);
         $newFeed->setFaviconLink($favicon);
 
         return $newFeed;
