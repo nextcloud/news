@@ -30,6 +30,7 @@ use OCA\News\Fetcher\FeedFetcher;
 
 use OCA\News\Utility\Time;
 use OCP\IL10N;
+use OCP\ITempManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -78,6 +79,11 @@ class FeedFetcherTest extends TestCase
      * @var MockObject|L10N
      */
     private $l10n;
+
+    /**
+     * @var MockObject|ITempManager
+     */
+    private $ITempManager;
 
     /**
      * @var MockObject|ItemInterface
@@ -145,6 +151,9 @@ class FeedFetcherTest extends TestCase
         $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->ITempManager = $this->getMockBuilder(ITempManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -183,6 +192,7 @@ class FeedFetcherTest extends TestCase
             $this->favicon,
             $this->scraper,
             $this->l10n,
+            $this->ITempManager,
             $timeFactory,
             $this->logger
         );
@@ -231,13 +241,14 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '0', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '0', false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
 
     /**
      * Return body options
+     *
      * @return array
      */
     public function feedBodyProvider()
@@ -282,7 +293,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '0', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '0', false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
 
@@ -299,7 +310,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -311,11 +322,10 @@ class FeedFetcherTest extends TestCase
     {
         $this->setUpReader('http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests/');
         $item = $this->createItem();
-        $feed = $this->createFeed('de-DE', false, 'http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests/');
+        $feed = $this->createFeed('de-DE', 'http://account%40email.com:F9sEU%2ARt%25%3AKFK8HMHT%26@tests/');
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
         $result = $this->fetcher->fetch(
             $this->url,
-            false,
             '@1553118393',
             false,
             'account@email.com',
@@ -334,7 +344,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem('audio/ogg');
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -348,7 +358,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem('video/ogg');
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -360,29 +370,10 @@ class FeedFetcherTest extends TestCase
     {
         $this->setUpReader($this->url);
 
-        $feed = $this->createFeed('de-DE', true);
+        $feed = $this->createFeed('de-DE');
         $item = $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, true, '@1553118393', false, null, null);
-
-        $this->assertEquals([$feed, [$item]], $result);
-    }
-
-    /**
-     * Test if fetching a feed without a favicon works.
-     */
-    public function testNoFavicon()
-    {
-        $this->setUpReader($this->url);
-
-        $feed = $this->createFeed('de-DE', false);
-
-        $this->favicon->expects($this->never())
-            ->method('get');
-
-        $item = $this->createItem();
-        $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -396,7 +387,7 @@ class FeedFetcherTest extends TestCase
         $this->createFeed('he-IL');
         $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($_, $items) = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        list($_, $items) = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
         $this->assertTrue($items[0]->getRtl());
     }
 
@@ -422,7 +413,7 @@ class FeedFetcherTest extends TestCase
 
 
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        list($feed, $items) = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
         $this->assertSame($items[0]->getPubDate(), 1522180229);
     }
 
@@ -448,7 +439,7 @@ class FeedFetcherTest extends TestCase
 
 
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, '@1553118393', false, null, null);
+        list($feed, $items) = $this->fetcher->fetch($this->url, '@1553118393', false, null, null);
         $this->assertSame($items[0]->getPubDate(), 1519761029);
     }
 
@@ -589,15 +580,15 @@ class FeedFetcherTest extends TestCase
         $item = new Item();
 
         $item->setUnread(true)
-             ->setUrl($this->permalink)
-             ->setTitle('my<\' title')
-             ->setGuid($this->guid)
-             ->setGuidHash($this->guid_hash)
-             ->setBody($this->parsed_body)
-             ->setRtl(false)
-             ->setLastModified(3)
-             ->setPubDate(3)
-             ->setAuthor(html_entity_decode($this->author->getName()));
+            ->setUrl($this->permalink)
+            ->setTitle('my<\' title')
+            ->setGuid($this->guid)
+            ->setGuidHash($this->guid_hash)
+            ->setBody($this->parsed_body)
+            ->setRtl(false)
+            ->setLastModified(3)
+            ->setPubDate(3)
+            ->setAuthor(html_entity_decode($this->author->getName()));
 
         if ($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
             $media = $this->getMockbuilder(MediaInterface::class)->getMock();
@@ -637,7 +628,7 @@ class FeedFetcherTest extends TestCase
      *
      * @return Feed
      */
-    private function createFeed($lang = 'de-DE', $favicon = false, $url = null)
+    private function createFeed($lang = 'de-DE', $url = null)
     {
         $url = $url ?? $this->url;
         $this->feed_mock->expects($this->exactly(3))
@@ -661,16 +652,13 @@ class FeedFetcherTest extends TestCase
         $feed->setUrl($url);
         $feed->setHttpLastModified((new DateTime('@3'))->format(DateTime::RSS));
         $feed->setAdded($this->time);
-        if ($favicon) {
-            $feed->setFaviconLink('http://anon.google.com');
-            $this->favicon->expects($this->exactly(1))
-                ->method('get')
-                ->with($this->equalTo($this->feed_link))
-                ->will($this->returnValue($this->web_favicon));
-        } else {
-            $this->favicon->expects($this->never())
-                ->method('get');
-        }
+
+        $feed->setFaviconLink('http://anon.google.com');
+        $this->favicon->expects($this->exactly(1))
+            ->method('get')
+            ->with($this->equalTo($url))
+            ->will($this->returnValue($this->web_favicon));
+
 
         return $feed;
     }

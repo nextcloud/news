@@ -44,7 +44,6 @@ class Fetcher
      * Fetch a feed from remote
      *
      * @param  string      $url               remote url of the feed
-     * @param  boolean     $getFavicon        if the favicon should also be fetched, defaults to true
      * @param  string|null $lastModified      a last modified value from an http header defaults to false.
      *                                    If lastModified matches the http header from the feed no results are fetched
      * @param  bool        $fullTextEnabled   If true use a scraper to download the full article
@@ -57,7 +56,6 @@ class Fetcher
      */
     public function fetch(
         string $url,
-        bool $getFavicon = true,
         ?string $lastModified = null,
         bool $fullTextEnabled = false,
         ?string $user = null,
@@ -69,7 +67,6 @@ class Fetcher
             }
             return $fetcher->fetch(
                 $url,
-                $getFavicon,
                 $lastModified,
                 $fullTextEnabled,
                 $user,
