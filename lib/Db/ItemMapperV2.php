@@ -286,7 +286,7 @@ class ItemMapperV2 extends NewsMapperV2
                 ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                 ->where('feeds.user_id = :userId')
                 ->setParameter('userId', $userId)
-                ->orderBy('items.updated_date', 'DESC')
+                ->orderBy('items.last_modified', 'DESC')
                 ->addOrderBy('items.id', 'DESC')
                 ->setMaxResults(1);
 
@@ -312,7 +312,7 @@ class ItemMapperV2 extends NewsMapperV2
         $builder->select('items.*')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-            ->andWhere('items.updated_date >= :updatedSince')
+            ->andWhere('items.last_modified >= :updatedSince')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.id = :feedId')
             ->setParameters([
@@ -320,7 +320,7 @@ class ItemMapperV2 extends NewsMapperV2
                 'feedId' => $feedId,
                 'userId'=> $userId,
             ])
-            ->orderBy('items.updated_date', 'DESC')
+            ->orderBy('items.last_modified', 'DESC')
             ->addOrderBy('items.id', 'DESC');
 
         if ($hideRead === true) {
@@ -350,11 +350,11 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->innerJoin('feeds', FolderMapperV2::TABLE_NAME, 'folders', 'feeds.folder_id = folders.id')
-            ->andWhere('items.updated_date >= :updatedSince')
+            ->andWhere('items.last_modified >= :updatedSince')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('folders.id = :folderId')
             ->setParameters(['updatedSince' => $updatedSince, 'folderId' => $folderId, 'userId' => $userId])
-            ->orderBy('items.updated_date', 'DESC')
+            ->orderBy('items.last_modified', 'DESC')
             ->addOrderBy('items.id', 'DESC');
 
         if ($hideRead === true) {
@@ -379,10 +379,10 @@ class ItemMapperV2 extends NewsMapperV2
         $builder->select('items.*')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-            ->andWhere('items.updated_date >= :updatedSince')
+            ->andWhere('items.last_modified >= :updatedSince')
             ->andWhere('feeds.user_id = :userId')
             ->setParameters(['updatedSince' => $updatedSince, 'userId' => $userId])
-            ->orderBy('items.updated_date', 'DESC')
+            ->orderBy('items.last_modified', 'DESC')
             ->addOrderBy('items.id', 'DESC');
 
         switch ($feedType) {
@@ -430,7 +430,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->setParameter('feedId', $feedId)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->orderBy('items.updated_date', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
         if ($search !== []) {
@@ -484,7 +484,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->setParameter('userId', $userId)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->orderBy('items.updated_date', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
         if ($search !== []) {
@@ -530,7 +530,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->setParameter('userId', $userId)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->orderBy('items.updated_date', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
         if ($search !== []) {
