@@ -431,7 +431,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -493,7 +493,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId'],
                 ['feeds.id = :feedId']
             )
@@ -510,7 +510,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -557,7 +557,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId'],
                 ['feeds.id = :feedId'],
                 ['items.unread = 1']
@@ -575,7 +575,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -625,7 +625,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId'],
                 ['folders.id = :folderId']
             )
@@ -642,7 +642,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -692,7 +692,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId'],
                 ['folders.id = :folderId'],
                 ['items.unread = 1']
@@ -710,7 +710,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -757,7 +757,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId'],
                 ['items.unread = 1']
             )
@@ -773,7 +773,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -820,7 +820,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId'],
                 ['items.starred = 1']
             )
@@ -836,7 +836,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -886,7 +886,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
             ->withConsecutive(
-                ['items.updated_date >= :updatedSince'],
+                ['items.last_modified >= :updatedSince'],
                 ['feeds.user_id = :userId']
             )
             ->will($this->returnSelf());
@@ -901,7 +901,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -974,7 +974,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1044,7 +1044,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1115,7 +1115,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1191,7 +1191,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1262,7 +1262,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1334,7 +1334,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1410,7 +1410,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1493,7 +1493,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1577,7 +1577,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1661,7 +1661,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'ASC')
+            ->with('items.last_modified', 'ASC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -1749,7 +1749,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('orderBy')
-            ->with('items.updated_date', 'DESC')
+            ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
