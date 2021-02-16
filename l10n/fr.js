@@ -125,7 +125,9 @@ OC.L10N.register(
     "Report a bug" : "Signaler un bogue",
     "Share on social media" : "Partage sur les réseaux sociaux",
     "Contact name" : "Nom de contact",
-    "Users": "Utilisateurs"
+    "Users": "Utilisateurs",
+    "No contact found.": "Aucun utilisateur trouvé."
+
 
 },
 "nplurals=2; plural=(n > 1);");

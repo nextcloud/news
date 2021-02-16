@@ -123,10 +123,12 @@
 
                                 <div style="margin-bottom: 1em" ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
                                 </div>
-                                <div class="row">
-
+                                <div style="margin-left: 1em"
+                                     ng-if="!(Share.userList.length > 0) && nameQuery && !App.loading.isLoading('user')">
+                                    <?php p($l->t('No contact found.')) ?>
+                                </div>
                                 <a
-                                    class="icon-contacts-dark pr-3"
+                                    class="icon-category-installed pr-3"
                                     ng-repeat="user in Share.userList"
                                     ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                     {{ user.value.shareWith }}
