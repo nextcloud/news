@@ -99,10 +99,11 @@
                             </button>
                         </li>
                         <div
+                            style="margin-top: 3em;"
                             class="dropdown-content"
                             ng-controller="ShareController as Share">
                                 <!-- Contact -->
-                                <p class="label-group">Contacts</p>
+                                <p class="label-group"><?php p($l->t('Users')) ?></p>
                                 <form ng-submit="" name="contactForm" autocomplete="off">
                                     <fieldset>
                                         <input
@@ -114,26 +115,27 @@
                                             placeholder="<?php p($l->t('Contact name')) ?>"
                                             title="<?php p($l->t('Contact name')) ?>"
                                             name="contactName"
-                                            required>
+                                            required
+                                            style="width: 200px">
                                     </fieldset>
                                 </form>
 
 
-                                <div ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
+                                <div style="margin-bottom: 1em" ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
                                 </div>
-                                <a  
+                                <div class="row">
+
+                                <a
+                                    class="icon-contacts-dark pr-3"
                                     ng-repeat="user in Share.userList"
                                     ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                     {{ user.value.shareWith }}
-                                    <span class="right" 
+                                    <span class="right" style="margin-top: 1.4em; margin-right: 1em"
                                             ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith)}"></span>
                                 </a>
-
                                 <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
-
                                 <a class="icon-facebook pr-5"
                                    ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"
-
                                 >
                                     <span>
                                         Facebook
@@ -145,17 +147,13 @@
                                 >
                                     <span> Twitter </span>
                                 </a>
-                                <a class="icon-google pr-5"
-                                   ng-href="https://plus.google.com/share?url={{ ::item.url }}" 
-                                >
-                                    <span> Google </span>
-                                </a>
-                                <a 
+                                <a
                                 class="icon-mail pr-5"
-                                   ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}" 
+                                   ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}"
                                     >
                                     <span> Mail </span>
                                 </a>
+
 
                       </div>
                     </div>
