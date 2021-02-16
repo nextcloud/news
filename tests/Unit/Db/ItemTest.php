@@ -390,4 +390,18 @@ class ItemTest extends TestCase
         $this->assertEquals(json_encode(['podcast', 'blog']), $item->getCategoriesJson());
         $this->assertArrayHasKey('categoriesJson', $item->getUpdatedFields());
     }
+
+    public function testSetSharedBy(){
+        $item = new Item();
+        $item->setSharedBy('Hector');
+        $this->assertEquals('Hector', $item->getSharedBy());
+        $this->assertArrayHasKey('sharedBy', $item->getUpdatedFields());
+    }
+
+    public function testSetSharedWith(){
+        $item = new Item();
+        $item->setSharedWith('Hector');
+        $this->assertEquals('Hector', $item->getSharedWith());
+        $this->assertArrayHasKey('sharedWith', $item->getUpdatedFields());
+    }
 }
