@@ -20,7 +20,7 @@ use \OCP\AppFramework\Http;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
-use \OCA\News\Db\FeedType;
+use \OCA\News\Db\ListType;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\IConfig;
 use OCP\IRequest;
@@ -234,7 +234,7 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->itemsApiExpects(2, FeedType::FEED, '0');
+        $this->itemsApiExpects(2, ListType::FEED, '0');
 
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
@@ -256,7 +256,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, false, [])
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->index(FeedType::FEED, 2, 3);
+        $response = $this->controller->index(ListType::FEED, 2, 3);
         $this->assertEquals($result, $response);
     }
 
@@ -271,7 +271,7 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->itemsApiExpects(2, FeedType::FOLDER, '0');
+        $this->itemsApiExpects(2, ListType::FOLDER, '0');
 
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
@@ -293,7 +293,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, false, [])
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->index(FeedType::FOLDER, 2, 3);
+        $response = $this->controller->index(ListType::FOLDER, 2, 3);
         $this->assertEquals($result, $response);
     }
 
@@ -308,7 +308,7 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->itemsApiExpects(2, FeedType::STARRED, '0');
+        $this->itemsApiExpects(2, ListType::STARRED, '0');
 
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
@@ -330,7 +330,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, [])
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->index(FeedType::STARRED, 2, 3);
+        $response = $this->controller->index(ListType::STARRED, 2, 3);
         $this->assertEquals($result, $response);
     }
 
@@ -345,7 +345,7 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->itemsApiExpects(2, FeedType::FEED, '0');
+        $this->itemsApiExpects(2, ListType::FEED, '0');
 
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
@@ -367,7 +367,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, false, ['test', 'search'])
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->index(FeedType::FEED, 2, 3, 0, null, null, 'test%20%20search%20');
+        $response = $this->controller->index(ListType::FEED, 2, 3, 0, null, null, 'test%20%20search%20');
         $this->assertEquals($result, $response);
     }
 
@@ -376,7 +376,7 @@ class ItemControllerTest extends TestCase
     {
         $result = ['items' => [new Item()]];
 
-        $this->itemsApiExpects(2, FeedType::FEED);
+        $this->itemsApiExpects(2, ListType::FEED);
 
         $this->itemService->expects($this->once())
             ->method('findAllInFeedWithFilters')
@@ -386,21 +386,21 @@ class ItemControllerTest extends TestCase
         $this->feedService->expects($this->never())
             ->method('findAllForUser');
 
-        $response = $this->controller->index(FeedType::FEED, 2, 3, 10);
+        $response = $this->controller->index(ListType::FEED, 2, 3, 10);
         $this->assertEquals($result, $response);
     }
 
 
     public function testGetItemsNoNewestItemsId()
     {
-        $this->itemsApiExpects(2, FeedType::FEED);
+        $this->itemsApiExpects(2, ListType::FEED);
 
         $this->itemService->expects($this->once())
             ->method('newest')
             ->with('user')
             ->will($this->throwException(new ServiceNotFoundException('')));
 
-        $response = $this->controller->index(FeedType::FEED, 2, 3);
+        $response = $this->controller->index(ListType::FEED, 2, 3);
         $this->assertEquals([], $response);
     }
 
@@ -440,7 +440,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, false)
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->newItems(FeedType::FEED, 2, 3);
+        $response = $this->controller->newItems(ListType::FEED, 2, 3);
         $this->assertEquals($result, $response);
     }
 
@@ -480,7 +480,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, false)
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->newItems(FeedType::FOLDER, 2, 3);
+        $response = $this->controller->newItems(ListType::FOLDER, 2, 3);
         $this->assertEquals($result, $response);
     }
 
@@ -520,7 +520,7 @@ class ItemControllerTest extends TestCase
             ->with('user', 6, 3)
             ->will($this->returnValue($result['items']));
 
-        $response = $this->controller->newItems(FeedType::UNREAD, 2, 3);
+        $response = $this->controller->newItems(ListType::UNREAD, 2, 3);
         $this->assertEquals($result, $response);
     }
 
@@ -537,7 +537,7 @@ class ItemControllerTest extends TestCase
             ->with('user')
             ->will($this->throwException(new ServiceNotFoundException('')));
 
-        $response = $this->controller->newItems(FeedType::FEED, 2, 3);
+        $response = $this->controller->newItems(ListType::FEED, 2, 3);
         $this->assertEquals([], $response);
     }
 

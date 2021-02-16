@@ -18,13 +18,13 @@ namespace OCA\News\Db;
  *
  * @package OCA\News\Db
  */
-class FeedType
+class ListType
 {
-    const FEED          = 0;
-    const FOLDER        = 1;
-    const STARRED       = 2;
-    const SUBSCRIPTIONS = 3;
-    const SHARED        = 4;
-    const EXPLORE       = 5;
-    const UNREAD        = 6;
+    const FEED      = 0;
+    const FOLDER    = 1;
+    const STARRED   = 2;
+    const ALL_ITEMS = 3;
+    const SHARED    = 4;
+    const EXPLORE   = 5;
+    const UNREAD    = 6;
 }

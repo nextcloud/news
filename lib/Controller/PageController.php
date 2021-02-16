@@ -25,7 +25,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
 use OCP\IUserSession;
 
 class PageController extends Controller
@@ -204,7 +204,7 @@ class PageController extends Controller
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',
-            FeedType::EXPLORE
+            ListType::EXPLORE
         );
 
         try {

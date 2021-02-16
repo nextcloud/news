@@ -12,6 +12,7 @@
 
 namespace OCA\News\Db;
 
+use OC\DB\QueryBuilder\Literal;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use Doctrine\DBAL\FetchMode;
 use OCA\News\Utility\Time;
@@ -386,11 +387,13 @@ class ItemMapperV2 extends NewsMapperV2
             ->addOrderBy('items.id', 'DESC');
 
         switch ($feedType) {
-            case FeedType::STARRED:
+            case ListType::STARRED:
                 $builder->andWhere('items.starred = 1');
                 break;
-            case FeedType::UNREAD:
+            case ListType::UNREAD:
                 $builder->andWhere('items.unread = 1');
+                break;
+            case ListType::ALL_ITEMS:
                 break;
             default:
                 throw new ServiceValidationException('Unexpected Feed type in call');
@@ -473,7 +476,7 @@ class ItemMapperV2 extends NewsMapperV2
         if ($folderId === null) {
             $folderWhere = $builder->expr()->isNull('feeds.folder_id');
         } else {
-            $folderWhere = $builder->expr()->eq('feeds.folder_id', $folderId);
+            $folderWhere = $builder->expr()->eq('feeds.folder_id', new Literal($folderId), IQueryBuilder::PARAM_INT);
         }
 
         $builder->select('items.*')
@@ -542,11 +545,13 @@ class ItemMapperV2 extends NewsMapperV2
         }
 
         switch ($type) {
-            case FeedType::STARRED:
+            case ListType::STARRED:
                 $builder->andWhere('items.starred = 1');
                 break;
-            case FeedType::UNREAD:
+            case ListType::UNREAD:
                 $builder->andWhere('items.unread = 1');
+                break;
+            case ListType::ALL_ITEMS:
                 break;
             default:
                 throw new ServiceValidationException('Unexpected Feed type in call');

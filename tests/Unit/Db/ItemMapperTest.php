@@ -13,6 +13,7 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
+use OC\DB\QueryBuilder\Literal;
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Db\Folder;
@@ -1691,7 +1692,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $expr->expects($this->once())
              ->method('eq')
-             ->with('feeds.folder_id', 2)
+             ->with('feeds.folder_id', new Literal(2))
              ->will($this->returnValue('x = y'));
 
         $this->db->expects($this->once())

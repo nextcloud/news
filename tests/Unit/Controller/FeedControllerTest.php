@@ -22,7 +22,7 @@ use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http;
 
 use OCA\News\Db\Feed;
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCP\IConfig;
@@ -125,7 +125,7 @@ class FeedControllerTest extends TestCase
         $this->exampleResult = [
             'activeFeed' => [
                 'id' => 0,
-                'type' => FeedType::SUBSCRIPTIONS
+                'type' => ListType::ALL_ITEMS
             ]
         ];
     }
@@ -207,7 +207,7 @@ class FeedControllerTest extends TestCase
     public function testActive()
     {
         $id = 3;
-        $type = FeedType::STARRED;
+        $type = ListType::STARRED;
         $result = [
             'activeFeed' => [
                 'id' => $id,
@@ -226,7 +226,7 @@ class FeedControllerTest extends TestCase
     public function testActiveFeed()
     {
         $id = 3;
-        $type = FeedType::FEED;
+        $type = ListType::FEED;
         $result = [
             'activeFeed' => [
                 'id' => $id,
@@ -250,7 +250,7 @@ class FeedControllerTest extends TestCase
     public function testActiveFeedDoesNotExist()
     {
         $id = 3;
-        $type = FeedType::FEED;
+        $type = ListType::FEED;
         $ex = new ServiceNotFoundException('hiu');
         $result = $this->exampleResult;
 
@@ -269,7 +269,7 @@ class FeedControllerTest extends TestCase
 
     public function testActiveFolder()
     {
-        $type = FeedType::FOLDER;
+        $type = ListType::FOLDER;
         $folder = new Folder();
         $folder->setId(3);
 
@@ -296,7 +296,7 @@ class FeedControllerTest extends TestCase
     public function testActiveFolderDoesNotExist()
     {
         $id = 3;
-        $type = FeedType::FOLDER;
+        $type = ListType::FOLDER;
         $ex = new ServiceNotFoundException('hiu');
         $result = $this->exampleResult;
 

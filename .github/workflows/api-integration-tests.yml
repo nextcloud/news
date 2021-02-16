@@ -133,9 +133,10 @@ jobs:
       - name: Functional tests items
         working-directory: ../server
         run: |
-          ./occ news:item:list-feed "admin" $(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*') --limit 200 | grep '15.3.2'
-          ./occ news:item:list-folder "admin" --limit 200 | grep '15.3.2'
-          ./occ news:item:list "admin" --limit 200 | grep '15.3.2'
+          TAG=$(curl --silent "https://api.github.com/repos/nextcloud/news/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+          ./occ news:item:list-feed "admin" $(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*') --limit 200 | grep "$TAG"
+          ./occ news:item:list-folder "admin" --limit 200 | grep "$TAG"
+          ./occ news:item:list "admin" --limit 200 | grep "$TAG"
 
       - name: Functional tests opml
         working-directory: ../server

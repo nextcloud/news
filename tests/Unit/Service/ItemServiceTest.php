@@ -21,7 +21,7 @@ use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;
-use \OCA\News\Db\FeedType;
+use \OCA\News\Db\ListType;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\IConfig;
 
@@ -133,7 +133,7 @@ class ItemServiceTest extends TestCase
         $this->mapper->expects($this->never())
             ->method('findAllAfter');
 
-        $result = $this->class->findAllAfter($this->user, 3, 20333);
+        $result = $this->class->findAllAfter($this->user, 5, 20333);
         $this->assertEquals([], $result);
     }
 
@@ -176,7 +176,7 @@ class ItemServiceTest extends TestCase
 
     public function testFindAllItems()
     {
-        $type = FeedType::STARRED;
+        $type = ListType::STARRED;
         $this->mapper->expects($this->once())
             ->method('findAllItems')
             ->with('jack', $type, 20, 5, true, [])
@@ -188,7 +188,7 @@ class ItemServiceTest extends TestCase
 
     public function testFindAllSearch()
     {
-        $type = FeedType::STARRED;
+        $type = ListType::STARRED;
         $search = ['test'];
 
 
