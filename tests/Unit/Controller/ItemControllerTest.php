@@ -128,6 +128,43 @@ class ItemControllerTest extends TestCase
     }
 
 
+    public function testShare()
+    {
+        $this->itemService->expects($this->once())
+            ->method('checkSharing')
+            ->with(4, 'bob', 'jackob')
+            ->will($this->returnValue(0));
+
+        $this->itemService->expects($this->once())
+            ->method('shareItem')
+            ->with(4, 'bob', 'jackob');
+
+        $this->controller->share(4, 'bob');
+    }
+
+
+    public function testShareDoesNotExist()
+    {
+        $msg = 'hi';
+
+        $this->itemService->expects($this->once())
+            ->method('checkSharing')
+            ->with(4, 'bob', 'jackob')
+            ->will($this->returnValue(0));
+
+        $this->itemService->expects($this->once())
+            ->method('shareItem')
+            ->with(4, 'bob', 'jackob')
+            ->will($this->throwException(new ServiceNotFoundException($msg)));
+
+        $response = $this->controller->share(4, 'bob');
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+        $this->assertEquals($msg, $params['message']);
+    }
+
+
     public function testReadMultiple()
     {
         $this->itemService->expects($this->exactly(2))

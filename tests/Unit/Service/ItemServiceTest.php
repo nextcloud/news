@@ -174,7 +174,31 @@ class ItemServiceTest extends TestCase
         $this->assertEquals(['val'], $result);
     }
 
-    public function testFindAllItems()
+
+    public function testFindAllShared()
+    {
+        $type = FeedType::SHARED;
+        $this->mapper->expects($this->once())
+            ->method('findAllShared')
+            ->with(
+                $this->equalTo(20),
+                $this->equalTo(5),
+                $this->equalTo(true),
+                $this->equalTo(true),
+                $this->equalTo('jack'),
+                $this->equalTo([])
+            )
+            ->will($this->returnValue(['val']));
+
+        $result = $this->itemService->findAllItems(
+            3, $type, 20, 5,
+            true, true, 'jack'
+        );
+        $this->assertEquals(['val'], $result);
+    }
+
+
+    public function testFindAll()
     {
         $type = ListType::STARRED;
         $this->mapper->expects($this->once())
