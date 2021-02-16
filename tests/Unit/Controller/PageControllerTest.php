@@ -15,7 +15,7 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use OC\L10N\L10N;
 use OCA\News\Controller\PageController;
-use \OCA\News\Db\FeedType;
+use \OCA\News\Db\ListType;
 use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Service\StatusService;
@@ -264,7 +264,7 @@ class PageControllerTest extends TestCase
             ->method('setUserValue')
             ->withConsecutive(
                 ['becka', 'news', 'lastViewedFeedId', 0],
-                ['becka', 'news', 'lastViewedFeedType', FeedType::EXPLORE]
+                ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
             );
 
         $this->recommended->expects($this->once())
@@ -284,7 +284,7 @@ class PageControllerTest extends TestCase
             ->method('setUserValue')
             ->withConsecutive(
                 ['becka', 'news', 'lastViewedFeedId', 0],
-                ['becka', 'news', 'lastViewedFeedType', FeedType::EXPLORE]
+                ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
             );
 
         $this->recommended->expects($this->once())

@@ -13,7 +13,7 @@
 
 namespace OCA\News\Controller;
 
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\FeedServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
@@ -136,7 +136,7 @@ class ItemController extends Controller
             }
 
             switch ($type) {
-                case FeedType::FEED:
+                case ListType::FEED:
                     $items = $this->itemService->findAllInFeedWithFilters(
                         $this->getUserId(),
                         $id,
@@ -147,7 +147,7 @@ class ItemController extends Controller
                         $search_items
                     );
                     break;
-                case FeedType::FOLDER:
+                case ListType::FOLDER:
                     $items = $this->itemService->findAllInFolderWithFilters(
                         $this->getUserId(),
                         $id,
@@ -201,7 +201,7 @@ class ItemController extends Controller
 
         try {
             switch ($type) {
-                case FeedType::FEED:
+                case ListType::FEED:
                     $items = $this->itemService->findAllInFeedAfter(
                         $this->getUserId(),
                         $id,
@@ -209,7 +209,7 @@ class ItemController extends Controller
                         !$showAll
                     );
                     break;
-                case FeedType::FOLDER:
+                case ListType::FOLDER:
                     $items = $this->itemService->findAllInFolderAfter(
                         $this->getUserId(),
                         $id,

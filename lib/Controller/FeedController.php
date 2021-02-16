@@ -24,7 +24,7 @@ use OCP\IRequest;
 use OCP\IConfig;
 use OCP\AppFramework\Http;
 
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
 use OCP\IUserSession;
 
 class FeedController extends Controller
@@ -122,10 +122,10 @@ class FeedController extends Controller
 
             $feedType = intval($feedType);
             switch ($feedType) {
-                case FeedType::FOLDER:
+                case ListType::FOLDER:
                     $this->folderService->find($this->getUserId(), $feedId);
                     break;
-                case FeedType::FEED:
+                case ListType::FEED:
                     $this->feedService->find($this->getUserId(), $feedId);
                     break;
                 default:
@@ -133,7 +133,7 @@ class FeedController extends Controller
             }
         } catch (ServiceNotFoundException $ex) {
             $feedId = 0;
-            $feedType = FeedType::SUBSCRIPTIONS;
+            $feedType = ListType::ALL_ITEMS;
         }
 
         return [

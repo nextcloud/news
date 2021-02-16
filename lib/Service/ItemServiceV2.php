@@ -14,7 +14,7 @@ namespace OCA\News\Service;
 
 use OCA\News\AppInfo\Application;
 use OCA\News\Db\Feed;
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
@@ -307,7 +307,7 @@ class ItemServiceV2 extends Service
      */
     public function findAllAfter(string $userId, int $feedType, int $updatedSince): array
     {
-        if (!in_array($feedType, [FeedType::STARRED, FeedType::UNREAD])) {
+        if (!in_array($feedType, [ListType::STARRED, ListType::UNREAD, ListType::ALL_ITEMS])) {
             throw new ServiceValidationException('Trying to find in unknown type');
         }
 

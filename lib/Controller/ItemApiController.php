@@ -15,7 +15,7 @@
 
 namespace OCA\News\Controller;
 
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\ItemServiceV2;
@@ -73,7 +73,7 @@ class ItemApiController extends ApiController
         bool $oldestFirst = false
     ): array {
         switch ($type) {
-            case FeedType::FEED:
+            case ListType::FEED:
                 $items = $this->itemService->findAllInFeedWithFilters(
                     $this->getUserId(),
                     $id,
@@ -83,7 +83,7 @@ class ItemApiController extends ApiController
                     $oldestFirst
                 );
                 break;
-            case FeedType::FOLDER:
+            case ListType::FOLDER:
                 $items = $this->itemService->findAllInFolderWithFilters(
                     $this->getUserId(),
                     $id,
@@ -130,10 +130,10 @@ class ItemApiController extends ApiController
         }
 
         switch ($type) {
-            case FeedType::FEED:
+            case ListType::FEED:
                 $items = $this->itemService->findAllInFeedAfter($this->getUserId(), $id, $paddedLastModified, false);
                 break;
-            case FeedType::FOLDER:
+            case ListType::FOLDER:
                 $items = $this->itemService->findAllInFolderAfter($this->getUserId(), $id, $paddedLastModified, false);
                 break;
             default:

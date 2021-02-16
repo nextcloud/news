@@ -12,6 +12,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Add CI for item lists
 
 ### Fixed
+- Item list throwing error for folder and "all items"
 
 ## [15.3.2] - 2021-02-10
 No changes compared to RC2
