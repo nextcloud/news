@@ -126,8 +126,16 @@ jobs:
         working-directory: ../server
         run: |
           ./occ news:feed:add 'admin' "https://nextcloud.com/blog/feed/"
+          ./occ news:feed:add 'admin' "https://github.com/nextcloud/news/releases.atom"
           ./occ news:feed:list 'admin' | grep 'nextcloud\.com'
           ./occ news:feed:list 'admin' | grep -F '"faviconLink": "https:\/\/nextcloud.com\/media\/screenshot-150x150.png"'
+
+      - name: Functional tests items
+        working-directory: ../server
+        run: |
+          ./occ news:item:list-feed "admin" $(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*') --limit 200 | grep '15.3.2'
+          ./occ news:item:list-folder "admin" --limit 200 | grep '15.3.2'
+          ./occ news:item:list "admin" --limit 200 | grep '15.3.2'
 
       - name: Functional tests opml
         working-directory: ../server
@@ -138,6 +146,7 @@ jobs:
         run: |
           ./occ news:folder:delete 'admin' $(./occ news:folder:list 'admin' | grep 'Something' -1  | head -1 | grep -oE '[0-9]*')
           ./occ news:feed:delete 'admin' $(./occ news:feed:list 'admin' | grep 'nextcloud\.com' -1  | head -1 | grep -oE '[0-9]*')
+          ./occ news:feed:delete 'admin' $(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*')
 
       - name: Prep PHP tests
         working-directory: ../server/apps/news
