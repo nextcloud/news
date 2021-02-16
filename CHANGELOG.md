@@ -9,6 +9,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Stop returning all feeds after marking folder as read.
 - Always fetch favicon (#1164)
 - Use feed logo instead of favicon if it exists and is square
+- Add CI for item lists
 
 ### Fixed
 

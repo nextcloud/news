@@ -70,6 +70,9 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <command>OCA\News\Command\Config\FeedDelete</command>
         <command>OCA\News\Command\Config\FeedDelete</command>
         <command>OCA\News\Command\Config\OpmlExport</command>
+        <command>OCA\News\Command\Debug\ItemList</command>
+        <command>OCA\News\Command\Debug\FolderItemList</command>
+        <command>OCA\News\Command\Debug\FeedItemList</command>
     </commands>
 
     <settings>
