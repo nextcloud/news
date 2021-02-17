@@ -47,12 +47,6 @@ jobs:
       - name: Prep PHP tests
         working-directory: ../server/apps/news
         run: make php-test-dependencies
-      - name: PHPCS
-        working-directory: ../server/apps/news
-        run: make phpcs
-      - name: PHPStan
-        working-directory: ../server/apps/news
-        run: make phpstan
       - name: Unittests
         working-directory: ../server/apps/news
         run: make unit-test
