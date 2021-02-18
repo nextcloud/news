@@ -36,6 +36,12 @@ class ItemMapper extends NewsMapper
         parent::__construct($db, $time, Item::class);
     }
 
+    /**
+     * Constructs the SQL query
+     * 
+     * A user can access an item if it's in his feeds and is not shared
+     * XOR it's not in his feeds but is shared with him
+     */
     private function makeSelectQuery(
         $prependTo = '',
         $oldestFirst = false,
@@ -572,6 +578,16 @@ class ItemMapper extends NewsMapper
         return (int)$result['size'];
     }
     
+    /**
+     * @param int $itemId id of the item to share
+     * @param string $shareWithId user the item is being shared with
+     * @param string $userId user who's sharing the article, article owner
+     * 
+     * Sharing by copying - the item is duplicated, and the 'sharedBy' and
+     * 'sharedWith' fields are filled accordingly.
+     * We copy the 'feedId', because the article will still be owned by
+     * $userId, and it'll be stored in his feed
+     */
     public function shareItem($itemId, $shareWithId, $userId)
     {
         // find existing item and copy it
