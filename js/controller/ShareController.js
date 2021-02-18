@@ -11,18 +11,17 @@ app.controller('ShareController', function (ShareResource, Loading) {
 
     this.userList = [];
 
+    /**
+     * Retrieve users matching search query using OC
+     */
     this.searchUsers = function(search) {
-
         Loading.setLoading('user', true);
-
-        // TODO: search === undefined 🤢 je pense pas que c'est ouf comme syntaxe
-        if (search === '' || search === undefined) {
+        if (!search || search === '') {
             this.userList = [];
             Loading.setLoading('user', false);
             return;
         }
 
-        // TODO: bug - requetes retardataires (regarder issues git)
         var response = ShareResource.getUsers(search);
         response.then((response) => {
             this.userList = response.ocs.data.users;
