@@ -140,16 +140,18 @@
                                 <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
                             <div class="row">
                                 <div class="col-4">
-                                    <a class="icon-dropdown icon-facebook pr-5"
-                                       ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"></a>
+                                    <a target="_blank"
+                                        class="icon-dropdown icon-facebook pr-5"
+                                        ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a class="icon-dropdown icon-twitter pr-5"
-                                       ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"></a>
+                                    <a target="_blank"
+                                        class="icon-dropdown icon-twitter pr-5"
+                                        ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"></a>
                                 </div>
                                 <div class="col-4">
                                     <a class="icon-dropdown icon-mail pr-5"
-                                       ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}"></a>
+                                        ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}"></a>
                                 </div>
                             </div>
 
