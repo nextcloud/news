@@ -99,7 +99,7 @@
                             </button>
                         </li>
                         <div
-                            style="margin-top: 3em;"
+                            style="margin-top: 2.8em;"
                             class="dropdown-content"
                             ng-controller="ShareController as Share">
                                 <!-- Contact -->
@@ -133,28 +133,25 @@
                                     ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                     {{ user.value.shareWith }}
                                     <span class="right" style="margin-top: 1.4em; margin-right: 1em"
-                                            ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith)}"></span>
+                                            ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith)}">
+                                    </span>
+                                    <span ng-if="!App.loading.isLoading(user.value.shareWith)">Envoyé.</span>
                                 </a>
                                 <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
-                                <a class="icon-facebook pr-5"
-                                   ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"
-                                >
-                                    <span>
-                                        Facebook
-                                    </span>
-                                </a>
-                                <a class="icon-twitter pr-5"
-                                   ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"
-
-                                >
-                                    <span> Twitter </span>
-                                </a>
-                                <a
-                                class="icon-mail pr-5"
-                                   ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}"
-                                    >
-                                    <span> Mail </span>
-                                </a>
+                            <div class="row">
+                                <div class="col-4">
+                                    <a class="icon-dropdown icon-facebook pr-5"
+                                       ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"></a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="icon-dropdown icon-twitter pr-5"
+                                       ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"></a>
+                                </div>
+                                <div class="col-4">
+                                    <a class="icon-dropdown icon-mail pr-5"
+                                       ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}"></a>
+                                </div>
+                            </div>
 
 
                       </div>
