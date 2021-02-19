@@ -89,19 +89,19 @@
                         </button>
                     </li>
                     <!-- DROPDOWN SHARE -->
-                    <div class="dropdown">
-                        <li ng-click=""
+                    <div class="dropdown"
+                        ng-controller="ShareController as Share">
+                        <li ng-click="Share.toggleDropdown()"
                             class="util"
-                            dropdownToggle
                             news-stop-propagation>
                             <button class="share svg dropbtn"
                                 title="Partager">
                             </button>
                         </li>
                         <div
+                            ng-if="Share.showDropDown"
                             style="margin-top: 2.8em;"
-                            class="dropdown-content"
-                            ng-controller="ShareController as Share">
+                            class="dropdown-content">
                                 <!-- Contact -->
                                 <p class="label-group"><?php p($l->t('Users')) ?></p>
                                 <form ng-submit="" name="contactForm" autocomplete="off">
@@ -130,7 +130,7 @@
                                 <a
                                     class="icon-category-installed pr-3"
                                     ng-repeat="user in Share.userList"
-                                    ng-click="Share.shareItem(item.id, user.value.shareWith)">   
+                                    ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                     {{ user.value.shareWith }}
                                     <span class="right" style="margin-top: 1.4em; margin-right: 1em"
                                         ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith), 'icon-checkmark': !App.loading.isLoading(user.value.shareWith) && Share.usersSharedArticles[item.id].includes(user.value.shareWith)}">
