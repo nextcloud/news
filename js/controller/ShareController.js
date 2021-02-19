@@ -9,6 +9,12 @@
 app.controller('ShareController', function (ShareResource, Loading) {
     'use strict';
 
+    this.showDropDown = false;
+
+    this.toggleDropdown = function() {
+        this.showDropDown = !this.showDropDown;
+    };
+
     this.userList = [];
 
     /**
