@@ -109,6 +109,10 @@
     background-image: url('../img/twitter.svg') !important;
 }
 
+.icon-checkmark {
+    background-image: url('../img/checkmark.svg') !important;
+}
+
 .col-4 {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
