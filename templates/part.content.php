@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="col-4">
                                     <a class="icon-dropdown icon-mail pr-5"
-                                        ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site http://www.website.com./{{ ::item.url }}"></a>
+                                        ng-href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site {{ ::item.url }}"></a>
                                 </div>
                             </div>
 
