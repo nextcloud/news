@@ -636,9 +636,8 @@ class FeedControllerTest extends TestCase
         $feed = $this->getMockBuilder(Feed::class)
                      ->getMock();
 
-        $feed->expects($this->once())
-             ->method('setFolderId')
-             ->with(null);
+        $feed->expects($this->never())
+             ->method('setFolderId');
 
         $feed->expects($this->once())
              ->method('setPinned')
@@ -673,6 +672,50 @@ class FeedControllerTest extends TestCase
             ->with($this->uid, $feed);
 
         $this->class->patch(4, true, false, 1);
+    }
+
+    public function testPatchFolder()
+    {
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->getMock();
+
+        $feed->expects($this->once())
+             ->method('setFolderId')
+             ->with(5);
+
+        $feed->expects($this->once())
+             ->method('setPinned')
+             ->with(true);
+
+        $feed->expects($this->once())
+             ->method('setFullTextEnabled')
+             ->with(false);
+
+
+        $feed->expects($this->once())
+             ->method('setUpdateMode')
+             ->with(1);
+
+
+        $feed->expects($this->never())
+             ->method('setOrdering')
+             ->with(true);
+
+
+        $feed->expects($this->never())
+             ->method('setTitle')
+             ->with(true);
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 4)
+            ->will($this->returnValue($feed));
+
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->uid, $feed);
+
+        $this->class->patch(4, true, false, 1, null, 5);
     }
 
     public function testPatchDoesNotExist()

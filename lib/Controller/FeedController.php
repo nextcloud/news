@@ -335,7 +335,7 @@ class FeedController extends Controller
         ?bool $fullTextEnabled = null,
         ?int $updateMode = null,
         ?int $ordering = null,
-        ?int $folderId = null,
+        ?int $folderId = -1,
         ?string $title = null
     ) {
         try {
@@ -344,8 +344,10 @@ class FeedController extends Controller
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
-        $fId = $folderId === 0 ? null : $folderId;
-        $feed->setFolderId($fId);
+        if ($folderId !== -1) {
+            $fId = $folderId === 0 ? null : $folderId;
+            $feed->setFolderId($fId);
+        }
         if ($pinned !== null) {
             $feed->setPinned($pinned);
         }
