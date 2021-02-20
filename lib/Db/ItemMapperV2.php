@@ -403,13 +403,13 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
-     * @param string $userId
-     * @param int    $feedId
-     * @param int    $limit
-     * @param int    $offset
-     * @param bool   $hideRead
-     * @param bool   $oldestFirst
-     * @param array  $search
+     * @param string $userId      User identifier
+     * @param int    $feedId      Feed identifier
+     * @param int    $limit       Max items to retrieve
+     * @param int    $offset      First item ID to retrieve
+     * @param bool   $hideRead    Hide read items
+     * @param bool   $oldestFirst Chronological sort
+     * @param array  $search      Search terms
      *
      * @return Item[]
      */
@@ -424,15 +424,22 @@ class ItemMapperV2 extends NewsMapperV2
     ): array {
         $builder = $this->db->getQueryBuilder();
 
+        if ($oldestFirst === true) {
+            $offsetWhere = $builder->expr()->lt('items.id', ':offset');
+        } else {
+            $offsetWhere = $builder->expr()->gt('items.id', ':offset');
+        }
+
         $builder->select('items.*')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('items.feed_id = :feedId')
+            ->andWhere($offsetWhere)
             ->setParameter('userId', $userId)
             ->setParameter('feedId', $feedId)
+            ->setParameter('offset', $offset)
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
@@ -452,13 +459,13 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
-     * @param string   $userId
-     * @param int|null $folderId
-     * @param int      $limit
-     * @param int      $offset
-     * @param bool     $hideRead
-     * @param bool     $oldestFirst
-     * @param array    $search
+     * @param string   $userId      User identifier
+     * @param int|null $folderId    Folder identifier (null for root)
+     * @param int      $limit       Max items to retrieve
+     * @param int      $offset      First item ID to retrieve
+     * @param bool     $hideRead    Hide read items
+     * @param bool     $oldestFirst Chronological sort
+     * @param array    $search      Search terms
      *
      * @return Item[]
      */
@@ -479,14 +486,21 @@ class ItemMapperV2 extends NewsMapperV2
             $folderWhere = $builder->expr()->eq('feeds.folder_id', new Literal($folderId), IQueryBuilder::PARAM_INT);
         }
 
+        if ($oldestFirst === true) {
+            $offsetWhere = $builder->expr()->lt('items.id', ':offset');
+        } else {
+            $offsetWhere = $builder->expr()->gt('items.id', ':offset');
+        }
+
         $builder->select('items.*')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere($folderWhere)
+            ->andWhere($offsetWhere)
             ->setParameter('userId', $userId)
+            ->setParameter('offset', $offset)
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
@@ -506,12 +520,12 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
-     * @param string $userId
-     * @param int    $type
-     * @param int    $limit
-     * @param int    $offset
-     * @param bool   $oldestFirst
-     * @param array  $search
+     * @param string $userId      User identifier
+     * @param int    $type        Type of items to retrieve
+     * @param int    $limit       Max items to retrieve
+     * @param int    $offset      First item ID to retrieve
+     * @param bool   $oldestFirst Chronological sort
+     * @param array  $search      Search terms
      *
      * @return Item[]
      * @throws ServiceValidationException
@@ -526,13 +540,20 @@ class ItemMapperV2 extends NewsMapperV2
     ): array {
         $builder = $this->db->getQueryBuilder();
 
+        if ($oldestFirst === true) {
+            $offsetWhere = $builder->expr()->lt('items.id', ':offset');
+        } else {
+            $offsetWhere = $builder->expr()->gt('items.id', ':offset');
+        }
+
         $builder->select('items.*')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
+            ->andWhere($offsetWhere)
             ->setParameter('userId', $userId)
+            ->setParameter('offset', $offset)
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
