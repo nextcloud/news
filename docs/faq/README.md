@@ -87,3 +87,21 @@ If you do not have control over the chosen feed, you should [download the certif
 By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the News app with a pre-filled URL, e.g.:
 
     https://yourdomain.com/nextcloud/index.php/apps/news?subscribe_to=https://github.com/nextcloud/news/releases
+
+### Database table grows too big
+
+By default, Nextcloud News purges old news items above a certain threshold each time it fetches new news items. The maximum number of items per feed
+that should be kept during the purging can be defined through the “Maximum read count per feed” setting in the admin UI or the `autoPurgeCount`
+value in the config. (Note: The “Purge interval” (`autoPurgeMinimumInterval`) setting is ignored and does not have any effect.)
+
+However, unread or starred items are exempt from the purging. If your users have subscribed to some high-volume feeds where a lot of items remain
+unread, this can lead to an oversized news table over time. As a consequence, the database upgrade of the news app can take several hours, during which
+Nextcloud cannot be used.
+
+The command `occ news:updater:after-update [--purge-unread] [<purge-count>]` can be used to manually purge old news items across the instance. With
+the `--purge-unread` option, unread items are also purged (starred items are still exempt). If `purge-count` is not specifid, the configured
+`autoPurgeCount` is used.
+
+The purge count only applies to the items that are purged. For example, when purging a feed that has 100 unread items, 100 starred read
+items and 100 unstarred read items, using a `purge-count` of 50 would keep all unread and starred items and the latest 50 read items. Using
+a `purge-count` of 50 along with `--purge-unread` would keep the all starred items plus the latest 50 from the set of unread and read items.
