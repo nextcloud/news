@@ -15,6 +15,7 @@ See the [install document](https://github.com/nextcloud/news/blob/master/docs/in
 * [Feeds are not updated](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#feeds-not-updated)
 * [Adding feeds that use self-signed certificates](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#adding-feeds-that-use-self-signed-certificates)
 * [Is There An Subscription URL To Easily Subscribe To Feeds](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#is-there-an-subscription-url-to-easily-subscribe-to-feeds)
+* [Database table grows too big](https://github.com/nextcloud/news/blob/master/docs/faq/README.md#database-table-grows-too-big)
 
 ## Supported Browsers
 * Newest Firefox (Desktop, Android, Firefox OS)
