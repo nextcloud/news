@@ -55,7 +55,9 @@ class FolderAdd extends Command
             $parent = intval($parent);
         }
 
-        $this->folderService->create($user, $name, $parent);
+        $folder = $this->folderService->create($user, $name, $parent);
+
+        $output->writeln('new folder: ' . $folder->getId());
 
         return 0;
     }
