@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Item list not using ID for offset 2 (#1200)
 
 ## [15.4.0-beta1] - 2021-02-23
 ### Changed
