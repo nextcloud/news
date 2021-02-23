@@ -392,4 +392,48 @@ class ItemServiceV2 extends Service
     ): array {
         return $this->mapper->findAllItems($userId, $type, $limit, $offset, $oldestFirst, $search);
     }
+
+
+    /**
+     * Share an item with a user
+     *
+     * @param string $userId Item owner
+     * @param int    $id     Item ID
+     * @param bool   $shareWithId   User to share with
+     * 
+     * Sharing by copying - the item is duplicated, and the 'sharedBy' and
+     * 'sharedWith' fields are filled accordingly.
+     * We copy the 'feedId', because the article will still be owned by
+     * $userId, and it'll be stored in his feed
+     *
+     * @return Item
+     * @throws ServiceNotFoundException|ServiceConflictException
+     */
+    public function share(string $userId, int $id, string $shareWithId): Entity
+    {
+        // TODO: check if item is already shared with the user
+        
+        /** @var Item $item */
+        $item = $this->find($userId, $id);
+
+        // duplicate the item
+        $sharedItem = Item::fromImport($item->jsonSerialize());
+
+        // copy and initialize fields
+        $sharedItem->setUnread(true);
+        $sharedItem->setStarred(false);
+        $sharedItem->setFeedId($item->getFeedId());
+        $sharedItem->setFingerprint($item->getFingerprint());
+        $sharedItem->setContentHash($item->getContentHash());
+        $sharedItem->setSearchIndex($item->getSearchIndex());
+
+        // set share data
+        $sharedItem->setSharedBy($userId);
+        $sharedItem->setSharedWith($shareWithId);
+
+        // return $this->mapper->update($item);
+        return $this->mapper->insert($sharedItem);
+    }
+
+    // TODO: implement shared() -> return all items shared with user
 }
