@@ -311,21 +311,22 @@ class ItemController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int $itemId
-     * @param string $shareWithId
-     * @return array
+     * @param int $itemId           Item to share
+     * @param string $shareWithId   User to share with 
      */
     public function share($itemId, $shareWithId)
     {
         try {
-            $exists = $this->itemService->checkSharing($itemId, $shareWithId, $this->userId);
-
-            if($exists==0){
-                $this->itemService->shareItem($itemId, $shareWithId, $this->userId);
-            }
+            $this->itemService->share(
+                $this->getUserId(),
+                $itemId,
+                $shareWithId
+            );
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
+
+        return [];
     }
 
 }
