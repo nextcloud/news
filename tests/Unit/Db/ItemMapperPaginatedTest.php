@@ -62,13 +62,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->expectException(ServiceValidationException::class);
         $this->expectExceptionMessage('Unexpected Feed type in call');
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->db->expects($this->once())
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
@@ -142,18 +135,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('lt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x < y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -173,7 +154,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
-                ['x < y']
+                ['items.id > :offset']
             )
             ->will($this->returnSelf());
 
@@ -225,18 +206,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -256,7 +225,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
-                ['x > y'],
+                ['items.id < :offset'],
                 ['items.unread = 1']
             )
             ->will($this->returnSelf());
@@ -309,18 +278,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -340,7 +297,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
-                ['x > y'],
+                ['items.id < :offset'],
                 ['items.starred = 1']
             )
             ->will($this->returnSelf());
@@ -395,18 +352,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('escapeLikeParameter')
             ->will($this->returnArgument(0));
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -426,16 +371,16 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
-                ['x > y'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
+                ['items.id < :offset'],
                 ['items.starred = 1']
             )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['term0', '%key%'], ['term1', '%word%'])
+            ->withConsecutive(['userId', 'jack'], ['term0', '%key%'], ['term1', '%word%'], ['offset', 10])
             ->will($this->returnSelf());
 
 
@@ -481,18 +426,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -513,7 +446,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['x > y']
+                ['items.id < :offset']
             )
             ->will($this->returnSelf());
 
@@ -565,18 +498,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('lt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x < y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -597,7 +518,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['x < y']
+                ['items.id > :offset']
             )
             ->will($this->returnSelf());
 
@@ -606,12 +527,10 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['userId', 'jack'], ['feedId', 2], ['offset', 10])
             ->will($this->returnSelf());
 
-
         $this->builder->expects($this->exactly(1))
             ->method('setMaxResults')
             ->with(10)
             ->will($this->returnSelf());
-
 
         $this->builder->expects($this->exactly(0))
             ->method('setFirstResult')
@@ -649,18 +568,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -681,7 +588,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['x > y'],
+                ['items.id < :offset'],
                 ['items.unread = 1']
             )
             ->will($this->returnSelf());
@@ -737,18 +644,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('escapeLikeParameter')
             ->will($this->returnArgument(0));
 
-        $expr = $this->getMockBuilder(IExpressionBuilder::class)
-            ->getMock();
-
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
-        $this->builder->expects($this->exactly(1))
-            ->method('expr')
-            ->will($this->returnValue($expr));
-
         $this->builder->expects($this->once())
             ->method('select')
             ->with('items.*')
@@ -769,15 +664,21 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['x > y'],
                 ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1']
+                ['items.search_index LIKE :term1'],
+                ['items.id < :offset']
             )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(5))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['feedId', 2], ['offset', 10], ['term0', '%key%'], ['term1', '%word%'])
+            ->withConsecutive(
+                ['userId', 'jack'],
+                ['feedId', 2],
+                ['term0', '%key%'],
+                ['term1', '%word%'],
+                ['offset', 10]
+            )
             ->will($this->returnSelf());
 
 
@@ -827,16 +728,11 @@ class ItemMapperPaginatedTest extends MapperTestUtility
              ->with('feeds.folder_id')
              ->will($this->returnValue('x IS NULL'));
 
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
         $this->db->expects($this->once())
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(1))
             ->method('expr')
             ->will($this->returnValue($expr));
 
@@ -860,7 +756,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['x IS NULL'],
-                ['x > y']
+                ['items.id < :offset']
             )
             ->will($this->returnSelf());
 
@@ -916,16 +812,11 @@ class ItemMapperPaginatedTest extends MapperTestUtility
              ->with('feeds.folder_id')
              ->will($this->returnValue('x IS NULL'));
 
-        $expr->expects($this->once())
-            ->method('gt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x > y'));
-
         $this->db->expects($this->once())
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(1))
             ->method('expr')
             ->will($this->returnValue($expr));
 
@@ -949,7 +840,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['x IS NULL'],
-                ['x > y'],
+                ['items.id < :offset'],
                 ['items.unread = 1']
             )
             ->will($this->returnSelf());
@@ -1006,16 +897,11 @@ class ItemMapperPaginatedTest extends MapperTestUtility
              ->with('feeds.folder_id')
              ->will($this->returnValue('x IS NULL'));
 
-        $expr->expects($this->once())
-            ->method('lt')
-            ->with('items.id', ':offset')
-            ->will($this->returnValue('x < y'));
-
         $this->db->expects($this->once())
             ->method('getQueryBuilder')
             ->willReturn($this->builder);
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(1))
             ->method('expr')
             ->will($this->returnValue($expr));
 
@@ -1039,7 +925,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['x IS NULL'],
-                ['x < y'],
+                ['items.id > :offset'],
                 ['items.unread = 1']
             )
             ->will($this->returnSelf());
@@ -1091,7 +977,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $expr = $this->getMockBuilder(IExpressionBuilder::class)
                      ->getMock();
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(1))
             ->method('expr')
             ->will($this->returnValue($expr));
 
@@ -1099,11 +985,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
              ->method('eq')
              ->with('feeds.folder_id', new Literal(2))
              ->will($this->returnValue('x = y'));
-
-        $expr->expects($this->once())
-             ->method('gt')
-             ->with('items.id', ':offset')
-             ->will($this->returnValue('x > y'));
 
         $this->db->expects($this->once())
             ->method('getQueryBuilder')
@@ -1132,15 +1013,15 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['x = y'],
-                ['x > y'],
                 ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1']
+                ['items.search_index LIKE :term1'],
+                ['items.id < :offset']
             )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['term0', '%key%'], ['term1', '%word%'])
+            ->withConsecutive(['userId', 'jack'], ['term0', '%key%'], ['term1', '%word%'], ['offset', 10])
             ->will($this->returnSelf());
 
 
