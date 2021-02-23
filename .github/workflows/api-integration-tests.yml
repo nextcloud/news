@@ -55,6 +55,9 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
+      - name: Setup BATS
+        uses: mig4/setup-bats@v1
+
       ### MySQL specific setup
       - name: Setup mysql
         if: matrix.database == 'mysql'
@@ -112,46 +115,14 @@ jobs:
           ./occ migrations:migrate news
           ./occ maintenance:repair
 
-      - name: Functional tests explore
+      - name: Functional tests
         working-directory: ../server
-        run: ./occ news:generate-explore --votes 100 "https://nextcloud.com/blog/feed/"
-
-      - name: Functional tests folder
-        working-directory: ../server
-        run: |
-          ./occ news:folder:add 'admin' 'Something'
-          ./occ news:folder:list 'admin' | grep 'Something'
-
-      - name: Functional tests feed
-        working-directory: ../server
-        run: |
-          ./occ news:feed:add 'admin' "https://nextcloud.com/blog/feed/"
-          ./occ news:feed:add 'admin' "https://github.com/nextcloud/news/releases.atom"
-          ./occ news:feed:list 'admin' | grep 'nextcloud\.com'
-          ./occ news:feed:list 'admin' | grep -F '"faviconLink": "https:\/\/nextcloud.com\/media\/screenshot-150x150.png"'
-
-      - name: Functional tests items
-        working-directory: ../server
-        run: |
-          TAG=$(curl --silent "https://api.github.com/repos/nextcloud/news/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-          ./occ news:item:list-feed "admin" $(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*') --limit 200 | grep "$TAG"
-          ./occ news:item:list-folder "admin" --limit 200 | grep "$TAG"
-          ./occ news:item:list "admin" --limit 200 | grep "$TAG"
-
-      - name: Functional tests opml
-        working-directory: ../server
-        run: ./occ news:opml:export 'admin' | grep 'nextcloud\.com'
-
-      - name: Functional tests cleanup
-        working-directory: ../server
-        run: |
-          ./occ news:folder:delete 'admin' $(./occ news:folder:list 'admin' | grep 'Something' -1  | head -1 | grep -oE '[0-9]*')
-          ./occ news:feed:delete 'admin' $(./occ news:feed:list 'admin' | grep 'nextcloud\.com' -1  | head -1 | grep -oE '[0-9]*')
-          ./occ news:feed:delete 'admin' $(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*')
+        run: bats apps/news/tests/integration
 
       - name: Prep PHP tests
         working-directory: ../server/apps/news
         run: make php-test-dependencies
+
       - name: Feed tests
         working-directory: ../server/apps/news
         run: make feed-test
