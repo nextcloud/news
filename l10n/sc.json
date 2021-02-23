@@ -1,0 +1,9 @@
+{ "translations": {
+    "Close" : "Serra",
+    "Description" : "Descritzione",
+    "Username" : "Nùmene utente",
+    "Password" : "Crae",
+    "Delete" : "Cantzella",
+    "Settings" : "Impostatziones"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
