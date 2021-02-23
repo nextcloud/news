@@ -52,4 +52,4 @@ jobs:
         run: make unit-test
       - name: Upload codecoverage
         working-directory: ../server/apps/news
-        run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover
+        run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover -N ${{ github.sha }}
