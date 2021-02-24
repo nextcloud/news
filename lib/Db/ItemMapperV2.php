@@ -551,12 +551,58 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
-     * @param string $userId      User identifier
-     * @param int    $type        Type of items to retrieve
-     * @param int    $limit       Max items to retrieve
-     * @param int    $offset      First item ID to retrieve
-     * @param bool   $oldestFirst Chronological sort
-     * @param array  $search      Search terms
+     * Returns all items shared with a user
+     * 
+     * @param string $userId
+     * @param int    $limit
+     * @param int    $offset
+     * @param bool   $hideRead
+     * @param bool   $oldestFirst
+     * @param array  $search
+     *
+     * @return Item[]
+     */
+    public function findAllSharedWithUser(
+        string $userId,
+        int $limit,
+        int $offset,
+        bool $hideRead,
+        bool $oldestFirst,
+        array $search
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->andWhere('items.shared_with = :sharedWith')
+            ->setParameter('sharedWith', $userId)
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
+            ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
+
+        if ($search !== []) {
+            foreach ($search as $key => $term) {
+                $term = $this->db->escapeLikeParameter($term);
+                $builder->andWhere("items.search_index LIKE :term${key}")
+                    ->setParameter("term${key}", "%$term%");
+            }
+        }
+
+        if ($hideRead === true) {
+            $builder->andWhere('items.unread = 1');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
+     * @param string $userId
+     * @param int    $type
+     * @param int    $limit
+     * @param int    $offset
+     * @param bool   $oldestFirst
+     * @param array  $search
      *
      * @return Item[]
      * @throws ServiceValidationException
