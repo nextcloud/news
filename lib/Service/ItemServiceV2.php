@@ -369,6 +369,31 @@ class ItemServiceV2 extends Service
         return $this->mapper->findAllFolder($userId, $folderId, $limit, $offset, $hideRead, $oldestFirst, $search);
     }
     /**
+     * Returns all items shared with a user
+     *
+     * @param int|null $folderId     the id of the folder
+     * @param int      $limit        how many items should be returned
+     * @param int      $offset       the offset
+     * @param boolean  $hideRead      if unread items should also be returned
+     * @param boolean  $oldestFirst  if it should be ordered by oldest first
+     * @param string   $userId       the name of the user
+     * @param string[] $search       an array of keywords that the result should
+     *                               contain in either the author, title, link
+     *                               or body
+     *
+     * @return array of items
+     */
+    public function findAllSharedWithUserWithFilters(
+        string $userId,
+        int $limit,
+        int $offset,
+        bool $hideRead,
+        bool $oldestFirst,
+        array $search = []
+    ): array {
+        return $this->mapper->findAllSharedWithUser($userId, $limit, $offset, $hideRead, $oldestFirst, $search);
+    }
+    /**
      * Returns all items
      *
      * @param int      $type         the type of the feed
