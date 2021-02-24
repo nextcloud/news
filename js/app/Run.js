@@ -59,7 +59,7 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, 
             }
 
             // only redirect if url is empty or faulty
-            if (!/^\/items(\/(starred|unread|explore|feeds\/\d+|folders\/\d+))?\/?$/
+            if (!/^\/items(\/(starred|unread|shared|explore|feeds\/\d+|folders\/\d+))?\/?$/
                 .test(path)) {
                 $location.path(url);
             }
