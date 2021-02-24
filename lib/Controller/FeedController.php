@@ -82,7 +82,7 @@ class FeedController extends Controller
         $params = [
             'feeds' => $this->feedService->findAllForUser($this->getUserId()),
             'starred' => count($this->itemService->starred($this->getUserId())),
-            // 'shared' => count($this->itemService->shared($this->getUserId())) // TODO: uncomment when implemented
+            'shared' => count($this->itemService->sharedWithUser($this->getUserId()))
         ];
 
         try {
