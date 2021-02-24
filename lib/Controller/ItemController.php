@@ -130,13 +130,10 @@ class ItemController extends Controller
             // we need to pass the newest feeds to not let the unread count get
             // out of sync
             if ($offset === 0) {
-                $params['newestItemId'] =
-                    $this->itemService->getNewestItemId($this->userId);
-                $params['feeds'] = $this->feedService->findAllForUser($this->userId);
-                $params['starred'] =
-                    $this->itemService->starredCount($this->userId);
-                $params['shared'] =
-                    $this->itemService->sharedCount($this->userId);
+                $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
+                $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
+                $return['starred'] = count($this->itemService->starred($this->getUserId()));
+                $return['shared'] = count($this->itemService->sharedWithUser($this->getUserId()));
             }
 
             switch ($type) {
@@ -215,20 +212,37 @@ class ItemController extends Controller
         $return = [];
 
         try {
-            $params['newestItemId'] =
-                $this->itemService->getNewestItemId($this->userId);
-            $params['feeds'] = $this->feedService->findAllForUser($this->userId);
-            $params['starred'] =
-                $this->itemService->starredCount($this->userId);
-            $params['shared'] =
-                $this->itemService->sharedCount($this->userId);
-            $params['items'] = $this->itemService->findAllNew(
-                $id,
-                $type,
-                $lastModified,
-                $showAll,
-                $this->userId
-            );
+            switch ($type) {
+                case ListType::FEED:
+                    $items = $this->itemService->findAllInFeedAfter(
+                        $this->getUserId(),
+                        $id,
+                        $lastModified,
+                        !$showAll
+                    );
+                    break;
+                case ListType::FOLDER:
+                    $items = $this->itemService->findAllInFolderAfter(
+                        $this->getUserId(),
+                        $id,
+                        $lastModified,
+                        !$showAll
+                    );
+                    break;
+                default:
+                    $items = $this->itemService->findAllAfter(
+                        $this->getUserId(),
+                        $type,
+                        $lastModified
+                    );
+                    break;
+            }
+
+            $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
+            $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
+            $return['starred'] = count($this->itemService->starred($this->getUserId()));
+            $return['shared'] = count($this->itemService->sharedWithUser($this->getUserId()));
+            $return['items'] = $items;
 
             // this gets thrown if there are no items
             // in that case just return an empty array
@@ -323,7 +337,7 @@ class ItemController extends Controller
      * @NoAdminRequired
      *
      * @param int $itemId           Item to share
-     * @param string $shareWithId   User to share with 
+     * @param string $shareWithId   User to share with
      */
     public function share($itemId, $shareWithId)
     {
