@@ -7,9 +7,9 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, ShareResource,
-                                              data, $route, $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE,
-                                              Loading, $filter) {
+app.controller('ContentController', function (Publisher, FeedResource, ItemResource, SettingsResource, data, $route,
+                                              $routeParams, $location, FEED_TYPE, ITEM_AUTO_PAGE_SIZE, Loading,
+                                              $filter) {
     'use strict';
 
     var self = this;
