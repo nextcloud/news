@@ -137,33 +137,33 @@
 }
 
 .icon-full-text-enabled {
-background-image: url('../img/fulltext.svg');
-background-size: 50%;
-opacity: .5;
+    background-image: url('../img/fulltext.svg');
+    background-size: 50%;
+    opacity: .5;
 }
 
 
 .icon-full-text-disabled {
-background-image: url('../img/nonfulltext.svg');
-background-size: 50%;
-opacity: .5;
+    background-image: url('../img/nonfulltext.svg');
+    background-size: 50%;
+    opacity: .5;
 }
 
 #app-navigation .unread > a {
-font-weight: bold;
+    font-weight: bold;
 }
 
 #app-navigation p.error {
-line-height: 25px;
+    line-height: 25px;
 }
 
 #app-navigation .folder-rename-error {
-height: auto;
+    height: auto;
 }
 
 /**
-* Error message
-*/
+ * Error message
+ */
 #app-navigation .error-message {
     padding: 15px;
     background-color: var(--color-main-background);
