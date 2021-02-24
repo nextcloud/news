@@ -3,8 +3,11 @@ OC.L10N.register(
     {
     "Close" : "Serra",
     "Description" : "Descritzione",
+    "New folder" : "Cartella noa",
     "Username" : "Nùmene utente",
     "Password" : "Crae",
+    "Create" : "Crea",
+    "Rename" : "Torra a numenare",
     "Delete" : "Cantzella",
     "Settings" : "Impostatziones"
 },
