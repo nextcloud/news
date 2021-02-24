@@ -460,5 +460,18 @@ class ItemServiceV2 extends Service
         return $this->mapper->insert($sharedItem);
     }
 
-    // TODO: implement shared() -> return all items shared with user
+    /**
+     * Return all items shared with a given user
+     *
+     * @param string $userId
+     *
+     * @return Item[]
+     */
+    public function sharedWithUser(string $userId): array
+    {
+        return $this->findAllForUser($userId, [
+            'shared_with' => $userId,
+            'unread' => true
+        ]);
+    }
 }
