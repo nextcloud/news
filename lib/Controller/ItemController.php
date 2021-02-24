@@ -229,6 +229,13 @@ class ItemController extends Controller
                         !$showAll
                     );
                     break;
+                case ListType::SHARED:
+                    $items = $this->itemService->findAllSharedAfter(
+                        $this->getUserId(),
+                        $lastModified,
+                        !$showAll
+                    );
+                    break;
                 default:
                     $items = $this->itemService->findAllAfter(
                         $this->getUserId(),

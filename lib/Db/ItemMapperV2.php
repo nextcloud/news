@@ -392,6 +392,36 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
+     * @param string   $userId
+     * @param int|null $folderId
+     * @param int      $updatedSince
+     * @param bool     $hideRead
+     *
+     * @return Item[]
+     */
+    public function findAllSharedAfter(
+        string $userId,
+        int $updatedSince,
+        bool $hideRead
+    ): array {
+        $builder = $this->db->getQueryBuilder();
+
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->andWhere('items.last_modified >= :updatedSince')
+            ->andWhere('items.shared_with = :sharedWith')
+            ->setParameters(['updatedSince' => $updatedSince, 'sharedWith' => $userId])
+            ->orderBy('items.last_modified', 'DESC')
+            ->addOrderBy('items.id', 'DESC');
+
+        if ($hideRead === true) {
+            $builder->andWhere('items.unread = 1');
+        }
+
+        return $this->findEntities($builder);
+    }
+
+    /**
      * @param string $userId
      * @param int    $updatedSince
      * @param int    $feedType

@@ -296,6 +296,19 @@ class ItemServiceV2 extends Service
     }
 
     /**
+     * Returns all new shared items
+     * @param string   $userId       the name of the user
+     * @param int      $updatedSince a timestamp with the minimal modification date
+     * @param boolean  $hideRead     if unread items should also be returned
+     *
+     * @return array of items
+     */
+    public function findAllSharedAfter(string $userId, int $updatedSince, bool $hideRead): array
+    {
+        return $this->mapper->findAllSharedAfter($userId, $updatedSince, $hideRead);
+    }
+
+    /**
      * Returns all new items of a type
      *
      * @param string $userId       the name of the user
