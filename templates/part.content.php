@@ -103,7 +103,7 @@
                             style="margin-top: 2.8em;"
                             class="dropdown-content">
                                 <!-- Contact -->
-                                <p class="label-group"><?php p($l->t('Users')) ?></p>
+                                <p class="label-group"><?php p($l->t('Share with users')) ?></p>
                                 <form ng-submit="" name="contactForm" autocomplete="off">
                                     <fieldset>
                                         <input
@@ -112,8 +112,8 @@
                                             ng-change="Share.searchUsers(nameQuery)"
                                             type="text"
                                             class="contact-input"
-                                            placeholder="<?php p($l->t('Contact name')) ?>"
-                                            title="<?php p($l->t('Contact name')) ?>"
+                                            placeholder="<?php p($l->t('Username')) ?>"
+                                            title="<?php p($l->t('Username')) ?>"
                                             name="contactName"
                                             required
                                             style="width: 200px">
@@ -125,7 +125,7 @@
                                 </div>
                                 <div style="margin-left: 1em"
                                      ng-if="!(Share.userList.length > 0) && nameQuery && !App.loading.isLoading('user')">
-                                    <?php p($l->t('No contact found.')) ?>
+                                    <?php p($l->t('No users found')) ?>
                                 </div>
                                 <a
                                     class="icon-category-installed pr-3"
