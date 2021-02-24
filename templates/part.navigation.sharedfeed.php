@@ -5,7 +5,7 @@
     class="with-counter starred-feed">
 
     <a class="icon-shared" ng-href="#/items/shared/">
-       <?php p($l->t('Shared')) ?>
+       <?php p($l->t('Shared with me')) ?>
     </a>
 
     <div class="app-navigation-entry-utils">
