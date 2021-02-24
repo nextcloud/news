@@ -49,7 +49,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $mediaThumbnail;
     /** @var string|null */
     protected $mediaDescription;
-    /** @var int|null */
+    /** @var int */
     protected $feedId;
     /** @var string|null */
     protected $lastModified = '0';
@@ -433,7 +433,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setFeedId(?int $feedId = null): self
+    public function setFeedId(int $feedId): self
     {
         if ($this->feedId !== $feedId) {
             $this->feedId = $feedId;
