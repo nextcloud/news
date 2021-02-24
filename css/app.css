@@ -90,7 +90,9 @@
 }
 
 .contact-input{
-    margin-left: 1.5em !important;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em 1.5em;
 }
 
 .label-group{
