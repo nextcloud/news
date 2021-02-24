@@ -91,6 +91,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         if (!item.keepUnread && item.unread === true) {
             ItemResource.markItemRead(itemId);
             if (item.isShared === false) {
+                // feeds containing shared items aren't in our cache
                 FeedResource.markItemOfFeedRead(item.feedId);
             }
         }
@@ -105,6 +106,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         if (!item.unread) {
             ItemResource.markItemRead(itemId, false);
             if (item.isShared === false) {
+                // feeds containing shared items aren't in our cache
                 FeedResource.markItemOfFeedUnread(item.feedId);
             }
         }
@@ -142,6 +144,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
             var item = ItemResource.get(itemId);
             if (!item.keepUnread) {
                 if (item.isShared === false) {
+                    // feeds containing shared items aren't in our cache
                     ids.push(itemId);
                     feedIds.push(item.feedId);
                 }
