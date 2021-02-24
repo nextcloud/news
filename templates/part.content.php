@@ -104,26 +104,27 @@
                             class="dropdown-content">
                                 <!-- Contact -->
                                 <p class="label-group"><?php p($l->t('Share with users')) ?></p>
-                                <form ng-submit="" name="contactForm" autocomplete="off">
-                                    <fieldset>
+                                <form ng-submit=""
+                                    name="contactForm"
+                                    autocomplete="off">
+                                    <fieldset class="contact-input">
                                         <input
                                             ng-model="nameQuery"
                                             ng-model-options="{debounce: 400}"
                                             ng-change="Share.searchUsers(nameQuery)"
                                             type="text"
-                                            class="contact-input"
                                             placeholder="<?php p($l->t('Username')) ?>"
                                             title="<?php p($l->t('Username')) ?>"
                                             name="contactName"
                                             required
                                             style="width: 200px">
+                                            <div ng-if="App.loading.isLoading('user')"
+                                                ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
+                                            </div>
                                     </fieldset>
                                 </form>
 
-
-                                <div style="margin-bottom: 1em" ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
-                                </div>
-                                <div style="margin-left: 1em"
+                                <div style="margin-left: 2em; font-size: 0.85em;"
                                      ng-if="!(Share.userList.length > 0) && nameQuery && !App.loading.isLoading('user')">
                                     <?php p($l->t('No users found')) ?>
                                 </div>
