@@ -131,15 +131,10 @@ class ItemControllerTest extends TestCase
     public function testShare()
     {
         $this->itemService->expects($this->once())
-            ->method('checkSharing')
-            ->with(4, 'bob', 'jackob')
-            ->will($this->returnValue(0));
+            ->method('share')
+            ->with('user', 4, 'test');
 
-        $this->itemService->expects($this->once())
-            ->method('shareItem')
-            ->with(4, 'bob', 'jackob');
-
-        $this->controller->share(4, 'bob');
+        $this->controller->share(4, 'test');
     }
 
 
@@ -148,16 +143,11 @@ class ItemControllerTest extends TestCase
         $msg = 'hi';
 
         $this->itemService->expects($this->once())
-            ->method('checkSharing')
-            ->with(4, 'bob', 'jackob')
-            ->will($this->returnValue(0));
-
-        $this->itemService->expects($this->once())
-            ->method('shareItem')
-            ->with(4, 'bob', 'jackob')
+            ->method('share')
+            ->with('user', 4, 'test')
             ->will($this->throwException(new ServiceNotFoundException($msg)));
 
-        $response = $this->controller->share(4, 'bob');
+        $response = $this->controller->share(4, 'test');
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
