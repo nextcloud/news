@@ -339,6 +339,50 @@ class ItemControllerTest extends TestCase
     }
 
 
+    public function testIndexForShared()
+    {
+        $feeds = [new Feed()];
+        $result = [
+            'items' => [new Item()],
+            'feeds' => $feeds,
+            'newestItemId' => $this->newestItemId,
+            'starred' => 3,
+            // 'shared' => 99   // TODO: uncomment when implemented
+        ];
+
+        $this->itemsApiExpects(2, ListType::SHARED, '0');
+
+        $this->feedService->expects($this->once())
+            ->method('findAllForUser')
+            ->with('user')
+            ->will($this->returnValue($feeds));
+
+        $this->itemService->expects($this->once())
+            ->method('newest')
+            ->with('user')
+            ->will($this->returnValue(Item::fromParams(['id' => $this->newestItemId])));
+
+        $this->itemService->expects($this->once())
+            ->method('starred')
+            ->with('user')
+            ->will($this->returnValue([1, 2, 3]));
+
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
+
+        $this->itemService->expects($this->once())
+            ->method('findAllSharedWithUserWithFilters')
+            ->with('user', 3, 0, false, false, [])
+            ->will($this->returnValue($result['items']));
+
+        $response = $this->controller->index(ListType::SHARED, 2, 3);
+        $this->assertEquals($result, $response);
+    }
+
+
     public function testIndexForOther()
     {
         $feeds = [new Feed()];
@@ -529,6 +573,53 @@ class ItemControllerTest extends TestCase
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->newItems(ListType::FOLDER, 2, 3);
+        $this->assertEquals($result, $response);
+    }
+
+
+    public function testNewItemsShared()
+    {
+        $feeds = [new Feed()];
+        $result = [
+            'items' => [new Item()],
+            'feeds' => $feeds,
+            'newestItemId' => $this->newestItemId,
+            'starred' => 3,
+            // 'shared' => 99   // TODO: uncomment when implemented
+        ];
+
+        $this->settings->expects($this->once())
+            ->method('getUserValue')
+            ->with('user', $this->appName, 'showAll')
+            ->will($this->returnValue('1'));
+
+        $this->feedService->expects($this->once())
+            ->method('findAllForUser')
+            ->with('user')
+            ->will($this->returnValue($feeds));
+
+        $this->itemService->expects($this->once())
+            ->method('newest')
+            ->with('user')
+            ->will($this->returnValue(Item::fromParams(['id' => $this->newestItemId])));
+
+        $this->itemService->expects($this->once())
+            ->method('starred')
+            ->with('user')
+            ->will($this->returnValue([1, 2, 3]));
+
+        // TODO: uncomment when implemented
+        // $this->itemService->expects($this->once())
+        //     ->method('shared')
+        //     ->with($this->equalTo($this->user))
+        //     ->will($this->returnValue($result['shared']));
+
+        $this->itemService->expects($this->once())
+            ->method('findAllSharedAfter')
+            ->with('user', 3, false)
+            ->will($this->returnValue($result['items']));
+
+        $response = $this->controller->newItems(ListType::SHARED, 2, 3);
         $this->assertEquals($result, $response);
     }
 
