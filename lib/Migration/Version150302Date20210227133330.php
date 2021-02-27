@@ -12,7 +12,7 @@ use OCP\Migration\SimpleMigrationStep;
 /**
  * Auto-generated migration step: Please modify to your needs!
  */
-class Version150006Date20210117163638 extends SimpleMigrationStep {
+class Version150302Date20210227133330 extends SimpleMigrationStep {
 
 	/**
 	 * @param IOutput $output
@@ -30,9 +30,9 @@ class Version150006Date20210117163638 extends SimpleMigrationStep {
 	 */
 	public function changeSchema(IOutput $output, Closure $schemaClosure, array $options): ?ISchemaWrapper {
 		/** @var ISchemaWrapper $schema */
-        $schema = $schemaClosure();
-
-        if ($schema->hasTable('news_items')) {
+		$schema = $schemaClosure();
+		
+		if ($schema->hasTable('news_items')) {
 			$table = $schema->getTable('news_items');
             $table->addColumn('shared_by', 'string', [
 					'notnull' => true,
@@ -47,6 +47,7 @@ class Version150006Date20210117163638 extends SimpleMigrationStep {
 		}
 
         return $schema;
+
 	}
 
 	/**
