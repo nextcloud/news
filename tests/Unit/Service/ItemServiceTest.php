@@ -113,6 +113,17 @@ class ItemServiceTest extends TestCase
         $result = $this->class->findAllInFolderAfter($this->user, 2, 20333, true);
         $this->assertEquals([], $result);
     }
+    
+    public function testFindAllNewShared()
+    {
+        $this->mapper->expects($this->once())
+            ->method('findAllSharedAfter')
+            ->with('jack', 20333, true)
+            ->will($this->returnValue([]));
+
+        $result = $this->class->findAllSharedAfter($this->user, 20333, true);
+        $this->assertEquals([], $result);
+    }
 
     public function testFindAllNewItem()
     {
@@ -177,23 +188,20 @@ class ItemServiceTest extends TestCase
 
     public function testFindAllShared()
     {
-        $type = FeedType::SHARED;
         $this->mapper->expects($this->once())
-            ->method('findAllShared')
-            ->with(
-                $this->equalTo(20),
-                $this->equalTo(5),
-                $this->equalTo(true),
-                $this->equalTo(true),
-                $this->equalTo('jack'),
-                $this->equalTo([])
-            )
+            ->method('findAllSharedWithUser')
+            ->with('user', 20, 5, true, true, [])
             ->will($this->returnValue(['val']));
 
-        $result = $this->itemService->findAllItems(
-            3, $type, 20, 5,
-            true, true, 'jack'
+        $result = $this->class->findAllSharedWithUserWithFilters(
+            'user',
+            20,
+            5,
+            true,
+            true,
+            []
         );
+
         $this->assertEquals(['val'], $result);
     }
 
@@ -708,5 +716,17 @@ class ItemServiceTest extends TestCase
             ->will($this->throwException(new DoesNotExistException('')));
 
         $this->class->share('sender', 1, 'recipient');
+    }
+
+    public function testSharedCount()
+    {
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('user', ['shared_with' => 'user', 'unread' => true])
+            ->will($this->returnValue([new Item(), new Item()]));
+
+        $result = $this->class->sharedWithUser('user');
+
+        $this->assertEquals(2, count($result));
     }
 }
