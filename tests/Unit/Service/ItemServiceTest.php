@@ -654,29 +654,59 @@ class ItemServiceTest extends TestCase
         $this->class->purgeOverThreshold(5);
     }
 
-    public function testShareItem()
+    public function testShare()
     {
         $itemId = 3;
 
-        $this->mapper->expects($this->once())
-            ->method('shareItem')
-            ->with(
-                $this->equalTo($itemId),
-                $this->equalTo('john'),
-                $this->equalTo('jack')
-            )
-            ->will($this->returnValue(new Item()));
+        $item = new Item();
+        $item->setGuid('_guid_')
+            ->setGuidHash(md5('_guid_'))
+            ->setUrl('_url_')
+            ->setTitle('_title_')
+            ->setAuthor('_author_')
+            ->setPubDate(1)
+            ->setBody('_body_')
+            ->setEnclosureMime('_enclosureMime_')
+            ->setEnclosureLink('_enclosureLink_')
+            ->setMediaThumbnail('_mediaThumbnail_')
+            ->setMediaDescription('_mediaDescription_')
+            ->setRtl('_rtl_')
+            ->setFingerprint('_fingerprint_')
+            ->setContentHash('_contentHash_')
+            ->setSearchIndex('_searchIndex_')
+            ->setUnread(0)
+            ->setStarred(1)
+            ->setFeedId(10);
 
-        $this->itemService->shareItem($itemId, 'john','jack');
+        $sharedItem = Item::fromImport($item->jsonSerialize());
+        $sharedItem->setUnread(true)
+            ->setStarred(false)
+            ->setFeedId($item->getFeedId())
+            ->setFingerprint($item->getFingerprint())
+            ->setContentHash($item->getContentHash())
+            ->setSearchIndex($item->getSearchIndex())
+            ->setSharedBy('sender')
+            ->setSharedWith('recipient');
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('sender', $itemId)
+            ->will($this->returnValue($item));
+
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($sharedItem);
+
+        $this->class->share('sender', $itemId, 'recipient');
     }
 
-    public function testShareItemDoesNotExist()
+    public function testShareDoesNotExist()
     {
         $this->expectException(ServiceNotFoundException::class);
         $this->mapper->expects($this->once())
-            ->method('shareItem')
+            ->method('findFromUser')
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->itemService->shareItem(1, 'john', 'jack');
+        $this->class->share('sender', 1, 'recipient');
     }
 }
