@@ -95,7 +95,7 @@
                             class="util"
                             news-stop-propagation>
                             <button class="share svg dropbtn"
-                                title="Partager">
+                                title="<?php p($l->t('Share')) ?>">
                             </button>
                         </li>
                         <div
@@ -194,17 +194,14 @@
                     <span class="author" ng-show="item.author">
                         <?php p($l->t('by')) ?> {{ ::item.author }}
                     </span>
-                    <span ng-if="item.sharedBy == ''" class="source"><?php p($l->t('from')) ?>
+                    <span ng-if="item.sharedBy === ''" class="source"><?php p($l->t('from')) ?>
                         <a ng-href="#/items/feeds/{{ item.feedId }}/">
                             {{ ::Content.getFeed(item.feedId).title }}
                             <img ng-if="Content.getFeed(item.feedId).faviconLink && !Content.isCompactView()" src="{{ ::Content.getFeed(item.feedId).faviconLink }}" alt="favicon">
                         </a>
                     </span>
-                    <span ng-if="item.sharedBy != ''" class="source"><?php p($l->t('shared from')) ?>
-                        <a ng-href="#/items/feeds/{{ item.feedId }}/">
-                            {{ :: item.sharedBy}}
-                            <img ng-if="Content.getFeed(item.feedId).faviconLink && !Content.isCompactView()" src="{{ ::Content.getFeed(item.feedId).faviconLink }}" alt="favicon">
-                        </a>
+                    <span ng-if="item.sharedBy !== ''" class="source"><?php p($l->t('shared by')) ?>
+                        <a>{{ ::item.sharedBy }}</a>
                     </span>
                 </div>
 
