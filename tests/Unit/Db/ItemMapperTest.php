@@ -1838,10 +1838,11 @@ class ItemMapperTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(5))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
+                ['items.shared_by = \'\''],
                 ['x = y'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1']
