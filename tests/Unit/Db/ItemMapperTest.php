@@ -2163,7 +2163,7 @@ class ItemMapperTest extends MapperTestUtility
             ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('setParameter')
             ->withConsecutive(['unread', false], ['idList', [1, 2]])
             ->will($this->returnSelf());
