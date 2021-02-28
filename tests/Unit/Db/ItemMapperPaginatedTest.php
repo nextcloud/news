@@ -1312,23 +1312,24 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->with('items.shared_with = :sharedWith')
+            ->withConsecutive(
+                ['items.shared_with = :sharedWith'],
+                ['items.id < :offset']
+            )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->with('sharedWith', 'jack')
+            ->withConsecutive(
+                ['sharedWith', 'jack'],
+                ['offset', 10]
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
             ->method('setMaxResults')
-            ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(1))
-            ->method('setFirstResult')
             ->with(10)
             ->will($this->returnSelf());
 
@@ -1373,26 +1374,22 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
                 ['items.shared_with = :sharedWith'],
+                ['items.id < :offset'],
                 ['items.unread = 1']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->with('sharedWith', 'jack')
+            ->withConsecutive(['sharedWith', 'jack'], ['offset', 10])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
             ->method('setMaxResults')
-            ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(1))
-            ->method('setFirstResult')
             ->with(10)
             ->will($this->returnSelf());
 
@@ -1441,31 +1438,28 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
                 ['items.shared_with = :sharedWith'],
                 ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1']
+                ['items.search_index LIKE :term1'],
+                ['items.id < :offset']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(4))
             ->method('setParameter')
             ->withConsecutive(
                 ['sharedWith', 'jack'],
                 ['term0', '%key%'],
-                ['term1', '%word%']
+                ['term1', '%word%'],
+                ['offset', 10]
             )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
             ->method('setMaxResults')
-            ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(1))
-            ->method('setFirstResult')
             ->with(10)
             ->will($this->returnSelf());
 
