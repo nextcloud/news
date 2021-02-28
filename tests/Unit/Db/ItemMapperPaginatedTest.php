@@ -358,7 +358,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(6))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
                 ['feeds.deleted_at = 0'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
@@ -367,9 +367,15 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(5))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['term0', '%key%'], ['term1', '%word%'], ['offset', 10])
+            ->withConsecutive(
+                ['userId', 'jack'],
+                ['sharedWith', 'jack'],
+                ['term0', '%key%'],
+                ['term1', '%word%'],
+                ['offset', 10]
+            )
             ->will($this->returnSelf());
 
 
@@ -436,6 +442,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
+                ['items.shared_by = \'\''],
                 ['items.id < :offset']
             )
             ->will($this->returnSelf());
@@ -509,6 +516,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
+                ['items.shared_by = \'\''],
                 ['items.id > :offset']
             )
             ->will($this->returnSelf());
@@ -580,6 +588,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
+                ['items.shared_by = \'\''],
                 ['items.id < :offset'],
                 ['items.unread = 1']
             )
@@ -657,6 +666,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
+                ['items.shared_by = \'\''],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
                 ['items.id < :offset']
@@ -749,6 +759,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
+                ['items.shared_by = \'\''],
                 ['x IS NULL'],
                 ['items.id < :offset']
             )
@@ -834,6 +845,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
+                ['items.shared_by = \'\''],
                 ['x IS NULL'],
                 ['items.id < :offset'],
                 ['items.unread = 1']
@@ -920,6 +932,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
+                ['items.shared_by = \'\''],
                 ['x IS NULL'],
                 ['items.id > :offset'],
                 ['items.unread = 1']
@@ -1009,6 +1022,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
+                ['items.shared_by = \'\''],
                 ['x = y'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
