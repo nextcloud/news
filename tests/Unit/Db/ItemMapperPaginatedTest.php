@@ -70,14 +70,14 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
                 ['feeds.deleted_at = 0']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10])
+            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10])
             ->will($this->returnSelf());
 
 
@@ -140,15 +140,15 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
                 ['feeds.deleted_at = 0'],
                 ['items.id > :offset']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10])
+            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10])
             ->will($this->returnSelf());
 
 
@@ -212,7 +212,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
                 ['feeds.deleted_at = 0'],
                 ['items.id < :offset'],
                 ['items.unread = :unread']
@@ -221,7 +221,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
+            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10], ['unread', true])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
@@ -352,7 +352,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
                 ['feeds.deleted_at = 0'],
                 ['items.id < :offset'],
                 ['items.starred = :starred']
@@ -361,7 +361,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['starred', true])
+            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10], ['starred', true])
             ->will($this->returnSelf());
 
 
