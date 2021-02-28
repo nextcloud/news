@@ -163,7 +163,7 @@ class ItemMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
-            ->method('setParameter') 
+            ->method('setParameter')
             ->withConsecutive(['user_id', 'jack'], ['shared_with', 'jack'])
             ->will($this->returnSelf());
 
@@ -388,12 +388,21 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(['(feeds.user_id = :user_id AND items.shared_by = \'\') OR items.shared_with = :shared_with'], ['feeds.id = :feed_id'], ['items.guid_hash = :guid_hash'])
+            ->withConsecutive(
+                ['(feeds.user_id = :user_id AND items.shared_by = \'\') OR items.shared_with = :shared_with'],
+                ['feeds.id = :feed_id'],
+                ['items.guid_hash = :guid_hash']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
             ->method('setParameter')
-            ->withConsecutive(['user_id', 'jack'], ['shared_with', 'jack'], ['feed_id', 4], ['guid_hash', 'hash'])
+            ->withConsecutive(
+                ['user_id', 'jack'],
+                ['shared_with', 'jack'],
+                ['feed_id', 4],
+                ['guid_hash', 'hash']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -450,7 +459,7 @@ class ItemMapperTest extends MapperTestUtility
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
             ->withConsecutive(
-                ['userId', 'jack'], 
+                ['userId', 'jack'],
                 ['sharedWith', 'jack']
             )
             ->will($this->returnSelf());
@@ -1302,7 +1311,12 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(4))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['term0', '%key%'], ['term1', '%word%'])
+            ->withConsecutive(
+                ['userId', 'jack'],
+                ['sharedWith', 'jack'],
+                ['term0', '%key%'],
+                ['term1', '%word%']
+            )
             ->will($this->returnSelf());
 
 
