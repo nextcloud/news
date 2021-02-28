@@ -66,6 +66,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
+                ['items.shared_by = \'\''],
                 ['feeds.user_id = :userId'],
                 ['feeds.id = :feedId'],
                 ['feeds.deleted_at = 0']
@@ -131,6 +132,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
+                ['items.shared_by = \'\''],
                 ['feeds.user_id = :userId'],
                 ['feeds.id = :feedId'],
                 ['feeds.deleted_at = 0'],
@@ -200,6 +202,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
+                ['items.shared_by = \'\''],
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['folders.id = :folderId']
@@ -268,6 +271,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->method('andWhere')
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
+                ['items.shared_by = \'\''],
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['folders.id = :folderId'],
@@ -450,8 +454,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.unread = 1']
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
+                ['items.unread = 1'],
             )
             ->will($this->returnSelf());
 
@@ -460,6 +464,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with([
                 'updatedSince' => 1610903351,
                 'userId' => 'jack',
+                'sharedWith' => 'jack'
             ])
             ->will($this->returnSelf());
 
