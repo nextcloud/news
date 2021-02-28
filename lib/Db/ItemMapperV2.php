@@ -615,7 +615,6 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('items.shared_with = :sharedWith')
             ->setParameter('sharedWith', $userId)
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
@@ -625,6 +624,11 @@ class ItemMapperV2 extends NewsMapperV2
                 $builder->andWhere("items.search_index LIKE :term${key}")
                     ->setParameter("term${key}", "%$term%");
             }
+        }
+
+        if ($offset !== 0) {
+            $builder->andWhere($this->offsetWhere($oldestFirst))
+                ->setParameter('offset', $offset);
         }
 
         if ($hideRead === true) {
