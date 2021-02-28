@@ -519,7 +519,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
                 ['items.starred = 1']
             )
             ->will($this->returnSelf());
@@ -529,6 +529,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with([
                 'updatedSince' => 1610903351,
                 'userId' => 'jack',
+                'sharedWith' => 'jack'
             ])
             ->will($this->returnSelf());
 
@@ -583,7 +584,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId']
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith']
             )
             ->will($this->returnSelf());
 
@@ -592,6 +593,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with([
                 'updatedSince' => 1610903351,
                 'userId' => 'jack',
+                'sharedWith' => 'jack'
             ])
             ->will($this->returnSelf());
 
@@ -649,7 +651,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->withConsecutive(
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId']
+                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith']
             )
             ->will($this->returnSelf());
 
@@ -658,6 +660,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with([
                 'updatedSince' => 1610903351,
                 'userId' => 'jack',
+                'sharedWith' => 'jack'
             ])
             ->will($this->returnSelf());
 
