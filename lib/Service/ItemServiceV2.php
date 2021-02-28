@@ -438,7 +438,7 @@ class ItemServiceV2 extends Service
      * @param string $userId Item owner
      * @param int    $id     Item ID
      * @param bool   $shareWithId   User to share with
-     * 
+     *
      * Sharing by copying - the item is duplicated, and the 'sharedBy' and
      * 'sharedWith' fields are filled accordingly.
      * We copy the 'feedId', because the article will still be owned by
