@@ -292,7 +292,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function isShared(): bool
     {
-        return $this->getSharedWith() !== '' || $this->getSharedBy() != '';
+        return $this->getSharedWith() !== '' || $this->getSharedBy() !== '';
     }
 
     public function isUnread(): bool
