@@ -138,7 +138,7 @@ class FeedControllerTest extends TestCase
                 ['a feed'],
             ],
             'starred' => 4,
-            // 'shared' => 3 // TODO: uncomment when implemented
+            'shared' => 3
         ];
         $this->feedService->expects($this->once())
             ->method('findAllForUser')
@@ -152,11 +152,10 @@ class FeedControllerTest extends TestCase
             ->method('starred')
             ->with($this->uid)
             ->will($this->returnValue([1, 2, 3, 4]));
-        // TODO: uncomment when implemented
-        // $this->itemService->expects($this->once())
-        //     ->method('shared')
-        //     ->with($this->equalTo($this->user))
-        //     ->will($this->returnValue($result['shared']));
+        $this->itemService->expects($this->once())
+            ->method('sharedWithUser')
+            ->with($this->equalTo($this->uid))
+            ->will($this->returnValue([0, 1, 2]));
 
         $response = $this->class->index();
 
@@ -171,7 +170,7 @@ class FeedControllerTest extends TestCase
                 ['a feed'],
             ],
             'starred' => 2,
-            // 'shared' => 3, // TODO: uncomment when implemented
+            'shared' => 3, 
             'newestItemId' => 5
         ];
         $this->feedService->expects($this->once())
@@ -186,11 +185,10 @@ class FeedControllerTest extends TestCase
             ->method('starred')
             ->with($this->uid)
             ->will($this->returnValue([1, 2]));
-        // TODO: uncomment when implemented
-        // $this->itemService->expects($this->once())
-        //     ->method('shared')
-        //     ->with($this->equalTo($this->user))
-        //     ->will($this->returnValue($result['shared']));
+        $this->itemService->expects($this->once())
+            ->method('sharedWithUser')
+            ->with($this->equalTo($this->uid))
+            ->will($this->returnValue([4, 5, 6]));
 
         $response = $this->class->index();
 
