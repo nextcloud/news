@@ -1058,4 +1058,202 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
+    public function testFindAllSharedWithUser()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('select')
+            ->with('items.*')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('from')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('andWhere')
+            ->with('items.shared_with = :sharedWith')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setParameter')
+            ->with('sharedWith', 'jack')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setMaxResults')
+            ->with(10)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setFirstResult')
+            ->with(10)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('orderBy')
+            ->with('items.last_modified', 'DESC')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('addOrderBy')
+            ->with('items.id', 'DESC')
+            ->willReturnSelf();
+
+        $this->builder->expects($this->exactly(1))
+            ->method('execute')
+            ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(2))
+            ->method('fetch')
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 4],
+                false
+            );
+
+        $result = $this->class->findAllSharedWithUser('jack', 10, 10, false, false, []);
+        $this->assertEquals([Item::fromRow(['id' => 4])], $result);
+    }
+
+    public function testFindAllSharedWithUserHideRead()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('select')
+            ->with('items.*')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('from')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(
+                ['items.shared_with = :sharedWith'],
+                ['items.unread = 1']
+            )
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setParameter')
+            ->with('sharedWith', 'jack')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setMaxResults')
+            ->with(10)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setFirstResult')
+            ->with(10)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('orderBy')
+            ->with('items.last_modified', 'DESC')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('addOrderBy')
+            ->with('items.id', 'DESC')
+            ->willReturnSelf();
+
+        $this->builder->expects($this->exactly(1))
+            ->method('execute')
+            ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(2))
+            ->method('fetch')
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 4],
+                false
+            );
+
+        $result = $this->class->findAllSharedWithUser('jack', 10, 10, true, false, []);
+        $this->assertEquals([Item::fromRow(['id' => 4])], $result);
+    }
+
+    public function testFindAllSharedWithUserSearch()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->db->expects($this->exactly(2))
+            ->method('escapeLikeParameter')
+            ->will($this->returnArgument(0));
+
+        $this->builder->expects($this->once())
+            ->method('select')
+            ->with('items.*')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('from')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(3))
+            ->method('andWhere')
+            ->withConsecutive(
+                ['items.shared_with = :sharedWith'],
+                ['items.search_index LIKE :term0'],
+                ['items.search_index LIKE :term1']
+            )
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(3))
+            ->method('setParameter')
+            ->withConsecutive(
+                ['sharedWith', 'jack'],
+                ['term0', '%key%'],
+                ['term1', '%word%']
+            )
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setMaxResults')
+            ->with(10)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setFirstResult')
+            ->with(10)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('orderBy')
+            ->with('items.last_modified', 'DESC')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('addOrderBy')
+            ->with('items.id', 'DESC')
+            ->willReturnSelf();
+
+        $this->builder->expects($this->exactly(1))
+            ->method('execute')
+            ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(2))
+            ->method('fetch')
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 4],
+                false
+            );
+
+        $result = $this->class->findAllSharedWithUser('jack', 10, 10, false, false, ['key', 'word']);
+        $this->assertEquals([Item::fromRow(['id' => 4])], $result);
+    }
+
 }
