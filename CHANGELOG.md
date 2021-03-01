@@ -14,6 +14,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - Do not show deleted feeds in item list
+- Fix update queries (#1211)
 
 ## [15.4.0-beta2] - 2021-02-27
 ### Fixed

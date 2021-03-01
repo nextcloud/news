@@ -36,6 +36,21 @@ teardown() {
   fi
 }
 
+@test "[$TESTSUITE] Read all" {
+  ./occ news:folder:add "$user" "Something-${BATS_SUITE_TEST_NUMBER}"
+
+  ID=$(./occ news:folder:list 'admin' | grep "Something-${BATS_SUITE_TEST_NUMBER}" -1  | head -1 | grep -oE '[0-9]*')
+
+  run ./occ news:folder:read "$user" "$ID" -v
+  [ "$status" -eq 0 ]
+
+  if ! echo "$output" | grep "items as read"; then
+    ret_status=$?
+    echo "Folder not read"
+    return $ret_status
+  fi
+}
+
 @test "[$TESTSUITE] Delete all" {
   ID=$(./occ news:folder:add "$user" "Something-${BATS_SUITE_TEST_NUMBER}" | grep -oE '[0-9]*')
 

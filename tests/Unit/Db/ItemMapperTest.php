@@ -14,6 +14,8 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use OC\DB\QueryBuilder\Literal;
+use OC\DB\QueryBuilder\Parameter;
+use OC\DB\ResultAdapter;
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Db\Folder;
@@ -472,44 +474,101 @@ class ItemMapperTest extends MapperTestUtility
 
     public function testReadAll()
     {
-        $this->db->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->builder);
+        $selectbuilder = $this->getMockBuilder(IQueryBuilder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->builder->expects($this->once())
-            ->method('update')
+        $this->db->expects($this->exactly(2))
+            ->method('getQueryBuilder')
+            ->willReturnOnConsecutiveCalls($selectbuilder, $this->builder);
+
+        $selectbuilder->expects($this->once())
+            ->method('select')
+            ->with('items.id')
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->once())
+            ->method('from')
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $selectbuilder->expects($this->once())
             ->method('innerJoin')
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
+        $selectbuilder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['feeds.user_id = :userId'], ['items.id <= :maxItemId'])
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['userId', 'admin'], ['maxItemId', 4])
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('SQL QUERY'));
+
+        $selectbuilder->expects($this->exactly(1))
+            ->method('getParameters')
+            ->will($this->returnValue([]));
+
+        $result = $this->getMockBuilder(ResultAdapter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $result->expects($this->once())
+            ->method('fetchAll')
+            ->willReturn([['id' => 1], ['id' => 2]]);
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeQuery')
+            ->with('SQL QUERY')
+            ->willReturn($result);
+
         $this->builder->expects($this->once())
-            ->method('setValue')
-            ->with('unread', 0)
+            ->method('createParameter')
+            ->will($this->returnArgument(0));
+
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('set')
+            ->with('unread', 'unread')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['items.id =< :maxItemId'], ['feeds.user_id = :userId'])
+            ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['maxItemId', 4], ['userId', 'jack'])
+            ->withConsecutive(['unread', false], ['idList', [1, 2]])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
             ->method('getSQL')
             ->will($this->returnValue('QUERY'));
 
-        $this->db->expects($this->once())
+        $this->builder->expects($this->exactly(1))
+            ->method('getParameters')
+            ->will($this->returnValue([]));
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getParameterTypes')
+            ->will($this->returnValue([]));
+
+        $this->db->expects($this->exactly(1))
             ->method('executeUpdate')
             ->with('QUERY');
 
-        $this->class->readAll('jack', 4);
+        $this->class->readAll('admin', 4);
     }
 
     public function testPurgeDeletedEmpty()

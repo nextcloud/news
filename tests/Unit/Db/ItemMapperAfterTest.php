@@ -13,24 +13,10 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
-use OC\DB\QueryBuilder\Literal;
-use OCA\News\Db\Feed;
-use OCA\News\Db\FeedMapperV2;
-use OCA\News\Db\Folder;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
-use OCA\News\Db\NewsMapperV2;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Utility\Time;
-use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\DB\IResult;
-use OCP\DB\QueryBuilder\IExpressionBuilder;
-use OCP\DB\QueryBuilder\IFunctionBuilder;
-use OCP\DB\QueryBuilder\IQueryBuilder;
-use OCP\DB\QueryBuilder\IQueryFunction;
-use OCP\IDBConnection;
-use Test\TestCase;
 
 /**
  * Class ItemMapperTest
@@ -40,8 +26,6 @@ use Test\TestCase;
 class ItemMapperAfterTest extends MapperTestUtility
 {
 
-    /** @var Time */
-    private $time;
     /** @var ItemMapperV2 */
     private $class;
 
@@ -51,10 +35,10 @@ class ItemMapperAfterTest extends MapperTestUtility
     protected function setUp(): void
     {
         parent::setUp();
-        $this->time = $this->getMockBuilder(Time::class)
+        $time = $this->getMockBuilder(Time::class)
                            ->getMock();
 
-        $this->class = new ItemMapperV2($this->db, $this->time);
+        $this->class = new ItemMapperV2($this->db, $time);
     }
 
     public function testFindAllInFeedAfter()

@@ -24,7 +24,6 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use Doctrine\DBAL\Driver\Statement;
-use OC\DB\QueryBuilder\QueryBuilder;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 

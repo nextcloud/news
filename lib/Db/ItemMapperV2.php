@@ -19,6 +19,7 @@ use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\DB\Exception as DBException;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
@@ -254,20 +255,35 @@ class ItemMapperV2 extends NewsMapperV2
      * @param int    $maxItemId
      *
      * @TODO: Update this for NC 21
+     *
+     * @return int
+     *
+     * @throws DBException
      */
-    public function readAll(string $userId, int $maxItemId): void
+    public function readAll(string $userId, int $maxItemId): int
     {
+        $idBuilder = $this->db->getQueryBuilder();
+        $idBuilder->select('items.id')
+            ->from(ItemMapperV2::TABLE_NAME, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.user_id = :userId')
+            ->andWhere('items.id <= :maxItemId')
+            ->setParameter('userId', $userId)
+            ->setParameter('maxItemId', $maxItemId);
+
+        $idList = array_map(function ($value): int {
+            return intval($value['id']);
+        }, $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll());
+
         $builder = $this->db->getQueryBuilder();
+        $builder->update(self::TABLE_NAME)
+            ->set('unread', $builder->createParameter('unread'))
+            ->andWhere('id IN (:idList)')
+            ->andWhere('unread != :unread')
+            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
 
-        $builder->update($this->tableName, 'items')
-                ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-                ->setValue('unread', 0)
-                ->andWhere('items.id =< :maxItemId')
-                ->andWhere('feeds.user_id = :userId')
-                ->setParameter('maxItemId', $maxItemId)
-                ->setParameter('userId', $userId);
-
-        $this->db->executeUpdate($builder->getSQL());
+        return $this->db->executeUpdate($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
     }
 
     /**

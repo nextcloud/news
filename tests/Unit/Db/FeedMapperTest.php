@@ -13,12 +13,15 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
+use OC\DB\QueryBuilder\Parameter;
+use OC\DB\ResultAdapter;
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\DB\QueryBuilder\IFunctionBuilder;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\DB\QueryBuilder\IQueryFunction;
 
 class FeedMapperTest extends MapperTestUtility
@@ -457,38 +460,95 @@ class FeedMapperTest extends MapperTestUtility
      */
     public function testRead()
     {
-        $this->db->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->builder);
+        $selectbuilder = $this->getMockBuilder(IQueryBuilder::class)
+                              ->disableOriginalConstructor()
+                              ->getMock();
 
-        $this->builder->expects($this->once())
-            ->method('update')
+        $this->db->expects($this->exactly(2))
+            ->method('getQueryBuilder')
+            ->willReturnOnConsecutiveCalls($selectbuilder, $this->builder);
+
+        $selectbuilder->expects($this->once())
+            ->method('select')
+            ->with('items.id')
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->once())
+            ->method('from')
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $selectbuilder->expects($this->once())
             ->method('innerJoin')
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
-            ->method('setValue')
-            ->with('unread', 0)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(2))
+        $selectbuilder->expects($this->exactly(2))
             ->method('andWhere')
             ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $selectbuilder->expects($this->exactly(2))
             ->method('setParameter')
             ->withConsecutive(['userId', 'admin'], ['feedId', 1])
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('SQL QUERY'));
+
+        $selectbuilder->expects($this->exactly(1))
+            ->method('getParameters')
+            ->will($this->returnValue([]));
+
+        $result = $this->getMockBuilder(ResultAdapter::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $result->expects($this->once())
+               ->method('fetchAll')
+               ->willReturn([['id' => 1], ['id' => 2]]);
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeQuery')
+            ->with('SQL QUERY')
+            ->willReturn($result);
+
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('createParameter')
+            ->will($this->returnArgument(0));
+
+        $this->builder->expects($this->once())
+            ->method('set')
+            ->with('unread', 'unread')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['unread', false], ['idList', [1, 2]])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
             ->method('getSQL')
             ->will($this->returnValue('QUERY'));
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getParameters')
+            ->will($this->returnValue([]));
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getParameterTypes')
+            ->will($this->returnValue([]));
 
         $this->db->expects($this->exactly(1))
             ->method('executeUpdate')
@@ -500,40 +560,97 @@ class FeedMapperTest extends MapperTestUtility
     /**
      * @covers \OCA\News\Db\FeedMapperV2::read
      */
-    public function testReadWithMaxId()
+    public function testReadWithMaxID()
     {
-        $this->db->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->builder);
+        $selectbuilder = $this->getMockBuilder(IQueryBuilder::class)
+                              ->disableOriginalConstructor()
+                              ->getMock();
 
-        $this->builder->expects($this->once())
-            ->method('update')
+        $this->db->expects($this->exactly(2))
+            ->method('getQueryBuilder')
+            ->willReturnOnConsecutiveCalls($selectbuilder, $this->builder);
+
+        $selectbuilder->expects($this->once())
+            ->method('select')
+            ->with('items.id')
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->once())
+            ->method('from')
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $selectbuilder->expects($this->once())
             ->method('innerJoin')
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
-            ->method('setValue')
-            ->with('unread', 0)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(3))
+        $selectbuilder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'], ['items.id =< :maxItemId'])
+            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'], ['items.id <= :maxItemId'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $selectbuilder->expects($this->exactly(3))
             ->method('setParameter')
             ->withConsecutive(['userId', 'admin'], ['feedId', 1], ['maxItemId', 4])
+            ->will($this->returnSelf());
+
+        $selectbuilder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('SQL QUERY'));
+
+        $selectbuilder->expects($this->exactly(1))
+            ->method('getParameters')
+            ->will($this->returnValue([]));
+
+        $result = $this->getMockBuilder(ResultAdapter::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
+        $result->expects($this->once())
+               ->method('fetchAll')
+               ->willReturn([['id' => 1], ['id' => 2]]);
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeQuery')
+            ->with('SQL QUERY')
+            ->willReturn($result);
+
+        $this->builder->expects($this->once())
+            ->method('createParameter')
+            ->will($this->returnArgument(0));
+
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('set')
+            ->with('unread', 'unread')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['unread', false], ['idList', [1, 2]])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
             ->method('getSQL')
             ->will($this->returnValue('QUERY'));
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getParameters')
+            ->will($this->returnValue([]));
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getParameterTypes')
+            ->will($this->returnValue([]));
 
         $this->db->expects($this->exactly(1))
             ->method('executeUpdate')

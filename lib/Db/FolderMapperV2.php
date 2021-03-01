@@ -15,6 +15,8 @@ namespace OCA\News\Db;
 
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\Entity;
+use OCP\DB\Exception as DBException;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 /**
@@ -101,24 +103,39 @@ class FolderMapperV2 extends NewsMapperV2
      * @param int      $id
      * @param int|null $maxItemID
      *
-     * @return void
+     * @return int
+     *
+     * @throws DBException
+     * @TODO Update for NC 21
      */
-    public function read(string $userId, int $id, ?int $maxItemID = null): void
+    public function read(string $userId, int $id, ?int $maxItemID = null): int
     {
-        $builder = $this->db->getQueryBuilder();
-        $builder->update(ItemMapperV2::TABLE_NAME, 'items')
-            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-            ->setValue('unread', 0)
-            ->andWhere('feeds.user_id = :userId')
-            ->andWhere('feeds.folder_id = :folderId')
-            ->setParameter('userId', $userId)
-            ->setParameter('folderId', $id);
+        $idBuilder = $this->db->getQueryBuilder();
+        $idBuilder->select('items.id')
+                  ->from(ItemMapperV2::TABLE_NAME, 'items')
+                  ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+                  ->andWhere('feeds.user_id = :userId')
+                  ->andWhere('feeds.folder_id = :folderId')
+                  ->setParameter('userId', $userId)
+                  ->setParameter('folderId', $id);
 
         if ($maxItemID !== null) {
-            $builder->andWhere('items.id =< :maxItemId')
-                    ->setParameter('maxItemId', $maxItemID);
+            $idBuilder->andWhere('items.id <= :maxItemId')
+                      ->setParameter('maxItemId', $maxItemID);
         }
 
-        $this->db->executeUpdate($builder->getSQL());
+        $idList = array_map(function ($value): int {
+            return intval($value['id']);
+        }, $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll());
+
+        $builder = $this->db->getQueryBuilder();
+        $builder->update(ItemMapperV2::TABLE_NAME)
+            ->set('unread', $builder->createParameter('unread'))
+            ->andWhere('id IN (:idList)')
+            ->andWhere('unread != :unread')
+            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
+
+        return $this->db->executeUpdate($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
     }
 }
