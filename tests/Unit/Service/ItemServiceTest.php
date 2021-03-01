@@ -113,7 +113,7 @@ class ItemServiceTest extends TestCase
         $result = $this->class->findAllInFolderAfter($this->user, 2, 20333, true);
         $this->assertEquals([], $result);
     }
-    
+
     public function testFindAllNewShared()
     {
         $this->mapper->expects($this->once())
@@ -185,8 +185,7 @@ class ItemServiceTest extends TestCase
         $this->assertEquals(['val'], $result);
     }
 
-
-    public function testFindAllShared()
+    public function testFindAllSharedWithUser()
     {
         $this->mapper->expects($this->once())
             ->method('findAllSharedWithUser')
