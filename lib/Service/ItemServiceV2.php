@@ -217,11 +217,11 @@ class ItemServiceV2 extends Service
      * @param string $userId Item owner
      * @param int    $maxItemId
      *
-     * @return void
+     * @return int
      */
-    public function readAll(string $userId, int $maxItemId): void
+    public function readAll(string $userId, int $maxItemId): int
     {
-        $this->mapper->readAll($userId, $maxItemId);
+        return $this->mapper->readAll($userId, $maxItemId);
     }
 
     /**

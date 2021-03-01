@@ -57,6 +57,25 @@ teardown() {
   fi
 }
 
+@test "[$TESTSUITE] Read all" {
+  ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+
+  run ./occ news:feed:list "$user"
+  [ "$status" -eq 0 ]
+
+  echo "$output" | grep "Something-${BATS_SUITE_TEST_NUMBER}"
+
+  ID=$(./occ news:feed:list 'admin' | grep "Something-${BATS_SUITE_TEST_NUMBER}" -2  | head -1 | grep -oE '[0-9]*')
+  run ./occ news:feed:read "$user" "$ID" -v
+  [ "$status" -eq 0 ]
+
+  if ! echo "$output" | grep "items as read"; then
+    ret_status=$?
+    echo "Feed not read"
+    return $ret_status
+  fi
+}
+
 @test "[$TESTSUITE] Delete all" {
   ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
 

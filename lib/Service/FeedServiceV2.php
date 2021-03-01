@@ -347,13 +347,15 @@ class FeedServiceV2 extends Service
      * @param int      $id        Feed ID
      * @param int|null $maxItemID Highest item ID to mark as read
      *
+     * @return int
+     *
      * @throws ServiceConflictException
      * @throws ServiceNotFoundException
      */
-    public function read(string $userId, int $id, ?int $maxItemID = null): void
+    public function read(string $userId, int $id, ?int $maxItemID = null): int
     {
         $feed = $this->find($userId, $id);
 
-        $this->mapper->read($userId, $feed->getId(), $maxItemID);
+        return $this->mapper->read($userId, $feed->getId(), $maxItemID);
     }
 }

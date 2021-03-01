@@ -73,6 +73,9 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <command>OCA\News\Command\Debug\ItemList</command>
         <command>OCA\News\Command\Debug\FolderItemList</command>
         <command>OCA\News\Command\Debug\FeedItemList</command>
+        <command>OCA\News\Command\Debug\ItemRead</command>
+        <command>OCA\News\Command\Debug\FolderRead</command>
+        <command>OCA\News\Command\Debug\FeedRead</command>
     </commands>
 
     <settings>
