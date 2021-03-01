@@ -22,6 +22,7 @@ use Favicon\Favicon;
 use OCA\News\Config\LegacyConfig;
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Hooks\UserDeleteHook;
+use OCA\News\Search\FolderSearchProvider;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -80,6 +81,8 @@ class Application extends App implements IBootstrap
             $fetcher->registerFetcher($container->get(FeedFetcher::class));
             return $fetcher;
         });
+
+        $context->registerSearchProvider(FolderSearchProvider::class);
 
         $context->registerEventListener(BeforeUserDeletedEvent::class, UserDeleteHook::class);
 

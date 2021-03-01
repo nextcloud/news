@@ -9,6 +9,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Update FeedFetcher to import categories from feeds (#1248)
 - Update serialization of item to include categories (#1248)
 - Make PHPStan stricter
+- Restore search in news
 
 ### Fixed
 - Do not show deleted feeds in item list
