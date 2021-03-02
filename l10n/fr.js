@@ -38,7 +38,6 @@ OC.L10N.register(
     "Remove keep article unread" : "Marquer l'article comme lu",
     "by" : "par",
     "from" : "de",
-    "shared from": "partagé par",
     "Play audio" : "Ecouter",
     "Download audio" : "Télécharger le son",
     "Download video" : "Télécharger la vidéo",

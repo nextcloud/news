@@ -4,7 +4,7 @@
     }"
     class="with-counter starred-feed">
 
-    <a class="icon-starred" ng-href="#/items/shared/">
+    <a class="icon-starred" ng-href="#/items/starred/">
        <?php p($l->t('Starred')) ?>
     </a>
 
