@@ -36,7 +36,6 @@
     "Remove keep article unread" : "Marquer l'article comme lu",
     "by" : "par",
     "from" : "de",
-    "shared from" : "partagé par",
     "Play audio" : "Ecouter",
     "Download audio" : "Télécharger le son",
     "Download video" : "Télécharger la vidéo",
@@ -100,8 +99,6 @@
     "Deleted folder" : "Dossier supprimé",
     "Undo delete folder" : "Annuler la suppression du dossier",
     "Starred" : "Épinglés",
-    "Shared": "Partagés avec moi",
-    "Shared articles": "Articles partagés avec moi",
     "Unread articles" : "Articles non lus",
     "All articles" : "Tous les articles",
     "Settings" : "Paramètres",
@@ -120,12 +117,6 @@
     "Help" : "Aide",
     "Keyboard shortcuts" : "Raccourcis clavier",
     "Documentation" : "Documentation",
-    "Report a bug" : "Signaler un bogue",
-    "Share on social media" : "Partage sur les réseaux sociaux",
-    "Contact name" : "Nom de contact",
-    "Users": "Utilisateurs",
-    "No contact found.": "Aucun contact trouvé."
-
-
+    "Report a bug" : "Signaler un bogue"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
