@@ -45,10 +45,6 @@ app.run(function ($rootScope, $location, $http, $q, $interval, $route, Loading, 
                     url = '/items/starred';
                     break;
 
-                case FEED_TYPE.SHARED:
-                    url = '/items/shared';
-                    break;
-                    
                 case FEED_TYPE.EXPLORE:
                     url = '/explore';
                     break;
