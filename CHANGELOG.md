@@ -30,6 +30,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Added route for sharing news items (#1191)
 - Added share data in news items serialization (#1191)
 - Added tests for the news items share feature (#1191)
+- Added sharing articles with nextcloud users (#1217)
+- Added sharing articles on social media (Facebook, Twitter) or mail (#1217)
 
 ### Fixed
 - Do not show deleted feeds in item list (#1214)
