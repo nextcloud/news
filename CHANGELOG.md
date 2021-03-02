@@ -17,6 +17,11 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Search: Add folder search (#1215)
 - Improve test coverage (#1263)
 - Allow directly adding a feed without going through the discovery process (#1265)
+- Implemented sharing news items between nextcloud users (#1191)
+- Updated the news items table in DB to include sharer data (#1191)
+- Added route for sharing news items (#1191)
+- Added share data in news items serialization (#1191)
+- Added tests for the news items share feature (#1191)
 
 ### Fixed
 - Do not show deleted feeds in item list (#1214)
