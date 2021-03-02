@@ -100,8 +100,8 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     this.toggleKeepUnread = function (itemId) {
         var item = ItemResource.get(itemId);
         if (!item.unread) {
-            ItemResource.markItemRead(itemId, false);
             FeedResource.markItemOfFeedUnread(item.feedId);
+            ItemResource.markItemRead(itemId, false);
         }
 
         item.keepUnread = !item.keepUnread;
