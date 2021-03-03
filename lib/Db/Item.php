@@ -69,8 +69,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $categoriesJson;
     /** @var string */
     protected $sharedBy = '';
-    /** @var string */
-    protected $sharedWith = '';
 
 
     public function __construct()
@@ -96,7 +94,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $this->addType('starred', 'boolean');
         $this->addType('categoriesJson', 'string');
         $this->addType('sharedBy', 'string');
-        $this->addType('sharedWith', 'string');
     }
 
     /**
@@ -292,7 +289,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function isShared(): bool
     {
-        return $this->getSharedWith() !== '' || $this->getSharedBy() !== '';
+        return !is_null($this->getSharedBy());
     }
 
     public function isUnread(): bool
@@ -303,11 +300,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
     public function getSharedBy(): string
     {
         return $this->sharedBy;
-    }
-
-    public function getSharedWith(): string
-    {
-        return $this->sharedWith;
     }
 
     /**
@@ -354,7 +346,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'fingerprint' => $this->getFingerprint(),
             'categories' => $this->getCategories(),
             'sharedBy' => $this->getSharedBy(),
-            'sharedWith' => $this->getSharedWith(),
             'isShared' => $this->isShared()
         ];
     }
@@ -542,16 +533,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
         if ($this->sharedBy !== $sharedBy) {
             $this->sharedBy = $sharedBy;
             $this->markFieldUpdated('sharedBy');
-        }
-
-        return $this;
-    }
-
-    public function setSharedWith(string $sharedWith): self
-    {
-        if ($this->sharedWith !== $sharedWith) {
-            $this->sharedWith = $sharedWith;
-            $this->markFieldUpdated('sharedWith');
         }
 
         return $this;
