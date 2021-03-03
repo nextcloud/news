@@ -17,6 +17,7 @@ use OCA\News\Db\Feed;
 use OCA\News\Db\ListType;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
+use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Exceptions\ServiceValidationException;
@@ -40,19 +41,29 @@ class ItemServiceV2 extends Service
     protected $config;
 
     /**
+     * Feeds service.
+     *
+     * @var FeedServiceV2
+     */
+    protected $feedService;
+
+    /**
      * ItemService constructor.
      *
      * @param ItemMapperV2    $mapper
+     * @param FeedServiceV2   $feedService
      * @param IConfig         $config
      * @param LoggerInterface $logger
      */
     public function __construct(
         ItemMapperV2 $mapper,
+        FeedServiceV2 $feedService,
         IConfig $config,
         LoggerInterface $logger
     ) {
         parent::__construct($mapper, $logger);
         $this->config = $config;
+        $this->feedService = $feedService;
     }
 
     /**
