@@ -70,14 +70,14 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
+                ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10])
+            ->withConsecutive(['userId', 'jack'], ['offset', 10])
             ->will($this->returnSelf());
 
 
@@ -140,15 +140,15 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
+                ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['items.id > :offset']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10])
+            ->withConsecutive(['userId', 'jack'], ['offset', 10])
             ->will($this->returnSelf());
 
 
@@ -212,16 +212,16 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
-                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
+                ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['items.id < :offset'],
                 ['items.unread = :unread']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10], ['unread', true])
+            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
@@ -352,16 +352,16 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
-                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
+                ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['items.id < :offset'],
                 ['items.starred = :starred']
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['sharedWith', 'jack'], ['offset', 10], ['starred', true])
+            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['starred', true])
             ->will($this->returnSelf());
 
 
@@ -427,7 +427,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(6))
             ->method('andWhere')
             ->withConsecutive(
-                ['(feeds.user_id = :userId AND items.shared_by = \'\') OR items.shared_with = :sharedWith'],
+                ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
@@ -436,11 +436,10 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(5))
+        $this->builder->expects($this->exactly(4))
             ->method('setParameter')
             ->withConsecutive(
                 ['userId', 'jack'],
-                ['sharedWith', 'jack'],
                 ['term0', '%key%'],
                 ['term1', '%word%'],
                 ['offset', 10],
@@ -506,13 +505,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['items.shared_by = \'\''],
                 ['items.id < :offset']
             )
             ->will($this->returnSelf());
@@ -651,13 +649,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['items.shared_by = \'\''],
                 ['items.id > :offset']
             )
             ->will($this->returnSelf());
@@ -723,13 +720,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(5))
+        $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['items.shared_by = \'\''],
                 ['items.id < :offset'],
                 ['items.unread = :unread']
             )
@@ -801,13 +797,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(6))
+        $this->builder->expects($this->exactly(5))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
                 ['items.feed_id = :feedId'],
-                ['items.shared_by = \'\''],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
                 ['items.id < :offset']
@@ -900,7 +895,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
-                ['items.shared_by = \'\''],
                 ['x IS NULL'],
                 ['items.id < :offset']
             )
@@ -1069,7 +1063,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
-                ['items.shared_by = \'\''],
                 ['x IS NULL'],
                 ['items.id < :offset'],
                 ['items.unread = :unread']
@@ -1156,7 +1149,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
-                ['items.shared_by = \'\''],
                 ['x IS NULL'],
                 ['items.id > :offset'],
                 ['items.unread = :unread']
@@ -1246,7 +1238,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
-                ['items.shared_by = \'\''],
                 ['x = y'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
@@ -1295,197 +1286,4 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $result = $this->class->findAllFolder('jack', 2, 10, 10, false, false, ['key', 'word']);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
-
-    public function testFindAllSharedWithUser()
-    {
-        $this->db->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->builder);
-
-        $this->builder->expects($this->once())
-            ->method('select')
-            ->with('items.*')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('from')
-            ->with('news_items', 'items')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(2))
-            ->method('andWhere')
-            ->withConsecutive(
-                ['items.shared_with = :sharedWith'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(2))
-            ->method('setParameter')
-            ->withConsecutive(
-                ['sharedWith', 'jack'],
-                ['offset', 10]
-            )
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(1))
-            ->method('setMaxResults')
-            ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('orderBy')
-            ->with('items.last_modified', 'DESC')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('addOrderBy')
-            ->with('items.id', 'DESC')
-            ->willReturnSelf();
-
-        $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
-
-        $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
-            ->willReturnOnConsecutiveCalls(
-                ['id' => 4],
-                false
-            );
-
-        $result = $this->class->findAllSharedWithUser('jack', 10, 10, false, false, []);
-        $this->assertEquals([Item::fromRow(['id' => 4])], $result);
-    }
-
-    public function testFindAllSharedWithUserHideRead()
-    {
-        $this->db->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->builder);
-
-        $this->builder->expects($this->once())
-            ->method('select')
-            ->with('items.*')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('from')
-            ->with('news_items', 'items')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(3))
-            ->method('andWhere')
-            ->withConsecutive(
-                ['items.shared_with = :sharedWith'],
-                ['items.id < :offset'],
-                ['items.unread = 1']
-            )
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(2))
-            ->method('setParameter')
-            ->withConsecutive(['sharedWith', 'jack'], ['offset', 10])
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(1))
-            ->method('setMaxResults')
-            ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('orderBy')
-            ->with('items.last_modified', 'DESC')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('addOrderBy')
-            ->with('items.id', 'DESC')
-            ->willReturnSelf();
-
-        $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
-
-        $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
-            ->willReturnOnConsecutiveCalls(
-                ['id' => 4],
-                false
-            );
-
-        $result = $this->class->findAllSharedWithUser('jack', 10, 10, true, false, []);
-        $this->assertEquals([Item::fromRow(['id' => 4])], $result);
-    }
-
-    public function testFindAllSharedWithUserSearch()
-    {
-        $this->db->expects($this->once())
-            ->method('getQueryBuilder')
-            ->willReturn($this->builder);
-
-        $this->db->expects($this->exactly(2))
-            ->method('escapeLikeParameter')
-            ->will($this->returnArgument(0));
-
-        $this->builder->expects($this->once())
-            ->method('select')
-            ->with('items.*')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('from')
-            ->with('news_items', 'items')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(4))
-            ->method('andWhere')
-            ->withConsecutive(
-                ['items.shared_with = :sharedWith'],
-                ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(4))
-            ->method('setParameter')
-            ->withConsecutive(
-                ['sharedWith', 'jack'],
-                ['term0', '%key%'],
-                ['term1', '%word%'],
-                ['offset', 10]
-            )
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(1))
-            ->method('setMaxResults')
-            ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('orderBy')
-            ->with('items.last_modified', 'DESC')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('addOrderBy')
-            ->with('items.id', 'DESC')
-            ->willReturnSelf();
-
-        $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
-
-        $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
-            ->willReturnOnConsecutiveCalls(
-                ['id' => 4],
-                false
-            );
-
-        $result = $this->class->findAllSharedWithUser('jack', 10, 10, false, false, ['key', 'word']);
-        $this->assertEquals([Item::fromRow(['id' => 4])], $result);
-    }
-
 }
