@@ -439,10 +439,10 @@ class ItemServiceV2 extends Service
      * @param int    $id     Item ID
      * @param bool   $shareWithId   User to share with
      *
-     * Sharing by copying - the item is duplicated, and the 'sharedBy' and
-     * 'sharedWith' fields are filled accordingly.
-     * We copy the 'feedId', because the article will still be owned by
-     * $userId, and it'll be stored in his feed
+     * Sharing by copying - the item is duplicated, and the 'sharedBy'
+     * field is filled accordingly.
+     * The item is then placed in a dummy feed reserved for items
+     * shared with the user
      *
      * @return Item
      * @throws ServiceNotFoundException|ServiceConflictException
@@ -457,19 +457,32 @@ class ItemServiceV2 extends Service
         }
 
         // duplicate the item
-        $sharedItem = Item::fromImport($item->jsonSerialize());
+        $sharedItem = clone $item;
 
-        // copy and initialize fields
+        // initialize fields
         $sharedItem->setUnread(true);
         $sharedItem->setStarred(false);
-        $sharedItem->setFeedId($item->getFeedId());
-        $sharedItem->setFingerprint($item->getFingerprint());
-        $sharedItem->setContentHash($item->getContentHash());
-        $sharedItem->setSearchIndex($item->getSearchIndex());
-
-        // set share data
         $sharedItem->setSharedBy($userId);
-        $sharedItem->setSharedWith($shareWithId);
+
+        // get 'shared with me' dummy feed
+        // TODO: move to feedService->createSharedWithMeFeed() ?
+        $feedUrl = 'http://nextcloud/sharedwithme';
+        $feed = $this->feedService->findByUrl($shareWithId, $feedUrl);
+        if (is_null($feed)) {
+            $feed = new Feed();
+            $feed->setUserId($shareWithId)
+                 ->setUrlHash(md5($feedUrl))
+                 ->setLink($feedUrl)
+                 ->setUrl($feedUrl)
+                 ->setTitle('Shared with me')
+                 ->setAdded(time())
+                 ->setFolderId(null)
+                 ->setPreventUpdate(true);
+
+            $feed = $this->feedService->insert($feed);
+        }
+
+        $sharedItem->setFeedId($feed->getId());
 
         return $this->mapper->insert($sharedItem);
     }
