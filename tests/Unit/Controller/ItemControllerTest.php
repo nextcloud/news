@@ -16,6 +16,7 @@ namespace OCA\News\Tests\Unit\Controller;
 use OCA\News\Controller\ItemController;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\ShareService;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Db\Item;
@@ -46,6 +47,10 @@ class ItemControllerTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject|FeedServiceV2
      */
     private $feedService;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ShareService
+     */
+    private $shareService;
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|IRequest
      */
@@ -95,6 +100,7 @@ class ItemControllerTest extends TestCase
             $this->request,
             $this->feedService,
             $this->itemService,
+            $this->shareService,
             $this->settings,
             $this->userSession
         );
