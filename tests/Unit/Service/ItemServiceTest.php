@@ -18,7 +18,6 @@ use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\ItemServiceV2;
-use OCA\News\Service\FeedServiceV2;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
 use \OCA\News\Db\Item;
@@ -42,11 +41,6 @@ class ItemServiceTest extends TestCase
      * @var MockObject|ItemMapperV2
      */
     private $mapper;
-
-    /**
-     * @var MockObject|FeedServiceV2
-     */
-    private $feedService;
 
     /**
      * @var  ItemServiceV2
@@ -78,10 +72,6 @@ class ItemServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
         $this->config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -92,7 +82,6 @@ class ItemServiceTest extends TestCase
 
         $this->class = new ItemServiceV2(
             $this->mapper,
-            $this->feedService,
             $this->config,
             $this->logger
         );
