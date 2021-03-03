@@ -84,6 +84,10 @@ class ItemControllerTest extends TestCase
         $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->shareService =
+        $this->getMockBuilder(ShareService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
