@@ -133,7 +133,6 @@ class ItemController extends Controller
                 $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
                 $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
                 $return['starred'] = count($this->itemService->starred($this->getUserId()));
-                $return['shared'] = count($this->itemService->sharedWithUser($this->getUserId()));
             }
 
             switch ($type) {
@@ -159,17 +158,6 @@ class ItemController extends Controller
                         $search_items
                     );
                     break;
-                case ListType::SHARED:
-                    $items = $this->itemService->findAllSharedWithUserWithFilters(
-                        $this->getUserId(),
-                        $limit,
-                        $offset,
-                        !$showAll,
-                        $oldestFirst,
-                        $search_items
-                    );
-                    break;
-
                 default:
                     $items = $this->itemService->findAllWithFilters(
                         $this->getUserId(),
@@ -229,13 +217,6 @@ class ItemController extends Controller
                         !$showAll
                     );
                     break;
-                case ListType::SHARED:
-                    $items = $this->itemService->findAllSharedAfter(
-                        $this->getUserId(),
-                        $lastModified,
-                        !$showAll
-                    );
-                    break;
                 default:
                     $items = $this->itemService->findAllAfter(
                         $this->getUserId(),
@@ -248,7 +229,6 @@ class ItemController extends Controller
             $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
             $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
             $return['starred'] = count($this->itemService->starred($this->getUserId()));
-            $return['shared'] = count($this->itemService->sharedWithUser($this->getUserId()));
             $return['items'] = $items;
 
             // this gets thrown if there are no items
