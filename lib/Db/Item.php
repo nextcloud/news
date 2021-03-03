@@ -66,7 +66,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /** @var string|null */
     protected $categoriesJson;
     /** @var string */
-    protected $sharedBy = '';
+    protected $sharedBy;
 
 
     public function __construct()
@@ -295,7 +295,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->unread;
     }
 
-    public function getSharedBy(): string
+    public function getSharedBy(): ?string
     {
         return $this->sharedBy;
     }
@@ -526,7 +526,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setSharedBy(string $sharedBy): self
+    public function setSharedBy(string $sharedBy = null): self
     {
         if ($this->sharedBy !== $sharedBy) {
             $this->sharedBy = $sharedBy;
