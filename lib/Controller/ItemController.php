@@ -24,6 +24,7 @@ use \OCP\AppFramework\Http;
 use \OCA\News\Service\Exceptions\ServiceException;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\ItemServiceV2;
+use \OCA\News\Service\ShareService;
 use OCP\IUserSession;
 
 /**
@@ -44,6 +45,10 @@ class ItemController extends Controller
      */
     private $feedService;
     /**
+     * @var ShareService
+     */
+    private $shareService;
+    /**
      * @var IConfig
      */
     private $settings;
@@ -52,12 +57,14 @@ class ItemController extends Controller
         IRequest $request,
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
+        ShareService $shareService,
         IConfig $settings,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
         $this->itemService = $itemService;
         $this->feedService = $feedService;
+        $this->shareService = $shareService;
         $this->settings = $settings;
     }
 
@@ -329,7 +336,7 @@ class ItemController extends Controller
     public function share($itemId, $shareWithId)
     {
         try {
-            $this->itemService->share(
+            $this->shareService->share(
                 $this->getUserId(),
                 $itemId,
                 $shareWithId
