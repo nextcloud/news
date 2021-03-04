@@ -19,7 +19,7 @@ use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 /**
- * Class ImportService
+ * Class ShareService
  *
  * @package OCA\News\Service
  */
