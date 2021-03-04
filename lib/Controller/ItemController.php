@@ -336,7 +336,7 @@ class ItemController extends Controller
     public function share($itemId, $shareWithId)
     {
         try {
-            $this->shareService->share(
+            $this->shareService->shareItemWithUser(
                 $this->getUserId(),
                 $itemId,
                 $shareWithId
