@@ -140,8 +140,8 @@ class ItemControllerTest extends TestCase
 
     public function testShare()
     {
-        $this->itemService->expects($this->once())
-            ->method('share')
+        $this->shareService->expects($this->once())
+            ->method('shareItemWithUser')
             ->with('user', 4, 'test');
 
         $this->controller->share(4, 'test');
@@ -152,8 +152,8 @@ class ItemControllerTest extends TestCase
     {
         $msg = 'hi';
 
-        $this->itemService->expects($this->once())
-            ->method('share')
+        $this->shareService->expects($this->once())
+            ->method('shareItemWithUser')
             ->with('user', 4, 'test')
             ->will($this->throwException(new ServiceNotFoundException($msg)));
 
