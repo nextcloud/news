@@ -15,6 +15,9 @@ use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
 
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCP\AppFramework\Db\DoesNotExistException;
+
 /**
  * Class ImportService
  *
@@ -61,9 +64,9 @@ class ShareService
     /**
      * Share an item with a user
      *
-     * @param string $userId      ID of user sharing the item
-     * @param int    $id          Item ID
-     * @param string $shareWithId ID of user to share with
+     * @param string $userId           ID of user sharing the item
+     * @param int    $itemId           Item ID
+     * @param string $shareRecipientId ID of user to share with
      *
      * Sharing by copying - the item is duplicated, and the 'sharedBy'
      * field is filled accordingly.
@@ -73,7 +76,7 @@ class ShareService
      * @return Item
      * @throws ServiceNotFoundException|ServiceConflictException
      */
-    public function shareItemWithUser(string $userId, int $id, string $shareRecipientId)
+    public function shareItemWithUser(string $userId, int $itemId, string $shareRecipientId)
     {
         // find item to share
         try {
