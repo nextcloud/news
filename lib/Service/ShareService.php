@@ -79,11 +79,7 @@ class ShareService
     public function shareItemWithUser(string $userId, int $itemId, string $shareRecipientId)
     {
         // find item to share
-        try {
-            $item = $this->itemService->find($userId, $itemId);
-        } catch (DoesNotExistException $ex) {
-            throw ServiceNotFoundException::from($ex);
-        }
+        $item = $this->itemService->find($userId, $itemId);
 
         // duplicate the item
         $sharedItem = clone $item;
