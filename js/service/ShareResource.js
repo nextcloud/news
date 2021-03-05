@@ -2,6 +2,7 @@
  * Nextcloud - News
  *
  * @author Marco Nassabain <marco.nassabain@hotmail.com>
+ * @author Nicolas Wendling <nicolas.wendling1011@gmail.com>
  */
 app.factory('ShareResource', function (Resource, $http, BASE_URL) {
     'use strict';
@@ -14,7 +15,7 @@ app.factory('ShareResource', function (Resource, $http, BASE_URL) {
 
     ShareResource.prototype.getUsers = function (search) {
         return this.http({
-            url: OC.linkToOCS(`apps/files_sharing/api/v1/sharees?search=${search}&itemType=file&perPage=5`, 1),
+            url: OC.linkToOCS(`apps/files_sharing/api/v1/sharees?search=${search}&itemType=news_item&perPage=5`, 1),
             method: 'GET',
         }).then(function(response) {
             return response.data;
