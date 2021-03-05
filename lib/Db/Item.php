@@ -96,6 +96,31 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $this->addType('sharedBy', 'string');
     }
 
+    public function __clone()
+    {
+        $this->resetUpdatedFields();
+        $this->markFieldUpdated('contentHash');
+        $this->markFieldUpdated('guidHash');
+        $this->markFieldUpdated('guid');
+        $this->markFieldUpdated('url');
+        $this->markFieldUpdated('title');
+        $this->markFieldUpdated('author');
+        $this->markFieldUpdated('pubDate');
+        $this->markFieldUpdated('body');
+        $this->markFieldUpdated('enclosureMime');
+        $this->markFieldUpdated('enclosureLink');
+        $this->markFieldUpdated('mediaThumbnail');
+        $this->markFieldUpdated('mediaDescription');
+        $this->markFieldUpdated('feedId');
+        $this->markFieldUpdated('lastModified');
+        $this->markFieldUpdated('searchIndex');
+        $this->markFieldUpdated('rtl');
+        $this->markFieldUpdated('fingerprint');
+        $this->markFieldUpdated('unread');
+        $this->markFieldUpdated('starred');
+        $this->markFieldUpdated('sharedBy');
+    }
+
     /**
      * @return int
      */

@@ -85,6 +85,7 @@ class ShareService
         $sharedItem = clone $item;
 
         // initialize fields
+        $sharedItem->setId(null);
         $sharedItem->setUnread(true);
         $sharedItem->setStarred(false);
         $sharedItem->setSharedBy($userId);
