@@ -41,7 +41,6 @@ class ItemServiceTest extends TestCase
      * @var MockObject|ItemMapperV2
      */
     private $mapper;
-
     /**
      * @var  ItemServiceV2
      */
@@ -71,7 +70,6 @@ class ItemServiceTest extends TestCase
         $this->mapper = $this->getMockBuilder(ItemMapperV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-
         $this->config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -631,4 +629,5 @@ class ItemServiceTest extends TestCase
 
         $this->class->purgeOverThreshold(5);
     }
+
 }

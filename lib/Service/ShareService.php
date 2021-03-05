@@ -73,25 +73,22 @@ class ShareService
      * The item is then placed in a dummy feed reserved for items
      * shared with the user
      *
-     * @return Item
+     * @return Item Shared item
      * @throws ServiceNotFoundException|ServiceConflictException
      */
     public function shareItemWithUser(string $userId, int $itemId, string $shareRecipientId)
     {
-        // find item to share
+        // Find item to share
         $item = $this->itemService->find($userId, $itemId);
 
-        // duplicate the item
+        // Duplicate item & initialize fields
         $sharedItem = clone $item;
-
-        // initialize fields
         $sharedItem->setId(null);
         $sharedItem->setUnread(true);
         $sharedItem->setStarred(false);
         $sharedItem->setSharedBy($userId);
 
-        // get 'shared with me' dummy feed
-        // TODO: move to feedService->createSharedWithMeFeed() ?
+        // Get 'shared with me' dummy feed
         $feedUrl = 'http://nextcloud/sharedwithme';
         $feed = $this->feedService->findByUrl($shareRecipientId, $feedUrl);
         if (is_null($feed)) {
