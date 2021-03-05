@@ -19,17 +19,17 @@ jobs:
         database: ['sqlite']
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@afefcaf556d98dc7896cca380e181decb609ca44
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
       - name: Set up server non MySQL
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@fae87e29aa7cdf1ea0b8033c67f60e75b10be2cd
         with:
           cron: false
           version: ${{ matrix.nextcloud }}
@@ -39,19 +39,21 @@ jobs:
         run: make
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@fae87e29aa7cdf1ea0b8033c67f60e75b10be2cd
         with:
           app: ${{ env.APP_NAME }}
           check-code: false
 
       - name: Create signed release archive
-        run: cd ../server/apps/${{ env.APP_NAME }} && make appstore
+        run: |
+          cd ../server/apps/${{ env.APP_NAME }} && make appstore
+          rm -f ~/.nextcloud/certificates/*
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
 
       - name: Upload app tarball to release
-        uses: svenstaro/upload-release-action@v2
+        uses: svenstaro/upload-release-action@483c1e56f95e88835747b1c7c60581215016cbf2
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
