@@ -162,8 +162,7 @@ class ItemTest extends TestCase
             'intro' => 'this is a test',
             'fingerprint' => 'fingerprint',
             'categories' => ['food'],
-            'sharedBy' => 'jack',
-            'isShared' => true,
+            'sharedBy' => 'jack'
             ], $item->jsonSerialize()
         );
     }
