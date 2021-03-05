@@ -107,8 +107,7 @@ class ShareServiceTest extends TestCase
 
         // Shared item
         $sharedItem = clone $item;
-        $sharedItem
-            ->setUnread(1)              // A newly shared item is unread, ...
+        $sharedItem->setUnread(1)       // A newly shared item is unread, ...
             ->setStarred(0)             // ... not starred, ...
             ->setFeedId(100)            // ... placed in the 'Shared with me' feed, ...
             ->setSharedBy($this->uid);  // ... and contains the senders user ID
@@ -190,7 +189,6 @@ class ShareServiceTest extends TestCase
             ->with($this->recipient, $feedUrl)
             ->will($this->returnValue(null));
 
-        // TODO: Test if the feed is properly created
         $this->feedService->expects($this->once())
             ->method('insert')
             ->will($this->returnValue($feed));
