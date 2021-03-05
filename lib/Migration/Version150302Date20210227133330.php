@@ -35,10 +35,9 @@ class Version150302Date20210227133330 extends SimpleMigrationStep {
 		if ($schema->hasTable('news_items')) {
 			$table = $schema->getTable('news_items');
             $table->addColumn('shared_by', 'string', [
-					'notnull' => false,
-					'length' => 64,
-					'default' => '',
-				]);
+				'notnull' => false,
+				'length' => 64
+			]);
 		}
 
         return $schema;
