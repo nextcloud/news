@@ -50,7 +50,7 @@ return ['routes' => [
 ['name' => 'item#read', 'url' => '/items/{itemId}/read', 'verb' => 'POST'],
 ['name' => 'item#read_multiple', 'url' => '/items/read/multiple', 'verb' => 'POST'],
 ['name' => 'item#star', 'url' => '/items/{feedId}/{guidHash}/star', 'verb' => 'POST'],
-['name' => 'item#share', 'url' => '/items/{itemId}/share/{shareWithId}', 'verb' => 'POST'],
+['name' => 'item#share', 'url' => '/items/{itemId}/share/{shareRecipientId}', 'verb' => 'POST'],
 
 // export
 ['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],

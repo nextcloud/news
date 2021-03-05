@@ -68,7 +68,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /** @var string */
     protected $sharedBy;
 
-
     public function __construct()
     {
         $this->addType('contentHash', 'string');

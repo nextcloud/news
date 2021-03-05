@@ -336,7 +336,7 @@ class ItemMapperAfterTest extends MapperTestUtility
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
-                ['items.unread = 1'],
+                ['items.unread = 1']
             )
             ->will($this->returnSelf());
 
