@@ -23,212 +23,63 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
+use Doctrine\DBAL\Driver\Statement;
+use OC\DB\QueryBuilder\QueryBuilder;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+use PDOStatement;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 /**
  * Simple utility class for testing mappers
  */
 abstract class MapperTestUtility extends TestCase
 {
+
+    /**
+     * @var MockObject|IDBConnection
+     */
     protected $db;
-    private $query;
-    private $queryAt;
-    private $prepareAt;
-    private $fetchAt;
-    private $iterators;
+
+    /**
+     * @var MockObject|PDOStatement
+     */
+    protected $query;
+
+    /**
+     * @var MockObject|IQueryBuilder
+     */
+    protected $builder;
+
+    /**
+     * @var MockObject|Statement
+     */
+    protected $cursor;
 
 
     /**
      * Run this function before the actual test to either set or initialize the
      * db. After this the db can be accessed by using $this->db
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->db = $this->getMockBuilder(IDBConnection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+                         ->disableOriginalConstructor()
+                         ->getMock();
 
-        $this->query = $this->createMock(\PDOStatement::class);
-        $this->queryAt = 0;
-        $this->prepareAt = 0;
-        $this->iterators = [];
-        $this->fetchAt = 0;
-    }
+        $this->query = $this->getMockBuilder(PDOStatement::class)
+                            ->getMock();
 
-    /**
-     * Checks if an array is associative
-     *
-     * @param  array $array
-     * @return bool true if associative
-     */
-    private function isAssocArray(array $array) 
-    {
-        return array_values($array) !== $array;
-    }
+        $this->builder = $this->getMockBuilder(IQueryBuilder::class)
+                              ->disableOriginalConstructor()
+                              ->getMock();
 
-    /**
-     * Returns the correct PDO constant based on the value type
-     *
-     * @param  $value
-     * @return PDO constant
-     */
-    private function getPDOType($value) 
-    {
-        switch (gettype($value)) {
-        case 'integer':
-            return \PDO::PARAM_INT;
-        case 'boolean':
-            return \PDO::PARAM_BOOL;
-        default:
-            return \PDO::PARAM_STR;
-        }
-    }
-
-    /**
-     * Create mocks and set expected results for database queries
-     *
-     * @param string $sql        the sql query that you expect to receive
-     * @param array  $arguments  the expected arguments for the prepare query
-     *                           method
-     * @param array  $returnRows the rows that should be returned for the result
-     *                           of the database query. If not provided, it wont
-     *                           be assumed that fetch will be called on the
-     *                           result
-     */
-    protected function setMapperResult($sql, $arguments=array(), $returnRows=array(),
-        $limit=null, $offset=null, $expectClose=false
-    ) {
-        if($limit === null && $offset === null) {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepare')
-                ->with($this->equalTo($sql))
-                ->will(($this->returnValue($this->query)));
-        } elseif($limit !== null && $offset === null) {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepare')
-                ->with($this->equalTo($sql), $this->equalTo($limit))
-                ->will(($this->returnValue($this->query)));
-        } elseif($limit === null && $offset !== null) {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepare')
-                ->with(
-                    $this->equalTo($sql),
-                    $this->equalTo(null),
-                    $this->equalTo($offset)
-                )
-                ->will(($this->returnValue($this->query)));
-        } else  {
-            $this->db->expects($this->at($this->prepareAt))
-                ->method('prepare')
-                ->with(
-                    $this->equalTo($sql),
-                    $this->equalTo($limit),
-                    $this->equalTo($offset)
-                )
-                ->will(($this->returnValue($this->query)));
-        }
-
-        $this->iterators[] = new ArgumentIterator($returnRows);
-
-        $iterators = $this->iterators;
-        $fetchAt = $this->fetchAt;
-
-        $this->query->expects($this->any())
-            ->method('fetch')
-            ->will(
-                $this->returnCallback(
-                    function () use ($iterators, $fetchAt) {
-                        $iterator = $iterators[$fetchAt];
-                        $result = $iterator->next();
-
-                        if($result === false) {
-                            $fetchAt++;
-                        }
-
-                        $this->queryAt++;
-
-                        return $result;
-                    }
-                )
-            );
-
-        if ($this->isAssocArray($arguments)) {
-            foreach($arguments as $key => $argument) {
-                $pdoConstant = $this->getPDOType($argument);
-                $this->query->expects($this->at($this->queryAt))
-                    ->method('bindValue')
-                    ->with(
-                        $this->equalTo($key),
-                        $this->equalTo($argument),
-                        $this->equalTo($pdoConstant)
-                    );
-                $this->queryAt++;
-            }
-        } else {
-            $index = 1;
-            foreach($arguments as $argument) {
-                $pdoConstant = $this->getPDOType($argument);
-                $this->query->expects($this->at($this->queryAt))
-                    ->method('bindValue')
-                    ->with(
-                        $this->equalTo($index),
-                        $this->equalTo($argument),
-                        $this->equalTo($pdoConstant)
-                    );
-                $index++;
-                $this->queryAt++;
-            }
-        }
-
-        $this->query->expects($this->at($this->queryAt))
-            ->method('execute')
-            ->will(
-                $this->returnCallback(
-                    function ($sql, $p=null, $o=null, $s=null) {
-
-                    }
-                )
-            );
-        $this->queryAt++;
-
-
-
-        if ($expectClose) {
-            $closing = $this->at($this->queryAt);
-        } else {
-            $closing = $this->any();
-        }
-        $this->query->expects($closing)->method('closeCursor');
-        $this->queryAt++;
-
-        $this->prepareAt++;
-        $this->fetchAt++;
-    }
-
-
-}
-
-
-class ArgumentIterator
-{
-
-    private $arguments;
-
-    public function __construct($arguments)
-    {
-        $this->arguments = $arguments;
-    }
-
-    public function next()
-    {
-        $result = array_shift($this->arguments);
-        if($result === null) {
-            return false;
-        } else {
-            return $result;
-        }
+        $this->cursor = $this->getMockBuilder(Statement::class)
+                             ->addMethods(['fetch', 'closeCursor'])
+                             ->getMockForAbstractClass();
     }
 }

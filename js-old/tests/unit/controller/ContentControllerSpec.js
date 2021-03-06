@@ -64,27 +64,19 @@ describe('ContentController', function () {
     }));
 
 
-    it('should return order by',
-        inject(function ($controller, SettingsResource, FEED_TYPE) {
-            var route = {
-                current: {
-                    $$route: {
-                        type: FEED_TYPE.FOLDER
-                    }
-                }
-            };
+    it('should sort feed items', inject(function ($controller) {
+        var ctrl = $controller('ContentController', {
+            data: {}
+        });
+        var first = {value: 11, type: 'number'};
+        var second = {value: 12, type: 'number'};
+        var third = {value: 101, type: 'number'};
+        expect(ctrl.sortIds(first, second)).toBe(1);
+        expect(ctrl.sortIds(second, first)).toBe(-1);
+        expect(ctrl.sortIds(second, second)).toBe(-1);
+        expect(ctrl.sortIds(first, third)).toBe(1);
+    }));
 
-            var ctrl = $controller('ContentController', {
-                data: {},
-                $route: route
-            });
-
-            expect(ctrl.orderBy()).toBe('-id');
-
-            SettingsResource.set('oldestFirst', true);
-
-            expect(ctrl.orderBy()).toBe('id');
-        }));
 
     it('should return order if custom ordering',
         inject(function ($controller, SettingsResource, FeedResource,
@@ -107,11 +99,11 @@ describe('ContentController', function () {
                 }
             });
 
-            expect(ctrl.orderBy()).toBe('id');
+            expect(ctrl.oldestFirst).toBe(true);
 
-            SettingsResource.set('oldestFirst', true);
+            SettingsResource.set('oldestFirst', false);
 
-            expect(ctrl.orderBy()).toBe('id');
+            expect(ctrl.oldestFirst).toBe(true);
         }));
 
 

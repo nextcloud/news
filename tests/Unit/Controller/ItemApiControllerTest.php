@@ -16,10 +16,10 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ItemApiController;
-use OCA\News\Service\ItemService;
+use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Db\Item;
 use OCP\IRequest;
 use OCP\IUser;
@@ -30,18 +30,28 @@ use PHPUnit\Framework\TestCase;
 
 class ItemApiControllerTest extends TestCase
 {
-
+    /**
+     * @var ItemServiceV2|\PHPUnit\Framework\MockObject\MockObject
+     */
     private $itemService;
-    private $itemAPI;
-    private $api;
+    /**
+     * @var IUserSession|\PHPUnit\Framework\MockObject\MockObject
+     */
     private $userSession;
+    /**
+     * @var IUser|\PHPUnit\Framework\MockObject\MockObject
+     */
     private $user;
+    /**
+     * @var IRequest|\PHPUnit\Framework\MockObject\MockObject
+     */
     private $request;
     private $msg;
+    private $uid = 'tom';
+    private $class;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
-        $this->user = 'tom';
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
@@ -57,12 +67,11 @@ class ItemApiControllerTest extends TestCase
             ->will($this->returnValue($this->user));
         $this->user->expects($this->any())
             ->method('getUID')
-            ->will($this->returnValue('123'));
-        $this->itemService = $this->getMockBuilder(ItemService::class)
+            ->will($this->returnValue($this->uid));
+        $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemAPI = new ItemApiController(
-            $this->appName,
+        $this->class = new ItemApiController(
             $this->request,
             $this->userSession,
             $this->itemService
@@ -71,7 +80,7 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testIndex() 
+    public function testIndexForFeed()
     {
         $item = new Item();
         $item->setId(5);
@@ -80,29 +89,17 @@ class ItemApiControllerTest extends TestCase
         $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(1),
-                $this->equalTo(30),
-                $this->equalTo(20),
-                $this->equalTo(true),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            )
+            ->method('findAllInFeedWithFilters')
+            ->with($this->uid, 2, 30, 20, false, true)
             ->will($this->returnValue([$item]));
 
-        $response = $this->itemAPI->index(1, 2, true, 30, 20, true);
+        $response = $this->class->index(0, 2, true, 30, 20, true);
 
-        $this->assertEquals(
-            [
-            'items' => [$item->toApi()]
-            ], $response
-        );
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
     }
 
 
-    public function testIndexDefaultBatchSize() 
+    public function testIndexForFolder()
     {
         $item = new Item();
         $item->setId(5);
@@ -111,29 +108,17 @@ class ItemApiControllerTest extends TestCase
         $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
-            ->method('findAll')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(1),
-                $this->equalTo(-1),
-                $this->equalTo(0),
-                $this->equalTo(false),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
-            )
+            ->method('findAllInFolderWithFilters')
+            ->with($this->uid, 2, 30, 20, false, true)
             ->will($this->returnValue([$item]));
 
-        $response = $this->itemAPI->index(1, 2, false);
+        $response = $this->class->index(1, 2, true, 30, 20, true);
 
-        $this->assertEquals(
-            [
-            'items' => [$item->toApi()]
-            ], $response
-        );
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
     }
 
 
-    public function testUpdated() 
+    public function testIndexForItems()
     {
         $item = new Item();
         $item->setId(5);
@@ -142,41 +127,121 @@ class ItemApiControllerTest extends TestCase
         $item->setFeedId(123);
 
         $this->itemService->expects($this->once())
-            ->method('findAllNew')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(1),
-                $this->equalTo('30000000'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            )
+            ->method('findAllWithFilters')
+            ->with($this->uid, 3, 30, 20, true)
             ->will($this->returnValue([$item]));
 
-        $response = $this->itemAPI->updated(1, 2, 30);
+        $response = $this->class->index(3, 2, true, 30, 20, true);
 
-        $this->assertEquals(
-            [
-            'items' => [$item->toApi()]
-            ], $response
-        );
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
     }
 
 
-    public function testRead() 
+    public function testIndexDefaultBatchSize()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllInFolderWithFilters')
+            ->with($this->uid, 2, -1, 0, true, false)
+            ->will($this->returnValue([$item]));
+
+        $response = $this->class->index(1, 2, false);
+
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
+    }
+
+
+    public function testUpdatedFeed()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllInFeedAfter')
+            ->with($this->uid, 2, 30000000, false)
+            ->will($this->returnValue([$item]));
+
+        $response = $this->class->updated(0, 2, 30);
+
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
+    }
+
+
+    public function testUpdatedFolder()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllInFolderAfter')
+            ->with($this->uid, 2, 30000000, false)
+            ->will($this->returnValue([$item]));
+
+        $response = $this->class->updated(1, 2, 30);
+
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
+    }
+
+
+    public function testUpdatedItems()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllAfter')
+            ->with($this->uid, 3, 30000000)
+            ->will($this->returnValue([$item]));
+
+        $response = $this->class->updated(3, 2, 30);
+
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
+    }
+
+    public function testUpdatedFeedFullTimestamp()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllInFeedAfter')
+            ->with($this->uid, 2, 1609598359000000, false)
+            ->will($this->returnValue([$item]));
+
+        $response = $this->class->updated(0, 2, '1609598359000000');
+
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
+    }
+
+
+    public function testRead()
     {
         $this->itemService->expects($this->once())
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
+            ->with($this->user->getUID(), 2, true);
 
-        $this->itemAPI->read(2);
+        $this->class->read(2);
     }
 
 
-    public function testReadDoesNotExist() 
+    public function testReadDoesNotExist()
     {
         $this->itemService->expects($this->once())
             ->method('read')
@@ -186,7 +251,7 @@ class ItemApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->itemAPI->read(2);
+        $response = $this->class->read(2);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -194,21 +259,21 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnread() 
+    public function testUnread()
     {
         $this->itemService->expects($this->once())
             ->method('read')
             ->with(
+                $this->equalTo($this->user->getUID()),
                 $this->equalTo(2),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
+                $this->equalTo(false)
             );
 
-        $this->itemAPI->unread(2);
+        $this->class->unread(2);
     }
 
 
-    public function testUnreadDoesNotExist() 
+    public function testUnreadDoesNotExist()
     {
         $this->itemService->expects($this->once())
             ->method('read')
@@ -218,7 +283,7 @@ class ItemApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->itemAPI->unread(2);
+        $response = $this->class->unread(2);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -226,32 +291,51 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testStar() 
+    public function testStar()
     {
         $this->itemService->expects($this->once())
-            ->method('star')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo('hash'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
+            ->method('starByGuid')
+            ->with('tom', 2, 'hash', true);
 
-        $this->itemAPI->star(2, 'hash');
+        $this->class->star(2, 'hash');
     }
 
 
-    public function testStarDoesNotExist() 
+    public function testStarDoesNotExist()
     {
         $this->itemService->expects($this->once())
-            ->method('star')
+            ->method('starByGuid')
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+
+        $response = $this->class->star(2, 'test');
+
+        $data = $response->getData();
+        $this->assertEquals($this->msg, $data['message']);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+    }
+
+
+    public function testUnstar()
+    {
+        $this->itemService->expects($this->once())
+            ->method('starByGuid')
+            ->with($this->uid, 2, 'hash', false);
+
+        $this->class->unstar(2, 'hash');
+    }
+
+
+    public function testUnstarDoesNotExist()
+    {
+        $this->itemService->expects($this->once())
+            ->method('starByGuid')
             ->will(
                 $this->throwException(
                     new ServiceNotFoundException($this->msg)
                 )
             );
 
-        $response = $this->itemAPI->star(2, 'test');
+        $response = $this->class->unstar(2, 'test');
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -259,110 +343,55 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUnstar() 
-    {
-        $this->itemService->expects($this->once())
-            ->method('star')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo('hash'),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
-            );
-
-        $this->itemAPI->unstar(2, 'hash');
-    }
-
-
-    public function testUnstarDoesNotExist() 
-    {
-        $this->itemService->expects($this->once())
-            ->method('star')
-            ->will(
-                $this->throwException(
-                    new ServiceNotFoundException($this->msg)
-                )
-            );
-
-        $response = $this->itemAPI->unstar(2, 'test');
-
-        $data = $response->getData();
-        $this->assertEquals($this->msg, $data['message']);
-        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
-    }
-
-
-    public function testReadAll() 
+    public function testReadAll()
     {
         $this->itemService->expects($this->once())
             ->method('readAll')
-            ->with(
-                $this->equalTo(30),
-                $this->equalTo($this->user->getUID())
-            );
+            ->with($this->user->getUID(), 30);
 
-        $this->itemAPI->readAll(30);
+        $this->class->readAll(30);
     }
 
 
 
-    public function testReadMultiple() 
+    public function testReadMultiple()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
+            ->withConsecutive(
+                [$this->user->getUID(), 2, true],
+                [$this->user->getUID(), 4, true]
             );
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemAPI->readMultiple([2, 4]);
+        $this->class->readMultiple([2, 4]);
     }
 
 
-    public function testReadMultipleDoesntCareAboutException() 
+    public function testReadMultipleDoesntCareAboutException()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->will($this->throwException(new ServiceNotFoundException('')));
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemAPI->readMultiple([2, 4]);
+            ->withConsecutive(
+                [$this->user->getUID(), 2, true],
+                [$this->user->getUID(), 4, true]
+            )
+            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
+        $this->class->readMultiple([2, 4]);
     }
 
 
-    public function testUnreadMultiple() 
+    public function testUnreadMultiple()
     {
-        $this->itemService->expects($this->at(0))
+        $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
+            ->withConsecutive(
+                [$this->user->getUID(), 2, false],
+                [$this->user->getUID(), 4, false]
             );
-        $this->itemService->expects($this->at(1))
-            ->method('read')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemAPI->unreadMultiple([2, 4]);
+        $this->class->unreadMultiple([2, 4]);
     }
 
 
-    public function testStarMultiple() 
+    public function testStarMultiple()
     {
         $ids = [
                     [
@@ -375,27 +404,17 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->at(0))
-            ->method('star')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo('a'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
+        $this->itemService->expects($this->exactly(2))
+            ->method('starByGuid')
+            ->withConsecutive(
+                [$this->user->getUID(), 2, 'a', true],
+                [$this->user->getUID(), 4, 'b', true]
             );
-        $this->itemService->expects($this->at(1))
-            ->method('star')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('b'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemAPI->starMultiple($ids);
+        $this->class->starMultiple($ids);
     }
 
 
-    public function testStarMultipleDoesntCareAboutException() 
+    public function testStarMultipleDoesntCareAboutException()
     {
         $ids = [
                     [
@@ -408,22 +427,19 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->at(0))
-            ->method('star')
-            ->will($this->throwException(new ServiceNotFoundException('')));
-        $this->itemService->expects($this->at(1))
-            ->method('star')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('b'),
-                $this->equalTo(true),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemAPI->starMultiple($ids);
+        $this->itemService->expects($this->exactly(2))
+            ->method('starByGuid')
+            ->withConsecutive(
+                [$this->user->getUID(), 2, 'a', true],
+                [$this->user->getUID(), 4, 'b', true]
+            )
+            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
+
+        $this->class->starMultiple($ids);
     }
 
 
-    public function testUnstarMultiple() 
+    public function testUnstarMultiple()
     {
         $ids = [
                     [
@@ -436,23 +452,14 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->at(0))
-            ->method('star')
-            ->with(
-                $this->equalTo(2),
-                $this->equalTo('a'),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
+        $this->itemService->expects($this->exactly(2))
+            ->method('starByGuid')
+            ->withConsecutive(
+                [$this->user->getUID(), 2, 'a', false],
+                [$this->user->getUID(), 4, 'b', false]
             );
-        $this->itemService->expects($this->at(1))
-            ->method('star')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('b'),
-                $this->equalTo(false),
-                $this->equalTo($this->user->getUID())
-            );
-        $this->itemAPI->unstarMultiple($ids);
+
+        $this->class->unstarMultiple($ids);
     }
 
 

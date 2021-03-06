@@ -15,29 +15,39 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Db\ListType;
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
+use OCA\News\Service\ItemServiceV2;
+use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ItemService;
-use \OCA\News\Service\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
+/**
+ * Class ItemApiController
+ *
+ * @package OCA\News\Controller
+ */
 class ItemApiController extends ApiController
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait, ApiPayloadTrait;
 
+    /**
+     * @var ItemServiceV2
+     */
     private $itemService;
-    private $serializer;
 
     public function __construct(
-        $appName,
         IRequest $request,
-        IUserSession $userSession,
-        ItemService $itemService
+        ?IUserSession $userSession,
+        ItemServiceV2 $itemService
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
+
         $this->itemService = $itemService;
-        $this->serializer = new EntityApiSerializer('items');
     }
 
 
@@ -52,27 +62,49 @@ class ItemApiController extends ApiController
      * @param int  $batchSize
      * @param int  $offset
      * @param bool $oldestFirst
-     * @return array|mixed
+     * @return array|JSONResponse
      */
     public function index(
-        $type = 3,
-        $id = 0,
-        $getRead = true,
-        $batchSize = -1,
-        $offset = 0,
-        $oldestFirst = false
-    ) {
-        return $this->serializer->serialize(
-            $this->itemService->findAll(
-                $id,
-                $type,
-                $batchSize,
-                $offset,
-                $getRead,
-                $oldestFirst,
-                $this->getUserId()
-            )
-        );
+        int $type = 3,
+        int $id = 0,
+        bool $getRead = true,
+        int $batchSize = -1,
+        int $offset = 0,
+        bool $oldestFirst = false
+    ): array {
+        switch ($type) {
+            case ListType::FEED:
+                $items = $this->itemService->findAllInFeedWithFilters(
+                    $this->getUserId(),
+                    $id,
+                    $batchSize,
+                    $offset,
+                    !$getRead,
+                    $oldestFirst
+                );
+                break;
+            case ListType::FOLDER:
+                $items = $this->itemService->findAllInFolderWithFilters(
+                    $this->getUserId(),
+                    $id,
+                    $batchSize,
+                    $offset,
+                    !$getRead,
+                    $oldestFirst
+                );
+                break;
+            default:
+                $items = $this->itemService->findAllWithFilters(
+                    $this->getUserId(),
+                    $type,
+                    $batchSize,
+                    $offset,
+                    $oldestFirst
+                );
+                break;
+        }
+
+        return ['items' => $this->serialize($items)];
     }
 
 
@@ -84,32 +116,45 @@ class ItemApiController extends ApiController
      * @param int $type
      * @param int $id
      * @param int $lastModified
-     * @return array|mixed
+     * @return array|JSONResponse
+     *
+     * @throws ServiceValidationException
      */
-    public function updated($type = 3, $id = 0, $lastModified = 0)
+    public function updated(int $type = 3, int $id = 0, int $lastModified = 0): array
     {
         // needs to be turned into a millisecond timestamp to work properly
         if (strlen((string) $lastModified) <= 10) {
-            $paddedLastModified = $lastModified . '000000';
+            $paddedLastModified = $lastModified * 1000000;
         } else {
             $paddedLastModified = $lastModified;
         }
-        return $this->serializer->serialize(
-            $this->itemService->findAllNew(
-                $id,
-                $type,
-                $paddedLastModified,
-                true,
-                $this->getUserId()
-            )
-        );
+
+        switch ($type) {
+            case ListType::FEED:
+                $items = $this->itemService->findAllInFeedAfter($this->getUserId(), $id, $paddedLastModified, false);
+                break;
+            case ListType::FOLDER:
+                $items = $this->itemService->findAllInFolderAfter($this->getUserId(), $id, $paddedLastModified, false);
+                break;
+            default:
+                $items = $this->itemService->findAllAfter($this->getUserId(), $type, $paddedLastModified);
+                break;
+        }
+
+        return ['items' => $this->serialize($items)];
     }
 
-
-    private function setRead($isRead, $itemId)
+    /**
+     * @param int  $itemId
+     * @param bool $isRead
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
+     */
+    private function setRead(int $itemId, bool $isRead)
     {
         try {
-            $this->itemService->read($itemId, $isRead, $this->getUserId());
+            $this->itemService->read($this->getUserId(), $itemId, $isRead);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -124,11 +169,13 @@ class ItemApiController extends ApiController
      * @CORS
      *
      * @param int $itemId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
      */
-    public function read($itemId)
+    public function read(int $itemId)
     {
-        return $this->setRead(true, $itemId);
+        return $this->setRead($itemId, true);
     }
 
 
@@ -138,23 +185,27 @@ class ItemApiController extends ApiController
      * @CORS
      *
      * @param int $itemId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
      */
-    public function unread($itemId)
+    public function unread(int $itemId)
     {
-        return $this->setRead(false, $itemId);
+        return $this->setRead($itemId, false);
     }
 
-
-    private function setStarred($isStarred, $feedId, $guidHash)
+    /**
+     * @param int    $feedId
+     * @param string $guidHash
+     * @param bool   $isStarred
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
+     */
+    private function setStarred(int $feedId, string $guidHash, bool $isStarred)
     {
         try {
-            $this->itemService->star(
-                $feedId,
-                $guidHash,
-                $isStarred,
-                $this->getUserId()
-            );
+            $this->itemService->starByGuid($this->getUserId(), $feedId, $guidHash, $isStarred);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -170,11 +221,13 @@ class ItemApiController extends ApiController
      *
      * @param int    $feedId
      * @param string $guidHash
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
      */
-    public function star($feedId, $guidHash)
+    public function star(int $feedId, string $guidHash)
     {
-        return $this->setStarred(true, $feedId, $guidHash);
+        return $this->setStarred($feedId, $guidHash, true);
     }
 
 
@@ -185,32 +238,43 @@ class ItemApiController extends ApiController
      *
      * @param int    $feedId
      * @param string $guidHash
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
      */
-    public function unstar($feedId, $guidHash)
+    public function unstar(int $feedId, string $guidHash)
     {
-        return $this->setStarred(false, $feedId, $guidHash);
+        return $this->setStarred($feedId, $guidHash, false);
     }
 
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
      * @param int $newestItemId
+     *
+     * @return void
      */
-    public function readAll($newestItemId)
+    public function readAll(int $newestItemId): void
     {
-        $this->itemService->readAll($newestItemId, $this->getUserId());
+        $this->itemService->readAll($this->getUserId(), $newestItemId);
     }
 
-
-    private function setMultipleRead($isRead, $items)
+    /**
+     * @param array $items
+     * @param bool  $isRead
+     *
+     * @throws ServiceConflictException
+     */
+    private function setMultipleRead(array $items, bool $isRead): void
     {
         foreach ($items as $id) {
             try {
-                $this->itemService->read($id, $isRead, $this->getUserId());
+                $this->itemService->read($this->getUserId(), $id, $isRead);
             } catch (ServiceNotFoundException $ex) {
                 continue;
             }
@@ -220,41 +284,59 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
+     *
+     * @return void
+     *
+     * @throws ServiceConflictException
      */
-    public function readMultiple($items)
+    public function readMultiple(array $items): void
     {
-        $this->setMultipleRead(true, $items);
+        $this->setMultipleRead($items, true);
     }
 
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
+     *
+     * @return void
+     *
+     * @throws ServiceConflictException
      */
-    public function unreadMultiple($items)
+    public function unreadMultiple(array $items): void
     {
-        $this->setMultipleRead(false, $items);
+        $this->setMultipleRead($items, false);
     }
 
 
-    private function setMultipleStarred($isStarred, $items)
+    /**
+     * @param array $items
+     * @param bool  $isStarred
+     *
+     * @return void
+     */
+    private function setMultipleStarred(array $items, bool $isStarred): void
     {
         foreach ($items as $item) {
             try {
-                $this->itemService->star(
+                $this->itemService->starByGuid(
+                    $this->getUserId(),
                     $item['feedId'],
                     $item['guidHash'],
-                    $isStarred,
-                    $this->getUserId()
+                    $isStarred
                 );
-            } catch (ServiceNotFoundException $ex) {
+            } catch (ServiceNotFoundException | ServiceConflictException $ex) {
                 continue;
             }
         }
@@ -263,26 +345,34 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
-     * @param int[] item ids
+     * @param int[] $items item ids
+     *
+     * @return void
      */
-    public function starMultiple($items)
+    public function starMultiple(array $items): void
     {
-        $this->setMultipleStarred(true, $items);
+        $this->setMultipleStarred($items, true);
     }
 
 
     /**
      * @NoAdminRequired
+     *
      * @NoCSRFRequired
+     *
      * @CORS
      *
-     * @param int[] item ids
+     * @param array $items item ids
+     *
+     * @return void
      */
-    public function unstarMultiple($items)
+    public function unstarMultiple(array $items): void
     {
-        $this->setMultipleStarred(false, $items);
+        $this->setMultipleStarred($items, false);
     }
 }

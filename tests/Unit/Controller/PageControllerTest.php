@@ -13,41 +13,68 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
-use OCA\News\Config\Config;
+use OC\L10N\L10N;
 use OCA\News\Controller\PageController;
-use \OCA\News\Db\FeedType;
+use \OCA\News\Db\ListType;
+use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Service\StatusService;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
+use OCP\IUser;
+use OCP\IUserSession;
 use PHPUnit\Framework\TestCase;
-
 
 class PageControllerTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     */
     private $settings;
-    private $appName;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IRequest
+     */
     private $request;
+
+    /**
+     * @var PageController
+     */
     private $controller;
-    private $user;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|L10N
+     */
     private $l10n;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IURLGenerator
+     */
     private $urlGenerator;
-    private $appConfig;
+
+    /**
+     * @var array
+     */
     private $configData;
-    private $config;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|RecommendedSites
+     */
     private $recommended;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|StatusService
+     */
     private $status;
 
     /**
      * Gets run before each test
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $this->appName = 'news';
-        $this->user = 'becka';
         $this->configData = [
             'name' => 'AppTest',
             'id' => 'apptest',
@@ -70,23 +97,29 @@ class PageControllerTest extends TestCase
         $this->urlGenerator = $this->getMockBuilder(IURLGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->appConfig = $this->getMockBuilder(Config::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->config = $this->getMockBuilder(Config::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->recommended = $this->getMockBuilder(RecommendedSites::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->status = $this->getMockBuilder(StatusService::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->user = $this->getMockBuilder(IUser::class)->getMock();
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('becka'));
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
         $this->controller = new PageController(
-            $this->appName, $this->request,
-            $this->settings, $this->urlGenerator, $this->config,
-            $this->l10n, $this->recommended, $this->status,
-            $this->user
+            $this->request,
+            $this->settings,
+            $this->urlGenerator,
+            $this->l10n,
+            $this->recommended,
+            $this->status,
+            $this->userSession
         );
     }
 
@@ -95,15 +128,7 @@ class PageControllerTest extends TestCase
     {
         $this->status->expects($this->once())
             ->method('getStatus')
-            ->will(
-                $this->returnValue(
-                    [
-                    'warnings' => [
-                    'improperlyConfiguredCron' => false
-                    ]
-                    ]
-                )
-            );
+            ->will($this->returnValue(['warnings' => ['improperlyConfiguredCron' => false]]));
 
         $response = $this->controller->index();
         $this->assertEquals('index', $response->getTemplateName());
@@ -130,8 +155,10 @@ class PageControllerTest extends TestCase
         $this->assertEquals(true, $response->getParams()['warnings']['improperlyConfiguredCron']);
     }
 
-
-    public function testSettings() 
+    /**
+     * @covers \OCA\News\Controller\PageController::settings
+     */
+    public function testSettings()
     {
         $result = [
             'settings' => [
@@ -148,55 +175,23 @@ class PageControllerTest extends TestCase
         $this->l10n->expects($this->once())
             ->method('getLanguageCode')
             ->will($this->returnValue('de'));
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(5))
             ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('showAll')
+            ->withConsecutive(
+                ['becka', 'news', 'showAll'],
+                ['becka', 'news', 'compact'],
+                ['becka', 'news', 'preventReadOnScroll'],
+                ['becka', 'news', 'oldestFirst'],
+                ['becka', 'news', 'compactExpand']
             )
             ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(1))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('compact')
-            )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(2))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('preventReadOnScroll')
-            )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(3))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst')
-            )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(4))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('compactExpand')
-            )
-            ->will($this->returnValue('1'));
-        $this->config->expects($this->once())
-            ->method('getExploreUrl')
+        $this->settings->expects($this->once())
+            ->method('getAppValue')
+            ->with('news', 'exploreUrl')
             ->will($this->returnValue(' '));
         $this->urlGenerator->expects($this->once())
             ->method('linkToRoute')
-            ->with(
-                $this->equalTo('news.page.explore'),
-                $this->equalTo(['lang' => 'en'])
-            )
+            ->with('news.page.explore', ['lang' => 'en'])
             ->will($this->returnValue('test'));
 
 
@@ -205,7 +200,7 @@ class PageControllerTest extends TestCase
     }
 
 
-    public function testSettingsExploreUrlSet() 
+    public function testSettingsExploreUrlSet()
     {
         $result = [
             'settings' => [
@@ -222,48 +217,19 @@ class PageControllerTest extends TestCase
         $this->l10n->expects($this->once())
             ->method('getLanguageCode')
             ->will($this->returnValue('de'));
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(5))
             ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('showAll')
+            ->withConsecutive(
+                ['becka', 'news', 'showAll'],
+                ['becka', 'news', 'compact'],
+                ['becka', 'news', 'preventReadOnScroll'],
+                ['becka', 'news', 'oldestFirst'],
+                ['becka', 'news', 'compactExpand']
             )
             ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(1))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('compact')
-            )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(2))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('preventReadOnScroll')
-            )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(3))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst')
-            )
-            ->will($this->returnValue('1'));
-        $this->settings->expects($this->at(4))
-            ->method('getUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('compactExpand')
-            )
-            ->will($this->returnValue('1'));
-        $this->config->expects($this->once())
-            ->method('getExploreUrl')
+        $this->settings->expects($this->once())
+            ->method('getAppValue')
+            ->with('news', 'exploreUrl')
             ->will($this->returnValue('abc'));
         $this->urlGenerator->expects($this->never())
             ->method('getAbsoluteURL');
@@ -273,83 +239,63 @@ class PageControllerTest extends TestCase
         $this->assertEquals($result, $response);
     }
 
-    public function testUpdateSettings() 
+    /**
+     * @covers \OCA\News\Controller\PageController::updateSettings
+     */
+    public function testUpdateSettings()
     {
-        $this->settings->expects($this->at(0))
+        $this->settings->expects($this->exactly(5))
             ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('showAll'),
-                $this->equalTo('1')
+            ->withConsecutive(
+                ['becka', 'news', 'showAll', '1'],
+                ['becka', 'news', 'compact', '1'],
+                ['becka', 'news', 'preventReadOnScroll', '0'],
+                ['becka', 'news', 'oldestFirst', '1'],
+                ['becka', 'news', 'compactExpand', '1']
             );
-        $this->settings->expects($this->at(1))
-            ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('compact'),
-                $this->equalTo('1')
-            );
-        $this->settings->expects($this->at(2))
-            ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('preventReadOnScroll'),
-                $this->equalTo('0')
-            );
-        $this->settings->expects($this->at(3))
-            ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('oldestFirst'),
-                $this->equalTo('1')
-            );
-        $this->settings->expects($this->at(4))
-            ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('compactExpand'),
-                $this->equalTo('1')
-            );
+
         $this->controller->updateSettings(true, true, false, true, true);
-
     }
-
 
     public function testExplore()
     {
-        $in = 'test';
-        $this->settings->expects($this->at(0))
+        $in = ['test'];
+        $this->settings->expects($this->exactly(2))
             ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedId'),
-                $this->equalTo(0)
-            );
-
-        $this->settings->expects($this->at(1))
-            ->method('setUserValue')
-            ->with(
-                $this->equalTo($this->user),
-                $this->equalTo($this->appName),
-                $this->equalTo('lastViewedFeedType'),
-                $this->equalTo(FeedType::EXPLORE)
+            ->withConsecutive(
+                ['becka', 'news', 'lastViewedFeedId', 0],
+                ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
             );
 
         $this->recommended->expects($this->once())
             ->method('forLanguage')
-            ->with($this->equalTo('en'))
+            ->with('en')
             ->will($this->returnValue($in));
-
 
         $out = $this->controller->explore('en');
 
         $this->assertEquals($in, $out);
+
+    }
+
+    public function testExploreError()
+    {
+        $this->settings->expects($this->exactly(2))
+            ->method('setUserValue')
+            ->withConsecutive(
+                ['becka', 'news', 'lastViewedFeedId', 0],
+                ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
+            );
+
+        $this->recommended->expects($this->once())
+            ->method('forLanguage')
+            ->with('nl')
+            ->will($this->throwException(new RecommendedSiteNotFoundException('error')));
+
+        $out = $this->controller->explore('nl');
+
+        $this->assertEquals(404, $out->getStatus());
+
     }
 
 }

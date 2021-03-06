@@ -27,7 +27,7 @@ Since an attacker can not execute code in contrast to mixed active content, but 
 
 #### Why don't you simply use an HTTPS image/audio/video proxy
 
-For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your Nextcloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition people feel save when essentially they are not.
+For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your Nextcloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition, people feel safe when essentially they are not.
 
 Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.
 
@@ -35,92 +35,13 @@ Because we care about our users' security and don't want to hide security warnin
 
 The only fix for this issue is that feed providers serve their content over HTTPS.
 
-### I am getting: Doctrine DBAL Exception InvalidFieldNameException: Column not found: 1054 Unknown column some_column Or BadFunctionCallException: someColumn is not a valid attribute
-
-The exception name itself will give you a hint about what is wrong:
-* **BadFunctionCallException**: Is usually thrown when there are more columns in the database than in the code, e.g.:
-
-      BadFunctionCallException, Message: basicAuthUser is not a valid attribute
-
-    means that the attribute **basicAuthUser** was retrieved from the database but could not be found on the corresponding data object (item.php/feed.php/folder.php) in the **db/** folder
-
-* **InvalidFieldNameException**: Is usually thrown when there are more columns in the code than the database
-
-One reason for this error could be old files which were not overwritten properly when the app was upgraded. Make sure that all files match the files in the release archive!
-Most of the time however this is caused by users trying to downgrade (**not supported!!!**) or by failed/timed out database migrations. To prevent future timeouts use
-
-    php -f nextcloud/occ upgrade
-
-instead of clicking the upgrade button on the web interface.
-
-If you have made sure that old files are not the cause of this issue, the solution is to either automatically or manually remove or add columns to your database. The automatic way to do this is to trigger a database migration. The manual way is to manually check which database columns have to be removed from or added to the News database tables.
-
-#### Triggering a database migration
-Databases are migrated when a newer version is found in **appinfo/info.xml** than in the database. To trigger a migration you can therefore simply increase that version number and refresh the web interface to run an update:
-
-First, get the current version by executing the following Sql query:
-
-```sql
-SELECT configvalue FROM oc_appconfig WHERE appid = 'news' and configkey = 'installed_version';
-```
-
-This will output something like this:
-
-    7.1.1
-
-Then edit the **appinfo/info.xml** and increase the number on the farthest right in the version field by 1, e.g.:
-
-```xml
-<?xml version="1.0"?>
-<info>
-    <!-- etc -->
-    <version>7.1.2</version>
-    <!-- etc -->
-</info>
-```
-
-Now run the update in the web interface by reloading the page.
-
-Finally set back the old version number in the database, so the next News app update will be handled propery, e.g.:
-
-```sql
-UPDATE oc_appconfig SET configvalue = '7.1.1' WHERE appid = 'news' and configkey = 'installed_version';
-```
-
-#### Manually adding/removing the field
-Instead of triggering an automatic migration, you can of course also add or remove the offending columns manually.
-
-To find out what you need to add or remove, check the current **appinfo/database.xml** and compare it to your tables in the database and add/remove the appropriate fields.
-
-Some hints:
-* type text is usually an Sql VARCHAR
-* type clob is usually an Sql TEXT
-* length for integer fields means bytes, so an integer with length 8 means its 64bit
-
 ### I am getting: Exception: Some\\Class does not exist erros in my nextcloud.log
 This is very often caused by missing or old files, e.g. by failing to upload all of the News app' files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
-### How do I reset the News app
-Delete the folder **nextcloud/apps/news/** and **nextcloud/data/news/**, then connect to your database and run the following commands where **oc\_** is your table prefix (defaults to oc\_)
-
-```sql
-DELETE FROM oc_appconfig WHERE appid = 'news';
-DROP TABLE oc_news_items;
-DROP TABLE oc_news_feeds;
-DROP TABLE oc_news_folders;
-```
-
-### App is stuck in maintenance mode after failed update
-
-Check the **nextcloud/data/nextcloud.log** for hints why it failed. After the issues are fixed, turn off the maintenance mode by editing your **nextcloud/config/config.php** by setting the **maintenance** key to false:
-
-    "maintenance" => false,
-
-### Feeds are not updated
+### Feeds not updated
 Feeds can be updated using Nextcloud's system cron or any program that implements the [News app's updater API](https://github.com/nextcloud/news/tree/master/docs/externalapi), most notably [Nextcloud News Updater](https://github.com/nextcloud/news-updater). **The feed update is not run in Webcron and AJAX cron mode!**
 
 System Cron:
-* Check if the config.ini in **nextcloud/data/news/config/config.ini** contains **useCronUpdates = true**
 * Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds
 * Check if the cronjob exists with **crontab -u www-data -e** (replace www-data with your httpd user)
 * Check the file permissions of the **cron.php** file and if **www-data** (or whatever your httpd user is called like) can read and execute that script
@@ -131,19 +52,21 @@ System Cron:
 * Check if the **oc_jobs** table has a **reserved_at** entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:
 
   ```sql
-  SELECT reserved_at FROM oc_jobs WHERE (argument = '["OCA\\News\\Cron\\Updater","run"]' OR class = 'OCA\\News\\Cron\\Updater');
+  SELECT * from oc_jobs WHERE class LIKE '%News%' ORDER BY id;
   ```
 
- and reset it by executing
+You will get two rows where column `class`will be `OCA\News\Cron\Updater` and `OCA\News\Cron\UpdaterJob`.
+
+ Reset the `reserved_at` by executing
 
   ```sql
-  UPDATE oc_jobs SET reserved_at = 0 WHERE (argument = '["OCA\\News\\Cron\\Updater","run"]' OR class = 'OCA\\News\\Cron\\Updater');
+  UPDATE oc_jobs SET reserved_at = 0 WHERE id = <id from above SELECT statement>;
   ```
-
-* If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
+  
+ * If your cron works fine but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
 
 [Nextcloud News Updater](https://github.com/nextcloud/news-updater):
-* Check if the config.ini in **nextcloud/data/news/config/config.ini** contains **useCronUpdates = false**
+* Check if your configuration is set to **not** use the system cron.
 * Start the updater in loglevel info mode and check if the feed update urls are polled, e.g.:
 
     nextcloud_news_updater --loglevel info -c /path/to/config.ini
@@ -164,3 +87,21 @@ If you do not have control over the chosen feed, you should [download the certif
 By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the News app with a pre-filled URL, e.g.:
 
     https://yourdomain.com/nextcloud/index.php/apps/news?subscribe_to=https://github.com/nextcloud/news/releases
+
+### Database table grows too big
+
+By default, Nextcloud News purges old news items above a certain threshold each time it fetches new news items. The maximum number of items per feed
+that should be kept during the purging can be defined through the “Maximum read count per feed” setting in the admin UI or the `autoPurgeCount`
+value in the config. (Note: The “Purge interval” (`autoPurgeMinimumInterval`) setting is ignored and does not have any effect.)
+
+However, unread or starred items are exempt from the purging. If your users have subscribed to some high-volume feeds where a lot of items remain
+unread, this can lead to an oversized news table over time. As a consequence, the database upgrade of the news app can take several hours, during which
+Nextcloud cannot be used.
+
+The command `occ news:updater:after-update [--purge-unread] [<purge-count>]` can be used to manually purge old news items across the instance. With
+the `--purge-unread` option, unread items are also purged (starred items are still exempt). If `purge-count` is not specifid, the configured
+`autoPurgeCount` is used.
+
+The purge count only applies to the items that are purged. For example, when purging a feed that has 100 unread items, 100 starred read
+items and 100 unstarred read items, using a `purge-count` of 50 would keep all unread and starred items and the latest 50 read items. Using
+a `purge-count` of 50 along with `--purge-unread` would keep the all starred items plus the latest 50 from the set of unread and read items.

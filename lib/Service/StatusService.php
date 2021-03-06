@@ -13,17 +13,14 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\AppInfo\Application;
 use OCP\IConfig;
 use OCP\IDBConnection;
-
-use OCA\News\Config\Config;
 
 class StatusService
 {
     /** @var IConfig */
     private $settings;
-    /** @var Config */
-    private $config;
     /** @var string */
     private $appName;
     /** @var IDBConnection */
@@ -31,30 +28,40 @@ class StatusService
 
     public function __construct(
         IConfig $settings,
-        IDBConnection $connection,
-        Config $config,
-        $AppName
+        IDBConnection $connection
     ) {
         $this->settings = $settings;
-        $this->config = $config;
-        $this->appName = $AppName;
         $this->connection = $connection;
+        $this->appName = Application::NAME;
     }
 
-    public function isProperlyConfigured()
+    /**
+     * Check if cron is properly configured
+     *
+     * @return bool
+     */
+    public function isCronProperlyConfigured(): bool
     {
-        $cronMode = $this->settings->getAppValue(
-            'core',
-            'backgroundjobs_mode'
+        //Is NC cron enabled?
+        $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
+        //Expect nextcloud cron
+        $cronOff = !$this->settings->getAppValue(
+            Application::NAME,
+            'useCronUpdates',
+            Application::DEFAULT_SETTINGS['useCronUpdates']
         );
-        $cronOff = !$this->config->getUseCronUpdates();
 
         // check for cron modes which may lead to problems
         return $cronMode === 'cron' || $cronOff;
     }
 
 
-    public function getStatus()
+    /**
+     * Get the app status
+     *
+     * @return array
+     */
+    public function getStatus(): array
     {
         $version = $this->settings->getAppValue(
             $this->appName,
@@ -64,7 +71,7 @@ class StatusService
         return [
             'version' => $version,
             'warnings' => [
-                'improperlyConfiguredCron' => !$this->isProperlyConfigured(),
+                'improperlyConfiguredCron' => !$this->isCronProperlyConfigured(),
                 'incorrectDbCharset' => !$this->connection->supports4ByteText()
             ]
         ];

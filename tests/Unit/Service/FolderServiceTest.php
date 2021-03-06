@@ -13,69 +13,123 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use OCA\News\Config\Config;
+use OC\AppFramework\Utility\TimeFactory;
+use OCA\News\Db\Feed;
 use \OCA\News\Db\Folder;
-use OCA\News\Db\FolderMapper;
-use OCA\News\Service\FolderService;
-use OCA\News\Service\ServiceConflictException;
-use OCA\News\Service\ServiceValidationException;
-use OCA\News\Utility\Time;
-use OCP\IL10N;
+use OCA\News\Db\FolderMapperV2;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\FolderServiceV2;
+use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 
 class FolderServiceTest extends TestCase
 {
 
-    private $folderMapper;
-    private $folderService;
-    private $time;
-    private $user;
-    private $autoPurgeMinimumInterval;
-    private $l10n;
+    /**
+     * @var MockObject|FolderMapperV2
+     */
+    private $mapper;
 
-    protected function setUp()
+    /**
+     * @var MockObject|FeedServiceV2
+     */
+    private $feedService;
+
+    /**
+     * @var FolderServiceV2
+     */
+    private $class;
+
+    /**
+     * @var int
+     */
+    private $time;
+
+    /**
+     * @var string
+     */
+    private $user;
+
+    /**
+     * @var MockObject|LoggerInterface
+     */
+    private $logger;
+
+    protected function setUp(): void
     {
-        $this->l10n = $this->getMockBuilder(IL10N::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->time = 222;
-        $timeFactory = $this->getMockBuilder(Time::class)
+        $timeFactory = $this->getMockBuilder(TimeFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->folderMapper = $this->getMockBuilder(FolderMapper::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->autoPurgeMinimumInterval = 10;
-        $config = $this->getMockBuilder(Config::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $config->expects($this->any())
-            ->method('getAutoPurgeMinimumInterval')
-            ->will($this->returnValue($this->autoPurgeMinimumInterval));
-        $this->folderService = new FolderService(
-            $this->folderMapper, $this->l10n, $timeFactory, $config
-        );
-        $this->user = 'hi';
-    }
 
+        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->mapper = $this->getMockBuilder(FolderMapperV2::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->class = new FolderServiceV2($this->mapper, $this->feedService, $timeFactory, $this->logger);
+    }
 
     public function testFindAll()
     {
-        $userId = 'jack';
-        $return = 'hi';
-        $this->folderMapper->expects($this->once())
-            ->method('findAllFromUser')
-            ->with($this->equalTo($userId))
+        $return = [];
+        $this->mapper->expects($this->once())
+            ->method('findAll')
             ->will($this->returnValue($return));
 
-        $result = $this->folderService->findAll($userId);
+        $result = $this->class->findAll();
 
         $this->assertEquals($return, $result);
+    }
+
+    public function testFindAllForUser()
+    {
+        $return = [];
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack')
+            ->will($this->returnValue($return));
+
+        $result = $this->class->findAllForUser('jack');
+
+        $this->assertEquals($return, $result);
+    }
+
+    public function testFindAllForUserRecursive()
+    {
+        $folder = new Folder();
+        $folder->setId(1);
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack', [])
+            ->will($this->returnValue([$folder]));
+
+        $feeds = [new Feed(), new Feed()];
+        $this->feedService->expects($this->once())
+                          ->method('findAllFromFolder')
+                          ->with(1)
+                          ->will($this->returnValue($feeds));
+
+        $result = $this->class->findAllForUserRecursive('jack');
+
+        $folder->feeds = $feeds;
+        $expected = [$folder];
+        $this->assertEquals($expected, $result);
+        $this->assertEquals($result[0]->feeds, $feeds);
     }
 
 
@@ -87,222 +141,142 @@ class FolderServiceTest extends TestCase
         $folder->setUserId('john');
         $folder->setOpened(true);
 
-        $this->folderMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('insert')
-            ->with($this->equalTo($folder))
+            ->with($folder)
             ->will($this->returnValue($folder));
 
-        $this->folderMapper->expects($this->once())
-            ->method('findByName')
-            ->with('hey', 'john')
-            ->will($this->returnValue([]));
-
-        $result = $this->folderService->create('hey', 'john', 5);
+        $result = $this->class->create('john', 'hey', 5);
 
         $this->assertEquals($folder, $result);
     }
-
-
-    public function testCreateThrowsExWhenFolderNameExists()
-    {
-        $folderName = 'hihi';
-        $rows = [['id' => 1]];
-
-        $this->l10n->expects($this->once())
-            ->method('t');
-        $this->folderMapper->expects($this->once())
-            ->method('findByName')
-            ->with($this->equalTo($folderName))
-            ->will($this->returnValue($rows));
-
-        $this->expectException(ServiceConflictException::class);
-        $this->folderService->create($folderName, 'john', 3);
-    }
-
-    /**
-     * @expectedException \OCA\News\Service\ServiceValidationException
-     */
-    public function testCreateThrowsExWhenFolderNameEmpty()
-    {
-        $folderName = '';
-
-        $this->folderMapper->expects($this->once())
-            ->method('findByName')
-            ->with($this->equalTo($folderName))
-            ->will($this->returnValue([]));
-
-        $this->folderService->create($folderName, 'john', 3);
-    }
-
 
     public function testOpen()
     {
         $folder = new Folder();
 
-        $this->folderMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo(3))
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
             ->will($this->returnValue($folder));
 
-        $this->folderMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($folder));
+            ->with($folder);
 
-        $this->folderService->open(3, false, '');
+        $this->class->open('jack', 3, false);
 
         $this->assertFalse($folder->getOpened());
-
     }
-
 
     public function testRename()
     {
         $folder = new Folder();
         $folder->setName('jooohn');
 
-        $this->folderMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo(3))
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
             ->will($this->returnValue($folder));
 
-        $this->folderMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($folder));
+            ->with($folder);
 
-        $this->folderMapper->expects($this->once())
-            ->method('findByName')
-            ->with('bogus', '')
-            ->will($this->returnValue([]));
+        $this->class->rename('jack', 3, 'newName');
 
-        $this->folderService->rename(3, 'bogus', '');
-
-        $this->assertEquals('bogus', $folder->getName());
+        $this->assertEquals('newName', $folder->getName());
     }
 
-
-    public function testRenameThrowsExWhenFolderNameExists()
+    public function testMarkDeleted()
     {
-        $folderName = 'hihi';
-        $rows = [['id' => 1]];
-
-        $this->l10n->expects($this->once())
-            ->method('t');
-        $this->folderMapper->expects($this->once())
-            ->method('findByName')
-            ->with($this->equalTo($folderName))
-            ->will($this->returnValue($rows));
-
-        $this->expectException(ServiceConflictException::class);
-        $this->folderService->rename(3, $folderName, 'john');
-    }
-
-
-    public function testRenameThrowsExWhenFolderNameEmpty()
-    {
-        $folderName = '';
-
-        $this->folderMapper->expects($this->once())
-            ->method('findByName')
-            ->with($this->equalTo($folderName))
-            ->will($this->returnValue([]));
-
-        $this->expectException(ServiceValidationException::class);
-        $this->folderService->rename(3, $folderName, 'john');
-    }
-
-
-    public function testMarkDeleted() 
-    {
-        $id = 3;
         $folder = new Folder();
         $folder2 = new Folder();
         $folder2->setDeletedAt($this->time);
 
-        $this->folderMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
             ->will($this->returnValue($folder));
-        $this->folderMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($folder2));
+            ->with($folder2);
 
-        $this->folderService->markDeleted($id, $this->user);
+        $this->class->markDelete('jack', 3, true);
     }
 
-
-    public function testUnmarkDeleted() 
+    public function testUnmarkDeleted()
     {
-        $id = 3;
         $folder = new Folder();
         $folder2 = new Folder();
         $folder2->setDeletedAt(0);
 
-        $this->folderMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
             ->will($this->returnValue($folder));
-        $this->folderMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($folder2));
+            ->with($folder2);
 
-        $this->folderService->unmarkDeleted($id, $this->user);
+        $this->class->markDelete('jack', 3, false);
     }
 
     public function testPurgeDeleted()
     {
-        $folder1 = new Folder();
-        $folder1->setId(3);
-        $folder2 = new Folder();
-        $folder2->setId(5);
-        $feeds = [$folder1, $folder2];
+        $this->mapper->expects($this->exactly(1))
+            ->method('purgeDeleted')
+            ->with('jack', null);
 
-        $time = $this->time - $this->autoPurgeMinimumInterval;
-        $this->folderMapper->expects($this->once())
-            ->method('getToDelete')
-            ->with($this->equalTo($time), $this->equalTo($this->user))
-            ->will($this->returnValue($feeds));
-        $this->folderMapper->expects($this->at(1))
-            ->method('delete')
-            ->with($this->equalTo($folder1));
-        $this->folderMapper->expects($this->at(2))
-            ->method('delete')
-            ->with($this->equalTo($folder2));
-
-        $this->folderService->purgeDeleted($this->user);
+        $this->class->purgeDeleted('jack', null);
     }
 
-
-    public function testPurgeDeletedNoInterval()
+    public function testDelete()
     {
-        $folder1 = new Folder();
-        $folder1->setId(3);
-        $folder2 = new Folder();
-        $folder2->setId(5);
-        $feeds = [$folder1, $folder2];
-
-        $this->folderMapper->expects($this->once())
-            ->method('getToDelete')
-            ->with($this->equalTo(null), $this->equalTo($this->user))
-            ->will($this->returnValue($feeds));
-        $this->folderMapper->expects($this->at(1))
+        $folder = new Folder();
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 1)
+            ->will($this->returnValue($folder));
+        $this->mapper->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo($folder1));
-        $this->folderMapper->expects($this->at(2))
-            ->method('delete')
-            ->with($this->equalTo($folder2));
+            ->with($folder)
+            ->will($this->returnValue($folder));
 
-        $this->folderService->purgeDeleted($this->user, false);
+        $this->class->delete('jack', 1);
     }
 
-
-    public function testDeleteUser() 
+    public function testDeleteUser()
     {
-        $this->folderMapper->expects($this->once())
-            ->method('deleteUser')
-            ->will($this->returnValue($this->user));
+        $folder = new Folder();
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack')
+            ->will($this->returnValue([$folder]));
+        $this->mapper->expects($this->once())
+            ->method('delete')
+            ->with($folder)
+            ->will($this->returnValue($folder));
 
-        $this->folderService->deleteUser($this->user);
+        $this->class->deleteUser('jack');
     }
 
+
+    public function testRead()
+    {
+        $folder = new Folder();
+        $folder->setId(1);
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 1)
+            ->will($this->returnValue($folder));
+
+        $this->mapper->expects($this->exactly(1))
+            ->method('read')
+            ->withConsecutive(['jack', 1, null]);
+
+        $this->class->read('jack', 1);
+    }
 
 }

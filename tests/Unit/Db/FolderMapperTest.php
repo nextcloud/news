@@ -14,25 +14,23 @@
 namespace OCA\News\Tests\Unit\Db;
 
 use OCA\News\Db\Folder;
-use OCA\News\Db\FolderMapper;
+use OCA\News\Db\FolderMapperV2;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
 class FolderMapperTest extends MapperTestUtility
 {
-    /** @var FolderMapper */
-    private $folderMapper;
+    /** @var FolderMapperV2 */
+    private $class;
     /** @var Folder[] */
     private $folders;
-    /** @var string */
-    private $user;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->folderMapper = new FolderMapper($this->db, new Time());
+        $this->class = new FolderMapperV2($this->db, new Time());
 
         // create mock folders
         $folder1 = new Folder();
@@ -43,171 +41,332 @@ class FolderMapperTest extends MapperTestUtility
         $folder2->resetUpdatedFields();
 
         $this->folders = [$folder1, $folder2];
-        $this->user = 'hh';
-        $this->twoRows = [
-            ['id' => $this->folders[0]->getId()],
-            ['id' => $this->folders[1]->getId()]
-        ];
     }
 
-
-    public function testFind()
-    {
-        $userId = 'john';
-        $id = 3;
-        $rows = [['id' => $this->folders[0]->getId()]];
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `id` = ? ' .
-            'AND `user_id` = ?';
-
-        $this->setMapperResult($sql, [$id, $userId], $rows);
-
-        $result = $this->folderMapper->find($id, $userId);
-        $this->assertEquals($this->folders[0], $result);
-
-    }
-
-
-    public function testFindNotFound()
-    {
-        $userId = 'john';
-        $id = 3;
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `id` = ? ' .
-            'AND `user_id` = ?';
-
-        $this->setMapperResult($sql, [$id, $userId]);
-
-        $this->expectException(DoesNotExistException::class);
-        $this->folderMapper->find($id, $userId);
-    }
-
-
-    public function testFindMoreThanOneResultFound()
-    {
-        $userId = 'john';
-        $id = 3;
-        $rows = $this->twoRows;
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `id` = ? ' .
-            'AND `user_id` = ?';
-
-        $this->setMapperResult($sql, [$id, $userId], $rows);
-
-        $this->expectException(MultipleObjectsReturnedException::class);
-        $this->folderMapper->find($id, $userId);
-    }
-
-
-
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::findAllFromUser
+     */
     public function testFindAllFromUser()
     {
-        $userId = 'john';
-        $rows = $this->twoRows;
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `user_id` = ? ' .
-            'AND `deleted_at` = 0';
+        $this->db->expects($this->once())
+                 ->method('getQueryBuilder')
+                 ->willReturn($this->builder);
 
-        $this->setMapperResult($sql, [$userId], $rows);
+        $this->builder->expects($this->once())
+                      ->method('select')
+                      ->with('*')
+                      ->will($this->returnSelf());
 
-        $result = $this->folderMapper->findAllFromUser($userId);
+        $this->builder->expects($this->once())
+                      ->method('from')
+                      ->with('news_folders')
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+                      ->method('where')
+                      ->with('user_id = :user_id')
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+                      ->method('andWhere')
+                      ->with('deleted_at = 0')
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+                      ->method('setParameter')
+                      ->with('user_id', 'jack')
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+                      ->method('execute')
+                      ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(3))
+                     ->method('fetch')
+                     ->willReturnOnConsecutiveCalls(
+                         ['id' => 4],
+                         ['id' => 5],
+                         null
+                     );
+
+        $result = $this->class->findAllFromUser('jack', []);
         $this->assertEquals($this->folders, $result);
     }
 
-
-    public function testFindByName()
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::findFromUser
+     */
+    public function testFindFromUser()
     {
-        $folderName = 'heheh';
-        $userId = 'john';
-        $rows = $this->twoRows;
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `name` = ? ' .
-            'AND `user_id` = ?';
+        $this->db->expects($this->once())
+                 ->method('getQueryBuilder')
+                 ->willReturn($this->builder);
 
-        $this->setMapperResult($sql, [$folderName, $userId], $rows);
+        $this->builder->expects($this->once())
+                      ->method('select')
+                      ->with('*')
+                      ->will($this->returnSelf());
 
-        $result = $this->folderMapper->findByName($folderName, $userId);
+        $this->builder->expects($this->once())
+                      ->method('from')
+                      ->with('news_folders')
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+                      ->method('where')
+                      ->with('user_id = :user_id')
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+                      ->method('andWhere')
+                      ->withConsecutive(['id = :id'], ['deleted_at = 0'])
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+                      ->method('setParameter')
+                      ->withConsecutive(['user_id', 'jack'], ['id', 1])
+                      ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+                      ->method('execute')
+                      ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(2))
+                     ->method('fetch')
+                     ->willReturnOnConsecutiveCalls(
+                         ['id' => 4],
+                         false
+                     );
+
+        $result = $this->class->findFromUser('jack', 1);
+        $this->assertEquals($this->folders[0], $result);
+    }
+
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::findFromUser
+     */
+    public function testFindFromUserEmpty()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('select')
+            ->with('*')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('from')
+            ->with('news_folders')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('where')
+            ->with('user_id = :user_id')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['id = :id'], ['deleted_at = 0'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['user_id', 'jack'], ['id', 1])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(1))
+            ->method('fetch')
+            ->willReturnOnConsecutiveCalls(
+                false
+            );
+
+        $this->expectException(DoesNotExistException::class);
+        $this->class->findFromUser('jack', 1);
+    }
+
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::findFromUser
+     */
+    public function testFindFromUserDuplicate()
+    {
+
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('select')
+            ->with('*')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('from')
+            ->with('news_folders')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('where')
+            ->with('user_id = :user_id')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['id = :id'], ['deleted_at = 0'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['user_id', 'jack'], ['id', 1])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(2))
+            ->method('fetch')
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 1],
+                ['id' => 2]
+            );
+
+        $this->expectException(MultipleObjectsReturnedException::class);
+        $this->class->findFromUser('jack', 1);
+    }
+
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::findAll
+     */
+    public function testFindAll()
+    {
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
+
+        $this->builder->expects($this->once())
+            ->method('select')
+            ->with('*')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('from')
+            ->with('news_folders')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('where')
+            ->with('deleted_at = 0')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('execute')
+            ->will($this->returnValue($this->cursor));
+
+        $this->cursor->expects($this->exactly(3))
+            ->method('fetch')
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 4],
+                ['id' => 5],
+                null
+            );
+
+        $result = $this->class->findAll();
         $this->assertEquals($this->folders, $result);
     }
 
-
-    public function testDelete()
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::read
+     */
+    public function testRead()
     {
-        $folder = new Folder();
-        $folder->setId(3);
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
 
-        $sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `id` = ?';
-        $arguments = [$folder->getId()];
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
 
-        $sql2 = 'DELETE FROM `*PREFIX*news_feeds` WHERE `folder_id` = ?';
-        $arguments2 = [$folder->getId()];
+        $this->builder->expects($this->once())
+            ->method('innerJoin')
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->will($this->returnSelf());
 
-        $sql3 = 'DELETE FROM `*PREFIX*news_items` WHERE `feed_id` NOT IN '.
-            '(SELECT `feeds`.`id` FROM `*PREFIX*news_feeds` `feeds`)';
+        $this->builder->expects($this->once())
+            ->method('setValue')
+            ->with('unread', 0)
+            ->will($this->returnSelf());
 
-        $this->setMapperResult($sql, $arguments, [], null, null, true);
-        $this->setMapperResult($sql2, $arguments2, [], null, null, true);
-        $this->setMapperResult($sql3, [], [], null, null, true);
+        $this->builder->expects($this->exactly(2))
+            ->method('andWhere')
+            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.folder_id = :folderId'])
+            ->will($this->returnSelf());
 
-        $this->folderMapper->delete($folder);
+        $this->builder->expects($this->exactly(2))
+            ->method('setParameter')
+            ->withConsecutive(['userId', 'admin'], ['folderId', 1])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('QUERY'));
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeUpdate')
+            ->with('QUERY');
+
+        $this->class->read('admin', 1);
     }
 
-
-    public function testGetPurgeDeleted()
+    /**
+     * @covers \OCA\News\Db\FolderMapperV2::read
+     */
+    public function testReadWithMaxId()
     {
-        $rows = $this->twoRows;
-        $deleteOlderThan = 110;
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `deleted_at` > 0 ' .
-            'AND `deleted_at` < ? ';
-        $this->setMapperResult($sql, [$deleteOlderThan], $rows);
-        $result = $this->folderMapper->getToDelete($deleteOlderThan);
+        $this->db->expects($this->once())
+            ->method('getQueryBuilder')
+            ->willReturn($this->builder);
 
-        $this->assertEquals($this->folders, $result);
+        $this->builder->expects($this->once())
+            ->method('update')
+            ->with('news_items', 'items')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('innerJoin')
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->once())
+            ->method('setValue')
+            ->with('unread', 0)
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(3))
+            ->method('andWhere')
+            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.folder_id = :folderId'], ['items.id =< :maxItemId'])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(3))
+            ->method('setParameter')
+            ->withConsecutive(['userId', 'admin'], ['folderId', 1], ['maxItemId', 4])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('getSQL')
+            ->will($this->returnValue('QUERY'));
+
+        $this->db->expects($this->exactly(1))
+            ->method('executeUpdate')
+            ->with('QUERY');
+
+        $this->class->read('admin', 1, 4);
     }
-
-
-
-    public function testGetPurgeDeletedUser()
-    {
-        $rows = $this->twoRows;
-        $deleteOlderThan = 110;
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `deleted_at` > 0 ' .
-            'AND `deleted_at` < ? ' .
-            'AND `user_id` = ?';
-        $this->setMapperResult($sql, [$deleteOlderThan, $this->user], $rows);
-        $result = $this->folderMapper->getToDelete(
-            $deleteOlderThan, $this->user
-        );
-
-        $this->assertEquals($this->folders, $result);
-    }
-
-
-    public function testGetAllPurgeDeletedUser()
-    {
-        $rows = $this->twoRows;
-
-        $sql = 'SELECT * FROM `*PREFIX*news_folders` ' .
-            'WHERE `deleted_at` > 0 ' .
-            'AND `user_id` = ?';
-        $this->setMapperResult($sql, [$this->user], $rows);
-        $result = $this->folderMapper->getToDelete(null, $this->user);
-
-        $this->assertEquals($this->folders, $result);
-    }
-
-
-    public function testDeleteFromUser()
-    {
-        $userId = 'john';
-        $sql = 'DELETE FROM `*PREFIX*news_folders` WHERE `user_id` = ?';
-
-        $this->setMapperResult($sql, [$userId]);
-
-        $this->folderMapper->deleteUser($userId);
-    }
-
-
 }

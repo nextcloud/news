@@ -1,174 +1,98 @@
 {
     "Nextcloud": [{
-        "title": "Nextcloud Planet",
-        "favicon": "https://nextcloud.com/contribook/main/images/nextcloud/100.png",
+        "title": "Nextcloud News",
+        "favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
         "url": "https://nextcloud.com/news/",
-        "feed": "https://nextcloud.com/feed/",
-        "description": "Nextcloud Planet is a blog feed aggregator",
+        "feed": "https://nextcloud.com/blogfeed",
+        "description": "See what is going on in and around Nextcloud",
         "votes": 1000
-    }, {
-        "title": "News app releases",
-        "favicon": "https://nextcloud.com/contribook/main/images/nextcloud/100.png",
-        "url": "https://github.com/nextcloud/news/releases",
-        "feed": "https://github.com/nextcloud/news/releases.atom",
-        "description": "Nextcloud News app releases page. Get notified when a new release comes out",
-        "votes": 900
-    }],
-    "FOSS": [{
-            "title": "Planet GNOME",
-            "favicon": "http:\/\/planet.gnome.org\/img\/gnome-16.png",
-            "url": "http:\/\/planet.gnome.org\/",
-            "feed": "http:\/\/planet.gnome.org\/rss20.xml",
-            "description": "Planet GNOME - http:\/\/planet.gnome.org\/",
-            "votes": 100
-        }, {
-            "title": "Planet KDE",
-            "favicon": "https:\/\/planetkde.org\/favicon.ico",
-            "url": "http:\/\/planetKDE.org\/",
-            "feed": "http:\/\/planetKDE.org\/rss20.xml",
-            "description": "Planet KDE - http:\/\/planetKDE.org\/",
-            "votes": 100
-        }, {
-            "title": "Planet Mozilla",
-            "favicon": "https:\/\/planet.mozilla.org\/img\/mozilla-16.png",
-            "url": "http:\/\/planet.mozilla.org\/",
-            "feed": "http:\/\/planet.mozilla.org\/atom.xml",
-            "description": "Planet Mozilla - Mozilla Blogs",
-            "votes": 100
-        }
-
-    ],
-    "Tech": [{
-        "title": "Slashdot",
-        "favicon": "https://slashdot.org/favicon.ico",
-        "url": "https://slashdot.org",
-        "feed": "https://rss.slashdot.org/Slashdot/slashdot",
-        "description": "Slashdot: News for nerds, stuff that matters",
+    },
+	{
+		"title": "Nextcloud Podcast",
+		"favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
+		"url": "https://nextcloud.com/podcast/",
+		"feed": "https://nextcloud.com/podcast-feed.rss",
+		"description": "Digital Sovereignty, self hosting, privacy and more",
+		"votes": 1000
+	}],
+    "News": [{
+        "title": "World Health Organization",
+        "favicon": "https://www.who.int/favicon.ico",
+        "url": "https://www.who.int/",
+        "feed": "https://www.who.int/rss-feeds/news-english.xml",
+        "description": "All news releases, notes for the media, statements issued by WHO",
         "votes": 500
-    }, {
-        "title": "Lifehacker",
-        "favicon": "https://lifehacker.com/favicon.ico",
-        "url": "https://lifehacker.com",
-        "feed": "https://lifehacker.com/rss",
-        "description": "Lifehacker is the ultimate authority on optimizing every aspect of your life. Do everything better.",
-        "votes": 500
-    }],
-    "Gaming": [{
-        "title": "Force Gaming",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UCGhs9S33RAeT5DEuKTO4Oew",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCGhs9S33RAeT5DEuKTO4Oew",
-        "description": "General gaming news and reviews",
+    },
+	{
+		"title": "Wikinews",
+		"favicon": "https://en.wikinews.org/static/apple-touch/wikinews.png",
+		"url": "https://en.wikinews.org/",
+		"feed": "https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=atom&categories=Published&notcategories=No%20publish%7CArchived%7CAutoArchived%7Cdisputed&namespace=0&count=30&hourcount=124&ordermethod=categoryadd&stablepages=only",
+		"description": "Collaborative journalism news site by the Wikimedia Foundation",
+		"votes": 100
+	},
+	{
+		"title": "Privacy International",
+		"favicon": "https://privacyinternational.org/sites/default/files/fav/apple-icon-60x60.png",
+		"url": "https://privacyinternational.org/",
+		"feed": "https://privacyinternational.org/rss.xml",
+		"description": "News on the right to privacy",
+		"votes": 100
+	}],
+	"Open knowledge": [{
+        "title": "Wikipedia picture of the day",
+        "favicon": "https://www.wikipedia.org/static/apple-touch/wikipedia.png",
+        "url": "https://en.wikipedia.org/wiki/Wikipedia:Featured_pictures",
+        "feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom",
+        "description": "Some of the finest images on Wikipedia",
         "votes": 100
-    }, {
-        "title": "Trump",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UCsQnAt5I56M-qx4OgCoVmeA",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCsQnAt5I56M-qx4OgCoVmeA",
-        "description": "Hearthstone focused let's plays",
-        "votes": 100
-    }],
-    "UX": [{
-        "title": "Mozilla UX blog",
-        "favicon": "https://blog.mozilla.org/ux/wp-content/themes/OneMozilla/img/favicon.ico",
-        "url": "https://blog.mozilla.org/ux/",
-        "feed": "https://blog.mozilla.org/ux/feed/",
-        "description": "Designing great products that make sense & bring joy",
-        "votes": 500
-    }, {
-        "title": "Little Big Details",
-        "url": "http://littlebigdetails.com/",
-        "feed": "http://littlebigdetails.com/rss",
-        "favicon": "http://33.media.tumblr.com/avatar_21babec3285d_128.png",
-        "description": "UX eastereggs and goodies",
-        "votes": 1000
-    }, {
-        "title": "Ignore the code",
-        "favicon": "http://ignorethecode.net/blog_images/iphone.png",
-        "url": "http://ignorethecode.net/blog/",
-        "feed": "http://feeds.feedburner.com/IgnoreTheCode",
-        "description": "A blog about usability",
-        "votes": 500
-    }, {
-        "title": "Elezea",
-        "url": "http://www.elezea.com",
-        "feed": "http://feedpress.me/elezea",
-        "description": "Links and articles about technology, design, and sociology. Written by Rian van der Merwe.",
-        "votes": 500
-    }],
-    "Music": [{
-        "title": "Pebber Brown",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UCbA-Tt8ELg8v0d7RdieeZyA",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCbA-Tt8ELg8v0d7RdieeZyA",
-        "description": "Videos about music theory and scales",
-        "votes": 100
-    }],
-    "Science": [{
-        "title": "Numberphile",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UCoxcjq-8xIDTYp3uz647V5A",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCoxcjq-8xIDTYp3uz647V5A",
-        "description": "Awesome mathematics videos",
-        "votes": 500
-    }, {
-        "title": "Periodic Videos",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UCtESv1e7ntJaLJYKIO1FoYw",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCtESv1e7ntJaLJYKIO1FoYw",
-        "description": "Videos about elements and chemistry",
-        "votes": 1000
-    }, {
-        "title": "Sixty Symbols",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UCvBqzzvUBLCs8Y7Axb-jZew",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UCvBqzzvUBLCs8Y7Axb-jZew",
-        "description": "Well explained Physics videos",
-        "votes": 100
-    }, {
-        "title": "Computerphile",
-        "favicon": "https:\/\/s.ytimg.com\/yts\/img\/favicon-vflz7uhzw.ico",
-        "url": "http:\/\/www.youtube.com\/channel\/UC9-y-6csu5WGm29I7JiwpnA",
-        "feed": "http:\/\/www.youtube.com\/feeds\/videos.xml?channel_id=UC9-y-6csu5WGm29I7JiwpnA",
-        "description": "Great source of computer science videos",
-        "votes": 100
-    }],
-    "Food": [{
-        "title": "Smitten Kitchen",
-        "favicon": "http://smittenkitchen.com/uploads/favicon.ico",
-        "url": "http://smittenkitchen.com/",
-        "feed": "http://feeds.feedburner.com/smittenkitchen",
-        "description": "A home cooking weblog from a tiny kitchen in New York City. The place to find all of your new favorite things to cook",
-        "votes": 500
-    }, {
-        "title": "Food in Jars",
-        "favicon": "http://foodinjars.com.s164546.gridserver.com/arugulapesto/wp-content/uploads/2013/05/jar-favicon.png",
-        "url": "http://foodinjars.com/",
-        "feed": "http://feedpress.me/FIJ",
-        "description": "A blog dedicated to canning, preserving, and pantry staples made from scratch.",
-        "votes": 500
-    }],
-    "Comics": [{
-        "title": "Explosm.net",
-        "favicon": "http://explosm.net/favicons/favicon.ico",
-        "url": "http:\/\/www.explosm.net\/rss.php",
-        "feed": "http:\/\/feeds.feedburner.com\/Explosm",
-        "description": "Flash Animations, Daily Comics and more!",
-        "votes": 100
-    }, {
-        "title": "The Oatmeal - Comics, Quizzes, & Stories",
-        "favicon": "http:\/\/theoatmeal.com\/favicon.ico",
-        "url": "http:\/\/theoatmeal.com\/",
-        "feed": "http:\/\/feeds.feedburner.com\/oatmealfeed",
-        "description": "The oatmeal tastes better than stale skittles found under the couch cushions",
-        "votes": 100
-    }],
-	"Other": [{
-        "title": "The Regimental Standard",
-        "favicon": "http:\/\/regimentalstandard.files.wordpress.com\/2017\/03\/cropped-icon.png",
-        "url": "http:\/\/regimental-standard.com",
-        "feed": "http:\/\/regimental-standard.com\/feed\/",
-        "description": "Required weekly reading for the modern guardsman",
-        "votes": 100
-    }]
+    },
+	{
+		"title": "Wikipedia article of the day",
+		"favicon": "https://www.wikipedia.org/static/apple-touch/wikipedia.png",
+		"url": "https://en.wikipedia.org/",
+		"feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom",
+		"description": "The best articles Wikipedia has to offer",
+		"votes": 100
+	},
+	{
+		"title": "Project Gutenberg",
+		"favicon": "https://www.gutenberg.org/gutenberg/favicon.ico",
+		"url": "https://gutenberg.org/",
+		"feed": "http://www.gutenberg.org/cache/epub/feeds/today.rss",
+		"description": "A library of over 60,000 free eBooks",
+		"votes": 100
+	},
+	{
+		"title": "LibriVox",
+		"favicon": "https://librivox.org/wp-content/themes/librivox/favicon.ico",
+		"url": "https://librivox.org/",
+		"feed": "https://librivox.org/rss/latest_releases",
+		"description": "Free public domain audiobooks",
+		"votes": 100
+	},
+	{
+		"title": "Public Domain Review",
+		"favicon": "https://publicdomainreview.org/favicon-96x96.png",
+		"url": "https://publicdomainreview.org/",
+		"feed": "https://publicdomainreview.org/rss.xml",
+		"description": "Curious and compelling works from the history of art, literature, and ideas",
+		"votes": 100
+	},
+	{
+		"title": "Public Library of Science",
+		"favicon": "https://plos.org/wp-content/themes/plos/favicon/apple-touch-icon.png",
+		"url": "https://plos.org/",
+		"feed": "https://journals.plos.org/plosone/feed/atom",
+		"description": "Primary research from any discipline within science and medicine",
+		"votes": 100
+	},
+	{
+		"title": "ccMixter",
+		"favicon": "http://ccmixter.org/mixter-files/images/mixter-default.gif",
+		"url": "http://ccmixter.org/",
+		"feed": "http://ccmixter.org/api/query?f=rss&tags=editorial_pick&sort=date&dir=DESC&limit=22",
+		"description": "Editor’s picks from the global music community",
+		"votes": 100
+	}]
 }

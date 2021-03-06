@@ -32,12 +32,12 @@ class OPMLExporterTest extends TestCase
     /** @var Folder */
     private $folder2;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->exporter = new OPMLExporter();
         $this->folder1 = new Folder();
         $this->folder1->setId(3);
-        $this->folder1->setParentId(0);
+        $this->folder1->setParentId(null);
         $this->folder1->setName('Örgendwas');
         $this->folder2 = new Folder();
         $this->folder2->setId(1);
@@ -46,7 +46,7 @@ class OPMLExporterTest extends TestCase
         $this->feed1 = new Feed();
         $this->feed1->setUrl('http://url1');
         $this->feed1->setTitle('tötel');
-        $this->feed1->setFolderId(0);
+        $this->feed1->setFolderId(null);
         $this->feed2 = new Feed();
         $this->feed2->setUrl('http://url');
         $this->feed2->setTitle('ttel df');
@@ -55,7 +55,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    private function getAttribute($item, $name) 
+    private function getAttribute($item, $name)
     {
         // used to fix scrutinizer errors
         if ($item instanceof \DOMElement) {
@@ -75,7 +75,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    public function testBuildReturnsFolders() 
+    public function testBuildReturnsFolders()
     {
         $result = $this->exporter->build([$this->folder1, $this->folder2], []);
         $xpath = new \DOMXpath($result);
@@ -101,7 +101,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    public function testBuildReturnsOnlyOneFeedIfParentFolderNotThere() 
+    public function testBuildReturnsOnlyOneFeedIfParentFolderNotThere()
     {
         $result = $this->exporter->build([], [$this->feed1, $this->feed2]);
         $xpath = new \DOMXpath($result);
@@ -127,7 +127,7 @@ class OPMLExporterTest extends TestCase
     }
 
 
-    public function testBuildReturnsFeedsAndFolders() 
+    public function testBuildReturnsFeedsAndFolders()
     {
         $result = $this->exporter->build(
             [$this->folder1, $this->folder2],

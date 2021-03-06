@@ -13,93 +13,210 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use OCA\News\Config\Config;
-use \OCA\News\Db\FeedType;
 use OCA\News\Service\StatusService;
 use OCP\IConfig;
 use OCP\IDBConnection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 
 class StatusServiceTest extends TestCase
 {
-
+    /**
+     * @var MockObject|IConfig
+     */
     private $settings;
-    private $config;
-    private $service;
-    private $appName;
 
-    public function setUp()
+    /**
+     * @var MockObject|IDBConnection
+     */
+    private $connection;
+
+    /**
+     * @var StatusService
+     */
+    private $service;
+
+    public function setUp(): void
     {
-        $this->appName = 'news';
         $this->settings = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(Config::class)
+        $this->connection = $this->getMockBuilder(IDBConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->db = $this->getMockBuilder(IDBConnection::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $this->service = new StatusService(
-            $this->settings, $this->db,
-            $this->config, $this->appName
-        );
+        $this->service = new StatusService($this->settings, $this->connection);
     }
-
-    private function beforeStatus($cronMode='cron', $cronEnabled=true,
-        $version='1.0'
-    ) {
-        $this->settings->expects($this->at(0))
-            ->method('getAppValue')
-            ->with(
-                $this->equalTo($this->appName),
-                $this->equalTo('installed_version')
-            )
-            ->will($this->returnValue($version));
-
-        $this->settings->expects($this->at(1))
-            ->method('getAppValue')
-            ->with(
-                $this->equalTo('core'),
-                $this->equalTo('backgroundjobs_mode')
-            )
-            ->will($this->returnValue($cronMode));
-
-        $this->config->expects($this->once())
-            ->method('getUseCronUpdates')
-            ->will($this->returnValue($cronEnabled));
-
-    }
-
 
     public function testGetStatus()
     {
-        $this->beforeStatus();
+        $this->settings->expects($this->exactly(3))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'cron'],
+                ['news', 'useCronUpdates', true, true],
+            ]));
 
+        $this->connection->expects($this->exactly(1))
+            ->method('supports4ByteText')
+            ->will($this->returnValue(true));
+
+        $expected = [
+            'version'  => '1.0',
+            'warnings' => [
+                'improperlyConfiguredCron' => false,
+                'incorrectDbCharset'       => false,
+            ],
+        ];
         $response = $this->service->getStatus();
-        $this->assertEquals('1.0', $response['version']);
-        $this->assertFalse($response['warnings']['improperlyConfiguredCron']);
+        $this->assertEquals($expected, $response);
     }
-
 
     public function testGetStatusNoCorrectCronAjax()
     {
-        $this->beforeStatus('ajax');
+        $this->settings->expects($this->exactly(3))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
+                ['news', 'useCronUpdates', true, true],
+            ]));
 
+        $this->connection->expects($this->exactly(1))
+            ->method('supports4ByteText')
+            ->will($this->returnValue(true));
+
+        $expected = [
+            'version'  => '1.0',
+            'warnings' => [
+                'improperlyConfiguredCron' => true,
+                'incorrectDbCharset'       => false,
+            ],
+        ];
         $response = $this->service->getStatus();
-        $this->assertTrue($response['warnings']['improperlyConfiguredCron']);
+        $this->assertEquals($expected, $response);
     }
-
-
 
     public function testGetStatusNoCorrectCronTurnedOff()
     {
-        $this->beforeStatus('ajax', false);
+        $this->settings->expects($this->exactly(3))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
+                ['news', 'useCronUpdates', true, false],
+            ]));
 
+        $this->connection->expects($this->exactly(1))
+            ->method('supports4ByteText')
+            ->will($this->returnValue(true));
+
+        $expected = [
+            'version'  => '1.0',
+            'warnings' => [
+                'improperlyConfiguredCron' => false,
+                'incorrectDbCharset'       => false,
+            ],
+        ];
         $response = $this->service->getStatus();
-        $this->assertFalse($response['warnings']['improperlyConfiguredCron']);
+        $this->assertEquals($expected, $response);
     }
 
+    public function testGetStatusReportsNon4ByteText()
+    {
+        $this->settings->expects($this->exactly(3))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['news', 'installed_version'],
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['news', 'installed_version', '', '1.0'],
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
+                ['news', 'useCronUpdates', true, false],
+            ]));
+
+        $this->connection->expects($this->exactly(1))
+            ->method('supports4ByteText')
+            ->will($this->returnValue(false));
+
+        $expected = [
+            'version'  => '1.0',
+            'warnings' => [
+                'improperlyConfiguredCron' => false,
+                'incorrectDbCharset'       => true,
+            ],
+        ];
+        $response = $this->service->getStatus();
+        $this->assertEquals($expected, $response);
+    }
+
+    public function testIsProperlyConfiguredNone()
+    {
+        $this->settings->expects($this->exactly(2))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['core', 'backgroundjobs_mode', '', 'ajax'],
+                ['news', 'useCronUpdates', true, true],
+            ]));
+
+        $response = $this->service->isCronProperlyConfigured();
+        $this->assertFalse($response);
+    }
+
+    public function testIsProperlyConfiguredModeCronNoSystem()
+    {
+        $this->settings->expects($this->exactly(2))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['core', 'backgroundjobs_mode', '', 'cron'],
+                ['news', 'useCronUpdates', true, false],
+            ]));
+
+        $response = $this->service->isCronProperlyConfigured();
+        $this->assertTrue($response);
+    }
+
+    public function testIsProperlyConfiguredModeCron()
+    {
+        $this->settings->expects($this->exactly(2))
+            ->method('getAppValue')
+            ->withConsecutive(
+                ['core', 'backgroundjobs_mode'],
+                ['news', 'useCronUpdates']
+            )
+            ->will($this->returnValueMap([
+                ['core', 'backgroundjobs_mode', '', 'cron'],
+                ['news', 'useCronUpdates', true, false],
+            ]));
+
+        $response = $this->service->isCronProperlyConfigured();
+        $this->assertTrue($response);
+    }
 
 }

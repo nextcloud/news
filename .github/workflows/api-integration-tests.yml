@@ -1,0 +1,128 @@
+name: Integration Tests
+on:
+  pull_request
+
+env:
+  POSTGRES_PASSWORD: nc_test_db
+  MYSQL_USER: nc_test
+  MYSQL_PASSWORD: nc_test_db
+  MYSQL_DATABASE: nc_test
+  MYSQL_PORT: 3800
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    name: "Integration: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432 # Maps tcp port 5432 on service container to the host
+    strategy:
+      matrix:
+        php-versions: ['7.3', '7.4']
+        nextcloud: ['stable20', 'stable21']
+        database: ['sqlite', 'pgsql', 'mysql']
+        experimental: [false]
+        include:
+          - php-versions: 7.4
+            nextcloud: pre-release
+            database: sqlite
+            experimental: true
+          - php-versions: 8.0
+            nextcloud: pre-release
+            database: sqlite
+            experimental: true
+        exclude: #unsupported combination
+          - php-versions: 7.4
+            nextcloud: 17
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
+          coverage: none
+
+      - name: Setup BATS
+        uses: mig4/setup-bats@v1
+
+      ### MySQL specific setup
+      - name: Setup mysql
+        if: matrix.database == 'mysql'
+        uses: getong/mariadb-action@v1.1
+        with:
+          host port: ${{ env.MYSQL_PORT }}
+          mysql database: ${{ env.MYSQL_DATABASE }}
+          mysql root password: ${{ env.MYSQL_PASSWORD }}
+          mysql user: ${{ env.MYSQL_USER }}
+          mysql password: ${{ env.MYSQL_PASSWORD }}
+
+      - name: Set up server MySQL
+        if: matrix.database == 'mysql'
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          version: ${{ matrix.nextcloud }}
+          cron: true
+          database-type: ${{ matrix.database }}
+          database-host: 127.0.0.1
+          database-port: ${{ env.MYSQL_PORT }}
+          database-name: ${{ env.MYSQL_DATABASE }}
+          database-user: root
+          database-password: ${{ env.MYSQL_PASSWORD }}
+
+      ### Back to normal setup
+      - name: Set up server non MySQL
+        if: matrix.database != 'mysql'
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          version: ${{ matrix.nextcloud }}
+          cron: true
+          database-type: ${{ matrix.database }}
+          database-host: localhost
+          database-port: 5432
+          database-name: postgres
+          database-user: postgres
+          database-password: ${{ env.POSTGRES_PASSWORD }}
+
+      - name: Prime app build
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: true
+          force: ${{ matrix.experimental }}
+
+      - name: Setup problem matchers for PHP
+        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+
+      - name: Functional tests maintenance
+        working-directory: ../server
+        run: |
+          ./occ migrations:migrate news
+          ./occ maintenance:repair
+
+      - name: Functional tests
+        working-directory: ../server
+        run: bats apps/news/tests/integration
+
+      - name: Prep PHP tests
+        working-directory: ../server/apps/news
+        run: make php-test-dependencies
+
+      - name: Feed tests
+        working-directory: ../server/apps/news
+        run: make feed-test

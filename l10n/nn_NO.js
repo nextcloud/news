@@ -5,7 +5,6 @@ OC.L10N.register(
     "Saved" : "Lagra",
     "Download" : "Last ned",
     "Close" : "Lukk",
-    "Language" : "Språk",
     "by" : "av",
     "from" : "frå",
     "Description" : "Skildring",

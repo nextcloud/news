@@ -15,8 +15,8 @@ namespace OCA\News\Config;
 
 use FeedIo\Adapter\ClientInterface;
 use \GuzzleHttp\Client;
+use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
-use OCA\News\Fetcher\Client\LegacyGuzzleClient;
 use OCP\IConfig;
 
 /**
@@ -45,13 +45,6 @@ class FetcherConfig
     protected $redirects;
 
     /**
-     * Max size of the recieved data.
-     * @deprecated guzzle can't handle this
-     * @var string
-     */
-    protected $max_size;
-
-    /**
      * User agent for the client.
      * @var string
      */
@@ -66,23 +59,47 @@ class FetcherConfig
                            'text/xml;q=0.4, */*;q=0.2';
 
     /**
-     * Configure a guzzle client
+     * FetcherConfig constructor.
      *
-     * @return ClientInterface Legacy client to guzzle.
+     * @param IConfig $config
      */
-    public function getClient()
+    public function __construct(IConfig $config)
     {
-        if (!class_exists('GuzzleHttp\Collection')) {
-            return new FeedIoClient($this->getConfig());
+        $this->client_timeout = $config->getAppValue(
+            Application::NAME,
+            'feedFetcherTimeout',
+            Application::DEFAULT_SETTINGS['feedFetcherTimeout']
+        );
+        $this->redirects = $config->getAppValue(
+            Application::NAME,
+            'maxRedirects',
+            Application::DEFAULT_SETTINGS['maxRedirects']
+        );
+
+        $proxy = $config->getSystemValue('proxy', null);
+        if (is_null($proxy)) {
+            return $this;
         }
 
-        return new LegacyGuzzleClient($this->getOldConfig());
+        $url = new \Net_URL2($proxy);
+
+        $creds = $config->getSystemValue('proxyuserpwd', null);
+        if ($creds) {
+            $auth = explode(':', $creds, 2);
+            $url->setUserinfo($auth[0], $auth[1]);
+        }
+
+        $this->proxy = $url->getNormalizedURL();
+
+        return $this;
     }
+
     /**
-     * Get configuration for modern guzzle.
-     * @return Client Guzzle client.
+     * Configure a guzzle client
+     *
+     * @return ClientInterface Client to guzzle.
      */
-    private function getConfig()
+    public function getClient(): ClientInterface
     {
         $config = [
             'timeout' => $this->client_timeout,
@@ -96,76 +113,7 @@ class FetcherConfig
             $config['redirect.max'] = $this->redirects;
         }
 
-        $guzzle = new Client($config);
-        return $guzzle;
-    }
-
-    /**
-     * Get configuration for old guzzle.
-     * @return Client Guzzle client.
-     */
-    private function getOldConfig()
-    {
-        $config = [
-            'request.options' => [
-                'timeout' => $this->client_timeout,
-                'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT],
-            ],
-        ];
-
-        if (!empty($this->proxy)) {
-            $config['request.options']['proxy'] = $this->proxy;
-        }
-
-        if (!empty($this->redirects)) {
-            $config['request.options']['redirect.max'] = $this->redirects;
-        }
-
-        $guzzle = new Client($config);
-        return $guzzle;
-    }
-
-    /**
-     * Set settings for config.
-     *
-     * @param Config $config The shared configuration
-     *
-     * @return self
-     */
-    public function setConfig(Config $config)
-    {
-        $this->client_timeout = $config->getFeedFetcherTimeout();
-        $this->redirects = $config->getMaxRedirects();
-        $this->max_size = $config->getMaxSize();
-
-        return $this;
-    }
-
-    /**
-     * Set the proxy
-     *
-     * @param IConfig $config Nextcloud config.
-     *
-     * @return self
-     */
-    public function setProxy(IConfig $config)
-    {
-        $proxy = $config->getSystemValue('proxy', null);
-        $creds = $config->getSystemValue('proxyuserpwd', null);
-
-        if (is_null($proxy)) {
-            return $this;
-        }
-
-        $url = new \Net_URL2($proxy);
-
-        if ($creds) {
-            $auth = explode(':', $creds, 2);
-            $url->setUserinfo($auth[0], $auth[1]);
-        }
-
-        $this->proxy = $url->getNormalizedURL();
-
-        return $this;
+        $client = new Client($config);
+        return new FeedIoClient($client);
     }
 }

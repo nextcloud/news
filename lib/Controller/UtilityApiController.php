@@ -15,31 +15,29 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\UpdaterService;
 use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\IUserSession;
-use \OCP\AppFramework\Http;
 
-use \OCA\News\Utility\Updater;
 use \OCA\News\Service\StatusService;
 
 class UtilityApiController extends ApiController
 {
 
-    private $updater;
+    private $updaterService;
     private $settings;
     private $statusService;
 
     public function __construct(
-        $appName,
         IRequest $request,
-        IUserSession $userSession,
-        Updater $updater,
+        ?IUserSession $userSession,
+        UpdaterService $updater,
         IConfig $settings,
         StatusService $statusService
     ) {
-        parent::__construct($appName, $request, $userSession);
-        $this->updater = $updater;
+        parent::__construct($request, $userSession);
+        $this->updaterService = $updater;
         $this->settings = $settings;
         $this->statusService = $statusService;
     }
@@ -50,7 +48,7 @@ class UtilityApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function version()
+    public function version(): array
     {
         $version = $this->settings->getAppValue(
             $this->appName,
@@ -64,9 +62,9 @@ class UtilityApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function beforeUpdate()
+    public function beforeUpdate(): void
     {
-        $this->updater->beforeUpdate();
+        $this->updaterService->beforeUpdate();
     }
 
 
@@ -74,9 +72,9 @@ class UtilityApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function afterUpdate()
+    public function afterUpdate(): void
     {
-        $this->updater->afterUpdate();
+        $this->updaterService->afterUpdate();
     }
 
 
@@ -85,7 +83,7 @@ class UtilityApiController extends ApiController
      * @NoCSRFRequired
      * @NoAdminRequired
      */
-    public function status()
+    public function status(): array
     {
         return $this->statusService->getStatus();
     }

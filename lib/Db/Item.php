@@ -15,6 +15,12 @@ namespace OCA\News\Db;
 
 use OCP\AppFramework\Db\Entity;
 
+/**
+ * Class Item
+ *
+ * @package OCA\News\Db
+ * @Embeddable
+ */
 class Item extends Entity implements IAPI, \JsonSerializable
 {
     use EntityJSONSerializer;
@@ -33,8 +39,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $author;
     /** @var int|null */
     protected $pubDate;
-    /** @var int|null */
-    protected $updatedDate;
     /** @var string|null */
     protected $body;
     /** @var string|null */
@@ -47,8 +51,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $mediaDescription;
     /** @var int */
     protected $feedId;
-    /** @var int */
-    protected $status = 0;
     /** @var string|null */
     protected $lastModified = '0';
     /** @var string|null */
@@ -61,6 +63,29 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $unread = false;
     /** @var bool */
     protected $starred = false;
+
+    public function __construct()
+    {
+        $this->addType('contentHash', 'string');
+        $this->addType('guidHash', 'string');
+        $this->addType('guid', 'string');
+        $this->addType('url', 'string');
+        $this->addType('title', 'string');
+        $this->addType('author', 'string');
+        $this->addType('pubDate', 'integer');
+        $this->addType('body', 'string');
+        $this->addType('enclosureMime', 'string');
+        $this->addType('enclosureLink', 'string');
+        $this->addType('mediaThumbnail', 'string');
+        $this->addType('mediaDescription', 'string');
+        $this->addType('feedId', 'integer');
+        $this->addType('lastModified', 'string');
+        $this->addType('searchIndex', 'string');
+        $this->addType('rtl', 'boolean');
+        $this->addType('fingerprint', 'string');
+        $this->addType('unread', 'boolean');
+        $this->addType('starred', 'boolean');
+    }
 
     /**
      * @return int
@@ -77,14 +102,13 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public static function fromImport($import): Item
     {
-        $item = new static();
+        $item = new Item();
         $item->setGuid($import['guid']);
-        $item->setGuidHash($import['guid']);
+        $item->setGuidHash(md5($import['guid']));
         $item->setUrl($import['url']);
         $item->setTitle($import['title']);
         $item->setAuthor($import['author']);
         $item->setPubDate($import['pubDate']);
-        $item->setUpdatedDate($import['updatedDate']);
         $item->setBody($import['body']);
         $item->setEnclosureMime($import['enclosureMime']);
         $item->setEnclosureLink($import['enclosureLink']);
@@ -97,7 +121,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $item;
     }
 
-    public function generateSearchIndex()
+    public function generateSearchIndex(): void
     {
         $this->setSearchIndex(
             mb_strtolower(
@@ -115,7 +139,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getAuthor()
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
@@ -123,7 +147,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getBody()
+    public function getBody(): ?string
     {
         return $this->body;
     }
@@ -131,7 +155,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getContentHash()
+    public function getContentHash(): ?string
     {
         return $this->contentHash;
     }
@@ -139,7 +163,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getEnclosureLink()
+    public function getEnclosureLink(): ?string
     {
         return $this->enclosureLink;
     }
@@ -147,12 +171,28 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getEnclosureMime()
+    public function getMediaThumbnail(): ?string
+    {
+        return $this->mediaThumbnail;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getMediaDescription(): ?string
+    {
+        return $this->mediaDescription;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEnclosureMime(): ?string
     {
         return $this->enclosureMime;
     }
 
-    public function getFeedId()
+    public function getFeedId(): int
     {
         return $this->feedId;
     }
@@ -160,7 +200,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getFingerprint()
+    public function getFingerprint(): ?string
     {
         return $this->fingerprint;
     }
@@ -175,12 +215,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->guidHash;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getIntro()
+    public function getIntro(): string
     {
         return strip_tags($this->getBody());
     }
@@ -188,7 +223,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return string|null
      */
-    public function getLastModified()
+    public function getLastModified(): ?string
     {
         return $this->lastModified;
     }
@@ -196,7 +231,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int|null
      */
-    public function getPubDate()
+    public function getPubDate(): ?int
     {
         return $this->pubDate;
     }
@@ -209,7 +244,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getSearchIndex()
+    public function getSearchIndex(): ?string
     {
         return $this->searchIndex;
     }
@@ -217,33 +252,25 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @return int|null
-     */
-    public function getUpdatedDate()
-    {
-        return $this->updatedDate;
-    }
-
-    /**
      * @return null|string
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->url;
     }
 
-    public function isStarred()
+    public function isStarred(): bool
     {
         return $this->starred;
     }
 
-    public function isUnread()
+    public function isUnread(): bool
     {
         return $this->unread;
     }
@@ -261,7 +288,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'pubDate' => $this->getPubDate(),
-            'updatedDate' => $this->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
@@ -277,7 +304,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         ];
     }
 
-    public function setAuthor(string $author = null)
+    public function setAuthor(string $author = null): self
     {
         $author = strip_tags($author);
 
@@ -285,9 +312,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->author = $author;
             $this->markFieldUpdated('author');
         }
+
+        return $this;
     }
 
-    public function setBody(string $body = null)
+    public function setBody(string $body = null): self
     {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
@@ -297,155 +326,173 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->body = $body;
             $this->markFieldUpdated('body');
         }
+
+        return $this;
     }
 
-    public function setContentHash(string $contentHash = null)
+    public function setContentHash(string $contentHash = null): self
     {
         if ($this->contentHash !== $contentHash) {
             $this->contentHash = $contentHash;
             $this->markFieldUpdated('contentHash');
         }
+
+        return $this;
     }
 
-    public function setEnclosureLink(string $enclosureLink = null)
+    public function setEnclosureLink(string $enclosureLink = null): self
     {
         if ($this->enclosureLink !== $enclosureLink) {
             $this->enclosureLink = $enclosureLink;
             $this->markFieldUpdated('enclosureLink');
         }
+
+        return $this;
     }
 
-    public function setEnclosureMime(string $enclosureMime = null)
+    public function setEnclosureMime(string $enclosureMime = null): self
     {
         if ($this->enclosureMime !== $enclosureMime) {
             $this->enclosureMime = $enclosureMime;
             $this->markFieldUpdated('enclosureMime');
         }
+
+        return $this;
     }
 
-    public function setMediaThumbnail(string $mediaThumbnail = null)
+    public function setMediaThumbnail(string $mediaThumbnail = null): self
     {
         if ($this->mediaThumbnail !== $mediaThumbnail) {
             $this->mediaThumbnail = $mediaThumbnail;
             $this->markFieldUpdated('mediaThumbnail');
         }
+
+        return $this;
     }
 
-    public function setMediaDescription(string $mediaDescription = null)
+    public function setMediaDescription(string $mediaDescription = null): self
     {
         if ($this->mediaDescription !== $mediaDescription) {
             $this->mediaDescription = $mediaDescription;
             $this->markFieldUpdated('mediaDescription');
         }
+
+        return $this;
     }
 
-    public function setFeedId(int $feedId)
+    public function setFeedId(int $feedId): self
     {
         if ($this->feedId !== $feedId) {
             $this->feedId = $feedId;
             $this->markFieldUpdated('feedId');
         }
+
+        return $this;
     }
 
-    public function setFingerprint(string $fingerprint = null)
+    public function setFingerprint(string $fingerprint = null): self
     {
         if ($this->fingerprint !== $fingerprint) {
             $this->fingerprint = $fingerprint;
             $this->markFieldUpdated('fingerprint');
         }
+
+        return $this;
     }
 
-    public function setGuid(string $guid)
+    public function setGuid(string $guid): self
     {
         if ($this->guid !== $guid) {
             $this->guid = $guid;
             $this->markFieldUpdated('guid');
         }
+
+        return $this;
     }
 
-    public function setGuidHash(string $guidHash)
+    public function setGuidHash(string $guidHash): self
     {
         if ($this->guidHash !== $guidHash) {
             $this->guidHash = $guidHash;
             $this->markFieldUpdated('guidHash');
         }
+
+        return $this;
     }
 
-    public function setId(int $id)
-    {
-        if ($this->id !== $id) {
-            $this->id = $id;
-            $this->markFieldUpdated('id');
-        }
-    }
-
-    public function setLastModified(string $lastModified = null)
+    public function setLastModified(string $lastModified = null): self
     {
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
             $this->markFieldUpdated('lastModified');
         }
+
+        return $this;
     }
 
-    public function setPubDate(int $pubDate = null)
+    public function setPubDate(int $pubDate = null): self
     {
         if ($this->pubDate !== $pubDate) {
             $this->pubDate = $pubDate;
             $this->markFieldUpdated('pubDate');
         }
+
+        return $this;
     }
 
-    public function setRtl(bool $rtl)
+    public function setRtl(bool $rtl): self
     {
         if ($this->rtl !== $rtl) {
             $this->rtl = $rtl;
             $this->markFieldUpdated('rtl');
         }
+
+        return $this;
     }
 
-    public function setSearchIndex(string $searchIndex = null)
+    public function setSearchIndex(string $searchIndex = null): self
     {
         if ($this->searchIndex !== $searchIndex) {
             $this->searchIndex = $searchIndex;
             $this->markFieldUpdated('searchIndex');
         }
+
+        return $this;
     }
 
-    public function setStarred(bool $starred)
+    public function setStarred(bool $starred): self
     {
         if ($this->starred !== $starred) {
             $this->starred = $starred;
             $this->markFieldUpdated('starred');
         }
+
+        return $this;
     }
 
-    public function setTitle(string $title = null)
+    public function setTitle(string $title = null): self
     {
-        $title = strip_tags($title);
+        $title = trim(strip_tags($title));
 
         if ($this->title !== $title) {
             $this->title = $title;
             $this->markFieldUpdated('title');
         }
+
+        return $this;
     }
 
-    public function setUnread(bool $unread)
+    public function setUnread(bool $unread): self
     {
         if ($this->unread !== $unread) {
             $this->unread = $unread;
             $this->markFieldUpdated('unread');
         }
+
+        return $this;
     }
 
-    public function setUpdatedDate(int $updatedDate = null)
-    {
-        if ($this->updatedDate !== $updatedDate) {
-            $this->updatedDate = $updatedDate;
-            $this->markFieldUpdated('updatedDate');
-        }
-    }
-
-    public function setUrl(string $url = null)
+    public function setUrl(string $url = null): self
     {
         $url = trim($url);
         if ((strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0)
@@ -454,6 +501,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->url = $url;
             $this->markFieldUpdated('url');
         }
+
+        return $this;
     }
 
     public function toAPI(): array
@@ -466,7 +515,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'pubDate' => $this->getPubDate(),
-            'updatedDate' => $this->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
@@ -482,6 +531,13 @@ class Item extends Entity implements IAPI, \JsonSerializable
         ];
     }
 
+    /**
+     * Format for exporting.
+     *
+     * @param $feeds
+     *
+     * @return array
+     */
     public function toExport($feeds): array
     {
         return [
@@ -490,7 +546,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'pubDate' => $this->getPubDate(),
-            'updatedDate' => $this->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $this->getBody(),
             'enclosureMime' => $this->getEnclosureMime(),
             'enclosureLink' => $this->getEnclosureLink(),
@@ -527,11 +583,13 @@ class Item extends Entity implements IAPI, \JsonSerializable
      *
      * @return boolean
      */
-    public function isSupportedMime($mime)
+    public function isSupportedMime(?string $mime): bool
     {
+
         return (
+            $mime !== null && (
             stripos($mime, 'audio/') !== false ||
             stripos($mime, 'image/') !== false ||
-            stripos($mime, 'video/') !== false);
+            stripos($mime, 'video/') !== false));
     }
 }

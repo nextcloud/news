@@ -14,12 +14,11 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IConfig;
 use OCP\IRequest;
 use OCP\AppFramework\Controller;
-
-use OCA\News\Config\Config;
-use OCA\News\Service\ItemService;
 
 /**
  * Class AdminController
@@ -28,30 +27,23 @@ use OCA\News\Service\ItemService;
  */
 class AdminController extends Controller
 {
+
+    /**
+     * @var IConfig
+     */
     private $config;
-    private $configPath;
-    private $itemService;
 
     /**
      * AdminController constructor.
      *
-     * @param string      $appName     The name of the app
      * @param IRequest    $request     The request
-     * @param Config      $config      Config for nextcloud
-     * @param ItemService $itemService Service for items
-     * @param string      $configFile  Path to the config
+     * @param IConfig     $config      Config for nextcloud
      */
-    public function __construct(
-        $appName,
-        IRequest $request,
-        Config $config,
-        ItemService $itemService,
-        $configFile
-    ) {
-        parent::__construct($appName, $request);
-        $this->config      = $config;
-        $this->configPath  = $configFile;
-        $this->itemService = $itemService;
+    public function __construct(IRequest $request, IConfig $config)
+    {
+        parent::__construct(Application::NAME, $request);
+
+        $this->config = $config;
     }
 
     /**
@@ -62,21 +54,30 @@ class AdminController extends Controller
      *
      * @return TemplateResponse
      */
-    public function index()
+    public function index(): TemplateResponse
     {
-        $data = [
-            'autoPurgeMinimumInterval' =>
-                $this->config->getAutoPurgeMinimumInterval(),
-            'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'maxRedirects' => $this->config->getMaxRedirects(),
-            'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
-            'useCronUpdates' => $this->config->getUseCronUpdates(),
-            'maxSize' => $this->config->getMaxSize(),
-            'exploreUrl' => $this->config->getExploreUrl(),
-        ];
-        return new TemplateResponse($this->appName, 'admin', $data, 'blank');
+        return new TemplateResponse($this->appName, 'admin', $this->getData(), 'blank');
     }
 
+    /**
+     * Get admin data.
+     *
+     * @return array
+     */
+    private function getData(): array
+    {
+        $data = [];
+
+        foreach (array_keys(Application::DEFAULT_SETTINGS) as $setting) {
+            $data[$setting] = $this->config->getAppValue(
+                Application::NAME,
+                $setting,
+                Application::DEFAULT_SETTINGS[$setting]
+            );
+        }
+
+        return $data;
+    }
 
     /**
      * Update the app config.
@@ -85,39 +86,29 @@ class AdminController extends Controller
      * @param int    $autoPurgeCount           New value of auto-purge count
      * @param int    $maxRedirects             New value for max amount of redirects
      * @param int    $feedFetcherTimeout       New timeout value for feed fetcher
-     * @param int    $maxSize                  New max feed size
      * @param bool   $useCronUpdates           Whether or not to use cron updates
      * @param string $exploreUrl               URL to use for the explore feed
+     * @param int    $updateInterval           Interval in which the feeds will be updated
      *
      * @return array with the updated values
      */
     public function update(
-        $autoPurgeMinimumInterval,
-        $autoPurgeCount,
-        $maxRedirects,
-        $feedFetcherTimeout,
-        $maxSize,
-        $useCronUpdates,
-        $exploreUrl
-    ) {
-        $this->config->setAutoPurgeMinimumInterval($autoPurgeMinimumInterval);
-        $this->config->setAutoPurgeCount($autoPurgeCount);
-        $this->config->setMaxRedirects($maxRedirects);
-        $this->config->setMaxSize($maxSize);
-        $this->config->setFeedFetcherTimeout($feedFetcherTimeout);
-        $this->config->setUseCronUpdates($useCronUpdates);
-        $this->config->setExploreUrl($exploreUrl);
-        $this->config->write($this->configPath);
+        int $autoPurgeMinimumInterval,
+        int $autoPurgeCount,
+        int $maxRedirects,
+        int $feedFetcherTimeout,
+        bool $useCronUpdates,
+        string $exploreUrl,
+        int $updateInterval
+    ): array {
+        $this->config->setAppValue($this->appName, 'autoPurgeMinimumInterval', $autoPurgeMinimumInterval);
+        $this->config->setAppValue($this->appName, 'autoPurgeCount', $autoPurgeCount);
+        $this->config->setAppValue($this->appName, 'maxRedirects', $maxRedirects);
+        $this->config->setAppValue($this->appName, 'feedFetcherTimeout', $feedFetcherTimeout);
+        $this->config->setAppValue($this->appName, 'useCronUpdates', $useCronUpdates);
+        $this->config->setAppValue($this->appName, 'exploreUrl', $exploreUrl);
+        $this->config->setAppValue($this->appName, 'updateInterval', $updateInterval);
 
-        return [
-            'autoPurgeMinimumInterval' =>
-                $this->config->getAutoPurgeMinimumInterval(),
-            'autoPurgeCount' => $this->config->getAutoPurgeCount(),
-            'maxRedirects' => $this->config->getMaxRedirects(),
-            'maxSize' => $this->config->getMaxSize(),
-            'feedFetcherTimeout' => $this->config->getFeedFetcherTimeout(),
-            'useCronUpdates' => $this->config->getUseCronUpdates(),
-            'exploreUrl' => $this->config->getExploreUrl(),
-        ];
+        return $this->getData();
     }
 }

@@ -26,21 +26,24 @@ use Favicon\Favicon;
 use FeedIo\Reader\Result;
 use OCA\News\Command\ExploreGenerator;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Test\TestCase;
 
-class ExploreGeneratorTest extends TestCase {
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+class ExploreGeneratorTest extends TestCase
+{
+    /** @var MockObject */
     protected $favicon;
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    /** @var MockObject */
     protected $feedio;
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    /** @var MockObject */
     protected $consoleInput;
-    /** @var \PHPUnit_Framework_MockObject_MockObject */
+    /** @var MockObject */
     protected $consoleOutput;
 
-    /** @var \Symfony\Component\Console\Command\Command */
+    /** @var Command */
     protected $command;
 
     protected function setUp(): void
@@ -109,7 +112,8 @@ class ExploreGeneratorTest extends TestCase {
             ->method('writeln')
             ->with($this->stringContains('https:\/\/feed.io\/rss.xml'));
 
-        self::invokePrivate($this->command, 'execute', [$this->consoleInput, $this->consoleOutput]);
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(0, $result);
     }
 
     /**
@@ -136,15 +140,12 @@ class ExploreGeneratorTest extends TestCase {
             ->with('votes')
             ->willReturn(100);
 
-        $this->consoleOutput->expects($this->at(0))
+        $this->consoleOutput->expects($this->exactly(2))
             ->method('writeln')
-            ->with($this->stringContains('<error>'));
+            ->withConsecutive(['<error>Failed to fetch feed info:</error>'], ['Failure']);
 
-        $this->consoleOutput->expects($this->at(1))
-            ->method('writeln')
-            ->with($this->stringContains('Failure'));
-
-        self::invokePrivate($this->command, 'execute', [$this->consoleInput, $this->consoleOutput]);
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(1, $result);
     }
 
     /**
@@ -195,6 +196,7 @@ class ExploreGeneratorTest extends TestCase {
             ->method('writeln')
             ->with($this->stringContains('200'));
 
-        self::invokePrivate($this->command, 'execute', [$this->consoleInput, $this->consoleOutput]);
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(0, $result);
     }
 }

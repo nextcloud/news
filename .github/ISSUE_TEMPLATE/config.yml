@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feature requests and suggestions
+    url: https://github.com/nextcloud/news/discussions/categories/features
+    about: Please submit your suggestions and requests here.
+  - name: Feed issues
+    url: https://github.com/nextcloud/news/discussions/categories/feed-issues
+    about: Please submit here any problems with specific feeds.

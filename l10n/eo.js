@@ -1,14 +1,10 @@
 OC.L10N.register(
     "news",
     {
-    "Can not add feed: Exists already" : "Ne eblas aldoni fluon: ĝi jam ekzistas",
-    "Can not add folder: Exists already" : "Ne eblas aldoni dosierujon: ĝi jam ekzistas",
     "News" : "Novaĵo",
     "Saved" : "Konservita",
     "Download" : "Elŝuti",
     "Close" : "Fermi",
-    "Language" : "Lingvo",
-    "Subscribe" : "Aboni",
     "Open website" : "Malfermi TTT-ejon",
     "by" : "de",
     "from" : "el",
@@ -16,6 +12,7 @@ OC.L10N.register(
     "right" : "dekstro",
     "left" : "maldekstro",
     "Refresh" : "Refreŝigi",
+    "Subscribe" : "Aboni",
     "Web address" : "TTT-adreso",
     "Folder" : "Dosierujo",
     "No folder" : "Neniu dosierujo",

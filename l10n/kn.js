@@ -4,7 +4,6 @@ OC.L10N.register(
     "Saved" : "﻿ಉಳಿಸಿದ",
     "Download" : "ಪ್ರತಿಯನ್ನು ಸ್ಥಳೀಯವಾಗಿ ಉಳಿಸಿಕೊಳ್ಳಿ",
     "Close" : "ಮುಚ್ಚು",
-    "Language" : "﻿ಭಾಷೆ",
     "right" : "ಬಲ",
     "left" : "ಎಡ",
     "Folder" : "ಕೋಶ",

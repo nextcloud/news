@@ -11,11 +11,10 @@
 
 namespace OCA\News\Scraper;
 
-use OCA\News\Utility\PsrLogger;
-
 use andreskrey\Readability\Readability;
 use andreskrey\Readability\Configuration;
 use andreskrey\Readability\ParseException;
+use Psr\Log\LoggerInterface;
 
 class Scraper implements IScraper
 {
@@ -24,7 +23,7 @@ class Scraper implements IScraper
     private $readability;
     private $curl_opts;
 
-    public function __construct(PsrLogger $logger)
+    public function __construct(LoggerInterface $logger)
     {
         $this->logger = $logger;
         $this->config = new Configuration([

@@ -22,14 +22,13 @@ class ItemTest extends TestCase
 {
 
     /**
-     * @var Item 
+     * @var Item
      */
     private $item;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->item = new Item();
-        $this->item->setStatus(0);
     }
 
 
@@ -65,7 +64,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testToAPI() 
+    public function testToAPI()
     {
         $item = new Item();
         $item->setId(3);
@@ -75,7 +74,6 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -83,7 +81,6 @@ class ItemTest extends TestCase
         $item->setMediaDescription('The best video ever');
         $item->setRtl(true);
         $item->setFeedId(1);
-        $item->setStatus(0);
         $item->setUnread(true);
         $item->setStarred(true);
         $item->setLastModified('1111111111234567');
@@ -99,7 +96,7 @@ class ItemTest extends TestCase
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'updatedDate' => 234,
+            'updatedDate' => null,
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -112,12 +109,13 @@ class ItemTest extends TestCase
             'rtl' => true,
             'fingerprint' => 'fingerprint',
             'contentHash' => 'contentHash'
-            ], $item->toAPI()
+            ],
+            $item->toAPI()
         );
     }
 
 
-    public function testJSONSerialize() 
+    public function testJSONSerialize()
     {
         $item = new Item();
         $item->setId(3);
@@ -127,14 +125,12 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('<body><div>this is a test</body>');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
         $item->setMediaThumbnail('https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg');
         $item->setMediaDescription('The best video ever');
         $item->setFeedId(1);
-        $item->setStatus(0);
         $item->setRtl(true);
         $item->setUnread(true);
         $item->setFingerprint('fingerprint');
@@ -150,7 +146,7 @@ class ItemTest extends TestCase
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'updatedDate' => 234,
+            'updatedDate' => null,
             'body' => '<body><div>this is a test</body>',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -167,7 +163,7 @@ class ItemTest extends TestCase
         );
     }
 
-    public function testToExport() 
+    public function testToExport()
     {
         $item = new Item();
         $item->setId(3);
@@ -177,7 +173,6 @@ class ItemTest extends TestCase
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -185,7 +180,6 @@ class ItemTest extends TestCase
         $item->setMediaDescription('The best video ever');
         $item->setFeedId(1);
         $item->setRtl(true);
-        $item->setStatus(0);
         $item->setUnread(false);
         $item->setStarred(true);
         $item->setLastModified(321);
@@ -201,7 +195,7 @@ class ItemTest extends TestCase
             'title' => 'title',
             'author' => 'author',
             'pubDate' => 123,
-            'updatedDate' => 234,
+            'updatedDate' => null,
             'body' => 'body',
             'enclosureMime' => 'audio/ogg',
             'enclosureLink' => 'enclink',
@@ -216,16 +210,15 @@ class ItemTest extends TestCase
     }
 
 
-    private function createImportItem($isRead) 
+    private function createImportItem($isRead)
     {
         $item = new Item();
         $item->setGuid('guid');
-        $item->setGuidHash('guid');
+        $item->setGuidHash('1e0ca5b1252f1f6b1e0ac91be7e7219e');
         $item->setUrl('https://google');
         $item->setTitle('title');
         $item->setAuthor('author');
         $item->setPubDate(123);
-        $item->setUpdatedDate(234);
         $item->setBody('body');
         $item->setEnclosureMime('audio/ogg');
         $item->setEnclosureLink('enclink');
@@ -242,7 +235,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testSearchIndex() 
+    public function testSearchIndex()
     {
         $item = new Item();
         $item->setBody('<a>somEth&auml;ng</a>');
@@ -255,7 +248,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testFromImport() 
+    public function testFromImport()
     {
         $item = $this->createImportItem(false);
 
@@ -265,7 +258,7 @@ class ItemTest extends TestCase
             'title' => $item->getTitle(),
             'author' => $item->getAuthor(),
             'pubDate' => $item->getPubDate(),
-            'updatedDate' => $item->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
@@ -282,7 +275,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testFromImportRead() 
+    public function testFromImportRead()
     {
         $item = $this->createImportItem(true);
 
@@ -292,7 +285,7 @@ class ItemTest extends TestCase
             'title' => $item->getTitle(),
             'author' => $item->getAuthor(),
             'pubDate' => $item->getPubDate(),
-            'updatedDate' => $item->getUpdatedDate(),
+            'updatedDate' => null,
             'body' => $item->getBody(),
             'enclosureMime' => $item->getEnclosureMime(),
             'enclosureLink' => $item->getEnclosureLink(),
@@ -315,7 +308,7 @@ class ItemTest extends TestCase
         $item = new Item();
         $item->setAuthor('<a>my link</li>');
         $this->assertEquals('my link', $item->getAuthor());
-        $this->assertContains('author', $item->getUpdatedFields());
+        $this->assertArrayHasKey('author', $item->getUpdatedFields());
     }
 
 
@@ -324,11 +317,11 @@ class ItemTest extends TestCase
         $item = new Item();
         $item->setTitle('<a>my link</li>');
         $this->assertEquals('my link', $item->getTitle());
-        $this->assertContains('title', $item->getUpdatedFields());
+        $this->assertArrayHasKey('title', $item->getUpdatedFields());
     }
 
 
-    public function testSetXSSUrl() 
+    public function testSetXSSUrl()
     {
         $item = new Item();
         $item->setUrl('javascript:alert()');
@@ -336,7 +329,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testSetMagnetUrl() 
+    public function testSetMagnetUrl()
     {
         $item = new Item();
         $item->setUrl('magnet://link.com');
@@ -344,7 +337,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testMakeLinksInBodyOpenNewTab() 
+    public function testMakeLinksInBodyOpenNewTab()
     {
         $item = new Item();
         $item->setBody("<a href=\"test\">ha</a>");
@@ -354,7 +347,7 @@ class ItemTest extends TestCase
         );
     }
 
-    public function testComputeFingerPrint() 
+    public function testComputeFingerPrint()
     {
         $title = 'a';
         $body = 'b';
