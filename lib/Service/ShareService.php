@@ -14,6 +14,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
+use OCP\IURLGenerator;
 use \OCP\IL10N;
 
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -46,6 +47,11 @@ class ShareService
     protected $logger;
 
     /**
+     * @var IURLGenerator
+     */
+    private $url;
+
+    /**
      * @var IL10N
      */
     private $l;
@@ -55,17 +61,20 @@ class ShareService
      *
      * @param FeedServiceV2   $feedService Service for feeds
      * @param ItemServiceV2   $itemService Service to manage items
-     * @param IL10N           $l Localization interface
+     * @param IURLGenerator   $url         URL Generator
+     * @param IL10N           $l           Localization interface
      * @param LoggerInterface $logger      Logger
      */
     public function __construct(
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
+        IURLGenerator $url,
         IL10N $l,
         LoggerInterface $logger
     ) {
         $this->itemService = $itemService;
         $this->feedService = $feedService;
+        $this->url         = $url;
         $this->l           = $l;
         $this->logger      = $logger;
     }
@@ -98,7 +107,7 @@ class ShareService
         $sharedItem->setSharedBy($userId);
 
         // Get 'shared with me' dummy feed
-        $feedUrl = 'http://nextcloud/sharedwithme';
+        $feedUrl = $this->url->getBaseUrl() . '/news/sharedwithme';
         $feed = $this->feedService->findByUrl($shareRecipientId, $feedUrl);
         if (is_null($feed)) {
             $feed = new Feed();
