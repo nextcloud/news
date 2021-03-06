@@ -113,14 +113,6 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
         return this.getStarredCount() > 0;
     };
 
-    this.getSharedCount = function () {
-        return ItemResource.getSharedCount();
-    };
-
-    this.isSharedUnread = function () {
-        return this.getSharedCount() > 0;
-    };
-
     this.toggleFolder = function (folderName) {
         FolderResource.toggleOpen(folderName);
     };
@@ -156,11 +148,6 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
     this.isStarredActive = function () {
         return $route.current &&
             $route.current.$$route.type === FEED_TYPE.STARRED;
-    };
-
-    this.isSharedActive = function () {
-        return $route.current &&
-            $route.current.$$route.type === FEED_TYPE.SHARED;
     };
 
     this.isExploreActive = function () {
