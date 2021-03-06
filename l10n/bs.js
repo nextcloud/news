@@ -4,7 +4,6 @@ OC.L10N.register(
     "Saved" : "Spremljeno",
     "Download" : "Preuzmite",
     "Close" : "Zatvori",
-    "Language" : "Jezik",
     "by" : "od strane",
     "from" : "od",
     "Description" : "Opis",

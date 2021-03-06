@@ -44,6 +44,9 @@ class ExploreGenerator extends Command
         parent::__construct();
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $result = [
@@ -64,7 +67,7 @@ class ExploreGenerator extends Command
             ->addOption('votes', null, InputOption::VALUE_OPTIONAL, 'Votes for the feed, defaults to 100');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url   = $input->getArgument('feed');
         $votes = $input->getOption('votes');
@@ -85,6 +88,7 @@ class ExploreGenerator extends Command
             ];
 
             $output->writeln(json_encode($result, JSON_PRETTY_PRINT));
+            return 0;
         } catch (\Throwable $ex) {
             $output->writeln('<error>Failed to fetch feed info:</error>');
             $output->writeln($ex->getMessage());

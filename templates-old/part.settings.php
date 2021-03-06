@@ -153,7 +153,7 @@
     <p>
         <a target="_blank"
            rel="noreferrer"
-           href="https://github.com/nextcloud/news/issues/new"><?php p($l->t('Report a bug')); ?></a>
+           href="https://github.com/nextcloud/news/issues/new/choose"><?php p($l->t('Report a bug')); ?></a>
     </p>
 
 </div>

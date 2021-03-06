@@ -13,64 +13,64 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\Exceptions\ServiceException;
+use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\FolderService;
-use \OCA\News\Service\FeedService;
-use \OCA\News\Service\ItemService;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\FolderServiceV2;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use OCP\IUserSession;
 
 class FolderController extends Controller
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait, ApiPayloadTrait;
 
+    /**
+     * @var FolderServiceV2
+     */
     private $folderService;
-    private $feedService;
-    private $itemService;
-    private $userId;
 
     public function __construct(
-        $appName,
         IRequest $request,
-        FolderService $folderService,
-        FeedService $feedService,
-        ItemService $itemService,
-        $UserId
+        FolderServiceV2 $folderService,
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($request, $userSession);
         $this->folderService = $folderService;
-        $this->feedService = $feedService;
-        $this->itemService = $itemService;
-        $this->userId = $UserId;
-    }
-
-
-    /**
-     * @NoAdminRequired
-     */
-    public function index()
-    {
-        $folders = $this->folderService->findAll($this->userId);
-        return ['folders' => $folders];
     }
 
 
     /**
      * @NoAdminRequired
      *
-     * @param int  $folderId
-     * @param bool $open
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @return array[]
+     *
+     * @psalm-return array{folders: array}
      */
-    public function open($folderId, $open)
+    public function index(): array
     {
+        $folders = $this->folderService->findAllForUser($this->getUserId());
+        return ['folders' => $this->serialize($folders)];
+    }
+
+
+    /**
+     * @NoAdminRequired
+     *
+     * @param int|null $folderId
+     * @param bool     $open
+     *
+     * @return array|JSONResponse
+     */
+    public function open(?int $folderId, bool $open)
+    {
+        $folderId = $folderId === 0 ? null : $folderId;
+
         try {
-            $this->folderService->open($folderId, $open, $this->userId);
-        } catch (ServiceNotFoundException $ex) {
+            $this->folderService->open($this->getUserId(), $folderId, $open);
+        } catch (ServiceException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
 
@@ -81,38 +81,38 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param string $folderName
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @param string   $folderName
+     * @param int|null $parent
+     *
+     * @return array|JSONResponse
      */
-    public function create($folderName)
+    public function create(string $folderName, ?int $parent = null)
     {
-        try {
-            // we need to purge deleted folders if a folder is created to
-            // prevent already exists exceptions
-            $this->folderService->purgeDeleted($this->userId, false);
-            $folder = $this->folderService->create($folderName, $this->userId);
+        $this->folderService->purgeDeleted($this->getUserId(), time() - 600);
+        $folder = $this->folderService->create($this->getUserId(), $folderName, $parent);
 
-            return ['folders' => [$folder]];
-        } catch (ServiceConflictException $ex) {
-            return $this->error($ex, Http::STATUS_CONFLICT);
-        } catch (ServiceValidationException $ex) {
-            return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
-        }
+        return ['folders' => $this->serialize($folder)];
     }
 
 
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @param int|null $folderId
+     *
+     * @return array|JSONResponse
      */
-    public function delete($folderId)
+    public function delete(?int $folderId)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
         try {
-            $this->folderService->markDeleted($folderId, $this->userId);
+            $this->folderService->markDelete($this->getUserId(), $folderId, true);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
+        } catch (ServiceConflictException $ex) {
+            return $this->error($ex, Http::STATUS_CONFLICT);
         }
 
         return [];
@@ -122,24 +122,22 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param string $folderName
-     * @param int    $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @param int|null $folderId   The ID of the folder
+     * @param string   $folderName The new name of the folder
+     *
+     * @return array|JSONResponse
      */
-    public function rename($folderName, $folderId)
+    public function rename(?int $folderId, string $folderName)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
         try {
-            $folder = $this->folderService->rename(
-                $folderId,
-                $folderName,
-                $this->userId
-            );
+            $folder = $this->folderService->rename($this->getUserId(), $folderId, $folderName);
 
-            return ['folders' => [$folder]];
+            return ['folders' => $this->serialize($folder)];
         } catch (ServiceConflictException $ex) {
             return $this->error($ex, Http::STATUS_CONFLICT);
-        } catch (ServiceValidationException $ex) {
-            return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -148,34 +146,39 @@ class FolderController extends Controller
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
-     * @param int $highestItemId
-     * @return array
+     * @param int|null $folderId
+     * @param int      $maxItemId
+     *
+     * @return void
+     *
+     * @throws ServiceConflictException
+     * @throws ServiceNotFoundException
      */
-    public function read($folderId, $highestItemId)
+    public function read(?int $folderId, int $maxItemId): void
     {
-        $this->itemService->readFolder(
-            $folderId,
-            $highestItemId,
-            $this->userId
-        );
+        $folderId = $folderId === 0 ? null : $folderId;
 
-        return ['feeds' => $this->feedService->findAll($this->userId)];
+        $this->folderService->read($this->getUserId(), $folderId, $maxItemId);
     }
 
 
     /**
      * @NoAdminRequired
      *
-     * @param int $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @param int|null $folderId
+     *
+     * @return array|JSONResponse
      */
-    public function restore($folderId)
+    public function restore(?int $folderId)
     {
+        $folderId = $folderId === 0 ? null : $folderId;
+
         try {
-            $this->folderService->unmarkDeleted($folderId, $this->userId);
+            $this->folderService->markDelete($this->getUserId(), $folderId, false);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
+        } catch (ServiceConflictException $ex) {
+            return $this->error($ex, Http::STATUS_CONFLICT);
         }
 
         return [];

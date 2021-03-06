@@ -16,13 +16,13 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FolderApiController;
-use OCA\News\Service\FolderService;
+use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 use \OCA\News\Db\Folder;
 use OCP\IRequest;
@@ -37,41 +37,37 @@ class FolderApiControllerTest extends TestCase
 
     private $folderService;
     private $itemService;
-    private $folderAPI;
-    private $appName;
-    private $userSession;
+    private $class;
     private $user;
-    private $request;
     private $msg;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
-        $this->appName = 'news';
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $appName = 'news';
+        $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(IUserSession::class)
+        $userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession->expects($this->any())
+        $userSession->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->user));
         $this->user->expects($this->any())
             ->method('getUID')
             ->will($this->returnValue('123'));
-        $this->folderService = $this->getMockBuilder(FolderService::class)
+        $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->folderAPI = new FolderApiController(
-            $this->appName,
-            $this->request,
-            $this->userSession,
+        $this->class = new FolderApiController(
+            $request,
+            $userSession,
             $this->folderService,
             $this->itemService
         );
@@ -79,16 +75,16 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testIndex() 
+    public function testIndex()
     {
         $folders = [new Folder()];
 
         $this->folderService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->with($this->equalTo($this->user->getUID()))
             ->will($this->returnValue($folders));
 
-        $response = $this->folderAPI->index();
+        $response = $this->class->index();
 
         $this->assertEquals(
             [
@@ -98,21 +94,21 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testCreate() 
+    public function testCreate()
     {
         $folderName = 'test';
         $folder = new Folder();
         $folder->setName($folderName);
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->folderService->expects($this->once())
             ->method('create')
-            ->with($this->equalTo($folderName), $this->equalTo($this->user->getUID()))
+            ->with($this->user->getUID(), $folderName)
             ->will($this->returnValue($folder));
 
-        $response = $this->folderAPI->create($folderName);
+        $response = $this->class->create($folderName);
 
         $this->assertEquals(
             [
@@ -122,18 +118,18 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testCreateAlreadyExists() 
+    public function testCreateAlreadyExists()
     {
         $msg = 'exists';
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceConflictException($msg)));
 
-        $response = $this->folderAPI->create('hi');
+        $response = $this->class->create('hi');
 
         $data = $response->getData();
         $this->assertEquals($msg, $data['message']);
@@ -141,18 +137,18 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testCreateInvalidFolderName() 
+    public function testCreateInvalidFolderName()
     {
         $msg = 'exists';
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->folderService->expects($this->once())
             ->method('create')
             ->will($this->throwException(new ServiceValidationException($msg)));
 
-        $response = $this->folderAPI->create('hi');
+        $response = $this->class->create('hi');
 
         $data = $response->getData();
         $this->assertEquals($msg, $data['message']);
@@ -162,18 +158,17 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testDelete() 
+    public function testDelete()
     {
-        $folderId = 23;
         $this->folderService->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo($folderId), $this->equalTo($this->user->getUID()));
+            ->with($this->user->getUID(), 23);
 
-        $this->folderAPI->delete(23);
+        $this->class->delete(23);
     }
 
 
-    public function testDeleteDoesNotExist() 
+    public function testDeleteDoesNotExist()
     {
         $folderId = 23;
 
@@ -185,7 +180,7 @@ class FolderApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->delete($folderId);
+        $response = $this->class->delete($folderId);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -193,23 +188,19 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testUpdate() 
+    public function testUpdate()
     {
         $folderId = 23;
         $folderName = 'test';
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->with(
-                $this->equalTo($folderId),
-                $this->equalTo($folderName),
-                $this->equalTo($this->user->getUID())
-            );
+            ->with($this->user->getUID(), $folderId, $folderName);
 
-        $this->folderAPI->update($folderId, $folderName);
+        $this->class->update($folderId, $folderName);
     }
 
-    public function testUpdateDoesNotExist() 
+    public function testUpdateDoesNotExist()
     {
         $folderId = 23;
         $folderName = 'test';
@@ -222,7 +213,7 @@ class FolderApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->update($folderId, $folderName);
+        $response = $this->class->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -230,7 +221,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testUpdateExists() 
+    public function testUpdateExists()
     {
         $folderId = 23;
         $folderName = 'test';
@@ -243,7 +234,7 @@ class FolderApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->update($folderId, $folderName);
+        $response = $this->class->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -251,7 +242,7 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testUpdateInvalidFolderName() 
+    public function testUpdateInvalidFolderName()
     {
         $folderId = 23;
         $folderName = '';
@@ -264,7 +255,7 @@ class FolderApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->folderAPI->update($folderId, $folderName);
+        $response = $this->class->update($folderId, $folderName);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -274,17 +265,27 @@ class FolderApiControllerTest extends TestCase
     }
 
 
-    public function testRead() 
+    public function testRead()
     {
-        $this->itemService->expects($this->once())
-            ->method('readFolder')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo(30),
-                $this->equalTo($this->user->getUID())
-            );
+        $this->folderService->expects($this->once())
+            ->method('read')
+            ->with($this->user->getUID(), 3, 30);
 
-        $this->folderAPI->read(3, 30);
+        $this->class->read(3, 30);
+    }
+
+    public function testUpdateRoot()
+    {
+        $response = $this->class->update(null, '');
+        $this->assertSame(400, $response->getStatus());
+
+    }
+
+    public function testDeleteRoot()
+    {
+        $response = $this->class->delete(null);
+        $this->assertSame(400, $response->getStatus());
+
     }
 
 

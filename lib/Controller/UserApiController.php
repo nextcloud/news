@@ -17,53 +17,28 @@ namespace OCA\News\Controller;
 
 use \OCP\IRequest;
 use \OCP\IUserSession;
-use \OCP\IURLGenerator;
-use \OCP\Files\IRootFolder;
-use \OCP\AppFramework\Http;
 
 class UserApiController extends ApiController
 {
-
-    private $userSession;
-    private $rootFolder;
-
     public function __construct(
-        $appName,
         IRequest $request,
-        IUserSession $userSession,
-        IRootFolder $rootFolder
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request, $userSession);
-        $this->rootFolder = $rootFolder;
+        parent::__construct($request, $userSession);
     }
 
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
      * @CORS
+     *
+     * @deprecated Should use https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata
+     *             and avatar is `https://nc.url/avatar/{userid}/{size}?v={1|2}`
      */
-    public function index()
+    public function index(): array
     {
         $user = $this->getUser();
-
-        // find the avatar
-        $jpgAvatar = '/' . $user->getUID() . '/avatar.jpg';
-        $pngAvatar = '/' . $user->getUID() . '/avatar.png';
         $avatar = null;
-
-        if ($this->rootFolder->nodeExists($jpgAvatar)) {
-            $file = $this->rootFolder->get($jpgAvatar);
-            $avatar = [
-                'data' => base64_encode($file->getContent()),
-                'mime' =>  'image/jpeg'
-            ];
-        } elseif ($this->rootFolder->nodeExists($pngAvatar)) {
-            $file = $this->rootFolder->get($pngAvatar);
-            $avatar = [
-                'data' => base64_encode($file->getContent()),
-                'mime' =>  'image/png'
-            ];
-        }
 
         return [
             'userId' => $user->getUID(),

@@ -8,7 +8,7 @@
 Before you update to a new version, [check the changelog](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) to avoid surprises.
 
 **Important**: To enable feed updates you will need to enable either [Nextcloud system cron](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) or use [an updater](https://github.com/nextcloud/news-updater) which uses the built in update API and disable cron updates. More information can be found [in the README](https://github.com/nextcloud/news).]]></description>
-    <version>14.1.11</version>
+    <version>15.4.0-beta2</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -22,6 +22,7 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     </documentation>
     <category>multimedia</category>
     <website>https://github.com/nextcloud/news</website>
+    <discussion>https://github.com/nextcloud/news/discussions</discussion>
     <bugs>https://github.com/nextcloud/news/issues</bugs>
     <repository type="git">https://github.com/nextcloud/news.git</repository>
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/1.png</screenshot>
@@ -31,28 +32,52 @@ Before you update to a new version, [check the changelog](https://github.com/nex
         <php min-version="7.2"/>
         <database min-version="10">pgsql</database>
         <database>sqlite</database>
-        <database min-version="5.5">mysql</database>
+        <database min-version="8.0">mysql</database>
         <lib min-version="2.7.8">libxml</lib>
         <lib>curl</lib>
+        <lib>dom</lib>
         <lib>SimpleXML</lib>
         <lib>iconv</lib>
+        <lib>json</lib>
+
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="16" max-version="19"/>
+        <nextcloud min-version="20" max-version="21"/>
     </dependencies>
 
     <background-jobs>
-        <job>OCA\News\Cron\Updater</job>
+        <job>OCA\News\Cron\UpdaterJob</job>
     </background-jobs>
 
     <repair-steps>
         <post-migration>
             <step>OCA\News\Migration\MigrateStatusFlags</step>
+            <step>OCA\News\Migration\MigrateConfig</step>
         </post-migration>
     </repair-steps>
 
+    <commands>
+        <command>OCA\News\Command\ExploreGenerator</command>
+        <command>OCA\News\Command\ShowFeed</command>
+        <command>OCA\News\Command\Updater\AllFeeds</command>
+        <command>OCA\News\Command\Updater\UpdateFeed</command>
+        <command>OCA\News\Command\Updater\BeforeUpdate</command>
+        <command>OCA\News\Command\Updater\AfterUpdate</command>
+        <command>OCA\News\Command\Config\FolderList</command>
+        <command>OCA\News\Command\Config\FolderAdd</command>
+        <command>OCA\News\Command\Config\FolderDelete</command>
+        <command>OCA\News\Command\Config\FeedList</command>
+        <command>OCA\News\Command\Config\FeedAdd</command>
+        <command>OCA\News\Command\Config\FeedDelete</command>
+        <command>OCA\News\Command\Config\FeedDelete</command>
+        <command>OCA\News\Command\Config\OpmlExport</command>
+        <command>OCA\News\Command\Debug\ItemList</command>
+        <command>OCA\News\Command\Debug\FolderItemList</command>
+        <command>OCA\News\Command\Debug\FeedItemList</command>
+    </commands>
+
     <settings>
-        <admin>OCA\News\Settings\Admin</admin>
-        <admin-section>OCA\News\Settings\Section</admin-section>
+        <admin>OCA\News\Settings\AdminSettings</admin>
+        <admin-section>OCA\News\Settings\AdminSection</admin-section>
     </settings>
 
     <navigations>

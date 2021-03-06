@@ -31,24 +31,31 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     protected $deletedAt = 0;
     /** @var string|null */
     protected $lastModified = '0';
+    /** @var Feed[] */
+    public $feeds = [];
+
+    public function __construct()
+    {
+        $this->addType('parentId', 'integer');
+        $this->addType('name', 'string');
+        $this->addType('userId', 'string');
+        $this->addType('opened', 'boolean');
+        $this->addType('deletedAt', 'integer');
+        $this->addType('lastModified', 'string');
+    }
 
     /**
      * @return int|null
      */
-    public function getDeletedAt()
+    public function getDeletedAt(): ?int
     {
         return $this->deletedAt;
-    }
-
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     /**
      * @return string|null
      */
-    public function getLastModified()
+    public function getLastModified(): ?string
     {
         return $this->lastModified;
     }
@@ -66,7 +73,7 @@ class Folder extends Entity implements IAPI, \JsonSerializable
     /**
      * @return int|null
      */
-    public function getParentId()
+    public function getParentId(): ?int
     {
         return $this->parentId;
     }
@@ -93,61 +100,65 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         );
     }
 
-    public function setDeletedAt(int $deletedAt = null)
+    public function setDeletedAt(?int $deletedAt = null): self
     {
         if ($this->deletedAt !== $deletedAt) {
             $this->deletedAt = $deletedAt;
             $this->markFieldUpdated('deletedAt');
         }
+
+        return $this;
     }
 
-    public function setId(int $id)
-    {
-        if ($this->id !== $id) {
-            $this->id = $id;
-            $this->markFieldUpdated('id');
-        }
-    }
-
-    public function setLastModified(string $lastModified = null)
+    public function setLastModified(?string $lastModified = null): self
     {
 
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
             $this->markFieldUpdated('lastModified');
         }
+
+        return $this;
     }
 
-    public function setName(string $name)
+    public function setName(string $name): self
     {
         if ($this->name !== $name) {
             $this->name = $name;
             $this->markFieldUpdated('name');
         }
+
+        return $this;
     }
 
-    public function setOpened(bool $opened)
+    public function setOpened(bool $opened): self
     {
         if ($this->opened !== $opened) {
             $this->opened = $opened;
             $this->markFieldUpdated('opened');
         }
+
+        return $this;
     }
 
-    public function setParentId(int $parentId = null)
+    public function setParentId(?int $parentId = null): self
     {
         if ($this->parentId !== $parentId) {
             $this->parentId = $parentId;
             $this->markFieldUpdated('parentId');
         }
+
+        return $this;
     }
 
-    public function setUserId(string $userId)
+    public function setUserId(string $userId): self
     {
         if ($this->userId !== $userId) {
             $this->userId = $userId;
             $this->markFieldUpdated('userId');
         }
+
+        return $this;
     }
 
     public function toAPI(): array
@@ -155,7 +166,9 @@ class Folder extends Entity implements IAPI, \JsonSerializable
         return $this->serializeFields(
             [
                 'id',
-                'name'
+                'name',
+                'opened',
+                'feeds'
             ]
         );
     }

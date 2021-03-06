@@ -20,39 +20,70 @@ use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 
 use Net_URL2;
-use OCA\News\Utility\PsrLogger;
 use OCP\IL10N;
+use OCP\ITempManager;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
 use OCA\News\Scraper\Scraper;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 class FeedFetcher implements IFeedFetcher
 {
 
+    /**
+     * @var Favicon
+     */
     private $faviconFactory;
+
+    /**
+     * @var FeedIo
+     */
     private $reader;
-    private $l10n;
-    private $time;
-    private $logger;
+
+    /**
+     * @var Scraper
+     */
     private $scraper;
+
+    /**
+     * @var IL10N
+     */
+    private $l10n;
+
+    /**
+     * @var ITempManager
+     */
+    private $ITempManager;
+
+    /**
+     * @var Time
+     */
+    private $time;
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
+        Scraper $scraper,
         IL10N $l10n,
+        ITempManager $ITempManager,
         Time $time,
-        PsrLogger $logger,
-        Scraper $scraper
+        LoggerInterface $logger
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
+        $this->scraper        = $scraper;
         $this->l10n           = $l10n;
+        $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
-        $this->scraper        = $scraper;
     }
 
 
@@ -63,7 +94,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return bool
      */
-    public function canHandle($url): bool
+    public function canHandle(string $url): bool
     {
         return true;
     }
@@ -74,65 +105,61 @@ class FeedFetcher implements IFeedFetcher
      *
      * @inheritdoc
      */
-    public function fetch(string $url, bool $favicon, $lastModified, bool $fullTextEnabled, $user, $password): array
-    {
+    public function fetch(
+        string $url,
+        bool $fullTextEnabled,
+        ?string $user,
+        ?string $password
+    ): array {
         $url2 = new Net_URL2($url);
         if (!empty($user) && !empty(trim($user))) {
             $url2->setUserinfo(urlencode($user), urlencode($password));
         }
         $url = $url2->getNormalizedURL();
         $this->reader->resetFilters();
-        if (empty($lastModified) || !is_string($lastModified)) {
-            $resource = $this->reader->read($url);
-        } else {
-            $resource = $this->reader->readSince($url, new DateTime($lastModified));
-        }
-
-        $response = $resource->getResponse();
-        if (!$response->isModified()) {
-            $this->logger->debug('Feed {url} was not modified since last fetch. old: {old}, new: {new}', [
-                 'url' => $url,
-                 'old' => print_r($lastModified, true),
-                 'new' => print_r($response->getLastModified(), true),
-            ]);
-            return [null, []];
-        }
+        $resource = $this->reader->read($url);
 
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();
         $feed = $this->buildFeed(
             $parsedFeed,
             $url,
-            $favicon,
             $location
         );
 
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
         $feedName = $parsedFeed->getTitle();
-        $this->logger->debug('Feed {url} was modified since last fetch. #{count} items', [
+        $this->logger->debug(
+            'Feed {url} was modified since last fetch. #{count} items',
+            [
             'url'   => $url,
             'count' => count($parsedFeed),
-        ]);
+            ]
+        );
 
         foreach ($parsedFeed as $item) {
             $body = null;
             $currRTL = $RTL;
 
-            // Scrape content if enabled
+            // Scrape the content if full-text is enabled and if the feed provides a URL
             if ($fullTextEnabled) {
-                if ($this->scraper->scrape($item->getLink())) {
+                $itemLink = $item->getLink();
+                if ($itemLink !== null && $this->scraper->scrape($itemLink)) {
                     $body = $this->scraper->getContent();
                     $currRTL = $this->scraper->getRTL($currRTL);
                 }
             }
 
             $builtItem = $this->buildItem($item, $body, $currRTL);
-            $this->logger->debug('Added item {title} for feed {feed} publishdate: {datetime}', [
+            $this->logger->debug(
+                'Added item {title} for feed {feed} lastmodified: {datetime}',
+                [
                 'title' => $builtItem->getTitle(),
                 'feed'  => $feedName,
                 'datetime'  => $builtItem->getLastModified(),
-            ]);
+                ]
+            );
             $items[] = $builtItem;
         }
 
@@ -146,7 +173,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return string
      */
-    private function decodeTwice($string): string
+    private function decodeTwice(string $string): string
     {
         return html_entity_decode(
             html_entity_decode(
@@ -193,12 +220,12 @@ class FeedFetcher implements IFeedFetcher
      * Build an item based on a feed.
      *
      * @param ItemInterface $parsedItem The item to use
-     * @param string        $body       Text of the item, if not provided use description from $parsedItem
+     * @param string|null   $body       Text of the item, if not provided use description from $parsedItem
      * @param bool          $RTL        True if the feed is RTL (Right-to-left)
      *
      * @return Item
      */
-    protected function buildItem(ItemInterface $parsedItem, string $body = null, bool $RTL = false): Item
+    protected function buildItem(ItemInterface $parsedItem, ?string $body = null, bool $RTL = false): Item
     {
         $item = new Item();
         $item->setUnread(true);
@@ -206,24 +233,26 @@ class FeedFetcher implements IFeedFetcher
         $item->setGuid($parsedItem->getPublicId());
         $item->setGuidHash(md5($item->getGuid()));
 
-        $lastmodified = $parsedItem->getLastModified() ?? new DateTime();
+        $lastModified = $parsedItem->getLastModified() ?? new DateTime();
         if ($parsedItem->getValue('pubDate') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('pubDate'));
         } elseif ($parsedItem->getValue('published') !== null) {
             $pubDT = new DateTime($parsedItem->getValue('published'));
         } else {
-            $pubDT = $lastmodified;
+            $pubDT = $lastModified;
         }
 
         $item->setPubDate($pubDT->getTimestamp());
 
-        $item->setLastModified($lastmodified->getTimestamp());
+        $item->setLastModified($lastModified->getTimestamp());
         $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS
-        $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        if ($parsedItem->getTitle() !== null) {
+            $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        }
         $author = $parsedItem->getAuthor();
-        if (!is_null($author)) {
+        if ($author !== null && $author->getName() !== null) {
             $item->setAuthor($this->decodeTwice($author->getName()));
         }
 
@@ -277,22 +306,62 @@ class FeedFetcher implements IFeedFetcher
     }
 
     /**
+     * Return the favicon for a given feed and url
+     *
+     * @param FeedInterface $feed     Feed to check for a logo
+     * @param string        $url      Original URL for the feed
+     *
+     * @return string|mixed|bool
+     */
+    protected function getFavicon(FeedInterface $feed, string $url)
+    {
+        $favicon = $feed->getLogo();
+
+        // check if feed has a logo
+        if (is_null($favicon)) {
+            return $this->faviconFactory->get($url);
+        }
+
+        $favicon_path = join("/", [$this->ITempManager->getTempBaseDir(), basename($favicon)]);
+        copy(
+            $favicon,
+            $favicon_path
+        );
+
+        $is_image = substr(mime_content_type($favicon_path), 0, 5) === "image";
+
+        // check if file is actually an image
+        if (!$is_image) {
+            return $this->faviconFactory->get($url);
+        }
+
+        list($width, $height, $type, $attr) = getimagesize($favicon_path);
+        // check if image is square else fall back to favicon
+        if ($width !== $height) {
+            return $this->faviconFactory->get($url);
+        }
+
+        return $favicon;
+    }
+
+    /**
      * Build a feed based on provided info
      *
-     * @param FeedInterface $feed       Feed to build from
-     * @param string        $url        URL to use
-     * @param boolean       $getFavicon To get the favicon
-     * @param string        $location   String base URL
+     * @param FeedInterface $feed     Feed to build from
+     * @param string        $url      URL to use
+     * @param string        $location String base URL
      *
      * @return Feed
      */
-    protected function buildFeed(FeedInterface $feed, string $url, bool $getFavicon, string $location): Feed
+    protected function buildFeed(FeedInterface $feed, string $url, string $location): Feed
     {
         $newFeed = new Feed();
 
         // unescape content because angularjs helps against XSS
-        $title = strip_tags($this->decodeTwice($feed->getTitle()));
-        $newFeed->setTitle($title);
+        if ($feed->getTitle() !== null) {
+            $title = strip_tags($this->decodeTwice($feed->getTitle()));
+            $newFeed->setTitle($title);
+        }
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
@@ -301,10 +370,9 @@ class FeedFetcher implements IFeedFetcher
         }
         $newFeed->setAdded($this->time->getTime());
 
-        if (!$getFavicon) {
-            return $newFeed;
-        }
-        $favicon = $this->faviconFactory->get($url);
+
+
+        $favicon = $this->getFavicon($feed, $url);
         $newFeed->setFaviconLink($favicon);
 
         return $newFeed;

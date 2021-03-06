@@ -10,9 +10,6 @@
  */
 namespace OCA\News\Command;
 
-use FeedIo\FeedIo;
-use Favicon\Favicon;
-
 use OCA\News\Fetcher\Fetcher;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -38,10 +35,15 @@ class ShowFeed extends Command
      */
     public function __construct(Fetcher $feedFetcher)
     {
-        $this->feedFetcher  = $feedFetcher;
         parent::__construct();
+        $this->feedFetcher  = $feedFetcher;
     }
 
+    /**
+     * Configure the command
+     *
+     * @return void
+     */
     protected function configure()
     {
         $this->setName('news:show-feed')
@@ -52,7 +54,15 @@ class ShowFeed extends Command
             ->addOption('full-text', 'f', InputOption::VALUE_NONE, 'Usa a scraper to get full text');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    /**
+     * Execute the command
+     *
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url   = $input->getArgument('feed');
         $user = $input->getOption('user');
@@ -60,13 +70,16 @@ class ShowFeed extends Command
         $fullTextEnabled = (bool) $input->getOption('full-text');
 
         try {
-            list($feed, $items) = $this->feedFetcher->fetch($url, true, null, $fullTextEnabled, $user, $password);
-            $output->writeln("Feed: " . json_encode($feed, JSON_PRETTY_PRINT));
-            $output->writeln("Items: " . json_encode($items, JSON_PRETTY_PRINT));
-        } catch (\Throwable $ex) {
+            list($feed, $items) = $this->feedFetcher->fetch($url, $fullTextEnabled, $user, $password);
+        } catch (\Exception $ex) {
             $output->writeln('<error>Failed to fetch feed info:</error>');
             $output->writeln($ex->getMessage());
             return 1;
         }
+
+        $output->writeln("Feed: " . json_encode($feed, JSON_PRETTY_PRINT));
+        $output->writeln("Items: " . json_encode($items, JSON_PRETTY_PRINT));
+
+        return 0;
     }
 }

@@ -14,51 +14,89 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use FeedIo\Explorer;
 use FeedIo\Reader\ReadErrorException;
 
-use OCA\News\Config\Config;
-use OCA\News\Db\FeedMapper;
-use OCA\News\Db\ItemMapper;
-use OCA\News\Service\FeedService;
-use OCA\News\Service\ServiceNotFoundException;
+use OC\L10N\L10N;
+use OCA\News\Db\FeedMapperV2;
+use OCA\News\Fetcher\FeedFetcher;
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\ItemServiceV2;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
-use OCA\News\Fetcher\Fetcher;
-use OCA\News\Fetcher\FetcherException;
+use OCP\IConfig;
 use OCP\IL10N;
-use OCP\ILogger;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 
 class FeedServiceTest extends TestCase
 {
 
-    private $feedMapper;
-    /** @var FeedService */
-    private $feedService;
-    private $user;
-    private $response;
-    private $fetcher;
-    private $itemMapper;
-    private $threshold;
-    private $time;
-    private $importParser;
-    private $autoPurgeMinimumInterval;
-    private $purifier;
-    private $l10n;
-    private $logger;
-    private $loggerParams;
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedMapperV2
+     */
+    private $mapper;
 
-    protected function setUp()
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
+     */
+    private $itemService;
+
+    /** @var FeedServiceV2 */
+    private $class;
+
+    /**
+     * @var string
+     */
+    private $uid;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedFetcher
+     */
+    private $fetcher;
+
+    /**
+     * @var int
+     */
+    private $time;
+
+    /**
+     * @var int
+     */
+    private $autoPurgeMinimumInterval;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
+     */
+    private $purifier;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|L10N
+     */
+    private $l10n;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
+     */
+    private $logger;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|Explorer
+     */
+    private $explorer;
+
+    protected function setUp(): void
     {
-        $this->logger = $this->getMockBuilder(ILogger::class)
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->loggerParams = ['hi'];
         $this->time = 222;
         $this->autoPurgeMinimumInterval = 10;
         $timeFactory = $this->getMockBuilder(Time::class)
@@ -70,47 +108,58 @@ class FeedServiceTest extends TestCase
         $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedMapper = $this
-            ->getMockBuilder(FeedMapper::class)
+        $this->mapper = $this
+            ->getMockBuilder(FeedMapperV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = $this
-            ->getMockBuilder(Fetcher::class)
+            ->getMockBuilder(FeedFetcher::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemMapper = $this
-            ->getMockBuilder(ItemMapper::class)
+        $this->explorer = $this
+            ->getMockBuilder(Explorer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->itemService = $this
+            ->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
             ->getMockBuilder(\HTMLPurifier::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $config = $this->getMockBuilder(Config::class)
+        $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $config->expects($this->any())
-            ->method('getAutoPurgeMinimumInterval')
+            ->method('getAppValue')
+            ->with('news', 'autoPurgeMinimumInterval')
             ->will($this->returnValue($this->autoPurgeMinimumInterval));
 
-        $this->feedService = new FeedService(
-            $this->feedMapper,
-            $this->fetcher, $this->itemMapper, $this->logger, $this->l10n,
-            $timeFactory, $config, $this->purifier, $this->loggerParams
+        $this->class = new FeedServiceV2(
+            $this->mapper,
+            $this->fetcher,
+            $this->itemService,
+            $this->explorer,
+            $this->purifier,
+            $this->logger
         );
-        $this->user = 'jack';
+        $this->uid = 'jack';
     }
 
-
+    /**
+     * @covers \OCA\News\Service\FeedServiceV2::findAll
+     */
     public function testFindAll()
     {
-        $this->feedMapper->expects($this->once())
+        $this->response = [];
+        $this->mapper->expects($this->once())
             ->method('findAllFromUser')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue($this->response));
+            ->with($this->uid)
+            ->will($this->returnValue([]));
 
-        $result = $this->feedService->findAll($this->user);
-        $this->assertEquals($this->response, $result);
+        $result = $this->class->findAllForUser($this->uid);
+        $this->assertEquals([], $result);
     }
 
 
@@ -118,12 +167,20 @@ class FeedServiceTest extends TestCase
     {
         $ex = new ReadErrorException('hi');
         $url = 'test';
-        $this->fetcher->expects($this->once())
+
+        $this->mapper->expects($this->once())
+                         ->method('findByURL')
+                         ->with($this->uid, $url)
+                         ->willReturn(new Feed());
+
+        $this->fetcher->expects($this->never())
             ->method('fetch')
-            ->with($this->equalTo($url))
+            ->with($url)
             ->will($this->throwException($ex));
-        $this->expectException(ServiceNotFoundException::class);
-        $this->feedService->create($url, 1, $this->user);
+
+        $this->expectException(ServiceConflictException::class);
+        $this->expectExceptionMessage('Feed with this URL exists');
+        $this->class->create($this->uid, $url, 1);
     }
 
     public function testCreate()
@@ -131,7 +188,6 @@ class FeedServiceTest extends TestCase
         $url = 'http://test';
         $folderId = 10;
         $createdFeed = new Feed();
-        $ex = new DoesNotExistException('yo');
         $createdFeed->setUrl($url);
         $createdFeed->setUrlHash('hsssi');
         $createdFeed->setLink($url);
@@ -149,57 +205,152 @@ class FeedServiceTest extends TestCase
             [$item1, $item2]
         ];
 
-        $this->feedMapper->expects($this->once())
-            ->method('findByUrlHash')
-            ->with(
-                $this->equalTo($createdFeed->getUrlHash()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
+            ->will($this->throwException(new DoesNotExistException('no')));
+        $this->explorer->expects($this->once())
+                       ->method('discover')
+                       ->with($url)
+                       ->will($this->returnValue([]));
         $this->fetcher->expects($this->once())
             ->method('fetch')
-            ->with($this->equalTo($url))
+            ->with($url)
             ->will($this->returnValue($return));
-        $this->feedMapper->expects($this->once())
-            ->method('insert')
-            ->with($this->equalTo($createdFeed))
-            ->will($this->returnCallback(function() use ($createdFeed) {
-                $createdFeed->setId(4);
-                return $createdFeed;
-            }));
-        $this->itemMapper->expects($this->at(0))
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($item2->getGuidHash()),
-                $this->equalTo($item2->getFeedId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
-        $this->purifier->expects($this->at(0))
-            ->method('purify')
-            ->with($this->equalTo($return[1][1]->getBody()))
-            ->will($this->returnValue($return[1][1]->getBody()));
-        $this->itemMapper->expects($this->at(1))
-            ->method('insert')
-            ->with($this->equalTo($return[1][1]));
-        $this->itemMapper->expects($this->at(2))
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($item1->getGuidHash()),
-                $this->equalTo($item1->getFeedId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
-        $this->purifier->expects($this->at(1))
-            ->method('purify')
-            ->with($this->equalTo($return[1][0]->getBody()))
-            ->will($this->returnValue($return[1][0]->getBody()));
-        $this->itemMapper->expects($this->at(3))
-            ->method('insert')
-            ->with($this->equalTo($return[1][0]));
 
-        $feed = $this->feedService->create(
-            $url, $folderId, $this->user, null,
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($createdFeed)
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(4);
+                        return $createdFeed;
+                    }
+                )
+            );
+
+        $feed = $this->class->create(
+            $this->uid, $url, $folderId,  false, null,
+            'user', 'pass'
+        );
+
+        $this->assertEquals($feed->getFolderId(), $folderId);
+        $this->assertEquals($feed->getUrl(), $url);
+        $this->assertEquals($feed->getArticlesPerUpdate(), 2);
+        $this->assertEquals($feed->getBasicAuthUser(), 'user');
+        $this->assertEquals($feed->getBasicAuthPassword(), 'pass');
+    }
+
+    public function testCreateSetsTitle()
+    {
+        $url = 'http://test';
+        $folderId = 10;
+        $createdFeed = new Feed();
+        $createdFeed->setUrl($url);
+        $createdFeed->setUrlHash('hsssi');
+        $createdFeed->setLink($url);
+        $createdFeed->setTitle('hehoy');
+        $createdFeed->setBasicAuthUser('user');
+        $createdFeed->setBasicAuthPassword('pass');
+        $item1 = new Item();
+        $item1->setFeedId(4);
+        $item1->setGuidHash('hi');
+        $item2 = new Item();
+        $item2->setFeedId(4);
+        $item2->setGuidHash('yo');
+        $return = [
+            $createdFeed,
+            [$item1, $item2]
+        ];
+
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
+            ->will($this->throwException(new DoesNotExistException('no')));
+        $this->explorer->expects($this->once())
+                       ->method('discover')
+                       ->with($url)
+                       ->will($this->returnValue([]));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with($url)
+            ->will($this->returnValue($return));
+
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($createdFeed)
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(4);
+                        return $createdFeed;
+                    }
+                )
+            );
+
+        $feed = $this->class->create(
+            $this->uid, $url, $folderId,  false, 'title',
+            'user', 'pass'
+        );
+
+        $this->assertEquals($feed->getFolderId(), $folderId);
+        $this->assertEquals($feed->getUrl(), $url);
+        $this->assertEquals($feed->getArticlesPerUpdate(), 2);
+        $this->assertEquals($feed->getTitle(), 'title');
+        $this->assertEquals($feed->getBasicAuthUser(), 'user');
+        $this->assertEquals($feed->getBasicAuthPassword(), 'pass');
+    }
+
+    public function testCreateDiscovers()
+    {
+        $url = 'http://test';
+        $folderId = 10;
+        $createdFeed = new Feed();
+        $createdFeed->setUrl($url);
+        $createdFeed->setUrlHash('hsssi');
+        $createdFeed->setLink($url);
+        $createdFeed->setTitle('hehoy');
+        $createdFeed->setBasicAuthUser('user');
+        $createdFeed->setBasicAuthPassword('pass');
+        $item1 = new Item();
+        $item1->setFeedId(4);
+        $item1->setGuidHash('hi');
+        $item2 = new Item();
+        $item2->setFeedId(4);
+        $item2->setGuidHash('yo');
+        $return = [
+            $createdFeed,
+            [$item1, $item2]
+        ];
+
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
+            ->will($this->throwException(new DoesNotExistException('no')));
+        $this->explorer->expects($this->once())
+                       ->method('discover')
+                       ->with($url)
+                       ->will($this->returnValue(['http://discover.test']));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with('http://discover.test')
+            ->will($this->returnValue($return));
+
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($createdFeed)
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(4);
+                        return $createdFeed;
+                    }
+                )
+            );
+
+        $feed = $this->class->create(
+            $this->uid, $url, $folderId,  false, null,
             'user', 'pass'
         );
 
@@ -231,52 +382,51 @@ class FeedServiceTest extends TestCase
             [$item1, $item2]
         ];
 
-        $this->feedMapper->expects($this->once())
-            ->method('findByUrlHash')
-            ->with(
-                $this->equalTo($createdFeed->getUrlHash()),
-                $this->equalTo($this->user)
-            )
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
             ->will($this->throwException($ex));
         $this->fetcher->expects($this->once())
             ->method('fetch')
             ->with($this->equalTo($url))
             ->will($this->returnValue($return));
-        $this->feedMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('insert')
             ->with($this->equalTo($createdFeed))
-            ->will($this->returnCallback(function() use ($createdFeed) {
-                $createdFeed->setId(5);
-                return $createdFeed;
-            }));
-        $this->itemMapper->expects($this->at(0))
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($item2->getGuidHash()),
-                $this->equalTo($item2->getFeedId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
-        $this->purifier->expects($this->at(0))
-            ->method('purify')
-            ->with($this->equalTo($return[1][1]->getBody()))
-            ->will($this->returnValue($return[1][1]->getBody()));
-        $this->itemMapper->expects($this->at(1))
-            ->method('insert')
-            ->with($this->equalTo($return[1][1]));
-        $this->itemMapper->expects($this->at(2))
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($item1->getGuidHash()),
-                $this->equalTo($item1->getFeedId()),
-                $this->equalTo($this->user)
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(5);
+                        return $createdFeed;
+                    }
+                )
             );
 
-        $feed = $this->feedService->create($url, $folderId, $this->user);
+        $feed = $this->class->create($this->uid, $url, $folderId);
 
         $this->assertEquals($feed->getFolderId(), $folderId);
         $this->assertEquals($feed->getUrl(), $url);
-        $this->assertEquals(1, $feed->getUnreadCount());
+    }
+
+    public function testCreateUnableToFetchFeed()
+    {
+        $url = 'http://test';
+        $folderId = 10;
+
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with($url)
+            ->willReturn([null, []]);
+
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
+            ->will($this->throwException(new DoesNotExistException('no')));
+
+        $this->expectException(ServiceNotFoundException::class);
+        $this->expectExceptionMessage('Failed to fetch feed');
+
+        $this->class->create($this->uid, $url, $folderId);
     }
 
     public function testCreateUnableToParseFeed()
@@ -286,735 +436,216 @@ class FeedServiceTest extends TestCase
 
         $this->fetcher->expects($this->once())
             ->method('fetch')
-            ->with($this->equalTo($url))
-            ->willReturn([null, []]);
+            ->with($url)
+            ->will($this->throwException(new ReadErrorException('ERROR')));
 
-        $this->l10n->expects($this->once())
-            ->method('t')
-            ->with($this->equalTo('Can not add feed: Unable to parse feed'))
-            ->willReturn('Can not add feed: Unable to parse feed');
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
+            ->will($this->throwException(new DoesNotExistException('no')));
 
         $this->expectException(ServiceNotFoundException::class);
-        $this->expectExceptionMessage('Can not add feed: Unable to parse feed');
+        $this->expectExceptionMessage('ERROR');
 
-        $this->feedService->create($url, $folderId, $this->user);
+        $this->class->create($this->uid, $url, $folderId);
     }
 
-    public function testUpdateCreatesNewEntry()
+    public function testFetchReturnsOnBlock()
     {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setArticlesPerUpdate(1);
-        $feed->setLink('http://test');
-        $feed->setUrl('http://test');
-        $feed->setUrlHash('yo');
-        $feed->setHttpLastModified(3);
-        $feed->setHttpEtag(4);
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->disableOriginalConstructor()
+                     ->getMock();
 
-        $item = new Item();
-        $item->setGuidHash(md5('hi'));
-        $item->setFeedId(3);
-        $items = [$item];
+        $feed->expects($this->once())
+             ->method('getPreventUpdate')
+             ->will($this->returnValue(TRUE));
 
-        $ex = new DoesNotExistException('hi');
+        $this->assertSame($feed, $this->class->fetch($feed));
+    }
 
-        $fetchReturn = [$feed, $items];
+    public function testFetchAllReturnsOnAllBlock()
+    {
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->disableOriginalConstructor()
+                     ->getMock();
 
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
+        $this->mapper->expects($this->once())
+                     ->method('findAll')
+                     ->will($this->returnValue([$feed, $feed]));
+
+        $feed->expects($this->exactly(2))
+             ->method('getPreventUpdate')
+             ->will($this->returnValue(TRUE));
+
+        $this->class->fetchAll();
+    }
+
+    public function testFetchReturnsOnReadError()
+    {
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->disableOriginalConstructor()
+                     ->getMock();
+
+        $feed->expects($this->once())
+             ->method('getPreventUpdate')
+             ->will($this->returnValue(FALSE));
+
+        $feed->expects($this->once())
+             ->method('getLocation')
+             ->will($this->returnValue('location'));
+
         $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->with(
-                $this->equalTo('http://test'),
-                $this->equalTo(false),
-                $this->equalTo(3),
-                $this->equalTo(''),
-                $this->equalTo('')
-            )
-            ->will($this->returnValue($fetchReturn));
-        $this->feedMapper->expects($this->at(1))
+                      ->method('fetch')
+                      ->will($this->throwException(new ReadErrorException('FAIL')));
+
+        $feed->expects($this->once())
+            ->method('getUpdateErrorCount')
+            ->will($this->returnValue(1));
+
+        $feed->expects($this->once())
+            ->method('setUpdateErrorCount')
+            ->with(2);
+
+        $feed->expects($this->once())
+            ->method('setLastUpdateError')
+            ->with('FAIL');
+
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($feed));
-        $this->itemMapper->expects($this->once())
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($items[0]->getGuidHash()),
-                $this->equalTo($items[0]->getFeedId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
-        $this->purifier->expects($this->at(0))
-            ->method('purify')
-            ->with($this->equalTo($items[0]->getBody()))
-            ->will($this->returnValue($items[0]->getBody()));
-        $this->itemMapper->expects($this->once())
-            ->method('insert')
-            ->with($this->equalTo($items[0]));
+            ->with($feed);
 
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
-            ->with($feed->getId(), $this->user)
-            ->will($this->returnValue($feed));
-
-
-        $return = $this->feedService->update($feed->getId(), $this->user);
-
-        $this->assertEquals($return, $feed);
+        $this->class->fetch($feed);
     }
 
-    public function testForceUpdateUpdatesEntry()
+    public function testFetchReturnsNoUpdate()
     {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setArticlesPerUpdate(1);
-        $feed->setLink('http://test');
-        $feed->setUrl('http://test');
-        $feed->setUrlHash('yo');
-        $feed->setHttpLastModified(3);
-        $feed->setHttpEtag(4);
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->disableOriginalConstructor()
+                     ->getMock();
 
-        $item = new Item();
-        $item->setGuidHash(md5('hi'));
-        $item->setFeedId(3);
-        $items = [$item];
+        $feed->expects($this->once())
+             ->method('getPreventUpdate')
+             ->will($this->returnValue(FALSE));
 
-        $ex = new DoesNotExistException('hi');
+        $feed->expects($this->once())
+             ->method('getLocation')
+             ->will($this->returnValue('location'));
 
-        $fetchReturn = [$feed, $items];
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
         $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->with(
-                $this->equalTo('http://test'),
-                $this->equalTo(false),
-                $this->equalTo(3),
-                $this->equalTo(''),
-                $this->equalTo('')
-            )
-            ->will($this->returnValue($fetchReturn));
-        $this->feedMapper->expects($this->at(1))
-            ->method('update')
-            ->with($this->equalTo($feed));
-        $this->itemMapper->expects($this->once())
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($items[0]->getGuidHash()),
-                $this->equalTo($items[0]->getFeedId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($items[0]));
-        $this->purifier->expects($this->at(0))
-            ->method('purify')
-            ->with($this->equalTo($items[0]->getBody()))
-            ->will($this->returnValue($items[0]->getBody()));
-        $this->itemMapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($items[0]));
+                      ->method('fetch')
+                      ->will($this->returnValue([null, []]));
 
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
-            ->with($feed->getId(), $this->user)
-            ->will($this->returnValue($feed));
-
-
-        $return = $this->feedService->update($feed->getId(), $this->user, true);
-
-        $this->assertEquals($return, $feed);
-    }
-
-    private function createUpdateFeed()
-    {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setArticlesPerUpdate(1);
-        $feed->setLink('http://test');
-        $feed->setUrl('http://test');
-        $feed->setUrlHash('yo');
-        $feed->setHttpLastModified(3);
-        $feed->setHttpEtag(4);
-        return $feed;
-    }
-
-    private function createUpdateItem()
-    {
-        $item = new Item();
-        $item->setGuidHash(md5('hi'));
-        $item->setFeedId(3);
-        $item->setPubDate(2);
-        $item->setUpdatedDate(2);
-        $item->setTitle('hey');
-        $item->setAuthor('aut');
-        $item->setBody('new');
-        $item->setUnread(false);
-        return $item;
-    }
-
-    private function createUpdateItem2()
-    {
-        $item = new Item();
-        $item->setGuidHash(md5('hi'));
-        $item->setFeedId(3);
-        $item->setPubDate(1);
-        $item->setUpdatedDate(1);
-        $item->setTitle('ho');
-        $item->setAuthor('auto');
-        $item->setBody('old');
-        $item->setUnread(false);
-        return $item;
-    }
-
-    public function testUpdateUpdatesWhenUpdateddateIsNewer()
-    {
-        $feed = $this->createUpdateFeed();
-        $item = $this->createUpdateItem();
-        $item2 = $this->createUpdateItem2();
-
-        $items = [$item];
-
-        $fetchReturn = [$feed, $items];
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->will($this->returnValue($feed));
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->will($this->returnValue($fetchReturn));
-        $this->feedMapper->expects($this->at(1))
+        $this->mapper->expects($this->never())
             ->method('update');
-        $this->itemMapper->expects($this->once())
-            ->method('findByGuidHash')
-            ->will($this->returnValue($item2));
-        $this->purifier->expects($this->at(0))
+
+        $this->assertSame($feed, $this->class->fetch($feed));
+    }
+
+    public function testFetchSucceedsEmptyItems()
+    {
+        $feed = $this->getMockBuilder(Feed::class)
+                     ->disableOriginalConstructor()
+                     ->getMock();
+
+        $feed->expects($this->once())
+             ->method('getPreventUpdate')
+             ->will($this->returnValue(FALSE));
+
+        $feed->expects($this->once())
+             ->method('getLocation')
+             ->will($this->returnValue('location'));
+
+        $feed->expects($this->once())
+             ->method('setUnreadCount')
+             ->with(0)
+             ->will($this->returnSelf());
+
+        $new_feed = $this->getMockBuilder(Feed::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->fetcher->expects($this->once())
+                      ->method('fetch')
+                      ->will($this->returnValue([$new_feed, []]));
+
+        $this->mapper->expects($this->exactly(1))
+            ->method('update')
+            ->with($feed)
+            ->will($this->returnValue($feed));
+
+        $this->assertEquals($feed, $this->class->fetch($feed));
+    }
+
+    public function testFetchSucceedsFullItems()
+    {
+        $feed = Feed::fromParams([
+            'id'         => 1,
+            'location'   => 'url.com',
+            'updateMode' => 1,
+        ]);
+
+        $new_feed = $this->getMockBuilder(Feed::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $item1 = Item::fromParams(['id' => 1, 'body' => '1']);
+        $item2 = Item::fromParams(['id' => 2, 'body' => '2']);
+        $this->fetcher->expects($this->once())
+                      ->method('fetch')
+                      ->will($this->returnValue([$new_feed, [$item1, $item2]]));
+
+        $this->mapper->expects($this->exactly(1))
+            ->method('update')
+            ->with($feed)
+            ->will($this->returnValue($feed));
+
+        $this->purifier->expects($this->exactly(2))
             ->method('purify')
-            ->will($this->returnValue($items[0]->getBody()));
-        $this->itemMapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($item2));
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
+            ->withConsecutive(['2', null], ['1', null])
+            ->will($this->returnArgument(0));
+
+        $this->itemService->expects($this->exactly(2))
+            ->method('insertOrUpdate')
+            ->withConsecutive([$item2], [$item1])
             ->will($this->returnValue($feed));
 
-
-        $return = $this->feedService->update($feed->getId(), $this->user);
-
-        $this->assertEquals($return, $feed);
+        $this->assertSame($feed, $this->class->fetch($feed));
+        $this->assertEquals(2, $feed->getUnreadCount());
     }
-
-
-    public function testUpdateSetsUnreadIfModeIsOne()
-    {
-        $feed = $this->createUpdateFeed();
-        $feed->setUpdateMode(1);
-        $item = $this->createUpdateItem();
-        $item2 = $this->createUpdateItem2();
-        $item3 = $this->createUpdateItem();
-        $item3->setUnread(true);
-
-        $items = [$item];
-
-        $fetchReturn = [$feed, $items];
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->will($this->returnValue($feed));
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->will($this->returnValue($fetchReturn));
-        $this->feedMapper->expects($this->at(1))
-            ->method('update');
-        $this->itemMapper->expects($this->once())
-            ->method('findByGuidHash')
-            ->will($this->returnValue($item2));
-        $this->purifier->expects($this->at(0))
-            ->method('purify')
-            ->will($this->returnValue($items[0]->getBody()));
-        $this->itemMapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($item3));
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
-            ->will($this->returnValue($feed));
-
-        $return = $this->feedService->update($feed->getId(), $this->user);
-
-        $this->assertEquals($return, $feed);
-
-    }
-
-    public function testUpdateUpdatesArticlesPerFeedCount()
-    {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setUrl('http://example.com');
-        $feed->setUrlHash('yo');
-
-        $existingFeed = new Feed();
-        $existingFeed->setId(3);
-        $existingFeed->setUrl('http://example.com');
-        $feed->setArticlesPerUpdate(2);
-
-        $item = new Item();
-        $item->setGuidHash(md5('hi'));
-        $item->setFeedId(3);
-        $items = [$item];
-
-        $this->feedMapper->expects($this->any())
-            ->method('find')
-            ->will($this->returnValue($existingFeed));
-
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->will($this->returnValue([$feed, $items]));
-
-        $this->feedMapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($existingFeed));
-
-        $this->itemMapper->expects($this->any())
-            ->method('findByGuidHash')
-            ->will($this->returnValue($item));
-
-        $this->feedService->update($feed->getId(), $this->user);
-    }
-
-    public function testUpdateFails()
-    {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setUrl('http://example.com');
-        $feed->setUpdateErrorCount(0);
-        $feed->setLastUpdateError('');
-
-        $exptectedFeed = new Feed();
-        $exptectedFeed->setId(3);
-        $exptectedFeed->setUrl('http://example.com');
-        $exptectedFeed->setUpdateErrorCount(1);
-        $exptectedFeed->setLastUpdateError('hi');
-
-        $ex = new ReadErrorException('hi');
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->will($this->throwException($ex));
-        $this->logger->expects($this->any())
-            ->method('debug');
-
-        $this->feedMapper->expects($this->at(1))
-            ->method('update')
-            ->with($exptectedFeed)
-            ->will($this->returnValue($exptectedFeed));
-
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
-            ->with($feed->getId(), $this->user)
-            ->will($this->returnValue($exptectedFeed));
-
-        $return = $this->feedService->update($feed->getId(), $this->user);
-
-        $this->assertEquals($return, $exptectedFeed);
-    }
-
-
-    public function testUpdateDoesNotFindEntry()
-    {
-        $feed = new Feed();
-        $feed->setId(3);
-
-        $ex = new DoesNotExistException('');
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
-
-        $this->expectException(ServiceNotFoundException::class);
-        $this->feedService->update($feed->getId(), $this->user);
-    }
-
-
-    public function testUpdatePassesFullText()
-    {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setUrl('https://goo.com');
-        $feed->setHttpLastModified(123);
-        $feed->setFullTextEnabled(true);
-
-        $ex = new DoesNotExistException('');
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
-
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->with(
-                $this->equalTo($feed->getUrl()),
-                $this->equalTo(false),
-                $this->equalTo($feed->getHttpLastModified()),
-                $this->equalTo($feed->getFullTextEnabled())
-            )
-            ->will($this->throwException($ex));
-
-        $this->expectException(DoesNotExistException::class);
-        $this->feedService->update($feed->getId(), $this->user);
-    }
-
-
-    public function testUpdateDoesNotFindUpdatedEntry()
-    {
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setArticlesPerUpdate(1);
-        $feed->setUrl('http://example.com');
-
-        $item = new Item();
-        $item->setGuidHash(md5('hi'));
-        $item->setPubDate(3333);
-        $item->setId(4);
-        $items = [$item];
-
-        $item2 = new Item();
-        $item2->setPubDate(111);
-
-        $fetchReturn = [$feed, $items];
-        $ex = new DoesNotExistException('');
-
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
-        $this->feedMapper->expects($this->at(1))
-            ->method('update')
-            ->with($this->equalTo($feed));
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->will($this->returnValue($fetchReturn));
-        $this->itemMapper->expects($this->once())
-            ->method('findByGuidHash')
-            ->with(
-                $this->equalTo($item->getGuidHash()),
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($item2));;
-
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException($ex));
-
-        $this->expectException(ServiceNotFoundException::class);
-        $this->feedService->update($feed->getId(), $this->user);
-    }
-
-
-    public function testUpdateDoesntUpdateIfFeedIsPrevented()
-    {
-        $feedId = 3;
-        $feed = new Feed();
-        $feed->setFolderId(16);
-        $feed->setId($feedId);
-        $feed->setPreventUpdate(true);
-
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
-        $this->fetcher->expects($this->never())
-            ->method('fetch');
-
-        $this->feedService->update($feedId, $this->user);
-    }
-
-
-    public function testUpdateDoesntUpdateIfNoFeed()
-    {
-        $feedId = 3;
-        $feed = new Feed();
-        $feed->setFolderId(16);
-        $feed->setId($feedId);
-        $feed->setUrl('http://example.com');
-
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
-        $this->fetcher->expects($this->once())
-            ->method('fetch')
-            ->will($this->returnValue([null, null]));
-
-        $return = $this->feedService->update($feedId, $this->user);
-        $this->assertEquals($feed, $return);
-    }
-
-
-    public function testMove()
-    {
-        $feedId = 3;
-        $folderId = 4;
-        $feed = new Feed();
-        $feed->setFolderId(16);
-        $feed->setId($feedId);
-
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($feedId), $this->equalTo($this->user))
-            ->will($this->returnValue($feed));
-
-        $this->feedMapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($feed));
-
-        $this->feedService->patch($feedId, $this->user, ['folderId' => $folderId]);
-
-        $this->assertEquals($folderId, $feed->getFolderId());
-    }
-
-
-    public function testRenameFeed()
-    {
-        $feedId = 3;
-        $feedTitle = "New Feed Title";
-        $feed = new Feed();
-        $feed->setTitle("Feed Title");
-        $feed->setId($feedId);
-
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($feedId), $this->equalTo($this->user))
-            ->will($this->returnValue($feed));
-
-        $this->feedMapper->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($feed));
-
-        $this->feedService->patch($feedId, $this->user, ['title' => $feedTitle]);
-
-        $this->assertEquals($feedTitle, $feed->getTitle());
-    }
-
-
-    public function testImportArticles()
-    {
-        $url = 'http://nextcloud/nofeed';
-
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setUserId($this->user);
-        $feed->setUrl($url);
-        $feed->setLink($url);
-        $feed->setTitle('Articles without feed');
-        $feed->setAdded($this->time);
-        $feed->setFolderId(0);
-        $feed->setPreventUpdate(true);
-
-        $feeds = [$feed];
-
-        $item = new Item();
-        $item->setFeedId(3);
-        $item->setAuthor('john');
-        $item->setGuid('s');
-        $item->setGuidHash('s');
-        $item->setTitle('hey');
-        $item->setPubDate(333);
-        $item->setBody('come over');
-        $item->setEnclosureMime('mime');
-        $item->setEnclosureLink('lin');
-        $item->setUnread(true);
-        $item->setStarred(false);
-        $item->generateSearchIndex();
-
-        $json = $item->toExport(['feed3' => $feed]);
-
-        $items = [$json];
-
-        $this->feedMapper->expects($this->once())
-            ->method('findAllFromUser')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue($feeds));
-
-        $this->itemMapper->expects($this->once())
-            ->method('findByGuidHash')
-            ->will($this->throwException(new DoesNotExistException('yo')));
-        $this->itemMapper->expects($this->once())
-            ->method('insert')
-            ->with($this->equalTo($item));
-
-        $this->purifier->expects($this->once())
-            ->method('purify')
-            ->with($this->equalTo($item->getBody()))
-            ->will($this->returnValue($item->getBody()));
-
-        $result = $this->feedService->importArticles($items, $this->user);
-
-        $this->assertEquals(null, $result);
-    }
-
-
-    public function testImportArticlesCreatesOwnFeedWhenNotFound()
-    {
-        $url = 'http://nextcloud/args';
-
-        $feed = new Feed();
-        $feed->setId(3);
-        $feed->setUserId($this->user);
-        $feed->setUrl($url);
-        $feed->setLink($url);
-        $feed->setTitle('Articles without feed');
-        $feed->setAdded($this->time);
-        $feed->setFolderId(0);
-        $feed->setPreventUpdate(true);
-
-        $feeds = [$feed];
-
-        $item = new Item();
-        $item->setFeedId(3);
-        $item->setAuthor('john');
-        $item->setGuid('s');
-        $item->setGuidHash('s');
-        $item->setTitle('hey');
-        $item->setPubDate(333);
-        $item->setBody('come over');
-        $item->setEnclosureMime('mime');
-        $item->setEnclosureLink('lin');
-        $item->setUnread(true);
-        $item->setStarred(false);
-        $item->generateSearchIndex();
-
-        $json = $item->toExport(['feed3' => $feed]);
-        $json2 = $json;
-        // believe it or not this copies stuff :D
-        $json2['feedLink'] = 'http://test.com';
-
-        $items = [$json, $json2];
-
-        $insertFeed = new Feed();
-        $insertFeed->setLink('http://nextcloud/nofeed');
-        $insertFeed->setUrl('http://nextcloud/nofeed');
-        $insertFeed->setUserId($this->user);
-        $insertFeed->setTitle('Articles without feed');
-        $insertFeed->setAdded($this->time);
-        $insertFeed->setPreventUpdate(true);
-        $insertFeed->setFolderId(0);
-
-        $this->l10n->expects($this->once())
-            ->method('t')
-            ->will($this->returnValue('Articles without feed'));
-        $this->feedMapper->expects($this->once())
-            ->method('findAllFromUser')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue($feeds));
-        $this->feedMapper->expects($this->once())
-            ->method('insert')
-            ->with($this->equalTo($insertFeed))
-            ->will($this->returnCallback(function() use ($insertFeed) {
-                $insertFeed->setId(3);
-                return $insertFeed;
-            }));
-
-
-        $this->itemMapper->expects($this->at(0))
-            ->method('findByGuidHash')
-            ->will($this->throwException(new DoesNotExistException('yo')));
-        $this->purifier->expects($this->once())
-            ->method('purify')
-            ->with($this->equalTo($item->getBody()))
-            ->will($this->returnValue($item->getBody()));
-        $this->itemMapper->expects($this->at(1))
-            ->method('insert')
-            ->with($this->equalTo($item));
-
-        $this->itemMapper->expects($this->at(2))
-            ->method('findByGuidHash')
-            ->will($this->returnValue($item));
-        $this->itemMapper->expects($this->at(3))
-            ->method('update')
-            ->with($this->equalTo($item));
-
-        $this->feedMapper->expects($this->once())
-            ->method('findByUrlHash')
-            ->will($this->returnValue($feed));
-
-        $result = $this->feedService->importArticles($items, $this->user);
-
-        $this->assertEquals($feed, $result);
-    }
-
 
     public function testMarkDeleted()
     {
-        $id = 3;
-        $feed = new Feed();
-        $feed2 = new Feed();
+        $feed = Feed::fromParams(['id' => 3]);
+        $feed2 = Feed::fromParams(['id' => 3]);
         $feed2->setDeletedAt($this->time);
 
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with($this->uid, 3)
             ->will($this->returnValue($feed));
-        $this->feedMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($feed2));
+            ->with($feed);
 
-        $this->feedService->markDeleted($id, $this->user);
+        $this->class->update($this->uid, $feed);
     }
 
 
     public function testUnmarkDeleted()
     {
-        $id = 3;
-        $feed = new Feed();
-        $feed2 = new Feed();
+        $feed = Feed::fromParams(['id' => 3]);
+        $feed2 = Feed::fromParams(['id' => 3]);
         $feed2->setDeletedAt(0);
 
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with($this->equalTo($id), $this->equalTo($this->user))
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with($this->uid, 3)
             ->will($this->returnValue($feed));
-        $this->feedMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($feed2));
+            ->with($feed2);
 
-        $this->feedService->unmarkDeleted($id, $this->user);
+        $this->class->update($this->uid, $feed);
     }
 
 
@@ -1027,82 +658,50 @@ class FeedServiceTest extends TestCase
         $feeds = [$feed1, $feed2];
 
         $time = $this->time - $this->autoPurgeMinimumInterval;
-        $this->feedMapper->expects($this->once())
-            ->method('getToDelete')
-            ->with($this->equalTo($time), $this->equalTo($this->user))
-            ->will($this->returnValue($feeds));
-        $this->feedMapper->expects($this->at(1))
-            ->method('delete')
-            ->with($this->equalTo($feed1));
-        $this->feedMapper->expects($this->at(2))
-            ->method('delete')
-            ->with($this->equalTo($feed2));
 
-        $this->feedService->purgeDeleted($this->user);
+        $this->mapper->expects($this->exactly(1))
+            ->method('purgeDeleted')
+            ->with($this->uid, 1);
+
+        $this->class->purgeDeleted($this->uid, 1);
     }
 
 
     public function testPurgeDeletedWithoutInterval()
     {
-        $feed1 = new Feed();
-        $feed1->setId(3);
-        $feed2 = new Feed();
-        $feed2->setId(5);
-        $feeds = [$feed1, $feed2];
+        $this->mapper->expects($this->exactly(1))
+            ->method('purgeDeleted')
+            ->with($this->uid, false);
 
-        $this->feedMapper->expects($this->once())
-            ->method('getToDelete')
-            ->with($this->equalTo(null), $this->equalTo($this->user))
-            ->will($this->returnValue($feeds));
-        $this->feedMapper->expects($this->at(1))
-            ->method('delete')
-            ->with($this->equalTo($feed1));
-        $this->feedMapper->expects($this->at(2))
-            ->method('delete')
-            ->with($this->equalTo($feed2));
-
-        $this->feedService->purgeDeleted($this->user, false);
+        $this->class->purgeDeleted($this->uid, false);
     }
 
 
     public function testfindAllFromAllUsers()
     {
-        $expected = 'hi';
-        $this->feedMapper->expects($this->once())
+        $expected = ['hi'];
+        $this->mapper->expects($this->once())
             ->method('findAll')
             ->will($this->returnValue($expected));
-        $result = $this->feedService->findAllFromAllUsers();
+        $result = $this->class->findAll();
         $this->assertEquals($expected, $result);
-    }
-
-
-    public function testDeleteUser()
-    {
-        $this->feedMapper->expects($this->once())
-            ->method('deleteUser')
-            ->will($this->returnValue($this->user));
-
-        $this->feedService->deleteUser($this->user);
     }
 
 
     public function testOrdering()
     {
         $feed = Feed::fromRow(['id' => 3]);
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with($this->uid, $feed->getId())
             ->will($this->returnValue($feed));
 
         $feed->setOrdering(2);
-        $this->feedMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($feed));
+            ->with($feed);
 
-        $this->feedService->patch(3, $this->user, ['ordering' => 2]);
+        $this->class->update($this->uid, $feed);
     }
 
 
@@ -1110,74 +709,136 @@ class FeedServiceTest extends TestCase
     {
         $feed = Feed::fromRow(
             [
-            'id' => 3,
-            'http_etag' => 'a',
-            'http_last_modified' => 1,
-            'full_text_enabled' => false
+                'id' => 3,
+                'http_last_modified' => 1,
+                'full_text_enabled' => false
             ]
         );
         $feed2 = Feed::fromRow(['id' => 3]);
-        $this->feedMapper->expects($this->at(0))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($feed));
+        $this->mapper->expects($this->exactly(1))
+            ->method('findFromUser')
+            ->with($this->uid,$feed->getId())
+            ->willReturnOnConsecutiveCalls($this->returnValue($feed));
 
-        $feed2->setFullTextEnabled(true);
-        $feed2->setHttpEtag('');
-        $feed2->setHttpLastModified(0);
-        $this->feedMapper->expects($this->at(1))
+        $feed2->setFullTextEnabled(false);
+        $feed2->setHttpLastModified('1');
+        $feed2->resetUpdatedFields();
+
+        $this->mapper->expects($this->exactly(1))
             ->method('update')
-            ->with($this->equalTo($feed2));
+            ->with($feed2);
 
-        $this->feedMapper->expects($this->at(2))
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
-            ->will($this->throwException(new DoesNotExistException('')));
-
-        $this->expectException(ServiceNotFoundException::class);
-
-        $this->feedService->patch(3, $this->user, ['fullTextEnabled' => true]);
+        $this->class->update($this->uid, $feed);
     }
 
-
-    /**
-     * @expectedException OCA\News\Service\ServiceNotFoundException
-     */
     public function testPatchDoesNotExist()
     {
+        $this->expectException('OCA\News\Service\Exceptions\ServiceNotFoundException');
         $feed = Feed::fromRow(['id' => 3]);
-        $this->feedMapper->expects($this->once())
-            ->method('find')
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
             ->will($this->throwException(new DoesNotExistException('')));
 
-        $this->feedService->patch(3, $this->user);
+        $this->class->update($this->uid, $feed);
     }
 
 
     public function testSetPinned()
     {
         $feed = Feed::fromRow(['id' => 3, 'pinned' => false]);
-        $this->feedMapper->expects($this->once())
-            ->method('find')
-            ->with(
-                $this->equalTo($feed->getId()),
-                $this->equalTo($this->user)
-            )
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with($this->uid, $feed->getId())
             ->will($this->returnValue($feed));
 
         $feed->setPinned(true);
-        $this->feedMapper->expects($this->once())
+        $this->mapper->expects($this->once())
             ->method('update')
-            ->with($this->equalTo($feed));
+            ->with($feed);
 
-        $this->feedService->patch(3, $this->user, ['pinned' => true]);
+        $this->class->update($this->uid, $feed);
     }
 
+
+    public function testExistsForUser()
+    {
+        $feed = Feed::fromRow(['id' => 3, 'pinned' => false]);
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, 'url')
+            ->will($this->returnValue($feed));
+
+        $this->assertTrue($this->class->existsForUser($this->uid, 'url'));
+    }
+
+    public function testDoesNotExistsForUser()
+    {
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, 'url')
+            ->will($this->throwException(new DoesNotExistException('no!')));
+
+        $this->assertFalse($this->class->existsForUser($this->uid, 'url'));
+    }
+
+    public function testFindAllFromUser()
+    {
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with($this->uid, [])
+            ->will($this->returnValue([]));
+
+        $this->assertEquals([], $this->class->findAllForUser($this->uid, []));
+    }
+
+    public function testFindAllFromFolder()
+    {
+        $this->mapper->expects($this->once())
+            ->method('findAllFromFolder')
+            ->with(null)
+            ->will($this->returnValue([]));
+
+        $this->assertEquals([], $this->class->findAllFromFolder(null));
+    }
+
+    public function testFindAllFromUserRecursive()
+    {
+        $feed1 = new Feed();
+        $feed1->setId(1);
+
+        $feed2 = new Feed();
+        $feed2->setId(2);
+
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with($this->uid)
+            ->will($this->returnValue([$feed1, $feed2]));
+
+        $this->itemService->expects($this->exactly(2))
+                          ->method('findAllInFeed')
+                          ->withConsecutive(['jack', 1], ['jack', 2])
+                          ->willReturn(['a']);
+
+        $feeds = $this->class->findAllForUserRecursive($this->uid);
+        $this->assertEquals(['a'], $feeds[0]->items);
+        $this->assertEquals(['a'], $feeds[1]->items);
+    }
+
+    public function testRead()
+    {
+        $feed1 = new Feed();
+        $feed1->setId(1);
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with($this->uid, 1)
+            ->will($this->returnValue($feed1));
+
+        $this->mapper->expects($this->exactly(1))
+                     ->method('read')
+                     ->withConsecutive(['jack', 1, null]);
+
+        $this->class->read($this->uid, 1);
+    }
 
 }

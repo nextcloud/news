@@ -13,41 +13,41 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FolderServiceV2;
+use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\OpmlService;
+use OCP\AppFramework\Http\DataDownloadResponse;
 use \OCP\IRequest;
-use \OCP\AppFramework\Controller;
-use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\JSONResponse;
+use OCP\IUserSession;
 
-use \OCA\News\Http\TextDownloadResponse;
-use \OCA\News\Service\FolderService;
-use \OCA\News\Service\FeedService;
-use \OCA\News\Service\ItemService;
-use \OCA\News\Utility\OPMLExporter;
-
+/**
+ * Class ExportController
+ *
+ * @package OCA\News\Controller
+ */
 class ExportController extends Controller
 {
 
-    private $opmlExporter;
+    private $opmlService;
     private $folderService;
     private $feedService;
     private $itemService;
-    private $userId;
 
     public function __construct(
-        $appName,
         IRequest $request,
-        FolderService $folderService,
-        FeedService $feedService,
-        ItemService $itemService,
-        OPMLExporter $opmlExporter,
-        $UserId
+        FolderServiceV2 $folderService,
+        FeedServiceV2 $feedService,
+        ItemServiceV2 $itemService,
+        OpmlService $opmlService,
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($request, $userSession);
         $this->feedService = $feedService;
         $this->folderService = $folderService;
-        $this->opmlExporter = $opmlExporter;
+        $this->opmlService = $opmlService;
         $this->itemService = $itemService;
-        $this->userId = $UserId;
     }
 
 
@@ -55,15 +55,15 @@ class ExportController extends Controller
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function opml()
+    public function opml(): DataDownloadResponse
     {
-        $feeds = $this->feedService->findAll($this->userId);
-        $folders = $this->folderService->findAll($this->userId);
-        $opml = $this->opmlExporter->build($folders, $feeds)->saveXML();
         $date = date('Y-m-d');
-        $name = "subscriptions-" . $date . ".opml";
-        $mimeType = 'text/xml';
-        return new TextDownloadResponse($opml, $name, $mimeType);
+
+        return new DataDownloadResponse(
+            $this->opmlService->export($this->getUserId()),
+            "subscriptions-${date}.opml",
+            'text/xml'
+        );
     }
 
 
@@ -71,10 +71,13 @@ class ExportController extends Controller
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function articles()
+    public function articles(): JSONResponse
     {
-        $feeds = $this->feedService->findAll($this->userId);
-        $items = $this->itemService->getUnreadOrStarred($this->userId);
+        $feeds = $this->feedService->findAllForUser($this->getUserId());
+        $starred = $this->itemService->findAllForUser($this->getUserId(), ['unread' => false, 'starred' => true]);
+        $unread = $this->itemService->findAllForUser($this->getUserId(), ['unread' => true]);
+
+        $items = array_merge($starred, $unread);
 
         // build assoc array for fast access
         $feedsDict = [];

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Download" : "Muat turun",
     "Close" : "Tutup",
-    "Language" : "Bahasa",
     "by" : "oleh",
     "from" : "dari",
     "Description" : "Keterangan",

@@ -15,150 +15,159 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
+use Exception;
 use OCA\News\Controller\FeedApiController;
-use OCA\News\Service\FeedService;
-use OCA\News\Service\ItemService;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
 use \OCA\News\Db\Feed;
-use OCP\ILogger;
 use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class FeedApiControllerTest extends TestCase
 {
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FeedServiceV2
+     */
     private $feedService;
-    private $itemService;
-    private $feedAPI;
-    private $appName;
-    private $userSession;
-    private $user;
-    private $request;
-    private $msg;
-    private $logger;
-    private $loggerParams;
 
-    protected function setUp() 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
+     */
+    private $itemService;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
+     */
+    private $logger;
+
+    private $class;
+    /**
+     * @var string
+     */
+    private $userID = '123';
+    private $msg;
+
+    protected function setUp(): void
     {
-        $this->loggerParams = ['hi'];
-        $this->logger = $this->getMockBuilder(ILogger::class)
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->appName = 'news';
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $appName = 'news';
+        $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession = $this->getMockBuilder(IUserSession::class)
+        $userSession = $this->getMockBuilder(IUserSession::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->user = $this->getMockBuilder(IUser::class)
+        $user = $this->getMockBuilder(IUser::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->userSession->expects($this->any())
+        $userSession->expects($this->any())
             ->method('getUser')
-            ->will($this->returnValue($this->user));
-        $this->user->expects($this->any())
+            ->will($this->returnValue($user));
+        $user->expects($this->any())
             ->method('getUID')
-            ->will($this->returnValue('123'));
-        $this->feedService = $this->getMockBuilder(FeedService::class)
+            ->will($this->returnValue($this->userID));
+        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->itemService = $this->getMockBuilder(ItemService::class)
+        $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedAPI = new FeedApiController(
-            $this->appName,
-            $this->request,
-            $this->userSession,
+        $this->class = new FeedApiController(
+            $request,
+            $userSession,
             $this->feedService,
             $this->itemService,
-            $this->logger,
-            $this->loggerParams
+            $this->logger
         );
         $this->msg = 'hohoho';
     }
 
 
-    public function testIndex() 
+    public function testIndex()
     {
-        $feeds = [new Feed()];
-        $starredCount = 3;
-        $newestItemId = 2;
+        $feed = Feed::fromParams(['id' => 5]);
+        $feeds = [$feed];
 
         $this->itemService->expects($this->once())
-            ->method('starredCount')
-            ->with($this->equalTo($this->user->getUID()))
-            ->will($this->returnValue($starredCount));
+            ->method('starred')
+            ->with($this->equalTo($this->userID))
+            ->will($this->returnValue([1, 2, 3]));
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
-            ->with($this->equalTo($this->user->getUID()))
-            ->will($this->returnValue($newestItemId));
+            ->method('newest')
+            ->with($this->equalTo($this->userID))
+            ->will($this->returnValue($feeds[0]));
         $this->feedService->expects($this->once())
-            ->method('findAll')
-            ->with($this->equalTo($this->user->getUID()))
+            ->method('findAllForUser')
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($feeds));
 
-        $response = $this->feedAPI->index();
+        $response = $this->class->index();
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()],
-            'starredCount' => $starredCount,
-            'newestItemId' => $newestItemId
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()],
+                'starredCount' => 3,
+                'newestItemId' => 5
+            ],
+            $response
         );
     }
 
 
-    public function testIndexNoNewestItemId() 
+    public function testIndexNoNewestItemId()
     {
         $feeds = [new Feed()];
-        $starredCount = 3;
 
         $this->itemService->expects($this->once())
-            ->method('starredCount')
-            ->with($this->equalTo($this->user->getUID()))
-            ->will($this->returnValue($starredCount));
+            ->method('starred')
+            ->with($this->equalTo($this->userID))
+            ->will($this->returnValue([1, 2, 3]));
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
-            ->with($this->equalTo($this->user->getUID()))
+            ->method('newest')
+            ->with($this->equalTo($this->userID))
             ->will($this->throwException(new ServiceNotFoundException('')));
         $this->feedService->expects($this->once())
-            ->method('findAll')
-            ->with($this->equalTo($this->user->getUID()))
+            ->method('findAllForUser')
+            ->with($this->equalTo($this->userID))
             ->will($this->returnValue($feeds));
 
-        $response = $this->feedAPI->index();
+        $response = $this->class->index();
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()],
-            'starredCount' => $starredCount,
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()],
+                'starredCount' => 3,
+            ],
+            $response
         );
     }
 
 
-    public function testDelete() 
+    public function testDelete()
     {
         $this->feedService->expects($this->once())
             ->method('delete')
             ->with(
-                $this->equalTo(2),
-                $this->equalTo($this->user->getUID())
+                $this->equalTo($this->userID),
+                $this->equalTo(2)
             );
 
-        $this->feedAPI->delete(2);
+        $this->class->delete(2);
     }
 
 
-    public function testDeleteDoesNotExist() 
+    public function testDeleteDoesNotExist()
     {
         $this->feedService->expects($this->once())
             ->method('delete')
@@ -168,7 +177,7 @@ class FeedApiControllerTest extends TestCase
                 )
             );
 
-        $response = $this->feedAPI->delete(2);
+        $response = $this->class->delete(2);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -176,78 +185,80 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testCreate() 
+    public function testCreate()
     {
         $feeds = [new Feed()];
 
         $this->feedService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with(
-                $this->equalTo('url'),
-                $this->equalTo(3),
-                $this->equalTo($this->user->getUID())
-            )
+            ->with($this->userID, 'url', 3)
             ->will($this->returnValue($feeds[0]));
-        $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
-            ->will($this->returnValue(3));
 
-        $response = $this->feedAPI->create('url', 3);
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($feeds[0]);
+        $this->itemService->expects($this->once())
+            ->method('newest')
+            ->will($this->returnValue(Feed::fromParams(['id' => 3])));
+
+        $response = $this->class->create('url', 3);
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()],
-            'newestItemId' => 3
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()],
+                'newestItemId' => 3
+            ],
+            $response
         );
     }
 
 
-    public function testCreateNoItems() 
+    public function testCreateNoItems()
     {
         $feeds = [new Feed()];
 
         $this->feedService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->feedService->expects($this->once())
             ->method('create')
-            ->with(
-                $this->equalTo('ho'),
-                $this->equalTo(3),
-                $this->equalTo($this->user->getUID())
-            )
+            ->with($this->userID, 'ho', 3)
             ->will($this->returnValue($feeds[0]));
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($feeds[0]);
         $this->itemService->expects($this->once())
-            ->method('getNewestItemId')
+            ->method('newest')
             ->will($this->throwException(new ServiceNotFoundException('')));
 
-        $response = $this->feedAPI->create('ho', 3);
+        $response = $this->class->create('ho', 3);
 
         $this->assertEquals(
             [
-            'feeds' => [$feeds[0]->toAPI()]
-            ], $response
+                'feeds' => [$feeds[0]->toAPI()]
+            ],
+            $response
         );
     }
 
 
 
-    public function testCreateExists() 
+    public function testCreateExists()
     {
         $this->feedService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+            ->method('purgeDeleted');
+
         $this->feedService->expects($this->once())
             ->method('create')
             ->will(
                 $this->throwException(new ServiceConflictException($this->msg))
             );
 
-        $response = $this->feedAPI->create('ho', 3);
+        $response = $this->class->create('ho', 3);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -255,7 +266,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testCreateError() 
+    public function testCreateError()
     {
         $this->feedService->expects($this->once())
             ->method('create')
@@ -263,7 +274,7 @@ class FeedApiControllerTest extends TestCase
                 $this->throwException(new ServiceNotFoundException($this->msg))
             );
 
-        $response = $this->feedAPI->create('ho', 3);
+        $response = $this->class->create('ho', 3);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -271,43 +282,44 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testRead() 
+    public function testRead()
     {
         $this->itemService->expects($this->once())
-            ->method('readFeed')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo(30),
-                $this->equalTo($this->user->getUID())
-            );
+            ->method('read')
+            ->with($this->userID,3,30);
 
-        $this->feedAPI->read(3, 30);
+        $this->class->read(3, 30);
     }
 
 
-    public function testMove() 
+    public function testMove()
     {
+        $feed = $this->getMockBuilder(Feed::class)->getMock();
+        $feed->expects($this->once())
+             ->method('setFolderId')
+             ->with(30)
+             ->will($this->returnSelf());
         $this->feedService->expects($this->once())
-            ->method('patch')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo(['folderId' => 30])
-            );
+            ->method('find')
+            ->with($this->userID, 3)
+            ->will($this->returnValue($feed));
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->userID, $feed);
 
-        $this->feedAPI->move(3, 30);
+        $this->class->move(3, 30);
     }
 
 
-    public function testMoveDoesNotExist() 
+    public function testMoveDoesNotExist()
     {
         $this->feedService->expects($this->once())
-            ->method('patch')
+            ->method('update')
             ->will(
                 $this->throwException(new ServiceNotFoundException($this->msg))
             );
 
-        $response = $this->feedAPI->move(3, 4);
+        $response = $this->class->move(3, 4);
 
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
@@ -315,38 +327,36 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testRename() 
+    public function testRename()
     {
-        $feedId = 3;
-        $feedTitle = 'test';
-
+        $feed = $this->getMockBuilder(Feed::class)->getMock();
+        $feed->expects($this->once())
+            ->method('setTitle')
+            ->with('test')
+            ->will($this->returnSelf());
         $this->feedService->expects($this->once())
-            ->method('patch')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo(['title' => $feedTitle])
-            );
+            ->method('find')
+            ->with($this->userID, 3)
+            ->will($this->returnValue($feed));
+        $this->feedService->expects($this->once())
+            ->method('update')
+            ->with($this->userID, $feed);
 
-        $this->feedAPI->rename($feedId, $feedTitle);
+        $this->class->rename(3, 'test');
     }
 
 
-    public function testRenameError() 
+    public function testRenameError()
     {
         $feedId = 3;
         $feedTitle = 'test';
 
         $this->feedService->expects($this->once())
-            ->method('patch')
-            ->with(
-                $this->equalTo($feedId),
-                $this->equalTo($this->user->getUID()),
-                $this->equalTo(['title' => $feedTitle])
-            )
+            ->method('find')
+            ->with($this->userID, 3)
             ->will($this->throwException(new ServiceNotFoundException('hi')));
 
-        $result = $this->feedAPI->rename($feedId, $feedTitle);
+        $result = $this->class->rename($feedId, $feedTitle);
         $data = $result->getData();
         $code = $result->getStatus();
 
@@ -355,7 +365,7 @@ class FeedApiControllerTest extends TestCase
     }
 
 
-    public function testfromAllUsers()
+    public function testFromAllUsers()
     {
         $feed = new Feed();
         $feed->setUrl(3);
@@ -363,44 +373,45 @@ class FeedApiControllerTest extends TestCase
         $feed->setUserId('john');
         $feeds = [$feed];
         $this->feedService->expects($this->once())
-            ->method('findAllFromAllUsers')
+            ->method('findAll')
             ->will($this->returnValue($feeds));
-        $response = json_encode($this->feedAPI->fromAllUsers());
+        $response = json_encode($this->class->fromAllUsers());
         $this->assertEquals('{"feeds":[{"id":1,"userId":"john"}]}', $response);
     }
 
 
-    public function testUpdate() 
+    public function testUpdate()
     {
         $feedId = 3;
         $userId = 'hi';
+        $feed = new Feed();
 
         $this->feedService->expects($this->once())
-            ->method('update')
-            ->with($this->equalTo($feedId), $this->equalTo($userId));
+            ->method('find')
+            ->with($userId, $feedId)
+            ->willReturn($feed);
 
-        $this->feedAPI->update($userId, $feedId);
+        $this->feedService->expects($this->once())
+            ->method('fetch')
+            ->with($feed);
+
+        $this->class->update($userId, $feedId);
     }
 
 
-    public function testUpdateError() 
+    public function testUpdateError()
     {
         $feedId = 3;
         $userId = 'hi';
         $this->feedService->expects($this->once())
-            ->method('update')
-            ->will($this->throwException(new \Exception($this->msg)));
+            ->method('find')
+            ->will($this->throwException(new Exception($this->msg)));
+
         $this->logger->expects($this->once())
             ->method('debug')
-            ->with(
-                $this->equalTo('Could not update feed ' . $this->msg),
-                $this->equalTo($this->loggerParams)
-            );
+            ->with('Could not update feed ' . $this->msg);
 
-        $this->feedAPI->update($userId, $feedId);
-
-
+        $this->class->update($userId, $feedId);
     }
-
 
 }

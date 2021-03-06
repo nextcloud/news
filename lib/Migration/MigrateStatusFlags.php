@@ -45,6 +45,9 @@ class MigrateStatusFlags implements IRepairStep
         return 'Migrate binary status into separate boolean fields';
     }
 
+    /**
+     * @return void
+     */
     public function run(IOutput $output)
     {
         $version = $this->config->getAppValue('news', 'installed_version', '0.0.0');

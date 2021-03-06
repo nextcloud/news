@@ -1,0 +1,55 @@
+name: PHP Tests
+on:
+  pull_request
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    name: "PHP: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
+    strategy:
+      matrix:
+        php-versions: ['7.4']
+        nextcloud: ['stable21']
+        database: ['sqlite']
+        experimental: [false]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
+          coverage: pcov
+
+      ### Back to normal setup
+      - name: Set up server non MySQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: true
+          version: ${{ matrix.nextcloud }}
+          database-type: ${{ matrix.database }}
+
+      - name: Prime app build
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: true
+
+      - name: Setup problem matchers for PHPUnit
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Prep PHP tests
+        working-directory: ../server/apps/news
+        run: make php-test-dependencies
+      - name: Unittests
+        working-directory: ../server/apps/news
+        run: make unit-test
+      - name: Upload codecoverage
+        working-directory: ../server/apps/news
+        run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover -N ${{ github.sha }}

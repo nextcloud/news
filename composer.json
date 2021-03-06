@@ -1,7 +1,7 @@
 {
   "type": "project",
   "license": "AGPL-3.0",
-  "description": "An RSS/Atom feed reader. Requires Nextcloud backgroundjobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+  "description": "An RSS/Atom feed reader. Requires Nextcloud background jobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
   "homepage": "https://github.com/nextcloud/news",
   "authors": [
     {
@@ -36,30 +36,38 @@
     }
   ],
   "support": {
-    "irc": "irc://irc.freenode.org/nextcloud-news",
     "issues": "https://github.com/nextcloud/news/issues",
     "source": "https://github.com/nextcloud/news/"
   },
   "require": {
-    "php": "^7.2",
-    "ezyang/htmlpurifier": "4.12.0",
+    "php": "^7.2 || 8.0.x",
+    "ezyang/htmlpurifier": "^4.13.0",
     "pear/net_url2": "2.2.2",
     "riimu/kit-pathjoin": "1.2.0",
-    "debril/feed-io": "^4.5",
-    "arthurhoaro/favicon": "^1.2",
+    "debril/feed-io": "^v4.7.9",
+    "arthurhoaro/favicon": "^1.3.2",
+    "andreskrey/readability.php": "^2.1",
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-libxml": "*",
-    "andreskrey/readability.php": "^2.1"
+    "ext-dom": "*",
+    "ext-curl": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^7.5",
-    "squizlabs/php_codesniffer": "^3.4",
-    "guzzlehttp/guzzle": "^6.3",
-    "symfony/service-contracts": "1.1.8"
+    "phpunit/phpunit": "9.5.*",
+    "squizlabs/php_codesniffer": "^3.5.6",
+    "phpstan/phpstan": "^0.12.43",
+    "phpstan/phpstan-doctrine": "^0.12.22",
+    "phpstan/phpstan-phpunit": "^0.12.16",
+    "phpstan/extension-installer": "^1.0",
+    "guzzlehttp/guzzle": "^7.2",
+    "doctrine/dbal": "^3.0",
+    "symfony/console": "^4.4.18",
+    "psr/log": "^1.1.0"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
+    "psr/log": "*",
     "symfony/console": "*"
   },
   "autoload": {

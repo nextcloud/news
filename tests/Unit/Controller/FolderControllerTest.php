@@ -14,58 +14,77 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FolderController;
-use OCA\News\Service\FeedService;
-use OCA\News\Service\FolderService;
+use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ItemService;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Db\Folder;
 use \OCA\News\Db\Feed;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\IRequest;
 
+use OCP\IUser;
+use OCP\IUserSession;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-
 
 class FolderControllerTest extends TestCase
 {
 
-    private $appName;
+    /**
+     * @var MockObject|FolderServiceV2
+     */
     private $folderService;
     private $itemService;
+    /**
+     * @var MockObject|FeedServiceV2
+     */
     private $feedService;
-    private $request;
-    private $controller;
+    /**
+     * @var MockObject|IUser
+     */
+    private $user;
+    private $userSession;
+    private $class;
     private $msg;
 
 
     /**
      * Gets run before each test
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $this->appName = 'news';
-        $this->user = 'jack';
-        $this->folderService = $this->getMockBuilder(FolderService::class)
+        $appName = 'news';
+        $this->user = $this->getMockBuilder(IUser::class)
+                           ->getMock();
+        $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->feedService = $this->getMockBuilder(FeedService::class)
+        $this->feedService = $this->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this->getMockBuilder(ItemService::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->request = $this->getMockBuilder(IRequest::class)
+        $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->controller = new FolderController(
-            $this->appName, $this->request,
+        $this->user = $this->getMockBuilder(IUser::class)->getMock();
+        $this->user->expects($this->any())
+            ->method('getUID')
+            ->will($this->returnValue('jack'));
+        $this->userSession = $this->getMockBuilder(IUserSession::class)
+            ->getMock();
+        $this->userSession->expects($this->any())
+            ->method('getUser')
+            ->will($this->returnValue($this->user));
+        $this->class = new FolderController(
+            $request,
             $this->folderService,
-            $this->feedService,
-            $this->itemService,
-            $this->user
+            $this->userSession
         );
         $this->msg = 'ron';
     }
@@ -74,11 +93,11 @@ class FolderControllerTest extends TestCase
     {
         $return = [new Folder(), new Folder()];
         $this->folderService->expects($this->once())
-            ->method('findAll')
+            ->method('findAllForUser')
             ->will($this->returnValue($return));
 
-        $response = $this->controller->index();
-        $expected = ['folders' => $return];
+        $response = $this->class->index();
+        $expected = ['folders' => [$return[0]->toAPI(), $return[1]->toAPI()]];
         $this->assertEquals($expected, $response);
     }
 
@@ -86,27 +105,18 @@ class FolderControllerTest extends TestCase
     {
         $this->folderService->expects($this->once())
             ->method('open')
-            ->with(
-                $this->equalTo(3),
-                $this->equalTo(true), $this->equalTo($this->user)
-            );
+            ->with('jack', 3, true);
 
-        $this->controller->open(3, true);
-
+        $this->class->open(3, true);
     }
-
 
     public function testOpenDoesNotExist()
     {
         $this->folderService->expects($this->once())
             ->method('open')
-            ->will(
-                $this->throwException(
-                    new ServiceNotFoundException($this->msg)
-                )
-            );
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
-        $response = $this->controller->open(5, true);
+        $response = $this->class->open(5, true);
 
         $params = json_decode($response->render(), true);
 
@@ -119,100 +129,54 @@ class FolderControllerTest extends TestCase
     {
         $this->folderService->expects($this->once())
             ->method('open')
-            ->with(
-                $this->equalTo(5),
-                $this->equalTo(false), $this->equalTo($this->user)
-            );
+            ->with('jack', 5, false);
 
-        $this->controller->open(5, false);
-
+        $this->class->open(5, false);
     }
-
 
     public function testCreate()
     {
-        $result = ['folders' => [new Folder()]];
+        $folder = new Folder();
+        $result = ['folders' => [$folder->toAPI()]];
 
         $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
+            ->method('purgeDeleted');
         $this->folderService->expects($this->once())
             ->method('create')
-            ->with(
-                $this->equalTo('tech'),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($result['folders'][0]));
+            ->with('jack', 'tech')
+            ->will($this->returnValue($folder));
 
-        $response = $this->controller->create('tech');
+        $response = $this->class->create('tech');
 
         $this->assertEquals($result, $response);
     }
 
-
-    public function testCreateReturnsErrorForInvalidCreate()
-    {
-        $msg = 'except';
-        $ex = new ServiceValidationException($msg);
-        $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
-        $this->folderService->expects($this->once())
-            ->method('create')
-            ->will($this->throwException($ex));
-
-        $response = $this->controller->create('tech');
-        $params = json_decode($response->render(), true);
-
-        $this->assertEquals(
-            $response->getStatus(),
-            Http::STATUS_UNPROCESSABLE_ENTITY
-        );
-        $this->assertEquals($msg, $params['message']);
-    }
-
-
-    public function testCreateReturnsErrorForDuplicateCreate()
-    {
-        $msg = 'except';
-        $ex = new ServiceConflictException($msg);
-        $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user), $this->equalTo(false));
-        $this->folderService->expects($this->once())
-            ->method('create')
-            ->will($this->throwException($ex));
-
-        $response = $this->controller->create('tech');
-        $params = json_decode($response->render(), true);
-
-        $this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
-        $this->assertEquals($msg, $params['message']);
-    }
-
-
     public function testDelete()
     {
         $this->folderService->expects($this->once())
-            ->method('markDeleted')
-            ->with(
-                $this->equalTo(5),
-                $this->equalTo($this->user)
-            );
+            ->method('markDelete')
+            ->with('jack', 5, true);
 
-        $this->controller->delete(5);
+        $this->class->delete(5);
     }
 
+    public function testDeleteRoot()
+    {
+        $this->folderService->expects($this->never())
+            ->method('markDelete')
+            ->with('jack', 5, true);
+
+        $response = $this->class->delete(null);
+        $this->assertEquals(400, $response->getStatus());
+    }
 
     public function testDeleteDoesNotExist()
     {
         $this->folderService->expects($this->once())
-            ->method('markDeleted')
-            ->will(
-                $this->throwException(new ServiceNotFoundException($this->msg))
-            );
+            ->method('markDelete')
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
-        $response = $this->controller->delete(5);
+        $response = $this->class->delete(5);
 
         $params = json_decode($response->render(), true);
 
@@ -220,44 +184,44 @@ class FolderControllerTest extends TestCase
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
 
+    public function testDeleteConflict()
+    {
+        $this->folderService->expects($this->once())
+            ->method('markDelete')
+            ->will($this->throwException(new ServiceConflictException($this->msg)));
+
+        $response = $this->class->delete(5);
+
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals($this->msg, $params['message']);
+        $this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
+    }
 
     public function testRename()
     {
-        $result = ['folders' => [new Folder()]];
+        $folder = new Folder();
+        $result = ['folders' => [$folder->toAPI()]];
 
         $this->folderService->expects($this->once())
             ->method('rename')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo('tech'),
-                $this->equalTo($this->user)
-            )
-            ->will($this->returnValue($result['folders'][0]));
+            ->with('jack', 4, 'tech')
+            ->will($this->returnValue($folder));
 
-        $response = $this->controller->rename('tech', 4);
+        $response = $this->class->rename(4, 'tech');
 
         $this->assertEquals($result, $response);
     }
 
-
-    public function testRenameReturnsErrorForInvalidCreate()
+    public function testRenameRoot()
     {
-        $msg = 'except';
-        $ex = new ServiceValidationException($msg);
-        $this->folderService->expects($this->once())
-            ->method('rename')
-            ->will($this->throwException($ex));
+        $this->folderService->expects($this->never())
+            ->method('rename');
 
-        $response = $this->controller->rename('tech', 4);
-        $params = json_decode($response->render(), true);
+        $response = $this->class->rename(null, 'tech');
 
-        $this->assertEquals(
-            $response->getStatus(),
-            Http::STATUS_UNPROCESSABLE_ENTITY
-        );
-        $this->assertEquals($msg, $params['message']);
+        $this->assertEquals(400, $response->getStatus());
     }
-
 
     public function testRenameDoesNotExist()
     {
@@ -267,7 +231,7 @@ class FolderControllerTest extends TestCase
             ->method('rename')
             ->will($this->throwException($ex));
 
-        $response = $this->controller->rename('tech', 5);
+        $response = $this->class->rename(5, 'tech');
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
@@ -283,7 +247,7 @@ class FolderControllerTest extends TestCase
             ->method('rename')
             ->will($this->throwException($ex));
 
-        $response = $this->controller->rename('tech', 1);
+        $response = $this->class->rename(1, 'tech');
         $params = json_decode($response->render(), true);
 
         $this->assertEquals($response->getStatus(), Http::STATUS_CONFLICT);
@@ -294,52 +258,52 @@ class FolderControllerTest extends TestCase
 
     public function testRead()
     {
-        $feed = new Feed();
-        $expected = ['feeds' => [$feed]];
+        $this->folderService->expects($this->once())
+            ->method('read')
+            ->with('jack', 4, 5);
 
-        $this->itemService->expects($this->once())
-            ->method('readFolder')
-            ->with(
-                $this->equalTo(4),
-                $this->equalTo(5),
-                $this->equalTo($this->user)
-            );
-        $this->feedService->expects($this->once())
-            ->method('findAll')
-            ->with($this->equalTo($this->user))
-            ->will($this->returnValue([$feed]));
-
-        $response = $this->controller->read(4, 5);
-        $this->assertEquals($expected, $response);
+        $this->class->read(4, 5);
     }
 
 
     public function testRestore()
     {
         $this->folderService->expects($this->once())
-            ->method('unmarkDeleted')
-            ->with(
-                $this->equalTo(5),
-                $this->equalTo($this->user)
-            );
+            ->method('markDelete')
+            ->with('jack', 5, false);
 
-        $this->controller->restore(5);
+        $this->class->restore(5);
     }
 
 
     public function testRestoreDoesNotExist()
     {
         $this->folderService->expects($this->once())
-            ->method('unmarkDeleted')
-            ->will(
-                $this->throwException(new ServiceNotFoundException($this->msg))
-            );
+            ->method('markDelete')
+            ->with('jack', 5, false)
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
 
-        $response = $this->controller->restore(5);
+        $response = $this->class->restore(5);
 
         $params = json_decode($response->render(), true);
 
-        $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+        $this->assertEquals($this->msg, $params['message']);
+    }
+
+
+    public function testRestoreConflict()
+    {
+        $this->folderService->expects($this->once())
+            ->method('markDelete')
+            ->with('jack', 5, false)
+            ->will($this->throwException(new ServiceConflictException($this->msg)));
+
+        $response = $this->class->restore(5);
+
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
         $this->assertEquals($this->msg, $params['message']);
     }
 

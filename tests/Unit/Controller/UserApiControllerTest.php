@@ -33,7 +33,7 @@ class UserApiControllerTest extends TestCase
     private $user;
     private $file;
 
-    protected function setUp() 
+    protected function setUp(): void
     {
         $this->appName = 'news';
         $this->request = $this->getMockBuilder(IRequest::class)
@@ -52,14 +52,15 @@ class UserApiControllerTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->controller = new UserApiController(
-            $this->appName, $this->request, $this->userSession,
+            $this->request,
+            $this->userSession,
             $this->rootFolder
         );
 
 
     }
 
-    private function expectUser($uid, $displayName, $lastLogin) 
+    private function expectUser($uid, $displayName, $lastLogin)
     {
         $this->userSession->expects($this->any())
             ->method('getUser')
@@ -75,7 +76,7 @@ class UserApiControllerTest extends TestCase
             ->will($this->returnValue($displayName));
     }
 
-    private function expectImg($isJpg, $isPng, $user, $exists, $data) 
+    private function expectImg($isJpg, $isPng, $user, $exists, $data)
     {
         $jpg = '/' . $user . '/' . 'avatar.jpg';
         $png = '/' . $user . '/' . 'avatar.png';
@@ -98,7 +99,7 @@ class UserApiControllerTest extends TestCase
             ->will($this->returnValue($data));
     }
 
-    public function testGetJpeg() 
+    public function testGetJpeg()
     {
         $this->expectUser('john', 'John', 123);
         $this->expectImg(true, false, 'john', true, 'hi');
@@ -108,16 +109,13 @@ class UserApiControllerTest extends TestCase
             'userId' => 'john',
             'displayName' => 'John',
             'lastLoginTimestamp' => 123,
-            'avatar' => [
-                'data' => base64_encode('hi'),
-                'mime' => 'image/jpeg'
-            ]
+            'avatar' => null
         ];
 
         $this->assertEquals($expected, $result);
     }
 
-    public function testGetPng() 
+    public function testGetPng()
     {
         $this->expectUser('john', 'John', 123);
         $this->expectImg(false, true, 'john', false, 'hi');
@@ -127,16 +125,13 @@ class UserApiControllerTest extends TestCase
             'userId' => 'john',
             'displayName' => 'John',
             'lastLoginTimestamp' => 123,
-            'avatar' => [
-                'data' => base64_encode('hi'),
-                'mime' => 'image/png'
-            ]
+            'avatar' => null
         ];
 
         $this->assertEquals($expected, $result);
     }
 
-    public function testNoAvatar() 
+    public function testNoAvatar()
     {
         $this->expectUser('john', 'John', 123);
         $this->expectImg(false, false, 'john', false, 'hi');

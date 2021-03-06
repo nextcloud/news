@@ -13,52 +13,63 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\AppInfo\Application;
+use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
-use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 
 use OCA\News\Service\StatusService;
-use OCA\News\Config\Config;
 use OCA\News\Explore\RecommendedSites;
-use OCA\News\Explore\RecommendedSiteNotFoundException;
-use OCA\News\Db\FeedType;
+use OCA\News\Db\ListType;
+use OCP\IUserSession;
 
 class PageController extends Controller
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait;
 
+    /**
+     * @var IConfig
+     */
     private $settings;
+
+    /**
+     * @var IL10N
+     */
     private $l10n;
-    private $userId;
+
+    /**
+     * @var IURLGenerator
+     */
     private $urlGenerator;
-    private $config;
+
+    /**
+     * @var RecommendedSites
+     */
     private $recommendedSites;
 
+    /**
+     * @var StatusService
+     */
     private $statusService;
 
     public function __construct(
-        $appName,
         IRequest $request,
         IConfig $settings,
         IURLGenerator $urlGenerator,
-        Config $config,
         IL10N $l10n,
         RecommendedSites $recommendedSites,
         StatusService $statusService,
-        $UserId
+        ?IUserSession $userSession
     ) {
-        parent::__construct($appName, $request);
+        parent::__construct($request, $userSession);
         $this->settings = $settings;
         $this->urlGenerator = $urlGenerator;
         $this->l10n = $l10n;
-        $this->userId = $UserId;
-        $this->config = $config;
         $this->recommendedSites = $recommendedSites;
         $this->statusService = $statusService;
     }
@@ -68,7 +79,7 @@ class PageController extends Controller
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function index()
+    public function index(): TemplateResponse
     {
         $status = $this->statusService->getStatus();
         $response = new TemplateResponse(
@@ -99,7 +110,7 @@ class PageController extends Controller
     /**
      * @NoAdminRequired
      */
-    public function settings()
+    public function settings(): array
     {
         $settings = [
             'showAll',
@@ -109,7 +120,11 @@ class PageController extends Controller
             'compactExpand'
         ];
 
-        $exploreUrl = $this->config->getExploreUrl();
+        $exploreUrl = $this->settings->getAppValue(
+            $this->appName,
+            'exploreUrl',
+            Application::DEFAULT_SETTINGS['exploreUrl']
+        );
         if (trim($exploreUrl) === '') {
             // default url should not feature the sites.en.json
             $exploreUrl = $this->urlGenerator->linkToRoute(
@@ -126,7 +141,7 @@ class PageController extends Controller
 
         foreach ($settings as $setting) {
             $result[$setting] = $this->settings->getUserValue(
-                $this->userId,
+                $this->getUserId(),
                 $this->appName,
                 $setting
             ) === '1';
@@ -142,30 +157,27 @@ class PageController extends Controller
      * @param bool $compact
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
+     * @param bool $compactExpand
      */
     public function updateSettings(
-        $showAll,
-        $compact,
-        $preventReadOnScroll,
-        $oldestFirst,
-        $compactExpand
-    ) {
+        bool $showAll,
+        bool $compact,
+        bool $preventReadOnScroll,
+        bool $oldestFirst,
+        bool $compactExpand
+    ): void {
         $settings = [
-            'showAll',
-            'compact',
-            'preventReadOnScroll',
-            'oldestFirst',
-            'compactExpand'
+            'showAll'             => $showAll,
+            'compact'             => $compact,
+            'preventReadOnScroll' => $preventReadOnScroll,
+            'oldestFirst'         => $oldestFirst,
+            'compactExpand'       => $compactExpand,
         ];
 
-        foreach ($settings as $setting) {
-            if (${$setting}) {
-                $value = '1';
-            } else {
-                $value = '0';
-            }
+        foreach ($settings as $setting => $value) {
+            $value = $value ? '1' : '0';
             $this->settings->setUserValue(
-                $this->userId,
+                $this->getUserId(),
                 $this->appName,
                 $setting,
                 $value
@@ -177,20 +189,22 @@ class PageController extends Controller
      * @NoAdminRequired
      *
      * @param string $lang
+     *
+     * @return Http\JSONResponse|array
      */
-    public function explore($lang)
+    public function explore(string $lang)
     {
         $this->settings->setUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             0
         );
         $this->settings->setUserValue(
-            $this->userId,
+            $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',
-            FeedType::EXPLORE
+            ListType::EXPLORE
         );
 
         try {

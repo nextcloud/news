@@ -1,7 +1,309 @@
 # Changelog
 All notable changes to this project will be documented in this file.
+The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
-## Unreleased
+## [Unreleased]
+
+### Changed
+- Add BATS as integration tests
+
+### Fixed
+
+## [15.4.0-beta2] - 2021-02-27
+### Fixed
+- Item list not using ID for offset 2 (#1200)
+
+## [15.4.0-beta1] - 2021-02-23
+### Changed
+- Remove outdated item DB code. ( #1056)
+- Stop returning all feeds after marking folder as read. (#1056)
+- Always fetch favicon (#1164)
+- Use feed logo instead of favicon if it exists and is square (#1164)
+- Add CI for item lists (#1180)
+
+### Fixed
+- Item list throwing error for folder and "all items" (#1180)
+- Articles with high IDs can be placed lower than articles with low IDs (#1147)
+- Feeds are accidentally moved on rename (#1189)
+- Item list not using ID for offset (#1188)
+
+## [15.3.2] - 2021-02-10
+No changes compared to RC2
+
+## [15.3.2-rc2] - 2021-02-10
+### Fixed
+- Missing certificate in signature file (#1143)
+
+## [15.3.2-rc1] - 2021-02-10
+
+### Fixed
+- Refetching of already read articles after purging (#1142)
+
+## [15.3.1] - 2021-02-06
+
+### Changed
+- New release without any changes compared to 15.3.0
+
+## [15.3.1-rc3] - 2021-02-06
+
+### Changed
+- re-re-re-release of 15.3.0
+
+## [15.3.1-rc2] - 2021-02-06
+
+### Changed
+- re-re-release of 15.3.0
+
+## [15.3.1-rc1] - 2021-02-05
+
+### Changed
+- re-release of 15.3.0
+
+## [15.3.0] - 2021-02-05
+
+### Changed
+- DB: Remove unused fields and migrate last_modified to signed, to support dates before 1970
+
+### Fixed
+- Release: create signature file (#1117)
+- Articles are refetched after purging leaving them unread again (#1122)
+
+## [15.2.2] - 2021-02-02
+
+### Fixed
+- Remove a .git dir from the release archive
+
+## [15.2.1] - 2021-02-02
+
+### Fixed
+- Purging error "Undefined index: articlesPerUpdate"
+- Clean up install files
+
+## [15.2.0] - 2021-02-02
+
+### Changed
+You can now delete unread items via occ:
+`occ news:updater:after-update --purge-unread [<purge-count>]`
+
+### Fixed
+- Item purger does not work with PostgreSQL (#1094)
+- Export starred/unread correctly (#1010)
+
+## [15.2.0-rc1] - 2021-01-31
+
+### Changed
+- Use signed integer for pubdate (#997)
+- revert alternating row colors and increase row height (#1012)
+
+### Fixed
+- Fetch feed after creation (#1058)
+- Implement missing item purger (#1063)
+- Update FeedIO Response call and add tests
+- Improve Psalm tests and dependency definition
+
+## [15.2.0-beta2] - 2021-01-17
+
+### Fixed
+- opened state of folders is not restored (#1040)
+- Argument 3 passed to OCA\News\Db\ItemMapper::makeSelectQuery() must be of the type bool, array given (#1044)
+- Argument 2 passed to OCA\News\Db\ItemMapper::findAllNewFeed() must be of the type int, string given (#1049)
+
+## [15.2.0-beta1] - 2021-01-11
+
+### Changed
+- Remove outdated feed DB code
+- add background & hover for entries
+- Improve spacing of open articles in compact mode (nextcloud/news#1017)
+
+### Fixed
+- `MissingNamedParameter` exception after upgrading to NC 21 beta5 (#1030)
+
+## [15.1.1] - 2020-12-27
+
+### Changed
+- Remove PHPunit based integration tests
+
+### Fixed
+- Argument 2 passed to OCA\News\Db\FeedMapper::find() must be of the type int, string given #996
+
+## 15.1.1-rc2
+
+### Changed
+- add background & hover for entries for compact mode
+
+### Fixed
+- Handle unauthorized users #985
+- Call to undefined method OCA\News\Db\FeedMapperV2::find() #981
+
+## 15.1.1-rc1
+
+### Changed
+- Remove outdated folder DB code
+
+### Fixed
+- Export Unread/Starred Articles gives Error Message #963
+- Some events don't appear in feed #921
+
+## 15.1.0
+
+### Changed
+- This version brings some major changes, be aware that some clients may not support this news version.
+
+## 15.1.0-rc3
+
+### Fixed
+- Fix API allows access to folders of other users
+
+## 15.1.0-rc2
+
+### Changed
+- Remove deprecated YouTube playlist API, playlists are no longer supported by news
+- Locale-aware sorting for folders and feeds
+- Deprecate User API: https://github.com/nextcloud/news/blob/master/docs/externalapi/Legacy.md#user
+
+### Fixed
+- Fix empty unread item count
+
+## 15.1.0-rc1
+
+### Changed
+- Added changelog enforcer action
+- Stop overloading DB ids
+- Unittest commands and utilities
+- Upload codecoverage to codecov.io
+- Use foreign keys in db
+- Fix delete api not working
+- Move controllers to use V2 services
+
+## 15.0.6
+
+### Changed
+- New release approach to prevent mistakes
+- Re-release of 15.0.5
+
+## 15.0.6-rc5
+
+### Fixed
+- Fix the new release process
+
+## 15.0.6-rc4
+
+### Fixed
+- Fix the new release process
+
+## 15.0.6-rc3
+
+### Fixed
+- Fix the new release process
+
+## 15.0.6-rc2
+
+### Fixed
+- Fix the new release process
+
+## 15.0.6-rc1
+
+### Changed
+- Updated dependencies
+- New release process
+
+## 15.0.5
+
+### Fixed
+- Fix exception when title is null #869
+
+## 15.0.4
+
+### Changed
+- Update Explore page feeds and design #860
+
+### Fixed
+- Fix usage of at() in unittests #864
+- Fix minor issues, prepare for foreign keys and check feeds #862
+- Fix multiple results for guid_hash #861
+- Fix missing type info of entities #858
+
+## 15.0.3
+
+### Changed
+
+- Trim whitespaces in item titles #831
+- update only relevant item fields #830
+
+### Fixed
+
+- Fix 'news:updater:after-update' command #832
+- Define microtime as string #836
+- Fix Application class loading in config #833
+
+## 15.0.2
+
+### Fixed
+
+- Fix failing cron update #823
+
+## 15.0.1
+
+### Changed
+
+- Update feed-io to v4.7.10
+
+### Fixed
+
+- Fix false cron notifaction #823
+- Fix cron updater not working #819 #824
+- Fix invalid UserId when logged out #822
+- Fix autoPurge not working #824
+- Fix undefined class constant 'Name' #824
+
+## 15.0.0
+
+### Changed
+
+- Update feed-io to v4.7.9
+- Feed autodiscovery #806
+- Drop support before nextcloud 20 #794
+- Move to modern SQL syntax #750
+- Add management commands #804 #750
+```shell script
+./occ news:opml:export <userID>
+
+./occ news:folder:add <userID> <name>
+./occ news:folder:list <userID>
+./occ news:folder:delete <userID>
+
+./occ news:feed:add <userID> <URL>
+./occ news:feed:list <userID>
+./occ news:feed:delete <userID>
+```
+
+## 14.2.2
+
+### Changed
+- added support for Nextcloud 20 #781
+
+### Fixed
+- Update interval not saved to config file #783
+
+## 14.2.1
+
+### Fixed
+- Update Interval documentation fixes #773
+- Fix crash if full-text if feed doesn't provide an url #774
+- Fix admin page not saving settings #776
+
+## 14.2.0
+
+### Changed
+- JS library updates #737 #741
+- Allow data URI scheme inside the body of an item #733
+- Update to new BackgroudJob logic #704
+- Update feed-io to v4.7.8
+
+### Fixed
+- fixed double escaped intro (not rendering html) #694
+- translation updates and fixes
+- import crashing on wrong guid_hash #770
 
 ## 14.1.11
 
@@ -71,7 +373,7 @@ All notable changes to this project will be documented in this file.
 ## 14.1.2
 
 ## Changed
-- Updated js packages 
+- Updated js packages
 
 ### Fixed
 - Signature was missing
@@ -135,7 +437,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Fixed some feeds with a empty body #474
 - Restored full text by default for some feeds #479
-- Some smaller adjustments for the design #463 #464 
+- Some smaller adjustments for the design #463 #464
 
 ## 13.1.4
 
@@ -159,7 +461,7 @@ All notable changes to this project will be documented in this file.
 - Highlight in compact mode #109
 - Prevent raw angluar templates from flashing on page load #429
 - HTML elements where not rendered #428
-- Provide UserAgent to prevent HTTP 403 errors #428 
+- Provide UserAgent to prevent HTTP 403 errors #428
 
 ## 13.1.1
 

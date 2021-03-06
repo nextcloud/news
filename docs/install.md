@@ -1,27 +1,34 @@
 # Installation/Update
 
 ## Dependencies
-* PHP >= 7.0
-* Nextcloud 14
-* libxml >= 2.7.8 (2.9 recommended)
-* php-curl
+* PHP >= 7.2
+* Nextcloud 20
+* libxml >= 2.7.8
+You also need some PHP extensions:
+* json
+* simplexml
+* xml
+* dom
+* curl
 * iconv
-* SimpleXML
 
 ## Supported Databases
-* PostgreSQL >= 9.4 (recommended)
-* MariaDb >= 5.5
+* PostgreSQL >= 10
+* MariaDB >= 10.2
+* MySQL >= 8.0
 * SQLite (discouraged)
 
+Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/linux_database_configuration.html?highlight=database). Oracle is currently not supported by news.
+
 ## Performance Notices
-* Use MySQL or PostgreSQL for better database performance
+* Use MySQL/MariaDB or PostgreSQL for better database performance
 * Use the [updater script to thread and speed up the update](https://github.com/nextcloud/news-updater)
 
 ## Before you install/update the News app
 Before you install the app do the following:
 * Check that your **nextcloud/data/** directory is owned by your web server user and that it is write/readable
 * Check that your installation fulfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
-* [Set up Nextcloud Background Jobs](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates. A recommended timespan for feed updates is 15-30 Minutes.
+* [Set up Nextcloud Background Jobs](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates.
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 

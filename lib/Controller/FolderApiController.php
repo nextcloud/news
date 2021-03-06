@@ -15,35 +15,33 @@
 
 namespace OCA\News\Controller;
 
+use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
 
-use \OCA\News\Service\FolderService;
-use \OCA\News\Service\ItemService;
-use \OCA\News\Service\ServiceNotFoundException;
-use \OCA\News\Service\ServiceConflictException;
-use \OCA\News\Service\ServiceValidationException;
+use \OCA\News\Service\FolderServiceV2;
+use \OCA\News\Service\Exceptions\ServiceNotFoundException;
+use \OCA\News\Service\Exceptions\ServiceConflictException;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 
 class FolderApiController extends ApiController
 {
-    use JSONHttpError;
+    use JSONHttpErrorTrait, ApiPayloadTrait;
 
+    /**
+     * @var FolderServiceV2
+     */
     private $folderService;
-    private $itemService;
-    private $serializer;
 
     public function __construct(
-        $appName,
         IRequest $request,
-        IUserSession $userSession,
-        FolderService $folderService,
-        ItemService $itemService
+        ?IUserSession $userSession,
+        FolderServiceV2 $folderService
     ) {
-        parent::__construct($appName, $request, $userSession);
+        parent::__construct($request, $userSession);
+
         $this->folderService = $folderService;
-        $this->itemService = $itemService;
-        $this->serializer = new EntityApiSerializer('folders');
     }
 
 
@@ -52,11 +50,10 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      */
-    public function index()
+    public function index(): array
     {
-        return $this->serializer->serialize(
-            $this->folderService->findAll($this->getUserId())
-        );
+        $folders = $this->folderService->findAllForUser($this->getUserId());
+        return ['folders' => $this->serialize($folders)];
     }
 
 
@@ -66,15 +63,15 @@ class FolderApiController extends ApiController
      * @CORS
      *
      * @param string $name
-     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @return array|mixed|JSONResponse
      */
-    public function create($name)
+    public function create(string $name)
     {
         try {
-            $this->folderService->purgeDeleted($this->getUserId(), false);
-            return $this->serializer->serialize(
-                $this->folderService->create($name, $this->getUserId())
-            );
+            $this->folderService->purgeDeleted($this->getUserId(), time() - 600);
+            $folder = $this->folderService->create($this->getUserId(), $name);
+            return ['folders' => $this->serialize($folder)];
         } catch (ServiceValidationException $ex) {
             return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceConflictException $ex) {
@@ -88,13 +85,18 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @param int|null $folderId
+     *
+     * @return array|JSONResponse
      */
-    public function delete($folderId)
+    public function delete(?int $folderId)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
         try {
-            $this->folderService->delete($folderId, $this->getUserId());
+            $this->folderService->delete($this->getUserId(), $folderId);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -107,14 +109,20 @@ class FolderApiController extends ApiController
      * @NoAdminRequired
      * @NoCSRFRequired
      * @CORS
-     * @param int    $folderId
-     * @param string $name
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     *
+     * @param int|null $folderId
+     * @param string   $name
+     *
+     * @return array|JSONResponse
      */
-    public function update($folderId, $name)
+    public function update(?int $folderId, string $name)
     {
+        if (empty($folderId)) {
+            return new JSONResponse([], Http::STATUS_BAD_REQUEST);
+        }
+
         try {
-            $this->folderService->rename($folderId, $name, $this->getUserId());
+            $this->folderService->rename($this->getUserId(), $folderId, $name);
         } catch (ServiceValidationException $ex) {
             return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceConflictException $ex) {
@@ -132,11 +140,13 @@ class FolderApiController extends ApiController
      * @NoCSRFRequired
      * @CORS
      *
-     * @param int $folderId
-     * @param int $newestItemId
+     * @param int|null $folderId  ID of the folder
+     * @param int      $maxItemId The newest read item
      */
-    public function read($folderId, $newestItemId)
+    public function read(?int $folderId, int $maxItemId): void
     {
-        $this->itemService->readFolder($folderId, $newestItemId, $this->getUserId());
+        $folderId = $folderId === 0 ? null : $folderId;
+
+        $this->folderService->read($this->getUserId(), $folderId, $maxItemId);
     }
 }

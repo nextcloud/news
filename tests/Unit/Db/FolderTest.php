@@ -20,22 +20,25 @@ class FolderTest extends TestCase
 {
 
 
-    public function testToAPI() 
+    public function testToAPI()
     {
         $folder = new Folder();
         $folder->setId(3);
         $folder->setName('name');
+        $folder->setOpened(false);
 
         $this->assertEquals(
             [
-            'id' => 3,
-            'name' => 'name'
+                'id' => 3,
+                'name' => 'name',
+                'opened' => false,
+                'feeds' => [],
             ], $folder->toAPI()
         );
     }
 
 
-    public function testSerialize() 
+    public function testSerialize()
     {
         $folder = new Folder();
         $folder->setId(3);
@@ -55,5 +58,29 @@ class FolderTest extends TestCase
             'deletedAt' => 9,
             ], $folder->jsonSerialize()
         );
+    }
+    public function testSetDeletedAt()
+    {
+        $folder = new Folder();
+        $folder->setDeletedAt(15);
+        $this->assertEquals(15, $folder->getDeletedAt());
+    }
+    public function testSetLastModified()
+    {
+        $folder = new Folder();
+        $folder->setLastModified('15');
+        $this->assertEquals('15', $folder->getLastModified());
+    }
+    public function testSetParentId()
+    {
+        $folder = new Folder();
+        $folder->setParentId(15);
+        $this->assertEquals(15, $folder->getParentId());
+    }
+    public function testSetUserId()
+    {
+        $folder = new Folder();
+        $folder->setUserId('15');
+        $this->assertEquals('15', $folder->getUserId());
     }
 }

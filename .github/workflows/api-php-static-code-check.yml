@@ -1,0 +1,51 @@
+name: Static analysis
+on:
+  pull_request
+jobs:
+  static-phpstan-analysis:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        php-versions: [ '7.4' ]
+        nextcloud: [ 'stable21' ]
+        database: [ 'sqlite' ]
+    name: "phpstan: Nextcloud ${{ matrix.nextcloud }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Set up php
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.4
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
+          coverage: none
+
+      - name: Set up server non MySQL
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          cron: true
+          version: ${{ matrix.nextcloud }}
+          database-type: ${{ matrix.database }}
+
+      - name: Build app
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: true
+          force: true
+
+      - name: Prep code scanning
+        working-directory: ../server/apps/news
+        run: make php-test-dependencies
+
+      - name: PHPCS
+        working-directory: ../server/apps/news
+        run: pwd && make phpcs #debug pwd
+
+      - name: PHPStan
+        working-directory: ../server/apps/news
+        run: make phpstan
