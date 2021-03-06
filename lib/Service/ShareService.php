@@ -14,6 +14,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
+use \OCP\IL10N;
 
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -45,19 +46,27 @@ class ShareService
     protected $logger;
 
     /**
+     * @var IL10N
+     */
+    private $l;
+
+    /**
      * ShareService constructor
      *
      * @param FeedServiceV2   $feedService Service for feeds
      * @param ItemServiceV2   $itemService Service to manage items
+     * @param IL10N           $l Localization interface
      * @param LoggerInterface $logger      Logger
      */
     public function __construct(
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
+        IL10N $l,
         LoggerInterface $logger
     ) {
         $this->itemService = $itemService;
         $this->feedService = $feedService;
+        $this->l           = $l;
         $this->logger      = $logger;
     }
 
@@ -97,7 +106,7 @@ class ShareService
                  ->setUrlHash(md5($feedUrl))
                  ->setLink($feedUrl)
                  ->setUrl($feedUrl)
-                 ->setTitle('Shared with me')
+                 ->setTitle($this->l->t('Shared with me'))
                  ->setAdded(time())
                  ->setFolderId(null)
                  ->setPreventUpdate(true);
