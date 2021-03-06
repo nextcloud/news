@@ -5,6 +5,9 @@
  * later. See the COPYING file.
  *
  * @author Marco Nassabain <marco.nassabain@hotmail.com>
+ * @author Nicolas Wendling <nicolas.wendling1011@gmail.com>
+ * @author Jimmy Huynh <natorisaki@gmail.com>
+ * @author Aurélien David <dav.aurelien@gmail.com>
  */
 app.controller('ShareController', function (ShareResource, Loading) {
     'use strict';
@@ -15,9 +18,12 @@ app.controller('ShareController', function (ShareResource, Loading) {
         this.showDropDown = !this.showDropDown;
     };
 
+    /** Array containing users to share an item with */
     this.userList = [];
 
     /**
+     * @param search Username search query
+     * 
      * Retrieve users matching search query using OC
      */
     this.searchUsers = function(search) {
@@ -35,10 +41,17 @@ app.controller('ShareController', function (ShareResource, Loading) {
         });
     };
 
-    // Dict <itemId, List<Int>(user_id)>: Local mapping b/w users & articles: 
-    //[Article 1 : <Jimmy, Aurelien, ...>, Article 2: <...>]
+    /** Dictionary mapping articles to users they're shared with */
     this.usersSharedArticles = {};
 
+    /**
+     * @param itemId ID of the item to be shared
+     * @param userId ID of the recipient
+     * 
+     * Call the /share route with the appropriate params to share an item.
+     * Fills this.usersSharedArticles to avoid re-sharing the same article
+     * with the same user multiple times.
+     */
     this.shareItem = function(itemId, userId) {
         Loading.setLoading(userId, true);
         if (this.usersSharedArticles[itemId] && this.usersSharedArticles[itemId].includes(userId)) {
@@ -46,13 +59,11 @@ app.controller('ShareController', function (ShareResource, Loading) {
             return;
         }
 
-        // quick initialization (instead of if (...) : [])
         this.usersSharedArticles[itemId] = this.usersSharedArticles[itemId] ? this.usersSharedArticles[itemId] : [];
-
         this.usersSharedArticles[itemId].push(userId);
         
-        var response = ShareResource.shareItem(itemId, userId);
-        response.then((result) => {
+        ShareResource.shareItem(itemId, userId)
+        .then((result) => {
             Loading.setLoading(userId, false);
             return result;
         });
