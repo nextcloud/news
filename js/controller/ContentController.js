@@ -90,10 +90,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
 
         if (!item.keepUnread && item.unread === true) {
             ItemResource.markItemRead(itemId);
-            if (item.isShared === false) {
-                // feeds containing shared items aren't in our cache
-                FeedResource.markItemOfFeedRead(item.feedId);
-            }
+            FeedResource.markItemOfFeedRead(item.feedId);
         }
     };
 
@@ -105,10 +102,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         var item = ItemResource.get(itemId);
         if (!item.unread) {
             ItemResource.markItemRead(itemId, false);
-            if (item.isShared === false) {
-                // feeds containing shared items aren't in our cache
-                FeedResource.markItemOfFeedUnread(item.feedId);
-            }
+            FeedResource.markItemOfFeedUnread(item.feedId);
         }
 
         item.keepUnread = !item.keepUnread;
@@ -143,11 +137,8 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         itemIds.forEach(function (itemId) {
             var item = ItemResource.get(itemId);
             if (!item.keepUnread) {
-                if (item.isShared === false) {
-                    // feeds containing shared items aren't in our cache
-                    ids.push(itemId);
-                    feedIds.push(item.feedId);
-                }
+                ids.push(itemId);
+                feedIds.push(item.feedId);
             }
         });
 
