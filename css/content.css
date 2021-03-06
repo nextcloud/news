@@ -322,10 +322,6 @@
 }
 
 #app-content .utils .share {
-    background-image: url('../img/share.svg');
-}
-
-#app-content .utils .share {
     opacity: .3;
 }
 
