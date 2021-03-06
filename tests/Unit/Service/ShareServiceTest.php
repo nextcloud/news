@@ -25,6 +25,8 @@ use OCA\News\Utility\Time;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
+
+use OCP\IURLGenerator;
 use OCP\IConfig;
 use OCP\IL10N;
 
@@ -45,6 +47,11 @@ class ShareServiceTest extends TestCase
      */
     private $feedService;
 
+    /**
+     * @var MockObject|IURLGenerator
+     */
+    private $url;
+    
     /**
      * @var MockObject|IL10N
      */
@@ -81,6 +88,10 @@ class ShareServiceTest extends TestCase
             ->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->url = $this
+            ->getMockBuilder(IURLGenerator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->l = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -90,6 +101,7 @@ class ShareServiceTest extends TestCase
         $this->class = new ShareService(
             $this->feedService,
             $this->itemService,
+            $this->url,
             $this->l,
             $this->logger
         );
@@ -100,7 +112,7 @@ class ShareServiceTest extends TestCase
 
     public function testShareItemWithUser()
     {
-        $feedUrl = 'http://nextcloud/sharedwithme';
+        $feedUrl = 'http://serverurl/news/sharedwithme';
         $itemId = 3;
 
         // Item to be shared
@@ -138,6 +150,10 @@ class ShareServiceTest extends TestCase
             ->with($this->uid, $itemId)
             ->will($this->returnValue($item));
 
+        $this->url->expects($this->once())
+            ->method('getBaseUrl')
+            ->will($this->returnValue('http://serverurl'));
+            
         $this->feedService->expects($this->once())
             ->method('findByUrl')
             ->with($this->recipient, $feedUrl)
@@ -155,7 +171,7 @@ class ShareServiceTest extends TestCase
 
     public function testShareItemWithUserCreatesOwnFeedWhenNotFound()
     {
-        $feedUrl = 'http://nextcloud/sharedwithme';
+        $feedUrl = 'http://serverurl/news/sharedwithme';
         $itemId = 3;
 
         // Item to be shared
@@ -192,6 +208,10 @@ class ShareServiceTest extends TestCase
             ->method('find')
             ->with($this->uid, $itemId)
             ->will($this->returnValue($item));
+
+        $this->url->expects($this->once())
+            ->method('getBaseUrl')
+            ->will($this->returnValue('http://serverurl'));
 
         $this->feedService->expects($this->once())
             ->method('findByUrl')
