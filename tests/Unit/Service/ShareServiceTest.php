@@ -218,6 +218,11 @@ class ShareServiceTest extends TestCase
             ->with($this->recipient, $feedUrl)
             ->will($this->returnValue(null));
 
+        $this->l->expects($this->once())
+            ->method('t')
+            ->with('Shared with me')
+            ->will($this->returnValue('Shared with me'));
+
         $this->feedService->expects($this->once())
             ->method('insert')
             ->will($this->returnValue($feed));
