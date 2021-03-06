@@ -46,6 +46,11 @@ class ShareServiceTest extends TestCase
     private $feedService;
 
     /**
+     * @var MockObject|IL10N
+     */
+    private $l;
+
+    /**
      * @var MockObject|LoggerInterface
      */
     private $logger;
@@ -76,12 +81,16 @@ class ShareServiceTest extends TestCase
             ->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->l = $this->getMockBuilder(IL10N::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->time = 333333;
 
         $this->class = new ShareService(
             $this->feedService,
             $this->itemService,
+            $this->l,
             $this->logger
         );
 
