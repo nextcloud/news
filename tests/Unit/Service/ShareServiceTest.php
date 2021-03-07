@@ -50,7 +50,7 @@ class ShareServiceTest extends TestCase
     /**
      * @var MockObject|IURLGenerator
      */
-    private $url;
+    private $urlGenerator;
     
     /**
      * @var MockObject|IL10N
@@ -88,7 +88,7 @@ class ShareServiceTest extends TestCase
             ->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->url = $this
+        $this->urlGenerator = $this
             ->getMockBuilder(IURLGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -101,7 +101,7 @@ class ShareServiceTest extends TestCase
         $this->class = new ShareService(
             $this->feedService,
             $this->itemService,
-            $this->url,
+            $this->urlGenerator,
             $this->l,
             $this->logger
         );
@@ -150,7 +150,7 @@ class ShareServiceTest extends TestCase
             ->with($this->uid, $itemId)
             ->will($this->returnValue($item));
 
-        $this->url->expects($this->once())
+        $this->urlGenerator->expects($this->once())
             ->method('getBaseUrl')
             ->will($this->returnValue('http://serverurl'));
             
@@ -209,7 +209,7 @@ class ShareServiceTest extends TestCase
             ->with($this->uid, $itemId)
             ->will($this->returnValue($item));
 
-        $this->url->expects($this->once())
+        $this->urlGenerator->expects($this->once())
             ->method('getBaseUrl')
             ->will($this->returnValue('http://serverurl'));
 

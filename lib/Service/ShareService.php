@@ -49,7 +49,7 @@ class ShareService
     /**
      * @var IURLGenerator
      */
-    private $url;
+    private $urlGenerator;
 
     /**
      * @var IL10N
@@ -59,24 +59,24 @@ class ShareService
     /**
      * ShareService constructor
      *
-     * @param FeedServiceV2   $feedService Service for feeds
-     * @param ItemServiceV2   $itemService Service to manage items
-     * @param IURLGenerator   $url         URL Generator
-     * @param IL10N           $l           Localization interface
-     * @param LoggerInterface $logger      Logger
+     * @param FeedServiceV2   $feedService  Service for feeds
+     * @param ItemServiceV2   $itemService  Service to manage items
+     * @param IURLGenerator   $urlGenerator URL Generator
+     * @param IL10N           $l            Localization interface
+     * @param LoggerInterface $logger       Logger
      */
     public function __construct(
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
-        IURLGenerator $url,
+        IURLGenerator $urlGenerator,
         IL10N $l,
         LoggerInterface $logger
     ) {
-        $this->itemService = $itemService;
-        $this->feedService = $feedService;
-        $this->url         = $url;
-        $this->l           = $l;
-        $this->logger      = $logger;
+        $this->itemService  = $itemService;
+        $this->feedService  = $feedService;
+        $this->urlGenerator = $urlGenerator;
+        $this->l            = $l;
+        $this->logger       = $logger;
     }
 
     /**
@@ -107,7 +107,7 @@ class ShareService
         $sharedItem->setSharedBy($userId);
 
         // Get 'shared with me' dummy feed
-        $feedUrl = $this->url->getBaseUrl() . '/news/sharedwithme';
+        $feedUrl = $this->urlGenerator->getBaseUrl() . '/news/sharedwithme';
         $feed = $this->feedService->findByUrl($shareRecipientId, $feedUrl);
         if (is_null($feed)) {
             $feed = new Feed();
