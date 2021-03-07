@@ -200,7 +200,7 @@
                             <img ng-if="Content.getFeed(item.feedId).faviconLink && !Content.isCompactView()" src="{{ ::Content.getFeed(item.feedId).faviconLink }}" alt="favicon">
                         </a>
                     </span>
-                    <span ng-if="item.sharedBy" class="source"><?php p($l->t('shared by')) ?>
+                    <span ng-if="item.sharedBy">- <?php p($l->t('shared by')) ?>
                         <a>{{ ::item.sharedBy }}</a>
                     </span>
                 </div>
