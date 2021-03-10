@@ -59,6 +59,8 @@
     "angular-sanitize": "^1.8.2",
     "debug": "^4.3.1",
     "masonry-layout": "^4.2.2",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "ngVue": "^1.7.8",
+    "vue": "^2.6.12"
   }
 }

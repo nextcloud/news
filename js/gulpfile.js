@@ -30,6 +30,8 @@ const sources = [
     'node_modules/angular-sanitize/angular-sanitize.min.js',
     'node_modules/moment/min/moment-with-locales.min.js',
     'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
+    'node_modules/vue/dist/vue.js',
+    'node_modules/ngVue/build/index.js',
     'app/App.js', 'app/Config.js', 'app/Run.js',
     'controller/**/*.js',
     'filter/**/*.js',
@@ -37,7 +39,8 @@ const sources = [
     'gui/**/*.js',
     'plugin/**/*.js',
     'utility/**/*.js',
-    'directive/**/*.js'
+    'directive/**/*.js',
+    'vue_templates/**/*.js',
 ];
 const testSources = ['tests/**/*.js'];
 const watchSources = sources.concat(testSources).concat(['*.js']);

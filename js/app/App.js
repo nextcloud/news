@@ -15,4 +15,5 @@ $('#content.app-news')
     .attr('ng-controller', 'AppController as App');
 
 /* jshint unused: false */
-var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate']);
+var app = angular.module('News', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ngVue']);
+
