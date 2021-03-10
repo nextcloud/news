@@ -92,7 +92,7 @@ OC.L10N.register(
     "Default order" : "默認排序",
     "Enable full text" : "啟用全文",
     "Disable full text" : "停用全文",
-    "Unread updated" : "已更新未讀",
+    "Unread updated" : "已更新未讀項目",
     "Ignore updated" : "略過更新",
     "Open feed URL" : "開啟 feed URL",
     "Delete" : "刪除",
