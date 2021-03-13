@@ -516,7 +516,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setTags(string $tags): self
+    public function setTags(string $tags = null): self
     {
         if ($this->tags !== $tags) {
             $this->tags = $tags;
