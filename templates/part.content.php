@@ -132,7 +132,7 @@
                                     class="icon-category-installed pr-3"
                                     ng-repeat="user in Share.userList"
                                     ng-click="Share.shareItem(item.id, user.value.shareWith)">
-                                    {{ user.value.shareWith }}
+                                    {{ user.label }}
                                     <span class="right" style="margin-top: 1.4em; margin-right: 1em"
                                         ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith), 'icon-checkmark': !App.loading.isLoading(user.value.shareWith) && Share.usersSharedArticles[item.id].includes(user.value.shareWith)}">
                                     </span>
