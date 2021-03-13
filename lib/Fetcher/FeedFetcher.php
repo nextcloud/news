@@ -256,6 +256,14 @@ class FeedFetcher implements IFeedFetcher
             $item->setAuthor($this->decodeTwice($author->getName()));
         }
 
+        $categories = [];
+        foreach ($parsedItem->getCategories() as $category) {
+            $categories[] = $this->decodeTwice($category->getLabel());
+        }
+        if (count($categories) > 0) {
+            $item->setTags(implode(',', $categories));
+        }
+
         // Use description from feed if body is not provided (by a scraper)
         if ($body === null) {
             $body = $parsedItem->getValue("content:encoded") ?? $parsedItem->getDescription();
