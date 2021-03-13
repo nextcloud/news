@@ -201,7 +201,7 @@
                     <span ng-if="item.sharedBy">
                         <span ng-if="item.author">-</span>
                         <?php p($l->t('shared by')) ?>
-                        <a>{{ ::item.sharedBy }}</a>
+                        {{ ::item.sharedBy }}
                     </span>
                 </div>
 
