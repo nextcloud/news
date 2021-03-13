@@ -89,55 +89,55 @@
                         </button>
                     </li>
                     <!-- DROPDOWN SHARE -->
-                    <div class="dropdown"
-                        ng-controller="ShareController as Share">
-                        <li ng-click="Share.toggleDropdown()"
-                            class="util"
-                            news-stop-propagation>
-                            <button class="icon-share share svg dropbtn"
-                                title="<?php p($l->t('Share')) ?>">
-                            </button>
-                        </li>
+                    <li ng-controller="ShareController as Share"
+                        class="util dropdown"
+                        news-stop-propagation>
+                        <button class="icon-share share dropbtn"
+                            title="<?php p($l->t('Share')) ?>"
+                            ng-click="Share.toggleDropdown()">
+                        </button>
+
                         <div
                             ng-if="Share.showDropDown"
                             style="margin-top: 2.8em;"
                             class="dropdown-content">
-                                <!-- Contact -->
-                                <p class="label-group"><?php p($l->t('Share with users')) ?></p>
-                                <form ng-submit=""
-                                    name="contactForm"
-                                    autocomplete="off">
-                                    <fieldset class="contact-input">
-                                        <input
-                                            ng-model="nameQuery"
-                                            ng-model-options="{debounce: 400}"
-                                            ng-change="Share.searchUsers(nameQuery)"
-                                            type="text"
-                                            placeholder="<?php p($l->t('Username')) ?>"
-                                            title="<?php p($l->t('Username')) ?>"
-                                            name="contactName"
-                                            required
-                                            style="width: 200px">
-                                            <div ng-if="App.loading.isLoading('user')"
-                                                ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
-                                            </div>
-                                    </fieldset>
-                                </form>
+                            <!-- Share with users -->
+                            <p class="label-group"><?php p($l->t('Share with users')) ?></p>
+                            <form ng-submit=""
+                                name="contactForm"
+                                autocomplete="off">
+                                <fieldset class="contact-input">
+                                    <input
+                                        ng-model="nameQuery"
+                                        ng-model-options="{debounce: 400}"
+                                        ng-change="Share.searchUsers(nameQuery)"
+                                        type="text"
+                                        placeholder="<?php p($l->t('Username')) ?>"
+                                        title="<?php p($l->t('Username')) ?>"
+                                        name="contactName"
+                                        required
+                                        style="width: 200px">
+                                        <div ng-if="App.loading.isLoading('user')"
+                                            ng-class="{'icon-loading-small': App.loading.isLoading('user') }">
+                                        </div>
+                                </fieldset>
+                            </form>
 
-                                <div style="margin-left: 2em; font-size: 0.85em;"
-                                     ng-if="!(Share.userList.length > 0) && nameQuery && !App.loading.isLoading('user')">
-                                    <?php p($l->t('No users found')) ?>
-                                </div>
-                                <a
-                                    class="icon-category-installed pr-3"
-                                    ng-repeat="user in Share.userList"
-                                    ng-click="Share.shareItem(item.id, user.value.shareWith)">
-                                    {{ user.label }}
-                                    <span class="right" style="margin-top: 1.4em; margin-right: 1em"
-                                        ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith), 'icon-checkmark': !App.loading.isLoading(user.value.shareWith) && Share.usersSharedArticles[item.id].includes(user.value.shareWith)}">
-                                    </span>
-                                </a>
-                                <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
+                            <div style="margin-left: 2em; font-size: 0.85em;"
+                                ng-if="!(Share.userList.length > 0) && nameQuery && !App.loading.isLoading('user')">
+                                <?php p($l->t('No users found')) ?>
+                            </div>
+                            <a
+                                ng-repeat="user in Share.userList"
+                                class="icon-category-installed pr-3"
+                                ng-click="Share.shareItem(item.id, user.value.shareWith)">
+                                {{ user.label }}
+                                <span class="right" style="margin-top: 0.9em; margin-right: 1em"
+                                    ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith), 'icon-checkmark': !App.loading.isLoading(user.value.shareWith) && Share.usersSharedArticles[item.id].includes(user.value.shareWith)}">
+                                </span>
+                            </a>
+
+                            <p class="label-group"> <?php p($l->t('Share on social media')) ?> </p>
                             <div class="row">
                                 <div class="col-4">
                                     <a target="_blank"
@@ -150,14 +150,12 @@
                                         ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"></a>
                                 </div>
                                 <div class="col-4">
-                                    <a class="icon-dropdown icon-mail pr-5"                                        
+                                    <a class="icon-dropdown icon-mail pr-5"
                                         ng-href="mailto:?subject=<?php p($l->t('I wanted you to see this article')) ?>&amp;body=<?php p($l->t('Check out this article')) ?>{{ ::item.url }}"></a>
                                 </div>
                             </div>
-
-
-                      </div>
-                    </div>
+                        </div>
+                    </li>
                     <!-- END DROPDOWN -->
 
                     <li class="util more" news-stop-propagation ng-hide="noPlugins">

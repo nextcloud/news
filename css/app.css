@@ -51,7 +51,6 @@
     right: 0.5em;
 }
 
-/* CSS DROPDOWN FOR A NEW */
 .dropbtn {
   background-color: #4CAF50;
   color: white;
@@ -73,29 +72,34 @@
   min-width: 20em;
 }
 
-.dropdown-content a{
+.dropdown-content a {
   color: black;
-  padding: 0 12px 0 44px;
+  padding: 2px 12px 2px 44px;
   background-position: 14px center;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
 /* Override hidden before angular is loaded */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak, .ng-hide:not(.ng-hide-animate) {
     display: none !important;
 }
 
-.contact-input{
+.contact-input {
     display: flex;
     justify-content: space-between;
     margin: 0.5em 1.5em;
 }
 
-.label-group{
+.label-group {
     padding-left: 1.5em;
     background-color: rgba(0, 0, 0, 0.1);
     font-weight: bold;
