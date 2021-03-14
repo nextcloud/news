@@ -133,7 +133,7 @@
                                 ng-click="Share.shareItem(item.id, user.value.shareWith)">
                                 {{ user.label }}
                                 <span class="right" style="margin-top: 0.9em; margin-right: 1em"
-                                    ng-class="{'icon-loading-small': App.loading.isLoading(user.value.shareWith), 'icon-checkmark': !App.loading.isLoading(user.value.shareWith) && Share.usersSharedArticles[item.id].includes(user.value.shareWith)}">
+                                    ng-class="{'icon-loading-small': Share.isLoading(user.value.shareWith), 'icon-checkmark': Share.isSuccessful(item.id, user.value.shareWith)}">
                                 </span>
                             </a>
 
