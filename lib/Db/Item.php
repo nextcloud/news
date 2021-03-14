@@ -64,7 +64,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /** @var bool */
     protected $starred = false;
     /** @var string|null */
-    protected $tags;
+    protected $categories;
 
     public function __construct()
     {
@@ -87,7 +87,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $this->addType('fingerprint', 'string');
         $this->addType('unread', 'boolean');
         $this->addType('starred', 'boolean');
-        $this->addType('tags', 'string');
+        $this->addType('categories', 'string');
     }
 
     /**
@@ -281,9 +281,9 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getTags(): ?string
+    public function getCategories(): ?string
     {
-        return $this->tags;
+        return $this->categories;
     }
 
     /**
@@ -516,11 +516,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setTags(string $tags = null): self
+    public function setCategories(string $categories = null): self
     {
-        if ($this->tags !== $tags) {
-            $this->tags = $tags;
-            $this->markFieldUpdated('tags');
+        if ($this->categories !== $categories) {
+            $this->categories = $categories;
+            $this->markFieldUpdated('categories');
         }
 
         return $this;

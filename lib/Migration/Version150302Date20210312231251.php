@@ -34,7 +34,7 @@ class Version150302Date20210312231251 extends SimpleMigrationStep {
 
         if ($schema->hasTable('news_items')) {
             $table = $schema->getTable('news_items');
-			$table->addColumn('tags', 'text', [
+			$table->addColumn('categories', 'text', [
 				'notnull' => false
 			]);
         }
