@@ -142,12 +142,12 @@
                                 <div class="col-4">
                                     <a target="_blank"
                                         class="icon-dropdown icon-facebook pr-5"
-                                        ng-href="https://www.facebook.com/sharer/sharer.php?u={{ ::item.url }}"></a>
+                                        ng-href="{{Share.getFacebookUrl(item.url)}}"></a>
                                 </div>
                                 <div class="col-4">
                                     <a target="_blank"
                                         class="icon-dropdown icon-twitter pr-5"
-                                        ng-href="https://twitter.com/intent/tweet?url={{ ::item.url }}"></a>
+                                        ng-href="{{Share.getTwitterUrl(item.url)}}"></a>
                                 </div>
                                 <div class="col-4">
                                     <a class="icon-dropdown icon-mail pr-5"
