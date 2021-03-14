@@ -45,6 +45,13 @@ app.controller('ShareController', function (ShareResource, Loading) {
     /** Dictionary mapping articles to users they're shared with */
     this.usersSharedArticles = [];
 
+    /**
+     * Test whether an item is shared with a user
+     *
+     * @param itemId ID of the item being shared
+     * @param userId User ID of the recipient
+     * @returns boolean
+     */
     this.itemIsSharedWithUser = function(itemId, userId) {
         let item = this.usersSharedArticles.find(i => i.id === itemId);
         if (!item) {
@@ -57,6 +64,13 @@ app.controller('ShareController', function (ShareResource, Loading) {
         return true;
     };
 
+    /**
+     * Inserts an item share action into the dictionary
+     *
+     * @param itemId ID of the item being shared
+     * @param userId User ID of the recipient
+     * @param status boolean indicating if the share was successful
+     */
     this.addItemShareWithUser = function(itemId, userId, status) {
         let item = this.usersSharedArticles.find(i => i.id === itemId);
         if (!item) {
@@ -102,10 +116,24 @@ app.controller('ShareController', function (ShareResource, Loading) {
         });
     };
 
+    /**
+     * Indicates whether the share action is in progress
+     *
+     * @param userId User ID of the recipient
+     * @returns boolean
+     */
     this.isLoading = function(userId) {
         return Loading.isLoading(userId);
     };
 
+    /**
+     * Indicates whether the share actions matches the given status
+     *
+     * @param itemId ID of the item being shared
+     * @param userId User ID of the recipient
+     * @param status true (successful) / false (failed)
+     * @returns boolean
+     */
     this.isStatus = function(itemId, userId, status) {
         let item = this.usersSharedArticles.find(i => i.id === itemId);
         if (!item) {
