@@ -23,7 +23,7 @@ app.controller('ShareController', function (ShareResource, Loading) {
 
     /**
      * @param search Username search query
-     * 
+     *
      * Retrieve users matching search query using OC
      */
     this.searchUsers = function(search) {
@@ -42,31 +42,76 @@ app.controller('ShareController', function (ShareResource, Loading) {
     };
 
     /** Dictionary mapping articles to users they're shared with */
-    this.usersSharedArticles = {};
+    this.usersSharedArticles = [];
+
+    this.itemIsSharedWithUser = function(itemId, userId) {
+        let item = this.usersSharedArticles.find(i => i.id === itemId);
+        if (!item) {
+            return false;
+        }
+        let user = item.users.find(u => u.id === userId);
+        if (!user || !user.status) {
+            return false;
+        }
+        return true;
+    };
+
+    this.addItemShareWithUser = function(itemId, userId, status) {
+        let item = this.usersSharedArticles.find(i => i.id === itemId);
+        if (!item) {
+            item = {
+                id: itemId,
+                users: []
+            };
+            this.usersSharedArticles.push(item);
+        }
+        let user = item.users.find(u => u.id === userId);
+        if (!user) {
+            user = {
+                id: userId,
+                status: status
+            };
+            item.users.push(user);
+        }
+        user.status = status;
+    };
 
     /**
      * @param itemId ID of the item to be shared
      * @param userId ID of the recipient
-     * 
+     *
      * Call the /share route with the appropriate params to share an item.
      * Fills this.usersSharedArticles to avoid re-sharing the same article
      * with the same user multiple times.
      */
     this.shareItem = function(itemId, userId) {
-        Loading.setLoading(userId, true);
-        if (this.usersSharedArticles[itemId] && this.usersSharedArticles[itemId].includes(userId)) {
-            Loading.setLoading(userId, false);
+        if (this.itemIsSharedWithUser(itemId, userId)) {
             return;
         }
+        Loading.setLoading(userId, true);
 
-        this.usersSharedArticles[itemId] = this.usersSharedArticles[itemId] ? this.usersSharedArticles[itemId] : [];
-        this.usersSharedArticles[itemId].push(userId);
-        
         ShareResource.shareItem(itemId, userId)
         .then((result) => {
+            this.addItemShareWithUser(itemId, userId, true);
             Loading.setLoading(userId, false);
             return result;
         });
+    };
+
+    this.isLoading = function(userId) {
+        return Loading.isLoading(userId);
+    };
+
+    this.isSuccessful = function(itemId, userId) {
+        let item = this.usersSharedArticles.find(i => i.id === itemId);
+        if (!item) {
+            return false;
+        }
+        let user = item.users.find(u => u.id === userId);
+        if (!user) {
+            return false;
+        }
+        return user.status;
     };
 
 });
