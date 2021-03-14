@@ -12,6 +12,7 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
                                               $filter) {
     'use strict';
 
+    this.showDropdown = [];
     var self = this;
     ItemResource.clear();
 
@@ -222,4 +223,15 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     };
 
     this.activeItem = this.getFirstItem();
+
+    this.openDropdown = function(itemId){
+        let actualItem = this.showDropdown[itemId];
+        this.showDropdown = [];
+        this.showDropdown[itemId] = !actualItem;
+    };
+
+    this.hide = function(){
+        this.showDropdown = [];
+    };
+
 });
