@@ -146,6 +146,17 @@ app.controller('ShareController', function (ShareResource, Loading) {
         return user.status === status;
     };
 
+    /**
+     * Checks if the social sharing app for the given media is active
+     *
+     * @param media
+     * @returns boolean
+     */
+    this.isSocialAppEnabled = function(media) {
+        let app = 'socialsharing_' + media;
+        return app in OC.appswebroots;
+    };
+
     this.getFacebookUrl = function(url){
         return 'https://www.facebook.com/sharer/sharer.php?u='+url;
     };
