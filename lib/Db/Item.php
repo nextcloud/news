@@ -312,6 +312,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'rtl' => $this->getRtl(),
             'intro' => $this->getIntro(),
             'fingerprint' => $this->getFingerprint(),
+            'categories' => $this->getCategories()
         ];
     }
 
