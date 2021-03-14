@@ -39,6 +39,7 @@ app.controller('ShareController', function (ShareResource, Loading) {
             this.userList = response.ocs.data.users;
             Loading.setLoading('user', false);
         });
+        // TODO: catch error
     };
 
     /** Dictionary mapping articles to users they're shared with */
@@ -91,10 +92,13 @@ app.controller('ShareController', function (ShareResource, Loading) {
         Loading.setLoading(userId, true);
 
         ShareResource.shareItem(itemId, userId)
-        .then((result) => {
+        .then(() => {
             this.addItemShareWithUser(itemId, userId, true);
             Loading.setLoading(userId, false);
-            return result;
+        })
+        .catch(() => {
+            this.addItemShareWithUser(itemId, userId, false);
+            Loading.setLoading(userId, false);
         });
     };
 
@@ -102,7 +106,7 @@ app.controller('ShareController', function (ShareResource, Loading) {
         return Loading.isLoading(userId);
     };
 
-    this.isSuccessful = function(itemId, userId) {
+    this.isStatus = function(itemId, userId, status) {
         let item = this.usersSharedArticles.find(i => i.id === itemId);
         if (!item) {
             return false;
@@ -111,7 +115,7 @@ app.controller('ShareController', function (ShareResource, Loading) {
         if (!user) {
             return false;
         }
-        return user.status;
+        return user.status === status;
     };
 
 });
