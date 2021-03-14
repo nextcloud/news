@@ -102,6 +102,22 @@ app.controller('ShareController', function (ShareResource, Loading) {
         });
     };
 
+    this.isLoading = function(userId) {
+        return Loading.isLoading(userId);
+    };
+
+    this.isStatus = function(itemId, userId, status) {
+        let item = this.usersSharedArticles.find(i => i.id === itemId);
+        if (!item) {
+            return false;
+        }
+        let user = item.users.find(u => u.id === userId);
+        if (!user) {
+            return false;
+        }
+        return user.status === status;
+    };
+
     this.getFacebookUrl = function(url){
         return 'https://www.facebook.com/sharer/sharer.php?u='+url;
     };
