@@ -123,16 +123,16 @@
         },
         {
             "name": "debril/feed-io",
-            "version": "v4.9.2",
+            "version": "v4.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdebril/feed-io.git",
-                "reference": "402f804cff2d26221a37dc761de1020ebb4ede35"
+                "reference": "6f15c66b4087d41055f92bda9b499305e4ae97ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/402f804cff2d26221a37dc761de1020ebb4ede35",
-                "reference": "402f804cff2d26221a37dc761de1020ebb4ede35",
+                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/6f15c66b4087d41055f92bda9b499305e4ae97ca",
+                "reference": "6f15c66b4087d41055f92bda9b499305e4ae97ca",
                 "shasum": ""
             },
             "require": {
@@ -184,7 +184,7 @@
             ],
             "support": {
                 "issues": "https://github.com/alexdebril/feed-io/issues",
-                "source": "https://github.com/alexdebril/feed-io/tree/v4.9.2"
+                "source": "https://github.com/alexdebril/feed-io/tree/v4.9.3"
             },
             "funding": [
                 {
@@ -192,7 +192,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-03-10T17:51:15+00:00"
+            "time": "2021-03-12T21:57:53+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
