@@ -131,6 +131,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
                 html_entity_decode(strip_tags($this->getBody())) .
                 html_entity_decode($this->getAuthor()) .
                 html_entity_decode($this->getTitle()) .
+                html_entity_decode($this->getCategories()) .
                 $this->getUrl(),
                 'UTF-8'
             )
