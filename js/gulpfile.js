@@ -17,12 +17,16 @@ const gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     KarmaServer = require('karma').Server,
     concat = require('gulp-concat'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    vueify = require('gulp-vueify2'),
+    webpackStream = require('webpack-stream'),
+    webpackConfig = require('./webpack.config.js');
 
 // Configuration
 const buildTarget = 'app.min.js';
 const karmaConfig = __dirname + '/karma.conf.js';
 const destinationFolder = __dirname + '/build/';
+const vueComponent = 'compiled_vue_components/component.js';
 const sources = [
     'node_modules/angular/angular.min.js',
     'node_modules/angular-animate/angular-animate.min.js',
@@ -40,11 +44,13 @@ const sources = [
     'plugin/**/*.js',
     'utility/**/*.js',
     'directive/**/*.js',
-    'vue_templates/**/*.js',
+    //vueComponent,
 ];
 const testSources = ['tests/**/*.js'];
-const watchSources = sources.concat(testSources).concat(['*.js']);
-const lintSources = watchSources;
+const watchSources = sources.concat(testSources);
+const lintSources = watchSources.filter((item) => {
+  return item !== vueComponent && item !== 'webpack.config.js' && item !== 'webpacked_vue_components.js';
+});
 
 // tasks
 gulp.task('lint', () => {
@@ -54,12 +60,22 @@ gulp.task('lint', () => {
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('default', gulp.series('lint', () => {
-    return gulp.src(sources)
+gulp.task('vueify', () => {
+  return gulp.src('./vue_components/component.vue')
+  .pipe(vueify())
+  .pipe(gulp.dest('./compiled_vue_components'));
+});
+
+gulp.task('webpack', () => {
+  return webpackStream(webpackConfig)
+  .pipe(gulp.dest('./webpacked'));
+});
+gulp.task('default', gulp.series('lint', 'vueify', 'webpack', () => {
+    return gulp.src(sources.concat(['webpacked/webpacked_vue_components.js']))
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
         .pipe(concat(buildTarget))
-        .pipe(terser())
+        //.pipe(terser())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(destinationFolder));
 }));
