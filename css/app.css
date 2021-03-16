@@ -70,10 +70,12 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 999;
   min-width: 20em;
+  left: 100px;
 }
 
-#app-content .compact .dropdown-content {
-  margin-left: -20em;
+.compact .dropdown-content {
+    left: auto;
+    right: 15px;
 }
 
 
