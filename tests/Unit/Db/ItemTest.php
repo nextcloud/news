@@ -369,4 +369,19 @@ class ItemTest extends TestCase
         );
     }
 
+    public function testSetCategories()
+    {
+        $item = new Item();
+        $item->setCategories(['podcast', 'blog']);
+        $this->assertEquals(['podcast', 'blog'], $item->getCategories());
+        $this->assertArrayHasKey('categoriesJson', $item->getUpdatedFields());
+    }
+
+    public function testSetCategoriesJson()
+    {
+        $item = new Item();
+        $item->setCategoriesJson(json_encode(['podcast', 'blog']));
+        $this->assertEquals(json_encode(['podcast', 'blog']), $item->getCategoriesJson());
+        $this->assertArrayHasKey('categoriesJson', $item->getUpdatedFields());
+    }
 }
