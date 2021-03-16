@@ -136,6 +136,7 @@ class ItemTest extends TestCase
         $item->setFingerprint('fingerprint');
         $item->setStarred(true);
         $item->setLastModified(321);
+        $item->setCategories(['food']);
 
         $this->assertEquals(
             [
@@ -158,7 +159,8 @@ class ItemTest extends TestCase
             'lastModified' => 321,
             'rtl' => true,
             'intro' => 'this is a test',
-            'fingerprint' => 'fingerprint'
+            'fingerprint' => 'fingerprint',
+            'categories' => ['food']
             ], $item->jsonSerialize()
         );
     }
