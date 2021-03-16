@@ -222,6 +222,7 @@
     line-height: 52px;
     box-sizing: border-box;
     padding: 15px 50px 0 15px;
+    position: relative;
 }
 
 #app-content .compact .utils {
@@ -232,6 +233,10 @@
     top: 50px;
     background-color: var(--color-main-background);
     min-height: 43px;
+}
+
+/* Only apply opacity to the util bar, not the dropdown */
+#app-content .compact .utils ul {
     opacity: 0.9;
 }
 
