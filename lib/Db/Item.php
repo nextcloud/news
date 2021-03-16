@@ -64,7 +64,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /** @var bool */
     protected $starred = false;
     /** @var string|null */
-    protected $categories;
+    protected $categoriesJson;
 
     public function __construct()
     {
@@ -87,7 +87,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $this->addType('fingerprint', 'string');
         $this->addType('unread', 'boolean');
         $this->addType('starred', 'boolean');
-        $this->addType('categories', 'string');
+        $this->addType('categoriesJson', 'string');
     }
 
     /**
@@ -131,7 +131,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
                 html_entity_decode(strip_tags($this->getBody())) .
                 html_entity_decode($this->getAuthor()) .
                 html_entity_decode($this->getTitle()) .
-                html_entity_decode($this->getCategories()) .
+                html_entity_decode($this->getCategoriesJson()) .
                 $this->getUrl(),
                 'UTF-8'
             )
@@ -282,9 +282,17 @@ class Item extends Entity implements IAPI, \JsonSerializable
     /**
      * @return null|string
      */
-    public function getCategories(): ?string
+    public function getCategoriesJson(): ?string
     {
-        return $this->categories;
+        return $this->categoriesJson;
+    }
+
+    /**
+     * @return null|array
+     */
+    public function getCategories(): ?array
+    {
+        return json_decode($this->getCategoriesJson());
     }
 
     /**
@@ -518,12 +526,20 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setCategories(string $categories = null): self
+    public function setCategoriesJson(string $categoriesJson = null): self
     {
-        if ($this->categories !== $categories) {
-            $this->categories = $categories;
-            $this->markFieldUpdated('categories');
+        if ($this->categoriesJson !== $categoriesJson) {
+            $this->categoriesJson = $categoriesJson;
+            $this->markFieldUpdated('categoriesJson');
         }
+
+        return $this;
+    }
+
+    public function setCategories(array $categories = null): self
+    {
+        $categoriesJson = !empty($categories) ? json_encode($categories) : null;
+        $this->setCategoriesJson($categoriesJson);
 
         return $this;
     }
