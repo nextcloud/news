@@ -260,9 +260,7 @@ class FeedFetcher implements IFeedFetcher
         foreach ($parsedItem->getCategories() as $category) {
             $categories[] = $this->decodeTwice($category->getLabel());
         }
-        if (count($categories) > 0) {
-            $item->setCategories(implode(',', $categories));
-        }
+        $item->setCategories($categories);
 
         // Use description from feed if body is not provided (by a scraper)
         if ($body === null) {
