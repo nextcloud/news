@@ -18,6 +18,7 @@ use Favicon\Favicon;
 use FeedIo\Adapter\ResponseInterface;
 use FeedIo\Feed\Item\Author;
 use FeedIo\Feed\Item\MediaInterface;
+use FeedIo\Feed\Node\Category;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
@@ -211,6 +212,11 @@ class FeedFetcherTest extends TestCase
         $this->author = new Author();
         $this->author->setName('&lt;boogieman');
         $this->enclosure = 'http://enclosure.you';
+
+        $category = new Category();
+        $category->setLabel('food');
+        $this->categories = new \ArrayIterator([$category]);
+        $this->categoriesJson = json_encode(['food']);
 
         $this->feed_title = '&lt;a&gt;&amp;its a&lt;/a&gt; title';
         $this->feed_link = 'http://tests/';
@@ -575,6 +581,9 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->expects($this->exactly(1))
             ->method('getAuthor')
             ->will($this->returnValue($this->author));
+        $this->item_mock->expects($this->exactly(1))
+            ->method('getCategories')
+            ->will($this->returnValue($this->categories));
 
         $item = new Item();
 
@@ -587,7 +596,8 @@ class FeedFetcherTest extends TestCase
             ->setRtl(false)
             ->setLastModified(3)
             ->setPubDate(3)
-            ->setAuthor(html_entity_decode($this->author->getName()));
+            ->setAuthor(html_entity_decode($this->author->getName()))
+            ->setCategoriesJson($this->categoriesJson);
 
         if ($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
             $media = $this->getMockbuilder(MediaInterface::class)->getMock();
