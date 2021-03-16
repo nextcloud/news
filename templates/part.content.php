@@ -98,7 +98,7 @@
                             title="<?php p($l->t('Share')) ?>"
                             ng-click="Content.openDropdown(item.id)">
                         </button>
-                    <li>
+                    </li>
                     <ng-container click-outside="Content.hide()">
                         <div
                             ng-controller="ShareController as Share"
