@@ -1,3 +1,3 @@
-var someComponent = require('../compiled_vue_components/component');
+var someComponent = require('../vue_components/component.vue').default;
 someVueComponent = Vue.component('SomeComponent', someComponent);
 app.value('SomeComponent', someVueComponent);

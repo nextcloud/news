@@ -18,7 +18,6 @@ const gulp = require('gulp'),
     KarmaServer = require('karma').Server,
     concat = require('gulp-concat'),
     sourcemaps = require('gulp-sourcemaps'),
-    vueify = require('gulp-vueify2'),
     webpackStream = require('webpack-stream'),
     webpackConfig = require('./webpack.config.js');
 
@@ -26,7 +25,6 @@ const gulp = require('gulp'),
 const buildTarget = 'app.min.js';
 const karmaConfig = __dirname + '/karma.conf.js';
 const destinationFolder = __dirname + '/build/';
-const vueComponent = 'compiled_vue_components/component.js';
 const sources = [
     'node_modules/angular/angular.min.js',
     'node_modules/angular-animate/angular-animate.min.js',
@@ -44,12 +42,11 @@ const sources = [
     'plugin/**/*.js',
     'utility/**/*.js',
     'directive/**/*.js',
-    //vueComponent,
 ];
 const testSources = ['tests/**/*.js'];
 const watchSources = sources.concat(testSources);
 const lintSources = watchSources.filter((item) => {
-  return item !== vueComponent && item !== 'webpack.config.js' && item !== 'webpacked_vue_components.js';
+  return item !== 'webpack.config.js' && item !== 'webpacked_vue_components.js';
 });
 
 // tasks
@@ -60,17 +57,11 @@ gulp.task('lint', () => {
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('vueify', () => {
-  return gulp.src('./vue_components/component.vue')
-  .pipe(vueify())
-  .pipe(gulp.dest('./compiled_vue_components'));
-});
-
 gulp.task('webpack', () => {
   return webpackStream(webpackConfig)
   .pipe(gulp.dest('./webpacked'));
 });
-gulp.task('default', gulp.series('lint', 'vueify', 'webpack', () => {
+gulp.task('default', gulp.series('lint', 'webpack', () => {
     return gulp.src(sources.concat(['webpacked/webpacked_vue_components.js']))
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
