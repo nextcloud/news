@@ -171,6 +171,7 @@
                             </div>
                         </div>
                     </div>
+                </ng-container>
                 <!-- End share dropdown -->
             </div>
 
