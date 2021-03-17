@@ -163,11 +163,10 @@
                             </div>
                             <div ng-if="Share.isSocialAppEnabled('email')" class="col-4">
                                 <a class="icon-dropdown icon-mail pr-5"
-                                    ng-href="mailto:?subject=<?php p($l->t('I wanted you to see this article')) ?>&amp;body=<?php p($l->t('Check out this article')) ?>{{ ::item.url }}"></a>
+                                    ng-href="{{ Share.getEmailUrl(item.url, '<?php p($l->t('I wanted you to see this article')) ?>', '<?php p($l->t('Check out this article')) ?>') }}"></a>    
                             </div>
                         </div>
                     </div>
-                </ng-container>
                 <!-- End share dropdown -->
             </div>
 
