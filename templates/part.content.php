@@ -136,8 +136,12 @@
                         </form>
 
                         <div style="margin-left: 2em; font-size: 0.85em;"
-                            ng-if="!(Share.userList.length > 0) && nameQuery && !App.loading.isLoading('user')">
+                            ng-if="Share.userList.length === 0 && nameQuery && !App.loading.isLoading('user') && !Share.searchUsersFailed">
                             <?php p($l->t('No users found')) ?>
+                        </div>
+                        <div style="margin-left: 2em; font-size: 0.85em;"
+                            ng-if="Share.userList.length === 0 && Share.searchUsersFailed">
+                            <?php p($l->t('Error while searching for users')) ?>
                         </div>
                         <a
                             ng-repeat="user in Share.userList"
