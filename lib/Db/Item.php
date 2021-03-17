@@ -126,12 +126,16 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function generateSearchIndex(): void
     {
+        $categoriesString = !empty($this->getCategories())
+            ? implode('', $this->getCategories())
+            : '';
+
         $this->setSearchIndex(
             mb_strtolower(
                 html_entity_decode(strip_tags($this->getBody())) .
                 html_entity_decode($this->getAuthor()) .
                 html_entity_decode($this->getTitle()) .
-                html_entity_decode($this->getCategoriesJson()) .
+                html_entity_decode($categoriesString) .
                 $this->getUrl(),
                 'UTF-8'
             )
