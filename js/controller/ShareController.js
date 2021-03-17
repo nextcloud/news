@@ -158,4 +158,8 @@ app.controller('ShareController', function (ShareResource, Loading) {
     this.getTwitterUrl = function(url){
         return 'https://twitter.com/intent/tweet?url='+url;
     };
+
+    this.getEmailUrl = function(url, object, body){
+        return encodeURI('mailto:?subject=' + object + '&body=' + body + ' ' + url);
+    };
 });
