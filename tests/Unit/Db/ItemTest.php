@@ -244,8 +244,9 @@ class ItemTest extends TestCase
         $item->setUrl('http://link');
         $item->setAuthor('&auml;uthor');
         $item->setTitle('<a>t&auml;tle</a>');
+        $item->setCategories(['food', 'travel']);
         $item->generateSearchIndex();
-        $expected = 'somethängäuthortätlehttp://link';
+        $expected = 'somethängäuthortätlefoodtravelhttp://link';
         $this->assertEquals($expected, $item->getSearchIndex());
     }
 
