@@ -40,6 +40,7 @@ app.controller('ShareController', function (ShareResource, Loading) {
         .then((response) => {
             if (this.searchQuery === search) {
                 this.userList = response.ocs.data.users;
+                this.userList = this.userList.concat(response.ocs.data.exact.users);
                 Loading.setLoading('user', false);
             }
         })
