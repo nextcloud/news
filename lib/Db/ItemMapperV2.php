@@ -51,12 +51,13 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
-	 * Override parent constructor to insert sharer display names for shared items
-	 *
-	 * @param IQueryBuilder $query
-	 * @return Entity[] all fetched entities
-	 */
-    public function findEntities(IQueryBuilder $query): array {
+     * Override parent constructor to insert sharer display names for shared items
+     *
+     * @param IQueryBuilder $query
+     * @return Entity[] all fetched entities
+     */
+    public function findEntities(IQueryBuilder $query): array
+    {
         $entities = parent::findEntities($query);
 
         foreach ($entities as $entity) {
