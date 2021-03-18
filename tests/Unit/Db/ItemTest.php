@@ -453,7 +453,8 @@ class ItemTest extends TestCase
         $this->assertArrayHasKey('categoriesJson', $item->getUpdatedFields());
     }
 
-    public function testSetSharedBy(){
+    public function testSetSharedBy()
+    {
         $item = new Item();
         $item->setSharedBy('Hector');
         $this->assertEquals('Hector', $item->getSharedBy());
