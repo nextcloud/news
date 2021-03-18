@@ -69,6 +69,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $categoriesJson;
     /** @var string */
     protected $sharedBy;
+    /** @var string|null */
+    protected $sharedByDisplayName;
 
     public function __construct()
     {
@@ -321,6 +323,11 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->sharedBy;
     }
 
+    public function getSharedByDisplayName(): ?string
+    {
+        return $this->sharedByDisplayName;
+    }
+
     /**
      * @return null|string
      */
@@ -364,7 +371,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'intro' => $this->getIntro(),
             'fingerprint' => $this->getFingerprint(),
             'categories' => $this->getCategories(),
-            'sharedBy' => $this->getSharedBy()
+            'sharedBy' => $this->getSharedBy(),
+            'sharedByDisplayName' => $this->getSharedByDisplayName()
         ];
     }
 
@@ -551,6 +559,16 @@ class Item extends Entity implements IAPI, \JsonSerializable
         if ($this->sharedBy !== $sharedBy) {
             $this->sharedBy = $sharedBy;
             $this->markFieldUpdated('sharedBy');
+        }
+
+        return $this;
+    }
+
+    public function setSharedByDisplayName(string $sharedByDisplayName = null): self
+    {
+        if ($this->sharedByDisplayName !== $sharedByDisplayName) {
+            $this->sharedByDisplayName = $sharedByDisplayName;
+            $this->markFieldUpdated('sharedByDisplayName');
         }
 
         return $this;
