@@ -148,7 +148,7 @@
                             class="icon-category-installed pr-3"
                             ng-click="Share.shareItem(item.id, user.value.shareWith)">
                             {{ user.label }}
-                            <span class="right" style="margin-top: 0.9em; margin-right: 1em"
+                            <span class="right" style="margin-top: 1.1em; margin-right: 1em"
                                 ng-class="{'icon-loading-small': Share.isLoading(user.value.shareWith), 'icon-checkmark': Share.isStatus(item.id, user.value.shareWith, true), 'icon-close': Share.isStatus(item.id, user.value.shareWith, false)}">
                             </span>
                         </a>
