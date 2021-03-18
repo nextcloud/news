@@ -117,6 +117,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $this->markFieldUpdated('fingerprint');
         $this->markFieldUpdated('unread');
         $this->markFieldUpdated('starred');
+        $this->markFieldUpdated('categoriesJson');
         $this->markFieldUpdated('sharedBy');
     }
 
