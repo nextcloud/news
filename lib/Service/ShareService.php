@@ -68,6 +68,7 @@ class ShareService
      * @param FeedServiceV2   $feedService  Service for feeds
      * @param ItemServiceV2   $itemService  Service to manage items
      * @param IURLGenerator   $urlGenerator URL Generator
+     * @param IUserManager    $userManager  User Manager
      * @param IL10N           $l            Localization interface
      * @param LoggerInterface $logger       Logger
      */
@@ -137,7 +138,7 @@ class ShareService
     }
 
     /**
-     * Map sharers display name to shared items.
+     * Map sharers display names to shared items.
      *
      * Loops through an array of news items. For all shared items, the function
      * fetches the sharers display name and adds it into the item.
