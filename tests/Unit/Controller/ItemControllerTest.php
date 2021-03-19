@@ -293,6 +293,11 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, false, [])
             ->will($this->returnValue($result['items']));
 
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
+            ->will($this->returnValue($result['items']));
+
         $response = $this->controller->index(ListType::FEED, 2, 3);
         $this->assertEquals($result, $response);
     }
@@ -328,6 +333,11 @@ class ItemControllerTest extends TestCase
         $this->itemService->expects($this->once())
             ->method('findAllInFolderWithFilters')
             ->with('user', 2, 3, 0, false, false, [])
+            ->will($this->returnValue($result['items']));
+
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->index(ListType::FOLDER, 2, 3);
@@ -367,6 +377,11 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, [])
             ->will($this->returnValue($result['items']));
 
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
+            ->will($this->returnValue($result['items']));
+
         $response = $this->controller->index(ListType::STARRED, 2, 3);
         $this->assertEquals($result, $response);
     }
@@ -404,6 +419,11 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, 0, false, false, ['test', 'search'])
             ->will($this->returnValue($result['items']));
 
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
+            ->will($this->returnValue($result['items']));
+
         $response = $this->controller->index(ListType::FEED, 2, 3, 0, null, null, 'test%20%20search%20');
         $this->assertEquals($result, $response);
     }
@@ -418,6 +438,11 @@ class ItemControllerTest extends TestCase
         $this->itemService->expects($this->once())
             ->method('findAllInFeedWithFilters')
             ->with('user', 2, 3, 10, false, true)
+            ->will($this->returnValue($result['items']));
+
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
             ->will($this->returnValue($result['items']));
 
         $this->feedService->expects($this->never())
@@ -477,6 +502,11 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, false)
             ->will($this->returnValue($result['items']));
 
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
+            ->will($this->returnValue($result['items']));
+
         $response = $this->controller->newItems(ListType::FEED, 2, 3);
         $this->assertEquals($result, $response);
     }
@@ -517,6 +547,11 @@ class ItemControllerTest extends TestCase
             ->with('user', 2, 3, false)
             ->will($this->returnValue($result['items']));
 
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
+            ->will($this->returnValue($result['items']));
+
         $response = $this->controller->newItems(ListType::FOLDER, 2, 3);
         $this->assertEquals($result, $response);
     }
@@ -555,6 +590,11 @@ class ItemControllerTest extends TestCase
         $this->itemService->expects($this->once())
             ->method('findAllAfter')
             ->with('user', 6, 3)
+            ->will($this->returnValue($result['items']));
+
+        $this->shareService->expects($this->once())
+            ->method('mapSharedByDisplayNames')
+            ->with($result['items'])
             ->will($this->returnValue($result['items']));
 
         $response = $this->controller->newItems(ListType::UNREAD, 2, 3);
