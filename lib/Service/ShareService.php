@@ -15,6 +15,7 @@ use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
 use OCP\IURLGenerator;
+use OCP\IUserManager;
 use \OCP\IL10N;
 
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -40,7 +41,7 @@ class ShareService
      * @var FeedServiceV2
      */
     protected $feedService;
-    
+
     /**
      * @var LoggerInterface
      */
@@ -50,6 +51,11 @@ class ShareService
      * @var IURLGenerator
      */
     private $urlGenerator;
+
+    /**
+     * @var IUserManager
+     */
+    private $userManager;
 
     /**
      * @var IL10N
@@ -69,12 +75,14 @@ class ShareService
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
         IURLGenerator $urlGenerator,
+        IUserManager $userManager,
         IL10N $l,
         LoggerInterface $logger
     ) {
         $this->itemService  = $itemService;
         $this->feedService  = $feedService;
         $this->urlGenerator = $urlGenerator;
+        $this->userManager  = $userManager;
         $this->l            = $l;
         $this->logger       = $logger;
     }
@@ -126,5 +134,29 @@ class ShareService
         $sharedItem->setFeedId($feed->getId());
 
         return $this->itemService->insertOrUpdate($sharedItem);
+    }
+
+    /**
+     * Map sharers display name to shared items.
+     *
+     * Loops through an array of news items. For all shared items, the function
+     * fetches the sharers display name and adds it into the item.
+     *
+     * @param Item[]  Array containing items that are shared or not
+     * @return Item[]
+     */
+    public function mapSharedByDisplayNames(array $items): array
+    {
+        foreach ($items as $item) {
+            $sharedBy = $item->getSharedBy();
+            if (!is_null($sharedBy)) {
+                $user = $this->userManager->get($sharedBy);
+                if (!is_null($user)) {
+                    $item->setSharedByDisplayName($user->getDisplayName());
+                }
+            }
+        }
+
+        return $items;
     }
 }

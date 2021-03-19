@@ -176,7 +176,8 @@ class ItemController extends Controller
                     );
                     break;
             }
-            $return['items'] = $items;
+            // Map sharer display names onto shared items
+            $return['items'] = $this->shareService->mapSharedByDisplayNames($items);
 
             // this gets thrown if there are no items
             // in that case just return an empty array
@@ -236,7 +237,8 @@ class ItemController extends Controller
             $return['newestItemId'] = $this->itemService->newest($this->getUserId())->getId();
             $return['feeds'] = $this->feedService->findAllForUser($this->getUserId());
             $return['starred'] = count($this->itemService->starred($this->getUserId()));
-            $return['items'] = $items;
+            // Map sharer display names onto shared items
+            $return['items'] = $this->shareService->mapSharedByDisplayNames($items);
 
             // this gets thrown if there are no items
             // in that case just return an empty array
