@@ -333,7 +333,7 @@ class ItemController extends Controller
      * @param int $itemId              Item to share
      * @param string $shareRecipientId User to share the item with
      */
-    public function share($itemId, $shareRecipientId)
+    public function share(int $itemId, string $shareRecipientId)
     {
         try {
             $this->shareService->shareItemWithUser(
