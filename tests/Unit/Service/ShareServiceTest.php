@@ -27,8 +27,10 @@ use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 
 use OCP\IURLGenerator;
+use OCP\IUserManager;
 use OCP\IConfig;
 use OCP\IL10N;
+use OCP\IUser;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +53,12 @@ class ShareServiceTest extends TestCase
      * @var MockObject|IURLGenerator
      */
     private $urlGenerator;
-    
+
+    /**
+     * @var MockObject|IUserManager
+     */
+    private $userManager;
+
     /**
      * @var MockObject|IL10N
      */
@@ -92,6 +99,10 @@ class ShareServiceTest extends TestCase
             ->getMockBuilder(IURLGenerator::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->userManager = $this
+            ->getMockBuilder(IUserManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->l = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -102,6 +113,7 @@ class ShareServiceTest extends TestCase
             $this->feedService,
             $this->itemService,
             $this->urlGenerator,
+            $this->userManager,
             $this->l,
             $this->logger
         );
@@ -153,7 +165,7 @@ class ShareServiceTest extends TestCase
         $this->urlGenerator->expects($this->once())
             ->method('getBaseUrl')
             ->will($this->returnValue('http://serverurl'));
-            
+
         $this->feedService->expects($this->once())
             ->method('findByUrl')
             ->with($this->recipient, $feedUrl)
@@ -246,5 +258,34 @@ class ShareServiceTest extends TestCase
             ->will($this->throwException(new ServiceNotFoundException('')));
 
         $this->class->shareItemWithUser('sender', 1, 'recipient');
+    }
+
+
+    public function testMapSharedByDisplayNames()
+    {
+        $item1 = new Item();
+        $item1->setTitle('Item 1')
+              ->setSharedBy('sender');
+        $item2 = new Item();
+        $item2->setTitle('Item 2')
+              ->setSharedBy(null);
+
+        $items = [$item1, $item2];
+        $user = $this->getMockBuilder(IUser::class)
+                     ->getMock();
+
+        $this->userManager->expects($this->once())
+            ->method('get')
+            ->with('sender')
+            ->will($this->returnValue($user));
+
+        $user->expects($this->once())
+            ->method('getDisplayName')
+            ->will($this->returnValue('Mr. Sender'));
+
+        $result = $this->class->mapSharedByDisplayNames($items);
+
+        $this->assertEquals('Mr. Sender', $result[0]->getSharedByDisplayName());
+        $this->assertEquals(null, $result[1]->getSharedByDisplayName());
     }
 }
