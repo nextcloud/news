@@ -28,8 +28,6 @@ class ItemMapperAfterTest extends MapperTestUtility
 
     /** @var ItemMapperV2 */
     private $class;
-    /** @var IUserManager */
-    private $userManager;
 
     /**
      * @covers \OCA\News\Db\ItemMapperV2::__construct
@@ -39,8 +37,6 @@ class ItemMapperAfterTest extends MapperTestUtility
         parent::setUp();
         $time = $this->getMockBuilder(Time::class)
                            ->getMock();
-        $this->userManager = $this->getMockBuilder(IUserManager::class)
-                                  ->getMock();
 
         $this->class = new ItemMapperV2($this->db, $time);
     }
