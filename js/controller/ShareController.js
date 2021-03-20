@@ -39,8 +39,8 @@ app.controller('ShareController', function (ShareResource, Loading) {
         ShareResource.getUsers(search)
         .then((response) => {
             if (this.searchQuery === search) {
-                this.userList = response.ocs.data.users;
-                this.userList = this.userList.concat(response.ocs.data.exact.users);
+                this.userList = response.ocs.data.exact.users;
+                this.userList = this.userList.concat(response.ocs.data.users);
                 Loading.setLoading('user', false);
             }
         })
