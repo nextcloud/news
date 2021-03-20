@@ -460,4 +460,11 @@ class ItemTest extends TestCase
         $this->assertEquals('Hector', $item->getSharedBy());
         $this->assertArrayHasKey('sharedBy', $item->getUpdatedFields());
     }
+
+    public function testSetSharedByDisplayName()
+    {
+        $item = new Item();
+        $item->setSharedByDisplayName('Hector');
+        $this->assertEquals('Hector', $item->getSharedByDisplayName());
+    }
 }
