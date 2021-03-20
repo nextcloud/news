@@ -168,6 +168,11 @@ app.controller('ShareController', function (ShareResource, Loading) {
         return app in OC.appswebroots;
     };
 
+    this.isAnySocialAppEnabled = function() {
+        let media = ['facebook', 'twitter', 'email'];
+        return media.some(m => this.isSocialAppEnabled(m));
+    };
+
     this.getFacebookUrl = function(url){
         return 'https://www.facebook.com/sharer/sharer.php?u='+url;
     };
