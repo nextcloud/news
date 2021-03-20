@@ -13,7 +13,7 @@ OC.L10N.register(
     "Use system cron for updates" : "使用系統 cron 來更新",
     "Disable this if you run a custom updater such as the Python updater included in the app." : "如果您執行了自訂的應用程式，如包含在應用程式中的 Python 更新程式，請停用這個。",
     "Purge interval" : "清除間距",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "從資料庫中移除已刪除的 feed 與資料夾後的最小秒數；低於60秒的值將會被忽略。",
+    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "從數據庫中移除已刪除的 feed 與資料夾後的最小秒數；低於60秒的值將會被忽略。",
     "Maximum read count per feed" : "每個 feed 的最大閱讀次數",
     "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "定義每個 feed 可以讀取的最大文章數，清理作業不會刪除這些文章；如果舊文章在閱讀後又重新出現，請增加此值；負值，如 -1 將會把這個功能關閉。",
     "Maximum redirects" : "最大重新導向",
@@ -72,8 +72,8 @@ OC.L10N.register(
     "Folder name" : "資料夾名稱",
     "Go back" : "返回",
     "Folder exists already!" : "資料夾已經存在！",
-    "Credentials" : "身份驗證",
-    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP 基本身份驗證必須未加密儲存！每個可以存取伺服緝獲資料庫的人都將可以存取它們！",
+    "Credentials" : "身分驗證",
+    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP 基本身分驗證必須未加密儲存！每個可以存取伺服緝獲數據庫的人都將可以存取它們！",
     "Username" : "用戶名稱",
     "Password" : "密碼",
     "New Folder" : "新資料夾",
@@ -119,6 +119,6 @@ OC.L10N.register(
     "Help" : "說明",
     "Keyboard shortcuts" : "鍵盤快捷鍵",
     "Documentation" : "說明文件",
-    "Report a bug" : "回報問題"
+    "Report a bug" : "舉報問題"
 },
 "nplurals=1; plural=0;");
