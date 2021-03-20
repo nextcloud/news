@@ -91,9 +91,9 @@
                     </li>
 
                     <li
-                        class="util dropdown"
+                        class="util"
                         news-stop-propagation>
-                        <button class="icon-share share dropbtn"
+                        <button class="icon-share share"
                             title="<?php p($l->t('Share')) ?>"
                             ng-click="Content.openDropdown(item.id)">
                         </button>
@@ -135,11 +135,11 @@
                             </fieldset>
                         </form>
 
-                        <div style="margin-left: 2em; font-size: 0.85em;"
+                        <div class="dropdown-search-message"
                             ng-if="Share.userList.length === 0 && nameQuery && !App.loading.isLoading('user') && !Share.searchUsersFailed">
                             <?php p($l->t('No users found')) ?>
                         </div>
-                        <div style="margin-left: 2em; font-size: 0.85em;"
+                        <div class="dropdown-search-message"
                             ng-if="Share.userList.length === 0 && Share.searchUsersFailed">
                             <?php p($l->t('Error while searching for users')) ?>
                         </div>
@@ -148,7 +148,7 @@
                             class="icon-category-installed pr-3"
                             ng-click="Share.shareItem(item.id, user.value.shareWith)">
                             {{ user.label }}
-                            <span class="right" style="margin-top: 1.1em; margin-right: 1em"
+                            <span class="share-status-icon"
                                 ng-class="{'icon-loading-small': Share.isLoading(user.value.shareWith), 'icon-checkmark': Share.isStatus(item.id, user.value.shareWith, true), 'icon-close': Share.isStatus(item.id, user.value.shareWith, false)}">
                             </span>
                         </a>
