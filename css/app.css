@@ -107,7 +107,7 @@
 .contact-input {
     display: flex;
     justify-content: space-between;
-    margin: 0.5em 1.5em;
+    margin: 1em 1.5em;
 }
 
 .label-group {
