@@ -566,7 +566,6 @@ class Item extends Entity implements IAPI, \JsonSerializable
     {
         if ($this->sharedByDisplayName !== $sharedByDisplayName) {
             $this->sharedByDisplayName = $sharedByDisplayName;
-            $this->markFieldUpdated('sharedByDisplayName');
         }
 
         return $this;
