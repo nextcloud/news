@@ -51,19 +51,6 @@
     right: 0.5em;
 }
 
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
 .dropdown-content {
     position: absolute;
     background-color: #f1f1f1;
@@ -91,10 +78,6 @@
     background-color: #ddd;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
-}
-
 .compact-dropdown{
     z-index: 1;
 }
@@ -116,6 +99,13 @@
     font-weight: bold;
 }
 
-.right {
+.dropdown-search-message {
+    margin-left: 2em;
+    font-size: 0.85em;
+}
+
+.share-status-icon {
+    margin-top: 1.1em;
+    margin-right: 1em;
     float: right;
 }
