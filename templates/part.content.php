@@ -159,16 +159,16 @@
                                 <div ng-if="Share.isSocialAppEnabled('facebook')" class="col-4">
                                     <a target="_blank"
                                         class="icon-dropdown icon-facebook pr-5"
-                                        ng-href="{{ Share.getFacebookUrl(item.url) }}"></a>
+                                        ng-href="{{ Share.getFacebookUrl(item.url, item.intro) }}"></a>
                                 </div>
                                 <div ng-if="Share.isSocialAppEnabled('twitter')" class="col-4">
                                     <a target="_blank"
                                         class="icon-dropdown icon-twitter pr-5"
-                                        ng-href="{{ Share.getTwitterUrl(item.url) }}"></a>
+                                        ng-href="{{ Share.getTwitterUrl(item.url, item.intro) }}"></a>
                                 </div>
                                 <div ng-if="Share.isSocialAppEnabled('email')" class="col-4">
                                     <a class="icon-dropdown icon-mail pr-5"
-                                        ng-href="{{ Share.getEmailUrl(item.url, '<?php p($l->t('I wanted you to see this article')) ?>', '<?php p($l->t('Check out this article')) ?>') }}"></a>
+                                        ng-href="{{ Share.getEmailUrl(item.url, '<?php p($l->t('I wanted you to see this article')) ?>', '<?php p($l->t('Check out this article')) ?>', item.intro)}}"></a>
                                 </div>
                             </div>
                         </div>
