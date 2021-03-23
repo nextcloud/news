@@ -316,6 +316,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('items.last_modified >= :updatedSince')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.id = :feedId')
+            ->andWhere('feeds.deleted_at = 0')
             ->setParameters([
                 'updatedSince' => $updatedSince,
                 'feedId' => $feedId,
@@ -353,6 +354,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->innerJoin('feeds', FolderMapperV2::TABLE_NAME, 'folders', 'feeds.folder_id = folders.id')
             ->andWhere('items.last_modified >= :updatedSince')
             ->andWhere('feeds.user_id = :userId')
+            ->andWhere('feeds.deleted_at = 0')
             ->andWhere('folders.id = :folderId')
             ->setParameters(['updatedSince' => $updatedSince, 'folderId' => $folderId, 'userId' => $userId])
             ->orderBy('items.last_modified', 'DESC')
@@ -381,6 +383,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('items.last_modified >= :updatedSince')
+            ->andWhere('feeds.deleted_at = 0')
             ->andWhere('feeds.user_id = :userId')
             ->setParameters(['updatedSince' => $updatedSince, 'userId' => $userId])
             ->orderBy('items.last_modified', 'DESC')
@@ -443,6 +446,7 @@ class ItemMapperV2 extends NewsMapperV2
         $builder->select('items.*')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('feeds.deleted_at = 0')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('items.feed_id = :feedId')
             ->setParameter('userId', $userId)
@@ -503,6 +507,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
+            ->andWhere('feeds.deleted_at = 0')
             ->andWhere($folderWhere)
             ->setParameter('userId', $userId)
             ->setMaxResults($limit)
@@ -554,6 +559,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
+            ->andWhere('feeds.deleted_at = 0')
             ->setParameter('userId', $userId)
             ->setMaxResults($limit)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
