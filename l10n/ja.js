@@ -111,6 +111,6 @@ OC.L10N.register(
     "Help" : "ヘルプ",
     "Keyboard shortcuts" : "キーボードショートカット",
     "Documentation" : "ドキュメント",
-    "Report a bug" : "バグを報告"
+    "Report a bug" : "不具合を報告"
 },
 "nplurals=1; plural=0;");
