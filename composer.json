@@ -1,7 +1,8 @@
 {
   "type": "project",
+  "name": "nextcloud/news",
   "license": "AGPL-3.0",
-  "description": "An RSS/Atom feed reader. Requires Nextcloud background jobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
+  "description": "An RSS/Atom feed reader. Requires Nextcloud background jobs or an updater script to be enabled to update your feeds.",
   "homepage": "https://github.com/nextcloud/news",
   "authors": [
     {
@@ -40,18 +41,18 @@
     "source": "https://github.com/nextcloud/news/"
   },
   "require": {
-    "php": "^7.2 || 8.0.x",
+    "php": "^7.3 || 8.0.x",
     "ezyang/htmlpurifier": "^4.13.0",
     "pear/net_url2": "2.2.2",
     "riimu/kit-pathjoin": "1.2.0",
     "debril/feed-io": "^v4.7.9",
     "arthurhoaro/favicon": "^1.3.2",
     "andreskrey/readability.php": "^2.1",
-    "ext-json": "*",
-    "ext-simplexml": "*",
-    "ext-libxml": "*",
+    "ext-curl": "*",
     "ext-dom": "*",
-    "ext-curl": "*"
+    "ext-libxml": "*",
+    "ext-simplexml": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "9.5.*",

@@ -8,7 +8,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Add BATS as integration tests
 - Update FeedFetcher to import categories from feeds (#1248)
 - Update serialization of item to include categories (#1248)
- 
+- Drop PHP 7.2 support
+
 ### Fixed
 
 ## [15.4.0-beta2] - 2021-02-27
