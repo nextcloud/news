@@ -592,7 +592,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'title' => $this->getTitle(),
             'author' => $this->getAuthor(),
             'publishedAt' => date('c', $this->getPubDate()),
-            'updatedAt' => date('c', $this->getUpdatedDate()),
+            'lastModifiedAt' => date('c', $this->cropApiLastModified()),
             'enclosure' => [
                 'mimeType' => $this->getEnclosureMime(),
                 'url' => $this->getEnclosureLink()
