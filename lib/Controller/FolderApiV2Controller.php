@@ -78,7 +78,7 @@ class FolderApiV2Controller extends ApiController
         try {
             $response = $this->folderService->rename($this->getUserId(), $folderId, $name);
         } catch (ServiceNotFoundException $ex) {
-            return $this->errorResponseV2($ex, Http::STATUS_NOT_FOUND);
+            return $this->errorResponseWithExceptionV2($ex, Http::STATUS_NOT_FOUND);
         }
 
         return $this->responseV2([
@@ -105,7 +105,7 @@ class FolderApiV2Controller extends ApiController
                 'folder' => $responseData
             ]);
         } catch (ServiceNotFoundException $ex) {
-            return $this->errorResponseV2($ex, Http::STATUS_NOT_FOUND);
+            return $this->errorResponseWithExceptionV2($ex, Http::STATUS_NOT_FOUND);
         }
     }
 }
