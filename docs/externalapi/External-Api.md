@@ -602,7 +602,7 @@ The attributes mean the following:
 * **title**: Abitrary long text, item's title
 * **author**: Abitrary long text, name of the author/authors
 * **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
-* **updatedAt**: String representing an ISO 8601 DateTime object, when the item was updated
+* **lastModifiedAt**: String representing an ISO 8601 DateTime object, when the item was last modified
 * **enclosure**: An enclosure object or null if none is present
   * **mimeType**: Abitrary long text, the enclosures mime type
   * **url**: Abitrary long text, location of the enclosure
@@ -624,7 +624,7 @@ A full item contains the full content:
     "title": "Plasma-nm after the solid sprint",
     "author": "Jan Grulich (grulja)",
     "publishedAt": "2005-08-15T15:52:01+0000",
-    "updatedAt": "2005-08-15T15:52:01+0000",
+    "lastModifiedAt": "2005-08-15T15:52:01+0000",
     "enclosure": {
         "mimeType": "video/webm",
         "url": "http://video.webmfiles.org/elephants-dream.webm"
