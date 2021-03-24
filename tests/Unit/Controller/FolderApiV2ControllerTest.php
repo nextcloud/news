@@ -96,16 +96,16 @@ class FolderApiV2ControllerTest extends TestCase
 
     public function testCreateInvalidFolderName()
     {
-        $msg = 'exists';
+        $msg = 'folder name is empty';
+        $code = 1;
 
-        $this->folderService->expects($this->once())
-            ->method('purgeDeleted')
-            ->with($this->equalTo($this->user->getUID()), $this->equalTo(false));
+        $folderName = '';
 
-        $response = $this->folderAPI->create('hi');
+        $response = $this->folderAPI->create($folderName);
 
         $data = $response->getData();
         $this->assertEquals($msg, $data['error']['message']);
+        $this->assertEquals($code, $data['error']['code']);
         $this->assertEquals(Http::STATUS_BAD_REQUEST, $response->getStatus());
     }
 
