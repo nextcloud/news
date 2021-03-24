@@ -49,19 +49,17 @@ class FolderApiV2Controller extends ApiController
      */
     public function create($name)
     {
-        try {
-            $this->folderService->purgeDeleted($this->getUserId(), false);
-            $responseData = $this->serializeEntityV2(
-                $this->folderService->create($this->getUserId(), $name)
-            );
-            return $this->responseV2([
-                'folder' => $responseData
-            ]);
-        } catch (ServiceValidationException $ex) {
-            return $this->errorResponseV2($ex, Http::STATUS_BAD_REQUEST);
-        } catch (ServiceConflictException $ex) {
-            return $this->errorResponseV2($ex, Http::STATUS_CONFLICT);
+        if (empty($name)) {
+            return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
         }
+
+        $this->folderService->purgeDeleted($this->getUserId(), false);
+        $responseData = $this->serializeEntityV2(
+            $this->folderService->create($this->getUserId(), $name)
+        );
+        return $this->responseV2([
+            'folder' => $responseData
+        ]);
     }
 
     /**
