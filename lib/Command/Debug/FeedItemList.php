@@ -63,7 +63,7 @@ class FeedItemList extends Command
 
         $feed = $input->getArgument('feed');
         if (!is_numeric($feed)) {
-            $output->writeln('Invalid Type!');
+            $output->writeln('Invalid feed ID!');
             return 255;
         }
 
