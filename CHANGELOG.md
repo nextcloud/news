@@ -10,6 +10,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Update serialization of item to include categories (#1248)
 - Make PHPStan stricter
 - Restore search in news
+- Improve test coverage
 
 ### Fixed
 - Do not show deleted feeds in item list

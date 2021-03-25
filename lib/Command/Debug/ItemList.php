@@ -63,7 +63,7 @@ class ItemList extends Command
 
         $type = $input->getOption('type');
         if (!is_numeric($type)) {
-            $output->writeln('Invalid Type!');
+            $output->writeln('Invalid type!');
             return 255;
         }
         $limit = $input->getOption('limit');
