@@ -191,13 +191,17 @@ class FolderApiV2ControllerTest extends TestCase
 
     public function testUpdateInvalidFolderName()
     {
+        $msg = 'folder name is empty';
+        $code = 1;
+
         $folderId = 23;
         $folderName = '';
 
         $response = $this->folderAPI->update($folderId, $folderName);
 
         $data = $response->getData();
-        $this->assertEquals($this->msg, $data['error']['message']);
+        $this->assertEquals($msg, $data['error']['message']);
+        $this->assertEquals($code, $data['error']['code']);
         $this->assertEquals(Http::STATUS_BAD_REQUEST, $response->getStatus());
     }
 }
