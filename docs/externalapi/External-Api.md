@@ -388,8 +388,8 @@ with the following request body:
 The following response is being returned:
 
 Status codes:
-* **200**: Folder was created successfully
-* **400**: Folder creation error, check the error object:
+* **200**: Folder was updated successfully
+* **400**: Folder update error, check the error object:
   * **code**: 1: folder name is empty
 * Other ownCloud errors, see [Response Format](#response-format)
 
