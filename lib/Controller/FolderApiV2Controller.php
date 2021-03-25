@@ -72,6 +72,10 @@ class FolderApiV2Controller extends ApiController
      */
     public function update($folderId, $name)
     {
+        if (empty($name)) {
+            return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
+        }
+
         $response = null;
         try {
             $response = $this->folderService->rename($this->getUserId(), $folderId, $name);
