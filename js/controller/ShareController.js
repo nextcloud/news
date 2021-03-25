@@ -21,6 +21,11 @@ app.controller('ShareController', function (ShareResource, Loading) {
     /** True if the most recent request failed */
     this.searchUsersFailed = false;
 
+    /**  */
+    this.facebookLimit = 180;
+    this.twitterLimit = 100;
+    this.emailLimit = 180;
+
     /**
      * @param search Username search query
      *
@@ -174,14 +179,16 @@ app.controller('ShareController', function (ShareResource, Loading) {
     };
 
     this.getFacebookUrl = function(url, intro){
-        return 'https://www.facebook.com/sharer/sharer.php?u='+url + '&quote=' + intro.substring(0,100)+'...';
+        return `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${intro.substring(0,this.facebookLimit)}`+
+                `...`;
     };
 
     this.getTwitterUrl = function(url, intro){
-        return 'https://twitter.com/intent/tweet?url='+url+'&text=' +'\n'+ intro.substring(0,100)+'...';
-    }; 
+        return `https://twitter.com/intent/tweet?url=${url}&text=${intro.substring(0,this.twitterLimit)}`+
+                `...`;
+    };
 
-    this.getEmailUrl = function(url, object, body, intro){
-        return encodeURI('mailto:?subject=' + object + '&body='+intro+'...\n'+ body + '\n' + url); 
+    this.getEmailUrl = function(url, object, intro){
+        return encodeURI(`mailto:?subject=${object}&body=${intro.substring(0,this.emailLimit)}...\n\n${url}`);
     };
 });
