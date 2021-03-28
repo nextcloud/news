@@ -30,7 +30,7 @@ trait JSONHttpErrorTrait
      * @param int $code
      * @return \OCP\AppFramework\Http\JSONResponse
      */
-    public function errorResponseWithExceptionV2(\Exception $exception, $code)
+    public function errorResponseWithExceptionV2(\Exception $exception, int $code): JSONResponse
     {
         return $this->errorResponseV2(
             $exception->getMessage(),
@@ -45,7 +45,7 @@ trait JSONHttpErrorTrait
      * @param int $httpStatusCode
      * @return \OCP\AppFramework\Http\JSONResponse
      */
-    public function errorResponseV2(string $message, int $code, int $httpStatusCode)
+    public function errorResponseV2(string $message, int $code, int $httpStatusCode): JSONResponse
     {
         return new JSONResponse([
             'error' => [

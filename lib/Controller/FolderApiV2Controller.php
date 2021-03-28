@@ -24,7 +24,14 @@ class FolderApiV2Controller extends ApiController
     use ApiPayloadTrait;
     use JSONHttpErrorTrait;
 
+    /**
+     * @var FolderServiceV2
+     */
     private $folderService;
+
+    /**
+     * @var ItemServiceV2
+     */
     private $itemService;
 
     public function __construct(
@@ -47,7 +54,7 @@ class FolderApiV2Controller extends ApiController
      * @param string $name
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
-    public function create($name)
+    public function create(string $name)
     {
         if (empty($name)) {
             return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
@@ -70,7 +77,7 @@ class FolderApiV2Controller extends ApiController
      * @param string $name
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function update($folderId, $name)
+    public function update(int $folderId, string $name)
     {
         if (empty($name)) {
             return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
@@ -97,7 +104,7 @@ class FolderApiV2Controller extends ApiController
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
-    public function delete($folderId)
+    public function delete(int $folderId)
     {
         try {
             $responseData = $this->serializeEntityV2(
