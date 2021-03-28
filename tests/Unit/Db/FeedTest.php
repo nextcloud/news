@@ -68,6 +68,30 @@ class FeedTest extends TestCase
     }
 
 
+    public function testToAPI2()
+    {
+        $feed = $this->createFeed();
+
+        $this->assertEquals(
+            [
+                'id' => 3,
+                'name' => 'title',
+                'faviconLink' => 'favicon',
+                'folderId' => 1,
+                'ordering' => 2,
+                'fullTextEnabled' => true,
+                'updateMode' => 1,
+                'isPinned' => true,
+                'error' => [
+                    'code' => 1,
+                    'message' => 'hi'
+                ]
+            ],
+            $feed->toAPI2()
+        );
+    }
+
+
     public function testSerialize()
     {
         $feed = $this->createFeed();

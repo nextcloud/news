@@ -115,6 +115,69 @@ class ItemTest extends TestCase
     }
 
 
+    public function testToAPI2()
+    {
+        $item = new Item();
+        $item->setId(3);
+        $item->setUrl('https://google');
+        $item->setTitle('title');
+        $item->setAuthor('author');
+        $item->setPubDate(123);
+        $item->setBody('body');
+        $item->setEnclosureMime('audio/ogg');
+        $item->setEnclosureLink('enclink');
+        $item->setMediaThumbnail('https://i2.ytimg.com/vi/E6B3uvhrcQk/hqdefault.jpg');
+        $item->setMediaDescription('The best video ever');
+        $item->setRtl(true);
+        $item->setFeedId(1);
+        $item->setUnread(true);
+        $item->setStarred(true);
+        $item->setLastModified('1111111111234567');
+        $item->setFingerprint('fingerprint');
+        $item->setContentHash('contentHash');
+
+        $this->assertEquals(
+            [
+                'id' => 3,
+                'url' => 'https://google',
+                'title' => 'title',
+                'author' => 'author',
+                'publishedAt' => date('c', 123),
+                'lastModifiedAt' => date('c', 1111111111),
+                'enclosure' => [
+                    'mimeType' => 'audio/ogg',
+                    'url' => 'enclink',
+                ],
+                'body' => 'body',
+                'feedId' => 1,
+                'isUnread' => true,
+                'isStarred' => true,
+                'fingerprint' => 'fingerprint',
+                'contentHash' => 'contentHash'
+            ],
+            $item->toAPI2()
+        );
+    }
+
+
+    public function testToAPI2Reduced()
+    {
+        $item = new Item();
+        $item->setId(3);
+        $item->setUnread(true);
+        $item->setStarred(true);
+
+        $this->assertEquals(
+            [
+                'id' => 3,
+                'isUnread' => true,
+                'isStarred' => true
+            ],
+            $item->toAPI2(true)
+        );
+    }
+
+
     public function testJSONSerialize()
     {
         $item = new Item();
