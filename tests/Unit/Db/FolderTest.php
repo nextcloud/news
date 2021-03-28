@@ -38,6 +38,25 @@ class FolderTest extends TestCase
     }
 
 
+    public function testToAPI2()
+    {
+        $folder = new Folder();
+        $folder->setId(3);
+        $folder->setName('name');
+        $folder->setOpened(false);
+
+        $this->assertEquals(
+            [
+                'id' => 3,
+                'name' => 'name',
+                'opened' => false,
+                'feeds' => []
+            ],
+            $folder->toAPI2()
+        );
+    }
+
+
     public function testSerialize()
     {
         $folder = new Folder();
