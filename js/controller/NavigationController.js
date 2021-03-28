@@ -210,7 +210,9 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
                 feed.url += regResult[2];
             }
 
-            FeedResource.create(feed.url, existingFolder.id, undefined, feed.user, feed.password).then(function (data) {
+            var autoDiscover = feed.autoDiscover ? true : false;
+            FeedResource.create(feed.url, existingFolder.id, undefined, feed.user, feed.password, autoDiscover)
+            .then(function (data) {
                 Publisher.publishAll(data);
 
                 // set folder as default
@@ -220,6 +222,7 @@ app.controller('NavigationController', function ($route, FEED_TYPE, FeedResource
                 feed.url = '';
                 feed.user = '';
                 feed.password = '';
+                feed.autoDiscover = true;
                 self.addingFeed = false;
             });
 

@@ -9,6 +9,7 @@
     <div class="add-new-popup" id="new-feed" news-add-feed="Navigation.feed">
 
         <form ng-submit="Navigation.createFeed(Navigation.feed)"
+              ng-init="Navigation.feed.autoDiscover=true"
               name="feedform">
             <fieldset ng-disabled="Navigation.addingFeed">
                 <input type="text"
@@ -97,6 +98,12 @@
                         placeholder="<?php p($l->t('Password')); ?>"
                         name="password" autocomplete="new-password">
                 </div>
+
+                <input type="checkbox"
+                       class="checkbox"
+                       ng-model="Navigation.feed.autoDiscover"
+                       id="add-feed-discover">
+                <label for="add-feed-discover"><?php p($l->t('Autodiscover Feed')); ?></label>
 
                 <!-- submit -->
                 <input type="submit"

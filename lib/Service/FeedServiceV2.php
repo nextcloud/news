@@ -189,15 +189,18 @@ class FeedServiceV2 extends Service
         bool $full_text = false,
         ?string $title = null,
         ?string $user = null,
-        ?string $password = null
+        ?string $password = null,
+        bool $full_discover = true
     ): Entity {
         if ($this->existsForUser($userId, $feedUrl)) {
             throw new ServiceConflictException('Feed with this URL exists');
         }
 
-        $feeds = $this->explorer->discover($feedUrl);
-        if ($feeds !== []) {
-            $feedUrl = array_shift($feeds);
+        if ($full_discover) {
+            $feeds = $this->explorer->discover($feedUrl);
+            if ($feeds !== []) {
+                $feedUrl = array_shift($feeds);
+            }
         }
 
         try {

@@ -163,7 +163,7 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
     };
 
 
-    FeedResource.prototype.create = function (url, folderId, title, user, password) {
+    FeedResource.prototype.create = function (url, folderId, title, user, password, fullDiscover) {
         url = url.trim();
         if (!url.startsWith('http')) {
             url = 'https://' + url;
@@ -191,7 +191,8 @@ app.factory('FeedResource', function (Resource, $http, BASE_URL, $q) {
                 parentFolderId: folderId || 0,
                 title: title,
                 user: user || null,
-                password: password || null
+                password: password || null,
+                fullDiscover: fullDiscover
             }
         }).then(function (response) {
             return response.data;

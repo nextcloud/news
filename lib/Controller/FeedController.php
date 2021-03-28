@@ -161,7 +161,8 @@ class FeedController extends Controller
         ?int $parentFolderId,
         ?string $title = null,
         ?string $user = null,
-        ?string $password = null
+        ?string $password = null,
+        bool $fullDiscover = true
     ) {
         if ($parentFolderId === 0) {
             $parentFolderId = null;
@@ -178,7 +179,8 @@ class FeedController extends Controller
                 false,
                 $title,
                 $user,
-                $password
+                $password,
+                $fullDiscover
             );
             $params = ['feeds' => [$feed]];
 
