@@ -361,7 +361,7 @@ describe('NavigationController', function () {
 
         expect(ctrl.showNewFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 3,
-            undefined, undefined, undefined);
+            undefined, undefined, undefined, false);
         expect(Publisher.publishAll).toHaveBeenCalledWith({feeds: [{
             id: 3,
             url: 'test',
@@ -441,7 +441,7 @@ describe('NavigationController', function () {
 
         expect(ctrl.showNewFolder).toBe(false);
         expect(FeedResource.create).toHaveBeenCalledWith('test', 19,
-            undefined, 'user', 'password');
+            undefined, 'user', 'password', false);
         expect(FolderResource.create).toHaveBeenCalledWith('john');
         expect(Publisher.publishAll).toHaveBeenCalledWith({
             folders: [{

@@ -11,6 +11,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Make PHPStan stricter
 - Restore search in news
 - Improve test coverage
+- Allow directly adding a feed without going through the discovery process (#1265)
 
 ### Fixed
 - Do not show deleted feeds in item list
