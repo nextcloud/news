@@ -56,7 +56,7 @@ class FolderApiV2Controller extends ApiController
      */
     public function create(string $name)
     {
-        if (empty($name)) {
+        if (trim($name) === '') {
             return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
         }
 
@@ -79,7 +79,7 @@ class FolderApiV2Controller extends ApiController
      */
     public function update(int $folderId, string $name)
     {
-        if (empty($name)) {
+        if (trim($name) === '') {
             return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
         }
 
