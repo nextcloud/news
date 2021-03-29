@@ -60,9 +60,9 @@ class FolderSearchProvider implements IProvider
     public function search(IUser $user, ISearchQuery $query): SearchResult
     {
         $term = $query->getTerm();
-        $list = array_map(function (Folder $folder) use ($term): SearchResultEntry {
+        $list = array_map(function (Folder $folder) use ($term): ?SearchResultEntry {
             if (strpos($folder->getName(), $term) === false) {
-                return;
+                return null;
             }
 
             return new SearchResultEntry(
