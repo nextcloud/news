@@ -676,7 +676,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'isPinned' => $this->getPinned()
         ];
 
-        if (!empty($this->getLastUpdateError())) {
+        if (!is_null($this->getLastUpdateError()) || trim($this->getLastUpdateError()) !== '') {
             $result['error'] = [
                 'code' => 1,
                 'message' => $this->getLastUpdateError()
