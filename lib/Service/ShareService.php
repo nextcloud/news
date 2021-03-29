@@ -60,7 +60,7 @@ class ShareService
     /**
      * @var IL10N
      */
-    private $l;
+    private $l10n;
 
     /**
      * ShareService constructor
@@ -69,7 +69,7 @@ class ShareService
      * @param ItemServiceV2   $itemService  Service to manage items
      * @param IURLGenerator   $urlGenerator URL Generator
      * @param IUserManager    $userManager  User Manager
-     * @param IL10N           $l            Localization interface
+     * @param IL10N           $l10n         Localization interface
      * @param LoggerInterface $logger       Logger
      */
     public function __construct(
@@ -77,14 +77,14 @@ class ShareService
         ItemServiceV2 $itemService,
         IURLGenerator $urlGenerator,
         IUserManager $userManager,
-        IL10N $l,
+        IL10N $l10n,
         LoggerInterface $logger
     ) {
         $this->itemService  = $itemService;
         $this->feedService  = $feedService;
         $this->urlGenerator = $urlGenerator;
         $this->userManager  = $userManager;
-        $this->l            = $l;
+        $this->l10n         = $l10n;
         $this->logger       = $logger;
     }
 
@@ -124,7 +124,7 @@ class ShareService
                  ->setUrlHash(md5($feedUrl))
                  ->setLink($feedUrl)
                  ->setUrl($feedUrl)
-                 ->setTitle($this->l->t('Shared with me'))
+                 ->setTitle($this->l10n->t('Shared with me'))
                  ->setAdded(time())
                  ->setFolderId(null)
                  ->setPreventUpdate(true);
