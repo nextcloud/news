@@ -62,7 +62,7 @@ class ShareServiceTest extends TestCase
     /**
      * @var MockObject|IL10N
      */
-    private $l;
+    private $l10n;
 
     /**
      * @var MockObject|LoggerInterface
@@ -103,7 +103,7 @@ class ShareServiceTest extends TestCase
             ->getMockBuilder(IUserManager::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->l = $this->getMockBuilder(IL10N::class)
+        $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -114,7 +114,7 @@ class ShareServiceTest extends TestCase
             $this->itemService,
             $this->urlGenerator,
             $this->userManager,
-            $this->l,
+            $this->l10n,
             $this->logger
         );
 
@@ -230,7 +230,7 @@ class ShareServiceTest extends TestCase
             ->with($this->recipient, $feedUrl)
             ->will($this->returnValue(null));
 
-        $this->l->expects($this->once())
+        $this->l10n->expects($this->once())
             ->method('t')
             ->with('Shared with me')
             ->will($this->returnValue('Shared with me'));
