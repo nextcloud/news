@@ -65,7 +65,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $starred = false;
     /** @var string|null */
     protected $categoriesJson;
-    /** @var string */
+    /** @var string|null */
     protected $sharedBy;
     /** @var string|null */
     protected $sharedByDisplayName;
