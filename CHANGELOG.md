@@ -5,16 +5,21 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [Unreleased]
 
 ### Changed
-- Add BATS as integration tests
+
+### Fixed
+
+## [15.4.0-beta3] - 2021-04-03
+### Changed
+- Add BATS as integration tests (#1213)
 - Update FeedFetcher to import categories from feeds (#1248)
 - Update serialization of item to include categories (#1248)
-- Make PHPStan stricter
-- Restore search in news
-- Improve test coverage
+- Make PHPStan stricter (#955)
+- Search: Add folder search (#1215)
+- Improve test coverage (#1263)
 - Allow directly adding a feed without going through the discovery process (#1265)
 
 ### Fixed
-- Do not show deleted feeds in item list
+- Do not show deleted feeds in item list (#1214)
 - Fix update queries (#1211)
 
 ## [15.4.0-beta2] - 2021-02-27
