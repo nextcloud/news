@@ -77,6 +77,7 @@ OC.L10N.register(
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Podstawowe poświadczenia uwierzytelnienia HTTP muszą być zapisane odszyfrowane! Każdy posiadający dostęp do serwera lub bazy danych będzie mógł je odczytać!",
     "Username" : "Nazwa użytkownika",
     "Password" : "Hasło",
+    "Autodiscover Feed" : "Kanał automatycznego wykrywania",
     "New Folder" : "Nowy folder",
     "Create" : "Utwórz",
     "Explore" : "Przeglądaj",

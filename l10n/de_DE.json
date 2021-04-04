@@ -75,6 +75,7 @@
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Die Anmeldeinformationen der HTTP-Standardauthentifizierung müssen unverschlüsselt gespeichert werden! Jeder mit Serverzugriff ist in der Lage diese Daten zu lesen.",
     "Username" : "Benutzername",
     "Password" : "Passwort",
+    "Autodiscover Feed" : "Feed automatisch erkennen",
     "New Folder" : "Neuer Ordner",
     "Create" : "Erstellen",
     "Explore" : "Entdecken",

@@ -77,6 +77,7 @@ OC.L10N.register(
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP 基本身分驗證必須未加密儲存！每個可以存取伺服緝獲數據庫的人都將可以存取它們！",
     "Username" : "用戶名稱",
     "Password" : "密碼",
+    "Autodiscover Feed" : "自動發現摘要",
     "New Folder" : "新資料夾",
     "Create" : "建立",
     "Explore" : "探索",

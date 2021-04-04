@@ -77,6 +77,7 @@ OC.L10N.register(
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP basis auth gegevens moeten ongecodeerd worden opgeslagen! Iederen die toegang heeft tot de server of database kan deze benaderen! ",
     "Username" : "Gebruikersnaam",
     "Password" : "Wachtwoord",
+    "Autodiscover Feed" : "Autodiscover Feed",
     "New Folder" : "Nieuwe map",
     "Create" : "Aanmaken",
     "Explore" : "Verkennen",
