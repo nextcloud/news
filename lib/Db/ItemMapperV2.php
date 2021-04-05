@@ -467,7 +467,6 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('items.feed_id = :feedId')
             ->setParameter('userId', $userId)
             ->setParameter('feedId', $feedId)
-            ->setMaxResults($limit)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
@@ -477,6 +476,10 @@ class ItemMapperV2 extends NewsMapperV2
                 $builder->andWhere("items.search_index LIKE :term${key}")
                     ->setParameter("term${key}", "%$term%");
             }
+        }
+
+        if ($limit >= 1) {
+            $builder->setMaxResults($limit);
         }
 
         if ($offset !== 0) {
@@ -526,7 +529,6 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('feeds.deleted_at = 0')
             ->andWhere($folderWhere)
             ->setParameter('userId', $userId)
-            ->setMaxResults($limit)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
@@ -536,6 +538,10 @@ class ItemMapperV2 extends NewsMapperV2
                 $builder->andWhere("items.search_index LIKE :term${key}")
                     ->setParameter("term${key}", "%$term%");
             }
+        }
+
+        if ($limit >= 1) {
+            $builder->setMaxResults($limit);
         }
 
         if ($offset !== 0) {
@@ -577,7 +583,6 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.deleted_at = 0')
             ->setParameter('userId', $userId)
-            ->setMaxResults($limit)
             ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
@@ -587,6 +592,10 @@ class ItemMapperV2 extends NewsMapperV2
                 $builder->andWhere("items.search_index LIKE :term${key}")
                         ->setParameter("term${key}", "%$term%");
             }
+        }
+
+        if ($limit >= 1) {
+            $builder->setMaxResults($limit);
         }
 
         if ($offset !== 0) {

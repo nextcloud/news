@@ -17,7 +17,7 @@ teardown() {
   fi
 }
 
-@test "[$TESTSUITE] List all items in feed" {
+@test "[$TESTSUITE] List 200 items in feed" {
   run ./occ news:item:list-feed "$user" "$ID" --limit 200
   [ "$status" -eq 0 ]
 
@@ -28,7 +28,18 @@ teardown() {
   fi
 }
 
-@test "[$TESTSUITE] List all items in folder" {
+@test "[$TESTSUITE] List all items in feed" {
+  run ./occ news:item:list-feed "$user" "$ID" --limit 0
+  [ "$status" -eq 0 ]
+
+  if ! echo "$output" | grep "$TAG"; then
+    ret_status=$?
+    echo "Release not found in feed list"
+    return $ret_status
+  fi
+}
+
+@test "[$TESTSUITE] List 200 items in folder" {
   run ./occ news:item:list-folder "$user" --limit 200
   [ "$status" -eq 0 ]
 
@@ -39,8 +50,30 @@ teardown() {
   fi
 }
 
-@test "[$TESTSUITE] List all items" {
+@test "[$TESTSUITE] List all items in folder" {
+  run ./occ news:item:list-folder "$user" --limit 0
+  [ "$status" -eq 0 ]
+
+  if ! echo "$output" | grep "$TAG"; then
+    ret_status=$?
+    echo "Release not found in folder list"
+    return $ret_status
+  fi
+}
+
+@test "[$TESTSUITE] List 200 items" {
   run ./occ news:item:list "$user" --limit 200
+  [ "$status" -eq 0 ]
+
+  if ! echo "$output" | grep "$TAG"; then
+    ret_status=$?
+    echo "Release not found in list"
+    return $ret_status
+  fi
+}
+
+@test "[$TESTSUITE] List all items" {
+  run ./occ news:item:list "$user" --limit 0
   [ "$status" -eq 0 ]
 
   if ! echo "$output" | grep "$TAG"; then

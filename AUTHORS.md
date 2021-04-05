@@ -151,6 +151,7 @@
 * [nexus-uw](mailto:you@example.com)
 * [repat](mailto:repat@repat.de)
 * [ritchiewilson](mailto:rawilson52@gmail.com)
+* [skiingwiz](mailto:skiingwiz@gmail.com)
 * [sonologic](mailto:gmc@sonologic.nl)
 * [tflidd](mailto:tflidd@aspekte.net)
 * [waffshappen](mailto:44290023+waffshappen@users.noreply.github.com)
