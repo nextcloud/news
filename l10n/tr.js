@@ -77,6 +77,7 @@ OC.L10N.register(
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth kimlik doğrulama bilgilerinin şifrelenmemiş olarak depolanması gerektiğinden, sunucu ya da veritabanına erişimi olan herkes bu bilgilere erişebilir!",
     "Username" : "Kullanıcı adı",
     "Password" : "Parola",
+    "Autodiscover Feed" : "Akışı Otomatik Bul",
     "New Folder" : "Yeni Klasör",
     "Create" : "Ekle",
     "Explore" : "Keşfet",
