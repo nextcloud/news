@@ -342,7 +342,8 @@ class ItemMapperV2 extends NewsMapperV2
             ->addOrderBy('items.id', 'DESC');
 
         if ($hideRead === true) {
-            $builder->andWhere('items.unread = 1');
+            $builder->andWhere('items.unread = :unread')
+                    ->setParameter('unread', true);
         }
 
         return $this->findEntities($builder);
@@ -377,7 +378,8 @@ class ItemMapperV2 extends NewsMapperV2
             ->addOrderBy('items.id', 'DESC');
 
         if ($hideRead === true) {
-            $builder->andWhere('items.unread = 1');
+            $builder->andWhere('items.unread = :unread')
+                    ->setParameter('unread', true);
         }
 
         return $this->findEntities($builder);
@@ -407,10 +409,12 @@ class ItemMapperV2 extends NewsMapperV2
 
         switch ($feedType) {
             case ListType::STARRED:
-                $builder->andWhere('items.starred = 1');
+                $builder->andWhere('items.starred = :starred')
+                        ->setParameter('starred', true);
                 break;
             case ListType::UNREAD:
-                $builder->andWhere('items.unread = 1');
+                $builder->andWhere('items.unread = :unread')
+                        ->setParameter('unread', true);
                 break;
             case ListType::ALL_ITEMS:
                 break;
@@ -474,7 +478,7 @@ class ItemMapperV2 extends NewsMapperV2
             foreach ($search as $key => $term) {
                 $term = $this->db->escapeLikeParameter($term);
                 $builder->andWhere("items.search_index LIKE :term${key}")
-                    ->setParameter("term${key}", "%$term%");
+                        ->setParameter("term${key}", "%$term%");
             }
         }
 
@@ -484,11 +488,12 @@ class ItemMapperV2 extends NewsMapperV2
 
         if ($offset !== 0) {
             $builder->andWhere($this->offsetWhere($oldestFirst))
-                ->setParameter('offset', $offset);
+                    ->setParameter('offset', $offset);
         }
 
         if ($hideRead === true) {
-            $builder->andWhere('items.unread = 1');
+            $builder->andWhere('items.unread = :unread')
+                    ->setParameter('unread', true);
         }
 
         return $this->findEntities($builder);
@@ -536,7 +541,7 @@ class ItemMapperV2 extends NewsMapperV2
             foreach ($search as $key => $term) {
                 $term = $this->db->escapeLikeParameter($term);
                 $builder->andWhere("items.search_index LIKE :term${key}")
-                    ->setParameter("term${key}", "%$term%");
+                        ->setParameter("term${key}", "%$term%");
             }
         }
 
@@ -546,11 +551,12 @@ class ItemMapperV2 extends NewsMapperV2
 
         if ($offset !== 0) {
             $builder->andWhere($this->offsetWhere($oldestFirst))
-                ->setParameter('offset', $offset);
+                    ->setParameter('offset', $offset);
         }
 
         if ($hideRead === true) {
-            $builder->andWhere('items.unread = 1');
+            $builder->andWhere('items.unread = :unread')
+                    ->setParameter('unread', true);
         }
 
         return $this->findEntities($builder);
@@ -600,15 +606,17 @@ class ItemMapperV2 extends NewsMapperV2
 
         if ($offset !== 0) {
             $builder->andWhere($this->offsetWhere($oldestFirst))
-                ->setParameter('offset', $offset);
+                    ->setParameter('offset', $offset);
         }
 
         switch ($type) {
             case ListType::STARRED:
-                $builder->andWhere('items.starred = 1');
+                $builder->andWhere('items.starred = :starred')
+                        ->setParameter('starred', true);
                 break;
             case ListType::UNREAD:
-                $builder->andWhere('items.unread = 1');
+                $builder->andWhere('items.unread = :unread')
+                        ->setParameter('unread', true);
                 break;
             case ListType::ALL_ITEMS:
                 break;

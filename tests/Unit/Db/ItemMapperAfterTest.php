@@ -134,7 +134,7 @@ class ItemMapperAfterTest extends MapperTestUtility
                 ['feeds.user_id = :userId'],
                 ['feeds.id = :feedId'],
                 ['feeds.deleted_at = 0'],
-                ['items.unread = 1']
+                ['items.unread = :unread']
             )
             ->will($this->returnSelf());
 
@@ -145,6 +145,11 @@ class ItemMapperAfterTest extends MapperTestUtility
                 'feedId' => 4,
                 'userId' => 'jack',
             ])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setParameter')
+            ->with('unread', true)
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -271,7 +276,7 @@ class ItemMapperAfterTest extends MapperTestUtility
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
                 ['folders.id = :folderId'],
-                ['items.unread = 1']
+                ['items.unread = :unread']
             )
             ->will($this->returnSelf());
 
@@ -282,6 +287,11 @@ class ItemMapperAfterTest extends MapperTestUtility
                 'folderId' => 4,
                 'userId' => 'jack',
             ])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setParameter')
+            ->with('unread', true)
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -336,7 +346,7 @@ class ItemMapperAfterTest extends MapperTestUtility
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
-                ['items.unread = 1']
+                ['items.unread = :unread']
             )
             ->will($this->returnSelf());
 
@@ -346,6 +356,11 @@ class ItemMapperAfterTest extends MapperTestUtility
                 'updatedSince' => 1610903351,
                 'userId' => 'jack',
             ])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setParameter')
+            ->with('unread', true)
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -400,7 +415,7 @@ class ItemMapperAfterTest extends MapperTestUtility
                 ['items.last_modified >= :updatedSince'],
                 ['feeds.deleted_at = 0'],
                 ['feeds.user_id = :userId'],
-                ['items.starred = 1']
+                ['items.starred = :starred']
             )
             ->will($this->returnSelf());
 
@@ -410,6 +425,11 @@ class ItemMapperAfterTest extends MapperTestUtility
                 'updatedSince' => 1610903351,
                 'userId' => 'jack',
             ])
+            ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(1))
+            ->method('setParameter')
+            ->with('starred', true)
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
