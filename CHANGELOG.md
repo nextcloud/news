@@ -7,12 +7,12 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Check category label for null (#1282)
 
 ## [15.4.0-beta3] - 2021-04-03
 ### Fixed
 - Allow negative limits (#1275)
 - Use boolean to check bool fields (#1278)
-- Check category label for null (#1282)
 
 ## [15.4.0-beta3] - 2021-04-03
 ### Changed
