@@ -103,7 +103,7 @@
                        class="checkbox"
                        ng-model="Navigation.feed.autoDiscover"
                        id="add-feed-discover">
-                <label for="add-feed-discover"><?php p($l->t('Autodiscover Feed')); ?></label>
+                <label for="add-feed-discover"><?php p($l->t('Auto discover Feed')); ?></label>
 
                 <!-- submit -->
                 <input type="submit"
