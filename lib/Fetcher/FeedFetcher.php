@@ -258,7 +258,9 @@ class FeedFetcher implements IFeedFetcher
 
         $categories = [];
         foreach ($parsedItem->getCategories() as $category) {
-            $categories[] = $this->decodeTwice($category->getLabel());
+            if ($category->getLabel() !== null) {
+                $categories[] = $this->decodeTwice($category->getLabel());
+            }
         }
         $item->setCategories($categories);
 
