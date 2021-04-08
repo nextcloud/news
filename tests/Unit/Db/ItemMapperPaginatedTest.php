@@ -219,7 +219,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('setParameter')
             ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
             ->will($this->returnSelf());
@@ -359,7 +359,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('setParameter')
             ->withConsecutive(['userId', 'jack'], ['offset', 10], ['starred', true])
             ->will($this->returnSelf());
@@ -436,7 +436,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             )
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(5))
             ->method('setParameter')
             ->withConsecutive(
                 ['userId', 'jack'],
@@ -578,7 +578,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(5))
+        $this->builder->expects($this->exactly(4))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.deleted_at = 0'],
@@ -720,7 +720,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(5))
             ->method('andWhere')
             ->withConsecutive(
                 ['feeds.deleted_at = 0'],
