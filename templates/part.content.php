@@ -30,16 +30,7 @@
             <div class="utils" ng-click="Content.toggleItem(item)">
                 <ul>
                     <li class="util-spacer"></li>
-                    <li class="util only-in-compact">
-                        <a class="external icon-link"
-                            ng-click="Content.markRead(item.id)"
-                            target="_blank"
-                            rel="noreferrer"
-                            ng-href="{{ ::item.url }}"
-                            title="<?php p($l->t('Open website')) ?>"
-                            news-stop-propagation>
-                        </a>
-                    </li>
+                    <vue-component name="IconLinkCompact" v-props-item="item" v-props-ctrl="Content" />
                     <li class="title only-in-compact"
                         ng-class="{
                             'icon-rss':
