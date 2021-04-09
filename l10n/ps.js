@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Download" : "ښکته کول",
     "Close" : "بندول",
-    "New folder" : "نوی فولډر",
     "Username" : "کارن نوم",
+    "New folder" : "نوی فولډر",
     "Password" : "پاسورډ",
     "Rename" : "نوم بدلول",
     "Delete" : "ړنګول",

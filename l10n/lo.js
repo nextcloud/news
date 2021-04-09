@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "New folder" : "ໂຟນເດີໃຫມ່",
     "Username" : "ຊື່ຜູ້ໃຊ້",
+    "New folder" : "ໂຟນເດີໃຫມ່",
     "Password" : "ລະຫັດຜ່ານ",
     "Rename" : "ປ່ຽນຊື່",
     "Delete" : "ລຶບ",

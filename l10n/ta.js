@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "பதிவிறக்குக",
     "Close" : "மூடுக",
+    "Username" : "பயனாளர் பெயர்",
     "by" : "மூலம்",
     "from" : "இலிருந்து",
     "Description" : "விவரிப்பு",
@@ -11,7 +12,6 @@ OC.L10N.register(
     "Folder" : "கோப்புறை",
     "Folder name" : "கோப்புறை பெயர்",
     "Credentials" : "சான்று ஆவணங்கள்",
-    "Username" : "பயனாளர் பெயர்",
     "Password" : "கடவுச்சொல்",
     "Create" : "உருவாக்குக",
     "Rename" : "பெயர்மாற்றம்",

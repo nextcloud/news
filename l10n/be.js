@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "Username" : "Username",
     "Folder" : "Folder",
     "Credentials" : "Credentials",
-    "Username" : "Username",
     "Password" : "Password",
     "Rename" : "Rename",
     "Delete" : "Delete",

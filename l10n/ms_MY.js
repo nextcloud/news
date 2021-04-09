@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "Muat turun",
     "Close" : "Tutup",
+    "Username" : "Nama pengguna",
     "by" : "oleh",
     "from" : "dari",
     "Description" : "Keterangan",
@@ -10,7 +11,6 @@ OC.L10N.register(
     "Web address" : "Alamat sesawang",
     "Folder" : "Folder",
     "Credentials" : "Credentials",
-    "Username" : "Nama pengguna",
     "Password" : "Kata laluan",
     "Create" : "Buat",
     "Rename" : "Namakan",

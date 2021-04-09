@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Download" : "ڈاؤن لوڈ،",
     "Close" : "بند ",
+    "Username" : "اسم صارف",
     "Description" : "تصریح",
     "Folder" : "Folder",
     "Credentials" : "Credentials",
-    "Username" : "اسم صارف",
     "Password" : "پاسورڈ",
     "Rename" : "Rename",
     "Delete" : "حذف کریں",

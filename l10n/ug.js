@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "چۈشۈر",
     "Close" : "ياپ",
+    "Username" : "ئىشلەتكۈچى ئاتى",
     "by" : "سەنئەتكار",
     "Description" : "چۈشەندۈرۈش",
     "Refresh" : "يېڭىلا",
@@ -11,7 +12,6 @@ OC.L10N.register(
     "New folder" : "يېڭى قىسقۇچ",
     "Folder name" : "قىسقۇچ ئاتى",
     "Credentials" : "Credentials",
-    "Username" : "ئىشلەتكۈچى ئاتى",
     "Password" : "ئىم",
     "Create" : "قۇر",
     "Rename" : "ئات ئۆزگەرت",

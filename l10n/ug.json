@@ -1,6 +1,7 @@
 { "translations": {
     "Download" : "چۈشۈر",
     "Close" : "ياپ",
+    "Username" : "ئىشلەتكۈچى ئاتى",
     "by" : "سەنئەتكار",
     "Description" : "چۈشەندۈرۈش",
     "Refresh" : "يېڭىلا",
@@ -9,7 +10,6 @@
     "New folder" : "يېڭى قىسقۇچ",
     "Folder name" : "قىسقۇچ ئاتى",
     "Credentials" : "Credentials",
-    "Username" : "ئىشلەتكۈچى ئاتى",
     "Password" : "ئىم",
     "Create" : "قۇر",
     "Rename" : "ئات ئۆزگەرت",
