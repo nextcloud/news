@@ -49,7 +49,7 @@ class FolderSearchProvider implements IProvider
 
     public function getOrder(string $route, array $routeParameters): int
     {
-        if (strpos($route, Application::NAME . '.') === 0) {
+        if ($route === 'news.view.index') {
             // Active app, prefer my results
             return -1;
         }
@@ -59,19 +59,22 @@ class FolderSearchProvider implements IProvider
 
     public function search(IUser $user, ISearchQuery $query): SearchResult
     {
-        $term = $query->getTerm();
-        $list = array_map(function (Folder $folder) use ($term): ?SearchResultEntry {
-            if (strpos($folder->getName(), $term) === false) {
-                return null;
+        $list = [];
+        $term = strtolower($query->getTerm());
+
+        foreach ($this->service->findAllForUser($user->getUID()) as $folder) {
+            if (strpos(strtolower($folder->getName()), $term) === false) {
+                continue;
             }
 
-            return new SearchResultEntry(
+            $list[] = new SearchResultEntry(
                 $this->urlGenerator->imagePath('core', 'filetypes/folder.svg'),
                 $folder->getName(),
                 '',
                 $this->urlGenerator->linkToRoute('news.view.index') . '#/items/folders/' . $folder->getId()
             );
-        }, $this->service->findAllForUser($user->getUID()));
+        }
+
         return SearchResult::complete($this->l10n->t('News'), $list);
     }
 }
