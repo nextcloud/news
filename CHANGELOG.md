@@ -10,6 +10,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - Check category label for null (#1282)
+- Do not return non-matching search items
 
 ## [15.4.0-beta3] - 2021-04-03
 ### Fixed
