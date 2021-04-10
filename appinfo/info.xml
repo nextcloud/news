@@ -68,7 +68,6 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <commands>
         <command>OCA\News\Command\ExploreGenerator</command>
         <command>OCA\News\Command\ShowFeed</command>
-        <command>OCA\News\Command\Updater\AllFeeds</command>
         <command>OCA\News\Command\Updater\UpdateFeed</command>
         <command>OCA\News\Command\Updater\BeforeUpdate</command>
         <command>OCA\News\Command\Updater\AfterUpdate</command>
