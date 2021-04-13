@@ -62,7 +62,7 @@ class ItemMapperV2 extends NewsMapperV2
                 ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR);
 
         foreach ($params as $key => $value) {
-            $builder->andWhere("${key} = " . $builder->createNamedParameter($value));
+            $builder->andWhere("$key = " . $builder->createNamedParameter($value));
         }
 
         return $this->findEntities($builder);
@@ -201,7 +201,6 @@ class ItemMapperV2 extends NewsMapperV2
             ->from($this->tableName)
             ->where('feed_id = :feedId')
             ->andWhere('starred = false')
-            ->orderBy('last_modified', 'DESC')
             ->addOrderBy('id', 'DESC');
 
         if ($removeUnread === false) {
@@ -426,22 +425,6 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
-     * Generate an expression for the offset.
-     *
-     * @param bool $oldestFirst Sorting direction
-     *
-     * @return string
-     */
-    private function offsetWhere(bool $oldestFirst): string
-    {
-        if ($oldestFirst === true) {
-            return 'items.id > :offset';
-        }
-
-        return 'items.id < :offset';
-    }
-
-    /**
      * @param string $userId      User identifier
      * @param int    $feedId      Feed identifier
      * @param int    $limit       Max items to retrieve
@@ -471,16 +454,9 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('items.feed_id = :feedId')
             ->setParameter('userId', $userId)
             ->setParameter('feedId', $feedId)
-            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
-        if ($search !== []) {
-            foreach ($search as $key => $term) {
-                $term = $this->db->escapeLikeParameter($term);
-                $builder->andWhere("items.search_index LIKE :term${key}")
-                        ->setParameter("term${key}", "%$term%");
-            }
-        }
+        $builder = $this->addSearch($builder, $search);
 
         if ($limit >= 1) {
             $builder->setMaxResults($limit);
@@ -534,16 +510,9 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('feeds.deleted_at = 0')
             ->andWhere($folderWhere)
             ->setParameter('userId', $userId)
-            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
-        if ($search !== []) {
-            foreach ($search as $key => $term) {
-                $term = $this->db->escapeLikeParameter($term);
-                $builder->andWhere("items.search_index LIKE :term${key}")
-                        ->setParameter("term${key}", "%$term%");
-            }
-        }
+        $builder = $this->addSearch($builder, $search);
 
         if ($limit >= 1) {
             $builder->setMaxResults($limit);
@@ -589,16 +558,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.deleted_at = 0')
             ->setParameter('userId', $userId)
-            ->orderBy('items.last_modified', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
-
-        if ($search !== []) {
-            foreach ($search as $key => $term) {
-                $term = $this->db->escapeLikeParameter($term);
-                $builder->andWhere("items.search_index LIKE :term${key}")
-                        ->setParameter("term${key}", "%$term%");
-            }
-        }
 
         if ($limit >= 1) {
             $builder->setMaxResults($limit);
@@ -608,6 +568,8 @@ class ItemMapperV2 extends NewsMapperV2
             $builder->andWhere($this->offsetWhere($oldestFirst))
                     ->setParameter('offset', $offset);
         }
+
+        $builder = $this->addSearch($builder, $search);
 
         switch ($type) {
             case ListType::STARRED:
@@ -625,5 +587,44 @@ class ItemMapperV2 extends NewsMapperV2
         }
 
         return $this->findEntities($builder);
+    }
+
+    /**
+     * Add search parameters.
+     *
+     * @param IQueryBuilder $builder
+     * @param array         $terms
+     *
+     * @return IQueryBuilder
+     */
+    private function addSearch(IQueryBuilder $builder, array $terms): IQueryBuilder
+    {
+        if ($terms === []) {
+            return $builder;
+        }
+
+        foreach ($terms as $key => $term) {
+            $term = $this->db->escapeLikeParameter($term);
+            $builder->andWhere("items.search_index LIKE :term$key")
+                ->setParameter("term$key", "%$term%");
+        }
+
+        return $builder;
+    }
+
+    /**
+     * Generate an expression for the offset.
+     *
+     * @param bool $oldestFirst Sorting direction
+     *
+     * @return string
+     */
+    private function offsetWhere(bool $oldestFirst): string
+    {
+        if ($oldestFirst === true) {
+            return 'items.id > :offset';
+        }
+
+        return 'items.id < :offset';
     }
 }

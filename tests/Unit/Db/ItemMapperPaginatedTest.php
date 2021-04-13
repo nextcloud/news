@@ -93,11 +93,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('orderBy')
-            ->with('items.last_modified', 'DESC')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
             ->method('addOrderBy')
             ->with('items.id', 'DESC')
             ->willReturnSelf();
@@ -161,11 +156,6 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $this->builder->expects($this->exactly(0))
             ->method('setFirstResult')
             ->with(10)
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('orderBy')
-            ->with('items.last_modified', 'ASC')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -234,7 +224,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -303,7 +293,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -375,7 +365,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -429,9 +419,9 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->withConsecutive(
                 ['feeds.user_id = :userId'],
                 ['feeds.deleted_at = 0'],
+                ['items.id < :offset'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
-                ['items.id < :offset'],
                 ['items.starred = :starred']
             )
             ->will($this->returnSelf());
@@ -440,9 +430,9 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('setParameter')
             ->withConsecutive(
                 ['userId', 'jack'],
+                ['offset', 10],
                 ['term0', '%key%'],
                 ['term1', '%word%'],
-                ['offset', 10],
                 ['starred', true]
             )
             ->will($this->returnSelf());
@@ -459,7 +449,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -532,7 +522,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -603,7 +593,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -674,7 +664,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'ASC')
             ->will($this->returnSelf());
@@ -748,7 +738,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -832,7 +822,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -917,7 +907,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -991,7 +981,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->will($this->returnSelf());
 
 
-        $this->builder->expects($this->never(1))
+        $this->builder->expects($this->never())
             ->method('setMaxResults');
 
 
@@ -1000,7 +990,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -1086,7 +1076,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -1172,7 +1162,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'ASC')
             ->will($this->returnSelf());
@@ -1262,7 +1252,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with(10)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
