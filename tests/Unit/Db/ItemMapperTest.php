@@ -752,7 +752,7 @@ class ItemMapperTest extends MapperTestUtility
                  ->with('starred = false')
                  ->willReturnSelf();
 
-        $builder2->expects($this->once())
+        $builder2->expects($this->never())
                  ->method('orderBy')
                  ->with('last_modified', 'DESC')
                  ->willReturnSelf();
@@ -910,7 +910,7 @@ class ItemMapperTest extends MapperTestUtility
                  ->withConsecutive(['starred = false'], ['unread = false'])
                  ->willReturnSelf();
 
-        $builder2->expects($this->once())
+        $builder2->expects($this->never())
                  ->method('orderBy')
                  ->with('last_modified', 'DESC')
                  ->willReturnSelf();
@@ -1067,7 +1067,7 @@ class ItemMapperTest extends MapperTestUtility
                  ->withConsecutive(['starred = false'], ['unread = false'])
                  ->willReturnSelf();
 
-        $builder2->expects($this->once())
+        $builder2->expects($this->never())
                  ->method('orderBy')
                  ->with('last_modified', 'DESC')
                  ->willReturnSelf();
