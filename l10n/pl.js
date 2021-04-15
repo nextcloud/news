@@ -110,7 +110,7 @@ OC.L10N.register(
     "Dismiss" : "Odrzuć",
     "Collapse" : "Zwiń",
     "Deleted folder" : "Usuń folder",
-    "Undo delete folder" : "Cofnij usunięcie katalogu",
+    "Undo delete folder" : "Cofnij usunięcie folderu",
     "Starred" : "Oznaczone",
     "Unread articles" : "Nieprzeczytane artykuły",
     "All articles" : "Wszystkie artykuły",
