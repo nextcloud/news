@@ -2,12 +2,19 @@
 All notable changes to this project will be documented in this file.
 The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
-## [Unreleased]
-
+## [16.x.x]
+### Changed
 - v2 API implementation (folder part)
 
+### Fixed
+
+## [15.x.x]
 ### Changed
 
+### Fixed
+
+
+## [15.4.0-rc1] - 2021-04-16
 ### Fixed
 - Check category label for null (#1282)
 - Do not return non-matching search items
