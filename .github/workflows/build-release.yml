@@ -47,7 +47,6 @@ jobs:
       - name: Create signed release archive
         run: |
           cd ../server/apps/${{ env.APP_NAME }} && make appstore
-          rm -f ~/.nextcloud/certificates/*
         env:
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
@@ -70,3 +69,6 @@ jobs:
           download_url: ${{ steps.attach_to_release.outputs.browser_download_url }}
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
           nightly: ${{ github.event.release.prerelease }}
+
+      - name: Delete crt and key from local storage
+        run: rm -f ~/.nextcloud/certificates/*
