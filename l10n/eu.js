@@ -31,6 +31,7 @@ OC.L10N.register(
     "Keep article unread" : "Mantendu artikulua irakurri gabea",
     "Remove keep article unread" : "Ezabatu mantendu artikulua irakurri gabea",
     "Share" : "Partekatu",
+    "Share with users" : "Partekatu erabiltzaileekin",
     "Username" : "Erabiltzaile-izena",
     "No users found" : "Ez da erabiltzailerik aurkitu",
     "by" : " Egilea:",
