@@ -77,7 +77,7 @@ class FolderSearchProviderTest extends TestCase
 
     public function testGetOrderInternal()
     {
-        $this->assertSame(-1, $this->class->getOrder('news.view.index', []));
+        $this->assertSame(-1, $this->class->getOrder('news.page.index', []));
     }
 
     public function testSearch()
@@ -117,7 +117,7 @@ class FolderSearchProviderTest extends TestCase
 
         $this->generator->expects($this->once())
                         ->method('linkToRoute')
-                        ->with('news.view.index')
+                        ->with('news.page.index')
                         ->willReturn('/news');
 
 
