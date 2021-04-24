@@ -49,7 +49,7 @@ class FolderSearchProvider implements IProvider
 
     public function getOrder(string $route, array $routeParameters): int
     {
-        if ($route === 'news.view.index') {
+        if ($route === 'news.page.index') {
             // Active app, prefer my results
             return -1;
         }
@@ -71,7 +71,7 @@ class FolderSearchProvider implements IProvider
                 $this->urlGenerator->imagePath('core', 'filetypes/folder.svg'),
                 $folder->getName(),
                 '',
-                $this->urlGenerator->linkToRoute('news.view.index') . '#/items/folders/' . $folder->getId()
+                $this->urlGenerator->linkToRoute('news.page.index') . '#/items/folders/' . $folder->getId()
             );
         }
 

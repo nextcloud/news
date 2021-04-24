@@ -7,6 +7,13 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix search results not redirecting to the news app
+
+## [15.4.0-rc1] - 2021-04-19
+
+### Changed
+
+### Fixed
 - Check category label for null (#1282)
 - Do not return non-matching search items
 - Resolve an issue with webservices missing items
