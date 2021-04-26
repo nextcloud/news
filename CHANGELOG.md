@@ -2,14 +2,32 @@
 All notable changes to this project will be documented in this file.
 The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
-## [Unreleased]
+# Unreleased
+## [16.x.x]
+### Changed
+- v2 API implementation (folder part)
+- Implemented sharing news items between nextcloud users (#1191)
+- Updated the news items table in DB to include sharer data (#1191)
+- Added route for sharing news items (#1191)
+- Added share data in news items serialization (#1191)
+- Added tests for the news items share feature (#1191)
+- Added sharing articles with nextcloud users (#1217)
+- Added sharing articles on social media (Facebook, Twitter) or mail (#1217)
 
+### Fixed
+
+## [15.x.x]
 ### Changed
 
 ### Fixed
+
+# Releases
+## [15.4.0] - 2021-04-26
+See previous notes for a full overview.
+### Fixed
 - Fix search results not redirecting to the news app
 
-## [15.4.0-rc1] - 2021-04-19
+## [15.4.0-rc1] - 2021-04-16
 
 ### Changed
 
