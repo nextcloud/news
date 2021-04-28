@@ -327,28 +327,36 @@ class FeedFetcher implements IFeedFetcher
     {
         $favicon = $feed->getLogo();
 
-        // check if feed has a logo
-        if (is_null($favicon)) {
-            return $this->faviconFactory->get($url);
+        ini_set('user_agent', 'NextCloud-News/1.0');
+
+        $base_url = new Net_URL2($url);
+        $base_url->setPath("");
+        $base_url = $base_url->getNormalizedURL();
+
+        // check if feed has a logo entry
+        if (is_null($favicon) || trim($favicon) === '') {
+            return $this->faviconFactory->get($base_url);
         }
 
         $favicon_path = join("/", [$this->ITempManager->getTempBaseDir(), basename($favicon)]);
-        copy(
+
+        $downloaded = copy(
             $favicon,
-            $favicon_path
+            $favicon_path,
+            stream_context_create([ 'http' => [ 'ignore_errors' => true ] ])
         );
 
-        $is_image = substr(mime_content_type($favicon_path), 0, 5) === "image";
+        $is_image = $downloaded && substr(mime_content_type($favicon_path), 0, 5) === "image";
 
         // check if file is actually an image
         if (!$is_image) {
-            return $this->faviconFactory->get($url);
+            return $this->faviconFactory->get($base_url);
         }
 
         list($width, $height, $type, $attr) = getimagesize($favicon_path);
         // check if image is square else fall back to favicon
         if ($width !== $height) {
-            return $this->faviconFactory->get($url);
+            return $this->faviconFactory->get($base_url);
         }
 
         return $favicon;
