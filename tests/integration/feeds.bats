@@ -34,9 +34,24 @@ teardown() {
     return $ret_status
   fi
 
+}
+
+@test "[$TESTSUITE] Favicon" {
+  ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ./occ news:feed:add "$user" "$HEISE_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+
+  run ./occ news:feed:list "$user"
+  [ "$status" -eq 0 ]
+    
   if ! echo "$output" | grep -F '"faviconLink": "https:\/\/nextcloud.com\/media\/screenshot-150x150.png"'; then
     ret_status=$?
-    echo "Favicon not found in list"
+    echo "Logo test failed"
+    return $ret_status
+  fi
+
+  if ! echo "$output" | grep -F '"faviconLink": "https:\/\/www.heise.de\/favicon.ico"'; then
+    ret_status=$?
+    echo "Favicon test failed"
     return $ret_status
   fi
 }

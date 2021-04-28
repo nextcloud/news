@@ -21,9 +21,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 
-
 # Releases
 ## [15.4.1] - 2021-05-03
+### Known Issue
+If you use a 32bit OS your will run into #1320
 ### Fixed
 - content of atom feeds is missing (#1325)
 - Fix some of the favicon fetching errors (#1319)
