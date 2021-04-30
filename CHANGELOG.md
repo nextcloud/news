@@ -20,6 +20,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- content of atom feeds is missing
 
 # Releases
 ## [15.4.0] - 2021-04-26

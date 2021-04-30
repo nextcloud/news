@@ -266,7 +266,9 @@ class FeedFetcher implements IFeedFetcher
 
         // Use description from feed if body is not provided (by a scraper)
         if ($body === null) {
-            $body = $parsedItem->getValue("content:encoded") ?? $parsedItem->getDescription();
+            $body = $parsedItem->getValue("content:encoded")
+                    ?? $parsedItem->getDescription()
+                    ?? $parsedItem->getSummary();
         }
 
         // purification is done in the service layer
