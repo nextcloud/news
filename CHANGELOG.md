@@ -20,10 +20,14 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+
+
+# Releases
+## [15.4.1] - 2021-05-03
+### Fixed
 - content of atom feeds is missing (#1325)
 - Fix some of the favicon fetching errors (#1319)
 
-# Releases
 ## [15.4.0] - 2021-04-26
 See previous notes for a full overview.
 ### Fixed
@@ -32,7 +36,6 @@ See previous notes for a full overview.
 ## [15.4.0-rc1] - 2021-04-16
 
 ### Changed
-
 ### Fixed
 - Check category label for null (#1282)
 - Do not return non-matching search items
