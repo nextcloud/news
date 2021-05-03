@@ -23,6 +23,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 
 # Releases
+## [15.4.2] - 2021-05-03
+### Fixed
+- revert accidentally merged dependency updates (#1332)
+
 ## [15.4.1] - 2021-05-03
 ### Fixed
 - content of atom feeds is missing (#1325)
