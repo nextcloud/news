@@ -5,6 +5,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [16.x.x]
 ### Changed
+- News now requires a 64bit OS
 - v2 API implementation (folder part)
 - Implemented sharing news items between nextcloud users (#1191)
 - Updated the news items table in DB to include sharer data (#1191)
