@@ -271,12 +271,12 @@ class ItemServiceV2 extends Service
      * Returns all new items in a feed
      * @param string  $userId       the name of the user
      * @param int     $feedId       the id of the feed
-     * @param int     $updatedSince a timestamp with the minimal modification date
+     * @param float   $updatedSince a timestamp with the minimal modification date
      * @param boolean $hideRead     if unread items should also be returned
      *
      * @return array of items
      */
-    public function findAllInFeedAfter(string $userId, int $feedId, int $updatedSince, bool $hideRead): array
+    public function findAllInFeedAfter(string $userId, int $feedId, float $updatedSince, bool $hideRead): array
     {
         return $this->mapper->findAllInFeedAfter($userId, $feedId, $updatedSince, $hideRead);
     }
@@ -285,12 +285,12 @@ class ItemServiceV2 extends Service
      * Returns all new items in a folder
      * @param string   $userId       the name of the user
      * @param int|null $folderId     the id of the folder
-     * @param int      $updatedSince a timestamp with the minimal modification date
+     * @param float    $updatedSince a timestamp with the minimal modification date
      * @param boolean  $hideRead     if unread items should also be returned
      *
      * @return array of items
      */
-    public function findAllInFolderAfter(string $userId, ?int $folderId, int $updatedSince, bool $hideRead): array
+    public function findAllInFolderAfter(string $userId, ?int $folderId, float $updatedSince, bool $hideRead): array
     {
         return $this->mapper->findAllInFolderAfter($userId, $folderId, $updatedSince, $hideRead);
     }
@@ -300,13 +300,13 @@ class ItemServiceV2 extends Service
      *
      * @param string $userId       the name of the user
      * @param int    $feedType     the type of feed items to fetch. (starred || unread)
-     * @param int    $updatedSince a timestamp with the minimal modification date
+     * @param float  $updatedSince a timestamp with the minimal modification date
      *
      * @return array of items
      *
      * @throws ServiceValidationException
      */
-    public function findAllAfter(string $userId, int $feedType, int $updatedSince): array
+    public function findAllAfter(string $userId, int $feedType, float $updatedSince): array
     {
         if (!in_array($feedType, [ListType::STARRED, ListType::UNREAD, ListType::ALL_ITEMS], true)) {
             throw new ServiceValidationException('Trying to find in unknown type');

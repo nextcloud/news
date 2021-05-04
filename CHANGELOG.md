@@ -20,7 +20,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-
+- mitigate 32-bit issues by using `float` instead of `int` for microseconds (#1320)
 
 # Releases
 ## [15.4.2] - 2021-05-03
