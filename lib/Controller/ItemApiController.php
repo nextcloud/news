@@ -79,7 +79,7 @@ class ItemApiController extends ApiController
                     $id,
                     $batchSize,
                     $offset,
-                    !$getRead,
+                    $getRead !== true,
                     $oldestFirst
                 );
                 break;
@@ -89,7 +89,7 @@ class ItemApiController extends ApiController
                     $id,
                     $batchSize,
                     $offset,
-                    !$getRead,
+                    $getRead !== true,
                     $oldestFirst
                 );
                 break;

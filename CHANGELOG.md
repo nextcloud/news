@@ -20,7 +20,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-
+- Change getRead negation to be more explicit (#1340)
 
 # Releases
 ## [15.4.2] - 2021-05-03
