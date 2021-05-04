@@ -302,7 +302,6 @@ class ItemMapperV2 extends NewsMapperV2
                 ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                 ->where('feeds.user_id = :userId')
                 ->setParameter('userId', $userId)
-                ->orderBy('items.last_modified', 'DESC')
                 ->addOrderBy('items.id', 'DESC')
                 ->setMaxResults(1);
 
@@ -337,7 +336,6 @@ class ItemMapperV2 extends NewsMapperV2
                 'feedId' => $feedId,
                 'userId'=> $userId,
             ])
-            ->orderBy('items.last_modified', 'DESC')
             ->addOrderBy('items.id', 'DESC');
 
         if ($hideRead === true) {
@@ -377,7 +375,6 @@ class ItemMapperV2 extends NewsMapperV2
                 'folderId' => $folderId,
                 'userId' => $userId,
             ])
-            ->orderBy('items.last_modified', 'DESC')
             ->addOrderBy('items.id', 'DESC');
 
         if ($hideRead === true) {
@@ -410,7 +407,6 @@ class ItemMapperV2 extends NewsMapperV2
                 'updatedSince' => number_format($updatedSince, 0, '.', ''),
                 'userId' => $userId,
             ])
-            ->orderBy('items.last_modified', 'DESC')
             ->addOrderBy('items.id', 'DESC');
 
         switch ($feedType) {

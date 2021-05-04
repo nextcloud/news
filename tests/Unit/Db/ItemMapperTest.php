@@ -432,7 +432,7 @@ class ItemMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
