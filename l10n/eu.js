@@ -18,6 +18,7 @@ OC.L10N.register(
     "Maximum redirects" : "Gehienezko birbideratzeak",
     "Feed fetcher timeout" : "Jarioak hartzeko denbora-muga",
     "Explore Service URL" : "Arakatu zerbitzuaren URLa",
+    "For more information check the wiki." : "Informazio gehiagorako ikusi wikia.",
     "Update interval" : "Eguneraketa tartea",
     "Saved" : "Gordeta",
     "Download" : "Deskargatu",
