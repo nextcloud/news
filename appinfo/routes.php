@@ -66,6 +66,10 @@ return ['routes' => [
 ['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
 ['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
 
+['name' => 'feed_api_v2#create', 'url' => '/api/v2/feeds', 'verb' => 'POST'],
+['name' => 'feed_api_v2#update', 'url' => '/api/v2/feeds/{feedId}', 'verb' => 'PATCH'],
+['name' => 'feed_api_v2#delete', 'url' => '/api/v2/feeds/{feedId}', 'verb' => 'DELETE'],
+
 // API 1.2
 ['name' => 'user_api#index', 'url' => '/api/v1-2/user', 'verb' => 'GET'],
 ['name' => 'user_api#avatar', 'url' => '/api/v1-2/user/avatar', 'verb' => 'GET'],
