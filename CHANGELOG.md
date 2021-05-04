@@ -8,6 +8,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - allow calling `/items?getRead=false` without a feed/folder (#1380 #1356)
+- newestId does not return newest ID but last updated (#1339)
 
 ## [15.x.x]
 ### Changed

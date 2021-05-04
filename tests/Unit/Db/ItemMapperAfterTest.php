@@ -81,7 +81,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -152,7 +152,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('unread', true)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -220,7 +220,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -294,7 +294,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('unread', true)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -363,7 +363,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('unread', true)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -432,7 +432,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('starred', true)
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -495,7 +495,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
@@ -561,7 +561,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->never())
             ->method('orderBy')
             ->with('items.last_modified', 'DESC')
             ->will($this->returnSelf());
