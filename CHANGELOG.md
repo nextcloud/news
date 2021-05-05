@@ -22,22 +22,28 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [15.4.3] - 2021-05-05
+### Fixed
+- mitigate 32-bit issues by using `float` instead of `int` for microseconds (#1320)
+
+## [15.4.2] - 2021-05-03
+### Fixed
+- revert accidentally merged dependency updates (#1332)
+
 ## [15.4.1] - 2021-05-03
-### Known Issue
-If you use a 32bit OS your will run into #1320
 ### Fixed
 - content of atom feeds is missing (#1325)
 - Fix some of the favicon fetching errors (#1319)
 
 ## [15.4.0] - 2021-04-26
+### Known Issue
+If you use a 32bit OS your will run into #1320
+
 See previous notes for a full overview.
 ### Fixed
 - Fix search results not redirecting to the news app
 
 ## [15.4.0-rc1] - 2021-04-16
-
-### Changed
-
 ### Fixed
 - Check category label for null (#1282)
 - Do not return non-matching search items
