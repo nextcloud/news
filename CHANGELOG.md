@@ -20,9 +20,12 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- mitigate 32-bit issues by using `float` instead of `int` for microseconds (#1320)
 
 # Releases
+## [15.4.3] - 2021-05-05
+### Fixed
+- mitigate 32-bit issues by using `float` instead of `int` for microseconds (#1320)
+
 ## [15.4.2] - 2021-05-03
 ### Fixed
 - revert accidentally merged dependency updates (#1332)
@@ -33,6 +36,9 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Fix some of the favicon fetching errors (#1319)
 
 ## [15.4.0] - 2021-04-26
+### Known Issue
+If you use a 32bit OS your will run into #1320
+
 See previous notes for a full overview.
 ### Fixed
 - Fix search results not redirecting to the news app
