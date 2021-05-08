@@ -1,8 +1,10 @@
 # External API v2 (Draft)
 
+**Disclaimer:** this API has not been fully implemented yet.
+
 The **News app** offers a RESTful API which can be used to sync folders, feeds and items. The API also supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) which means that you can access the API from your browser using JavaScript.
 
-In addition, an updater API is exposed which enables API users to run feed updates in parallel using a REST API or ownCloud console API.
+In addition, an updater API is exposed which enables API users to run feed updates in parallel using a REST API or Nextcloud console API.
 
 ## Conventions
 This document uses the following conventions:
@@ -15,6 +17,7 @@ This document uses the following conventions:
 In order to only specify the JSON objects once, comments are used to alias them.
 
 There are two types of aliases:
+
 * Objects
 * Object arrays
 
@@ -77,19 +80,22 @@ You have to design your app with these things in mind!:
 ## Request Format
 The base URL for all calls is:
 
-    https://yourowncloud.com/index.php/apps/news/api/v2
+    https://yournextcloud.com/index.php/apps/news/api/v2
 
 Unless an absolute Url is specified, the relative Urls in the Specification are appended to this url. To access the route **/sync** for instance you'd use the following url:
 
-    https://yourowncloud.com/index.php/apps/news/api/v2/sync
+    https://yournextcloud.com/index.php/apps/news/api/v2/sync
 
 The required request headers are:
+
 * **Accept**: application/json
 
 Any request method except GET:
+
 * **Content-Type**: application/json; charset=utf-8
 
 Any route that allows caching:
+
 * **If-None-Match**: an Etag, e.g. 6d82cbb050ddc7fa9cbb659014546e59. If no previous Etag is known, this header should be omitted
 
 The request body is either passed in the URL in case of a **GET** request (e.g.: **?foo=bar&index=0**) or as JSON, e.g.:
@@ -107,7 +113,7 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 Check the [API level route](#api-level)
 
 ### Authentication
-Because REST is stateless you have to re-send user and password each time you access the API. Therefore running ownCloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
+Because REST is stateless you have to re-send user and password each time you access the API. Therefore running Nextcloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
 
 Credentials are passed as an HTTP header using [HTTP basic auth](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side):
 
@@ -122,21 +128,24 @@ This authentication/authorization method will be the recommended default until c
 **Note**: Even if login cookies are sent back to your client, they will not be considered for authentication.
 
 ## Response Format
-The status codes are not always provided by the News app itself, but might also be returned because of ownCloud internal errors.
+The status codes are not always provided by the News app itself, but might also be returned because of Nextcloud internal errors.
 
-The following status codes can always be returned by ownCloud:
-* **401**: The provided credentials to log into ownCloud are invalid.
+The following status codes can always be returned by Nextcloud:
+
+* **401**: The provided credentials to log into Nextcloud are invalid.
 * **403**: The user is not allowed to access the route. This can happen if for instance of only users in the admin group can access the route and the user is not in it.
 * **404**: The route can not be found or the resource does not exist. Can also happen if for instance you are trying to delete a folder which does not exist.
 * **5xx**: An internal server error occurred. This can happen if the server is in maintenance mode or because of other reasons.
 
 The following status codes are returned by News:
+
 * **200**: Everything went fine
 * **304**: In case the resource was not modified, contains no response body. This means that you can ignore the request since everything is up to date.
 * **400**: There was an app related error, check the **error** object if specified
 * **409**: Conflict error which means that the resource exists already. Can be returned when updating (**PATCH**) or creating (**POST**) a resource, e.g. a folder
 
 The response headers are:
+
 * **Content-Type**: application/json; charset=utf-8
 * **Etag**: A string containing a cache header of maximum length 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59. The etag value will be assembled using the number of feeds, folders and the highest last modified timestamp in milliseconds, e.g. 2-3-123131923912392391239. However consider that a detail and dont rely on it.
 
@@ -159,6 +168,7 @@ In case of an **4xx** or **5xx** error the request was not successful and has to
 
 ## Security Guidelines
 Read the following notes carefully to prevent being subject to security exploits:
+
 * You should always enforce SSL certificate verification and never offer a way to turn it off. Certificate verification is important to prevent MITM attacks which is especially important in the mobile world where users are almost always connected to untrusted networks. In case a user runs a self-signed certificate on his server ask him to either install his certificate on his device or direct him to one of the many ways to sign his certificate for free (most notably letsencrypt.com)
 * All string fields in a JSON response **expect an item's body** are **not sanitized**. This means that if you do not escape it properly before rendering you will be vulnerable to [XSS](https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29) attacks
 * Basic Auth headers can easily be decrypted by anyone since base64 is an encoding, not an encryption. Therefore only send them if you are accessing an HTTPS website or display an easy to understand warning if the user chooses HTTP
@@ -166,14 +176,15 @@ Read the following notes carefully to prevent being subject to security exploits
 * If you are building a client in JavaScript or are using a link with **target="blank"**, remember to set the **window.opener** property to **null** and/or add a **rel="noreferrer"** to your link to prevent your app from being [target by an XSS attack](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c#.wf2ddytbh)
 
 ## Syncing
-All routes are given relative to the base API url, e.g.: **/sync** becomes  **https://yourowncloud.com/index.php/apps/news/api/v2/sync**
+All routes are given relative to the base API url, e.g.: **/sync** becomes  **https://yourNextcloud.com/index.php/apps/news/api/v2/sync**
 
 There are two usecases for syncing:
+
 * **Initial sync**: the user does not have any data at all
 * **Syncing local and remote changes**: the user has synced at least once and wants to submit and receive changes
 
 ### Initial Sync
-The intial sync happens when a user adds an ownCloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:
+The intial sync happens when a user adds an Nextcloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:
 
 * **Method**: GET
 * **Route**: /sync
@@ -182,9 +193,11 @@ The intial sync happens when a user adds an ownCloud account in your app. In tha
   * **Accept: "application/json"**
 
 This will return the following status codes:
+
 * **200**: Success
 
 and the following HTTP headers:
+
 * **Content-Type**: application/json; charset=utf-8
 * **Etag**: A string containing a cache header, maximum size 64 ASCII characters, e.g. 6d82cbb050ddc7fa9cbb659014546e59
 
@@ -198,6 +211,7 @@ and the following request body:
 ```
 
 **Note**: Each object is explained in more detail in a separate section:
+
 * [Folders](#folders)
 * [Feeds](#feeds)
 * [Items](#items)
@@ -247,6 +261,7 @@ If no items have been read or starred, simply leave the **items** array empty, e
 ```
 
 The response matches the **GET** call, except there can be two different types of item objects:
+
 * **[Full](#full)**: Contains all attributes
 * **[Reduced](#reduced)**: Contains only **id**, **isUnread** and **isStarred**
 
@@ -308,11 +323,13 @@ Folders are represented using the following data structure:
 ```
 
 The attributes mean the following:
+
 * **id**: 64bit Integer, id
 * **name**: Abitrary long text, folder's name
 
 ### Deleting A Folder
 To delete a folder, use the following request:
+
 * **Method**: DELETE
 * **Route**: /folders/{id}
 * **Route Parameters**:
@@ -322,6 +339,7 @@ To delete a folder, use the following request:
 The following response is being returned:
 
 Status codes:
+
 * **200**: Folder was deleted successfully
 * **404**: Folder does not exist
 
@@ -339,6 +357,7 @@ In case of an HTTP 200, the deleted folder is returned in full in the response, 
 
 ### Creating A Folder
 To create a folder, use the following request:
+
 * **Method**: POST
 * **Route**: /folders
 * **Authentication**: [required](#authentication)
@@ -353,6 +372,7 @@ with the following request body:
 The following response is being returned:
 
 Status codes:
+
 * **200**: Folder was created successfully
 * **400**: Folder creation error, check the error object:
   * **code**: 1: folder name is empty
@@ -367,9 +387,11 @@ In case of an HTTP 200, the created or already existing folder is returned in fu
 
 ### Changing A Folder
 The following attributes can be changed on the folder:
+
 * **name**
 
 To change any number of attributes on a folder, use the following request and provide as much attributes that can be changed as you want:
+
 * **Method**: PATCH
 * **Route**: /folders/{id}
 * **Route Parameters**:
@@ -388,10 +410,11 @@ with the following request body:
 The following response is being returned:
 
 Status codes:
+
 * **200**: Folder was updated successfully
 * **400**: Folder update error, check the error object:
   * **code**: 1: folder name is empty
-* Other ownCloud errors, see [Response Format](#response-format)
+* Other Nextcloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the changed or already existing folder is returned in full in the response, e.g.:
 
@@ -423,6 +446,7 @@ Feeds are represented using the following data structure:
 ```
 
 The attributes mean the following:
+
 * **id**: 64bit Integer, id
 * **name**: Abitrary long text, feed's name
 * **faviconLink**: Abitrary long text, feed's favicon location, **null** if not found
@@ -443,6 +467,7 @@ The attributes mean the following:
 
 ### Deleting A Feed
 To delete a feed, use the following request:
+
 * **Method**: DELETE
 * **Route**: /feeds/{id}
 * **Route Parameters**:
@@ -453,9 +478,10 @@ To delete a feed, use the following request:
 The following response is being returned:
 
 Status codes:
+
 * **200**: Feed was deleted successfully
 * **404**: Feed with given id was not found, no error object
-* Other ownCloud errors, see [Response Format](#response-format)
+* Other Nextcloud errors, see [Response Format](#response-format)
 
 
 In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:
@@ -472,6 +498,7 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
 
 ### Creating A feed
 To create a feed, use the following request:
+
 * **Method**: POST
 * **Route**: /feeds
 * **Authentication**: [required](#authentication)
@@ -490,6 +517,7 @@ with the following request body:
     "basicAuthPassword": "password"
 }
 ```
+
 * **url**: Abitrary long text, the url needs to have the full schema e.g. https://the-url.com. In case the user omits the schema, prepending **https** is recommended
 * **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 * **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
@@ -503,6 +531,7 @@ with the following request body:
 The following response is being returned:
 
 Status codes:
+
 * **200**: Feed was created successfully
 * **400**: Feed creation error, check the **error** object:
   * **code**: 1: url is empty
@@ -529,6 +558,7 @@ In case of an HTTP 200, the created feed is returned in full in the response, e.
 
 ### Changing A Feed
 To change a feed, use the following request:
+
 * **Method**: PATCH
 * **Route**: /feeds/{id}
 * **Route Parameters**:
@@ -564,6 +594,7 @@ All parameters are optional
 The following response is being returned:
 
 Status codes:
+
 * **200**: Feed was changed successfully
 * **400**: Feed creation error, check the error object:
   * **code**: 1: url is empty
@@ -577,7 +608,7 @@ Status codes:
   * **code**: 9: request timed out
   * **code**: 10: invalid or missing http basic auth headers
   * **code**: 11: not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)
-* Other ownCloud errors, see [Response Format](#response-format)
+* Other Nextcloud errors, see [Response Format](#response-format)
 
 In case of an HTTP 200, the changed feed is returned in full in the response, e.g.:
 
@@ -597,6 +628,7 @@ Items can occur in two different formats:
 * Reduced
 
 The attributes mean the following:
+
 * **id**: 64bit Integer, id
 * **url**: Abitrary long text, location of the online resource
 * **title**: Abitrary long text, item's title
@@ -649,7 +681,7 @@ A reduced item only contains the item status:
 ```
 
 ## Updater
-Instead of using the built in, slow cron updater you can use the parallel update API to update feeds. The API can be accessed through REST or ownCloud console API.
+Instead of using the built in, slow cron updater you can use the parallel update API to update feeds. The API can be accessed through REST or Nextcloud console API.
 
 The API should be used in the following way:
 
@@ -658,17 +690,17 @@ The API should be used in the following way:
 * For each feed and user id, run the update
 * Clean up after the update
 
-The reference [implementation in Python](https://github.com/owncloud/news-updater) should give you a good idea how to design your own updater.
+The reference [implementation in Python](https://github.com/nextcloud/news-updater) should give you a good idea how to design your own updater.
 
 If the REST API is used, Authorization is required via Basic Auth and the user needs to be in the admin group.
-If the ownCloud console API is used, no authorization is required.
+If the Nextcloud console API is used, no authorization is required.
 
 ### Clean Up Before Update
 This is used to clean up the database. It deletes folders and feeds that are marked for deletion.
 
 **Console API**:
 
-    php -f /path/to/owncloud/occ news:updater:before-update
+    php -f /path/to/nextcloud/occ news:updater:before-update
 
 **REST API**:
 
@@ -681,7 +713,7 @@ This call returns pairs of feed ids and user ids.
 
 **Console API**:
 
-    php -f /path/to/owncloud/occ news:updater:all-feeds
+    php -f /path/to/nextcloud/occ news:updater:all-feeds
 
 **REST API**:
 
@@ -705,12 +737,13 @@ Both APIs will return the following response body or terminal output:
 After all feed ids and user ids are known, feeds can be updated in parallel.
 
 **Console API**:
+
 * **Positional Parameters**:
   * **{feedId}**: the feed's id
   * **{userId}**: the user's id
 
 
-    php -f /path/to/owncloud/occ news:updater:update-feed {feedId} {userId}
+    php -f /path/to/nextcloud/occ news:updater:update-feed {feedId} {userId}
 
 **REST API**:
 
@@ -727,7 +760,7 @@ This is used to clean up the database. It removes old read articles which are no
 
 **Console API**:
 
-    php -f /path/to/owncloud/occ news:updater:after-update
+    php -f /path/to/nextcloud/occ news:updater:after-update
 
 **REST API**:
 
@@ -746,6 +779,7 @@ The retrieve meta data about the app, use the following request:
 The following response is being returned:
 
 Status codes:
+
 * **200**: Meta data accessed successfully
 
 In case of an HTTP 200, the the following response is returned:
@@ -768,6 +802,7 @@ In case of an HTTP 200, the the following response is returned:
 ```
 
 The attributes mean the following:
+
 * **version**: Abitrary long text, News app version
 * **issues**: An object containing a dictionary of issues which need to be displayed to the user:
   * **improperlyConfiguredCron**: Boolean, if true this means that no feed updates are run on the server because the updater is misconfigured
@@ -783,12 +818,13 @@ The attributes mean the following:
 To find out which API levels are supported, make a request to the following route:
 
 * **Method**: GET
-* **Route**: https://yourowncloud.com/index.php/apps/news/api
+* **Route**: https://yournextcloud.com/index.php/apps/news/api
 * **Authentication**: none
 
 The following response is being returned:
 
 Status codes:
+
 * **200**: The supported API levels can be parsed from the response
 * **404**: The user is either running a version prior to **8.8.0** or the News app is disabled or not installed.
 
@@ -804,10 +840,11 @@ In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
 To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
 
 * **Method**: GET
-* **Route**: https://yourowncloud.com/index.php/apps/news/api/v1-2/version
+* **Route**: https://yournextcloud.com/index.php/apps/news/api/v1-2/version
 * **Authentication**: [required](#authentication)
 
 Status codes:
+
 * **200**: Only the v1-2 API level is supported
 * **404**: The News app is disabled or not installed.
 

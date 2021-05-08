@@ -14,8 +14,7 @@ style('news', 'admin');
         </p>
         <p>
             <em><?php p($l->t(
-                'Disable this if you run a custom updater such as the Python ' .
-                'updater included in the app.'
+                'Disable this if you use a custom updater.'
             )); ?></em>
         </p>
     </div>
@@ -101,7 +100,7 @@ style('news', 'admin');
                     'input empty.'
                 )); ?>
             </em>
-            <a href="https://github.com/nextcloud/news/tree/master/docs/explore"><?php p($l->t(
+            <a href="https://nextcloud.github.io/news/features/admin/"><?php p($l->t(
                 'For more information check the wiki.'
             )); ?></a>
         </p>
@@ -120,8 +119,8 @@ style('news', 'admin');
                     'Interval in seconds in which the feeds will be updated.'
                 )); ?>
             </em>
-            <a href="https://github.com/nextcloud/news/tree/master/docs/updateInterval"><?php p($l->t(
-                'For more information check the wiki.'
+            <a href="https://nextcloud.github.io/news/features/admin/"><?php p($l->t(
+                'For more information check the documentation.'
             )); ?></a>
         </p>
         <p><input type="text" name="news-update-interval"

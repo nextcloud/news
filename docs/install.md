@@ -1,10 +1,13 @@
 # Installation/Update
 
 ## Dependencies
+* 64bit OS (starting with News 16.0.0)
 * PHP >= 7.2
 * Nextcloud 20
 * libxml >= 2.7.8
+
 You also need some PHP extensions:
+
 * json
 * simplexml
 * xml
@@ -26,18 +29,19 @@ Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/
 
 ## Before you install/update the News app
 Before you install the app do the following:
+
 * Check that your **nextcloud/data/** directory is owned by your web server user and that it is write/readable
-* Check that your installation fulfills the [requirements listed in the README section](https://github.com/nextcloud/news#dependencies)
+* Check that your installation fulfills the [requirements listed above](#dependencies)
 * [Set up Nextcloud Background Jobs](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates.
 
 Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git
 
 ## Installing from the [app store](https://apps.nextcloud.com/apps/news)
-This is the easiest solution: Simply go the the apps page (section: "Multimedia") and enable the News app
+This is the easiest solution: Simply go the apps page (section: "Multimedia") and enable the News app
 
 ## Installing from archive
 * Go to the [Nextcloud News GitHub releases page](https://github.com/nextcloud/news/releases) and download the latest release/archive to your server
-* Starting with 8.0.0, there are two different releases: **news.tar.gz** and **Source code**. The first one requires no additional steps, the second one requires you to install the dependencies and compile the JavaScript. Choose the first one if you don't want to work on the code. If you want to install a version prior to 8.0.0, choose the **Source code** download.
+* The news.tar.gz file contains the compiled and signed app files, if you install from source you have to build the app on your own.
 * On your server, check if there is a folder called **nextcloud/apps/news**. If there is one, delete it.
 * Extract the downloaded archive to the **nextcloud/apps/** folder.
 * Remove the version from the extracted folder (e.g. rename **nextcloud/apps/news-4.0.3/** to **nextcloud/apps/news/**
@@ -55,6 +59,7 @@ This is the easiest solution: Simply go the the apps page (section: "Multimedia"
 
 ### Build Dependencies
 These Dependencies are only relevant if you want to build the source code:
+
 * make
 * which
 * Node.js >= 6
@@ -78,7 +83,7 @@ These Dependencies are only relevant if you want to build the source code:
       git checkout tags/TAG
       make  # if News version >= 8.0.0
 
- For instance to use the 5.2.8 release, run:
+ For instance, to use the 5.2.8 release, run:
 
       git checkout tags/5.2.8
 

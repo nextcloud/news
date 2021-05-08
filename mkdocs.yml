@@ -1,0 +1,35 @@
+site_name: Nextcloud News App
+repo_url: https://github.com/nextcloud/news
+edit_uri: blob/master/documentation/
+
+nav:
+  - index.md
+  - install.md
+  - clients.md
+  - admin.md
+  - faq.md
+  - Features:
+    - Custom CSS: features/customCSS.md
+    - Plugins: features/plugins.md
+    - Themes: features/themes.md
+  - REST API:
+    - API v1: api/api-v1.md
+    - API v2: api/api-v2.md
+  - maintenance.md
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/favicon.png
+  font: false
+  features:
+    - navigation.indexes
+    - navigation.tracking
+    - navigation.instant
+    - navigation.expand
+    - navigation.sections
+
+
+# extra:
+#   version:
+#     provider: mike
