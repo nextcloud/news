@@ -10,6 +10,7 @@ js/*.xml
 .rvm
 *.clover
 .phpunit.result.cache
+site/
 
 # python
 PKG-INFO

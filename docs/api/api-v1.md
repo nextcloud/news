@@ -1,4 +1,4 @@
-# External API v1-2 (Legacy)
+# External API v1-2
 
 The **News app 1.2** offers a RESTful API
 
@@ -629,6 +629,7 @@ This is used to stay up to date.
 To enable people to write their own update scripts instead of relying on the sequential built in web and system cron, API routes and console commands have been created.
 
 Updating should be done in the following fashion:
+
 * Run the cleanup before the update
 * Get all feeds and user ids
 * For each feed and user id, run the update command

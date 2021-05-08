@@ -1,27 +1,28 @@
-# How To Write Plugins
+# Plugins
 
 Plugins were created to keep the app maintainable while still making it possible to easily implement additional functionality.
 
 There are essentially three different use cases for plugins:
+
 * Creating or extending server-side functionality, e.g. creating additional REST API endpoints
 * Offering article actions such as share via Twitter or E-Mail
 * Dropping in additional CSS or JavaScript
 
 ## The Basics
-Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app so you can take advantage of the full [Nextcloud app API](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html). If you want you can [take a look at the developer docs](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html) or [dig into the tutorial](https://docs.nextcloud.org/server/latest/developer_manual/app/tutorial.html).
+Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app, so you can take advantage of the full [Nextcloud app API](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html). If you want you can [take a look at the developer docs](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html) or [dig into the tutorial](https://docs.nextcloud.org/server/latest/developer_manual/app/tutorial.html).
 
-However if you just want to start slow, the full process is described below.
+However, if you just want to start slow, the full process is described below.
 
 First create the following directories and files:
 
 * **newsplugin/**
-  * **appinfo/**
-     * **app.php**
-     * **info.xml**
+    * **appinfo/**
+        * **app.php**
+        * **info.xml**
 
 The first folder name affects the name and namespace of your plugin and only one app can exist using the same name. Choose wisely.
 
-First let's add some meta data about our app. Open the **newsplugin/appinfo/info.xml** and add the following contents:
+First let's add some meta ata about our app. Open the **newsplugin/appinfo/info.xml** and add the following contents:
 
 ```xml
 <?xml version="1.0"?>
@@ -40,7 +41,7 @@ First let's add some meta data about our app. Open the **newsplugin/appinfo/info
 </info>
 ```
 
-**Note**: You must license your app under the [AGPL 3 or later](http://www.gnu.org/licenses/agpl-3.0.en.html) to comply with the News app's license. Don't forget to add the license as plain text file if you want to distribute your app!
+**Note**: You must license your app under the [AGPL 3 or later](https://www.gnu.org/licenses/agpl-3.0.en.html) to comply with the News app's license. Don't forget to add the license as plain text file if you want to distribute your app!
 
 Then we want to make sure that our code is only run if the News app is enabled. To do that put the following PHP code into the **newsplugin/appinfo/app.php** file:
 
@@ -54,7 +55,7 @@ if (App::isEnabled('news')) {
 }
 ```
 
-If your plugin integrates with an other Nextcloud app, make sure to also require it be installed. If you depend on the bookmarks app for instance use:
+If your plugin integrates with another Nextcloud app, make sure to also require it be installed. If you depend on the Bookmarks app for instance use:
 
 ```php
 <?php
@@ -85,13 +86,13 @@ if (App::isEnabled('news') && class_exists('OCA\News\Plugin\Client\Plugin')) {
 }
 ```
 
-This will tell the News app to load load the following files after its own JavaScript and CSS files have been included:
+This will tell the News app to load the following files after its own JavaScript and CSS files have been included:
 
 * **newsplugin/js/script.js**
 * **newspluing/css/style.css**
 
 ### Adding Basic JavaScript Functionality
-You can basically add any JavaScript you want. If you want to add an additional article action, this is a bit more complicated because it's hard to hook into Angular from the outside. Therefore the News app provides an API which makes creating additional article actions a breeze.
+You can basically add any JavaScript you want. If you want to add a new article action, this is a bit more complicated because it's hard to hook into Angular from the outside. Therefore, the News app provides an API which makes creating additional article actions a breeze.
 
 A basic article action looks like this:
 
@@ -102,19 +103,20 @@ News.addArticleAction(function($actionsElement, article) {
 ```
 
 The **addArticleAction** method expects a function with the following parameters:
+
 * **$actionsElement**: The DOM element wrapped in jQuery where your plugin should be appended to
 * **article**: The current article's data (readonly!). The article object has the following properties:
-    * **id**: the article id in the News database
-    * **url**: the article url it points to
+    * **id**: the article ID in the News database
+    * **url**: the article URL it points to
     * **title**: the article title
     * **author**: the article author
-    * **pubDate**: the article published date, a unix timestamp
-    * **body**: the html content
+    * **pubDate**: the article published date, a Unix timestamp
+    * **body**: the HTML content
     * **enclosureMime**: if an enclosure is added, this is the mime type
     * **enclosureLink**: this is the source of the enclosure
     * **mediaThumbnail**: if there is a media attached, this is its thumbnail
     * **mediaDescription**: if there is a media attached, this is its description
-    * **feedId**: the feed id it belongs to
+    * **feedId**: the feed ID it belongs to
     * **unread**: if the article is unread (bool)
     * **starred**: if the article is starred (bool)
     * **lastModified**: the last modified date
@@ -158,13 +160,13 @@ Then open the **newspluing/css/style.css** file and add the following CSS:
 Reload the News app and click the three dots menu, sit back and enjoy :)
 
 ## Server-Side Plugin
-A Server-Side plugin is a plugin that uses the same infrastructure as the News app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that that also shows starred articles as bookmarks.
+A Server-Side plugin is a plugin that uses the same infrastructure as the News app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that also shows starred articles as bookmarks.
 
 It's very easy to interface with the News app. Because all Classes are registered in the **news/app/application.php** it takes almost no effort to use the same infrastructure.
 
 **Note**: Keep in mind that these classes are essentially private which means they might break if the News app changes. There is no real public API so use at your own risk ;)
 
-Since you dont want to extend the app but use its resources, its advised that you dont inherit from the **Application** class but rather include it in your own container in **newsplugin/appinfo/application.php**:
+Since you don't want to extend the app but use its resources, its advised that you don't inherit from the **Application** class but rather include it in your own container in **newsplugin/appinfo/application.php**:
 
 ```php
 <?php
@@ -201,6 +203,8 @@ Using automatic container assembly you can then use it from your code by simply 
 
 ### Examples
 Client-side plugins:
+
 * [Mail Share](https://github.com/cosenal/mailsharenewsplugin): Client-side plugin to share articles by email
 Server-side plugins:
+
 * [Feed Central](https://github.com/Raydiation/feedcentral): Publish your feeds as RSS
