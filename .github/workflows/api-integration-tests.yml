@@ -56,7 +56,7 @@ jobs:
           coverage: none
 
       - name: Setup BATS
-        uses: mig4/setup-bats@v1
+        uses: mig4/setup-bats@v1.2.0
 
       ### MySQL specific setup
       - name: Setup mysql
