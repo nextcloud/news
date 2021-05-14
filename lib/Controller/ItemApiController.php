@@ -94,6 +94,13 @@ class ItemApiController extends ApiController
                 );
                 break;
             default:
+                // Fallback in case people try getRead here
+                if ($getRead === false && $type === ListType::ALL_ITEMS) {
+                    $type = ListType::UNREAD;
+                } elseif ($getRead === false) {
+                    return ['message' => 'Setting getRead on an already filtered list is not allowed!'];
+                }
+
                 $items = $this->itemService->findAllWithFilters(
                     $this->getUserId(),
                     $type,
