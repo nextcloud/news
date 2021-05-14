@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- allow calling `/items?getRead=false` without a feed/folder (#1380 #1356)
 
 ## [15.x.x]
 ### Changed
