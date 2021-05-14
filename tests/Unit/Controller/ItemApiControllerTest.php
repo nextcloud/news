@@ -156,6 +156,42 @@ class ItemApiControllerTest extends TestCase
     }
 
 
+    public function testIndexListensToGetReadOnAllItems()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllWithFilters')
+            ->with($this->uid, 6, -1, 0, false, [])
+            ->will($this->returnValue([$item]));
+
+        $response = $this->class->index(3, 0, false);
+
+        $this->assertEquals(['items' => [$item->toApi()]], $response);
+    }
+
+
+    public function testIndexListensToGetReadOnItems()
+    {
+        $item = new Item();
+        $item->setId(5);
+        $item->setGuid('guid');
+        $item->setGuidHash('guidhash');
+        $item->setFeedId(123);
+
+        $this->itemService->expects($this->never())
+            ->method('findAllWithFilters');
+
+        $response = $this->class->index(6, 0, false);
+
+        $this->assertEquals(['message' => 'Setting getRead on an already filtered list is not allowed!'], $response);
+    }
+
+
     public function testUpdatedFeed()
     {
         $item = new Item();
