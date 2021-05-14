@@ -20,6 +20,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- allow calling `/items?getRead=false` without a feed/folder
 
 # Releases
 ## [15.4.3] - 2021-05-05
