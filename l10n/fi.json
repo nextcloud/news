@@ -8,7 +8,6 @@
     "News" : "Uutiset",
     "An RSS/Atom feed reader" : "RSS-/Atom-syötteiden lukija",
     "Use system cron for updates" : "Käytä järjestelmän cronia päivityksille",
-    "Disable this if you run a custom updater such as the Python updater included in the app." : "Poista tämä käytöstä jos käytät muuta päivittäjää, kuten sovelluksen Python-päivittäjää.",
     "Purge interval" : "Hävitysväli",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimiaika sekunteina jonka jälkeen poistetut syötteet ja kansiot poistetaan tietokannasta; alle 60 sekuntin arvot ohitetaan.",
     "Maximum read count per feed" : "Syötekohtainen lukukertojen enimmäismäärä",

@@ -10,7 +10,6 @@ OC.L10N.register(
     "News" : "Fréttir",
     "An RSS/Atom feed reader" : "RSS/Atom streymislesari",
     "Use system cron for updates" : "Nota kerfis-cron fyrir uppfærslur",
-    "Disable this if you run a custom updater such as the Python updater included in the app." : "Gerðu þetta óvirkt ef þú keyrir sérsniðið uppfærsluforrit eins og Python uppærsluforritið sem innifalið er í smáforritinu.",
     "Purge interval" : "Millibil förgunar",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Lágmarksfjöldi sekúndna þar til eydd streymi og möppur eru fjarlægð úr gagnagrunninum; gildi undir 60 sekúndum eru hunsuð.",
     "Maximum read count per feed" : "Hámarkfjöldi lestra á hvert streymi",
