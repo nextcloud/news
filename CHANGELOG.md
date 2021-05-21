@@ -23,6 +23,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [15.4.4] - 2021-05-21
+### Fixed
+- allow calling `/items?getRead=false` without a feed/folder
+
 ## [15.4.3] - 2021-05-05
 ### Fixed
 - mitigate 32-bit issues by using `float` instead of `int` for microseconds (#1320)
