@@ -3,12 +3,21 @@
     <id>news</id>
     <name>News</name>
     <summary>An RSS/Atom feed reader</summary>
-    <description><![CDATA[The News app is an RSS/Atom feed reader for Nextcloud which can be synced with many mobile devices. A list of all clients and requirements can be found [in the README](https://github.com/nextcloud/news)
+    <description><![CDATA[📰 A RSS/Atom Feed reader App for Nextcloud
 
-Before you update to a new version, [check the changelog](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) to avoid surprises.
+- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)
+- 🔄 Automatic updates of your news feeds
+- 🆓 Free and open source under AGPLv3, no ads or premium functions
 
-**Important**: To enable feed updates you will need to enable either [Nextcloud system cron](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) or use [an updater](https://github.com/nextcloud/news-updater) which uses the built in update API and disable cron updates. More information can be found [in the README](https://github.com/nextcloud/news).]]></description>
-    <version>15.4.3</version>
+**System Cron is currently required for this app to work**
+Requirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)
+The Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)
+
+Create a [bug report](https://github.com/nextcloud/news/issues/new/choose)
+Create a [feature request](https://github.com/nextcloud/news/discussions/new)
+Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
+    ]]></description>
+    <version>15.4.4</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -17,8 +26,9 @@ Before you update to a new version, [check the changelog](https://github.com/nex
     <author>Jan-Christoph Borchardt (former)</author>
     <namespace>News</namespace>
     <documentation>
-        <admin>https://github.com/nextcloud/news#readme</admin>
-        <developer>https://github.com/nextcloud/news/tree/master/docs</developer>
+        <user>https://nextcloud.github.io/news/</user>
+        <admin>https://nextcloud.github.io/news/admin/</admin>
+        <developer>https://nextcloud.github.io/news/</developer>
     </documentation>
     <category>multimedia</category>
     <website>https://github.com/nextcloud/news</website>
