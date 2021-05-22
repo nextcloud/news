@@ -100,7 +100,7 @@ style('news', 'admin');
                     'input empty.'
                 )); ?>
             </em>
-            <a href="https://nextcloud.github.io/news/features/admin/"><?php p($l->t(
+            <a href="https://nextcloud.github.io/news/admin/"><?php p($l->t(
                 'For more information check the wiki.'
             )); ?></a>
         </p>
@@ -119,7 +119,7 @@ style('news', 'admin');
                     'Interval in seconds in which the feeds will be updated.'
                 )); ?>
             </em>
-            <a href="https://nextcloud.github.io/news/features/admin/"><?php p($l->t(
+            <a href="https://nextcloud.github.io/news/admin/><?php p($l->t(
                 'For more information check the documentation.'
             )); ?></a>
         </p>
