@@ -5,6 +5,17 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [16.x.x]
 ### Changed
+
+### Fixed
+
+## [15.x.x]
+### Changed
+
+### Fixed
+
+# Releases
+## [16.0.0-beta1] - 2021-05-22
+### Changed
 - News now requires a 64bit OS
 - v2 API implementation (folder part)
 - Implemented sharing news items between nextcloud users (#1191)
@@ -15,14 +26,6 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Added sharing articles with nextcloud users (#1217)
 - Added sharing articles on social media (Facebook, Twitter) or mail (#1217)
 
-### Fixed
-
-## [15.x.x]
-### Changed
-
-### Fixed
-
-# Releases
 ## [15.4.4] - 2021-05-21
 ### Fixed
 - allow calling `/items?getRead=false` without a feed/folder
