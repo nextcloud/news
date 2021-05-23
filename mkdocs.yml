@@ -1,4 +1,7 @@
 site_name: Nextcloud News App
+site_url: https://nextcloud.github.io/news/
+site_description: Documentation for the Nextcloud News App
+site_author: Nextcloud News Team
 repo_url: https://github.com/nextcloud/news
 edit_uri: blob/master/documentation/
 
