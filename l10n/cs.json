@@ -10,6 +10,7 @@
     "Shared with me" : "Sdíleno se mnou",
     "An RSS/Atom feed reader" : "Čtečka RSS/Atom zdrojů",
     "Use system cron for updates" : "Pro aktualizace použít službu systémového plánovače cron",
+    "Disable this if you use a custom updater." : "Toto vypněte, pokud používáte uživatelsky určený nástroj pro aktualizace.",
     "Purge interval" : "Interval čištění",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimální časový interval v sekundách, po kterém jsou z databáze smazány odstraněné kanály novinek a složky; hodnoty kratší než 60 sekund jsou ignorovány.",
     "Maximum read count per feed" : "Maximální počet přečtených novinek na kanál",
