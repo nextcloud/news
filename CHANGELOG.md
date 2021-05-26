@@ -20,9 +20,12 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- newestId does not return newest ID but last updated
 
 # Releases
+## [15.4.5] - 2021-05-26
+### Fixed
+- newestId does not return newest ID but last updated (#1339)
+
 ## [15.4.4] - 2021-05-21
 ### Fixed
 - allow calling `/items?getRead=false` without a feed/folder
