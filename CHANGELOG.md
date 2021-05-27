@@ -14,6 +14,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [15.4.5] - 2021-05-26
+### Fixed
+- newestId does not return newest ID but last updated (#1339)
+
 ## [16.0.0-beta1] - 2021-05-22
 ### Changed
 - News now requires a 64bit OS
