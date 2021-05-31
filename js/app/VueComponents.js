@@ -5,3 +5,7 @@ app.value('SomeComponent', someVueComponent);
 var IconLinkCompact = require('../vue_components/IconLinkCompact.vue').default;
 var iconLinkCompactComponent = Vue.component('IconLinkCompact', IconLinkCompact);
 app.value('IconLinkCompact', iconLinkCompactComponent);
+
+var ExploreItems = require('../vue_components/ExploreItems.vue').default;
+var exploreItems = Vue.component('ExploreItems', ExploreItems);
+app.value('ExploreItems', exploreItems);
