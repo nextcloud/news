@@ -28,7 +28,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <documentation>
         <user>https://nextcloud.github.io/news/</user>
         <admin>https://nextcloud.github.io/news/admin/</admin>
-        <developer>https://nextcloud.github.io/news/</developer>
+        <developer>https://nextcloud.github.io/news/developer</developer>
     </documentation>
     <category>multimedia</category>
     <website>https://github.com/nextcloud/news</website>
