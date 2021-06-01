@@ -5,6 +5,14 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [16.x.x]
 ### Changed
+### Fixed
+## [15.x.x]
+### Changed
+### Fixed
+# Releases
+## [16.0.0-beta2] - 2021-06-01
+### Changed
+- Allow installation on Nextcloud v22
 - Remove deprecated API endpoints and occ comand (#935)
   - /api/v1-2/user
   - /api/v1-2/user/avatar
@@ -14,12 +22,6 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - allow calling `/items?getRead=false` without a feed/folder (#1380 #1356)
 - newestId does not return newest ID but last updated (#1339)
 
-## [15.x.x]
-### Changed
-
-### Fixed
-
-# Releases
 ## [15.4.5] - 2021-05-26
 ### Fixed
 - newestId does not return newest ID but last updated (#1339)
