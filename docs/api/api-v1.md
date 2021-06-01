@@ -669,7 +669,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 }
 ```
 
-**New in 8.1.0**: The console command for achieving the same result is:
+**New in 8.1.0, Removed in 16.0.0**: The console command for achieving the same result is:
 
     php -f nextcloud/occ news:updater:all-feeds
 

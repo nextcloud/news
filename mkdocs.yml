@@ -10,6 +10,7 @@ nav:
   - install.md
   - clients.md
   - admin.md
+  - developer.md
   - faq.md
   - Features:
     - Custom CSS: features/customCSS.md
