@@ -17,7 +17,7 @@ Create a [bug report](https://github.com/nextcloud/news/issues/new/choose)
 Create a [feature request](https://github.com/nextcloud/news/discussions/new)
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>16.0.0-beta1</version>
+    <version>16.0.0-beta2</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -51,7 +51,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <lib>json</lib>
 
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="20" max-version="21"/>
+        <nextcloud min-version="20" max-version="22"/>
     </dependencies>
 
     <background-jobs>
