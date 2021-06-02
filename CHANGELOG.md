@@ -5,6 +5,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [16.x.x]
 ### Changed
+- Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
 ### Fixed
 ## [15.x.x]
 ### Changed
@@ -13,7 +14,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [16.0.0-beta2] - 2021-06-01
 ### Changed
 - Allow installation on Nextcloud v22
-- Remove deprecated API endpoints and occ comand (#935)
+- Remove deprecated API endpoints and occ command (#935)
   - /api/v1-2/user
   - /api/v1-2/user/avatar
   - ./occ news:updater:all-feeds
