@@ -58,13 +58,6 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <job>OCA\News\Cron\UpdaterJob</job>
     </background-jobs>
 
-    <repair-steps>
-        <post-migration>
-            <step>OCA\News\Migration\MigrateStatusFlags</step>
-            <step>OCA\News\Migration\MigrateConfig</step>
-        </post-migration>
-    </repair-steps>
-
     <commands>
         <command>OCA\News\Command\ExploreGenerator</command>
         <command>OCA\News\Command\ShowFeed</command>

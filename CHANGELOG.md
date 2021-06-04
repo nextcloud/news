@@ -6,9 +6,11 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [16.x.x]
 ### Changed
 ### Fixed
+- removed reference for deleted repair-steps (#1399)
 ## [15.x.x]
 ### Changed
 ### Fixed
+
 # Releases
 ## [16.0.0-beta2] - 2021-06-01
 ### Changed
