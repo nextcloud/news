@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
+- added feed search (#1402)
 ### Fixed
 - removed reference for deleted repair-steps (#1399)
 ## [15.x.x]
