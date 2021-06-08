@@ -19,9 +19,9 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Favicon\Favicon;
 
-use OCA\News\Config\LegacyConfig;
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Hooks\UserDeleteHook;
+use OCA\News\Search\FeedSearchProvider;
 use OCA\News\Search\FolderSearchProvider;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -29,8 +29,6 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\ITempManager;
 use OCP\AppFramework\App;
-use OCP\Files\IRootFolder;
-use OCP\Files\Node;
 
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
@@ -83,12 +81,12 @@ class Application extends App implements IBootstrap
         });
 
         $context->registerSearchProvider(FolderSearchProvider::class);
+        $context->registerSearchProvider(FeedSearchProvider::class);
 
         $context->registerEventListener(BeforeUserDeletedEvent::class, UserDeleteHook::class);
 
         // parameters
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
-        $context->registerParameter('configFile', 'config.ini');
 
         $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
             $directory = $c->get(ITempManager::class)->getTempBaseDir() . '/news/cache/purifier';
@@ -141,28 +139,6 @@ class Application extends App implements IBootstrap
             $favicon = new Favicon();
             $favicon->cache(['dir' => $c->get(ITempManager::class)->getTempBaseDir()]);
             return $favicon;
-        });
-
-        //TODO: Remove code after 15.1
-        $context->registerService('ConfigFolder', function (ContainerInterface $c): ?Node {
-            /** @var IRootFolder $fs */
-            $fs = $c->get(IRootFolder::class);
-            $path = 'news/config';
-            if ($fs->nodeExists($path)) {
-                return $fs->get($path);
-            } else {
-                return null;
-            }
-        });
-
-        //TODO: Remove code after 15.1
-        $context->registerService(LegacyConfig::class, function (ContainerInterface $c): LegacyConfig {
-            $config = new LegacyConfig(
-                $c->get('ConfigFolder'),
-                $c->get(LoggerInterface::class)
-            );
-            $config->read($c->get('configFile'), false);
-            return $config;
         });
     }
 
