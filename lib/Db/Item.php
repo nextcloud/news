@@ -99,6 +99,13 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function __clone()
     {
+        $this->setId(null);
+
+        /**
+         * Removes 'id' from updatedFields; this will avoid explicitly
+         * inserting the value NULL into the DB, and will instead allow a new
+         * id to be generated.
+         * */
         $this->resetUpdatedFields();
         $this->markFieldUpdated('contentHash');
         $this->markFieldUpdated('guidHash');
