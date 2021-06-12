@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
+- Fix NotNullConstraintViolation when sharing news items with users (#1406)
+
 ## [16.x.x]
 ### Changed
 ### Fixed
