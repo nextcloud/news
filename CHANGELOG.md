@@ -3,18 +3,23 @@ All notable changes to this project will be documented in this file.
 The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-- Fix NotNullConstraintViolation when sharing news items with users (#1406)
 
 ## [16.x.x]
 ### Changed
-- added feed search (#1402)
 ### Fixed
-- removed reference for deleted repair-steps (#1399)
+
 ## [15.x.x]
 ### Changed
 ### Fixed
 
 # Releases
+## [16.0.0-beta3] - 2021-06-16
+### Changed
+- added feed search (#1402)
+### Fixed
+- removed reference for deleted repair-steps (#1399)
+- Fix NotNullConstraintViolation when sharing news items with users (#1406)
+
 ## [16.0.0-beta2] - 2021-06-01
 ### Changed
 - Allow installation on Nextcloud v22
