@@ -1,4 +1,5 @@
 { "translations": {
+    "Unread articles" : "مقال غير مقروء",
     "News" : "الأخبار",
     "Saved" : "حفظ",
     "Download" : "تنزيل",
@@ -26,7 +27,6 @@
     "Dismiss" : "تراجع",
     "Collapse" : "طوي",
     "Starred" : "معلّم بنجمة.",
-    "Unread articles" : "مقال غير مقروء",
     "All articles" : "جميع المقالات",
     "Settings" : "إعدادات",
     "Show all articles" : "أظهر جميع المواضيع",

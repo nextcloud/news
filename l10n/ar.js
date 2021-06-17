@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "مقال غير مقروء",
     "News" : "الأخبار",
     "Saved" : "حفظ",
     "Download" : "تنزيل",
@@ -28,7 +29,6 @@ OC.L10N.register(
     "Dismiss" : "تراجع",
     "Collapse" : "طوي",
     "Starred" : "معلّم بنجمة.",
-    "Unread articles" : "مقال غير مقروء",
     "All articles" : "جميع المقالات",
     "Settings" : "إعدادات",
     "Show all articles" : "أظهر جميع المواضيع",

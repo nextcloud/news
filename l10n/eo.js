@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "Nelegitaj artikoloj",
     "News" : "Novaĵo",
     "Saved" : "Konservita",
     "Download" : "Elŝuti",
@@ -37,7 +38,6 @@ OC.L10N.register(
     "Deleted folder" : "Foriĝis dosierujo",
     "Undo delete folder" : "Malfari forigon de dosierujo",
     "Starred" : "Markita",
-    "Unread articles" : "Nelegitaj artikoloj",
     "All articles" : "Ĉiuj artikoloj",
     "Settings" : "Agordo",
     "Show all articles" : "Montri ĉiujn artikolojn",

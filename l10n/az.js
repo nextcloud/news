@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "Oxunulmamış məqalə",
     "Saved" : "Saxlanıldı",
     "Download" : "Yüklə",
     "Close" : "Bağla",
@@ -21,7 +22,6 @@ OC.L10N.register(
     "Delete" : "Sil",
     "Collapse" : "Yığılma",
     "Starred" : "Ulduzlu",
-    "Unread articles" : "Oxunulmamış məqalə",
     "All articles" : "Bütün məqalələr",
     "Settings" : "Quraşdırmalar",
     "Subscriptions (OPML)" : "Abunəliklər(OPML)",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "Непрочитани статии",
     "News" : "Новости",
     "Saved" : "Снимено",
     "Download" : "Преземи",
@@ -34,7 +35,6 @@ OC.L10N.register(
     "Dismiss" : "Отфрли",
     "Collapse" : "Собери",
     "Starred" : "Со ѕвезда",
-    "Unread articles" : "Непрочитани статии",
     "All articles" : "Сите статии",
     "Settings" : "Параметри",
     "Subscriptions (OPML)" : "Претплати (OPML)",

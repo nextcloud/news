@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "អត្ថបទ​ដែល​មិន​ទាន់​អាន",
     "Saved" : "បាន​រក្សាទុក",
     "Download" : "ទាញយក",
     "Close" : "បិទ",
@@ -20,7 +21,6 @@ OC.L10N.register(
     "Delete" : "លុប",
     "Collapse" : "បត់បង្រួម",
     "Starred" : "បាន​ដាក់​ផ្កាយ",
-    "Unread articles" : "អត្ថបទ​ដែល​មិន​ទាន់​អាន",
     "All articles" : "អត្ថបទ​ទាំង​អស់",
     "Settings" : "ការកំណត់",
     "Subscriptions (OPML)" : "ការ​តាមដាន (OPML)",

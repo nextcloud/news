@@ -1,4 +1,5 @@
 { "translations": {
+    "Unread articles" : "Nelegitaj artikoloj",
     "News" : "Novaĵo",
     "Saved" : "Konservita",
     "Download" : "Elŝuti",
@@ -35,7 +36,6 @@
     "Deleted folder" : "Foriĝis dosierujo",
     "Undo delete folder" : "Malfari forigon de dosierujo",
     "Starred" : "Markita",
-    "Unread articles" : "Nelegitaj artikoloj",
     "All articles" : "Ĉiuj artikoloj",
     "Settings" : "Agordo",
     "Show all articles" : "Montri ĉiujn artikolojn",

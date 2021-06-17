@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "Bài chưa đọc",
     "Saved" : "Đã lưu",
     "Download" : "Tải về",
     "Close" : "Đóng",
@@ -31,7 +32,6 @@ OC.L10N.register(
     "Dismiss" : "Bỏ qua",
     "Collapse" : "Thu gọn",
     "Starred" : "Starred",
-    "Unread articles" : "Bài chưa đọc",
     "All articles" : "Mọi bài viết",
     "Settings" : "Cài đặt",
     "Import" : "Nhập vào",

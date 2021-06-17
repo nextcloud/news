@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "Articulos non legite",
     "Saved" : "Salveguardate",
     "Download" : "Discargar",
     "Close" : "Clauder",
@@ -51,7 +52,6 @@ OC.L10N.register(
     "Deleted folder" : "Dossier delite",
     "Undo delete folder" : "Disfacer deletion del dossier",
     "Starred" : "Favoritate",
-    "Unread articles" : "Articulos non legite",
     "All articles" : "Tote articulos",
     "Settings" : "Configurationes",
     "Disable mark read through scrolling" : "Disactivar le marcation como legite per rolamento",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "Unread articles" : "Ongeliesen Artikelen",
     "Saved" : "Gespäichert",
     "Download" : "Download",
     "Close" : "Zoumaachen",
@@ -41,7 +42,6 @@ OC.L10N.register(
     "Collapse" : "Zesumme falen",
     "Deleted folder" : "Dossier läschen",
     "Undo delete folder" : "Dossier läschen réckgängeg maachen",
-    "Unread articles" : "Ongeliesen Artikelen",
     "All articles" : "All Artikelen",
     "Settings" : "Astellungen",
     "Show all articles" : "All d'Artikelen uweisen",
