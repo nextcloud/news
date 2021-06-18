@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "權杖已過期或應用程式未啟用！請重新載入頁面！",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "內部伺服器錯誤！請檢查您的 data/nextcloud.log 檔案以取得額外資訊！",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "請求失敗，Nextcloud 目前正處於維護模式！",
+    "News feeds" : "新聞 feed",
     "Unread articles" : "未讀文章",
     "News" : "新聞",
     "News folders" : "新聞資料夾",

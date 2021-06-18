@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Platnost tokenu skončila nebo aplikace není povolena! Načtěte stránku znovu.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnitřní chyba serveru! Podrobnosti naleznete v souboru data/nextcloud.log",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek se nezdařil, Nextcloud je aktuálně v režimu údržby!",
+    "News feeds" : "Kanály novinek",
     "Unread articles" : "Nepřečtené články",
     "News" : "Zprávy",
     "News folders" : "Nové složky",

@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "令牌过期或者应用没有启用！重新加载页面！",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "内部服务器错误！请检查您的 data/nextcloud.log 文件获取更多详细信息！",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "请求失败，Nextcloud 现处于维护模式！",
+    "News feeds" : "新闻源",
     "Unread articles" : "未读文章",
     "News" : "新闻",
     "News folders" : "News 文件夹",

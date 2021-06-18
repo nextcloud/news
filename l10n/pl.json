@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Token wygasł lub aplikacja nie jest włączona! Przeładuj stronę!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Wewnętrzny błąd serwera! Proszę sprawdzić plik data/nextcloud.log w celu uzyskania dodatkowych informacji!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Nie wykonano żądania, Nextcloud działa obecnie w trybie konserwacji!",
+    "News feeds" : "Kanały wiadomości",
     "Unread articles" : "Nieprzeczytane artykuły",
     "News" : "Wiadomości",
     "News folders" : "Katalogi z wiadomościami",
