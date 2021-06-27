@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Kodun süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucuda bir sorun çıktı! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "İstek karşılanamadı. Nextcloud şu anda bakım kipinde!",
+    "News feeds" : "Haber akışları",
     "Unread articles" : "Okunmamış makaleler",
     "News" : "Haberler",
     "News folders" : "Haberler klasörleri",
