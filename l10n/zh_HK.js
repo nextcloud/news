@@ -122,7 +122,7 @@ OC.L10N.register(
     "Expand articles on key navigation" : "按鍵導航展開文章",
     "Show all articles" : "顯示全部文章",
     "Reverse ordering (oldest on top)" : "反向排序（最舊的文章排在最上面）",
-    "Subscriptions (OPML)" : "訂閱（OPML)",
+    "Subscriptions (OPML)" : "訂閱（OPML）",
     "Import" : "匯入",
     "Export" : "匯出",
     "Error when importing: File does not contain valid OPML" : "匯入時發生錯誤：檔案不包含有效的 OPML",
