@@ -13,6 +13,32 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [16.0.0] - 2021-06-16
+There are no additional changes compared to the latest beta.
+
+### Changed
+- News now requires a 64bit OS
+- v2 API implementation (folder part)
+- Implemented sharing news items between nextcloud users (#1191)
+- Updated the news items table in DB to include sharer data (#1191)
+- Added route for sharing news items (#1191)
+- Added share data in news items serialization (#1191)
+- Added tests for the news items share feature (#1191)
+- Added sharing articles with nextcloud users (#1217)
+- Added sharing articles on social media (Facebook, Twitter) or mail (#1217)
+- Allow installation on Nextcloud v22
+- Remove deprecated API endpoints and occ command (#935)
+  - /api/v1-2/user
+  - /api/v1-2/user/avatar
+  - ./occ news:updater:all-feeds
+- added feed search (#1402)
+
+### Fixed
+- allow calling `/items?getRead=false` without a feed/folder (#1380 #1356)
+- newestId does not return newest ID but last updated (#1339)
+- removed reference for deleted repair-steps (#1399)
+- Fix NotNullConstraintViolation when sharing news items with users (#1406)
+
 ## [16.0.0-beta3] - 2021-06-16
 ### Changed
 - added feed search (#1402)
@@ -23,7 +49,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [16.0.0-beta2] - 2021-06-01
 ### Changed
 - Allow installation on Nextcloud v22
-- Remove deprecated API endpoints and occ comand (#935)
+- Remove deprecated API endpoints and occ command (#935)
   - /api/v1-2/user
   - /api/v1-2/user/avatar
   - ./occ news:updater:all-feeds
