@@ -6,6 +6,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
+- Added vue and ng-vue packages
 ### Fixed
 
 ## [15.x.x]
