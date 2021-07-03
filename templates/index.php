@@ -24,7 +24,6 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     script($appName, $fileName);
 }
 ?>
-
     <div id="global-loading"
         class="icon-loading"
         ngCloak
@@ -97,3 +96,4 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"
             news-scroll-mark-read="Content.scrollRead(itemIds)"></div>
+

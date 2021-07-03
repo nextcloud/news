@@ -11,6 +11,7 @@
     <div ng-show="Content.getItems().length == 0" class="no-feeds-available">
         <p ng-show="Content.isShowAll()"><?php p($l->t('No articles available')) ?></p>
         <p ng-show="!Content.isShowAll()"><?php p($l->t('No unread articles available')) ?></p>
+        <vue-component name="SomeComponent" v-props="Content" watch-depth="value" />
     </div>
     <button ng-controller="NavigationController as Navigation" id="mark-all-read-button" ng-click="Navigation.markCurrentRead()" class="hidden">
         <span title="Mark Read" class="icon-checkmark"></span>
@@ -30,16 +31,7 @@
                 ng-class="{'compact-dropdown': Content.showDropdown[item.id]}">
                 <ul>
                     <li class="util-spacer"></li>
-                    <li class="util only-in-compact">
-                        <a class="external icon-link"
-                            ng-click="Content.markRead(item.id)"
-                            target="_blank"
-                            rel="noreferrer"
-                            ng-href="{{ ::item.url }}"
-                            title="<?php p($l->t('Open website')) ?>"
-                            news-stop-propagation>
-                        </a>
-                    </li>
+                    <vue-component name="IconLinkCompact" v-props-item="item" v-props-ctrl="Content" />
                     <li class="title only-in-compact"
                         ng-class="{
                             'icon-rss':
