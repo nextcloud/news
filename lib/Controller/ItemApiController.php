@@ -131,9 +131,9 @@ class ItemApiController extends ApiController
     {
         // needs to be turned into a microsecond timestamp to work properly
         if (strlen((string) $lastModified) <= 10) {
-            $paddedLastModified = (float)$lastModified * 1000000.0;
+            $paddedLastModified = $lastModified * 1000000;
         } else {
-            $paddedLastModified = (float)$lastModified;
+            $paddedLastModified = $lastModified;
         }
 
         switch ($type) {
