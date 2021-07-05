@@ -129,11 +129,11 @@ class ItemApiController extends ApiController
      */
     public function updated(int $type = 3, int $id = 0, int $lastModified = 0): array
     {
-        // needs to be turned into a millisecond timestamp to work properly
+        // needs to be turned into a microsecond timestamp to work properly
         if (strlen((string) $lastModified) <= 10) {
-            $paddedLastModified = $lastModified * 1000000;
+            $paddedLastModified = (float)$lastModified * 1000000.0;
         } else {
-            $paddedLastModified = $lastModified;
+            $paddedLastModified = (float)$lastModified;
         }
 
         switch ($type) {
