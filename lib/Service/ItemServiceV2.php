@@ -306,7 +306,7 @@ class ItemServiceV2 extends Service
      *
      * @throws ServiceValidationException
      */
-    public function findAllAfter(string $userId, int $feedType, ifloat $updatedSince): array
+    public function findAllAfter(string $userId, int $feedType, float $updatedSince): array
     {
         if (!in_array($feedType, [ListType::STARRED, ListType::UNREAD, ListType::ALL_ITEMS], true)) {
             throw new ServiceValidationException('Trying to find in unknown type');
