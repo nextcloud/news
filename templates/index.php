@@ -24,6 +24,7 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     script($appName, $fileName);
 }
 ?>
+
     <div id="global-loading"
         class="icon-loading"
         ngCloak
