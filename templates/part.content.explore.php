@@ -1,7 +1,6 @@
 <?php print_unescaped($this->inc('part.content.warnings')) ?>
 
 <div id="explore">
-    <vue-component name="ExploreItems" v-props-explore="Explore" />
     <div class="grid">
         <div ng-repeat="entry in Explore.feeds | filter:Explore.filter | orderBy:'-votes'" ng-show="!Explore.feedExists(entry.feed)" class="explore-feed grid-item" news-refresh-masonry>
             <h2 ng-show="entry.favicon"

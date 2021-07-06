@@ -11,7 +11,6 @@
     <div ng-show="Content.getItems().length == 0" class="no-feeds-available">
         <p ng-show="Content.isShowAll()"><?php p($l->t('No articles available')) ?></p>
         <p ng-show="!Content.isShowAll()"><?php p($l->t('No unread articles available')) ?></p>
-        <vue-component name="SomeComponent" v-props="Content" watch-depth="value" />
     </div>
     <button ng-controller="NavigationController as Navigation" id="mark-all-read-button" ng-click="Navigation.markCurrentRead()" class="hidden">
         <span title="Mark Read" class="icon-checkmark"></span>
