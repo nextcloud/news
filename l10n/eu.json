@@ -5,6 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "Tokena iraungi da edo aplikazioa ez dago gaituta! Kargatu berriz orria!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Zerbitzariaren barneko errorea! Begiratu data/nextcloud.log fitxategia informazio gehiagorako!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Eskaerak huts egin du, Nextcloud mantentze moduan dago une honetan!",
+    "News feeds" : "Albiste jarioak",
     "Unread articles" : "Irakurri gabeko artikuluak",
     "News" : "Berriak",
     "News folders" : "Albiste karpetak",
