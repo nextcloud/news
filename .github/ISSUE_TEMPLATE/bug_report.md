@@ -12,7 +12,7 @@ assignees: ''
 Read and tick the following checkbox after you have created the issue or place an x inside the brackets ;)
 
 * [ ] I have read the [CONTRIBUTING.md](https://github.com/nextcloud/news/blob/master/CONTRIBUTING.md) and followed the provided tips
-* [ ] I accept that the issue will be closed without comment if I do not check [here](https://github.com/nextcloud/news/blob/master/CONTRIBUTING.md#before-reporting-bugs)
+* [ ] I accept that the issue will be closed without comment if I do not check [here](https://github.com/nextcloud/news/blob/master/CONTRIBUTING.md#hints-for-reporting-bugs)
 * [ ] I accept that the issue will be closed without comment if I do not fill out all items in the issue template.
 
 
