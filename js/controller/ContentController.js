@@ -199,11 +199,40 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     };
 
     this.getRelativeDate = function (timestamp) {
-        if (timestamp !== undefined && timestamp !== '') {
-            var languageCode = SettingsResource.get('language');
-            return moment.unix(timestamp).locale(languageCode).fromNow() + '';
-        } else {
+        if (!Number.isFinite(timestamp)) {
             return '';
+        }
+        const ts = new Date(timestamp*1000);
+        const dist = ts.getTime() - Date.now();
+        const languageCode = SettingsResource.get('language');
+        if (Intl.RelativeTimeFormat && Math.abs(dist) < 90*86400*1000) {
+            const format = new Intl.RelativeTimeFormat(languageCode, { numeric: 'auto' });
+            const limits = [
+                [ 7*86400*1000, 'week'   ],
+                [   86400*1000, 'day'    ],
+                [    3600*1000, 'hour'   ],
+                [      60*1000, 'minute' ],
+                [       1*1000, 'second' ]
+            ];
+            for (const [ scale, unit ] of limits) {
+                const value = Math.trunc(dist / scale);
+                if (value !== 0) {
+                    return format.format(value, unit);
+                }
+            }
+            // We arrive here only if distance from now is less than 1 second
+            return format.format(0, 'second');
+        } else {
+            const distDays = Math.abs(dist / (86400*1000));
+            let options = { hour: '2-digit', minute: '2-digit', dayPeriod: 'narrow' };
+            if (distDays >= 7) {
+                options.year = 'numeric';
+                options.month = 'short';
+                options.day = 'numeric';
+            } else if (distDays > 0.5) {
+                options.weekday = 'long';
+            }
+            return ts.toLocaleString(languageCode, options);
         }
     };
 
