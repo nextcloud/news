@@ -5,7 +5,7 @@
       target="_blank"
       rel="noreferrer"
       v-bind:href="item.url"
-      title="<?php p($l->t('Open website')) ?>"
+      v-bind:title="t('news', 'Open website')"
       news-stop-propagation>
     </a>
   </li>
@@ -14,7 +14,7 @@
 <script>
 
 export default {
-  props: ['ctrl', 'item'],
+  props: ['ctrl', 'item', 't'],
 };
 </script>
 

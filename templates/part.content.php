@@ -30,7 +30,7 @@
                 ng-class="{'compact-dropdown': Content.showDropdown[item.id]}">
                 <ul>
                     <li class="util-spacer"></li>
-                    <vue-component name="IconLinkCompact" v-props-item="item" v-props-ctrl="Content" />
+                    <vue-component name="IconLinkCompact" v-props-item="item" v-props-ctrl="Content" v-props-t="App.t" />
                     <li class="title only-in-compact"
                         ng-class="{
                             'icon-rss':
