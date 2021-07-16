@@ -60,6 +60,7 @@ jobs:
         if: matrix.database == 'mysql'
         uses: getong/mariadb-action@v1.1
         with:
+          mariadb version: '10.5'
           host port: ${{ env.MYSQL_PORT }}
           mysql database: ${{ env.MYSQL_DATABASE }}
           mysql root password: ${{ env.MYSQL_PASSWORD }}
