@@ -30,7 +30,6 @@ const sources = [
     'node_modules/angular-animate/angular-animate.min.js',
     'node_modules/angular-route/angular-route.min.js',
     'node_modules/angular-sanitize/angular-sanitize.min.js',
-    'node_modules/moment/min/moment-with-locales.min.js',
     'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
     'node_modules/vue/dist/vue.js',
     'node_modules/ngVue/build/index.js',
