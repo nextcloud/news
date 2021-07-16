@@ -6,6 +6,8 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
+- Reimplemented relative time formatting as a filter
+
 ### Fixed
 
 ## [15.x.x]

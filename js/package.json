@@ -58,7 +58,6 @@
     "angular-route": "^1.8.2",
     "angular-sanitize": "^1.8.2",
     "debug": "^4.3.2",
-    "masonry-layout": "^4.2.2",
-    "moment": "^2.29.1"
+    "masonry-layout": "^4.2.2"
   }
 }

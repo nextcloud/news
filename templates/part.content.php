@@ -59,7 +59,7 @@
                                             date:'yyyy-MM-dd HH:mm:ss' }}"
                             datetime="{{ item.pubDate*1000 |
                                             date:'yyyy-MM-ddTHH:mm:ssZ' }}">
-                                {{ Content.getRelativeDate(item.pubDate) }}
+                                {{ item.pubDate*1000 | relativeTimestamp }}
                         </time>
                     </li>
                     <li ng-click="Content.toggleStar(item.id)"
@@ -185,7 +185,7 @@
                             date:'yyyy-MM-dd HH:mm:ss' }}"
                           datetime="{{ item.pubDate*1000 |
                             date:'yyyy-MM-ddTHH:mm:ssZ' }}">
-                        {{ Content.getRelativeDate(item.pubDate) }}
+                        {{ item.pubDate*1000 | relativeTimestamp }}
                     </time>
                     <h1 ng-attr-dir="{{item.rtl && 'rtl'}}">
                         <a class="external"
