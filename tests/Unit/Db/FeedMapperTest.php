@@ -119,8 +119,8 @@ class FeedMapperTest extends MapperTestUtility
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-                      ->method('execute')
-                      ->will($this->returnValue($this->cursor));
+                      ->method('executeQuery')
+                      ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(3))
                      ->method('fetch')
@@ -169,8 +169,8 @@ class FeedMapperTest extends MapperTestUtility
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-                      ->method('execute')
-                      ->will($this->returnValue($this->cursor));
+                      ->method('executeQuery')
+                      ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
                      ->method('fetch')
@@ -218,8 +218,8 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(1))
             ->method('fetch')
@@ -266,8 +266,8 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -316,8 +316,8 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -355,8 +355,8 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(3))
             ->method('fetch')
@@ -400,8 +400,8 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(3))
             ->method('fetch')
@@ -440,8 +440,8 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(3))
             ->method('fetch')

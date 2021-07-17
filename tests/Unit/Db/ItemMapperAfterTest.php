@@ -92,8 +92,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -163,8 +163,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -231,8 +231,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -305,8 +305,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -374,8 +374,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -443,8 +443,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -506,8 +506,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->once())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -572,8 +572,8 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->never())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->never())
             ->method('fetch')

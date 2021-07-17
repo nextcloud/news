@@ -98,8 +98,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->never())
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->never())
             ->method('fetch')
@@ -164,8 +164,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -235,8 +235,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -304,8 +304,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -376,8 +376,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -460,8 +460,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -533,8 +533,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -604,8 +604,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -675,8 +675,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -749,8 +749,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -833,8 +833,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -918,8 +918,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -1001,8 +1001,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -1087,8 +1087,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -1173,8 +1173,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
@@ -1263,8 +1263,8 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->willReturnSelf();
 
         $this->builder->expects($this->exactly(1))
-            ->method('execute')
-            ->will($this->returnValue($this->cursor));
+            ->method('executeQuery')
+            ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
             ->method('fetch')
