@@ -55,7 +55,7 @@ OC.L10N.register(
     "Play audio" : "播放音訊",
     "Download audio" : "下載音訊",
     "Download video" : "下載影片",
-    "Keyboard shortcut" : "快速鍵",
+    "Keyboard shortcut" : "鍵盤快捷鍵",
     "Description" : "描述",
     "right" : "右邊",
     "Jump to next article" : "跳到下篇文章",
