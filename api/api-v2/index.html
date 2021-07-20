@@ -1,0 +1,1802 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Nextcloud News App">
+      
+      
+      
+        <meta name="author" content="Nextcloud News Team">
+      
+      
+        <link rel="canonical" href="https://nextcloud.github.io/news/api/api-v2/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.11">
+    
+    
+      
+        <title>API v2 - Nextcloud News App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3754935a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#external-api-v2-draft" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nextcloud News App" class="md-header__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nextcloud News App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API v2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/nextcloud/news/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nextcloud News App" class="md-nav__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    Nextcloud News App
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nextcloud/news/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        Installation/Update
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/" class="md-nav__link">
+        Clients
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin/" class="md-nav__link">
+        Admin
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/" class="md-nav__link">
+        Developer
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" data-md-state="indeterminate" type="checkbox" id="__nav_7" checked>
+      
+      <label class="md-nav__link" for="__nav_7">
+        Features
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/customCSS/" class="md-nav__link">
+        Custom CSS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/plugins/" class="md-nav__link">
+        Plugins
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/themes/" class="md-nav__link">
+        Themes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      <label class="md-nav__link" for="__nav_8">
+        REST API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="REST API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          REST API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-v1/" class="md-nav__link">
+        API v1
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          API v2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        API v2
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conventions" class="md-nav__link">
+    Conventions
+  </a>
+  
+    <nav class="md-nav" aria-label="Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-aliases-as-comments" class="md-nav__link">
+    Object Aliases As Comments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-objects-are-omitted" class="md-nav__link">
+    Error Objects Are Omitted
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-stability-contract" class="md-nav__link">
+    API Stability Contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-format" class="md-nav__link">
+    Request Format
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-level-detection" class="md-nav__link">
+    API Level Detection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-format" class="md-nav__link">
+    Response Format
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-guidelines" class="md-nav__link">
+    Security Guidelines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syncing" class="md-nav__link">
+    Syncing
+  </a>
+  
+    <nav class="md-nav" aria-label="Syncing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-sync" class="md-nav__link">
+    Initial Sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-local-and-remote-changes" class="md-nav__link">
+    Sync Local And Remote Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#folders" class="md-nav__link">
+    Folders
+  </a>
+  
+    <nav class="md-nav" aria-label="Folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-folder" class="md-nav__link">
+    Deleting A Folder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-folder" class="md-nav__link">
+    Creating A Folder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-a-folder" class="md-nav__link">
+    Changing A Folder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feeds" class="md-nav__link">
+    Feeds
+  </a>
+  
+    <nav class="md-nav" aria-label="Feeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-feed" class="md-nav__link">
+    Deleting A Feed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-feed" class="md-nav__link">
+    Creating A feed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-a-feed" class="md-nav__link">
+    Changing A Feed
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    Items
+  </a>
+  
+    <nav class="md-nav" aria-label="Items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full" class="md-nav__link">
+    Full
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced" class="md-nav__link">
+    Reduced
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updater" class="md-nav__link">
+    Updater
+  </a>
+  
+    <nav class="md-nav" aria-label="Updater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-before-update" class="md-nav__link">
+    Clean Up Before Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-feeds-and-user-ids" class="md-nav__link">
+    Get All Feeds And User Ids
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-users-feed" class="md-nav__link">
+    Update A User's Feed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-after-update" class="md-nav__link">
+    Clean Up After Update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta-data" class="md-nav__link">
+    Meta Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-level" class="md-nav__link">
+    API Level
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        Maintenance
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#conventions" class="md-nav__link">
+    Conventions
+  </a>
+  
+    <nav class="md-nav" aria-label="Conventions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-aliases-as-comments" class="md-nav__link">
+    Object Aliases As Comments
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-objects-are-omitted" class="md-nav__link">
+    Error Objects Are Omitted
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-stability-contract" class="md-nav__link">
+    API Stability Contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#request-format" class="md-nav__link">
+    Request Format
+  </a>
+  
+    <nav class="md-nav" aria-label="Request Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-level-detection" class="md-nav__link">
+    API Level Detection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    Authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-format" class="md-nav__link">
+    Response Format
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-guidelines" class="md-nav__link">
+    Security Guidelines
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syncing" class="md-nav__link">
+    Syncing
+  </a>
+  
+    <nav class="md-nav" aria-label="Syncing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-sync" class="md-nav__link">
+    Initial Sync
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-local-and-remote-changes" class="md-nav__link">
+    Sync Local And Remote Changes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#folders" class="md-nav__link">
+    Folders
+  </a>
+  
+    <nav class="md-nav" aria-label="Folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-folder" class="md-nav__link">
+    Deleting A Folder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-folder" class="md-nav__link">
+    Creating A Folder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-a-folder" class="md-nav__link">
+    Changing A Folder
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feeds" class="md-nav__link">
+    Feeds
+  </a>
+  
+    <nav class="md-nav" aria-label="Feeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deleting-a-feed" class="md-nav__link">
+    Deleting A Feed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-a-feed" class="md-nav__link">
+    Creating A feed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-a-feed" class="md-nav__link">
+    Changing A Feed
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    Items
+  </a>
+  
+    <nav class="md-nav" aria-label="Items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full" class="md-nav__link">
+    Full
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reduced" class="md-nav__link">
+    Reduced
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updater" class="md-nav__link">
+    Updater
+  </a>
+  
+    <nav class="md-nav" aria-label="Updater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-before-update" class="md-nav__link">
+    Clean Up Before Update
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-feeds-and-user-ids" class="md-nav__link">
+    Get All Feeds And User Ids
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-a-users-feed" class="md-nav__link">
+    Update A User's Feed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clean-up-after-update" class="md-nav__link">
+    Clean Up After Update
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#meta-data" class="md-nav__link">
+    Meta Data
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-level" class="md-nav__link">
+    API Level
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nextcloud/news/blob/master/documentation/api/api-v2.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="external-api-v2-draft">External API v2 (Draft)</h1>
+<p><strong>Disclaimer:</strong> this API has not been fully implemented yet.</p>
+<p>The <strong>News app</strong> offers a RESTful API which can be used to sync folders, feeds and items. The API also supports <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS">CORS</a> which means that you can access the API from your browser using JavaScript.</p>
+<p>In addition, an updater API is exposed which enables API users to run feed updates in parallel using a REST API or Nextcloud console API.</p>
+<h2 id="conventions">Conventions</h2>
+<p>This document uses the following conventions:</p>
+<ul>
+<li>Object aliases as comments</li>
+<li>Error objects are omitted</li>
+</ul>
+<h3 id="object-aliases-as-comments">Object Aliases As Comments</h3>
+<p>In order to only specify the JSON objects once, comments are used to alias them.</p>
+<p>There are two types of aliases:</p>
+<ul>
+<li>Objects</li>
+<li>Object arrays</li>
+</ul>
+<p><strong>Objects</strong>:</p>
+<pre><code class="language-js">{
+    &quot;folder&quot;: { /* folder object */ },
+}
+</code></pre>
+<p>means that the folder attributes will be listed inside the <strong>folder</strong> object</p>
+<p><strong>Object arrays</strong>:</p>
+<pre><code class="language-js">{
+    &quot;folders&quot;: [ /* array of folder objects */ ],
+}
+</code></pre>
+<p>means that folder objects will be listed inside the <strong>folders</strong> array.</p>
+<h3 id="error-objects-are-omitted">Error Objects Are Omitted</h3>
+<p>This means that the error object will not be explicitly shown in the examples. All HTTP 400 response status codes contain an error object:</p>
+<pre><code class="language-json">{
+    &quot;error&quot;: {
+        &quot;code&quot;: 1,
+        &quot;message&quot;: &quot;error message&quot;
+    }
+}
+</code></pre>
+<h2 id="api-stability-contract">API Stability Contract</h2>
+<p>The API level will <strong>change</strong> if the following occurs:</p>
+<ul>
+<li>a required HTTP request header is added</li>
+<li>a required request parameter is added</li>
+<li>a field of a response object is removed</li>
+<li>a field of a response object is changed to a different datatype</li>
+<li>an HTTP response header is removed</li>
+<li>an HTTP response header is changed to a different datatype</li>
+<li>the meaning of an API call changes (e.g. /sync will not sync any more but show a sync timestamp)</li>
+</ul>
+<p>The API level will <strong>not change</strong> if:</p>
+<ul>
+<li>a new HTTP response header is added</li>
+<li>an optional new HTTP request header is added</li>
+<li>a new response parameter is added (e.g. each item gets a new field "something": 1)</li>
+<li>The order of the JSON attributes is changed on any level (e.g. "id":3 is not the first field anymore, but the last)</li>
+</ul>
+<p>You have to design your app with these things in mind!:</p>
+<ul>
+<li><strong>Don't depend on the order</strong> of object attributes. In JSON it does not matter where the object attribute is since you access the value by name, not by index</li>
+<li><strong>Don't limit your app to the currently available attributes</strong>. New ones might be added. If you don't handle them, ignore them</li>
+<li><strong>Use a library to compare versions</strong>, ideally one that uses semantic versioning</li>
+</ul>
+<h2 id="request-format">Request Format</h2>
+<p>The base URL for all calls is:</p>
+<pre><code>https://yournextcloud.com/index.php/apps/news/api/v2
+</code></pre>
+<p>Unless an absolute Url is specified, the relative Urls in the Specification are appended to this url. To access the route <strong>/sync</strong> for instance you'd use the following url:</p>
+<pre><code>https://yournextcloud.com/index.php/apps/news/api/v2/sync
+</code></pre>
+<p>The required request headers are:</p>
+<ul>
+<li><strong>Accept</strong>: application/json</li>
+</ul>
+<p>Any request method except GET:</p>
+<ul>
+<li><strong>Content-Type</strong>: application/json; charset=utf-8</li>
+</ul>
+<p>Any route that allows caching:</p>
+<ul>
+<li><strong>If-None-Match</strong>: an Etag, e.g. 6d82cbb050ddc7fa9cbb659014546e59. If no previous Etag is known, this header should be omitted</li>
+</ul>
+<p>The request body is either passed in the URL in case of a <strong>GET</strong> request (e.g.: <strong>?foo=bar&amp;index=0</strong>) or as JSON, e.g.:</p>
+<pre><code class="language-json">{
+    &quot;foo&quot;: &quot;bar&quot;,
+    &quot;index&quot;: 0
+}
+</code></pre>
+<p><strong>Note</strong>: The current Etag implementation contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.</p>
+<h3 id="api-level-detection">API Level Detection</h3>
+<p>Check the <a href="#api-level">API level route</a></p>
+<h3 id="authentication">Authentication</h3>
+<p>Because REST is stateless you have to re-send user and password each time you access the API. Therefore running Nextcloud <strong>with SSL is highly recommended</strong> otherwise <strong>everyone in your network can log your credentials</strong>.</p>
+<p>Credentials are passed as an HTTP header using <a href="https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side">HTTP basic auth</a>:</p>
+<pre><code>Authorization: Basic $CREDENTIALS
+</code></pre>
+<p>where $CREDENTIALS is:</p>
+<pre><code>base64(USER:PASSWORD)
+</code></pre>
+<p>This authentication/authorization method will be the recommended default until core provides an easy way to do OAuth</p>
+<p><strong>Note</strong>: Even if login cookies are sent back to your client, they will not be considered for authentication.</p>
+<h2 id="response-format">Response Format</h2>
+<p>The status codes are not always provided by the News app itself, but might also be returned because of Nextcloud internal errors.</p>
+<p>The following status codes can always be returned by Nextcloud:</p>
+<ul>
+<li><strong>401</strong>: The provided credentials to log into Nextcloud are invalid.</li>
+<li><strong>403</strong>: The user is not allowed to access the route. This can happen if for instance of only users in the admin group can access the route and the user is not in it.</li>
+<li><strong>404</strong>: The route can not be found or the resource does not exist. Can also happen if for instance you are trying to delete a folder which does not exist.</li>
+<li><strong>5xx</strong>: An internal server error occurred. This can happen if the server is in maintenance mode or because of other reasons.</li>
+</ul>
+<p>The following status codes are returned by News:</p>
+<ul>
+<li><strong>200</strong>: Everything went fine</li>
+<li><strong>304</strong>: In case the resource was not modified, contains no response body. This means that you can ignore the request since everything is up to date.</li>
+<li><strong>400</strong>: There was an app related error, check the <strong>error</strong> object if specified</li>
+<li><strong>409</strong>: Conflict error which means that the resource exists already. Can be returned when updating (<strong>PATCH</strong>) or creating (<strong>POST</strong>) a resource, e.g. a folder</li>
+</ul>
+<p>The response headers are:</p>
+<ul>
+<li><strong>Content-Type</strong>: application/json; charset=utf-8</li>
+<li><strong>Etag</strong>: A string containing a cache header of maximum length 64, e.g. 6d82cbb050ddc7fa9cbb659014546e59. The etag value will be assembled using the number of feeds, folders and the highest last modified timestamp in milliseconds, e.g. 2-3-123131923912392391239. However consider that a detail and dont rely on it.</li>
+</ul>
+<p>The response body is a JSON structure that looks like this, which contains the actual data on the first level. The key is the resource in singular if it's a single resource or plural if its a collection. In case of HTTP 400, an error object is also present to help distinguishing between different error types:</p>
+<pre><code class="language-json">{
+    &quot;error&quot;: {
+        &quot;code&quot;: 1,
+        &quot;message&quot;: &quot;error message&quot;
+    }
+}
+</code></pre>
+<ul>
+<li><strong>error</strong>: Only present when an HTTP 400 is returned to help distinguishing between error causes</li>
+<li><strong>code</strong>: A unique error code</li>
+<li><strong>message</strong>: A translated error message. The user's configured locale is used.</li>
+</ul>
+<p>In case of an <strong>4xx</strong> or <strong>5xx</strong> error the request was not successful and has to be retried. For instance marking items as read locally and syncing should send the same request again the next time the user syncs in case an error occurred.</p>
+<h2 id="security-guidelines">Security Guidelines</h2>
+<p>Read the following notes carefully to prevent being subject to security exploits:</p>
+<ul>
+<li>You should always enforce SSL certificate verification and never offer a way to turn it off. Certificate verification is important to prevent MITM attacks which is especially important in the mobile world where users are almost always connected to untrusted networks. In case a user runs a self-signed certificate on his server ask him to either install his certificate on his device or direct him to one of the many ways to sign his certificate for free (most notably letsencrypt.com)</li>
+<li>All string fields in a JSON response <strong>expect an item's body</strong> are <strong>not sanitized</strong>. This means that if you do not escape it properly before rendering you will be vulnerable to <a href="https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29">XSS</a> attacks</li>
+<li>Basic Auth headers can easily be decrypted by anyone since base64 is an encoding, not an encryption. Therefore only send them if you are accessing an HTTPS website or display an easy to understand warning if the user chooses HTTP</li>
+<li>When creating a feed you can choose to add basic auth authentication credentials. These must be stored in clear text so anyone with access to your database (however they might have achieved it, think of Sql injection) can read them and use them to access the website. You should warn the user about this.</li>
+<li>If you are building a client in JavaScript or are using a link with <strong>target="blank"</strong>, remember to set the <strong>window.opener</strong> property to <strong>null</strong> and/or add a <strong>rel="noreferrer"</strong> to your link to prevent your app from being <a href="https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c#.wf2ddytbh">target by an XSS attack</a></li>
+</ul>
+<h2 id="syncing">Syncing</h2>
+<p>All routes are given relative to the base API url, e.g.: <strong>/sync</strong> becomes  <strong>https://yourNextcloud.com/index.php/apps/news/api/v2/sync</strong></p>
+<p>There are two usecases for syncing:</p>
+<ul>
+<li><strong>Initial sync</strong>: the user does not have any data at all</li>
+<li><strong>Syncing local and remote changes</strong>: the user has synced at least once and wants to submit and receive changes</li>
+</ul>
+<h3 id="initial-sync">Initial Sync</h3>
+<p>The intial sync happens when a user adds an Nextcloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /sync</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+<li><strong>HTTP headers</strong>:</li>
+<li><strong>Accept: "application/json"</strong></li>
+</ul>
+<p>This will return the following status codes:</p>
+<ul>
+<li><strong>200</strong>: Success</li>
+</ul>
+<p>and the following HTTP headers:</p>
+<ul>
+<li><strong>Content-Type</strong>: application/json; charset=utf-8</li>
+<li><strong>Etag</strong>: A string containing a cache header, maximum size 64 ASCII characters, e.g. 6d82cbb050ddc7fa9cbb659014546e59</li>
+</ul>
+<p>and the following request body:</p>
+<pre><code class="language-js">{
+    &quot;folders&quot;: [ /* array of folder objects */ ],
+    &quot;feeds&quot;: [ /* array of feed objects */ ],
+    &quot;items&quot;: [ /* array of item objects */ ]
+}
+</code></pre>
+<p><strong>Note</strong>: Each object is explained in more detail in a separate section:</p>
+<ul>
+<li><a href="#folders">Folders</a></li>
+<li><a href="#feeds">Feeds</a></li>
+<li><a href="#items">Items</a></li>
+</ul>
+<h3 id="sync-local-and-remote-changes">Sync Local And Remote Changes</h3>
+<p>After the initial sync the app has all folders, feeds and items. Now you want to push changes and retrieve updates from the server. To do this, make the following request:</p>
+<ul>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /sync</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+<li><strong>HTTP headers</strong>:</li>
+<li><strong>Content-Type: "application/json; charset=utf-8"</strong></li>
+<li><strong>Accept: "application/json"</strong></li>
+<li><strong>If-None-Match: "6d82cbb050ddc7fa9cbb659014546e59"</strong> (Etag from the previous request to the /sync route)</li>
+</ul>
+<p>with the following request body:</p>
+<pre><code class="language-js">{
+    &quot;items&quot;: [{
+            // read and starred
+            &quot;id&quot;: 5,
+            &quot;isStarred&quot;: false,
+            &quot;isUnread&quot;: true,
+            &quot;contentHash&quot;: &quot;08ffbcf94bd95a1faa6e9e799cc29054&quot;
+        }, {
+            // only read
+            &quot;id&quot;: 6,
+            &quot;isUnread&quot;: true,
+            &quot;contentHash&quot;: &quot;09ffbcf94bd95a1faa6e9e799cc29054&quot;
+        }, {
+            // only starred
+            &quot;id&quot;: 7,
+            &quot;isStarred&quot;: false,
+            &quot;contentHash&quot;: &quot;18ffbcf94bd95a1faa6e9e799cc29054&quot;
+    }, /* etc */]
+}
+</code></pre>
+<p>If no items have been read or starred, simply leave the <strong>items</strong> array empty, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;items&quot;: []
+}
+</code></pre>
+<p>The response matches the <strong>GET</strong> call, except there can be two different types of item objects:</p>
+<ul>
+<li><strong><a href="#full">Full</a></strong>: Contains all attributes</li>
+<li><strong><a href="#reduced">Reduced</a></strong>: Contains only <strong>id</strong>, <strong>isUnread</strong> and <strong>isStarred</strong></li>
+</ul>
+<p>The deciding factor whether a full or reduced item object is being returned depends on the contentHash in the request: If the contentHash matches the record in the database a reduced item object is being returned, otherwise a full object is used. Both can occur in the same items array at the same time.</p>
+<p>The idea behind this special handling is that if the contentHash matches the record in the database, the actual item content did not change. Therefore it is enough to know the item status. This greatly reduces the amount sent over the Net which is especially important for mobile apps.</p>
+<p>This also applies to folders and feeds, however the reduced folder and feed objects will only include the <strong>id</strong> element. The deciding factor whether only an id or the full object will be returned is the last modified modified timestamp which is included in the sent etag.</p>
+<p>If you push a list of items to be marked read/starred, there can also be less items in the response than the ones which were initially sent. This means that the item was deleted by the cleanup job and should be removed from the client device.</p>
+<p>For instance let's take a look at the following example. You are <strong>POST</strong>ing the following JSON:</p>
+<pre><code class="language-json">{
+    &quot;items&quot;: [{
+            &quot;id&quot;: 5,
+            &quot;isStarred&quot;: false,
+            &quot;isUnread&quot;: true,
+            &quot;contentHash&quot;: &quot;08ffbcf94bd95a1faa6e9e799cc29054&quot;
+        }, {
+            &quot;id&quot;: 6,
+            &quot;isUnread&quot;: true,
+            &quot;contentHash&quot;: &quot;09ffbcf94bd95a1faa6e9e799cc29054&quot;
+        }, {
+            &quot;id&quot;: 7,
+            &quot;isStarred&quot;: false,
+            &quot;contentHash&quot;: &quot;18ffbcf94bd95a1faa6e9e799cc29054&quot;
+    }]
+}
+</code></pre>
+<p>and receive the following output in return:</p>
+<pre><code class="language-json">{
+    &quot;items&quot;: [{
+            &quot;id&quot;: 5,
+            &quot;isStarred&quot;: false,
+            &quot;isUnread&quot;: true
+        }, {
+            &quot;id&quot;: 6,
+            &quot;isUnread&quot;: true,
+            &quot;isStarred&quot;: false
+    }]
+}
+</code></pre>
+<p>The item with the <strong>id</strong> <strong>7</strong> is missing from the response. This means that it was deleted on the server.</p>
+<p>For folders and feeds all ids will be returned so you can compare the existing ids with your locally available feeds and folders and remove the difference.</p>
+<h2 id="folders">Folders</h2>
+<p>Folders are represented using the following data structure:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 3,
+    &quot;name&quot;: &quot;funny stuff&quot;
+}
+</code></pre>
+<p>The attributes mean the following:</p>
+<ul>
+<li><strong>id</strong>: 64bit Integer, id</li>
+<li><strong>name</strong>: Abitrary long text, folder's name</li>
+</ul>
+<h3 id="deleting-a-folder">Deleting A Folder</h3>
+<p>To delete a folder, use the following request:</p>
+<ul>
+<li><strong>Method</strong>: DELETE</li>
+<li><strong>Route</strong>: /folders/{id}</li>
+<li><strong>Route Parameters</strong>:</li>
+<li><strong>{id}</strong>: folder's id</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Folder was deleted successfully</li>
+<li><strong>404</strong>: Folder does not exist</li>
+</ul>
+<p>In case of an HTTP 200, the deleted folder is returned in full in the response, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;folder&quot;: { /* folder object */ }
+}
+</code></pre>
+<p><strong>Note</strong>: Deleted folders will not appear during the next sync so you also need to delete the folder locally afterwards. Folders should only be deleted locally if an HTTP <strong>200</strong> or <strong>404</strong> was returned.</p>
+<p><strong>Note</strong>: If you delete a folder locally, you should also delete all feeds whose <strong>folderId</strong> attribute matches the folder's <strong>id</strong> attribute and also delete all items whose <strong>feedId</strong> attribute matches the feeds' <strong>id</strong> attribute. This is done automatically on the server and will also be missing on the next request.</p>
+<h3 id="creating-a-folder">Creating A Folder</h3>
+<p>To create a folder, use the following request:</p>
+<ul>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /folders</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>with the following request body:</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;Folder name&quot;
+}
+</code></pre>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Folder was created successfully</li>
+<li><strong>400</strong>: Folder creation error, check the error object:</li>
+<li><strong>code</strong>: 1: folder name is empty</li>
+</ul>
+<p>In case of an HTTP 200, the created or already existing folder is returned in full in the response, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;folder&quot;: { /* folder object */ }
+}
+</code></pre>
+<h3 id="changing-a-folder">Changing A Folder</h3>
+<p>The following attributes can be changed on the folder:</p>
+<ul>
+<li><strong>name</strong></li>
+</ul>
+<p>To change any number of attributes on a folder, use the following request and provide as much attributes that can be changed as you want:</p>
+<ul>
+<li><strong>Method</strong>: PATCH</li>
+<li><strong>Route</strong>: /folders/{id}</li>
+<li><strong>Route Parameters</strong>:</li>
+<li><strong>{id}</strong>: folder's id</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>with the following request body:</p>
+<pre><code class="language-json">{
+    &quot;name&quot;: &quot;New folder name&quot;
+}
+</code></pre>
+<ul>
+<li><strong>name</strong>: Abitrary long text, the folder's name</li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Folder was updated successfully</li>
+<li><strong>400</strong>: Folder update error, check the error object:</li>
+<li><strong>code</strong>: 1: folder name is empty</li>
+<li>Other Nextcloud errors, see <a href="#response-format">Response Format</a></li>
+</ul>
+<p>In case of an HTTP 200, the changed or already existing folder is returned in full in the response, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;folder&quot;: { /* folder object */ }
+}
+</code></pre>
+<h2 id="feeds">Feeds</h2>
+<p>Feeds are represented using the following data structure:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 4,
+    &quot;name&quot;: &quot;The Oatmeal - Comics, Quizzes, &amp; Stories&quot;,
+    &quot;faviconLink&quot;: &quot;http://theoatmeal.com/favicon.ico&quot;,
+    &quot;folderId&quot;: 3,
+    &quot;ordering&quot;: 0,
+    &quot;fullTextEnabled&quot;: false,
+    &quot;updateMode&quot;: 0,
+    &quot;isPinned&quot;: true,
+    &quot;error&quot;: {
+        &quot;code&quot;: 1,
+        &quot;message&quot;: &quot;&quot;
+    }
+}
+</code></pre>
+<p>The attributes mean the following:</p>
+<ul>
+<li><strong>id</strong>: 64bit Integer, id</li>
+<li><strong>name</strong>: Abitrary long text, feed's name</li>
+<li><strong>faviconLink</strong>: Abitrary long text, feed's favicon location, <strong>null</strong> if not found</li>
+<li><strong>folderId</strong>: 64bit Integer, the feed's folder or <strong>0</strong> in case no folder is specified</li>
+<li><strong>ordering</strong>: 64bit Integer, overrides the feed's default ordering:</li>
+<li><strong>0</strong>: Default</li>
+<li><strong>1</strong>: Oldest on top</li>
+<li><strong>2</strong>: Newest on top</li>
+<li><strong>updateMode</strong>: 64bit Integer, describing how item updates are handled:</li>
+<li><strong>0</strong>: No special behavior</li>
+<li><strong>1</strong>: If an item is updated, mark it unread</li>
+<li><strong>isPinned</strong>: Boolean, Used to list certain feeds before others. Feeds are first ordered by their <strong>isPinned</strong> value (true before false) and then by their name in alphabetical order</li>
+<li><strong>error</strong>: error object, only present if an error occurred:</li>
+<li><strong>code</strong>: The error code:<ul>
+<li><strong>1</strong>: Error occured during feed update</li>
+</ul>
+</li>
+<li><strong>message</strong>: Translated error message depending on the user's configured server locale</li>
+</ul>
+<h3 id="deleting-a-feed">Deleting A Feed</h3>
+<p>To delete a feed, use the following request:</p>
+<ul>
+<li><strong>Method</strong>: DELETE</li>
+<li><strong>Route</strong>: /feeds/{id}</li>
+<li><strong>Route Parameters</strong>:</li>
+<li><strong>{id}</strong>: feed's id</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Feed was deleted successfully</li>
+<li><strong>404</strong>: Feed with given id was not found, no error object</li>
+<li>Other Nextcloud errors, see <a href="#response-format">Response Format</a></li>
+</ul>
+<p>In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;feed&quot;: { /* feed object */ }
+}
+</code></pre>
+<p><strong>Note</strong>: Deleted feeds will not appear during the next sync so you also need to delete the feed locally afterwards. Feeds should only be deleted locally if an HTTP <strong>200</strong> or <strong>404</strong> was returned.</p>
+<p><strong>Note</strong>: If you delete a feed locally, you should also delete all items whose <strong>feedId</strong> attribute matches the feeds' <strong>id</strong> attribute. This is done automatically on the server and will also be missing on the next request.</p>
+<h3 id="creating-a-feed">Creating A feed</h3>
+<p>To create a feed, use the following request:</p>
+<ul>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /feeds</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>with the following request body:</p>
+<pre><code class="language-json">{
+    &quot;url&quot;: &quot;https://feed.url.com&quot;,
+    &quot;name&quot;: &quot;Feed name&quot;,
+    &quot;ordering&quot;: 0,
+    &quot;folderId&quot;: 3,
+    &quot;isPinned&quot;: true,
+    &quot;fullTextEnabled&quot;: false,
+    &quot;basicAuthUser&quot;: &quot;user&quot;,
+    &quot;basicAuthPassword&quot;: &quot;password&quot;
+}
+</code></pre>
+<ul>
+<li><strong>url</strong>: Abitrary long text, the url needs to have the full schema e.g. https://the-url.com. In case the user omits the schema, prepending <strong>https</strong> is recommended</li>
+<li><strong>folderId</strong>: 64bit Integer, the feed's folder or <strong>0</strong> in case no folder is specified</li>
+<li><strong>name (optional)</strong>: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed</li>
+<li><strong>basicAuthUser (optional)</strong>: Abitrary long text, if given basic auth headers are sent for the feed</li>
+<li><strong>basicAuthPassword (optional)</strong>: Abitrary long text, if given basic auth headers are sent for the feed</li>
+<li><strong>ordering (optional)</strong>: See <a href="#feeds">Feeds</a></li>
+<li><strong>isPinned (optional)</strong>: See <a href="#feeds">Feeds</a></li>
+<li><strong>fullTextEnabled (optional)</strong>: See <a href="#feeds">Feeds</a></li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Feed was created successfully</li>
+<li><strong>400</strong>: Feed creation error, check the <strong>error</strong> object:</li>
+<li><strong>code</strong>: 1: url is empty</li>
+<li><strong>code</strong>: 2: malformed xml</li>
+<li><strong>code</strong>: 3: no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)</li>
+<li><strong>code</strong>: 4: feed format not supported (e.g. too old RSS version)</li>
+<li><strong>code</strong>: 5: ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)</li>
+<li><strong>code</strong>: 6: url can not be found or accessed</li>
+<li><strong>code</strong>: 7: maximum redirects reached</li>
+<li><strong>code</strong>: 8: maximum size reached</li>
+<li><strong>code</strong>: 9: request timed out</li>
+<li><strong>code</strong>: 10: invalid or missing http basic auth headers</li>
+<li><strong>code</strong>: 11: not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)</li>
+</ul>
+<p>In case of an HTTP 200, the created feed is returned in full in the response, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;feed&quot;: { /* feed object */ }
+}
+</code></pre>
+<p><strong>Note</strong>: Because the next sync would also pull in the added feed and items again, the added items will be omitted for saving bandwidth. This also means that after successfully creating a feed you will need to query the <a href="#sync-local-and-remote-changes">sync route</a> again.</p>
+<h3 id="changing-a-feed">Changing A Feed</h3>
+<p>To change a feed, use the following request:</p>
+<ul>
+<li><strong>Method</strong>: PATCH</li>
+<li><strong>Route</strong>: /feeds/{id}</li>
+<li><strong>Route Parameters</strong>:</li>
+<li><strong>{id}</strong>: feed's id</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>with the following request body:</p>
+<pre><code class="language-json">{
+    &quot;url&quot;: &quot;https://feed.url.com&quot;,
+    &quot;name&quot;: &quot;Feed name&quot;,
+    &quot;ordering&quot;: 0,
+    &quot;folderId&quot;: 3,
+    &quot;isPinned&quot;: true,
+    &quot;fullTextEnabled&quot;: false,
+    &quot;basicAuthUser&quot;: &quot;user&quot;,
+    &quot;basicAuthPassword&quot;: &quot;password&quot;
+}
+</code></pre>
+<p>All parameters are optional</p>
+<ul>
+<li><strong>url (optional)</strong>: Abitrary long text, the url which was entered by the user with the full schema</li>
+<li><strong>name (optional)</strong>: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed</li>
+<li><strong>basicAuthUser (optional)</strong>: Abitrary long text, if given basic auth headers are sent for the feed</li>
+<li><strong>basicAuthPassword (optional)</strong>: Abitrary long text, if given basic auth headers are sent for the feed</li>
+<li><strong>ordering (optional)</strong>: See <a href="#Feeds">feeds</a></li>
+<li><strong>isPinned (optional)</strong>: See <a href="#Feeds">feeds</a></li>
+<li><strong>fullTextEnabled (optional)</strong>: See <a href="#Feeds">feeds</a></li>
+<li><strong>folderId (optional)</strong>: 64bit Integer, the feed's folder or <strong>0</strong> in case no folder is specified</li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Feed was changed successfully</li>
+<li><strong>400</strong>: Feed creation error, check the error object:</li>
+<li><strong>code</strong>: 1: url is empty</li>
+<li><strong>code</strong>: 2: malformed xml</li>
+<li><strong>code</strong>: 3: no feed found for url (e.g. website does not have an RSS or Atom feed or direct link to feed is no feed)</li>
+<li><strong>code</strong>: 4: feed format not supported (e.g. too old RSS version)</li>
+<li><strong>code</strong>: 5: ssl issues (e.g. SSL certificate is invalid or php has issues accessing certificates on your server)</li>
+<li><strong>code</strong>: 6: url can not be found or accessed</li>
+<li><strong>code</strong>: 7: maximum redirects reached</li>
+<li><strong>code</strong>: 8: maximum size reached</li>
+<li><strong>code</strong>: 9: request timed out</li>
+<li><strong>code</strong>: 10: invalid or missing http basic auth headers</li>
+<li><strong>code</strong>: 11: not allowed to access the feed (difference here is that the user can be authenticated but not allowed to access the feed)</li>
+<li>Other Nextcloud errors, see <a href="#response-format">Response Format</a></li>
+</ul>
+<p>In case of an HTTP 200, the changed feed is returned in full in the response, e.g.:</p>
+<pre><code class="language-js">{
+    &quot;feed&quot;: { /* feed object */ }
+}
+</code></pre>
+<p><strong>Note</strong>: Because the next sync would also pull in the changed feed and items again, the added or updated items will be omitted for saving bandwidth. This also means that after successfully updating a feed you will need to query the <a href="#sync-local-and-remote-changes">sync route</a> again.</p>
+<h2 id="items">Items</h2>
+<p>Items can occur in two different formats:</p>
+<ul>
+<li>Full</li>
+<li>Reduced</li>
+</ul>
+<p>The attributes mean the following:</p>
+<ul>
+<li><strong>id</strong>: 64bit Integer, id</li>
+<li><strong>url</strong>: Abitrary long text, location of the online resource</li>
+<li><strong>title</strong>: Abitrary long text, item's title</li>
+<li><strong>author</strong>: Abitrary long text, name of the author/authors</li>
+<li><strong>publishedAt</strong>: String representing an ISO 8601 DateTime object, when the item was published</li>
+<li><strong>lastModifiedAt</strong>: String representing an ISO 8601 DateTime object, when the item was last modified</li>
+<li><strong>enclosure</strong>: An enclosure object or null if none is present</li>
+<li><strong>mimeType</strong>: Abitrary long text, the enclosures mime type</li>
+<li><strong>url</strong>: Abitrary long text, location of the enclosure</li>
+<li><strong>body</strong>: Abitrary long text, <strong>sanitized (meaning: does not have to be escape)</strong>, contains the item's content</li>
+<li><strong>feedId</strong>: 64bit Integer, the item's feed it belongs to</li>
+<li><strong>isUnread</strong>: Boolean, true if unread, false if read</li>
+<li><strong>isStarred</strong>: Boolean, true if starred, false if not starred</li>
+<li><strong>fingerprint</strong>: 64 ASCII characters, hash that is used to determine if an item is the same as an other one. The following behavior should be implemented:</li>
+<li>Items in a stream (e.g. All items, folders, feeds) should be filtered so that no item with the same fingerprint is present.</li>
+<li>When marking an item read, all items with the same fingerprint should also be marked as read.</li>
+<li><strong>contentHash</strong>: 64 ASCII characters, used to determine if the item on the client is up to or out of date. The difference between the contentHash and the fingerprint attribute is that contentHash is always calculated from a stable set of attributes (title, author, url, enclosure, body) whereas the fingerprint is calculated from a set of attributes depending on the feed. The reason for this is that some feeds use different URLs for the same article so you would not want to include the URL as uniqueness criteria in that case. If the fingerprint was used for syncing however, an URL update would never reach the client.</li>
+</ul>
+<h3 id="full">Full</h3>
+<p>A full item contains the full content:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 5,
+    &quot;url&quot;: &quot;http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/&quot;,
+    &quot;title&quot;: &quot;Plasma-nm after the solid sprint&quot;,
+    &quot;author&quot;: &quot;Jan Grulich (grulja)&quot;,
+    &quot;publishedAt&quot;: &quot;2005-08-15T15:52:01+0000&quot;,
+    &quot;lastModifiedAt&quot;: &quot;2005-08-15T15:52:01+0000&quot;,
+    &quot;enclosure&quot;: {
+        &quot;mimeType&quot;: &quot;video/webm&quot;,
+        &quot;url&quot;: &quot;http://video.webmfiles.org/elephants-dream.webm&quot;
+    },
+    &quot;body&quot;: &quot;&lt;p&gt;At first I have to say...&lt;/p&gt;&quot;,
+    &quot;feedId&quot;: 4,
+    &quot;isUnread&quot;: true,
+    &quot;isStarred&quot;: true,
+    &quot;fingerprint&quot;: &quot;08ffbcf94bd95a1faa6e9e799cc29054&quot;,
+    &quot;contentHash&quot;: &quot;18ffbcf94bd95a1faa6e9e799cc29054&quot;
+}
+</code></pre>
+<h3 id="reduced">Reduced</h3>
+<p>A reduced item only contains the item status:</p>
+<pre><code class="language-json">{
+    &quot;id&quot;: 5,
+    &quot;isUnread&quot;: true,
+    &quot;isStarred&quot;: true
+}
+</code></pre>
+<h2 id="updater">Updater</h2>
+<p>Instead of using the built in, slow cron updater you can use the parallel update API to update feeds. The API can be accessed through REST or Nextcloud console API.</p>
+<p>The API should be used in the following way:</p>
+<ul>
+<li>Clean up before the update</li>
+<li>Get all feeds and user ids</li>
+<li>For each feed and user id, run the update</li>
+<li>Clean up after the update</li>
+</ul>
+<p>The reference <a href="https://github.com/nextcloud/news-updater">implementation in Python</a> should give you a good idea how to design your own updater.</p>
+<p>If the REST API is used, Authorization is required via Basic Auth and the user needs to be in the admin group.
+If the Nextcloud console API is used, no authorization is required.</p>
+<h3 id="clean-up-before-update">Clean Up Before Update</h3>
+<p>This is used to clean up the database. It deletes folders and feeds that are marked for deletion.</p>
+<p><strong>Console API</strong>:</p>
+<pre><code>php -f /path/to/nextcloud/occ news:updater:before-update
+</code></pre>
+<p><strong>REST API</strong>:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /updater/before-update</li>
+<li><strong>Authentication</strong>: <a href="#authentication">admin</a></li>
+</ul>
+<h3 id="get-all-feeds-and-user-ids">Get All Feeds And User Ids</h3>
+<p>This call returns pairs of feed ids and user ids.</p>
+<p><strong>Console API</strong>:</p>
+<pre><code>php -f /path/to/nextcloud/occ news:updater:all-feeds
+</code></pre>
+<p><strong>REST API</strong>:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /updater/all-feeds</li>
+<li><strong>Authentication</strong>: <a href="#authentication">admin</a></li>
+</ul>
+<p>Both APIs will return the following response body or terminal output:</p>
+<pre><code class="language-js">{
+    &quot;updater&quot;: [{
+      &quot;feedId&quot;: 3,
+      &quot;userId&quot;: &quot;john&quot;
+    }, /* etc */]
+}
+</code></pre>
+<h3 id="update-a-users-feed">Update A User's Feed</h3>
+<p>After all feed ids and user ids are known, feeds can be updated in parallel.</p>
+<p><strong>Console API</strong>:</p>
+<ul>
+<li><strong>Positional Parameters</strong>:</li>
+<li><strong>{feedId}</strong>: the feed's id</li>
+<li>
+<p><strong>{userId}</strong>: the user's id</p>
+<p>php -f /path/to/nextcloud/occ news:updater:update-feed {feedId} {userId}</p>
+</li>
+</ul>
+<p><strong>REST API</strong>:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /updater/update-feed?feedId={feedId}&amp;userId={userId}</li>
+<li><strong>Route Parameters</strong>:</li>
+<li><strong>{feedId}</strong>: the feed's id</li>
+<li><strong>{userId}</strong>: the user's id</li>
+<li><strong>Authentication</strong>: <a href="#authentication">admin</a></li>
+</ul>
+<h3 id="clean-up-after-update">Clean Up After Update</h3>
+<p>This is used to clean up the database. It removes old read articles which are not starred.</p>
+<p><strong>Console API</strong>:</p>
+<pre><code>php -f /path/to/nextcloud/occ news:updater:after-update
+</code></pre>
+<p><strong>REST API</strong>:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /updater/after-update</li>
+<li><strong>Authentication</strong>: <a href="#authentication">admin</a></li>
+</ul>
+<h2 id="meta-data">Meta Data</h2>
+<p>The retrieve meta data about the app, use the following request:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Meta data accessed successfully</li>
+</ul>
+<p>In case of an HTTP 200, the the following response is returned:</p>
+<pre><code class="language-json">{
+    &quot;version&quot;: &quot;9.0.0&quot;,
+    &quot;issues&quot;: {
+        &quot;improperlyConfiguredCron&quot;: false
+    },
+    &quot;user&quot;: {
+        &quot;userId&quot;: &quot;john&quot;,
+        &quot;displayName&quot;: &quot;John Doe&quot;,
+        &quot;avatar&quot;: {
+            &quot;data&quot;: &quot;asdiufadfasdfjlkjlkjljdfdf&quot;,
+            &quot;mime&quot;: &quot;image/jpeg&quot;
+        }
+    }
+}
+</code></pre>
+<p>The attributes mean the following:</p>
+<ul>
+<li><strong>version</strong>: Abitrary long text, News app version</li>
+<li><strong>issues</strong>: An object containing a dictionary of issues which need to be displayed to the user:</li>
+<li><strong>improperlyConfiguredCron</strong>: Boolean, if true this means that no feed updates are run on the server because the updater is misconfigured</li>
+<li><strong>user</strong>: user information:</li>
+<li><strong>userId</strong>: Abitrary long text, the login name</li>
+<li><strong>displayName</strong>: Abitrary long text, the full name like it's displayed in the web interface</li>
+<li><strong>avatar</strong>: an avatar object, null if none is set<ul>
+<li><strong>data</strong>: Abitrary long text, the user's image encoded as base64</li>
+<li><strong>mime</strong>: Abitrary long text, avatar mimetype</li>
+</ul>
+</li>
+</ul>
+<h2 id="api-level">API Level</h2>
+<p>To find out which API levels are supported, make a request to the following route:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: https://yournextcloud.com/index.php/apps/news/api</li>
+<li><strong>Authentication</strong>: none</li>
+</ul>
+<p>The following response is being returned:</p>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: The supported API levels can be parsed from the response</li>
+<li><strong>404</strong>: The user is either running a version prior to <strong>8.8.0</strong> or the News app is disabled or not installed.</li>
+</ul>
+<p>In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:</p>
+<pre><code class="language-json">{
+    &quot;apiLevels&quot;: [&quot;v1-2&quot;, &quot;v2&quot;]
+}
+</code></pre>
+<p><strong>apiLevels</strong>: An array of arbitrary long strings, strings represent the the supported api levels which directly correspond to the first fragment after the <strong>/api/</strong> Url fragment.</p>
+<p>To find out if a user is running an older News version than <strong>8.8.0</strong>, make a request to the following route:</p>
+<ul>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: https://yournextcloud.com/index.php/apps/news/api/v1-2/version</li>
+<li><strong>Authentication</strong>: <a href="#authentication">required</a></li>
+</ul>
+<p>Status codes:</p>
+<ul>
+<li><strong>200</strong>: Only the v1-2 API level is supported</li>
+<li><strong>404</strong>: The News app is disabled or not installed.</li>
+</ul>
+<p>Since these calls can be expensive you could first try to make a call to the <a href="#syncing">sync route</a> and if it fails with an HTTP <strong>404</strong> run the API level detection. Of course the choice which APIs you are going to support is entirely yours and you could also hard require v2.</p>
+<p><strong>Note</strong>: Future News app versions <strong>may remove</strong> the v1-2 API level depending on how widespread the adoption has become. You should therefore always make sure which API levels are actually supported.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../api-v1/" class="md-footer__link md-footer__link--prev" aria-label="Previous: API v1" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              API v1
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../maintenance/" class="md-footer__link md-footer__link--next" aria-label="Next: Maintenance" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Maintenance
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tracking", "navigation.instant", "navigation.expand", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>

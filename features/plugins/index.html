@@ -1,0 +1,859 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Nextcloud News App">
+      
+      
+      
+        <meta name="author" content="Nextcloud News Team">
+      
+      
+        <link rel="canonical" href="https://nextcloud.github.io/news/features/plugins/">
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.11">
+    
+    
+      
+        <title>Plugins - Nextcloud News App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3754935a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#plugins" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nextcloud News App" class="md-header__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nextcloud News App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plugins
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/nextcloud/news/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nextcloud News App" class="md-nav__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    Nextcloud News App
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/nextcloud/news/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        Installation/Update
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/" class="md-nav__link">
+        Clients
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin/" class="md-nav__link">
+        Admin
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/" class="md-nav__link">
+        Developer
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        FAQ
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      <label class="md-nav__link" for="__nav_7">
+        Features
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Features" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Features
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../customCSS/" class="md-nav__link">
+        Custom CSS
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Plugins
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Plugins
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-basics" class="md-nav__link">
+    The Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-side-plugin" class="md-nav__link">
+    Client-Side Plugin
+  </a>
+  
+    <nav class="md-nav" aria-label="Client-Side Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-basic-javascript-functionality" class="md-nav__link">
+    Adding Basic JavaScript Functionality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-styles" class="md-nav__link">
+    Adding Styles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-side-plugin" class="md-nav__link">
+    Server-Side Plugin
+  </a>
+  
+    <nav class="md-nav" aria-label="Server-Side Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../themes/" class="md-nav__link">
+        Themes
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" data-md-state="indeterminate" type="checkbox" id="__nav_8" checked>
+      
+      <label class="md-nav__link" for="__nav_8">
+        REST API
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="REST API" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          REST API
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api-v1/" class="md-nav__link">
+        API v1
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/api-v2/" class="md-nav__link">
+        API v2
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        Maintenance
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-basics" class="md-nav__link">
+    The Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-side-plugin" class="md-nav__link">
+    Client-Side Plugin
+  </a>
+  
+    <nav class="md-nav" aria-label="Client-Side Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adding-basic-javascript-functionality" class="md-nav__link">
+    Adding Basic JavaScript Functionality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-styles" class="md-nav__link">
+    Adding Styles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-side-plugin" class="md-nav__link">
+    Server-Side Plugin
+  </a>
+  
+    <nav class="md-nav" aria-label="Server-Side Plugin">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/nextcloud/news/blob/master/documentation/features/plugins.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="plugins">Plugins</h1>
+<p>Plugins were created to keep the app maintainable while still making it possible to easily implement additional functionality.</p>
+<p>There are essentially three different use cases for plugins:</p>
+<ul>
+<li>Creating or extending server-side functionality, e.g. creating additional REST API endpoints</li>
+<li>Offering article actions such as share via Twitter or E-Mail</li>
+<li>Dropping in additional CSS or JavaScript</li>
+</ul>
+<h2 id="the-basics">The Basics</h2>
+<p>Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app, so you can take advantage of the full <a href="https://docs.nextcloud.org/server/latest/developer_manual/app/index.html">Nextcloud app API</a>. If you want you can <a href="https://docs.nextcloud.org/server/latest/developer_manual/app/index.html">take a look at the developer docs</a> or <a href="https://docs.nextcloud.org/server/latest/developer_manual/app/tutorial.html">dig into the tutorial</a>.</p>
+<p>However, if you just want to start slow, the full process is described below.</p>
+<p>First create the following directories and files:</p>
+<ul>
+<li><strong>newsplugin/</strong><ul>
+<li><strong>appinfo/</strong><ul>
+<li><strong>app.php</strong></li>
+<li><strong>info.xml</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>The first folder name affects the name and namespace of your plugin and only one app can exist using the same name. Choose wisely.</p>
+<p>First let's add some meta ata about our app. Open the <strong>newsplugin/appinfo/info.xml</strong> and add the following contents:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;info&gt;
+    &lt;id&gt;newsplugin&lt;/id&gt;
+    &lt;name&gt;Example News Plugin&lt;/name&gt;
+    &lt;description&gt;This plugin allows you to share articles via Twitter&lt;/description&gt;
+    &lt;licence&gt;AGPL&lt;/licence&gt;
+    &lt;author&gt;Your Name Here&lt;/author&gt;
+    &lt;version&gt;0.0.1&lt;/version&gt;
+    &lt;dependencies&gt;
+        &lt;nextcloud min-version=&quot;10&quot;/&gt;
+        &lt;owncloud min-version=&quot;9.1&quot;/&gt;
+        &lt;php min-version=&quot;5.6&quot;/&gt;
+    &lt;/dependencies&gt;
+&lt;/info&gt;
+</code></pre>
+<p><strong>Note</strong>: You must license your app under the <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">AGPL 3 or later</a> to comply with the News app's license. Don't forget to add the license as plain text file if you want to distribute your app!</p>
+<p>Then we want to make sure that our code is only run if the News app is enabled. To do that put the following PHP code into the <strong>newsplugin/appinfo/app.php</strong> file:</p>
+<pre><code class="language-php">&lt;?php
+namespace OCA\NewsPlugin\AppInfo;
+use OCP\App;
+
+if (App::isEnabled('news')) {
+    // your code here
+}
+</code></pre>
+<p>If your plugin integrates with another Nextcloud app, make sure to also require it be installed. If you depend on the Bookmarks app for instance use:</p>
+<pre><code class="language-php">&lt;?php
+namespace OCA\MyNewsPlugin\AppInfo;
+use OCP\App;
+
+if (App::isEnabled('news') &amp;&amp; App::isEnabled('bookmarks')) {
+    // your code here
+}
+</code></pre>
+<p>Now you are ready to enable the app. Head over to the apps section and choose the <strong>Not enabled</strong> section. Your app should be listed under the name <strong>Example News Plugin</strong> (or whatever name you set in the <strong>info.xml</strong>).</p>
+<p>With the basics set up, you can now choose how to progress further. In our case we just want to add some additional CSS and JavaScript, so we are going to create a client-side plugin.</p>
+<h2 id="client-side-plugin">Client-Side Plugin</h2>
+<p>A client-side plugin is adding additional JavaScript and/or CSS to the News app. Remember the <strong>app.php</strong>? Open it and place the following contents inside:</p>
+<pre><code class="language-php">&lt;?php
+namespace OCA\MyNewsPlugin\AppInfo;
+use OCP\App;
+
+if (App::isEnabled('news') &amp;&amp; class_exists('OCA\News\Plugin\Client\Plugin')) {
+    \OCA\News\Plugin\Client\Plugin::registerScript('newsplugin', 'script');
+    \OCA\News\Plugin\Client\Plugin::registerStyle('newsplugin', 'style');
+}
+</code></pre>
+<p>This will tell the News app to load the following files after its own JavaScript and CSS files have been included:</p>
+<ul>
+<li><strong>newsplugin/js/script.js</strong></li>
+<li><strong>newspluing/css/style.css</strong></li>
+</ul>
+<h3 id="adding-basic-javascript-functionality">Adding Basic JavaScript Functionality</h3>
+<p>You can basically add any JavaScript you want. If you want to add a new article action, this is a bit more complicated because it's hard to hook into Angular from the outside. Therefore, the News app provides an API which makes creating additional article actions a breeze.</p>
+<p>A basic article action looks like this:</p>
+<pre><code class="language-js">News.addArticleAction(function($actionsElement, article) {
+    // your code here
+});
+</code></pre>
+<p>The <strong>addArticleAction</strong> method expects a function with the following parameters:</p>
+<ul>
+<li><strong>$actionsElement</strong>: The DOM element wrapped in jQuery where your plugin should be appended to</li>
+<li><strong>article</strong>: The current article's data (readonly!). The article object has the following properties:<ul>
+<li><strong>id</strong>: the article ID in the News database</li>
+<li><strong>url</strong>: the article URL it points to</li>
+<li><strong>title</strong>: the article title</li>
+<li><strong>author</strong>: the article author</li>
+<li><strong>pubDate</strong>: the article published date, a Unix timestamp</li>
+<li><strong>body</strong>: the HTML content</li>
+<li><strong>enclosureMime</strong>: if an enclosure is added, this is the mime type</li>
+<li><strong>enclosureLink</strong>: this is the source of the enclosure</li>
+<li><strong>mediaThumbnail</strong>: if there is a media attached, this is its thumbnail</li>
+<li><strong>mediaDescription</strong>: if there is a media attached, this is its description</li>
+<li><strong>feedId</strong>: the feed ID it belongs to</li>
+<li><strong>unread</strong>: if the article is unread (bool)</li>
+<li><strong>starred</strong>: if the article is starred (bool)</li>
+<li><strong>lastModified</strong>: the last modified date</li>
+</ul>
+</li>
+</ul>
+<p>With that in mind, let's add the Twitter button. Open the JavaScript file at <strong>newsplugin/js/script.js</strong> and add the following contents:</p>
+<pre><code class="language-js">News.addArticleAction(function($actionsElement, article) {
+    var $li = $('&lt;li&gt;')
+        .addClass('article-plugin-twitter');
+    var $button = $('&lt;button&gt;')
+        .attr('title', t('newsplugin', 'Share on Twitter'));
+    var text = 'Read this: ' + article.url;
+    var url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+
+    $button.click(function (event) {
+        window.open(url);
+        window.opener = null; // prevent twitter being from able to access the DOM
+        event.stopPropagation();  // prevent expanding in compact mode
+    });
+
+    $li.append($button);
+    $actionsElement.append($li);
+});
+</code></pre>
+<p>Great! Now the only thing left is to add some styles.</p>
+<h3 id="adding-styles">Adding Styles</h3>
+<p>Now let's add some styles to our app. We want to style the button to look like a Twitter icon, so simply download an icon (e.g. <a href="https://commons.wikimedia.org/wiki/File:Twitter_icon.png">from Wikipedia</a>) and place it at <strong>newsplugin/img/twitter.png</strong>.</p>
+<p>Then open the <strong>newspluing/css/style.css</strong> file and add the following CSS:</p>
+<pre><code class="language-css">.article-plugin-twitter button {
+    background-image: url('../img/twitter.png');
+}
+</code></pre>
+<p>Reload the News app and click the three dots menu, sit back and enjoy :)</p>
+<h2 id="server-side-plugin">Server-Side Plugin</h2>
+<p>A Server-Side plugin is a plugin that uses the same infrastructure as the News app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that also shows starred articles as bookmarks.</p>
+<p>It's very easy to interface with the News app. Because all Classes are registered in the <strong>news/app/application.php</strong> it takes almost no effort to use the same infrastructure.</p>
+<p><strong>Note</strong>: Keep in mind that these classes are essentially private which means they might break if the News app changes. There is no real public API so use at your own risk ;)</p>
+<p>Since you don't want to extend the app but use its resources, its advised that you don't inherit from the <strong>Application</strong> class but rather include it in your own container in <strong>newsplugin/appinfo/application.php</strong>:</p>
+<pre><code class="language-php">&lt;?php
+namespace OCA\NewsPlugin\AppInfo;
+
+use OCP\AppFramework\App;
+use OCA\News\AppInfo\Application as News;
+
+class Application extends App {
+
+    public function __construct (array $urlParams=[]) {
+        parent::__construct('newsplugin', $urlParams);
+
+        $container = $this-&gt;getContainer();
+
+        $container-&gt;registerService('NewsContainer', function($c) {
+            $app = new News();
+            return $app-&gt;getContainer();
+        });
+
+        $container-&gt;registerService(OCA\News\Service\FeedService::class, function($c) {
+            // use the feed service from the news app, you can use all
+            // defined classes but its recommended that you stick to the
+            // mapper and service classes since they are less likely to change
+            return $c-&gt;query('NewsContainer')-&gt;query(OCA\News\Service\FeedService::class);
+        });
+    }
+
+}
+</code></pre>
+<p>Using automatic container assembly you can then use it from your code by simply adding the type to your constructors.</p>
+<h3 id="examples">Examples</h3>
+<p>Client-side plugins:</p>
+<ul>
+<li>
+<p><a href="https://github.com/cosenal/mailsharenewsplugin">Mail Share</a>: Client-side plugin to share articles by email
+Server-side plugins:</p>
+</li>
+<li>
+<p><a href="https://github.com/Raydiation/feedcentral">Feed Central</a>: Publish your feeds as RSS</p>
+</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../customCSS/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Custom CSS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Custom CSS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../themes/" class="md-footer__link md-footer__link--next" aria-label="Next: Themes" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Themes
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tracking", "navigation.instant", "navigation.expand", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.477d984a.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ddd52ceb.min.js"></script>
+      
+    
+  </body>
+</html>
