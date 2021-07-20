@@ -3,10 +3,10 @@ OC.L10N.register(
     {
     "Unread articles" : "Nelegitaj artikoloj",
     "News" : "Novaĵo",
+    "Open website" : "Malfermi TTT-ejon",
     "Saved" : "Konservita",
     "Download" : "Elŝuti",
     "Close" : "Fermi",
-    "Open website" : "Malfermi TTT-ejon",
     "Username" : "Uzantonomo",
     "by" : "de",
     "from" : "el",

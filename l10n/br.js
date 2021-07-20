@@ -1,10 +1,10 @@
 OC.L10N.register(
     "news",
     {
+    "Open website" : "Digor al lec'hienn-web",
     "Saved" : "Enrollet",
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
-    "Open website" : "Digor al lec'hienn-web",
     "Username" : "anv implijer",
     "by" : "gant",
     "Play audio" : "Loc'hañ an audio",

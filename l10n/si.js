@@ -2,10 +2,10 @@ OC.L10N.register(
     "news",
     {
     "News" : "පුවත්",
+    "Open website" : "වියමන අඩවිය විවෘත කරන්න",
     "Update interval" : "යාවත්කාලීන කාල පරතරය",
     "Download" : "බාගන්න",
     "Close" : "වසන්න",
-    "Open website" : "වියමන අඩවිය විවෘත කරන්න",
     "Username" : "පරිශීලක නාමය",
     "from" : "සිට",
     "Description" : "විස්තරය",

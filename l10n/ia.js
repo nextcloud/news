@@ -2,12 +2,12 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Articulos non legite",
+    "Open website" : "Aperir sito web",
     "Saved" : "Salveguardate",
     "Download" : "Discargar",
     "Close" : "Clauder",
     "No articles available" : "Nulle articulos disponibile",
     "No unread articles available" : "Nulle articulos non legite disponibile",
-    "Open website" : "Aperir sito web",
     "Star article" : "Favoritar articulo",
     "Unstar article" : "Disfavoritar articulo",
     "Keep article unread" : "Mantener articulo como non legite",
