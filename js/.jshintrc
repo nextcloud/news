@@ -25,7 +25,6 @@
     "jquery": true,
     "globals": {
         "angular": true,
-        "moment": true,
         "app": true,
         "OC": true,
         "csrfToken": true,

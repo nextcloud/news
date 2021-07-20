@@ -513,27 +513,6 @@ describe('ContentController', function () {
             expect(ctrl.autoPagingEnabled()).toBe(true);
         }));
 
-
-    it('should return relative date', inject(function ($controller,
-                                                       SettingsResource) {
-
-        SettingsResource.receive({language: 'en'});
-        var ctrl = $controller('ContentController', {
-            data: {},
-        });
-
-        expect(ctrl.getRelativeDate(12)).not.toBe('');
-    }));
-
-
-    it('should return relative date empty', inject(function ($controller) {
-        var ctrl = $controller('ContentController', {
-            data: {}
-        });
-
-        expect(ctrl.getRelativeDate('')).toBe('');
-    }));
-
     it('should refresh the page', inject(function ($controller) {
         var route = {
             current: {

@@ -198,15 +198,6 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
         });
     };
 
-    this.getRelativeDate = function (timestamp) {
-        if (timestamp !== undefined && timestamp !== '') {
-            var languageCode = SettingsResource.get('language');
-            return moment.unix(timestamp).locale(languageCode).fromNow() + '';
-        } else {
-            return '';
-        }
-    };
-
     this.refresh = function () {
         $route.reload();
     };
