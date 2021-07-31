@@ -31,9 +31,6 @@
     background-position: 14px center;
 }
 
-#app-navigation .add-new .heading button {
-}
-
 
 /* actual form content */
 #app-navigation .add-new-popup {
@@ -89,6 +86,11 @@
 }
 
 /* navigation */
+#app-navigation ul.with-icon > li > a,
+#app-navigation ul.with-icon > li > ul > li > a {
+    padding-left: 44px;
+}
+
 #app-navigation .icon-starred {
     background-image: url('../img/starred.png');
 }
