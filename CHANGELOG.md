@@ -11,6 +11,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
 
 ### Fixed
+- Set icon offset explicitly for navigation items
 
 ## [15.x.x]
 ### Changed
