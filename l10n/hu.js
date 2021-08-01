@@ -5,7 +5,7 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Jogosulatlan kérés. Be vagy jelentkezve?",
     "Request forbidden. Are you an admin?" : "Tiltott kérés. Rendszergazda vagy?",
     "Token expired or app not enabled! Reload the page!" : "Lejárt a token vagy az alkalmazás nem engedélyezett. Töltsd újra az oldalt!",
-    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Belő szerverhiba! További információkért kérlek ellenőrizd a data/nextcloud.log fájlt!",
+    "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Belső kiszolgálóhiba! További információkért ellenőrizze a data/nextcloud.log fájlt!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Kérés sikértelen. A Nextcloud jelenleg karbantartási módban van.",
     "Unread articles" : "Olvasatlan cikkek",
     "News" : "Hírek",
