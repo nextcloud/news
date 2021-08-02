@@ -6,16 +6,18 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
-- Reimplemented relative time formatting as a filter
-
-### Fixed
-- Set icon offset explicitly for navigation items
-
-## [15.x.x]
-### Changed
+- Added vue and ng-vue packages (#1421)
+- Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
 ### Fixed
 
 # Releases
+## [16.0.1] - 2021-08-02
+### Changed
+- Reimplemented relative time formatting as a filter (#1450)
+
+### Fixed
+- Set icon offset explicitly for navigation items (#1465)
+
 ## [16.0.0] - 2021-06-16
 There are no additional changes compared to the latest beta.
 
