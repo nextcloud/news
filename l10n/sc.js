@@ -44,7 +44,7 @@ OC.L10N.register(
     "Share" : "Cumpartzi",
     "Share with users" : "Cumpartzi cun àteros utentes",
     "Username" : "Nùmene utente",
-    "No users found" : "Perunu utente agatadu",
+    "No users found" : "Peruna utèntzia agatada",
     "Error while searching for users" : "Errore in sa chirca de is utentes",
     "Share on social media" : "Cumpartzi in is retes sotziales",
     "I wanted you to see this article" : "Dia chèrrere chi legas custu artìculu",
