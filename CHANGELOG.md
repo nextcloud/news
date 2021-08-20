@@ -12,6 +12,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - Set icon offset explicitly for navigation items
+- Removed spurious requests for `.../apps/news/%7B%7B%20::Content.getFeed(item.feedId).faviconLink%20%7D%7D` (#1488)
 
 ## [15.x.x]
 ### Changed
