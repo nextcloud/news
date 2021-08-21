@@ -6,7 +6,6 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
-- Added vue and ng-vue packages (#1421)
 - Reimplemented relative time formatting as a filter (#1450)
 - Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
 

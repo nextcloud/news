@@ -97,4 +97,3 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"
             news-scroll-mark-read="Content.scrollRead(itemIds)"></div>
-
