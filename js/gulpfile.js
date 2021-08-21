@@ -17,9 +17,7 @@ const gulp = require('gulp'),
     jshint = require('gulp-jshint'),
     KarmaServer = require('karma').Server,
     concat = require('gulp-concat'),
-    sourcemaps = require('gulp-sourcemaps'),
-    webpackStream = require('webpack-stream'),
-    webpackConfig = require('./webpack.config.js');
+    sourcemaps = require('gulp-sourcemaps');
 
 // Configuration
 const buildTarget = 'app.min.js';
@@ -31,8 +29,6 @@ const sources = [
     'node_modules/angular-route/angular-route.min.js',
     'node_modules/angular-sanitize/angular-sanitize.min.js',
     'node_modules/masonry-layout/dist/masonry.pkgd.min.js',
-    'node_modules/vue/dist/vue.js',
-    'node_modules/ngVue/build/index.js',
     'app/App.js', 'app/Config.js', 'app/Run.js',
     'controller/**/*.js',
     'filter/**/*.js',
@@ -43,10 +39,8 @@ const sources = [
     'directive/**/*.js'
 ];
 const testSources = ['tests/**/*.js'];
-const watchSources = sources.concat(testSources);
-const lintSources = watchSources.filter((item) => {
-    return item !== 'webpack.config.js';
-});
+const watchSources = sources.concat(testSources).concat(['*.js']);
+const lintSources = watchSources;
 
 // tasks
 gulp.task('lint', () => {
@@ -56,12 +50,8 @@ gulp.task('lint', () => {
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('webpack', () => {
-    return webpackStream(webpackConfig)
-        .pipe(gulp.dest('./webpacked'));
-});
-gulp.task('default', gulp.series('lint', 'webpack', () => {
-    return gulp.src(sources.concat(['webpacked/webpacked_vue_components.js']))
+gulp.task('default', gulp.series('lint', () => {
+    return gulp.src(sources)
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
         .pipe(concat(buildTarget))

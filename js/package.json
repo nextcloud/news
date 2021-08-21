@@ -33,7 +33,6 @@
   "private": true,
   "homepage": "https://github.com/nextcloud/news",
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.6",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
@@ -50,10 +49,7 @@
     "karma-firefox-launcher": "^2.1.1",
     "karma-jasmine": "^4.0.1",
     "minimatch": "^3.0.4",
-    "natives": "^1.1.6",
-    "webpack-stream": "^6.1.2",
-    "vue-loader": "^16.5.0",
-    "vue-template-compiler": "^2.6.14"
+    "natives": "^1.1.6"
   },
   "dependencies": {
     "angular": "^1.8.2",
@@ -62,8 +58,6 @@
     "angular-route": "^1.8.2",
     "angular-sanitize": "^1.8.2",
     "debug": "^4.3.2",
-    "masonry-layout": "^4.2.2",
-    "ngVue": "^1.7.8",
-    "vue": "^2.6.14"
+    "masonry-layout": "^4.2.2"
   }
 }
