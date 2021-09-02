@@ -6,18 +6,24 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
-- Reimplemented relative time formatting as a filter (#1450)
-- Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
 
-### Fixed
-- Set icon offset explicitly for navigation items
-- Removed spurious requests for `.../apps/news/%7B%7B%20::Content.getFeed(item.feedId).faviconLink%20%7D%7D` (#1488)
-
-## [15.x.x]
-### Changed
 ### Fixed
 
 # Releases
+## [16.1.0-beta1] - 2021-09-02
+### Changed
+- Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
+
+### Fixed
+- Removed spurious requests for `.../apps/news/%7B%7B%20::Content.getFeed(item.feedId).faviconLink%20%7D%7D` (#1488)
+
+## [16.0.1] - 2021-08-02
+### Changed
+- Reimplemented relative time formatting as a filter (#1450)
+
+### Fixed
+- Set icon offset explicitly for navigation items (#1465)
+
 ## [16.0.0] - 2021-06-16
 There are no additional changes compared to the latest beta.
 
