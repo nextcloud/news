@@ -2,11 +2,11 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Ongeliesen Artikelen",
-    "Open website" : "Oppe Websäit",
     "Saved" : "Gespäichert",
     "Download" : "Download",
     "Close" : "Zoumaachen",
     "No articles available" : "Keng Artikelen verfügbar",
+    "Open website" : "Oppe Websäit",
     "Username" : "Benotzernumm",
     "by" : "vun",
     "from" : "vun",

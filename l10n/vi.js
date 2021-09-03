@@ -2,10 +2,10 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Bài chưa đọc",
-    "Open website" : "Mở trang web",
     "Saved" : "Đã lưu",
     "Download" : "Tải về",
     "Close" : "Đóng",
+    "Open website" : "Mở trang web",
     "Username" : "Tên đăng nhập",
     "by" : "bởi",
     "from" : "từ",
