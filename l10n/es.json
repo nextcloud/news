@@ -5,7 +5,7 @@
     "Token expired or app not enabled! Reload the page!" : "¡Sesión caducada o aplicación no habilitada! ¡Vuelve a cargar la página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Error interno del servidor! ¡Por favor, comprueba el archivo data/nextcloud.log para mas información!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Petición fallida! Nexcloud está actualmente en modo mantenimiento.",
-    "News feeds" : "Noticiero",
+    "News feeds" : "Fuentes de noticias",
     "Unread articles" : "Artículos sin leer",
     "News" : "Noticias",
     "News folders" : "Carpetas nuevas",
