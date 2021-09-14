@@ -84,7 +84,7 @@ OC.L10N.register(
     "No folder" : "Brak katalogu",
     "New folder" : "Nowy katalog",
     "Folder name" : "Nazwa katalogu",
-    "Go back" : "Wróć",
+    "Go back" : "Wstecz",
     "Folder exists already!" : "Katalog już istnieje!",
     "Credentials" : "Poświadczenia",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Podstawowe poświadczenia uwierzytelnienia HTTP muszą być zapisane odszyfrowane! Każdy posiadający dostęp do serwera lub bazy danych będzie mógł je odczytać!",
