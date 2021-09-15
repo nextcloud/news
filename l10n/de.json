@@ -1,7 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Anfrage fehlgeschlagen, Netzwerkverbindung nicht verfügbar!",
     "Request unauthorized. Are you logged in?" : "Anfrage nicht autorisiert. Bist Du angemeldet?",
-    "Request forbidden. Are you an admin?" : "Anfrage verboten. Bist Du ein Admin?",
+    "Request forbidden. Are you an admin?" : "Anfrage verboten. Bist Du ein Administrator?",
     "Token expired or app not enabled! Reload the page!" : "Token abgelaufen oder App nicht aktiviert! Bitte lade die Seite neu!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interner Serverfehler! Bitte kontrolliere data/nextcloud.log für weitere Informationen!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Anfrage fehlgeschlagen, diese Nextcloud-Instanz befindet sich derzeit im Wartungsmodus.",
