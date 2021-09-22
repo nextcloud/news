@@ -94,7 +94,7 @@ OC.L10N.register(
     "Create" : "Criar",
     "Explore" : "Explorar",
     "Update failed more than 50 times" : "A atualização falhou mais de 50 vezes",
-    "Deleted feed" : "Feed excluído",
+    "Deleted feed" : "Feed removido",
     "Undo delete feed" : "Desfazer exclusão de feed",
     "Rename" : "Renomear",
     "Menu" : "Menu",
