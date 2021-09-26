@@ -10,14 +10,18 @@
 - 🆓 Free and open source under AGPLv3, no ads or premium functions
 
 **System Cron is currently required for this app to work**
+
 Requirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)
+
 The Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)
 
 Create a [bug report](https://github.com/nextcloud/news/issues/new/choose)
+
 Create a [feature request](https://github.com/nextcloud/news/discussions/new)
+
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>16.1.0-beta1</version>
+    <version>16.1.0</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
