@@ -6,10 +6,16 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [16.1.0] - 2021-10-07
+### Changed
 - Remove dependency's large test files from release (#1519)
 - Fix spelling of "receive" in log files (#1520)
 
-### Fixed
+Note: Nextcloud 20 support will be dropped in Oct 2021, this is very likely the last version to support Nextcloud 20. This also means that PHP 7.2, will no longer be supported by news.
 
 # Releases
 ## [16.1.0-beta1] - 2021-09-02
