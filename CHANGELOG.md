@@ -7,6 +7,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [16.x.x]
 ### Changed
 - Remove dependency's large test files from release (#1519)
+- Fix spelling of "receive" in log files (#1520)
 
 ### Fixed
 
