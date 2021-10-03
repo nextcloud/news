@@ -94,3 +94,9 @@ The PHP code should all adhere to [PSR-2](https://www.php-fig.org/psr/psr-2/).
 To test the codestyle you can run `make phpcs`.
 
 For linting JavaScript, a [jshint file](https://github.com/nextcloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript
+
+### Developer Certificate of Origin (DCO)
+When you commit your change, remember to sign off that you adhere to [DCO requirements](https://developercertificate.org/) as described by [Probot](https://probot.github.io/apps/dco/).
+
+### Change log
+Before you create a pull request, please remember to add an entry to [CHANGELOG.md](https://github.com/nextcloud/news/blob/master/CHANGELOG.md), using the format [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
