@@ -4,65 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1d2d17af8c630b365bbd580f297a7d5",
+    "content-hash": "1932196eb576f7eb70b3846487613b5a",
     "packages": [
-        {
-            "name": "andreskrey/readability.php",
-            "version": "v2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/andreskrey/readability.php.git",
-                "reference": "7617a912b6c527909168f5d41d263792f171c42a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/andreskrey/readability.php/zipball/7617a912b6c527909168f5d41d263792f171c42a",
-                "reference": "7617a912b6c527909168f5d41d263792f171c42a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-mbstring": "*",
-                "ext-xml": "*",
-                "php": ">=7.0.0",
-                "psr/log": "^1.0"
-            },
-            "require-dev": {
-                "monolog/monolog": "^1.24",
-                "phpunit/phpunit": "^6.5"
-            },
-            "suggest": {
-                "monolog/monolog": "Allow logging debug information"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "andreskrey\\Readability\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Andres Rey",
-                    "email": "andreskrey@gmail.com",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "A PHP port of Readability.js",
-            "homepage": "https://github.com/andreskrey/readability",
-            "keywords": [
-                "html",
-                "readability"
-            ],
-            "support": {
-                "issues": "https://github.com/andreskrey/readability.php/issues",
-                "source": "https://github.com/andreskrey/readability.php/tree/v2.1.0"
-            },
-            "time": "2019-07-22T21:42:25+00:00"
-        },
         {
             "name": "arthurhoaro/favicon",
             "version": "v1.3.3",
@@ -247,6 +190,62 @@
                 "source": "https://github.com/ezyang/htmlpurifier/tree/master"
             },
             "time": "2020-06-29T00:56:53+00:00"
+        },
+        {
+            "name": "fivefilters/readability.php",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fivefilters/readability.php.git",
+                "reference": "7617a912b6c527909168f5d41d263792f171c42a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/7617a912b6c527909168f5d41d263792f171c42a",
+                "reference": "7617a912b6c527909168f5d41d263792f171c42a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-mbstring": "*",
+                "ext-xml": "*",
+                "php": ">=7.0.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "monolog/monolog": "^1.24",
+                "phpunit/phpunit": "^6.5"
+            },
+            "suggest": {
+                "monolog/monolog": "Allow logging debug information"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "andreskrey\\Readability\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Andres Rey",
+                    "email": "andreskrey@gmail.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "A PHP port of Readability.js",
+            "homepage": "https://github.com/andreskrey/readability",
+            "keywords": [
+                "html",
+                "readability"
+            ],
+            "support": {
+                "source": "https://github.com/fivefilters/readability.php/tree/v2.1.0"
+            },
+            "time": "2019-07-22T21:42:25+00:00"
         },
         {
             "name": "pear/net_url2",
@@ -1195,16 +1194,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f"
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/30f38bffc6f24293dadd1823936372dfa9e86e2f",
-                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/a12f7e301eb7258bb68acd89d4aefa05c2906cae",
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae",
                 "shasum": ""
             },
             "require": {
@@ -1239,9 +1238,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.1"
             },
-            "time": "2021-09-17T15:28:14+00:00"
+            "time": "2021-10-02T14:08:47+00:00"
         },
         {
             "name": "phpspec/prophecy",
