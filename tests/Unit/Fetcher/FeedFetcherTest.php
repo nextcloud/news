@@ -28,6 +28,7 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Fetcher\FeedFetcher;
+use GuzzleHttp\Client;
 
 use OCA\News\Utility\Time;
 use OCP\IL10N;
@@ -105,6 +106,11 @@ class FeedFetcherTest extends TestCase
      * @var MockObject|Scraper
      */
     private $scraper;
+
+    /**
+     * @var MockObject|Client
+     */
+    private $client;
 
     //metadata
     /**
@@ -188,6 +194,9 @@ class FeedFetcherTest extends TestCase
         $this->scraper = $this->getMockBuilder(Scraper::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->client = $this->getMockBuilder(Client::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->fetcher = new FeedFetcher(
             $this->reader,
             $this->favicon,
@@ -195,7 +204,8 @@ class FeedFetcherTest extends TestCase
             $this->l10n,
             $this->ITempManager,
             $timeFactory,
-            $this->logger
+            $this->logger,
+            $this->client
         );
         $this->url = 'http://tests/';
 

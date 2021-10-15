@@ -7,8 +7,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [16.x.x]
 ### Changed
 - Add changelog and DCO notice to CONTRIBUTING.md (#1521)
+- Download feed logos via guzzle to have better error handling (#1533)
 
 ### Fixed
+
 
 # Releases
 ## [16.1.0] - 2021-10-07
