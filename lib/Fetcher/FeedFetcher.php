@@ -70,11 +70,6 @@ class FeedFetcher implements IFeedFetcher
      */
     private $logger;
 
-    /**
-     * @var Client
-     */
-    private $client;
-
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
@@ -82,8 +77,7 @@ class FeedFetcher implements IFeedFetcher
         IL10N $l10n,
         ITempManager $ITempManager,
         Time $time,
-        LoggerInterface $logger,
-        Client $client
+        LoggerInterface $logger
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
@@ -92,7 +86,6 @@ class FeedFetcher implements IFeedFetcher
         $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
-        $this->client         = $client;
     }
 
 
@@ -359,7 +352,9 @@ class FeedFetcher implements IFeedFetcher
         }
 
         try {
-            $response = $this->client->request(
+            // Base_uri can only be set on creation, will be used when link is relative.
+            $client = new Client(['base_uri' => $base_url]);
+            $response = $client->request(
                 'GET',
                 $favicon,
                 [
