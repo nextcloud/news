@@ -377,22 +377,13 @@ class FeedFetcher implements IFeedFetcher
                 ]
             );
         } catch (RequestException $e) {
-            if ($e->hasResponse()) {
                 $this->logger->info(
                     'An error occurred while trying to download the feed logo of {url}: {error}',
                     [
                     'url'   => $url,
-                    'error' => $e->getResponse()
+                    'error' => $e->getResponse() ?? 'Unknown'
                     ]
                 );
-            } else {
-                $this->logger->info(
-                    'An unknown error occurred while trying to download the feed logo of {url}.',
-                    [
-                    'url' => $url,
-                    ]
-                );
-            }
         }
 
         $is_image = $downloaded && substr(mime_content_type($favicon_path), 0, 5) === "image";
