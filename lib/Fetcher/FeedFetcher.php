@@ -342,7 +342,7 @@ class FeedFetcher implements IFeedFetcher
         }
 
         // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
-        $favicon_path = join("/", [$this->ITempManager->getTempBaseDir(), md5($favicon)]);
+        $favicon_path = join(DIRECTORY_SEPARATOR, [$this->ITempManager->getTempBaseDir(), md5($favicon)]);
         $downloaded = false;
 
         if (file_exists($favicon_path)) {
