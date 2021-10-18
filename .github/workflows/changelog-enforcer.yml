@@ -8,7 +8,7 @@ jobs:
   changelog:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.4
+    - uses: actions/checkout@v2.3.5
     - uses: dangoslen/changelog-enforcer@v2.3.1
       with:
         changeLogPath: 'CHANGELOG.md'
