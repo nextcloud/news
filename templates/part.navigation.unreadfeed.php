@@ -4,7 +4,7 @@
     }"
     class="subscriptions-feed with-counter with-menu">
 
-    <a class="icon-rss" ng-href="#/items/unread/" >
+    <a class="icon-rss-unread" ng-href="#/items/unread/" >
        <?php p($l->t('Unread articles'))?>
     </a>
 
