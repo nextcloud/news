@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "Žeton je pretekel ali pa program ni omogočen! Poskusite osvežiti stran!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Notranja napaka strežnika! Preverite datoteko data/nextcloud.log za podrobnosti!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Zahteva je spodletela! Okolje Nextcloud je trenutno v vzdrževalnem načinu!",
+    "News feeds" : "Viri novic",
     "Unread articles" : "Neprebrani prispevki",
     "News" : "Novice",
     "News folders" : "Mape novic",
