@@ -10,6 +10,9 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [16.2.0] - 2021-11-03
+No notable changes compared to the beta versions.
+
 ## [16.2.0-beta2] - 2021-10-23
 ### Changed
 - Updated "New Folder" and "All articles" icons to differentiate them from "Subscribe" and "All articles". (#1542)
