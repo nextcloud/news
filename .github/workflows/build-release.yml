@@ -19,7 +19,7 @@ jobs:
         database: ['sqlite']
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.5
+        uses: actions/checkout@v2.4.0
 
       - name: Setup PHP
         uses: shivammathur/setup-php@afefcaf556d98dc7896cca380e181decb609ca44
