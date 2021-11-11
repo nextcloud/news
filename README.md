@@ -4,7 +4,7 @@
 
 ![Release status](https://github.com/nextcloud/news/workflows/Build%20and%20publish%20app%20release/badge.svg) ![Integration Tests](https://github.com/nextcloud/news/workflows/Integration%20Tests/badge.svg) ![Frontend tests](https://github.com/nextcloud/news/workflows/Frontend%20tests/badge.svg) [![Code coverage](https://img.shields.io/codecov/c/github/nextcloud/news.svg?style=flat)](https://codecov.io/gh/nextcloud/news/)
 
-The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://github.com/nextcloud/news/tree/master/docs/externalapi/Legacy.md) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
+The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://nextcloud.github.io/news/developer/#apis) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
 ## Documentation
 The documentation can be found [here](https://nextcloud.github.io/news/), the source of the documentation is on [GitHub](https://github.com/nextcloud/news/blob/master/docs)
