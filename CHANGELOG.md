@@ -8,6 +8,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Catch network errors while fetching feed logos. (#1570)
 
 # Releases
 ## [16.2.0] - 2021-11-03

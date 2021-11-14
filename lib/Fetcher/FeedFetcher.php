@@ -20,6 +20,7 @@ use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ConnectException;
 
 use Net_URL2;
 use OCP\IL10N;
@@ -376,14 +377,14 @@ class FeedFetcher implements IFeedFetcher
                 'logo'   => $favicon
                 ]
             );
-        } catch (RequestException $e) {
-                $this->logger->info(
-                    'An error occurred while trying to download the feed logo of {url}: {error}',
-                    [
-                    'url'   => $url,
-                    'error' => $e->getResponse() ?? 'Unknown'
-                    ]
-                );
+        } catch (RequestException | ConnectException $e) {
+            $this->logger->info(
+                'An error occurred while trying to download the feed logo of {url}: {error}',
+                [
+                'url'   => $url,
+                'error' => $e->getResponse() ?? 'Unknown'
+                ]
+            );
         }
 
         $is_image = $downloaded && substr(mime_content_type($favicon_path), 0, 5) === "image";
