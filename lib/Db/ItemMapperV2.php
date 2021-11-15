@@ -228,7 +228,7 @@ class ItemMapperV2 extends NewsMapperV2
         $affected_rows = 0;
         // split $total_items into multiple chunks because of the parameter limit
         foreach (array_chunk($total_items, NewsMapperV2::PDO_PARAMS_LIMIT) as $items_chunk) {
-            $affected_rows += $this->db->executeUpdate(
+            $affected_rows += $this->db->executeStatement(
                 $deleteQb->getSQL(),
                 [$items_chunk],
                 [IQueryBuilder::PARAM_INT_ARRAY]
@@ -282,7 +282,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
             ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
 
-        return $this->db->executeUpdate($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
+        return $this->db->executeStatement($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
     }
 
     /**
