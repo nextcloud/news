@@ -53,18 +53,18 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('feeds.*', $builder->func()->count('items.id', 'unreadCount'))
-                ->from(static::TABLE_NAME, 'feeds')
-                ->leftJoin(
-                    'feeds',
-                    ItemMapperV2::TABLE_NAME,
-                    'items',
-                    'items.feed_id = feeds.id AND items.unread = :unread'
-                )
-                ->where('feeds.user_id = :user_id')
-                ->andWhere('feeds.deleted_at = 0')
-                ->groupBy('feeds.id')
-                ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
-                ->setParameter('user_id', $userId);
+            ->from(static::TABLE_NAME, 'feeds')
+            ->leftJoin(
+                'feeds',
+                ItemMapperV2::TABLE_NAME,
+                'items',
+                'items.feed_id = feeds.id AND items.unread = :unread'
+            )
+            ->where('feeds.user_id = :user_id')
+            ->andWhere('feeds.deleted_at = 0')
+            ->groupBy('feeds.id')
+            ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('user_id', $userId);
 
         return $this->findEntities($builder);
     }
@@ -84,11 +84,11 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-                ->from(static::TABLE_NAME)
-                ->where('user_id = :user_id')
-                ->andWhere('id = :id')
-                ->setParameter('user_id', $userId)
-                ->setParameter('id', $id);
+            ->from(static::TABLE_NAME)
+            ->where('user_id = :user_id')
+            ->andWhere('id = :id')
+            ->setParameter('user_id', $userId)
+            ->setParameter('id', $id);
 
         return $this->findEntity($builder);
     }
@@ -102,8 +102,8 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-                ->from(static::TABLE_NAME)
-                ->where('deleted_at = 0');
+            ->from(static::TABLE_NAME)
+            ->where('deleted_at = 0');
 
         return $this->findEntities($builder);
     }
@@ -123,11 +123,11 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-                ->from(static::TABLE_NAME)
-                ->where('user_id = :user_id')
-                ->andWhere('url = :url')
-                ->setParameter('user_id', $userId)
-                ->setParameter('url', $url);
+            ->from(static::TABLE_NAME)
+            ->where('user_id = :user_id')
+            ->andWhere('url = :url')
+            ->setParameter('user_id', $userId)
+            ->setParameter('url', $url);
 
         return $this->findEntity($builder);
     }
@@ -143,13 +143,13 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-                ->from(static::TABLE_NAME);
+            ->from(static::TABLE_NAME);
 
         if (is_null($id)) {
             $builder->where('folder_id IS NULL');
         } else {
             $builder->where('folder_id = :folder_id')
-                    ->setParameter('folder_id', $id);
+                ->setParameter('folder_id', $id);
         }
 
         return $this->findEntities($builder);
@@ -163,7 +163,6 @@ class FeedMapperV2 extends NewsMapperV2
      * @return int
      * @throws DBException
      *
-     * @TODO Update for NC 21
      */
     public function read(string $userId, int $id, ?int $maxItemID = null): int
     {
@@ -178,12 +177,15 @@ class FeedMapperV2 extends NewsMapperV2
 
         if ($maxItemID !== null) {
             $idBuilder->andWhere('items.id <= :maxItemId')
-                      ->setParameter('maxItemId', $maxItemID);
+                ->setParameter('maxItemId', $maxItemID);
         }
 
-        $idList = array_map(function ($value): int {
-            return intval($value['id']);
-        }, $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll());
+        $idList = array_map(
+            function ($value): int {
+                return intval($value['id']);
+            },
+            $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll()
+        );
 
         $builder = $this->db->getQueryBuilder();
         $builder->update(ItemMapperV2::TABLE_NAME)
@@ -193,6 +195,10 @@ class FeedMapperV2 extends NewsMapperV2
             ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
             ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
 
-        return $this->db->executeStatement($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
+        return $this->db->executeStatement(
+            $builder->getSQL(),
+            $builder->getParameters(),
+            $builder->getParameterTypes()
+        );
     }
 }
