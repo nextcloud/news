@@ -4,8 +4,10 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 # Unreleased
 
-## [16.x.x]
+## [17.x.x]
 ### Changed
+- Drop support for Nextcloud 20
+- Use better sql commands, that were not possible with Nextcloud 20
 
 ### Fixed
 
