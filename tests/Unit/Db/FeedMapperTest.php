@@ -551,7 +551,7 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnValue([]));
 
         $this->db->expects($this->exactly(1))
-            ->method('executeUpdate')
+            ->method('executeStatement')
             ->with('QUERY');
 
         $this->class->read('admin', 1);
@@ -653,7 +653,7 @@ class FeedMapperTest extends MapperTestUtility
             ->will($this->returnValue([]));
 
         $this->db->expects($this->exactly(1))
-            ->method('executeUpdate')
+            ->method('executeStatement')
             ->with('QUERY');
 
         $this->class->read('admin', 1, 4);

@@ -565,7 +565,7 @@ class ItemMapperTest extends MapperTestUtility
             ->will($this->returnValue([]));
 
         $this->db->expects($this->exactly(1))
-            ->method('executeUpdate')
+            ->method('executeStatement')
             ->with('QUERY');
 
         $this->class->readAll('admin', 4);
@@ -791,7 +791,7 @@ class ItemMapperTest extends MapperTestUtility
             ->willReturn('DELETE_SQL');
 
         $this->db->expects($this->once())
-                 ->method('executeUpdate')
+                 ->method('executeStatement')
                  ->with('DELETE_SQL', [[4, 6, 8, 3, 5, 7]], [101])
                  ->will($this->returnValue(10));
 
@@ -949,7 +949,7 @@ class ItemMapperTest extends MapperTestUtility
             ->willReturn('DELETE_SQL');
 
         $this->db->expects($this->once())
-                 ->method('executeUpdate')
+                 ->method('executeStatement')
                  ->with('DELETE_SQL', [[4, 6, 8, 3, 5, 7]], [101])
                  ->will($this->returnValue(10));
 
@@ -1106,7 +1106,7 @@ class ItemMapperTest extends MapperTestUtility
             ->willReturn('DELETE_SQL');
 
         $this->db->expects($this->once())
-                 ->method('executeUpdate')
+                 ->method('executeStatement')
                  ->with('DELETE_SQL', [[4, 6, 8]], [101])
                  ->will($this->returnValue(10));
 
