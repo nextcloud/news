@@ -158,6 +158,8 @@ appstore:
 	rm -rf $(appstore_sign_dir)/$(app_name)/vendor/bin
 	# the App Store doesn't like .git
 	rm -rf $(appstore_sign_dir)/$(app_name)/vendor/arthurhoaro/favicon/.git
+	# remove large test files
+	rm -rf $(appstore_sign_dir)/$(app_name)/vendor/fivefilters/readability.php/test
 
 	install "COPYING" $(appstore_sign_dir)/$(app_name)
 	install "AUTHORS.md" $(appstore_sign_dir)/$(app_name)

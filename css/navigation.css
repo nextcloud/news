@@ -99,6 +99,14 @@
     background-image: url('../img/rss.svg') !important;
 }
 
+.icon-rss-unread {
+    background-image: url('../img/rss_unread.svg') !important;
+}
+
+.icon-add-folder {
+    background-image: url('../img/add_folder.svg') !important;
+}
+
 .icon-facebook {
     background-image: url('../img/facebook.svg') !important;
 }

@@ -61,7 +61,7 @@ class Scraper implements IScraper
     {
         list($content, $redirected_url) = $this->getHTTPContent($url);
         if ($content === false) {
-            $this->logger->error('Unable to recive content from {url}', [
+            $this->logger->error('Unable to receive content from {url}', [
                  'url' => $url,
             ]);
             $this->readability = null;

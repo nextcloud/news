@@ -18,6 +18,9 @@ use Favicon\Favicon;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ConnectException;
 
 use Net_URL2;
 use OCP\IL10N;
@@ -318,14 +321,15 @@ class FeedFetcher implements IFeedFetcher
     /**
      * Return the favicon for a given feed and url
      *
-     * @param FeedInterface $feed     Feed to check for a logo
-     * @param string        $url      Original URL for the feed
+     * @param FeedInterface $feed Feed to check for a logo
+     * @param string        $url  Original URL for the feed
      *
      * @return string|mixed|bool
      */
     protected function getFavicon(FeedInterface $feed, string $url)
     {
-        $favicon = $feed->getLogo();
+        // trim the string because authors do funny things
+        $favicon = trim($feed->getLogo());
 
         ini_set('user_agent', 'NextCloud-News/1.0');
 
@@ -334,17 +338,54 @@ class FeedFetcher implements IFeedFetcher
         $base_url = $base_url->getNormalizedURL();
 
         // check if feed has a logo entry
-        if (is_null($favicon) || trim($favicon) === '') {
+        if (is_null($favicon) || $favicon === '') {
             return $this->faviconFactory->get($base_url);
         }
 
-        $favicon_path = join("/", [$this->ITempManager->getTempBaseDir(), basename($favicon)]);
+        // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
+        $favicon_path = join(DIRECTORY_SEPARATOR, [$this->ITempManager->getTempBaseDir(), md5($favicon)]);
+        $downloaded = false;
 
-        $downloaded = copy(
-            $favicon,
-            $favicon_path,
-            stream_context_create([ 'http' => [ 'ignore_errors' => true ] ])
-        );
+        if (file_exists($favicon_path)) {
+            $last_modified = filemtime($favicon_path);
+        } else {
+            $last_modified = 0;
+        }
+
+        try {
+            // Base_uri can only be set on creation, will be used when link is relative.
+            $client = new Client(['base_uri' => $base_url]);
+            $response = $client->request(
+                'GET',
+                $favicon,
+                [
+                    'sink' => $favicon_path,
+                    'headers' => [
+                        'User-Agent'        => 'NextCloud-News/1.0',
+                        'Accept'            => 'image/*',
+                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified)
+                    ]
+                ]
+            );
+            $downloaded = true;
+
+            $this->logger->debug(
+                "Feed:{url} Logo:{logo} Status:{status}",
+                [
+                'status' => $response->getStatusCode(),
+                'url'    => $favicon_path,
+                'logo'   => $favicon
+                ]
+            );
+        } catch (RequestException | ConnectException $e) {
+            $this->logger->info(
+                'An error occurred while trying to download the feed logo of {url}: {error}',
+                [
+                'url'   => $url,
+                'error' => $e->getResponse() ?? 'Unknown'
+                ]
+            );
+        }
 
         $is_image = $downloaded && substr(mime_content_type($favicon_path), 0, 5) === "image";
 

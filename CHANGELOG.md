@@ -6,6 +6,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [16.x.x]
 ### Changed
+<<<<<<< HEAD
 - Added vue and ng-vue packages (#1421)
 - Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
 ### Fixed
@@ -18,6 +19,53 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 - Set icon offset explicitly for navigation items (#1465)
 
+=======
+
+### Fixed
+
+# Releases
+## [16.2.1] - 2021-11-15
+### Fixed
+- Catch network errors while fetching feed logos. (#1572, #1570)
+
+## [16.2.0] - 2021-11-03
+No notable changes compared to the beta versions.
+
+## [16.2.0-beta2] - 2021-10-23
+### Changed
+- Updated "New Folder" and "All articles" icons to differentiate them from "Subscribe" and "All articles". (#1542)
+
+### Fixed
+- Mark the latest post in a feed as read when clicking on the right arrow key. (#1546)
+
+## [16.2.0-beta1] - 2021-10-18
+### Changed
+- Add changelog and DCO notice to CONTRIBUTING.md (#1521)
+- Download feed logos via guzzle to have better error handling (#1533)
+
+## [16.1.0] - 2021-10-07
+### Changed
+- Remove dependency's large test files from release (#1519)
+- Fix spelling of "receive" in log files (#1520)
+
+Note: Nextcloud 20 support will be dropped in Oct 2021, this is very likely the last version to support Nextcloud 20. This also means that PHP 7.2, will no longer be supported by news.
+
+# Releases
+## [16.1.0-beta1] - 2021-09-02
+### Changed
+- Added new `news:updater:update-user` command to update the feeds of a single user (#1360).
+
+### Fixed
+- Removed spurious requests for `.../apps/news/%7B%7B%20::Content.getFeed(item.feedId).faviconLink%20%7D%7D` (#1488)
+
+## [16.0.1] - 2021-08-02
+### Changed
+- Reimplemented relative time formatting as a filter (#1450)
+
+### Fixed
+- Set icon offset explicitly for navigation items (#1465)
+
+>>>>>>> master
 ## [16.0.0] - 2021-06-16
 There are no additional changes compared to the latest beta.
 

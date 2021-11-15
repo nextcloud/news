@@ -288,6 +288,8 @@
             var nextElement = activeElement.next();
             if (nextElement.length > 0) {
                 scrollToItem(scrollArea, nextElement, expandItemInCompact);
+            } else if (nextElement.length === 0) {
+                activeElement.find('.utils').trigger('click');
             } else {
                 // in case this is the last item it should still scroll below
                 // the
