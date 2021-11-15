@@ -4,13 +4,6 @@ on:
     branches:
       - master
 jobs:
-  update-release-draft:
-    runs-on: ubuntu-latest
-    name: "Release Drafter"
-    steps:
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   php:
     runs-on: ubuntu-latest
     continue-on-error: false
