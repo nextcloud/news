@@ -106,7 +106,7 @@ class FolderMapperV2 extends NewsMapperV2
      * @return int
      *
      * @throws DBException
-     * @TODO Update for NC 21
+     *
      */
     public function read(string $userId, int $id, ?int $maxItemID = null): int
     {
@@ -136,6 +136,10 @@ class FolderMapperV2 extends NewsMapperV2
             ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
             ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
 
-        return $this->db->executeStatement($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
+        return $this->db->executeStatement(
+            $builder->getSQL(),
+            $builder->getParameters(),
+            $builder->getParameterTypes()
+        );
     }
 }

@@ -253,8 +253,6 @@ class ItemMapperV2 extends NewsMapperV2
      * @param string $userId
      * @param int    $maxItemId
      *
-     * @TODO: Update this for NC 21
-     *
      * @return int
      *
      * @throws DBException
@@ -282,7 +280,11 @@ class ItemMapperV2 extends NewsMapperV2
             ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
             ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
 
-        return $this->db->executeStatement($builder->getSQL(), $builder->getParameters(), $builder->getParameterTypes());
+        return $this->db->executeStatement(
+            $builder->getSQL(),
+            $builder->getParameters(),
+            $builder->getParameterTypes()
+        );
     }
 
     /**
