@@ -248,6 +248,14 @@
     padding: 0;
 }
 
+#app-content .compact .util-spacer,
+#app-content .compact .util,
+#app-content .compact .only-in-compact {
+    flex: 1 0 auto;
+}
+#app-content .compact .title {
+    flex: 1 1 auto;
+}
 #app-content .open .utils ul {
     height: auto;
 }
@@ -257,11 +265,20 @@
 }
 
 #app-content .util-spacer {
-    width: 20px;
+    width: 25px;
 }
 
 #app-content .compact .util-spacer {
-    width: 19px;
+    width: 5px;
+}
+@media screen and (max-width: 1024px) {
+  #app-content .compact .util-spacer {
+    width: 0;
+    flex: 0 0 auto;
+  }
+  #app-content .item:first-of-type .util-spacer {
+    width: 28px;
+  }
 }
 
 #app-content .utils li {
@@ -278,7 +295,7 @@
 }
 
 #app-content .utils .util {
-    padding: 0 6px;
+    padding: 0;
 }
 
 #app-content .utils .article-action-plugins {
@@ -418,8 +435,8 @@
  */
 #app-content .utils .title {
     width: 100%;
-    padding-left: 45px;
-    background-position: 10px 12px;
+    padding-left: 35px;
+    background-position: 6px 10px;
     background-size: 20px 20px;
     background-repeat: no-repeat;
 }
@@ -470,7 +487,6 @@
 
 #app-content .utils .date {
     padding: 0 15px;
-    margin-right: 25px;
 }
 
 
@@ -491,6 +507,7 @@
     font-weight: bold;
     color: var(--color-main-text);
     text-decoration: none;
+    margin:0;
 }
 
 #app-content .heading a:hover {
