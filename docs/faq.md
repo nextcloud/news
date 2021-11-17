@@ -106,3 +106,13 @@ the `--purge-unread` option, unread items are also purged (starred items are sti
 The purge count only applies to the items that are purged. For example, when purging a feed that has 100 unread items, 100 starred read
 items and 100 unstarred read items, using a `purge-count` of 50 would keep all unread and starred items and the latest 50 read items. Using
 a `purge-count` of 50 along with `--purge-unread` would keep the all starred items plus the latest 50 from the set of unread and read items.
+
+## Missing 4-byte support SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value: ...
+
+This is likely caused by your feed using emojis in the feed title or text.
+
+The DB is then not able to store the feed and runs into strange decoding errors.
+
+You need to convert your DB to support 4 bytes, check the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/mysql_4byte_support.html).
+
+References [#1165](https://github.com/nextcloud/news/issues/1165) [#526](https://github.com/nextcloud/news/issues/526)
