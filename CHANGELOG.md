@@ -6,12 +6,16 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [17.x.x]
 ### Changed
-- Drop support for Nextcloud 20
-- Use better sql commands, that were not possible with Nextcloud 20
 
 ### Fixed
 
 # Releases
+## [17.0.0-beta1]
+### Changed
+- Drop support for Nextcloud 20 (#1514)
+- Use better sql commands, that were not possible with Nextcloud 20 (#1514)
+- Add support for Nextcloud 23 (#1585)
+
 ## [16.2.1] - 2021-11-15
 ### Fixed
 - Catch network errors while fetching feed logos. (#1572, #1570)
