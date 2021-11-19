@@ -48,7 +48,7 @@ OC.L10N.register(
     "Error while searching for users" : "Fout bij zoeken naar gebruikers",
     "Share on social media" : "Delen op social media",
     "I wanted you to see this article" : "Ik wil graag dat je dit artikel ziet",
-    "Check out this article" : "Lees dit artikel",
+    "Check out this article" : "Bekijk dit artikel",
     "by" : "door",
     "from" : "van",
     "shared by" : "gedeeld door",
