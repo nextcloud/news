@@ -123,6 +123,7 @@
 * [Maceček Richard](mailto:46937538+macecekrichard@users.noreply.github.com)
 * [Marc Cousin](mailto:marc.cousin@people-doc.com)
 * [Martin Ferretti](mailto:ferrettimartin@protonmail.com)
+* [Matthias](mailto:matthias.baier@mabaart.de)
 * [Matthias Blümel](mailto:user@inanna.local)
 * [Michael Grosser](mailto:github@stp-ip.net)
 * [Michael Holley](mailto:michaelwholley@gmail.com)

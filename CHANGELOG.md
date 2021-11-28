@@ -8,9 +8,12 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- fix link-icon-overlap in mobile-view (#1579)
 
 # Releases
+## [17.0.0]
+### Fixed
+- fix link-icon-overlap in mobile-view (#1579)
+
 ## [17.0.0-beta1]
 ### Changed
 - Drop support for Nextcloud 20 (#1514)
