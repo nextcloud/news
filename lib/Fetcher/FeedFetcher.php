@@ -382,7 +382,7 @@ class FeedFetcher implements IFeedFetcher
                 'An error occurred while trying to download the feed logo of {url}: {error}',
                 [
                 'url'   => $url,
-                'error' => $e->getResponse() ?? 'Unknown'
+                'error' => $e->getMessage() ?? 'Unknown'
                 ]
             );
         }
