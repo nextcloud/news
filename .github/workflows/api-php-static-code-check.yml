@@ -7,8 +7,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        php-versions: [ '7.4' ]
-        nextcloud: [ 'stable22' ]
+        php-versions: [ '8.0' ]
+        nextcloud: [ 'stable23' ]
         database: [ 'sqlite' ]
     name: "phpstan: Nextcloud ${{ matrix.nextcloud }}"
     steps:

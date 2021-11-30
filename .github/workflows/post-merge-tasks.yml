@@ -10,7 +10,7 @@ jobs:
     name: "Coverage: Nextcloud PHP ${{ matrix.php-versions }}"
     strategy:
       matrix:
-        nextcloud: ['stable22']
+        nextcloud: ['stable23']
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0
