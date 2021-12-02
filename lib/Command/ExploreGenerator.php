@@ -64,16 +64,13 @@ class ExploreGenerator extends Command
                 'feed URL and votes, e.g.: ' . json_encode($result)
             )
             ->addArgument('feed', InputArgument::REQUIRED, 'Feed to parse')
-            ->addOption('votes', null, InputOption::VALUE_OPTIONAL, 'Votes for the feed, defaults to 100');
+            ->addOption('votes', null, InputOption::VALUE_OPTIONAL, 'Votes for the feed, defaults to 100', 100);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $url   = $input->getArgument('feed');
         $votes = $input->getOption('votes');
-        if (!$votes) {
-            $votes = 100;
-        }
 
         try {
             $resource = $this->reader->read($url);
