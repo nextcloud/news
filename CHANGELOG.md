@@ -8,14 +8,18 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-* Fix catching network errors while fetching feed logos. (#1601)
+
 
 # Releases
-## [17.0.0]
+## [17.0.1] - 2021-12-08
+### Fixed
+- Fix catching network errors while fetching feed logos. (#1601)
+
+## [17.0.0] - 2021-11-29
 ### Fixed
 - fix link-icon-overlap in mobile-view (#1579)
 
-## [17.0.0-beta1]
+## [17.0.0-beta1] - 2021-11-18
 ### Changed
 - Drop support for Nextcloud 20 (#1514)
 - Use better sql commands, that were not possible with Nextcloud 20 (#1514)
