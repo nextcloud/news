@@ -55,7 +55,7 @@ OC.L10N.register(
     "Play audio" : "Sesi oynat",
     "Download audio" : "Sesi indir",
     "Download video" : "Görüntüyü indir",
-    "Keyboard shortcut" : "Tuş takımı kısayolu",
+    "Keyboard shortcut" : "Kısayol tuşu",
     "Description" : "Açıklama",
     "right" : "sağ",
     "Jump to next article" : "Sonraki makaleye geç",
@@ -130,7 +130,7 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Okunmamış/yıldızlı makaleler",
     "Error when importing: file does not contain valid JSON" : "İçe aktarma sırasında sorun çıktı: Dosyada geçerli JSON yok",
     "Help" : "Yardım",
-    "Keyboard shortcuts" : "Tuş takımı kısayolları",
+    "Keyboard shortcuts" : "Kısayol tuşları",
     "Documentation" : "Belgeler",
     "Report a bug" : "Hata bildirin"
 },
