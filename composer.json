@@ -40,7 +40,7 @@
     "source": "https://github.com/nextcloud/news/"
   },
   "require": {
-    "php": "^7.2 || 8.0.x",
+    "php": "^7.2 || 8.0.x || 8.1.x",
     "ezyang/htmlpurifier": "^4.13.0",
     "pear/net_url2": "2.2.2",
     "riimu/kit-pathjoin": "1.2.0",
@@ -79,6 +79,12 @@
   "autoload-dev": {
     "psr-4": {
       "OCA\\News\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true,
+      "phpstan/extension-installer": true
     }
   }
 }

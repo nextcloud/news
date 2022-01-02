@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6487fb576db846a56aaf0d45f2469a8f",
+    "content-hash": "18255518ecb41e2b271003adc52360e2",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -873,9 +873,6 @@
             },
             "require": {
                 "php": "^7.1 || ^8.0"
-            },
-            "replace": {
-                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
@@ -3274,7 +3271,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2 || 8.0.x",
+        "php": "^7.2 || 8.0.x || 8.1.x",
         "ext-json": "*",
         "ext-simplexml": "*",
         "ext-libxml": "*",
@@ -3282,5 +3279,5 @@
         "ext-curl": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
