@@ -7,6 +7,7 @@ OC.L10N.register(
     "Token expired or app not enabled! Reload the page!" : "トークンまたはアプリが無効になりました！ページを再読込してください！",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "内部サーバーエラー！追加情報については、あなたのdata/nextcloud.logファイルをチェックしてください！",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "リクエストが失敗しました。Nextcloudは現在メンテナンスモードです。",
+    "News feeds" : "ニューズフィード",
     "Unread articles" : "未読の記事",
     "News" : "ニュース",
     "News folders" : "ニューズフォルダー",
