@@ -16,6 +16,7 @@ namespace OCA\News\Service;
 use FeedIo\Explorer;
 use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
+use Net_URL2;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
@@ -199,7 +200,13 @@ class FeedServiceV2 extends Service
         if ($full_discover) {
             $feeds = $this->explorer->discover($feedUrl);
             if ($feeds !== []) {
-                $feedUrl = array_shift($feeds);
+                $discoveredUrl = array_shift($feeds);
+                $url2 = new Net_URL2($discoveredUrl);
+                if ($url2->isAbsolute()) {
+                    $feedUrl = $discoveredUrl;
+                } else {
+                    $feedUrl = strval((new Net_URL2($feedUrl))->resolve($discoveredUrl));
+                }
             }
         }
 
