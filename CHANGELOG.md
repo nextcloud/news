@@ -4,8 +4,9 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 # Unreleased
 
-## [17.x.x]
+## [18.x.x]
 ### Changed
+- Drop support for Nextcloud 21
 
 ### Fixed
 

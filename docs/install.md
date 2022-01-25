@@ -2,8 +2,8 @@
 
 ## Dependencies
 * 64bit OS (starting with News 16.0.0)
-* PHP >= 7.2
-* Nextcloud 20
+* PHP >= 7.3
+* Nextcloud 22
 * libxml >= 2.7.8
 
 You also need some PHP extensions:
