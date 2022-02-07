@@ -48,7 +48,7 @@
     "karma-coverage": "^2.1.0",
     "karma-firefox-launcher": "^2.1.2",
     "karma-jasmine": "^4.0.1",
-    "minimatch": "^3.0.4",
+    "minimatch": "^3.0.5",
     "natives": "^1.1.6"
   },
   "dependencies": {
