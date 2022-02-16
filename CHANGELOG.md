@@ -1,17 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
-The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
+The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
 
 ## [18.x.x]
 ### Changed
-- Drop support for Nextcloud 21
 
 ### Fixed
 
-
 # Releases
+## [18.0.0-beta1] - 2022-02-16
+### Changed
+- Drop support for Nextcloud 21
+
 ## [17.0.1] - 2021-12-08
 ### Fixed
 - Fix catching network errors while fetching feed logos. (#1601)
