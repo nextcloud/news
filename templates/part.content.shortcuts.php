@@ -55,19 +55,15 @@
             </tr>
             <tr>
                 <td>c</td>
-                <td><?php p($l->t('Load next folder')); ?></td>
+                <td><?php p($l->t('Load previous folder')); ?></td>
             </tr>
             <tr>
                 <td>v</td>
-                <td><?php p($l->t('Load previous folder')); ?></td>
+                <td><?php p($l->t('Load next folder')); ?></td>
             </tr>
             <tr>
                 <td>a</td>
                 <td><?php p($l->t('Scroll to active navigation entry')); ?></td>
-            </tr>
-            <tr>
-                <td>q</td>
-                <td><?php p($l->t('Focus search field')); ?></td>
             </tr>
             <tr>
                 <td>shift + a</td>
