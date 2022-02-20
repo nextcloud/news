@@ -42,6 +42,14 @@ const testSources = ['tests/**/*.js'];
 const watchSources = sources.concat(testSources).concat(['*.js']);
 const lintSources = watchSources;
 
+const widgetBuildTarget = 'widget.min.js';
+const widgetSources = [
+    'node_modules/angular/angular.min.js',
+    'widget/**/*.js',
+    'service/SettingsResource.js',
+    'filter/RelativeTimestamp.js'
+];
+
 // tasks
 gulp.task('lint', () => {
     return gulp.src(lintSources)
@@ -51,10 +59,17 @@ gulp.task('lint', () => {
 });
 
 gulp.task('default', gulp.series('lint', () => {
-    return gulp.src(sources)
+    gulp.src(sources)
         .pipe(ngAnnotate())
         .pipe(sourcemaps.init())
         .pipe(concat(buildTarget))
+        .pipe(terser())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(destinationFolder));
+    return gulp.src(widgetSources)
+        .pipe(ngAnnotate())
+        .pipe(sourcemaps.init())
+        .pipe(concat(widgetBuildTarget))
         .pipe(terser())
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(destinationFolder));

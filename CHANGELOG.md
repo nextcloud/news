@@ -6,6 +6,7 @@ The format is almost based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [17.x.x]
 ### Changed
+- Added a dashboard widget showing the latest unread articles from subscribed feeds
 
 ### Fixed
 
