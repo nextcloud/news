@@ -17,7 +17,6 @@ Read this when you want to:
 ### Feed issues
 **For feed parsing issues, check**:
 * It is a valid RSS by running it through the [W3C validator](http://validator.w3.org/feed/)
-* Check if [feed-io](https://feed-io.net/) can handle it.
 * Use the [feed issues](https://github.com/nextcloud/news/discussions/categories/feed-issues) section in discussions.
 
 ### Hints for reporting bugs
