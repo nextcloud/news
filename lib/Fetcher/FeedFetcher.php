@@ -116,7 +116,7 @@ class FeedFetcher implements IFeedFetcher
     ): array {
         $url2 = new Net_URL2($url);
         if (!is_null($user) && trim($user) !== '') {
-            $url2->setUserinfo(urlencode($user), urlencode($password));
+            $url2->setUserinfo(rawurlencode($user), rawurlencode($password));
         }
         $url = $url2->getNormalizedURL();
         $this->reader->resetFilters();
