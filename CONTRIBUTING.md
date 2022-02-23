@@ -58,7 +58,7 @@ Features don't belong into the issues section, instead discuss them in [discussi
 
 For translations in other languages than English, we rely on the [Transifex](https://www.transifex.com/) platform.
 
-If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/projects/p/nextcloud/resource/news/ and join the team of your native language.
+If you want to help with translating the app, please do not create a pull request. Instead, head over to https://www.transifex.com/nextcloud/nextcloud/news/ and join the team of your native language.
 
 If approved, the translation will be automatically ported to the code within 24 hours.
 
