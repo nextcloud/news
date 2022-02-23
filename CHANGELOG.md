@@ -6,11 +6,17 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [18.x.x]
 ### Changed
-- Fix spaces in passwords getting replaced with "+" (#1678)
 
 ### Fixed
 
 # Releases
+## [18.0.0] - 2022-02-23
+### Changed
+- Change shortcut descriptions. (#1669)
+
+### Fixed
+- Fix spaces in passwords getting replaced with "+" (#1678)
+
 ## [18.0.0-beta1] - 2022-02-16
 ### Changed
 - Drop support for Nextcloud 21
