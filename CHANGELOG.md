@@ -6,7 +6,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ## [18.x.x]
 ### Changed
-- Change shortcut descriptions. (#1669)
+- Fix spaces in passwords getting replaced with "+" (#1678)
 
 ### Fixed
 
