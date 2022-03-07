@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix only one item marked as read by Feed API (#1687)
 
 # Releases
 ## [18.0.0] - 2022-02-23
