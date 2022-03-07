@@ -284,7 +284,7 @@ class FeedApiControllerTest extends TestCase
 
     public function testRead()
     {
-        $this->itemService->expects($this->once())
+        $this->feedService->expects($this->once())
             ->method('read')
             ->with($this->userID,3,30);
 
