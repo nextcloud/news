@@ -151,8 +151,10 @@ It is recommended though that you use the following convention:
 ## Output
 The output is JSON.
 
-# Folders
-## Get all folders
+## API Endpoints
+
+### Folders
+#### Get all folders
 
 * **Status**: Implemented
 * **Method**: GET
@@ -170,7 +172,7 @@ The output is JSON.
 }
 ```
 
-## Create a folder
+#### Create a folder
 Creates a new folder and returns a new folder object
 
 * **Status**: Implemented
@@ -197,7 +199,7 @@ Creates a new folder and returns a new folder object
 }
 ```
 
-## Delete a folder
+#### Delete a folder
 Deletes a folder with the id folderId and all the feeds it contains
 
 * **Status**: Implemented
@@ -208,7 +210,7 @@ Deletes a folder with the id folderId and all the feeds it contains
  * **HTTP 404**: If the folder does not exist
 * **Returns**: nothing
 
-## Rename a folder
+#### Rename a folder
 Only the name can be updated
 
 * **Status**: Implemented
@@ -226,7 +228,7 @@ Only the name can be updated
  * **HTTP 422**: If the folder name is invalid (for instance empty)
 * **Returns**: nothing
 
-## Mark items of a folder as read
+#### Mark items of a folder as read
 
 * **Status**: Implemented
 * **Method**: PUT
@@ -243,16 +245,16 @@ Only the name can be updated
  * **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
-# Feeds
+### Feeds
 
-## Sanitation
+#### Sanitation
 
 The following attributes are **not sanitized** meaning: including them in your web application can lead to  XSS:
 
 * **title**
 * **link**
 
-## Get all feeds
+#### Get all feeds
 
 * **Status**: Implemented
 * **Method**: GET
@@ -287,7 +289,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 }
 ```
 
-## Create a feed
+#### Create a feed
 Creates a new feed and returns the feed
 
 * **Status**: Implemented
@@ -324,7 +326,7 @@ Creates a new feed and returns the feed
 }
 ```
 
-## Delete a feed
+#### Delete a feed
 Deletes a feed with the id feedId and all of its  items
 
 * **Status**: Implemented
@@ -335,7 +337,7 @@ Deletes a feed with the id feedId and all of its  items
  * **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
-## Move a feed to a different folder
+#### Move a feed to a different folder
 
 * **Status**: Implemented
 * **Method**: PUT
@@ -350,7 +352,7 @@ Deletes a feed with the id feedId and all of its  items
  * **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
-## Rename a feed
+#### Rename a feed
 
 * **Status**: Implemented in 1.807
 * **Method**: PUT
@@ -365,7 +367,7 @@ Deletes a feed with the id feedId and all of its  items
  * **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
-## Mark items of a feed as read
+#### Mark items of a feed as read
 
 * **Status**: Implemented
 * **Method**: PUT
@@ -383,9 +385,9 @@ Deletes a feed with the id feedId and all of its  items
 * **Returns**: nothing
 
 
-# Items
+### Items
 
-## Sanitation
+#### Sanitation
 
 The following attributes are **not sanitized** meaning: including them in your web application can lead to  XSS:
 
@@ -397,7 +399,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **mediaThumbnail**
 * **mediaDescription**
 
-## Get items
+#### Get items
 * **Status**: Implemented
 * **Method**: GET
 * **Route**: /items
@@ -440,7 +442,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 }
 ```
 
-### Example
+##### Example
 Autopaging would work like this:
 
 * Get the **first 20** items from a feed with **id 12**
@@ -471,7 +473,7 @@ The item with the lowest item id is 43.
 ```
 
 
-## Get updated items
+#### Get updated items
 This is used to stay up to date.
 
 * **Status**: Implemented
@@ -512,7 +514,7 @@ This is used to stay up to date.
 }
 ```
 
-## Mark an item as read
+#### Mark an item as read
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{itemId}/read
@@ -521,7 +523,7 @@ This is used to stay up to date.
  * **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
-## Mark multiple items as read
+#### Mark multiple items as read
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/read/multiple
@@ -533,7 +535,7 @@ This is used to stay up to date.
 ```
 * **Returns**: nothing
 
-## Mark an item as unread
+#### Mark an item as unread
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{itemId}/unread
@@ -542,7 +544,7 @@ This is used to stay up to date.
  * **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
-## Mark multiple items as unread
+#### Mark multiple items as unread
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/unread/multiple
@@ -554,7 +556,7 @@ This is used to stay up to date.
 ```
 * **Returns**: nothing
 
-## Mark an item as starred
+#### Mark an item as starred
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{feedId}/{guidHash}/star
@@ -563,7 +565,7 @@ This is used to stay up to date.
  * **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
-## Mark multiple items as starred
+#### Mark multiple items as starred
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/star/multiple
@@ -580,7 +582,7 @@ This is used to stay up to date.
 ```
 * **Returns**: nothing
 
-## Mark an item as unstarred
+#### Mark an item as unstarred
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{feedId}/{guidHash}/unstar
@@ -589,7 +591,7 @@ This is used to stay up to date.
  * **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
-## Mark multiple items as unstarred
+#### Mark multiple items as unstarred
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/unstar/multiple
@@ -606,7 +608,7 @@ This is used to stay up to date.
 ```
 * **Returns**: nothing
 
-## Mark all items as read
+#### Mark all items as read
 
 * **Status**: Implemented
 * **Method**: PUT
@@ -624,7 +626,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 
-# Updater
+### Updater
 
 To enable people to write their own update scripts instead of relying on the sequential built in web and system cron, API routes and console commands have been created.
 
@@ -637,7 +639,7 @@ Updating should be done in the following fashion:
 
 This [implementation in Python](https://github.com/nextcloud/news-updater) should give you a good idea how to design and run it.
 
-## Trigger cleanup before update
+#### Trigger cleanup before update
 This is used to clean up the database. It deletes folders and feeds that are marked for deletion
 
 * **Status**: Implemented in 1.601
@@ -650,7 +652,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
     php -f nextcloud/occ news:updater:before-update
 
-## Get feed ids and usernames for all feeds
+#### Get feed ids and usernames for all feeds
 
 * **Status**: Implemented in 1.203
 * **Authentication**: Requires admin user
@@ -674,7 +676,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
     php -f nextcloud/occ news:updater:all-feeds
 
 
-## Trigger a feed update
+#### Trigger a feed update
 
 * **Status**: Implemented in 1.601
 * **Authentication**: Requires admin user
@@ -695,7 +697,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
     php -f nextcloud/occ news:updater:update-feed 3 john
 
-## Trigger cleanup after update
+#### Trigger cleanup after update
 This is used to clean up the database. It removes old read articles which are not starred
 
 * **Status**: Implemented in 1.601
@@ -708,9 +710,9 @@ This is used to clean up the database. It removes old read articles which are no
 
     php -f nextcloud/occ news:updater:after-update
 
-# Version
+### Version
 
-## Get the version
+#### Get the version
 
 * **Status**: Implemented
 * **Method**: GET
@@ -723,11 +725,11 @@ This is used to clean up the database. It removes old read articles which are no
 }
 ```
 
-# Status
+### Status
 
 This API can be used to display warnings and errors in your client if the web app is improperly configured or not working. It is a good idea to call this route on like every 10th update and after the server connection parameters have been changed since it's likely that the user set up a new instance and configured the app improperly.
 
-## Get the status
+#### Get the status
 
 * **Status**: Implemented in 5.2.4
 * **Method**: GET
@@ -755,7 +757,7 @@ You should show the following warning and the link should be clickable:
 
 If **incorrectDbCharset** is true you should display a warning that database charset is set up incorrectly and updates with unicode characters might fail
 
-# User
+### User
 
 This API can be used to retrieve metadata about the current user.
 
@@ -763,7 +765,7 @@ DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.
 - https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata for user data
 - `https://nc.url/avatar/{userid}/{size}?v={1|2}` for the avatar
 
-## Get the status
+#### Get the status
 
 * **Status**: Implemented in 6.0.5
 * **Method**: GET
