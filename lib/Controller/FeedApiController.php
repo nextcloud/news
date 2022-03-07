@@ -152,7 +152,7 @@ class FeedApiController extends ApiController
      */
     public function read(int $feedId, int $newestItemId): void
     {
-        $this->itemService->read($this->getUserId(), $feedId, $newestItemId);
+        $this->feedService->read($this->getUserId(), $feedId, $newestItemId);
     }
 
 
