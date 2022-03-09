@@ -3,14 +3,16 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-
 ## [18.x.x]
 ### Changed
 
 ### Fixed
-- Fix only one item marked as read by Feed API (#1687)
 
 # Releases
+## [18.0.1-beta1] - 2022-03-09
+### Fixed
+- Fix only one item marked as read by Feed API (#1687)
+
 ## [18.0.0] - 2022-02-23
 ### Changed
 - Change shortcut descriptions. (#1669)

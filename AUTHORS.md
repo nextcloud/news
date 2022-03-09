@@ -101,6 +101,7 @@
 * [Daniel S](mailto:daniel@while-true-do.org)
 * [David Baucum](mailto:david@baucum.me)
 * [David Engster](mailto:deng@randomsample.de)
+* [Dennis Müller](mailto:dennismueller.kontakt@gmail.com)
 * [Detlev Zundel](mailto:dzu@member.fsf.org)
 * [Doron Behar](mailto:doron.behar@gmail.com)
 * [DriverXX](mailto:DriverXX@users.noreply.github.com)
