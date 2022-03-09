@@ -10,6 +10,11 @@ jobs:
         php-versions: [ '8.0' ]
         nextcloud: [ 'stable23' ]
         database: [ 'sqlite' ]
+        include:
+          - php-versions: 8.1
+            nextcloud: pre-release
+            database: sqlite
+            experimental: true
     name: "phpstan: Nextcloud ${{ matrix.nextcloud }}"
     steps:
       - name: Checkout
@@ -17,7 +22,7 @@ jobs:
       - name: Set up php
         uses: shivammathur/setup-php@master
         with:
-          php-version: 7.4
+          php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
@@ -44,7 +49,7 @@ jobs:
 
       - name: PHPCS
         working-directory: ../server/apps/news
-        run: pwd && make phpcs #debug pwd
+        run: make phpcs
 
       - name: PHPStan
         working-directory: ../server/apps/news
