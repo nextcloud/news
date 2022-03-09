@@ -1,6 +1,6 @@
 # External API v2 (Draft)
 
-**Disclaimer:** this API has not been fully implemented yet.
+**Disclaimer:** this API has not been fully implemented yet, help is welcome.
 
 The **News app** offers a RESTful API which can be used to sync folders, feeds and items. The API also supports [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) which means that you can access the API from your browser using JavaScript.
 
