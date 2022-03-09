@@ -3,7 +3,7 @@ parameters:
   treatPhpDocTypesAsCertain: false
   bootstrapFiles:
     - %currentWorkingDirectory%/../../lib/base.php
-  excludes_analyse:
+  excludePaths:
     - %currentWorkingDirectory%/lib/Migration/*.php
     - %currentWorkingDirectory%/lib/AppInfo/Application.php
     - %currentWorkingDirectory%/lib/Fetcher/Client/Legacy*.php
