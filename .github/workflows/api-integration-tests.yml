@@ -48,6 +48,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -56,8 +58,8 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
-      - name: Setup BATS
-        uses: mig4/setup-bats@v1.2.0
+      - name: Setup BATS & httpie
+        run: sudo apt-get install -y bats httpie
 
       ### MySQL specific setup
       - name: Setup mysql
@@ -109,14 +111,12 @@ jobs:
           force: ${{ matrix.experimental }}
 
       - name: run api test
-        if: matrix.database == 'sqlite'
         working-directory: ../server
         run: |
           php -S localhost:8080 > /tmp/webserver.log &
           sleep 2
-
-          # Call folders api
-          curl -v -u admin:admin http://localhost:8080/index.php/apps/news/api/v1-2/folders
+                  
+          bats apps/news/tests/api
 
           # Kill php server
           kill %1
