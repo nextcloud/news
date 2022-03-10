@@ -7,7 +7,7 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        php-versions: [ '8.0' ]
+        php-versions: [ '7.4', '8.0' ]
         nextcloud: [ 'stable23' ]
         database: [ 'sqlite' ]
         include:
@@ -15,7 +15,7 @@ jobs:
             nextcloud: pre-release
             database: sqlite
             experimental: true
-    name: "phpstan: Nextcloud ${{ matrix.nextcloud }}"
+    name: "phpstan: Nextcloud ${{ matrix.nextcloud }} with ${{ php-versions }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
