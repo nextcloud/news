@@ -23,8 +23,17 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Create new" {
+  # $() is needed in this case otherwise bats fails to fetch the output...
   run $(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].url')
   
   # self reference of feed is used here
   assert_output --partial "https://nextcloud.com/blog/feed/"
+}
+
+@test "[$TESTSUITE] Delete one" {
+  ID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].id')
+  
+  run http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$ID
+  
+  assert_output --partial "[]"
 }
