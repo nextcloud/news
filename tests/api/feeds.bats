@@ -9,9 +9,16 @@ setup() {
 TESTSUITE="Feeds"
 
 teardown() {
+  # delete all feeds
   ID=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | grep -Po '"id":\K([0-9]+)' | tr '\n' ' ')
   for i in $ID; do
     http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$i
+  done
+
+  # delete all folders
+  ID=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/folders | grep -Po '"id":\K([0-9]+)' | tr '\n' ' ')
+  for i in $ID; do
+    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/folders/$i
   done
 }
 
@@ -23,12 +30,24 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Create new" {
-  # $() is needed in this case otherwise bats fails to fetch the output...
-  run $(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].url')
+  # run is not working here.
+  output=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].url')
   
   # self reference of feed is used here
-  assert_output --partial "https://nextcloud.com/blog/feed/"
+  assert_output '"https://nextcloud.com/blog/feed/"'
 }
+
+@test "[$TESTSUITE] Create new inside folder" {
+  # create folder and store id
+  ID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/folders name=news-${BATS_SUITE_TEST_NUMBER} | grep -Po '"id":\K([0-9]+)')
+
+  # run is not working here.
+  output=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED folderId=$ID | jq '.feeds | .[0].folderId')
+  
+  # self reference of feed is used here
+  assert_output "$ID"
+}
+
 
 @test "[$TESTSUITE] Delete one" {
   ID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].id')
