@@ -113,7 +113,7 @@ jobs:
       - name: run api test
         working-directory: ../server
         run: |
-          php -S localhost:8080 > /tmp/webserver.log &
+          php -S localhost:8080 &> /tmp/webserver.log &
           sleep 2
                   
           bats apps/news/tests/api
