@@ -44,7 +44,7 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED folderId=$ID | jq '.feeds | .[0].folderId')
   
-  # self reference of feed is used here
+  # check if ID matches
   assert_output "$ID"
 }
 
@@ -69,7 +69,7 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].folderId')
   
-  # self reference of feed is used here
+  # look for second folder id
   assert_output "$SECCOND_FOLDER_ID"
 }
 
@@ -84,12 +84,12 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].folderId')
   
-  # self reference of feed is used here
+  # new "folder" should be null
   assert_output null
 }
 
 @test "[$TESTSUITE] Rename feed" {
-  # create folder and store id
+  # create feed and store id
   FEEDID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | grep -Po '"id":\K([0-9]+)')
   
   # rename feed, returns nothing
@@ -97,6 +97,34 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].title')
   
-  # self reference of feed is used here
+  # Check if title matches
   assert_output '"Great Title"'
 }
+
+@test "[$TESTSUITE] Mark all items as read" {
+  # create feed and store id
+  FEEDID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | grep -Po '"id":\K([0-9]+)')
+  
+  ID=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items id=$FEEDID | grep -Po '"id":\K([0-9]+)' | tr '\n' ' ')
+
+  # get biggest item ID
+  max=${ID[0]}
+  for n in "${ID[@]}" ; do
+      ((n > max)) && max=$n
+  done
+  
+  # mark all items of feed as read, returns nothing
+  http --ignore-stdin -b -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max"
+
+  # collect unread status
+  unread=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items id=$FEEDID | grep -Po '"unread":\K((true)|(false))' | tr '\n' ' ')
+  
+  for n in "${unread[@]}" ; do
+      if $n
+      then
+        echo "Item was not marked as read"
+        false
+      fi
+  done
+}
+

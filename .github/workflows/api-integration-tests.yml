@@ -110,7 +110,7 @@ jobs:
           check-code: false
           force: ${{ matrix.experimental }}
 
-      - name: run api test
+      - name: Run API tests
         working-directory: ../server
         run: |
           php -S localhost:8080 &> /tmp/webserver.log &
