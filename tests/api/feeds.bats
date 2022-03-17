@@ -10,14 +10,14 @@ TESTSUITE="Feeds"
 
 teardown() {
   # delete all feeds
-  ID=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | grep -Po '"id":\K([0-9]+)' | tr '\n' ' ')
-  for i in $ID; do
+  ID_LIST=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+  for i in $ID_LIST; do
     http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$i
   done
 
   # delete all folders
-  ID=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/folders | grep -Po '"id":\K([0-9]+)' | tr '\n' ' ')
-  for i in $ID; do
+  ID_LIST=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/folders | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+  for i in $ID_LIST; do
     http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/folders/$i
   done
 }
@@ -105,11 +105,11 @@ teardown() {
   # create feed and store id
   FEEDID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | grep -Po '"id":\K([0-9]+)')
   
-  ID=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items id=$FEEDID | grep -Po '"id":\K([0-9]+)' | tr '\n' ' ')
+  ID_LIST=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items id=$FEEDID | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
   # get biggest item ID
-  max=${ID[0]}
-  for n in "${ID[@]}" ; do
+  max=${ID_LIST[0]}
+  for n in "${ID_LIST[@]}" ; do
       ((n > max)) && max=$n
   done
   
