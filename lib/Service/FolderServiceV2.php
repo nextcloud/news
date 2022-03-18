@@ -184,17 +184,17 @@ class FolderServiceV2 extends Service
      *
      * @param string   $userId    Folder owner
      * @param int      $id        Folder ID
-     * @param int|null $maxItemID Highest item ID to mark as read
+     * @param int|null $newestItemId Highest item ID to mark as read
      *
      * @return int
      *
      * @throws ServiceConflictException
      * @throws ServiceNotFoundException
      */
-    public function read(string $userId, int $id, ?int $maxItemID = null): int
+    public function read(string $userId, int $id, ?int $newestItemId = null): int
     {
         $folder = $this->find($userId, $id);
 
-        return $this->mapper->read($userId, $folder->getId(), $maxItemID);
+        return $this->mapper->read($userId, $folder->getId(), $newestItemId);
     }
 }

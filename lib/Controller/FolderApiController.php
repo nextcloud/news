@@ -141,12 +141,12 @@ class FolderApiController extends ApiController
      * @CORS
      *
      * @param int|null $folderId  ID of the folder
-     * @param int      $maxItemId The newest read item
+     * @param int      $newestItemId The newest read item
      */
-    public function read(?int $folderId, int $maxItemId): void
+    public function read(?int $folderId, int $newestItemId): void
     {
         $folderId = $folderId === 0 ? null : $folderId;
 
-        $this->folderService->read($this->getUserId(), $folderId, $maxItemId);
+        $this->folderService->read($this->getUserId(), $folderId, $newestItemId);
     }
 }
