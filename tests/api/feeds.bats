@@ -53,7 +53,7 @@ teardown() {
   
   run http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$ID
   
-  assert_output --partial "[]"
+  assert_output "[]"
 }
 
 @test "[$TESTSUITE] Move feed to different folder" {
@@ -79,8 +79,9 @@ teardown() {
 
   FEEDID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED folderId=$FOLDER_ID | grep -Po '"id":\K([0-9]+)')
   
-  # move feed, returns nothing
+  # move feed to "null", returns nothing
   http --ignore-stdin -b -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/move folderId=null
+
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].folderId')
   
@@ -94,6 +95,7 @@ teardown() {
   
   # rename feed, returns nothing
   http --ignore-stdin -b -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/rename feedTitle="Great Title"
+
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].title')
   
@@ -114,7 +116,7 @@ teardown() {
   done
   
   # mark all items of feed as read, returns nothing
-  http --ignore-stdin -b -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max"
+  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep HTTP/)
 
   # collect unread status
   unread=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items id=$FEEDID | grep -Po '"unread":\K((true)|(false))' | tr '\n' ' ')
@@ -123,6 +125,7 @@ teardown() {
       if $n
       then
         echo "Item was not marked as read"
+        echo $STATUS_CODE
         false
       fi
   done
