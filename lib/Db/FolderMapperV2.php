@@ -101,14 +101,14 @@ class FolderMapperV2 extends NewsMapperV2
     /**
      * @param string   $userId
      * @param int      $id
-     * @param int|null $maxItemID
+     * @param int|null $maxItemId
      *
      * @return int
      *
      * @throws DBException
      *
      */
-    public function read(string $userId, int $id, ?int $maxItemID = null): int
+    public function read(string $userId, int $id, ?int $maxItemId = null): int
     {
         $idBuilder = $this->db->getQueryBuilder();
         $idBuilder->select('items.id')
@@ -119,9 +119,9 @@ class FolderMapperV2 extends NewsMapperV2
                   ->setParameter('userId', $userId)
                   ->setParameter('folderId', $id);
 
-        if ($maxItemID !== null) {
+        if ($maxItemId !== null) {
             $idBuilder->andWhere('items.id <= :maxItemId')
-                      ->setParameter('maxItemId', $maxItemID);
+                      ->setParameter('maxItemId', $maxItemId);
         }
 
         $idList = array_map(function ($value): int {

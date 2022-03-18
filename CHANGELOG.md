@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix no item marked as read by Folder API due to mismatch in parameter name (#1703)
 
 # Releases
 ## [18.0.1-beta1] - 2022-03-09
