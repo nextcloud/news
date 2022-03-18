@@ -4,6 +4,11 @@ setup() {
   load "../test_helper/bats-support/load"
   load "../test_helper/bats-assert/load"
   load "helpers/settings"
+
+  if test -f "tests/api/helpers/settings-override.bash"; then
+    load "helpers/settings-override"
+  fi
+  
 }
 
 TESTSUITE="Folders"
