@@ -25,7 +25,7 @@ Read this when you want to:
 * Disable all browser add-ons to make sure that it's not a plugin's fault (adblockers, especially cosmetic filters)
 * Clear your PHP opcode cache if you use any by restarting your webserver.
 * [Check if they have already been reported](https://github.com/nextcloud/news/issues?state=open)
-* [Check if your problem is covered in the FAQ section](https://github.com/nextcloud/news#faq)
+* [Check if your problem is covered in the FAQ section]( https://nextcloud.github.io/news/faq)
 
 ### Debugging issues
 * Enable debug mode in your **config/config.php**:
