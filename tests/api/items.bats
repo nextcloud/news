@@ -41,3 +41,27 @@ teardown() {
   
   assert_output --partial "5"
 }
+
+# TODO GET /items has more options that could be tested.
+
+@test "[$TESTSUITE] Check updated" {
+  FEEDID=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | grep -Po '"id":\K([0-9]+)')
+  ID_LIST=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items id=$FEEDID | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+
+  # get biggest item ID
+  max=${ID_LIST[0]}
+  for n in "${ID_LIST[@]}" ; do
+      ((n > max)) && max=$n
+  done
+  
+  SYNC_TIME=$(date +%s)
+
+  # mark all items of feed as read, returns nothing (other client marks items as read)
+  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep HTTP/)
+
+  # client 2 checks for updates since last sync
+  UPDATED_ITEMS=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items/updated id=$FEEDID lastModified=$SYNC_TIME | tr -d '[:space:]')
+
+  echo $UPDATED_ITEMS
+  false
+}
