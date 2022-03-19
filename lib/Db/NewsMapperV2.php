@@ -56,9 +56,10 @@ abstract class NewsMapperV2 extends QBMapper
     public function __construct(
         IDBConnection $db,
         Time $time,
-        string $entity
+        string $entity,
+        ?string $table = null
     ) {
-        parent::__construct($db, static::TABLE_NAME, $entity);
+        parent::__construct($db, $table ?? static::TABLE_NAME, $entity);
         $this->time = $time;
     }
 

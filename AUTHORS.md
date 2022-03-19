@@ -175,6 +175,7 @@
 * [markusj](mailto:markusj@users.noreply.github.com)
 * [mnassabain](mailto:34754819+mnassabain@users.noreply.github.com)
 * [mormegil](mailto:mormegil@centrum.cz)
+* [nextcloud486153](mailto:78801830+nextcloud486153@users.noreply.github.com)
 * [nexus-uw](mailto:you@example.com)
 * [repat](mailto:repat@repat.de)
 * [ritchiewilson](mailto:rawilson52@gmail.com)
