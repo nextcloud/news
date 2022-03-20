@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Add routes for starring/unstarring items by id
 
 ### Fixed
+- Fix updated api not returning any item after marking item as read (#1713)
 
 # Releases
 

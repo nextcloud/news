@@ -186,14 +186,16 @@ class FeedMapperV2 extends NewsMapperV2
             },
             $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll()
         );
-
+        $time = new Time();
         $builder = $this->db->getQueryBuilder();
         $builder->update(ItemMapperV2::TABLE_NAME)
             ->set('unread', $builder->createParameter('unread'))
+            ->set('last_modified', $builder->createParameter('last_modified'))
             ->andWhere('id IN (:idList)')
             ->andWhere('unread != :unread')
             ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
-            ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
+            ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY)
+            ->setParameter('last_modified', $time->getMicroTime(), IQueryBuilder::PARAM_STR);
 
         return $this->db->executeStatement(
             $builder->getSQL(),
