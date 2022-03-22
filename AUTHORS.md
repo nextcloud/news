@@ -73,6 +73,7 @@
 * [benediktb](mailto:benedikt@blablub.de)
 * [coderkun](mailto:olli@coderkun.de)
 * [davidak](mailto:git@davidak.de)
+* [hooger](mailto:horvathg.1988@gmail.com)
 * [lsmooth](mailto:ls@lsmooth.de)
 * [s17t.net](mailto:mail+github@s17t.net)
 * [Alec Kojaev](mailto:alec@kojaev.name)
