@@ -60,8 +60,7 @@ teardown() {
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${user} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep HTTP/)
 
   # client 2 checks for updates since last sync
-  UPDATED_ITEMS=$(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items/updated id=$FEEDID lastModified=$SYNC_TIME | tr -d '[:space:]')
+  UPDATED_ITEMS=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/items/updated id=$FEEDID lastModified=$SYNC_TIME | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
-  echo $UPDATED_ITEMS
-  false
+  assert_equal ${#ID_LIST[@]} ${#UPDATED_ITEMS[@]}
 }
