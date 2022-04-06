@@ -85,7 +85,9 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
                       ->method('select')
-                      ->with('feeds.*', $func)
+                      ->with('feeds.id',  'feeds.url', 'feeds.title', 'feeds.favicon_link', 'feeds.added',
+                         'feeds.folder_id', 'feeds.ordering', 'feeds.link', 'feeds.pinned',
+                         'feeds.update_error_count', 'feeds.last_update_error', $func)
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -110,7 +112,9 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
                       ->method('groupby')
-                      ->with('feeds.id')
+                      ->with('feeds.id', 'feeds.url', 'feeds.title', 'feeds.favicon_link', 'feeds.added',
+                      'feeds.folder_id', 'feeds.ordering', 'feeds.link', 'feeds.pinned',
+                      'feeds.update_error_count', 'feeds.last_update_error')
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))

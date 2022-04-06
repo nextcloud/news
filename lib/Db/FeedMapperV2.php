@@ -52,7 +52,10 @@ class FeedMapperV2 extends NewsMapperV2
     public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->select('feeds.*', $builder->func()->count('items.id', 'unreadCount'))
+        $builder->select('feeds.id', 'feeds.url', 'feeds.title', 'feeds.favicon_link', 'feeds.added',
+                         'feeds.folder_id', 'feeds.ordering', 'feeds.link', 'feeds.pinned',
+                         'feeds.update_error_count', 'feeds.last_update_error',
+                         $builder->func()->count('items.id', 'unreadCount'))
             ->from(static::TABLE_NAME, 'feeds')
             ->leftJoin(
                 'feeds',
@@ -62,7 +65,9 @@ class FeedMapperV2 extends NewsMapperV2
             )
             ->where('feeds.user_id = :user_id')
             ->andWhere('feeds.deleted_at = 0')
-            ->groupBy('feeds.id')
+            ->groupBy('feeds.id', 'feeds.url', 'feeds.title', 'feeds.favicon_link', 'feeds.added',
+                      'feeds.folder_id', 'feeds.ordering', 'feeds.link', 'feeds.pinned',
+                      'feeds.update_error_count', 'feeds.last_update_error')
             ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
             ->setParameter('user_id', $userId);
 
