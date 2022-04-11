@@ -231,7 +231,7 @@ class ItemApiController extends ApiController
     private function setStarredByItemId(int $itemId, bool $isStarred)
     {
         try {
-            $this->itemService->starByItemId($this->getUserId(), $itemId, $isStarred);
+            $this->itemService->star($this->getUserId(), $itemId, $isStarred);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
