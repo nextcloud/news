@@ -502,7 +502,7 @@ class ItemApiControllerTest extends TestCase
     public function testStarByItemId()
     {
         $this->itemService->expects($this->once())
-            ->method('starByItemId')
+            ->method('star')
             ->with($this->uid, 123, true);
 
         $this->class->starByItemId(123);
@@ -512,7 +512,7 @@ class ItemApiControllerTest extends TestCase
     public function testUnstarByItemId()
     {
         $this->itemService->expects($this->once())
-            ->method('starByItemId')
+            ->method('star')
             ->with($this->uid, 123, false);
 
         $this->class->unstarByItemId(123);

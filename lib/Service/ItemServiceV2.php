@@ -212,32 +212,6 @@ class ItemServiceV2 extends Service
     }
 
     /**
-     * Mark an item as starred by id
-     *
-     * @param string $userId Item owner
-     * @param int $itemId
-     * @param bool   $starred
-     *
-     * @return Item
-     * @throws ServiceConflictException
-     * @throws ServiceNotFoundException
-     */
-    public function starByItemId(string $userId, int $itemId, bool $starred): Entity
-    {
-        try {
-            $item = $this->mapper->findFromUser($userId, $itemId);
-        } catch (DoesNotExistException $ex) {
-            throw ServiceNotFoundException::from($ex);
-        } catch (MultipleObjectsReturnedException $ex) {
-            throw ServiceConflictException::from($ex);
-        }
-
-        $item->setStarred($starred);
-
-        return $this->mapper->update($item);
-    }
-
-    /**
      * Mark all items as read
      *
      * @param string $userId Item owner
