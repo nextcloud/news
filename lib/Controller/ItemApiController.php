@@ -222,8 +222,8 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @param int $itemId
-     * @param bool   $isStarred
+     * @param int  $itemId
+     * @param bool $isStarred
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
