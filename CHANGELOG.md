@@ -5,6 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
+- Add routes for starring/unstarring items by id
 
 ### Fixed
 
