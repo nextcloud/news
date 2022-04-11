@@ -66,6 +66,11 @@ return ['routes' => [
 ['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
 ['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
 
+// API 1.3
+
+['name' => 'item_api#star_by_item_id', 'url' => '/api/v1-3/items/{itemId}/star', 'verb' => 'POST'],
+['name' => 'item_api#unstar_by_item_id', 'url' => '/api/v1-3/items/{itemId}/unstar', 'verb' => 'POST'],
+
 // API 1.2
 ['name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'],
 ['name' => 'utility_api#status', 'url' => '/api/v1-2/status', 'verb' => 'GET'],

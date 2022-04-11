@@ -222,6 +222,25 @@ class ItemApiController extends ApiController
 
 
     /**
+     * @param int $itemId
+     * @param bool   $isStarred
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
+     */
+    private function setStarredByItemId(int $itemId, bool $isStarred)
+    {
+        try {
+            $this->itemService->starByItemId($this->getUserId(), $itemId, $isStarred);
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        return [];
+    }
+
+
+    /**
      * @NoAdminRequired
      * @NoCSRFRequired
      * @CORS
@@ -252,6 +271,38 @@ class ItemApiController extends ApiController
     public function unstar(int $feedId, string $guidHash)
     {
         return $this->setStarred($feedId, $guidHash, false);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $itemId
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
+     */
+    public function starByItemId(int $itemId)
+    {
+        return $this->setStarredByItemId($itemId, true);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int $itemId
+     *
+     * @return array|JSONResponse
+     * @throws ServiceConflictException
+     */
+    public function unstarByItemId(int $itemId)
+    {
+        return $this->setStarredByItemId($itemId, false);
     }
 
 
