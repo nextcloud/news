@@ -101,8 +101,8 @@ return ['routes' => [
 ['name' => 'item_api#unread_multiple', 'url' => '/api/v1-3/items/unread/multiple', 'verb' => 'POST'],
 ['name' => 'item_api#star_by_item_id', 'url' => '/api/v1-3/items/{itemId}/star', 'verb' => 'POST'],
 ['name' => 'item_api#unstar_by_item_id', 'url' => '/api/v1-3/items/{itemId}/unstar', 'verb' => 'POST'],
-['name' => 'item_api#star_multiple', 'url' => '/api/v1-3/items/star/multiple', 'verb' => 'POST'],
-['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-3/items/unstar/multiple', 'verb' => 'POST'],
+['name' => 'item_api#star_multiple_by_item_ids', 'url' => '/api/v1-3/items/star/multiple', 'verb' => 'POST'],
+['name' => 'item_api#unstar_multiple_by_item_ids', 'url' => '/api/v1-3/items/unstar/multiple', 'verb' => 'POST'],
 
 // API 1.2
 ['name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'],

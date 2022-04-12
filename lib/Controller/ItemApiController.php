@@ -402,6 +402,28 @@ class ItemApiController extends ApiController
 
 
     /**
+     * @param array $itemIds
+     * @param bool  $isStarred
+     *
+     * @return void
+     */
+    private function setMultipleStarredByItemIds(array $itemIds, bool $isStarred): void
+    {
+        foreach ($itemIds as $itemId) {
+            try {
+                $this->itemService->star(
+                    $this->getUserId(),
+                    $itemId,
+                    $isStarred
+                );
+            } catch (ServiceNotFoundException | ServiceConflictException $ex) {
+                continue;
+            }
+        }
+    }
+
+
+    /**
      * @NoAdminRequired
      *
      * @NoCSRFRequired
@@ -432,5 +454,35 @@ class ItemApiController extends ApiController
     public function unstarMultiple(array $items): void
     {
         $this->setMultipleStarred($items, false);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int[] $items item ids
+     *
+     * @return void
+     */
+    public function starMultipleByItemIds(array $itemIds): void
+    {
+        $this->setMultipleStarredByItemIds($itemIds, true);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param array $items item ids
+     *
+     * @return void
+     */
+    public function unstarMultipleByItemIds(array $itemIds): void
+    {
+        $this->setMultipleStarredByItemIds($itemIds, false);
     }
 }

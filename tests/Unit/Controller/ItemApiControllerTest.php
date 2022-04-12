@@ -517,4 +517,33 @@ class ItemApiControllerTest extends TestCase
 
         $this->class->unstarByItemId(123);
     }
+
+
+    public function testStarMultipleByItemIds()
+    {
+        $ids = [ 345, 678 ];
+
+        $this->itemService->expects($this->exactly(2))
+            ->method('star')
+            ->withConsecutive(
+                [$this->user->getUID(), 345, true],
+                [$this->user->getUID(), 678, true]
+            );
+        $this->class->starMultipleByItemIds($ids);
+    }
+
+
+    public function testUnstarMultipleByItemIds()
+    {
+        $ids = [ 345, 678 ];
+
+        $this->itemService->expects($this->exactly(2))
+            ->method('star')
+            ->withConsecutive(
+                [$this->user->getUID(), 345, false],
+                [$this->user->getUID(), 678, false]
+            );
+
+        $this->class->unstarMultipleByItemIds($ids);
+    }
 }
