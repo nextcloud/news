@@ -430,7 +430,7 @@ class ItemApiController extends ApiController
      *
      * @CORS
      *
-     * @param int[] $items item ids
+     * @param int[] $items items
      *
      * @return void
      */
@@ -447,7 +447,7 @@ class ItemApiController extends ApiController
      *
      * @CORS
      *
-     * @param array $items item ids
+     * @param array $items items
      *
      * @return void
      */
