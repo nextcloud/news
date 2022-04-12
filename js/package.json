@@ -54,7 +54,7 @@
   "dependencies": {
     "angular": "^1.8.2",
     "angular-animate": "^1.8.3",
-    "angular-mocks": "^1.8.2",
+    "angular-mocks": "^1.8.3",
     "angular-route": "^1.8.2",
     "angular-sanitize": "^1.8.2",
     "debug": "^4.3.4",
