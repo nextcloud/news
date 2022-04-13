@@ -323,14 +323,14 @@ class ItemApiController extends ApiController
     }
 
     /**
-     * @param array $items
+     * @param array $itemIds
      * @param bool  $isRead
      *
      * @throws ServiceConflictException
      */
-    private function setMultipleRead(array $items, bool $isRead): void
+    private function setMultipleRead(array $itemIds, bool $isRead): void
     {
-        foreach ($items as $id) {
+        foreach ($itemIds as $id) {
             try {
                 $this->itemService->read($this->getUserId(), $id, $isRead);
             } catch (ServiceNotFoundException $ex) {
@@ -361,6 +361,23 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int[] $itemIds item ids
+     *
+     * @return void
+     *
+     * @throws ServiceConflictException
+     */
+    public function readMultipleByIds(array $itemIds): void
+    {
+        $this->setMultipleRead($itemIds, true);
+    }
+
+
+    /**
+     * @NoAdminRequired
      *
      * @NoCSRFRequired
      *
@@ -375,6 +392,23 @@ class ItemApiController extends ApiController
     public function unreadMultiple(array $items): void
     {
         $this->setMultipleRead($items, false);
+    }
+
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     * @CORS
+     *
+     * @param int[] $itemIds item ids
+     *
+     * @return void
+     *
+     * @throws ServiceConflictException
+     */
+    public function unreadMultipleByIds(array $itemIds): void
+    {
+        $this->setMultipleRead($itemIds, false);
     }
 
 

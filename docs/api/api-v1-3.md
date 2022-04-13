@@ -530,7 +530,7 @@ This is used to stay up to date.
 * **Parameters**:
 ```jsonc
 {
-  "items": [2, 3] // ids of the items
+  "itemIds": [2, 3] // ids of the items
 }
 ```
 * **Returns**: nothing
@@ -551,7 +551,7 @@ This is used to stay up to date.
 * **Parameters**:
 ```jsonc
 {
-  "items": [2, 3] // ids of the items
+  "itemIds": [2, 3] // ids of the items
 }
 ```
 * **Returns**: nothing

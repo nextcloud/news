@@ -398,7 +398,7 @@ class ItemApiControllerTest extends TestCase
                 [$this->user->getUID(), 2, true],
                 [$this->user->getUID(), 4, true]
             );
-        $this->class->readMultiple([2, 4]);
+        $this->class->readMultipleByIds([2, 4]);
     }
 
 
@@ -411,7 +411,7 @@ class ItemApiControllerTest extends TestCase
                 [$this->user->getUID(), 4, true]
             )
             ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
-        $this->class->readMultiple([2, 4]);
+        $this->class->readMultipleByIds([2, 4]);
     }
 
 
@@ -423,7 +423,7 @@ class ItemApiControllerTest extends TestCase
                 [$this->user->getUID(), 2, false],
                 [$this->user->getUID(), 4, false]
             );
-        $this->class->unreadMultiple([2, 4]);
+        $this->class->unreadMultipleByIds([2, 4]);
     }
 
 
