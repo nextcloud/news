@@ -75,8 +75,6 @@ class ImportService
      */
     public function importArticles(string $userId, array $json): ?\OCP\AppFramework\Db\Entity
     {
-        $url = 'http://nextcloud/nofeed';
-
         // build assoc array for fast access
         $feeds = $this->feedService->findAllForUser($userId);
         $feedsDict = [];
@@ -90,21 +88,22 @@ class ImportService
         // if the feed does not exist, create a separate feed for them
         foreach ($json as $entry) {
             $item = Item::fromImport($entry);
-            $feedLink = $entry['feedLink'];  // this is not set on the item yet
+            $feedLink = $entry['feedLink'];  // this is not set on the item
 
             if (array_key_exists($feedLink, $feedsDict)) {
                 $feed = $feedsDict[$feedLink];
             } else {
+                $this->logger->info("Creating new feed for import of {url}", ['url' => $feedLink]);
                 $createdFeed = true;
                 $feed = new Feed();
                 $feed->setUserId($userId)
-                     ->setUrlHash(md5($url))
-                     ->setLink($url)
-                     ->setUrl($url)
-                     ->setTitle('Articles without feed')
+                     ->setUrlHash(md5($feedLink))
+                     ->setLink($feedLink)
+                     ->setUrl($feedLink)
+                     ->setTitle('No Title')
                      ->setAdded(time())
                      ->setFolderId(null)
-                     ->setPreventUpdate(true);
+                     ->setPreventUpdate(false);
 
                 /** @var Feed $feed */
                 $feed = $this->feedService->insert($feed);
@@ -121,6 +120,6 @@ class ImportService
             return null;
         }
 
-        return $this->feedService->findByURL($userId, $url);
+        return $this->feedService->findByURL($userId, $feedLink);
     }
 }
