@@ -7,10 +7,13 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Fix import of items when feed does not exist (1742)
-- Fix malformed feeds (without GUIDs) stopping the update process (#1738)
 
 # Releases
+## [18.0.1-beta3] - 2022-04-18
+### Fixed
+- Fix import of items when feed does not exist (#1742)
+- Fix malformed feeds (without GUIDs) stopping the update process (#1738)
+
 ## [18.0.1-beta2] - 2022-03-22
 ### Fixed
 - Fix no item marked as read by Folder API due to mismatch in parameter name (#1703)
