@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix import of items when feed does not exist (1742)
 - Fix malformed feeds (without GUIDs) stopping the update process (#1738)
 
 # Releases
