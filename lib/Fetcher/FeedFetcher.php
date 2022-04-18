@@ -18,6 +18,7 @@ use Favicon\Favicon;
 use FeedIo\Feed\ItemInterface;
 use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
+use FeedIo\Reader\ReadErrorException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
@@ -233,6 +234,9 @@ class FeedFetcher implements IFeedFetcher
         $item = new Item();
         $item->setUnread(true);
         $item->setUrl($parsedItem->getLink());
+        if ($parsedItem->getPublicId() == null) {
+            throw new ReadErrorException("Malformed feed: item has no GUID");
+        }
         $item->setGuid($parsedItem->getPublicId());
         $item->setGuidHash(md5($item->getGuid()));
 
