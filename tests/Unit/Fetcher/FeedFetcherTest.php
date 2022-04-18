@@ -579,7 +579,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->expects($this->exactly(2))
             ->method('getTitle')
             ->will($this->returnValue($this->title));
-        $this->item_mock->expects($this->exactly(1))
+        $this->item_mock->expects($this->exactly(2))
             ->method('getPublicId')
             ->will($this->returnValue($this->guid));
         $this->item_mock->expects($this->exactly(1))
