@@ -22,6 +22,17 @@ teardown() {
   fi
 }
 
+@test "[$TESTSUITE] Add feed without GUIDs" {
+  run ./occ news:feed:add "$user" "$NO_GUID_FEED"
+  [ "$status" -ne 0 ]
+
+  if ! echo "$output" | grep "No parser can handle this stream"; then
+    ret_status=$?
+    echo "Malformed feed exception wasn't properly caught"
+    return $ret_status
+  fi
+}
+
 @test "[$TESTSUITE] List all" {
   ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
 

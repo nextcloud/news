@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix malformed feeds (without GUIDs) stopping the update process (#1738)
 
 # Releases
 ## [18.0.1-beta2] - 2022-03-22
