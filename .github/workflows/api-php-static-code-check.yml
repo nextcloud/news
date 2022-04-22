@@ -15,7 +15,7 @@ jobs:
             nextcloud: pre-release
             database: sqlite
             experimental: true
-    name: "phpstan: Nextcloud ${{ matrix.nextcloud }} with ${{ php-versions }}"
+    name: "phpstan: Nextcloud ${{ matrix.nextcloud }} with ${{ matrix.php-versions }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
