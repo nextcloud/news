@@ -9,6 +9,10 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+
+## [18.0.1] - 2022-04-22
+No major changes since the beta versions.
+
 ## [18.0.1-beta3] - 2022-04-18
 ### Fixed
 - Fix import of items when feed does not exist (#1742)
