@@ -21,6 +21,7 @@ OC.L10N.register(
     "Unstar article" : "Зняти позначку статті",
     "Keep article unread" : "Залишити статтю непрочитаною",
     "Remove keep article unread" : "Позначити статтю як прочитану",
+    "Share" : "Поділитися",
     "Username" : "Ім'я користувача",
     "by" : "по",
     "from" : "З",

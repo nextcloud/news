@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "ڈاؤن لوڈ،",
     "Close" : "بند ",
+    "Share" : "تقسیم",
     "Username" : "اسم صارف",
     "Description" : "تصریح",
     "Folder" : "Folder",

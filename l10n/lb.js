@@ -7,6 +7,7 @@ OC.L10N.register(
     "Close" : "Zoumaachen",
     "No articles available" : "Keng Artikelen verfügbar",
     "Open website" : "Oppe Websäit",
+    "Share" : "Deelen",
     "Username" : "Benotzernumm",
     "by" : "vun",
     "from" : "vun",

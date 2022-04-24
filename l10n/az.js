@@ -5,6 +5,7 @@ OC.L10N.register(
     "Saved" : "Saxlanıldı",
     "Download" : "Yüklə",
     "Close" : "Bağla",
+    "Share" : "Paylaş",
     "Username" : "İstifadəçi adı",
     "by" : "onunla",
     "from" : "ondan",

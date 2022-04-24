@@ -5,6 +5,7 @@ OC.L10N.register(
     "Saved" : "Lagra",
     "Download" : "Last ned",
     "Close" : "Lukk",
+    "Share" : "Del",
     "Username" : "Brukarnamn",
     "by" : "av",
     "from" : "frå",

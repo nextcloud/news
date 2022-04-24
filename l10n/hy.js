@@ -4,6 +4,7 @@ OC.L10N.register(
     "Saved" : "Պահված",
     "Download" : "Բեռնել",
     "Close" : "Փակել",
+    "Share" : "Կիսվել",
     "Username" : "Օգտանուն",
     "Description" : "Նկարագրություն",
     "Refresh" : "Թարմացնել",

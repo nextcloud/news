@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "Preuzmi",
     "Close" : "Zatvori",
+    "Share" : "Podeli",
     "Username" : "Username",
     "Description" : "Opis",
     "Refresh" : "Osveži",

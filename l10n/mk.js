@@ -7,6 +7,7 @@ OC.L10N.register(
     "Download" : "Преземи",
     "Close" : "Затвори",
     "Open website" : "Отвори вебсајт",
+    "Share" : "Сподели",
     "Username" : "Корисничко име",
     "by" : "од",
     "from" : "од",

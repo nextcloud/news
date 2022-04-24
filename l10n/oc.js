@@ -21,6 +21,7 @@ OC.L10N.register(
     "Unstar article" : "Desespingolar l'article",
     "Keep article unread" : "Marcar l'article coma pas legit",
     "Remove keep article unread" : "Marcar l'article coma legit",
+    "Share" : "Partejar",
     "Username" : "Identificant",
     "by" : "per",
     "from" : "de",

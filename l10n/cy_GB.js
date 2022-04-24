@@ -4,6 +4,7 @@ OC.L10N.register(
     "Saved" : "Wedi'u cadw",
     "Download" : "Llwytho i lawr",
     "Close" : "Cau",
+    "Share" : "Rhannu",
     "Username" : "Enw defnyddiwr",
     "by" : "gan",
     "from" : "oddi wrth",

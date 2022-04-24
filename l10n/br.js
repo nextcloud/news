@@ -5,6 +5,7 @@ OC.L10N.register(
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
     "Open website" : "Digor al lec'hienn-web",
+    "Share" : "Rannan",
     "Username" : "anv implijer",
     "by" : "gant",
     "Play audio" : "Loc'hañ an audio",

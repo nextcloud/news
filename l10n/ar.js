@@ -6,6 +6,7 @@ OC.L10N.register(
     "Saved" : "حفظ",
     "Download" : "تنزيل",
     "Close" : "إغلاق",
+    "Share" : "مشاركة",
     "Username" : "إسم المستخدم",
     "by" : "من قبل",
     "from" : "من",

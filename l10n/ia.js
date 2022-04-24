@@ -11,6 +11,7 @@ OC.L10N.register(
     "Star article" : "Favoritar articulo",
     "Unstar article" : "Disfavoritar articulo",
     "Keep article unread" : "Mantener articulo como non legite",
+    "Share" : "Compartir",
     "Username" : "Nomine de usator",
     "by" : "per",
     "from" : "ex",

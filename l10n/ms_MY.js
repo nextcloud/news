@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "Muat turun",
     "Close" : "Tutup",
+    "Share" : "Kongsi",
     "Username" : "Nama pengguna",
     "by" : "oleh",
     "from" : "dari",
