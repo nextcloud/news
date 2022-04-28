@@ -29,6 +29,7 @@ OC.L10N.register(
     "Export" : "Eksporter",
     "Help" : "Hjelp",
     "Keyboard shortcuts" : "Tastatursnarvegar",
-    "Documentation" : "Dokumentasjon"
+    "Documentation" : "Dokumentasjon",
+    "Report a bug" : "Rapporter feil"
 },
 "nplurals=2; plural=(n != 1);");
