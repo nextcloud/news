@@ -1464,21 +1464,21 @@
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "afbe1e3235c51ee3f10ba4c8b32449099016ea02"
+                "reference": "f3ca6464eae640a556c69a02b3b77a2507475d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/afbe1e3235c51ee3f10ba4c8b32449099016ea02",
-                "reference": "afbe1e3235c51ee3f10ba4c8b32449099016ea02",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/f3ca6464eae640a556c69a02b3b77a2507475d2f",
+                "reference": "f3ca6464eae640a556c69a02b3b77a2507475d2f",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.6.0"
+                "phpstan/phpstan": "^1.6.3"
             },
             "require-dev": {
                 "nikic/php-parser": "^4.13.0",
@@ -1506,9 +1506,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.2.0"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.2.1"
             },
-            "time": "2022-04-21T13:07:43+00:00"
+            "time": "2022-04-28T07:20:18+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
