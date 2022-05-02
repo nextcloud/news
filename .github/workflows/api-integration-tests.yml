@@ -101,7 +101,7 @@ jobs:
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: 'news'
-          check-code: true
+          check-code: ${{ matrix.experimental }} == false
           force: ${{ matrix.experimental }}
 
       - name: Setup problem matchers for PHP
