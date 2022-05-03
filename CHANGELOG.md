@@ -9,6 +9,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - Fix updated api not returning any item after marking item as read (#1713)
+- Fix deprecation warning for strip_tags() on a null value (#1766)
 
 # Releases
 
