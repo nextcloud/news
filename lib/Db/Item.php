@@ -383,8 +383,10 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function setAuthor(string $author = null): self
     {
-        $author = strip_tags($author);
-
+        if (!is_null($author)) {
+            $author = strip_tags($author);
+        }
+        
         if ($this->author !== $author) {
             $this->author = $author;
             $this->markFieldUpdated('author');
@@ -549,8 +551,10 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function setTitle(string $title = null): self
     {
-        $title = trim(strip_tags($title));
-
+        if (!is_null($title)) {
+            $title = trim(strip_tags($title));
+        }
+        
         if ($this->title !== $title) {
             $this->title = $title;
             $this->markFieldUpdated('title');
