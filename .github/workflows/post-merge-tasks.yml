@@ -10,7 +10,7 @@ jobs:
     name: "Coverage: Nextcloud PHP ${{ matrix.php-versions }}"
     strategy:
       matrix:
-        nextcloud: ['stable23']
+        nextcloud: ['stable24']
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,7 +18,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.1'
 
       ### Back to normal setup
       - name: Set up server non MySQL
@@ -35,7 +35,7 @@ jobs:
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: 'news'
-          check-code: true
+          check-code: false
 
       - name: Prep PHP tests
         run: cd ../server/apps/news && make php-test-dependencies
