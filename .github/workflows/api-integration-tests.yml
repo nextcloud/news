@@ -41,6 +41,10 @@ jobs:
             nextcloud: pre-release
             database: sqlite
             experimental: true
+          - php-versions: 8.1
+            nextcloud: stable24
+            database: sqlite
+            experimental: false
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -101,7 +105,7 @@ jobs:
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: 'news'
-          check-code: ${{ matrix.experimental }} == false
+          check-code: false
           force: ${{ matrix.experimental }}
 
       - name: Setup problem matchers for PHP

@@ -8,9 +8,13 @@ jobs:
     strategy:
       matrix:
         php-versions: [ '7.4', '8.0' ]
-        nextcloud: [ 'stable23' ]
+        nextcloud: [ 'stable24' ]
         database: [ 'sqlite' ]
         include:
+          - php-versions: 8.1
+            nextcloud: stable24
+            database: sqlite
+            experimental: false
           - php-versions: 8.1
             nextcloud: pre-release
             database: sqlite
@@ -40,7 +44,7 @@ jobs:
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: 'news'
-          check-code: true
+          check-code: false
           force: true
 
       - name: Prep code scanning

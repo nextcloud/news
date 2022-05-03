@@ -9,8 +9,8 @@ jobs:
     name: "Frontend: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
     strategy:
       matrix:
-        php-versions: ['8.0']
-        nextcloud: ['stable23']
+        php-versions: ['8.1']
+        nextcloud: ['stable24']
         database: ['sqlite']
         experimental: [false]
     steps:
@@ -39,7 +39,7 @@ jobs:
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: 'news'
-          check-code: true
+          check-code: false
 
       - name: Install frontend requirements
         run: sudo apt update && sudo apt install firefox
