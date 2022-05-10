@@ -639,6 +639,20 @@
     white-space: normal;
 }
 
+#app-content .body table {
+    border-collapse: collapse;
+}
+
+#app-content .body table th {
+    font-weight: bold;
+}
+
+#app-content .body table th,
+#app-content .body table td {
+    border: 1px solid var(--color-text-lighter);
+    padding: 2px 6px;
+}
+
 #app-content .body iframe {
     max-width: 100%;
 }

@@ -6,6 +6,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [18.x.x]
 ### Changed
 - Add routes for starring/unstarring items by id
+- Improve styling of tables in articles
 
 ### Fixed
 - Fix updated api not returning any item after marking item as read (#1713)
