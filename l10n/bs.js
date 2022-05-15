@@ -4,7 +4,6 @@ OC.L10N.register(
     "Saved" : "Spremljeno",
     "Download" : "Preuzmite",
     "Close" : "Zatvori",
-    "Share" : "Podjeli",
     "Username" : "Korisničko ime",
     "by" : "od strane",
     "from" : "od",

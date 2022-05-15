@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Download" : "چۈشۈر",
     "Close" : "ياپ",
-    "Share" : "ھەمبەھىر",
     "Username" : "ئىشلەتكۈچى ئاتى",
     "by" : "سەنئەتكار",
     "Description" : "چۈشەندۈرۈش",

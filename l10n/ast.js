@@ -24,7 +24,6 @@ OC.L10N.register(
     "Unstar article" : "Artículu non destacáu",
     "Keep article unread" : "Caltener artículu ensín lleer",
     "Remove keep article unread" : "Desaniciar artículu ensín lleer",
-    "Share" : "Share",
     "Username" : "Nome d'usuariu",
     "by" : "por",
     "from" : "Dende",

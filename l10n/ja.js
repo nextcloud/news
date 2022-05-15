@@ -11,7 +11,6 @@ OC.L10N.register(
     "Unread articles" : "未読の記事",
     "News" : "ニュース",
     "News folders" : "ニューズフォルダー",
-    "Shared with me" : "私と共有",
     "An RSS/Atom feed reader" : "RSS/Atom フィードリーダー",
     "Use system cron for updates" : "更新のためにOSのcronを使用",
     "Purge interval" : "パージ周期",

@@ -49,7 +49,6 @@ class FeedMapperTest extends MapperTestUtility
         $feed2->resetUpdatedFields();
 
         $this->feeds = [$feed1, $feed2];
-
     }
 
     /**
@@ -520,13 +519,13 @@ class FeedMapperTest extends MapperTestUtility
             ->with('news_items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->once())
             ->method('createParameter')
             ->will($this->returnArgument(0));
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->once())
             ->method('set')
-            ->withConsecutive(['unread', 'unread'], ['last_modified', 'last_modified'])
+            ->with('unread', 'unread')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
@@ -534,11 +533,11 @@ class FeedMapperTest extends MapperTestUtility
             ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['unread', false], ['idList', [1, 2]], ['last_modified'])
+            ->withConsecutive(['unread', false], ['idList', [1, 2]])
             ->will($this->returnSelf());
-        
+
         $this->builder->expects($this->exactly(1))
             ->method('getSQL')
             ->will($this->returnValue('QUERY'));
@@ -617,7 +616,7 @@ class FeedMapperTest extends MapperTestUtility
             ->with('SQL QUERY')
             ->willReturn($result);
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->once())
             ->method('createParameter')
             ->will($this->returnArgument(0));
 
@@ -626,9 +625,9 @@ class FeedMapperTest extends MapperTestUtility
             ->with('news_items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->once())
             ->method('set')
-            ->withConsecutive(['unread', 'unread'], ['last_modified', 'last_modified'])
+            ->with('unread', 'unread')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
@@ -636,9 +635,9 @@ class FeedMapperTest extends MapperTestUtility
             ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['unread', false], ['idList', [1, 2]], ['last_modified'])
+            ->withConsecutive(['unread', false], ['idList', [1, 2]])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))

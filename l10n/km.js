@@ -5,7 +5,6 @@ OC.L10N.register(
     "Saved" : "បាន​រក្សាទុក",
     "Download" : "ទាញយក",
     "Close" : "បិទ",
-    "Share" : "ចែក​រំលែក",
     "Username" : "ឈ្មោះ​អ្នកប្រើ",
     "by" : "ដោយ",
     "from" : "ពី",

@@ -398,7 +398,7 @@ class ItemApiControllerTest extends TestCase
                 [$this->user->getUID(), 2, true],
                 [$this->user->getUID(), 4, true]
             );
-        $this->class->readMultipleByIds([2, 4]);
+        $this->class->readMultiple([2, 4]);
     }
 
 
@@ -411,7 +411,7 @@ class ItemApiControllerTest extends TestCase
                 [$this->user->getUID(), 4, true]
             )
             ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
-        $this->class->readMultipleByIds([2, 4]);
+        $this->class->readMultiple([2, 4]);
     }
 
 
@@ -423,7 +423,7 @@ class ItemApiControllerTest extends TestCase
                 [$this->user->getUID(), 2, false],
                 [$this->user->getUID(), 4, false]
             );
-        $this->class->unreadMultipleByIds([2, 4]);
+        $this->class->unreadMultiple([2, 4]);
     }
 
 
@@ -499,51 +499,4 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testStarByItemId()
-    {
-        $this->itemService->expects($this->once())
-            ->method('star')
-            ->with($this->uid, 123, true);
-
-        $this->class->starByItemId(123);
-    }
-
-
-    public function testUnstarByItemId()
-    {
-        $this->itemService->expects($this->once())
-            ->method('star')
-            ->with($this->uid, 123, false);
-
-        $this->class->unstarByItemId(123);
-    }
-
-
-    public function testStarMultipleByItemIds()
-    {
-        $ids = [ 345, 678 ];
-
-        $this->itemService->expects($this->exactly(2))
-            ->method('star')
-            ->withConsecutive(
-                [$this->user->getUID(), 345, true],
-                [$this->user->getUID(), 678, true]
-            );
-        $this->class->starMultipleByItemIds($ids);
-    }
-
-
-    public function testUnstarMultipleByItemIds()
-    {
-        $ids = [ 345, 678 ];
-
-        $this->itemService->expects($this->exactly(2))
-            ->method('star')
-            ->withConsecutive(
-                [$this->user->getUID(), 345, false],
-                [$this->user->getUID(), 678, false]
-            );
-
-        $this->class->unstarMultipleByItemIds($ids);
-    }
 }

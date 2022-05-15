@@ -21,7 +21,6 @@ OC.L10N.register(
     "Unstar article" : "ยกเลิกติดดาวบทความ",
     "Keep article unread" : "ตั้งเป็นยังไม่ได้อ่านบทความ",
     "Remove keep article unread" : "ลบการตั้งเป็นยังไม่ได้อ่านบทความ",
-    "Share" : "แชร์",
     "Username" : "ชื่อผู้ใช้",
     "by" : "โดย",
     "from" : "จาก",

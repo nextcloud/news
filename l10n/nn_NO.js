@@ -5,7 +5,6 @@ OC.L10N.register(
     "Saved" : "Lagra",
     "Download" : "Last ned",
     "Close" : "Lukk",
-    "Share" : "Del",
     "Username" : "Brukarnamn",
     "by" : "av",
     "from" : "frå",
@@ -29,7 +28,6 @@ OC.L10N.register(
     "Export" : "Eksporter",
     "Help" : "Hjelp",
     "Keyboard shortcuts" : "Tastatursnarvegar",
-    "Documentation" : "Dokumentasjon",
-    "Report a bug" : "Rapporter feil"
+    "Documentation" : "Dokumentasjon"
 },
 "nplurals=2; plural=(n != 1);");

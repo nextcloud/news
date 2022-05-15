@@ -222,25 +222,6 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @param int  $itemId
-     * @param bool $isStarred
-     *
-     * @return array|JSONResponse
-     * @throws ServiceConflictException
-     */
-    private function setStarredByItemId(int $itemId, bool $isStarred)
-    {
-        try {
-            $this->itemService->star($this->getUserId(), $itemId, $isStarred);
-        } catch (ServiceNotFoundException $ex) {
-            return $this->error($ex, Http::STATUS_NOT_FOUND);
-        }
-
-        return [];
-    }
-
-
-    /**
      * @NoAdminRequired
      * @NoCSRFRequired
      * @CORS
@@ -276,38 +257,6 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @param int $itemId
-     *
-     * @return array|JSONResponse
-     * @throws ServiceConflictException
-     */
-    public function starByItemId(int $itemId)
-    {
-        return $this->setStarredByItemId($itemId, true);
-    }
-
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @param int $itemId
-     *
-     * @return array|JSONResponse
-     * @throws ServiceConflictException
-     */
-    public function unstarByItemId(int $itemId)
-    {
-        return $this->setStarredByItemId($itemId, false);
-    }
-
-
-    /**
-     * @NoAdminRequired
      *
      * @NoCSRFRequired
      *
@@ -323,14 +272,14 @@ class ItemApiController extends ApiController
     }
 
     /**
-     * @param array $itemIds
+     * @param array $items
      * @param bool  $isRead
      *
      * @throws ServiceConflictException
      */
-    private function setMultipleRead(array $itemIds, bool $isRead): void
+    private function setMultipleRead(array $items, bool $isRead): void
     {
-        foreach ($itemIds as $id) {
+        foreach ($items as $id) {
             try {
                 $this->itemService->read($this->getUserId(), $id, $isRead);
             } catch (ServiceNotFoundException $ex) {
@@ -361,23 +310,6 @@ class ItemApiController extends ApiController
 
     /**
      * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @param int[] $itemIds item ids
-     *
-     * @return void
-     *
-     * @throws ServiceConflictException
-     */
-    public function readMultipleByIds(array $itemIds): void
-    {
-        $this->setMultipleRead($itemIds, true);
-    }
-
-
-    /**
-     * @NoAdminRequired
      *
      * @NoCSRFRequired
      *
@@ -392,23 +324,6 @@ class ItemApiController extends ApiController
     public function unreadMultiple(array $items): void
     {
         $this->setMultipleRead($items, false);
-    }
-
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @param int[] $itemIds item ids
-     *
-     * @return void
-     *
-     * @throws ServiceConflictException
-     */
-    public function unreadMultipleByIds(array $itemIds): void
-    {
-        $this->setMultipleRead($itemIds, false);
     }
 
 
@@ -436,35 +351,13 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @param array $itemIds
-     * @param bool  $isStarred
-     *
-     * @return void
-     */
-    private function setMultipleStarredByItemIds(array $itemIds, bool $isStarred): void
-    {
-        foreach ($itemIds as $itemId) {
-            try {
-                $this->itemService->star(
-                    $this->getUserId(),
-                    $itemId,
-                    $isStarred
-                );
-            } catch (ServiceNotFoundException | ServiceConflictException $ex) {
-                continue;
-            }
-        }
-    }
-
-
-    /**
      * @NoAdminRequired
      *
      * @NoCSRFRequired
      *
      * @CORS
      *
-     * @param int[] $items items
+     * @param int[] $items item ids
      *
      * @return void
      */
@@ -481,42 +374,12 @@ class ItemApiController extends ApiController
      *
      * @CORS
      *
-     * @param array $items items
+     * @param array $items item ids
      *
      * @return void
      */
     public function unstarMultiple(array $items): void
     {
         $this->setMultipleStarred($items, false);
-    }
-
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @param int[] $items item ids
-     *
-     * @return void
-     */
-    public function starMultipleByItemIds(array $itemIds): void
-    {
-        $this->setMultipleStarredByItemIds($itemIds, true);
-    }
-
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @param array $items item ids
-     *
-     * @return void
-     */
-    public function unstarMultipleByItemIds(array $itemIds): void
-    {
-        $this->setMultipleStarredByItemIds($itemIds, false);
     }
 }

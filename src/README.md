@@ -1,9 +1,7 @@
 # JavaScript Development
-JavaScript is built and minified using gulp.
+JavaScript is built and minified using webpack.
 
-Therefore you need to install **Node.js 6+ and npm**. Then use npm to install **gulp-cli**:
-
-	sudo npm -g install gulp-cli
+Therefore you need to install **Node.js 6+ and npm**.
 
 Then install the local dependencies by running:
 
@@ -14,16 +12,20 @@ The following tasks are available:
 
 * **Build the JavaScript**:
 
-        gulp
+        npm run build
+
+* **Build the JavaScript in Dev Mode**:
+
+				npm run build
 
 * **Watch for changes and build JavaScript**:
 
-        gulp watch
+        npm run watch
 
 * **Run JavaScript unit tests**:
 
-        gulp karma
+        npm run karma
 
 * **Watch for changes and run JavaScript unit tests**:
 
-        gulp watch-karma
+        npm run watch-karma

@@ -26,7 +26,6 @@ OC.L10N.register(
     "Unstar article" : "مقاله Unstar",
     "Keep article unread" : "مقاله را نخوانید",
     "Remove keep article unread" : "مقاله را نخوانید حذف کنید",
-    "Share" : "هم‌رسانی",
     "Username" : "نام کاربری",
     "by" : "با",
     "from" : "از",

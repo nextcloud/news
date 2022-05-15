@@ -3,7 +3,7 @@
         "title": "Nextcloud News",
         "favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
         "url": "https://nextcloud.com/news/",
-        "feed": "https://nextcloud.com/blog/feed",
+        "feed": "https://nextcloud.com/blogfeed",
         "description": "See what is going on in and around Nextcloud",
         "votes": 1000
     },

@@ -5,18 +5,10 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
-- Add routes for starring/unstarring items by id
-- Improve styling of tables in articles
 
 ### Fixed
-- Fix updated api not returning any item after marking item as read (#1713)
-- Fix deprecation warning for strip_tags() on a null value (#1766)
 
 # Releases
-
-## [18.0.1] - 2022-04-22
-No major changes since the beta versions.
-
 ## [18.0.1-beta3] - 2022-04-18
 ### Fixed
 - Fix import of items when feed does not exist (#1742)

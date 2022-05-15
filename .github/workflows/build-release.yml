@@ -14,8 +14,8 @@ jobs:
     name: "Release: build, sign and upload the app"
     strategy:
       matrix:
-        php-versions: ['8.1']
-        nextcloud: ['stable24']
+        php-versions: ['8.0']
+        nextcloud: ['stable23']
         database: ['sqlite']
     steps:
       - name: Checkout

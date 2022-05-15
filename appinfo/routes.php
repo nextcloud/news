@@ -66,44 +66,6 @@ return ['routes' => [
 ['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
 ['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
 
-// API 1.3
-['name' => 'utility_api#version', 'url' => '/api/v1-3/version', 'verb' => 'GET'],
-['name' => 'utility_api#status', 'url' => '/api/v1-3/status', 'verb' => 'GET'],
-['name' => 'utility_api#before_update', 'url' => '/api/v1-3/cleanup/before-update', 'verb' => 'GET'],
-['name' => 'utility_api#after_update', 'url' => '/api/v1-3/cleanup/after-update', 'verb' => 'GET'],
-['name' => 'utility_api#preflighted_cors', 'url' => '/api/v1-3/{path}', 'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],
-
-// folders
-['name' => 'folder_api#index', 'url' => '/api/v1-3/folders', 'verb' => 'GET'],
-['name' => 'folder_api#create', 'url' => '/api/v1-3/folders', 'verb' => 'POST'],
-['name' => 'folder_api#update', 'url' => '/api/v1-3/folders/{folderId}', 'verb' => 'PUT'],
-['name' => 'folder_api#delete', 'url' => '/api/v1-3/folders/{folderId}', 'verb' => 'DELETE'],
-['name' => 'folder_api#read', 'url' => '/api/v1-3/folders/{folderId}/read', 'verb' => 'POST'],
-
-// feeds
-['name' => 'feed_api#index', 'url' => '/api/v1-3/feeds', 'verb' => 'GET'],
-['name' => 'feed_api#create', 'url' => '/api/v1-3/feeds', 'verb' => 'POST'],
-['name' => 'feed_api#update', 'url' => '/api/v1-3/feeds/{feedId}', 'verb' => 'PUT'],
-['name' => 'feed_api#delete', 'url' => '/api/v1-3/feeds/{feedId}', 'verb' => 'DELETE'],
-['name' => 'feed_api#from_all_users', 'url' => '/api/v1-3/feeds/all', 'verb' => 'GET'],
-['name' => 'feed_api#move', 'url' => '/api/v1-3/feeds/{feedId}/move', 'verb' => 'POST'],
-['name' => 'feed_api#rename', 'url' => '/api/v1-3/feeds/{feedId}/rename', 'verb' => 'POST'],
-['name' => 'feed_api#read', 'url' => '/api/v1-3/feeds/{feedId}/read', 'verb' => 'POST'],
-['name' => 'feed_api#update', 'url' => '/api/v1-3/feeds/update', 'verb' => 'GET'],
-
-// items
-['name' => 'item_api#index', 'url' => '/api/v1-3/items', 'verb' => 'GET'],
-['name' => 'item_api#updated', 'url' => '/api/v1-3/items/updated', 'verb' => 'GET'],
-['name' => 'item_api#read', 'url' => '/api/v1-3/items/{itemId}/read', 'verb' => 'POST'],
-['name' => 'item_api#unread', 'url' => '/api/v1-3/items/{itemId}/unread', 'verb' => 'POST'],
-['name' => 'item_api#read_all', 'url' => '/api/v1-3/items/read', 'verb' => 'POST'],
-['name' => 'item_api#read_multiple_by_ids', 'url' => '/api/v1-3/items/read/multiple', 'verb' => 'POST'],
-['name' => 'item_api#unread_multiple_by_ids', 'url' => '/api/v1-3/items/unread/multiple', 'verb' => 'POST'],
-['name' => 'item_api#star_by_item_id', 'url' => '/api/v1-3/items/{itemId}/star', 'verb' => 'POST'],
-['name' => 'item_api#unstar_by_item_id', 'url' => '/api/v1-3/items/{itemId}/unstar', 'verb' => 'POST'],
-['name' => 'item_api#star_multiple_by_item_ids', 'url' => '/api/v1-3/items/star/multiple', 'verb' => 'POST'],
-['name' => 'item_api#unstar_multiple_by_item_ids', 'url' => '/api/v1-3/items/unstar/multiple', 'verb' => 'POST'],
-
 // API 1.2
 ['name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'],
 ['name' => 'utility_api#status', 'url' => '/api/v1-2/status', 'verb' => 'GET'],

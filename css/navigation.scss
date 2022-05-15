@@ -1,3 +1,4 @@
+
 /**
  * Nextcloud - News
  *
@@ -31,59 +32,6 @@
     background-position: 14px center;
 }
 
-
-/* actual form content */
-#app-navigation .add-new-popup {
-    display: none;
-    padding: 10px;
-    width: 100%;
-    border-top: 1px solid var(--color-border-dark);
-    border-bottom: 1px solid var(--color-border-dark);
-}
-
-
-#app-navigation input.ng-invalid {
-    border: 1px solid var(--color-error);
-}
-
-#app-navigation .add-new-popup input,
-#app-navigation .add-new-popup select {
-    width: 100%;
-    height: 36px;
-    padding: 5px;
-    margin-right: 0;
-}
-
-#app-navigation .add-new-popup select,
-#app-navigation #new-feed [name="folderName"] {
-    width: calc(100% - 36px);
-    border-right: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    float: left;
-}
-
-#app-navigation .add-new-popup .add-new-folder-primary {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    width: 36px;
-    height: 36px;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-#app-navigation .add-new-popup .add-new-basicauth-toggle {
-    padding: 5px 0;
-}
-
-#app-navigation .add-new-popup .add-feed-basicauth {
-    width: 100%;
-    padding: 0 0 10px;
-}
-
-#app-navigation .add-new-popup .error {
-    padding: 0 0 10px 0;
-}
 
 /* navigation */
 #app-navigation ul.with-icon > li > a,
@@ -263,3 +211,4 @@
 #app-navigation .updateerror a {
     background-color: var(--color-warning) !important;
 }
+

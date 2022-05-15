@@ -6,7 +6,6 @@ OC.L10N.register(
     "Download" : "බාගන්න",
     "Close" : "වසන්න",
     "Open website" : "වියමන අඩවිය විවෘත කරන්න",
-    "Share" : "බෙදාගන්න",
     "Username" : "පරිශීලක නාමය",
     "from" : "සිට",
     "Description" : "විස්තරය",

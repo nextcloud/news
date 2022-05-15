@@ -23,7 +23,6 @@ OC.L10N.register(
     "Unstar article" : "Eemalda artiklilt täht",
     "Keep article unread" : "Hoia kui lugemata",
     "Remove keep article unread" : "Eemalda märgistus 'Hoia kui lugemata'",
-    "Share" : "Jaga",
     "Username" : "Kasutajanimi",
     "by" : "lisas",
     "from" : "kohast",

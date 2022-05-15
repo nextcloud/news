@@ -9,22 +9,13 @@ jobs:
     name: "PHP: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
     strategy:
       matrix:
-        php-versions: ['8.1']
-        nextcloud: ['stable24']
+        php-versions: ['8.0']
+        nextcloud: ['stable23']
         database: ['sqlite']
         experimental: [false]
-        codecoverage: [false]
-        include:
-          - php-versions: 8.0
-            nextcloud: stable24
-            database: sqlite
-            experimental: false
-            codecoverage: true
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 2 # https://github.com/codecov/codecov-action/issues/190#issuecomment-790729633
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -48,7 +39,7 @@ jobs:
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: 'news'
-          check-code: false
+          check-code: true
 
       - name: Setup problem matchers for PHPUnit
         run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
@@ -59,9 +50,6 @@ jobs:
       - name: Unittests
         working-directory: ../server/apps/news
         run: make unit-test
-        env:
-          CODECOVERAGE: ${{ matrix.codecoverage }}
       - name: Upload codecoverage
-        if: ${{ matrix.codecoverage }}
         working-directory: ../server/apps/news
         run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover -N ${{ github.sha }}

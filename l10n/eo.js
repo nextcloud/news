@@ -7,7 +7,6 @@ OC.L10N.register(
     "Download" : "Elŝuti",
     "Close" : "Fermi",
     "Open website" : "Malfermi TTT-ejon",
-    "Share" : "Kunhavigi",
     "Username" : "Uzantonomo",
     "by" : "de",
     "from" : "el",

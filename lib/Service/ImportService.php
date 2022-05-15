@@ -83,7 +83,6 @@ class ImportService
         }
 
         $createdFeed = false;
-        $feedLink = "";
 
         // loop over all items and get the corresponding feed
         // if the feed does not exist, create a separate feed for them

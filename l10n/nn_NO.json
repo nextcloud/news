@@ -3,7 +3,6 @@
     "Saved" : "Lagra",
     "Download" : "Last ned",
     "Close" : "Lukk",
-    "Share" : "Del",
     "Username" : "Brukarnamn",
     "by" : "av",
     "from" : "frå",
@@ -27,7 +26,6 @@
     "Export" : "Eksporter",
     "Help" : "Hjelp",
     "Keyboard shortcuts" : "Tastatursnarvegar",
-    "Documentation" : "Dokumentasjon",
-    "Report a bug" : "Rapporter feil"
+    "Documentation" : "Dokumentasjon"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

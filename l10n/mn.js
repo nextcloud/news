@@ -5,7 +5,6 @@ OC.L10N.register(
     "Saved" : "Хадгалах",
     "Download" : "Татах",
     "Close" : "Хаах",
-    "Share" : "Түгээх",
     "Username" : "Хэрэглэгчийн нэр",
     "from" : "тэндээс",
     "Play audio" : "Аудио тоглуулах",

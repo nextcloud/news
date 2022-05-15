@@ -24,7 +24,6 @@ OC.L10N.register(
     "Unstar article" : "Hapus bintang artikel",
     "Keep article unread" : "Tandai artikel belum dibaca",
     "Remove keep article unread" : "Hapus tanda artikel belum dibaca",
-    "Share" : "Bagikan",
     "Username" : "Nama pengguna",
     "by" : "oleh",
     "from" : "dari",
