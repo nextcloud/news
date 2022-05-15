@@ -99,7 +99,7 @@
                 <button ng-click="Navigation.togglePinned(feed.id)"
                         ng-show="feed.pinned">
                     <span class="icon-pinned"></span>
-                    <span><?php p($l->t('Unpin from top')); ?></span>
+                        <span><?php p($l->t('Unpin from top')); ?></span>
                 </button>
                 <button ng-click="Navigation.togglePinned(feed.id)"
                         ng-hide="feed.pinned">

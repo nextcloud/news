@@ -84,7 +84,7 @@ endif
 .PHONY: npm
 npm:
 ifneq (, $(npm))
-	cd js && $(npm) run build
+	$(npm) run build
 else
 	@echo "npm command not available, please install nodejs first"
 	@exit 1
@@ -200,12 +200,7 @@ php-test-dependencies:
 
 .PHONY: unit-test
 unit-test:
-	@if [ "$(CODECOVERAGE)" = "true" ]; then \
-		./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover; \
-	else \
-		./vendor/phpunit/phpunit/phpunit -c phpunit.xml --no-coverage; \
-	fi
-
+	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
