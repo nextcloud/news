@@ -11,7 +11,6 @@
 import Content from '@nextcloud/vue/dist/Components/Content'
 import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import Sidebar from './components/Sidebar.vue'
-import {FeedService} from "./services/feedService";
 
 export default {
 	components: {
@@ -20,8 +19,7 @@ export default {
         AppContent,
 	},
     created() {
-        const feedService = new FeedService();
-        feedService.init();
+        this.$store.dispatch('loadFolder')
     }
 
 }

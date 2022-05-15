@@ -37,7 +37,22 @@
                 </template>
             </AppNavigationItem>
 
-            <!-- Ordner... -->
+            <AppNavigationItem v-for="folder in folders" :title="folder.name" icon="icon-folder">
+                <template #counter>
+                    <CounterBubble>35</CounterBubble>
+                </template>
+                <template #actions>
+                    <ActionButton icon="icon-checkmark" @click="alert('Mark read')">
+                        {{ t('news', 'Mark read') }}
+                    </ActionButton>
+                    <ActionButton icon="icon-rename" @click="alert('Rename')">
+                        {{ t('news', 'Rename') }}
+                    </ActionButton>
+                    <ActionButton icon="icon-delete" @click="alert('Delete')">
+                        {{ t('news', 'Delete') }}
+                    </ActionButton>
+                </template>
+            </AppNavigationItem>
 
             <AppNavigationItem :title="t('news','Explore')"
                                icon="icon-link"
@@ -74,9 +89,16 @@ export default {
     props: {
         showAddFeed: false,
     },
+    computed: {
+        folders() {
+            return this.$store.state.folders
+        }
+    },
     methods: {
         newFolder(value) {
-            alert(value)
+            const folderName = value.trim();
+            const folder = {name: folderName};
+            this.$store.dispatch('addFolder', {folder})
         },
         showShowAddFeed() {
             this.showAddFeed = true;
@@ -85,5 +107,7 @@ export default {
             this.showAddFeed = false;
         }
     },
+    created() {
+    }
 }
 </script>
