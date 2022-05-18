@@ -37,9 +37,22 @@
                 </template>
             </AppNavigationItem>
 
-            <AppNavigationItem v-for="folder in folders" :title="folder.name" icon="icon-folder">
-                <template #counter>
-                    <CounterBubble>35</CounterBubble>
+            <AppNavigationItem v-for="folder in folders" :title="folder.name" icon="icon-folder" :allowCollapse="true">
+                <template #default>
+                    <AppNavigationItem v-for="feed in folder.feeds" :title="feed.title">
+                        <ActionButton icon="icon-checkmark" @click="alert('Mark read')">
+                            {{ t('news', 'Mark read') }}
+                        </ActionButton>
+                        <ActionButton icon="icon-pinned" @click="alert('Rename')">
+                            {{ t('news', 'Unpin from top') }}
+                        </ActionButton>
+                        <ActionButton icon="icon-delete" @click="deleteFolder(folder)">
+                            {{ t('news', 'Newest first') }}
+                        </ActionButton>
+                    </AppNavigationItem>
+                </template>
+                <template #counter v-if="folder.feedCount > 0">
+                    <CounterBubble>{{ folder.feedCount }}</CounterBubble>
                 </template>
                 <template #actions>
                     <ActionButton icon="icon-checkmark" @click="alert('Mark read')">
@@ -48,7 +61,7 @@
                     <ActionButton icon="icon-rename" @click="alert('Rename')">
                         {{ t('news', 'Rename') }}
                     </ActionButton>
-                    <ActionButton icon="icon-delete" @click="alert('Delete')">
+                    <ActionButton icon="icon-delete" @click="deleteFolder(folder)">
                         {{ t('news', 'Delete') }}
                     </ActionButton>
                 </template>
@@ -92,13 +105,17 @@ export default {
     computed: {
         folders() {
             return this.$store.state.folders
-        }
+        },
     },
     methods: {
         newFolder(value) {
             const folderName = value.trim();
             const folder = {name: folderName};
             this.$store.dispatch('addFolder', {folder})
+        },
+        deleteFolder(folder) {
+            this.$store.dispatch('deleteFolder', {folder})
+            window.location.reload(true);
         },
         showShowAddFeed() {
             this.showAddFeed = true;

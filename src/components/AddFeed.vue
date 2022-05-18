@@ -26,22 +26,11 @@
                     </p>
 
                     <!-- select a folder -->
-                    <select name="folder"
-                            :title="t('news','Folder')"
-                            v-if="!createNewFolder"
-                            ng-model="Navigation.feed.existingFolder"
-                            ng-options="folder.name for folder in
-                        Navigation.getFolders() track by folder.name">
-                        <option value=""
-                        >-- {{ t('news', 'No folder') }} --
-                        </option>
-                    </select>
-                    <button type="button"
-                            class="icon-add add-new-folder-primary"
-                            v-if="!createNewFolder"
-                            :title="t('news','New folder')"
-                            @click="newFolder()"
-                            news-focus="#new-feed [name='folderName']"></button>
+                    <CheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
+                        {{ t('news', 'New folder') }}?
+                    </CheckboxRadioSwitch>
+
+                    <Multiselect v-if="!createNewFolder" v-model="folder" :options="folders" track-by="id" label="name"/>
 
                     <!-- add a folder -->
                     <input type="text"
@@ -59,14 +48,6 @@
                            v-if="createNewFolder"
                            style="width: 90%"
                            required>
-                    <button type="button"
-                            v-if="createNewFolder"
-                            class="icon-close add-new-folder-primary"
-                            :title="t('news','Go back')"
-                            @click="abortNewFolder()"
-                            ng-click="Navigation.showNewFolder=false;
-                                  Navigation.feed.newFolder=''">
-                    </button>
 
 
                     <p class="error" ng-show="!Navigation.addingFeed &&
@@ -101,7 +82,7 @@
                         {{ t('news', 'Auto discover Feed') }}?
                     </CheckboxRadioSwitch>
 
-                    <Button type="primary" ng-disabled="
+                    <Button :wide="true" type="primary" @click="addFeed()" ng-disabled="
                         Navigation.feedUrlExists(Navigation.feed.url) ||
                                 (
                                     Navigation.showNewFolder &&
@@ -119,12 +100,19 @@
 import Modal from '@nextcloud/vue/dist/Components/Modal'
 import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
 import Button from '@nextcloud/vue/dist/Components/Button'
+import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
 
 export default {
     components: {
         Modal,
         CheckboxRadioSwitch,
-        Button
+        Button,
+        Multiselect
+    },
+    computed: {
+        folders() {
+            return this.$store.state.folders
+        }
     },
     methods: {
         newFolder() {
@@ -132,10 +120,14 @@ export default {
         },
         abortNewFolder() {
             this.createNewFolder = false;
+        },
+        addFeed() {
+            this.$store.dispatch('addFeed', {feedReq: { url: this.feed, folder: this.folder, autoDiscover: true}})
         }
     },
     props: {
         feed: '',
+        folder: {},
         autoDiscover: true,
         withBasicAuth: false,
         createNewFolder: false
@@ -146,14 +138,11 @@ export default {
 
 <style scoped>
 
-    .button-vue {
-        width: 100%;
-    }
     input {
         width: 100%;
     }
-    select {
-        width: 90%;
+    .multiselect {
+        width: 100%;
     }
 
 </style>
