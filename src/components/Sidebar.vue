@@ -37,18 +37,52 @@
                 </template>
             </AppNavigationItem>
 
-            <AppNavigationItem v-for="folder in folders" :title="folder.name" icon="icon-folder" :allowCollapse="true">
+            <AppNavigationItem v-for="folder in folders" :title="folder.name" icon="icon-folder"
+                               :allowCollapse="true">
                 <template #default>
-                    <AppNavigationItem v-for="feed in folder.feeds" :title="feed.title">
-                        <ActionButton icon="icon-checkmark" @click="alert('Mark read')">
-                            {{ t('news', 'Mark read') }}
-                        </ActionButton>
-                        <ActionButton icon="icon-pinned" @click="alert('Rename')">
-                            {{ t('news', 'Unpin from top') }}
-                        </ActionButton>
-                        <ActionButton icon="icon-delete" @click="deleteFolder(folder)">
-                            {{ t('news', 'Newest first') }}
-                        </ActionButton>
+                    <AppNavigationItem v-for="feed in folder.feeds" :title="feed.title" >
+                        <template #icon>
+                            <img :src="feed.faviconLink" v-if="feed.faviconLink" alt="feedIcon">
+                            <div class="icon-rss"  v-if="!feed.faviconLink"></div>
+                        </template>
+                        <template #actions>
+                            <ActionButton icon="icon-checkmark" @click="alert('Mark read')">
+                                {{ t('news', 'Mark read') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-pinned" @click="alert('Rename')">
+                                {{ t('news', 'Unpin from top') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(folder)">
+                                {{ t('news', 'Newest first') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(folder)">
+                                {{ t('news', 'Oldest first') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(folder)">
+                                {{ t('news', 'Default order') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-full-text-disabled" @click="deleteFolder(folder)">
+                                {{ t('news', 'Enable full text') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-full-text-enabled" @click="deleteFolder(folder)">
+                                {{ t('news', 'Disable full text') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-updatemode-default" @click="deleteFolder(folder)">
+                                {{ t('news', 'Unread updated') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-updatemode-unread" @click="deleteFolder(folder)">
+                                {{ t('news', 'Ignore updated') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-icon-rss" @click="deleteFolder(folder)">
+                                {{ t('news', 'Open feed URL') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-icon-rename" @click="deleteFolder(folder)">
+                                {{ t('news', 'Rename') }}
+                            </ActionButton>
+                            <ActionButton icon="icon-delete" @click="deleteFolder(folder)">
+                                {{ t('news', 'Delete') }}
+                            </ActionButton>
+                        </template>
                     </AppNavigationItem>
                 </template>
                 <template #counter v-if="folder.feedCount > 0">
