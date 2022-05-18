@@ -233,11 +233,17 @@ class FeedFetcher implements IFeedFetcher
     {
         $item = new Item();
         $item->setUnread(true);
-        $item->setUrl($parsedItem->getLink());
-        if ($parsedItem->getPublicId() == null) {
+        $itemLink = $parsedItem->getLink();
+        $item->setUrl($itemLink);
+        $publicId = $parsedItem->getPublicId();
+        if ($publicId == null) {
+            // Fallback on using the URL as the guid for the feed item if no guid provided by feed
+            $publicId = $itemLink;
+        }
+        if ($publicId == null) {
             throw new ReadErrorException("Malformed feed: item has no GUID");
         }
-        $item->setGuid($parsedItem->getPublicId());
+        $item->setGuid($publicId);
         $item->setGuidHash(md5($item->getGuid()));
 
         $lastModified = $parsedItem->getLastModified() ?? new DateTime();

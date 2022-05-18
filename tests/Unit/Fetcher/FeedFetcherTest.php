@@ -459,6 +459,40 @@ class FeedFetcherTest extends TestCase
     }
 
     /**
+     * Test if the fetch function fetches a feed that specifies a guid.
+     */
+    public function testFetchWithGuid()
+    {
+        $this->setUpReader($this->url);
+        $this->createItem();
+        $feed = $this->createFeed();
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null);
+        //Explicitly assert GUID value
+        $this->assertEquals(2, count($result));
+        $this->assertEquals(1, count($result[1]));
+        $resultItem = $result[1][0];
+        $this->assertEquals($this->guid, $resultItem->getGuid());
+    }
+
+    /**
+     * Test if the fetch function fetches a feed that does not specify a guid.
+     */
+    public function testFetchWithoutGuid()
+    {
+        $this->setUpReader($this->url);
+        $this->guid = null;
+        $this->createItem();
+        $feed = $this->createFeed();
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+        $result = $this->fetcher->fetch($this->url, false, null, null);
+        //Explicitly assert GUID value
+        $this->assertEquals(2, count($result));
+        $this->assertEquals(1, count($result[1]));
+        $resultItem = $result[1][0];
+        $this->assertEquals($this->permalink, $resultItem->getGuid());
+    }
+    /**
      * Mock an iteration option on an existing mock
      *
      * @param object $iteratorMock The mock to enhance
@@ -579,7 +613,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->expects($this->exactly(2))
             ->method('getTitle')
             ->will($this->returnValue($this->title));
-        $this->item_mock->expects($this->exactly(2))
+        $this->item_mock->expects($this->exactly(1))
             ->method('getPublicId')
             ->will($this->returnValue($this->guid));
         $this->item_mock->expects($this->exactly(1))
@@ -600,7 +634,6 @@ class FeedFetcherTest extends TestCase
         $item->setUnread(true)
             ->setUrl($this->permalink)
             ->setTitle('my<\' title')
-            ->setGuid($this->guid)
             ->setGuidHash($this->guid_hash)
             ->setBody($this->parsed_body)
             ->setRtl(false)
@@ -608,6 +641,11 @@ class FeedFetcherTest extends TestCase
             ->setPubDate(3)
             ->setAuthor(html_entity_decode($this->author->getName()))
             ->setCategoriesJson($this->categoriesJson);
+
+        // some tests deliberately omit this, so leave default value if the guid is to be ignored
+        if ($this->guid !== null) {
+            $item->setGuid($this->guid);
+        }
 
         if ($enclosureType === 'audio/ogg' || $enclosureType === 'video/ogg') {
             $media = $this->getMockbuilder(MediaInterface::class)->getMock();
