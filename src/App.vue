@@ -19,7 +19,7 @@ export default {
         AppContent,
 	},
     created() {
-        this.$store.dispatch('loadFolder')
+        // this.$store.dispatch('loadFolder')
     }
 
 }

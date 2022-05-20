@@ -7,8 +7,6 @@
             button-class="icon-add"
             @click="showShowAddFeed()"/>
 
-        <ul id="locations" class="with-icon">
-
             <AppNavigationNewItem :title="t('news','New folder')"
                                   icon="icon-add-folder"
                                   @new-item="newFolder">
@@ -37,10 +35,12 @@
                 </template>
             </AppNavigationItem>
 
-            <AppNavigationItem v-for="folder in folders" :title="folder.name" icon="icon-folder"
-                               :allowCollapse="true">
+            <AppNavigationItem  v-for="item in topLevelNav" :key="(item.title !== undefined ? 'feed' : 'folder' )+item.id"
+                                :icon="item.title !== undefined ? 'icon-rss' : 'icon-folder'"
+                                :allowCollapse="item.title === undefined"
+                                :title="item.title || item.name">
                 <template #default>
-                    <AppNavigationItem v-for="feed in folder.feeds" :title="feed.title" >
+                    <AppNavigationItem v-for="feed in item.feeds" :title="feed.title" :key="feed.id">
                         <template #icon>
                             <img :src="feed.faviconLink" v-if="feed.faviconLink" alt="feedIcon">
                             <div class="icon-rss"  v-if="!feed.faviconLink"></div>
@@ -52,41 +52,41 @@
                             <ActionButton icon="icon-pinned" @click="alert('Rename')">
                                 {{ t('news', 'Unpin from top') }}
                             </ActionButton>
-                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(item)">
                                 {{ t('news', 'Newest first') }}
                             </ActionButton>
-                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(item)">
                                 {{ t('news', 'Oldest first') }}
                             </ActionButton>
-                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-caret-dark" @click="deleteFolder(item)">
                                 {{ t('news', 'Default order') }}
                             </ActionButton>
-                            <ActionButton icon="icon-full-text-disabled" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-full-text-disabled" @click="deleteFolder(item)">
                                 {{ t('news', 'Enable full text') }}
                             </ActionButton>
-                            <ActionButton icon="icon-full-text-enabled" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-full-text-enabled" @click="deleteFolder(item)">
                                 {{ t('news', 'Disable full text') }}
                             </ActionButton>
-                            <ActionButton icon="icon-updatemode-default" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-updatemode-default" @click="deleteFolder(item)">
                                 {{ t('news', 'Unread updated') }}
                             </ActionButton>
-                            <ActionButton icon="icon-updatemode-unread" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-updatemode-unread" @click="deleteFolder(item)">
                                 {{ t('news', 'Ignore updated') }}
                             </ActionButton>
-                            <ActionButton icon="icon-icon-rss" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-icon-rss" @click="deleteFolder(item)">
                                 {{ t('news', 'Open feed URL') }}
                             </ActionButton>
-                            <ActionButton icon="icon-icon-rename" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-icon-rename" @click="deleteFolder(item)">
                                 {{ t('news', 'Rename') }}
                             </ActionButton>
-                            <ActionButton icon="icon-delete" @click="deleteFolder(folder)">
+                            <ActionButton icon="icon-delete" @click="deleteFolder(item)">
                                 {{ t('news', 'Delete') }}
                             </ActionButton>
                         </template>
                     </AppNavigationItem>
                 </template>
-                <template #counter v-if="folder.feedCount > 0">
-                    <CounterBubble>{{ folder.feedCount }}</CounterBubble>
+                <template #counter v-if="item.feedCount > 0">
+                    <CounterBubble>{{ item.feedCount }}</CounterBubble>
                 </template>
                 <template #actions>
                     <ActionButton icon="icon-checkmark" @click="alert('Mark read')">
@@ -95,7 +95,7 @@
                     <ActionButton icon="icon-rename" @click="alert('Rename')">
                         {{ t('news', 'Rename') }}
                     </ActionButton>
-                    <ActionButton icon="icon-delete" @click="deleteFolder(folder)">
+                    <ActionButton icon="icon-delete" @click="deleteFolder(item)">
                         {{ t('news', 'Delete') }}
                     </ActionButton>
                 </template>
@@ -108,11 +108,11 @@
                     <CounterBubble>35</CounterBubble>
                 </template>
             </AppNavigationItem>
-        </ul>
-    </AppNavigation>
+	</AppNavigation>
 </template>
 
 <script>
+import Vuex  from 'vuex'
 import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
@@ -121,6 +121,10 @@ import AppNavigationCounter from '@nextcloud/vue/dist/Components/AppNavigationCo
 import CounterBubble from '@nextcloud/vue/dist/Components/CounterBubble'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AddFeed from "./AddFeed";
+
+// import { ROUTES } from '../routes.js'
+import { ACTIONS } from '../store/index.js'
+
 
 export default {
     components: {
@@ -133,13 +137,21 @@ export default {
         ActionButton,
         AddFeed
     },
+    data() {
+        return {
+            // ROUTES,
+        }
+    },
     props: {
         showAddFeed: false,
     },
     computed: {
-        folders() {
-            return this.$store.state.folders
-        },
+        ... Vuex.mapState(['feeds', 'folders']),
+        topLevelNav (state) {
+            return state.feeds.filter((feed) => {
+                return feed.folderId === undefined || feed.folderId === null;
+            }).concat(state.folders)
+        }
     },
     methods: {
         newFolder(value) {
@@ -158,7 +170,9 @@ export default {
             this.showAddFeed = false;
         }
     },
-    created() {
-    }
+    async created() {
+        await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
+        await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+    },
 }
 </script>
