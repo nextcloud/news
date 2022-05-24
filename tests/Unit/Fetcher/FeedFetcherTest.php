@@ -610,7 +610,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->expects($this->exactly(1))
             ->method('getLink')
             ->will($this->returnValue($this->permalink));
-        $this->item_mock->expects($this->exactly(2))
+        $this->item_mock->expects($this->exactly(1))
             ->method('getTitle')
             ->will($this->returnValue($this->title));
         $this->item_mock->expects($this->exactly(1))

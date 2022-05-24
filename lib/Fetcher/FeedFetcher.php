@@ -234,6 +234,7 @@ class FeedFetcher implements IFeedFetcher
         $item = new Item();
         $item->setUnread(true);
         $itemLink = $parsedItem->getLink();
+        $itemTitle = $parsedItem->getTitle();
         $item->setUrl($itemLink);
         $publicId = $parsedItem->getPublicId();
         if ($publicId == null) {
@@ -241,7 +242,7 @@ class FeedFetcher implements IFeedFetcher
             $this->logger->debug(
                 "Feed item {title} with link {link} did not expose a guid, falling back to using link as guid",
                 [
-                'title' => $parsedItem->getTitle(),
+                'title' => $itemTitle,
                 'link' => $itemLink
                 ]
             );
@@ -268,8 +269,8 @@ class FeedFetcher implements IFeedFetcher
         $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS
-        if ($parsedItem->getTitle() !== null) {
-            $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        if ($itemTitle !== null) {
+            $item->setTitle($this->decodeTwice($itemTitle));
         }
         $author = $parsedItem->getAuthor();
         if ($author !== null && $author->getName() !== null) {
