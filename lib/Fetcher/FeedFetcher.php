@@ -238,6 +238,13 @@ class FeedFetcher implements IFeedFetcher
         $publicId = $parsedItem->getPublicId();
         if ($publicId == null) {
             // Fallback on using the URL as the guid for the feed item if no guid provided by feed
+            $this->logger->debug(
+                "Feed item {title} with link {link} did not expose a guid, falling back to using link as guid",
+                [
+                'title' => $parsedItem=>getTitle(),
+                'link' => $itemLink
+                ]
+            );
             $publicId = $itemLink;
         }
         if ($publicId == null) {
