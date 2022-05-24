@@ -241,7 +241,7 @@ class FeedFetcher implements IFeedFetcher
             $this->logger->debug(
                 "Feed item {title} with link {link} did not expose a guid, falling back to using link as guid",
                 [
-                'title' => $parsedItem=>getTitle(),
+                'title' => $parsedItem->getTitle(),
                 'link' => $itemLink
                 ]
             );
