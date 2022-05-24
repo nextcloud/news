@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 - Add routes for starring/unstarring items by id
 - Improve styling of tables in articles
+- Allow fetching feeds that omit guid by using link as stand-in
 
 ### Fixed
 - Fix updated api not returning any item after marking item as read (#1713)

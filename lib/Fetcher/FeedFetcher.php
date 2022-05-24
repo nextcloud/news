@@ -233,11 +233,25 @@ class FeedFetcher implements IFeedFetcher
     {
         $item = new Item();
         $item->setUnread(true);
-        $item->setUrl($parsedItem->getLink());
-        if ($parsedItem->getPublicId() == null) {
+        $itemLink = $parsedItem->getLink();
+        $itemTitle = $parsedItem->getTitle();
+        $item->setUrl($itemLink);
+        $publicId = $parsedItem->getPublicId();
+        if ($publicId == null) {
+            // Fallback on using the URL as the guid for the feed item if no guid provided by feed
+            $this->logger->debug(
+                "Feed item {title} with link {link} did not expose a guid, falling back to using link as guid",
+                [
+                'title' => $itemTitle,
+                'link' => $itemLink
+                ]
+            );
+            $publicId = $itemLink;
+        }
+        if ($publicId == null) {
             throw new ReadErrorException("Malformed feed: item has no GUID");
         }
-        $item->setGuid($parsedItem->getPublicId());
+        $item->setGuid($publicId);
         $item->setGuidHash(md5($item->getGuid()));
 
         $lastModified = $parsedItem->getLastModified() ?? new DateTime();
@@ -255,8 +269,8 @@ class FeedFetcher implements IFeedFetcher
         $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS
-        if ($parsedItem->getTitle() !== null) {
-            $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        if ($itemTitle !== null) {
+            $item->setTitle($this->decodeTwice($itemTitle));
         }
         $author = $parsedItem->getAuthor();
         if ($author !== null && $author->getName() !== null) {
