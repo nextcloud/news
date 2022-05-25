@@ -5,17 +5,15 @@
 				ng-submit="Navigation.createFeed(Navigation.feed)"
 				ng-init="Navigation.feed.autoDiscover=true"
 				name="feedform">
-				<fieldset
-					ng-disabled="Navigation.addingFeed"
-					style="padding: 16px">
+				<fieldset ng-disabled="Navigation.addingFeed" style="padding: 16px">
 					<input
 						type="text"
 						:value="feed"
 						ng-model="Navigation.feed.url"
 						ng-class="{'ng-invalid':
-                        !Navigation.addingFeed &&
-                        Navigation.feedUrlExists(Navigation.feed.url)
-                    }"
+						!Navigation.addingFeed &&
+						Navigation.feedUrlExists(Navigation.feed.url)
+					}"
 						:placeholder="t('news', 'Web address')"
 						name="address"
 						pattern="[^\s]+"
@@ -25,14 +23,12 @@
 					<p
 						class="error"
 						ng-show="!Navigation.addingFeed &&
-                        Navigation.feedUrlExists(Navigation.feed.url)">
+						Navigation.feedUrlExists(Navigation.feed.url)">
 						{{ t("news", "Feed exists already!") }}
 					</p>
 
 					<!-- select a folder -->
-					<CheckboxRadioSwitch
-						:checked.sync="createNewFolder"
-						type="switch">
+					<CheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
 						{{ t("news", "New folder") }}?
 					</CheckboxRadioSwitch>
 
@@ -49,13 +45,13 @@
 						type="text"
 						ng-model="Navigation.feed.newFolder"
 						ng-class="{'ng-invalid':
-                            !Navigation.addingFeed &&
-                            !Navigation.addingFeed &&
-                            Navigation.showNewFolder &&
-                            Navigation.folderNameExists(
-                                Navigation.feed.newFolder
-                            )
-                        }"
+							!Navigation.addingFeed &&
+							!Navigation.addingFeed &&
+							Navigation.showNewFolder &&
+							Navigation.folderNameExists(
+								Navigation.feed.newFolder
+							)
+						}"
 						:placeholder="t('news', 'Folder name')"
 						name="folderName"
 						style="width: 90%"
@@ -64,15 +60,13 @@
 					<p
 						class="error"
 						ng-show="!Navigation.addingFeed &&
-                    Navigation.folderNameExists(Navigation.feed.newFolder)">
+					Navigation.folderNameExists(Navigation.feed.newFolder)">
 						{{ t("news", "Folder exists already!") }}
 					</p>
 
 					<!-- basic auth -->
 
-					<CheckboxRadioSwitch
-						:checked.sync="withBasicAuth"
-						type="switch">
+					<CheckboxRadioSwitch :checked.sync="withBasicAuth" type="switch">
 						{{ t("news", "Credentials") }}?
 					</CheckboxRadioSwitch>
 
@@ -100,9 +94,7 @@
 							autocomplete="new-password">
 					</div>
 
-					<CheckboxRadioSwitch
-						:checked.sync="autoDiscover"
-						type="switch">
+					<CheckboxRadioSwitch :checked.sync="autoDiscover" type="switch">
 						{{ t("news", "Auto discover Feed") }}?
 					</CheckboxRadioSwitch>
 
@@ -110,11 +102,11 @@
 						:wide="true"
 						type="primary"
 						ng-disabled="
-                        Navigation.feedUrlExists(Navigation.feed.url) ||
-                                (
-                                    Navigation.showNewFolder &&
-                                    Navigation.folderNameExists(folder.name)
-                                )"
+						Navigation.feedUrlExists(Navigation.feed.url) ||
+								(
+									Navigation.showNewFolder &&
+									Navigation.folderNameExists(folder.name)
+								)"
 						@click="addFeed()">
 						{{ t("news", "Subscribe") }}
 					</Button>
@@ -176,9 +168,10 @@ export default {
 
 <style scoped>
 input {
-    width: 100%;
+	width: 100%;
 }
+
 .multiselect {
-    width: 100%;
+	width: 100%;
 }
 </style>
