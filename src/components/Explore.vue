@@ -36,6 +36,7 @@
 /* eslint-disable no-console */
 /* eslint-disable vue/require-prop-type-constructor */
 /* eslint-disable vue/require-default-prop */
+/* eslint-disable vue/no-mutating-props */
 
 // import Modal from '@nextcloud/vue/dist/Components/Modal'
 import Button from '@nextcloud/vue/dist/Components/Button'

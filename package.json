@@ -57,6 +57,7 @@
     "eslint-import-resolver-webpack": "^0.12.2",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsdoc": "^37.9.7",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-standard": "^4.0.1",

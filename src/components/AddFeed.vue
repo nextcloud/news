@@ -120,6 +120,7 @@
 /* eslint-disable vue/require-prop-types */
 /* eslint-disable vue/require-prop-type-constructor */
 /* eslint-disable vue/require-default-prop */
+/* eslint-disable vue/no-mutating-props */
 
 import Modal from '@nextcloud/vue/dist/Components/Modal'
 import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
@@ -135,10 +136,15 @@ export default {
 	},
 	props: {
 		feed: '',
-		folder: {},
 		autoDiscover: true,
 		withBasicAuth: false,
 		createNewFolder: false,
+	},
+	emits: ['close'],
+	data() {
+		return {
+			folder: {},
+		}
 	},
 	computed: {
 		folders() {
@@ -162,7 +168,6 @@ export default {
 			})
 		},
 	},
-	emits: ['close'],
 }
 </script>
 

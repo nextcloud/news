@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
@@ -76,7 +75,7 @@ const store = new Vuex.Store({
             });
 
             this.updateUnreadCache();
-             */
+			 */
 			axios.delete(folderUrl + '/' + folder.id).then()
 		},
 		loadFolder({ commit }) {
@@ -101,7 +100,7 @@ const store = new Vuex.Store({
             if (title !== undefined) {
                 title = title.trim();
             }
-             */
+			 */
 
 			const feed = {
 				url,
