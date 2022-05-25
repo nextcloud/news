@@ -50,7 +50,6 @@
     "@nextcloud/eslint-plugin": "^2.0.0",
     "@nextcloud/stylelint-config": "^2.1.2",
     "@nextcloud/webpack-vue-config": "^5.1.0",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^6.7.1",
     "eslint": "^7.32.0",
