@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-versions: [14.x]
+        node-versions: [16.x]
 
     name: eslint node${{ matrix.node-versions }}
     steps:
