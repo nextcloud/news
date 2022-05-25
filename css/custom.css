@@ -2,19 +2,19 @@
  * Add your custom styles here
  */
 #app-content .custom-heise-de .body p > span:first-child {
-    display: inline-block;
-    float: left;
-    margin-right: 10px;
-    padding: 6px 0;
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+	padding: 6px 0;
 }
 
 #app-content .custom-slashdot-org .body div > i {
-    display: block;
-    border-left: 1px solid rgb(210, 210, 210);
-    margin: 25px 0;
-    padding: 0 0 0 15px;
+	display: block;
+	border-left: 1px solid rgb(210, 210, 210);
+	margin: 25px 0;
+	padding: 0 0 0 15px;
 }
 
 #app-content .custom-sueddeutsche-de .body img {
-    float: none !important;
+	float: none !important;
 }

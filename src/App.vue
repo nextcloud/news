@@ -1,9 +1,9 @@
 <template>
 	<Content app-name="news">
 		<Sidebar />
-        <AppContent>
-            <router-view></router-view>
-        </AppContent>
+		<AppContent>
+			<router-view />
+		</AppContent>
 	</Content>
 </template>
 
@@ -16,11 +16,11 @@ export default {
 	components: {
 		Content,
 		Sidebar,
-        AppContent,
+		AppContent,
 	},
-    created() {
-        this.$store.dispatch('loadFolder')
-    }
+	created() {
+		this.$store.dispatch('loadFolder')
+	},
 
 }
 </script>

@@ -1,46 +1,46 @@
 @media only screen and (max-width: $breakpoint_mobile) {
-    #app-content .utils .date {
-        display: none;
-    }
+	#app-content .utils .date {
+		display: none;
+	}
 
-    #app-shortcuts th:first-child {
-        padding-left: 44px;
-    }
+	#app-shortcuts th:first-child {
+		padding-left: 44px;
+	}
 
-    #app-navigation:not(.hidden) + #app-content {
-        width: 100%;
-    }
+	#app-navigation:not(.hidden) + #app-content {
+		width: 100%;
+	}
 
-    #mark-all-read-button {
-        display: block;
-    }
+	#mark-all-read-button {
+		display: block;
+	}
 }
 
 @media only screen and (max-width: 600px) {
-    #app-content .article-actions ul {
-        max-width: 164px;
-    }
+	#app-content .article-actions ul {
+		max-width: 164px;
+	}
 
-    #app-content .heading .date {
-        display: none;
-    }
+	#app-content .heading .date {
+		display: none;
+	}
 
-    #app-content .heading h1 {
-        margin-right: 0;
-    }
+	#app-content .heading h1 {
+		margin-right: 0;
+	}
 
-    #app-content .utils {
-        padding-right: 15px;
-    }
+	#app-content .utils {
+		padding-right: 15px;
+	}
 
-    #app-content .article {
-        padding-right: 15px;
-        padding-left: 44px;
-    }
+	#app-content .article {
+		padding-right: 15px;
+		padding-left: 44px;
+	}
 }
 
 @media only screen and (max-width: 340px) {
-    #app-content .article-actions  {
-        max-width: 82px;
-    }
+	#app-content .article-actions  {
+		max-width: 82px;
+	}
 }
