@@ -13,6 +13,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Fix updated api not returning any item after marking item as read (#1713)
 - Fix deprecation warning for strip_tags() on a null value (#1766)
 - Fix selected item being set incorrectly when using default ordering or newest first ordering (#1324)
+- Fix doubling the height of the content area (#1796)
 
 # Releases
 
