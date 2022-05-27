@@ -137,7 +137,8 @@
 #app-content:not(.explore) #articles:after {
     content: '';
     display: block;
-    height: 100%;
+    /* Subtract the height of the Nextcloud header. */
+    height: calc(100vh - 50px);
     background-repeat: no-repeat;
 }
 
