@@ -38,7 +38,7 @@ teardown() {
   output=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].url')
   
   # self reference of feed is used here
-  assert_output '"https://nextcloud.com/blog/feed/"'
+  assert_output '"https://nextcloud.com/feed/"'
 }
 
 @test "[$TESTSUITE] Create new inside folder" {
