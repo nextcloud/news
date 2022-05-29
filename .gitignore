@@ -12,6 +12,9 @@ js/*.xml
 .phpunit.result.cache
 site/
 
+#bats
+tests/api/helpers/settings-override.bash
+
 # python
 PKG-INFO
 *pyc

@@ -33,11 +33,11 @@ jobs:
         database: ['sqlite', 'pgsql', 'mysql']
         experimental: [false]
         include:
-          - php-versions: 8.0
+          - php-versions: '8.0'
             nextcloud: pre-release
             database: sqlite
             experimental: true
-          - php-versions: 8.1
+          - php-versions: '8.1'
             nextcloud: pre-release
             database: sqlite
             experimental: true
@@ -48,6 +48,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -56,8 +58,8 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
-      - name: Setup BATS
-        uses: mig4/setup-bats@v1.2.0
+      - name: Setup BATS & httpie
+        run: sudo apt-get install -y bats httpie
 
       ### MySQL specific setup
       - name: Setup mysql
@@ -108,6 +110,17 @@ jobs:
           check-code: false
           force: ${{ matrix.experimental }}
 
+      - name: Run API tests
+        working-directory: ../server
+        run: |
+          php -S localhost:8080 &> /tmp/webserver.log &
+          sleep 2
+                  
+          bats apps/news/tests/api
+
+          # Kill php server
+          kill %1
+
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
 
@@ -118,7 +131,7 @@ jobs:
 
       - name: Functional tests
         working-directory: ../server
-        run: bats apps/news/tests/integration
+        run: bats apps/news/tests/command
 
       - name: Prep PHP tests
         working-directory: ../server/apps/news
@@ -127,3 +140,4 @@ jobs:
       - name: Feed tests
         working-directory: ../server/apps/news
         run: make feed-test
+
