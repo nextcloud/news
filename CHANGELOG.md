@@ -5,17 +5,22 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
-- Add routes for starring/unstarring items by id
-- Improve styling of tables in articles
-- Allow fetching feeds that omit guid by using link as stand-in
+
+### Fixed
+
+# Releases
+## [18.1.0-beta1]
+### Changed
+- Add API v1.3 adding routes for starring/unstarring items by id and general fixes (#1727)
+  https://nextcloud.github.io/news/api/api-v1-3/
+- Improve styling of tables in articles (#1779)
+- Allow fetching feeds that omit guid by using link as stand-in (#1785)
 
 ### Fixed
 - Fix updated api not returning any item after marking item as read (#1713)
 - Fix deprecation warning for strip_tags() on a null value (#1766)
 - Fix selected item being set incorrectly when using default ordering or newest first ordering (#1324)
 - Fix doubling the height of the content area (#1796)
-
-# Releases
 
 ## [18.0.1] - 2022-04-22
 No major changes since the beta versions.
