@@ -134,6 +134,7 @@ class FeedFetcher implements IFeedFetcher
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
         $feedName = $parsedFeed->getTitle();
+        $feedAuthor = $parsedFeed->getAuthor();
         $this->logger->debug(
             'Feed {url} was modified since last fetch. #{count} items',
             [
@@ -155,7 +156,7 @@ class FeedFetcher implements IFeedFetcher
                 }
             }
 
-            $builtItem = $this->buildItem($item, $body, $currRTL);
+            $builtItem = $this->buildItem($item, $body, $currRTL, $feedAuthor);
             $this->logger->debug(
                 'Added item {title} for feed {feed} lastmodified: {datetime}',
                 [
@@ -226,11 +227,16 @@ class FeedFetcher implements IFeedFetcher
      * @param ItemInterface $parsedItem The item to use
      * @param string|null   $body       Text of the item, if not provided use description from $parsedItem
      * @param bool          $RTL        True if the feed is RTL (Right-to-left)
+     * @param string|null   $feedAuthor Author of the feed as fallback when the item has no Author
      *
      * @return Item
      */
-    protected function buildItem(ItemInterface $parsedItem, ?string $body = null, bool $RTL = false): Item
-    {
+    protected function buildItem(
+        ItemInterface $parsedItem,
+        ?string $body = null,
+        bool $RTL = false,
+        $feedAuthor = null
+    ): Item {
         $item = new Item();
         $item->setUnread(true);
         $itemLink = $parsedItem->getLink();
@@ -272,7 +278,9 @@ class FeedFetcher implements IFeedFetcher
         if ($itemTitle !== null) {
             $item->setTitle($this->decodeTwice($itemTitle));
         }
-        $author = $parsedItem->getAuthor();
+
+        $author = $parsedItem->getAuthor() ?? $feedAuthor;
+
         if ($author !== null && $author->getName() !== null) {
             $item->setAuthor($this->decodeTwice($author->getName()));
         }
