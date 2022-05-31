@@ -82,3 +82,17 @@ teardown() {
     return $ret_status
   fi
 }
+
+@test "[$TESTSUITE] Test author fallback" {
+  ./occ news:feed:add "$user" $HEISE_FEED --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ID=$(./occ news:feed:list 'admin' | grep 'heise\.de' -1  | head -1 | grep -oE '[0-9]*')
+
+  run ./occ news:item:list-feed "$user" "$ID" --limit 200
+  [ "$status" -eq 0 ]
+
+  if ! echo "$output" | grep '"author": "heise online",'; then
+    ret_status=$?
+    echo "Author fallback did not work"
+    return $ret_status
+  fi
+}

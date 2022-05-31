@@ -5,6 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
+-  If items of feed do not provide an author fallback to feed author (#1803) 
 
 ### Fixed
 
