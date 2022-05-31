@@ -10,7 +10,11 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
-## [18.1.0-beta1]
+## [18.1.0-beta2] - 2022-05-31
+### Changed
+-  If items of feed do not provide an author fallback to feed author (#1803) 
+
+## [18.1.0-beta1] - 2022-05-29
 ### Changed
 - Add API v1.3 adding routes for starring/unstarring items by id and general fixes (#1727)
   https://nextcloud.github.io/news/api/api-v1-3/
