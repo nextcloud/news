@@ -1,4 +1,4 @@
-# Installation/Update
+# Installation/Update & Uninstall
 
 ## Dependencies
 * 64bit OS (starting with News 16.0.0)
@@ -93,3 +93,51 @@ To update the News app use change into the **nextcloud/apps/news/** directory us
 
     git pull --rebase origin master
     make
+
+## Uninstall with cleanup
+
+First uninstall the app via the web-interface or via occ:
+
+```console
+./occ app:remove news
+```
+
+This currently does not remove any of the database tables.
+Data in your `/tmp` directory will be automatically deleted by the OS.
+If you changed the temporary directory for Nextcloud you need to check on your own.
+
+Careful, this next part is only intended for admins, that know what they are doing.
+
+To remove the tables from the DB we drop the tables of news.
+Your installation might have a different prefix then `oc_` but it is the default in most installations.
+Connect to your DB and execute the commands. Don't forget to switch to the right database.
+For example in mysql: `use nextcloud;`
+
+```sql
+DROP TABLE oc_news_folders;
+DROP TABLE oc_news_feeds;
+DROP TABLE oc_news_items;
+```
+
+Then we remove the traces in the migrations table.
+
+```sql
+DELETE FROM oc_migrations WHERE app='news';
+```
+
+Next delete the app configuration.
+
+```sql
+DELETE FROM oc_appconfig WHERE appid = 'news';
+```
+
+And finally remove the jobs from the job table.
+The last two lines are only needed for older installations.
+
+```sql
+DELETE FROM oc_jobs WHERE class='OCA\\News\\Cron\\UpdaterJob';
+DELETE FROM oc_jobs WHERE class='OCA\\News\\Cron\\Updater';
+DELETE FROM oc_jobs WHERE argument='["OCA\\\\News\\\\Cron\\\\Updater","run"]';
+```
+
+Now nothing is left from news in your nextcloud installation.
