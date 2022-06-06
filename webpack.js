@@ -1,7 +1,11 @@
 const webpackConfig = require('@nextcloud/webpack-vue-config')
-const { webpack } = require('webpack')
 
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+
+// TODO Make proper based on command:
 webpackConfig.mode = 'development'
+
+
 delete webpackConfig.module.rules[2].loader
 webpackConfig.module.rules[2].use = [
 	'vue-loader',
@@ -10,10 +14,32 @@ webpackConfig.module.rules[2].use = [
 webpackConfig.resolve.extensions.push('.tsx')
 webpackConfig.resolve.modules = ['node_modules']
 
-// eslint-disable-next-line no-console
-console.log(JSON.stringify(webpackConfig, undefined, 2))
+webpackConfig.plugins.push(new ForkTsCheckerWebpackPlugin({
+	typescript: {
+		extensions: {
+			vue: {
+				enabled: true,
+				compiler: 'vue-template-compiler',
+			},
+		},
+	},
+}))
 
-// eslint-disable-next-line no-console
-console.log(webpackConfig.module.rules)
+webpackConfig.module.rules.push({
+	test: /.ts$/,
+	exclude: [/node_modules/],
+	use: [
+		'babel-loader',
+		{
+			loader: 'ts-loader',
+			options: {
+				transpileOnly: true,
+				appendTsSuffixTo: [
+					'\\.vue$',
+				],
+			},
+		},
+	],
+})
 
 module.exports = webpackConfig
