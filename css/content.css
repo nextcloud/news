@@ -714,6 +714,11 @@
     text-decoration: underline;
 }
 
+body.theme--dark #app-content .body a,   /* NC 24 */
+[data-theme-dark] #app-content .body a { /* NC 25 */
+    color: #9cc7ff;
+}
+
 #app-content .body ul {
     margin: 7px 0;
     padding-left: 14px;
