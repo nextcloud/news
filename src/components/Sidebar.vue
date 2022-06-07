@@ -145,43 +145,44 @@ import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AddFeed from './AddFeed'
 
 export default {
-    components: {
-        AppNavigation,
-        AppNavigationNew,
-        AppNavigationItem,
-        AppNavigationNewItem,
-        // AppNavigationCounter,
-        CounterBubble,
-        ActionButton,
-        AddFeed,
-    },
-    data() {
-        return {
-            showAddFeed: false,
-        }
-    },
-    computed: {
-        folders() {
-            return this.$store.state.folders
-        },
-    },
-    created() {},
-    methods: {
-        newFolder(value) {
-            const folderName = value.trim()
-            const folder = { name: folderName }
-            this.$store.dispatch('addFolder', { folder })
-        },
-        deleteFolder(folder) {
-            this.$store.dispatch('deleteFolder', { folder })
-            window.location.reload(true)
-        },
-        showShowAddFeed() {
-            this.showAddFeed = true
-        },
-        closeShowAddFeed() {
-            this.showAddFeed = false
-        },
-    },
+	components: {
+		AppNavigation,
+		AppNavigationNew,
+		AppNavigationItem,
+		AppNavigationNewItem,
+		// AppNavigationCounter,
+		CounterBubble,
+		ActionButton,
+		AddFeed,
+	},
+	props: {
+		showAddFeed: false,
+	},
+	computed: {
+		folders() {
+			return this.$store.state.folders
+		},
+	},
+	created() {},
+	methods: {
+		newFolder(value) {
+			const folderName = value.trim()
+			const folder = { name: folderName }
+			this.$store.dispatch('addFolder', { folder })
+		},
+		deleteFolder(folder) {
+			this.$store.dispatch('deleteFolder', { folder })
+			window.location.reload(true)
+		},
+		showShowAddFeed() {
+			this.showAddFeed = true
+		},
+		closeShowAddFeed() {
+			this.showAddFeed = false
+		},
+		alert(msg) {
+			window.alert(msg)
+		},
+	},
 }
 </script>
