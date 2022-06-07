@@ -108,10 +108,7 @@
 </template>
 
 <script>
-/* eslint-disable vue/require-prop-types */
 /* eslint-disable vue/require-prop-type-constructor */
-/* eslint-disable vue/require-default-prop */
-/* eslint-disable vue/no-mutating-props */
 
 import Modal from '@nextcloud/vue/dist/Components/Modal'
 import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'

@@ -31,10 +31,7 @@
 </template>
 
 <script>
-/* eslint-disable no-console */
 /* eslint-disable vue/require-prop-type-constructor */
-/* eslint-disable vue/require-default-prop */
-/* eslint-disable vue/no-mutating-props */
 
 // import Modal from '@nextcloud/vue/dist/Components/Modal'
 import Button from '@nextcloud/vue/dist/Components/Button'
@@ -49,13 +46,13 @@ export default {
         AddFeed,
     },
     props: {
-        explorableSites: {
-            type: Array,
-            default: () => [],
-            required: true,
-        },
-        showAddFeed: false,
         feed: '',
+    },
+    data() {
+        return {
+            explorableSites: [],
+            showAddFeed: false,
+        }
     },
     created() {
         this.sites()
@@ -65,13 +62,12 @@ export default {
             const settings = await axios.get(
                 generateUrl('/apps/news/settings')
             )
-            console.log(settings.data)
-            console.log(settings.data.settings.exploreUrl)
+            // console.log(settings.data)
+            // console.log(settings.data.settings.exploreUrl)
 
             const exploreUrl
                 = settings.data.settings.exploreUrl + 'feeds.en.json'
             const explore = await axios.get(exploreUrl)
-            console.log(explore.data)
 
             Object.keys(explore.data).forEach((key) =>
                 explore.data[key].forEach((value) =>
@@ -80,7 +76,7 @@ export default {
             )
         },
         async subscribe(feed) {
-            this.feed = feed
+            // this.feed = feed
             this.showAddFeed = true
         },
         closeShowAddFeed() {

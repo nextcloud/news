@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
@@ -36,7 +36,6 @@ const router = new VueRouter({
     routes,
 })
 
-// eslint-disable-next-line import/no-named-as-default-member
 const store = new Vuex.Store({
     state: {
         folders: [],
@@ -79,7 +78,6 @@ const store = new Vuex.Store({
             axios.delete(folderUrl + '/' + folder.id).then()
         },
         loadFolder({ commit }) {
-            console.log('loading folders')
             axios.get(folderUrl).then((response) => {
                 commit('addFolders', response.data.folders)
                 axios
@@ -90,7 +88,6 @@ const store = new Vuex.Store({
             })
         },
         addFeed({ commit }, { feedReq }) {
-            console.log(feedReq)
             let url = feedReq.url.trim()
             if (!url.startsWith('http')) {
                 url = 'https://' + url
