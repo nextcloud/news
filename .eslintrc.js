@@ -4,5 +4,7 @@ module.exports = {
 	],
 	rules: {
 		'jsdoc/check-alignment': 'off',
+		'vue/html-indent': 'off',
+		'indent': ['error', 4]
 	},
 }
