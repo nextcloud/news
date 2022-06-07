@@ -11,124 +11,124 @@
 /* add new feed or folder */
 /* button */
 #app-navigation .add-new .heading {
-	height: 44px;
-	width: 100%;
+    height: 44px;
+    width: 100%;
 }
 
 #app-navigation .add-new .heading:hover {
-	background-color: var(--color-background-darker);
+    background-color: var(--color-background-darker);
 }
 
 #app-navigation .add-new .heading button {
-	padding: 0 0 0 44px;
-	line-height: 44px;
-	width: 100%;
-	border: 0;
-	margin: 0;
-	text-align: left;
-	font-weight: normal;
-	background-color: transparent;
-	background-position: 14px center;
+    padding: 0 0 0 44px;
+    line-height: 44px;
+    width: 100%;
+    border: 0;
+    margin: 0;
+    text-align: left;
+    font-weight: normal;
+    background-color: transparent;
+    background-position: 14px center;
 }
 
 /* navigation */
 #app-navigation ul.with-icon > li > a,
 #app-navigation ul.with-icon > li > ul > li > a {
-	padding-left: 44px;
+    padding-left: 44px;
 }
 
 #app-navigation .icon-starred {
-	background-image: url('../img/starred.png');
+    background-image: url('../img/starred.png');
 }
 
 .icon-rss {
-	background-image: url('../img/rss.svg') !important;
+    background-image: url('../img/rss.svg') !important;
 }
 
 .icon-rss-unread {
-	background-image: url('../img/rss_unread.svg') !important;
+    background-image: url('../img/rss_unread.svg') !important;
 }
 
 .icon-add-folder {
-	background-image: url('../img/add_folder.svg') !important;
+    background-image: url('../img/add_folder.svg') !important;
 }
 
 .icon-facebook {
-	background-image: url('../img/facebook.svg') !important;
+    background-image: url('../img/facebook.svg') !important;
 }
 
 .icon-twitter {
-	background-image: url('../img/twitter.svg') !important;
+    background-image: url('../img/twitter.svg') !important;
 }
 
 .col-4 {
-	-ms-flex: 0 0 33.333333%;
-	flex: 0 0 33.333333%;
-	max-width: 33.333333%;
-	position: relative;
-	width: 100%;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    position: relative;
+    width: 100%;
 }
 
 .row {
-	display: -ms-flexbox;
-	display: flex;
-	-ms-flex-wrap: wrap;
-	flex-wrap: wrap;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 .icon-dropdown {
-	background-position: center !important;
-	background-size: 24px;
-	padding: 2em !important;
-	min-height: 28px !important;
-	min-width: 28px !important;
+    background-position: center !important;
+    background-size: 24px;
+    padding: 2em !important;
+    min-height: 28px !important;
+    min-width: 28px !important;
 }
 
 .icon-full-text-enabled {
-	background-image: url('../img/fulltext.svg');
-	background-size: 50%;
-	opacity: 0.5;
+    background-image: url('../img/fulltext.svg');
+    background-size: 50%;
+    opacity: 0.5;
 }
 
 .icon-full-text-disabled {
-	background-image: url('../img/nonfulltext.svg');
-	background-size: 50%;
-	opacity: 0.5;
+    background-image: url('../img/nonfulltext.svg');
+    background-size: 50%;
+    opacity: 0.5;
 }
 
 #app-navigation .unread > a {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 #app-navigation p.error {
-	line-height: 25px;
+    line-height: 25px;
 }
 
 #app-navigation .folder-rename-error {
-	height: auto;
+    height: auto;
 }
 
 /**
  * Error message
  */
 #app-navigation .error-message {
-	padding: 15px;
-	background-color: var(--color-main-background);
-	color: var(--color-error);
-	position: relative;
-	overflow-y: auto;
+    padding: 15px;
+    background-color: var(--color-main-background);
+    color: var(--color-error);
+    position: relative;
+    overflow-y: auto;
 }
 
 #app-navigation .ui-state-disabled {
-	opacity: 1;
+    opacity: 1;
 }
 
 #app-navigation .error-message .title {
-	font-weight: bold;
-	padding-right: 30px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+    font-weight: bold;
+    padding-right: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 // #app-navigation .error-message:hover .title
@@ -137,73 +137,73 @@
 // }
 
 #app-navigation .error-message button {
-	top: 0;
-	right: 0;
-	position: absolute;
-	margin: 0;
-	height: 44px;
-	width: 44px;
-	padding: 15px;
-	border: 0;
-	background-size: 25px;
-	background-color: transparent;
-	background-image: url('../img/close.svg');
-	background-repeat: no-repeat;
-	background-position: right 5px top 5px;
-	opacity: 0.9;
+    top: 0;
+    right: 0;
+    position: absolute;
+    margin: 0;
+    height: 44px;
+    width: 44px;
+    padding: 15px;
+    border: 0;
+    background-size: 25px;
+    background-color: transparent;
+    background-image: url('../img/close.svg');
+    background-repeat: no-repeat;
+    background-position: right 5px top 5px;
+    opacity: 0.9;
 }
 
 #app-navigation .error-message button:hover {
-	opacity: 1;
+    opacity: 1;
 }
 
 #app-navigation .animate-show.ng-hide-add,
 #app-navigation .animate-show.ng-hide-remove {
-	/* this is required as of 1.3x to properly
+    /* this is required as of 1.3x to properly
        apply all styling in a show/hide animation */
-	transition: 0s linear opacity;
+    transition: 0s linear opacity;
 }
 
 #app-navigation .animate-show.ng-hide-add-active,
 #app-navigation .animate-show.ng-hide-remove-active {
-	transition: 0.2s linear opacity;
+    transition: 0.2s linear opacity;
 }
 
 #app-navigation .animate-show {
-	opacity: 1;
+    opacity: 1;
 }
 
 #app-navigation .animate-show.ng-hide {
-	opacity: 0;
+    opacity: 0;
 }
 
 #app-navigation .feed-no-ordering {
-	transform: rotate(270deg);
+    transform: rotate(270deg);
 }
 
 #app-navigation .feed-reverse-ordering {
-	transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 // #app-navigation .feed-normal-ordering {
 // }
 
 #app-navigation .icon-pinned {
-	background-image: url('../img/pinned.svg');
+    background-image: url('../img/pinned.svg');
 }
 
 #app-navigation .icon-unpinned {
-	background-image: url('../img/unpinned.svg');
+    background-image: url('../img/unpinned.svg');
 }
 
 #app-navigation .icon-updatemode-default {
-	background-image: url('../img/updatemodedefault.svg');
+    background-image: url('../img/updatemodedefault.svg');
 }
 
 #app-navigation .icon-updatemode-unread {
-	background-image: url('../img/updatemodeunread.svg');
+    background-image: url('../img/updatemodeunread.svg');
 }
 
 #app-navigation .updateerror a {
-	background-color: var(--color-warning) !important;
+    background-color: var(--color-warning) !important;
 }
