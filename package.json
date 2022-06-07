@@ -10,8 +10,7 @@
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "stylelint": "stylelint **/*.css **/*.scss **/*.vue",
-    "stylelint:fix": "stylelint **/*.css **/*.scss **/*.vue --fix",
-    "test": "echo 'TODO'"
+    "stylelint:fix": "stylelint **/*.css **/*.scss **/*.vue --fix"
   },
   "repository": {
     "type": "git",
@@ -93,7 +92,6 @@
   },
   "dependencies": {
     "@nextcloud/axios": "^1.10.0",
-    "@nextcloud/calendar-js": "^3.0.0",
     "@nextcloud/dialogs": "^3.1.2",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/vue": "^5.3.1",
