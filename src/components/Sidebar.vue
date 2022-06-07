@@ -134,9 +134,6 @@
 </template>
 
 <script>
-/* eslint-disable vue/require-prop-type-constructor */
-/* eslint-disable vue/require-default-prop */
-/* eslint-disable vue/no-mutating-props */
 
 import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
@@ -158,8 +155,10 @@ export default {
         ActionButton,
         AddFeed,
     },
-    props: {
-        showAddFeed: false,
+    data() {
+        return {
+            showAddFeed: false,
+        }
     },
     computed: {
         folders() {
