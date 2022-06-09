@@ -1,10 +1,10 @@
 <template>
-	<Content app-name="news">
-		<Sidebar />
+    <Content app-name="news">
+        <Sidebar />
         <AppContent>
-            <router-view></router-view>
+            <router-view />
         </AppContent>
-	</Content>
+    </Content>
 </template>
 
 <script>
@@ -13,14 +13,14 @@ import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import Sidebar from './components/Sidebar.vue'
 
 export default {
-	components: {
-		Content,
-		Sidebar,
+    components: {
+        Content,
+        Sidebar,
         AppContent,
-	},
+    },
     created() {
         this.$store.dispatch('loadFolder')
-    }
+    },
 
 }
 </script>

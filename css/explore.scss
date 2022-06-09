@@ -21,37 +21,37 @@
     width: 100%;
     padding: 45px 0 45px 45px;
 
-	.grid-item {
-	    width: 300px;
-	    border: 2px solid var(--color-border);
-		border-radius: var(--border-radius-large);
-	    margin: 0 24px 24px 0;
-		padding: 24px;
+    .grid-item {
+        width: 300px;
+        border: 2px solid var(--color-border);
+        border-radius: var(--border-radius-large);
+        margin: 0 24px 24px 0;
+        padding: 24px;
 
-		.explore-title {
-		    background-repeat: no-repeat;
-		    background-position: 0 center;
-		    background-size: 24px;
-		    padding-left: 32px;
+        .explore-title {
+            background-repeat: no-repeat;
+            background-position: 0 center;
+            background-size: 24px;
+            padding-left: 32px;
 
-			a {
-			    word-wrap: break-word;
+            a {
+                word-wrap: break-word;
 
-				&:hover,
-				&:focus {
-				    text-decoration: underline;
-				}
-			}
-		}
+                &:hover,
+                &:focus {
+                    text-decoration: underline;
+                }
+            }
+        }
 
-		.explore-logo {
-		    text-align: center;
-		    margin-top: 25px;
+        .explore-logo {
+            text-align: center;
+            margin-top: 25px;
 
-			img {
-			    width: 100%;
-			}
-		}
+            img {
+                width: 100%;
+            }
+        }
 
-	}
+    }
 }

@@ -1,4 +1,3 @@
-
 /**
  * Nextcloud - News
  *
@@ -32,7 +31,6 @@
     background-position: 14px center;
 }
 
-
 /* navigation */
 #app-navigation ul.with-icon > li > a,
 #app-navigation ul.with-icon > li > ul > li > a {
@@ -63,7 +61,6 @@
     background-image: url('../img/twitter.svg') !important;
 }
 
-
 .col-4 {
     -ms-flex: 0 0 33.333333%;
     flex: 0 0 33.333333%;
@@ -79,7 +76,7 @@
     flex-wrap: wrap;
 }
 
-.icon-dropdown{
+.icon-dropdown {
     background-position: center !important;
     background-size: 24px;
     padding: 2em !important;
@@ -90,14 +87,13 @@
 .icon-full-text-enabled {
     background-image: url('../img/fulltext.svg');
     background-size: 50%;
-    opacity: .5;
+    opacity: 0.5;
 }
-
 
 .icon-full-text-disabled {
     background-image: url('../img/nonfulltext.svg');
     background-size: 50%;
-    opacity: .5;
+    opacity: 0.5;
 }
 
 #app-navigation .unread > a {
@@ -135,10 +131,10 @@
     white-space: nowrap;
 }
 
-#app-navigation .error-message:hover .title
-#app-navigation .error-message:hover .message {
+// #app-navigation .error-message:hover .title
+// #app-navigation .error-message:hover .message {
 
-}
+// }
 
 #app-navigation .error-message button {
     top: 0;
@@ -154,7 +150,7 @@
     background-image: url('../img/close.svg');
     background-repeat: no-repeat;
     background-position: right 5px top 5px;
-    opacity: .9;
+    opacity: 0.9;
 }
 
 #app-navigation .error-message button:hover {
@@ -170,7 +166,7 @@
 
 #app-navigation .animate-show.ng-hide-add-active,
 #app-navigation .animate-show.ng-hide-remove-active {
-    transition: .2s linear opacity;
+    transition: 0.2s linear opacity;
 }
 
 #app-navigation .animate-show {
@@ -189,8 +185,8 @@
     transform: rotate(180deg);
 }
 
-#app-navigation .feed-normal-ordering {
-}
+// #app-navigation .feed-normal-ordering {
+// }
 
 #app-navigation .icon-pinned {
     background-image: url('../img/pinned.svg');
@@ -211,4 +207,3 @@
 #app-navigation .updateerror a {
     background-color: var(--color-warning) !important;
 }
-
