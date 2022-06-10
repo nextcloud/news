@@ -5,11 +5,13 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
--  If items of feed do not provide an author fallback to feed author (#1803) 
 
 ### Fixed
 
 # Releases
+## [18.1.0] - 2022-06-10
+Due to #1766 some Feeds might now have items that have `null` set as author instead of `""` clients need to handle this.
+
 ## [18.1.0-beta2] - 2022-05-31
 ### Changed
 -  If items of feed do not provide an author fallback to feed author (#1803) 
