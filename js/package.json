@@ -40,7 +40,7 @@
     "gulp-ng-annotate": "^2.1.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-terser": "^2.1.0",
-    "jasmine-core": "^4.1.1",
+    "jasmine-core": "^4.2.0",
     "jquery": "^3.6.0",
     "jshint": "^2.13.4",
     "karma": "^6.3.20",
