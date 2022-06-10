@@ -37,69 +37,69 @@ const router = new VueRouter({
 })
 
 const store = new Vuex.Store({
-	state: {
-		folders: [],
-		feeds: [],
-	},
-	mutations: {
-		addFolders(state, folders) {
-			folders.forEach((it) => {
-				it.feedCount = 0
-				state.folders.push(it)
-			})
-		},
-		addFeeds(state, feeds) {
-			feeds.forEach((it) => {
-				state.feeds.push(it)
-				const folder = state.folders.find(
-					(folder) => folder.id === it.folderId
-				)
-				folder.feeds.push(it)
-				folder.feedCount += it.unreadCount
-			})
-		},
-	},
-	actions: {
-		addFolder({ commit }, { folder }) {
-			axios
-				.post(folderUrl, { folderName: folder.name })
-				.then((response) =>
-					commit('addFolders', response.data.folders)
-				)
-		},
-		deleteFolder({ commit }, { folder }) {
-			/**
-						this.getByFolderId(folderId).forEach(function (feed) {
-								promises.push(self.reversiblyDelete(feed.id, false, true));
-						});
+    state: {
+        folders: [],
+        feeds: [],
+    },
+    mutations: {
+        addFolders(state, folders) {
+            folders.forEach((it) => {
+                it.feedCount = 0
+                state.folders.push(it)
+            })
+        },
+        addFeeds(state, feeds) {
+            feeds.forEach((it) => {
+                state.feeds.push(it)
+                const folder = state.folders.find(
+                    (folder) => folder.id === it.folderId,
+                )
+                folder.feeds.push(it)
+                folder.feedCount += it.unreadCount
+            })
+        },
+    },
+    actions: {
+        addFolder({ commit }, { folder }) {
+            axios
+                .post(folderUrl, { folderName: folder.name })
+                .then((response) =>
+                    commit('addFolders', response.data.folders),
+                )
+        },
+        deleteFolder({ commit }, { folder }) {
+            /**
+                        this.getByFolderId(folderId).forEach(function (feed) {
+                                promises.push(self.reversiblyDelete(feed.id, false, true));
+                        });
 
-						this.updateUnreadCache();
-			 */
-			axios.delete(folderUrl + '/' + folder.id).then()
-		},
-		loadFolder({ commit }) {
-			console.log('loading folders')
-			axios.get(folderUrl).then((response) => {
-				commit('addFolders', response.data.folders)
-				axios
-					.get(feedUrl)
-					.then((response) =>
-						commit('addFeeds', response.data.feeds)
-					)
-			})
-		},
-		addFeed({ commit }, { feedReq }) {
-			console.log(feedReq)
-			let url = feedReq.url.trim()
-			if (!url.startsWith('http')) {
-				url = 'https://' + url
-			}
+                        this.updateUnreadCache();
+             */
+            axios.delete(folderUrl + '/' + folder.id).then()
+        },
+        loadFolder({ commit }) {
+            // console.log('loading folders')
+            axios.get(folderUrl).then((response) => {
+                commit('addFolders', response.data.folders)
+                axios
+                    .get(feedUrl)
+                    .then((response) =>
+                        commit('addFeeds', response.data.feeds),
+                    )
+            })
+        },
+        addFeed({ commit }, { feedReq }) {
+            // console.log(feedReq)
+            let url = feedReq.url.trim()
+            if (!url.startsWith('http')) {
+                url = 'https://' + url
+            }
 
-			/**
-						if (title !== undefined) {
-								title = title.trim();
-						}
-			 */
+            /**
+                        if (title !== undefined) {
+                                title = title.trim();
+                        }
+             */
 
             const feed = {
                 url,

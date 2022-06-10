@@ -13,13 +13,13 @@ import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import Sidebar from './components/Sidebar.vue'
 
 export default {
-	components: {
-		Content,
-		Sidebar,
-		AppContent,
-	},
-	created() {
-		this.$store.dispatch('loadFolder')
-	},
+    components: {
+        Content,
+        Sidebar,
+        AppContent,
+    },
+    created() {
+        this.$store.dispatch('loadFolder')
+    },
 }
 </script>
