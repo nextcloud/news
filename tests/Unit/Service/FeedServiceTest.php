@@ -302,6 +302,67 @@ class FeedServiceTest extends TestCase
         $this->assertEquals($feed->getBasicAuthPassword(), 'pass');
     }
 
+    public function testCreateInfersMissingURLProtocol()
+    {
+        $url = '//test';
+        $expectedUrl = 'https:' . $url;
+        $folderId = 10;
+        $createdFeed = new Feed();
+        $createdFeed->setUrl($url);
+        $createdFeed->setUrlHash('hsssi');
+        $createdFeed->setLink($url);
+        $createdFeed->setTitle('hehoy');
+        $createdFeed->setBasicAuthUser('user');
+        $createdFeed->setBasicAuthPassword('pass');
+        $item1 = new Item();
+        $item1->setFeedId(4);
+        $item1->setGuidHash('hi');
+        $item2 = new Item();
+        $item2->setFeedId(4);
+        $item2->setGuidHash('yo');
+        $return = [
+            $createdFeed,
+            [$item1, $item2]
+        ];
+
+        $this->mapper->expects($this->once())
+            ->method('findByURL')
+            ->with($this->uid, $url)
+            ->will($this->throwException(new DoesNotExistException('no')));
+        $this->explorer->expects($this->once())
+                       ->method('discover')
+                       ->with($url)
+                       ->will($this->returnValue([]));
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->with($expectedUrl)
+            ->will($this->returnValue($return));
+
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($createdFeed)
+            ->will(
+                $this->returnCallback(
+                    function () use ($createdFeed) {
+                        $createdFeed->setId(4);
+                        return $createdFeed;
+                    }
+                )
+            );
+
+        $feed = $this->class->create(
+            $this->uid, $url, $folderId,  false, 'title',
+            'user', 'pass'
+        );
+
+        $this->assertEquals($feed->getFolderId(), $folderId);
+        $this->assertEquals($feed->getUrl(), $expectedUrl);
+        $this->assertEquals($feed->getArticlesPerUpdate(), 2);
+        $this->assertEquals($feed->getTitle(), 'title');
+        $this->assertEquals($feed->getBasicAuthUser(), 'user');
+        $this->assertEquals($feed->getBasicAuthPassword(), 'pass');
+    }
+
     public function testCreateDiscovers()
     {
         $url = 'http://test';

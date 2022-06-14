@@ -57,6 +57,13 @@ class FeedServiceV2 extends Service
      */
     protected $explorer;
 
+
+    /**
+     * Logger Interface
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     /**
      * FeedService constructor.
      *
@@ -81,6 +88,7 @@ class FeedServiceV2 extends Service
         $this->itemService = $itemService;
         $this->explorer    = $explorer;
         $this->purifier    = $purifier;
+        $this->logger      = $logger;
     }
 
     /**
@@ -201,6 +209,20 @@ class FeedServiceV2 extends Service
             if ($feeds !== []) {
                 $feedUrl = array_shift($feeds);
             }
+        }
+
+        if (strpos($feedUrl, '//') === 0) {
+            // Feed URL starts with `//` no protocol specified, assume https
+            // Feeds providing protocall-less urls should accept both http and https,
+            // and https is prefered.
+            $this->logger->debug(
+                "Feed:{title} Url:{url} Missing protocol, assuming `https`",
+                [
+                'title' => $title,
+                'url'    => $feedUrl
+                ]
+            );
+            $feedUrl = 'https:' . $feedUrl;
         }
 
         try {
