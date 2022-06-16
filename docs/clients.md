@@ -24,6 +24,7 @@ A sync client can be used to read news and synchronize via the API.
 | [py3status](https://github.com/ultrabug/py3status/)                                                              | i3wm                         | BSD-3-Clause License | [GitHub](https://github.com/ultrabug/py3status/)                   |
 | [newsboat](https://newsboat.org/)                                                                                | Unix Terminal                | MIT License          | [GitHub](https://github.com/newsboat/newsboat)                     |
 | [Newsie](https://open-store.io/app/newsie.martinferretti)                                                        | Ubuntu Touch                 | GPL-3.0 License      | [GitLab](https://gitlab.com/ferrettim/newsie)                      |
+| [Fuoten](https://github.com/Huessenbergnetz/Fuoten)                                                              | Sailfish OS                  | GPL-3.0 License      | [Github](https://github.com/Huessenbergnetz/Fuoten)                |
 
 ## Update Clients
 
