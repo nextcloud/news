@@ -133,7 +133,7 @@ import AppNavigationNewItem from '@nextcloud/vue/dist/Components/AppNavigationNe
 // import AppNavigationCounter from '@nextcloud/vue/dist/Components/AppNavigationCounter'
 import CounterBubble from '@nextcloud/vue/dist/Components/CounterBubble'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import AddFeed from './AddFeed'
+import AddFeed from './AddFeed.vue'
 
 export default {
     components: {
