@@ -69,16 +69,15 @@ const store = new Vuex.Store({
         },
         deleteFolder({ commit }, { folder }) {
             /**
-                        this.getByFolderId(folderId).forEach(function (feed) {
-                                promises.push(self.reversiblyDelete(feed.id, false, true));
-                        });
+            this.getByFolderId(folderId).forEach(function (feed) {
+                promises.push(self.reversiblyDelete(feed.id, false, true));
+            });
 
-                        this.updateUnreadCache();
+            this.updateUnreadCache();
              */
             axios.delete(folderUrl + '/' + folder.id).then()
         },
         loadFolder({ commit }) {
-            // console.log('loading folders')
             axios.get(folderUrl).then((response) => {
                 commit('addFolders', response.data.folders)
                 axios
@@ -89,16 +88,15 @@ const store = new Vuex.Store({
             })
         },
         addFeed({ commit }, { feedReq }) {
-            // console.log(feedReq)
             let url = feedReq.url.trim()
             if (!url.startsWith('http')) {
                 url = 'https://' + url
             }
 
             /**
-                        if (title !== undefined) {
-                                title = title.trim();
-                        }
+            if (title !== undefined) {
+                title = title.trim();
+            }
              */
 
             const feed = {
