@@ -15,6 +15,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
+      // TODO: Add these back when we add unit testing
       // "mocha",
       // "chai"
     ],

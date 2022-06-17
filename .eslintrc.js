@@ -17,8 +17,7 @@ module.exports = {
     ],
     ignorePatterns: ['*.d.ts'],
     rules: {
-        'jsdoc/check-alignment': 'off',
-        'vue/html-indent': 'off',
+        'vue/html-indent': 'off', // TODO: remove this during reformat (expects tab char \t but right now code base uses spaces)
         indent: ['error', 4],
         'node/no-unpublished-import': 'off',
     },

@@ -54,8 +54,10 @@ const store = new Vuex.Store({
                 const folder = state.folders.find(
                     (folder) => folder.id === it.folderId,
                 )
-                folder.feeds.push(it)
-                folder.feedCount += it.unreadCount
+                if (folder) {
+                    folder.feeds.push(it)
+                    folder.feedCount += it.unreadCount
+                }
             })
         },
     },
@@ -72,7 +74,6 @@ const store = new Vuex.Store({
             this.getByFolderId(folderId).forEach(function (feed) {
                 promises.push(self.reversiblyDelete(feed.id, false, true));
             });
-
             this.updateUnreadCache();
              */
             axios.delete(folderUrl + '/' + folder.id).then()

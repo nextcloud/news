@@ -47,6 +47,9 @@ RCS/*
 # netbeans
 nbproject
 
+# vscode
+.vscode
+
 # phpStorm
 .idea
 

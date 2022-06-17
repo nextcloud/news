@@ -45,7 +45,7 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 class Explore extends Vue {
 
-    public exploreSites: any[] = [{ title: 'TEST2', description: 'test' }]
+    public exploreSites: any[] = [{ title: 'TEST3', description: 'test' }]
     public feed: any = {}
     public showAddFeed = false
 
