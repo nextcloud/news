@@ -40,7 +40,6 @@
   "homepage": "https://github.com/nextcloud/news",
   "dependencies": {
     "@nextcloud/axios": "^1.10.0",
-    "@nextcloud/calendar-js": "^2.0.0",
     "@nextcloud/dialogs": "^3.1.2",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/vue": "^5.3.1",
