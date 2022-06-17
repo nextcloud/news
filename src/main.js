@@ -1,10 +1,10 @@
 
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import VueRouter from 'vue-router'
-import Explore from './components/Explore'
+import Explore from './components/Explore.vue'
 import { generateUrl } from '@nextcloud/router'
-import Vuex from 'vuex'
+import Vuex, { Store } from 'vuex'
 import axios from '@nextcloud/axios'
 
 import { Tooltip } from '@nextcloud/vue'
@@ -36,7 +36,7 @@ const router = new VueRouter({
     routes,
 })
 
-const store = new Vuex.Store({
+const store = new Store({
     state: {
         folders: [],
         feeds: [],

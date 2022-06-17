@@ -17,8 +17,10 @@ module.exports = {
     ],
     ignorePatterns: ['*.d.ts'],
     rules: {
-        'vue/html-indent': 'off', // TODO: remove this during reformat (expects tab char \t but right now code base uses spaces)
+        'node/no-unpublished-import': 'off', // necessary for vue-property-decorator (not published?)
+
+        // TODO: remove these indentation rules during reformat (expects tab char \t but right now code base uses spaces)
+        'vue/html-indent': 'off',
         indent: ['error', 4],
-        'node/no-unpublished-import': 'off',
     },
 }
