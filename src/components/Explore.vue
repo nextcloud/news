@@ -31,52 +31,55 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue'
 import Button from '@nextcloud/vue/dist/Components/Button'
 import axios from '@nextcloud/axios'
 import AddFeed from './AddFeed.vue'
 import { generateUrl } from '@nextcloud/router'
-import { Component, Vue } from 'vue-property-decorator'
 
-@Component({
+const ExploreComponent = Vue.extend({
     components: {
         Button,
         AddFeed,
     },
-})
-class Explore extends Vue {
+    data: () => {
+        const exploreSites: any[] = []
+        const feed: any = {}
+        const showAddFeed = false
 
-    public exploreSites: any[] = []
-    public feed: any = {}
-    public showAddFeed = false
-
-    constructor() {
-        super()
+        return {
+            exploreSites,
+            feed,
+            showAddFeed,
+        }
+    },
+    created() {
         this.sites()
-    }
+    },
 
-    async sites() {
-        const settings = await axios.get(generateUrl('/apps/news/settings'))
+    methods: {
+        async sites() {
+            const settings = await axios.get(generateUrl('/apps/news/settings'))
 
-        const exploreUrl = settings.data.settings.exploreUrl + 'feeds.en.json'
-        const explore = await axios.get(exploreUrl)
+            const exploreUrl = settings.data.settings.exploreUrl + 'feeds.en.json'
+            const explore = await axios.get(exploreUrl)
 
-        Object.keys(explore.data).forEach((key) =>
-            explore.data[key].forEach((value: any) =>
-                this.exploreSites.push(value),
-            ),
-        )
-    }
+            Object.keys(explore.data).forEach((key) =>
+                explore.data[key].forEach((value: any) =>
+                    this.exploreSites.push(value),
+                ),
+            )
+        },
+        async subscribe(feed: any) {
+            this.feed = feed
+            this.showAddFeed = true
+        },
+        closeShowAddFeed() {
+            this.showAddFeed = false
+        },
+    },
+})
 
-    async subscribe(feed: any) {
-        this.feed = feed
-        this.showAddFeed = true
-    }
+export default ExploreComponent
 
-    closeShowAddFeed() {
-        this.showAddFeed = false
-    }
-
-}
-
-export default Explore
 </script>
