@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix export of unread and starred articles failing due to postgres error (#1839, #1249)
 
 # Releases
 ## [18.1.0] - 2022-06-10
