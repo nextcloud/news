@@ -62,7 +62,18 @@ class ItemMapperV2 extends NewsMapperV2
                 ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR);
 
         foreach ($params as $key => $value) {
-            $builder->andWhere("$key = " . $builder->createNamedParameter($value));
+            switch (gettype($value)) {
+                case 'boolean':
+                    $type = IQueryBuilder::PARAM_BOOL;
+                    break;
+                case 'integer':
+                    $type = IQueryBuilder::PARAM_INT;
+                    break;
+                default:
+                    $type = IQueryBuilder::PARAM_STR;
+                    break;
+            }
+            $builder->andWhere("$key = " . $builder->createNamedParameter($value, $type));
         }
 
         return $this->findEntities($builder);
