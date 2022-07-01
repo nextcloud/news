@@ -7,12 +7,14 @@
 	</Content>
 </template>
 
-<script>
+<script lang="ts">
+
+import Vue from 'vue'
 import Content from '@nextcloud/vue/dist/Components/Content'
 import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import Sidebar from './components/Sidebar.vue'
 
-export default {
+export default Vue.extend({
 	components: {
 		Content,
 		Sidebar,
@@ -21,5 +23,5 @@ export default {
 	created() {
 		this.$store.dispatch('loadFolder')
 	},
-}
+})
 </script>

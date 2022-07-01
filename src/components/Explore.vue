@@ -31,6 +31,7 @@
 </template>
 
 <script lang="ts">
+
 import Vue from 'vue'
 import Button from '@nextcloud/vue/dist/Components/Button'
 import axios from '@nextcloud/axios'

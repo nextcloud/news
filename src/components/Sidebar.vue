@@ -124,8 +124,9 @@
 	</AppNavigation>
 </template>
 
-<script>
+<script lang="ts">
 
+import Vue from 'vue'
 import AppNavigation from '@nextcloud/vue/dist/Components/AppNavigation'
 import AppNavigationNew from '@nextcloud/vue/dist/Components/AppNavigationNew'
 import AppNavigationItem from '@nextcloud/vue/dist/Components/AppNavigationItem'
@@ -135,7 +136,7 @@ import CounterBubble from '@nextcloud/vue/dist/Components/CounterBubble'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AddFeed from './AddFeed.vue'
 
-export default {
+export default Vue.extend({
 	components: {
 		AppNavigation,
 		AppNavigationNew,
@@ -160,14 +161,14 @@ export default {
 		// TODO?
 	},
 	methods: {
-		newFolder(value) {
+		newFolder(value: string) {
 			const folderName = value.trim()
 			const folder = { name: folderName }
 			this.$store.dispatch('addFolder', { folder })
 		},
-		deleteFolder(folder) {
+		deleteFolder(folder: any) {
 			this.$store.dispatch('deleteFolder', { folder })
-			window.location.reload(true)
+			window.location.reload()
 		},
 		showShowAddFeed() {
 			this.showAddFeed = true
@@ -175,9 +176,10 @@ export default {
 		closeShowAddFeed() {
 			this.showAddFeed = false
 		},
-		alert(msg) {
+		alert(msg: string) {
 			window.alert(msg)
 		},
 	},
-}
+})
+
 </script>
