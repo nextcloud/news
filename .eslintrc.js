@@ -16,7 +16,4 @@ module.exports = {
 		'@nextcloud',
 	],
 	ignorePatterns: ['*.d.ts'],
-	rules: {
-		'node/no-unpublished-import': 'off', // necessary for vue-property-decorator (not published?)
-	},
 }
