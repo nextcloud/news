@@ -6,6 +6,7 @@ declare module '*.vue' {
   export default Vue;
 };
 
-declare module '@nextcloud/vue/dist/Components/Button' {
+// Necessary for All Nextcloud Vue components
+declare module '@nextcloud/vue/dist/Components/*' {
 
 };
