@@ -135,6 +135,7 @@ import AppNavigationNewItem from '@nextcloud/vue/dist/Components/AppNavigationNe
 import CounterBubble from '@nextcloud/vue/dist/Components/CounterBubble'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import AddFeed from './AddFeed.vue'
+import { Folder } from '../types/Folder.vue'
 
 export default Vue.extend({
 	components: {
@@ -166,7 +167,7 @@ export default Vue.extend({
 			const folder = { name: folderName }
 			this.$store.dispatch('addFolder', { folder })
 		},
-		deleteFolder(folder: any) {
+		deleteFolder(folder: Folder) {
 			this.$store.dispatch('deleteFolder', { folder })
 			window.location.reload()
 		},

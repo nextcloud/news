@@ -111,15 +111,17 @@ import Modal from '@nextcloud/vue/dist/Components/Modal'
 import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
 import Button from '@nextcloud/vue/dist/Components/Button'
 import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
+import { Folder } from '../types/Folder.vue'
+import { Feed } from '../types/Feed.vue'
 
 type AddFeedState = {
-	folder: any;
+	folder: Folder;
 	autoDiscover: boolean;
 	createNewFolder: boolean;
 	withBasicAuth: boolean;
 
 	// from props
-	feed?: any;
+	feed?: Feed;
 };
 
 export default Vue.extend({
@@ -137,7 +139,7 @@ export default Vue.extend({
 	},
 	data: (): AddFeedState => {
 		return {
-			folder: {},
+			folder: { name: '' },
 			autoDiscover: true,
 			createNewFolder: false,
 			withBasicAuth: false,
