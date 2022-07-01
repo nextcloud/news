@@ -1,98 +1,105 @@
 {
-    "Nextcloud": [{
-        "title": "Nextcloud News",
-        "favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
-        "url": "https://nextcloud.com/news/",
-        "feed": "https://nextcloud.com/blog/feed",
-        "description": "See what is going on in and around Nextcloud",
-        "votes": 1000
-    },
-	{
-		"title": "Nextcloud Podcast",
-		"favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
-		"url": "https://nextcloud.com/podcast/",
-		"feed": "https://nextcloud.com/podcast-feed.rss",
-		"description": "Digital Sovereignty, self hosting, privacy and more",
-		"votes": 1000
-	}],
-    "News": [{
-        "title": "World Health Organization",
-        "favicon": "https://www.who.int/favicon.ico",
-        "url": "https://www.who.int/",
-        "feed": "https://www.who.int/rss-feeds/news-english.xml",
-        "description": "All news releases, notes for the media, statements issued by WHO",
-        "votes": 500
-    },
-	{
-		"title": "Wikinews",
-		"favicon": "https://en.wikinews.org/static/apple-touch/wikinews.png",
-		"url": "https://en.wikinews.org/",
-		"feed": "https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=atom&categories=Published&notcategories=No%20publish%7CArchived%7CAutoArchived%7Cdisputed&namespace=0&count=30&hourcount=124&ordermethod=categoryadd&stablepages=only",
-		"description": "Collaborative journalism news site by the Wikimedia Foundation",
-		"votes": 100
-	},
-	{
-		"title": "Privacy International",
-		"favicon": "https://privacyinternational.org/sites/default/files/fav/apple-icon-60x60.png",
-		"url": "https://privacyinternational.org/",
-		"feed": "https://privacyinternational.org/rss.xml",
-		"description": "News on the right to privacy",
-		"votes": 100
-	}],
-	"Open knowledge": [{
-        "title": "Wikipedia picture of the day",
-        "favicon": "https://www.wikipedia.org/static/apple-touch/wikipedia.png",
-        "url": "https://en.wikipedia.org/wiki/Wikipedia:Featured_pictures",
-        "feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom",
-        "description": "Some of the finest images on Wikipedia",
-        "votes": 100
-    },
-	{
-		"title": "Wikipedia article of the day",
-		"favicon": "https://www.wikipedia.org/static/apple-touch/wikipedia.png",
-		"url": "https://en.wikipedia.org/",
-		"feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom",
-		"description": "The best articles Wikipedia has to offer",
-		"votes": 100
-	},
-	{
-		"title": "Project Gutenberg",
-		"favicon": "https://www.gutenberg.org/gutenberg/favicon.ico",
-		"url": "https://gutenberg.org/",
-		"feed": "http://www.gutenberg.org/cache/epub/feeds/today.rss",
-		"description": "A library of over 60,000 free eBooks",
-		"votes": 100
-	},
-	{
-		"title": "LibriVox",
-		"favicon": "https://librivox.org/wp-content/themes/librivox/favicon.ico",
-		"url": "https://librivox.org/",
-		"feed": "https://librivox.org/rss/latest_releases",
-		"description": "Free public domain audiobooks",
-		"votes": 100
-	},
-	{
-		"title": "Public Domain Review",
-		"favicon": "https://publicdomainreview.org/favicon-96x96.png",
-		"url": "https://publicdomainreview.org/",
-		"feed": "https://publicdomainreview.org/rss.xml",
-		"description": "Curious and compelling works from the history of art, literature, and ideas",
-		"votes": 100
-	},
-	{
-		"title": "Public Library of Science",
-		"favicon": "https://plos.org/wp-content/themes/plos/favicon/apple-touch-icon.png",
-		"url": "https://plos.org/",
-		"feed": "https://journals.plos.org/plosone/feed/atom",
-		"description": "Primary research from any discipline within science and medicine",
-		"votes": 100
-	},
-	{
-		"title": "ccMixter",
-		"favicon": "http://ccmixter.org/mixter-files/images/mixter-default.gif",
-		"url": "http://ccmixter.org/",
-		"feed": "http://ccmixter.org/api/query?f=rss&tags=editorial_pick&sort=date&dir=DESC&limit=22",
-		"description": "Editor’s picks from the global music community",
-		"votes": 100
-	}]
+	"Nextcloud": [
+		{
+			"title": "Nextcloud News",
+			"favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
+			"url": "https://nextcloud.com/news/",
+			"feed": "https://nextcloud.com/blog/feed",
+			"description": "See what is going on in and around Nextcloud",
+			"votes": 1000
+		},
+		{
+			"title": "Nextcloud Podcast",
+			"favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
+			"url": "https://nextcloud.com/podcast/",
+			"feed": "https://nextcloud.com/podcast-feed.rss",
+			"description": "Digital Sovereignty, self hosting, privacy and more",
+			"votes": 1000
+		}
+	],
+	"News": [{
+
+			"title": "World Health Organization",
+			"favicon": "https://www.who.int/favicon.ico",
+			"url": "https://www.who.int/",
+			"feed": "https://www.who.int/rss-feeds/news-english.xml",
+			"description": "All news releases, notes for the media, statements issued by WHO",
+			"votes": 500
+		},
+		{
+			"title": "Wikinews",
+			"favicon": "https://en.wikinews.org/static/apple-touch/wikinews.png",
+			"url": "https://en.wikinews.org/",
+			"feed": "https://en.wikinews.org/w/index.php?title=Special:NewsFeed&feed=atom&categories=Published&notcategories=No%20publish%7CArchived%7CAutoArchived%7Cdisputed&namespace=0&count=30&hourcount=124&ordermethod=categoryadd&stablepages=only",
+			"description": "Collaborative journalism news site by the Wikimedia Foundation",
+			"votes": 100
+		},
+		{
+			"title": "Privacy International",
+			"favicon": "https://privacyinternational.org/sites/default/files/fav/apple-icon-60x60.png",
+			"url": "https://privacyinternational.org/",
+			"feed": "https://privacyinternational.org/rss.xml",
+			"description": "News on the right to privacy",
+			"votes": 100
+		}
+	],
+	"Open knowledge": [
+		{
+			"title": "Wikipedia picture of the day",
+			"favicon": "https://www.wikipedia.org/static/apple-touch/wikipedia.png",
+			"url": "https://en.wikipedia.org/wiki/Wikipedia:Featured_pictures",
+			"feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=potd&feedformat=atom",
+			"description": "Some of the finest images on Wikipedia",
+			"votes": 100
+		},
+		{
+			"title": "Wikipedia article of the day",
+			"favicon": "https://www.wikipedia.org/static/apple-touch/wikipedia.png",
+			"url": "https://en.wikipedia.org/",
+			"feed": "https://en.wikipedia.org/w/api.php?action=featuredfeed&feed=featured&feedformat=atom",
+			"description": "The best articles Wikipedia has to offer",
+			"votes": 100
+		},
+		{
+			"title": "Project Gutenberg",
+			"favicon": "https://www.gutenberg.org/gutenberg/favicon.ico",
+			"url": "https://gutenberg.org/",
+			"feed": "http://www.gutenberg.org/cache/epub/feeds/today.rss",
+			"description": "A library of over 60,000 free eBooks",
+			"votes": 100
+		},
+		{
+			"title": "LibriVox",
+			"favicon": "https://librivox.org/wp-content/themes/librivox/favicon.ico",
+			"url": "https://librivox.org/",
+			"feed": "https://librivox.org/rss/latest_releases",
+			"description": "Free public domain audiobooks",
+			"votes": 100
+		},
+		{
+			"title": "Public Domain Review",
+			"favicon": "https://publicdomainreview.org/favicon-96x96.png",
+			"url": "https://publicdomainreview.org/",
+			"feed": "https://publicdomainreview.org/rss.xml",
+			"description": "Curious and compelling works from the history of art, literature, and ideas",
+			"votes": 100
+		},
+		{
+			"title": "Public Library of Science",
+			"favicon": "https://plos.org/wp-content/themes/plos/favicon/apple-touch-icon.png",
+			"url": "https://plos.org/",
+			"feed": "https://journals.plos.org/plosone/feed/atom",
+			"description": "Primary research from any discipline within science and medicine",
+			"votes": 100
+		},
+		{
+			"title": "ccMixter",
+			"favicon": "http://ccmixter.org/mixter-files/images/mixter-default.gif",
+			"url": "http://ccmixter.org/",
+			"feed": "http://ccmixter.org/api/query?f=rss&tags=editorial_pick&sort=date&dir=DESC&limit=22",
+			"description": "Editor’s picks from the global music community",
+			"votes": 100
+		}
+	]
 }
+			
