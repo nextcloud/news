@@ -37,19 +37,8 @@ import Button from '@nextcloud/vue/dist/Components/Button'
 import axios from '@nextcloud/axios'
 import AddFeed from './AddFeed.vue'
 import { generateUrl } from '@nextcloud/router'
-
-type ExploreSite = {
-	title: string;
-	favicon: string;
-	url: string;
-	feed: string;
-	description: string;
-	votes: number;
-}
-
-type Feed = {
-	url?: string;
-};
+import { ExploreSite } from '../types/ExploreSite.vue'
+import { Feed } from '../types/Feed.vue'
 
 const ExploreComponent = Vue.extend({
 	components: {
