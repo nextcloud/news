@@ -61,17 +61,13 @@ return ['routes' => [
 // general API
 ['name' => 'api#index', 'url' => '/api', 'verb' => 'GET'],
 
-// API 2
-['name' => 'folder_api_v2#create', 'url' => '/api/v2/folders', 'verb' => 'POST'],
-['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
-['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
+['name' => 'utility_api#preflighted_cors', 'url' => '/api/{apiVersion}/{path}', 'verb' => 'OPTIONS', 'requirements' => ['apiVersion' => 'v(1-[23]|2)', 'path' => '.+']],
+['name' => 'utility_api#version', 'url' => '/api/{apiVersion}/version', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v(1-[23]|2)']],
 
 // API 1.x
-['name' => 'utility_api#version', 'url' => '/api/{apiVersion}/version', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'utility_api#status', 'url' => '/api/{apiVersion}/status', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'utility_api#before_update', 'url' => '/api/{apiVersion}/cleanup/before-update', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'utility_api#after_update', 'url' => '/api/{apiVersion}/cleanup/after-update', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
-['name' => 'utility_api#preflighted_cors', 'url' => '/api/{apiVersion}/{path}', 'verb' => 'OPTIONS', 'requirements' => ['apiVersion' => 'v1-[23]', 'path' => '.+']],
 
 // folders
 ['name' => 'folder_api#index', 'url' => '/api/{apiVersion}/folders', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
@@ -116,5 +112,10 @@ return ['routes' => [
 ['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
 ['name' => 'item_api#unstar_multiple_by_item_ids', 'url' => '/api/{apiVersion}/items/unstar/multiple', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
 ['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+
+// API 2
+['name' => 'folder_api_v2#create', 'url' => '/api/v2/folders', 'verb' => 'POST'],
+['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
+['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
 
 ]];
