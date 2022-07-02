@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - Fix export of unread and starred articles failing due to postgres error (#1839, #1249)
+- Fix broken API v1.3 (#1841)
 
 # Releases
 ## [18.1.0] - 2022-06-10
@@ -15,7 +16,7 @@ Due to #1766 some Feeds might now have items that have `null` set as author inst
 
 ## [18.1.0-beta2] - 2022-05-31
 ### Changed
--  If items of feed do not provide an author fallback to feed author (#1803) 
+-  If items of feed do not provide an author fallback to feed author (#1803)
 
 ## [18.1.0-beta1] - 2022-05-29
 ### Changed

@@ -66,80 +66,55 @@ return ['routes' => [
 ['name' => 'folder_api_v2#update', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'PATCH'],
 ['name' => 'folder_api_v2#delete', 'url' => '/api/v2/folders/{folderId}', 'verb' => 'DELETE'],
 
-// API 1.3
-['name' => 'utility_api#version', 'url' => '/api/v1-3/version', 'verb' => 'GET'],
-['name' => 'utility_api#status', 'url' => '/api/v1-3/status', 'verb' => 'GET'],
-['name' => 'utility_api#before_update', 'url' => '/api/v1-3/cleanup/before-update', 'verb' => 'GET'],
-['name' => 'utility_api#after_update', 'url' => '/api/v1-3/cleanup/after-update', 'verb' => 'GET'],
-['name' => 'utility_api#preflighted_cors', 'url' => '/api/v1-3/{path}', 'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],
+// API 1.x
+['name' => 'utility_api#version', 'url' => '/api/{apiVersion}/version', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'utility_api#status', 'url' => '/api/{apiVersion}/status', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'utility_api#before_update', 'url' => '/api/{apiVersion}/cleanup/before-update', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'utility_api#after_update', 'url' => '/api/{apiVersion}/cleanup/after-update', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'utility_api#preflighted_cors', 'url' => '/api/{apiVersion}/{path}', 'verb' => 'OPTIONS', 'requirements' => ['apiVersion' => 'v1-[23]', 'path' => '.+']],
 
 // folders
-['name' => 'folder_api#index', 'url' => '/api/v1-3/folders', 'verb' => 'GET'],
-['name' => 'folder_api#create', 'url' => '/api/v1-3/folders', 'verb' => 'POST'],
-['name' => 'folder_api#update', 'url' => '/api/v1-3/folders/{folderId}', 'verb' => 'PUT'],
-['name' => 'folder_api#delete', 'url' => '/api/v1-3/folders/{folderId}', 'verb' => 'DELETE'],
-['name' => 'folder_api#read', 'url' => '/api/v1-3/folders/{folderId}/read', 'verb' => 'POST'],
+['name' => 'folder_api#index', 'url' => '/api/{apiVersion}/folders', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'folder_api#create', 'url' => '/api/{apiVersion}/folders', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'folder_api#update', 'url' => '/api/{apiVersion}/folders/{folderId}', 'verb' => 'PUT', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'folder_api#delete', 'url' => '/api/{apiVersion}/folders/{folderId}', 'verb' => 'DELETE', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'folder_api#read', 'url' => '/api/{apiVersion}/folders/{folderId}/read', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'folder_api#read', 'url' => '/api/v1-2/folders/{folderId}/read', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
 
 // feeds
-['name' => 'feed_api#index', 'url' => '/api/v1-3/feeds', 'verb' => 'GET'],
-['name' => 'feed_api#create', 'url' => '/api/v1-3/feeds', 'verb' => 'POST'],
-['name' => 'feed_api#update', 'url' => '/api/v1-3/feeds/{feedId}', 'verb' => 'PUT'],
-['name' => 'feed_api#delete', 'url' => '/api/v1-3/feeds/{feedId}', 'verb' => 'DELETE'],
-['name' => 'feed_api#from_all_users', 'url' => '/api/v1-3/feeds/all', 'verb' => 'GET'],
-['name' => 'feed_api#move', 'url' => '/api/v1-3/feeds/{feedId}/move', 'verb' => 'POST'],
-['name' => 'feed_api#rename', 'url' => '/api/v1-3/feeds/{feedId}/rename', 'verb' => 'POST'],
-['name' => 'feed_api#read', 'url' => '/api/v1-3/feeds/{feedId}/read', 'verb' => 'POST'],
-['name' => 'feed_api#update', 'url' => '/api/v1-3/feeds/update', 'verb' => 'GET'],
+['name' => 'feed_api#index', 'url' => '/api/{apiVersion}/feeds', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'feed_api#create', 'url' => '/api/{apiVersion}/feeds', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'feed_api#update', 'url' => '/api/{apiVersion}/feeds/{feedId}', 'verb' => 'PUT', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'feed_api#delete', 'url' => '/api/{apiVersion}/feeds/{feedId}', 'verb' => 'DELETE', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'feed_api#from_all_users', 'url' => '/api/{apiVersion}/feeds/all', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'feed_api#move', 'url' => '/api/{apiVersion}/feeds/{feedId}/move', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'feed_api#move', 'url' => '/api/v1-2/feeds/{feedId}/move', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'feed_api#rename', 'url' => '/api/{apiVersion}/feeds/{feedId}/rename', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'feed_api#rename', 'url' => '/api/v1-2/feeds/{feedId}/rename', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'feed_api#read', 'url' => '/api/{apiVersion}/feeds/{feedId}/read', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'feed_api#read', 'url' => '/api/v1-2/feeds/{feedId}/read', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'feed_api#update', 'url' => '/api/{apiVersion}/feeds/update', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
 
 // items
-['name' => 'item_api#index', 'url' => '/api/v1-3/items', 'verb' => 'GET'],
-['name' => 'item_api#updated', 'url' => '/api/v1-3/items/updated', 'verb' => 'GET'],
-['name' => 'item_api#read', 'url' => '/api/v1-3/items/{itemId}/read', 'verb' => 'POST'],
-['name' => 'item_api#unread', 'url' => '/api/v1-3/items/{itemId}/unread', 'verb' => 'POST'],
-['name' => 'item_api#read_all', 'url' => '/api/v1-3/items/read', 'verb' => 'POST'],
-['name' => 'item_api#read_multiple_by_ids', 'url' => '/api/v1-3/items/read/multiple', 'verb' => 'POST'],
-['name' => 'item_api#unread_multiple_by_ids', 'url' => '/api/v1-3/items/unread/multiple', 'verb' => 'POST'],
-['name' => 'item_api#star_by_item_id', 'url' => '/api/v1-3/items/{itemId}/star', 'verb' => 'POST'],
-['name' => 'item_api#unstar_by_item_id', 'url' => '/api/v1-3/items/{itemId}/unstar', 'verb' => 'POST'],
-['name' => 'item_api#star_multiple_by_item_ids', 'url' => '/api/v1-3/items/star/multiple', 'verb' => 'POST'],
-['name' => 'item_api#unstar_multiple_by_item_ids', 'url' => '/api/v1-3/items/unstar/multiple', 'verb' => 'POST'],
-
-// API 1.2
-['name' => 'utility_api#version', 'url' => '/api/v1-2/version', 'verb' => 'GET'],
-['name' => 'utility_api#status', 'url' => '/api/v1-2/status', 'verb' => 'GET'],
-['name' => 'utility_api#before_update', 'url' => '/api/v1-2/cleanup/before-update', 'verb' => 'GET'],
-['name' => 'utility_api#after_update', 'url' => '/api/v1-2/cleanup/after-update', 'verb' => 'GET'],
-['name' => 'utility_api#preflighted_cors', 'url' => '/api/v1-2/{path}', 'verb' => 'OPTIONS', 'requirements' => ['path' => '.+']],
-
-// folders
-['name' => 'folder_api#index', 'url' => '/api/v1-2/folders', 'verb' => 'GET'],
-['name' => 'folder_api#create', 'url' => '/api/v1-2/folders', 'verb' => 'POST'],
-['name' => 'folder_api#update', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'PUT'],
-['name' => 'folder_api#delete', 'url' => '/api/v1-2/folders/{folderId}', 'verb' => 'DELETE'],
-['name' => 'folder_api#read', 'url' => '/api/v1-2/folders/{folderId}/read', 'verb' => 'PUT'], // FIXME: POST would be more correct
-
-// feeds
-['name' => 'feed_api#index', 'url' => '/api/v1-2/feeds', 'verb' => 'GET'],
-['name' => 'feed_api#create', 'url' => '/api/v1-2/feeds', 'verb' => 'POST'],
-['name' => 'feed_api#update', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'PUT'],
-['name' => 'feed_api#delete', 'url' => '/api/v1-2/feeds/{feedId}', 'verb' => 'DELETE'],
-['name' => 'feed_api#from_all_users', 'url' => '/api/v1-2/feeds/all', 'verb' => 'GET'],
-['name' => 'feed_api#move', 'url' => '/api/v1-2/feeds/{feedId}/move', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'feed_api#rename', 'url' => '/api/v1-2/feeds/{feedId}/rename', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'feed_api#read', 'url' => '/api/v1-2/feeds/{feedId}/read', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'feed_api#update', 'url' => '/api/v1-2/feeds/update', 'verb' => 'GET'],
-
-// items
-['name' => 'item_api#index', 'url' => '/api/v1-2/items', 'verb' => 'GET'],
-['name' => 'item_api#updated', 'url' => '/api/v1-2/items/updated', 'verb' => 'GET'],
-['name' => 'item_api#read', 'url' => '/api/v1-2/items/{itemId}/read', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#unread', 'url' => '/api/v1-2/items/{itemId}/unread', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#read_all', 'url' => '/api/v1-2/items/read', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#read_multiple', 'url' => '/api/v1-2/items/read/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#unread_multiple', 'url' => '/api/v1-2/items/unread/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#star', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/star', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#unstar', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
-['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // FIXME: POST would be more correct
+['name' => 'item_api#index', 'url' => '/api/{apiVersion}/items', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'item_api#updated', 'url' => '/api/{apiVersion}/items/updated', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+['name' => 'item_api#read', 'url' => '/api/{apiVersion}/items/{itemId}/read', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#read', 'url' => '/api/v1-2/items/{itemId}/read', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#unread', 'url' => '/api/{apiVersion}/items/{itemId}/unread', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#unread', 'url' => '/api/v1-2/items/{itemId}/unread', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#read_all', 'url' => '/api/{apiVersion}/items/read', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#read_all', 'url' => '/api/v1-2/items/read', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#read_multiple_by_ids', 'url' => '/api/{apiVersion}/items/read/multiple', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#read_multiple', 'url' => '/api/v1-2/items/read/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#unread_multiple_by_ids', 'url' => '/api/{apiVersion}/items/unread/multiple', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#unread_multiple', 'url' => '/api/v1-2/items/unread/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#star_by_item_id', 'url' => '/api/{apiVersion}/items/{itemId}/star', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#star', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/star', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#unstar_by_item_id', 'url' => '/api/{apiVersion}/items/{itemId}/unstar', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#unstar', 'url' => '/api/v1-2/items/{feedId}/{guidHash}/unstar', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#star_multiple_by_item_ids', 'url' => '/api/{apiVersion}/items/star/multiple', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+['name' => 'item_api#unstar_multiple_by_item_ids', 'url' => '/api/{apiVersion}/items/unstar/multiple', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
 
 ]];
