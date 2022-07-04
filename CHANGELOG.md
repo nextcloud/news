@@ -7,10 +7,13 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+
+# Releases
+## [18.1.1-beta1] - 2022-07-04
+### Fixed
 - Fix export of unread and starred articles failing due to postgres error (#1839, #1249)
 - Fix broken API v1.3 (#1841)
 
-# Releases
 ## [18.1.0] - 2022-06-10
 Due to #1766 some Feeds might now have items that have `null` set as author instead of `""` clients need to handle this.
 
