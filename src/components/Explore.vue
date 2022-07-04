@@ -2,15 +2,15 @@
     <div id="explore">
         <AddFeed v-if="showAddFeed" :feed="feed" @close="closeShowAddFeed()" />
         <div class="grid-container">
-            <div v-for="entry in explorableSites"
+            <div v-for="entry in exploreSites"
                 :key="entry.title"
                 class="explore-feed grid-item">
                 <h2 v-if="entry.favicon"
                     class="explore-title"
                     :style="{ backgroundImage: 'url(' + entry.favicon + ')' }">
-                    <a target="_blank" rel="noreferrer" :href="entry.url">{{
-                        entry.title
-                    }}</a>
+                    <a target="_blank" rel="noreferrer" :href="entry.url">
+                        {{ entry.title }}
+                    </a>
                 </h2>
                 <h2 v-if="!entry.favicon" class="icon-rss explore-title">
                     {{ entry.title }}
@@ -30,58 +30,56 @@
     </div>
 </template>
 
-<script>
-/* eslint-disable vue/require-prop-type-constructor */
-
-// import Modal from '@nextcloud/vue/dist/Components/Modal'
+<script lang="ts">
+import Vue from 'vue'
 import Button from '@nextcloud/vue/dist/Components/Button'
 import axios from '@nextcloud/axios'
-import AddFeed from './AddFeed'
+import AddFeed from './AddFeed.vue'
 import { generateUrl } from '@nextcloud/router'
 
-export default {
+const ExploreComponent = Vue.extend({
     components: {
-        // Modal,
         Button,
         AddFeed,
     },
-    props: {
-        feed: '',
-    },
-    data() {
+    data: () => {
+        const exploreSites: any[] = []
+        const feed: any = {}
+        const showAddFeed = false
+
         return {
-            explorableSites: [],
-            showAddFeed: false,
+            exploreSites,
+            feed,
+            showAddFeed,
         }
     },
     created() {
         this.sites()
     },
+
     methods: {
         async sites() {
-            const settings = await axios.get(
-                generateUrl('/apps/news/settings')
-            )
-            // console.log(settings.data)
-            // console.log(settings.data.settings.exploreUrl)
+            const settings = await axios.get(generateUrl('/apps/news/settings'))
 
-            const exploreUrl
-                = settings.data.settings.exploreUrl + 'feeds.en.json'
+            const exploreUrl = settings.data.settings.exploreUrl + 'feeds.en.json'
             const explore = await axios.get(exploreUrl)
 
             Object.keys(explore.data).forEach((key) =>
-                explore.data[key].forEach((value) =>
-                    this.explorableSites.push(value)
-                )
+                explore.data[key].forEach((value: any) =>
+                    this.exploreSites.push(value),
+                ),
             )
         },
-        async subscribe(feed) {
-            // this.feed = feed
+        async subscribe(feed: any) {
+            this.feed = feed
             this.showAddFeed = true
         },
         closeShowAddFeed() {
             this.showAddFeed = false
         },
     },
-}
+})
+
+export default ExploreComponent
+
 </script>

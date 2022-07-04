@@ -6,6 +6,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [19.x.x]
 ### Changed
 - Vue Rewrite
+  - Add Typescript 
 
 ## [18.x.x]
 ### Changed

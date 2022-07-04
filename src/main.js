@@ -1,10 +1,10 @@
 
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import VueRouter from 'vue-router'
-import Explore from './components/Explore'
+import Explore from './components/Explore.vue'
 import { generateUrl } from '@nextcloud/router'
-import Vuex from 'vuex'
+import Vuex, { Store } from 'vuex'
 import axios from '@nextcloud/axios'
 
 import { Tooltip } from '@nextcloud/vue'
@@ -36,7 +36,7 @@ const router = new VueRouter({
     routes,
 })
 
-const store = new Vuex.Store({
+const store = new Store({
     state: {
         folders: [],
         feeds: [],
@@ -52,10 +52,12 @@ const store = new Vuex.Store({
             feeds.forEach((it) => {
                 state.feeds.push(it)
                 const folder = state.folders.find(
-                    (folder) => folder.id === it.folderId
+                    (folder) => folder.id === it.folderId,
                 )
-                folder.feeds.push(it)
-                folder.feedCount += it.unreadCount
+                if (folder) {
+                    folder.feeds.push(it)
+                    folder.feedCount += it.unreadCount
+                }
             })
         },
     },
@@ -64,7 +66,7 @@ const store = new Vuex.Store({
             axios
                 .post(folderUrl, { folderName: folder.name })
                 .then((response) =>
-                    commit('addFolders', response.data.folders)
+                    commit('addFolders', response.data.folders),
                 )
         },
         deleteFolder({ commit }, { folder }) {
@@ -72,7 +74,6 @@ const store = new Vuex.Store({
             this.getByFolderId(folderId).forEach(function (feed) {
                 promises.push(self.reversiblyDelete(feed.id, false, true));
             });
-
             this.updateUnreadCache();
              */
             axios.delete(folderUrl + '/' + folder.id).then()
@@ -83,7 +84,7 @@ const store = new Vuex.Store({
                 axios
                     .get(feedUrl)
                     .then((response) =>
-                        commit('addFeeds', response.data.feeds)
+                        commit('addFeeds', response.data.feeds),
                     )
             })
         },

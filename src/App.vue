@@ -21,6 +21,5 @@ export default {
     created() {
         this.$store.dispatch('loadFolder')
     },
-
 }
 </script>
