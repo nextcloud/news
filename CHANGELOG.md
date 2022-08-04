@@ -5,7 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
-
+- Change autodiscover to only run after fetching the given url has failed (#1860)
 ### Fixed
 
 # Releases
