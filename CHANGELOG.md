@@ -5,10 +5,14 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
-- Change autodiscover to only run after fetching the given url has failed (#1860)
+
 ### Fixed
 
 # Releases
+## [18.1.1] - 2022-08-12
+### Changed
+- Change autodiscover to only run after fetching the given url has failed (#1860)
+
 ## [18.1.1-beta1] - 2022-07-04
 ### Fixed
 - Fix export of unread and starred articles failing due to postgres error (#1839, #1249)
