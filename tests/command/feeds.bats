@@ -9,6 +9,7 @@ teardown() {
   for ID in $ID_LIST; do
     ./occ news:feed:delete "$user" "$ID"
   done
+  sleep 1
 }
 
 @test "[$TESTSUITE] Create new" {

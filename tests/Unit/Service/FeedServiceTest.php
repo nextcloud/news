@@ -173,10 +173,9 @@ class FeedServiceTest extends TestCase
                          ->with($this->uid, $url)
                          ->willReturn(new Feed());
 
-        $this->fetcher->expects($this->never())
+        $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
-            ->with($url)
-            ->will($this->throwException($ex));
+            ->with($url);
 
         $this->expectException(ServiceConflictException::class);
         $this->expectExceptionMessage('Feed with this URL exists');
@@ -327,7 +326,7 @@ class FeedServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('findByURL')
-            ->with($this->uid, $url)
+            ->with($this->uid, 'http://discover.test')
             ->will($this->throwException(new DoesNotExistException('no')));
         $this->explorer->expects($this->once())
                        ->method('discover')
@@ -443,7 +442,7 @@ class FeedServiceTest extends TestCase
             ->with($url)
             ->will($this->throwException(new ReadErrorException('ERROR')));
 
-        $this->mapper->expects($this->once())
+        $this->mapper->expects($this->never())
             ->method('findByURL')
             ->with($this->uid, $url)
             ->will($this->throwException(new DoesNotExistException('no')));
