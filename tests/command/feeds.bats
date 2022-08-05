@@ -12,7 +12,7 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Create new" {
-  run "./occ" news:feed:add "$user" "$NC_FEED"
+  run "./occ" news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
   [ "$status" -eq 0 ]
 
   if ! echo "$output" | grep '"ID":'; then
@@ -23,7 +23,7 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Add feed without GUIDs" {
-  run ./occ news:feed:add "$user" "$NO_GUID_FEED"
+  run ./occ news:feed:add "$user" "$NO_GUID_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
   [ "$status" -ne 0 ]
 
   if ! echo "$output" | grep "No parser can handle this stream"; then
