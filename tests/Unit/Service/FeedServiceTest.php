@@ -209,14 +209,15 @@ class FeedServiceTest extends TestCase
             ->method('findByURL')
             ->with($this->uid, $url)
             ->will($this->throwException(new DoesNotExistException('no')));
-        $this->explorer->expects($this->once())
-                       ->method('discover')
-                       ->with($url)
-                       ->will($this->returnValue([]));
+        $this->explorer->expects($this->never())
+            ->method('discover')
+            ->with($url)
+            ->will($this->returnValue([]));
         $this->fetcher->expects($this->once())
             ->method('fetch')
             ->with($url)
             ->will($this->returnValue($return));
+
 
         $this->mapper->expects($this->once())
             ->method('insert')
@@ -268,7 +269,7 @@ class FeedServiceTest extends TestCase
             ->method('findByURL')
             ->with($this->uid, $url)
             ->will($this->throwException(new DoesNotExistException('no')));
-        $this->explorer->expects($this->once())
+        $this->explorer->expects($this->never())
                        ->method('discover')
                        ->with($url)
                        ->will($this->returnValue([]));
@@ -332,10 +333,13 @@ class FeedServiceTest extends TestCase
                        ->method('discover')
                        ->with($url)
                        ->will($this->returnValue(['http://discover.test']));
-        $this->fetcher->expects($this->once())
+        $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
-            ->with('http://discover.test')
-            ->will($this->returnValue($return));
+            ->withConsecutive(
+                ['http://test'],
+                ['http://discover.test']
+            )
+            ->willReturnOnConsecutiveCalls($this->throwException(new ReadErrorException('There is no feed')), $this->returnValue($return));
 
         $this->mapper->expects($this->once())
             ->method('insert')
@@ -434,7 +438,7 @@ class FeedServiceTest extends TestCase
         $url = 'http://test';
         $folderId = 10;
 
-        $this->fetcher->expects($this->once())
+        $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
             ->with($url)
             ->will($this->throwException(new ReadErrorException('ERROR')));

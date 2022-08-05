@@ -204,21 +204,17 @@ class FeedServiceV2 extends Service
             list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
-            # the url did not lead to a valid feed, try autodiscover
             if ($full_discover === false) {
-throw new ServiceNotFoundException($ex->getMessage());
-}
-                $this->logger->warning("No valid feed found at URL, attempting auto discovery");
-                $feeds = $this->explorer->discover($feedUrl);
-                if ($feeds !== []) {
-                    $feedUrl = array_shift($feeds);
-                }
-                try {
-                    list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
-                } catch (ReadErrorException $ex) {
-                    throw new ServiceNotFoundException($ex->getMessage());
-                }
-            } else {
+                throw new ServiceNotFoundException($ex->getMessage());
+            }
+            $this->logger->warning("No valid feed found at URL, attempting auto discovery");
+            $feeds = $this->explorer->discover($feedUrl);
+            if ($feeds !== []) {
+                $feedUrl = array_shift($feeds);
+            }
+            try {
+                list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
+            } catch (ReadErrorException $ex) {
                 throw new ServiceNotFoundException($ex->getMessage());
             }
         }
