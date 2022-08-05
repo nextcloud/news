@@ -192,10 +192,6 @@ class FeedServiceV2 extends Service
         ?string $password = null,
         bool $full_discover = true
     ): Entity {
-        if ($this->existsForUser($userId, $feedUrl)) {
-            throw new ServiceConflictException('Feed with this URL exists');
-        }
-
         try {
             /**
              * @var Feed   $feed
@@ -219,6 +215,10 @@ class FeedServiceV2 extends Service
             }
         }
 
+        if ($this->existsForUser($userId, $feedUrl)) {
+            throw new ServiceConflictException('Feed with this URL exists');
+        }
+        
         if ($feed === null) {
             throw new ServiceNotFoundException('Failed to fetch feed');
         }
