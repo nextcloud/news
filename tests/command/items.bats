@@ -11,10 +11,11 @@ setup() {
   ID=$(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*')
 }
 
-teardown() {
-  if [ -n "$ID" ]; then
+teardown(){
+  ID_LIST=($(./occ news:feed:list 'admin' | grep -Po '"id": \K([0-9]+)' | tr '\n' ' '))
+  for ID in $ID_LIST; do
     ./occ news:feed:delete "$user" "$ID"
-  fi
+  done
 }
 
 @test "[$TESTSUITE] List 200 items in feed" {

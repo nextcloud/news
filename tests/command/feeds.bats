@@ -5,10 +5,10 @@ load "helpers/settings"
 TESTSUITE="Feeds"
 
 teardown() {
-  ID=$(./occ news:feed:list 'admin' | grep "Something-${BATS_SUITE_TEST_NUMBER}" -2  | head -1 | grep -oE '[0-9]*')
-  if [ -n "$ID" ]; then
+  ID_LIST=($(./occ news:feed:list 'admin' | grep -Po '"id": \K([0-9]+)' | tr '\n' ' '))
+  for ID in $ID_LIST; do
     ./occ news:feed:delete "$user" "$ID"
-  fi
+  done
 }
 
 @test "[$TESTSUITE] Create new" {
