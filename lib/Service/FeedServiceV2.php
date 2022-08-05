@@ -205,7 +205,9 @@ class FeedServiceV2 extends Service
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
             # the url did not lead to a valid feed, try autodiscover
-            if ($full_discover) {
+            if ($full_discover === false) {
+throw new ServiceNotFoundException($ex->getMessage());
+}
                 $this->logger->warning("No valid feed found at URL, attempting auto discovery");
                 $feeds = $this->explorer->discover($feedUrl);
                 if ($feeds !== []) {
