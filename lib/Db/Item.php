@@ -170,16 +170,28 @@ class Item extends Entity implements IAPI, \JsonSerializable
             ? implode('', $this->getCategories())
             : '';
 
-        $this->setSearchIndex(
-            mb_strtolower(
-                html_entity_decode(strip_tags($this->getBody())) .
-                html_entity_decode($this->getAuthor()) .
-                html_entity_decode($this->getTitle()) .
-                html_entity_decode($categoriesString) .
-                $this->getUrl(),
-                'UTF-8'
-            )
-        );
+        if (!is_null($this->getBody())) {
+            $stripedBody = strip_tags($this->getBody());
+        } else {
+            $stripedBody = "";
+        }
+        
+        $input_list = array($stripedBody, $this->getAuthor(), $this->getTitle(), $categoriesString);
+
+        $search_string = "";
+
+        foreach ($input_list as $value) {
+            if (is_null($value)){
+                $search_string .= "";
+            } else {
+                html_entity_decode($value);
+            }
+        }
+
+        $search_string .= $this->getUrl();
+        $search_string .= 'UTF-8';
+
+        $this->setSearchIndex(mb_strtolower($search_string));
         $this->setFingerprint($this->computeFingerprint());
         $this->setContentHash($this->computeContentHash());
     }
