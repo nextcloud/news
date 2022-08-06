@@ -11,7 +11,7 @@ TESTSUITE="Feeds"
 teardown() {
   ID_LIST=($(./occ news:feed:list 'admin' | grep -Po '"id": \K([0-9]+)' | tr '\n' ' '))
   for ID in $ID_LIST; do
-    ./occ news:feed:delete "$user" "$ID"
+    ./occ news:feed:delete "$user" "$ID" -v
   done
 }
 
@@ -50,10 +50,9 @@ teardown() {
 }
 
 @test "[$TESTSUITE] List all items" {
-  ./occ news:feed:add "$user" "https://github.com/nextcloud/news/releases.atom" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ID=$(./occ news:feed:add "$user" "https://github.com/nextcloud/news/releases.atom" --title "Something-${BATS_SUITE_TEST_NUMBER}" | grep -Po '"id": \K([0-9]+)')
 
   TAG=$(curl --silent "https://api.github.com/repos/nextcloud/news/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-  ID=$(./occ news:feed:list 'admin' | grep 'github\.com' -1  | head -1 | grep -oE '[0-9]*')
 
   run ./occ news:item:list-feed "$user" "$ID" --limit 200
   assert_success
@@ -62,27 +61,23 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Read all" {
-  run ./occ news:feed:list "$user"
-  assert_output "[]"
-  ID=$(./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"| grep "Something-${BATS_SUITE_TEST_NUMBER}" -2  | head -1 | grep -oE '[0-9]*')
+  ID=$(./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}" | grep -Po '"id": \K([0-9]+)')
 
   run ./occ news:feed:read "$user" "$ID" -v
 
   assert_output --partial "items as read"
+  
+  # Needed for some reason because the teardown doesn't work after this step.
+  run ./occ news:feed:delete "$user" "$ID" -v
+  assert_success
 }
 
 @test "[$TESTSUITE] Delete one" {
-  run ./occ news:feed:list "$user"
-  assert_output "[]"
-
-  ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ID=$(./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}" | grep -Po '"id": \K([0-9]+)')
 
   run ./occ news:feed:list "$user"
   assert_success
 
-  echo "$output" | grep "Something-${BATS_SUITE_TEST_NUMBER}"
-
-  ID=$(./occ news:feed:list 'admin' | grep "Something-${BATS_SUITE_TEST_NUMBER}" -2  | head -1 | grep -oE '[0-9]*')
   run ./occ news:feed:delete "$user" "$ID"
   assert_success
 }
