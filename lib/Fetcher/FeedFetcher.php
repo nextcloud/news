@@ -354,9 +354,14 @@ class FeedFetcher implements IFeedFetcher
      */
     protected function getFavicon(FeedInterface $feed, string $url)
     {
+        $favicon = null;
         // trim the string because authors do funny things
-        $favicon = trim($feed->getLogo());
-
+        $feed_logo = $feed->getLogo();
+        
+        if (!is_null($feed_logo)) {
+            $favicon = trim($feed_logo);
+        }
+        
         ini_set('user_agent', 'NextCloud-News/1.0');
 
         $base_url = new Net_URL2($url);

@@ -170,10 +170,9 @@ class Item extends Entity implements IAPI, \JsonSerializable
             ? implode('', $this->getCategories())
             : '';
 
+        $stripedBody = "";
         if (!is_null($this->getBody())) {
             $stripedBody = strip_tags($this->getBody());
-        } else {
-            $stripedBody = "";
         }
         
         $input_list = array($stripedBody, $this->getAuthor(), $this->getTitle(), $categoriesString);
@@ -181,17 +180,14 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $search_string = "";
 
         foreach ($input_list as $value) {
-            if (is_null($value)) {
-                $search_string .= "";
-            } else {
+            if (!is_null($value)) {
                 $search_string .= html_entity_decode($value);
             }
         }
 
         $search_string .= $this->getUrl();
-        $search_string .= 'UTF-8';
 
-        $this->setSearchIndex(mb_strtolower($search_string));
+        $this->setSearchIndex(mb_strtolower($search_string, 'UTF-8'));
         $this->setFingerprint($this->computeFingerprint());
         $this->setContentHash($this->computeContentHash());
     }
@@ -358,6 +354,9 @@ class Item extends Entity implements IAPI, \JsonSerializable
      */
     public function getCategories(): ?array
     {
+        if (is_null($this->getCategoriesJson())) {
+            return null;
+        }
         return json_decode($this->getCategoriesJson());
     }
 
@@ -606,6 +605,10 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function setUrl(string $url = null): self
     {
+        if (is_null($url)) {
+            return $this;
+        }
+        
         $url = trim($url);
         if ((strpos($url, 'http') === 0 || strpos($url, 'magnet') === 0)
             && $this->url !== $url
@@ -613,7 +616,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             $this->url = $url;
             $this->markFieldUpdated('url');
         }
-
+    
         return $this;
     }
 
