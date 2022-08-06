@@ -184,7 +184,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             if (is_null($value)) {
                 $search_string .= "";
             } else {
-                html_entity_decode($value);
+                $search_string .= html_entity_decode($value);
             }
         }
 

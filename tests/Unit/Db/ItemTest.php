@@ -317,6 +317,18 @@ class ItemTest extends TestCase
         $this->assertEquals($expected, $item->getSearchIndex());
     }
 
+    public function testSearchIndexNull()
+    {
+        $item = new Item();
+        $item->setBody('<a>somEth&auml;ng</a>');
+        $item->setUrl('http://link');
+        $item->setAuthor(null);
+        $item->setTitle('<a>t&auml;tle</a>');
+        $item->setCategories(['food', 'travel']);
+        $item->generateSearchIndex();
+        $expected = 'somethängtätlefoodtravelhttp://link';
+        $this->assertEquals($expected, $item->getSearchIndex());
+    }
 
     public function testFromImport()
     {
