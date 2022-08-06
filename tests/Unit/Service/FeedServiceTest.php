@@ -165,20 +165,14 @@ class FeedServiceTest extends TestCase
 
     public function testCreateDoesNotFindFeed()
     {
-        $ex = new ReadErrorException('hi');
         $url = 'test';
-
-        $this->mapper->expects($this->once())
-                         ->method('findByURL')
-                         ->with($this->uid, $url)
-                         ->willReturn(new Feed());
 
         $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
-            ->with($url);
+            ->with($url)
+            ->will($this->throwException(new ReadErrorException('There is no feed')));
 
-        $this->expectException(ServiceConflictException::class);
-        $this->expectExceptionMessage('Feed with this URL exists');
+        $this->expectException(ServiceNotFoundException::class);
         $this->class->create($this->uid, $url, 1);
     }
 
