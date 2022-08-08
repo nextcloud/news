@@ -192,17 +192,6 @@ class FeedServiceV2 extends Service
         ?string $password = null,
         bool $full_discover = true
     ): Entity {
-        if ($this->existsForUser($userId, $feedUrl)) {
-            throw new ServiceConflictException('Feed with this URL exists');
-        }
-
-        if ($full_discover) {
-            $feeds = $this->explorer->discover($feedUrl);
-            if ($feeds !== []) {
-                $feedUrl = array_shift($feeds);
-            }
-        }
-
         try {
             /**
              * @var Feed   $feed
@@ -211,9 +200,25 @@ class FeedServiceV2 extends Service
             list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
-            throw new ServiceNotFoundException($ex->getMessage());
+            if ($full_discover === false) {
+                throw new ServiceNotFoundException($ex->getMessage());
+            }
+            $this->logger->warning("No valid feed found at URL, attempting auto discovery");
+            $feeds = $this->explorer->discover($feedUrl);
+            if ($feeds !== []) {
+                $feedUrl = array_shift($feeds);
+            }
+            try {
+                list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
+            } catch (ReadErrorException $ex) {
+                throw new ServiceNotFoundException($ex->getMessage());
+            }
         }
 
+        if ($this->existsForUser($userId, $feedUrl)) {
+            throw new ServiceConflictException('Feed with this URL exists');
+        }
+        
         if ($feed === null) {
             throw new ServiceNotFoundException('Failed to fetch feed');
         }
