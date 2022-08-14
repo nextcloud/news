@@ -4,7 +4,7 @@ OC.L10N.register(
     "Request failed, network connection unavailable!" : "İstek karşılanamadı. Ağ bağlantısı kullanılamıyor!",
     "Request unauthorized. Are you logged in?" : "İstek için yeterli izin yok. Oturumunuz açık mı?",
     "Request forbidden. Are you an admin?" : "İstek reddedildi. Bir yönetici misiniz?",
-    "Token expired or app not enabled! Reload the page!" : "Kodun süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
+    "Token expired or app not enabled! Reload the page!" : "Kodun geçerlilik süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucuda bir sorun çıktı! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "İstek karşılanamadı. Nextcloud şu anda bakım kipinde!",
     "News feeds" : "Haber akışları",
