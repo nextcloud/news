@@ -36,7 +36,7 @@ class Version150005Date20201009192341 extends SimpleMigrationStep {
         $qb->update('news_feeds')
             ->set('folder_id', $qb->createPositionalParameter(null, IQueryBuilder::PARAM_NULL))
             ->where('folder_id = 0')
-            ->execute();
+            ->executeStatement();
 
         $feed_name = $this->connection->getQueryBuilder()->getTableName('news_feeds');
         $folder_name = $this->connection->getQueryBuilder()->getTableName('news_folders');
