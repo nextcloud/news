@@ -497,14 +497,14 @@ class ItemMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(2))
+        $selectbuilder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['items.id <= :maxItemId'])
+            ->withConsecutive(['feeds.user_id = :userId'], ['items.id <= :maxItemId'], ['items.unread != :unread'])
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(2))
+        $selectbuilder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'admin'], ['maxItemId', 4])
+            ->withConsecutive(['userId', 'admin'], ['maxItemId', 4], ['unread', false])
             ->will($this->returnSelf());
 
         $selectbuilder->expects($this->exactly(1))
@@ -542,14 +542,14 @@ class ItemMapperTest extends MapperTestUtility
             ->with('unread', 'unread')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(1))
             ->method('andWhere')
-            ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
+            ->withConsecutive(['id IN (:idList)'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(1))
             ->method('setParameter')
-            ->withConsecutive(['unread', false], ['idList', [1, 2]])
+            ->withConsecutive(['idList', [1, 2]])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
