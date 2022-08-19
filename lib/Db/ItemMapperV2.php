@@ -276,8 +276,10 @@ class ItemMapperV2 extends NewsMapperV2
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('items.id <= :maxItemId')
+            ->andWhere('items.unread != :unread')
             ->setParameter('userId', $userId)
-            ->setParameter('maxItemId', $maxItemId);
+            ->setParameter('maxItemId', $maxItemId)
+            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL);
 
         $idList = array_map(function ($value): int {
             return intval($value['id']);
@@ -287,8 +289,6 @@ class ItemMapperV2 extends NewsMapperV2
         $builder->update(self::TABLE_NAME)
             ->set('unread', $builder->createParameter('unread'))
             ->andWhere('id IN (:idList)')
-            ->andWhere('unread != :unread')
-            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
             ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
 
         return $this->db->executeStatement(
