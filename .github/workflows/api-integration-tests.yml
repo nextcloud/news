@@ -145,6 +145,8 @@ jobs:
                   
           bats apps/news/tests/command
 
+          kill %1
+
       - name: Prep PHP tests
         working-directory: ../server/apps/news
         run: make php-test-dependencies
