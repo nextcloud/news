@@ -11,6 +11,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Document api item types (#1861)
 - Fix deprecation warnings from Nextcloud server (#1869)
 - Fix when marking all items as read, all items of the user are used in the sql query (#1873)
+- Fix adding feed via the web-ui that was just deleted causing an error (#1872)
 
 # Releases
 ## [18.1.1] - 2022-08-12
