@@ -91,19 +91,14 @@ class OPMLExporter
     {
         $feedOutline = $document->createElement('outline');
         $attributes = [
-            ['title', $feed->getTitle()],
-            ['text', $feed->getTitle()],
-            ['type', 'rss'],
-            ['xmlUrl', $feed->getUrl()],
-            ['htmlUrl', $feed->getLink()],
+            'title' => $feed->getTitle(),
+            'text' => $feed->getTitle(),
+            'type' => 'rss',
+            'xmlUrl' => $feed->getUrl(),
+            'htmlUrl' => $feed->getLink(),
         ];
-
-        foreach ($attributes as $attribute) {
-            if (is_null($attribute[1])) {
-                $feedOutline->setAttribute($attribute[0], "");
-            } else {
-                $feedOutline->setAttribute($attribute[0], $attribute[1]);
-            }
+        foreach ($attributes as $name => $value) {
+            $feedOutline->setAttribute($name, $value ?? '');
         }
 
         return $feedOutline;
