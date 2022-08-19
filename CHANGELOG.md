@@ -9,6 +9,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 - fix PHP 8.1 deprecations (#1861)
 - document api item types (#1861)
+- Fix deprecation warnings from Nextcloud server (#1869)
 
 # Releases
 ## [18.1.1] - 2022-08-12

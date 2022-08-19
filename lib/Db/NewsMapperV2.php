@@ -100,7 +100,7 @@ abstract class NewsMapperV2 extends QBMapper
                     ->setParameter('deleted_at', $oldestDelete);
         }
 
-        $builder->execute();
+        $builder->executeStatement();
     }
 
     /**
