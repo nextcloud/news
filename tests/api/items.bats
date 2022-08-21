@@ -16,13 +16,13 @@ teardown() {
   # delete all feeds
   FEED_IDS=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
   for i in $FEED_IDS; do
-    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$i
+    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$i > /dev/null
   done
 
   # delete all folders
   FOLDER_IDS=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/folders | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
   for i in $FOLDER_IDS; do
-    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/folders/$i
+    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/folders/$i > /dev/null
   done
 }
 

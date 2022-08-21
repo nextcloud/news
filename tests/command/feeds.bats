@@ -39,8 +39,9 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Favicon" {
-  ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
-  ./occ news:feed:add "$user" "$HEISE_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+
+  ./occ news:feed:add "$user" "https://nextcloud.com/blog/static-feed/" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ./occ news:feed:add "$user" "https://www.heise.de/rss/heise-atom.xml" --title "Something-${BATS_SUITE_TEST_NUMBER}"
 
   run ./occ news:feed:list "$user"
   assert_success

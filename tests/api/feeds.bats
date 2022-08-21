@@ -16,13 +16,13 @@ teardown() {
   # delete all feeds
   ID_LIST=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/feeds | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
   for i in $ID_LIST; do
-    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$i
+    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/feeds/$i > /dev/null
   done
 
   # delete all folders
   ID_LIST=($(http --ignore-stdin -b -a ${user}:${user} GET ${BASE_URLv1}/folders | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
   for i in $ID_LIST; do
-    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/folders/$i
+    http --ignore-stdin -b -a ${user}:${user} DELETE ${BASE_URLv1}/folders/$i > /dev/null
   done
 }
 
@@ -37,7 +37,7 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${user} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].url')
   
-  assert_output '"https://nextcloud.com/blog/static-feed/"'
+  assert_output '"http://localhost:8090/Nextcloud.rss"'
 }
 
 @test "[$TESTSUITE] Create new inside folder" {

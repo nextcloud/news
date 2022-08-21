@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Nextcloud</title>
+	<atom:link href="https://nextcloud.com/feed/" rel="self" type="application/rss+xml" />
+	<link>https://nextcloud.com/</link>
+	<description></description>
+	<lastBuildDate>Tue, 16 Aug 2022 10:17:13 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.0.1</generator>
+
+<image>
+	<url>https://nextcloud.com/wp-content/uploads/2022/03/favicon.png</url>
+	<title>Nextcloud</title>
+	<link>https://nextcloud.com/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>How to get started with Nextcloud</title>
+		<link>https://nextcloud.com/blog/how-to-get-started-with-nextcloud-repeat/</link>
+		
+		<dc:creator><![CDATA[Fabrice Mous]]></dc:creator>
+		<pubDate>Tue, 16 Aug 2022 09:44:01 +0000</pubDate>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[Webinar]]></category>
+		<category><![CDATA[webinar]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=50918</guid>
+
+					<description><![CDATA[<p>We are doing a repeat of this successful webinar about installing and configuring your own Nextcloud environment. Looking to get started with Nextcloud and need some guidance? This is the webinar you want to attend.</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/how-to-get-started-with-nextcloud-repeat/">How to get started with Nextcloud</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>We are doing a repeat of this successful webinar about installing and configuring your own Nextcloud environment. Looking to get started with Nextcloud and need some guidance? This is the webinar you want to attend.</p>
+
+
+<section class="columns4-section" id="Webinar">
+	<div class="container">
+		<div class="row"><div class="col-12"><div class="section-title"><h6>How to get started with Nextcloud</h6><h2>How to get started with Nextcloud</h2></div></div></div><div class="row spacer align-items-center"><div class="col-lg-6 order-lg-1"><div class="image-slider"><div><p></p><img src="https://nextcloud.com/wp-content/uploads/webinar-how-to-get-started-with-nextcloud-featured-image.png" alt=""/></div></div></div><div class="col-lg-6 order-lg-0"><div class="text-block"><div class="mobile-media"><div class="image-slider"><div><img src="https://nextcloud.com/wp-content/uploads/webinar-how-to-get-started-with-nextcloud-featured-image.png" alt=""/></div></div></div><p>Sign up for this free webinar on Wednesday, 31 August 2022 to learn more on how to install Nextcloud Hub and configure for your end users.</p>
+<ul>
+<li>Date: Wednesday, 31 August 2022</li>
+<li>Time: 1:00 PM (CEST)</li>
+<li>Duration: 60 minutes</li>
+</ul>
+<a class="c-btn btn-blue" href="https://cloud.nextcloud.com/apps/forms/5wo4C6bpbGsrnnk3" target="_blank">Join this webinar</a></div></div></div>	</div>
+</section>
+
+
+<h2 class="has-text-align-center">Your speaker</h2>
+
+
+<section class="ucol-section" id="">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 order-lg-2">
+				<div class="text-block"><img class="mobile-media" src="https://nextcloud.com/wp-content/uploads/2022/05/Sebastian.jpg" alt=""/><p><strong>Sebastian Möbus &#8211; Sales Engineer at Nextcloud</strong></p>
+<p>Sebastian has been designing customized solutions in the area of business software and cloud services. With over 14 years experience in consulting Sebastian provides technical pre-sales expertise internally and to our customers. </p>
+<p>Sebastian has a wide range of interests with a main focus on IT in everyday life like home automation and is passionate about pool billiards</p>
+</div>			</div>
+			<div class="col-lg-6 order-lg-1">
+				<div class="image-block"><img src="https://nextcloud.com/wp-content/uploads/2022/05/Sebastian.jpg" alt=""/></div>			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="bottom-block"><a class="c-btn btn-blue" href="https://cloud.nextcloud.com/apps/forms/5wo4C6bpbGsrnnk3" target="_blank">Save my Slot</a></div>			</div>
+		</div>
+	</div>
+</section>
+
+<section class="why-section" id="">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="text-block">
+					<h2>In this webinar we cover</h2>				</div>
+			</div>
+			<div class="col-lg-6"><div class="text-block"><ul>
+<li>The installation of your own Nextcloud Hub instance.</li>
+<li>Some first and essential configuration steps.</li>
+<li>How to prepare Nextcloud Hub for your end users.</li>
+</ul>
+</div></div>		</div>
+	</div>
+</section>
+
+<section class="promo-section" id="join-webinar">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="text-block">
+					<p>Looking to get started with Nextcloud Hub and need some guidance? Wanting to see a live configuration of Nextcloud Hub? This is the webinar you want to attend.</p>
+<a class="c-btn btn-black" href="https://cloud.nextcloud.com/apps/forms/5wo4C6bpbGsrnnk3" target="_blank">Save my slot</a>				</div>
+			</div>
+		</div>
+	</div>
+</section><p>The post <a rel="nofollow" href="https://nextcloud.com/blog/how-to-get-started-with-nextcloud-repeat/">How to get started with Nextcloud</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>OpenProject and Nextcloud integrate project management and file management</title>
+		<link>https://nextcloud.com/blog/openproject-and-nextcloud-integrate-project-management-and-file-management/</link>
+		
+		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
+		<pubDate>Mon, 15 Aug 2022 12:44:53 +0000</pubDate>
+				<category><![CDATA[blog]]></category>
+		<category><![CDATA[business]]></category>
+		<category><![CDATA[partner]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=50702</guid>
+
+					<description><![CDATA[<p>OpenProject and Nextcloud announced a collaboration last year and today, we're happy to share some info on the progress we've made. Our goal was to improve the productivity of users of both our platforms, and a number of integrations was done.</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/openproject-and-nextcloud-integrate-project-management-and-file-management/">OpenProject and Nextcloud integrate project management and file management</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>OpenProject and Nextcloud <a href="https://nextcloud.com/blog/press_releases/pr20210504/">announced a collaboration</a> last year and today, we&#8217;re happy to share some info on the progress we&#8217;ve made. Our goal was to improve the productivity of users of both our platforms, and a number of integrations was done:</p>
+
+
+
+<ul><li>No more searching for files. Users can find project-related files directly in the respective work package in their project in OpenProject and always have the correct version at hand.</li><li>Linking files in Nextcloud to project-related work and check from Nextcloud which work packages in a project belong to certain files.</li><li>Keep an eye on relevant project updates related to linked files via the Nextcloud dashboard and search for work packages in Nextcloud.</li><li>Retaining close control of content to avoid risk of non-compliance or data leaks.</li></ul>
+
+
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/739611836?h=261f758988&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="nextcloud-integration_update"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+
+
+<p>The integration is available starting with Nextcloud 22 and OpenProject 12.2 and can be found in the Nextcloud app store, and configured in OpenProject’s system administration. In collaboration with mutual customers, further integration efforts are under way which include the linking of files from OpenProject, including complete project folders.</p>
+
+
+
+<figure class="wp-container-2 wp-block-gallery-1 wp-block-gallery has-nested-images columns-default is-cropped">
+<figure class="wp-block-image size-large"><a href="https://nextcloud.com/wp-content/uploads/2022/08/choose-OpenProject-workpackages-in-Nextcloud.png" target="_blank" rel="noreferrer noopener"><img loading="lazy" width="1024" height="589" data-id="50709"  src="https://nextcloud.com/wp-content/uploads/2022/08/choose-OpenProject-workpackages-in-Nextcloud-1024x589.png" alt="" class="wp-image-50709" srcset="https://nextcloud.com/wp-content/uploads/2022/08/choose-OpenProject-workpackages-in-Nextcloud-1024x589.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/choose-OpenProject-workpackages-in-Nextcloud-300x173.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/choose-OpenProject-workpackages-in-Nextcloud-768x442.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/choose-OpenProject-workpackages-in-Nextcloud.png 1440w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<figure class="wp-block-image size-large"><a href="https://nextcloud.com/wp-content/uploads/2022/08/OpenProject-Nextcloud-file-integration.png" target="_blank" rel="noreferrer noopener"><img loading="lazy" width="1024" height="576" data-id="50706"  src="https://nextcloud.com/wp-content/uploads/2022/08/OpenProject-Nextcloud-file-integration-1024x576.png" alt="" class="wp-image-50706" srcset="https://nextcloud.com/wp-content/uploads/2022/08/OpenProject-Nextcloud-file-integration-1024x576.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/OpenProject-Nextcloud-file-integration-300x169.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/OpenProject-Nextcloud-file-integration-768x432.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/OpenProject-Nextcloud-file-integration.png 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+</figure>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/openproject-and-nextcloud-integrate-project-management-and-file-management/">OpenProject and Nextcloud integrate project management and file management</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>5 More Things to Keep your Data Safe</title>
+		<link>https://nextcloud.com/blog/5-more-things-to-keep-your-data-safe/</link>
+		
+		<dc:creator><![CDATA[Mikaela Schneider]]></dc:creator>
+		<pubDate>Wed, 10 Aug 2022 09:06:12 +0000</pubDate>
+				<category><![CDATA[blog]]></category>
+		<category><![CDATA[Community]]></category>
+		<category><![CDATA[general]]></category>
+		<category><![CDATA[Privacy Wednesday]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=48379</guid>
+
+					<description><![CDATA[<p>Nextcloud has important security features you should know about!</p>
+<p>Today's blog highlights five Nextcloud features that provide the utmost security.</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/5-more-things-to-keep-your-data-safe/">5 More Things to Keep your Data Safe</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Nextcloud has important security features you should know about!</p>
+
+
+
+<p>Today&#8217;s blog highlights five Nextcloud features that provide the utmost security. Nextcloud provides its users with dozens of data privacy features, however we&#8217;re providing it to you in chunks.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="576" src="https://nextcloud.com/wp-content/uploads/2022/08/5-More-Things-to-Keep-your-Data-Safe-1024x576.png" alt="Keep your data safe graphic" class="wp-image-49278" srcset="https://nextcloud.com/wp-content/uploads/2022/08/5-More-Things-to-Keep-your-Data-Safe-1024x576.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/5-More-Things-to-Keep-your-Data-Safe-300x169.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/5-More-Things-to-Keep-your-Data-Safe-768x432.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/5-More-Things-to-Keep-your-Data-Safe-1536x864.png 1536w, https://nextcloud.com/wp-content/uploads/2022/08/5-More-Things-to-Keep-your-Data-Safe-2048x1152.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<div style="height:26px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h2>Monitoring</h2>
+
+
+
+<p>To keep your files safe, you should know what is happening to them. Nextcloud has a number of ways that help users keep an eye on their files.</p>
+
+
+
+<p>How to monitor your files with Nextcloud:</p>
+
+
+
+<ul><li><strong>Track file activity</strong> – Have a clear overview of changes like newly added or deleted files in shared folders, recent edits, downloads, new comments from other users or tags, and more!</li><li><strong>Add more monitoring capabilites with Nextcloud apps</strong>: <a href="https://apps.nextcloud.com/apps/files_downloadactivity">Activities for shared file downloads</a> which lets you trackdownloads of your shared files, and <a href="https://apps.nextcloud.com/apps/files_downloadactivity">Quota Warning</a> which sends notifications to users when they reached 85, 90 and 95% of their quota. See more in the <a href="https://apps.nextcloud.com/">Nextcloud App Store</a>.</li><li>The <strong>Server Information</strong> app allows admins to monitor the state and performance of a Nextcloud server installation. It shows some basic statistics and gives access to data through an API endpoint which enables it to connect to.</li><li><strong>Industry standard tools</strong> like <a href="https://www.splunk.com/">Splunk</a>, <a href="https://www.nagios.org/">Nagios</a> and o<a href="https://www.opennms.com/">penNMS</a>. In fact, Splunk and openNMS have support for monitoring Nextcloud systems.</li><li><strong>Auditing Logs</strong> allow you to log data in the nextcloud.log file to not only monitor file handling and user management, but prevent against data loss too.</li></ul>
+
+
+
+<p>Read more about <a href="https://nextcloud.com/monitoring">Nextcloud Monitoring.</a></p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="533" src="https://nextcloud.com/wp-content/uploads/2022/08/activity-nw-1024x533.png" alt="" class="wp-image-48381" srcset="https://nextcloud.com/wp-content/uploads/2022/08/activity-nw-1024x533.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/activity-nw-300x156.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/activity-nw-768x400.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/activity-nw-1536x800.png 1536w, https://nextcloud.com/wp-content/uploads/2022/08/activity-nw.png 1920w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<div style="height:26px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h2>Advanced Permissions</h2>
+
+
+
+<p>Advanced Permissions allow the user to configure permissions on the files they share.</p>
+
+
+
+<p>There are several types of permission options that make your files more secure like:</p>
+
+
+
+<ul><li>Setting permissions on a shared file to: <strong>read, create, edit, and / or upload.</strong></li><li><strong>Watermarking</strong> confidential documents to make it harder to steal data</li><li>Enabling a <strong>password protection or expiration date</strong> on a public file or folder</li><li>File-Drop: option to <strong>hide </strong>the contents of a<strong> folder</strong> where people can upload files to</li><li><strong>Blocking downloads</strong> so the user can view and even edit the shared file(s), but not download them</li></ul>
+
+
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/556891346?badge=0&amp;autopause=0&amp;dnt=1&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Video" frameborder="0"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+
+
+<div style="height:26px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/556890169?badge=0&amp;autopause=0&amp;dnt=1&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="" frameborder="0"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+
+
+<div style="height:33px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<p>With all of these features available, users can ensure their files are only accessed the way they want.</p>
+
+
+
+<div style="height:26px" aria-hidden="true" class="wp-block-spacer"></div>
+
+
+
+<h2><strong>Machine learning based suspicious login detection</strong></h2>
+
+
+
+<p>Introduced back in Nextcloud 16 by one of our <a href="https://blog.wuc.me/2019/04/25/nextcloud-suspicious-login-detection">developers</a>, you can protect your account through machine learning, which increases security and productivity even beyond our brute-force protection and 2-factor authentification.</p>
+
+
+
+<p>Suspicious Login Detection uses a locally trained neural network to detect attempts to login by malicious actors.</p>
+
+
+
+<p>The way it works is that the app tracks a series of successful logins for a set period of time, and then uses the generated data to train a neural network. This network essentially learns the patterns of the user: at what time and from what location they usually log in. Once this trained model is formed, the system can detect any unusual or suspicious logins. For example, if a user typically logs into the office at 9AM, and suddenly there is a login from a different city at 11PM, something is off. When such a login is detected, the user gets a notification and can check the logs, potentially concluding in a password change by the user.</p>
+
+
+
+<p>Note that Suspicious Login Detection trains and works with local data and does not send data anywhere else!</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="646" src="https://nextcloud.com/wp-content/uploads/2022/08/admin_settings-1024x646.png" alt="" class="wp-image-48488" srcset="https://nextcloud.com/wp-content/uploads/2022/08/admin_settings-1024x646.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/admin_settings-300x189.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/admin_settings-768x484.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/admin_settings.png 1529w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2>File Access Control</h2>
+
+
+
+<p>File Access Control is a feature that enables administrators to limit access to files in accordance to business and legal requirements. </p>
+
+
+
+<p>Rather than working on individual files, it creates a definition of rules that block file access, even if an individual user would have shared a file against company policy. File Access Control is configured using Flow, which can also allow an admin or user to perform automatic actions like file conversion, getting notified based on certain conditions, and more.</p>
+
+
+
+<p>For example, a company’s HR department normally works with documents only they and management can see. The administrator in this case could create a rule or “flow” implementing the following rule: “PDF files &#8211; from the HR department &#8211; should not be accessible outside company IP ranges or from outside the HR department or management.” This means specifically that PDF files, from the HR department, outside company IP ranges, will be blocked.</p>
+
+
+
+<p>You can set each specific filter as simple or complicated as you wish, as seen below:</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="576" src="https://nextcloud.com/wp-content/uploads/2022/08/flow-as-user-1-1024x576.png" alt="" class="wp-image-48493" srcset="https://nextcloud.com/wp-content/uploads/2022/08/flow-as-user-1-1024x576.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/flow-as-user-1-300x169.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/flow-as-user-1-768x432.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/flow-as-user-1-1536x864.png 1536w, https://nextcloud.com/wp-content/uploads/2022/08/flow-as-user-1.png 1920w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>F<em>igure 1: There are unlimited possibilities with flows!</em></figcaption></figure>
+
+
+
+<p>If now for instance an HR employee would accidentally share a resume with the entire company, all is fine. When that link seems like it could be accessed outside of management, the HR teams, or outside the company IP range, the rule would kick in and block access to the file.</p>
+
+
+
+<p>Another example deals with a more specific and complicated flow, seen below. You set up a flow that only blocks MIME file types of images, that are a member of the admin group, that have a file size less than 5 MB, and that matches a specific IPv4 IP address. If a file access request matches these credential rules, Nextcloud will block access to the file.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="450" src="https://nextcloud.com/wp-content/uploads/2022/08/Screenshot-2022-08-04-115645-1024x450.png" alt="" class="wp-image-48499" srcset="https://nextcloud.com/wp-content/uploads/2022/08/Screenshot-2022-08-04-115645-1024x450.png 1024w, https://nextcloud.com/wp-content/uploads/2022/08/Screenshot-2022-08-04-115645-300x132.png 300w, https://nextcloud.com/wp-content/uploads/2022/08/Screenshot-2022-08-04-115645-768x337.png 768w, https://nextcloud.com/wp-content/uploads/2022/08/Screenshot-2022-08-04-115645.png 1152w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>Set flows as complex and detailed as you wish to block access to files</figcaption></figure>
+
+
+
+<p>There are truly countless options to the flows you can configure which ultimately safeguard your day to day workflow and business. </p>
+
+
+
+<h2>Audits</h2>
+
+
+
+<p>Audits are important security and compliance measures that can be used by companies to identify problems, track and dissect the causes of security or data loss breaches, improve efficiency, and instill trust to their partners and customers. They are often legally required and thus it is important that a collaboration platform supports them.</p>
+
+
+
+<figure class="wp-block-pullquote"><blockquote><p></p><p>“After testing the solution in a Proof of Concept, it clearly appeared that Nextcloud was professionally developed and maintained. It was very stable and the security audit was excellent. It was prompt, professional and very efficient.”</p><cite>City of Geneva Case Study</cite></blockquote></figure>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="660" src="https://nextcloud.com/wp-content/uploads/2022/08/audit-g98b5146b6_1920-1024x660.jpg" alt="" class="wp-image-48504" srcset="https://nextcloud.com/wp-content/uploads/2022/08/audit-g98b5146b6_1920-1024x660.jpg 1024w, https://nextcloud.com/wp-content/uploads/2022/08/audit-g98b5146b6_1920-300x193.jpg 300w, https://nextcloud.com/wp-content/uploads/2022/08/audit-g98b5146b6_1920-768x495.jpg 768w, https://nextcloud.com/wp-content/uploads/2022/08/audit-g98b5146b6_1920-1536x990.jpg 1536w, https://nextcloud.com/wp-content/uploads/2022/08/audit-g98b5146b6_1920.jpg 1920w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>F<em>igure 2: Image by Pixabay</em></figcaption></figure>
+
+
+
+<p>Nextcloud supports an audit log which stores the activities of all users of the system, suitable for review in case this is needed.</p>
+
+
+
+<p>Of course, as a company, we also have our own processes and code audits. Beyond that, customers do their own audits or work with third parties on auditing the Nextcloud code base.</p>
+
+
+
+<p>One prime example is the code audit conducted by Swiss IT security firm <a href="https://www.kyos.ch/en/">Kyos</a> for the <a href="https://nextcloud.com/blog/the-city-of-geneva/">City of Geneva</a>, Switzerland. The results came back with flying colors and added an extra layer of security that could be deeply trusted from the core of the code.</p>
+
+
+
+<p>Today&#8217;s post just highlighted 5, however we recently posted <a href="https://nextcloud.com/blog/5-unique-security-features-by-nextcloud/https://nextcloud.com/blog/5-unique-security-features-by-nextcloud/">more security features</a> that bring our users the reassurance regarding all things security. </p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/5-more-things-to-keep-your-data-safe/">5 More Things to Keep your Data Safe</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Digital Sovereignty and Security with Collabora Online on Nextcloud</title>
+		<link>https://nextcloud.com/blog/digital-sovereignty-security-collabora-online-nextcloud/</link>
+		
+		<dc:creator><![CDATA[Fabrice Mous]]></dc:creator>
+		<pubDate>Thu, 04 Aug 2022 13:07:21 +0000</pubDate>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[Webinar]]></category>
+		<category><![CDATA[webinar]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=46037</guid>
+
+					<description><![CDATA[<p>Join us for this free webinar on Thursday, August 18 2022 to learn more on how to install and configure Nextcloud Hub for your end users. </p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/digital-sovereignty-security-collabora-online-nextcloud/">Digital Sovereignty and Security with Collabora Online on Nextcloud</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>We are excited to invite you for a webinar about using the open source online office suite <a href="https://nextcloud.com/collaboraonline/">Collabora Online</a> on Nextcloud. Learn how you can achieve digital sovereignty and security with Collabora Online and Nextcloud.</p>
+
+
+<section class="columns4-section" id="Webinar">
+	<div class="container">
+		<div class="row"><div class="col-12"><div class="section-title"><h6>How to get started with Nextcloud</h6><h2>How to get started with Nextcloud</h2></div></div></div><div class="row spacer align-items-center"><div class="col-lg-6 order-lg-1"><div class="image-slider"><div><p></p><img src="https://nextcloud.com/wp-content/uploads/webinar-how-to-get-started-with-nextcloud-featured-image.png" alt=""/></div></div></div><div class="col-lg-6 order-lg-0"><div class="text-block"><div class="mobile-media"><div class="image-slider"><div><img src="https://nextcloud.com/wp-content/uploads/webinar-how-to-get-started-with-nextcloud-featured-image.png" alt=""/></div></div></div><p>Sign up for this free webinar on Wednesday, 31 August 2022 to learn more on how to install Nextcloud Hub and configure for your end users.</p>
+<ul>
+<li>Date: Wednesday, 31 August 2022</li>
+<li>Time: 1:00 PM (CEST)</li>
+<li>Duration: 60 minutes</li>
+</ul>
+<a class="c-btn btn-blue" href="https://cloud.nextcloud.com/apps/forms/5wo4C6bpbGsrnnk3" target="_blank">Join this webinar</a></div></div></div>	</div>
+</section>
+
+
+<h2 class="has-text-align-center">Your speaker</h2>
+
+
+<section class="ucol-section" id="">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-6 order-lg-2">
+				<div class="text-block"><img class="mobile-media" src="https://nextcloud.com/wp-content/uploads/2022/05/Sebastian.jpg" alt=""/><p><strong>Sebastian Möbus &#8211; Sales Engineer at Nextcloud</strong></p>
+<p>Sebastian has been designing customized solutions in the area of business software and cloud services. With over 14 years experience in consulting Sebastian provides technical pre-sales expertise internally and to our customers. </p>
+<p>Sebastian has a wide range of interests with a main focus on IT in everyday life like home automation and is passionate about pool billiards</p>
+</div>			</div>
+			<div class="col-lg-6 order-lg-1">
+				<div class="image-block"><img src="https://nextcloud.com/wp-content/uploads/2022/05/Sebastian.jpg" alt=""/></div>			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="bottom-block"><a class="c-btn btn-blue" href="https://cloud.nextcloud.com/apps/forms/5wo4C6bpbGsrnnk3" target="_blank">Save my Slot</a></div>			</div>
+		</div>
+	</div>
+</section>
+
+<section class="why-section" id="">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="text-block">
+					<h2>In this webinar we cover</h2>				</div>
+			</div>
+			<div class="col-lg-6"><div class="text-block"><ul>
+<li>The installation of your own Nextcloud Hub instance.</li>
+<li>Some first and essential configuration steps.</li>
+<li>How to prepare Nextcloud Hub for your end users.</li>
+</ul>
+</div></div>		</div>
+	</div>
+</section>
+
+<section class="promo-section" id="join-webinar">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="text-block">
+					<p>Looking to get started with Nextcloud Hub and need some guidance? Wanting to see a live configuration of Nextcloud Hub? This is the webinar you want to attend.</p>
+<a class="c-btn btn-black" href="https://cloud.nextcloud.com/apps/forms/5wo4C6bpbGsrnnk3" target="_blank">Save my slot</a>				</div>
+			</div>
+		</div>
+	</div>
+</section><p>The post <a rel="nofollow" href="https://nextcloud.com/blog/digital-sovereignty-security-collabora-online-nextcloud/">Digital Sovereignty and Security with Collabora Online on Nextcloud</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Nextcloud keeps growth up with 75% more revenue and 10x userbase</title>
+		<link>https://nextcloud.com/blog/nextcloud-keeps-growth-up-with-75-more-revenue-and-10x-userbase/</link>
+		
+		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
+		<pubDate>Thu, 04 Aug 2022 09:40:29 +0000</pubDate>
+				<category><![CDATA[blog]]></category>
+		<category><![CDATA[business]]></category>
+		<category><![CDATA[general]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=47932</guid>
+
+					<description><![CDATA[<p>From 2020 to 2021, showing a continued strong growth for the market leading digitally sovereign content collaboration vendor, Nextcloud grew revenue by 75% and net income by 133%. To service the new customers, Nextcloud expanded its team by 70% and hired a dedicated hiring manager to further accelerate its hiring for 2022. 2021 has seen [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/nextcloud-keeps-growth-up-with-75-more-revenue-and-10x-userbase/">Nextcloud keeps growth up with 75% more revenue and 10x userbase</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>From 2020 to 2021, showing a continued strong growth for the market leading digitally sovereign content collaboration vendor, Nextcloud grew revenue by 75% and net income by 133%. To service the new customers, Nextcloud expanded its team by 70% and hired a dedicated hiring manager to further accelerate its hiring for 2022.</p>
+
+
+
+<blockquote class="wp-block-quote"><p>2021 has seen transformational product improvements, opening up new markets for Nextcloud and bringing thousands more businesses the certainty and security of control over their data only Nextcloud can offer. </p><cite>Frank Karlitschek, CEO</cite></blockquote>
+
+
+
+<p>Since the&nbsp;<a href="https://nextcloud.com/blog/swedish-government-nextcloud-premier-digital-collaboration-platform/" target="_blank" rel="noreferrer noopener">Swedish Government marked Nextcloud as the key solution for digital collaboration</a>, the Nextcloud user and customer base continues to grow quickly. We recently shared customer success stories with the&nbsp;<a href="https://nextcloud.com/blog/the-city-of-geneva/" target="_blank" rel="noreferrer noopener">City of Geneva</a>,&nbsp;<a href="https://nextcloud.com/blog/stadtsparkasse-munich-hkn/" target="_blank" rel="noreferrer noopener">the local bank in Munich</a>,&nbsp;<a href="https://nextcloud.com/blog/15k-teachers-in-luxembourg-start-using-nextcloud/" target="_blank" rel="noreferrer noopener">15K teachers in Luxembourg</a>,&nbsp;<a href="https://nextcloud.com/blog/use-case-sib-delivering-nextcloud-to-2500-teachers-and-33000-pupils-in-brittany-france/" target="_blank" rel="noreferrer noopener">over 35K middle school students and teachers in France</a>&nbsp;and&nbsp;<a href="https://nextcloud.com/blog/gdpr-compliant-collaboration-coming-to-750k-students-and-teachers-in-sweden/" target="_blank" rel="noreferrer noopener">750K students and researchers in Sweden</a>.</p>
+
+
+
+<p>Collaborations with major European cloud vendors Deutsche Telekom and IONOS in 2021 introduced thousands of new businesses to digitally sovereign, instant collaboration. Several multi-million-user deployments combined with the long tail of dozens of 100K+ and thousands of smaller installations grew our customer user base more than 10X in a single year.</p>
+
+
+
+<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile" style="grid-template-columns:auto 20%"><figure class="wp-block-media-text__media"><img loading="lazy" width="1024" height="848" src="https://nextcloud.com/wp-content/uploads/CA_Badge_Shortlist_2022_FullColor-Positive-1024x848.png" alt="" class="wp-image-44863 size-full" srcset="https://nextcloud.com/wp-content/uploads/CA_Badge_Shortlist_2022_FullColor-Positive-1024x848.png 1024w, https://nextcloud.com/wp-content/uploads/CA_Badge_Shortlist_2022_FullColor-Positive-300x248.png 300w, https://nextcloud.com/wp-content/uploads/CA_Badge_Shortlist_2022_FullColor-Positive-768x636.png 768w, https://nextcloud.com/wp-content/uploads/CA_Badge_Shortlist_2022_FullColor-Positive-1536x1272.png 1536w, https://nextcloud.com/wp-content/uploads/CA_Badge_Shortlist_2022_FullColor-Positive-2048x1696.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<p>Meanwhile on industry review platforms, users give Nextcloud top ratings, beating out many competitors. Nextcloud entered the short list quadrant on Gartners&#8217; <a href="https://www.capterra.com/p/161572/NextCloud/">Capterra</a> in 2021, and again in 2022!</p>
+</div></div>
+
+
+
+<p>The releases of Nextcloud Hub 21, with a 10X performance improvement and many Talk updates and Nextcloud Hub 22 with workflow automation and the introduction of knowledge management provided enterprises key functionality needed during the work from home period. In December, Nextcloud announced Nextcloud Hub II with a major overhaul, introducing Nextcloud Office, bulk upload and Nextcloud Backup. This release coincided with a significant uptick in interest from local and federal governments across Europe. The <a href="https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/">latest developments</a> around GDPR compliance and anti-competitive behaviour of big tech have reinforced this interest.</p>
+
+
+
+<p>This growth has continued in 2022, with two further releases of Nextcloud Hub II and the first in-person Nextcloud Enterprise Day in 2 years. Early October, the Nextcloud Conference and, to satisfy great demand, a second Nextcloud Enterprise Day, expect a combined 500 visitors over 4 days.</p>
+
+
+
+<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img loading="lazy" width="1024" height="917" src="https://nextcloud.com/wp-content/uploads/2022/05/OpenHub-statistics-1024x917.png" alt="" class="wp-image-15283 size-full" srcset="https://nextcloud.com/wp-content/uploads/2022/05/OpenHub-statistics-1024x917.png 1024w, https://nextcloud.com/wp-content/uploads/2022/05/OpenHub-statistics-300x269.png 300w, https://nextcloud.com/wp-content/uploads/2022/05/OpenHub-statistics-768x688.png 768w, https://nextcloud.com/wp-content/uploads/2022/05/OpenHub-statistics-1536x1376.png 1536w, https://nextcloud.com/wp-content/uploads/2022/05/OpenHub-statistics.png 1883w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure><div class="wp-block-media-text__content">
+<h3>Thanks to you!</h3>
+
+
+
+<p>All this is, in no small part, enabled by our community which is continuously growing. Statistics on Open Hub show Nextcloud regularly hitting a spot in the top-3 most active open source projects. We&#8217;re both proud of and humbled by all this support and we want to thank everybody who helps make it possible for us to work with you all and make Nextcloud better, every day!</p>
+</div></div>
+
+
+
+<p></p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/nextcloud-keeps-growth-up-with-75-more-revenue-and-10x-userbase/">Nextcloud keeps growth up with 75% more revenue and 10x userbase</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Baden-Württemberg Procurement Chamber decides US Cloud Services are not GDPR compliant</title>
+		<link>https://nextcloud.com/blog/baden-wurttemberg-procurement-chamber-decides-us-cloud-services-are-not-gdpr-compliant/</link>
+		
+		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
+		<pubDate>Mon, 01 Aug 2022 09:00:00 +0000</pubDate>
+				<category><![CDATA[business]]></category>
+		<category><![CDATA[general]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/blog/baden-wurttemberg-procurement-chamber-decides-us-cloud-services-are-not-gdpr-compliant/</guid>
+
+					<description><![CDATA[<p>In July 2020, the Schrems II case invalidated the EU-US Privacy Shield meaning that data transfers to non-EU countries were illegal under the GDPR. From this point forward, companies immediately had to comply with the new decision. If companies needed to make a data transfer outside of the EU, they would need to confirm that [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/baden-wurttemberg-procurement-chamber-decides-us-cloud-services-are-not-gdpr-compliant/">Baden-Württemberg Procurement Chamber decides US Cloud Services are not GDPR compliant</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="512" src="https://nextcloud.com/wp-content/uploads/2018/12/GDPR-kit-banner-1024x512.png" alt="" class="wp-image-5298" srcset="https://nextcloud.com/wp-content/uploads/2018/12/GDPR-kit-banner-1024x512.png 1024w, https://nextcloud.com/wp-content/uploads/2018/12/GDPR-kit-banner-300x150.png 300w, https://nextcloud.com/wp-content/uploads/2018/12/GDPR-kit-banner-768x384.png 768w, https://nextcloud.com/wp-content/uploads/2018/12/GDPR-kit-banner-1536x768.png 1536w, https://nextcloud.com/wp-content/uploads/2018/12/GDPR-kit-banner-2048x1024.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>In July 2020, the Schrems II case invalidated the EU-US Privacy Shield meaning that data transfers to non-EU countries were illegal under the GDPR. From this point forward, companies immediately had to comply with the new decision. If companies needed to make a data transfer outside of the EU, they would need to confirm that the country provides equivalent data privacy rules and laws to that of the GDPR.</p>
+
+
+
+<p>This ruling of the European Court of Justice (ECJ) trickles down to all EU countries, however because of the many ways in which companies work around the ruling (like through Binding corporate rules BCR), Schrems II is not often taken seriously enough at the local level. However, the Procurement Chamber of Baden-Württemberg has recently made a more binding decision that will greatly impact all public tenders in the state.</p>
+
+
+
+<p>According to a <a href="https://www.pressebox.de/inaktiv/gruendelpartner-rechtsanwlte-steuerberater-wirtschaftsprfer-partgmbb/GRUENDELPARTNER-erwirkt-weitreichende-Entscheidung-zur-Unzulaessigkeit-von-Cloud-und-IT-Dienstleistungen-durch-US-Tochterunternehmen-in-Deutschland/boxid/1121429">Presse Box release</a>, the Vergabekammer Baden-Württemberg, or the Public Procurement Chamber of Baden-Württemberg, has made a non-appealable decision that the transfer of personal data to a “third country” (outside of the EU) that does not have this equivalency in privacy law is impermissable under the GDPR.</p>
+
+
+
+<p>This entails that even if a server is operated by a company based in the EU but has a parent company in the US, the data transfer is still not allowed due to the possibility of that data being accessed by its non-European counterparts.</p>
+
+
+
+<p>After the EU-US Privacy Shield was invalidated, there still was the possibility of transfers with so called Standard Contractual Clauses (SCCs). However, this new decision in Baden-Württemberg also illegitimizes the use of SCCs which companies and organisations have used as a work around in the past.</p>
+
+
+
+<figure class="wp-block-pullquote"><blockquote><p>“It’s a landmark decision that has a huge influence in Germany and the rest of Europe.&#8221;</p><cite>Nextcloud founder Frank Karlitschek</cite></blockquote></figure>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/baden-wurttemberg-procurement-chamber-decides-us-cloud-services-are-not-gdpr-compliant/">Baden-Württemberg Procurement Chamber decides US Cloud Services are not GDPR compliant</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Interview: Shadow and a world where 5 companies own all data</title>
+		<link>https://nextcloud.com/blog/interview-shadow-and-a-world-where-5-companies-own-all-data/</link>
+		
+		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
+		<pubDate>Mon, 01 Aug 2022 07:43:56 +0000</pubDate>
+				<category><![CDATA[general]]></category>
+		<category><![CDATA[News]]></category>
+		<category><![CDATA[partner]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=46915</guid>
+
+					<description><![CDATA[<p>Shadow, famous for their high-end cloud PC product, is building a collaboration platform on top of Nextcloud. They aim to release their Shadow Drive to early access users this month, and interviewed our CEO Frank Karlitschek to discuss why Nextcloud and Shadow Drive fit together.</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/interview-shadow-and-a-world-where-5-companies-own-all-data/">Interview: Shadow and a world where 5 companies own all data</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Shadow, famous for their high-end cloud PC product, is building a collaboration platform on top of Nextcloud. They aim to release their Shadow Drive to <a href="https://shadow.tech/blog/news/shadowdrive-cloud-softlaunch">early access users this month</a>, and interviewed our CEO Frank Karlitschek to discuss why Nextcloud and Shadow Drive fit together.</p>
+
+
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/734696219?h=31708cc7cd&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Shadow interviews Frank Karlitschek, Nextcloud CEO" frameborder="0"></iframe></div>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/interview-shadow-and-a-world-where-5-companies-own-all-data/">Interview: Shadow and a world where 5 companies own all data</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>All app developers put your hands up – Best Nextcloud app contest!</title>
+		<link>https://nextcloud.com/blog/all-app-developers-put-your-hands-up-best-nextcloud-app-contest-2/</link>
+		
+		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
+		<pubDate>Thu, 28 Jul 2022 09:00:00 +0000</pubDate>
+				<category><![CDATA[Apps]]></category>
+		<category><![CDATA[Community]]></category>
+		<category><![CDATA[conference]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=46587</guid>
+
+					<description><![CDATA[<p>Apps ++ 😉 Apps are one of the most significant components that make up Nextcloud. At Nextcloud we want to encourage app developers to show off their creative programming talent. If you are a new app developer here is a page to help you get started! Now, attention please! Who’s got an idea for the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/all-app-developers-put-your-hands-up-best-nextcloud-app-contest-2/">All app developers put your hands up – Best Nextcloud app contest!</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<div class="wp-block-image">
+<figure class="alignright size-medium"><a href="https://apps.nextcloud.com"><img loading="lazy" width="300" height="211" src="https://nextcloud.com/wp-content/uploads/2019/08/Nextcloudapps-300x211.png" alt="" class="wp-image-6337" srcset="https://nextcloud.com/wp-content/uploads/2019/08/Nextcloudapps-300x211.png 300w, https://nextcloud.com/wp-content/uploads/2019/08/Nextcloudapps-1024x720.png 1024w, https://nextcloud.com/wp-content/uploads/2019/08/Nextcloudapps-768x540.png 768w, https://nextcloud.com/wp-content/uploads/2019/08/Nextcloudapps-1536x1080.png 1536w, https://nextcloud.com/wp-content/uploads/2019/08/Nextcloudapps.png 2000w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption>Loads of apps on our app store</figcaption></figure></div>
+
+
+<h2><strong>Apps ++ 😉</strong></h2>
+
+
+
+<p>Apps are one of the most significant components that make up Nextcloud. At Nextcloud we want to encourage app developers to show off their creative programming talent.</p>
+
+
+
+<p>If you are a new app developer here is <a href="https://nextcloud.com/developer"><u>a page to help you get started!</u></a></p>
+
+
+
+<h2><strong>Now, attention please!</strong></h2>
+
+
+
+<p>Who’s got an idea for the next great app in the Nextcloud app store? We are announcing a friendly contest for all developers who want to participate by building an app for Nextcloud, to be announced at the <a href="https://nextcloud.com/conference-2022">upcoming Nextcloud Conference in Berlin, October 1-4</a>.</p>
+
+
+
+<figure class="wp-block-image size-large"><a href="https://nextcloud.com/conference-2022"><img loading="lazy" width="1024" height="536" src="https://nextcloud.com/wp-content/uploads/nextcloud-conference-register-now-01-1024x536.png" alt="" class="wp-image-42849" srcset="https://nextcloud.com/wp-content/uploads/nextcloud-conference-register-now-01-1024x536.png 1024w, https://nextcloud.com/wp-content/uploads/nextcloud-conference-register-now-01-300x157.png 300w, https://nextcloud.com/wp-content/uploads/nextcloud-conference-register-now-01-768x402.png 768w, https://nextcloud.com/wp-content/uploads/nextcloud-conference-register-now-01.png 1200w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<h2><strong>And the winner is…</strong></h2>
+
+
+
+<p>The developers of our 5 top picks will receive travel and accommodation funding for the conference, a 1-hour private mentoring slot with a Nextcloud developer and a design review with a Nextcloud designer! And on top of that, the developer(s) who build the winning app win 500 euro and a Nextcloud mug!</p>
+
+
+
+<h2><strong>Rules are rules!</strong></h2>
+
+
+
+<p>Just publish your new app anytime after this announcement in the app store, until August 30, and you automatically participate in the contest 😉</p>
+
+
+
+<p>On August 30 we will nominate up to 5 apps, who will receive travel reimbursement for flight/train and hotel for up to 3 people who contribute to each app. We decide the top 5 based on the idea and the implementation &#8211; of course, the app doesn&#8217;t have to be perfect or fully finished by August 30!</p>
+
+
+
+<p>The final winning app will be decided upon the conference so you can still improve your app after August 30, right up until October 1st when we will pick the winning team and invite them on stage!</p>
+
+
+
+<h2><strong>Voting process</strong></h2>
+
+
+
+<p>A team of Nextcloud GmbH engineers will vote and the app store score will be taken into account. The app that has the highest average score will be the winning app!</p>
+
+
+
+<h2><strong>SOS</strong></h2>
+
+
+
+<p>We are ready to help you. There is a dedicated <a href="https://cloud.nextcloud.com/call/xs25tz5y">community chat</a> with Nextcloud developers and community members, and there is also a <a href="https://help.nextcloud.com/c/dev/11">forum category</a> that is watched by Nextcloud developers where you can post your questions about development.</p>
+
+
+
+<p>Are you new to Nextcloud app development? <a href="https://nextcloud.com/developer">Here is a page</a> that helps you getting started.</p>
+
+
+
+<p>To upload your app, you can find <a href="https://nextcloudappstore.readthedocs.io/en/latest/developer.html#publishing-apps-on-the-app-store">the instructions here.</a> Interested in building a mobile app for Android or iOS, or an app for the desktop? Cool! That works for us, too: you are 100% included in the contest!</p>
+
+
+<div class="wp-block-image">
+<figure class="alignright size-medium"><img loading="lazy" width="300" height="300" src="https://nextcloud.com/wp-content/uploads/2019/05/include-sticker-45mm-circular-text-300x300.jpg" alt="" class="wp-image-6033" srcset="https://nextcloud.com/wp-content/uploads/2019/05/include-sticker-45mm-circular-text-300x300.jpg 300w, https://nextcloud.com/wp-content/uploads/2019/05/include-sticker-45mm-circular-text-150x150.jpg 150w, https://nextcloud.com/wp-content/uploads/2019/05/include-sticker-45mm-circular-text.jpg 638w" sizes="(max-width: 300px) 100vw, 300px" /></figure></div>
+
+
+<h2>Nextcloud Include mentoring and travel funding</h2>
+
+
+
+<p>Are you from an underrepresented group in open source and are you new to developing Nextcloud apps or contributing code to Nextcloud? We want to support people who have been historically marginalized in open source to get involved and have a great time contributing for Nextcloud, <a href="https://nextcloud.com/include/">through our Nextcloud include programme.</a> You can apply for mentorship to get help with developing your first app and for travel funding to visit our conference by filling in this form. <a href="https://cloud.nextcloud.com/apps/forms/7x6yQHNpZDbgC3EP">https://cloud.nextcloud.com/apps/forms/7x6yQHNpZDbgC3EP</a></p>
+
+
+
+<p>Happy coding everyone! Looking forward to all new apps 🙂</p>
+
+
+
+<h2><strong>Summary</strong></h2>
+
+
+
+<p><strong>What</strong>: Nextcloud app contest</p>
+
+
+
+<p><strong>When</strong>: Deadline for having the app published is August 30, 12 AM CEST</p>
+
+
+
+<p><strong>Where</strong>: Everywhere</p>
+
+
+
+<p><strong>Who</strong>: Yes, you! 😉</p>
+
+
+
+<p><strong>Why</strong>: Attend the <a href="https://nextcloud.com/conf-2019"><u>Nextcloud conference</u></a> and meet other Nextclouders to exchange skills!</p>
+
+
+
+<p><strong>How</strong>: Start developing your app right away!</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/all-app-developers-put-your-hands-up-best-nextcloud-app-contest-2/">All app developers put your hands up – Best Nextcloud app contest!</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>5 Unique Security Features by Nextcloud</title>
+		<link>https://nextcloud.com/blog/5-unique-security-features-by-nextcloud/</link>
+		
+		<dc:creator><![CDATA[Mikaela Schneider]]></dc:creator>
+		<pubDate>Wed, 27 Jul 2022 14:36:15 +0000</pubDate>
+				<category><![CDATA[blog]]></category>
+		<category><![CDATA[general]]></category>
+		<category><![CDATA[Privacy Wednesday]]></category>
+		<category><![CDATA[security]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=45170</guid>
+
+					<description><![CDATA[<p>You love Nextcloud because it allows you to keep your data secure and under your control. When it comes to protecting your data, we want to be your #1 trusted technology and provide you with state-of-the-art, industry leading tools that go beyond today’s technology standards. Nextcloud offers more security features and benefits than most people [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/5-unique-security-features-by-nextcloud/">5 Unique Security Features by Nextcloud</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>You love Nextcloud because it allows you to keep your data secure and under your control.</p>
+
+
+
+<p>When it comes to protecting your data, we want to be your #1 trusted technology and provide you with state-of-the-art, industry leading tools that go beyond today’s technology standards.</p>
+
+
+
+<p>Nextcloud offers more security features and benefits than most people realize, and today we want to zoom in on 5 of them.</p>
+
+
+
+<h2><strong>Remote Wipe</strong></h2>
+
+
+
+<p>Remote wipe is a Data Leak Prevention (DLP) method that allows a system administrator to remotely delete data from a device. It’s especially useful if your device is lost, has been stolen or when an employee no longer works for your organization.</p>
+
+
+
+<p>Due to built-in Nextcloud support, Remote wipe will not only work on systems under the management of a company (MDM), but also on the private devices of employees in BYOD situations or for friends who have an account on your server. Therefore it is also helpful for home users, large universities, and non-profits who often don&#8217;t fully control the devices of their users.</p>
+
+
+
+<p><strong>2 examples when Remote wipe is essential:</strong></p>
+
+
+
+<ul><li>In a scenario where guest accounts were handed to a third party who use private devices, say for planning an event: when the event is over, you can wipe the documents from the devices of guests you gave access.</li><li>In a situation where an employee leaves the company and keeps their device(s): If you want to make sure an ex-employee can&#8217;t access company data, you can utilize Remote wipe and to remove the company data from their devices.</li></ul>
+
+
+
+<p>Stolen or lost devices usually catch you unprepared. Therefore, this feature is supported by all official Nextcloud clients, for Android, iOS and desktops. Note that the Nextcloud Remote Wipe feature can only remove data from online devices.</p>
+
+
+
+<p>Curious? Watch the video to see how it works: </p>
+
+
+
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/556897803?h=5150fa3007&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Remote wipe: keep your data yours even when you lose devices!"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+
+
+<h2><strong>Video Verification</strong></h2>
+
+
+
+<p>In situations where extreme security is warranted and the identity of a recipient must be verified with absolute certainty before they are granted access, Nextcloud includes the industry-first implementation of Video Verification in a file sync and share solution.</p>
+
+
+
+<p>You might be familiar with this process from the opening of online bank accounts: you have to record yourself or have to have a live session with a human. In both cases, a human has to check your identity before you gain access.</p>
+
+
+
+<p>Similarly, Video Verification enforces a Nextcloud Talk video call before access is given to a share, making sure the identity of the recipient is properly checked. The call can be picked up through the Nextcloud Talk Mobile apps as well as the web interface.</p>
+
+
+
+<p>At Nextcloud, we want you to feel 100% certain that your data is protected and under your control and jurisdiction.</p>
+
+
+<section class="video2-section" id="">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-lg-7 order-lg-2"><div class="video-block"><iframe src="https://player.vimeo.com/video/556062380?badge=0&amp;autopause=0&amp;dnt=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" title="Introduction video of Video Verification"></iframe></div></div>			<div class="col-lg-5 order-lg-1">
+				<div class="text-block">
+					<p>When extreme security is warranted and the identity of a recipient must be verified with absolute certainty.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<h2><strong>Private Cloud Security Scan</strong></h2>
+
+
+
+<p>To help our system administrators assess the security of their private cloud server, we have developed the <a href="https://scan.nextcloud.com/">Private Cloud Security Scan</a>.</p>
+
+
+
+<p>Our scan is strictly based on publicly available information, that is, the list of known vulnerabilities relevant for Nextcloud releases as well as any applied hardenings or settings we can scan without having access to the server.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="409" src="https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-20-181451-1024x409.png" alt="" class="wp-image-45297" srcset="https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-20-181451-1024x409.png 1024w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-20-181451-300x120.png 300w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-20-181451-768x307.png 768w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-20-181451-1536x613.png 1536w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-20-181451-2048x818.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>It’s available for free <a href="https://scan.nextcloud.com/">here</a>, just add your server URL.</p>
+
+
+
+<h2><strong>Security Bug Bounties</strong></h2>
+
+
+
+<p>Nextcloud protects your security with up to $10,000 in our <a href="https://hackerone.com/nextcloud?type=team">HackerOne’s <u>Bug Bounty </u>program</a>.</p>
+
+
+
+<p>We have <a href="https://nextcloud.com/blog/introducing-the-nextcloud-bug-bounty-program/">partnered</a> with <a href="https://www.hackerone.com/">HackerOne</a> because of its extraordinary popularity among IT security professionals. The widely used platform has a global hacking community that uncovers high-risk vulnerabilities fast and which allows us to quickly leverage the collective knowledge of a huge amount of security experts. Over 3,000 hackers have already reported countless bugs for Nextcloud and reaped the benefits.</p>
+
+
+
+<div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media"><a href="https://www.hackerone.com/"><img loading="lazy" width="835" height="396" src="https://nextcloud.com/wp-content/uploads/hackerone-logo835x396.png" alt="" class="wp-image-45308 size-full" srcset="https://nextcloud.com/wp-content/uploads/hackerone-logo835x396.png 835w, https://nextcloud.com/wp-content/uploads/hackerone-logo835x396-300x142.png 300w, https://nextcloud.com/wp-content/uploads/hackerone-logo835x396-768x364.png 768w" sizes="(max-width: 835px) 100vw, 835px" /></a></figure><div class="wp-block-media-text__content">
+<p>“<em>Nextcloud&#8217;s commitment to responsiveness and putting security first puts them in the best position to attract top hacker talent to continue to supplement the good work their internal security team is doing to protect customers.” &#8211; Michiel Prins, Co-founder HackerOne.</em></p>
+</div></div>
+
+
+
+<p>Anyone reporting a security vulnerability in Nextcloud can earn up to $10,000, making ours one of the highest security bug bounty programs in the open-source industry! </p>
+
+
+
+<figure class="wp-block-image size-large"><a href="https://hackerone.com/nextcloud?type=team"><img loading="lazy" width="1024" height="283" src="https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-21-181231-1-1024x283.png" alt="" class="wp-image-45319" srcset="https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-21-181231-1-1024x283.png 1024w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-21-181231-1-300x83.png 300w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-21-181231-1-768x212.png 768w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-21-181231-1-1536x424.png 1536w, https://nextcloud.com/wp-content/uploads/Screenshot-2022-07-21-181231-1-2048x566.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></figure>
+
+
+
+<p>Learn more in our <a href="https://nextcloud.com/blog/nextcloud-conference-news-nextcloud-gmbh-doubling-hackerone-security-bug-bounties/">latest update</a> about the program and read the <a href="https://nextcloud.com/whitepapers/">HackerOne Case Study</a>!</p>
+
+
+
+<div class="wp-container-3 wp-block-buttons">
+<div class="wp-block-button aligncenter"><a class="wp-block-button__link" href="https://nextcloud.com/whitepapers/">HackerOne Case Study</a></div>
+</div>
+
+
+
+<h2><strong>Virtual Data Room</strong></h2>
+
+
+
+<p>In settings where a strong security firewall is needed between departments or organizations without impeding smooth and efficient collaboration within each team, a separate <a href="https://nextcloud.com/virtual-data-room/">Virtual Data Room</a> can be set up. Nextcloud offers a range of features for VDR use and its on-premises nature offers unparalleled confidentiality and control.</p>
+
+
+
+<p>For Nextcloud, VDR is a set of features to implement the concept of a VDR, with flexibility in the exact implementation. In our next post, you will learn about some of these features!</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/5-unique-security-features-by-nextcloud/">5 Unique Security Features by Nextcloud</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Nextcloud in the Wall Street Journal: Microsoft and cookies</title>
+		<link>https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/</link>
+					<comments>https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/#comments</comments>
+		
+		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
+		<pubDate>Wed, 27 Jul 2022 09:12:45 +0000</pubDate>
+				<category><![CDATA[blog]]></category>
+		<category><![CDATA[business]]></category>
+		<category><![CDATA[general]]></category>
+		<category><![CDATA[News]]></category>
+		<guid isPermaLink="false">https://nextcloud.com/?p=46197</guid>
+
+					<description><![CDATA[<p>Nextcloud was covered in a Wall Street Journal article, “Microsoft Goes on Offensive in Europe to Combat Cloud Concerns.” It covers a range of challenges Microsoft is facing, and how it employs its army of lawyers and lobbyist to push back. As the article explains, Nextcloud CEO and founder Frank Karlitschek was approached by a [&#8230;]</p>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/">Nextcloud in the Wall Street Journal: Microsoft and cookies</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="639" src="https://nextcloud.com/wp-content/uploads/2022/07/WSJ-article-2022-1-1024x639.png" alt="" class="wp-image-46222" srcset="https://nextcloud.com/wp-content/uploads/2022/07/WSJ-article-2022-1-1024x639.png 1024w, https://nextcloud.com/wp-content/uploads/2022/07/WSJ-article-2022-1-300x187.png 300w, https://nextcloud.com/wp-content/uploads/2022/07/WSJ-article-2022-1-768x479.png 768w, https://nextcloud.com/wp-content/uploads/2022/07/WSJ-article-2022-1-1536x958.png 1536w, https://nextcloud.com/wp-content/uploads/2022/07/WSJ-article-2022-1.png 1844w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption><em>Wall Street Journal Tech article: “Microsoft Goes on Offensive in Europe to Combat Cloud Concerns”</em></figcaption></figure>
+
+
+
+<p>Nextcloud was covered in a <a href="https://www.wsj.com/articles/microsoft-goes-on-offensive-in-europe-to-combat-cloud-concerns-11657618381?mod=hp_lista_pos2">Wall Street Journal</a> article, “Microsoft Goes on Offensive in Europe to Combat Cloud Concerns.” It covers a range of challenges Microsoft is facing, and how it employs its army of lawyers and lobbyist to push back.</p>
+
+
+
+<p>As the article explains, Nextcloud CEO and founder Frank Karlitschek was approached by a Microsoft lawyer earlier this year to make a deal.</p>
+
+
+
+<p>In the meeting, the Microsoft correspondent offered benefits in the form of collaboration and marketing to Nextcloud. For example, they wanted to promote the Nextcloud logo in Microsoft marketing material – if Nextcloud would consider dropping its anti-trust complaint.</p>
+
+
+
+<p>In early 2021, under the leadership of Nextcloud, a group of companies filed an official complaint with the EU Directorate-General for Competition about the behavior of Microsoft. This <a href="https://antitrust.nextcloud.com/">coalition</a> of European cloud companies advocates for a level playing field in the EU.</p>
+
+
+
+<p>Microsoft has had a lot on its plate in Europe amidst rising concerns about the security of its products as well as bundling ts products with Windows and anti-competitive behavior in other areas. This is rather similar to the hot water other big tech companies find themselves in.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" width="1024" height="86" src="https://nextcloud.com/wp-content/uploads/2022/07/The_Wall_Street_Journal.svg-1024x86.png" alt="" class="wp-image-46207" srcset="https://nextcloud.com/wp-content/uploads/2022/07/The_Wall_Street_Journal.svg-1024x86.png 1024w, https://nextcloud.com/wp-content/uploads/2022/07/The_Wall_Street_Journal.svg-300x25.png 300w, https://nextcloud.com/wp-content/uploads/2022/07/The_Wall_Street_Journal.svg-768x65.png 768w, https://nextcloud.com/wp-content/uploads/2022/07/The_Wall_Street_Journal.svg-1536x130.png 1536w, https://nextcloud.com/wp-content/uploads/2022/07/The_Wall_Street_Journal.svg-2048x173.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<blockquote class="wp-block-quote"><p>“He was basically offering us a cookie. It isn’t about having a logo somewhere or doing a quick deal. We’re not interested in that. We are concerned about the overall antitrust situation.” </p><cite>Frank, quoted from the WSJ article</cite></blockquote>
+
+
+
+<p>As covered also in this <a href="https://www.techzine.eu/news/privacy-compliance/83273/microsoft-goes-on-the-offensive-in-europe-to-combat-cloud-concerns/">article on Techzine</a> (no pay wall), a Microsoft spokesperson was quoted:</p>
+
+
+
+<blockquote class="wp-block-quote"><p>“You can’t become allies until you stop being adversaries, and can’t stop being adversaries until we address the concerns that they legitimately have raised.”</p><cite>Microsoft spokesperson to WSJ</cite></blockquote>
+
+
+
+<p>One could question whether offering some collaborative marketing was really meant to address such deep-rooted anti-competitive behavior, or if the goal was simply to let the complaint go away with some marketing dollars.</p>
+
+
+
+<p>As just today came out, rather than fix the issue, Microsoft continues its marketing campaign by <a href="https://www.techzine.eu/news/infrastructure/83677/microsoft-introduces-sovereign-cloud-for-european-governments/">offering a &#8220;sovereign&#8221; cloud</a> which in reality is just the very same public cloud, as Techzine points out:</p>
+
+
+
+<blockquote class="wp-block-quote"><p>None of the tech is new. Microsoft Cloud for Sovereignty revolves around service.</p><cite><a href="https://www.techzine.eu/news/infrastructure/83677/microsoft-introduces-sovereign-cloud-for-european-governments/">Techzine</a></cite></blockquote>
+<p>The post <a rel="nofollow" href="https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/">Nextcloud in the Wall Street Journal: Microsoft and cookies</a> appeared first on <a rel="nofollow" href="https://nextcloud.com">Nextcloud</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
