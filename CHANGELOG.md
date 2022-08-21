@@ -7,9 +7,10 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- fix PHP 8.1 deprecations (#1861)
-- document api item types (#1861)
+- Fix PHP 8.1 deprecations (#1861)
+- Document api item types (#1861)
 - Fix deprecation warnings from Nextcloud server (#1869)
+- Fix when marking all items as read, all items of the user are used in the sql query (#1873)
 
 # Releases
 ## [18.1.1] - 2022-08-12
