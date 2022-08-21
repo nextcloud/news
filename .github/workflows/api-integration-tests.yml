@@ -136,7 +136,14 @@ jobs:
 
       - name: Functional tests
         working-directory: ../server
-        run: bats apps/news/tests/command
+        run: |
+          cd apps/news/tests/test_helper/feeds && php -S localhost:8090 &> /tmp/feedserver.log &
+
+          sleep 2
+
+          cd ${{ github.workspace }}/../server
+                  
+          bats apps/news/tests/command
 
       - name: Prep PHP tests
         working-directory: ../server/apps/news
