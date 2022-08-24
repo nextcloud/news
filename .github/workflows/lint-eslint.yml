@@ -32,13 +32,13 @@ jobs:
           fallbackNode: '^12'
           fallbackNpm: '^6'
 
-      - name: Set up node $
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
         uses: actions/setup-node@v3
         with:
-          node-version: $
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
 
-      - name: Set up npm $
-        run: npm i -g npm@"$"
+      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
 
       - name: Install dependencies
         run: npm ci

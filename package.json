@@ -5,7 +5,7 @@
   "author": "Carl Schwan <carl@carlschwan.eu>",
   "contributors": [],
   "bugs": {
-    "url": "https://jroei.com"
+    "url": "https://github.com/nextcloud/news/issues"
   },
   "license": "agpl",
   "private": true,
@@ -17,7 +17,9 @@
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
-    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix"
+    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
+    "sass": "sass css",
+    "sass:watch": "sass --watch css"
   },
   "dependencies": {
     "@nextcloud/auth": "^2.0.0",

@@ -83,6 +83,8 @@ endif
 # Installs npm dependencies
 .PHONY: npm
 npm:
+	$(npm) ci
+	$(npm) run build
 ifneq (, $(npm))
 	cd js && $(npm) run build
 else
