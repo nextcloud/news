@@ -1,0 +1,129 @@
+<!--
+SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
+SPDX-Licence-Identifier: AGPL-3.0-or-later
+-->
+
+<template>
+	<NcSettingsSection :title="t('news', 'News')"
+		class="news-settings"
+		doc-url="https://nextcloud.github.io/news/admin/">
+		<NcCheckboxRadioSwitch type="switch"
+			:checked.sync="useCronUpdates"
+			@update:checked="update('useCronUpdates', useCronUpdates)">
+			{{ t('news', 'Use system cron for updates') }}
+		</NcCheckboxRadioSwitch>
+		<p><em>{{ t('news', 'Disable this if you use a custom updater.') }}</em></p>
+
+		<NcTextField :value.sync="autoPurgeMinimumInterval"
+			:label="t('news', 'Purge interval')"
+			:label-visible="true"
+			@update:value="update('autoPurgeMinimumInterval', autoPurgeMinimumInterval)" />
+		<p><em>{{ t('news', 'Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored.') }}</em></p>
+
+		<NcTextField :value.sync="autoPurgeCount"
+			:label="t('news', 'Maximum read count per feed')"
+			:label-visible="true"
+			@update:value="update('autoPurgeCount', autoPurgeCount)" />
+		<p><em>{{ t('news', `Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.`) }}</em></p>
+
+		<NcTextField :value.sync="maxRedirects"
+			:label="t('news', 'Maximum redirects')"
+			:label-visible="true"
+			@update:value="update('maxRedirects', maxRedirects)" />
+		<p><em>{{ t('news', 'How many redirects the feed fetcher should follow.') }}</em></p>
+
+		<NcTextField :value.sync="feedFetcherTimeout"
+			:label="t('news', 'Feed fetcher timeout')"
+			:label-visible="true"
+			@update:value="update('feedFetcherTimeout', feedFetcherTimeout)" />
+		<p><em>{{ t('news', 'Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.') }}</em></p>
+
+		<NcTextField :value.sync="exploreUrl"
+			:label="t('news', 'Explore Service URL')"
+			:label-visible="true"
+			@update:value="update('exploreUrl', exploreUrl)" />
+		<p><em>{{ t('news', 'If given, this service\'s URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.') }}</em></p>
+
+		<NcTextField :value.sync="updateInterval"
+			:label="t('news', 'Update interval')"
+			:label-visible="true"
+			@update:value="update('updateInterval', updateInterval)" />
+		<p><em>{{ t('news', 'Interval in seconds in which the feeds will be updated.') }}</em></p>
+	</NcSettingsSection>
+</template>
+
+<script>
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
+import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+import { loadState } from '@nextcloud/initial-state'
+import { showError } from '@nextcloud/dialogs'
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+import confirmPassword from '@nextcloud/password-confirmation'
+
+export default {
+	name: 'AdminSettings',
+	components: {
+		NcCheckboxRadioSwitch,
+		NcSettingsSection,
+		NcTextField,
+	},
+	data() {
+		return {
+			useCronUpdates: loadState('news', 'useCronUpdates') === '1',
+			autoPurgeMinimumInterval: loadState('news', 'autoPurgeMinimumInterval'),
+			autoPurgeCount: loadState('news', 'autoPurgeCount'),
+			maxRedirects: loadState('news', 'maxRedirects'),
+			feedFetcherTimeout: loadState('news', 'feedFetcherTimeout'),
+			exploreUrl: loadState('news', 'exploreUrl'),
+			updateInterval: loadState('news', 'updateInterval'),
+		}
+	},
+	methods: {
+		async update(key, value) {
+			await confirmPassword()
+			const url = generateOcsUrl('/apps/provisioning_api/api/v1/config/apps/{appId}/{key}', {
+				appId: 'news',
+				key,
+			})
+			if (value === true || value === false) {
+				value = value ? '0' : '1'
+			}
+			try {
+				const { data } = await axios.post(url, {
+					value,
+				})
+				this.handleResponse({
+					status: data.ocs?.meta?.status,
+				})
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Unable to update share by mail config'),
+					error: e,
+				})
+			}
+		},
+		async handleResponse({ status, errorMessage, error }) {
+			if (status !== 'ok') {
+				showError(errorMessage)
+				console.error(errorMessage, error)
+			}
+		},
+	},
+}
+</script>
+
+<style lang="scss" scopped>
+.news-settings {
+	p {
+		max-width: 700px;
+		margin-top: .25rem;
+		margin-bottom: 1rem;
+	}
+
+	input {
+		max-width: 350px;
+	}
+}
+</style>

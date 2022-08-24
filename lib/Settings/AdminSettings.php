@@ -6,6 +6,7 @@ use OCA\News\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
+use OCP\AppFramework\Services\IInitialState;
 
 class AdminSettings implements ISettings
 {
@@ -14,25 +15,26 @@ class AdminSettings implements ISettings
      * @var IConfig
      */
     private $config;
+    /** @var IInitialState */
+    private $initialState;
 
-    public function __construct(IConfig $config)
+    public function __construct(IConfig $config, IInitialState $initialState)
     {
         $this->config = $config;
+        $this->initialState = $initialState;
     }
 
     public function getForm()
     {
-        $data = [];
-
         foreach (array_keys(Application::DEFAULT_SETTINGS) as $setting) {
-            $data[$setting] = $this->config->getAppValue(
+            $this->initialState->provideInitialState($setting, $this->config->getAppValue(
                 Application::NAME,
                 $setting,
-                Application::DEFAULT_SETTINGS[$setting]
+                Application::DEFAULT_SETTINGS[$setting])
             );
         }
 
-        return new TemplateResponse(Application::NAME, 'admin', $data);
+        return new TemplateResponse(Application::NAME, 'admin', []);
     }
 
     public function getSection()
