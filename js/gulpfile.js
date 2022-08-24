@@ -39,7 +39,7 @@ const sources = [
     'directive/**/*.js'
 ];
 const testSources = ['tests/**/*.js'];
-const watchSources = sources.concat(testSources).concat(['*.js']);
+const watchSources = sources.concat(testSources).concat(['*.js', '!news-admin-settings.js']);
 const lintSources = watchSources;
 
 // tasks
