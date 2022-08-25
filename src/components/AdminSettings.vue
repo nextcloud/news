@@ -114,7 +114,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scopped>
+<style lang="scss" scoped>
 .news-settings {
 	p {
 		max-width: 700px;
