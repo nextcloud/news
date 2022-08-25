@@ -87,8 +87,8 @@ export default {
 				appId: 'news',
 				key,
 			})
-			if (value === true || value === false) {
-				value = value ? '0' : '1'
+			if (key === 'useCronUpdates') {
+				value = value ? '1' : '0'
 			}
 			try {
 				const { data } = await axios.post(url, {
@@ -99,7 +99,7 @@ export default {
 				})
 			} catch (e) {
 				this.handleResponse({
-					errorMessage: t('news', 'Unable to update share by mail config'),
+					errorMessage: t('news', 'Unable to update news config'),
 					error: e,
 				})
 			}
@@ -122,7 +122,7 @@ export default {
 		margin-bottom: 1rem;
 	}
 
-	input {
+	.input-field {
 		max-width: 350px;
 	}
 }

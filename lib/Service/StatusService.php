@@ -48,7 +48,7 @@ class StatusService
         $cronOff = !boolval($this->settings->getAppValue(
             Application::NAME,
             'useCronUpdates',
-            Application::DEFAULT_SETTINGS['useCronUpdates']
+            (string)Application::DEFAULT_SETTINGS['useCronUpdates']
         ));
 
         // check for cron modes which may lead to problems

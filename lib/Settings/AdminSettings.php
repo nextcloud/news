@@ -30,8 +30,8 @@ class AdminSettings implements ISettings
             $this->initialState->provideInitialState($setting, $this->config->getAppValue(
                 Application::NAME,
                 $setting,
-                Application::DEFAULT_SETTINGS[$setting])
-            );
+                (string)Application::DEFAULT_SETTINGS[$setting]
+            ));
         }
 
         return new TemplateResponse(Application::NAME, 'admin', []);
