@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3babc18cdf4735caf0cc9cc81bf11dd3",
+    "content-hash": "d74c27c2974ba6b6bbb96dc984451c1c",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -1278,16 +1278,16 @@
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "1.4.0",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "a73b39739b5e165a7a40075ecf05c4385f6c0d1b"
+                "reference": "4e57160a710dea304fbd1a177ce38edd9b3848db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/a73b39739b5e165a7a40075ecf05c4385f6c0d1b",
-                "reference": "a73b39739b5e165a7a40075ecf05c4385f6c0d1b",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/4e57160a710dea304fbd1a177ce38edd9b3848db",
+                "reference": "4e57160a710dea304fbd1a177ce38edd9b3848db",
                 "shasum": ""
             },
             "require": {
@@ -1320,9 +1320,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.4.0"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.4.2"
             },
-            "time": "2022-08-23T15:07:03+00:00"
+            "time": "2022-08-25T15:04:21+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
