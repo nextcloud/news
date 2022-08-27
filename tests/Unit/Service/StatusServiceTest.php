@@ -60,7 +60,7 @@ class StatusServiceTest extends TestCase
             ->will($this->returnValueMap([
                 ['news', 'installed_version', '', '1.0'],
                 ['core', 'backgroundjobs_mode', '', 'cron'],
-                ['news', 'useCronUpdates', (string)true, (string)true],
+                ['news', 'useCronUpdates', true, true],
             ]));
 
         $this->connection->expects($this->exactly(1))
