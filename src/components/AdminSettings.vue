@@ -57,10 +57,26 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadi
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 import { loadState } from '@nextcloud/initial-state'
-import { showError } from '@nextcloud/dialogs'
+import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 import confirmPassword from '@nextcloud/password-confirmation'
+
+/**
+ *
+ * @param func
+ * @param wait
+ */
+function debounce(func, wait) {
+	let timeout
+
+	return function executedFunction(...args) {
+		clearTimeout(timeout)
+		timeout = setTimeout(() => { func.apply(this, args) }, wait)
+	}
+}
+
+const successMessage = debounce(() => showSuccess(t('news', 'Successfuly updated news configuration')), 500)
 
 export default {
 	name: 'AdminSettings',
@@ -108,6 +124,8 @@ export default {
 			if (status !== 'ok') {
 				showError(errorMessage)
 				console.error(errorMessage, error)
+			} else {
+				successMessage()
 			}
 		},
 	},
