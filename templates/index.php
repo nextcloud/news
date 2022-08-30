@@ -1,4 +1,8 @@
 <?php
+
+\OCP\Util::addScript('news', 'build/news-main');
+
+/*
 use OCA\News\Plugin\Client\Plugin;
 
 script('news', [
@@ -97,3 +101,4 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
             news-scroll-enabled-mark-read="Content.markReadEnabled()"
             news-scroll-auto-page="Content.autoPage()"
             news-scroll-mark-read="Content.scrollRead(itemIds)"></div>
+ */
