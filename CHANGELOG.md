@@ -5,6 +5,12 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [18.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [18.2.0-beta1] - 2022-08-30
+### Changed
 - Ported the admin settings to vue (#2353)
 
 ### Fixed
@@ -14,7 +20,6 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Fix when marking all items as read, all items of the user are used in the sql query (#1873)
 - Fix adding feed via the web-ui that was just deleted causing an error (#1872)
 
-# Releases
 ## [18.1.1] - 2022-08-12
 ### Changed
 - Change autodiscover to only run after fetching the given url has failed (#1860)
