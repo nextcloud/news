@@ -21,7 +21,6 @@ OC.L10N.register(
     "Feed fetcher timeout" : "A obtenção do feed expirou",
     "Explore Service URL" : "Explorar Serviço URL",
     "Update interval" : "Intervalo de actualização",
-    "Saved" : "Guardado",
     "Download" : "Transferir",
     "Close" : "Fechar",
     "No articles available" : "Não há artigos disponíveis",

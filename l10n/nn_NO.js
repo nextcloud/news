@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "News" : "Nyhende",
-    "Saved" : "Lagra",
     "Download" : "Last ned",
     "Close" : "Lukk",
     "Share" : "Del",

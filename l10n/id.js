@@ -14,7 +14,6 @@ OC.L10N.register(
     "Maximum redirects" : "Pengalihan maksimum",
     "Feed fetcher timeout" : "Pengambil feed kehabisan waktu",
     "Explore Service URL" : "URL Layanan Jelajah",
-    "Saved" : "Disimpan",
     "Download" : "Unduh",
     "Close" : "Tutup",
     "No articles available" : "Tidak ada artikel yang tersedia",

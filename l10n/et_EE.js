@@ -13,7 +13,6 @@ OC.L10N.register(
     "Maximum redirects" : "Maksimaalsed ümbersuunamised",
     "Feed fetcher timeout" : "Voo ühenduse aegumine",
     "Explore Service URL" : "Sirvi teenuse URL-i",
-    "Saved" : "Salvestatud",
     "Download" : "Lae alla",
     "Close" : "Sulge",
     "No articles available" : "Ühtegi artiklit pole saadaval",

@@ -16,7 +16,6 @@ OC.L10N.register(
     "Maximum redirects" : "Maksimum ridrejtimesh",
     "Feed fetcher timeout" : "Mbarim kohe për sjellësin e prurjeve",
     "Explore Service URL" : "URL Shërbimi Eksplorimesh",
-    "Saved" : "U ruajt",
     "Download" : "Shkarko",
     "Close" : "Mbylle",
     "No articles available" : "Jo artikuj të gatshëm",

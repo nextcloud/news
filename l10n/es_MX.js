@@ -17,7 +17,6 @@ OC.L10N.register(
     "Maximum redirects" : "Redirecciones máximas",
     "Feed fetcher timeout" : "Tiempo de vida para el buscador de fuentes",
     "Explore Service URL" : "Explorar la URL del Servicio",
-    "Saved" : "Guardado",
     "Download" : "Descargar",
     "Close" : "Cerrar",
     "No articles available" : "No hay artículos disponibles",

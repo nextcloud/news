@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Request failed, network connection unavailable!" : "So'rov amalga oshmadi, tarmoq ulanishi mavjud emas!",
-    "Saved" : "Saqlangan",
     "Download" : "Yuklab oling",
     "Username" : "Foydalanuvchi nomi",
     "right" : "o'ng",

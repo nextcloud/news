@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Oxunulmamış məqalə",
-    "Saved" : "Saxlanıldı",
     "Download" : "Yüklə",
     "Close" : "Bağla",
     "Share" : "Paylaş",

@@ -17,7 +17,6 @@ OC.L10N.register(
     "Maximum redirects" : "Maksimalt antall videresendinger",
     "Feed fetcher timeout" : "Tidsavbrudd for henting av strøm",
     "Explore Service URL" : "URL for utforskertjeneste",
-    "Saved" : "Lagret",
     "Download" : "Last ned",
     "Close" : "Lukk",
     "No articles available" : "Ingen artikler tilgjengelig",

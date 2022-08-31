@@ -11,7 +11,6 @@ OC.L10N.register(
     "Maximum redirects" : "เปลี่ยนเส้นทางสูงสุด",
     "Feed fetcher timeout" : "ตัวเรียกฟีดหมดเวลา",
     "Explore Service URL" : "สำรวจบริการ URL",
-    "Saved" : "บันทึกแล้ว",
     "Download" : "ดาวน์โหลด",
     "Close" : "ปิด",
     "No articles available" : "ไม่มีบทความที่",

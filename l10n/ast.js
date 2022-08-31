@@ -14,7 +14,6 @@ OC.L10N.register(
     "Maximum redirects" : "Redirecciones máximes",
     "Feed fetcher timeout" : "Tiempo escosao p'algamar el feed",
     "Explore Service URL" : "Esplorar URL del serviciu",
-    "Saved" : "Guardáu",
     "Download" : "Descargar",
     "Close" : "Zarrar",
     "No articles available" : "Nun hai artículos disponibles",

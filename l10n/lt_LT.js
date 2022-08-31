@@ -17,8 +17,6 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Kiek kartų kanalų gaviklis turėtų sekti paskui peradresavimus.",
     "Feed fetcher timeout" : "Kanalų gavimui skirtas laikas",
     "Explore Service URL" : "Išžvalgymo paslaugos URL",
-    "For more information check the wiki." : "Išsamesnei informacijai, žiūrėkite vikį.",
-    "Saved" : "Įrašyta",
     "Download" : "Atsisiųsti",
     "Close" : "Užverti",
     "Subscribe to" : "Prenumeruoti",

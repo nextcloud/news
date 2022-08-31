@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "News" : "Мэдээ",
-    "Saved" : "Хадгалах",
     "Download" : "Татах",
     "Close" : "Хаах",
     "Share" : "Түгээх",

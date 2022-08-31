@@ -11,7 +11,6 @@ OC.L10N.register(
     "Maximum redirects" : "Nombre maximal de redireccions",
     "Feed fetcher timeout" : "Relambi d'espèra maximum del recuperador de flux",
     "Explore Service URL" : "URL del servici d'exploracion",
-    "Saved" : "Salvat",
     "Download" : "Telecargar",
     "Close" : "Tampar",
     "No articles available" : "Pas cap d'article disponible",

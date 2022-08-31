@@ -17,7 +17,6 @@ OC.L10N.register(
     "Maximum redirects" : "최대 넘겨주기 수",
     "Feed fetcher timeout" : "피드 가져오기 시간 제한",
     "Explore Service URL" : "탐색 서비스 URL",
-    "Saved" : "저장됨",
     "Download" : "다운로드",
     "Close" : "닫기",
     "No articles available" : "글 없음",

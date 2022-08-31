@@ -12,7 +12,6 @@ OC.L10N.register(
     "Use system cron for updates" : "Izmantot sistēmas cron atjauninājumiem",
     "Purge interval" : "Iztīrīšanas intervāls",
     "Maximum redirects" : "Maksimāli pieļaujamais pārsūtīšanu skaits",
-    "Saved" : "Saglabāts",
     "Download" : "Lejupielādēt",
     "Close" : "Aizvērt",
     "Open website" : "Atvērt vietni",

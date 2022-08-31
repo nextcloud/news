@@ -11,7 +11,6 @@ OC.L10N.register(
     "Maximum redirects" : "Максимум перенаправлень",
     "Feed fetcher timeout" : "Час очікування для завантажувача стрічки",
     "Explore Service URL" : "URL сервісу дослідження",
-    "Saved" : "Збереженно",
     "Download" : "Завантажити",
     "Close" : "Закрити",
     "No articles available" : "Немає доступних статей",

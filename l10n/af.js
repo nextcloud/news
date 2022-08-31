@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "News" : "Nuus",
     "Shared with me" : "Gedeel met my",
-    "Saved" : "Bewaar",
     "Download" : "Laai Af",
     "Close" : "Sluit",
     "Share" : "Deel",

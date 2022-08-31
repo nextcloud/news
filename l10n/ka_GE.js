@@ -16,7 +16,6 @@ OC.L10N.register(
     "Maximum redirects" : " მაქს. გადამისამართებები",
     "Feed fetcher timeout" : "ლენტის მომპოვებლის დროის ამოწურვა",
     "Explore Service URL" : "სერვის მისამართის დათვალიერება",
-    "Saved" : "შენახულია",
     "Download" : "ჩამოტვირთვა",
     "Close" : "დახურვა",
     "No articles available" : "არტიკლები ხელმიუწვდომელია",

@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Articulos non legite",
-    "Saved" : "Salveguardate",
     "Download" : "Discargar",
     "Close" : "Clauder",
     "No articles available" : "Nulle articulos disponibile",

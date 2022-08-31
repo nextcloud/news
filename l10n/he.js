@@ -17,8 +17,6 @@ OC.L10N.register(
     "Maximum redirects" : "מספר ניתובים מירבי",
     "Feed fetcher timeout" : "עבר זמן מרבי להזנת ערוץ התוכן",
     "Explore Service URL" : "חקירת נתיב שירות",
-    "For more information check the wiki." : "למידע נוסף יש לבקר בוויקי.",
-    "Saved" : "נשמר",
     "Download" : "הורדה",
     "Close" : "סגירה",
     "No articles available" : "אין מאמרים זמינים",

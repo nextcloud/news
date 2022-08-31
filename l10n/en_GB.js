@@ -17,7 +17,6 @@ OC.L10N.register(
     "Maximum redirects" : "Maximum redirects",
     "Feed fetcher timeout" : "Feed fetcher timeout",
     "Explore Service URL" : "Explore Service URL",
-    "Saved" : "Saved",
     "Download" : "Download",
     "Close" : "Close",
     "No articles available" : "No articles available",

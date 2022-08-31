@@ -16,7 +16,6 @@ OC.L10N.register(
     "Maximum redirects" : "حداکثر تغییر مسیرها",
     "Feed fetcher timeout" : "خاتمه دادن به فست فایر",
     "Explore Service URL" : "URL سرویس را کاوش کنید",
-    "Saved" : "ذخیره شد",
     "Download" : "دانلود",
     "Close" : "بستن",
     "No articles available" : "هیچ مقاله‌ای موجود نیست",

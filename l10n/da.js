@@ -16,7 +16,6 @@ OC.L10N.register(
     "Maximum redirects" : "Maksimum for videredirigeringer",
     "Feed fetcher timeout" : "Tidsudløb for feed-indhenter",
     "Explore Service URL" : "Udforsk tjenestens URL",
-    "Saved" : "Gemt",
     "Download" : "Download",
     "Close" : "Luk",
     "No articles available" : "Ingen tilgængelige artikler",
