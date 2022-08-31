@@ -22,9 +22,12 @@
 						<img :src="entry.image">
 					</div>
 				</div>
-				<Button @click="subscribe(entry.feed)">
-					{{ t("news", "Subscribe to") }} {{ entry.title }}
-				</Button>
+				<NcButton @click="subscribe(entry.feed)"
+					type="primary"
+					class="grid-item__button"
+					:wide="true">
+					{{ t("news", "Subscribe to {title}", {title: entry.title}) }}
+				</NcButton>
 			</div>
 		</div>
 	</div>
@@ -76,3 +79,52 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+.grid-container {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* This is better for small screens, once min() is better supported */
+  /* grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); */
+  gap: 1rem;
+
+	.grid-item {
+		border: 2px solid var(--color-border);
+		border-radius: var(--border-radius-large);
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+
+		&__button {
+			margin-top: auto;
+		}
+	}
+  .grid-item .explore-title {
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    background-size: 24px;
+    padding-left: 32px;
+  }
+  .grid-item .explore-title a {
+    word-wrap: break-word;
+  }
+  .grid-item .explore-title a:hover, #explore .grid-item .explore-title a:focus {
+    text-decoration: underline;
+  }
+  .grid-item .explore-logo {
+    text-align: center;
+    margin-top: 25px;
+  }
+  .grid-item .explore-logo img {
+    width: 100%;
+  }
+  .grid-item .explore-subscribe {
+    margin-top: 16px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+</style>

@@ -1,22 +1,22 @@
 <template>
-	<Content app-name="news">
+	<NcContent app-name="news">
 		<Sidebar />
-		<AppContent>
+		<NcAppContent>
 			<router-view />
-		</AppContent>
-	</Content>
+		</NcAppContent>
+	</NcContent>
 </template>
 
 <script>
-import Content from '@nextcloud/vue/dist/Components/Content'
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import Sidebar from './components/Sidebar.vue'
 
 export default {
 	components: {
-		Content,
+		NcContent,
+		NcAppContent,
 		Sidebar,
-		AppContent,
 	},
 	created() {
 		this.$store.dispatch('loadFolder')
