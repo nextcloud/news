@@ -55,7 +55,7 @@ app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider)
     var errorMessages = {
         0: t('news', 'Request failed, network connection unavailable!'),
         401: t('news', 'Request unauthorized. Are you logged in?'),
-        403: t('news', 'Request forbidden. Are you an admin?'),
+        403: t('news', 'Request forbidden. Are you an administrator?'),
         412: t('news', 'Token expired or app not enabled! Reload the page!'),
         500: t('news', 'Internal server error! Please check your ' +
             'data/nextcloud.log file for additional ' +
