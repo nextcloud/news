@@ -9,6 +9,9 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [18.2.0-beta2] - 2022-09-07
+Fix for the read all function and spelling fixes.
+
 ## [18.2.0-beta1] - 2022-08-30
 ### Changed
 - Ported the admin settings to vue (#2353)
