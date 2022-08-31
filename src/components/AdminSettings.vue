@@ -24,7 +24,7 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 			:label="t('news', 'Maximum read count per feed')"
 			:label-visible="true"
 			@update:value="update('autoPurgeCount', autoPurgeCount)" />
-		<p><em>{{ t('news', `Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.`) }}</em></p>
+		<p><em>{{ t('news', 'Defines the maximum amount of articles that can be read per feed which won\'t be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.') }}</em></p>
 
 		<NcTextField :value.sync="maxRedirects"
 			:label="t('news', 'Maximum redirects')"
