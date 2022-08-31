@@ -76,7 +76,7 @@ function debounce(func, wait) {
 	}
 }
 
-const successMessage = debounce(() => showSuccess(t('news', 'Successfuly updated news configuration')), 500)
+const successMessage = debounce(() => showSuccess(t('news', 'Successfully updated news configuration')), 500)
 
 export default {
 	name: 'AdminSettings',
