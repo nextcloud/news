@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Kërkesa dështoi, s’funksionon lidhja në rrjet!",
     "Request unauthorized. Are you logged in?" : "Kërkesë e paautorizuar. Jeni i futur?",
-    "Request forbidden. Are you an admin?" : "Kërkesë e ndaluar. Jeni një përgjegjës?",
     "Token expired or app not enabled! Reload the page!" : "Token-i ka skaduar ose s’është aktivizuar aplikacioni! Ringarkoni faqen!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Gabim i brendshëm serveri! Ju lutemi kontrolloni skedarin tuaj data/nextcloud.log për informacion shtesë!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Kërkesa dështoi, Nextcloud është aktualisht më gjëndjen e mirëmbajtjes!",

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "درخواست انجام نشد ، اتصال به شبکه در دسترس نیست!",
     "Request unauthorized. Are you logged in?" : "درخواست غیر مجاز. آیا وارد سیستم شده اید؟",
-    "Request forbidden. Are you an admin?" : "درخواست ممنوع است. مدیر هستید؟",
     "Token expired or app not enabled! Reload the page!" : "گفتگوی منقضی شده یا برنامه فعال نشده است! بارگیری مجدد صفحه!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "خطای سرور داخلی! لطفاً برای اطلاعات بیشتر ، پرونده / nextcloud.log خود را بررسی کنید!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "درخواست انجام نشد ، Nextcloud در حال حاضر در حالت تعمیر و نگهداری است!",

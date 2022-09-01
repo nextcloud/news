@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Запрос не удался, нет сетевого соединения!",
     "Request unauthorized. Are you logged in?" : "Запрос не авторизован. Вы вошли в систему?",
-    "Request forbidden. Are you an admin?" : "Запрос запрещён. Вы действительно являетесь администратором?",
     "Token expired or app not enabled! Reload the page!" : "Срок действия токена истёк или приложение не включено! Перезагрузите страницу!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Внутренняя ошибка сервера! Пожалуйста, для получения дополнительной информации проверьте журнал в файле data/nextcloud.log!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Запрос не удался, в настоящий момент Nextcloud включен в режиме обслуживания!",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Интервал очистки",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Минимальное количество секунд, после которого удалённые ленты и папки будут убраны из базы данных; значения меньше 60 секунд игнорируются.",
     "Maximum read count per feed" : "Максимальное количество статей для ленты",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Максимальное количество прочитанных статей для каждой ленты, которые не будут удалены при очистке; если старые статьи появляются снова после прочтения, то увеличьте это значение; отрицательные значения, например, -1, полностью отключают эту функцию.",
     "Maximum redirects" : "Максимум перенаправлений",
     "How many redirects the feed fetcher should follow." : "Сколько перенаправлений должен обрабатывать загрузчик лент.",
     "Feed fetcher timeout" : "Время ожидания для загрузчика ленты",

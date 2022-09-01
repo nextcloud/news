@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Anfrage fehlgeschlagen, Netzwerkverbindung nicht verfügbar!",
     "Request unauthorized. Are you logged in?" : "Anfrage nicht autorisiert. Sind Sie angemeldet?",
-    "Request forbidden. Are you an admin?" : "Anfrage verboten. Sind Sie ein Admin?",
     "Token expired or app not enabled! Reload the page!" : "Token abgelaufen oder App nicht aktiviert! Bitte laden Sie die Seite neu!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interner Serverfehler! Bitte kontrollieren Sie data/nextcloud.log für weitere Informationen!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Anfrage fehlgeschlagen, diese Nextcloud-Instanz befindet sich derzeit im Wartungsmodus.",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Säuberungssintervall",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimum an Sekunden, nachdem gelöschte Feeds und Ordner aus der Datenbank entfernt werden; Werte unter 60 Sekunden werden ignoriert.",
     "Maximum read count per feed" : "Maximale Anzahl an gelesenen Artikeln pro Feed",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen und bei einem Säuberungsauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen erhalten bleiben sollen, erhöhen Sie diesen Wert; negative Werte wie -1 deaktivieren diese Funktion komplett.",
     "Maximum redirects" : "Maximale Anzahl Weiterleitungen",
     "How many redirects the feed fetcher should follow." : "Anzahl Weiterleitungen die der Feed-Sammler folgen soll.",
     "Feed fetcher timeout" : "Zeitüberschreitung Feed-Sammler",
@@ -27,6 +27,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Falls angegeben, wird die URL dieses Dienstes zur Feed-Anzeige innerhalb des Explore-Feed-Bereichs abgefragt. Lassen Sie dieses Feld unausgefüllt, um auf den eingebauten Explore-Dienst zurückzugreifen.",
     "Update interval" : "Aktualisierungsintervall",
     "Interval in seconds in which the feeds will be updated." : "Intervall in Sekunden, in dem die Feeds aktualisiert werden.",
+    "Unable to update news config" : "Die News-Einstellungen konnten nicht aktualisiert werden",
     "Download" : "Herunterladen",
     "Close" : "Schließen",
     "Subscribe to" : "Abonnieren von",

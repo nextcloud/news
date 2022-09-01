@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "La sol·licitud ha fallat, la connexió de xarxa no està disponible!",
     "Request unauthorized. Are you logged in?" : "Sol·licitud no autoritzada. Heu iniciat la sessió?",
-    "Request forbidden. Are you an admin?" : "Sol·licitud prohibida. Sou un administrador?",
     "Token expired or app not enabled! Reload the page!" : "El Token està caducat o l'aplicació no està activada! Torneu a carregar la pàgina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Error intern servidor! Consulteu el fitxer data/nextcloud.log per obtenir informació addicional!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "La sol·licitud ha fallat, Nextcloud és actualment en mode de manteniment!",
@@ -15,6 +14,7 @@ OC.L10N.register(
     "Purge interval" : "Interval de purga",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Nombre mí­nim de segons abans que les fonts i carpetes eliminades siguin eliminades definitivament de la base de dades; valors per sota de 60 segons seran ignorats.",
     "Maximum read count per feed" : "Màxim nombre de lectures per font",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Defineix la quantitat màxima d'articles que es poden llegir per font que no s'esborraran en el treball de neteja; si reapareixen articles antics després d'haver estat llegits, augmenteu aquest valor; valors negatius, com -1, desactivaran aquesta caracterí­stica.",
     "Maximum redirects" : "Màxim de redirigits",
     "How many redirects the feed fetcher should follow." : "Quantes redireccions hauria de suportar el descarregador de fonts.",
     "Feed fetcher timeout" : "Temps d'espera exhaurit per a la descàrrega de la font",

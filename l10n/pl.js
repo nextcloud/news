@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Błędne żądanie, połączenie sieciowe jest niedostępne!",
     "Request unauthorized. Are you logged in?" : "Żądanie nieautoryzowane. Jesteś zalogowany?",
-    "Request forbidden. Are you an admin?" : "Zapytanie niedozwolone. Czy jesteś administratorem?",
     "Token expired or app not enabled! Reload the page!" : "Token wygasł lub aplikacja nie jest włączona! Przeładuj stronę!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Wewnętrzny błąd serwera! Proszę sprawdzić plik data/nextcloud.log w celu uzyskania dodatkowych informacji!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Nie wykonano żądania, Nextcloud działa obecnie w trybie konserwacji!",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Interwał czyszczenia",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimalna ilość sekund po usunięciu kanału i katalogów do usunięcia ich z bazy danych; wartości poniżej 60 sekund będą ignorowane.",
     "Maximum read count per feed" : "Maksymalna ilość odczytów na kanał",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Definiuje maksymalną ilość artykułów, które mogą być odczytane przez kanał, a nie będą usuwane podczas zadania czyszczenia; zwiększ wartość jeśli starsze artykuły pojawią się ponownie po przeczytaniu; ujemne wartości jak -1 wyłączą tę funkcjonalność całkowicie.",
     "Maximum redirects" : "Maksymalna liczba przekierowań",
     "How many redirects the feed fetcher should follow." : "Za iloma przekierowaniami ma nastąpić podążanie przy pobieraniu kanałów.",
     "Feed fetcher timeout" : "Czas braku odpowiedzi dla ściągania kanału",
@@ -27,6 +27,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Jeśli zostanie podany, adres URL tej usługi zostanie zapytany o wyświetlenie kanałów w sekcji przeglądania kanałów. Aby wrócić do wbudowanej usługi przeglądania, pozostaw to pole puste.",
     "Update interval" : "Interwał aktualizacji",
     "Interval in seconds in which the feeds will be updated." : "Przedział czasu w sekundach, w którym kanały będą zaktualizowane.",
+    "Unable to update news config" : "Nie można zaktualizować konfiguracji wiadomości",
     "Download" : "Pobierz",
     "Close" : "Zamknij",
     "Subscribe to" : "Subskrybuj",

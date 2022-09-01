@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Forespørgslen mislykkedes, netværksforbindelse er ikke tilgængelig!",
     "Request unauthorized. Are you logged in?" : "Forespørgslen var ikke autoriseret. Er du logget ind?",
-    "Request forbidden. Are you an admin?" : "Forespørgslen er ikke tilladt. Er du administrator?",
     "Token expired or app not enabled! Reload the page!" : "Nøglen er udløbet  eller appen er ikke aktiveret! Genindlæs siden!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Intern server fejl! Tjek din data/nextcloud.log log-fil for yderligere information.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Forespørgslen mislykkedes, Nextcloud er i øjeblikket i vedligeholdelse tilstand!",

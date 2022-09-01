@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Permintaan gagal, koneksi jaringan tidak tersedia!",
     "Request unauthorized. Are you logged in?" : "Permintaan tidak sah. Apakah Anda sudah masuk?",
-    "Request forbidden. Are you an admin?" : "Permintaan dilarang. Apakah Anda admin?",
     "Token expired or app not enabled! Reload the page!" : "Token telah kadaluarsa atau aplikasi tidak diaktifkan! Muat ulang halaman!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Kesalahan internal server! Mohon cek berkas data/nextcloud.log Anda untuk informasi lebih lanjut!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Permintaan gagal, Nextcloud sedang dalam mode pemeliharaan!",

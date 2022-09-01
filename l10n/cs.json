@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Požadavek se nezdařil, není dostupné síťové připojení!",
     "Request unauthorized. Are you logged in?" : "Neoprávněný požadavek. Jste přihlášení?",
-    "Request forbidden. Are you an admin?" : "Požadavek odepřen. Jste správce?",
     "Token expired or app not enabled! Reload the page!" : "Platnost tokenu skončila nebo aplikace není povolena! Načtěte stránku znovu.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnitřní chyba serveru! Podrobnosti naleznete v souboru data/nextcloud.log",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek se nezdařil, Nextcloud je aktuálně v režimu údržby!",
@@ -17,6 +16,7 @@
     "Purge interval" : "Interval čištění",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimální časový interval v sekundách, po kterém jsou z databáze smazány odstraněné kanály novinek a složky; hodnoty kratší než 60 sekund jsou ignorovány.",
     "Maximum read count per feed" : "Maximální počet přečtených novinek na kanál",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Určuje nejvyšší počet článků, které jsou dostupné ke čtení z jednotlivých kanálů a nebudou smazány při čištění; pokud se staré články po přečtení znovu objevují, navyšte tuto hodnotu; negativní hodnoty jako -1 tuto funkci úplně vypnou.",
     "Maximum redirects" : "Nejvyšší počet přesměrování",
     "How many redirects the feed fetcher should follow." : "Kolik přesměrování se může následovat při stahování článků.",
     "Feed fetcher timeout" : "Časový limit při stahování článků",
@@ -25,6 +25,7 @@
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Pokud zadáno, bude tato URL dotazována na zobrazování kanálů v sekci prohledávání kanálu. Pro návrat k výchozí službě hledání ponechte tuto kolonku prázdnou.",
     "Update interval" : "Interval aktualizace",
     "Interval in seconds in which the feeds will be updated." : "Interval (v sekundách) ve kterém budou kanály aktualizovány.",
+    "Unable to update news config" : "Nedaří se aktualizovat nastavení pro Novinky",
     "Download" : "Stáhnout",
     "Close" : "Zavřít",
     "Subscribe to" : "Přihlásit k odběru",

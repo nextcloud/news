@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Pedido falhou, ligação à rede indisponível!",
     "Request unauthorized. Are you logged in?" : "Pedido não autorizado. Fez o login?",
-    "Request forbidden. Are you an admin?" : "Pedido proibido. É um administrador?",
     "Token expired or app not enabled! Reload the page!" : "Token expirou ou aplicação não ativa! Recarregue a página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Erro interno do servidor. Veja por favor o ficheiro na pasta data/nextcloud.log para mais informações!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Falha no pedido, Nextcloud está atualmente em modo de manutenção!",

@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Solecitare nereușită, conexiune la rețeă indisponibilă!",
     "Request unauthorized. Are you logged in?" : "Cerere neautorizată. Ești autentificat ?",
-    "Request forbidden. Are you an admin?" : "Cerere interzisă. Ești un administrator ?",
     "Token expired or app not enabled! Reload the page!" : "Token expirat sau aplicatie inactivă. Reîncarcă pagina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Eroare server internă! Controlați fișierul data/nextcloud.log pentru mai multe informații!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Solicitare nereușită, Nexcloud este momentan în mentenanță!",
@@ -17,6 +16,7 @@
     "Purge interval" : "Interval de ștergere",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Număr minim de secunde ce trebuie să treacă pentru ca fluxurile și dosarele ștere să fie îndepărtate din baza de date; valorile sub 60 de secunde sunt ignorate.",
     "Maximum read count per feed" : "Număr maxim de citiri pentru un flux",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Setarea definește numărul maxim de articole ce pot fi citite pe flux de date, articole ce nu vor fi șterse automat; Dacă articole vechi reapar după ce au fost șterse, mărește aceasta valoare; valori negative precum -1 opresc aceasta funcție.",
     "Maximum redirects" : "Numărul maxim de redirectări",
     "How many redirects the feed fetcher should follow." : "Cât de multe redirecționări ar trebui aplicația să urmărească.",
     "Feed fetcher timeout" : "Intervalul de așteptat al programului ce adună fluxurile de date",

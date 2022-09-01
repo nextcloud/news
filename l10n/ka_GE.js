@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "მოთხოვნა არ შედგა, ქსელთან კავშირი ხელმიუწვდომელია!",
     "Request unauthorized. Are you logged in?" : "მოთხოვნა არაა ავტორიზირებული. გავლილი გაქვთ ავტორიზაცია?",
-    "Request forbidden. Are you an admin?" : "მოთხოვნა აიკრძალა. ხაართ ადმინისტრატორი?",
     "Token expired or app not enabled! Reload the page!" : "ტოკენს ამოეწურა ვადა ან აპლიკაცია არაა მოქმედი! გადატვირთეთ გვერდი! ",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "შიდა სერვერის შეცდომა! დამატებიტი ინფორმაციისთვის გთხოვთ შეამოწმოთ თქვენი data/nextcloud.log ფაილი.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "მოთხოვნა არ შედგა, Nextcloud ახლა სარემონტო რეჟიმშია!",

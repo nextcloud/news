@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Zahteva je spodletela. Omrežna povezava trenutno ni na voljo!",
     "Request unauthorized. Are you logged in?" : "Zahteva ni ustrezno overjena. Ali ste prijavljeni?",
-    "Request forbidden. Are you an admin?" : "Zahteva je zavrnjena. Ali ste prijavljeni kot skrbnik?",
     "Token expired or app not enabled! Reload the page!" : "Žeton je pretekel ali pa program ni omogočen! Poskusite osvežiti stran!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Notranja napaka strežnika! Preverite datoteko data/nextcloud.log za podrobnosti!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Zahteva je spodletela! Okolje Nextcloud je trenutno v vzdrževalnem načinu!",
@@ -16,6 +15,7 @@
     "Purge interval" : "Časovni razmik odstranjevanja",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Najkrajši čas, po katerem bodo viri in mape odstranjeni iz podatkovne zbirke. Vrednosti pod 60 sekundami so prezrte.",
     "Maximum read count per feed" : "Največje število prikazanih virov",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Določa največje število prispevkov vira, ki bodo ostali vidni po čiščenju zgodovine. Če se pojavljajo starejši prispevki, je določilo nastavljeno prenizko. Vrednost -1 onemogoči izvajanje možnosti.",
     "Maximum redirects" : "Največje število preusmeritev",
     "How many redirects the feed fetcher should follow." : "Koliko preusmeritvam naj sledi bralnik virov",
     "Feed fetcher timeout" : "Pridobivanje vira je časovno poteklo",

@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Aanvraag mislukt, netwerkverbinding niet beschikbaar!",
     "Request unauthorized. Are you logged in?" : "Aanvraag niet toegestaan. Ben je ingelogd?",
-    "Request forbidden. Are you an admin?" : "Aanvraag verboden. Ben je beheerder?",
     "Token expired or app not enabled! Reload the page!" : "Token verlopen of app niet ingeschakeld! Ververs de pagina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interne serverfout! Controleer je data/nextcloud.log bestand voor meer informatie!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Aanvraag mislukt, Nextcloud staat momenteel in onderhoudsmodus!",
@@ -17,6 +16,7 @@
     "Purge interval" : "Opruim interval",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimaal aantal seconden nadat verwijderde feeds en mappen uit de database zijn verwijderd; waarden onder de 60 seconden worden genegeerd.",
     "Maximum read count per feed" : "Maximaal aantal gelezen per feed",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Bepaalt het maximale aantal artikelen dat per feed kan worden gelezen en die niet worden verwijderd door de opruimtaak; als oude artikelen opnieuw verschijnen nadat ze zijn gelezen, verhoog deze waarde; negatieve waarden zoals -1 zullen deze functie uitschakelen.",
     "Maximum redirects" : "Maximum redirects",
     "How many redirects the feed fetcher should follow." : "Hoeveel omleidingen de feed-fetcher moet volgen.",
     "Feed fetcher timeout" : "Feed ophaler timeout",

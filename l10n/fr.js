@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Échec de la requête, connexion réseau indisponible !",
     "Request unauthorized. Are you logged in?" : "Requête non autorisée. Êtes-vous bien connecté ?",
-    "Request forbidden. Are you an admin?" : "Requête interdite. Avez-vous les droits administrateurs ?",
     "Token expired or app not enabled! Reload the page!" : "Le jeton a expiré ou l'application n'est pas activée ! Veuillez recharger la page !",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Erreur interne du serveur ! Veuillez consulter votre fichier data/nextcloud.log pour plus d'informations !",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "La requête a échoué, Nextcloud est actuellement en maintenance !",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Intervalle de purge",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Nombre minimum de secondes après lequel les flux et dossiers supprimés seront effacés de la base de données. Les valeurs inférieures à 60 secondes seront ignorées.",
     "Maximum read count per feed" : "Nombre maximum de lecture par flux",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Définit la quantité maximale d'articles pouvant être lus par flux qui ne seront pas supprimés par la tâche de nettoyage. Si d'anciens articles réapparaissent après avoir été lus, augmentez cette valeur. Une valeur négative comme -1 désactivera complètement cette fonctionnalité",
     "Maximum redirects" : "Nombre maximal de redirections",
     "How many redirects the feed fetcher should follow." : "Nombre de redirections que le récupérateur de flux doit suivre",
     "Feed fetcher timeout" : "Délai d'attente maximum du récupérateur de flux",

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Неуспео захтев. Мрежа није доступна!",
     "Request unauthorized. Are you logged in?" : "Неовлашћен захтев. Јесте ли пријављени?",
-    "Request forbidden. Are you an admin?" : "Забрањен захтев. Да ли сте администратор?",
     "Token expired or app not enabled! Reload the page!" : "Жетон је истекао или апликација није укључена! Учитајте поново страницу!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Интерна грешка на серверу! Проверите data/nextcloud.log фајл за додатне информације!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Неуспео захтев. Некстклауд сервер је тренутно у режиму приступа само једног корисника!",
@@ -15,6 +14,7 @@ OC.L10N.register(
     "Purge interval" : "Интервал чишћења",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Минимални број секунди пошто се обрисани доводи и фасцикле уклоне из базе; вредности испод 60 секунди се игноришу.",
     "Maximum read count per feed" : "Максимални број читања по доводу",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Дефинише максимални број чланака који се могу прочитати по доводу, а који неће бити избрисани када крене чишћење; ако се стари чланци поново појављују након што их прочитате, повећајте ову вредност; негативне вредности попут -1 искључују ову функцију у потпуности.",
     "Maximum redirects" : "Највише преусмеравања",
     "How many redirects the feed fetcher should follow." : "Колико ће се преусмеравања следити.",
     "Feed fetcher timeout" : "Рок добављања довода",

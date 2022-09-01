@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Falló la solicitú, ¡conexón de rede non disponible!",
     "Request unauthorized. Are you logged in?" : "Solicitú non autorizada. ¿Aniciesti sesión?",
-    "Request forbidden. Are you an admin?" : "Solicitú prohibida. ¿Yes alministrador?",
     "Token expired or app not enabled! Reload the page!" : "¡Token caducáu o l'aplicación nun ta activada! ¡Recarga la páxina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Fallu internu del sirvidor! Comprueba'l ficheru de rexistru en data/nextcloud.log pa más información",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Falló la solicitú! Anguaño Nextcloud ta en mou de caltenimientu.",

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "İstek karşılanamadı. Ağ bağlantısı kullanılamıyor!",
     "Request unauthorized. Are you logged in?" : "İstek için yeterli izin yok. Oturumunuz açık mı?",
-    "Request forbidden. Are you an admin?" : "İstek reddedildi. Bir yönetici misiniz?",
     "Token expired or app not enabled! Reload the page!" : "Kodun geçerlilik süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucuda bir sorun çıktı! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "İstek karşılanamadı. Nextcloud şu anda bakım kipinde!",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Temizleme sıklığı",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Silinen akış ve klasörlerin, veritabanından kaldırılacağı en kısa süre; 60 saniye altındaki süreler yok sayılır.",
     "Maximum read count per feed" : "Bir akış için en fazla okuma sayısı",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Temizleme görevi tarafından silinmeyecek, bir akış için okunabilecek en fazla makale sayısını belirtir. Eski makaleler okunduktan sonra yeniden görüntüleniyorsa bu değeri arttırın. -1 gibi negatif değerler bu özelliği kapatır.",
     "Maximum redirects" : "En fazla yönlendirme",
     "How many redirects the feed fetcher should follow." : "Akış getiricinin izleyeceği yönlendirme sayısı.",
     "Feed fetcher timeout" : "Akış alma zaman aşımı",

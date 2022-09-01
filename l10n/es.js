@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "La petición ha fallado, ¡la conexión de red no está disponible!",
     "Request unauthorized. Are you logged in?" : "Petición no autorizada, ¿has iniciado sesión?",
-    "Request forbidden. Are you an admin?" : "Petición prohibida. ¿Eres el administrador?",
     "Token expired or app not enabled! Reload the page!" : "¡Sesión caducada o aplicación no habilitada! ¡Vuelve a cargar la página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Error interno del servidor! ¡Por favor, comprueba el archivo data/nextcloud.log para mas información!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Petición fallida! Nexcloud está actualmente en modo mantenimiento.",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Intervalo de purga",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Cantidad de segundos mínima antes de que las fuentes y carpetas borradas se eliminen de la base de datos; los valores por debajo de 60 segundos son ignorados.",
     "Maximum read count per feed" : "Máximo número de lecturas por fuente",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define la cantidad de artículos máxima que se pueden leer por fuente que no se borrarán mediante el trabajo de limpieza, si reaparecen artículos viejos después de que los hayas leído, aumenta este valor, valores negativos como -1 desactivarán esta característica.",
     "Maximum redirects" : "Máximo de redirecciones",
     "How many redirects the feed fetcher should follow." : "Cuántas redirecciones debería seguir el capturador de fuentes.",
     "Feed fetcher timeout" : "Tiempo de espera agotado para la descarga de la fuente",

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Запит не вдався, немає мережевого з'єднання!",
     "Request unauthorized. Are you logged in?" : "Запит не авторизований. Ви увійшли в систему?",
-    "Request forbidden. Are you an admin?" : "Запит заборонений. Ви справді адміністратор?",
     "Token expired or app not enabled! Reload the page!" : "Термін дії токена закінчився або програма не задіяна! Перезагрузіть сторінку!",
     "Unread articles" : "Непрочитані статті",
     "Purge interval" : "Очистити оновлення",

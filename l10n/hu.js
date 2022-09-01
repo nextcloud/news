@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Sikertelen kérés, a hálózati kapcsolat nem érhető el.",
     "Request unauthorized. Are you logged in?" : "Jogosulatlan kérés. Be van jelentkezve?",
-    "Request forbidden. Are you an admin?" : "Tiltott kérés. Rendszergazda Ön?",
     "Token expired or app not enabled! Reload the page!" : "Lejárt a token, vagy az alkalmazás nem engedélyezett. Töltse újra az oldalt.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Belső kiszolgálóhiba! További információkért ellenőrizze a data/nextcloud.log fájlt.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Kérés sikértelen, a Nextcloud jelenleg karbantartási módban van.",
@@ -19,6 +18,7 @@ OC.L10N.register(
     "Purge interval" : "Tisztogatási időköz",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "A hírcsatornák és mappák törlése után, legalább ennyi időt  adatbázisból való eltávolítását követő másodpercek minimális száma; a 60 másodperc alatti értékeket figyelmen kívül hagyjuk.",
     "Maximum read count per feed" : "Maximális olvasási szám hírfolyamonként",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Meghatározza a hírcsatornánként olvasható cikkek maximális mennyiségét, amelyeket a törlési feladat nem töröl; ha a régi cikkek újra megjelennek olvasás után, növelje ezt az értéket; negatív értékek, például a -1 kikapcsolja ezt a funkciót.",
     "Maximum redirects" : "Maximum átirányítás",
     "How many redirects the feed fetcher should follow." : "Hány átirányítást kell követnie a hírcsatornának.",
     "Feed fetcher timeout" : "Hírfolyam letöltő időtúllépés",

@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Неуспешна заявка, няма налична мрежова връзка!",
     "Request unauthorized. Are you logged in?" : "Заявката не е упълномощена. Вписан ли сте?",
-    "Request forbidden. Are you an admin?" : "Достъп е отказан. Администратор ли сте?",
     "Token expired or app not enabled! Reload the page!" : "Изтекла парола или приложението не е активирано! Презаредете страницата!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Вътрешно сървърна грешка! За допълнителна информация проверете файла data/nextcloud.log !",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Заявка се провали, Nextcloud в момента е в режим на поддръжка!",
@@ -17,6 +16,7 @@
     "Purge interval" : "Интервал за изтриване",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Минимално време в секунди, след което изтрити емисии и папки биват премахвани от базата данни; стойности под 60 секунди ще бъдат игнорирани",
     "Maximum read count per feed" : "Максимален брой прочитания на емисия",
+    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Задава максималния брой статии, които могат да бъдат прочетени за всяка емисия, които няма да бъдат изтрити от автоматичната програма за почистване; ако стари статии се появят отново след като са били прочетени може да увеличите стойността; отрицателни стойности, като \"-1\", изключват напълно тази функционалност.",
     "Maximum redirects" : "Максимален брой пренасочвания",
     "How many redirects the feed fetcher should follow." : "Колко пренасочвания трябва да следва инструментът за извличане на емисии.",
     "Feed fetcher timeout" : "Максимално време за изчакване",

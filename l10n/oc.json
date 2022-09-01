@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Fracàs de la requèsta, connexion ret indisponibla !",
     "Request unauthorized. Are you logged in?" : "Requèsta pas autorizada. Sètz plan connectat amb vòstres identificants ?",
-    "Request forbidden. Are you an admin?" : "Requèsta interdicha. Avètz los dreches admin ?",
     "Token expired or app not enabled! Reload the page!" : "Lo geton a expirat o l'aplicacion es pas activada ! Recargatz la pagina !",
     "Unread articles" : "Articles pas legits",
     "Purge interval" : "Interval de purga",
