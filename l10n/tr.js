@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "İstek karşılanamadı. Ağ bağlantısı kullanılamıyor!",
     "Request unauthorized. Are you logged in?" : "İstek için yeterli izin yok. Oturumunuz açık mı?",
+    "Request forbidden. Are you an administrator?" : "İstek reddedildi. Bir yönetici misiniz?",
     "Token expired or app not enabled! Reload the page!" : "Kodun geçerlilik süresi dolmuş ya da uygulama etkin değil! Sayfayı yenileyin!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Sunucuda bir sorun çıktı! Lütfen ayrıntılı bilgi almak için data/nextcloud.log dosyasına bakın!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "İstek karşılanamadı. Nextcloud şu anda bakım kipinde!",
@@ -27,6 +28,8 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Varsa, keşfetme bölümünde akışların görüntülenmesini sağlayacak hizmet adresi. İç keşfetme hizmeti için bu alanı boş bırakın.",
     "Update interval" : "Güncelleme sıklığı",
     "Interval in seconds in which the feeds will be updated." : "Saniye cinsinden, akışların güncellenme sıklığı.",
+    "Successfully updated news configuration" : "Haberler yapılandırması güncellendi",
+    "Unable to update news config" : "Haberler yapılandırması güncellenemedi",
     "Download" : "İndir",
     "Close" : "Kapat",
     "Subscribe to" : "Şuna abone ol",

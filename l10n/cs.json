@@ -1,6 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Požadavek se nezdařil, není dostupné síťové připojení!",
     "Request unauthorized. Are you logged in?" : "Neoprávněný požadavek. Jste přihlášení?",
+    "Request forbidden. Are you an administrator?" : "Požadavek odepřen. Jste správce?",
     "Token expired or app not enabled! Reload the page!" : "Platnost tokenu skončila nebo aplikace není povolena! Načtěte stránku znovu.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vnitřní chyba serveru! Podrobnosti naleznete v souboru data/nextcloud.log",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Požadavek se nezdařil, Nextcloud je aktuálně v režimu údržby!",
@@ -25,6 +26,7 @@
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Pokud zadáno, bude tato URL dotazována na zobrazování kanálů v sekci prohledávání kanálu. Pro návrat k výchozí službě hledání ponechte tuto kolonku prázdnou.",
     "Update interval" : "Interval aktualizace",
     "Interval in seconds in which the feeds will be updated." : "Interval (v sekundách) ve kterém budou kanály aktualizovány.",
+    "Successfully updated news configuration" : "Nastavení pro Novinky úspěšně zaktualizováno",
     "Unable to update news config" : "Nedaří se aktualizovat nastavení pro Novinky",
     "Download" : "Stáhnout",
     "Close" : "Zavřít",

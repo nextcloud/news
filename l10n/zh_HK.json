@@ -1,6 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "請求失敗，網路連線不可用！",
     "Request unauthorized. Are you logged in?" : "請求未經授權。您登入了嗎？",
+    "Request forbidden. Are you an administrator?" : "請求被禁止。您是管理員嗎？",
     "Token expired or app not enabled! Reload the page!" : "權杖已過期或應用程式未啟用！請重新載入頁面！",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "內部伺服器錯誤！請檢查您的 data/nextcloud.log 檔案以取得額外資訊！",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "請求失敗，Nextcloud 目前正處於維護模式！",
@@ -25,6 +26,7 @@
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "若提供，將使用此服務的 URL 進行查詢以在探索 feed 區塊中顯示 feed。要汰退至內建的探索服務，請將此輸入留空。",
     "Update interval" : "更新間距",
     "Interval in seconds in which the feeds will be updated." : "Feed 更新的時間間隔（以秒為單位）。",
+    "Successfully updated news configuration" : "成功更新新聞設定",
     "Unable to update news config" : "無法更新新聞設定",
     "Download" : "下載",
     "Close" : " 關閉",

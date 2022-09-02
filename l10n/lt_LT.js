@@ -3,11 +3,13 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Užklausa nepavyko, tinklo ryšys neprieinamas!",
     "Request unauthorized. Are you logged in?" : "Užklausa neleidžiama. Ar esate prisijungę?",
+    "Request forbidden. Are you an administrator?" : "Užklausa draudžiama. Ar esate administratorius?",
     "Token expired or app not enabled! Reload the page!" : "Pasibaigė prieigos raktų galiojimas arba programėlė nėra įjungta! Įkelkite puslapį iš naujo!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Vidinė serverio klaida! Išsamesnei informacijai, žiūrėkite „data/nextcloud.log“ failą!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Užklausa nepavyko, Nextcloud šiuo metu yra techninės priežiūros veiksenoje!",
     "Unread articles" : "Neskaityti straipsniai",
     "News" : "Naujienos",
+    "News folders" : "Naujienų aplankai",
     "An RSS/Atom feed reader" : "RSS/Atom kanalų skaitytuvė",
     "Use system cron for updates" : "Atnaujinimams naudoti sistemos planuoklę (cron)",
     "Purge interval" : "Išvalymo intervalas",

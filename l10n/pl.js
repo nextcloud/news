@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Błędne żądanie, połączenie sieciowe jest niedostępne!",
     "Request unauthorized. Are you logged in?" : "Żądanie nieautoryzowane. Jesteś zalogowany?",
+    "Request forbidden. Are you an administrator?" : "Zapytanie niedozwolone. Czy jesteś administratorem?",
     "Token expired or app not enabled! Reload the page!" : "Token wygasł lub aplikacja nie jest włączona! Przeładuj stronę!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Wewnętrzny błąd serwera! Proszę sprawdzić plik data/nextcloud.log w celu uzyskania dodatkowych informacji!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Nie wykonano żądania, Nextcloud działa obecnie w trybie konserwacji!",
@@ -27,6 +28,7 @@ OC.L10N.register(
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Jeśli zostanie podany, adres URL tej usługi zostanie zapytany o wyświetlenie kanałów w sekcji przeglądania kanałów. Aby wrócić do wbudowanej usługi przeglądania, pozostaw to pole puste.",
     "Update interval" : "Interwał aktualizacji",
     "Interval in seconds in which the feeds will be updated." : "Przedział czasu w sekundach, w którym kanały będą zaktualizowane.",
+    "Successfully updated news configuration" : "Pomyślnie zaktualizowano konfigurację wiadomości",
     "Unable to update news config" : "Nie można zaktualizować konfiguracji wiadomości",
     "Download" : "Pobierz",
     "Close" : "Zamknij",
