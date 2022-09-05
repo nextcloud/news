@@ -17,7 +17,6 @@ OC.L10N.register(
     "Purge interval" : "Interval čišćenja",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimalna količina sekundi nakon uklanjanja izbrisanih feedova i mapa iz baze podataka; vrijednosti ispod 60 sekundi se zanemaruju.",
     "Maximum read count per feed" : "Maksimalni broj čitanja po sažetku",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Određuje maksimalnu količinu članaka koji se mogu pročitati po sažetku koji neće biti izbrisani tijekom čišćenja; ako se stari članci ponovo pojave nakon što ih pročitate, povećajte vrijednost; negativne vrijednosti poput -1 isključit će ovu značajku.",
     "Maximum redirects" : "Maksimalni broj preusmjeravanja",
     "How many redirects the feed fetcher should follow." : "Koliko preusmjeravanja bi hvatač sažetaka trebao pratiti.",
     "Feed fetcher timeout" : "Vremensko ograničenje hvatača sažetaka",

@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Vynulovať interval",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimálny čas v sekundách, po ktorom sú z databázy vymazané odstránené kanály a priečinky; hodnoty menšie ako 60 sekúnd sú odignorované.",
     "Maximum read count per feed" : "Maximálny počet noviniek pre kanál",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Určuje najvyšší počet článkov, ktoré sú dostupné na prečítanie z jednotlivých kanálov a nebudú zmazané pri čistení; ak sa staré články po prečítaní znovu objavia, navýšte túto hodnotu; záporné hodnoty ako napr. -1 túto funkciu vypnú.",
     "Maximum redirects" : "Maximum presmerovaní",
     "How many redirects the feed fetcher should follow." : "Koľko presmerovaní sa má sledovať pri sťahovaní článkov.",
     "Feed fetcher timeout" : "Vypršal čas pre sťahovanie článkov",

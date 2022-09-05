@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Интервал за изтриване",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Минимално време в секунди, след което изтрити емисии и папки биват премахвани от базата данни; стойности под 60 секунди ще бъдат игнорирани",
     "Maximum read count per feed" : "Максимален брой прочитания на емисия",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Задава максималния брой статии, които могат да бъдат прочетени за всяка емисия, които няма да бъдат изтрити от автоматичната програма за почистване; ако стари статии се появят отново след като са били прочетени може да увеличите стойността; отрицателни стойности, като \"-1\", изключват напълно тази функционалност.",
     "Maximum redirects" : "Максимален брой пренасочвания",
     "How many redirects the feed fetcher should follow." : "Колко пренасочвания трябва да следва инструментът за извличане на емисии.",
     "Feed fetcher timeout" : "Максимално време за изчакване",

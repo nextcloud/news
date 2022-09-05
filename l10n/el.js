@@ -14,7 +14,6 @@ OC.L10N.register(
     "Purge interval" : "Διάστημα καθαρισμού",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Η ελάχιστη διάρκεια σε δευτερόλεπτα μετά τη διαγραφή ροών και φακέλων, όπου θα αφαιρούνται από τη βάση δεδομένων; Οι τιμές κάτω των 60 δευτερολέπτων θα αγνοούνται.",
     "Maximum read count per feed" : "Ο μέγιστος αριθμός διαβασμένων ανά ροή",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Ορίζει τη μέγιστη ποσότητα άρθρων που μπορούν να φορτωθούν ανά ροή, τα οποία δεν θα διαγραφούν από την υπηρεσία εκκαθάρισης; εάν τα παλαιά άρθρα επανεμφανιστούν μετά την ανάγνωσή τους, αυξήστε αυτήν την τιμή; οι αρνητικές τιμές, όπως το -1, θα απενεργοποιήσουν αυτή τη λειτουργία.",
     "Maximum redirects" : "Μέγιστος αριθμός ανακατευθύνσεων",
     "How many redirects the feed fetcher should follow." : "Πόσες ανακατευθύνσεις θα μπορεί να ακολουθεί η υπηρεσία ροών.",
     "Feed fetcher timeout" : "Χρόνος λήξης δέκτη ροής",

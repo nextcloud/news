@@ -12,7 +12,6 @@
     "Purge interval" : "Millibil förgunar",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Lágmarksfjöldi sekúndna þar til eydd streymi og möppur eru fjarlægð úr gagnagrunninum; gildi undir 60 sekúndum eru hunsuð.",
     "Maximum read count per feed" : "Hámarkfjöldi lestra á hvert streymi",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Skilgeinir fjölda greina sem hægt er að lesa í hverju fréttastreymi og sem ekki verður eytt við hreinsunarverkefni: ef eldri greinar birtast aftur eftir að hafa verið lesnar, hækkaðu þá þetta gildi; neikvæð gildi eins og -1 slökkva alfarið á þessum eiginleika.",
     "Maximum redirects" : "Hámarks endurbeiningar",
     "How many redirects the feed fetcher should follow." : "Hversu mörgum endurbeiningum streymissugan á að fylgja.",
     "Feed fetcher timeout" : "Tímamörk streymissugu",

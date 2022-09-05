@@ -16,7 +16,6 @@
     "Purge interval" : "Intervalo de purga",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Cantidad de segundos mínima antes de que las fuentes y carpetas borradas se eliminen de la base de datos; los valores por debajo de 60 segundos son ignorados.",
     "Maximum read count per feed" : "Máximo número de lecturas por fuente",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define la cantidad de artículos máxima que se pueden leer por fuente que no se borrarán mediante el trabajo de limpieza, si reaparecen artículos viejos después de que los hayas leído, aumenta este valor, valores negativos como -1 desactivarán esta característica.",
     "Maximum redirects" : "Máximo de redirecciones",
     "How many redirects the feed fetcher should follow." : "Cuántas redirecciones debería seguir el capturador de fuentes.",
     "Feed fetcher timeout" : "Tiempo de espera agotado para la descarga de la fuente",

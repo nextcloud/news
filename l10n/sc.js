@@ -17,7 +17,6 @@ OC.L10N.register(
     "Purge interval" : "Tretu de cantzelladura",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Nùmeru mìnimu de segundos a pustis chi is fontes e is cartellas eliminadas sunt bogadas dae sa base de datos; non si tenet contu de balores inferiores a 60 segundos.",
     "Maximum read count per feed" : "Nùmeru màssimu de leturas a fonte",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Definit sa cantidade màssima de artìculos chi si podent lèghere pro cada fonte chi non s'ant a eliminare dae s'operatzione de pulitzia; si artìculos betzos torrant a essire a pustis de ddos àere lèghidos, custu balore àrtziat; balore negativos comente a -1 ant a disativare custa funtzionalidade.",
     "Maximum redirects" : "Nùmeru màssimu de rediretziones",
     "How many redirects the feed fetcher should follow." : "Cantas rediretziones podet sighire su trastu de recùperu de is fontes.",
     "Feed fetcher timeout" : "Ritardu màssimu de isetu pro su recùperu de sa fonte",

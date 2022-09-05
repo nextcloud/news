@@ -14,7 +14,6 @@ OC.L10N.register(
     "Purge interval" : "Intervalo de depuración",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Cantidade mínima de segundos após eliminar as fontes e cartafoles da base de datos; os valores menores de 60 segundos son ignorados.",
     "Maximum read count per feed" : "Conta máxima de lidos por fonte",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define o número máximo de artigos que pode ler por fonte os cales non serán eliminados polo traballo de limpeza; se os artigos antigos reaparecen após lidos, incremente este valor; os valores negativos como -1 desactivan esta función.",
     "Maximum redirects" : "Redireccionamentos máximos",
     "How many redirects the feed fetcher should follow." : "Cantos redirecionamentos debe seguir o recuperador de fontes.",
     "Feed fetcher timeout" : "Caducidade do recuperador",

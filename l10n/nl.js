@@ -18,7 +18,6 @@ OC.L10N.register(
     "Purge interval" : "Opruim interval",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimaal aantal seconden nadat verwijderde feeds en mappen uit de database zijn verwijderd; waarden onder de 60 seconden worden genegeerd.",
     "Maximum read count per feed" : "Maximaal aantal gelezen per feed",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Bepaalt het maximale aantal artikelen dat per feed kan worden gelezen en die niet worden verwijderd door de opruimtaak; als oude artikelen opnieuw verschijnen nadat ze zijn gelezen, verhoog deze waarde; negatieve waarden zoals -1 zullen deze functie uitschakelen.",
     "Maximum redirects" : "Maximum redirects",
     "How many redirects the feed fetcher should follow." : "Hoeveel omleidingen de feed-fetcher moet volgen.",
     "Feed fetcher timeout" : "Feed ophaler timeout",

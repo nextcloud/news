@@ -17,7 +17,6 @@ OC.L10N.register(
     "Purge interval" : "清理间隔",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "从数据库中移除的订阅源和文件夹后的最小秒数；低于 60 秒的值将被忽略。",
     "Maximum read count per feed" : "每个订阅源的最大读取次数",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "定义每个订阅源可以读取的最大文章数，定时清理不会删除这些文章；如果在阅读后重新出现旧文章，请增加此值；负值（例如-1）将关闭此功能。",
     "Maximum redirects" : "最大重定向次数",
     "How many redirects the feed fetcher should follow." : "订阅源获取器最多应跟随多少次重定向。",
     "Feed fetcher timeout" : "订阅源获取器超时",
