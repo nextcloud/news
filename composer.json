@@ -63,7 +63,7 @@
     "phpstan/extension-installer": "^1.1.0",
     "phpstan/phpstan-deprecation-rules": "^1.0",
     "guzzlehttp/guzzle": "^7.3.0",
-    "doctrine/dbal": "^3.4.3",
+    "doctrine/dbal": "^3.4.4",
     "symfony/console": "^4.4.19",
     "psr/log": "^1.1.0"
   },
