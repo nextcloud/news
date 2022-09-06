@@ -17,6 +17,7 @@
     "Purge interval" : "Säuberungssintervall",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimum an Sekunden, nachdem gelöschte Feeds und Ordner aus der Datenbank entfernt werden; Werte unter 60 Sekunden werden ignoriert.",
     "Maximum read count per feed" : "Maximale Anzahl an gelesenen Artikeln pro Feed",
+    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Definiert die maximale Anzahl an Artikeln, die pro Feed gelesen und bei einem Säuberungsauftrag nicht aus der Datenbank gelöscht werden; wenn ältere Artikel nach dem Lesen erhalten bleiben sollen, erhöhe diesen Wert; negative Werte wie -1 deaktivieren diese Funktion komplett",
     "Maximum redirects" : "Maximale Anzahl Weiterleitungen",
     "How many redirects the feed fetcher should follow." : "Anzahl Weiterleitungen die der Feed-Sammler folgen soll.",
     "Feed fetcher timeout" : "Zeitüberschreitung Feed-Sammler",
