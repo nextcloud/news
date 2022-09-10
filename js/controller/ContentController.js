@@ -36,11 +36,6 @@ app.controller('ContentController', function (Publisher, FeedResource, ItemResou
     this.getFirstItem = function () {
         var orderedItems = this.getItems();
         var item = orderedItems[0];
-        var lastItem = orderedItems[orderedItems.length - 1];
-        // If isOldestFirst is set, item should be the last item
-        if (isOldestFirst()) {
-            item = lastItem;
-        }
         if (item === undefined) {
             return undefined;
         }
