@@ -41,7 +41,7 @@
   },
   "require": {
     "php": "^7.2 || ~8.0",
-    "ezyang/htmlpurifier": "^4.14.0",
+    "ezyang/htmlpurifier": "^4.16.0",
     "pear/net_url2": "^2.2.2",
     "riimu/kit-pathjoin": "^1.2.0",
     "debril/feed-io": "^v4.9.12",
