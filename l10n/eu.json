@@ -1,6 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Eskaerak huts egin du, sareko konexioa ez dago eskuragarri!",
     "Request unauthorized. Are you logged in?" : "Baimendu gabeko eskaera. Saioa hasi duzu?",
+    "Request forbidden. Are you an administrator?" : "Debekatutako eskaera. Administratzailea al zara?",
     "Token expired or app not enabled! Reload the page!" : "Tokena iraungi da edo aplikazioa ez dago gaituta! Kargatu berriz orria!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Zerbitzariaren barneko errorea! Begiratu data/nextcloud.log fitxategia informazio gehiagorako!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Eskaerak huts egin du, Nextcloud mantentze moduan dago une honetan!",
@@ -16,6 +17,7 @@
     "Purge interval" : "Garbiketa bitartea",
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Ezabatutako jario eta karpetak datu-basetik kendu aurretik igaro beharreko gutxieneko denbora; 60 segundotik beherako balioei ez ikusia egiten zaie.",
     "Maximum read count per feed" : "Gehienezko irakurketa kopurua jarioko",
+    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Garbiketa lanak jario bakoitzean ezabatuko ez dituen artikuluen gehienezko kopurua zehazten du; artikulu zaharrak irakurri ondoren berriz agertzen hasten badira, handitu balio hau; -1 bezalako balio negatiboek ezaugarri hau desgaitzen dute.",
     "Maximum redirects" : "Gehienezko birbideratzeak",
     "How many redirects the feed fetcher should follow." : "Jarioak eskuratzean zenbat birbideratze jarraituko diren.",
     "Feed fetcher timeout" : "Jarioak hartzeko denbora-muga",
