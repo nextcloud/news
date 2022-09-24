@@ -48,7 +48,7 @@ OC.L10N.register(
     "from" : "de",
     "shared by" : "Partagé par",
     "Play audio" : "Ecouter",
-    "Download audio" : "Télécharger le son",
+    "Download audio" : "Télécharger le fichier audio",
     "Download video" : "Télécharger la vidéo",
     "Keyboard shortcut" : "Raccourcis clavier",
     "Description" : "Description",
