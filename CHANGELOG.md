@@ -7,9 +7,12 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Fix the highlithed item when reverse ordering is selected (#1838)
 
 # Releases
+## [18.2.0] - 2022-09-28
+### Fixed
+- Fix the highlighted item when reverse ordering is selected (#1838)
+
 ## [18.2.0-beta2] - 2022-09-07
 Fix for the read all function and spelling fixes.
 
