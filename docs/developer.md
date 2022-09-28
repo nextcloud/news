@@ -41,15 +41,13 @@ You also need to pull the submodules of the news repo.
 git submodules update --init
 ```
 
-The cli tests expect that the feeds are reachable at `http://localhost:8090`, to achieve that you can use the [builtin php server](https://www.php.net/manual/en/features.commandline.webserver.php).
-
-Change into the `tests/test_helpers/feeds` directory and execute `php -S localhost:8090` you can also run it in the background like this `php -S localhost:8090 &`.
+The cli tests expect that the feeds are reachable at `http://localhost:8090`, to achieve that you can use `make feed-server &` the `&` means it'll run in the background.
 
 Now the test feeds will be reachable for bats.
 Run the tests by executing `bats tests/command` you can also only run specific tests for example `bats tests/command/feeds.bats`.
 
 For the API tests you need to run a second php server or have another web server that provides Nextcloud and the News App.
 The tests expect to find Nextcloud at `http://localhost:8080`
-You can do this by running `php -S localhost:8080` in the Nextcloud server repository.
+You can do this by running `make nextcloud-server`.
 
 The bats tests can be executed like this `bats tests/api`.
