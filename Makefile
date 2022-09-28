@@ -221,3 +221,11 @@ test: php-test-dependencies
 .PHONY: feed-test
 feed-test:
 	./bin/tools/check_feeds.sh
+
+.PHONY: feed-server
+feed-server:
+	php -S 127.0.0.1:8090 -t $(CURDIR)/tests/test_helper/feeds
+
+.PHONY: nextcloud-server
+nextcloud-server:
+	php -S 127.0.0.1:8080 -t $(CURDIR)/../../.
