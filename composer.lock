@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "204651038b662cf88886518c54916785",
+    "content-hash": "6d7071740b5dae2c1570a19246d0cf1f",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -1168,21 +1168,21 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "1.3.14",
+            "version": "1.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "bfefffeee7ea770090c99934509f29ced1b29c3f"
+                "reference": "93fe8c18ee955009e2033efeb64284b4e4df66a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/bfefffeee7ea770090c99934509f29ced1b29c3f",
-                "reference": "bfefffeee7ea770090c99934509f29ced1b29c3f",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/93fe8c18ee955009e2033efeb64284b4e4df66a0",
+                "reference": "93fe8c18ee955009e2033efeb64284b4e4df66a0",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.8.3"
+                "phpstan/phpstan": "^1.8.6"
             },
             "conflict": {
                 "doctrine/collections": "<1.0",
@@ -1231,9 +1231,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.14"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.15"
             },
-            "time": "2022-09-21T13:08:55+00:00"
+            "time": "2022-09-29T20:11:01+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
