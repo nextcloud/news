@@ -7,6 +7,9 @@ module.exports = {
 		},
 		ecmaVersion: 2020,
 	},
+	env: {
+		jest: true,
+	},
 	extends: [
 		'eslint:recommended',
 		'plugin:vue/base',
