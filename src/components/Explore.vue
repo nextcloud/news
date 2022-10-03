@@ -67,14 +67,6 @@ const ExploreComponent = Vue.extend({
 			const exploreUrl = settings.data.settings.exploreUrl + 'feeds.en.json'
 			const explore = await axios.get(exploreUrl)
 
-			this.exploreSites.push({
-				title: 'test',
-				favicon: 'string',
-				url: 'http://test.com',
-				feed: '',
-				description: 'testing test',
-				votes: 2,
-			})
 			Object.keys(explore.data).forEach((key) =>
 				explore.data[key].forEach((value: ExploreSite) =>
 					this.exploreSites.push(value),
