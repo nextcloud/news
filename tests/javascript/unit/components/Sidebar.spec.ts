@@ -28,17 +28,9 @@ import { shallowMount } from '@vue/test-utils'
 describe('Sidebar.vue', () => {
 	'use strict'
 
-	// We set the route before mounting AppSidebar to prevent messages that the task was not found
-	// Could be adjusted with future tests
-	// router.push({ name: 'calendarsTask', params: { calendarId: 'calendar-1', taskId: 'pwen4kz18g.ics' } })
-
-	it('Returns the correct value for the new dates', () => {
+	it('should initialize without showing AddFeed Component', () => {
 		const wrapper = shallowMount(AppSidebar, { localVue, store })
 
-		// eslint-disable-next-line no-console
-		console.log(wrapper.vm)
-		// let actual = wrapper.vm.newStartDate
-		// let expected = new Date('2019-01-01T12:00:00')
-		// expect(actual.getTime()).toBe(expected.getTime()
-	})
+		expect(wrapper.vm.$data.showAddFeed).toBeFalsy
+	});
 })

@@ -10,6 +10,13 @@ module.exports = {
 	env: {
 		jest: true,
 	},
+	rules: {
+		 // frustratingly this seems to error for all imports right now...
+		'n/no-missing-import': 'off',
+
+		// need to warn on these because @nextcloud repeats some component names (Button, Content..)
+		'vue/no-reserved-component-names': 'warn',
+	},
 	extends: [
 		'eslint:recommended',
 		'plugin:vue/base',
