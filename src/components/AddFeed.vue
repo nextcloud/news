@@ -9,9 +9,9 @@
 						:value="feed"
 						ng-model="Navigation.feed.url"
 						ng-class="{'ng-invalid':
-                        !Navigation.addingFeed &&
-                        Navigation.feedUrlExists(Navigation.feed.url)
-                    }"
+												!Navigation.addingFeed &&
+												Navigation.feedUrlExists(Navigation.feed.url)
+											}"
 						:placeholder="t('news', 'Web address')"
 						name="address"
 						pattern="[^\s]+"
@@ -20,7 +20,7 @@
 
 					<p class="error"
 						ng-show="!Navigation.addingFeed &&
-                        Navigation.feedUrlExists(Navigation.feed.url)">
+											Navigation.feedUrlExists(Navigation.feed.url)">
 						{{ t("news", "Feed exists already!") }}
 					</p>
 
@@ -40,13 +40,11 @@
 						type="text"
 						ng-model="Navigation.feed.newFolder"
 						ng-class="{'ng-invalid':
-                            !Navigation.addingFeed &&
-                            !Navigation.addingFeed &&
-                            Navigation.showNewFolder &&
-                            Navigation.folderNameExists(
-                                Navigation.feed.newFolder
-                            )
-                        }"
+														!Navigation.addingFeed &&
+														!Navigation.addingFeed &&
+														Navigation.showNewFolder &&
+														Navigation.folderNameExists(Navigation.feed.newFolder)
+											}"
 						:placeholder="t('news', 'Folder name')"
 						name="folderName"
 						style="width: 90%"
@@ -54,7 +52,7 @@
 
 					<p class="error"
 						ng-show="!Navigation.addingFeed &&
-                    Navigation.folderNameExists(Navigation.feed.newFolder)">
+											Navigation.folderNameExists(Navigation.feed.newFolder)">
 						{{ t("news", "Folder exists already!") }}
 					</p>
 
@@ -92,12 +90,11 @@
 
 					<Button :wide="true"
 						type="primary"
-						ng-disabled="
-                        Navigation.feedUrlExists(Navigation.feed.url) ||
-                                (
-                                    Navigation.showNewFolder &&
-                                    Navigation.folderNameExists(folder.name)
-                                )"
+						ng-disabled="Navigation.feedUrlExists(Navigation.feed.url) ||
+													(
+														Navigation.showNewFolder &&
+														Navigation.folderNameExists(folder.name)
+													)"
 						@click="addFeed()">
 						{{ t("news", "Subscribe") }}
 					</Button>
