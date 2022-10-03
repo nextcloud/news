@@ -9,6 +9,7 @@ js/
 *.clover
 .phpunit.result.cache
 site/
+coverage
 
 # python
 PKG-INFO
