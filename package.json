@@ -60,6 +60,7 @@
     "@nextcloud/stylelint-config": "^2.1.2",
     "@nextcloud/webpack-vue-config": "^5.1.0",
     "@types/jest": "^29.1.1",
+    "@types/sinon": "^10.0.13",
     "@types/webpack-env": "^1.17.0",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
@@ -98,6 +99,7 @@
     "postcss": "^8.4.14",
     "postcss-html": "^1.4.1",
     "sass-loader": "^13.0.2",
+    "sinon": "^14.0.1",
     "style-loader": "^3.3.1",
     "stylelint": "^14.8.4",
     "stylelint-config-recommended-scss": "^7.0.0",
@@ -131,8 +133,8 @@
       "^.+\\.ts?$": "ts-jest"
     },
     "transformIgnorePatterns": [
-			"/node_modules/(?!(@nextcloud)|(vue-material-design-icons))"
-		],
+      "/node_modules/(?!(@nextcloud)|(vue-material-design-icons))"
+    ],
     "snapshotSerializers": [
       "jest-serializer-vue"
     ],

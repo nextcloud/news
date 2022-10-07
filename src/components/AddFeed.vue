@@ -29,11 +29,11 @@
 						{{ t("news", "New folder") }}?
 					</CheckboxRadioSwitch>
 
-					<Multiselect v-if="!createNewFolder"
+					<!--Multiselect v-if="!createNewFolder"
 						v-model="folder"
 						:options="folders"
 						track-by="id"
-						label="name" />
+						label="name" /-->
 
 					<!-- add a folder -->
 					<input v-if="createNewFolder"
@@ -110,7 +110,7 @@ import Vue from 'vue'
 import Modal from '@nextcloud/vue/dist/Components/Modal'
 import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
 import Button from '@nextcloud/vue/dist/Components/Button'
-import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
+// import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
 import { Folder } from '../types/Folder.vue'
 import { Feed } from '../types/Feed.vue'
 
@@ -129,7 +129,7 @@ export default Vue.extend({
 		Modal,
 		CheckboxRadioSwitch,
 		Button,
-		Multiselect,
+		// Multiselect,
 	},
 	props: {
 		feed: {
