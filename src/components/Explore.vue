@@ -36,7 +36,7 @@ import Vue from 'vue'
 import Button from '@nextcloud/vue/dist/Components/Button'
 import axios from '@nextcloud/axios'
 import AddFeed from './AddFeed.vue'
-import { generateUrl } from '@nextcloud/router'
+import * as router from '@nextcloud/router'
 import { ExploreSite } from '../types/ExploreSite.vue'
 import { Feed } from '../types/Feed.vue'
 
@@ -62,9 +62,9 @@ const ExploreComponent = Vue.extend({
 
 	methods: {
 		async sites() {
-			const settings = await axios.get(generateUrl('/apps/news/settings'))
+			const settings = await axios.get(router.generateUrl('/apps/news/settings'))
 
-			const exploreUrl = settings.data.settings.exploreUrl + 'feeds.en.json'
+			const exploreUrl = settings.data.settings?.exploreUrl + 'feeds.en.json'
 			const explore = await axios.get(exploreUrl)
 
 			Object.keys(explore.data).forEach((key) =>

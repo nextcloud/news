@@ -13,11 +13,11 @@ describe('Sidebar.vue', () => {
 		expect(wrapper.vm.$data.showAddFeed).toBeFalsy
 	});
 
-	it('should dispatch message to store with folder name to create new folder');
+	it('should dispatch message to store with folder name to create new folder', () => {});
 
-	it('should dispatch message to store with folder object on delete folder')
+	it('should dispatch message to store with folder object on delete folder', () => {})
 
-	it('should set showAddFeed to true')
+	it('should set showAddFeed to true', () => {})
 
-	it('should set showAddFeed to false')
+	it('should set showAddFeed to false', () => {})
 })
