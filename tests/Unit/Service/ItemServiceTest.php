@@ -605,23 +605,24 @@ class ItemServiceTest extends TestCase
 
     public function testPurgeOverThresholdNull()
     {
-        $this->config->expects($this->once())
+        $this->config->expects($this->exactly(2))
             ->method('getAppValue')
-            ->with('news', 'autoPurgeCount', 200)
-            ->will($this->returnValue(200));
-
+            ->withConsecutive(['news', 'autoPurgeCount', 200], ['news', 'purgeUnread', false])
+            ->willReturnOnConsecutiveCalls(200, false);
+        
         $this->mapper->expects($this->once())
             ->method('deleteOverThreshold')
-            ->with(200);
+            ->with(200, false);
 
         $this->class->purgeOverThreshold();
     }
 
     public function testPurgeOverThresholdSet()
     {
-        $this->config->expects($this->never())
+        $this->config->expects($this->once())
             ->method('getAppValue')
-            ->with('news', 'autoPurgeCount', 200);
+            ->with('news', 'purgeUnread', false)
+            ->will($this->returnValue(false));
 
         $this->mapper->expects($this->once())
             ->method('deleteOverThreshold')

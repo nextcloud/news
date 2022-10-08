@@ -185,13 +185,13 @@ class ItemMapperV2 extends NewsMapperV2
      * Delete items from feed that are over the max item threshold
      *
      * @param int  $threshold    Deletion threshold
-     * @param bool $removeUnread If unread articles should be removed
+     * @param bool $purgeUnread  If unread articles should be removed
      *
      * @return int|null Removed items
      *
      * @throws \Doctrine\DBAL\Exception
      */
-    public function deleteOverThreshold(int $threshold, bool $removeUnread = false): ?int
+    public function deleteOverThreshold(int $threshold, bool $purgeUnread): ?int
     {
         $feedQb = $this->db->getQueryBuilder();
         $feedQb->select('feed_id', $feedQb->func()->count('*', 'itemCount'))
@@ -214,7 +214,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('starred = false')
             ->addOrderBy('id', 'DESC');
 
-        if ($removeUnread === false) {
+        if ($purgeUnread === false) {
             $rangeQuery->andWhere('unread = false');
         }
 
