@@ -31,7 +31,7 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 			@update:checked="update('purgeUnread', purgeUnread)">
 			{{ t('news', 'Delete unread items automatically') }}
 		</NcCheckboxRadioSwitch>
-		<p><em>{{ t('news', 'Enable this if you also want to delete unread items. Consider increasing the value above.') }}</em></p>
+		<p><em>{{ t('news', 'Enable this if you also want to delete unread items.') }}</em></p>
 
 		<NcTextField :value.sync="maxRedirects"
 			:label="t('news', 'Maximum redirects')"
