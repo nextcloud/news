@@ -26,6 +26,13 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 			@update:value="update('autoPurgeCount', autoPurgeCount)" />
 		<p><em>{{ t('news', 'Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.') }}</em></p>
 
+		<NcCheckboxRadioSwitch type="switch"
+			:checked.sync="purgeUnread"
+			@update:checked="update('purgeUnread', purgeUnread)">
+			{{ t('news', 'Delete unread items automatically') }}
+		</NcCheckboxRadioSwitch>
+		<p><em>{{ t('news', 'Enable this if you also want to delete unread items. Consider increasing the value above.') }}</em></p>
+
 		<NcTextField :value.sync="maxRedirects"
 			:label="t('news', 'Maximum redirects')"
 			:label-visible="true"
@@ -90,6 +97,7 @@ export default {
 			useCronUpdates: loadState('news', 'useCronUpdates') === '1',
 			autoPurgeMinimumInterval: loadState('news', 'autoPurgeMinimumInterval'),
 			autoPurgeCount: loadState('news', 'autoPurgeCount'),
+			purgeUnread: loadState('news', 'purgeUnread') === '1',
 			maxRedirects: loadState('news', 'maxRedirects'),
 			feedFetcherTimeout: loadState('news', 'feedFetcherTimeout'),
 			exploreUrl: loadState('news', 'exploreUrl'),
@@ -103,7 +111,7 @@ export default {
 				appId: 'news',
 				key,
 			})
-			if (key === 'useCronUpdates') {
+			if (key === 'useCronUpdates' || key === 'purgeUnread') {
 				value = value ? '1' : '0'
 			}
 			try {

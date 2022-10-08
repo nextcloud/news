@@ -145,12 +145,12 @@ class ItemServiceV2 extends Service
     }
 
     /**
-     * @param int|null $threshold
-     * @param bool     $removeUnread
+     * @param int|null  $threshold
+     * @param bool|null $purgeUnread
      *
      * @return int|null Amount of deleted items or null if not applicable
      */
-    public function purgeOverThreshold(int $threshold = null, bool $removeUnread = false): ?int
+    public function purgeOverThreshold(int $threshold = null, bool $purgeUnread = null): ?int
     {
         $threshold = (int) ($threshold ?? $this->config->getAppValue(
             Application::NAME,
@@ -158,11 +158,17 @@ class ItemServiceV2 extends Service
             Application::DEFAULT_SETTINGS['autoPurgeCount']
         ));
 
+        $purgeUnread = (bool) ($purgeUnread ?? $this->config->getAppValue(
+            Application::NAME,
+            'purgeUnread',
+            Application::DEFAULT_SETTINGS['purgeUnread']
+        ));
+
         if ($threshold <= 0) {
             return null;
         }
 
-        return $this->mapper->deleteOverThreshold($threshold, $removeUnread);
+        return $this->mapper->deleteOverThreshold($threshold, $purgeUnread);
     }
     /**
      * Mark an item as starred
