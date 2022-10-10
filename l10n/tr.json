@@ -18,6 +18,8 @@
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Silinen akış ve klasörlerin, veritabanından kaldırılacağı en kısa süre; 60 saniye altındaki süreler yok sayılır.",
     "Maximum read count per feed" : "Bir akış için en fazla okuma sayısı",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Temizleme görevi tarafından silinmeyecek, bir akış için okunabilecek en fazla makale sayısını belirtir. Eski makaleler okunduktan sonra yeniden görüntüleniyorsa bu değeri arttırın. -1 gibi negatif değerler bu özelliği kapatır.",
+    "Delete unread items automatically" : "Okunmamış iletiler otomatik olarak silinsin",
+    "Enable this if you also want to delete unread items." : "Okunmamış iletilerin silinmesini de istiyorsanız bu seçeneği etkinleştirin.",
     "Maximum redirects" : "En fazla yönlendirme",
     "How many redirects the feed fetcher should follow." : "Akış getiricinin izleyeceği yönlendirme sayısı.",
     "Feed fetcher timeout" : "Akış alma zaman aşımı",

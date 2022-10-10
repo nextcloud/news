@@ -18,6 +18,8 @@
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Jak dlouho přinejmenším (v sekundách) po smazání kanálů a složek počkat s jejich odebráním i z databáze (hodnoty kratší než 60 sekund jsou ignorovány).",
     "Maximum read count per feed" : "Maximální počet načítaných novinek na kanál",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Určuje nejvyšší nastavený počet článků, které je z jednotlivých kanálů možné číst a které tím nebudou mazány při čištění. Pokud se staré už přečtené články znovu objevují, navyšte tuto hodnotu (záporné hodnoty jako např. -1 tuto funkci úplně vypnou).",
+    "Delete unread items automatically" : "Automaticky mazat i nepřečtené položky",
+    "Enable this if you also want to delete unread items." : "Pokud chcete mazat také nepřečtené položky, zapněte toto.",
     "Maximum redirects" : "Nejvyšší počet přesměrování",
     "How many redirects the feed fetcher should follow." : "Kolik až přesměrování může být následováno při stahování článků.",
     "Feed fetcher timeout" : "Časový limit při stahování článků",
