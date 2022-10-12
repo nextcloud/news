@@ -20,6 +20,8 @@ OC.L10N.register(
     "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Valor mínimo em segundos após pastas e feeds excluídos serem excluídos do banco de dados; valores abaixo de 60 segundos serão ignorados.",
     "Maximum read count per feed" : "O número máximo de leituras por feed",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define a quantidade máxima de artigos que podem ser lidos por feed que não serão excluídos pelo trabalho de limpeza; se artigos antigos reaparecerem após serem lidos, aumente este valor; valores negativos, como -1, desativarão esse recurso.",
+    "Delete unread items automatically" : "Remover itens não lidos automaticamente",
+    "Enable this if you also want to delete unread items." : "Habilite caso você deseje removar itens não lidos.",
     "Maximum redirects" : "Redirecionamentos máximos",
     "How many redirects the feed fetcher should follow." : "Quantos redirecionamentos o alimentador de feed deve seguir.",
     "Feed fetcher timeout" : "Tempo limite do alimentador de feed",

@@ -19,6 +19,7 @@
     "Maximum read count per feed" : "Gehienezko irakurketa kopurua jarioko",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Garbiketa lanak jario bakoitzean ezabatuko ez dituen artikuluen gehienezko kopurua zehazten du; artikulu zaharrak irakurri ondoren berriz agertzen hasten badira, handitu balio hau; -1 bezalako balio negatiboek ezaugarri hau desgaitzen dute.",
     "Delete unread items automatically" : "Ezabatu irakurri gabeko elementuak automatikoki",
+    "Enable this if you also want to delete unread items." : "Gaitu irakurri gabeko elementuak ere ezabatu nahi badituzu.",
     "Maximum redirects" : "Gehienezko birbideratzeak",
     "How many redirects the feed fetcher should follow." : "Jarioak eskuratzean zenbat birbideratze jarraituko diren.",
     "Feed fetcher timeout" : "Jarioak hartzeko denbora-muga",
