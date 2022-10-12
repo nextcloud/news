@@ -53,7 +53,6 @@ class Application extends App implements IBootstrap
      * List of default settings
      */
     public const DEFAULT_SETTINGS = [
-        'autoPurgeMinimumInterval' => 60,
         'autoPurgeCount'           => 200,
         'purgeUnread'              => false,
         'maxRedirects'             => 10,

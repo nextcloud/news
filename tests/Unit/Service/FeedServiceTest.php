@@ -68,11 +68,6 @@ class FeedServiceTest extends TestCase
     private $time;
 
     /**
-     * @var int
-     */
-    private $autoPurgeMinimumInterval;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
      */
     private $purifier;
@@ -98,7 +93,6 @@ class FeedServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->time = 222;
-        $this->autoPurgeMinimumInterval = 10;
         $timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -131,10 +125,6 @@ class FeedServiceTest extends TestCase
         $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $config->expects($this->any())
-            ->method('getAppValue')
-            ->with('news', 'autoPurgeMinimumInterval')
-            ->will($this->returnValue($this->autoPurgeMinimumInterval));
 
         $this->class = new FeedServiceV2(
             $this->mapper,
@@ -654,7 +644,6 @@ class FeedServiceTest extends TestCase
         $feed2->setId(5);
         $feeds = [$feed1, $feed2];
 
-        $time = $this->time - $this->autoPurgeMinimumInterval;
 
         $this->mapper->expects($this->exactly(1))
             ->method('purgeDeleted')
