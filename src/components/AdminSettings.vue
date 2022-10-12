@@ -14,12 +14,6 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</NcCheckboxRadioSwitch>
 		<p><em>{{ t('news', 'Disable this if you use a custom updater.') }}</em></p>
 
-		<NcTextField :value.sync="autoPurgeMinimumInterval"
-			:label="t('news', 'Purge interval')"
-			:label-visible="true"
-			@update:value="update('autoPurgeMinimumInterval', autoPurgeMinimumInterval)" />
-		<p><em>{{ t('news', 'Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored.') }}</em></p>
-
 		<NcTextField :value.sync="autoPurgeCount"
 			:label="t('news', 'Maximum read count per feed')"
 			:label-visible="true"
@@ -95,7 +89,6 @@ export default {
 	data() {
 		return {
 			useCronUpdates: loadState('news', 'useCronUpdates') === '1',
-			autoPurgeMinimumInterval: loadState('news', 'autoPurgeMinimumInterval'),
 			autoPurgeCount: loadState('news', 'autoPurgeCount'),
 			purgeUnread: loadState('news', 'purgeUnread') === '1',
 			maxRedirects: loadState('news', 'maxRedirects'),
