@@ -10,7 +10,6 @@ OC.L10N.register(
     "News" : "სიახლეები",
     "Shared with me" : "გაზიარებულია ჩემთან",
     "Use system cron for updates" : "განახლებისთვის გამოიყენეთ სისტემური კრონი",
-    "Purge interval" : "გაწმენდის ინტერვალი",
     "Maximum read count per feed" : "თითო ლენტაზე მაქისმალური კითხვის რაოდენობა",
     "Maximum redirects" : " მაქს. გადამისამართებები",
     "Feed fetcher timeout" : "ლენტის მომპოვებლის დროის ამოწურვა",

@@ -5,7 +5,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "คำขอไม่ได้รับอนุญาต คุณเข้าสู่ระบบ?",
     "Token expired or app not enabled! Reload the page!" : "โทเค็นหมดอายุหรือไม่เปิดใช้งานแอพพลิเคชัน! โหลดหน้าใหม่อีกครั้ง!",
     "Unread articles" : "บทความที่ยังไม่ได้อ่าน",
-    "Purge interval" : "ช่วงเวลาที่ล้าง",
     "Maximum read count per feed" : "นับจำนวนอ่านสูงสุดต่อฟีด",
     "Maximum redirects" : "เปลี่ยนเส้นทางสูงสุด",
     "Feed fetcher timeout" : "ตัวเรียกฟีดหมดเวลา",

@@ -14,8 +14,6 @@ OC.L10N.register(
     "An RSS/Atom feed reader" : "RSS/Atom čitač sažetaka",
     "Use system cron for updates" : "Koristi sustav cron za ažuriranja",
     "Disable this if you use a custom updater." : "Onemogućite ovo ako koristite prilagođenim alatom za ažuriranje.",
-    "Purge interval" : "Interval čišćenja",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimalna količina sekundi nakon uklanjanja izbrisanih feedova i mapa iz baze podataka; vrijednosti ispod 60 sekundi se zanemaruju.",
     "Maximum read count per feed" : "Maksimalni broj čitanja po sažetku",
     "Maximum redirects" : "Maksimalni broj preusmjeravanja",
     "How many redirects the feed fetcher should follow." : "Koliko preusmjeravanja bi hvatač sažetaka trebao pratiti.",

@@ -14,7 +14,6 @@ OC.L10N.register(
     "An RSS/Atom feed reader" : "Leitor de feeds RSS/Atom",
     "Use system cron for updates" : "Use o programador do sistema para as atualizações",
     "Disable this if you use a custom updater." : "Desative isto se é um sistema de atualizações feito à medida.",
-    "Purge interval" : "Intervalo de Purga",
     "Maximum read count per feed" : "Número máximo de leituras por feed",
     "Maximum redirects" : "Máximo de redirecionamentos",
     "Feed fetcher timeout" : "A obtenção do feed expirou",

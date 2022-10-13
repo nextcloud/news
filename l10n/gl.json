@@ -9,8 +9,6 @@
     "Shared with me" : "Compartido comigo",
     "An RSS/Atom feed reader" : "Un lector de fontes RSS/Atom",
     "Use system cron for updates" : "Use o cron do sistema para as actualizacións",
-    "Purge interval" : "Intervalo de depuración",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Cantidade mínima de segundos após eliminar as fontes e cartafoles da base de datos; os valores menores de 60 segundos son ignorados.",
     "Maximum read count per feed" : "Conta máxima de lidos por fonte",
     "Maximum redirects" : "Redireccionamentos máximos",
     "How many redirects the feed fetcher should follow." : "Cantos redirecionamentos debe seguir o recuperador de fontes.",

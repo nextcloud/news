@@ -11,7 +11,6 @@ OC.L10N.register(
     "Shared with me" : "Compartido conmigo",
     "An RSS/Atom feed reader" : "Un lector de fuentes RSS/Atom",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",
-    "Purge interval" : "Intervalo de purga",
     "Maximum read count per feed" : "Conteo máximo de lecturas por fuente",
     "Maximum redirects" : "Redirecciones máximas",
     "Feed fetcher timeout" : "Tiempo de vida para el buscador de fuentes",

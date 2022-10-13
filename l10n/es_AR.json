@@ -9,7 +9,6 @@
     "Shared with me" : "Compartido conmigo",
     "An RSS/Atom feed reader" : "Un lector de feeds RSS/Atom",
     "Use system cron for updates" : "Use el sistema cron para las actualizaciones",
-    "Purge interval" : "Purgar el intervalo",
     "Maximum read count per feed" : "Conteo máximo de lecturas por fuente",
     "Maximum redirects" : "Redirecciones máximas",
     "Feed fetcher timeout" : "Tiempo de espera máximo para el buscador de fuentes",

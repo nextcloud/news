@@ -11,7 +11,6 @@ OC.L10N.register(
     "Shared with me" : "Delt med meg",
     "An RSS/Atom feed reader" : "En RSS/Atom-leser",
     "Use system cron for updates" : "Bruk system-cron for oppdateringer",
-    "Purge interval" : "Opprenskingsinterval",
     "Maximum read count per feed" : "Maksimalt antall lest pr. strøm",
     "Maximum redirects" : "Maksimalt antall videresendinger",
     "Feed fetcher timeout" : "Tidsavbrudd for henting av strøm",

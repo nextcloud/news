@@ -12,8 +12,6 @@
     "An RSS/Atom feed reader" : "RSS-/Atom-syötteiden lukija",
     "Use system cron for updates" : "Käytä järjestelmän cronia päivityksille",
     "Disable this if you use a custom updater." : "Poista tämä käytöstä, jos käytät erillistä päivitintä.",
-    "Purge interval" : "Hävitysväli",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Minimiaika sekunteina jonka jälkeen poistetut syötteet ja kansiot poistetaan tietokannasta; alle 60 sekuntin arvot ohitetaan.",
     "Maximum read count per feed" : "Syötekohtainen lukukertojen enimmäismäärä",
     "Maximum redirects" : "Uudelleenohjausten enimmäismäärä",
     "How many redirects the feed fetcher should follow." : "Kuinka montaa uudelleenohjausta syötteen noutajan tulisi seurata.",

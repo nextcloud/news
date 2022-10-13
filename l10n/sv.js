@@ -14,7 +14,6 @@ OC.L10N.register(
     "An RSS/Atom feed reader" : "En RSS/Atom feed-läsare",
     "Use system cron for updates" : "Använda \"system cron\" för uppdateringar",
     "Disable this if you use a custom updater." : "Slå av detta om du anväder en egen uppdateringsprocess.",
-    "Purge interval" : "Utrensningsintervall",
     "Maximum read count per feed" : "Maximalt läsantal per flöde",
     "Maximum redirects" : "Maximala omdirigeringar",
     "Feed fetcher timeout" : "Timeout för flödes-hämtare",

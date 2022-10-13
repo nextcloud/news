@@ -8,7 +8,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Falló la solicitú! Anguaño Nextcloud ta en mou de caltenimientu.",
     "Unread articles" : "Artículos ensin lleer",
     "News" : "Anuncies",
-    "Purge interval" : "Intervalu de purga",
     "Maximum read count per feed" : "Númberu máximu de llectura per feed",
     "Maximum redirects" : "Redirecciones máximes",
     "Feed fetcher timeout" : "Tiempo escosao p'algamar el feed",

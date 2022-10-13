@@ -8,7 +8,6 @@
     "News" : "اخبار",
     "An RSS/Atom feed reader" : "An RSS/Atom feed reader",
     "Use system cron for updates" : "برای بروزرسانی ها از سیستم cron استفاده کنید",
-    "Purge interval" : "فاصله فاصله",
     "Maximum read count per feed" : "حداکثر تعداد خواندن در هر خوراک",
     "Maximum redirects" : "حداکثر تغییر مسیرها",
     "Feed fetcher timeout" : "خاتمه دادن به فست فایر",

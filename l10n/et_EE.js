@@ -7,7 +7,6 @@ OC.L10N.register(
     "Unread articles" : "Lugemata artiklid",
     "News" : "News",
     "Use system cron for updates" : "Kasuta süsteemi croni uuendusteks",
-    "Purge interval" : "Puhastuse intervall",
     "Maximum read count per feed" : "Maksimaalne lugemiste arv voo kohta",
     "Maximum redirects" : "Maksimaalsed ümbersuunamised",
     "Feed fetcher timeout" : "Voo ühenduse aegumine",

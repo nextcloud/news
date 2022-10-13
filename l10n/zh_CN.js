@@ -14,8 +14,6 @@ OC.L10N.register(
     "An RSS/Atom feed reader" : "一个 RSS/Atom 订阅源阅读器",
     "Use system cron for updates" : "使用系统计划任务执行更新",
     "Disable this if you use a custom updater." : "如果你使用自定义更新器则禁用它",
-    "Purge interval" : "清理间隔",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "从数据库中移除的订阅源和文件夹后的最小秒数；低于 60 秒的值将被忽略。",
     "Maximum read count per feed" : "每个订阅源的最大读取次数",
     "Maximum redirects" : "最大重定向次数",
     "How many redirects the feed fetcher should follow." : "订阅源获取器最多应跟随多少次重定向。",

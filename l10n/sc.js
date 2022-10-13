@@ -14,8 +14,6 @@ OC.L10N.register(
     "An RSS/Atom feed reader" : "Unu letore de fontes RSS/Atom",
     "Use system cron for updates" : "Imprea su cron de su sistema pro is agiornamentos",
     "Disable this if you use a custom updater." : "Disativa custu su pones in esecutzione una funtzione de agiornamentu personalizada.",
-    "Purge interval" : "Tretu de cantzelladura",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Nùmeru mìnimu de segundos a pustis chi is fontes e is cartellas eliminadas sunt bogadas dae sa base de datos; non si tenet contu de balores inferiores a 60 segundos.",
     "Maximum read count per feed" : "Nùmeru màssimu de leturas a fonte",
     "Maximum redirects" : "Nùmeru màssimu de rediretziones",
     "How many redirects the feed fetcher should follow." : "Cantas rediretziones podet sighire su trastu de recùperu de is fontes.",

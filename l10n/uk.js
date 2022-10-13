@@ -9,7 +9,6 @@ OC.L10N.register(
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Помилка запиту, Nextcloud зараз у режимі обслуговування!",
     "Unread articles" : "Непрочитані статті",
     "Use system cron for updates" : "Використовуйте системний cron для оновлень",
-    "Purge interval" : "Очистити оновлення",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Визначає максимальну кількість статей, які можна прочитати на канал, які не будуть видалені під час завдання очищення; якщо старі статті знову з’являються після прочитання, збільште це значення; від'ємні значення, такі як -1, вимкнуть цю функцію.",
     "Maximum redirects" : "Максимум перенаправлень",

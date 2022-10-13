@@ -11,7 +11,6 @@ OC.L10N.register(
     "Shared with me" : "Shared with me",
     "An RSS/Atom feed reader" : "An RSS/Atom feed reader",
     "Use system cron for updates" : "Use system cron for updates",
-    "Purge interval" : "Purge interval",
     "Maximum read count per feed" : "Maximum read count per feed",
     "Maximum redirects" : "Maximum redirects",
     "Feed fetcher timeout" : "Feed fetcher timeout",

@@ -10,7 +10,6 @@ OC.L10N.register(
     "News" : "Lajme",
     "Shared with me" : "Ndarë me mua",
     "Use system cron for updates" : "Përdor sistemin cron për përditësime",
-    "Purge interval" : "Interval pastrimi",
     "Maximum read count per feed" : "Numër maksimum leximesh për prurje",
     "Maximum redirects" : "Maksimum ridrejtimesh",
     "Feed fetcher timeout" : "Mbarim kohe për sjellësin e prurjeve",

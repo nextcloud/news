@@ -10,7 +10,6 @@ OC.L10N.register(
     "News" : "Noticias",
     "Shared with me" : "Compartido conmigo",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",
-    "Purge interval" : "Intervalo de purga",
     "Maximum read count per feed" : "Conteo máximo de lecturas por fuente",
     "Maximum redirects" : "Redirecciones máximas",
     "Feed fetcher timeout" : "Tiempo de vida para el buscador de fuentes",

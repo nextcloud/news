@@ -5,7 +5,6 @@ OC.L10N.register(
     "Request unauthorized. Are you logged in?" : "Requèsta pas autorizada. Sètz plan connectat amb vòstres identificants ?",
     "Token expired or app not enabled! Reload the page!" : "Lo geton a expirat o l'aplicacion es pas activada ! Recargatz la pagina !",
     "Unread articles" : "Articles pas legits",
-    "Purge interval" : "Interval de purga",
     "Maximum read count per feed" : "Nombre maximum de lectura per flux",
     "Maximum redirects" : "Nombre maximal de redireccions",
     "Feed fetcher timeout" : "Relambi d'espèra maximum del recuperador de flux",

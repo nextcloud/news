@@ -11,7 +11,6 @@ OC.L10N.register(
     "Shared with me" : "나와 공유됨",
     "An RSS/Atom feed reader" : "RSS/Atom 피드 리더",
     "Use system cron for updates" : "시스템 cron으로 업데이트",
-    "Purge interval" : "비우기 주기",
     "Maximum read count per feed" : "피드당 최대 읽은 글 개수",
     "Maximum redirects" : "최대 넘겨주기 수",
     "Feed fetcher timeout" : "피드 가져오기 시간 제한",

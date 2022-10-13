@@ -11,7 +11,6 @@ OC.L10N.register(
     "Shared with me" : "משותף אתי",
     "An RSS/Atom feed reader" : "קורא ערוצי תוכן מסוג RSS/Atom",
     "Use system cron for updates" : "שימוש ב־cron של המערכת לעדכונים",
-    "Purge interval" : "מרווח להסרה ממסד הנתונים",
     "Maximum read count per feed" : "מספר מקסימלי של שורות קריאה מערוץ הזנת תוכן",
     "Maximum redirects" : "מספר ניתובים מירבי",
     "Feed fetcher timeout" : "עבר זמן מרבי להזנת ערוץ התוכן",

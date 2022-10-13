@@ -11,8 +11,6 @@ OC.L10N.register(
     "Shared with me" : "Дељено са мном",
     "An RSS/Atom feed reader" : "RSS/Atom читач довода",
     "Use system cron for updates" : "Користи системски крон за ажурирања",
-    "Purge interval" : "Интервал чишћења",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Минимални број секунди пошто се обрисани доводи и фасцикле уклоне из базе; вредности испод 60 секунди се игноришу.",
     "Maximum read count per feed" : "Максимални број читања по доводу",
     "Maximum redirects" : "Највише преусмеравања",
     "How many redirects the feed fetcher should follow." : "Колико ће се преусмеравања следити.",

@@ -12,7 +12,6 @@ OC.L10N.register(
     "News folders" : "Naujienų aplankai",
     "An RSS/Atom feed reader" : "RSS/Atom kanalų skaitytuvė",
     "Use system cron for updates" : "Atnaujinimams naudoti sistemos planuoklę (cron)",
-    "Purge interval" : "Išvalymo intervalas",
     "Maximum read count per feed" : "Didžiausias kanalo straipsnių kiekis",
     "Maximum redirects" : "Daugiausiai peradresavimų",
     "How many redirects the feed fetcher should follow." : "Kiek kartų kanalų gaviklis turėtų sekti paskui peradresavimus.",

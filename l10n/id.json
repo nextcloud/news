@@ -6,7 +6,6 @@
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Permintaan gagal, Nextcloud sedang dalam mode pemeliharaan!",
     "Unread articles" : "Artikel belum dibaca",
     "Use system cron for updates" : "Gunakan cron sistem untuk pembaruan",
-    "Purge interval" : "Singkirkan interval",
     "Maximum read count per feed" : "Jumlah baca maksimum per feed",
     "Maximum redirects" : "Pengalihan maksimum",
     "Feed fetcher timeout" : "Pengambil feed kehabisan waktu",

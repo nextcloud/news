@@ -9,8 +9,6 @@
     "Shared with me" : "Deilt með mér",
     "An RSS/Atom feed reader" : "RSS/Atom streymislesari",
     "Use system cron for updates" : "Nota kerfis-cron fyrir uppfærslur",
-    "Purge interval" : "Millibil förgunar",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Lágmarksfjöldi sekúndna þar til eydd streymi og möppur eru fjarlægð úr gagnagrunninum; gildi undir 60 sekúndum eru hunsuð.",
     "Maximum read count per feed" : "Hámarkfjöldi lestra á hvert streymi",
     "Maximum redirects" : "Hámarks endurbeiningar",
     "How many redirects the feed fetcher should follow." : "Hversu mörgum endurbeiningum streymissugan á að fylgja.",

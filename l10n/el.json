@@ -9,8 +9,6 @@
     "Shared with me" : "Διαμοιρασμένα με εμένα",
     "An RSS/Atom feed reader" : "Τροφοδότης ροής RSS/Atom",
     "Use system cron for updates" : "Χρήση του cron του συστήματος για ενημερώσεις",
-    "Purge interval" : "Διάστημα καθαρισμού",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Η ελάχιστη διάρκεια σε δευτερόλεπτα μετά τη διαγραφή ροών και φακέλων, όπου θα αφαιρούνται από τη βάση δεδομένων; Οι τιμές κάτω των 60 δευτερολέπτων θα αγνοούνται.",
     "Maximum read count per feed" : "Ο μέγιστος αριθμός διαβασμένων ανά ροή",
     "Maximum redirects" : "Μέγιστος αριθμός ανακατευθύνσεων",
     "How many redirects the feed fetcher should follow." : "Πόσες ανακατευθύνσεις θα μπορεί να ακολουθεί η υπηρεσία ροών.",

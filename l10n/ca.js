@@ -11,8 +11,6 @@ OC.L10N.register(
     "Shared with me" : "Compartit amb mi",
     "An RSS/Atom feed reader" : "Un lector de notícies RSS/Atom",
     "Use system cron for updates" : "Feu servir el sistema cron per a les actualitzacions",
-    "Purge interval" : "Interval de purga",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Nombre mí­nim de segons abans que les fonts i carpetes eliminades siguin eliminades definitivament de la base de dades; valors per sota de 60 segons seran ignorats.",
     "Maximum read count per feed" : "Màxim nombre de lectures per font",
     "Maximum redirects" : "Màxim de redirigits",
     "How many redirects the feed fetcher should follow." : "Quantes redireccions hauria de suportar el descarregador de fonts.",

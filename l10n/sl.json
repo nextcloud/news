@@ -12,8 +12,6 @@
     "An RSS/Atom feed reader" : "Bralnik virov RSS/Atom",
     "Use system cron for updates" : "Za posodobitve uporabi sistemski program »cron«",
     "Disable this if you use a custom updater." : "Možnost onemogočite, če uporabljate posodabljalnik po meri.",
-    "Purge interval" : "Časovni razmik odstranjevanja",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Najkrajši čas, po katerem bodo viri in mape odstranjeni iz podatkovne zbirke. Vrednosti pod 60 sekundami so prezrte.",
     "Maximum read count per feed" : "Največje število prikazanih virov",
     "Maximum redirects" : "Največje število preusmeritev",
     "How many redirects the feed fetcher should follow." : "Koliko preusmeritvam naj sledi bralnik virov",
