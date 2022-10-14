@@ -18,6 +18,8 @@ OC.L10N.register(
     "Disable this if you use a custom updater." : "Toto vypněte, pokud používáte uživatelsky určený nástroj pro aktualizace.",
     "Maximum read count per feed" : "Maximální počet načítaných novinek na kanál",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Určuje nejvyšší nastavený počet článků, které je z jednotlivých kanálů možné číst a které tím nebudou mazány při čištění. Pokud se staré už přečtené články znovu objevují, navyšte tuto hodnotu (záporné hodnoty jako např. -1 tuto funkci úplně vypnou).",
+    "Delete unread articles automatically" : "Automaticky mazat i nepřečtené články",
+    "Enable this if you also want to delete unread articles." : "Pokud chcete mazat také nepřečtené články, zapněte toto.",
     "Maximum redirects" : "Nejvyšší počet přesměrování",
     "How many redirects the feed fetcher should follow." : "Kolik až přesměrování může být následováno při stahování článků.",
     "Feed fetcher timeout" : "Časový limit při stahování článků",

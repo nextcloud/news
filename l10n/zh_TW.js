@@ -18,6 +18,8 @@ OC.L10N.register(
     "Disable this if you use a custom updater." : "如果您使用了自訂的更新程式，請停用此功能。",
     "Maximum read count per feed" : "每個 feed 的最大閱讀次數",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "定義每個 feed 可以讀取的最大文章數，清理作業不會刪除這些文章；如果舊文章在閱讀後又重新出現，請增加此值；負值，如 -1 將會把這個功能關閉。",
+    "Delete unread articles automatically" : "自動刪除未讀的文章",
+    "Enable this if you also want to delete unread articles." : "若您也想刪除未讀文章，請啟用此功能。",
     "Maximum redirects" : "最大重新導向",
     "How many redirects the feed fetcher should follow." : "Feed 擷取程式應遵循多少重新導向。",
     "Feed fetcher timeout" : "Feed 擷取程式逾時",

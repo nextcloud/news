@@ -16,6 +16,8 @@
     "Disable this if you use a custom updater." : "Toto vypnite ak používate vlastný updater.",
     "Maximum read count per feed" : "Maximálny počet noviniek pre kanál",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Určuje najvyšší počet článkov, ktoré sú dostupné na prečítanie z jednotlivých kanálov a nebudú zmazané pri čistení; ak sa staré články po prečítaní znovu objavia, navýšte túto hodnotu; záporné hodnoty ako napr. -1 túto funkciu vypnú.",
+    "Delete unread articles automatically" : "Zmazať neprečítané články automaticky",
+    "Enable this if you also want to delete unread articles." : "Toto povoľte ak chcete zmazať aj neprečítané články.",
     "Maximum redirects" : "Maximum presmerovaní",
     "How many redirects the feed fetcher should follow." : "Koľko presmerovaní sa má sledovať pri sťahovaní článkov.",
     "Feed fetcher timeout" : "Vypršal čas pre sťahovanie článkov",
