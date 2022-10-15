@@ -18,6 +18,8 @@ OC.L10N.register(
     "Disable this if you use a custom updater." : "Деактивирайте това, ако използвате персонализирана програма за актуализиране.",
     "Maximum read count per feed" : "Максимален брой прочитания на емисия",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Задава максималния брой статии, които могат да бъдат прочетени за всяка емисия, които няма да бъдат изтрити от автоматичната програма за почистване; ако стари статии се появят отново след като са били прочетени, може да увеличите стойността; отрицателни стойности, като \"-1\", изключват напълно тази функционалност.",
+    "Delete unread articles automatically" : "Автоматично изтриване на непрочетени статии",
+    "Enable this if you also want to delete unread articles." : "Разрешаване на опцията ако искате и да изтривате непрочетени статии.",
     "Maximum redirects" : "Максимален брой пренасочвания",
     "How many redirects the feed fetcher should follow." : "Колко пренасочвания трябва да следва инструментът за извличане на емисии.",
     "Feed fetcher timeout" : "Максимално време за изчакване",
