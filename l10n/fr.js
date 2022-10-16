@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Échec de la requête, connexion réseau indisponible !",
     "Request unauthorized. Are you logged in?" : "Requête non autorisée. Êtes-vous bien connecté ?",
+    "Request forbidden. Are you an administrator?" : "Requête interdite. Avez-vous les droits administrateurs ?",
     "Token expired or app not enabled! Reload the page!" : "Le jeton a expiré ou l'application n'est pas activée ! Veuillez recharger la page !",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Erreur interne du serveur ! Veuillez consulter votre fichier data/nextcloud.log pour plus d'informations !",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "La requête a échoué, Nextcloud est actuellement en maintenance !",
@@ -16,6 +17,7 @@ OC.L10N.register(
     "Use system cron for updates" : "Utiliser le « cron » du système pour les mises à jour",
     "Disable this if you use a custom updater." : "Désactivez ceci si vous utilisez un outil de mise à jour personnalisé.",
     "Maximum read count per feed" : "Nombre maximum de lecture par flux",
+    "Enable this if you also want to delete unread articles." : "Activez ceci si vous voulez aussi supprimer les articles non lus.",
     "Maximum redirects" : "Nombre maximal de redirections",
     "How many redirects the feed fetcher should follow." : "Nombre de redirections que le récupérateur de flux doit suivre",
     "Feed fetcher timeout" : "Délai d'attente maximum du récupérateur de flux",

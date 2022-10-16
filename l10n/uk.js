@@ -74,6 +74,8 @@ OC.L10N.register(
     "Mark read" : "Позначити як прочитане",
     "Newest first" : "Новіші попереду",
     "Oldest first" : "Старіші попереду",
+    "Enable full text" : "Увімкнути повнотекстовий",
+    "Disable full text" : "Вимкнути повнотекстовий",
     "Delete" : "Вилучити",
     "Dismiss" : "Припинити",
     "Collapse" : "Згорнути",
