@@ -70,10 +70,13 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     </div>
 
     <div id="app-content"
+        class="nc-major-version-<?php print \OCP\Util::getVersion()[0] ?>"
+        data-nc-major-version="<?php print \OCP\Util::getVersion()[0] ?>"
         ng-class="{
             'loading-content': App.loading.isLoading('content') &&
                                !App.loading.isLoading('global'),
-            'explore': App.isFirstRun()
+            'explore': App.isFirstRun(),
+
         }"
         tabindex="-1"
         news-pull-to-refresh="showPullToRefresh">

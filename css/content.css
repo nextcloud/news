@@ -236,6 +236,10 @@
     min-height: 43px;
 }
 
+#app-content.nc-major-version-25 .compact .utils {
+    top: 0px;
+}
+
 /* Only apply opacity to the util bar, not the dropdown */
 #app-content .compact .utils ul {
     opacity: 0.9;
