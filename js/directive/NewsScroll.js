@@ -12,6 +12,16 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
     'use strict';
     var timer;
 
+
+    var scrollElement = function() {
+        const appContentElem = $('#app-content');
+        const majorVersion = parseInt($('#app-content').data('nc-major-version') || 0, 10);
+        if (majorVersion >= 25) {
+            return appContentElem;
+        }
+        return $('html');
+    };
+
     // autopaging
     var autoPage = function (limit, elem, scope) {
         var counter = 0;
@@ -49,8 +59,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             articles.forEach(function(article) {
                 // distance to top + height
                 var distTop = article.offsetTop + article.offsetHeight;
-                var scrollTop = window.pageYOffset ||
-                    document.documentElement.scrollTop;
+                var scrollTop = window.pageYOffset || scrollElement().scrollTop();
                 if (distTop < scrollTop) {
                     ids.push(parseInt(article.dataset.id, 10));
                 } else {
@@ -100,11 +109,11 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
                 }
             };
 
-            $(document).on('scroll', scrollHandler);
+            scrollElement().on('scroll', scrollHandler);
 
             // remove scroll handler if element is destroyed
             scope.$on('$destroy', function () {
-                $(document).off('scroll', scrollHandler);
+                scrollElement().off('scroll', scrollHandler);
             });
         }
     };
