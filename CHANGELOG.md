@@ -7,6 +7,8 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Corrected article compact title bar position in NC25 
+- Fixed "Mark read through scrolling" in NC25 and NC24
 
 # Releases
 ## [18.3.0] - 2022-10-10
