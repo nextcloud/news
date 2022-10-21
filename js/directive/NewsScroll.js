@@ -19,6 +19,9 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
         if (majorVersion >= 25) {
             return appContentElem;
         }
+        if (majorVersion === 24) {
+            return $(window);
+        }
         return $('html');
     };
 
