@@ -70,8 +70,8 @@ foreach (Plugin::getScripts() as $appName => $fileName) {
     </div>
 
     <div id="app-content"
-        class="nc-major-version-<?php print \OCP\Util::getVersion()[0] ?>"
-        data-nc-major-version="<?php print \OCP\Util::getVersion()[0] ?>"
+        class="nc-major-version-<?= \OCP\Util::getVersion()[0]; ?>"
+        data-nc-major-version="<?= \OCP\Util::getVersion()[0]; ?>"
         ng-class="{
             'loading-content': App.loading.isLoading('content') &&
                                !App.loading.isLoading('global'),
