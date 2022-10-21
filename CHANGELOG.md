@@ -7,9 +7,12 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Remove setting for minimum purge interval since it is not used.
 
 # Releases
+## [18.3.0] - 2022-10-10
+### Fixed
+- Remove setting for minimum purge interval since it is not used.
+
 ## [18.3.0-beta1] - 2022-10-10
 ### Changed
 - New administrator setting for deleting unread items automatically (#1931)
