@@ -176,9 +176,12 @@ appstore:
 	cp js/build/news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
 
 	# export the key and cert to a file
-	mkdir -p $(cert_dir)
-	php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"
-	php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"
+	@if [ ! -f $(cert_dir)/$(app_name).key ] || [ ! -f $(cert_dir)/$(app_name).crt ]; then \
+		echo "Key and cert do not exist"; \
+		mkdir -p $(cert_dir); \
+		php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"; \
+		php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"; \
+	fi
 
 	@if [ -f $(cert_dir)/$(app_name).key ]; then \
 		echo "Signing app files…"; \
