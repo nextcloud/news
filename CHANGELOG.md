@@ -3,17 +3,23 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-## [18.x.x]
+## [19.x.x]
 ### Changed
 
 ### Fixed
-- Corrected article compact title bar position in NC25 
-- Fixed "Mark read through scrolling" in NC25 and NC24
 
 # Releases
-## [18.3.0] - 2022-10-10
+## [19.0.0-beta1] - 2022-10-22
+### Changed
+- Drop support for Nextcloud 22, NC 22 has reached it's end of life. (#1950)
+- Add support for Nextcloud 25 (#1950)
 ### Fixed
-- Remove setting for minimum purge interval since it is not used.
+- Corrected article compact title bar position in NC25 (#1944)
+- Fixed "Mark read through scrolling" in NC25 and NC24 (#1944)
+
+## [18.3.0] - 2022-10-21
+### Fixed
+- Remove setting for minimum purge interval since it is not used. (#1935)
 
 ## [18.3.0-beta1] - 2022-10-10
 ### Changed

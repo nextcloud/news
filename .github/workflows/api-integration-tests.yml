@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['7.4', '8.0']
-        nextcloud: ['stable22', 'stable23']
+        nextcloud: ['stable23', 'stable24', 'stable25']
         database: ['sqlite', 'pgsql', 'mysql']
         experimental: [false]
         include:
@@ -37,12 +37,12 @@ jobs:
             nextcloud: pre-release
             database: sqlite
             experimental: true
-          - php-versions: '8.1'
+          - php-versions: '8.2'
             nextcloud: pre-release
             database: sqlite
             experimental: true
           - php-versions: 8.1
-            nextcloud: stable24
+            nextcloud: stable25
             database: sqlite
             experimental: false
     steps:
