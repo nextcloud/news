@@ -7,6 +7,8 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fixed various keyboard navigation issues
+- Fix cron job warning notification layout on NC25
 
 # Releases
 ## [19.0.0-beta1] - 2022-10-22
