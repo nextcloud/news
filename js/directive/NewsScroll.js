@@ -8,21 +8,17 @@
  * @copyright Bernhard Posselt 2014
  */
 app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
-    MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
+    MARK_READ_TIMEOUT, SCROLL_TIMEOUT, NC_MAJOR_VERSION) {
     'use strict';
     var timer;
 
 
     var scrollElement = function() {
-        const appContentElem = $('#app-content');
-        const majorVersion = parseInt($('#app-content').data('nc-major-version') || 0, 10);
-        if (majorVersion >= 25) {
-            return appContentElem;
+        // This should be in sync with the same function in js/gui/KeyboardShortcuts.js
+        if (NC_MAJOR_VERSION >= 25) {
+            return  $('#app-content');
         }
-        if (majorVersion === 24) {
-            return $(window);
-        }
-        return $('html');
+        return $(window);
     };
 
     // autopaging

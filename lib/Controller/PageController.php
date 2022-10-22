@@ -86,6 +86,7 @@ class PageController extends Controller
             $this->appName,
             'index',
             [
+                'nc_major_version' => \OCP\Util::getVersion()[0],
                 'warnings' => $status['warnings'],
                 'url_generator' => $this->urlGenerator
             ]
