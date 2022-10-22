@@ -16,6 +16,14 @@
 (function (window, document, $) {
     'use strict';
 
+    var scrollElement = function() {
+        // This should be in sync with the same function in js/directive/NewsScroll.js
+        if (window.NEWS_NC_MAJOR_VERSION >= 25) {
+            return  $('#app-content');
+        }
+        return $(window);
+    };
+
     var noInputFocused = function (element) {
         return !(
             element.is('input') ||
@@ -223,34 +231,34 @@
         }
     };
 
-    var getActiveElement = function (scrollArea) {
-        return scrollArea.find('.item.active:first');
+    var getActiveElement = function () {
+        return $('#app-content').find('.item.active:first');
     };
 
-    var onActiveItem = function (scrollArea, callback) {
-        callback(getActiveElement(scrollArea));
+    var onActiveItem = function (callback) {
+        callback(getActiveElement());
     };
 
-    var toggleUnread = function (scrollArea) {
-        onActiveItem(scrollArea, function (item) {
+    var toggleUnread = function () {
+        onActiveItem(function (item) {
             item.find('.toggle-keep-unread').trigger('click');
         });
     };
 
-    var toggleStar = function (scrollArea) {
-        onActiveItem(scrollArea, function (item) {
+    var toggleStar = function () {
+        onActiveItem(function (item) {
             item.find('.star').trigger('click');
         });
     };
 
-    var expandItem = function (scrollArea) {
-        onActiveItem(scrollArea, function (item) {
+    var expandItem = function () {
+        onActiveItem(function (item) {
             item.find('.utils').trigger('click');
         });
     };
 
-    var openLink = function (scrollArea) {
-        onActiveItem(scrollArea, function (item) {
+    var openLink = function () {
+        onActiveItem(function (item) {
             item.trigger('click');  // mark read
             var url = item.find('.external:visible').attr('href');
             var newWindow = window.open(url, '_blank');
@@ -265,9 +273,14 @@
     var scrollToItem = function (scrollArea, item, expandItemInCompact) {
         // if you go to the next article in compact view, it should
         // expand the current one
-        scrollArea.scrollTop(
-            item.offset().top - 50
-        );
+
+        if (window.NEWS_NC_MAJOR_VERSION >= 25) {
+            scrollArea.scrollTop(scrollArea.scrollTop() + item.offset().top - 50);
+        } else {
+            scrollArea.scrollTop(
+                item.offset().top - 50
+            );
+        }
 
         setItemActive(item[0]);
 
@@ -279,7 +292,7 @@
     };
 
     var scrollToNextItem = function (scrollArea, expandItemInCompact) {
-        var activeElement = getActiveElement(scrollArea);
+        var activeElement = getActiveElement();
         // in expand in compact mode, jumping to the next item should open
         // the current one if it's not open yet
         if (expandItemInCompact && !activeElement.hasClass('open')) {
@@ -300,7 +313,7 @@
 
     var scrollToPreviousItem = function (scrollArea,
                                          expandItemInCompact) {
-        var activeElement = getActiveElement(scrollArea);
+        var activeElement = getActiveElement();
         var previousElement = activeElement.prev();
 
         // if the active element has been scrolled, the previous element
@@ -321,18 +334,19 @@
             items.each(function (index, item) {
                 var $item = $(item);
                 var bottom = $item.position().top + $item.outerHeight(true);
-                if ((bottom - 20) >= 0) {
+                var scrollBottom =  scrollElement().scrollTop();
+                if (bottom - 20 >= scrollBottom) {
                     setItemActive(item);
-                    return false;
+                    return false;                        
                 }
             });
         };
-        $('#app-content').scroll(_.debounce(detectAndSetActiveItem, 250));
+        scrollElement().scroll(_.debounce(detectAndSetActiveItem, 250));
     });
 
     $(document).keyup(function (event) {
         var keyCode = event.keyCode;
-        var scrollArea = $(document);
+        var scrollArea = scrollElement();
         var navigationArea = $('#app-navigation');
         var isCompactView = $('#articles.compact').length > 0;
         var isExpandItem = $('#articles')

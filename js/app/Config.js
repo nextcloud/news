@@ -34,6 +34,10 @@ app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider)
     $provide.constant('MARK_READ_TIMEOUT', 0.5);
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
+    const majorVersion = parseInt($('#app-content').data('nc-major-version') || 0, 10);
+    $provide.constant('NC_MAJOR_VERSION', majorVersion);
+    window.NEWS_NC_MAJOR_VERSION = majorVersion;
+
     // make sure that the CSRF header is only sent to the Nextcloud domain
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL, $window) {
         return {
