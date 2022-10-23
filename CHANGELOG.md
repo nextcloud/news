@@ -7,10 +7,13 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Fixed various keyboard navigation issues
-- Fix cron job warning notification layout on NC25
 
 # Releases
+## [19.0.0-beta2] - 2022-10-23
+### Fixed
+- Fixed various keyboard navigation issues (#1953)
+- Fix cron job warning notification layout on NC25 (#1953)
+
 ## [19.0.0-beta1] - 2022-10-22
 ### Changed
 - Drop support for Nextcloud 22, NC 22 has reached it's end of life. (#1950)
