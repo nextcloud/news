@@ -13,6 +13,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 - Fixed various keyboard navigation issues (#1953)
 - Fix cron job warning notification layout on NC25 (#1953)
+- Fix nested scrollbars in navigation (#411)
 
 ## [19.0.0-beta1] - 2022-10-22
 ### Changed
