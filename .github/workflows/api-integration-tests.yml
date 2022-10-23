@@ -59,7 +59,7 @@ jobs:
           coverage: none
 
       - name: Setup BATS & httpie
-        run: sudo apt-get install -y bats httpie
+        run: sudo apt-get install -y httpie && npm install -g bats@1.7.0
 
       ### MySQL specific setup
       - name: Setup mysql
