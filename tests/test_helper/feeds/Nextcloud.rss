@@ -9,7 +9,7 @@
 
 <channel>
 	<title>Nextcloud</title>
-	<atom:link href="https://nextcloud.com/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:8090/Nextcloud.rss" rel="self" type="application/rss+xml" />
 	<link>https://nextcloud.com/</link>
 	<description></description>
 	<lastBuildDate>Tue, 16 Aug 2022 10:17:13 +0000</lastBuildDate>
