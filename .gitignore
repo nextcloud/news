@@ -14,6 +14,9 @@ site/
 
 #bats
 tests/api/helpers/settings-override.bash
+tests/test_helper/feeds/test.xml
+tests/test_helper/feeds/feed1.xml
+tests/test_helper/feeds/feed2.xml
 
 # python
 PKG-INFO

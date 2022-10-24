@@ -4,3 +4,6 @@
 [submodule "tests/test_helper/bats-assert"]
 	path = tests/test_helper/bats-assert
 	url = https://github.com/bats-core/bats-assert.git
+[submodule "tests/test_helper/php-feed-generator"]
+	path = tests/test_helper/php-feed-generator
+	url = https://github.com/Grotax/php-feed-generator.git
