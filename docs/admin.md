@@ -11,8 +11,11 @@ Alternatively you may use an [external updater](https://nextcloud.github.io/news
 
 Auto purging automatically removes the oldest read items of every feed after every update.
 The value you enter here is used as the limit of read items per feed, unless the feed comes with more items in it's feed.
-For example you have the default value of 200 and the feed has 210 items in it's feed.
-In this case the limit will be 210 instead of 200.
+The individual limit per feed is only adjusted when it's bigger. Let's say last feed update came with 210 items,
+then that will be the limit for that feed as long as no bigger update with more items is fetched.
+In this case the limit will be 210 instead of 200, for that feed.
+
+This is needed to prevent items from reappearing in the feed.
 
 ## Purge unread items
 This changes the behavior of the auto purging to also purge unread items. This is useful if you have users with a lot of unread items.
