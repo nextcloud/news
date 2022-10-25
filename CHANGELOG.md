@@ -9,11 +9,14 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [19.0.0] - 2022-10-25
+### Fixed
+- Fix nested scrollbars in navigation (#411, #1958)
+
 ## [19.0.0-beta2] - 2022-10-23
 ### Fixed
 - Fixed various keyboard navigation issues (#1953)
 - Fix cron job warning notification layout on NC25 (#1953)
-- Fix nested scrollbars in navigation (#411)
 
 ## [19.0.0-beta1] - 2022-10-22
 ### Changed
