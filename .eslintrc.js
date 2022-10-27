@@ -1,3 +1,5 @@
+import path from 'path';
+
 module.exports = {
 	root: true,
 	parser: 'vue-eslint-parser',
@@ -11,11 +13,12 @@ module.exports = {
 		jest: true,
 	},
 	rules: {
-		 // frustratingly this seems to error for all imports right now...
-		'n/no-missing-import': 'off',
-
-		// need to warn on these because @nextcloud repeats some component names (Button, Content..)
-		'vue/no-reserved-component-names': 'warn',
+		'n/no-missing-import': {
+			resolvePaths: [
+				path.resolve(__dirname, '/src/'), 
+				path.resolve(__dirname, '/node_modules/')
+			],
+		},
 	},
 	extends: [
 		'eslint:recommended',
