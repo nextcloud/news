@@ -1,8 +1,7 @@
-import AddFeed from 'Components/AddFeed.vue'
-
+import { shallowMount } from '@vue/test-utils'
 import { store, localVue } from '../setupStore'
 
-import { shallowMount } from '@vue/test-utils'
+import AddFeed from 'Components/AddFeed.vue'
 
 describe('AddFeed.vue', () => {
 	'use strict'
