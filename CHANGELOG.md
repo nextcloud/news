@@ -3,10 +3,11 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-## [19.x.x]
+## [20.x.x]
 ### Changed
 - Vue Rewrite
   - Add Typescript 
+  - Add Jest for Unit Tests
 
 ## [18.x.x]
 ### Changed
