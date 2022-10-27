@@ -127,13 +127,13 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation'
-import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem'
-import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigationNewItem'
+import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
+import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
+import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigationNewItem.js'
 // import AppNavigationCounter from '@nextcloud/vue/dist/Components/AppNavigationCounter'
-import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton'
+import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import AddFeed from './AddFeed.vue'
 import { Folder } from '../types/Folder.vue'
 

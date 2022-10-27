@@ -33,7 +33,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import axios from '@nextcloud/axios'
 import AddFeed from './AddFeed.vue'
 import * as router from '@nextcloud/router'

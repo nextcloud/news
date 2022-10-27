@@ -10,8 +10,8 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent'
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import Sidebar from './components/Sidebar.vue'
 
 export default Vue.extend({
