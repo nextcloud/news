@@ -22,9 +22,9 @@
 						<img :src="entry.image">
 					</div>
 				</div>
-				<Button @click="subscribe(entry.feed)">
+				<NcButton @click="subscribe(entry.feed)">
 					{{ t("news", "Subscribe to") }} {{ entry.title }}
-				</Button>
+				</NcButton>
 			</div>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import Button from '@nextcloud/vue/dist/Components/Button'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton'
 import axios from '@nextcloud/axios'
 import AddFeed from './AddFeed.vue'
 import * as router from '@nextcloud/router'
@@ -42,7 +42,7 @@ import { Feed } from '../types/Feed.vue'
 
 const ExploreComponent = Vue.extend({
 	components: {
-		Button,
+		NcButton,
 		AddFeed,
 	},
 	data: () => {

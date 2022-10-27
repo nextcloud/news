@@ -1,5 +1,5 @@
 <template>
-	<Modal @close="$emit('close')">
+	<NcModal @close="$emit('close')">
 		<div id="new-feed" news-add-feed="Navigation.feed">
 			<form ng-submit="Navigation.createFeed(Navigation.feed)"
 				ng-init="Navigation.feed.autoDiscover=true"
@@ -25,15 +25,15 @@
 					</p>
 
 					<!-- select a folder -->
-					<CheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
+					<NcCheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
 						{{ t("news", "New folder") }}?
-					</CheckboxRadioSwitch>
+					</NcCheckboxRadioSwitch>
 
-					<!--Multiselect v-if="!createNewFolder"
+					<NcMultiselect v-if="!createNewFolder && folders"
 						v-model="folder"
 						:options="folders"
 						track-by="id"
-						label="name" /-->
+						label="name" />
 
 					<!-- add a folder -->
 					<input v-if="createNewFolder"
@@ -58,9 +58,9 @@
 
 					<!-- basic auth -->
 
-					<CheckboxRadioSwitch :checked.sync="withBasicAuth" type="switch">
+					<NcCheckboxRadioSwitch :checked.sync="withBasicAuth" type="switch">
 						{{ t("news", "Credentials") }}?
-					</CheckboxRadioSwitch>
+					</NcCheckboxRadioSwitch>
 
 					<div v-if="withBasicAuth" class="add-feed-basicauth">
 						<p class="warning">
@@ -69,7 +69,7 @@
 									"news",
 									"HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!"
 								)
-							}}>
+							}}
 						</p>
 						<input type="text"
 							ng-model="Navigation.feed.user"
@@ -84,11 +84,11 @@
 							autocomplete="new-password">
 					</div>
 
-					<CheckboxRadioSwitch :checked.sync="autoDiscover" type="switch">
+					<NcCheckboxRadioSwitch :checked.sync="autoDiscover" type="switch">
 						{{ t("news", "Auto discover Feed") }}?
-					</CheckboxRadioSwitch>
+					</NcCheckboxRadioSwitch>
 
-					<Button :wide="true"
+					<NcButton :wide="true"
 						type="primary"
 						ng-disabled="Navigation.feedUrlExists(Navigation.feed.url) ||
 													(
@@ -97,20 +97,20 @@
 													)"
 						@click="addFeed()">
 						{{ t("news", "Subscribe") }}
-					</Button>
+					</NcButton>
 				</fieldset>
 			</form>
 		</div>
-	</Modal>
+	</NcModal>
 </template>
 
 <script lang="ts">
 
 import Vue from 'vue'
-import Modal from '@nextcloud/vue/dist/Components/Modal'
-import CheckboxRadioSwitch from '@nextcloud/vue/dist/Components/CheckboxRadioSwitch'
-import Button from '@nextcloud/vue/dist/Components/Button'
-// import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton'
+import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect'
 import { Folder } from '../types/Folder.vue'
 import { Feed } from '../types/Feed.vue'
 
@@ -126,10 +126,10 @@ type AddFeedState = {
 
 export default Vue.extend({
 	components: {
-		Modal,
-		CheckboxRadioSwitch,
-		Button,
-		// Multiselect,
+		NcModal,
+		NcCheckboxRadioSwitch,
+		NcButton,
+		NcMultiselect,
 	},
 	props: {
 		feed: {
