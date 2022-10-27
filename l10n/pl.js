@@ -18,6 +18,8 @@ OC.L10N.register(
     "Disable this if you use a custom updater." : "Wyłącz tę opcję, jeśli używasz niestandardowego aktualizatora.",
     "Maximum read count per feed" : "Maksymalna ilość odczytów na kanał",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Definiuje maksymalną ilość artykułów, które mogą być odczytane przez kanał, a nie będą usuwane podczas zadania czyszczenia; zwiększ wartość jeśli starsze artykuły pojawią się ponownie po przeczytaniu; ujemne wartości jak -1 wyłączą tę funkcjonalność całkowicie.",
+    "Delete unread articles automatically" : "Automatycznie usuwaj nieprzeczytane artykuły",
+    "Enable this if you also want to delete unread articles." : "Włącz tę opcję, jeśli chcesz również usuwać nieprzeczytane artykuły.",
     "Maximum redirects" : "Maksymalna liczba przekierowań",
     "How many redirects the feed fetcher should follow." : "Za iloma przekierowaniami ma nastąpić podążanie przy pobieraniu kanałów.",
     "Feed fetcher timeout" : "Czas braku odpowiedzi dla ściągania kanału",
