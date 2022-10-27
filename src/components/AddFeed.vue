@@ -107,10 +107,10 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import NcModal from '@nextcloud/vue/dist/Components/NcModal'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton'
-import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect'
+import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
 import { Folder } from '../types/Folder.vue'
 import { Feed } from '../types/Feed.vue'
 

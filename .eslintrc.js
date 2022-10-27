@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
 	root: true,
 	parser: 'vue-eslint-parser',
@@ -11,14 +9,6 @@ module.exports = {
 	},
 	env: {
 		jest: true,
-	},
-	rules: {
-		'n/no-missing-import': {
-			resolvePaths: [
-				path.resolve(__dirname, '/src/'), 
-				path.resolve(__dirname, '/node_modules/')
-			],
-		},
 	},
 	extends: [
 		'eslint:recommended',
