@@ -1,10 +1,8 @@
 import { config } from '@vue/test-utils'
 
 // Note: This was copied from nextcloud/tasks repo
-// import { OC } from './OC.js'
-
-// TODO: will this be used?
-// global.OC = new OC()
+import { OC } from './OC'
+(global as any).OC = new OC()
 
 // Mock nextcloud translate functions
 config.mocks.$t = function(_app: any, string: any) {
