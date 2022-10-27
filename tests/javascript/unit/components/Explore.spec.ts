@@ -1,18 +1,18 @@
-import Explore from 'Components/Explore.vue'
-import sinon from 'sinon';
-import axios from '@nextcloud/axios'
-import * as router from '@nextcloud/router'
-
-import { store, localVue } from '../setupStore'
 
 import { shallowMount } from '@vue/test-utils'
+import { store, localVue } from '../setupStore'
+import axios from '@nextcloud/axios'
+
+import * as router from '@nextcloud/router'
+
+import Explore from 'Components/Explore.vue'
 
 describe('Explore.vue', () => {
 	'use strict'
 
 	it('should initialize without showing AddFeed Component', () => {
-    sinon.stub(axios, 'get').resolves({ data: { } });
-    sinon.stub(router, 'generateUrl').returns('');
+		axios.get = jest.fn().mockResolvedValue({ data: { } })
+    (router as any).generateUrl = jest.fn().mockReturnedValue('');
     
 		const wrapper = shallowMount(Explore, { localVue, store })
 

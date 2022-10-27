@@ -84,7 +84,7 @@
 								@click="deleteFolder(folder)">
 								{{ t("news", "Ignore updated") }}
 							</NcActionButton>
-							<NcActionButton icon="icon-icon-rss" @click="deleteFolder(folder)">
+							<NcActionButton icon="icon-icon-rss">
 								{{ t("news", "Open feed URL") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-icon-rename"
