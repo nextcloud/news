@@ -17,7 +17,6 @@ config.mocks.$n = function(app: any, singular: any, plural: any, count: any) {
 }
 config.mocks.n = config.mocks.$n
 
-
 afterAll(() => {
 	
 })
