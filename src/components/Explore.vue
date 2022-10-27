@@ -56,8 +56,8 @@ const ExploreComponent = Vue.extend({
 			showAddFeed,
 		}
 	},
-	created() {
-		this.sites()
+	async created() {
+		await this.sites()
 	},
 
 	methods: {

@@ -169,7 +169,7 @@ export default Vue.extend({
 		},
 		deleteFolder(folder: Folder) {
 			this.$store.dispatch('deleteFolder', { folder })
-			window.location.reload()
+			// TODO: Reload
 		},
 		showShowAddFeed() {
 			this.showAddFeed = true
