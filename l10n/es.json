@@ -1,7 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "La petición ha fallado, ¡la conexión de red no está disponible!",
     "Request unauthorized. Are you logged in?" : "Petición no autorizada, ¿has iniciado sesión?",
-    "Request forbidden. Are you an admin?" : "Petición prohibida. ¿Eres el administrador?",
+    "Request forbidden. Are you an administrator?" : "Petición prohibida. ¿Eres el administrador?",
     "Token expired or app not enabled! Reload the page!" : "¡Sesión caducada o aplicación no habilitada! ¡Vuelve a cargar la página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Error interno del servidor! ¡Por favor, comprueba el archivo data/nextcloud.log para mas información!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Petición fallida! Nexcloud está actualmente en modo mantenimiento.",
@@ -14,21 +14,20 @@
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 App de lectura de fuentes de noticias RSS/Atom para Nextcloud\n\n- 📲 Sincronice sus fuentes de noticias con múltiples [clientes](https://nextcloud.github.io/news/clients/) móviles o de escritorio.\n- 🔄 Actualizaciones automáticas de sus fuentes de noticias.\n- 🆓 Gratis y de código abierto bajo AGPLv3, sin anuncios o funciones premium.\n\n**Se requiere el Cron del sistema para que esta aplicación funcione**\n\nLos requisitos se pueden encontrar [aquí](https://nextcloud.github.io/news/install/#dependencies)\n\nLa lista de cambios se encuentra [aquí](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCrear un [reporte de bug](https://github.com/nextcloud/news/issues/new/choose)\nCrear una [solicitud de función](https://github.com/nextcloud/news/discussions/new)\n\nInformar de un [problema en fuente](https://github.com/nextcloud/news/discussions/new)",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",
     "Disable this if you use a custom updater." : "Desactiva esto si ejecutas un actualizador personalizado.",
-    "Purge interval" : "Intervalo de purga",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Cantidad de segundos mínima antes de que las fuentes y carpetas borradas se eliminen de la base de datos; los valores por debajo de 60 segundos son ignorados.",
     "Maximum read count per feed" : "Máximo número de lecturas por fuente",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define la cantidad de artículos máxima que se pueden leer por fuente que no se borrarán mediante el trabajo de limpieza, si reaparecen artículos viejos después de que los hayas leído, aumenta este valor, valores negativos como -1 desactivarán esta característica.",
+    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define la cantidad de artículos máxima que se pueden leer por fuente que no se borrarán mediante el trabajo de limpieza, si reaparecen artículos viejos después de que los hayas leído, aumenta este valor, valores negativos como -1 desactivarán esta característica.",
+    "Delete unread articles automatically" : "Borrar artículos no leídos de forma automática",
+    "Enable this if you also want to delete unread articles." : "Habilite esta opción si además quiere borrar los artículos no leídos.",
     "Maximum redirects" : "Máximo de redirecciones",
     "How many redirects the feed fetcher should follow." : "Cuántas redirecciones debería seguir el capturador de fuentes.",
     "Feed fetcher timeout" : "Tiempo de espera agotado para la descarga de la fuente",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Número máximo de segundos que esperara a que una fuente RSS o Atom cargue; si tarda más se abortará la actualización.",
     "Explore Service URL" : "Explorar URL del Servicio",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Si se da, esta URL del servicio se usará para mostrar las fuentes en la sección de explorar fuentes. Para volver al servicio de exploración incorporado, deja este campo vacío.",
-    "For more information check the wiki." : "Para más información, comprueba la wiki.",
     "Update interval" : "Intervalo de actualización",
     "Interval in seconds in which the feeds will be updated." : "Intervalo en segundos en el que se actualizarán las fuentes.",
-    "For more information check the documentation." : "Para más información, eche un vistazo a la documentación.",
-    "Saved" : "Guardado",
+    "Successfully updated news configuration" : "Se actualizó la configuración de noticias de forma exitosa",
+    "Unable to update news config" : "No se puede actualizar la configuración de las noticias",
     "Download" : "Descargar",
     "Close" : "Cerrar",
     "Subscribe to" : "Subscribirse a",
@@ -130,5 +129,5 @@
     "Keyboard shortcuts" : "Atajos de teclado",
     "Documentation" : "Documentación",
     "Report a bug" : "Notificar un error"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
+},"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

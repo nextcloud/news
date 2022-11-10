@@ -354,7 +354,7 @@ Deletes a feed with the id feedId and all of its  items
 
 #### Rename a feed
 
-* **Status**: Implemented in 1.807
+* **Status**: Implemented in News 1.807
 * **Method**: POST
 * **Route**: /feeds/{feedId}/rename
 * **Parameters**:
@@ -398,6 +398,30 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **enclosureLink**
 * **mediaThumbnail**
 * **mediaDescription**
+
+#### Types
+| Name             | Default | Types        |
+|------------------|---------|--------------|
+| author           | null    | string\|null |
+| body             |         | string\|null |
+| contentHash      |         | string\|null |
+| enclosureLink    |         | string\|null |
+| enclosureMime    |         | string\|null |
+| feedId           |         | int          |
+| fingerprint      |         | string\|null |
+| guid             |         | string       |
+| guidHash         |         | string       |
+| id               |         | int          |
+| lastModified     | \"0\"   | string\|null |
+| mediaDescription |         | string\|null |
+| mediaThumbnail   |         | string\|null |
+| pubDate          |         | int\|null    |
+| rtl              | false   | bool         |
+| starred          | false   | bool         |
+| title            |         | string\|null |
+| unread           | false   | bool         |
+| updatedDate      |         | string\|null |
+| url              |         | string\|null |
 
 #### Get items
 * **Status**: Implemented
@@ -524,7 +548,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 #### Mark multiple items as read
-* **Status**: Implemented in 1.2
+* **Status**: Implemented in API 1.2
 * **Method**: POST
 * **Route**: /items/read/multiple
 * **Parameters**:
@@ -545,7 +569,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 #### Mark multiple items as unread
-* **Status**: Implemented in 1.2
+* **Status**: Implemented in API 1.2
 * **Method**: POST
 * **Route**: /items/unread/multiple
 * **Parameters**:
@@ -557,7 +581,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 #### Mark an item as starred
-* **Status**: Implemented in 1.3
+* **Status**: Implemented in API 1.3
 * **Method**: POST
 * **Route**: /items/{itemId}/star
 * **Parameters**: none
@@ -566,7 +590,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 #### Mark multiple items as starred
-* **Status**: Implemented in 1.3
+* **Status**: Implemented in API 1.3
 * **Method**: POST
 * **Route**: /items/star/multiple
 * **Parameters**:
@@ -578,7 +602,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 #### Mark an item as unstarred
-* **Status**: Implemented in 1.3
+* **Status**: Implemented in API 1.3
 * **Method**: POST
 * **Route**: /items/{itemId}/unstar
 * **Parameters**: none
@@ -587,7 +611,7 @@ This is used to stay up to date.
 * **Returns**: nothing
 
 #### Mark multiple items as unstarred
-* **Status**: Implemented in 1.3
+* **Status**: Implemented in API 1.3
 * **Method**: POST
 * **Route**: /items/unstar/multiple
 * **Parameters**:
@@ -632,7 +656,7 @@ This [implementation in Python](https://github.com/nextcloud/news-updater) shoul
 #### Trigger cleanup before update
 This is used to clean up the database. It deletes folders and feeds that are marked for deletion
 
-* **Status**: Implemented in 1.601
+* **Status**: Implemented in News 1.601
 * **Authentication**: Requires admin user
 * **Method**: GET
 * **Route**: /cleanup/before-update
@@ -644,7 +668,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 #### Get feed ids and usernames for all feeds
 
-* **Status**: Implemented in 1.203
+* **Status**: Implemented in News 1.203
 * **Authentication**: Requires admin user
 * **Method**: GET
 * **Route**: /feeds/all
@@ -668,7 +692,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 #### Trigger a feed update
 
-* **Status**: Implemented in 1.601
+* **Status**: Implemented in News 1.601
 * **Authentication**: Requires admin user
 * **Method**: GET
 * **Route**: /feeds/update
@@ -690,7 +714,7 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 #### Trigger cleanup after update
 This is used to clean up the database. It removes old read articles which are not starred
 
-* **Status**: Implemented in 1.601
+* **Status**: Implemented in News 1.601
 * **Authentication**: Requires admin user
 * **Method**: GET
 * **Route**: /cleanup/after-update
@@ -721,7 +745,7 @@ This API can be used to display warnings and errors in your client if the web ap
 
 #### Get the status
 
-* **Status**: Implemented in 5.2.4
+* **Status**: Implemented in News 5.2.4
 * **Method**: GET
 * **Route**: /status
 * **Parameters**: none
@@ -757,7 +781,7 @@ DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.
 
 #### Get the status
 
-* **Status**: Implemented in 6.0.5
+* **Status**: Implemented in News 6.0.5
 * **Method**: GET
 * **Route**: /user
 * **Parameters**: none

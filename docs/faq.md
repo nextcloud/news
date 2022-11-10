@@ -28,7 +28,7 @@ Since an attacker can not execute code in contrast to mixed active content, but 
 
 ### Why don't you simply use an HTTPS image/audio/video proxy
 
-For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your Nextcloud installation you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition, people feel safe when essentially they are not.
+For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue, but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your Nextcloud installation, you [are vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition, people feel safe when essentially they are not.
 
 Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.
 
@@ -91,13 +91,14 @@ By appending **?subscribe_to=SOME_URL** to your News app URL, you can launch the
 
 ## Database table grows too big
 
+If your users have subscribed to some high-volume feeds where a lot of items remain unread, 
+this can lead to an oversized news table over time. As a consequence, the database upgrade of the news app can take several hours, during which Nextcloud cannot be used.
+
 By default, Nextcloud News purges old news items above a certain threshold each time it fetches new news items. The maximum number of items per feed
 that should be kept during the purging can be defined through the “Maximum read count per feed” setting in the admin UI or the `autoPurgeCount`
-value in the config. (Note: The “Purge interval” (`autoPurgeMinimumInterval`) setting is ignored and does not have any effect.)
-
-However, unread or starred items are exempt from the purging. If your users have subscribed to some high-volume feeds where a lot of items remain
-unread, this can lead to an oversized news table over time. As a consequence, the database upgrade of the news app can take several hours, during which
-Nextcloud cannot be used.
+value in the config.
+Additionally you may enable the option to also purge unread items `purgeUnread`. This is useful if your users have large amounts of unread items.
+Starred items are always exempt from purging.
 
 The command `occ news:updater:after-update [--purge-unread] [<purge-count>]` can be used to manually purge old news items across the instance. With
 the `--purge-unread` option, unread items are also purged (starred items are still exempt). If `purge-count` is not specified, the configured

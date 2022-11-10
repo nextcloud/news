@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Richiesta non riuscita, connessione di rete non disponibile!",
     "Request unauthorized. Are you logged in?" : "Richiesta non autorizzata. Hai effettuato l'accesso?",
-    "Request forbidden. Are you an admin?" : "Richiesta vietata. Sei un amministratore?",
     "Token expired or app not enabled! Reload the page!" : "Token scaduto o applicazione non abilitata! Ricarica la pagina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Errore interno del server! Controlla il file data/nextcloud.log per informazioni aggiuntive.",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Richiesta non riuscita, Nextcloud è attualmente in manutenzione!",
@@ -16,21 +15,15 @@ OC.L10N.register(
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Un'app per la lettura di feed RSS/Atom per Nextcloud\n\n- 📲 Sincronizza i tuoi feed con più [clienti] mobili o desktop (https://nextcloud.github.io/news/clients/)\n- 🔄 Aggiornamenti automatici dei tuoi feed di notizie\n- 🆓 Gratuito e open source sotto AGPLv3, senza pubblicità o funzioni premium\n\n**System Cron è attualmente richiesto per il funzionamento di questa app**\n\nI requisiti possono essere trovati [qui](https://nextcloud.github.io/news/install/#dependencies)\n\nIl Changelog è disponibile [qui](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCrea una [segnalazione di bug](https://github.com/nextcloud/news/issues/new/choose)\n\nCrea una [richiesta di funzionalità](https://github.com/nextcloud/news/discussions/new)\n\nSegnala un [problema di feed](https://github.com/nextcloud/news/discussions/new) ",
     "Use system cron for updates" : "Usa cron di sistema per gli aggiornamenti",
     "Disable this if you use a custom updater." : "Disabilita questa opzione se esegui uno strumento di aggiornamento personalizzato.",
-    "Purge interval" : "Intervallo di cancellazione",
-    "Minimum amount of seconds after deleted feeds and folders are removed from the database; values below 60 seconds are ignored." : "Numero minimo di secondi dopo i quali le fonti e le cartelle eliminate sono rimosse dal database; valori inferiori a 60 secondi sono ignorati.",
     "Maximum read count per feed" : "Numero massimo di letture per fonte",
-    "Defines the maximum amount of articles that can be read per feed which won't be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Definisce la quantità massima di articoli che possono essere letti per ogni fonte che non saranno eliminati dall'operazione di pulizia; se vecchi articoli riappaiono dopo essere stati letti, incrementa questo valore; valori negativi come -1 disattiveranno questa funzionalità.",
     "Maximum redirects" : "Numero massimo di redirezioni",
     "How many redirects the feed fetcher should follow." : "Quante redirezioni può seguire lo strumento di recupero delle fonti.",
     "Feed fetcher timeout" : "Ritardo massimo di attesa per il recupero della fonte",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Numero massimo di secondi di attesa per il caricamento di una fonte RSS o Atom; se richiede troppo tempo l'aggiornamento sarà interrotto.",
     "Explore Service URL" : "URL del servizio Esplora",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Se specificato, questo URL del servizio sarà interrogato per visualizzare le fonti nella sezione di esplorazione. Per tornare al servizio di esplorazione integrato, lascia vuoto questo campo.",
-    "For more information check the wiki." : "Per ulteriori informazioni, consulta il wiki.",
     "Update interval" : "Intervallo di aggiornamento",
     "Interval in seconds in which the feeds will be updated." : "Intervallo in secondi nel quale le fonti saranno aggiornate.",
-    "For more information check the documentation." : "Per ulteriori informazioni, consulta la documentazione.",
-    "Saved" : "Salvato",
     "Download" : "Scarica",
     "Close" : "Chiudi",
     "Subscribe to" : "Sottoscrivi",
@@ -133,4 +126,4 @@ OC.L10N.register(
     "Documentation" : "Documentazione",
     "Report a bug" : "Segnala un bug"
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Saved" : "Enrollet",
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
     "Open website" : "Digor al lec'hienn-web",

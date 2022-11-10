@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Ongeliesen Artikelen",
-    "Saved" : "Gespäichert",
     "Download" : "Download",
     "Close" : "Zoumaachen",
     "No articles available" : "Keng Artikelen verfügbar",

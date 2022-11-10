@@ -83,6 +83,8 @@ endif
 # Installs npm dependencies
 .PHONY: npm
 npm:
+	$(npm) ci
+	$(npm) run build
 ifneq (, $(npm))
 	$(npm) run build
 else
@@ -171,12 +173,15 @@ appstore:
 	# on macOS there is no option "--parents" for the "cp" command
 	mkdir -p $(appstore_sign_dir)/$(app_name)/js/build $(appstore_sign_dir)/$(app_name)/js/admin
 	cp js/build/app.min.js $(appstore_sign_dir)/$(app_name)/js/build
-	cp js/admin/Admin.js $(appstore_sign_dir)/$(app_name)/js/admin
+	cp js/build/news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
 
 	# export the key and cert to a file
-	mkdir -p $(cert_dir)
-	php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"
-	php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"
+	@if [ ! -f $(cert_dir)/$(app_name).key ] || [ ! -f $(cert_dir)/$(app_name).crt ]; then \
+		echo "Key and cert do not exist"; \
+		mkdir -p $(cert_dir); \
+		php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"; \
+		php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"; \
+	fi
 
 	@if [ -f $(cert_dir)/$(app_name).key ]; then \
 		echo "Signing app files…"; \
@@ -216,3 +221,11 @@ test: php-test-dependencies
 .PHONY: feed-test
 feed-test:
 	./bin/tools/check_feeds.sh
+
+.PHONY: feed-server
+feed-server:
+	php -S 127.0.0.1:8090 -t $(CURDIR)/tests/test_helper/feeds
+
+.PHONY: nextcloud-server
+nextcloud-server:
+	php -S 127.0.0.1:8080 -t $(CURDIR)/../../.

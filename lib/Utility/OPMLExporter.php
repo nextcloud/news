@@ -90,11 +90,16 @@ class OPMLExporter
     protected function createFeedOutline(Feed $feed, DOMDocument $document)
     {
         $feedOutline = $document->createElement('outline');
-        $feedOutline->setAttribute('title', $feed->getTitle());
-        $feedOutline->setAttribute('text', $feed->getTitle());
-        $feedOutline->setAttribute('type', 'rss');
-        $feedOutline->setAttribute('xmlUrl', $feed->getUrl());
-        $feedOutline->setAttribute('htmlUrl', $feed->getLink());
+        $attributes = [
+            'title' => $feed->getTitle(),
+            'text' => $feed->getTitle(),
+            'type' => 'rss',
+            'xmlUrl' => $feed->getUrl(),
+            'htmlUrl' => $feed->getLink(),
+        ];
+        foreach ($attributes as $name => $value) {
+            $feedOutline->setAttribute($name, $value ?? '');
+        }
 
         return $feedOutline;
     }

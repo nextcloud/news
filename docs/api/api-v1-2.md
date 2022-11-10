@@ -399,6 +399,30 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **mediaThumbnail**
 * **mediaDescription**
 
+#### Types
+| Name             | Default | Types        |
+|------------------|---------|--------------|
+| author           | null    | string\|null |
+| body             |         | string\|null |
+| contentHash      |         | string\|null |
+| enclosureLink    |         | string\|null |
+| enclosureMime    |         | string\|null |
+| feedId           |         | int          |
+| fingerprint      |         | string\|null |
+| guid             |         | string       |
+| guidHash         |         | string       |
+| id               |         | int          |
+| lastModified     | \"0\"   | string\|null |
+| mediaDescription |         | string\|null |
+| mediaThumbnail   |         | string\|null |
+| pubDate          |         | int\|null    |
+| rtl              | false   | bool         |
+| starred          | false   | bool         |
+| title            |         | string\|null |
+| unread           | false   | bool         |
+| updatedDate      |         | string\|null |
+| url              |         | string\|null |
+    
 #### Get items
 * **Status**: Implemented
 * **Method**: GET

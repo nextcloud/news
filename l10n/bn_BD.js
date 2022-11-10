@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "অপঠিত লেখা",
-    "Saved" : "সংরক্ষণ করা হলো",
     "Download" : "ডাউনলোড",
     "Close" : "বন্ধ",
     "Share" : "ভাগাভাগি কর",

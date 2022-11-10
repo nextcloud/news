@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Saved" : "Պահված",
     "Download" : "Բեռնել",
     "Close" : "Փակել",
     "Share" : "Կիսվել",

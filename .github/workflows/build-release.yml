@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.1']
-        nextcloud: ['stable24']
+        nextcloud: ['stable25']
         database: ['sqlite']
     steps:
       - name: Checkout
@@ -52,7 +52,7 @@ jobs:
           app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
 
       - name: Upload app tarball to release
-        uses: svenstaro/upload-release-action@483c1e56f95e88835747b1c7c60581215016cbf2
+        uses: svenstaro/upload-release-action@133984371c30d34e38222a64855679a414cb7575
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}

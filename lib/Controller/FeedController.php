@@ -170,7 +170,7 @@ class FeedController extends Controller
         try {
             // we need to purge deleted feeds if a feed is created to
             // prevent already exists exceptions
-            $this->feedService->purgeDeleted($this->getUserId(), false);
+            $this->feedService->purgeDeleted($this->getUserId(), null);
 
             $feed = $this->feedService->create(
                 $this->getUserId(),

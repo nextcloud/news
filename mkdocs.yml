@@ -17,7 +17,8 @@ nav:
     - Plugins: features/plugins.md
     - Themes: features/themes.md
   - REST API:
-    - API v1: api/api-v1.md
+    - API v1.2: api/api-v1-2.md
+    - API v1.3: api/api-v1-3.md
     - API v2: api/api-v2.md
   - maintenance.md
 

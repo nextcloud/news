@@ -8,9 +8,18 @@
  * @copyright Bernhard Posselt 2014
  */
 app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
-    MARK_READ_TIMEOUT, SCROLL_TIMEOUT) {
+    MARK_READ_TIMEOUT, SCROLL_TIMEOUT, NC_MAJOR_VERSION) {
     'use strict';
     var timer;
+
+
+    var scrollElement = function() {
+        // This should be in sync with the same function in js/gui/KeyboardShortcuts.js
+        if (NC_MAJOR_VERSION >= 25) {
+            return  $('#app-content');
+        }
+        return $(window);
+    };
 
     // autopaging
     var autoPage = function (limit, elem, scope) {
@@ -49,8 +58,7 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
             articles.forEach(function(article) {
                 // distance to top + height
                 var distTop = article.offsetTop + article.offsetHeight;
-                var scrollTop = window.pageYOffset ||
-                    document.documentElement.scrollTop;
+                var scrollTop = window.pageYOffset || scrollElement().scrollTop();
                 if (distTop < scrollTop) {
                     ids.push(parseInt(article.dataset.id, 10));
                 } else {
@@ -100,11 +108,11 @@ app.directive('newsScroll', function ($timeout, ITEM_AUTO_PAGE_SIZE,
                 }
             };
 
-            $(document).on('scroll', scrollHandler);
+            scrollElement().on('scroll', scrollHandler);
 
             // remove scroll handler if element is destroyed
             scope.$on('$destroy', function () {
-                $(document).off('scroll', scrollHandler);
+                scrollElement().off('scroll', scrollHandler);
             });
         }
     };

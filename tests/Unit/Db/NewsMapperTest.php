@@ -169,7 +169,7 @@ class NewsMapperTest extends TestCase
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
-            ->method('execute');
+            ->method('executeStatement');
 
         $result = $this->class->purgeDeleted(null, null);
     }
@@ -202,7 +202,7 @@ class NewsMapperTest extends TestCase
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
-            ->method('execute');
+            ->method('executeStatement');
 
         $result = $this->class->purgeDeleted('jack', null);
     }
@@ -235,7 +235,7 @@ class NewsMapperTest extends TestCase
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
-            ->method('execute');
+            ->method('executeStatement');
 
         $result = $this->class->purgeDeleted(null, 1);
     }
@@ -268,7 +268,7 @@ class NewsMapperTest extends TestCase
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
-            ->method('execute');
+            ->method('executeStatement');
 
         $result = $this->class->purgeDeleted('jack', 1);
     }
