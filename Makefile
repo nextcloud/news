@@ -173,7 +173,7 @@ appstore:
 	# on macOS there is no option "--parents" for the "cp" command
 	mkdir -p $(appstore_sign_dir)/$(app_name)/js/build $(appstore_sign_dir)/$(app_name)/js/admin
 	cp js/build/app.min.js $(appstore_sign_dir)/$(app_name)/js/build
-	cp js/build/news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
+	cp js/nextcloud-news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
 
 	# export the key and cert to a file
 	@if [ ! -f $(cert_dir)/$(app_name).key ] || [ ! -f $(cert_dir)/$(app_name).crt ]; then \
