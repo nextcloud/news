@@ -1,7 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Se presentó una falla en la solicitud. ¡La conexión a la red no está disponible!",
     "Request unauthorized. Are you logged in?" : "Solicitud rechazada. ¿Ha iniciado sesisón?",
-    "Request forbidden. Are you an admin?" : "Solicitud prohibida. ¿Es usted un adminsitrador?",
     "Token expired or app not enabled! Reload the page!" : "¡La ficha expiró o la aplicación no está habilitada! ¡Favor de recargar la página!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "¡Se presentó un error interno del servidor! ¡Favor de verificar el archivo data/nextcloud.log para más informacón!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "¡Se presentó una falla, por el momento Nextcloud se encuentra en modo mantenimiento!",
@@ -10,12 +9,10 @@
     "Shared with me" : "Compartido conmigo",
     "An RSS/Atom feed reader" : "Un lector de feeds RSS/Atom",
     "Use system cron for updates" : "Use el sistema cron para las actualizaciones",
-    "Purge interval" : "Purgar el intervalo",
     "Maximum read count per feed" : "Conteo máximo de lecturas por fuente",
     "Maximum redirects" : "Redirecciones máximas",
     "Feed fetcher timeout" : "Tiempo de espera máximo para el buscador de fuentes",
     "Explore Service URL" : "Explorar la URL del Servicio",
-    "Saved" : "Guardado",
     "Download" : "Descargar",
     "Close" : "Cerrar",
     "No articles available" : "No hay artículos disponibles",
@@ -108,5 +105,5 @@
     "Keyboard shortcuts" : "Atajos de teclado",
     "Documentation" : "Documentación",
     "Report a bug" : "Reportar una falla"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
+},"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

@@ -11,6 +11,9 @@ js/
 site/
 coverage
 
+#bats
+tests/api/helpers/settings-override.bash
+
 # python
 PKG-INFO
 *pyc

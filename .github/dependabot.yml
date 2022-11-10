@@ -13,6 +13,7 @@ updates:
     labels:
       - "dependencies"
       - "Skip-Changelog"
+    versioning-strategy: increase
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
@@ -22,6 +23,7 @@ updates:
     labels:
       - "dependencies"
       - "Skip-Changelog"
+    versioning-strategy: increase
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"

@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Unread articles" : "Nelegitaj artikoloj",
     "News" : "Novaĵo",
-    "Saved" : "Konservita",
     "Download" : "Elŝuti",
     "Close" : "Fermi",
     "Open website" : "Malfermi TTT-ejon",

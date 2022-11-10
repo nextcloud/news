@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Unread articles" : "مقال غير مقروء",
     "News" : "الأخبار",
-    "Saved" : "حفظ",
     "Download" : "تنزيل",
     "Close" : "إغلاق",
     "Share" : "مشاركة",

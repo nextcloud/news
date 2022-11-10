@@ -16,7 +16,7 @@ jobs:
     name: "Integration: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
     services:
       postgres:
-        image: postgres
+        image: postgres:14
         env:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         options: >-
@@ -29,25 +29,27 @@ jobs:
     strategy:
       matrix:
         php-versions: ['7.4', '8.0']
-        nextcloud: ['stable22', 'stable23']
+        nextcloud: ['stable23', 'stable24', 'stable25']
         database: ['sqlite', 'pgsql', 'mysql']
         experimental: [false]
         include:
-          - php-versions: 8.0
+          - php-versions: '8.0'
+            nextcloud: pre-release
+            database: sqlite
+            experimental: true
+          - php-versions: '8.2'
             nextcloud: pre-release
             database: sqlite
             experimental: true
           - php-versions: 8.1
-            nextcloud: pre-release
-            database: sqlite
-            experimental: true
-          - php-versions: 8.1
-            nextcloud: stable24
+            nextcloud: stable25
             database: sqlite
             experimental: false
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -56,8 +58,8 @@ jobs:
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
-      - name: Setup BATS
-        uses: mig4/setup-bats@v1.2.0
+      - name: Setup BATS & httpie
+        run: sudo apt-get install -y httpie && npm install -g bats@1.7.0
 
       ### MySQL specific setup
       - name: Setup mysql
@@ -108,6 +110,22 @@ jobs:
           check-code: false
           force: ${{ matrix.experimental }}
 
+      - name: Run API tests
+        working-directory: ../server
+        run: |
+          php -S localhost:8080 &> /tmp/webserver.log &
+          cd apps/news/tests/test_helper/feeds && php -S localhost:8090 &> /tmp/feedserver.log &
+
+          sleep 2
+
+          cd ${{ github.workspace }}/../server
+                  
+          bats apps/news/tests/api
+
+          # Kill php server
+          kill %1
+          kill %2
+
       - name: Setup problem matchers for PHP
         run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
 
@@ -118,7 +136,16 @@ jobs:
 
       - name: Functional tests
         working-directory: ../server
-        run: bats apps/news/tests/integration
+        run: |
+          cd apps/news/tests/test_helper/feeds && php -S localhost:8090 &> /tmp/feedserver.log &
+
+          sleep 2
+
+          cd ${{ github.workspace }}/../server
+                  
+          bats apps/news/tests/command
+
+          kill %1
 
       - name: Prep PHP tests
         working-directory: ../server/apps/news
@@ -127,3 +154,4 @@ jobs:
       - name: Feed tests
         working-directory: ../server/apps/news
         run: make feed-test
+

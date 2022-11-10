@@ -68,11 +68,6 @@ class FeedServiceTest extends TestCase
     private $time;
 
     /**
-     * @var int
-     */
-    private $autoPurgeMinimumInterval;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
      */
     private $purifier;
@@ -98,7 +93,6 @@ class FeedServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->time = 222;
-        $this->autoPurgeMinimumInterval = 10;
         $timeFactory = $this->getMockBuilder(Time::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -131,10 +125,6 @@ class FeedServiceTest extends TestCase
         $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $config->expects($this->any())
-            ->method('getAppValue')
-            ->with('news', 'autoPurgeMinimumInterval')
-            ->will($this->returnValue($this->autoPurgeMinimumInterval));
 
         $this->class = new FeedServiceV2(
             $this->mapper,
@@ -165,21 +155,14 @@ class FeedServiceTest extends TestCase
 
     public function testCreateDoesNotFindFeed()
     {
-        $ex = new ReadErrorException('hi');
         $url = 'test';
 
-        $this->mapper->expects($this->once())
-                         ->method('findByURL')
-                         ->with($this->uid, $url)
-                         ->willReturn(new Feed());
-
-        $this->fetcher->expects($this->never())
+        $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
             ->with($url)
-            ->will($this->throwException($ex));
+            ->will($this->throwException(new ReadErrorException('There is no feed')));
 
-        $this->expectException(ServiceConflictException::class);
-        $this->expectExceptionMessage('Feed with this URL exists');
+        $this->expectException(ServiceNotFoundException::class);
         $this->class->create($this->uid, $url, 1);
     }
 
@@ -209,14 +192,15 @@ class FeedServiceTest extends TestCase
             ->method('findByURL')
             ->with($this->uid, $url)
             ->will($this->throwException(new DoesNotExistException('no')));
-        $this->explorer->expects($this->once())
-                       ->method('discover')
-                       ->with($url)
-                       ->will($this->returnValue([]));
+        $this->explorer->expects($this->never())
+            ->method('discover')
+            ->with($url)
+            ->will($this->returnValue([]));
         $this->fetcher->expects($this->once())
             ->method('fetch')
             ->with($url)
             ->will($this->returnValue($return));
+
 
         $this->mapper->expects($this->once())
             ->method('insert')
@@ -268,7 +252,7 @@ class FeedServiceTest extends TestCase
             ->method('findByURL')
             ->with($this->uid, $url)
             ->will($this->throwException(new DoesNotExistException('no')));
-        $this->explorer->expects($this->once())
+        $this->explorer->expects($this->never())
                        ->method('discover')
                        ->with($url)
                        ->will($this->returnValue([]));
@@ -326,16 +310,19 @@ class FeedServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('findByURL')
-            ->with($this->uid, $url)
+            ->with($this->uid, 'http://discover.test')
             ->will($this->throwException(new DoesNotExistException('no')));
         $this->explorer->expects($this->once())
                        ->method('discover')
                        ->with($url)
                        ->will($this->returnValue(['http://discover.test']));
-        $this->fetcher->expects($this->once())
+        $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
-            ->with('http://discover.test')
-            ->will($this->returnValue($return));
+            ->withConsecutive(
+                ['http://test'],
+                ['http://discover.test']
+            )
+            ->willReturnOnConsecutiveCalls($this->throwException(new ReadErrorException('There is no feed')), $this->returnValue($return));
 
         $this->mapper->expects($this->once())
             ->method('insert')
@@ -434,12 +421,12 @@ class FeedServiceTest extends TestCase
         $url = 'http://test';
         $folderId = 10;
 
-        $this->fetcher->expects($this->once())
+        $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
             ->with($url)
             ->will($this->throwException(new ReadErrorException('ERROR')));
 
-        $this->mapper->expects($this->once())
+        $this->mapper->expects($this->never())
             ->method('findByURL')
             ->with($this->uid, $url)
             ->will($this->throwException(new DoesNotExistException('no')));
@@ -657,7 +644,6 @@ class FeedServiceTest extends TestCase
         $feed2->setId(5);
         $feeds = [$feed1, $feed2];
 
-        $time = $this->time - $this->autoPurgeMinimumInterval;
 
         $this->mapper->expects($this->exactly(1))
             ->method('purgeDeleted')

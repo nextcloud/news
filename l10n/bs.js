@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Saved" : "Spremljeno",
     "Download" : "Preuzmite",
     "Close" : "Zatvori",
     "Share" : "Podjeli",

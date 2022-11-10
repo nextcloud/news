@@ -58,6 +58,6 @@ class UpdaterService
 
     public function afterUpdate(): void
     {
-        $this->itemService->purgeOverThreshold(null);
+        $this->itemService->purgeOverThreshold();
     }
 }

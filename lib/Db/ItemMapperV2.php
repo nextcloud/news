@@ -62,7 +62,18 @@ class ItemMapperV2 extends NewsMapperV2
                 ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR);
 
         foreach ($params as $key => $value) {
-            $builder->andWhere("$key = " . $builder->createNamedParameter($value));
+            switch (gettype($value)) {
+                case 'boolean':
+                    $type = IQueryBuilder::PARAM_BOOL;
+                    break;
+                case 'integer':
+                    $type = IQueryBuilder::PARAM_INT;
+                    break;
+                default:
+                    $type = IQueryBuilder::PARAM_STR;
+                    break;
+            }
+            $builder->andWhere("$key = " . $builder->createNamedParameter($value, $type));
         }
 
         return $this->findEntities($builder);
@@ -174,13 +185,13 @@ class ItemMapperV2 extends NewsMapperV2
      * Delete items from feed that are over the max item threshold
      *
      * @param int  $threshold    Deletion threshold
-     * @param bool $removeUnread If unread articles should be removed
+     * @param bool $purgeUnread  If unread articles should be removed
      *
      * @return int|null Removed items
      *
      * @throws \Doctrine\DBAL\Exception
      */
-    public function deleteOverThreshold(int $threshold, bool $removeUnread = false): ?int
+    public function deleteOverThreshold(int $threshold, bool $purgeUnread): ?int
     {
         $feedQb = $this->db->getQueryBuilder();
         $feedQb->select('feed_id', $feedQb->func()->count('*', 'itemCount'))
@@ -203,7 +214,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('starred = false')
             ->addOrderBy('id', 'DESC');
 
-        if ($removeUnread === false) {
+        if ($purgeUnread === false) {
             $rangeQuery->andWhere('unread = false');
         }
 
@@ -265,8 +276,10 @@ class ItemMapperV2 extends NewsMapperV2
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('items.id <= :maxItemId')
+            ->andWhere('items.unread = :unread')
             ->setParameter('userId', $userId)
-            ->setParameter('maxItemId', $maxItemId);
+            ->setParameter('maxItemId', $maxItemId)
+            ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL);
 
         $idList = array_map(function ($value): int {
             return intval($value['id']);
@@ -276,9 +289,8 @@ class ItemMapperV2 extends NewsMapperV2
         $builder->update(self::TABLE_NAME)
             ->set('unread', $builder->createParameter('unread'))
             ->andWhere('id IN (:idList)')
-            ->andWhere('unread != :unread')
-            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
-            ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY);
+            ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY)
+            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL);
 
         return $this->db->executeStatement(
             $builder->getSQL(),

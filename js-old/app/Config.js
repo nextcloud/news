@@ -34,6 +34,10 @@ app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider)
     $provide.constant('MARK_READ_TIMEOUT', 0.5);
     $provide.constant('SCROLL_TIMEOUT', 0.1);
 
+    const majorVersion = parseInt($('#app-content').data('nc-major-version') || 0, 10);
+    $provide.constant('NC_MAJOR_VERSION', majorVersion);
+    window.NEWS_NC_MAJOR_VERSION = majorVersion;
+
     // make sure that the CSRF header is only sent to the Nextcloud domain
     $provide.factory('CSRFInterceptor', function ($q, BASE_URL, $window) {
         return {
@@ -55,7 +59,7 @@ app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider)
     var errorMessages = {
         0: t('news', 'Request failed, network connection unavailable!'),
         401: t('news', 'Request unauthorized. Are you logged in?'),
-        403: t('news', 'Request forbidden. Are you an admin?'),
+        403: t('news', 'Request forbidden. Are you an administrator?'),
         412: t('news', 'Token expired or app not enabled! Reload the page!'),
         500: t('news', 'Internal server error! Please check your ' +
             'data/nextcloud.log file for additional ' +

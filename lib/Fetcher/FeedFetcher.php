@@ -134,6 +134,7 @@ class FeedFetcher implements IFeedFetcher
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
         $feedName = $parsedFeed->getTitle();
+        $feedAuthor = $parsedFeed->getAuthor();
         $this->logger->debug(
             'Feed {url} was modified since last fetch. #{count} items',
             [
@@ -155,7 +156,7 @@ class FeedFetcher implements IFeedFetcher
                 }
             }
 
-            $builtItem = $this->buildItem($item, $body, $currRTL);
+            $builtItem = $this->buildItem($item, $body, $currRTL, $feedAuthor);
             $this->logger->debug(
                 'Added item {title} for feed {feed} lastmodified: {datetime}',
                 [
@@ -226,18 +227,37 @@ class FeedFetcher implements IFeedFetcher
      * @param ItemInterface $parsedItem The item to use
      * @param string|null   $body       Text of the item, if not provided use description from $parsedItem
      * @param bool          $RTL        True if the feed is RTL (Right-to-left)
+     * @param string|null   $feedAuthor Author of the feed as fallback when the item has no Author
      *
      * @return Item
      */
-    protected function buildItem(ItemInterface $parsedItem, ?string $body = null, bool $RTL = false): Item
-    {
+    protected function buildItem(
+        ItemInterface $parsedItem,
+        ?string $body = null,
+        bool $RTL = false,
+        $feedAuthor = null
+    ): Item {
         $item = new Item();
         $item->setUnread(true);
-        $item->setUrl($parsedItem->getLink());
-        if ($parsedItem->getPublicId() == null) {
+        $itemLink = $parsedItem->getLink();
+        $itemTitle = $parsedItem->getTitle();
+        $item->setUrl($itemLink);
+        $publicId = $parsedItem->getPublicId();
+        if ($publicId == null) {
+            // Fallback on using the URL as the guid for the feed item if no guid provided by feed
+            $this->logger->debug(
+                "Feed item {title} with link {link} did not expose a guid, falling back to using link as guid",
+                [
+                'title' => $itemTitle,
+                'link' => $itemLink
+                ]
+            );
+            $publicId = $itemLink;
+        }
+        if ($publicId == null) {
             throw new ReadErrorException("Malformed feed: item has no GUID");
         }
-        $item->setGuid($parsedItem->getPublicId());
+        $item->setGuid($publicId);
         $item->setGuidHash(md5($item->getGuid()));
 
         $lastModified = $parsedItem->getLastModified() ?? new DateTime();
@@ -255,10 +275,12 @@ class FeedFetcher implements IFeedFetcher
         $item->setRtl($RTL);
 
         // unescape content because angularjs helps against XSS
-        if ($parsedItem->getTitle() !== null) {
-            $item->setTitle($this->decodeTwice($parsedItem->getTitle()));
+        if ($itemTitle !== null) {
+            $item->setTitle($this->decodeTwice($itemTitle));
         }
-        $author = $parsedItem->getAuthor();
+
+        $author = $parsedItem->getAuthor() ?? $feedAuthor;
+
         if ($author !== null && $author->getName() !== null) {
             $item->setAuthor($this->decodeTwice($author->getName()));
         }
@@ -332,9 +354,14 @@ class FeedFetcher implements IFeedFetcher
      */
     protected function getFavicon(FeedInterface $feed, string $url)
     {
+        $favicon = null;
         // trim the string because authors do funny things
-        $favicon = trim($feed->getLogo());
-
+        $feed_logo = $feed->getLogo();
+        
+        if (!is_null($feed_logo)) {
+            $favicon = trim($feed_logo);
+        }
+        
         ini_set('user_agent', 'NextCloud-News/1.0');
 
         $base_url = new Net_URL2($url);

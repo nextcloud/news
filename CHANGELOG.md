@@ -9,16 +9,78 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
   - Add Typescript 
   - Add Jest for Unit Tests
 
-## [18.x.x]
+# Releases
+## [19.0.0] - 2022-10-25
+### Fixed
+- Fix nested scrollbars in navigation (#411, #1958)
+
+## [19.0.0-beta2] - 2022-10-23
+### Fixed
+- Fixed various keyboard navigation issues (#1953)
+- Fix cron job warning notification layout on NC25 (#1953)
+
+## [19.0.0-beta1] - 2022-10-22
 ### Changed
-- Add routes for starring/unstarring items by id
-- Improve styling of tables in articles
+- Drop support for Nextcloud 22, NC 22 has reached it's end of life. (#1950)
+- Add support for Nextcloud 25 (#1950)
+### Fixed
+- Corrected article compact title bar position in NC25 (#1944)
+- Fixed "Mark read through scrolling" in NC25 and NC24 (#1944)
+
+## [18.3.0] - 2022-10-21
+### Fixed
+- Remove setting for minimum purge interval since it is not used. (#1935)
+
+## [18.3.0-beta1] - 2022-10-10
+### Changed
+- New administrator setting for deleting unread items automatically (#1931)
+
+## [18.2.0] - 2022-09-28
+### Fixed
+- Fix the highlighted item when reverse ordering is selected (#1838)
+
+## [18.2.0-beta2] - 2022-09-07
+Fix for the read all function and spelling fixes.
+
+## [18.2.0-beta1] - 2022-08-30
+### Changed
+- Ported the admin settings to vue (#2353)
+
+### Fixed
+- Fix PHP 8.1 deprecations (#1861)
+- Document api item types (#1861)
+- Fix deprecation warnings from Nextcloud server (#1869)
+- Fix when marking all items as read, all items of the user are used in the sql query (#1873)
+- Fix adding feed via the web-ui that was just deleted causing an error (#1872)
+
+## [18.1.1] - 2022-08-12
+### Changed
+- Change autodiscover to only run after fetching the given url has failed (#1860)
+
+## [18.1.1-beta1] - 2022-07-04
+### Fixed
+- Fix export of unread and starred articles failing due to postgres error (#1839, #1249)
+- Fix broken API v1.3 (#1841)
+
+## [18.1.0] - 2022-06-10
+Due to #1766 some Feeds might now have items that have `null` set as author instead of `""` clients need to handle this.
+
+## [18.1.0-beta2] - 2022-05-31
+### Changed
+-  If items of feed do not provide an author fallback to feed author (#1803)
+
+## [18.1.0-beta1] - 2022-05-29
+### Changed
+- Add API v1.3 adding routes for starring/unstarring items by id and general fixes (#1727)
+  https://nextcloud.github.io/news/api/api-v1-3/
+- Improve styling of tables in articles (#1779)
+- Allow fetching feeds that omit guid by using link as stand-in (#1785)
 
 ### Fixed
 - Fix updated api not returning any item after marking item as read (#1713)
 - Fix deprecation warning for strip_tags() on a null value (#1766)
-
-# Releases
+- Fix selected item being set incorrectly when using default ordering or newest first ordering (#1324)
+- Fix doubling the height of the content area (#1796)
 
 ## [18.0.1] - 2022-04-22
 No major changes since the beta versions.

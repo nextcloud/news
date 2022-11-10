@@ -1,7 +1,6 @@
 OC.L10N.register(
     "news",
     {
-    "Saved" : "Wedi'u cadw",
     "Download" : "Llwytho i lawr",
     "Close" : "Cau",
     "Share" : "Rhannu",

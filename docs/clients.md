@@ -10,6 +10,8 @@ A sync client can be used to read news and synchronize via the API.
 | Name                                                                                                             | OS/Platform                  | License              | Source                                                             |
 |------------------------------------------------------------------------------------------------------------------|------------------------------|----------------------|--------------------------------------------------------------------|
 | [RSS Guard](https://github.com/martinrotter/rssguard)                                                            | Windows, Linux, OS/2, macOS  | GPL-3.0 License      | [GitHub](https://github.com/martinrotter/rssguard)                 |
+| [Fluent Reader](https://hyliu.me/fluent-reader/)                                                                 | Windows, Linux, macOS  | BSD-3-Clause License   | [GitHub](https://github.com/yang991178/fluent-reader)                          |
+| [Communique](https://flathub.org/apps/details/com.github.suzie97.communique)                                                              | Linux                  |  LGPL-2.1 License      | [GitHub](https://github.com/Suzie97/Communique)                |
 | [Nextcloud News Reader](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader)              | Android                      | GPL-3.0 License      | [GitHub](https://github.com/nextcloud/news-android-app)            |
 | [OCReader](https://f-droid.org/repository/browse/?fdid=email.schaal.ocreader)                                    | Android                      | GPL-3.0 License      | [GitHub](https://github.com/schaal/ocreader)                       |
 | [Newsout](https://play.google.com/store/apps/details?id=com.inspiredandroid.newsout)                             | Android                      | Apache-2.0 License   | [GitHub](https://github.com/SimonSchubert/NewsOut)                 |
@@ -24,6 +26,7 @@ A sync client can be used to read news and synchronize via the API.
 | [py3status](https://github.com/ultrabug/py3status/)                                                              | i3wm                         | BSD-3-Clause License | [GitHub](https://github.com/ultrabug/py3status/)                   |
 | [newsboat](https://newsboat.org/)                                                                                | Unix Terminal                | MIT License          | [GitHub](https://github.com/newsboat/newsboat)                     |
 | [Newsie](https://open-store.io/app/newsie.martinferretti)                                                        | Ubuntu Touch                 | GPL-3.0 License      | [GitLab](https://gitlab.com/ferrettim/newsie)                      |
+| [Fuoten](https://github.com/Huessenbergnetz/Fuoten)                                                              | Sailfish OS                  | GPL-3.0 License      | [GitHub](https://github.com/Huessenbergnetz/Fuoten)                |
 
 ## Update Clients
 

@@ -2,7 +2,6 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "អត្ថបទ​ដែល​មិន​ទាន់​អាន",
-    "Saved" : "បាន​រក្សាទុក",
     "Download" : "ទាញយក",
     "Close" : "បិទ",
     "Share" : "ចែក​រំលែក",
