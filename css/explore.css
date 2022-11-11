@@ -8,50 +8,59 @@
  * @copyright 2020, Jan C. Borchardt, https://jancborchardt.net
  * @copyright Bernhard Posselt 2014
  */
+
 /**
  * Explore styles
  */
 .explore #app-content-wrapper {
-  height: 100%;
+    height: 100%;
 }
 
 #explore {
-  height: 100%;
-  width: 100%;
-  padding: 45px 0 45px 45px;
+    height: 100%;
+    width: 100%;
+    padding: 45px 0 45px 45px;
 }
+
 #explore .grid-item {
-  width: 300px;
-  border: 2px solid var(--color-border);
-  border-radius: var(--border-radius-large);
-  margin: 0 24px 24px 0;
-  padding: 24px;
+    width: 300px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-large);
+    margin: 0 24px 24px 0;
+    padding: 24px;
 }
+
 #explore .grid-item .explore-title {
-  background-repeat: no-repeat;
-  background-position: 0 center;
-  background-size: 24px;
-  padding-left: 32px;
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    background-size: 24px;
+    padding-left: 32px;
 }
+
 #explore .grid-item .explore-title a {
-  word-wrap: break-word;
+    word-wrap: break-word;
 }
-#explore .grid-item .explore-title a:hover, #explore .grid-item .explore-title a:focus {
-  text-decoration: underline;
+
+#explore .grid-item .explore-title a:hover,
+#explore .grid-item .explore-title a:focus {
+    text-decoration: underline;
 }
+
 #explore .grid-item .explore-logo {
-  text-align: center;
-  margin-top: 25px;
+    text-align: center;
+    margin-top: 25px;
 }
+
 #explore .grid-item .explore-logo img {
-  width: 100%;
+    width: 100%;
 }
+
 #explore .grid-item .explore-subscribe {
-  margin-top: 16px;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    margin-top: 16px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /*# sourceMappingURL=explore.css.map */
