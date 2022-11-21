@@ -11,9 +11,9 @@
 
 namespace OCA\News\Scraper;
 
-use andreskrey\Readability\Readability;
-use andreskrey\Readability\Configuration;
-use andreskrey\Readability\ParseException;
+use fivefilters\Readability\Readability;
+use fivefilters\Readability\Configuration;
+use fivefilters\Readability\ParseException;
 use Psr\Log\LoggerInterface;
 
 class Scraper implements IScraper
