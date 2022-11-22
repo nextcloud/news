@@ -3,7 +3,7 @@
 
 import Vue from 'vue'
 import { getRequestToken } from '@nextcloud/auth'
-// import { translate as t } from '@nextcloud/l10n'
+import { translate as t } from '@nextcloud/l10n'
 
 import AdminSettings from './components/AdminSettings.vue'
 
