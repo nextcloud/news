@@ -104,7 +104,7 @@ import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
-import { confirmPassword } from '@nextcloud/password-confirmation' // TODO: throws 'invariant' error with jest?
+import { confirmPassword } from '@nextcloud/password-confirmation'
 
 /**
  *
@@ -172,7 +172,7 @@ export default {
 				})
 			}
 		},
-		async handleResponse({ status, errorMessage, error }) {
+		handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)
 				console.error(errorMessage, error)
