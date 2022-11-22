@@ -15,7 +15,6 @@ describe('Explore.vue', () => {
 		(axios as any).get.mockResolvedValue({ data: {} });
 		(router as any).generateUrl = jest.fn().mockReturnValue('');
 
-		jest.fn().mockReturnValue
 		const wrapper = shallowMount(Explore, { localVue, store });
 
 		expect(wrapper.vm.$data.showAddFeed).toBeFalsy;
