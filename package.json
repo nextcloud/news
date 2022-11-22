@@ -49,6 +49,7 @@
     "@nextcloud/initial-state": "^2.0.0",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/vue": "^7.0.1",
+    "regenerator-runtime": "^0.13.11",
     "vue": "^2.6.14",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"
@@ -141,7 +142,8 @@
       "^.+\\.ts?$": "ts-jest"
     },
     "transformIgnorePatterns": [
-      "/node_modules/(?!(@nextcloud)|(vue-material-design-icons))"
+      "/node_modules/(?!(@nextcloud)|(vue-material-design-icons))",
+      "/node_modules/@nextcloud/password-confirmation"
     ],
     "snapshotSerializers": [
       "jest-serializer-vue"
