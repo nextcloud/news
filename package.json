@@ -50,7 +50,6 @@
     "@nextcloud/l10n": "^1.6.0",
     "@nextcloud/router": "^2.0.0",
     "@nextcloud/vue": "^7.0.1",
-    "regenerator-runtime": "^0.13.11",
     "vue": "^2.6.14",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"
@@ -100,6 +99,7 @@
     "md5": "^2.3.0",
     "node-gettext": "^3.0.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
+    "regenerator-runtime": "^0.13.11",
     "regenerator-transform": "^0.15.0",
     "regexpu-core": "^5.2.1",
     "splitpanes": "^3.1.5",
