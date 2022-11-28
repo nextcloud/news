@@ -139,7 +139,7 @@ export default Vue.extend({
 	},
 	data: (): AddFeedState => {
 		return {
-			folder: { name: '' },
+			folder: { name: '' } as any,
 			autoDiscover: true,
 			createNewFolder: false,
 			withBasicAuth: false,

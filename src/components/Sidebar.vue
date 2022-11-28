@@ -13,7 +13,7 @@
 
 			<NcAppNavigationItem :title="t('news', 'Unread articles')" icon="icon-rss">
 				<template #actions>
-					<NcActionButton icon="icon-checkmark" @click="alert('Edit')">
+					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark Read')">
 						t('news','Mark read')
 					</NcActionButton>
 				</template>
@@ -23,7 +23,7 @@
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :title="t('news', 'All articles')" icon="icon-rss">
 				<template #actions>
-					<ActionButton icon="icon-checkmark" @click="alert('Edit')">
+					<ActionButton icon="icon-checkmark" @click="alert('TODO: Edit')">
 						t('news','Mark read')
 					</ActionButton>
 				</template>
@@ -34,13 +34,13 @@
 				</template>
 			</NcAppNavigationItem>
 
-			<NcAppNavigationItem v-for="folder in folders"
-				:key="folder.name"
-				:title="folder.name"
+			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
+				:key="topLevelItem.name"
+				:title="topLevelItem.name"
 				icon="icon-folder"
 				:allow-collapse="true">
 				<template #default>
-					<NcAppNavigationItem v-for="feed in folder.feeds"
+					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
 						:title="feed.title">
 						<template #icon>
@@ -50,64 +50,68 @@
 							<div v-if="!feed.faviconLink" class="icon-rss" />
 						</template>
 						<template #actions>
-							<NcActionButton icon="icon-checkmark" @click="alert('Mark read')">
+							<NcActionButton icon="icon-checkmark"
+								@click="alert('TODO: Mark read')">
 								{{ t("news", "Mark read") }}
 							</NcActionButton>
-							<NcActionButton icon="icon-pinned" @click="alert('Rename')">
+							<NcActionButton icon="icon-pinned"
+								@click="alert('TODO: Unpin from top')">
 								{{ t("news", "Unpin from top") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-caret-dark"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: Newest First')">
 								{{ t("news", "Newest first") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-caret-dark"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: Oldest first')">
 								{{ t("news", "Oldest first") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-caret-dark"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: Default Order')">
 								{{ t("news", "Default order") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-full-text-disabled"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: Enable Full Text')">
 								{{ t("news", "Enable full text") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-full-text-enabled"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: DIsable Full Text')">
 								{{ t("news", "Disable full text") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-updatemode-default"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: Unread Updated')">
 								{{ t("news", "Unread updated") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-updatemode-unread"
-								@click="deleteFolder(folder)">
+								@click="alert('TOODO: Ignore UPdated')">
 								{{ t("news", "Ignore updated") }}
 							</NcActionButton>
-							<NcActionButton icon="icon-icon-rss">
+							<NcActionButton icon="icon-icon-rss"
+								@click="alert('TODO: Open Feed URL')">
 								{{ t("news", "Open feed URL") }}
 							</NcActionButton>
 							<NcActionButton icon="icon-icon-rename"
-								@click="deleteFolder(folder)">
+								@click="alert('TODO: Rename')">
 								{{ t("news", "Rename") }}
 							</NcActionButton>
-							<NcActionButton icon="icon-delete" @click="deleteFolder(folder)">
+							<NcActionButton icon="icon-delete"
+								@click="alert('TODO: Delete Feed')">
 								{{ t("news", "Delete") }}
 							</NcActionButton>
 						</template>
 					</NcAppNavigationItem>
 				</template>
-				<template v-if="folder.feedCount > 0" #counter>
-					<CounterBubble>{{ folder.feedCount }}</CounterBubble>
+				<template v-if="topLevelItem.feedCount > 0" #counter>
+					<CounterBubble>{{ topLevelItem.feedCount }}</CounterBubble>
 				</template>
 				<template #actions>
-					<NcActionButton icon="icon-checkmark" @click="alert('Mark read')">
+					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark read')">
 						{{ t("news", "Mark read") }}
 					</NcActionButton>
-					<NcActionButton icon="icon-rename" @click="alert('Rename')">
+					<NcActionButton icon="icon-rename" @click="alert('TODO: Rename')">
 						{{ t("news", "Rename") }}
 					</NcActionButton>
-					<NcActionButton icon="icon-delete" @click="deleteFolder(folder)">
+					<NcActionButton icon="icon-delete" @click="deleteFolder(topLevelItem)">
 						{{ t("news", "Delete") }}
 					</NcActionButton>
 				</template>
@@ -126,6 +130,7 @@
 
 <script lang="ts">
 
+import Vuex from 'vuex'
 import Vue from 'vue'
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
@@ -136,6 +141,21 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import AddFeed from './AddFeed.vue'
 import { Folder } from '../types/Folder.vue'
+import { Feed } from '../types/Feed.vue'
+
+// import { ROUTES } from '../routes.js'
+import { ACTIONS, AppState } from '../store/index.ts'
+
+const SideBarState: any = {
+	topLevelNav(state: AppState) {
+		const navItems = state.feeds.filter((feed: Feed) => {
+			return feed.folderId === undefined || feed.folderId === null
+		}).concat(state.folders)
+
+		console.log(navItems);
+		return navItems;
+	},
+}
 
 export default Vue.extend({
 	components: {
@@ -151,15 +171,16 @@ export default Vue.extend({
 	data: () => {
 		return {
 			showAddFeed: false,
+			// ROUTES
 		}
 	},
 	computed: {
-		folders() {
-			return this.$store.state.folders
-		},
+		...Vuex.mapState(['feeds', 'folders']),
+		...Vuex.mapState(SideBarState),
 	},
-	created() {
-		// TODO?
+	async created() {
+		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
+		await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 	},
 	methods: {
 		newFolder(value: string) {
