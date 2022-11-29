@@ -15,10 +15,19 @@ export const FOLDER_ACTION_TYPES = {
   DELETE_FOLDER: 'DELETE_FOLDER'
 }
 
+const state = {
+  folders: []
+}
+
+const getters = {
+  folders (state: AppState) {
+    return state.folders;
+  },
+}
+
 const folderUrl = generateUrl("/apps/news/folders")
 
-export const FOLDER_ACTIONS = {
-  
+export const actions = {
   async [FOLDER_ACTION_TYPES.FETCH_FOLDERS] ({ commit }: ActionParams) {
     const folders = await axios.get(
       generateUrl("/apps/news/folders")
@@ -55,8 +64,9 @@ export const FOLDER_ACTIONS = {
 }
 
 
-export const FOLDER_MUTATIONS = {
+export const mutations = {
   [FOLDER_MUTATION_TYPES.SET_FOLDERS] (state: AppState, folders: Folder[]) {
+    console.log(folders);
     folders.forEach(it => {
       it.feedCount = 0
       it.feeds = []
@@ -67,4 +77,11 @@ export const FOLDER_MUTATIONS = {
     const index = state.folders.indexOf(folder);
     state.folders.splice(index, 1);
   }
+}
+
+export default {
+  state,
+  getters,
+  actions,
+  mutations
 }

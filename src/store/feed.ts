@@ -13,9 +13,19 @@ export const FEED_ACTION_TYPES = {
   FETCH_FEEDS: 'FETCH_FEEDS',
 }
 
+const state = {
+  feeds: []
+}
+
+const getters = {
+  feeds (state: AppState) {
+    return state.feeds;
+  },
+}
+
 const feedUrl = generateUrl("/apps/news/feeds")
 
-export const FEED_ACTIONS = {
+export const actions = {
   async [FEED_ACTION_TYPES.FETCH_FEEDS] ({ commit }: ActionParams) {
     const feeds = await axios.get(
       generateUrl("/apps/news/feeds")
@@ -60,7 +70,7 @@ export const FEED_ACTIONS = {
   }
 }
 
-export const FEED_MUTATIONS = {
+export const mutations = {
   [FEED_MUTATION_TYPES.SET_FEEDS] (state: AppState, feeds: Feed[]) {
     feeds.forEach(it => {
       state.feeds.push(it)
@@ -71,4 +81,11 @@ export const FEED_MUTATIONS = {
       }
     })
   },
+}
+
+export default {
+  state,
+  getters,
+  actions,
+  mutations
 }

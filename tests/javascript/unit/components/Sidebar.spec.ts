@@ -1,5 +1,5 @@
-import { Wrapper, shallowMount } from '@vue/test-utils'
-import { store, localVue } from '../setupStore'
+import { ACTIONS } from '@/store';
+import { Wrapper, shallowMount, createLocalVue } from '@vue/test-utils'
 
 import AppSidebar from 'Components/Sidebar.vue'
 
@@ -9,7 +9,18 @@ describe('Sidebar.vue', () => {
 	let wrapper: Wrapper<AppSidebar>;
 
 	beforeAll(() => {
-		wrapper = shallowMount(AppSidebar, { localVue, store })
+		const localVue = createLocalVue()
+		wrapper = shallowMount(AppSidebar, { 
+			localVue,
+			mocks: { 
+				$store: { 
+					state: { 
+						feeds: [], 
+						folders: [] 
+					}
+				}
+			}
+		})
 		wrapper.vm.$store.dispatch = jest.fn();
 	})
 
@@ -20,14 +31,14 @@ describe('Sidebar.vue', () => {
 	it('should dispatch message to store with folder name to create new folder', () => {
 		(wrapper.vm as any).newFolder('abc')
 	
-		expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith('addFolder',  { folder: { name: 'abc'} })
+		expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.ADD_FOLDERS,  { folder: { name: 'abc'} })
 	});
 
 	it('should dispatch message to store with folder object on delete folder', () => {
 		const folder = {};
 		(wrapper.vm as any).deleteFolder(folder)
 
-		expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith('deleteFolder', { folder })
+		expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.DELETE_FOLDER, { folder })
 	})
 
 	it('should set showAddFeed to true', () => {
@@ -43,4 +54,12 @@ describe('Sidebar.vue', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
+
+	describe('SideBar State', () => {
+		// it('should return top level nav (folders and feeds without folders)', () => {
+		// 	const navItems = (wrapper.vm.$options?.computed?.topLevelNav as any)({ feeds: [], folders: [] });
+
+		// 	console.log(navItems)
+		// })
+	})
 })
