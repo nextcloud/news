@@ -111,8 +111,10 @@ import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
-import { Folder } from '../types/Folder.vue'
-import { Feed } from '../types/Feed.vue'
+// eslint-disable-next-line
+import { Folder } from '../types/Folder'
+// eslint-disable-next-line
+import { Feed } from '../types/Feed'
 
 type AddFeedState = {
 	folder: Folder;
