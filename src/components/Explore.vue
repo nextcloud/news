@@ -33,12 +33,14 @@
 <script lang="ts">
 
 import Vue from 'vue'
+
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import axios from '@nextcloud/axios'
-import AddFeed from './AddFeed.vue'
 import * as router from '@nextcloud/router'
-import { ExploreSite } from '../types/ExploreSite.vue'
-// eslint-disable-next-line
+
+import AddFeed from './AddFeed.vue'
+
+import { ExploreSite } from '../types/ExploreSite'
 import { Feed } from '../types/Feed'
 
 const ExploreComponent = Vue.extend({

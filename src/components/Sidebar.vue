@@ -140,10 +140,10 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 // import { ROUTES } from '../routes.js'
+import { ACTIONS, AppState } from '../store/index'
 
 import AddFeed from './AddFeed.vue'
 
-import { ACTIONS, AppState } from '../store/index'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 

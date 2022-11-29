@@ -1,4 +1,3 @@
-<script lang="ts">
 export type ExploreSite = {
 	title: string;
 	favicon: string;
@@ -7,4 +6,3 @@ export type ExploreSite = {
 	description: string;
 	votes: number;
 }
-</script>
