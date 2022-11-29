@@ -38,7 +38,8 @@ import axios from '@nextcloud/axios'
 import AddFeed from './AddFeed.vue'
 import * as router from '@nextcloud/router'
 import { ExploreSite } from '../types/ExploreSite.vue'
-import { Feed } from '../types/Feed.vue'
+// eslint-disable-next-line
+import { Feed } from '../types/Feed'
 
 const ExploreComponent = Vue.extend({
 	components: {
@@ -47,7 +48,7 @@ const ExploreComponent = Vue.extend({
 	},
 	data: () => {
 		const exploreSites: ExploreSite[] = []
-		const feed: Feed = {}
+		const feed: Feed = {} as any
 		const showAddFeed = false
 
 		return {

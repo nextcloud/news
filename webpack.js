@@ -1,4 +1,5 @@
-const webpackConfig = require('@nextcloud/webpack-vue-config')
+const { merge } = require('webpack-merge')
+let webpackConfig = require('@nextcloud/webpack-vue-config')
 const path = require('path')
 
 webpackConfig.entry['admin-settings'] = path.join(
@@ -6,6 +7,12 @@ webpackConfig.entry['admin-settings'] = path.join(
 	'src',
 	'main-admin.js',
 )
+
+webpackConfig = merge(webpackConfig, {
+	resolve: {
+		extensions: ['.ts'],
+	},
+})
 
 // Add TS Loader for processing typescript in vue templates
 webpackConfig.module.rules.push({
