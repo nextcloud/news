@@ -17,11 +17,12 @@ describe('Sidebar.vue', () => {
 					state: { 
 						feeds: [], 
 						folders: [] 
-					}
+					},
+					dispatch: jest.fn()
 				}
 			}
 		})
-		wrapper.vm.$store.dispatch = jest.fn();
+		// wrapper.vm.$store.
 	})
 
 	it('should initialize without showing AddFeed Component', () => {
@@ -51,15 +52,25 @@ describe('Sidebar.vue', () => {
 		expect(wrapper.vm.$data.showAddFeed).toBeFalsy
 	})
 
+	// TODO: A couple more tests here
+	it('should return top level nav (folders and feeds without folders)', () => {
+		let topLevelNav = (wrapper.vm.$options.computed?.topLevelNav as any).call({ $store: { 
+			getters: { 
+				feeds: [], 
+				folders: [] 
+			} 
+		}})
+
+		expect(topLevelNav).toEqual([])
+	})
+
+	// TODO: More Template Testing with https://test-utils.vuejs.org/guide/essentials/a-crash-course.html#adding-a-new-todo
+
 	afterEach(() => {
-		jest.clearAllMocks();
+		jest.clearAllMocks()
 	});
 
 	describe('SideBar State', () => {
-		// it('should return top level nav (folders and feeds without folders)', () => {
-		// 	const navItems = (wrapper.vm.$options?.computed?.topLevelNav as any)({ feeds: [], folders: [] });
-
-		// 	console.log(navItems)
-		// })
+		
 	})
 })
