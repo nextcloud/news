@@ -6,7 +6,7 @@ import Explore from './components/Explore.vue'
 import { generateUrl } from '@nextcloud/router'
 import Vuex, { Store } from 'vuex'
 
-import mainStore from './store/index'
+import mainStore from './store'
 
 import { Tooltip } from '@nextcloud/vue'
 

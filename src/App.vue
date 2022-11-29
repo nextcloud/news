@@ -13,6 +13,7 @@ import Vue from 'vue'
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import Sidebar from './components/Sidebar.vue'
+import { ACTIONS } from './store'
 
 export default Vue.extend({
 	components: {
@@ -20,8 +21,9 @@ export default Vue.extend({
 		Sidebar,
 		NcAppContent,
 	},
-	created() {
-		this.$store.dispatch('loadFolder')
+	async created() {
+		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
+		await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 	},
 })
 </script>

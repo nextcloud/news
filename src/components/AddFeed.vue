@@ -115,6 +115,7 @@ import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
 
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
+import { ACTIONS, AppState } from '../store'
 
 type AddFeedState = {
 	folder: Folder;
@@ -160,7 +161,7 @@ export default Vue.extend({
 			this.createNewFolder = false
 		},
 		addFeed() {
-			this.$store.dispatch('addFeed', {
+			this.$store.dispatch(ACTIONS.ADD_FEED, {
 				feedReq: {
 					url: this.feed,
 					folder: this.folder,

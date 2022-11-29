@@ -1,9 +1,9 @@
-import { Commit } from "vuex";
+import { Commit, Store } from "vuex";
 
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
-import { FEED_MUTATION_TYPES, FEED_ACTION_TYPES, FEED_MUTATIONS, FEED_ACTIONS } from "./feed";
-import { FOLDER_MUTATION_TYPES, FOLDER_ACTION_TYPES, FOLDER_MUTATIONS, FOLDER_ACTIONS } from "./folder";
+import feeds, { FEED_MUTATION_TYPES, FEED_ACTION_TYPES } from "./feed";
+import folders, { FOLDER_MUTATION_TYPES, FOLDER_ACTION_TYPES } from "./folder";
 
 export const MUTATIONS = {
  ... FEED_MUTATION_TYPES,
@@ -23,34 +23,10 @@ export type AppState = {
   items: any[];
 }
 
-const state: AppState = {
-  feeds: [],
-  folders: [],
-  items: []
-} as AppState
-
-const getters = {
-  feeds (state: AppState) {
-    return state.feeds;
-  },
-  folders (state: AppState) {
-    return state.folders;
-  },
-}
-
-const mutations = {
-  ... FEED_MUTATIONS,
-  ... FOLDER_MUTATIONS
-}
-
-const actions = {
-  ... FEED_ACTIONS,
-  ... FOLDER_ACTIONS
-}
 
 export default {
-  state,
-  mutations,
-  actions,
-  getters
-}
+  modules: {
+    feeds,
+    folders
+  }
+};
