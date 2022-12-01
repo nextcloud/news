@@ -9,6 +9,11 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+
+## [19.0.1] - 2022-12-01
+### Changed
+- Dependency updates
+
 ## [19.0.0] - 2022-10-25
 ### Fixed
 - Fix nested scrollbars in navigation (#411, #1958)
