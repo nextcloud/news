@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 
 import * as router from '@nextcloud/router';
 
-import Explore from 'Components/Explore.vue';
+import Explore from '../../../../src/components/Explore.vue'
 
 jest.mock('@nextcloud/axios');
 
@@ -11,26 +11,23 @@ describe('Explore.vue', () => {
 	'use strict'
 
 	const localVue = createLocalVue()
-	
-	
+
 	it('should initialize without showing AddFeed Component', () => {
-		(axios as any).get.mockResolvedValue({ data: { } })
-    (router as any).generateUrl = jest.fn().mockReturnValue('');
-    
-		const wrapper = shallowMount(Explore, { 
+		(axios as any).get.mockResolvedValue({ data: { } });
+		(router as any).generateUrl = jest.fn().mockReturnValue('')
+
+		const wrapper = shallowMount(Explore, {
 			localVue,
-			mocks: { 
-				$store: { 
-					state: { 
-						feeds: [], 
-						folders: [] 
-					}
-				}
-			}
+			mocks: {
+				$store: {
+					state: {
+						feeds: [],
+						folders: [],
+					},
+				},
+			},
 		})
 
-		const wrapper = shallowMount(Explore, { localVue, store });
-
-		expect(wrapper.vm.$data.showAddFeed).toBeFalsy;
-	});
-});
+		expect(wrapper.vm.$data.showAddFeed).toBeFalsy()
+	})
+})

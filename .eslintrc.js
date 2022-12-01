@@ -23,6 +23,7 @@ module.exports = {
 	rules: {
 		'no-console': 'warn',
 		'@typescript-eslint/no-var-requires': 'off',
+
 		// TODO: Trouble importing .ts files into .vue files for some reason?
 		'import/extensions': 'off',
 		'n/no-missing-import': 'off',
