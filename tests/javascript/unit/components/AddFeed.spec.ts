@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 
-import AddFeed from 'Components/AddFeed.vue'
+import AddFeed from '../../../../src/components/AddFeed.vue'
 
 describe('AddFeed.vue', () => {
 	'use strict'
@@ -9,15 +9,15 @@ describe('AddFeed.vue', () => {
 		const localVue = createLocalVue()
 		const wrapper = shallowMount(AddFeed, {
 			localVue,
-			mocks: { 
-				$store: { 
+			mocks: {
+				$store: {
 					state: {
-						folders: []
-					}
-				}
-			}
+						folders: [],
+					},
+				},
+			},
 		})
 
-		expect(wrapper.vm.$data.createNewFolder).toBeFalsy
-	});
-});
+		expect(wrapper.vm.$data.createNewFolder).toBeFalsy()
+	})
+})
