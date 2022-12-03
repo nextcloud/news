@@ -50,7 +50,7 @@ const ExploreComponent = Vue.extend({
 	},
 	data: () => {
 		const exploreSites: ExploreSite[] = []
-		const feed: Feed = {} as any
+		const feed: Feed = {} as Feed
 		const showAddFeed = false
 
 		return {

@@ -134,8 +134,4 @@ describe('Sidebar.vue', () => {
 	afterEach(() => {
 		jest.clearAllMocks()
 	})
-
-	afterEach(() => {
-		jest.clearAllMocks()
-	})
 })

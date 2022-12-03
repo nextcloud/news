@@ -10,11 +10,11 @@ config.mocks.$t = function(_app: any, string: any) {
 }
 config.mocks.t = config.mocks.$t
 
-config.mocks.$n = function(app: any, singular: any, plural: any, count: any) {
+config.mocks.$n = function(app: any, singular: any) {
 	return singular
 }
 config.mocks.n = config.mocks.$n
 
 afterAll(() => {
-	// TODO: ?
+	// TODO: afterAll tests?
 })

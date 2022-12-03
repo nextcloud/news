@@ -9,7 +9,6 @@ jest.mock('@nextcloud/axios');
 
 describe('Explore.vue', () => {
 	'use strict'
-
 	const localVue = createLocalVue()
 
 	it('should initialize without showing AddFeed Component', () => {

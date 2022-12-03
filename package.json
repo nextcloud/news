@@ -118,7 +118,7 @@
     "vue-color": "^2.8.1",
     "vue-eslint-parser": "^9.0.2",
     "vue-jest": "^3.0.7",
-    "vue-loader": "^15.9.8",
+    "vue-loader": "^15.10.1",
     "vue-material-design-icons": "^5.1.2",
     "vue-multiselect": "^2.1.6",
     "vue-template-compiler": "^2.6.14",
@@ -151,7 +151,7 @@
       "jest-serializer-vue"
     ],
     "setupFilesAfterEnv": [
-      "./tests/javascript/unit/setup.ts"
+      "./tests/javascript/unit/setup.spec.ts"
     ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": false,

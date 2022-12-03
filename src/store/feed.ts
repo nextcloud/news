@@ -4,13 +4,13 @@ import { generateUrl } from '@nextcloud/router'
 import { ActionParams, AppState } from '../store'
 import { Feed } from '../types/Feed'
 
-export const FEED_MUTATION_TYPES = {
-	SET_FEEDS: 'SET_FEEDS',
-}
-
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
 	FETCH_FEEDS: 'FETCH_FEEDS',
+}
+
+export const FEED_MUTATION_TYPES = {
+	SET_FEEDS: 'SET_FEEDS',
 }
 
 const state = {
@@ -33,8 +33,7 @@ export const actions = {
 
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
 	},
-	[FEED_ACTION_TYPES.ADD_FEED]({ commit }: ActionParams, { feedReq }: { feedReq: { url: string; folder?: { id: number } } }) {
-		console.log(feedReq)
+	async [FEED_ACTION_TYPES.ADD_FEED]({ commit }: ActionParams, { feedReq }: { feedReq: { url: string; folder?: { id: number } } }) {
 		let url = feedReq.url.trim()
 		if (!url.startsWith('http')) {
 			url = 'https://' + url
@@ -51,22 +50,22 @@ export const actions = {
 			folderId: feedReq.folder?.id || 0,
 			title: undefined,
 			unreadCount: 0,
-			autoDiscover: undefined, // TODO
+			autoDiscover: undefined, // TODO: autodiscover?
 		}
 
 		// this.add(feed);
 		// this.updateFolderCache();
 
-		axios.post(feedUrl, {
+		await axios.post(feedUrl, {
 			url: feed.url,
 			parentFolderId: feed.folderId,
 			title: null,
 			user: null,
 			password: null,
 			fullDiscover: feed.autoDiscover,
-		}).then(() => {
-			commit('addFeed', feed)
 		})
+
+		commit('addFeed', feed)
 	},
 }
 

@@ -129,7 +129,7 @@
 
 <script lang="ts">
 
-import Vuex from 'vuex'
+import { mapState } from 'vuex'
 import Vue from 'vue'
 
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
@@ -148,9 +148,10 @@ import AddFeed from './AddFeed.vue'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 
-const SideBarState: any = {
-	topLevelNav(localState: any, state: AppState): any[] {
-		let navItems: any[] = state.feeds.filter((feed: Feed) => {
+const SideBarState = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	topLevelNav(localState: any, state: AppState): (Feed | Folder)[] {
+		let navItems: (Feed | Folder)[] = state.feeds.filter((feed: Feed) => {
 			return feed.folderId === undefined || feed.folderId === null
 		})
 		navItems = navItems.concat(state.folders)
@@ -177,11 +178,11 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		...Vuex.mapState(['feeds', 'folders']),
-		...Vuex.mapState(SideBarState),
+		...mapState(['feeds', 'folders']),
+		...mapState(SideBarState),
 	},
 	created() {
-		// TODO: ?
+		// TODO: init?
 	},
 	methods: {
 		newFolder(value: string) {
@@ -191,7 +192,6 @@ export default Vue.extend({
 		},
 		deleteFolder(folder: Folder) {
 			this.$store.dispatch(ACTIONS.DELETE_FOLDER, { folder })
-			// TODO: Reload
 		},
 		showShowAddFeed() {
 			this.showAddFeed = true
