@@ -99,7 +99,7 @@ OC.L10N.register(
     "Mark read" : "Als gelesen markieren",
     "Unpin from top" : "Fixierung aufheben",
     "Pin to top" : "Oben fixieren",
-    "Newest first" : "Neueste zuerst",
+    "Newest first" : "Neue zuerst",
     "Oldest first" : "Älteste zuerst",
     "Default order" : "Standard-Sortierung",
     "Enable full text" : "Volltext aktivieren",

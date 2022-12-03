@@ -72,6 +72,8 @@ OC.L10N.register(
     "Rename" : "Перейменувати",
     "Menu" : "Меню",
     "Mark read" : "Позначити як прочитане",
+    "Unpin from top" : "Зняти закріплення",
+    "Pin to top" : "Закріпити нагорі",
     "Newest first" : "Новіші спочатку",
     "Oldest first" : "Старіші спочатку",
     "Enable full text" : "Увімкнути повнотекстовий",
