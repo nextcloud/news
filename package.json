@@ -151,7 +151,7 @@
       "jest-serializer-vue"
     ],
     "setupFilesAfterEnv": [
-      "./tests/javascript/unit/setup.spec.ts"
+      "./tests/javascript/unit/setup.ts"
     ],
     "coverageDirectory": "./coverage/",
     "collectCoverage": false,

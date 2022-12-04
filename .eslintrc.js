@@ -37,7 +37,7 @@ module.exports = {
 	},
 	overrides: [
 		{
-		 files: ['*spec.ts'],
+		 files: ['*spec.ts', 'tests/javascript/unit/setup.ts'],
 			rules: {
 				'@typescript-eslint/no-explicit-any': 'off',
 			},

@@ -13,12 +13,12 @@ export const ACTIONS = {
 	...FOLDER_ACTION_TYPES,
 }
 
-export type ActionParams = { commit: any };
+type Func = (name: string, value: unknown) => void;
+export type ActionParams = { commit: Func };
 
 export type AppState = {
   feeds: Feed[];
   folders: Folder[];
-  items: any[];
 }
 
 export default {
