@@ -41,25 +41,14 @@ export const actions = {
 	},
 	async [FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder}) {
 		/**
+		 * TODO: look into reversiblyDelete?
       this.getByFolderId(folderId).forEach(function (feed) {
           promises.push(self.reversiblyDelete(feed.id, false, true));
       });
-      this.updateUnreadCache();
 		 */
 		await axios.delete(folderUrl + '/' + folder.id)
 		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
 	},
-	// loadFolder({commit}) {
-	//     console.log('loading folders')
-	//     axios.get(folderUrl).then(
-	//         response => {
-	//             commit('addFolders', response.data.folders);
-	//             axios.get(feedUrl).then(
-	//                 response => commit('addFeeds', response.data.feeds)
-	//             )
-	//         }
-	//     )
-	// },
 }
 
 export const mutations = {
