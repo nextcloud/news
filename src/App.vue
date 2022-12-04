@@ -2,7 +2,7 @@
 	<NcContent app-name="news">
 		<Sidebar />
 		<NcAppContent>
-			<router-view />
+			<RouterView />
 		</NcAppContent>
 	</NcContent>
 </template>
