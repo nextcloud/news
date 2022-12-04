@@ -18,7 +18,6 @@ describe('folder.ts', () => {
 			const commit = jest.fn()
 
 		  await (actions[FOLDER_ACTION_TYPES.FETCH_FOLDERS] as any)({ commit })
-
 			expect(axios.get).toBeCalled()
 			expect(commit).toBeCalled()
 		})
@@ -28,6 +27,7 @@ describe('folder.ts', () => {
 
 			const folder = {} as Folder
 			const commit = jest.fn()
+
 		  await actions[FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit }, { folder })
 			expect(axios.post).toBeCalled()
 			expect(commit).toBeCalled()
@@ -38,6 +38,7 @@ describe('folder.ts', () => {
 
 			const folder = {} as Folder
 			const commit = jest.fn()
+
 		  await actions[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }, { folder })
 			expect(axios.delete).toBeCalled()
 			expect(commit).toBeCalled()
@@ -48,13 +49,13 @@ describe('folder.ts', () => {
 		it('SET_FOLDERS should add the passed in folders to the state', () => {
 			const state = { folders: [] as Folder[] } as AppState
 			let folders = [] as Folder[]
-			(mutations[FOLDER_MUTATION_TYPES.SET_FOLDERS] as any)(state, folders)
 
+			(mutations[FOLDER_MUTATION_TYPES.SET_FOLDERS] as any)(state, folders)
 			expect(state.folders.length).toEqual(0)
 
 			folders = [{ name: 'test' }] as Folder[]
-			(mutations[FOLDER_MUTATION_TYPES.SET_FOLDERS] as any)(state, folders)
 
+			(mutations[FOLDER_MUTATION_TYPES.SET_FOLDERS] as any)(state, folders)
 			expect(state.folders.length).toEqual(1)
 			expect(state.folders[0]).toEqual(folders[0])
 		})
@@ -62,8 +63,8 @@ describe('folder.ts', () => {
 		it('DELETE_FOLDER should remove the passed in folder from the state', () => {
 			const state = { folders: [{ name: 'test' }] as Folder[] } as AppState
 			const folders = [state.folders[0]] as Folder[]
-			(mutations[FOLDER_MUTATION_TYPES.DELETE_FOLDER] as any)(state, folders)
 
+			(mutations[FOLDER_MUTATION_TYPES.DELETE_FOLDER] as any)(state, folders)
 			expect(state.folders.length).toEqual(0)
 		})
 	})

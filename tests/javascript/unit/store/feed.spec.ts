@@ -30,13 +30,13 @@ describe('feed.ts', () => {
 		it('SET_FEEDS should add feeds to state', () => {
 			const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
 			let feeds = [] as Feed[]
-			mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 
+			mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 			expect(state.feeds.length).toEqual(0)
 
 			feeds = [{ title: 'test' }] as Feed[]
-			mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 
+			mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 			expect(state.feeds.length).toEqual(1)
 			expect(state.feeds[0]).toEqual(feeds[0])
 		})
@@ -46,7 +46,6 @@ describe('feed.ts', () => {
 			const feeds = [{ title: 'test', folderId: 1, unreadCount: 2 }] as Feed[]
 
 			mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
-
 			expect(state.feeds.length).toEqual(1)
 			expect(state.feeds[0]).toEqual(feeds[0])
 			expect(state.folders[0].feeds[0]).toEqual(feeds[0])
