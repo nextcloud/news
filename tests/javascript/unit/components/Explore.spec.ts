@@ -1,11 +1,11 @@
 import axios from '@nextcloud/axios'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 
-import * as router from '@nextcloud/router';
+import * as router from '@nextcloud/router'
 
 import Explore from '../../../../src/components/Explore.vue'
 
-jest.mock('@nextcloud/axios');
+jest.mock('@nextcloud/axios')
 
 describe('Explore.vue', () => {
 	'use strict'
