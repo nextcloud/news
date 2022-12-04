@@ -39,14 +39,15 @@ export const actions = {
 		const response = await axios.post(folderUrl, { folderName: folder.name })
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 	},
-	[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder}) {
+	async [FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder}) {
 		/**
       this.getByFolderId(folderId).forEach(function (feed) {
           promises.push(self.reversiblyDelete(feed.id, false, true));
       });
       this.updateUnreadCache();
 		 */
-		axios.delete(folderUrl + '/' + folder.id).then(() => commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder))
+		await axios.delete(folderUrl + '/' + folder.id)
+		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
 	},
 	// loadFolder({commit}) {
 	//     console.log('loading folders')
