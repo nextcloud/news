@@ -107,9 +107,11 @@ import { generateOcsUrl } from '@nextcloud/router'
 import { confirmPassword } from '@nextcloud/password-confirmation'
 
 /**
+ * Debounce helper for method
+ * TODO: Should we remove this and use library?
  *
- * @param func
- * @param wait
+ * @param {Function} func function to debounce
+ * @param {number} wait milliseconds to wait
  */
 function debounce(func, wait) {
 	let timeout
