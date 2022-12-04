@@ -1,6 +1,7 @@
+import { Feed } from './Feed'
 
 export type Folder = {
-  feeds: any[];
+  feeds: Feed[];
   feedCount: number;
   name: string;
   id: number;
