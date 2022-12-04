@@ -53,9 +53,6 @@ export const actions = {
 			autoDiscover: undefined, // TODO: autodiscover?
 		}
 
-		// this.add(feed);
-		// this.updateFolderCache();
-
 		await axios.post(feedUrl, {
 			url: feed.url,
 			parentFolderId: feed.folderId,
