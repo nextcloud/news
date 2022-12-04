@@ -22,7 +22,6 @@ describe('Sidebar.vue', () => {
 				},
 			},
 		})
-		// wrapper.vm.$store.
 	})
 
 	it('should initialize without showing AddFeed Component', () => {
