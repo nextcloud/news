@@ -27,7 +27,7 @@
 					</ActionButton>
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :title="t('news', 'Starred')" icon="icon-starred">
+			<NcAppNavigationItem :title="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
 				<template #counter>
 					<NcCounterBubble>35</NcCounterBubble>
 				</template>
@@ -118,7 +118,7 @@
 
 			<NcAppNavigationItem :title="t('news', 'Explore')"
 				icon="icon-link"
-				:to="{ name: 'explore' }">
+				:to="{ name: ROUTES.EXPLORE }">
 				<template #counter>
 					<NcCounterBubble>35</NcCounterBubble>
 				</template>
@@ -140,7 +140,7 @@ import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigati
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
-// import { ROUTES } from '../routes.js'
+import { ROUTES } from '../routes'
 import { ACTIONS, AppState } from '../store'
 
 import AddFeed from './AddFeed.vue'
@@ -174,7 +174,7 @@ export default Vue.extend({
 	data: () => {
 		return {
 			showAddFeed: false,
-			// ROUTES
+			ROUTES,
 		}
 	},
 	computed: {
