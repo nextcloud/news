@@ -5,10 +5,14 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [20.x.x]
 ### Changed
-- Drop support for PHP 7.3
+
 ### Fixed
 
 # Releases
+## [20.0.0] - 2022-12-14
+### Changed
+- Drop support for PHP 7.3 (#2008)
+- Dependency updates
 
 ## [19.0.1] - 2022-12-01
 ### Changed
