@@ -1,8 +1,7 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import ExplorePanel from '../components/Explore'
-import StarredPanel from '../components/Starred'
+import ExplorePanel from '../components/Explore.vue'
+import StarredPanel from '../components/Starred.vue'
 
 export const ROUTES = {
 	EXPLORE: 'explore',
@@ -35,8 +34,6 @@ const routes = [
 		props: true,
 	},
 ]
-
-Vue.use(VueRouter)
 
 export default new VueRouter({
 	linkActiveClass: 'active',
