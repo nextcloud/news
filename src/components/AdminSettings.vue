@@ -65,8 +65,8 @@ import confirmPassword from '@nextcloud/password-confirmation'
 
 /**
  *
- * @param func
- * @param wait
+ * @param {function} func - The callback function
+ * @param {int}        wait - Time to wait in miliseconds
  */
 function debounce(func, wait) {
 	let timeout
