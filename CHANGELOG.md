@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- SyntaxError triggered when full-text is enabled with some items. (#2048, #2053)
 
 # Releases
 ## [20.0.0] - 2022-12-14
