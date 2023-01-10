@@ -106,7 +106,7 @@ OC.L10N.register(
     "Collapse" : "Restrânge",
     "Deleted folder" : "Director șters",
     "Undo delete folder" : "Anulează ștergerea directorului",
-    "Starred" : "Marcat",
+    "Starred" : "Articole selectate",
     "All articles" : "Toate articolele",
     "Settings" : "Setări",
     "Disable mark read through scrolling" : "Dezactivează funcția de \"citit\" prin derulare",
