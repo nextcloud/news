@@ -326,13 +326,16 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'basicAuthPassword'
         ]);
 
+        if (is_null($this->link)) {
+          return $serialized;
+        }
+
         $url = parse_url($this->link, PHP_URL_HOST);
 
         // strip leading www. to avoid css class confusion
         if (strpos($url, 'www.') === 0) {
             $url = substr($url, 4);
         }
-
         $serialized['cssClass'] = 'custom-' . str_replace('.', '-', $url);
 
         return $serialized;
@@ -488,6 +491,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable
      */
     public function setLink(?string $link = null): Feed
     {
+        if (is_null($link)) {
+            return $this;
+        }
         $link = trim($link);
         if (strpos($link, 'http') === 0 && $this->link !== $link) {
             $this->link = $link;
