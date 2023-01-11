@@ -349,7 +349,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @param string        $base_url  Base URL for the feed
      *
-     * @return string|mixed|bool
+     * @return string|bool
      */
     protected function faviconHelper(string $base_url)
     {
@@ -374,7 +374,7 @@ class FeedFetcher implements IFeedFetcher
      * @param FeedInterface $feed Feed to check for a logo
      * @param string        $url  Original URL for the feed
      *
-     * @return string|mixed|bool
+     * @return string|bool
      */
     protected function getFavicon(FeedInterface $feed, string $url)
     {

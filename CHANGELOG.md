@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - SyntaxError triggered when full-text is enabled with some items. (#2048, #2053)
+- ValueError triggered by invalid redirects when fetching favicons. (#1815, #2054)
 
 # Releases
 ## [20.0.0] - 2022-12-14
