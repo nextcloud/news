@@ -345,6 +345,30 @@ class FeedFetcher implements IFeedFetcher
     }
 
     /**
+     * Helper function for fetching favicon urls
+     *
+     * @param string        $base_url  Base URL for the feed
+     *
+     * @return string|mixed|bool
+     */
+    protected function faviconHelper(string $base_url)
+    {
+        try {
+            return $this->faviconFactory->get($base_url);
+        } catch (\Error $e) {
+            //Actual error should be ValueError but that is only implemented in PHP 8+
+            $this->logger->info(
+                'An error occurred while trying to download the favicon of {url}: {error}',
+                [
+                'url'   => $base_url,
+                'error' => $e->getMessage() ?? 'Unknown'
+                ]
+            );
+            return false;
+        }
+    }
+
+    /**
      * Return the favicon for a given feed and url
      *
      * @param FeedInterface $feed Feed to check for a logo
@@ -357,20 +381,20 @@ class FeedFetcher implements IFeedFetcher
         $favicon = null;
         // trim the string because authors do funny things
         $feed_logo = $feed->getLogo();
-        
-        if (!is_null($feed_logo)) {
-            $favicon = trim($feed_logo);
-        }
-        
+
         ini_set('user_agent', 'NextCloud-News/1.0');
 
         $base_url = new Net_URL2($url);
         $base_url->setPath("");
         $base_url = $base_url->getNormalizedURL();
-
+        
+        if (!is_null($feed_logo)) {
+            $favicon = trim($feed_logo);
+        }
+        
         // check if feed has a logo entry
         if (is_null($favicon) || $favicon === '') {
-            return $this->faviconFactory->get($base_url);
+            return $this->faviconHelper($base_url);
         }
 
         // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
@@ -422,13 +446,13 @@ class FeedFetcher implements IFeedFetcher
 
         // check if file is actually an image
         if (!$is_image) {
-            return $this->faviconFactory->get($base_url);
+            return $this->faviconHelper($base_url);
         }
 
         list($width, $height, $type, $attr) = getimagesize($favicon_path);
         // check if image is square else fall back to favicon
         if ($width !== $height) {
-            return $this->faviconFactory->get($base_url);
+            return $this->faviconHelper($base_url);
         }
 
         return $favicon;
