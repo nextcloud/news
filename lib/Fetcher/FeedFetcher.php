@@ -301,22 +301,24 @@ class FeedFetcher implements IFeedFetcher
         }
 
         // purification is done in the service layer
-        $body = mb_convert_encoding(
-            $body,
-            'HTML-ENTITIES',
-            mb_detect_encoding($body)
-        );
-        if (strpos($body, 'CDATA') !== false) {
-            libxml_use_internal_errors(true);
-            $data = simplexml_load_string(
-                "<?xml version=\"1.0\"?><item>$body</item>",
-                SimpleXMLElement::class,
-                LIBXML_NOCDATA
+        if (!is_null($body)) {
+            $body = mb_convert_encoding(
+                $body,
+                'HTML-ENTITIES',
+                mb_detect_encoding($body)
             );
-            if ($data !== false && libxml_get_last_error() === false) {
-                $body = (string) $data;
+            if (strpos($body, 'CDATA') !== false) {
+                libxml_use_internal_errors(true);
+                $data = simplexml_load_string(
+                    "<?xml version=\"1.0\"?><item>$body</item>",
+                    SimpleXMLElement::class,
+                    LIBXML_NOCDATA
+                );
+                if ($data !== false && libxml_get_last_error() === false) {
+                    $body = (string) $data;
+                }
+                libxml_clear_errors();
             }
-            libxml_clear_errors();
         }
 
         $item->setBody($body);
