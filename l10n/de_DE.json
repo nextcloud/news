@@ -1,7 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Anfrage fehlgeschlagen, Netzwerkverbindung nicht verfügbar!",
     "Request unauthorized. Are you logged in?" : "Anfrage nicht autorisiert. Sind Sie angemeldet?",
-    "Request forbidden. Are you an administrator?" : "Anfrage verboten. Sind Sie ein Admin?",
+    "Request forbidden. Are you an administrator?" : "Anfrage verboten. Sind Sie von der Administration?",
     "Token expired or app not enabled! Reload the page!" : "Token abgelaufen oder App nicht aktiviert! Bitte laden Sie die Seite neu!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Interner Serverfehler! Bitte kontrollieren Sie data/nextcloud.log für weitere Informationen!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Anfrage fehlgeschlagen, diese Nextcloud-Instanz befindet sich derzeit im Wartungsmodus.",
@@ -26,7 +26,7 @@
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Falls angegeben, wird die URL dieses Dienstes zur Feed-Anzeige innerhalb des Explore-Feed-Bereichs abgefragt. Lassen Sie dieses Feld unausgefüllt, um auf den eingebauten Explore-Dienst zurückzugreifen.",
     "Update interval" : "Aktualisierungsintervall",
     "Interval in seconds in which the feeds will be updated." : "Intervall in Sekunden, in dem die Feeds aktualisiert werden.",
-    "Successfully updated news configuration" : "Die News-Einstellungen wurde erfolgreich aktualisiert",
+    "Successfully updated news configuration" : "Die News-Einstellungen wurde aktualisiert",
     "Unable to update news config" : "Die News-Einstellungen konnten nicht aktualisiert werden",
     "Download" : "Herunterladen",
     "Close" : "Schließen",
