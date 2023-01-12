@@ -327,7 +327,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         ]);
 
         if (is_null($this->link)) {
-          return $serialized;
+            return $serialized;
         }
 
         $url = parse_url($this->link, PHP_URL_HOST);
