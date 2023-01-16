@@ -194,16 +194,16 @@
         },
         {
             "name": "fivefilters/readability.php",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fivefilters/readability.php.git",
-                "reference": "aae0ff5f9875f039180b4ade860fc2d8bf796f79"
+                "reference": "973fbb0f9c2335153c796dc5dce60f60e3adc347"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/aae0ff5f9875f039180b4ade860fc2d8bf796f79",
-                "reference": "aae0ff5f9875f039180b4ade860fc2d8bf796f79",
+                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/973fbb0f9c2335153c796dc5dce60f60e3adc347",
+                "reference": "973fbb0f9c2335153c796dc5dce60f60e3adc347",
                 "shasum": ""
             },
             "require": {
@@ -253,9 +253,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fivefilters/readability.php/issues",
-                "source": "https://github.com/fivefilters/readability.php/tree/v3.1.1"
+                "source": "https://github.com/fivefilters/readability.php/tree/v3.1.2"
             },
-            "time": "2022-11-28T17:54:45+00:00"
+            "time": "2023-01-14T14:42:35+00:00"
         },
         {
             "name": "league/uri",
