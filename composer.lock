@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5e017da36f4d3611028e1af1ab96435b",
+    "content-hash": "ef78570de5a74f2897085ba3b65bec55",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -1354,16 +1354,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.9.12",
+            "version": "1.9.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "44a338ff0d5572c13fd77dfd91addb96e48c29f8"
+                "reference": "e5fcc96289cf737304286a9b505fbed091f02e58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/44a338ff0d5572c13fd77dfd91addb96e48c29f8",
-                "reference": "44a338ff0d5572c13fd77dfd91addb96e48c29f8",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e5fcc96289cf737304286a9b505fbed091f02e58",
+                "reference": "e5fcc96289cf737304286a9b505fbed091f02e58",
                 "shasum": ""
             },
             "require": {
@@ -1393,7 +1393,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.9.12"
+                "source": "https://github.com/phpstan/phpstan/tree/1.9.14"
             },
             "funding": [
                 {
@@ -1409,7 +1409,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-17T10:44:04+00:00"
+            "time": "2023-01-19T10:47:09+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
