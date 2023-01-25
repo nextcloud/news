@@ -83,7 +83,7 @@
     "Unread/Starred Articles" : "บทความที่ยังไม่ได้อ่าน/ติดดาว",
     "Error when importing: file does not contain valid JSON" : "ข้อผิดพลาดขณะนำเข้า: ไฟล์ไม่มี JSON ที่ถูกต้อง",
     "Help" : "ช่วยเหลือ",
-    "Keyboard shortcuts" : "ปุ่มลัดคีย์บอร์ด",
+    "Keyboard shortcuts" : "แป้นพิมพ์ลัด",
     "Documentation" : "เอกสารประกอบ",
     "Report a bug" : "รายงานข้อผิดพลาด"
 },"pluralForm" :"nplurals=1; plural=0;"
