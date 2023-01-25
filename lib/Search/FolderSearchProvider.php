@@ -49,9 +49,9 @@ class FolderSearchProvider implements IProvider
 
     public function getOrder(string $route, array $routeParameters): int
     {
-        if ($route === 'news.page.index') {
+        if (strpos($route, Application::NAME . '.') === 0) {
             // Active app, prefer my results
-            return -1;
+            return 0;
         }
 
         return 55;
