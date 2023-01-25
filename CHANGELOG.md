@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 - Drop support for Nextcloud 23 (#2077 )
 - Make the "open" keyboard shortcut work faster (#2080)
+- Implemented search for articles, results can only link to the feed. (#2075)
 
 ### Fixed
 - Stop errors from the favicon library over empty values

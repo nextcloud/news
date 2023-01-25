@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace OCA\News\Search;
 
 use OCA\News\Service\FeedServiceV2;
-use OCA\News\Service\FolderServiceV2;
+use OCA\News\AppInfo\Application;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
@@ -48,7 +48,7 @@ class FeedSearchProvider implements IProvider
 
     public function getOrder(string $route, array $routeParameters): int
     {
-        if ($route === 'news.page.index') {
+        if (strpos($route, Application::NAME . '.') === 0) {
             // Active app, prefer my results
             return -1;
         }
@@ -67,7 +67,7 @@ class FeedSearchProvider implements IProvider
             }
 
             $list[] = new SearchResultEntry(
-                $this->urlGenerator->imagePath('core', 'filetypes/text.svg'),
+                $this->urlGenerator->imagePath('core', 'rss.svg'),
                 $feed->getTitle(),
                 $this->l10n->t('Unread articles') . ': ' . $feed->getUnreadCount(),
                 $this->urlGenerator->linkToRoute('news.page.index') . '#/items/feeds/' . $feed->getId()

@@ -110,7 +110,7 @@ class FeedSearchProviderTest extends TestCase
 
         $this->generator->expects($this->once())
                         ->method('imagePath')
-                        ->with('core', 'filetypes/text.svg')
+                        ->with('core', 'rss.svg')
                         ->willReturn('folderpath.svg');
 
         $this->generator->expects($this->once())
