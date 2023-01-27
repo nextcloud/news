@@ -120,7 +120,7 @@ class FeedFetcher implements IFeedFetcher
             $url2->setUserinfo(rawurlencode($user), rawurlencode($password));
         }
         $url = $url2->getNormalizedURL();
-        $this->reader->resetFilters();
+
         $resource = $this->reader->read($url);
 
         $location     = $resource->getUrl();

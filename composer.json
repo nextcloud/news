@@ -40,11 +40,11 @@
     "source": "https://github.com/nextcloud/news/"
   },
   "require": {
-    "php": "^7.4 || ~8.0",
+    "php": "~8.0",
     "ezyang/htmlpurifier": "^4.16.0",
     "pear/net_url2": "^2.2.2",
     "riimu/kit-pathjoin": "^1.2.0",
-    "debril/feed-io": "^v4.9.12",
+    "debril/feed-io": "^v5.3.1",
     "arthurhoaro/favicon": "^1.3.3",
     "fivefilters/readability.php": "^3.1",
     "ext-json": "*",

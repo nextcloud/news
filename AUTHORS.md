@@ -129,6 +129,7 @@
 * [Hendrik Leppelsack](mailto:hendrik@leppelsack.de)
 * [Jasper Knockaert](mailto:jasper@knockaert.nl)
 * [Kevin Decherf](mailto:kevin@kdecherf.com)
+* [Kuba Orlik](mailto:kontakt@kuba-orlik.name)
 * [Maceček Richard](mailto:46937538+macecekrichard@users.noreply.github.com)
 * [Marc Cousin](mailto:marc.cousin@people-doc.com)
 * [Martin Ferretti](mailto:ferrettimartin@protonmail.com)
