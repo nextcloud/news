@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-## [20.x.x]
+## [21.x.x]
 ### Changed
+- Drop support for Nextcloud 23
 
 ### Fixed
 

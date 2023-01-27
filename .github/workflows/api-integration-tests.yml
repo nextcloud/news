@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['7.4', '8.0']
-        nextcloud: ['stable23', 'stable24', 'stable25']
+        nextcloud: ['stable24', 'stable25']
         database: ['sqlite', 'pgsql', 'mysql']
         experimental: [false]
         include:
