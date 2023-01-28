@@ -259,10 +259,10 @@
 
     var openLink = function () {
         onActiveItem(function (item) {
-            item.trigger('click');  // mark read
             var url = item.find('.external:visible').attr('href');
             var newWindow = window.open(url, '_blank');
             newWindow.opener = null;
+            setTimeout(()=>item.trigger('click'), 0);  // mark read
         });
     };
 
