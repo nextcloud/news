@@ -87,7 +87,7 @@ OC.L10N.register(
     "Credentials" : "Informations d'identification",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Les informations d'identification HTTP Basic Auth doivent être stocké en clair ! Toute personne ayant accès au serveur ou à la base de données y aura accès !",
     "Password" : "Mot de passe",
-    "Auto discover Feed" : "Flux de découverte automatique",
+    "Auto discover Feed" : "Découverte automatique du flux",
     "New Folder" : "Nouveau dossier",
     "Create" : "Créer",
     "Explore" : "Explorer",
