@@ -352,9 +352,9 @@ class FeedFetcher implements IFeedFetcher
      * @param FeedInterface $feed Feed to check for a logo
      * @param string        $url  Original URL for the feed
      *
-     * @return string|mixed|bool
+     * @return string|null
      */
-    protected function getFavicon(FeedInterface $feed, string $url)
+    protected function getFavicon(FeedInterface $feed, string $url): ?string
     {
         $favicon = null;
         // trim the string because authors do funny things
@@ -370,9 +370,15 @@ class FeedFetcher implements IFeedFetcher
         $base_url->setPath("");
         $base_url = $base_url->getNormalizedURL();
 
+        // Return if the URL is empty
+        if ($base_url === null || trim($base_url) === '') {
+            return null;
+        }
+
         // check if feed has a logo entry
-        if (is_null($favicon) || $favicon === '') {
-            return $this->faviconFactory->get($base_url);
+        if ($favicon === null || $favicon === '') {
+            $return = $this->faviconFactory->get($base_url);
+            return is_string($return) ? $return : null;
         }
 
         // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
@@ -424,16 +430,18 @@ class FeedFetcher implements IFeedFetcher
 
         // check if file is actually an image
         if (!$is_image) {
-            return $this->faviconFactory->get($base_url);
+            $return = $this->faviconFactory->get($base_url);
+            return is_string($return) ? $return : null;
         }
 
         list($width, $height, $type, $attr) = getimagesize($favicon_path);
         // check if image is square else fall back to favicon
         if ($width !== $height) {
-            return $this->faviconFactory->get($base_url);
+            $return = $this->faviconFactory->get($base_url);
+            return is_string($return) ? $return : null;
         }
 
-        return $favicon;
+        return is_string($favicon) ? $favicon : null;
     }
 
     /**

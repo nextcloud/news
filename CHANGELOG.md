@@ -6,9 +6,10 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [21.x.x]
 ### Changed
 - Drop support for Nextcloud 23 (#2077 )
--  Make the "open" keyboard shortcut work faster (#2080)
+- Make the "open" keyboard shortcut work faster (#2080)
 
 ### Fixed
+- Stop errors from the favicon library over empty values
 
 # Releases
 ## [20.0.1] - 2023-01-19
