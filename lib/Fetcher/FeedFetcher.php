@@ -156,7 +156,7 @@ class FeedFetcher implements IFeedFetcher
                 }
             }
 
-            $builtItem = $this->buildItem($item, $body, $currRTL, $feedAuthor);
+            $builtItem = $this->buildItem($item, $body, $currRTL, $feedAuthor, $location);
             $this->logger->debug(
                 'Added item {title} for feed {feed} lastmodified: {datetime}',
                 [
@@ -235,13 +235,19 @@ class FeedFetcher implements IFeedFetcher
         ItemInterface $parsedItem,
         ?string $body = null,
         bool $RTL = false,
-        $feedAuthor = null
+        $feedAuthor = null,
+        $location = null
     ): Item {
         $item = new Item();
         $item->setUnread(true);
         $itemLink = $parsedItem->getLink();
         $itemTitle = $parsedItem->getTitle();
-        $item->setUrl($itemLink);
+		$UrlLocation = parse_url($location);
+		if (strpos($itemLink, '://') === false){
+			$item->setUrl($UrlLocation['scheme']."://".$UrlLocation['host'].$itemLink);
+		} else {
+			$item->setUrl($itemLink);
+		}
         $publicId = $parsedItem->getPublicId();
         if ($publicId == null) {
             // Fallback on using the URL as the guid for the feed item if no guid provided by feed
@@ -321,7 +327,7 @@ class FeedFetcher implements IFeedFetcher
             }
         }
 
-        $item->setBody($body);
+        $item->setBody(preg_replace('!(<a\s*[^>]*)(href=)(.)(\/[^\/])([^"]+)"!','\1 href=\3'.$UrlLocation['scheme']."://".$UrlLocation['host'].'\4\5"', $body ));
 
         if ($parsedItem->hasMedia()) {
             // TODO: Fix multiple media support
