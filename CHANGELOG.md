@@ -5,14 +5,18 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [21.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [21.0.0-beta1] - 2023-02-14
+### Changed
 - Drop support for Nextcloud 23 (#2077 )
 - Make the "open" keyboard shortcut work faster (#2080)
 - Implemented search for articles, results can only link to the feed. (#2075)
-
 ### Fixed
-- Stop errors from the favicon library over empty values
+- Stop errors from the favicon library over empty values (#2096)
 
-# Releases
 ## [20.0.1] - 2023-01-19
 ### Fixed
 - SyntaxError triggered when full-text is enabled with some items. (#2048, #2053)
