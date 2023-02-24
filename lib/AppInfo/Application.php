@@ -24,6 +24,8 @@ use OCA\News\Hooks\UserDeleteHook;
 use OCA\News\Search\FeedSearchProvider;
 use OCA\News\Search\FolderSearchProvider;
 use OCA\News\Search\ItemSearchProvider;
+use OCA\News\Dashboard\ItemWidget;
+use OCA\News\Dashboard\FeedWidget;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -85,6 +87,8 @@ class Application extends App implements IBootstrap
         $context->registerSearchProvider(FeedSearchProvider::class);
         $context->registerSearchProvider(ItemSearchProvider::class);
 
+        $context->registerDashboardWidget(ItemWidget::class);
+        $context->registerDashboardWidget(FeedWidget::class);
 
         $context->registerEventListener(BeforeUserDeletedEvent::class, UserDeleteHook::class);
 
