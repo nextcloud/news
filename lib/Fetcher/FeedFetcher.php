@@ -113,15 +113,21 @@ class FeedFetcher implements IFeedFetcher
         string $url,
         bool $fullTextEnabled,
         ?string $user,
-        ?string $password
+        ?string $password,
+        ?string $httpLastModified
     ): array {
         $url2 = new Net_URL2($url);
         if (!is_null($user) && trim($user) !== '') {
             $url2->setUserinfo(rawurlencode($user), rawurlencode($password));
         }
+        if (!is_null($httpLastModified) && trim($httpLastModified) !== '') {
+            $lastModified = new DateTime($httpLastModified);
+        } else {
+            $lastModified = null;
+        }
         $url = $url2->getNormalizedURL();
         $this->reader->resetFilters();
-        $resource = $this->reader->read($url);
+        $resource = $this->reader->read($url, null, $lastModified);
 
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();

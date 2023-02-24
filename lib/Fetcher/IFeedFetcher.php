@@ -37,7 +37,8 @@ interface IFeedFetcher
         string $url,
         bool $fullTextEnabled,
         ?string $user,
-        ?string $password
+        ?string $password,
+        ?string $httpLastModified
     ): array;
 
     /**
