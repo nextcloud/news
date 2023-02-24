@@ -267,7 +267,8 @@ class FeedServiceV2 extends Service
                 $location,
                 $feed->getFullTextEnabled(),
                 $feed->getBasicAuthUser(),
-                $feed->getBasicAuthPassword()
+                $feed->getBasicAuthPassword(),
+                $feed->getHttpLastModified()
             );
         } catch (ReadErrorException $ex) {
             $feed->setUpdateErrorCount($feed->getUpdateErrorCount() + 1);
