@@ -9,6 +9,10 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+
+## [21.0.0] - 2023-02-28
+No notable changes compared 21.0.0-beta1
+
 ## [21.0.0-beta1] - 2023-02-14
 ### Changed
 - Drop support for Nextcloud 23 (#2077 )
