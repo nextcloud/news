@@ -47,6 +47,7 @@ class Fetcher
      * @param  bool        $fullTextEnabled   If true use a scraper to download the full article
      * @param  string|null $user              if given, basic auth is set for this feed
      * @param  string|null $password          if given, basic auth is set for this feed. Ignored if user is empty
+     * @param  string|null $httpLastModified  if given, will be used when sending a request to servers
      *
      * @throws ReadErrorException if FeedIO fails
      * @return array an array containing the new feed and its items, first
@@ -56,7 +57,8 @@ class Fetcher
         string $url,
         bool $fullTextEnabled = false,
         ?string $user = null,
-        ?string $password = null
+        ?string $password = null,
+        ?string $httpLastModified = null
     ): array {
         foreach ($this->fetchers as $fetcher) {
             if (!$fetcher->canHandle($url)) {
@@ -66,7 +68,8 @@ class Fetcher
                 $url,
                 $fullTextEnabled,
                 $user,
-                $password
+                $password,
+                $httpLastModified
             );
         }
 
