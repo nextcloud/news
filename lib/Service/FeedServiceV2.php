@@ -13,6 +13,7 @@
 
 namespace OCA\News\Service;
 
+use DateTime;
 use FeedIo\Explorer;
 use FeedIo\Reader\ReadErrorException;
 use HTMLPurifier;
@@ -37,6 +38,7 @@ class FeedServiceV2 extends Service
 {
     /**
      * Class to fetch feeds.
+     *
      * @var FeedFetcher
      */
     protected $feedFetcher;
@@ -48,11 +50,13 @@ class FeedServiceV2 extends Service
     protected $itemService;
     /**
      * HTML Purifier
+     *
      * @var HTMLPurifier
      */
     protected $purifier;
     /**
      * Feed Explorer
+     *
      * @var Explorer
      */
     protected $explorer;
@@ -109,7 +113,7 @@ class FeedServiceV2 extends Service
     /**
      * Finds all feeds of a user and all items in it
      *
-     * @param  string $userId the name of the user
+     * @param string $userId the name of the user
      *
      * @return Feed[]
      */
@@ -169,13 +173,14 @@ class FeedServiceV2 extends Service
     /**
      * Creates a new feed
      *
-     * @param string      $userId    Feed owner
-     * @param string      $feedUrl   Feed URL
-     * @param int|null    $folderId  Target folder, defaults to root
-     * @param bool        $full_text Scrape the feed for full text
-     * @param string|null $title     The feed title
-     * @param string|null $user      Basic auth username, if set
-     * @param string|null $password  Basic auth password if username is set
+     * @param string      $userId           Feed owner
+     * @param string      $feedUrl          Feed URL
+     * @param int|null    $folderId         Target folder, defaults to root
+     * @param bool        $full_text        Scrape the feed for full text
+     * @param string|null $title            The feed title
+     * @param string|null $user             Basic auth username, if set
+     * @param string|null $password         Basic auth password if username is set
+     * @param string|null $httpLastModified timestamp send when fetching the feed
      *
      * @return Feed|Entity
      *
@@ -190,14 +195,16 @@ class FeedServiceV2 extends Service
         ?string $title = null,
         ?string $user = null,
         ?string $password = null,
-        bool $full_discover = true
+        bool $full_discover = true,
+        ?string $httpLastModified = null
     ): Entity {
+        $httpLastModified ??= (new DateTime("-1 year"))->format(DateTime::RSS);
         try {
             /**
              * @var Feed   $feed
              * @var Item[] $items
              */
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
+            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password, $httpLastModified);
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
             if ($full_discover === false) {
@@ -209,7 +216,13 @@ class FeedServiceV2 extends Service
                 $feedUrl = array_shift($feeds);
             }
             try {
-                list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password);
+                list($feed, $items) = $this->feedFetcher->fetch(
+                    $feedUrl,
+                    $full_text,
+                    $user,
+                    $password,
+                    $httpLastModified
+                );
             } catch (ReadErrorException $ex) {
                 throw new ServiceNotFoundException($ex->getMessage());
             }
@@ -234,7 +247,7 @@ class FeedServiceV2 extends Service
 
         if (!is_null($user)) {
             $feed->setBasicAuthUser($user)
-                 ->setBasicAuthPassword($password);
+                ->setBasicAuthPassword($password);
         }
 
         return $this->mapper->insert($feed);
@@ -295,11 +308,11 @@ class FeedServiceV2 extends Service
         }
 
         $feed->setHttpLastModified($fetchedFeed->getHttpLastModified())
-             ->setLocation($fetchedFeed->getLocation());
+            ->setLocation($fetchedFeed->getLocation());
 
         foreach (array_reverse($items) as &$item) {
             $item->setFeedId($feed->getId())
-                 ->setBody($this->purifier->purify($item->getBody()));
+                ->setBody($this->purifier->purify($item->getBody()));
 
             // update modes: 0 nothing, 1 set unread
             if ($feed->getUpdateMode() === Feed::UPDATE_MODE_NORMAL) {
@@ -315,11 +328,14 @@ class FeedServiceV2 extends Service
         $feed->setLastUpdateError(null);
 
         $unreadCount = 0;
-        array_map(function (Item $item) use (&$unreadCount): void {
-            if ($item->isUnread()) {
-                $unreadCount++;
-            }
-        }, $items);
+        array_map(
+            function (Item $item) use (&$unreadCount): void {
+                if ($item->isUnread()) {
+                    $unreadCount++;
+                }
+            },
+            $items
+        );
 
         return $this->mapper->update($feed)->setUnreadCount($unreadCount);
     }
