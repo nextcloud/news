@@ -5,7 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [21.x.x]
 ### Changed
-
+- Remove unused background job OCA\News\Cron\Updater
 ### Fixed
 
 # Releases
