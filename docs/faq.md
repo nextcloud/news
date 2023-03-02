@@ -59,6 +59,10 @@ Feeds can be updated using Nextcloud's system cron or an [external updater](http
 
 You will get two rows where column `class`will be `OCA\News\Cron\Updater` and `OCA\News\Cron\UpdaterJob`.
 
+!!! info
+
+    In newer versions of News (21.x.x) the old job OCA\News\Cron\Updater was removed from the DB.
+
  Reset the `reserved_at` by executing
 
   ```sql
