@@ -10,12 +10,12 @@ class RemoveUnusedJob implements IRepairStep
 {
     
     /**
-     * @var LoggerInterface 
+     * @var LoggerInterface
      */
     protected $logger;
     
     /**
-     * @var IJobList 
+     * @var IJobList
      */
     protected $joblist;
     
@@ -39,13 +39,12 @@ class RemoveUnusedJob implements IRepairStep
      */
     public function run(IOutput $output)
     {
-        if($this->joblist->has("OCA\News\Cron\Updater", null)){
+        if ($this->joblist->has("OCA\News\Cron\Updater", null)) {
             $output->info("Job exists, attempting to remove");
             $this->joblist->remove("OCA\News\Cron\Updater");
             $output->info("Job removed");
         } else {
             $output->info("Job does not exist, all good");
         }
-        
     }
 }
