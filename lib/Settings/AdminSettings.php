@@ -3,6 +3,7 @@
 namespace OCA\News\Settings;
 
 use OCA\News\AppInfo\Application;
+use OCA\News\Service\StatusService;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
@@ -17,11 +18,14 @@ class AdminSettings implements ISettings
     private $config;
     /** @var IInitialState */
     private $initialState;
+    /** @var StatusService */
+    private $service;
 
-    public function __construct(IConfig $config, IInitialState $initialState)
+    public function __construct(IConfig $config, IInitialState $initialState, StatusService $service)
     {
         $this->config = $config;
         $this->initialState = $initialState;
+        $this->service = $service;
     }
 
     public function getForm()
@@ -33,6 +37,14 @@ class AdminSettings implements ISettings
                 (string)Application::DEFAULT_SETTINGS[$setting]
             ));
         }
+        
+        if ($this->service->isCronProperlyConfigured()) {
+            $lastUpdate = $this->service->getUpdateTime();
+        } else {
+            $lastUpdate = 0;
+        }
+        
+        $this->initialState->provideInitialState("lastCron", $lastUpdate);
 
         return new TemplateResponse(Application::NAME, 'admin', []);
     }
