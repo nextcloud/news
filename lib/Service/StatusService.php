@@ -16,6 +16,9 @@ namespace OCA\News\Service;
 use OCA\News\AppInfo\Application;
 use OCP\IConfig;
 use OCP\IDBConnection;
+use OCP\BackgroundJob\IJobList;
+use OCP\Util;
+use OCA\News\Cron\UpdaterJob;
 
 class StatusService
 {
@@ -25,14 +28,18 @@ class StatusService
     private $appName;
     /** @var IDBConnection */
     private $connection;
+    /** @var IJobList */
+    private $jobList;
 
     public function __construct(
         IConfig $settings,
-        IDBConnection $connection
+        IDBConnection $connection,
+        IJobList $jobList
     ) {
         $this->settings = $settings;
         $this->connection = $connection;
         $this->appName = Application::NAME;
+        $this->jobList = $jobList;
     }
 
     /**
@@ -75,5 +82,23 @@ class StatusService
                 'incorrectDbCharset' => !$this->connection->supports4ByteText()
             ]
         ];
+    }
+
+    /**
+     * Get last update time
+     */
+    public function getUpdateTime(): int
+    {
+
+        $time = 0;
+
+        [$major, $minor, $micro] = Util::getVersion();
+        
+        if ($major >= 26) {
+            $myJobList = $this->jobList->getJobsIterator(UpdaterJob::class, 1, 0);
+            $time = $myJobList->current()->getLastRun();
+        }
+        
+        return $time;
     }
 }

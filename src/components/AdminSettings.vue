@@ -7,6 +7,15 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 	<NcSettingsSection :title="t('news', 'News')"
 		class="news-settings"
 		doc-url="https://nextcloud.github.io/news/admin/">
+		<template v-if="lastCron !== 0">
+			<NcNoteCard v-if="oldExecution" type="error">
+				{{ t('news', 'Last job execution ran {relativeTime}. Something seems wrong.', {relativeTime}) }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else type="success">
+				{{ t('news', 'Last job ran {relativeTime}.', {relativeTime}) }}
+			</NcNoteCard>
+		</template>
 		<NcCheckboxRadioSwitch type="switch"
 			:checked.sync="useCronUpdates"
 			@update:checked="update('useCronUpdates', useCronUpdates)">
@@ -57,6 +66,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import moment from '@nextcloud/moment'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
@@ -78,6 +89,7 @@ function debounce(func, wait) {
 }
 
 const successMessage = debounce(() => showSuccess(t('news', 'Successfully updated news configuration')), 500)
+const lastCron = loadState('news', 'lastCron')
 
 export default {
 	name: 'AdminSettings',
@@ -85,6 +97,7 @@ export default {
 		NcCheckboxRadioSwitch,
 		NcSettingsSection,
 		NcTextField,
+		NcNoteCard,
 	},
 	data() {
 		return {
@@ -95,7 +108,14 @@ export default {
 			feedFetcherTimeout: loadState('news', 'feedFetcherTimeout'),
 			exploreUrl: loadState('news', 'exploreUrl'),
 			updateInterval: loadState('news', 'updateInterval'),
+			relativeTime: moment(lastCron * 1000).fromNow(),
+			lastCron,
 		}
+	},
+	computed: {
+		oldExecution() {
+			return Date.now() / 1000 - this.lastCron > (parseInt(this.updateInterval) * 2) + 900
+		},
 	},
 	methods: {
 		async update(key, value) {

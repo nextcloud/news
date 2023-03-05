@@ -27,9 +27,10 @@
     "@nextcloud/dialogs": "^3.1.4",
     "@nextcloud/initial-state": "^2.0.0",
     "@nextcloud/l10n": "^1.6.0",
+    "@nextcloud/moment": "^1.2.1",
     "@nextcloud/password-confirmation": "^1.0.1",
     "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^6.0.0-beta.4",
+    "@nextcloud/vue": "^7.8.0",
     "vue": "^2.7.0"
   },
   "browserslist": [
