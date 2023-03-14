@@ -10,6 +10,7 @@
     "News folders" : "Nyhetsmappar",
     "Shared with me" : "Delad med mig",
     "An RSS/Atom feed reader" : "En RSS/Atom feed-läsare",
+    "Last job ran {relativeTime}." : "Senaste jobbet kördes {relativeTime}.",
     "Use system cron for updates" : "Använda \"system cron\" för uppdateringar",
     "Disable this if you use a custom updater." : "Slå av detta om du anväder en egen uppdateringsprocess.",
     "Maximum read count per feed" : "Maximalt läsantal per flöde",

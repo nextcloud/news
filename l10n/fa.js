@@ -9,6 +9,7 @@ OC.L10N.register(
     "Unread articles" : "مطالب خوانده نشده",
     "News" : "اخبار",
     "An RSS/Atom feed reader" : "An RSS/Atom feed reader",
+    "Last job ran {relativeTime}." : "آخرین کار در {time} اجرا شد.",
     "Use system cron for updates" : "برای بروزرسانی ها از سیستم cron استفاده کنید",
     "Maximum read count per feed" : "حداکثر تعداد خواندن در هر خوراک",
     "Maximum redirects" : "حداکثر تغییر مسیرها",

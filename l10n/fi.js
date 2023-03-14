@@ -14,6 +14,7 @@ OC.L10N.register(
     "News articles" : "Uutisartikkelit",
     "Shared with me" : "Jaettu kanssasi",
     "An RSS/Atom feed reader" : "RSS-/Atom-syötteiden lukija",
+    "Last job ran {relativeTime}." : "Viimeisin työ ajettiin {relativeTime}.",
     "Use system cron for updates" : "Käytä järjestelmän cronia päivityksille",
     "Disable this if you use a custom updater." : "Poista tämä käytöstä, jos käytät erillistä päivitintä.",
     "Maximum read count per feed" : "Syötekohtainen lukukertojen enimmäismäärä",

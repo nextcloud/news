@@ -11,6 +11,7 @@
     "News folders" : "Naujienų aplankai",
     "News articles" : "Naujienų straipsniai",
     "An RSS/Atom feed reader" : "RSS/Atom kanalų skaitytuvė",
+    "Last job ran {relativeTime}." : "Paskutinis užduoties vykdymas buvo atliktas {relativeTime}.",
     "Use system cron for updates" : "Atnaujinimams naudoti sistemos planuoklę (cron)",
     "Maximum read count per feed" : "Didžiausias kanalo straipsnių kiekis",
     "Delete unread articles automatically" : "Automatiškai ištrinti neskaitytus straipsnius",

@@ -8,6 +8,7 @@ OC.L10N.register(
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Внутрішня помилка сервера! Щоб отримати додаткову інформацію, перевірте файл data/nextcloud.log!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Помилка запиту, Nextcloud зараз у режимі обслуговування!",
     "Unread articles" : "Непрочитані статті",
+    "Last job ran {relativeTime}." : "Останнє завдання виконано {relativeTime}.",
     "Use system cron for updates" : "Використовуйте системний cron для оновлень",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Визначає максимальну кількість статей, які можна прочитати на канал, які не будуть видалені під час завдання очищення; якщо старі статті знову з’являються після прочитання, збільште це значення; від'ємні значення, такі як -1, вимкнуть цю функцію.",

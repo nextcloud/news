@@ -8,6 +8,7 @@
     "News" : "Notí­cies",
     "Shared with me" : "Compartit amb mi",
     "An RSS/Atom feed reader" : "Un lector de notícies RSS/Atom",
+    "Last job ran {relativeTime}." : "L'última tasca es va executar {relativeTime}.",
     "Use system cron for updates" : "Feu servir el sistema cron per a les actualitzacions",
     "Maximum read count per feed" : "Màxim nombre de lectures per font",
     "Maximum redirects" : "Màxim de redirigits",

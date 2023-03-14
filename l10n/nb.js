@@ -14,6 +14,7 @@ OC.L10N.register(
     "News articles" : "Nyhetsartikler",
     "Shared with me" : "Delt med meg",
     "An RSS/Atom feed reader" : "En RSS/Atom-leser",
+    "Last job ran {relativeTime}." : "Siste jobb kjørte {relativeTime}.",
     "Use system cron for updates" : "Bruk system-cron for oppdateringer",
     "Disable this if you use a custom updater." : "Deaktiver dette hvis du bruker en egen oppdaterer.",
     "Maximum read count per feed" : "Maksimalt antall lest pr. strøm",
