@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Unread articles" : "Непрочитани статии",
     "News" : "Новости",
-    "Last job ran {relativeTime}." : "Последната процедура се извршуваше {relativeTime}.",
+    "Last job ran {relativeTime}." : "Последната процедура се изврши пред {relativeTime}.",
     "Download" : "Преземи",
     "Close" : "Затвори",
     "Open website" : "Отвори вебсајт",
