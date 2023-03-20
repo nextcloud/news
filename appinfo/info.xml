@@ -75,6 +75,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <command>OCA\News\Command\Updater\UpdateUser</command>
         <command>OCA\News\Command\Updater\BeforeUpdate</command>
         <command>OCA\News\Command\Updater\AfterUpdate</command>
+        <command>OCA\News\Command\Updater\Job</command>
         <command>OCA\News\Command\Config\FolderList</command>
         <command>OCA\News\Command\Config\FolderAdd</command>
         <command>OCA\News\Command\Config\FolderDelete</command>
