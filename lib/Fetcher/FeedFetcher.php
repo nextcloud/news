@@ -31,6 +31,7 @@ use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
 use OCA\News\Scraper\Scraper;
+use OCA\News\Config\FetcherConfig;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
@@ -364,7 +365,7 @@ class FeedFetcher implements IFeedFetcher
             $favicon = trim($feed_logo);
         }
         
-        ini_set('user_agent', 'NextCloud-News/1.0');
+        ini_set('user_agent', FetcherConfig::DEFAULT_USER_AGENT);
 
         $base_url = new Net_URL2($url);
         $base_url->setPath("");
@@ -400,7 +401,7 @@ class FeedFetcher implements IFeedFetcher
                 [
                     'sink' => $favicon_path,
                     'headers' => [
-                        'User-Agent'        => 'NextCloud-News/1.0',
+                        'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
                         'If-Modified-Since' => date(DateTime::RFC7231, $last_modified)
                     ]
