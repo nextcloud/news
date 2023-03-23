@@ -7,9 +7,12 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Use httpLastModified field for If-Modified-Since header when fetching feed updates
 
 # Releases
+## [21.2.0-beta1] - 2023-03-23
+### Changed
+- Use httpLastModified field for If-Modified-Since header when fetching feed updates (#2119)
+
 ## [21.1.0] - 2023-03-20
 No notable changes compared 21.1.0-beta1
 
