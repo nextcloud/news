@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix last_modified not updated when all items are marked as read #2183
 
 # Releases
 ## [21.2.0-beta1] - 2023-03-23

@@ -67,7 +67,7 @@ teardown() {
   SYNC_TIME=$(date +%s)
 
   # mark all items of feed as read, returns nothing (other client marks items as read)
-  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep HTTP/)
+  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/items/read newestItemId="$max" 2>&1| grep HTTP/)
 
   # client 2 checks for updates since last sync
   UPDATED_ITEMS=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items/updated id=$FEEDID lastModified=$SYNC_TIME | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
