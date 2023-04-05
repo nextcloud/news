@@ -7,9 +7,12 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Fix last_modified not updated when all items are marked as read #2183
 
 # Releases
+## [21.2.0-beta2] - 2023-04-05
+### Fixed
+- Fix last_modified not updated when all items are marked as read (#2183)
+
 ## [21.2.0-beta1] - 2023-03-23
 ### Changed
 - Use httpLastModified field for If-Modified-Since header when fetching feed updates (#2119)
