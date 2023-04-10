@@ -194,16 +194,16 @@
         },
         {
             "name": "fivefilters/readability.php",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fivefilters/readability.php.git",
-                "reference": "569f3945df5fb2100cce9b826cca53ad3deba6cb"
+                "reference": "d7e549401fa768396a7fa372ff6e3ede5706aa62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/569f3945df5fb2100cce9b826cca53ad3deba6cb",
-                "reference": "569f3945df5fb2100cce9b826cca53ad3deba6cb",
+                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/d7e549401fa768396a7fa372ff6e3ede5706aa62",
+                "reference": "d7e549401fa768396a7fa372ff6e3ede5706aa62",
                 "shasum": ""
             },
             "require": {
@@ -213,7 +213,7 @@
                 "league/uri": "~6.7.2",
                 "masterminds/html5": "^2.0",
                 "php": ">=7.4.0",
-                "psr/log": "^1.0"
+                "psr/log": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
                 "monolog/monolog": "^2.3",
@@ -253,9 +253,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fivefilters/readability.php/issues",
-                "source": "https://github.com/fivefilters/readability.php/tree/v3.1.4"
+                "source": "https://github.com/fivefilters/readability.php/tree/v3.1.5"
             },
-            "time": "2023-03-08T14:01:53+00:00"
+            "time": "2023-04-06T19:45:48+00:00"
         },
         {
             "name": "league/uri",
@@ -566,25 +566,25 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -613,9 +613,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "riimu/kit-pathjoin",
