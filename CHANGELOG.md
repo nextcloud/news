@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Improve performance of item updates (#1322)
 
 # Releases
 ## [21.2.0-beta2] - 2023-04-05
