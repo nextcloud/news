@@ -314,7 +314,7 @@ class ItemMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
 
-        $builder->select('items.*')
+        $builder->select('items.id')
                 ->from($this->tableName, 'items')
                 ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                 ->where('feeds.user_id = :userId')

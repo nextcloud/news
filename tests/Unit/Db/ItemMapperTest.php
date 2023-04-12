@@ -419,7 +419,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('select')
-            ->with('items.*')
+            ->with('items.id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
