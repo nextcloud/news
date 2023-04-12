@@ -236,7 +236,7 @@
     min-height: 43px;
 }
 
-#app-content.nc-major-version-25 .compact .utils {
+#app-content.nc-major-version-gte-25 .compact .utils {
     top: 0px;
 }
 

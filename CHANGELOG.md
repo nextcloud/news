@@ -4,6 +4,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 # Unreleased
 ## [21.x.x]
+- Fix display issue in NC26+ (#2192)
 ### Changed
 
 ### Fixed
