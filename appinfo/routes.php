@@ -21,6 +21,9 @@ return ['routes' => [
 ['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
 ['name' => 'page#explore', 'url' => '/explore/feeds.{lang}.json', 'verb' => 'GET'],
 
+// public feeds
+['name' => 'rss#starred', 'url' => '/rss/{userId}/starred', 'verb' => 'GET'],
+
 // admin
 ['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],
 ['name' => 'admin#migrate', 'url' => '/admin/migrate', 'verb' => 'POST'],
