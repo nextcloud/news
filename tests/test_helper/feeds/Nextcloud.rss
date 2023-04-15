@@ -12,7 +12,7 @@
 	<atom:link href="http://localhost:8090/Nextcloud.rss" rel="self" type="application/rss+xml" />
 	<link>https://nextcloud.com/</link>
 	<description></description>
-	<lastBuildDate>Tue, 16 Aug 2022 10:17:13 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 16 Aug 2099 10:17:13 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
@@ -32,7 +32,7 @@
 		<link>https://nextcloud.com/blog/how-to-get-started-with-nextcloud-repeat/</link>
 		
 		<dc:creator><![CDATA[Fabrice Mous]]></dc:creator>
-		<pubDate>Tue, 16 Aug 2022 09:44:01 +0000</pubDate>
+		<pubDate>Tue, 16 Aug 2099 09:44:01 +0000</pubDate>
 				<category><![CDATA[business]]></category>
 		<category><![CDATA[News]]></category>
 		<category><![CDATA[Webinar]]></category>
@@ -116,7 +116,7 @@
 		<link>https://nextcloud.com/blog/openproject-and-nextcloud-integrate-project-management-and-file-management/</link>
 		
 		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
-		<pubDate>Mon, 15 Aug 2022 12:44:53 +0000</pubDate>
+		<pubDate>Mon, 15 Aug 2099 12:44:53 +0000</pubDate>
 				<category><![CDATA[blog]]></category>
 		<category><![CDATA[business]]></category>
 		<category><![CDATA[partner]]></category>
@@ -160,7 +160,7 @@
 		<link>https://nextcloud.com/blog/5-more-things-to-keep-your-data-safe/</link>
 		
 		<dc:creator><![CDATA[Mikaela Schneider]]></dc:creator>
-		<pubDate>Wed, 10 Aug 2022 09:06:12 +0000</pubDate>
+		<pubDate>Wed, 10 Aug 2099 09:06:12 +0000</pubDate>
 				<category><![CDATA[blog]]></category>
 		<category><![CDATA[Community]]></category>
 		<category><![CDATA[general]]></category>
@@ -360,7 +360,7 @@
 		<link>https://nextcloud.com/blog/digital-sovereignty-security-collabora-online-nextcloud/</link>
 		
 		<dc:creator><![CDATA[Fabrice Mous]]></dc:creator>
-		<pubDate>Thu, 04 Aug 2022 13:07:21 +0000</pubDate>
+		<pubDate>Thu, 04 Aug 2099 13:07:21 +0000</pubDate>
 				<category><![CDATA[business]]></category>
 		<category><![CDATA[News]]></category>
 		<category><![CDATA[Webinar]]></category>
@@ -444,7 +444,7 @@
 		<link>https://nextcloud.com/blog/nextcloud-keeps-growth-up-with-75-more-revenue-and-10x-userbase/</link>
 		
 		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
-		<pubDate>Thu, 04 Aug 2022 09:40:29 +0000</pubDate>
+		<pubDate>Thu, 04 Aug 2099 09:40:29 +0000</pubDate>
 				<category><![CDATA[blog]]></category>
 		<category><![CDATA[business]]></category>
 		<category><![CDATA[general]]></category>
@@ -506,7 +506,7 @@
 		<link>https://nextcloud.com/blog/baden-wurttemberg-procurement-chamber-decides-us-cloud-services-are-not-gdpr-compliant/</link>
 		
 		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
-		<pubDate>Mon, 01 Aug 2022 09:00:00 +0000</pubDate>
+		<pubDate>Mon, 01 Aug 2099 09:00:00 +0000</pubDate>
 				<category><![CDATA[business]]></category>
 		<category><![CDATA[general]]></category>
 		<category><![CDATA[News]]></category>
@@ -553,7 +553,7 @@
 		<link>https://nextcloud.com/blog/interview-shadow-and-a-world-where-5-companies-own-all-data/</link>
 		
 		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
-		<pubDate>Mon, 01 Aug 2022 07:43:56 +0000</pubDate>
+		<pubDate>Mon, 01 Aug 2099 07:43:56 +0000</pubDate>
 				<category><![CDATA[general]]></category>
 		<category><![CDATA[News]]></category>
 		<category><![CDATA[partner]]></category>
@@ -579,7 +579,7 @@
 		<link>https://nextcloud.com/blog/all-app-developers-put-your-hands-up-best-nextcloud-app-contest-2/</link>
 		
 		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
-		<pubDate>Thu, 28 Jul 2022 09:00:00 +0000</pubDate>
+		<pubDate>Thu, 28 Jul 2099 09:00:00 +0000</pubDate>
 				<category><![CDATA[Apps]]></category>
 		<category><![CDATA[Community]]></category>
 		<category><![CDATA[conference]]></category>
@@ -715,7 +715,7 @@
 		<link>https://nextcloud.com/blog/5-unique-security-features-by-nextcloud/</link>
 		
 		<dc:creator><![CDATA[Mikaela Schneider]]></dc:creator>
-		<pubDate>Wed, 27 Jul 2022 14:36:15 +0000</pubDate>
+		<pubDate>Wed, 27 Jul 2099 14:36:15 +0000</pubDate>
 				<category><![CDATA[blog]]></category>
 		<category><![CDATA[general]]></category>
 		<category><![CDATA[Privacy Wednesday]]></category>
@@ -879,7 +879,7 @@
 					<comments>https://nextcloud.com/blog/nextcloud-in-the-wall-street-journal-microsoft-and-cookies/#comments</comments>
 		
 		<dc:creator><![CDATA[Jos Poortvliet]]></dc:creator>
-		<pubDate>Wed, 27 Jul 2022 09:12:45 +0000</pubDate>
+		<pubDate>Wed, 27 Jul 2099 09:12:45 +0000</pubDate>
 				<category><![CDATA[blog]]></category>
 		<category><![CDATA[business]]></category>
 		<category><![CDATA[general]]></category>
