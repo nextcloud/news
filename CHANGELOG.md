@@ -4,13 +4,18 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 # Unreleased
 ## [21.x.x]
-- Fix display issue in NC26+ (#2192)
 ### Changed
 
 ### Fixed
-- Improve performance of item updates (#1322)
+
 
 # Releases
+## [21.2.0-beta3] - 2023-04-16
+### Changed
+- Improve performance of item updates (#1322)
+### Fixed
+- Fix display issue in NC26+ (#2192)
+
 ## [21.2.0-beta2] - 2023-04-05
 ### Fixed
 - Fix last_modified not updated when all items are marked as read (#2183)
