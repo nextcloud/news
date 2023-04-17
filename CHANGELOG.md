@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix sorting of folder names in select when adding subscription (#2090)
 
 
 # Releases
