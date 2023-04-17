@@ -7,7 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-
+- Fix audio player floating when scrolling in NC25+ (#2142)
 
 # Releases
 ## [21.2.0-beta3] - 2023-04-16
