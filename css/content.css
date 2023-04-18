@@ -66,6 +66,10 @@
     align-items: center;
 }
 
+#app-content.nc-major-version-gte-25 .podcast {
+    top: 0;
+}
+
 #app-content .podcast audio {
     display: block;
     width: calc(100% - 60px);
@@ -106,6 +110,17 @@
     position: absolute;
     right: 0;
     left: 0;
+}
+
+#app-content.nc-major-version-gte-25 .podcast {
+    position: sticky;
+}
+
+@media only screen and (width < 1024px) {
+    #app-content.nc-major-version-gte-25 .podcast {
+        left: 35px;
+        width: calc(100% - 35px);
+    }
 }
 
 #notification a {
