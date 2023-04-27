@@ -8,6 +8,7 @@ OC.L10N.register(
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Внутрішня помилка сервера! Щоб отримати додаткову інформацію, перевірте файл data/nextcloud.log!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Помилка запиту, Nextcloud зараз у режимі обслуговування!",
     "Unread articles" : "Непрочитані статті",
+    "News" : "Новини",
     "Last job ran {relativeTime}." : "Останнє завдання виконано {relativeTime}.",
     "Use system cron for updates" : "Використовуйте системний cron для оновлень",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
