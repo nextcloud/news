@@ -43,10 +43,16 @@ teardown() {
 @test "[$TESTSUITE] Test simple update" {
   # Create Feed
   FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
+  
+  sleep 2
+  
   # Get Items
   ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
   # Trigger Update
   http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
+
+  sleep 2
+
   # Get Items again
   ID_LIST2=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
@@ -56,6 +62,9 @@ teardown() {
 @test "[$TESTSUITE] Test simple update with new content" {
   # Create Feed
   FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
+  
+  sleep 2
+  
   # Get Items
   ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
@@ -63,6 +72,9 @@ teardown() {
 
   # Trigger Update
   http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
+  
+  sleep 2
+
   # Get Items again
   ID_LIST2=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
@@ -139,6 +151,9 @@ teardown() {
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 210 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml
   # Create Feed
   FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
+  
+  sleep 2
+  
   # Get Items
   ID_LIST=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
