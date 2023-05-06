@@ -3,10 +3,11 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-## [21.x.x]
+## [22.x.x]
 ### Changed
+- Drop support for Nextcloud 24
+- Add support for Nextcloud 27
 ### Fixed
-
 
 # Releases
 ## [21.2.0] - 2023-05-06

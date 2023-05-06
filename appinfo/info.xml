@@ -55,7 +55,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <lib>json</lib>
 
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="24" max-version="26"/>
+        <nextcloud min-version="25" max-version="27"/>
     </dependencies>
 
     <background-jobs>
