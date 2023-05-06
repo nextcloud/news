@@ -21,7 +21,7 @@ Create a [feature request](https://github.com/nextcloud/news/discussions/new)
 
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>21.2.0-beta4</version>
+    <version>21.2.0</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
