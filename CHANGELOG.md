@@ -5,11 +5,14 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [21.x.x]
 ### Changed
-- Improve visibility of links in dark theme (#2215)
 ### Fixed
 
 
 # Releases
+## [21.2.0] - 2023-05-06
+### Changed
+- Improve visibility of links in dark theme (#2215)
+
 ## [21.2.0-beta4] - 2023-04-16
 ### Fixed
 - Fix audio player floating when scrolling in NC25+ (#2142)
