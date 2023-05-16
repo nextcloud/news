@@ -1,0 +1,14 @@
+{ "translations": {
+    "Download" : "Baxar",
+    "Description" : "Descripción",
+    "Folder" : "Carpeta",
+    "New folder" : "Carpeta nueva",
+    "Password" : "Contraseña",
+    "New Folder" : "Carpeta nueva",
+    "Menu" : "Menú",
+    "Delete" : "Desaniciar",
+    "Settings" : "Configuración",
+    "Help" : "Ayuda",
+    "Documentation" : "Documentación"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
