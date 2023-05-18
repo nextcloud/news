@@ -6,6 +6,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [23.x.x]
 ### Changed
 - Drop support for PHP 7.4 new min. version is php 8.0
+- Upgrade feed-io to v5.1.3
 ### Fixed
 
 ## [22.x.x]
