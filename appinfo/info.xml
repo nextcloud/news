@@ -43,7 +43,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3.png</screenshot>
     <dependencies>
-        <php min-version="7.4" min-int-size="64"/>
+        <php min-version="8.0" min-int-size="64"/>
         <database min-version="10">pgsql</database>
         <database>sqlite</database>
         <database min-version="8.0">mysql</database>
