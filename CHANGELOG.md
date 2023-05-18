@@ -5,11 +5,15 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [22.x.x]
 ### Changed
-- Drop support for Nextcloud 24
-- Add support for Nextcloud 27
+
 ### Fixed
 
 # Releases
+## [22.0.0-beta1] - 2023-05-18
+### Changed
+- Drop support for Nextcloud 24 (#2223)
+- Add support for Nextcloud 27 (#2223)
+
 ## [21.2.0] - 2023-05-06
 ### Changed
 - Improve visibility of links in dark theme (#2215)
