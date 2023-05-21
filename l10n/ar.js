@@ -18,7 +18,7 @@ OC.L10N.register(
     "New folder" : "مجلد جديد",
     "Folder name" : "اسم المجلد",
     "Go back" : "العودة",
-    "Credentials" : "Credentials",
+    "Credentials" : "معلومات تسجيل الدخول",
     "Password" : "كلمة السر",
     "New Folder" : "مجلد جديد",
     "Create" : "انشئ",
