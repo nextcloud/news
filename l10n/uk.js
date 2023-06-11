@@ -85,7 +85,7 @@ OC.L10N.register(
     "Collapse" : "Згорнути",
     "Deleted folder" : "Вилучений каталог",
     "Undo delete folder" : "Скасувати вилучення каталогу",
-    "Starred" : "Помічені зірочкою",
+    "Starred" : "Із зірочкою",
     "All articles" : "Всі статті",
     "Settings" : "Налаштування",
     "Disable mark read through scrolling" : "Вимкнути читання поміток при прокрутці",
