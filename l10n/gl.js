@@ -20,7 +20,7 @@ OC.L10N.register(
     "Use system cron for updates" : "Use o cron do sistema para as actualizacións",
     "Disable this if you use a custom updater." : "Desactive isto se usa un actualizador personalizado.",
     "Maximum read count per feed" : "Conta máxima de lidos por fonte",
-    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define a cantidade máxima de artigos que se poden ler por fonte que non se eliminarán polo traballo de limpeza; se reaparecen artigos antigos despois de ser lidos, aumenta este valor; valores negativos como -1 desactivarán esta función.",
+    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Define a cantidade máxima de artigos que se poden ler por fonte que non se eliminarán polo traballo de limpeza; se reaparecen artigos antigos após de ser lidos, aumenta este valor; valores negativos como -1 desactivarán esta función.",
     "Delete unread articles automatically" : "Elimina os artigos non lidos automaticamente",
     "Enable this if you also want to delete unread articles." : "Activa isto se tamén queres eliminar artigos non lidos.",
     "Maximum redirects" : "Redireccionamentos máximos",
