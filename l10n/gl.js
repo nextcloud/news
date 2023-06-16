@@ -32,7 +32,7 @@ OC.L10N.register(
     "Update interval" : "Intervalo de actualización",
     "Interval in seconds in which the feeds will be updated." : "Intervalo, en segundos, no que se actualizarán as fontes.",
     "Successfully updated news configuration" : "Actualizouse correctamente a configuración de noticias",
-    "Unable to update news config" : "Non se puido actualizar a configuración de noticias",
+    "Unable to update news config" : "Non é posíbel actualizar a configuración de noticias",
     "Download" : "Descargar",
     "Close" : "Pechar",
     "Subscribe to" : "Subscribirse a",
