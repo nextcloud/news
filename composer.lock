@@ -194,16 +194,16 @@
         },
         {
             "name": "fivefilters/readability.php",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fivefilters/readability.php.git",
-                "reference": "d7e549401fa768396a7fa372ff6e3ede5706aa62"
+                "reference": "a00d35cb5eb14a236ba42326da9ac52c8c9f80a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/d7e549401fa768396a7fa372ff6e3ede5706aa62",
-                "reference": "d7e549401fa768396a7fa372ff6e3ede5706aa62",
+                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/a00d35cb5eb14a236ba42326da9ac52c8c9f80a1",
+                "reference": "a00d35cb5eb14a236ba42326da9ac52c8c9f80a1",
                 "shasum": ""
             },
             "require": {
@@ -253,9 +253,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fivefilters/readability.php/issues",
-                "source": "https://github.com/fivefilters/readability.php/tree/v3.1.5"
+                "source": "https://github.com/fivefilters/readability.php/tree/v3.1.6"
             },
-            "time": "2023-04-06T19:45:48+00:00"
+            "time": "2023-06-15T18:06:49+00:00"
         },
         {
             "name": "league/uri",
@@ -429,26 +429,24 @@
         },
         {
             "name": "masterminds/html5",
-            "version": "2.7.6",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Masterminds/html5-php.git",
-                "reference": "897eb517a343a2281f11bc5556d6548db7d93947"
+                "reference": "3c5d5a56d56f48a1ca08a0670f0f80c1dad368f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/897eb517a343a2281f11bc5556d6548db7d93947",
-                "reference": "897eb517a343a2281f11bc5556d6548db7d93947",
+                "url": "https://api.github.com/repos/Masterminds/html5-php/zipball/3c5d5a56d56f48a1ca08a0670f0f80c1dad368f3",
+                "reference": "3c5d5a56d56f48a1ca08a0670f0f80c1dad368f3",
                 "shasum": ""
             },
             "require": {
-                "ext-ctype": "*",
                 "ext-dom": "*",
-                "ext-libxml": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7"
+                "phpunit/phpunit": "^4.8.35 || ^5.7.21 || ^6 || ^7 || ^8"
             },
             "type": "library",
             "extra": {
@@ -492,9 +490,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Masterminds/html5-php/issues",
-                "source": "https://github.com/Masterminds/html5-php/tree/2.7.6"
+                "source": "https://github.com/Masterminds/html5-php/tree/2.8.0"
             },
-            "time": "2022-08-18T16:18:26+00:00"
+            "time": "2023-04-26T07:27:39+00:00"
         },
         {
             "name": "pear/net_url2",
