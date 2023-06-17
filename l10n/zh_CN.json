@@ -17,7 +17,7 @@
     "Maximum redirects" : "最大重定向次数",
     "How many redirects the feed fetcher should follow." : "订阅源获取器最多应跟随多少次重定向。",
     "Feed fetcher timeout" : "订阅源获取器超时",
-    "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "最长的等待 RSS 或 Atom 订阅源加载的秒数；如果比这个时间更长更新将会中止。",
+    "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "最长的等待RSS或Atom订阅源加载的秒数；如果比这个时间更长更新将会中止。",
     "Explore Service URL" : "资源管理服务URL",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "如果给出，则会在查询订阅源部分中查询此服务的 URL 以显示订阅源。要回到内置的探索服务，请将此输入留空。",
     "Update interval" : "更新间隔",
