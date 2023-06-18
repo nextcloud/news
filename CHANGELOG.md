@@ -5,11 +5,14 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [22.x.x]
 ### Changed
--  allowEvalScript set to true (#2262)
 
 ### Fixed
 
 # Releases
+## [22.0.0-beta2] - 2023-06-18
+### Changed
+-  allowEvalScript set to true (#2262)
+
 ## [22.0.0-beta1] - 2023-05-18
 ### Changed
 - Drop support for Nextcloud 24 (#2223)
