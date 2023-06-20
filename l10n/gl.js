@@ -25,7 +25,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "Activa isto se tamén queres eliminar artigos non lidos.",
     "Maximum redirects" : "Redireccionamentos máximos",
     "How many redirects the feed fetcher should follow." : "Cantos redirecionamentos debe seguir o recuperador de fontes.",
-    "Feed fetcher timeout" : "Caducidade do recuperador",
+    "Feed fetcher timeout" : "Caducidade do recuperador de fontes",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Número máximo de segundos agardando por unha fonte RSS ou Atom para cargar; se lle leva máis tempo a actualización será cancelada.",
     "Explore Service URL" : "Examinar o URL de servizo",
     "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Se é fornecido, este URL de servizo requirirase para amosar as fontes na sección de exame da fonte. Para amparar co servizo de exame propio, deixe baldeira esta entrada.",
