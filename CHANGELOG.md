@@ -5,6 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [22.x.x]
 ### Changed
+- Support deflate and gzip compression for HTTP response bodies (#2269)
 
 ### Fixed
 
