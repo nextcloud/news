@@ -48,7 +48,7 @@ OC.L10N.register(
     "Username" : "Nome de usuario",
     "No users found" : "Non se atoparon usuarios",
     "Error while searching for users" : "Produciuse un erro ao buscar usuarios",
-    "Share on social media" : "Comparti nas redes sociais",
+    "Share on social media" : "Compartir nos medios sociais",
     "I wanted you to see this article" : "Gustaríame que vira este artigo",
     "Check out this article" : "Consulte este artigo",
     "by" : "por",
