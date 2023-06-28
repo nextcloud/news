@@ -13,6 +13,7 @@ OC.L10N.register(
     "right" : "يمين",
     "left" : "يسار",
     "Refresh" : "تحديث",
+    "Subscribe" : "إشترك subscribe",
     "Web address" : "عنوان ويب",
     "Folder" : "مجلد",
     "New folder" : "مجلد جديد",
