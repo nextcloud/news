@@ -65,6 +65,8 @@ OC.L10N.register(
     "Undo delete feed" : "เลิกทำการลบฟีด",
     "Rename" : "เปลี่ยนชื่อ",
     "Menu" : "เมนู",
+    "Newest first" : "ใหม่ที่สุดก่อน",
+    "Oldest first" : "เก่าที่สุดก่อน",
     "Delete" : "ลบ",
     "Dismiss" : "ปิดทิ้ง",
     "Collapse" : "ย่อ",
