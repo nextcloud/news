@@ -130,9 +130,6 @@ jobs:
           kill %1
           kill %2
 
-      - name: Setup problem matchers for PHP
-        run: echo "::add-matcher::${{ runner.tool_cache }}/php.json"
-
       - name: Functional tests maintenance
         working-directory: ../server
         run: |
