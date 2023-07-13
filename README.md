@@ -9,6 +9,14 @@ The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://n
 ## Documentation
 The documentation can be found [here](https://nextcloud.github.io/news/), the source of the documentation is on [GitHub](https://github.com/nextcloud/news/blob/master/docs)
 
+### Common Guides
+
+There are some small guides for dealing with common setup and issues.
+
+* [Troubleshooting Guide](docs/troubleshooting.md)
+* [Integration Guide](docs/integration.md)
+
+
 ## Bugs
 Please read the [appropriate section in the contributing notices](https://github.com/nextcloud/news/blob/master/CONTRIBUTING.md#issues)
 
