@@ -50,9 +50,6 @@ jobs:
           app: 'news'
           check-code: false
 
-      - name: Setup problem matchers for PHPUnit
-        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
       - name: Prep PHP tests
         working-directory: ../server/apps/news
         run: make php-test-dependencies

@@ -1,6 +1,6 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "Non se realizou a solicitude, a conexión de rede non está dispoñíbel!",
-    "Request unauthorized. Are you logged in?" : "Solicitude non autorizada. Está vostede autenticado?",
+    "Request unauthorized. Are you logged in?" : "A solicitude non está autorizada. Está Vde. autenticado?",
     "Request forbidden. Are you an administrator?" : "Solicitude prohibida. Es administrador?",
     "Token expired or app not enabled! Reload the page!" : "Ou ben caducou o testemuño ou a aplicación non está activada. Volva cargar a páxina!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Produciuse un erro interno do servidor! Verifique o ficheiro data/nextcloud.log para obter máis información!",
