@@ -14,7 +14,7 @@ The documentation can be found [here](https://nextcloud.github.io/news/), the so
 There are some small guides for dealing with common setup and issues.
 
 * [Troubleshooting Guide](docs/troubleshooting.md)
-* [Integration Guide](docs/integration.md)
+* [Integration Guide](docs/features/integration.md)
 
 
 ## Bugs
