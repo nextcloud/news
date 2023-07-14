@@ -6,6 +6,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [22.x.x]
 ### Changed
 - Support deflate and gzip compression for HTTP response bodies (#2269)
+- Broke apart old FAQ into different guides. Depricated old FAQ (#2285)
 
 ### Fixed
 
