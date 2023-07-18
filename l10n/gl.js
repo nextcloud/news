@@ -56,7 +56,7 @@ OC.L10N.register(
     "shared by" : "compartido por",
     "Play audio" : "Reproducir son",
     "Download audio" : "Descargar son",
-    "Download video" : "Descargar video",
+    "Download video" : "Descargar vídeo",
     "Keyboard shortcut" : "Atallo de teclado",
     "Description" : "Descrición",
     "right" : "dereita",
