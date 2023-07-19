@@ -7,6 +7,7 @@
     "Unread articles" : "Artículos sin leer",
     "News" : "Noticias",
     "Shared with me" : "Compartido conmigo",
+    "Last job ran {relativeTime}." : "La última tarea se ejecutó {relativeTime}.",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",
     "Maximum read count per feed" : "Conteo máximo de lecturas por fuente",
     "Maximum redirects" : "Redirecciones máximas",
