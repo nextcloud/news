@@ -4,13 +4,15 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 # Unreleased
 ## [22.x.x]
-### Changed
-- Support deflate and gzip compression for HTTP response bodies (#2269)
-- Broke apart old FAQ into different guides. Depricated old FAQ (#2285)
 
 ### Fixed
 
 # Releases
+## [22.0.0] - 2023-07-23
+### Changed
+- Support deflate and gzip compression for HTTP response bodies (#2269)
+- Broke apart old FAQ into different guides. Deprecated old FAQ (#2285)
+
 ## [22.0.0-beta2] - 2023-06-18
 ### Changed
 -  allowEvalScript set to true (#2262)
