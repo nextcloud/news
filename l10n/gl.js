@@ -77,7 +77,7 @@ OC.L10N.register(
     "Mark current article's feed/folder read" : "Marcar o actual artigo de fonte/cartafol como lido",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Detectouse o modo Ajax ou webcron! As súas fontes non van ser actualizadas!",
     "How to set up the operating system cron" : "Cómo configurar o cron do sistema operativo",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instala e configura un actualizador paralelo máis rápido que utiliza a API de actualización da aplicación Novas",
+    "Install and set up a faster parallel updater that uses the News app's update API" : "Instalar e configurar un actualizador paralelo máis rápido que utilice a API de actualización da aplicación Novas",
     "Subscribe" : "Subscribirse",
     "Web address" : "Enderezo web",
     "Feed exists already!" : "Esta fonte de novas xa existe!",
