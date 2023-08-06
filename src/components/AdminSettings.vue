@@ -121,7 +121,7 @@ import { confirmPassword } from '@nextcloud/password-confirmation'
  * Debounce helper for method
  * TODO: Should we remove this and use library?
  *
- * @param {function()} func - The callback function
+ * @param {Function} func - The callback function
  * @param {number}     wait - Time to wait in miliseconds
  */
 function debounce(func, wait) {
