@@ -24,7 +24,7 @@ describe('AdminSettings.vue', () => {
 	})
 
 	it('should initialize and fetch settings from state', () => {
-		expect(loadState).toBeCalledTimes(7)
+		expect(loadState).toBeCalledTimes(8)
 	})
 
 	it('should send post with updated settings', async () => {
