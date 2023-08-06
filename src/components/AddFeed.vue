@@ -6,83 +6,85 @@
 				name="feedform">
 				<fieldset ng-disabled="Navigation.addingFeed" style="padding: 16px">
 					<input type="text"
-						:value="feed"
-						ng-model="Navigation.feed.url"
-						ng-class="{'ng-invalid':
-												!Navigation.addingFeed &&
-												Navigation.feedUrlExists(Navigation.feed.url)
-											}"
+						v-model="feedUrl"
 						:placeholder="t('news', 'Web address')"
 						name="address"
 						pattern="[^\s]+"
 						required
-						autofocus>
+						autofocus
+                        style="width: 90%;">
 
-					<p class="error"
-						ng-show="!Navigation.addingFeed &&
-											Navigation.feedUrlExists(Navigation.feed.url)">
+					<p class="error" v-if="feedUrlExists()">
 						{{ t("news", "Feed exists already!") }}
 					</p>
+                    
 
 					<!-- select a folder -->
-					<NcCheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
-						{{ t("news", "New folder") }}?
-					</NcCheckboxRadioSwitch>
+                    <div style="display:flex;">
+                        <NcSelect v-if="!createNewFolder && folders"
+                            v-model="folder"
+                            :options="folders.folders"
+                            :placeholder="'-- ' + t('news', 'No folder') + ' --'"
+                            track-by="id"
+                            label="name"
+                            style="flex-grow: 1;" />
 
-					<NcMultiselect v-if="!createNewFolder && folders"
-						v-model="folder"
-						:options="folders"
-						track-by="id"
-						label="name" />
+                        <!-- add a folder -->
+                        <input v-if="createNewFolder"
+                            type="text"
+                            v-model="newFolderName"
+                            ng-class="{'ng-invalid':
+                                                            !Navigation.addingFeed &&
+                                                            !Navigation.addingFeed &&
+                                                            Navigation.showNewFolder &&
+                                                            Navigation.folderNameExists(Navigation.feed.newFolder)
+                                                }"
+                            :placeholder="t('news', 'Folder name')"
+                            name="folderName"
+                            style="flex-grow: 1; padding: 22px 12px; margin: 0px;"
+                            required>
 
-					<!-- add a folder -->
-					<input v-if="createNewFolder"
-						type="text"
-						ng-model="Navigation.feed.newFolder"
-						ng-class="{'ng-invalid':
-														!Navigation.addingFeed &&
-														!Navigation.addingFeed &&
-														Navigation.showNewFolder &&
-														Navigation.folderNameExists(Navigation.feed.newFolder)
-											}"
-						:placeholder="t('news', 'Folder name')"
-						name="folderName"
-						style="width: 90%"
-						required>
+                        <NcCheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
+                            {{ t("news", "New folder") }}?
+                        </NcCheckboxRadioSwitch>
+                    </div>
 
-					<p class="error"
-						ng-show="!Navigation.addingFeed &&
-											Navigation.folderNameExists(Navigation.feed.newFolder)">
-						{{ t("news", "Folder exists already!") }}
-					</p>
+                    <p class="error"
+                        v-if="folderNameExists()">
+                        {{ t("news", "Folder exists already!") }}
+                    </p>
 
 					<!-- basic auth -->
+                    <p v-if="withBasicAuth" class="warning">
+                        {{
+                            t(
+                                "news",
+                                "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!"
+                            )
+                        }}
+                    </p>
 
-					<NcCheckboxRadioSwitch :checked.sync="withBasicAuth" type="switch">
-						{{ t("news", "Credentials") }}?
-					</NcCheckboxRadioSwitch>
+                    <div style="display: flex">
+                        <NcCheckboxRadioSwitch :checked.sync="withBasicAuth" type="switch" style="flex-grow: 1;">
+                            {{ t("news", "Credentials") }}?
+                        </NcCheckboxRadioSwitch>
 
-					<div v-if="withBasicAuth" class="add-feed-basicauth">
-						<p class="warning">
-							{{
-								t(
-									"news",
-									"HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!"
-								)
-							}}
-						</p>
-						<input type="text"
-							ng-model="Navigation.feed.user"
-							:placeholder="t('news', 'Username')"
-							name="user"
-							autofocus>
+                        <div v-if="withBasicAuth" class="add-feed-basicauth" style="flex-grow: 1;  display: flex;">
+                            <input type="text"
+                                ng-model="Navigation.feed.user"
+                                :placeholder="t('news', 'Username')"
+                                name="user"
+                                autofocus
+                                style="flex-grow: 1">
 
-						<input type="password"
-							ng-model="Navigation.feed.password"
-							:placeholder="t('news', 'Password')"
-							name="password"
-							autocomplete="new-password">
-					</div>
+                            <input type="password"
+                                ng-model="Navigation.feed.password"
+                                :placeholder="t('news', 'Password')"
+                                name="password"
+                                autocomplete="new-password"
+                                style="flex-grow: 1">
+                        </div>
+                    </div>
 
 					<NcCheckboxRadioSwitch :checked.sync="autoDiscover" type="switch">
 						{{ t("news", "Auto discover Feed") }}?
@@ -90,11 +92,7 @@
 
 					<NcButton :wide="true"
 						type="primary"
-						ng-disabled="Navigation.feedUrlExists(Navigation.feed.url) ||
-													(
-														Navigation.showNewFolder &&
-														Navigation.folderNameExists(folder.name)
-													)"
+						:disabled="disableAddFeed"
 						@click="addFeed()">
 						{{ t("news", "Subscribe") }}
 					</NcButton>
@@ -112,19 +110,25 @@ import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
+import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 import { ACTIONS } from '../store'
+import { mapState } from 'vuex'
+import axios from 'axios'
 
 type AddFeedState = {
-	folder: Folder;
+	folder?: Folder;
+    newFolderName: String;
+
 	autoDiscover: boolean;
 	createNewFolder: boolean;
 	withBasicAuth: boolean;
+    // feedUrlExists: boolean;
 
 	// from props
-	feed?: Feed;
+	feedUrl?: String;
 };
 
 export default Vue.extend({
@@ -133,53 +137,75 @@ export default Vue.extend({
 		NcCheckboxRadioSwitch,
 		NcButton,
 		NcMultiselect,
+        NcSelect
 	},
-	props: {
-		feed: {
-			type: String,
-			default: '',
-		},
-	},
+	// props: {
+	// 	feed: {
+	// 		type: String,
+	// 		default: '',
+	// 	},
+	// },
 	data: (): AddFeedState => {
 		return {
-			folder: { name: '' } as Folder,
+			folder: undefined,
+            newFolderName: '',
+
 			autoDiscover: true,
 			createNewFolder: false,
 			withBasicAuth: false,
+
+            feedUrl: ''
 		}
 	},
 	computed: {
+        // ...mapState(['folders']),
 		folders(): Folder[] {
 			return this.$store.state.folders
 		},
+        disableAddFeed(): boolean {
+            return this.feed === "" || this.feedUrlExists() || (this.createNewFolder && this.newFolderName === "" || this.folderNameExists())
+        }
 	},
 	methods: {
-		newFolder() {
-			this.createNewFolder = true
-		},
-		abortNewFolder() {
-			this.createNewFolder = false
-		},
-		addFeed() {
+        created() {
+
+        },
+
+		async addFeed() {
+            let url = this.feedUrl;
+
 			this.$store.dispatch(ACTIONS.ADD_FEED, {
 				feedReq: {
-					url: this.feed,
-					folder: this.folder,
-					autoDiscover: true,
+					url: this.feedUrl,
+					folder: this.createNewFolder ? { name: this.newFolderName } : this.folder,
+					autoDiscover: this.autoDiscover,
 				},
-			})
+			});
+            this.$emit('close');
 		},
+
+        feedUrlExists(): boolean {
+            // TODO: check feed url
+            console.log(this.feedUrl);
+
+            return false;
+        },
+        folderNameExists(): boolean {
+            // TODO: check folder name
+            console.log(this.newFolderName)
+            return false;
+        }
 	},
 })
 
 </script>
 
 <style scoped>
-input {
+/* input {
     width: 100%
 }
 
 .multiselect {
-    width: 100%
-}
+    width: 100% 
+}*/
 </style>
