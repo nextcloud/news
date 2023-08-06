@@ -33,10 +33,11 @@
 				</template>
 			</NcAppNavigationItem>
 
+            
 			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
-				:key="topLevelItem.name"
-				:title="topLevelItem.name"
-				icon="icon-folder"
+				:key="topLevelItem.name || topLevelItem.title"
+				:title="topLevelItem.name || topLevelItem.title"
+				:icon="topLevelItem.name !== undefined ? 'icon-folder': ''"
 				:allow-collapse="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"

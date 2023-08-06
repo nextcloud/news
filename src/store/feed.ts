@@ -10,6 +10,7 @@ export const FEED_ACTION_TYPES = {
 }
 
 export const FEED_MUTATION_TYPES = {
+	ADD_FEED: 'ADD_FEED',
 	SET_FEEDS: 'SET_FEEDS',
 }
 
@@ -53,16 +54,23 @@ export const actions = {
 			autoDiscover: undefined, // TODO: autodiscover?
 		}
 
-		await axios.post(feedUrl, {
-			url: feed.url,
-			parentFolderId: feed.folderId,
-			title: null,
-			user: null,
-			password: null,
-			fullDiscover: feed.autoDiscover,
-		})
+		// Check that url is resolvable
+		try {
+			const response = await axios.post(feedUrl, {
+				url: feed.url,
+				parentFolderId: feed.folderId,
+				title: null,
+				user: null,
+				password: null,
+				fullDiscover: feed.autoDiscover,
+			})
 
-		commit('addFeed', feed)
+			commit(FEED_MUTATION_TYPES.ADD_FEED, response.data.feeds[0])
+		} catch(e) {
+				// TODO: show error to user if failure
+				console.log(e);
+				return;
+		}
 	},
 }
 
@@ -70,13 +78,11 @@ export const mutations = {
 	[FEED_MUTATION_TYPES.SET_FEEDS](state: AppState, feeds: Feed[]) {
 		feeds.forEach(it => {
 			state.feeds.push(it)
-			const folder = state.folders.find(folder => folder.id === it.folderId)
-			if (folder) {
-				folder.feeds.push(it)
-				folder.feedCount += it.unreadCount
-			}
 		})
 	},
+	[FEED_MUTATION_TYPES.ADD_FEED](state: AppState, feed: Feed) {
+		state.feeds.push(feed);
+	}
 }
 
 export default {
