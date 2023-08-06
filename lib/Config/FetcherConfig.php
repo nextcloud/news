@@ -103,7 +103,11 @@ class FetcherConfig
     {
         $config = [
             'timeout' => $this->client_timeout,
-            'headers' =>  ['User-Agent' => static::DEFAULT_USER_AGENT, 'Accept' => static::DEFAULT_ACCEPT],
+            'headers' =>  [
+                'User-Agent' => static::DEFAULT_USER_AGENT,
+                'Accept' => static::DEFAULT_ACCEPT,
+                'Accept-Encoding' => 'gzip, deflate',
+            ],
         ];
 
         if (!is_null($this->proxy)) {

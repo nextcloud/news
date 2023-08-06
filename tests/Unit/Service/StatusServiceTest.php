@@ -16,6 +16,7 @@ namespace OCA\News\Tests\Unit\Service;
 use OCA\News\Service\StatusService;
 use OCP\IConfig;
 use OCP\IDBConnection;
+use OCP\BackgroundJob\IJobList;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -37,6 +38,12 @@ class StatusServiceTest extends TestCase
      */
     private $service;
 
+    /**
+     * @var IJobList
+     */
+    private $jobList;
+
+
     public function setUp(): void
     {
         $this->settings = $this->getMockBuilder(IConfig::class)
@@ -45,7 +52,10 @@ class StatusServiceTest extends TestCase
         $this->connection = $this->getMockBuilder(IDBConnection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->service = new StatusService($this->settings, $this->connection);
+        $this->jobList = $this->getMockBuilder(IJobList::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->service = new StatusService($this->settings, $this->connection, $this->jobList);
     }
 
     public function testGetStatus()

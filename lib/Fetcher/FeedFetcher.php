@@ -31,6 +31,7 @@ use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
 use OCA\News\Scraper\Scraper;
+use OCA\News\Config\FetcherConfig;
 use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
@@ -113,15 +114,21 @@ class FeedFetcher implements IFeedFetcher
         string $url,
         bool $fullTextEnabled,
         ?string $user,
-        ?string $password
+        ?string $password,
+        ?string $httpLastModified
     ): array {
         $url2 = new Net_URL2($url);
         if (!is_null($user) && trim($user) !== '') {
             $url2->setUserinfo(rawurlencode($user), rawurlencode($password));
         }
+        if (!is_null($httpLastModified) && trim($httpLastModified) !== '') {
+            $lastModified = new DateTime($httpLastModified);
+        } else {
+            $lastModified = null;
+        }
         $url = $url2->getNormalizedURL();
         $this->reader->resetFilters();
-        $resource = $this->reader->read($url);
+        $resource = $this->reader->read($url, null, $lastModified);
 
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();
@@ -301,22 +308,24 @@ class FeedFetcher implements IFeedFetcher
         }
 
         // purification is done in the service layer
-        $body = mb_convert_encoding(
-            $body,
-            'HTML-ENTITIES',
-            mb_detect_encoding($body)
-        );
-        if (strpos($body, 'CDATA') !== false) {
-            libxml_use_internal_errors(true);
-            $data = simplexml_load_string(
-                "<?xml version=\"1.0\"?><item>$body</item>",
-                SimpleXMLElement::class,
-                LIBXML_NOCDATA
+        if (!is_null($body)) {
+            $body = mb_convert_encoding(
+                $body,
+                'HTML-ENTITIES',
+                mb_detect_encoding($body)
             );
-            if ($data !== false && libxml_get_last_error() === false) {
-                $body = (string) $data;
+            if (strpos($body, 'CDATA') !== false) {
+                libxml_use_internal_errors(true);
+                $data = simplexml_load_string(
+                    "<?xml version=\"1.0\"?><item>$body</item>",
+                    SimpleXMLElement::class,
+                    LIBXML_NOCDATA
+                );
+                if ($data !== false && libxml_get_last_error() === false) {
+                    $body = (string) $data;
+                }
+                libxml_clear_errors();
             }
-            libxml_clear_errors();
         }
 
         $item->setBody($body);
@@ -350,9 +359,9 @@ class FeedFetcher implements IFeedFetcher
      * @param FeedInterface $feed Feed to check for a logo
      * @param string        $url  Original URL for the feed
      *
-     * @return string|mixed|bool
+     * @return string|null
      */
-    protected function getFavicon(FeedInterface $feed, string $url)
+    protected function getFavicon(FeedInterface $feed, string $url): ?string
     {
         $favicon = null;
         // trim the string because authors do funny things
@@ -362,15 +371,21 @@ class FeedFetcher implements IFeedFetcher
             $favicon = trim($feed_logo);
         }
         
-        ini_set('user_agent', 'NextCloud-News/1.0');
+        ini_set('user_agent', FetcherConfig::DEFAULT_USER_AGENT);
 
         $base_url = new Net_URL2($url);
         $base_url->setPath("");
         $base_url = $base_url->getNormalizedURL();
 
+        // Return if the URL is empty
+        if ($base_url === null || trim($base_url) === '') {
+            return null;
+        }
+
         // check if feed has a logo entry
-        if (is_null($favicon) || $favicon === '') {
-            return $this->faviconFactory->get($base_url);
+        if ($favicon === null || $favicon === '') {
+            $return = $this->faviconFactory->get($base_url);
+            return is_string($return) ? $return : null;
         }
 
         // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
@@ -392,7 +407,7 @@ class FeedFetcher implements IFeedFetcher
                 [
                     'sink' => $favicon_path,
                     'headers' => [
-                        'User-Agent'        => 'NextCloud-News/1.0',
+                        'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
                         'If-Modified-Since' => date(DateTime::RFC7231, $last_modified)
                     ]
@@ -422,16 +437,18 @@ class FeedFetcher implements IFeedFetcher
 
         // check if file is actually an image
         if (!$is_image) {
-            return $this->faviconFactory->get($base_url);
+            $return = $this->faviconFactory->get($base_url);
+            return is_string($return) ? $return : null;
         }
 
         list($width, $height, $type, $attr) = getimagesize($favicon_path);
         // check if image is square else fall back to favicon
         if ($width !== $height) {
-            return $this->faviconFactory->get($base_url);
+            $return = $this->faviconFactory->get($base_url);
+            return is_string($return) ? $return : null;
         }
 
-        return $favicon;
+        return is_string($favicon) ? $favicon : null;
     }
 
     /**

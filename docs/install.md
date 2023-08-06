@@ -21,7 +21,7 @@ You also need some PHP extensions:
 * MySQL >= 8.0
 * SQLite (discouraged)
 
-Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/linux_database_configuration.html?highlight=database). Oracle is currently not supported by news.
+Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/linux_database_configuration.html?highlight=database). Oracle is currently not supported by News.
 
 ## Performance Notices
 * Use MySQL/MariaDB or PostgreSQL for better database performance
@@ -108,8 +108,8 @@ If you changed the temporary directory for Nextcloud you need to check on your o
 
 Careful, this next part is only intended for admins, that know what they are doing.
 
-To remove the tables from the DB we drop the tables of news.
-Your installation might have a different prefix then `oc_` but it is the default in most installations.
+To remove the tables from the DB we drop the tables of News.
+Your installation might have a different prefix than `oc_` but it is the default in most installations.
 Connect to your DB and execute the commands. Don't forget to switch to the right database.
 For example in mysql: `use nextcloud;`
 
@@ -140,4 +140,4 @@ DELETE FROM oc_jobs WHERE class='OCA\\News\\Cron\\Updater';
 DELETE FROM oc_jobs WHERE argument='["OCA\\\\News\\\\Cron\\\\Updater","run"]';
 ```
 
-Now nothing is left from news in your nextcloud installation.
+Now nothing is left from News in your nextcloud installation.

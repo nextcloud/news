@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.1']
-        nextcloud: ['stable25']
+        nextcloud: ['stable27']
         database: ['sqlite']
     steps:
       - name: Checkout
@@ -29,7 +29,7 @@ jobs:
           coverage: none
 
       - name: Set up server non MySQL
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@fae87e29aa7cdf1ea0b8033c67f60e75b10be2cd
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
         with:
           cron: false
           version: ${{ matrix.nextcloud }}
@@ -39,7 +39,7 @@ jobs:
         run: make
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@fae87e29aa7cdf1ea0b8033c67f60e75b10be2cd
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
         with:
           app: ${{ env.APP_NAME }}
           check-code: false
@@ -52,7 +52,7 @@ jobs:
           app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
 
       - name: Upload app tarball to release
-        uses: svenstaro/upload-release-action@133984371c30d34e38222a64855679a414cb7575
+        uses: svenstaro/upload-release-action@2b9d2847a97b04d02ad5c3df2d3a27baa97ce689
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}

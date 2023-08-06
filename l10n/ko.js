@@ -10,6 +10,7 @@ OC.L10N.register(
     "News" : "뉴스",
     "Shared with me" : "나와 공유됨",
     "An RSS/Atom feed reader" : "RSS/Atom 피드 리더",
+    "Last job ran {relativeTime}." : "마지막 작업이 {relativeTime}에 실행되었음",
     "Use system cron for updates" : "시스템 cron으로 업데이트",
     "Maximum read count per feed" : "피드당 최대 읽은 글 개수",
     "Maximum redirects" : "최대 넘겨주기 수",

@@ -12,6 +12,7 @@ OC.L10N.register(
     "News folders" : "Mape novic",
     "Shared with me" : "V souporabi z mano",
     "An RSS/Atom feed reader" : "Bralnik virov RSS/Atom",
+    "Last job ran {relativeTime}." : "osvežitev je bila nazadnje izvedena {relativeTime}.",
     "Use system cron for updates" : "Za posodobitve uporabi sistemski program »cron«",
     "Disable this if you use a custom updater." : "Možnost onemogočite, če uporabljate posodabljalnik po meri.",
     "Maximum read count per feed" : "Največje število prikazanih virov",
