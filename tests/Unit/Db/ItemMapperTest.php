@@ -419,7 +419,7 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('select')
-            ->with('items.*')
+            ->with('items.id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -528,7 +528,7 @@ class ItemMapperTest extends MapperTestUtility
             ->with('SQL QUERY')
             ->willReturn($result);
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->exactly(2))
             ->method('createParameter')
             ->will($this->returnArgument(0));
 
@@ -537,9 +537,9 @@ class ItemMapperTest extends MapperTestUtility
             ->with('news_items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->exactly(2))
             ->method('set')
-            ->with('unread', 'unread')
+            ->withConsecutive(['unread', 'unread'], ['last_modified', 'last_modified'])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
@@ -547,9 +547,9 @@ class ItemMapperTest extends MapperTestUtility
             ->withConsecutive(['id IN (:idList)'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['idList', [1, 2]], ['unread', false])
+            ->withConsecutive(['idList', [1, 2]], ['unread', false], ['last_modified'])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))

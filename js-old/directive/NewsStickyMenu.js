@@ -7,7 +7,7 @@
  * @author Bernhard Posselt <dev@bernhard-posselt.com>
  * @copyright Bernhard Posselt 2014
  */
-app.directive('newsStickyMenu', function () {
+app.directive('newsStickyMenu', function (NC_MAJOR_VERSION) {
     'use strict';
 
     return function (scope, elem, attr) {
@@ -18,7 +18,9 @@ app.directive('newsStickyMenu', function () {
 
             if (scrollHeight > height) {
                 elem.addClass('fixed');
-                elem.css('top', scrollHeight);
+                if (NC_MAJOR_VERSION < 25) {
+                    elem.css('top', scrollHeight);
+                }
             } else {
                 elem.removeClass('fixed');
             }

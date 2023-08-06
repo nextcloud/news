@@ -285,12 +285,15 @@ class ItemMapperV2 extends NewsMapperV2
             return intval($value['id']);
         }, $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll());
 
+        $time = new Time();
         $builder = $this->db->getQueryBuilder();
         $builder->update(self::TABLE_NAME)
             ->set('unread', $builder->createParameter('unread'))
+            ->set('last_modified', $builder->createParameter('last_modified'))
             ->andWhere('id IN (:idList)')
             ->setParameter('idList', $idList, IQueryBuilder::PARAM_INT_ARRAY)
-            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL);
+            ->setParameter('unread', false, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('last_modified', $time->getMicroTime(), IQueryBuilder::PARAM_STR);
 
         return $this->db->executeStatement(
             $builder->getSQL(),
@@ -311,7 +314,7 @@ class ItemMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
 
-        $builder->select('items.*')
+        $builder->select('items.id')
                 ->from($this->tableName, 'items')
                 ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                 ->where('feeds.user_id = :userId')

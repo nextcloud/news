@@ -35,6 +35,7 @@ OC.L10N.register(
     "No users found" : "Δεν βρέθηκαν χρήστες",
     "by" : "από",
     "from" : "από",
+    "shared by" : "σε κοινή χρήση από",
     "Play audio" : "Αναπαραγωγή ήχου",
     "Download audio" : "Λήψη ήχου",
     "Download video" : "Κατεβάστε το βίντεο",

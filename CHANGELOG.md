@@ -3,13 +3,82 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-## [20.x.x]
+## [23.x.x]
 ### Changed
 - Vue Rewrite
   - Add Typescript 
   - Add Jest for Unit Tests
 
 # Releases
+## [22.0.0] - 2023-07-23
+### Changed
+- Support deflate and gzip compression for HTTP response bodies (#2269)
+- Broke apart old FAQ into different guides. Deprecated old FAQ (#2285)
+
+## [22.0.0-beta2] - 2023-06-18
+### Changed
+-  allowEvalScript set to true (#2262)
+
+## [22.0.0-beta1] - 2023-05-18
+### Changed
+- Drop support for Nextcloud 24 (#2223)
+- Add support for Nextcloud 27 (#2223)
+
+## [21.2.0] - 2023-05-06
+### Changed
+- Improve visibility of links in dark theme (#2215)
+
+## [21.2.0-beta4] - 2023-04-16
+### Fixed
+- Fix audio player floating when scrolling in NC25+ (#2142)
+- Fix sorting of folder names in select when adding subscription (#2090)
+
+## [21.2.0-beta3] - 2023-04-16
+### Changed
+- Improve performance of item updates (#1322)
+### Fixed
+- Fix display issue in NC26+ (#2192)
+
+## [21.2.0-beta2] - 2023-04-05
+### Fixed
+- Fix last_modified not updated when all items are marked as read (#2183)
+
+## [21.2.0-beta1] - 2023-03-23
+### Changed
+- Use httpLastModified field for If-Modified-Since header when fetching feed updates (#2119)
+
+## [21.1.0] - 2023-03-20
+No notable changes compared 21.1.0-beta1
+
+## [21.1.0-beta1] - 2023-03-13
+### Changed
+- Remove unused background job OCA\News\Cron\Updater (#2137)
+- (Nextcloud 26+) Add info card to the admin settings, showing last job execution (#2141)
+
+## [21.0.0] - 2023-02-28
+No notable changes compared 21.0.0-beta1
+
+## [21.0.0-beta1] - 2023-02-14
+### Changed
+- Drop support for Nextcloud 23 (#2077 )
+- Make the "open" keyboard shortcut work faster (#2080)
+- Implemented search for articles, results can only link to the feed. (#2075)
+### Fixed
+- Stop errors from the favicon library over empty values (#2096)
+
+## [20.0.1] - 2023-01-19
+### Fixed
+- SyntaxError triggered when full-text is enabled with some items. (#2048, #2053)
+
+## [20.0.0] - 2022-12-14
+### Changed
+- Drop support for PHP 7.3 (#2008)
+- Dependency updates
+
+## [19.0.1] - 2022-12-01
+### Changed
+- Dependency updates
+
 ## [19.0.0] - 2022-10-25
 ### Fixed
 - Fix nested scrollbars in navigation (#411, #1958)

@@ -77,7 +77,7 @@ class FolderSearchProviderTest extends TestCase
 
     public function testGetOrderInternal()
     {
-        $this->assertSame(-1, $this->class->getOrder('news.page.index', []));
+        $this->assertSame(0, $this->class->getOrder('news.page.index', []));
     }
 
     public function testSearch()

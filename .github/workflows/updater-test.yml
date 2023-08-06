@@ -1,0 +1,80 @@
+name: Updater Tests
+on:
+  pull_request
+
+env:
+  POSTGRES_PASSWORD: nc_test_db
+  MYSQL_USER: nc_test
+  MYSQL_PASSWORD: nc_test_db
+  MYSQL_DATABASE: nc_test
+  MYSQL_PORT: 3800
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    name: "Update Test: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }}"
+    strategy:
+      matrix:
+        php-versions: ['8.1']
+        nextcloud: ['stable27']
+        database: ['sqlite']
+        experimental: [false]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
+          coverage: none
+
+      - name: Setup BATS & httpie
+        run: sudo apt-get install -y httpie && npm install -g bats@1.7.0
+
+      - name: Set up server
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        with:
+          version: ${{ matrix.nextcloud }}
+          cron: true
+          database-type: ${{ matrix.database }}
+          database-host: localhost
+          database-port: 5432
+          database-name: postgres
+          database-user: postgres
+          database-password: ${{ env.POSTGRES_PASSWORD }}
+
+      - name: Prime app build
+        run: make
+
+      - name: Configure server with app
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        with:
+          app: 'news'
+          check-code: false
+          force: ${{ matrix.experimental }}
+
+      - name: Install composer install php-feed-generator
+        working-directory: ../server
+        run: composer install -d apps/news/tests/test_helper/php-feed-generator
+
+      - name: Run Updater tests
+        working-directory: ../server
+        run: |
+          php -S localhost:8080 &> /tmp/webserver.log &
+          cd apps/news/tests/test_helper/feeds && php -S localhost:8090 &> /tmp/feedserver.log &
+
+          sleep 2
+
+          cd ${{ github.workspace }}/../server
+                  
+          bats apps/news/tests/updater
+
+          # Kill php server
+          kill %1
+          kill %2
+

@@ -36,7 +36,7 @@
                     ng-if="!Navigation.showNewFolder"
                     ng-model="Navigation.feed.existingFolder"
                     ng-options="folder.name for folder in
-                        Navigation.getFolders() track by folder.name">
+                        Navigation.getFolders() | orderBy:'name.toLowerCase()':false:localeComparator track by folder.name">
                     <option value=""
                         >-- <?php p($l->t('No folder')); ?> --</option>
                 </select>

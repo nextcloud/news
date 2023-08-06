@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "Unread articles" : "Oxunulmamış məqalə",
+    "Last job ran {relativeTime}." : "Son işin icra vaxtı {relativeTime}.",
     "Download" : "Yüklə",
     "Close" : "Bağla",
     "Share" : "Paylaş",
@@ -30,6 +31,7 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Oxunulmamış/Ulduzlanmış məqalələr",
     "Error when importing: file does not contain valid JSON" : "Yüklənmədə səhv: faylda düzgün JSON yoxdur",
     "Help" : "Kömək",
-    "Documentation" : "Sənədlər"
+    "Documentation" : "Sənədlər",
+    "Report a bug" : "Səhv haqqında bildir"
 },
 "nplurals=2; plural=(n != 1);");
