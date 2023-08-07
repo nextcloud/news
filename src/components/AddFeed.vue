@@ -116,7 +116,6 @@ type AddFeedState = {
 	autoDiscover: boolean;
 	createNewFolder: boolean;
 	withBasicAuth: boolean;
-    // feedUrlExists: boolean;
 
 	// from props
 	feedUrl?: String;
@@ -132,12 +131,6 @@ export default Vue.extend({
 		NcMultiselect,
         NcSelect
 	},
-	// props: {
-	// 	feed: {
-	// 		type: String,
-	// 		default: '',
-	// 	},
-	// },
 	data: (): AddFeedState => {
 		return {
 			folder: undefined,
@@ -153,7 +146,6 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-        // ...mapState(['folders']),
 		folders(): Folder[] {
 			return this.$store.state.folders.folders
 		},
