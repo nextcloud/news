@@ -155,7 +155,7 @@ class FolderServiceV2 extends Service
     public function markDelete(string $userId, int $folderId, bool $mark): Entity
     {
         $folder = $this->find($userId, $folderId);
-        $time = $mark ? $this->timeFactory->getTime() : 0;
+        $time = $mark ? $this->timeFactory->now()->getTimestamp() : 0;
         $folder->setDeletedAt($time);
 
         return $this->mapper->update($folder);
