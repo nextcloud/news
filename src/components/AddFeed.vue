@@ -185,10 +185,10 @@ export default Vue.extend({
         folderNameExists(): boolean {
             if (this.createNewFolder) {
                 for (let folder of this.$store.state.folders.folders) {
-                if (folder.name === this.newFolderName) {
-                    return true;
+                    if (folder.name === this.newFolderName) {
+                        return true;
+                    }
                 }
-            }
             }
             return false;
         }
