@@ -34,7 +34,10 @@ export const actions = {
 
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
 	},
-	async [FEED_ACTION_TYPES.ADD_FEED]({ commit }: ActionParams, { feedReq }: { feedReq: { url: string; folder?: { id: number } } }) {
+	async [FEED_ACTION_TYPES.ADD_FEED](
+		{ commit }: ActionParams, 
+		{ feedReq }: { feedReq: { url: string; folder?: { id: number }, user?: string; password?: string; } })
+	{
 		let url = feedReq.url.trim()
 		if (!url.startsWith('http')) {
 			url = 'https://' + url
@@ -60,8 +63,8 @@ export const actions = {
 				url: feed.url,
 				parentFolderId: feed.folderId,
 				title: null,
-				user: null,
-				password: null,
+				user: feedReq.user ? feedReq.user : null,
+				password: feedReq.password ? feedReq.password : null,
 				fullDiscover: feed.autoDiscover,
 			})
 

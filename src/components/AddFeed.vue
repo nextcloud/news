@@ -1,13 +1,12 @@
 <template>
 	<NcModal @close="$emit('close')">
-		<div id="new-feed" news-add-feed="Navigation.feed">
-			<form ng-submit="Navigation.createFeed(Navigation.feed)"
-				ng-init="Navigation.feed.autoDiscover=true"
-				name="feedform">
-				<fieldset ng-disabled="Navigation.addingFeed" style="padding: 16px">
+		<div id="new-feed">
+			<form name="feedform">
+				<fieldset style="padding: 16px">
 					<input type="text"
 						v-model="feedUrl"
 						:placeholder="t('news', 'Web address')"
+                        :class="{ 'invalid': feedUrlExists() }"
 						name="address"
 						pattern="[^\s]+"
 						required
@@ -23,7 +22,7 @@
                     <div style="display:flex;">
                         <NcSelect v-if="!createNewFolder && folders"
                             v-model="folder"
-                            :options="folders.folders"
+                            :options="folders"
                             :placeholder="'-- ' + t('news', 'No folder') + ' --'"
                             track-by="id"
                             label="name"
@@ -33,12 +32,7 @@
                         <input v-if="createNewFolder"
                             type="text"
                             v-model="newFolderName"
-                            ng-class="{'ng-invalid':
-                                                            !Navigation.addingFeed &&
-                                                            !Navigation.addingFeed &&
-                                                            Navigation.showNewFolder &&
-                                                            Navigation.folderNameExists(Navigation.feed.newFolder)
-                                                }"
+                            :class="{ 'invalid': folderNameExists() }"
                             :placeholder="t('news', 'Folder name')"
                             name="folderName"
                             style="flex-grow: 1; padding: 22px 12px; margin: 0px;"
@@ -71,14 +65,14 @@
 
                         <div v-if="withBasicAuth" class="add-feed-basicauth" style="flex-grow: 1;  display: flex;">
                             <input type="text"
-                                ng-model="Navigation.feed.user"
+                                v-model="feedUser"
                                 :placeholder="t('news', 'Username')"
                                 name="user"
                                 autofocus
                                 style="flex-grow: 1">
 
                             <input type="password"
-                                ng-model="Navigation.feed.password"
+                                v-model="feedPassword"
                                 :placeholder="t('news', 'Password')"
                                 name="password"
                                 autocomplete="new-password"
@@ -113,10 +107,7 @@ import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
 import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 import { Folder } from '../types/Folder'
-import { Feed } from '../types/Feed'
 import { ACTIONS } from '../store'
-import { mapState } from 'vuex'
-import axios from 'axios'
 
 type AddFeedState = {
 	folder?: Folder;
@@ -129,6 +120,8 @@ type AddFeedState = {
 
 	// from props
 	feedUrl?: String;
+    feedUser?: String;
+    feedPassword?: String;
 };
 
 export default Vue.extend({
@@ -154,13 +147,15 @@ export default Vue.extend({
 			createNewFolder: false,
 			withBasicAuth: false,
 
-            feedUrl: ''
+            feedUrl: '',
+            feedUser: '',
+            feedPassword: ''
 		}
 	},
 	computed: {
         // ...mapState(['folders']),
 		folders(): Folder[] {
-			return this.$store.state.folders
+			return this.$store.state.folders.folders
 		},
         disableAddFeed(): boolean {
             return this.feed === "" || this.feedUrlExists() || (this.createNewFolder && this.newFolderName === "" || this.folderNameExists())
@@ -179,20 +174,30 @@ export default Vue.extend({
 					url: this.feedUrl,
 					folder: this.createNewFolder ? { name: this.newFolderName } : this.folder,
 					autoDiscover: this.autoDiscover,
+                    user: this.feedUser === '' ? undefined : this.feedUser,
+                    password: this.feedPassword === '' ? undefined : this.feedPassword
 				},
 			});
             this.$emit('close');
 		},
 
         feedUrlExists(): boolean {
-            // TODO: check feed url
-            console.log(this.feedUrl);
+            for (let feed of this.$store.state.feeds.feeds) {
+                if (feed.url === this.feedUrl) {
+                    return true;
+                }
+            }
 
             return false;
         },
         folderNameExists(): boolean {
-            // TODO: check folder name
-            console.log(this.newFolderName)
+            if (this.createNewFolder) {
+                for (let folder of this.$store.state.folders.folders) {
+                if (folder.name === this.newFolderName) {
+                    return true;
+                }
+            }
+            }
             return false;
         }
 	},
@@ -201,11 +206,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-/* input {
-    width: 100%
+.invalid {
+    border: 1px solid rgb(251, 72, 72) !important;
 }
-
-.multiselect {
-    width: 100% 
-}*/
 </style>

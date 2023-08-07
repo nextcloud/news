@@ -102,7 +102,7 @@
 					</NcAppNavigationItem>
 				</template>
 				<template v-if="topLevelItem.feedCount > 0" #counter>
-					<CounterBubble>{{ topLevelItem.feedCount }}</CounterBubble>
+					<NcCounterBubble>{{ topLevelItem.feedCount }}</NcCounterBubble>
 				</template>
 				<template #actions>
 					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark read')">
