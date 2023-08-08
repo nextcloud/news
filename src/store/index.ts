@@ -1,7 +1,8 @@
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
-import feeds, { FEED_MUTATION_TYPES, FEED_ACTION_TYPES } from './feed'
-import folders, { FOLDER_MUTATION_TYPES, FOLDER_ACTION_TYPES } from './folder'
+import feeds, { FEED_ACTION_TYPES } from './feed'
+import folders, { FOLDER_ACTION_TYPES } from './folder'
+import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
 
 export const MUTATIONS = {
 	...FEED_MUTATION_TYPES,

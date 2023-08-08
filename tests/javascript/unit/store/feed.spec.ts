@@ -1,7 +1,9 @@
 import axios from '@nextcloud/axios'
 import { Feed } from '../../../../src/types/Feed'
 import { AppState } from '../../../../src/store'
-import { FEED_ACTION_TYPES, FEED_MUTATION_TYPES, mutations, actions } from '../../../../src/store/feed'
+import { FEED_ACTION_TYPES, mutations, actions } from '../../../../src/store/feed'
+
+import { FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
 jest.mock('@nextcloud/axios')
 

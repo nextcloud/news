@@ -2,7 +2,8 @@ import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 import { Folder } from '../../../../src/types/Folder'
 import { AppState } from '../../../../src/store'
-import { FOLDER_ACTION_TYPES, FOLDER_MUTATION_TYPES, mutations, actions } from '../../../../src/store/folder'
+import { FOLDER_ACTION_TYPES, mutations, actions } from '../../../../src/store/folder'
+import { FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
 jest.mock('@nextcloud/axios')
 jest.mock('@nextcloud/router')
