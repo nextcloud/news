@@ -117,7 +117,6 @@ type AddFeedState = {
   createNewFolder: boolean;
   withBasicAuth: boolean;
 
-  // from props
   feedUrl?: String;
   feedUser?: String;
   feedPassword?: String;
@@ -154,6 +153,9 @@ export default Vue.extend({
     }
   },
   methods: {
+    /**
+     * Adds a New Feed via the Vuex Store
+     */
     async addFeed() {
       this.$store.dispatch(ACTIONS.ADD_FEED, {
         feedReq: {
@@ -167,24 +169,30 @@ export default Vue.extend({
 
       this.$emit('close');
     },
+    /**
+     * Checks if Feed Url exists in Vuex Store Feeds
+     */
     feedUrlExists(): boolean {
-        for (let feed of this.$store.state.feeds.feeds) {
-            if (feed.url === this.feedUrl) {
-                return true;
-            }
+      for (let feed of this.$store.state.feeds.feeds) {
+        if (feed.url === this.feedUrl) {
+          return true;
         }
+      }
 
-        return false;
+      return false;
     },
+    /**
+     * Check if Folder Name exists in Vuex Store Folders
+     */
     folderNameExists(): boolean {
-        if (this.createNewFolder) {
-            for (let folder of this.$store.state.folders.folders) {
-                if (folder.name === this.newFolderName) {
-                    return true;
-                }
-            }
+      if (this.createNewFolder) {
+        for (let folder of this.$store.state.folders.folders) {
+          if (folder.name === this.newFolderName) {
+            return true;
+          }
         }
-        return false;
+      }
+      return false;
     }
   },
 })
