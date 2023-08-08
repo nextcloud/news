@@ -3,8 +3,8 @@
 		<div id="new-feed">
 			<form name="feedform">
 				<fieldset style="padding: 16px">
-					<input type="text"
-						v-model="feedUrl"
+					<input v-model="feedUrl"
+						type="text"
 						:placeholder="t('news', 'Web address')"
 						:class="{ 'invalid': feedUrlExists() }"
 						name="address"
@@ -13,10 +13,9 @@
 						autofocus
 						style="width: 90%;">
 
-					<p class="error" v-if="feedUrlExists()">
+					<p v-if="feedUrlExists()" class="error">
 						{{ t("news", "Feed exists already!") }}
 					</p>
-										
 
 					<!-- select a folder -->
 					<div style="display:flex;">
@@ -30,8 +29,8 @@
 
 						<!-- add a folder -->
 						<input v-if="createNewFolder"
-							type="text"
 							v-model="newFolderName"
+							type="text"
 							:class="{ 'invalid': folderNameExists() }"
 							:placeholder="t('news', 'Folder name')"
 							name="folderName"
@@ -39,13 +38,13 @@
 							required>
 
 						<NcCheckboxRadioSwitch :checked.sync="createNewFolder" type="switch">
-								{{ t("news", "New folder") }}?
+							{{ t("news", "New folder") }}?
 						</NcCheckboxRadioSwitch>
 					</div>
 
-					<p class="error"
-							v-if="folderNameExists()">
-							{{ t("news", "Folder exists already!") }}
+					<p v-if="folderNameExists()"
+						class="error">
+						{{ t("news", "Folder exists already!") }}
 					</p>
 
 					<!-- basic auth -->
@@ -60,19 +59,19 @@
 
 					<div style="display: flex">
 						<NcCheckboxRadioSwitch :checked.sync="withBasicAuth" type="switch" style="flex-grow: 1;">
-								{{ t("news", "Credentials") }}?
+							{{ t("news", "Credentials") }}?
 						</NcCheckboxRadioSwitch>
 
 						<div v-if="withBasicAuth" class="add-feed-basicauth" style="flex-grow: 1;  display: flex;">
-							<input type="text"
-								v-model="feedUser"
+							<input v-model="feedUser"
+								type="text"
 								:placeholder="t('news', 'Username')"
 								name="user"
 								autofocus
 								style="flex-grow: 1">
 
-							<input type="password"
-								v-model="feedPassword"
+							<input v-model="feedPassword"
+								type="password"
 								:placeholder="t('news', 'Password')"
 								name="password"
 								autocomplete="new-password"
@@ -103,7 +102,6 @@ import Vue from 'vue'
 import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcMultiselect from '@nextcloud/vue/dist/Components/NcMultiselect.js'
 import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 import { Folder } from '../types/Folder'
@@ -111,15 +109,15 @@ import { ACTIONS } from '../store'
 
 type AddFeedState = {
 	folder?: Folder;
-	newFolderName: String;
+	newFolderName: string;
 
 	autoDiscover: boolean;
 	createNewFolder: boolean;
 	withBasicAuth: boolean;
 
-	feedUrl?: String;
-	feedUser?: String;
-	feedPassword?: String;
+	feedUrl?: string;
+	feedUser?: string;
+	feedPassword?: string;
 };
 
 export default Vue.extend({
@@ -127,8 +125,7 @@ export default Vue.extend({
 		NcModal,
 		NcCheckboxRadioSwitch,
 		NcButton,
-		NcMultiselect,
-		NcSelect
+		NcSelect,
 	},
 	data: (): AddFeedState => {
 		return {
@@ -141,7 +138,7 @@ export default Vue.extend({
 
 			feedUrl: '',
 			feedUser: '',
-			feedPassword: ''
+			feedPassword: '',
 		}
 	},
 	computed: {
@@ -149,8 +146,10 @@ export default Vue.extend({
 			return this.$store.state.folders.folders
 		},
 		disableAddFeed(): boolean {
-				return this.feed === "" || this.feedUrlExists() || (this.createNewFolder && this.newFolderName === "" || this.folderNameExists())
-		}
+			return (this.feed === ''
+						|| this.feedUrlExists()
+						|| (this.createNewFolder && (this.newFolderName === '' || this.folderNameExists())))
+		},
 	},
 	methods: {
 		/**
@@ -163,37 +162,37 @@ export default Vue.extend({
 					folder: this.createNewFolder ? { name: this.newFolderName } : this.folder,
 					autoDiscover: this.autoDiscover,
 					user: this.feedUser === '' ? undefined : this.feedUser,
-					password: this.feedPassword === '' ? undefined : this.feedPassword
+					password: this.feedPassword === '' ? undefined : this.feedPassword,
 				},
-			});
+			})
 
-			this.$emit('close');
+			this.$emit('close')
 		},
 		/**
 		 * Checks if Feed Url exists in Vuex Store Feeds
 		 */
 		feedUrlExists(): boolean {
-			for (let feed of this.$store.state.feeds.feeds) {
+			for (const feed of this.$store.state.feeds.feeds) {
 				if (feed.url === this.feedUrl) {
-					return true;
+					return true
 				}
 			}
 
-			return false;
+			return false
 		},
 		/**
 		 * Check if Folder Name exists in Vuex Store Folders
 		 */
 		folderNameExists(): boolean {
 			if (this.createNewFolder) {
-				for (let folder of this.$store.state.folders.folders) {
+				for (const folder of this.$store.state.folders.folders) {
 					if (folder.name === this.newFolderName) {
-						return true;
+						return true
 					}
 				}
 			}
-			return false;
-		}
+			return false
+		},
 	},
 })
 

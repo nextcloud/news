@@ -35,9 +35,8 @@ export const actions = {
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
 	},
 	async [FEED_ACTION_TYPES.ADD_FEED](
-		{ commit }: ActionParams, 
-		{ feedReq }: { feedReq: { url: string; folder?: { id: number }, user?: string; password?: string; } })
-	{
+		{ commit }: ActionParams,
+		{ feedReq }: { feedReq: { url: string; folder?: { id: number }, user?: string; password?: string; } }) {
 		let url = feedReq.url.trim()
 		if (!url.startsWith('http')) {
 			url = 'https://' + url
@@ -69,10 +68,10 @@ export const actions = {
 			})
 
 			commit(FEED_MUTATION_TYPES.ADD_FEED, response.data.feeds[0])
-		} catch(e) {
-				// TODO: show error to user if failure
-				console.log(e);
-				return;
+		} catch (e) {
+			// TODO: show error to user if failure
+			console.log(e)
+
 		}
 	},
 }
@@ -84,8 +83,8 @@ export const mutations = {
 		})
 	},
 	[FEED_MUTATION_TYPES.ADD_FEED](state: AppState, feed: Feed) {
-		state.feeds.push(feed);
-	}
+		state.feeds.push(feed)
+	},
 }
 
 export default {
