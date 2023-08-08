@@ -154,13 +154,7 @@ export default Vue.extend({
         }
 	},
 	methods: {
-        created() {
-
-        },
-
 		async addFeed() {
-            let url = this.feedUrl;
-
 			this.$store.dispatch(ACTIONS.ADD_FEED, {
 				feedReq: {
 					url: this.feedUrl,
@@ -170,6 +164,7 @@ export default Vue.extend({
                     password: this.feedPassword === '' ? undefined : this.feedPassword
 				},
 			});
+
             this.$emit('close');
 		},
 
