@@ -33,7 +33,6 @@
 				</template>
 			</NcAppNavigationItem>
 
-            
 			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
 				:key="topLevelItem.name || topLevelItem.title"
 				:title="topLevelItem.name || topLevelItem.title"

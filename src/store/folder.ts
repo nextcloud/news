@@ -1,9 +1,9 @@
-import { Feed } from '@/types/Feed'
 import axios from '@nextcloud/axios'
 import { generateUrl } from '@nextcloud/router'
 
 import { AppState, ActionParams } from '../store'
 import { Folder } from '../types/Folder'
+import { Feed } from '../types/Feed'
 import { FEED_MUTATION_TYPES } from './feed'
 
 export const FOLDER_ACTION_TYPES = {
@@ -72,7 +72,7 @@ export const mutations = {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
 			}
-		});
+		})
 	},
 	[FEED_MUTATION_TYPES.ADD_FEED](state: AppState, feed: Feed) {
 		const folder = state.folders.find(folder => folder.id === feed.folderId)
@@ -80,7 +80,7 @@ export const mutations = {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
 		}
-	}
+	},
 }
 
 export default {
