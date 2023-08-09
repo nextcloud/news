@@ -28,25 +28,25 @@ export const actions = {
 	},
 	async [FEED_ACTION_TYPES.ADD_FEED](
 		{ commit }: ActionParams,
-		{ feedReq }: { 
-			feedReq: { 
-				url: string; 
-				folder?: { id: number; name?: string; }, 
-				user?: string; 
-				password?: string; 
-			} 
-		}
+		{ feedReq }: {
+			feedReq: {
+				url: string;
+				folder?: { id: number; name?: string; },
+				user?: string;
+				password?: string;
+			}
+		},
 	) {
 		let url = feedReq.url.trim()
 		if (!url.startsWith('http')) {
 			url = 'https://' + url
 		}
 
-		let folderId;
+		let folderId
 		if (feedReq.folder?.id === undefined && feedReq.folder?.name && feedReq.folder?.name !== '') {
 			const response = await axios.post(API_ROUTES.FOLDER, { folderName: feedReq.folder?.name })
-			folderId = response.data.folders[0].id;
-			commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders);
+			folderId = response.data.folders[0].id
+			commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 		} else {
 			folderId = feedReq.folder?.id || 0
 		}

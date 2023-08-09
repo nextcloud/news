@@ -1,4 +1,3 @@
-
 export const FEED_MUTATION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
 	SET_FEEDS: 'SET_FEEDS',
