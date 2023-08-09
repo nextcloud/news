@@ -5,15 +5,15 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [23.x.x]
 ### Changed
-- Drop support for PHP 7.4 new min. version is php 8.0
-- Upgrade feed-io to v5.1.3
-### Fixed
-
-## [22.x.x]
 
 ### Fixed
 
 # Releases
+## [23.0.0-beta1] - 2023-08-09
+### Changed
+- Drop support for PHP 7.4 new min. version is php 8.0 (#2237)
+- Upgrade feed-io to v5.1.3 (#2238)
+
 ## [22.0.0] - 2023-07-23
 ### Changed
 - Support deflate and gzip compression for HTTP response bodies (#2269)
