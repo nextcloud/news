@@ -146,7 +146,7 @@ export default Vue.extend({
 			return this.$store.state.folders.folders
 		},
 		disableAddFeed(): boolean {
-			return (this.feed === ''
+			return (this.feedUrl === ''
 						|| this.feedUrlExists()
 						|| (this.createNewFolder && (this.newFolderName === '' || this.folderNameExists())))
 		},
