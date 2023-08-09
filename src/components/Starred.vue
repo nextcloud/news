@@ -1,20 +1,30 @@
 <template>
-	<div id="starred">
-		Starred Items Here
+	<div>
+		Starred Items:
+		<div v-for="item in items.starredItems" :key="item.id">
+			{{ item.title }}
+		</div>
 	</div>
 </template>
 
-<script>
-// import axios from "@nextcloud/axios";
-// import { generateUrl } from "@nextcloud/router";
+<script lang="ts">
+import { FEED_ITEM_ACTION_TYPES } from '../store/item'
+import { mapState } from 'vuex'
+
 export default {
 	components: {
 	},
 	props: {
 
 	},
-	created() {
-		// this.fetchStarred();
+	computed: {
+		...mapState(['items']),
+		// starred(): any[] {
+		// return this.$store.state.items.starredItems
+		// },
+	},
+	async created() {
+		await this.$store.dispatch(FEED_ITEM_ACTION_TYPES.FETCH_STARRED)
 	},
 	methods: {
 		async fetchStarred() {

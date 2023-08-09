@@ -58,7 +58,7 @@ export const mutations = {
 	},
 	[FEED_MUTATION_TYPES.SET_FEEDS](state: AppState, feeds: Feed[]) {
 		feeds.forEach(it => {
-			const folder = state.folders.find(folder => folder.id === it.folderId)
+			const folder = state.folders.find((folder: Folder) => { return folder.id === it.folderId })
 			if (folder) {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
@@ -66,7 +66,7 @@ export const mutations = {
 		})
 	},
 	[FEED_MUTATION_TYPES.ADD_FEED](state: AppState, feed: Feed) {
-		const folder = state.folders.find(folder => folder.id === feed.folderId)
+		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
 		if (folder) {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
