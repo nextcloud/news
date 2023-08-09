@@ -66,8 +66,9 @@ class FolderServiceTest extends TestCase
     {
         $this->time = 222;
 
-        $timeFactoryBuilder = $this->getMockBuilder(TimeFactory::class)
-            ->disableOriginalConstructor();
+        $timeFactory = $this->getMockBuilder(TimeFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $mockDateTime = $this->getMockBuilder(\DateTimeImmutable::class)
             ->disableOriginalConstructor()
