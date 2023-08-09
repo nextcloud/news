@@ -7,10 +7,12 @@ jobs:
   php:
     runs-on: ubuntu-latest
     continue-on-error: false
-    name: "Coverage: Nextcloud PHP ${{ matrix.php-versions }}"
+    name: "Coverage: Nextcloud ${{ matrix.nextcloud }} PHP ${{ matrix.php-version }}"
     strategy:
       matrix:
         nextcloud: ['stable27']
+        codecoverage: [true]
+        php-version: ["8.1"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -18,7 +20,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'
+          php-version: ${{ matrix.php-version }}
 
       ### Back to normal setup
       - name: Set up server non MySQL
@@ -39,7 +41,11 @@ jobs:
 
       - name: Prep PHP tests
         run: cd ../server/apps/news && make php-test-dependencies
+      
       - name: Unittests
         run: cd ../server/apps/news && make unit-test
+        env:
+          CODECOVERAGE: ${{ matrix.codecoverage }}
+      
       - name: Upload codecoverage
         run: cd ../server/apps/news && bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover
