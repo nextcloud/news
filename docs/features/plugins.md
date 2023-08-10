@@ -200,11 +200,3 @@ class Application extends App {
 
 Using automatic container assembly you can then use it from your code by simply adding the type to your constructors.
 
-
-### Examples
-Client-side plugins:
-
-* [Mail Share](https://github.com/cosenal/mailsharenewsplugin): Client-side plugin to share articles by email
-Server-side plugins:
-
-* [Feed Central](https://github.com/Raydiation/feedcentral): Publish your feeds as RSS
