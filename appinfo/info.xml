@@ -21,7 +21,7 @@ Create a [feature request](https://github.com/nextcloud/news/discussions/new)
 
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>23.0.0</version>
+    <version>24.0.0</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -55,7 +55,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <lib>json</lib>
 
         <owncloud max-version="0" min-version="0"/>
-        <nextcloud min-version="25" max-version="27"/>
+        <nextcloud min-version="26" max-version="27"/>
     </dependencies>
 
     <background-jobs>

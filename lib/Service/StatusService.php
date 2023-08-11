@@ -92,12 +92,8 @@ class StatusService
 
         $time = 0;
 
-        [$major, $minor, $micro] = Util::getVersion();
-        
-        if ($major >= 26) {
-            $myJobList = $this->jobList->getJobsIterator(UpdaterJob::class, 1, 0);
-            $time = $myJobList->current()->getLastRun();
-        }
+        $myJobList = $this->jobList->getJobsIterator(UpdaterJob::class, 1, 0);
+        $time = $myJobList->current()->getLastRun();
         
         return $time;
     }
