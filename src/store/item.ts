@@ -13,6 +13,8 @@ export type ItemState = {
 	fetchingItems: boolean;
 	starredLoaded: boolean;
 
+	starredCount: number;
+
 	allItems: FeedItem[];
 	starredItems: FeedItem[];
 }
@@ -20,6 +22,8 @@ export type ItemState = {
 const state: ItemState = {
 	fetchingItems: false,
 	starredLoaded: false,
+
+	starredCount: 0,
 
 	allItems: [],
 	starredItems: [],
@@ -46,6 +50,7 @@ export const actions = {
 		})
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED, response.data.items)
+		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, response.data.starred)
 
 		if (response.data.items.length < 40) {
 			state.starredLoaded = true
@@ -60,6 +65,10 @@ export const mutations = {
 			state.starredItems.push(it)
 		})
 	},
+	[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT](state: ItemState, count: number) {
+		state.starredCount = count
+	},
+
 }
 
 export default {
