@@ -1,18 +1,24 @@
 <template>
-	<div>
-		Starred Items:
-		<div v-for="item in items.starredItems" :key="item.id">
-			{{ item.title }}
-		</div>
+	<div style="margin-top: 40px;">
+		<VirtualScroll :reached-end="items.starredLoaded">
+			<template v-if="items.starredItems && items.starredItems.length > 0">
+				<template v-for="item in items.starredItems">
+					<FeedItem :key="item.id" :item="item" />
+				</template>
+			</template>
+		</VirtualScroll>
 	</div>
 </template>
 
 <script lang="ts">
-import { FEED_ITEM_ACTION_TYPES } from '../store/item'
 import { mapState } from 'vuex'
+import FeedItem from './FeedItem.vue'
+import VirtualScroll from './VirtualScroll.vue'
 
 export default {
 	components: {
+		VirtualScroll,
+		FeedItem,
 	},
 	props: {
 
@@ -24,7 +30,7 @@ export default {
 		// },
 	},
 	async created() {
-		await this.$store.dispatch(FEED_ITEM_ACTION_TYPES.FETCH_STARRED)
+		// TODO: ?
 	},
 	methods: {
 		async fetchStarred() {
