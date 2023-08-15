@@ -29,7 +29,7 @@
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :title="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
 				<template #counter>
-					<NcCounterBubble>35</NcCounterBubble>
+					<NcCounterBubble>{{ items.starredCount }}</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
 
@@ -178,7 +178,7 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		...mapState(['feeds', 'folders']),
+		...mapState(['feeds', 'folders', 'items']),
 		...mapState(SideBarState),
 	},
 	created() {
