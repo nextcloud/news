@@ -24,6 +24,7 @@ export default Vue.extend({
 	async created() {
 		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
 		await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+		await this.$store.dispatch(ACTIONS.FETCH_STARRED)
 	},
 })
 </script>
