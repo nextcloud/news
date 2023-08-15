@@ -1,6 +1,6 @@
 <template>
-	<div class="feed-item-container" style="padding: 5px 10px;" @click="expand()">
-		<div style="display: flex;">
+	<div class="feed-item-container" @click="expand()">
+		<div class="feed-item-row" style="display: flex; padding: 5px 10px;">
 			<div style="padding: 0px 5px;">
 				<EarthIcon />
 			</div>
@@ -16,7 +16,10 @@
 			</div>
 		</div>
 
-		<div v-if="isExpanded" v-html="item.body" />
+		<div v-if="isExpanded" style="padding: 5px 10px;">
+			<div class="feed-item-author" v-if="item.author != undefined" v-html="item.author" />
+			<div v-html="item.body" />
+		</div>
 	</div>
 </template>
 
@@ -62,6 +65,14 @@ export default {
 <style>
 	.feed-item-container, .feed-item-container * {
 		cursor: pointer;
+	}
+
+	.feed-item-container {
+		border-bottom: 1px solid #222;
+	}
+
+	.feed-item-row:hover {
+		background-color: #222;
 	}
 
 	.material-design-icon {
