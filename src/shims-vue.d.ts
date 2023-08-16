@@ -10,3 +10,6 @@ declare module '*.vue' {
 declare module '@nextcloud/vue/dist/Components/*' {
 
 };
+
+// Necessary to access translate in typescript components
+function t(app, key) { }
