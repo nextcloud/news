@@ -122,14 +122,4 @@ export default {
 	position: relative;
 	overflow-y: scroll;
 }
-
-.bookmarkslist--gridview .container-window {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-content: start;
-	gap: 10px;
-	padding: 0 10px;
-	padding-top: 10px;
-}
 </style>

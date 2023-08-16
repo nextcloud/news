@@ -129,7 +129,7 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import { Feed } from '../types/Feed'
 import { FeedItem } from '../types/FeedItem'
-import { ACTIONS, MUTATIONS } from '../store'
+import { ACTIONS } from '../store'
 
 export default Vue.extend({
 	name: 'FeedItem',
