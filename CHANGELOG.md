@@ -9,10 +9,15 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [23.0.0] - 2023-08-16
+No notable changes compared to 23.0.0-beta1
+
 ## [23.0.0-beta1] - 2023-08-09
 ### Changed
 - Drop support for PHP 7.4 new min. version is php 8.0 (#2237)
 - Upgrade feed-io to v5.1.3 (#2238)
+### Fixed
+- Some feeds missing items (#2236)
 
 ## [22.0.0] - 2023-07-23
 ### Changed
@@ -52,7 +57,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Use httpLastModified field for If-Modified-Since header when fetching feed updates (#2119)
 
 ## [21.1.0] - 2023-03-20
-No notable changes compared 21.1.0-beta1
+No notable changes compared to 21.1.0-beta1
 
 ## [21.1.0-beta1] - 2023-03-13
 ### Changed
@@ -60,7 +65,7 @@ No notable changes compared 21.1.0-beta1
 - (Nextcloud 26+) Add info card to the admin settings, showing last job execution (#2141)
 
 ## [21.0.0] - 2023-02-28
-No notable changes compared 21.0.0-beta1
+No notable changes compared to 21.0.0-beta1
 
 ## [21.0.0-beta1] - 2023-02-14
 ### Changed
