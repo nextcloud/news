@@ -5,24 +5,28 @@
   -->
 
 <template>
-	<div :class="{
-			item: true,
-		}"
-		:style="{ background: 'var(--color-placeholder-dark)', height: '45px'}">
+	<div class="item-skeleton">
 		<div class="item__labels" />
 		<div class="item__actions" />
 	</div>
 </template>
-<script>
 
-export default {
+<script>
+import Vue from 'vue'
+
+export default Vue.extend({
 	name: 'ItemSkeleton',
 	components: {
 	},
 	computed: {
-		viewMode() {
-			return this.$store.state.settings.viewMode
-		},
+
 	},
-}
+})
 </script>
+
+<style>
+.item-skeleton {
+	background: 'var(--color-placeholder-dark)';
+	height: '45px';
+}
+</style>

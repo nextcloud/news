@@ -9,6 +9,7 @@ config.mocks.$t = function(_app: any, string: any) {
 	return string
 }
 config.mocks.t = config.mocks.$t
+global.t = config.mocks.$t
 
 config.mocks.$n = function(app: any, singular: any) {
 	return singular

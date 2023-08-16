@@ -197,7 +197,7 @@ export default Vue.extend({
 			}
 		},
 		getFeed(id: number): Feed {
-			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id)
+			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
 		getMediaType(mime: any): 'audio' | 'video' | false {
 			// TODO: figure out how to check media type

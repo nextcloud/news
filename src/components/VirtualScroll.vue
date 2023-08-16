@@ -4,13 +4,15 @@
   - This file is licensed under the Affero General Public License version 3 or later. See the COPYING file.
   -->
 <script>
+import Vue from 'vue'
+
 import ItemSkeleton from './ItemSkeleton.vue'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 // const GRID_ITEM_WIDTH = 250 + 10
 const LIST_ITEM_HEIGHT = 45 + 1
 
-export default {
+export default Vue.extend({
 	name: 'VirtualScroll',
 	props: {
 		reachedEnd: {
@@ -113,7 +115,7 @@ export default {
 			h('div', { class: 'lower-padding', style: { height: Math.max((lowerPaddingItems) * itemHeight, 0) + 'px' } }),
 		])
 	},
-}
+})
 </script>
 
 <style scoped>

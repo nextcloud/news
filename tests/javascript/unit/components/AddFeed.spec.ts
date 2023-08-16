@@ -1,17 +1,17 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import AddFeed from '../../../../src/components/AddFeed.vue'
-import { FEED_ACTION_TYPES } from '@/store/feed'
+import { FEED_ACTION_TYPES } from '../../../../src/store/feed'
 
 describe('AddFeed.vue', () => {
 	'use strict'
 
-	let mockDispatch = jest.fn();
-	let mockStore = {
+	const mockDispatch = jest.fn()
+	const mockStore = {
 		state: {
 			folders: { folders: [] },
-			feeds: { feeds: [] }
+			feeds: { feeds: [] },
 		},
-		dispatch: mockDispatch
+		dispatch: mockDispatch,
 	}
 
 	let wrapper: any
@@ -38,7 +38,7 @@ describe('AddFeed.vue', () => {
 
 		expect(wrapper.vm.$emit).toBeCalled()
 		expect(mockDispatch).toBeCalled()
-		expect(mockDispatch.mock.calls[0][0]).toEqual(FEED_ACTION_TYPES.ADD_FEED);
+		expect(mockDispatch.mock.calls[0][0]).toEqual(FEED_ACTION_TYPES.ADD_FEED)
 	})
 
 	it('should check if feed url exists and return true', () => {
@@ -53,7 +53,7 @@ describe('AddFeed.vue', () => {
 		expect(response).toBeFalsy()
 
 		wrapper.vm.$data.feedUrl = 'http://test.com'
-		wrapper.vm.$store.state.feeds.feeds = [{ url: 'http://test.com'}]
+		wrapper.vm.$store.state.feeds.feeds = [{ url: 'http://test.com' }]
 		response = wrapper.vm.feedUrlExists()
 
 		expect(response).toBeTruthy()
@@ -71,14 +71,14 @@ describe('AddFeed.vue', () => {
 		expect(response).toBeFalsy()
 
 		wrapper.vm.$data.newFolderName = 'test'
-		wrapper.vm.$store.state.folders.folders = [{ name: 'test'}]
+		wrapper.vm.$store.state.folders.folders = [{ name: 'test' }]
 		response = wrapper.vm.folderNameExists()
 
 		expect(response).toBeFalsy()
 
 		wrapper.vm.$data.newFolderName = 'test'
 		wrapper.vm.$data.createNewFolder = 'test'
-		wrapper.vm.$store.state.folders.folders = [{ name: 'test'}]
+		wrapper.vm.$store.state.folders.folders = [{ name: 'test' }]
 		response = wrapper.vm.folderNameExists()
 
 		expect(response).toBeTruthy()
