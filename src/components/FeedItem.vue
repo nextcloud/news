@@ -1,13 +1,13 @@
 <template>
 	<div class="feed-item-container">
 		<div class="feed-item-row" @click="expand()">
-			<div style="padding-right: 5px; display: flex; flex-direction: row; align-self: start;">
+			<div class="link-container">
 				<a class="external"
 					target="_blank"
 					rel="noreferrer"
 					:href="item.url"
 					:title="t('news', 'Open website')"
-					@click="markRead(item.id); $event.stopPropagation();">
+					@click="markRead(item); $event.stopPropagation();">
 					<EarthIcon />
 				</a>
 				<RssIcon v-if="!getFeed(item.feedId).faviconLink" />
@@ -20,13 +20,13 @@
 				</span>
 			</div>
 			<div class="date-container">
-				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDate(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
+				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
 					{{ getRelativeTimestamp(item.pubDate*1000) }}
 				</time>
 			</div>
 			<div class="button-container" @click="$event.stopPropagation()">
-				<StarIcon :class="{'starred': item.starred }" @click="toggleStarred()" />
-				<Eye :class="{ 'keep-unread': item.keepUnread }" @click="toggleKeepUnread()" />
+				<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
+				<Eye :class="{ 'keep-unread': keepUnread }" @click="toggleKeepUnread(item)" />
 				<NcActions :force-menu="true">
 					<template #icon>
 						<ShareVariant />
@@ -43,9 +43,8 @@
 			</div>
 		</div>
 
-		<div v-if="isExpanded" style="padding: 5px 10px;">
-			<div class="article">
-				<!--div class="heading only-in-expanded">
+		<div v-if="isExpanded" class="article">
+			<!--div class="heading only-in-expanded">
 					<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDate(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
 						{{ getRelativeTimestamp(item.pubDate*1000) }}
 					</time>
@@ -60,73 +59,78 @@
 					</h1>
 				</div-->
 
-				<div class="subtitle" :dir="item.rtl && 'rtl'">
-					<span v-show="item.author !== undefined" class="author">
-						{{ t('news', 'by') }} {{ item.author }}
-					</span>
-					<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
-						<!-- TODO: Fix this -->
-						<a :href="`#/items/feeds/${item.feedId}/`">
-							{{ getFeed(item.feedId).title }}
-							<img v-if="getFeed(item.feedId).faviconLink && isCompactView()" :src="getFeed(item.feedId).faviconLink" alt="favicon">
-						</a>
-					</span>
-					<span v-if="item.sharedBy">
-						<span v-if="item.author">-</span>
-						{{ t('news', 'shared by') }}
-						{{ item.sharedByDisplayName }}
-					</span>
-				</div>
-
-				<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure">
-					<button @click="play(item)">
-						{{ t('news', 'Play audio') }}
-						<!--?php p($l->t('Play audio')) ?-->
-					</button>
-					<a class="button"
-						:href="item.enclosureLink"
-						target="_blank"
-						rel="noreferrer">
-						{{ t('news', 'Download audio') }}
-						<!--?php p($l->t('Download audio')) ? -->
+			<div class="subtitle" :dir="item.rtl && 'rtl'">
+				<span v-show="item.author !== undefined" class="author">
+					{{ t('news', 'by') }} {{ item.author }}
+				</span>
+				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
+					<!-- TODO: Fix this -->
+					<a :href="`#/items/feeds/${item.feedId}/`">
+						{{ getFeed(item.feedId).title }}
+						<img v-if="getFeed(item.feedId).faviconLink && isCompactView()" :src="getFeed(item.feedId).faviconLink" alt="favicon">
 					</a>
-				</div>
-				<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure">
-					<video controls
-						preload="none"
-						news-play-one
-						:src="item.enclosureLink"
-						:type="item.enclosureMime" />
-					<a class="button"
-						:href="item.enclosureLink"
-						target="_blank"
-						rel="noreferrer">
-						{{ t('news', 'Download video') }}
-					</a>
-				</div>
-
-				<div v-if="item.mediaThumbnail" class="enclosure thumbnail">
-					<a :href="item.enclosureLink"><img :src="item.mediaThumbnail" alt=""></a>
-				</div>
-
-				<div v-if="item.mediaDescription" class="enclosure description" v-html="item.mediaDescription" />
-
-				<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
+				</span>
+				<span v-if="item.sharedBy">
+					<span v-if="item.author">-</span>
+					{{ t('news', 'shared by') }}
+					{{ item.sharedByDisplayName }}
+				</span>
 			</div>
+
+			<!-- TODO: Test this -->
+			<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure">
+				<button @click="play(item)">
+					{{ t('news', 'Play audio') }}
+				</button>
+				<a class="button"
+					:href="item.enclosureLink"
+					target="_blank"
+					rel="noreferrer">
+					{{ t('news', 'Download audio') }}
+				</a>
+			</div>
+			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure">
+				<video controls
+					preload="none"
+					news-play-one
+					:src="item.enclosureLink"
+					:type="item.enclosureMime" />
+				<a class="button"
+					:href="item.enclosureLink"
+					target="_blank"
+					rel="noreferrer">
+					{{ t('news', 'Download video') }}
+				</a>
+			</div>
+
+			<div v-if="item.mediaThumbnail" class="enclosure thumbnail">
+				<a :href="item.enclosureLink"><img :src="item.mediaThumbnail" alt=""></a>
+			</div>
+
+			<div v-if="item.mediaDescription" class="enclosure description" v-html="item.mediaDescription" />
+
+			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
 		</div>
 	</div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
+import { mapState } from 'vuex'
+
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import Eye from 'vue-material-design-icons/Eye.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
+
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
-export default {
+import { Feed } from '../types/Feed'
+import { FeedItem } from '../types/FeedItem'
+
+export default Vue.extend({
 	name: 'FeedItem',
 	components: {
 		EarthIcon,
@@ -146,48 +150,82 @@ export default {
 	data: () => {
 		return {
 			expanded: false,
+			keepUnread: false,
 		}
 	},
 	computed: {
 		isExpanded() {
 			return this.expanded
 		},
+		...mapState(['feeds']),
 	},
 	methods: {
 		expand() {
 			this.expanded = !this.expanded
+			this.markRead(this.item)
 		},
-		formatDate() {
-			return 'test'
+		formatDate(epoch: number) {
+			return new Date(epoch).toLocaleString()
 		},
-		getRelativeTimestamp() {
-			return 'yesterday'
+		formatDatetime(epoch: number) {
+			return new Date(epoch).toISOString()
 		},
-		getFeed(id) {
-			return {}
+		getRelativeTimestamp(previous: number) {
+			const current = Date.now()
+
+			const msPerMinute = 60 * 1000
+			const msPerHour = msPerMinute * 60
+			const msPerDay = msPerHour * 24
+			const msPerMonth = msPerDay * 30
+			const msPerYear = msPerDay * 365
+
+			const elapsed = current - previous
+
+			if (elapsed < msPerMinute) {
+				return Math.round(elapsed / 1000) + ' ' + t('news', 'seconds')
+			} else if (elapsed < msPerHour) {
+				return Math.round(elapsed / msPerMinute) + ' ' + t('news', 'minutes ago')
+			} else if (elapsed < msPerDay) {
+				return Math.round(elapsed / msPerHour) + ' ' + t('news', 'hours ago')
+			} else if (elapsed < msPerMonth) {
+				return Math.round(elapsed / msPerDay) + ' ' + t('news', 'days ago')
+			} else if (elapsed < msPerYear) {
+				return Math.round(elapsed / msPerMonth) + ' ' + t('news', 'months ago')
+			} else {
+				return Math.round(elapsed / msPerYear) + ' ' + t('news', 'years ago')
+			}
 		},
-		getMediaType(mime) {
+		getFeed(id: number): Feed {
+			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id)
+		},
+		getMediaType(mime: any): 'audio' | 'video' | false {
+			// TODO: figure out how to check
 			return false
 		},
-		play(item) {
+		play(item: any) {
 			// TODO: implement this
 		},
-		markRead() {
-			// TODO: implement this
+		markRead(item: FeedItem): void {
+			if (!this.keepUnread) {
+				// TODO: update state
+				item.unread = false
+			}
 		},
-		toggleKeepUnread() {
-			// TODO: implement this
+		toggleKeepUnread(item: FeedItem): void {
+			this.keepUnread = !this.keepUnread
+			// TODO: update state
+			item.unread = true
 		},
-		toggleStarred() {
-			// TODO: implement this
+		toggleStarred(item: FeedItem): void {
+			// TODO: update state
+			item.starred = !item.starred
 		},
 	},
-}
+})
 
 </script>
 
 <style>
-
 	.feed-item-container {
 		border-bottom: 1px solid #222;
 	}
@@ -202,6 +240,13 @@ export default {
 
 	.feed-item-row, .feed-item-row * {
 		cursor: pointer;
+	}
+
+	.feed-item-row .link-container {
+		padding-right: 5px;
+		display: flex;
+		flex-direction: row;
+		align-self: start;
 	}
 
 	.feed-item-row .title-container {
@@ -225,7 +270,9 @@ export default {
 	}
 
 	.feed-item-row .date-container {
+		color: var(--color-text-lighter);
 		padding-left: 4px;
+		white-space: nowrap;
 	}
 
 	.feed-item-row .button-container {

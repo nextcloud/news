@@ -5,4 +5,5 @@ export type Feed = {
   title?: string;
   autoDiscover?: boolean;
   faviconLink?: string;
+  id?: number;
 }
