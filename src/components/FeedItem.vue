@@ -33,7 +33,7 @@
 					</template>
 					<NcActionButton>
 						<template #default>
-							<!-- TODO: --> TODO
+							<!-- TODO: Share Menu --> TODO
 						</template>
 						<template #icon>
 							<ShareVariant />
@@ -64,7 +64,7 @@
 					{{ t('news', 'by') }} {{ item.author }}
 				</span>
 				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
-					<!-- TODO: Fix this -->
+					<!-- TODO: Fix link to feed -->
 					<a :href="`#/items/feeds/${item.feedId}/`">
 						{{ getFeed(item.feedId).title }}
 						<img v-if="getFeed(item.feedId).faviconLink && isCompactView()" :src="getFeed(item.feedId).faviconLink" alt="favicon">
@@ -77,7 +77,7 @@
 				</span>
 			</div>
 
-			<!-- TODO: Test this -->
+			<!-- TODO: Test audio/video -->
 			<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure">
 				<button @click="play(item)">
 					{{ t('news', 'Play audio') }}
@@ -129,6 +129,7 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import { Feed } from '../types/Feed'
 import { FeedItem } from '../types/FeedItem'
+import { ACTIONS, MUTATIONS } from '../store'
 
 export default Vue.extend({
 	name: 'FeedItem',
@@ -199,26 +200,23 @@ export default Vue.extend({
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id)
 		},
 		getMediaType(mime: any): 'audio' | 'video' | false {
-			// TODO: figure out how to check
+			// TODO: figure out how to check media type
 			return false
 		},
 		play(item: any) {
-			// TODO: implement this
+			// TODO: implement play audio/video
 		},
 		markRead(item: FeedItem): void {
 			if (!this.keepUnread) {
-				// TODO: update state
-				item.unread = false
+				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			}
 		},
 		toggleKeepUnread(item: FeedItem): void {
 			this.keepUnread = !this.keepUnread
-			// TODO: update state
-			item.unread = true
+			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
 		},
 		toggleStarred(item: FeedItem): void {
-			// TODO: update state
-			item.starred = !item.starred
+			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
 		},
 	},
 })

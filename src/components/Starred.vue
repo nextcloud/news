@@ -7,9 +7,9 @@
 			</NcCounterBubble>
 		</div>
 		<VirtualScroll :reached-end="reachedEnd" @load-more="fetchMore()">
-			<template v-if="items.starredItems && items.starredItems.length > 0">
-				<template v-for="item in items.starredItems">
-					<FeedItem :key="item.id" :item="item" />
+			<template v-if="starred && starred.length > 0">
+				<template v-for="item in starred">
+					<FeedItemComponent :key="item.id" :item="item" />
 				</template>
 			</template>
 		</VirtualScroll>
@@ -23,13 +23,15 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import VirtualScroll from './VirtualScroll.vue'
-import FeedItem from './FeedItem.vue'
+import FeedItemComponent from './FeedItem.vue'
+
+import { FeedItem } from '../types/FeedItem'
 
 export default Vue.extend({
 	components: {
 		NcCounterBubble,
 		VirtualScroll,
-		FeedItem,
+		FeedItemComponent,
 	},
 	data() {
 		return {
@@ -38,6 +40,9 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['items']),
+		starred(): FeedItem[] {
+			return this.$store.getters.starred
+		},
 		reachedEnd(): boolean {
 			return this.mounted && this.$store.state.items.starredLoaded
 		},
@@ -47,7 +52,7 @@ export default Vue.extend({
 	},
 	methods: {
 		async fetchMore() {
-			// TODO
+			// TODO: fetch more starred
 		},
 	},
 })
