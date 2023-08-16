@@ -181,9 +181,6 @@ export default Vue.extend({
 		...mapState(['feeds', 'folders', 'items']),
 		...mapState(SideBarState),
 	},
-	created() {
-		// TODO: init?
-	},
 	methods: {
 		newFolder(value: string) {
 			const folderName = value.trim()

@@ -3,4 +3,6 @@ export type FeedItem = {
   title: string;
   unread: boolean;
   starred: boolean;
+  feedId: number;
+  guidHash: string;
 };

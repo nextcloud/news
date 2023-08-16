@@ -7,6 +7,10 @@ import { FeedItem } from '../types/FeedItem'
 
 export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_STARRED: 'FETCH_STARRED',
+	MARK_READ: 'MARK_READ',
+	MARK_UNREAD: 'MARK_UNREAD',
+	STAR_ITEM: 'STAR_ITEM',
+	UNSTAR_ITEM: 'UNSTAR_ITEM',
 }
 
 export type ItemState = {
@@ -16,7 +20,6 @@ export type ItemState = {
 	starredCount: number;
 
 	allItems: FeedItem[];
-	starredItems: FeedItem[];
 }
 
 const state: ItemState = {
@@ -26,12 +29,11 @@ const state: ItemState = {
 	starredCount: 0,
 
 	allItems: [],
-	starredItems: [],
 }
 
 const getters = {
 	starred(state: ItemState) {
-		return state.starredItems
+		return state.allItems.filter((item) => item.starred)
 	},
 }
 
@@ -49,7 +51,7 @@ export const actions = {
 			},
 		})
 
-		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED, response.data.items)
+		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response.data.items)
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, response.data.starred)
 
 		if (response.data.items.length < 40) {
@@ -57,18 +59,51 @@ export const actions = {
 		}
 		state.fetchingItems = false
 	},
+	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+		axios.post(API_ROUTES.ITEMS + `/${item.id}/read`, {
+			isRead: true,
+		})
+		item.unread = false
+		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
+	},
+	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+		axios.post(API_ROUTES.ITEMS + `/${item.id}/read`, {
+			isRead: false,
+		})
+		item.unread = true
+		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
+	},
+	[FEED_ITEM_ACTION_TYPES.STAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+		axios.post(API_ROUTES.ITEMS + `/${item.feedId}/${item.guidHash}/star`, {
+			isStarred: true,
+		})
+		item.starred = true
+		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
+		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount + 1)
+	},
+	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+		axios.post(API_ROUTES.ITEMS + `/${item.feedId}/${item.guidHash}/star`, {
+			isStarred: false,
+		})
+		item.starred = false
+		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
+		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
+	},
 }
 
 export const mutations = {
-	[FEED_ITEM_MUTATION_TYPES.SET_STARRED](state: ItemState, items: FeedItem[]) {
+	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state: ItemState, items: FeedItem[]) {
 		items.forEach(it => {
-			state.starredItems.push(it)
+			state.allItems.push(it)
 		})
 	},
 	[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT](state: ItemState, count: number) {
 		state.starredCount = count
 	},
-
+	[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](state: ItemState, { item }: { item: FeedItem }) {
+		const idx = state.allItems.findIndex((it) => it.id === item.id)
+		state.allItems.splice(idx, 1, item)
+	},
 }
 
 export default {
