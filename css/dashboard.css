@@ -1,0 +1,12 @@
+.icon-newsdashboard {
+	background-image: url('../img/app-dark.svg');
+	filter: var(--background-invert-if-dark);
+}
+
+.widget-list li {
+	list-style-type: disc;
+}
+
+#app-dashboard .panels .panel--header h2 {
+	display: flex;
+}
