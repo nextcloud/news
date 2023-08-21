@@ -3,7 +3,7 @@ import axios from '@nextcloud/axios'
 import { ActionParams, AppState } from '../store'
 import { Feed } from '../types/Feed'
 import { API_ROUTES } from '../types/ApiRoutes'
-import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
+import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
@@ -25,6 +25,9 @@ export const actions = {
 		const feeds = await axios.get(API_ROUTES.FEED)
 
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
+		commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, (feeds.data.feeds.reduce((total: number, feed: Feed) => {
+			return total + feed.unreadCount
+		}, 0)))
 	},
 	async [FEED_ACTION_TYPES.ADD_FEED](
 		{ commit }: ActionParams,

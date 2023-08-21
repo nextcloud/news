@@ -11,7 +11,7 @@
 					<EarthIcon />
 				</a>
 				<RssIcon v-if="!getFeed(item.feedId).faviconLink" />
-				<span v-if="getFeed(item.feedId).faviconLink" :style="{ 'backgroundImage': 'url(' + Content.getFeed(item.feedId).faviconLink + ')' }" />
+				<span v-if="getFeed(item.feedId).faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
 			</div>
 			<div class="title-container" :class="{ 'unread': item.unread }">
 				<span :style="{ 'white-space': !isExpanded ? 'nowrap' : 'normal' }" :dir="item.rtl && 'rtl'">
@@ -162,7 +162,8 @@ export default Vue.extend({
 	},
 	methods: {
 		expand() {
-			this.expanded = !this.expanded
+			this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: this.item.id })
+			// this.expanded = !this.expanded
 			this.markRead(this.item)
 		},
 		formatDate(epoch: number) {
@@ -217,6 +218,9 @@ export default Vue.extend({
 		},
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		},
+		isCompactView(): boolean {
+			return true
 		},
 	},
 })
