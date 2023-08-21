@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
 import Starred from '../../../../src/components/Starred.vue'
 import VirtualScroll from '../../../../src/components/VirtualScroll.vue'
-import FeedItem from '../../../../src/components/FeedItem.vue'
+import FeedItemRow from '../../../../src/components/FeedItemRow.vue'
 
 jest.mock('@nextcloud/axios')
 
@@ -47,7 +47,7 @@ describe('Explore.vue', () => {
 	})
 
 	it('should get starred items from state', () => {
-		expect((wrapper.findAllComponents(FeedItem).length)).toEqual(1)
+		expect((wrapper.findAllComponents(FeedItemRow).length)).toEqual(1)
 	})
 
 	it('should check starredLoaded and mounted to determine if the virtual scroll has reached end ', () => {

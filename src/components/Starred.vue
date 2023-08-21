@@ -12,7 +12,7 @@
 			@load-more="fetchMore()">
 			<template v-if="starred && starred.length > 0">
 				<template v-for="item in starred">
-					<FeedItemComponent :key="item.id" :item="item" />
+					<FeedItemRow :key="item.id" :item="item" />
 				</template>
 			</template>
 		</VirtualScroll>
@@ -30,7 +30,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import VirtualScroll from './VirtualScroll.vue'
-import FeedItemComponent from './FeedItem.vue'
+import FeedItemRow from './FeedItemRow.vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 
 import { FeedItem } from '../types/FeedItem'
@@ -40,7 +40,7 @@ export default Vue.extend({
 	components: {
 		NcCounterBubble,
 		VirtualScroll,
-		FeedItemComponent,
+		FeedItemRow,
 		FeedItemDisplay,
 	},
 	data() {

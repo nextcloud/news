@@ -1,115 +1,44 @@
 <template>
-	<div class="feed-item-container">
-		<div class="feed-item-row" @click="expand()">
-			<div class="link-container">
-				<a class="external"
-					target="_blank"
-					rel="noreferrer"
-					:href="item.url"
-					:title="t('news', 'Open website')"
-					@click="markRead(item); $event.stopPropagation();">
-					<EarthIcon />
-				</a>
-				<RssIcon v-if="!getFeed(item.feedId).faviconLink" />
-				<span v-if="getFeed(item.feedId).faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
-			</div>
-			<div class="title-container" :class="{ 'unread': item.unread }">
-				<span :style="{ 'white-space': !isExpanded ? 'nowrap' : 'normal' }" :dir="item.rtl && 'rtl'">
-					{{ item.title }}
-					<span v-if="!isExpanded" class="intro" v-html="item.intro" />
-				</span>
-			</div>
-			<div class="date-container">
-				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
-					{{ getRelativeTimestamp(item.pubDate*1000) }}
-				</time>
-			</div>
-			<div class="button-container" @click="$event.stopPropagation()">
-				<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
-				<Eye :class="{ 'keep-unread': keepUnread }" @click="toggleKeepUnread(item)" />
-				<NcActions :force-menu="true">
+	<div class="feed-item-row" @click="select()">
+		<div class="link-container">
+			<a class="external"
+				target="_blank"
+				rel="noreferrer"
+				:href="item.url"
+				:title="t('news', 'Open website')"
+				@click="markRead(item); $event.stopPropagation();">
+				<EarthIcon />
+			</a>
+			<RssIcon v-if="!getFeed(item.feedId).faviconLink" />
+			<span v-if="getFeed(item.feedId).faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
+		</div>
+		<div class="title-container" :class="{ 'unread': item.unread }">
+			<span :style="{ 'white-space': !isExpanded ? 'nowrap' : 'normal' }" :dir="item.rtl && 'rtl'">
+				{{ item.title }}
+				<span v-if="!isExpanded" class="intro" v-html="item.intro" />
+			</span>
+		</div>
+		<div class="date-container">
+			<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
+				{{ getRelativeTimestamp(item.pubDate*1000) }}
+			</time>
+		</div>
+		<div class="button-container" @click="$event.stopPropagation()">
+			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
+			<Eye :class="{ 'keep-unread': keepUnread }" @click="toggleKeepUnread(item)" />
+			<NcActions :force-menu="true">
+				<template #icon>
+					<ShareVariant />
+				</template>
+				<NcActionButton>
+					<template #default>
+						<!-- TODO: Share Menu --> TODO
+					</template>
 					<template #icon>
 						<ShareVariant />
 					</template>
-					<NcActionButton>
-						<template #default>
-							<!-- TODO: Share Menu --> TODO
-						</template>
-						<template #icon>
-							<ShareVariant />
-						</template>
-					</NcActionButton>
-				</NcActions>
-			</div>
-		</div>
-
-		<div v-if="isExpanded" class="article">
-			<!--div class="heading only-in-expanded">
-					<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDate(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
-						{{ getRelativeTimestamp(item.pubDate*1000) }}
-					</time>
-					<h1 :dir="item.rtl && 'rtl'">
-						<a class="external"
-							target="_blank"
-							rel="noreferrer"
-							:href="item.url"
-							:title="item.title">
-							{{ item.title }}
-						</a>
-					</h1>
-				</div-->
-
-			<div class="subtitle" :dir="item.rtl && 'rtl'">
-				<span v-show="item.author !== undefined" class="author">
-					{{ t('news', 'by') }} {{ item.author }}
-				</span>
-				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
-					<!-- TODO: Fix link to feed -->
-					<a :href="`#/items/feeds/${item.feedId}/`">
-						{{ getFeed(item.feedId).title }}
-						<img v-if="getFeed(item.feedId).faviconLink && isCompactView()" :src="getFeed(item.feedId).faviconLink" alt="favicon">
-					</a>
-				</span>
-				<span v-if="item.sharedBy">
-					<span v-if="item.author">-</span>
-					{{ t('news', 'shared by') }}
-					{{ item.sharedByDisplayName }}
-				</span>
-			</div>
-
-			<!-- TODO: Test audio/video -->
-			<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure">
-				<button @click="play(item)">
-					{{ t('news', 'Play audio') }}
-				</button>
-				<a class="button"
-					:href="item.enclosureLink"
-					target="_blank"
-					rel="noreferrer">
-					{{ t('news', 'Download audio') }}
-				</a>
-			</div>
-			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure">
-				<video controls
-					preload="none"
-					news-play-one
-					:src="item.enclosureLink"
-					:type="item.enclosureMime" />
-				<a class="button"
-					:href="item.enclosureLink"
-					target="_blank"
-					rel="noreferrer">
-					{{ t('news', 'Download video') }}
-				</a>
-			</div>
-
-			<div v-if="item.mediaThumbnail" class="enclosure thumbnail">
-				<a :href="item.enclosureLink"><img :src="item.mediaThumbnail" alt=""></a>
-			</div>
-
-			<div v-if="item.mediaDescription" class="enclosure description" v-html="item.mediaDescription" />
-
-			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
+				</NcActionButton>
+			</NcActions>
 		</div>
 	</div>
 </template>
@@ -132,7 +61,7 @@ import { FeedItem } from '../types/FeedItem'
 import { ACTIONS } from '../store'
 
 export default Vue.extend({
-	name: 'FeedItem',
+	name: 'FeedItemRow',
 	components: {
 		EarthIcon,
 		StarIcon,
@@ -150,18 +79,14 @@ export default Vue.extend({
 	},
 	data: () => {
 		return {
-			expanded: false,
 			keepUnread: false,
 		}
 	},
 	computed: {
-		isExpanded() {
-			return this.expanded
-		},
 		...mapState(['feeds']),
 	},
 	methods: {
-		expand() {
+		select() {
 			this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			// this.expanded = !this.expanded
 			this.markRead(this.item)
@@ -200,13 +125,6 @@ export default Vue.extend({
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
-		getMediaType(mime: any): 'audio' | 'video' | false {
-			// TODO: figure out how to check media type
-			return false
-		},
-		play(item: any) {
-			// TODO: implement play audio/video
-		},
 		markRead(item: FeedItem): void {
 			if (!this.keepUnread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
@@ -218,9 +136,6 @@ export default Vue.extend({
 		},
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
-		},
-		isCompactView(): boolean {
-			return true
 		},
 	},
 })

@@ -1,12 +1,12 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import FeedItem from '../../../../src/components/FeedItem.vue'
+import FeedItemRow from '../../../../src/components/FeedItemRow.vue'
 import { ACTIONS } from '../../../../src/store'
 
-describe('FeedItem.vue', () => {
+describe('FeedItemRow.vue', () => {
 	'use strict'
 	const localVue = createLocalVue()
-	let wrapper: Wrapper<FeedItem>
+	let wrapper: Wrapper<FeedItemRow>
 
 	const mockItem = {
 		feedId: 1,
@@ -19,7 +19,7 @@ describe('FeedItem.vue', () => {
 
 	const dispatchStub = jest.fn()
 	beforeAll(() => {
-		wrapper = shallowMount(FeedItem, {
+		wrapper = shallowMount(FeedItemRow, {
 			propsData: {
 				item: mockItem,
 			},
@@ -44,7 +44,6 @@ describe('FeedItem.vue', () => {
 	})
 
 	it('should initialize without expanded and without keepUnread', () => {
-		expect(wrapper.vm.$data.expanded).toBeFalsy()
 		expect(wrapper.vm.$data.keepUnread).toBeFalsy()
 	})
 
@@ -129,13 +128,5 @@ describe('FeedItem.vue', () => {
 		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.STAR_ITEM, {
 			item: wrapper.vm.$props.item,
 		})
-	})
-
-	xit('TODO test: getMediaType(mime: any): audio | video | false', () => {
-		// TODO: finish tests after audio/video playback is supported
-	})
-
-	xit('TODO test: play(item: any): void', () => {
-		// TODO: finish tests after audio/video playback is supported
 	})
 })
