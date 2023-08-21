@@ -54,7 +54,7 @@ export default Vue.extend({
 			return this.$store.getters.starred
 		},
 		reachedEnd(): boolean {
-			return this.mounted && this.$store.state.items.starredLoaded
+			return this.mounted && this.$store.state.items.allItemsLoaded.starred !== undefined && this.$store.state.items.allItemsLoaded.starred
 		},
 		selected(): FeedItem | undefined {
 			return this.$store.getters.selected
@@ -66,7 +66,9 @@ export default Vue.extend({
 	},
 	methods: {
 		async fetchMore() {
-			// TODO: fetch more starred
+			if (!this.$store.state.items.fetchingItems.starred) {
+			  this.$store.dispatch(ACTIONS.FETCH_STARRED, { start: this.$store.getters.starred[this.$store.getters.starred?.length - 1]?.id })
+			}
 		},
 	},
 })
