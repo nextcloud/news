@@ -26,6 +26,7 @@ use GuzzleHttp\Exception\ConnectException;
 use Net_URL2;
 use OCP\IL10N;
 use OCP\ITempManager;
+use OCP\IConfig;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
@@ -73,6 +74,11 @@ class FeedFetcher implements IFeedFetcher
      */
     private $logger;
 
+    /**
+     * @var IConfig
+     */
+    private $iConfig;
+
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
@@ -80,7 +86,8 @@ class FeedFetcher implements IFeedFetcher
         IL10N $l10n,
         ITempManager $ITempManager,
         Time $time,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        IConfig $iConfig
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
@@ -89,6 +96,7 @@ class FeedFetcher implements IFeedFetcher
         $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
+        $this->iConfig        = $iConfig;
     }
 
 
@@ -401,6 +409,7 @@ class FeedFetcher implements IFeedFetcher
         try {
             // Base_uri can only be set on creation, will be used when link is relative.
             $client = new Client(['base_uri' => $base_url]);
+            $fetcherConfig = new FetcherConfig($this->iConfig);
             $response = $client->request(
                 'GET',
                 $favicon,
@@ -409,7 +418,8 @@ class FeedFetcher implements IFeedFetcher
                     'headers' => [
                         'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
-                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified)
+                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified),
+                        'Accept-Encoding'   => $fetcherConfig->checkEncoding()
                     ]
                 ]
             );

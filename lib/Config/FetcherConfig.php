@@ -96,28 +96,25 @@ class FetcherConfig
 
     /**
      * Checks for available encoding options
-     * 
+     *
      * @return String list of supported encoding types
      */
-    private function checkEncoding()
+    public function checkEncoding()
     {
         $supportedEncoding = [];
 
-        $curl_version = curl_version();
+        // check curl features
+        $curl_features = curl_version()["features"];
 
-        $bitfields = Array(
-            'CURL_VERSION_LIBZ' => ['gzip', 'deflate'],
-            'CURL_VERSION_BROTLI' => ['br']
-            );
+        $bitfields = array('CURL_VERSION_LIBZ' => ['gzip', 'deflate'], 'CURL_VERSION_BROTLI' => ['br']);
         
-        foreach ($bitfields as $feature => $header)
-        {
+        foreach ($bitfields as $feature => $header) {
             // checking available features via the 'features' bitmask and adding available types to the list
-            $curl_version['features'] & constant($feature) ? $supportedEncoding = array_merge($supportedEncoding, $header) : null; 
-
+            if (defined($feature) && $curl_features & constant($feature)) {
+                $supportedEncoding = array_merge($supportedEncoding, $header);
+            }
         }
         return implode(", ", $supportedEncoding);
-
     }
 
     /**

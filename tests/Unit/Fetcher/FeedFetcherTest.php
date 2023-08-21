@@ -33,6 +33,7 @@ use GuzzleHttp\Client;
 use OCA\News\Utility\Time;
 use OCP\IL10N;
 use OCP\ITempManager;
+use OCP\IConfig;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -108,9 +109,9 @@ class FeedFetcherTest extends TestCase
     private $scraper;
 
     /**
-     * @var MockObject|Client
+     * @var MockObject|iConfig
      */
-    private $client;
+    private $iConfig;
 
     //metadata
     /**
@@ -194,7 +195,7 @@ class FeedFetcherTest extends TestCase
         $this->scraper = $this->getMockBuilder(Scraper::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->client = $this->getMockBuilder(Client::class)
+        $this->iConfig = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = new FeedFetcher(
@@ -205,7 +206,7 @@ class FeedFetcherTest extends TestCase
             $this->ITempManager,
             $timeFactory,
             $this->logger,
-            $this->client
+            $this->iConfig
         );
         $this->url = 'http://tests/';
 
