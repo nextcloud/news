@@ -82,7 +82,6 @@ export default Vue.extend({
 		},
 		async fetchMore() {
 			if (this._unread && !this.$store.state.items.fetchingItems.unread) {
-				console.log({ start: this._unread[this._unread?.length - 1]?.id })
 			  this.$store.dispatch(ACTIONS.FETCH_UNREAD, { start: this._unread[this._unread?.length - 1]?.id })
 			}
 		},

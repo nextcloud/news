@@ -78,7 +78,7 @@ export const actions = {
 		}
 		state.fetchingItems.unread = false
 	},
-	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit }: ActionParams) {
+	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
 		state.fetchingItems.starred = true
 		const response = await axios.get(API_ROUTES.ITEMS, {
 			params: {
@@ -87,7 +87,7 @@ export const actions = {
 				search: '',
 				showAll: false,
 				type: 2,
-				offset: 0,
+				offset: start,
 			},
 		})
 
