@@ -19,6 +19,10 @@ export default Vue.extend({
 			type: Boolean,
 			required: true,
 		},
+		fetchKey: {
+			type: String,
+			required: true,
+		},
 	},
 	data() {
 		return {
@@ -31,7 +35,7 @@ export default Vue.extend({
 	},
 	computed: {
 		fetching() {
-			return this.$store.state.items.fetchingItems
+			return this.$store.state.items.fetchingItems[this.key]
 		},
 	},
 	watch: {

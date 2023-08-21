@@ -1,18 +1,25 @@
 <template>
-	<div>
+	<div style="display: flex;">
 		<div class="header">
 			Starred
 			<NcCounterBubble class="counter-bubble">
 				{{ items.starredCount }}
 			</NcCounterBubble>
 		</div>
-		<VirtualScroll :reached-end="reachedEnd" @load-more="fetchMore()">
+		<VirtualScroll :reached-end="reachedEnd"
+			:fetch-key="'starred'"
+			style="width: 100%;"
+			@load-more="fetchMore()">
 			<template v-if="starred && starred.length > 0">
 				<template v-for="item in starred">
 					<FeedItemComponent :key="item.id" :item="item" />
 				</template>
 			</template>
 		</VirtualScroll>
+
+		<div v-if="selected !== undefined" style="max-width: 50%; overflow-y: scroll;">
+			<FeedItemDisplay :item="selected" />
+		</div>
 	</div>
 </template>
 
@@ -24,14 +31,17 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import VirtualScroll from './VirtualScroll.vue'
 import FeedItemComponent from './FeedItem.vue'
+import FeedItemDisplay from './FeedItemDisplay.vue'
 
 import { FeedItem } from '../types/FeedItem'
+import { ACTIONS } from '../store'
 
 export default Vue.extend({
 	components: {
 		NcCounterBubble,
 		VirtualScroll,
 		FeedItemComponent,
+		FeedItemDisplay,
 	},
 	data() {
 		return {
@@ -46,9 +56,13 @@ export default Vue.extend({
 		reachedEnd(): boolean {
 			return this.mounted && this.$store.state.items.starredLoaded
 		},
+		selected(): FeedItem | undefined {
+			return this.$store.getters.selected
+		},
 	},
 	mounted() {
 		this.mounted = true
+		this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 	methods: {
 		async fetchMore() {

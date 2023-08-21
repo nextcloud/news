@@ -10,14 +10,14 @@
 				icon="icon-add-folder"
 				@new-item="newFolder" />
 
-			<NcAppNavigationItem :title="t('news', 'Unread articles')" icon="icon-rss">
+			<NcAppNavigationItem :title="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
 					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark Read')">
 						t('news','Mark read')
 					</NcActionButton>
 				</template>
 				<template #counter>
-					<NcCounterBubble>5</NcCounterBubble>
+					<NcCounterBubble>{{ items.unreadCount }}</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :title="t('news', 'All articles')" icon="icon-rss">
