@@ -62,8 +62,5 @@ jobs:
       
       - name: Upload codecoverage to codecov
         if: ${{ matrix.codecoverage }}
-        uses: codecov/codecov-action@v3
-        with:
-          files: ../server/apps/news/build/php-unit.clover
-          flags: unittests 
-          verbose: true
+        working-directory: ../server/apps/news
+        run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover
