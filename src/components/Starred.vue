@@ -6,20 +6,8 @@
 				{{ items.starredCount }}
 			</NcCounterBubble>
 		</div>
-		<VirtualScroll :reached-end="reachedEnd"
-			:fetch-key="'starred'"
-			style="width: 100%;"
-			@load-more="fetchMore()">
-			<template v-if="starred && starred.length > 0">
-				<template v-for="item in starred">
-					<FeedItemRow :key="item.id" :item="item" />
-				</template>
-			</template>
-		</VirtualScroll>
 
-		<div v-if="selected !== undefined" style="max-width: 50%; overflow-y: scroll;">
-			<FeedItemDisplay :item="selected" />
-		</div>
+		<FeedItemDisplayList :items="starred" :fetch-key="'starred'" @load-more="fetchMore()" />
 	</div>
 </template>
 
@@ -29,9 +17,7 @@ import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import VirtualScroll from './VirtualScroll.vue'
-import FeedItemRow from './FeedItemRow.vue'
-import FeedItemDisplay from './FeedItemDisplay.vue'
+import FeedItemDisplayList from './FeedItemDisplayList.vue'
 
 import { FeedItem } from '../types/FeedItem'
 import { ACTIONS } from '../store'
@@ -39,29 +25,16 @@ import { ACTIONS } from '../store'
 export default Vue.extend({
 	components: {
 		NcCounterBubble,
-		VirtualScroll,
-		FeedItemRow,
-		FeedItemDisplay,
-	},
-	data() {
-		return {
-			mounted: false,
-		}
+		FeedItemDisplayList,
 	},
 	computed: {
 		...mapState(['items']),
+
 		starred(): FeedItem[] {
 			return this.$store.getters.starred
 		},
-		reachedEnd(): boolean {
-			return this.mounted && this.$store.state.items.allItemsLoaded.starred !== undefined && this.$store.state.items.allItemsLoaded.starred
-		},
-		selected(): FeedItem | undefined {
-			return this.$store.getters.selected
-		},
 	},
-	mounted() {
-		this.mounted = true
+	created() {
 		this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 	methods: {
