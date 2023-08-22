@@ -6,22 +6,8 @@
 				{{ items.unreadCount }}
 			</NcCounterBubble>
 		</div>
-		<div style="display: flex; height: 100%;">
-			<VirtualScroll :reached-end="reachedEnd"
-				:fetch-key="'unread'"
-				style="width:100%"
-				@load-more="fetchMore()">
-				<template v-if="unread() && unread().length > 0">
-					<template v-for="item in unread()">
-						<FeedItemRow :key="item.id" :item="item" />
-					</template>
-				</template>
-			</VirtualScroll>
 
-			<div v-if="selected !== undefined" style="max-width: 50%; overflow-y: scroll;">
-				<FeedItemDisplay :item="selected" />
-			</div>
-		</div>
+		<FeedItemDisplayList :items="unread()" :fetch-key="'starred'" @load-more="fetchMore()" />
 	</div>
 </template>
 
@@ -31,37 +17,29 @@ import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import VirtualScroll from './VirtualScroll.vue'
-import FeedItemRow from './FeedItemRow.vue'
-import FeedItemDisplay from './FeedItemDisplay.vue'
+import FeedItemDisplayList from './FeedItemDisplayList.vue'
 
 import { FeedItem } from '../types/FeedItem'
 import { ACTIONS } from '../store'
 
+type UnreadItemState = {
+	_unread?: FeedItem[]
+}
+
 export default Vue.extend({
 	components: {
 		NcCounterBubble,
-		VirtualScroll,
-		FeedItemRow,
-		FeedItemDisplay,
+		FeedItemDisplayList,
 	},
 	data() {
 		return {
-			mounted: false,
 			_unread: undefined,
-		} as any
+		} as UnreadItemState
 	},
 	computed: {
 		...mapState(['items']),
-		reachedEnd(): boolean {
-			return this.mounted && this.$store.state.items.allItemsLoaded.unread !== undefined && this.$store.state.items.allItemsLoaded.unread
-		},
-		selected(): FeedItem | undefined {
-			return this.$store.getters.selected
-		},
 	},
-	mounted() {
-		this.mounted = true
+	created() {
 		this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 	methods: {
