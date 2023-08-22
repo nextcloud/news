@@ -31,6 +31,7 @@ use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Config\FetcherConfig;
 
 use OCA\News\Utility\Time;
+use OCA\News\Utility\Cache;
 use OCP\IL10N;
 use OCP\ITempManager;
 
@@ -84,11 +85,6 @@ class FeedFetcherTest extends TestCase
     private $l10n;
 
     /**
-     * @var MockObject|ITempManager
-     */
-    private $ITempManager;
-
-    /**
      * @var MockObject|ItemInterface
      */
     private $item_mock;
@@ -112,6 +108,11 @@ class FeedFetcherTest extends TestCase
      * @var MockObject|FetcherConfig
      */
     private $fetcherConfig;
+
+    /**
+     * @var MockObject|Cache
+     */
+    private $cache;
 
     //metadata
     /**
@@ -159,9 +160,6 @@ class FeedFetcherTest extends TestCase
         $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->ITempManager = $this->getMockBuilder(ITempManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -198,15 +196,18 @@ class FeedFetcherTest extends TestCase
         $this->fetcherConfig = $this->getMockBuilder(FetcherConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->cache = $this->getMockBuilder(Cache::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->fetcher = new FeedFetcher(
             $this->reader,
             $this->favicon,
             $this->scraper,
             $this->l10n,
-            $this->ITempManager,
             $timeFactory,
             $this->logger,
-            $this->fetcherConfig
+            $this->fetcherConfig,
+            $this->cache
         );
         $this->url = 'http://tests/';
 

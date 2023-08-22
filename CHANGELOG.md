@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Drop support for Nextcloud 25, Supported: 26, 27 (#2316)
 - Add a new command for occ `./occ news:updater:job` allows to check and reset the update job (#2166)
 - Check for available http(s) compression options and use them (gzip, deflate, brotli) (#2328)
+- Change and unify [cache](https://nextcloud.github.io/news/install/#cache) to use the instance ID of Nextcloud (#2331)
 ### Fixed
 
 # Releases

@@ -56,7 +56,9 @@ Feeds can be updated using Nextcloud's system cron or an external updater via th
 Follow this checklist:
 
 - Check admin settings of Nextcloud, was the last cron execution ok.
-- Check the News admin settings, system cron is used to update news
+- Check the logs for errors.
+- Does your [cache configuration](install.md#cache) work? 
+- Check the News admin settings, system cron is used to update news.
 - You should see a info card at the top, which will tell you when the last job execution was.
     - If the card is red it is very likely that the update job is stuck.
     - If it is green then maybe only some feeds are failing to update, check the Nextcloud logs.

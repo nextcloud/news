@@ -30,6 +30,7 @@ use OCP\ITempManager;
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
+use OCA\News\Utility\Cache;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Config\FetcherConfig;
 use Psr\Log\LoggerInterface;
@@ -59,11 +60,6 @@ class FeedFetcher implements IFeedFetcher
     private $l10n;
 
     /**
-     * @var ITempManager
-     */
-    private $ITempManager;
-
-    /**
      * @var Time
      */
     private $time;
@@ -77,25 +73,30 @@ class FeedFetcher implements IFeedFetcher
      * @var FetcherConfig
      */
     private $fetcherConfig;
+     
+    /**
+     * @var Cache
+     */
+    private $cache;
 
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
         Scraper $scraper,
         IL10N $l10n,
-        ITempManager $ITempManager,
         Time $time,
         LoggerInterface $logger,
-        FetcherConfig $fetcherConfig
+        FetcherConfig $fetcherConfig,
+        Cache $cache
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
         $this->scraper        = $scraper;
         $this->l10n           = $l10n;
-        $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
         $this->fetcherConfig  = $fetcherConfig;
+        $this->cache          = $cache;
     }
 
 
@@ -395,8 +396,10 @@ class FeedFetcher implements IFeedFetcher
             return is_string($return) ? $return : null;
         }
 
-        // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
-        $favicon_path = join(DIRECTORY_SEPARATOR, [$this->ITempManager->getTempBaseDir(), md5($favicon)]);
+        $logo_cache = $this->cache->getCache("feedLogo");
+
+        // file name of the logo is md5 of the url
+        $favicon_path = join(DIRECTORY_SEPARATOR, [$logo_cache, md5($favicon)]);
         $downloaded = false;
 
         if (file_exists($favicon_path)) {
