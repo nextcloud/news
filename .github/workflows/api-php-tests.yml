@@ -53,12 +53,17 @@ jobs:
       - name: Prep PHP tests
         working-directory: ../server/apps/news
         run: make php-test-dependencies
+      
       - name: Unittests
         working-directory: ../server/apps/news
         run: make unit-test
         env:
           CODECOVERAGE: ${{ matrix.codecoverage }}
-      - name: Upload codecoverage
+      
+      - name: Upload codecoverage to codecov
         if: ${{ matrix.codecoverage }}
-        working-directory: ../server/apps/news
-        run: bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover -N ${{ github.sha }}
+        uses: codecov/codecov-action@v3
+        with:
+          files: ../server/apps/news/build/php-unit.clover
+          flags: unittests 
+          verbose: true
