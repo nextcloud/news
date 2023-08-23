@@ -1,5 +1,5 @@
 <template>
-	<div style="height: 100%">
+	<div class="route-container">
 		<div class="header">
 			Unread
 			<NcCounterBubble class="counter-bubble">
@@ -23,7 +23,7 @@ import { FeedItem } from '../types/FeedItem'
 import { ACTIONS } from '../store'
 
 type UnreadItemState = {
-	_unread?: FeedItem[]
+	unreadCache?: FeedItem[]
 }
 
 export default Vue.extend({
@@ -33,7 +33,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
-			_unread: undefined,
+			unreadCache: undefined,
 		} as UnreadItemState
 	},
 	computed: {
@@ -44,23 +44,23 @@ export default Vue.extend({
 	},
 	methods: {
 		unread() {
-			if (!this._unread) {
+			if (!this.unreadCache) {
 				if (this.$store.getters.unread.length > 0) {
-					this._unread = this.$store.getters.unread
+					this.unreadCache = this.$store.getters.unread
 				}
-			} else if (this.$store.getters.unread.length > (this._unread?.length)) {
+			} else if (this.$store.getters.unread.length > (this.unreadCache?.length)) {
 				for (const item of this.$store.getters.unread) {
-					if (this._unread.find((unread: FeedItem) => unread.id === item.id) === undefined) {
-						this._unread.push(item)
+					if (this.unreadCache.find((unread: FeedItem) => unread.id === item.id) === undefined) {
+						this.unreadCache.push(item)
 					}
 				}
 			}
 
-			return this._unread
+			return this.unreadCache
 		},
 		async fetchMore() {
-			if (this._unread && !this.$store.state.items.fetchingItems.unread) {
-			  this.$store.dispatch(ACTIONS.FETCH_UNREAD, { start: this._unread[this._unread?.length - 1]?.id })
+			if (this.unreadCache && !this.$store.state.items.fetchingItems.unread) {
+			  this.$store.dispatch(ACTIONS.FETCH_UNREAD, { start: this.unreadCache[this.unreadCache?.length - 1]?.id })
 			}
 		},
 	},

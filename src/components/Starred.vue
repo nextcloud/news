@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex;">
+	<div class="route-container">
 		<div class="header">
 			Starred
 			<NcCounterBubble class="counter-bubble">
@@ -48,6 +48,10 @@ export default Vue.extend({
 </script>
 
 <style>
+.route-container {
+	height: 100%;
+}
+
 .header {
 	padding-left: 50px;
 	position: absolute;

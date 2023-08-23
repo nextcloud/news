@@ -86,18 +86,18 @@ export default Vue.extend({
 		...mapState(['feeds']),
 	},
 	methods: {
-		select() {
+		select(): void {
 			this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			// this.expanded = !this.expanded
 			this.markRead(this.item)
 		},
-		formatDate(epoch: number) {
+		formatDate(epoch: number): string {
 			return new Date(epoch).toLocaleString()
 		},
-		formatDatetime(epoch: number) {
+		formatDatetime(epoch: number): string {
 			return new Date(epoch).toISOString()
 		},
-		getRelativeTimestamp(previous: number) {
+		getRelativeTimestamp(previous: number): string {
 			const current = Date.now()
 
 			const msPerMinute = 60 * 1000
@@ -152,7 +152,7 @@ export default Vue.extend({
 	}
 
 	.feed-item-row:hover {
-		background-color: #222;
+		background-color: var(--color-background-hover);
 	}
 
 	.feed-item-row, .feed-item-row * {
@@ -206,11 +206,11 @@ export default Vue.extend({
 	}
 
 	.material-design-icon {
-		color: #555555;
+		color: var(--color-text-lighter)
 	}
 
 	.material-design-icon:hover {
-		color: var(--color-main-text);
+		color: var(--color-text-light);
 	}
 
 	.material-design-icon.rss-icon:hover {
@@ -227,33 +227,5 @@ export default Vue.extend({
 
 	.material-design-icon.starred:hover {
 		color: #555555;
-	}
-
-	.article {
-		padding: 0 50px 50px 50px;
-	}
-
-	.article .body {
-		color: var(--color-main-text);
-    font-size: 15px;
-	}
-
-	.article a {
-		text-decoration: underline;
-	}
-
-	.article .body a {
-		color: #3a84e4
-	}
-
-	.article .subtitle {
-		color: var(--color-text-lighter);
-    font-size: 15px;
-    padding: 25px 0;
-	}
-
-	.article .author {
-		color: var(--color-text-lighter);
-    font-size: 15px;
 	}
 </style>

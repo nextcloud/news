@@ -1,7 +1,22 @@
 <template>
 	<div class="feed-item-display">
-		<div>
-			<CloseIcon style="position: absolute; right: 30px; top: 20px; cursor: pointer;" @click="clearSelected()" />
+		<div class="action-bar">
+			<NcActions :force-menu="true">
+				<template #icon>
+					<ShareVariant />
+				</template>
+				<NcActionButton>
+					<template #default>
+						<!-- TODO: Share Menu --> TODO
+					</template>
+					<template #icon>
+						<ShareVariant />
+					</template>
+				</NcActionButton>
+			</NcActions>
+			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
+			<Eye @click="markUnread(item)" />
+			<CloseIcon @click="clearSelected()" />
 		</div>
 		<div class="article">
 			<div class="heading">
@@ -80,7 +95,13 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
+import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
+import StarIcon from 'vue-material-design-icons/Star.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
+import Eye from 'vue-material-design-icons/Eye.vue'
+
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import { Feed } from '../types/Feed'
 import { FeedItem } from '../types/FeedItem'
@@ -90,6 +111,11 @@ export default Vue.extend({
 	name: 'FeedItemDisplay',
 	components: {
 		CloseIcon,
+		Eye,
+		StarIcon,
+		ShareVariant,
+		NcActions,
+		NcActionButton,
 	},
 	props: {
 		item: {
@@ -132,14 +158,26 @@ export default Vue.extend({
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
 		},
+		markUnread(item: FeedItem): void {
+			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
+		},
 	},
 })
 
 </script>
 
 <style>
+	.feed-item-display {
+		max-height: 100%;
+		overflow-y: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
 	.article {
 		padding: 0 50px 50px 50px;
+		overflow-y: scroll;
+		height: 100%;
 	}
 
 	.article .body {
@@ -174,5 +212,17 @@ export default Vue.extend({
 		font-weight: bold;
     font-size: 17px;
 		margin-top: 25px;
+	}
+
+	.action-bar {
+		padding: 20px;
+
+		display: flex;
+		justify-content: right
+	}
+
+	.action-bar .material-design-icon{
+		cursor: pointer;
+		margin: 5px;
 	}
 </style>

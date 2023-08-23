@@ -10,7 +10,7 @@
 			</template>
 		</VirtualScroll>
 
-		<div v-if="selected !== undefined">
+		<div v-if="selected !== undefined" class="feed-item-container">
 			<FeedItemDisplay :item="selected" />
 		</div>
 	</div>
@@ -24,10 +24,6 @@ import FeedItemRow from './FeedItemRow.vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 
 import { FeedItem } from '../types/FeedItem'
-
-type FeedItemDisplayListState = {
-	mounted: boolean
-}
 
 export default Vue.extend({
 	components: {
@@ -48,7 +44,7 @@ export default Vue.extend({
 	data() {
 		return {
 			mounted: false,
-		} as FeedItemDisplayListState
+		}
 	},
 	computed: {
 		selected(): FeedItem | undefined {
@@ -81,6 +77,6 @@ export default Vue.extend({
 
 	.feed-item-container {
 		max-width: 50%;
-		overflow-y: scroll;
+		overflow-y: hidden;
 	}
 </style>
