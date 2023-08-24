@@ -13,9 +13,9 @@
 			<span v-if="getFeed(item.feedId).faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
 		</div>
 		<div class="title-container" :class="{ 'unread': item.unread }">
-			<span :style="{ 'white-space': !isExpanded ? 'nowrap' : 'normal' }" :dir="item.rtl && 'rtl'">
+			<span style="white-space: nowrap" :dir="item.rtl && 'rtl'">
 				{{ item.title }}
-				<span v-if="!isExpanded" class="intro" v-html="item.intro" />
+				<span class="intro" v-html="item.intro" />
 			</span>
 		</div>
 		<div class="date-container">
@@ -25,7 +25,9 @@
 		</div>
 		<div class="button-container" @click="$event.stopPropagation()">
 			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
-			<Eye :class="{ 'keep-unread': keepUnread }" @click="toggleKeepUnread(item)" />
+			<EyeIcon v-if="item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
+			<EyeCheckIcon v-if="!item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
+			<EyeLockIcon v-if="keepUnread" class="keep-unread" @click="toggleKeepUnread(item)" />
 			<NcActions :force-menu="true">
 				<template #icon>
 					<ShareVariant />
@@ -49,7 +51,9 @@ import { mapState } from 'vuex'
 
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
-import Eye from 'vue-material-design-icons/Eye.vue'
+import EyeIcon from 'vue-material-design-icons/Eye.vue'
+import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
+import EyeLockIcon from 'vue-material-design-icons/EyeLock.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 
@@ -58,14 +62,16 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import { Feed } from '../types/Feed'
 import { FeedItem } from '../types/FeedItem'
-import { ACTIONS } from '../store'
+import { ACTIONS, MUTATIONS } from '../store'
 
 export default Vue.extend({
 	name: 'FeedItemRow',
 	components: {
 		EarthIcon,
 		StarIcon,
-		Eye,
+		EyeIcon,
+		EyeCheckIcon,
+		EyeLockIcon,
 		ShareVariant,
 		RssIcon,
 		NcActions,
@@ -87,8 +93,7 @@ export default Vue.extend({
 	},
 	methods: {
 		select(): void {
-			this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: this.item.id })
-			// this.expanded = !this.expanded
+			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			this.markRead(this.item)
 		},
 		formatDate(epoch: number): string {
@@ -227,5 +232,9 @@ export default Vue.extend({
 
 	.material-design-icon.starred:hover {
 		color: #555555;
+	}
+
+	.eye-check-icon {
+		color: var(--color-primary-light);
 	}
 </style>

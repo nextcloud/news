@@ -7,7 +7,10 @@
 			</NcCounterBubble>
 		</div>
 
-		<FeedItemDisplayList :items="unread()" :fetch-key="'starred'" @load-more="fetchMore()" />
+		<FeedItemDisplayList v-if="unread()"
+			:items="unread()"
+			:fetch-key="'unread'"
+			@load-more="fetchMore()" />
 	</div>
 </template>
 
@@ -20,7 +23,7 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import FeedItemDisplayList from './FeedItemDisplayList.vue'
 
 import { FeedItem } from '../types/FeedItem'
-import { ACTIONS } from '../store'
+import { ACTIONS, MUTATIONS } from '../store'
 
 type UnreadItemState = {
 	unreadCache?: FeedItem[]
@@ -40,7 +43,10 @@ export default Vue.extend({
 		...mapState(['items']),
 	},
 	created() {
-		this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: undefined })
+		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
+		if (this.unread() === undefined) {
+			this.$store.dispatch(ACTIONS.FETCH_UNREAD)
+		}
 	},
 	methods: {
 		unread() {

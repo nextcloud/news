@@ -1,16 +1,16 @@
 import Vuex, { Store } from 'vuex'
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import Starred from '../../../../src/components/Starred.vue'
+import Unread from '../../../../src/components/Unread.vue'
 import FeedItemDisplayList from '../../../../src/components/FeedItemDisplayList.vue'
 
 jest.mock('@nextcloud/axios')
 
-describe('Starred.vue', () => {
+describe('Unread.vue', () => {
 	'use strict'
 	const localVue = createLocalVue()
 	localVue.use(Vuex)
-	let wrapper: Wrapper<Starred>
+	let wrapper: Wrapper<Unread>
 
 	const mockItem = {
 		feedId: 1,
@@ -24,21 +24,21 @@ describe('Starred.vue', () => {
 			state: {
 				items: {
 					fetchingItems: {
-						starred: false,
+						unread: false,
 					},
 				},
 			},
 			actions: {
 			},
 			getters: {
-				starred: () => [mockItem],
+				unread: () => [mockItem, mockItem],
 			},
 		})
 
 		store.dispatch = jest.fn()
 		store.commit = jest.fn()
 
-		wrapper = shallowMount(Starred, {
+		wrapper = shallowMount(Unread, {
 			propsData: {
 				item: mockItem,
 			},
@@ -47,11 +47,18 @@ describe('Starred.vue', () => {
 		})
 	})
 
-	it('should get starred items from state', () => {
-		expect((wrapper.findComponent(FeedItemDisplayList)).props().items.length).toEqual(1)
+	it('should get unread items from state', () => {
+		expect((wrapper.findComponent(FeedItemDisplayList)).props().items.length).toEqual(2)
 	})
 
-	it('should dispatch FETCH_STARRED action if not fetchingItems.starred', () => {
+	it('should dispatch FETCH_UNREAD action if not fetchingItems.unread', () => {
+		(wrapper.vm as any).$store.state.items.fetchingItems.unread = true;
+
+		(wrapper.vm as any).fetchMore()
+		expect(store.dispatch).not.toBeCalled();
+
+		(wrapper.vm as any).$store.state.items.fetchingItems.unread = false;
+
 		(wrapper.vm as any).fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})

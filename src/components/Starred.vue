@@ -20,7 +20,7 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import FeedItemDisplayList from './FeedItemDisplayList.vue'
 
 import { FeedItem } from '../types/FeedItem'
-import { ACTIONS } from '../store'
+import { ACTIONS, MUTATIONS } from '../store'
 
 export default Vue.extend({
 	components: {
@@ -35,7 +35,7 @@ export default Vue.extend({
 		},
 	},
 	created() {
-		this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: undefined })
+		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 	methods: {
 		async fetchMore() {

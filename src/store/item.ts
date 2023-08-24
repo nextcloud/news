@@ -1,9 +1,8 @@
-import axios from '@nextcloud/axios'
-
 import { ActionParams } from '../store'
 import { FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
-import { API_ROUTES } from '../types/ApiRoutes'
+
 import { FeedItem } from '../types/FeedItem'
+import { ItemService } from '../dataservices/item.service'
 
 export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_STARRED: 'FETCH_STARRED',
@@ -12,7 +11,6 @@ export const FEED_ITEM_ACTION_TYPES = {
 	MARK_UNREAD: 'MARK_UNREAD',
 	STAR_ITEM: 'STAR_ITEM',
 	UNSTAR_ITEM: 'UNSTAR_ITEM',
-	SET_SELECTED_ITEM: 'SET_SELECTED_ITEM',
 }
 
 export type ItemState = {
@@ -53,56 +51,35 @@ const getters = {
 }
 
 export const actions = {
-	async [FEED_ITEM_ACTION_TYPES.SET_SELECTED_ITEM]({ commit }: ActionParams, { id }: { id: string }) {
-		state.selectedId = id
-	},
 	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
-		if (state.allItems.filter((item) => item.unread).length === 0) {
-			state.fetchingItems.unread = true
-		}
-		const response = await axios.get(API_ROUTES.ITEMS, {
-			params: {
-				limit: 40,
-				oldestFirst: false,
-				search: '',
-				showAll: false,
-				type: 6,
-				offset: start,
-			},
-		})
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
-		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response.data.items)
+		const response = await ItemService.debounceFetchUnread(start)
 
-		if (response.data.items.length < 40) {
-			state.allItemsLoaded.unread = true
+		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
+
+		if (response?.data.items.length < 40) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'unread', loaded: true })
 		}
-		state.fetchingItems.unread = false
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: false })
 	},
 	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
-		state.fetchingItems.starred = true
-		const response = await axios.get(API_ROUTES.ITEMS, {
-			params: {
-				limit: 40,
-				oldestFirst: false,
-				search: '',
-				showAll: false,
-				type: 2,
-				offset: start,
-			},
-		})
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
+		const response = await ItemService.debounceFetchStarred(start)
 
-		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response.data.items)
-		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, response.data.starred)
-
-		if (response.data.items.length < 40) {
-			state.starredLoaded = true
+		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
+		if (response?.data.starred) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, response?.data.starred)
 		}
-		state.fetchingItems.starred = false
+
+		if (response?.data.items.length < 40) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: true })
+		}
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: false })
 	},
 	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem}) {
-		axios.post(API_ROUTES.ITEMS + `/${item.id}/read`, {
-			isRead: true,
-		})
+		ItemService.markRead(item, true)
+
 		if (item.unread) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, state.unreadCount - 1)
 		}
@@ -110,9 +87,8 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 	},
 	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit }: ActionParams, { item }: { item: FeedItem}) {
-		axios.post(API_ROUTES.ITEMS + `/${item.id}/read`, {
-			isRead: false,
-		})
+		ItemService.markRead(item, false)
+
 		if (!item.unread) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, state.unreadCount + 1)
 		}
@@ -120,17 +96,15 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 	},
 	[FEED_ITEM_ACTION_TYPES.STAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
-		axios.post(API_ROUTES.ITEMS + `/${item.feedId}/${item.guidHash}/star`, {
-			isStarred: true,
-		})
+		ItemService.markStarred(item, true)
+
 		item.starred = true
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount + 1)
 	},
 	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
-		axios.post(API_ROUTES.ITEMS + `/${item.feedId}/${item.guidHash}/star`, {
-			isStarred: false,
-		})
+		ItemService.markStarred(item, false)
+
 		item.starred = false
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
@@ -138,12 +112,17 @@ export const actions = {
 }
 
 export const mutations = {
+	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state: ItemState, { id }: { id: string }) {
+		state.selectedId = id
+	},
 	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state: ItemState, items: FeedItem[]) {
-		items.forEach(it => {
-			if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
-				state.allItems.push(it)
-			}
-		})
+		if (items) {
+			items.forEach(it => {
+				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
+					state.allItems.push(it)
+				}
+			})
+		}
 	},
 	[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT](state: ItemState, count: number) {
 		state.starredCount = count
@@ -154,6 +133,12 @@ export const mutations = {
 	[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](state: ItemState, { item }: { item: FeedItem }) {
 		const idx = state.allItems.findIndex((it) => it.id === item.id)
 		state.allItems.splice(idx, 1, item)
+	},
+	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](state: ItemState, { fetching, key }: { fetching: boolean; key: string; }) {
+		state.fetchingItems[key] = fetching
+	},
+	[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](state: ItemState, { loaded, key }: { loaded: boolean; key: string; }) {
+		state.allItemsLoaded[key] = loaded
 	},
 }
 

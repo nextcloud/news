@@ -47,13 +47,13 @@ describe('AddFeed.vue', () => {
 
 		expect(response).toBeFalsy()
 
-		wrapper.vm.$data.feedUrl = 'http://test.com'
+		wrapper.vm.$data.feedUrl = 'http://example.com'
 		response = wrapper.vm.feedUrlExists()
 
 		expect(response).toBeFalsy()
 
-		wrapper.vm.$data.feedUrl = 'http://test.com'
-		wrapper.vm.$store.state.feeds.feeds = [{ url: 'http://test.com' }]
+		wrapper.vm.$data.feedUrl = 'http://example.com'
+		wrapper.vm.$store.state.feeds.feeds = [{ url: 'http://example.com' }]
 		response = wrapper.vm.feedUrlExists()
 
 		expect(response).toBeTruthy()

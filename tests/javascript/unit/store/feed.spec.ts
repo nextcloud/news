@@ -3,7 +3,7 @@ import { Feed } from '../../../../src/types/Feed'
 import { AppState } from '../../../../src/store'
 import { FEED_ACTION_TYPES, mutations, actions } from '../../../../src/store/feed'
 
-import { FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
 jest.mock('@nextcloud/axios')
 
@@ -11,6 +11,17 @@ describe('feed.ts', () => {
 	'use strict'
 
 	describe('actions', () => {
+		describe('FETCH_FEEDS', () => {
+			it('should call GET and commit returned feeds to state', async () => {
+				(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+				const commit = jest.fn()
+				await (actions[FEED_ACTION_TYPES.FETCH_FEEDS] as any)({ commit })
+				expect(axios.get).toBeCalled()
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEEDS, [])
+				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, 0)
+			})
+		})
+
 		describe('ADD_FEED', () => {
 			it('should call POST and commit feed to state', async () => {
 				(axios as any).post.mockResolvedValue({ data: { feeds: [] } })
@@ -30,13 +41,6 @@ describe('feed.ts', () => {
 			})
 		})
 
-		it('FETCH_FEEDS should call GET and commit returned feeds to state', async () => {
-			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
-			const commit = jest.fn()
-			await (actions[FEED_ACTION_TYPES.FETCH_FEEDS] as any)({ commit })
-			expect(axios.get).toBeCalled()
-			expect(commit).toBeCalled()
-		})
 	})
 
 	describe('mutations', () => {
