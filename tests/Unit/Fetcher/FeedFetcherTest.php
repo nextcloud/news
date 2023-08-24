@@ -28,12 +28,12 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Fetcher\FeedFetcher;
-use GuzzleHttp\Client;
+use OCA\News\Config\FetcherConfig;
 
 use OCA\News\Utility\Time;
 use OCP\IL10N;
 use OCP\ITempManager;
-use OCP\IConfig;
+
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -109,9 +109,9 @@ class FeedFetcherTest extends TestCase
     private $scraper;
 
     /**
-     * @var MockObject|iConfig
+     * @var MockObject|FetcherConfig
      */
-    private $iConfig;
+    private $fetcherConfig;
 
     //metadata
     /**
@@ -195,7 +195,7 @@ class FeedFetcherTest extends TestCase
         $this->scraper = $this->getMockBuilder(Scraper::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->iConfig = $this->getMockBuilder(IConfig::class)
+        $this->fetcherConfig = $this->getMockBuilder(FetcherConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = new FeedFetcher(
@@ -206,7 +206,7 @@ class FeedFetcherTest extends TestCase
             $this->ITempManager,
             $timeFactory,
             $this->logger,
-            $this->iConfig
+            $this->fetcherConfig
         );
         $this->url = 'http://tests/';
 

@@ -26,7 +26,6 @@ use GuzzleHttp\Exception\ConnectException;
 use Net_URL2;
 use OCP\IL10N;
 use OCP\ITempManager;
-use OCP\IConfig;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
@@ -75,9 +74,9 @@ class FeedFetcher implements IFeedFetcher
     private $logger;
 
     /**
-     * @var IConfig
+     * @var FetcherConfig
      */
-    private $iConfig;
+    private $fetcherConfig;
 
     public function __construct(
         FeedIo $fetcher,
@@ -87,7 +86,7 @@ class FeedFetcher implements IFeedFetcher
         ITempManager $ITempManager,
         Time $time,
         LoggerInterface $logger,
-        IConfig $iConfig
+        FetcherConfig $fetcherConfig
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
@@ -96,7 +95,7 @@ class FeedFetcher implements IFeedFetcher
         $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
-        $this->iConfig        = $iConfig;
+        $this->fetcherConfig  = $fetcherConfig;
     }
 
 
@@ -409,7 +408,6 @@ class FeedFetcher implements IFeedFetcher
         try {
             // Base_uri can only be set on creation, will be used when link is relative.
             $client = new Client(['base_uri' => $base_url]);
-            $fetcherConfig = new FetcherConfig($this->iConfig);
             $response = $client->request(
                 'GET',
                 $favicon,
@@ -419,7 +417,7 @@ class FeedFetcher implements IFeedFetcher
                         'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
                         'If-Modified-Since' => date(DateTime::RFC7231, $last_modified),
-                        'Accept-Encoding'   => $fetcherConfig->checkEncoding()
+                        'Accept-Encoding'   => $this->fetcherConfig->checkEncoding()
                     ]
                 ]
             );
