@@ -15,7 +15,6 @@
 				</NcActionButton>
 			</NcActions>
 			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
-			<Eye @click="markUnread(item)" />
 			<CloseIcon @click="clearSelected()" />
 		</div>
 		<div class="article">
@@ -98,20 +97,18 @@ import { mapState } from 'vuex'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
-import Eye from 'vue-material-design-icons/Eye.vue'
 
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import { Feed } from '../types/Feed'
 import { FeedItem } from '../types/FeedItem'
-import { ACTIONS } from '../store'
+import { ACTIONS, MUTATIONS } from '../store'
 
 export default Vue.extend({
 	name: 'FeedItemDisplay',
 	components: {
 		CloseIcon,
-		Eye,
 		StarIcon,
 		ShareVariant,
 		NcActions,
@@ -125,19 +122,15 @@ export default Vue.extend({
 	},
 	data: () => {
 		return {
-			expanded: false,
 			keepUnread: false,
 		}
 	},
 	computed: {
-		isExpanded() {
-			return this.expanded
-		},
 		...mapState(['feeds']),
 	},
 	methods: {
 		clearSelected() {
-			this.$store.dispatch(ACTIONS.SET_SELECTED_ITEM, { id: undefined })
+			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 		},
 		formatDate(epoch: number) {
 			return new Date(epoch).toLocaleString()
@@ -157,9 +150,6 @@ export default Vue.extend({
 		},
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
-		},
-		markUnread(item: FeedItem): void {
-			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
 		},
 	},
 })

@@ -51,7 +51,7 @@ export default Vue.extend({
 			return this.$store.getters.selected
 		},
 		reachedEnd(): boolean {
-			return this.mounted && this.$store.state.items.allItemsLoaded[this.fetchKey] !== undefined && this.$store.state.items.allItemsLoaded[this.fetchKey]
+			return this.mounted && this.$store.state.items.allItemsLoaded[this.fetchKey] === true
 		},
 	},
 	mounted() {
