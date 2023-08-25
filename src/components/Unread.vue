@@ -26,6 +26,7 @@ import { FeedItem } from '../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../store'
 
 type UnreadItemState = {
+	// need cache so we aren't always removing items when they get read
 	unreadCache?: FeedItem[]
 }
 

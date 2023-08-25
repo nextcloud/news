@@ -129,27 +129,54 @@ export default Vue.extend({
 		...mapState(['feeds']),
 	},
 	methods: {
-		clearSelected() {
+		/**
+		 * Sends message to state to clear the selectedId number
+		 */
+		clearSelected(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 		},
-		formatDate(epoch: number) {
+		/**
+		 * Returns locale formatted date string
+		 *
+		 * @param {number} epoch date value in epoch format
+		 * @return {string} locale formatted date string (based on users browser)
+		 */
+		formatDate(epoch: number): string {
 			return new Date(epoch).toLocaleString()
 		},
-		formatDatetime(epoch: number) {
+		/**
+		 * Returns UTC formatted datetime in format recognized by `datetime` property
+		 *
+		 * @param {number} epoch date value in epoch format
+		 * @return {string} UTC formatted datetime string (in format yyyy-MM-ddTHH:mm:ssZ)
+		 */
+		formatDatetime(epoch: number): string {
 			return new Date(epoch).toISOString()
 		},
+		/**
+		 * Retrieve the feed by id number
+		 *
+		 * @param {number} id id of feed to fetch
+		 * @return {Feed} associated Feed
+		 */
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
-		getMediaType(mime: any): 'audio' | 'video' | false {
+		/**
+		 * Sends message to change the items starred property to the opposite value
+		 *
+		 * @param {FeedItem} item item to toggle starred status on
+		 */
+		toggleStarred(item: FeedItem): void {
+			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		},
+
+		getMediaType(mime: string): 'audio' | 'video' | false {
 			// TODO: figure out how to check media type
 			return false
 		},
-		play(item: any) {
+		play(item: FeedItem) {
 			// TODO: implement play audio/video
-		},
-		toggleStarred(item: FeedItem): void {
-			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
 		},
 	},
 })

@@ -1,12 +1,12 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import FeedItemRow from '../../../../src/components/FeedItemRow.vue'
-import { ACTIONS } from '../../../../src/store'
+import FeedItemDisplay from '../../../../src/components/FeedItemDisplay.vue'
+import { ACTIONS, MUTATIONS } from '../../../../src/store'
 
-describe('FeedItemRow.vue', () => {
+describe('FeedItemDisplay.vue', () => {
 	'use strict'
 	const localVue = createLocalVue()
-	let wrapper: Wrapper<FeedItemRow>
+	let wrapper: Wrapper<FeedItemDisplay>
 
 	const mockItem = {
 		feedId: 1,
@@ -18,8 +18,9 @@ describe('FeedItemRow.vue', () => {
 	}
 
 	const dispatchStub = jest.fn()
+	const commitStub = jest.fn()
 	beforeAll(() => {
-		wrapper = shallowMount(FeedItemRow, {
+		wrapper = shallowMount(FeedItemDisplay, {
 			propsData: {
 				item: mockItem,
 			},
@@ -34,7 +35,7 @@ describe('FeedItemRow.vue', () => {
 						folders: [],
 					},
 					dispatch: dispatchStub,
-					commit: jest.fn(),
+					commit: commitStub,
 				},
 			},
 		})
@@ -42,10 +43,13 @@ describe('FeedItemRow.vue', () => {
 
 	beforeEach(() => {
 		dispatchStub.mockReset()
+		commitStub.mockReset()
 	})
 
-	it('should initialize without expanded and without keepUnread', () => {
-		expect(wrapper.vm.$data.keepUnread).toBeFalsy()
+	it('should send SET_SELECTED_ITEM with undefined id', () => {
+		(wrapper.vm as any).clearSelected()
+
+		expect(commitStub).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 	})
 
 	it('should format date to match locale', () => {
@@ -62,51 +66,10 @@ describe('FeedItemRow.vue', () => {
 		expect(formattedDate).toEqual(new Date(epoch).toISOString())
 	})
 
-	it('should calculate relative timestamp correctly', () => {
-		const currentTimestamp = Date.now()
-		let pastTimestamp = currentTimestamp - 1000 * 10 // 10 seconds ago
-
-		let relativeTimestamp = (wrapper.vm as any).getRelativeTimestamp(pastTimestamp)
-
-		expect(relativeTimestamp).toEqual('10 seconds')
-
-		pastTimestamp = currentTimestamp - 1000 * 60 * 10 // 10 minutes ago
-
-		relativeTimestamp = (wrapper.vm as any).getRelativeTimestamp(pastTimestamp)
-
-		expect(relativeTimestamp).toEqual('10 minutes ago')
-	})
-
 	it('should retrieve feed by ID', () => {
 		const feed = (wrapper.vm as any).getFeed(mockFeed.id)
 
 		expect(feed).toEqual(mockFeed)
-	})
-
-	describe('markRead', () => {
-		it('should mark item as read when keepUnread is false', () => {
-			wrapper.vm.$data.keepUnread = false;
-			(wrapper.vm as any).markRead(wrapper.vm.$props.item)
-
-			expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.MARK_READ, {
-				item: wrapper.vm.$props.item,
-			})
-		})
-
-		it('should not mark item as read when keepUnread is true', () => {
-			wrapper.vm.$data.keepUnread = true;
-			(wrapper.vm as any).markRead(wrapper.vm.$data.item)
-
-			expect(dispatchStub).not.toHaveBeenCalled()
-		})
-	})
-
-	it('toggles keepUnread state', () => {
-		const initialKeepUnread = wrapper.vm.$data.keepUnread;
-		(wrapper.vm as any).toggleKeepUnread(wrapper.vm.$data.item)
-		const updatedKeepUnread = wrapper.vm.$data.keepUnread
-
-		expect(updatedKeepUnread).toBe(!initialKeepUnread)
 	})
 
 	it('toggles starred state', () => {
@@ -124,4 +87,6 @@ describe('FeedItemRow.vue', () => {
 			item: wrapper.vm.$props.item,
 		})
 	})
+
+	// TODO: Audio/Video tests
 })
