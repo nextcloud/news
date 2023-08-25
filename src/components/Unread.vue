@@ -10,6 +10,7 @@
 		<FeedItemDisplayList v-if="unread()"
 			:items="unread()"
 			:fetch-key="'unread'"
+			:config="{ starFilter: true }"
 			@load-more="fetchMore()" />
 	</div>
 </template>
@@ -74,22 +75,17 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-.header {
-	padding-left: 50px;
-	position: absolute;
-	top: 1em;
-	font-weight: 700;
-}
+<style scoped>
+	.header {
+		padding-left: 50px;
+		position: absolute;
+		top: 1em;
+		font-weight: 700;
+	}
 
-.counter-bubble {
-	display: inline-block;
-	vertical-align: sub;
-	margin-left: 10px;
-}
-
-.virtual-scroll {
-	margin-top: 50px;
-	border-top: 1px solid var(--color-border);
-}
+	.counter-bubble {
+		display: inline-block;
+		vertical-align: sub;
+		margin-left: 10px;
+	}
 </style>

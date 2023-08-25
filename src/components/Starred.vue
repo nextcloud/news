@@ -7,7 +7,10 @@
 			</NcCounterBubble>
 		</div>
 
-		<FeedItemDisplayList :items="starred" :fetch-key="'starred'" @load-more="fetchMore()" />
+		<FeedItemDisplayList :items="starred"
+			:fetch-key="'starred'"
+			:config="{ unreadFilter: true }"
+			@load-more="fetchMore()" />
 	</div>
 </template>
 
@@ -47,26 +50,21 @@ export default Vue.extend({
 })
 </script>
 
-<style>
-.route-container {
-	height: 100%;
-}
+<style scoped>
+	.route-container {
+		height: 100%;
+	}
 
-.header {
-	padding-left: 50px;
-	position: absolute;
-	top: 1em;
-	font-weight: 700;
-}
+	.header {
+		padding-left: 50px;
+		position: absolute;
+		top: 1em;
+		font-weight: 700;
+	}
 
-.counter-bubble {
-	display: inline-block;
-	vertical-align: sub;
-	margin-left: 10px;
-}
-
-.virtual-scroll {
-	margin-top: 50px;
-	border-top: 1px solid var(--color-border);
-}
+	.counter-bubble {
+		display: inline-block;
+		vertical-align: sub;
+		margin-left: 10px;
+	}
 </style>

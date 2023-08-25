@@ -5,4 +5,5 @@ export type FeedItem = {
   starred: boolean;
   feedId: number;
   guidHash: string;
+  pubDate: number;
 };
