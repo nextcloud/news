@@ -183,7 +183,7 @@ export default Vue.extend({
 
 </script>
 
-<style>
+<style scoped>
 	.feed-item-display {
 		max-height: 100%;
 		overflow-y: hidden;
@@ -228,11 +228,10 @@ export default Vue.extend({
 	.article h1 {
 		font-weight: bold;
     font-size: 17px;
-		margin-top: 25px;
 	}
 
 	.action-bar {
-		padding: 20px;
+		padding: 0px 20px 0px 20px;
 
 		display: flex;
 		justify-content: right
@@ -241,5 +240,9 @@ export default Vue.extend({
 	.action-bar .material-design-icon{
 		cursor: pointer;
 		margin: 5px;
+	}
+
+	.action-bar .material-design-icon:hover {
+		color: var(--color-text-light);
 	}
 </style>

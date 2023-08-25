@@ -11,6 +11,7 @@ export const FEED_ITEM_ACTION_TYPES = {
 	MARK_UNREAD: 'MARK_UNREAD',
 	STAR_ITEM: 'STAR_ITEM',
 	UNSTAR_ITEM: 'UNSTAR_ITEM',
+	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
 }
 
 export type ItemState = {
@@ -76,6 +77,16 @@ export const actions = {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: true })
 		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: false })
+	},
+	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS]({ commit }: ActionParams, { feedId, start }: { feedId: number; start: number }) {
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
+		const response = await ItemService.debounceFetchFeedItems(feedId, start)
+
+		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
+		if (response?.data.items.length < 40) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
+		}
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: false })
 	},
 	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem}) {
 		ItemService.markRead(item, true)

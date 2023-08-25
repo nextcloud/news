@@ -6,6 +6,7 @@ import { API_ROUTES } from '../types/ApiRoutes'
 import { FeedItem } from '../types/FeedItem'
 
 export const ITEM_TYPES = {
+	ALL: 0,
 	STARRED: 2,
 	UNREAD: 6,
 }
@@ -14,6 +15,7 @@ export class ItemService {
 
 	static debounceFetchStarred = _.debounce(ItemService.fetchStarred, 400, { leading: true })
 	static debounceFetchUnread = _.debounce(ItemService.fetchUnread, 400, { leading: true })
+	static debounceFetchFeedItems = _.debounce(ItemService.fetchFeedItems, 400, { leading: true })
 
 	/**
 	 * Makes backend call to retrieve starred items
@@ -49,6 +51,27 @@ export class ItemService {
 				showAll: false,
 				type: ITEM_TYPES.UNREAD,
 				offset: start,
+			},
+		})
+	}
+
+	/**
+	 * Makes backend call to retrieve items from a specific feed
+	 *
+	 * @param feedId id number of feed to retrieve items for
+	 * @param start (id of last unread item loaded)
+	 * @return {AxiosResponse} response object containing backend request response
+	 */
+	static async fetchFeedItems(feedId: number, start: number): Promise<AxiosResponse> {
+		return await axios.get(API_ROUTES.ITEMS, {
+			params: {
+				limit: 40,
+				oldestFirst: false,
+				search: '',
+				showAll: false,
+				type: ITEM_TYPES.ALL,
+				offset: start,
+				id: feedId,
 			},
 		})
 	}

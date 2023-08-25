@@ -3,11 +3,13 @@ import VueRouter from 'vue-router'
 import ExplorePanel from '../components/Explore.vue'
 import StarredPanel from '../components/Starred.vue'
 import UnreadPanel from '../components/Unread.vue'
+import FeedPanel from '../components/Feed.vue'
 
 export const ROUTES = {
 	EXPLORE: 'explore',
 	STARRED: 'starred',
 	UNREAD: 'unread',
+	FEED: 'feeed',
 }
 
 const getInitialRoute = function() {
@@ -39,6 +41,12 @@ const routes = [
 		name: ROUTES.UNREAD,
 		path: '/unread',
 		component: UnreadPanel,
+		props: true,
+	},
+	{
+		name: ROUTES.FEED,
+		path: '/feed/:feedId',
+		component: FeedPanel,
 		props: true,
 	},
 ]

@@ -36,17 +36,17 @@
 			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
 				:key="topLevelItem.name || topLevelItem.title"
 				:title="topLevelItem.name || topLevelItem.title"
-				:icon="topLevelItem.name !== undefined ? 'icon-folder': ''"
+				:icon="isFolder(topLevelItem) ? 'icon-folder': ''"
+				:to="isFolder(topLevelItem) ? {} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 				:allow-collapse="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
-						:title="feed.title">
+						:title="feed.title"
+						:to="{ name: ROUTES.FEED, props: { feedId: feed.id } }">
 						<template #icon>
-							<img v-if="feed.faviconLink"
-								:src="feed.faviconLink"
-								alt="feedIcon">
-							<div v-if="!feed.faviconLink" class="icon-rss" />
+							<RssIcon v-if="!feed.faviconLink" />
+							<span v-if="feed.faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
 						</template>
 						<template #actions>
 							<NcActionButton icon="icon-checkmark"
@@ -100,8 +100,17 @@
 						</template>
 					</NcAppNavigationItem>
 				</template>
-				<template v-if="topLevelItem.feedCount > 0" #counter>
-					<NcCounterBubble>{{ topLevelItem.feedCount }}</NcCounterBubble>
+				<template #icon>
+					<RssIcon v-if="topLevelItem.feedCount === undefined && !topLevelItem.faviconLink" />
+					<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
+				</template>
+				<template #counter>
+					<NcCounterBubble v-if="topLevelItem.feedCount > 0">
+						{{ topLevelItem.feedCount }}
+					</NcCounterBubble>
+					<NcCounterBubble v-if="topLevelItem.unreadCount > 0">
+						{{ topLevelItem.unreadCount }}
+					</NcCounterBubble>
 				</template>
 				<template #actions>
 					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark read')">
@@ -198,6 +207,9 @@ export default Vue.extend({
 		},
 		alert(msg: string) {
 			window.alert(msg)
+		},
+		isFolder(item: Feed | Folder) {
+			return (item as Folder).name !== undefined
 		},
 	},
 })

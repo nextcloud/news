@@ -210,23 +210,23 @@ export default Vue.extend({
     height: 30px;
 	}
 
-	.material-design-icon {
+	.feed-item-row .button-container .material-design-icon {
 		color: var(--color-text-lighter)
 	}
 
-	.material-design-icon:hover {
+	.feed-item-row .button-container .material-design-icon:hover {
 		color: var(--color-text-light);
 	}
 
-	.material-design-icon.rss-icon:hover {
+	.feed-item-row .button-container .material-design-icon.rss-icon:hover {
 		color: #555555;
 	}
 
 	.material-design-icon.starred {
-		color: rgb(255, 204, 0);
+		color: rgb(255, 204, 0) !important;
 	}
 
-	.material-design-icon.keep-unread {
+	.feed-item-row .button-container .material-design-icon.keep-unread {
 		color: var(--color-main-text);
 	}
 
@@ -234,7 +234,7 @@ export default Vue.extend({
 		color: #555555;
 	}
 
-	.eye-check-icon {
+	.feed-item-row .button-container .eye-check-icon {
 		color: var(--color-primary-light);
 	}
 </style>
