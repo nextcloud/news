@@ -73,6 +73,11 @@ class FeedFetcher implements IFeedFetcher
      */
     private $logger;
 
+    /**
+     * @var FetcherConfig
+     */
+    private $fetcherConfig;
+
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
@@ -80,7 +85,8 @@ class FeedFetcher implements IFeedFetcher
         IL10N $l10n,
         ITempManager $ITempManager,
         Time $time,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        FetcherConfig $fetcherConfig
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
@@ -89,6 +95,7 @@ class FeedFetcher implements IFeedFetcher
         $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
+        $this->fetcherConfig  = $fetcherConfig;
     }
 
 
@@ -409,7 +416,8 @@ class FeedFetcher implements IFeedFetcher
                     'headers' => [
                         'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
-                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified)
+                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified),
+                        'Accept-Encoding'   => $this->fetcherConfig->checkEncoding()
                     ]
                 ]
             );
