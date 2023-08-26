@@ -89,7 +89,7 @@
 	},
 	{
 		"title": "ccMixter",
-		"favicon": "http://ccmixter.org/mixter-files/images/mixter-default.gif",
+		"favicon": "https://ccmixter.org/mixter-files/images/mixter-default.gif",
 		"url": "http://ccmixter.org/",
 		"feed": "http://ccmixter.org/api/query?f=rss&tags=editorial_pick&sort=date&dir=DESC&limit=22",
 		"description": "Editor’s picks from the global music community",
