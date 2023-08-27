@@ -10,7 +10,7 @@
 		<FeedItemDisplayList v-if="unread()"
 			:items="unread()"
 			:fetch-key="'unread'"
-			:config="{ starFilter: true }"
+			:config="{ unreadFilter: false }"
 			@load-more="fetchMore()" />
 	</div>
 </template>
@@ -21,10 +21,10 @@ import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import FeedItemDisplayList from './FeedItemDisplayList.vue'
+import FeedItemDisplayList from '../FeedItemDisplayList.vue'
 
-import { FeedItem } from '../types/FeedItem'
-import { ACTIONS, MUTATIONS } from '../store'
+import { FeedItem } from '../../types/FeedItem'
+import { ACTIONS, MUTATIONS } from '../../store'
 
 type UnreadItemState = {
 	// need cache so we aren't always removing items when they get read

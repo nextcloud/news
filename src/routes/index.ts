@@ -1,15 +1,15 @@
 import VueRouter from 'vue-router'
 
-import ExplorePanel from '../components/Explore.vue'
-import StarredPanel from '../components/Starred.vue'
-import UnreadPanel from '../components/Unread.vue'
-import FeedPanel from '../components/Feed.vue'
+import ExplorePanel from '../components/routes/Explore.vue'
+import StarredPanel from '../components/routes/Starred.vue'
+import UnreadPanel from '../components/routes/Unread.vue'
+import FeedPanel from '../components/routes/Feed.vue'
 
 export const ROUTES = {
 	EXPLORE: 'explore',
 	STARRED: 'starred',
 	UNREAD: 'unread',
-	FEED: 'feeed',
+	FEED: 'feed',
 }
 
 const getInitialRoute = function() {

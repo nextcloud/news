@@ -3,7 +3,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 
 import * as router from '@nextcloud/router'
 
-import Explore from '../../../../src/components/Explore.vue'
+import Explore from '../../../../../src/components/routes/Explore.vue'
 
 jest.mock('@nextcloud/axios')
 

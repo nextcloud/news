@@ -149,6 +149,8 @@ import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigati
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
+import RssIcon from 'vue-material-design-icons/Rss.vue'
+
 import { ROUTES } from '../routes'
 import { ACTIONS, AppState } from '../store'
 
@@ -179,6 +181,7 @@ export default Vue.extend({
 		NcCounterBubble,
 		NcActionButton,
 		AddFeed,
+		RssIcon,
 	},
 	data: () => {
 		return {
