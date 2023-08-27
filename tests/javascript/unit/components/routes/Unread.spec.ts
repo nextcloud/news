@@ -1,8 +1,8 @@
 import Vuex, { Store } from 'vuex'
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import Unread from '../../../../src/components/Unread.vue'
-import FeedItemDisplayList from '../../../../src/components/FeedItemDisplayList.vue'
+import Unread from '../../../../../src/components/routes/Unread.vue'
+import FeedItemDisplayList from '../../../../../src/components/FeedItemDisplayList.vue'
 
 jest.mock('@nextcloud/axios')
 

@@ -12,7 +12,7 @@ describe('item.service.ts', () => {
 	})
 
 	describe('fetchStarred', () => {
-		it('should call GET with offset set to start param', async () => {
+		it('should call GET with offset set to start param and STARRED item type', async () => {
 			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
 
 			await ItemService.fetchStarred(0)
@@ -26,7 +26,7 @@ describe('item.service.ts', () => {
 	})
 
 	describe('fetchUnread', () => {
-		it('should call GET with offset set to start param', async () => {
+		it('should call GET with offset set to start param and UNREAD item type', async () => {
 			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
 
 			await ItemService.fetchUnread(2)
@@ -36,6 +36,21 @@ describe('item.service.ts', () => {
 
 			expect(queryParams.offset).toEqual(2)
 			expect(queryParams.type).toEqual(ITEM_TYPES.UNREAD)
+		})
+	})
+
+	describe('fetchFeedItems', () => {
+		it('should call GET with offset set to start param, UNREAD item type, and id set to feedId', async () => {
+			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+
+			await ItemService.fetchFeedItems(123, 0)
+
+			expect(axios.get).toBeCalled()
+			const queryParams = (axios.get as any).mock.calls[0][1].params
+
+			expect(queryParams.id).toEqual(123)
+			expect(queryParams.offset).toEqual(0)
+			expect(queryParams.type).toEqual(ITEM_TYPES.ALL)
 		})
 	})
 

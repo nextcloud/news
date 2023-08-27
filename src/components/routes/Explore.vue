@@ -38,10 +38,10 @@ import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import axios from '@nextcloud/axios'
 import * as router from '@nextcloud/router'
 
-import AddFeed from './AddFeed.vue'
+import AddFeed from '../AddFeed.vue'
 
-import { ExploreSite } from '../types/ExploreSite'
-import { Feed } from '../types/Feed'
+import { ExploreSite } from '../../types/ExploreSite'
+import { Feed } from '../../types/Feed'
 
 const ExploreComponent = Vue.extend({
 	components: {

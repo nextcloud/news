@@ -5,7 +5,7 @@
 				<template #icon>
 					<FilterIcon />
 				</template>
-				<NcActionButton v-if="config.unreadFilter" @click="toggleFilter(unreadFilter)">
+				<NcActionButton v-if="cfg.unreadFilter" @click="toggleFilter(unreadFilter)">
 					<template #default>
 						{{ t("news", "Unread") }}
 					</template>
@@ -14,7 +14,7 @@
 						<EyeCheckIcon v-if="filter === unreadFilter" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="config.starFilter" @click="toggleFilter(starFilter)">
+				<NcActionButton v-if="cfg.starFilter" @click="toggleFilter(starFilter)">
 					<template #default>
 						{{ t("news", "Starred") }}
 					</template>
@@ -45,6 +45,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import _ from 'lodash'
 
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
@@ -60,6 +61,11 @@ import FeedItemRow from './FeedItemRow.vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 
 import { FeedItem } from '../types/FeedItem'
+
+const DEFAULT_DISPLAY_LIST_CONFIG = {
+	starFilter: true,
+	unreadFilter: true,
+}
 
 export default Vue.extend({
 	components: {
@@ -86,10 +92,7 @@ export default Vue.extend({
 		config: {
 			type: Object,
 			default: () => {
-				return {
-					unreadFilter: true,
-					starFilter: true,
-				}
+				return DEFAULT_DISPLAY_LIST_CONFIG
 			},
 		},
 	},
@@ -117,6 +120,9 @@ export default Vue.extend({
 		},
 		reachedEnd(): boolean {
 			return this.mounted && this.$store.state.items.allItemsLoaded[this.fetchKey] === true
+		},
+		cfg() {
+			return _.defaults({ ...this.config }, DEFAULT_DISPLAY_LIST_CONFIG)
 		},
 	},
 	mounted() {

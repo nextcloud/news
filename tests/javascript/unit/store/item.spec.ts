@@ -37,6 +37,21 @@ describe('item.ts', () => {
 			})
 		})
 
+		describe('FETCH_FEED_ITEMS', () => {
+			it('should call ItemService and commit items to state', async () => {
+				const mockItems = [{ id: 123, title: 'feed item' }]
+				const fetchMock = jest.fn()
+				fetchMock.mockResolvedValue({ data: { items: mockItems } })
+				ItemService.debounceFetchFeedItems = fetchMock as any
+				const commit = jest.fn()
+
+				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS] as any)({ commit }, { feedId: 123 })
+
+				expect(fetchMock).toBeCalled()
+				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, mockItems)
+			})
+		})
+
 		it('MARK_READ should call GET and commit returned feeds to state', async () => {
 			const item = { id: 1 }
 			const commit = jest.fn()

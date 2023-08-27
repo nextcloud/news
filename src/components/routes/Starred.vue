@@ -9,7 +9,7 @@
 
 		<FeedItemDisplayList :items="starred"
 			:fetch-key="'starred'"
-			:config="{ unreadFilter: true }"
+			:config="{ starFilter: false }"
 			@load-more="fetchMore()" />
 	</div>
 </template>
@@ -20,10 +20,10 @@ import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import FeedItemDisplayList from './FeedItemDisplayList.vue'
+import FeedItemDisplayList from '../FeedItemDisplayList.vue'
 
-import { FeedItem } from '../types/FeedItem'
-import { ACTIONS, MUTATIONS } from '../store'
+import { FeedItem } from '../../types/FeedItem'
+import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
