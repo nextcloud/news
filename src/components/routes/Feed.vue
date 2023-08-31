@@ -17,7 +17,7 @@ import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import FeedItemDisplayList from '../FeedItemDisplayList.vue'
+import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -56,7 +56,7 @@ export default Vue.extend({
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems['feed-' + this.feedId]) {
-			  this.$store.dispatch(ACTIONS.FETCH_FEED_ITEMS, { feedId: this.id, start: this.items && this.items.length > 0 ? this.items[this.items.length - 1].id : 0 })
+			  this.$store.dispatch(ACTIONS.FETCH_FEED_ITEMS, { feedId: this.id })
 			}
 		},
 	},

@@ -60,9 +60,9 @@ import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
-import { Feed } from '../types/Feed'
-import { FeedItem } from '../types/FeedItem'
-import { ACTIONS, MUTATIONS } from '../store'
+import { Feed } from '../../types/Feed'
+import { FeedItem } from '../../types/FeedItem'
+import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	name: 'FeedItemRow',

@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import FeedItemRow from '../../../../src/components/FeedItemRow.vue'
-import { ACTIONS } from '../../../../src/store'
+import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'
+import { ACTIONS } from '../../../../../src/store'
 
 describe('FeedItemRow.vue', () => {
 	'use strict'

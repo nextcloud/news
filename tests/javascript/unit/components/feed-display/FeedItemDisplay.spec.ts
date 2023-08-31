@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import FeedItemDisplay from '../../../../src/components/FeedItemDisplay.vue'
-import { ACTIONS, MUTATIONS } from '../../../../src/store'
+import FeedItemDisplay from '../../../../../src/components/feed-display/FeedItemDisplay.vue'
+import { ACTIONS, MUTATIONS } from '../../../../../src/store'
 
 describe('FeedItemDisplay.vue', () => {
 	'use strict'
