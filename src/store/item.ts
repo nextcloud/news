@@ -17,7 +17,7 @@ export const FEED_ITEM_ACTION_TYPES = {
 export type ItemState = {
 	fetchingItems: { [key: string]: boolean };
 	allItemsLoaded: { [key: string]: boolean };
-	starredLoaded: boolean;
+	lastItemLoaded: { [key: string]: number };
 
 	starredCount: number;
 	unreadCount: number;
@@ -30,7 +30,7 @@ export type ItemState = {
 const state: ItemState = {
 	fetchingItems: {},
 	allItemsLoaded: {},
-	starredLoaded: false,
+	lastItemLoaded: {},
 
 	starredCount: 0,
 	unreadCount: 0,
@@ -55,18 +55,21 @@ export const actions = {
 	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
-		const response = await ItemService.debounceFetchUnread(start)
+		const response = await ItemService.debounceFetchUnread(state.lastItemLoaded.unread || start)
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'unread', loaded: true })
 		}
+
+		const lastItem = response?.data.items[response?.data.items.length - 1].id
+		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'unread', lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: false })
 	},
 	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
-		const response = await ItemService.debounceFetchStarred(start)
+		const response = await ItemService.debounceFetchStarred(state.lastItemLoaded.starred || start)
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.starred) {
@@ -76,16 +79,20 @@ export const actions = {
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: true })
 		}
+		const lastItem = response?.data.items[response?.data.items.length - 1].id
+		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: false })
 	},
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS]({ commit }: ActionParams, { feedId, start }: { feedId: number; start: number }) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
-		const response = await ItemService.debounceFetchFeedItems(feedId, start)
+		const response = await ItemService.debounceFetchFeedItems(feedId, state.lastItemLoaded['feed-' + feedId] || start)
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
 		}
+		const lastItem = response?.data.items[response?.data.items.length - 1].id
+		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'feed-' + feedId, lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: false })
 	},
 	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem}) {
@@ -150,6 +157,9 @@ export const mutations = {
 	},
 	[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](state: ItemState, { loaded, key }: { loaded: boolean; key: string; }) {
 		state.allItemsLoaded[key] = loaded
+	},
+	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](state: ItemState, { lastItem, key }: { lastItem: number; key: string; }) {
+		state.lastItemLoaded[key] = lastItem
 	},
 }
 

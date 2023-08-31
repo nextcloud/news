@@ -60,7 +60,7 @@ import VirtualScroll from './VirtualScroll.vue'
 import FeedItemRow from './FeedItemRow.vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 
-import { FeedItem } from '../types/FeedItem'
+import { FeedItem } from '../../types/FeedItem'
 
 const DEFAULT_DISPLAY_LIST_CONFIG = {
 	starFilter: true,

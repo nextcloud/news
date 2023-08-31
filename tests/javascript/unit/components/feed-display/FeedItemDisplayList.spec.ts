@@ -1,9 +1,9 @@
 import Vuex, { Store } from 'vuex'
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
-import FeedItemDisplayList from '../../../../src/components/FeedItemDisplayList.vue'
-import VirtualScroll from '../../../../src/components/VirtualScroll.vue'
-import FeedItemRow from '../../../../src/components/FeedItemRow.vue'
+import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
+import VirtualScroll from '../../../../../src/components/feed-display/VirtualScroll.vue'
+import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'
 
 jest.mock('@nextcloud/axios')
 
