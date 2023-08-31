@@ -52,10 +52,18 @@ const getters = {
 }
 
 export const actions = {
+	/**
+	 * Fetch Unread Items from Backend and call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.start
+	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
-		const response = await ItemService.debounceFetchUnread(state.lastItemLoaded.unread || start)
+		const response = await ItemService.debounceFetchUnread(start || state.lastItemLoaded.unread)
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 
@@ -67,9 +75,18 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'unread', lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: false })
 	},
+
+	/**
+	 * Fetch Starred Items from Backend and call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.start
+	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
-		const response = await ItemService.debounceFetchStarred(state.lastItemLoaded.starred || start)
+		const response = await ItemService.debounceFetchStarred(start || state.lastItemLoaded.starred)
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.starred) {
@@ -83,9 +100,19 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: false })
 	},
+
+	/**
+	 * Fetch All Feed Items from Backend and call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.start
+	 * @param param1.feedId
+	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS]({ commit }: ActionParams, { feedId, start }: { feedId: number; start: number }) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
-		const response = await ItemService.debounceFetchFeedItems(feedId, state.lastItemLoaded['feed-' + feedId] || start)
+		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
@@ -95,7 +122,16 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'feed-' + feedId, lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: false })
 	},
-	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+
+	/**
+	 * Sends message to Backend to mark as read, and then call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.item
+	 */
+	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem }) {
 		ItemService.markRead(item, true)
 
 		if (item.unread) {
@@ -104,6 +140,15 @@ export const actions = {
 		item.unread = false
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 	},
+
+	/**
+	 * Sends message to Backend to mark as unread, and then call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.item
+	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit }: ActionParams, { item }: { item: FeedItem}) {
 		ItemService.markRead(item, false)
 
@@ -113,6 +158,15 @@ export const actions = {
 		item.unread = true
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 	},
+
+	/**
+	 * Sends message to Backend to mark as starred, and then call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.item
+	 */
 	[FEED_ITEM_ACTION_TYPES.STAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
 		ItemService.markStarred(item, true)
 
@@ -120,6 +174,15 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount + 1)
 	},
+
+	/**
+	 * Sends message to Backend to remove mark as starred, and then call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.item
+	 */
 	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
 		ItemService.markStarred(item, false)
 
