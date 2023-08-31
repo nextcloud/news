@@ -43,7 +43,7 @@ export default Vue.extend({
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems.starred) {
-			  this.$store.dispatch(ACTIONS.FETCH_STARRED, { start: this.$store.getters.starred[this.$store.getters.starred?.length - 1]?.id })
+			  this.$store.dispatch(ACTIONS.FETCH_STARRED)
 			}
 		},
 	},
