@@ -4,12 +4,16 @@ import ExplorePanel from '../components/routes/Explore.vue'
 import StarredPanel from '../components/routes/Starred.vue'
 import UnreadPanel from '../components/routes/Unread.vue'
 import FeedPanel from '../components/routes/Feed.vue'
+import FolderPanel from '../components/routes/Folder.vue'
+import AllPanel from '../components/routes/All.vue'
 
 export const ROUTES = {
 	EXPLORE: 'explore',
 	STARRED: 'starred',
 	UNREAD: 'unread',
 	FEED: 'feed',
+	FOLDER: 'folder',
+	ALL: 'all',
 }
 
 const getInitialRoute = function() {
@@ -47,6 +51,18 @@ const routes = [
 		name: ROUTES.FEED,
 		path: '/feed/:feedId',
 		component: FeedPanel,
+		props: true,
+	},
+	{
+		name: ROUTES.FOLDER,
+		path: '/folder/:folderId',
+		component: FolderPanel,
+		props: true,
+	},
+	{
+		name: ROUTES.ALL,
+		path: '/all',
+		component: AllPanel,
 		props: true,
 	},
 ]

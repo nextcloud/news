@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="height: 100%; display: flex; flex-direction: column;">
 		<div style="justify-content: right; display: flex">
 			<NcActions class="filter-container" :force-menu="true">
 				<template #icon>
@@ -193,6 +193,7 @@ export default Vue.extend({
 	.feed-item-container {
 		max-width: 50%;
 		overflow-y: hidden;
+		height: calc(100vh - 50px - 50px - 10px)
 	}
 
 	.filter-container {

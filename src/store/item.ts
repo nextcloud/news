@@ -12,6 +12,8 @@ export const FEED_ITEM_ACTION_TYPES = {
 	STAR_ITEM: 'STAR_ITEM',
 	UNSTAR_ITEM: 'UNSTAR_ITEM',
 	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
+	FETCH_FOLDER_FEED_ITEMS: 'FETCH_FOLDER_FEED_ITEMS',
+	FETCH_ITEMS: 'FETCH_ITEMS',
 }
 
 export type ItemState = {
@@ -49,6 +51,9 @@ const getters = {
 	selected(state: ItemState) {
 		return state.allItems.find((item: FeedItem) => item.id === state.selectedId)
 	},
+	allItems(state: ItemState) {
+		return state.allItems
+	},
 }
 
 export const actions = {
@@ -74,6 +79,30 @@ export const actions = {
 		const lastItem = response?.data.items[response?.data.items.length - 1].id
 		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'unread', lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: false })
+	},
+
+	/**
+	 * Fetch All Items from Backend and call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.start
+	 */
+	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
+
+		const response = await ItemService.debounceFetchAll(start || state.lastItemLoaded.all)
+
+		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
+
+		if (response?.data.items.length < 40) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'all', loaded: true })
+		}
+
+		const lastItem = response?.data.items[response?.data.items.length - 1].id
+		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'all', lastItem })
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: false })
 	},
 
 	/**
@@ -121,6 +150,28 @@ export const actions = {
 		const lastItem = response?.data.items[response?.data.items.length - 1].id
 		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'feed-' + feedId, lastItem })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: false })
+	},
+
+	/**
+	 * Fetch Folder Items from Backend and call commit to update state
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.commit
+	 * @param param1 ActionArgs
+	 * @param param1.start
+	 * @param param1.folderId
+	 */
+	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS]({ commit }: ActionParams, { folderId, start }: { folderId: number; start: number }) {
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
+		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
+
+		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
+		if (response?.data.items.length < 40) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'folder-' + folderId, loaded: true })
+		}
+		const lastItem = response?.data.items[response?.data.items.length - 1].id
+		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'folder-' + folderId, lastItem })
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: false })
 	},
 
 	/**
