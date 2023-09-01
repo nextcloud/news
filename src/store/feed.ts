@@ -1,9 +1,8 @@
-import axios from '@nextcloud/axios'
-
 import { ActionParams, AppState } from '../store'
 import { Feed } from '../types/Feed'
-import { API_ROUTES } from '../types/ApiRoutes'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
+import { FolderService } from '../dataservices/folder.service'
+import { FeedService } from '../dataservices/feed.service'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
@@ -22,7 +21,7 @@ const getters = {
 
 export const actions = {
 	async [FEED_ACTION_TYPES.FETCH_FEEDS]({ commit }: ActionParams) {
-		const feeds = await axios.get(API_ROUTES.FEED)
+		const feeds = await FeedService.fetchAllFeeds()
 
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
 		commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, (feeds.data.feeds.reduce((total: number, feed: Feed) => {
@@ -47,30 +46,20 @@ export const actions = {
 
 		let folderId
 		if (feedReq.folder?.id === undefined && feedReq.folder?.name && feedReq.folder?.name !== '') {
-			const response = await axios.post(API_ROUTES.FOLDER, { folderName: feedReq.folder?.name })
+			const response = await FolderService.createFolder({ name: feedReq.folder.name })
 			folderId = response.data.folders[0].id
 			commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 		} else {
 			folderId = feedReq.folder?.id || 0
 		}
 
-		const feed: Feed = {
-			url,
-			folderId,
-			title: undefined, // TODO: let user define feed title on create?
-			unreadCount: 0,
-			autoDiscover: undefined, // TODO: autodiscover?
-		}
-
 		// Check that url is resolvable
 		try {
-			const response = await axios.post(API_ROUTES.FEED, {
-				url: feed.url,
-				parentFolderId: feed.folderId,
-				title: null,
-				user: feedReq.user ? feedReq.user : null,
-				password: feedReq.password ? feedReq.password : null,
-				fullDiscover: feed.autoDiscover,
+			const response = await FeedService.addFeed({
+				url,
+				folderId,
+				user: feedReq.user,
+				password: feedReq.password,
 			})
 
 			commit(FEED_MUTATION_TYPES.ADD_FEED, response.data.feeds[0])

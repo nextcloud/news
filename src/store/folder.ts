@@ -1,10 +1,8 @@
-import axios from '@nextcloud/axios'
-
 import { AppState, ActionParams } from '../store'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
-import { API_ROUTES } from '../types/ApiRoutes'
+import { FolderService } from '../dataservices/folder.service'
 
 export const FOLDER_ACTION_TYPES = {
 	FETCH_FOLDERS: 'FETCH_FOLDERS',
@@ -24,12 +22,12 @@ const getters = {
 
 export const actions = {
 	async [FOLDER_ACTION_TYPES.FETCH_FOLDERS]({ commit }: ActionParams) {
-		const folders = await axios.get(API_ROUTES.FOLDER)
+		const folders = await FolderService.fetchAllFolders()
 
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, folders.data.folders)
 	},
 	async [FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit }: ActionParams, { folder }: { folder: Folder}) {
-		const response = await axios.post(API_ROUTES.FOLDER, { folderName: folder.name })
+		const response = await FolderService.createFolder({ name: folder.name })
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 	},
 	async [FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder}) {
@@ -39,7 +37,7 @@ export const actions = {
           promises.push(self.reversiblyDelete(feed.id, false, true));
       });
 		 */
-		await axios.delete(API_ROUTES.FOLDER + '/' + folder.id)
+		await FolderService.deleteFolder({ id: folder.id })
 		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
 	},
 }
