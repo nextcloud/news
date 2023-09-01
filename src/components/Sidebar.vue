@@ -20,7 +20,7 @@
 					<NcCounterBubble>{{ items.unreadCount }}</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :title="t('news', 'All articles')" icon="icon-rss">
+			<NcAppNavigationItem :title="t('news', 'All articles')" icon="icon-rss" :to="{ name: ROUTES.ALL }">
 				<template #actions>
 					<ActionButton icon="icon-checkmark" @click="alert('TODO: Edit')">
 						t('news','Mark read')
@@ -37,13 +37,13 @@
 				:key="topLevelItem.name || topLevelItem.title"
 				:title="topLevelItem.name || topLevelItem.title"
 				:icon="isFolder(topLevelItem) ? 'icon-folder': ''"
-				:to="isFolder(topLevelItem) ? {} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
+				:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 				:allow-collapse="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
 						:title="feed.title"
-						:to="{ name: ROUTES.FEED, props: { feedId: feed.id } }">
+						:to="{ name: ROUTES.FEED, params: { feedId: feed.id } }">
 						<template #icon>
 							<RssIcon v-if="!feed.faviconLink" />
 							<span v-if="feed.faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />

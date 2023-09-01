@@ -183,7 +183,7 @@ export default Vue.extend({
 
 </script>
 
-<style scoped>
+<style>
 	.feed-item-display {
 		max-height: 100%;
 		overflow-y: hidden;
@@ -208,6 +208,22 @@ export default Vue.extend({
 
 	.article .body a {
 		color: #3a84e4
+	}
+
+	.article .body ul {
+		margin: 7px 0;
+		padding-left: 14px;
+		list-style-type: disc;
+	}
+
+	.article .body ul li {
+		cursor: default;
+		line-height: 21px;
+	}
+
+	.article .body p {
+		line-height: 1.5;
+		margin: 7px 0 14px 0;
 	}
 
 	.article .subtitle {
