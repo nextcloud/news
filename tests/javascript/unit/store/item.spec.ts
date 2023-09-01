@@ -11,28 +11,28 @@ describe('item.ts', () => {
 		describe('FETCH_UNREAD', () => {
 			it('should call ItemService and commit items to state', async () => {
 				const fetchMock = jest.fn()
-				fetchMock.mockResolvedValue({ data: { items: [] } })
+				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }] } })
 				ItemService.debounceFetchUnread = fetchMock as any
 				const commit = jest.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_UNREAD] as any)({ commit })
 
 				expect(fetchMock).toBeCalled()
-				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [])
+				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
 			})
 		})
 
 		describe('FETCH_STARRED', () => {
 			it('should call ItemService and commit items and starred count to state', async () => {
 				const fetchMock = jest.fn()
-				fetchMock.mockResolvedValue({ data: { items: [], starred: 3 } })
+				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }], starred: 3 } })
 				ItemService.debounceFetchStarred = fetchMock as any
 				const commit = jest.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED] as any)({ commit })
 
 				expect(fetchMock).toBeCalled()
-				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [])
+				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, 3)
 			})
 		})

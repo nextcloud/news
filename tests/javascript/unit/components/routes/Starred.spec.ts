@@ -2,7 +2,7 @@ import Vuex, { Store } from 'vuex'
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
 import Starred from '../../../../../src/components/routes/Starred.vue'
-import FeedItemDisplayList from '../../../../../src/components/FeedItemDisplayList.vue'
+import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
 
 jest.mock('@nextcloud/axios')
 
