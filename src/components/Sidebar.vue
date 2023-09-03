@@ -4,17 +4,29 @@
 		<NcAppNavigationNew :text="t('news', 'Subscribe')"
 			button-id="new-feed-button"
 			button-class="icon-add"
-			@click="showShowAddFeed()" />
+			:icon="true"
+			@click="showShowAddFeed()">
+			<template #icon>
+				<PlusIcon />
+			</template>
+		</NcAppNavigationNew>
 		<template #list>
 			<NcAppNavigationNewItem :title="t('news', 'New folder')"
-				icon="icon-add-folder"
-				@new-item="newFolder" />
+				:icon="true"
+				@new-item="newFolder">
+				<template #icon>
+					<FolderPlusIcon />
+				</template>
+			</NcAppNavigationNewItem>
 
 			<NcAppNavigationItem :title="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
 					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark Read')">
 						t('news','Mark read')
 					</NcActionButton>
+				</template>
+				<template #icon>
+					<EyeIcon />
 				</template>
 				<template #counter>
 					<NcCounterBubble>{{ items.unreadCount }}</NcCounterBubble>
@@ -26,6 +38,9 @@
 						t('news','Mark read')
 					</ActionButton>
 				</template>
+				<template #icon>
+					<RssIcon />
+				</template>
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :title="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
 				<template #counter>
@@ -36,18 +51,20 @@
 			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
 				:key="topLevelItem.name || topLevelItem.title"
 				:title="topLevelItem.name || topLevelItem.title"
-				:icon="isFolder(topLevelItem) ? 'icon-folder': ''"
+				:icon="true"
 				:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 				:allow-collapse="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
 						:title="feed.title"
+						:icon="true"
 						:to="{ name: ROUTES.FEED, params: { feedId: feed.id } }">
 						<template #icon>
 							<RssIcon v-if="!feed.faviconLink" />
-							<span v-if="feed.faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
+							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
 						</template>
+
 						<template #actions>
 							<NcActionButton icon="icon-checkmark"
 								@click="alert('TODO: Mark read')">
@@ -101,6 +118,7 @@
 					</NcAppNavigationItem>
 				</template>
 				<template #icon>
+					<FolderIcon v-if="topLevelItem.feedCount !== undefined" style="width:22px" />
 					<RssIcon v-if="topLevelItem.feedCount === undefined && !topLevelItem.faviconLink" />
 					<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
 				</template>
@@ -126,10 +144,13 @@
 			</NcAppNavigationItem>
 
 			<NcAppNavigationItem :title="t('news', 'Explore')"
-				icon="icon-link"
+				icon="true"
 				:to="{ name: ROUTES.EXPLORE }">
 				<template #counter>
 					<NcCounterBubble>35</NcCounterBubble>
+				</template>
+				<template #icon>
+					<EarthIcon />
 				</template>
 			</NcAppNavigationItem>
 		</template>
@@ -150,6 +171,11 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import RssIcon from 'vue-material-design-icons/Rss.vue'
+import FolderIcon from 'vue-material-design-icons/Folder.vue'
+import EyeIcon from 'vue-material-design-icons/Eye.vue'
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
+import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+import PlusIcon from 'vue-material-design-icons/Plus.vue'
 
 import { ROUTES } from '../routes'
 import { ACTIONS, AppState } from '../store'
@@ -177,11 +203,15 @@ export default Vue.extend({
 		NcAppNavigationNew,
 		NcAppNavigationItem,
 		NcAppNavigationNewItem,
-		// AppNavigationCounter,
 		NcCounterBubble,
 		NcActionButton,
 		AddFeed,
 		RssIcon,
+		FolderIcon,
+		EyeIcon,
+		EarthIcon,
+		FolderPlusIcon,
+		PlusIcon,
 	},
 	data: () => {
 		return {

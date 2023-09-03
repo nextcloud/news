@@ -1,7 +1,7 @@
 <template>
 	<div class="route-container">
 		<div class="header">
-			Unread
+			{{ t('news', 'Unread Articles') }}
 			<NcCounterBubble class="counter-bubble">
 				{{ items.unreadCount }}
 			</NcCounterBubble>

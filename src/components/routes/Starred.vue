@@ -1,7 +1,7 @@
 <template>
 	<div class="route-container">
 		<div class="header">
-			Starred
+			{{ t('news', 'Starred') }}
 			<NcCounterBubble class="counter-bubble">
 				{{ items.starredCount }}
 			</NcCounterBubble>
