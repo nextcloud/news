@@ -28,3 +28,9 @@ export default Vue.extend({
 	},
 })
 </script>
+
+<style>
+	.material-design-icon {
+		color: var(--color-text-lighter)
+	}
+</style>
