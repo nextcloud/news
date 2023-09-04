@@ -1,6 +1,6 @@
 <template>
-	<div style="height: 100%; display: flex; flex-direction: column;">
-		<div style="justify-content: right; display: flex">
+	<div class="feed-item-display-list">
+		<div class="header">
 			<NcActions class="filter-container" :force-menu="true">
 				<template #icon>
 					<FilterIcon />
@@ -180,6 +180,12 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+	.feed-item-display-list {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
 	.virtual-scroll {
 		border-top: 1px solid var(--color-border);
 		width: 100%;
@@ -194,6 +200,11 @@ export default Vue.extend({
 		max-width: 50%;
 		overflow-y: hidden;
 		height: calc(100vh - 50px - 50px - 10px)
+	}
+
+	.header {
+		justify-content: right;
+		display: flex;
 	}
 
 	.filter-container {

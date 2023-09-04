@@ -11,6 +11,20 @@ describe('item.service.ts', () => {
 		(axios.post as any).mockReset()
 	})
 
+	describe('fetchAll', () => {
+		it('should call GET with offset set to start param, ALL item type', async () => {
+			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+
+			await ItemService.fetchAll(0)
+
+			expect(axios.get).toBeCalled()
+			const queryParams = (axios.get as any).mock.calls[0][1].params
+
+			expect(queryParams.offset).toEqual(0)
+			expect(queryParams.type).toEqual(ITEM_TYPES.ALL)
+		})
+	})
+
 	describe('fetchStarred', () => {
 		it('should call GET with offset set to start param and STARRED item type', async () => {
 			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
@@ -40,7 +54,7 @@ describe('item.service.ts', () => {
 	})
 
 	describe('fetchFeedItems', () => {
-		it('should call GET with offset set to start param, UNREAD item type, and id set to feedId', async () => {
+		it('should call GET with offset set to start param, FEED item type, and id set to feedId', async () => {
 			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
 
 			await ItemService.fetchFeedItems(123, 0)
@@ -50,7 +64,22 @@ describe('item.service.ts', () => {
 
 			expect(queryParams.id).toEqual(123)
 			expect(queryParams.offset).toEqual(0)
-			expect(queryParams.type).toEqual(ITEM_TYPES.ALL)
+			expect(queryParams.type).toEqual(ITEM_TYPES.FEED)
+		})
+	})
+
+	describe('fetchFolderItems', () => {
+		it('should call GET with offset set to start param, FOLDER item type, and id set to folderId', async () => {
+			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+
+			await ItemService.fetchFolderItems(123, 0)
+
+			expect(axios.get).toBeCalled()
+			const queryParams = (axios.get as any).mock.calls[0][1].params
+
+			expect(queryParams.id).toEqual(123)
+			expect(queryParams.offset).toEqual(0)
+			expect(queryParams.type).toEqual(ITEM_TYPES.FOLDER)
 		})
 	})
 
