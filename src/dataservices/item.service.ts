@@ -85,7 +85,7 @@ export class ItemService {
 	 * @param start (id of last unread item loaded)
 	 * @return {AxiosResponse} response object containing backend request response
 	 */
-	static async fetchFeedItems(feedId: number, start: number): Promise<AxiosResponse> {
+	static async fetchFeedItems(feedId: number, start?: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,

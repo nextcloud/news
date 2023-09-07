@@ -4,7 +4,7 @@
 		<NcAppNavigationNew :text="t('news', 'Subscribe')"
 			button-id="new-feed-button"
 			button-class="icon-add"
-			:icon="true"
+			:icon="''"
 			@click="showShowAddFeed()">
 			<template #icon>
 				<PlusIcon />
@@ -12,7 +12,7 @@
 		</NcAppNavigationNew>
 		<template #list>
 			<NcAppNavigationNewItem :title="t('news', 'New folder')"
-				:icon="true"
+				:icon="''"
 				@new-item="newFolder">
 				<template #icon>
 					<FolderPlusIcon />
@@ -51,14 +51,14 @@
 			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
 				:key="topLevelItem.name || topLevelItem.title"
 				:title="topLevelItem.name || topLevelItem.title"
-				:icon="true"
+				:icon="''"
 				:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 				:allow-collapse="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
 						:title="feed.title"
-						:icon="true"
+						:icon="''"
 						:to="{ name: ROUTES.FEED, params: { feedId: feed.id } }">
 						<template #icon>
 							<RssIcon v-if="!feed.faviconLink" />
@@ -131,7 +131,9 @@
 					</NcCounterBubble>
 				</template>
 				<template #actions>
-					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark read')">
+					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined" :feed="topLevelItem" />
+
+					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="alert('TODO: Mark read')">
 						{{ t("news", "Mark read") }}
 					</NcActionButton>
 					<NcActionButton icon="icon-rename" @click="alert('TODO: Rename')">
