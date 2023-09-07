@@ -1,12 +1,16 @@
+import _ from 'lodash'
+
 import { ActionParams, AppState } from '../store'
 import { Feed } from '../types/Feed'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
 import { FolderService } from '../dataservices/folder.service'
 import { FeedService } from '../dataservices/feed.service'
+import { ItemService } from '../dataservices/item.service'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
 	FETCH_FEEDS: 'FETCH_FEEDS',
+	FEED_MARK_READ: 'FEED_MARK_READ',
 }
 
 const state = {
@@ -69,6 +73,12 @@ export const actions = {
 
 		}
 	},
+	async [FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }: ActionParams, { feed }: { feed: Feed }) {
+		const response = await ItemService.fetchFeedItems(feed.id as number)
+		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.items[0].id })
+
+		commit(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed.id)
+	},
 }
 
 export const mutations = {
@@ -79,6 +89,38 @@ export const mutations = {
 	},
 	[FEED_MUTATION_TYPES.ADD_FEED](state: AppState, feed: Feed) {
 		state.feeds.push(feed)
+	},
+	[FEED_MUTATION_TYPES.UPDATE_FEED](state: AppState, newFeed: Feed) {
+		const feed = state.feeds.find((feed: Feed) => {
+			return feed.id === newFeed.id
+		})
+		_.assign(feed, newFeed)
+	},
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: AppState, feedId: number) {
+		const priorFeed = state.feeds.find((stateFeed: Feed) => {
+			return stateFeed.id === feedId
+		})
+		if (priorFeed) {
+			const priorUnread = priorFeed?.unreadCount
+			_.assign(priorFeed, { unreadCount: 0 })
+			state.unreadCount -= priorUnread
+		}
+	},
+	[FEED_MUTATION_TYPES.INCREASE_FEED_UNREAD_COUNT](state: AppState, feedId: number) {
+		const feed = state.feeds.find((feed: Feed) => {
+			return feed.id === feedId
+		})
+		if (feed) {
+			_.assign(feed, { unreadCount: feed.unreadCount + 1 })
+		}
+	},
+	[FEED_MUTATION_TYPES.DECREASE_FEED_UNREAD_COUNT](state: AppState, feedId: number) {
+		const feed = state.feeds.find((feed: Feed) => {
+			return feed.id === feedId
+		})
+		if (feed) {
+			_.assign(feed, { unreadCount: feed.unreadCount - 1 })
+		}
 	},
 }
 

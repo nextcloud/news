@@ -1,5 +1,5 @@
 import { ActionParams } from '../store'
-import { FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
 
 import { FeedItem } from '../types/FeedItem'
 import { ItemService } from '../dataservices/item.service'
@@ -100,8 +100,10 @@ export const actions = {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'all', loaded: true })
 		}
 
-		const lastItem = response?.data.items[response?.data.items.length - 1].id
-		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'all', lastItem })
+		if (response?.data.items.length > 0) {
+			const lastItem = response?.data.items[response?.data.items.length - 1].id
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'all', lastItem })
+		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: false })
 	},
 
@@ -125,8 +127,10 @@ export const actions = {
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: true })
 		}
-		const lastItem = response?.data.items[response?.data.items.length - 1].id
-		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem })
+		if (response?.data.items.length > 0) {
+			const lastItem = response?.data.items[response?.data.items.length - 1].id
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem })
+		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: false })
 	},
 
@@ -147,8 +151,10 @@ export const actions = {
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
 		}
-		const lastItem = response?.data.items[response?.data.items.length - 1].id
-		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'feed-' + feedId, lastItem })
+		if (response?.data.items.length > 0) {
+			const lastItem = response?.data.items[response?.data.items.length - 1].id
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'feed-' + feedId, lastItem })
+		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: false })
 	},
 
@@ -169,8 +175,10 @@ export const actions = {
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'folder-' + folderId, loaded: true })
 		}
-		const lastItem = response?.data.items[response?.data.items.length - 1].id
-		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'folder-' + folderId, lastItem })
+		if (response?.data.items.length > 0) {
+			const lastItem = response?.data.items[response?.data.items.length - 1].id
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'folder-' + folderId, lastItem })
+		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: false })
 	},
 
@@ -187,6 +195,8 @@ export const actions = {
 
 		if (item.unread) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, state.unreadCount - 1)
+
+			commit(FEED_MUTATION_TYPES.DECREASE_FEED_UNREAD_COUNT, item.feedId)
 		}
 		item.unread = false
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
@@ -205,6 +215,8 @@ export const actions = {
 
 		if (!item.unread) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, state.unreadCount + 1)
+
+			commit(FEED_MUTATION_TYPES.INCREASE_FEED_UNREAD_COUNT, item.feedId)
 		}
 		item.unread = true
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
@@ -274,6 +286,13 @@ export const mutations = {
 	},
 	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](state: ItemState, { lastItem, key }: { lastItem: number; key: string; }) {
 		state.lastItemLoaded[key] = lastItem
+	},
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: ItemState, feedId: number) {
+		state.allItems.forEach((item: FeedItem) => {
+			if (item.feedId === feedId) {
+				item.unread = false
+			}
+		})
 	},
 }
 

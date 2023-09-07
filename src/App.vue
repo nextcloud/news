@@ -22,8 +22,11 @@ export default Vue.extend({
 		NcAppContent,
 	},
 	async created() {
+		// fetch folders and feeds to build side bar
 		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
 		await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+		// fetch starred to get starred count
+		await this.$store.dispatch(ACTIONS.FETCH_STARRED)
 	},
 })
 </script>
