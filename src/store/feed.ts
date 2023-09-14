@@ -11,6 +11,7 @@ export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
 	FETCH_FEEDS: 'FETCH_FEEDS',
 	FEED_MARK_READ: 'FEED_MARK_READ',
+	FEED_SET_PINNED: 'FEED_SET_PINNED',
 }
 
 const state = {
@@ -78,6 +79,12 @@ export const actions = {
 		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.items[0].id })
 
 		commit(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed.id)
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_PINNED]({ commit }: ActionParams, { feed, pinned }: { feed: Feed, pinned: boolean }) {
+		await FeedService.updateFeed({ feedId: feed.id as number, pinned })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, pinned })
 	},
 }
 

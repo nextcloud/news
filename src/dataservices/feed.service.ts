@@ -61,4 +61,18 @@ export class FeedService {
 		})
 	}
 
+	/**
+	 * Update a feeds properties
+	 *
+	 * @param param0
+	 * @param param0.feedId {Number} ID number of feed to mark items as read
+	 * @param param0.pinned {Boolean} should be pinned (true) or not pinned (flse)
+	 * @return {AxiosResponse} Updated feed info based on parameters provided
+	 */
+	static updateFeed({ feedId, pinned }: { feedId: number, pinned?: boolean }): Promise<AxiosResponse> {
+		return axios.patch(API_ROUTES.FEED + `/${feedId}`, {
+			pinned,
+		})
+	}
+
 }
