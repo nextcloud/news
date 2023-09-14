@@ -19,7 +19,7 @@
 				</template>
 			</NcAppNavigationNewItem>
 
-			<NcAppNavigationItem :title="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
+			<NcAppNavigationItem :name="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
 					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark Read')">
 						t('news','Mark read')
@@ -32,7 +32,7 @@
 					<NcCounterBubble>{{ items.unreadCount }}</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :title="t('news', 'All articles')" icon="icon-rss" :to="{ name: ROUTES.ALL }">
+			<NcAppNavigationItem :name="t('news', 'All articles')" icon="icon-rss" :to="{ name: ROUTES.ALL }">
 				<template #actions>
 					<ActionButton icon="icon-checkmark" @click="alert('TODO: Edit')">
 						t('news','Mark read')
@@ -42,7 +42,7 @@
 					<RssIcon />
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :title="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
+			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
 				<template #counter>
 					<NcCounterBubble>{{ items.starredCount }}</NcCounterBubble>
 				</template>
@@ -50,14 +50,14 @@
 
 			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
 				:key="topLevelItem.name || topLevelItem.title"
-				:title="topLevelItem.name || topLevelItem.title"
+				:name="topLevelItem.name || topLevelItem.title"
 				:icon="''"
 				:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 				:allow-collapse="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
-						:title="feed.title"
+						:name="feed.title"
 						:icon="''"
 						:to="{ name: ROUTES.FEED, params: { feedId: feed.id } }">
 						<template #icon>
@@ -98,7 +98,7 @@
 				</template>
 			</NcAppNavigationItem>
 
-			<NcAppNavigationItem :title="t('news', 'Explore')"
+			<NcAppNavigationItem :name="t('news', 'Explore')"
 				icon="true"
 				:to="{ name: ROUTES.EXPLORE }">
 				<template #counter>

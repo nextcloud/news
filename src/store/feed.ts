@@ -11,10 +11,14 @@ export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
 	FETCH_FEEDS: 'FETCH_FEEDS',
 	FEED_MARK_READ: 'FEED_MARK_READ',
+
 	FEED_SET_PINNED: 'FEED_SET_PINNED',
 	FEED_SET_ORDERING: 'FEED_SET_ORDERING',
 	FEED_SET_FULL_TEXT: 'FEED_SET_FULL_TEXT',
 	FEED_SET_UPDATE_MODE: 'FEED_SET_UPDATE_MODE',
+	FEED_SET_TITLE: 'FEED_SET_TITLE',
+
+	FEED_DELETE: 'FEED_DELETE',
 }
 
 const state = {
@@ -108,6 +112,18 @@ export const actions = {
 
 		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, updateMode })
 	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_TITLE]({ commit }: ActionParams, { feed, title }: { feed: Feed, title: string }) {
+		await FeedService.updateFeed({ feedId: feed.id as number, title })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, title })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_DELETE]({ commit }: ActionParams, { feed }: { feed: Feed }) {
+		await FeedService.deleteFeed({ feedId: feed.id as number })
+
+		commit(FEED_MUTATION_TYPES.FEED_DELETE, feed.id)
+	},
 }
 
 export const mutations = {
@@ -150,6 +166,11 @@ export const mutations = {
 		if (feed) {
 			_.assign(feed, { unreadCount: feed.unreadCount - 1 })
 		}
+	},
+	[FEED_MUTATION_TYPES.FEED_DELETE](state: AppState, feedId: number) {
+		state.feeds = state.feeds.filter((feed: Feed) => {
+			return feed.id !== feedId
+		})
 	},
 }
 

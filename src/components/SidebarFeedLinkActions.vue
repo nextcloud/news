@@ -50,18 +50,21 @@
 			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
 			{{ t("news", "Ignore updated") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-rss"
-			@click="alert('TODO: Open Feed URL')">
-			{{ t("news", "Open feed URL") }}
-		</NcActionButton>
-		<NcActionButton icon="icon-icon-rename"
-			@click="alert('TODO: Rename')">
+		<NcActionButton icon="icon-rename"
+			@click="rename()">
 			{{ t("news", "Rename") }}
 		</NcActionButton>
 		<NcActionButton icon="icon-delete"
-			@click="alert('TODO: Delete Feed')">
+			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
+		<NcAppNavigationItem :title="t('news', 'Open Feed URL')"
+			:href="feed.location">
+			<template #icon>
+				<RssIcon />
+			</template>
+		</NcAppNavigationItem>
+
 	</span>
 </template>
 
@@ -71,20 +74,20 @@ import { mapState } from 'vuex'
 import Vue from 'vue'
 
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
+
+import RssIcon from 'vue-material-design-icons/Rss.vue'
 
 import { ACTIONS } from '../store'
 import { Feed } from '../types/Feed'
 
-// import { Feed } from '../types/Feed'
-
-// TODO?
-const SidebarFeedLinkState = { }
-
 export default Vue.extend({
 	components: {
 		NcActionButton,
+		NcAppNavigationItem,
+		RssIcon,
 	},
 	props: {
 		feedId: {
@@ -100,15 +103,11 @@ export default Vue.extend({
 	},
 
 	computed: {
-		...mapState(SidebarFeedLinkState),
 		feed(): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => {
 				return feed.id === this.feedId
 			})
 		},
-	},
-	created() {
-		// TODO: init?
 	},
 	methods: {
 		alert(msg: string) {
@@ -128,6 +127,21 @@ export default Vue.extend({
 		},
 		setUpdateMode(updateMode: FEED_UPDATE_MODE) {
 			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed: this.feed, updateMode })
+		},
+		rename() {
+			const title = window.prompt(t('news', 'Rename Feed'), this.feed.title)
+
+			// null on escape
+			if (title !== null) {
+				this.$store.dispatch(ACTIONS.FEED_SET_TITLE, { feed: this.feed, title })
+			}
+		},
+		deleteFeed() {
+			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
+
+			if (shouldDelete) {
+				this.$store.dispatch(ACTIONS.FEED_DELETE, { feed: this.feed })
+			}
 		},
 	},
 })

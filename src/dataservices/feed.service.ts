@@ -65,20 +65,33 @@ export class FeedService {
 	 * Update a feeds properties
 	 *
 	 * @param param0
-	 * @param param0.feedId {Number} ID number of feed to mark items as read
+	 * @param param0.feedId {Number} ID number of feed to update
 	 * @param param0.pinned {Boolean} should be pinned (true) or not pinned (flse)
 	 * @param param0.ordering {FEED_ORDER} sets feed order (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
 	 * @param param0.fullTextEnabled {Boolean} should be full text be enabled (true) or not (flse)
 	 * @param param0.updateMode {FEED_UPDATE_MODE} sets updateMode (0 = UNREAD, 1 = IGNORE)
+	 * @param param0.title {String} title of feed to display
 	 * @return {AxiosResponse} Null value is returned on success
 	 */
-	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE }): Promise<AxiosResponse> {
+	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode, title }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE, title?: string }): Promise<AxiosResponse> {
 		return axios.patch(API_ROUTES.FEED + `/${feedId}`, {
 			pinned,
 			ordering,
 			fullTextEnabled,
 			updateMode,
+			title,
 		})
+	}
+
+	/**
+	 * Deletes a feed
+	 *
+	 * @param param0
+	 * @param param0.feedId {Number} ID number of feed to delete
+	 * @return {AxiosResponse} Null value is returned on success
+	 */
+	static deleteFeed({ feedId }: { feedId: number }): Promise<AxiosResponse> {
+		return axios.delete(API_ROUTES.FEED + `/${feedId}`)
 	}
 
 }
