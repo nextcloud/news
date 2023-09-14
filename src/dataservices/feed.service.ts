@@ -3,15 +3,15 @@ import axios from '@nextcloud/axios'
 
 import { API_ROUTES } from '../types/ApiRoutes'
 
-export const FEED_ORDER = {
-	OLDEST: 1,
-	NEWEST: 0,
-	DEFAULT: 2,
+export enum FEED_ORDER {
+	OLDEST = 1,
+	NEWEST = 0,
+	DEFAULT = 2,
 }
 
-export const FEED_UPDATE_MODE = {
-	IGNORE: 1,
-	UNREAD: 0,
+export enum FEED_UPDATE_MODE {
+	IGNORE = 1,
+	UNREAD = 0,
 }
 
 export class FeedService {
@@ -67,11 +67,17 @@ export class FeedService {
 	 * @param param0
 	 * @param param0.feedId {Number} ID number of feed to mark items as read
 	 * @param param0.pinned {Boolean} should be pinned (true) or not pinned (flse)
-	 * @return {AxiosResponse} Updated feed info based on parameters provided
+	 * @param param0.ordering {FEED_ORDER} sets feed order (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
+	 * @param param0.fullTextEnabled {Boolean} should be full text be enabled (true) or not (flse)
+	 * @param param0.updateMode {FEED_UPDATE_MODE} sets updateMode (0 = UNREAD, 1 = IGNORE)
+	 * @return {AxiosResponse} Null value is returned on success
 	 */
-	static updateFeed({ feedId, pinned }: { feedId: number, pinned?: boolean }): Promise<AxiosResponse> {
+	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE }): Promise<AxiosResponse> {
 		return axios.patch(API_ROUTES.FEED + `/${feedId}`, {
 			pinned,
+			ordering,
+			fullTextEnabled,
+			updateMode,
 		})
 	}
 

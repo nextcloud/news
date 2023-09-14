@@ -17,37 +17,37 @@
 		</NcActionButton>
 		<NcActionButton v-if="feed.ordering === FEED_ORDER.NEWEST"
 			icon="icon-caret-dark"
-			@click="alert('TODO: Newest First')">
+			@click="setOrdering(FEED_ORDER.OLDEST)">
 			{{ t("news", "Newest first") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.ordering === FEED_ORDER.OLDEST"
+		<NcActionButton v-else-if="feed.ordering === FEED_ORDER.OLDEST"
 			icon="icon-caret-dark"
-			@click="alert('TODO: Oldest first')">
+			@click="setOrdering(FEED_ORDER.DEFAULT)">
 			{{ t("news", "Oldest first") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.ordering === FEED_ORDER.DEFAULT"
+		<NcActionButton v-else
 			icon="icon-caret-dark"
-			@click="alert('TODO: Default Order')">
+			@click="setOrdering(FEED_ORDER.NEWEST)">
 			{{ t("news", "Default order") }}
 		</NcActionButton>
-		<NcActionButton v-if="!feed.enableFullText"
+		<NcActionButton v-if="!feed.fullTextEnabled"
 			icon="icon-full-text-disabled"
-			@click="alert('TODO: Enable Full Text')">
+			@click="setFullText(true)">
 			{{ t("news", "Enable full text") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.enableFullText"
+		<NcActionButton v-if="feed.fullTextEnabled"
 			icon="icon-full-text-enabled"
-			@click="alert('TODO: DIsable Full Text')">
+			@click="setFullText(false)">
 			{{ t("news", "Disable full text") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.UNRAD"
+		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
 			icon="icon-updatemode-default"
-			@click="alert('TODO: Unread Updated')">
+			@click="setUpdateMode(FEED_UPDATE_MODE.IGNORE)">
 			{{ t("news", "Unread updated") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
 			icon="icon-updatemode-unread"
-			@click="alert('TOODO: Ignore UPdated')">
+			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
 			{{ t("news", "Ignore updated") }}
 		</NcActionButton>
 		<NcActionButton icon="icon-rss"
@@ -119,6 +119,15 @@ export default Vue.extend({
 		},
 		setPinned(pinned: boolean) {
 			this.$store.dispatch(ACTIONS.FEED_SET_PINNED, { feed: this.feed, pinned })
+		},
+		setOrdering(ordering: FEED_ORDER) {
+			this.$store.dispatch(ACTIONS.FEED_SET_ORDERING, { feed: this.feed, ordering })
+		},
+		setFullText(fullTextEnabled: boolean) {
+			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed: this.feed, fullTextEnabled })
+		},
+		setUpdateMode(updateMode: FEED_UPDATE_MODE) {
+			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed: this.feed, updateMode })
 		},
 	},
 })

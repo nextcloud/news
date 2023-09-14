@@ -1,3 +1,5 @@
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
+
 export type Feed = {
   folderId?: number;
   unreadCount: number;
@@ -7,4 +9,7 @@ export type Feed = {
   faviconLink?: string;
   id?: number;
   pinned: boolean;
+  ordering: FEED_ORDER;
+  fullTextEnabled: boolean;
+  updateMode: FEED_UPDATE_MODE
 }
