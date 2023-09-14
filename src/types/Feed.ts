@@ -11,5 +11,6 @@ export type Feed = {
   pinned: boolean;
   ordering: FEED_ORDER;
   fullTextEnabled: boolean;
-  updateMode: FEED_UPDATE_MODE
+  updateMode: FEED_UPDATE_MODE;
+  location: string;
 }
