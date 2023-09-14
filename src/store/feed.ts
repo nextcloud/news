@@ -4,7 +4,7 @@ import { ActionParams, AppState } from '../store'
 import { Feed } from '../types/Feed'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
 import { FolderService } from '../dataservices/folder.service'
-import { FeedService } from '../dataservices/feed.service'
+import { FEED_ORDER, FEED_UPDATE_MODE, FeedService } from '../dataservices/feed.service'
 import { ItemService } from '../dataservices/item.service'
 
 export const FEED_ACTION_TYPES = {
@@ -12,6 +12,9 @@ export const FEED_ACTION_TYPES = {
 	FETCH_FEEDS: 'FETCH_FEEDS',
 	FEED_MARK_READ: 'FEED_MARK_READ',
 	FEED_SET_PINNED: 'FEED_SET_PINNED',
+	FEED_SET_ORDERING: 'FEED_SET_ORDERING',
+	FEED_SET_FULL_TEXT: 'FEED_SET_FULL_TEXT',
+	FEED_SET_UPDATE_MODE: 'FEED_SET_UPDATE_MODE',
 }
 
 const state = {
@@ -75,6 +78,7 @@ export const actions = {
 		}
 	},
 	async [FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }: ActionParams, { feed }: { feed: Feed }) {
+		// want to fetch feed so that we can retrieve the "highestItemId"
 		const response = await ItemService.fetchFeedItems(feed.id as number)
 		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.items[0].id })
 
@@ -85,6 +89,24 @@ export const actions = {
 		await FeedService.updateFeed({ feedId: feed.id as number, pinned })
 
 		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, pinned })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_ORDERING]({ commit }: ActionParams, { feed, ordering }: { feed: Feed, ordering: FEED_ORDER }) {
+		await FeedService.updateFeed({ feedId: feed.id as number, ordering })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, ordering })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_FULL_TEXT]({ commit }: ActionParams, { feed, fullTextEnabled }: { feed: Feed, fullTextEnabled: boolean }) {
+		await FeedService.updateFeed({ feedId: feed.id as number, fullTextEnabled })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, fullTextEnabled })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE]({ commit }: ActionParams, { feed, updateMode }: { feed: Feed, updateMode: FEED_UPDATE_MODE }) {
+		await FeedService.updateFeed({ feedId: feed.id as number, updateMode })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, updateMode })
 	},
 }
 
