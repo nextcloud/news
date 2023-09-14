@@ -66,54 +66,7 @@
 						</template>
 
 						<template #actions>
-							<NcActionButton icon="icon-checkmark"
-								@click="alert('TODO: Mark read')">
-								{{ t("news", "Mark read") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-pinned"
-								@click="alert('TODO: Unpin from top')">
-								{{ t("news", "Unpin from top") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-caret-dark"
-								@click="alert('TODO: Newest First')">
-								{{ t("news", "Newest first") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-caret-dark"
-								@click="alert('TODO: Oldest first')">
-								{{ t("news", "Oldest first") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-caret-dark"
-								@click="alert('TODO: Default Order')">
-								{{ t("news", "Default order") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-full-text-disabled"
-								@click="alert('TODO: Enable Full Text')">
-								{{ t("news", "Enable full text") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-full-text-enabled"
-								@click="alert('TODO: DIsable Full Text')">
-								{{ t("news", "Disable full text") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-updatemode-default"
-								@click="alert('TODO: Unread Updated')">
-								{{ t("news", "Unread updated") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-updatemode-unread"
-								@click="alert('TOODO: Ignore UPdated')">
-								{{ t("news", "Ignore updated") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-icon-rss"
-								@click="alert('TODO: Open Feed URL')">
-								{{ t("news", "Open feed URL") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-icon-rename"
-								@click="alert('TODO: Rename')">
-								{{ t("news", "Rename") }}
-							</NcActionButton>
-							<NcActionButton icon="icon-delete"
-								@click="alert('TODO: Delete Feed')">
-								{{ t("news", "Delete") }}
-							</NcActionButton>
+							<SidebarFeedLinkActions :feed-id="feed.id" />
 						</template>
 					</NcAppNavigationItem>
 				</template>
@@ -131,7 +84,7 @@
 					</NcCounterBubble>
 				</template>
 				<template #actions>
-					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined" :feed="topLevelItem" />
+					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined" :feed-id="topLevelItem.id" />
 
 					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="alert('TODO: Mark read')">
 						{{ t("news", "Mark read") }}
@@ -195,7 +148,14 @@ const SideBarState = {
 		})
 		navItems = navItems.concat(state.folders)
 
-		return navItems
+		return navItems.sort((item, item2) => {
+			if ((item as Feed).pinned && !(item2 as Feed).pinned) {
+				return -1
+			} else if ((item2 as Feed).pinned && !(item as Feed).pinned) {
+				return 1
+			}
+			return 0
+		})
 	},
 }
 

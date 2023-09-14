@@ -6,4 +6,5 @@ export type Feed = {
   autoDiscover?: boolean;
   faviconLink?: string;
   id?: number;
+  pinned: boolean;
 }

@@ -1,17 +1,18 @@
 <template>
 	<span>
-		<NcActionButton icon="icon-checkmark"
+		<NcActionButton v-if="feed.unreadCount > 0"
+			icon="icon-checkmark"
 			@click="markRead">
 			{{ t("news", "Mark read") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.pinned"
 			icon="icon-pinned"
-			@click="alert('TODO: Unpin from top')">
+			@click="setPinned(false)">
 			{{ t("news", "Unpin from top") }}
 		</NcActionButton>
 		<NcActionButton v-if="!feed.pinned"
 			icon="icon-pinned"
-			@click="alert('TODO: Pin to top')">
+			@click="setPinned(true)">
 			{{ t("news", "Pin to top") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.ordering === FEED_ORDER.NEWEST"
@@ -74,6 +75,7 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
 
 import { ACTIONS } from '../store'
+import { Feed } from '../types/Feed'
 
 // import { Feed } from '../types/Feed'
 
@@ -85,8 +87,8 @@ export default Vue.extend({
 		NcActionButton,
 	},
 	props: {
-		feed: {
-			type: Object,
+		feedId: {
+			type: Number,
 			required: true,
 		},
 	},
@@ -99,6 +101,11 @@ export default Vue.extend({
 
 	computed: {
 		...mapState(SidebarFeedLinkState),
+		feed(): Feed {
+			return this.$store.getters.feeds.find((feed: Feed) => {
+				return feed.id === this.feedId
+			})
+		},
 	},
 	created() {
 		// TODO: init?
@@ -109,6 +116,9 @@ export default Vue.extend({
 		},
 		markRead() {
 			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
+		},
+		setPinned(pinned: boolean) {
+			this.$store.dispatch(ACTIONS.FEED_SET_PINNED, { feed: this.feed, pinned })
 		},
 	},
 })
