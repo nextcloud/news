@@ -26,6 +26,20 @@ export class FolderService {
 	}
 
 	/**
+	 * Update a folder name
+	 *
+	 * @param param0
+	 * @param param0.id {Number} ID number of folder to update
+	 * @param param0.name {String} name to set for folder
+	 * @return {AxiosResponse} Null value is returned on success
+	 */
+	static renameFolder({ id, name }: { id: number, name?: string }): Promise<AxiosResponse> {
+		return axios.post(API_ROUTES.FOLDER + `/${id}/rename`, {
+			folderName: name,
+		})
+	}
+
+	/**
 	 * Deletes a folder in the Nextcloud News backend (by id number)
 	 *
 	 * @param param0

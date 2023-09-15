@@ -21,8 +21,8 @@
 
 			<NcAppNavigationItem :name="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
-					<NcActionButton icon="icon-checkmark" @click="alert('TODO: Mark Read')">
-						t('news','Mark read')
+					<NcActionButton icon="icon-checkmark" @click="markAllRead()">
+						{{ t('news','Mark read') }}
 					</NcActionButton>
 				</template>
 				<template #icon>
@@ -33,11 +33,6 @@
 				</template>
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :name="t('news', 'All articles')" icon="icon-rss" :to="{ name: ROUTES.ALL }">
-				<template #actions>
-					<ActionButton icon="icon-checkmark" @click="alert('TODO: Edit')">
-						t('news','Mark read')
-					</ActionButton>
-				</template>
 				<template #icon>
 					<RssIcon />
 				</template>
@@ -59,7 +54,7 @@
 						:key="feed.name"
 						:name="feed.title"
 						:icon="''"
-						:to="{ name: ROUTES.FEED, params: { feedId: feed.id } }">
+						:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
 						<template #icon>
 							<RssIcon v-if="!feed.faviconLink" />
 							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
@@ -86,10 +81,10 @@
 				<template #actions>
 					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined" :feed-id="topLevelItem.id" />
 
-					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="alert('TODO: Mark read')">
+					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="markFolderRead(topLevelItem)">
 						{{ t("news", "Mark read") }}
 					</NcActionButton>
-					<NcActionButton icon="icon-rename" @click="alert('TODO: Rename')">
+					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-rename" @click="renameFolder(topLevelItem)">
 						{{ t("news", "Rename") }}
 					</NcActionButton>
 					<NcActionButton icon="icon-delete" @click="deleteFolder(topLevelItem)">
@@ -190,6 +185,27 @@ export default Vue.extend({
 			const folderName = value.trim()
 			const folder = { name: folderName }
 			this.$store.dispatch(ACTIONS.ADD_FOLDERS, { folder })
+		},
+		markAllRead() {
+			this.$store.getters.feeds.forEach((feed: Feed) => {
+				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
+			})
+		},
+		markFolderRead(folder: Folder) {
+			const feeds = this.$store.getters.feeds.filter((feed: Feed) => {
+				return feed.folderId === folder.id
+			})
+			feeds.forEach((feed: Feed) => {
+				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
+			})
+		},
+		renameFolder(folder: Folder) {
+			const name = window.prompt(t('news', 'Rename Folder'), folder.name)
+
+			// null on escape
+			if (name !== null) {
+				this.$store.dispatch(ACTIONS.FOLDER_SET_NAME, { folder, name })
+			}
 		},
 		deleteFolder(folder: Folder) {
 			this.$store.dispatch(ACTIONS.DELETE_FOLDER, { folder })
