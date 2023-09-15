@@ -30,11 +30,17 @@ export const actions = {
 
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, folders.data.folders)
 	},
-	async [FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit }: ActionParams, { folder }: { folder: Folder }) {
+	async [FOLDER_ACTION_TYPES.ADD_FOLDERS](
+		{ commit }: ActionParams,
+		{ folder }: { folder: Folder },
+	) {
 		const response = await FolderService.createFolder({ name: folder.name })
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 	},
-	async [FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder }) {
+	async [FOLDER_ACTION_TYPES.DELETE_FOLDER](
+		{ commit }: ActionParams,
+		{ folder }: { folder: Folder },
+	) {
 		/**
 		 * TODO: look into reversiblyDelete?
       this.getByFolderId(folderId).forEach(function (feed) {
@@ -44,25 +50,39 @@ export const actions = {
 		await FolderService.deleteFolder({ id: folder.id })
 		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
 	},
-	async [FOLDER_ACTION_TYPES.FOLDER_SET_NAME]({ commit }: ActionParams, { folder, name }: { folder: Folder, name: string }) {
+	async [FOLDER_ACTION_TYPES.FOLDER_SET_NAME](
+		{ commit }: ActionParams,
+		{ folder, name }: { folder: Folder, name: string },
+	) {
 		await FolderService.renameFolder({ id: folder.id, name })
 		commit(FOLDER_MUTATION_TYPES.UPDATE_FOLDER, { id: folder.id, name })
 	},
 }
 
 export const mutations = {
-	[FOLDER_MUTATION_TYPES.SET_FOLDERS](state: AppState, folders: Folder[]) {
+	[FOLDER_MUTATION_TYPES.SET_FOLDERS](
+		state: AppState,
+		folders: Folder[],
+	) {
 		folders.forEach(it => {
 			it.feedCount = 0
 			it.feeds = []
 			state.folders.push(it)
 		})
 	},
-	[FOLDER_MUTATION_TYPES.DELETE_FOLDER](state: AppState, folder: Folder) {
+
+	[FOLDER_MUTATION_TYPES.DELETE_FOLDER](
+		state: AppState,
+		folder: Folder,
+	) {
 		const index = state.folders.indexOf(folder)
 		state.folders.splice(index, 1)
 	},
-	[FEED_MUTATION_TYPES.SET_FEEDS](state: AppState, feeds: Feed[]) {
+
+	[FEED_MUTATION_TYPES.SET_FEEDS](
+		state: AppState,
+		feeds: Feed[],
+	) {
 		feeds.forEach(it => {
 			const folder = state.folders.find((folder: Folder) => { return folder.id === it.folderId })
 			if (folder) {
@@ -71,28 +91,42 @@ export const mutations = {
 			}
 		})
 	},
-	[FEED_MUTATION_TYPES.ADD_FEED](state: AppState, feed: Feed) {
+
+	[FEED_MUTATION_TYPES.ADD_FEED](
+		state: AppState,
+		feed: Feed,
+	) {
 		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
 		if (folder) {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
 		}
 	},
-	[FOLDER_MUTATION_TYPES.UPDATE_FOLDER](state: AppState, newFolder: Folder) {
+
+	[FOLDER_MUTATION_TYPES.UPDATE_FOLDER](
+		state: AppState,
+		newFolder: Folder,
+	) {
 		const folder = state.folders.find((f: Folder) => { return f.id === newFolder.id })
 		if (folder) {
 			_.assign(folder, newFolder)
 		}
 	},
 
-	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](state: AppState, { folderId, delta }: {folderId: number; delta: number }) {
+	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](
+		state: AppState,
+		{ folderId, delta }: {folderId: number; delta: number },
+	) {
 		const folder = state.folders.find((f: Folder) => { return f.id === folderId })
 		if (folder) {
 			folder.feedCount += delta
 		}
 	},
 
-	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: AppState, feed: Feed) {
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
+		state: AppState,
+		feed: Feed,
+	) {
 		const folder = state.folders.find((folder: Folder) => {
 			return folder.id === feed.folderId
 		})

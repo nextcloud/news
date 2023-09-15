@@ -67,7 +67,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.start
 	 */
-	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
+	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD](
+		{ commit }: ActionParams,
+		{ start }: { start: number } = { start: 0 },
+	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
 		const response = await ItemService.debounceFetchUnread(start || state.lastItemLoaded.unread)
@@ -91,7 +94,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.start
 	 */
-	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
+	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS](
+		{ commit }: ActionParams,
+		{ start }: { start: number } = { start: 0 },
+	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
 
 		const response = await ItemService.debounceFetchAll(start || state.lastItemLoaded.all)
@@ -117,7 +123,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.start
 	 */
-	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit }: ActionParams, { start }: { start: number } = { start: 0 }) {
+	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED](
+		{ commit }: ActionParams,
+		{ start }: { start: number } = { start: 0 },
+	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
 		const response = await ItemService.debounceFetchStarred(start || state.lastItemLoaded.starred)
 
@@ -145,7 +154,10 @@ export const actions = {
 	 * @param param1.start
 	 * @param param1.feedId
 	 */
-	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS]({ commit }: ActionParams, { feedId, start }: { feedId: number; start: number }) {
+	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
+		{ commit }: ActionParams,
+		{ feedId, start }: { feedId: number; start: number },
+	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
 		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
 
@@ -169,7 +181,10 @@ export const actions = {
 	 * @param param1.start
 	 * @param param1.folderId
 	 */
-	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS]({ commit }: ActionParams, { folderId, start }: { folderId: number; start: number }) {
+	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS](
+		{ commit }: ActionParams,
+		{ folderId, start }: { folderId: number; start: number },
+	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
 		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
 
@@ -193,7 +208,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.item
 	 */
-	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit, dispatch }: ActionParams, { item }: { item: FeedItem }) {
+	[FEED_ITEM_ACTION_TYPES.MARK_READ](
+		{ commit, dispatch }: ActionParams,
+		{ item }: { item: FeedItem },
+	) {
 		ItemService.markRead(item, true)
 
 		if (item.unread) {
@@ -214,7 +232,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.item
 	 */
-	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit, dispatch }: ActionParams, { item }: { item: FeedItem}) {
+	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD](
+		{ commit, dispatch }: ActionParams,
+		{ item }: { item: FeedItem},
+	) {
 		ItemService.markRead(item, false)
 
 		if (!item.unread) {
@@ -234,7 +255,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.item
 	 */
-	[FEED_ITEM_ACTION_TYPES.STAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+	[FEED_ITEM_ACTION_TYPES.STAR_ITEM](
+		{ commit }: ActionParams,
+		{ item }: { item: FeedItem},
+	) {
 		ItemService.markStarred(item, true)
 
 		item.starred = true
@@ -250,7 +274,10 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.item
 	 */
-	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM](
+		{ commit }: ActionParams,
+		{ item }: { item: FeedItem},
+	) {
 		ItemService.markStarred(item, false)
 
 		item.starred = false
@@ -263,6 +290,7 @@ export const mutations = {
 	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state: ItemState, { id }: { id: string }) {
 		state.selectedId = id
 	},
+
 	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state: ItemState, items: FeedItem[]) {
 		if (items) {
 			items.forEach(it => {
@@ -272,26 +300,54 @@ export const mutations = {
 			})
 		}
 	},
-	[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT](state: ItemState, count: number) {
+
+	[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT](
+		state: ItemState,
+		count: number,
+	) {
 		state.starredCount = count
 	},
-	[FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT](state: ItemState, count: number) {
+
+	[FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT](
+		state: ItemState,
+		count: number,
+	) {
 		state.unreadCount = count
 	},
-	[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](state: ItemState, { item }: { item: FeedItem }) {
+
+	[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](
+		state: ItemState,
+		{ item }: { item: FeedItem },
+	) {
 		const idx = state.allItems.findIndex((it) => it.id === item.id)
 		state.allItems.splice(idx, 1, item)
 	},
-	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](state: ItemState, { fetching, key }: { fetching: boolean; key: string; }) {
+
+	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](
+		state: ItemState,
+		{ fetching, key }: { fetching: boolean; key: string; },
+	) {
 		state.fetchingItems[key] = fetching
 	},
-	[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](state: ItemState, { loaded, key }: { loaded: boolean; key: string; }) {
+
+	[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](
+		state: ItemState,
+		{ loaded, key }: { loaded: boolean; key: string; },
+	) {
 		state.allItemsLoaded[key] = loaded
 	},
-	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](state: ItemState, { lastItem, key }: { lastItem: number; key: string; }) {
+
+	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](
+		state: ItemState,
+		{ lastItem, key }: { lastItem: number; key: string; },
+	) {
 		state.lastItemLoaded[key] = lastItem
 	},
-	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: ItemState, feed: Feed) {
+
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
+		state: ItemState,
+		feed: Feed,
+	) {
 		state.allItems.forEach((item: FeedItem) => {
 			if (item.feedId === feed.id) {
 				item.unread = false

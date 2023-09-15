@@ -28,7 +28,7 @@ describe('folder.ts', () => {
 			const folder = {} as Folder
 			const commit = jest.fn()
 
-		  await actions[FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit }, { folder })
+		  await actions[FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit } as any, { folder })
 			expect(FolderService.createFolder).toBeCalled()
 			expect(commit).toBeCalled()
 		})
@@ -40,7 +40,7 @@ describe('folder.ts', () => {
 			const folder = {} as Folder
 			const commit = jest.fn()
 
-		  await actions[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }, { folder })
+		  await actions[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit } as any, { folder })
 			expect(FolderService.deleteFolder).toBeCalled()
 			expect(commit).toBeCalled()
 		})

@@ -22,20 +22,20 @@ describe('feed.ts', () => {
 		})
 
 		describe('ADD_FEED', () => {
-			it('should call FeedService.addF and commit feed to state', async () => {
+			it('should call FeedService.addFeed and commit feed to state', async () => {
 				FeedService.addFeed = jest.fn();
 				(FeedService.addFeed as any).mockResolvedValue({ data: { feeds: [] } })
 				const commit = jest.fn()
-				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit }, { feedReq: { url: '' } })
+				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit } as any, { feedReq: { url: '' } } as any)
 				expect(FeedService.addFeed).toBeCalled()
 				expect(commit).toBeCalled()
 			})
 
-			it('should call FeedService.addF and not call commit if error', async () => {
+			it('should call FeedService.addFeed and not call commit if error', async () => {
 				FeedService.addFeed = jest.fn();
 				(FeedService.addFeed as any).mockRejectedValue()
 				const commit = jest.fn()
-				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit }, { feedReq: { url: '' } })
+				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit } as any, { feedReq: { url: '' } } as any)
 				expect(FeedService.addFeed).toBeCalled()
 
 				expect(commit).not.toBeCalled()
