@@ -17,13 +17,13 @@ export const ACTIONS = {
 	...FEED_ITEM_ACTION_TYPES,
 }
 
-type Func = (name: string, value: unknown) => void;
-export type ActionParams = { commit: Func };
-
 export type AppState = {
   feeds: Feed[];
   folders: Folder[];
 } & ItemState;
+
+type Func = (name: string, value: unknown) => void;
+export type ActionParams = { commit: Func; dispatch: Func; state: AppState };
 
 export default {
 	modules: {

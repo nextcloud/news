@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import { AppState, ActionParams } from '../store'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
@@ -8,6 +10,8 @@ export const FOLDER_ACTION_TYPES = {
 	FETCH_FOLDERS: 'FETCH_FOLDERS',
 	ADD_FOLDERS: 'ADD_FOLDER',
 	DELETE_FOLDER: 'DELETE_FOLDER',
+
+	FOLDER_SET_NAME: 'FOLDER_SET_NAME',
 }
 
 const state = {
@@ -26,11 +30,11 @@ export const actions = {
 
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, folders.data.folders)
 	},
-	async [FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit }: ActionParams, { folder }: { folder: Folder}) {
+	async [FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit }: ActionParams, { folder }: { folder: Folder }) {
 		const response = await FolderService.createFolder({ name: folder.name })
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 	},
-	async [FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder}) {
+	async [FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit }: ActionParams, { folder }: { folder: Folder }) {
 		/**
 		 * TODO: look into reversiblyDelete?
       this.getByFolderId(folderId).forEach(function (feed) {
@@ -39,6 +43,10 @@ export const actions = {
 		 */
 		await FolderService.deleteFolder({ id: folder.id })
 		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
+	},
+	async [FOLDER_ACTION_TYPES.FOLDER_SET_NAME]({ commit }: ActionParams, { folder, name }: { folder: Folder, name: string }) {
+		await FolderService.renameFolder({ id: folder.id, name })
+		commit(FOLDER_MUTATION_TYPES.UPDATE_FOLDER, { id: folder.id, name })
 	},
 }
 
@@ -68,6 +76,29 @@ export const mutations = {
 		if (folder) {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
+		}
+	},
+	[FOLDER_MUTATION_TYPES.UPDATE_FOLDER](state: AppState, newFolder: Folder) {
+		const folder = state.folders.find((f: Folder) => { return f.id === newFolder.id })
+		if (folder) {
+			_.assign(folder, newFolder)
+		}
+	},
+
+	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](state: AppState, { folderId, delta }: {folderId: number; delta: number }) {
+		const folder = state.folders.find((f: Folder) => { return f.id === folderId })
+		if (folder) {
+			folder.feedCount += delta
+		}
+	},
+
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: AppState, feed: Feed) {
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === feed.folderId
+		})
+
+		if (folder) {
+			folder.feedCount -= feed.unreadCount
 		}
 	},
 }

@@ -2,7 +2,9 @@ import { ActionParams } from '../store'
 import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
 
 import { FeedItem } from '../types/FeedItem'
+import { Feed } from '../types/Feed'
 import { ItemService } from '../dataservices/item.service'
+import { FEED_ACTION_TYPES } from './feed'
 
 export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_STARRED: 'FETCH_STARRED',
@@ -187,16 +189,17 @@ export const actions = {
 	 *
 	 * @param param0 ActionParams
 	 * @param param0.commit
+	 * @param param0.dispatch
 	 * @param param1 ActionArgs
 	 * @param param1.item
 	 */
-	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit }: ActionParams, { item }: { item: FeedItem }) {
+	[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit, dispatch }: ActionParams, { item }: { item: FeedItem }) {
 		ItemService.markRead(item, true)
 
 		if (item.unread) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, state.unreadCount - 1)
 
-			commit(FEED_MUTATION_TYPES.DECREASE_FEED_UNREAD_COUNT, item.feedId)
+			dispatch(FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: item.feedId, delta: -1 })
 		}
 		item.unread = false
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
@@ -207,16 +210,17 @@ export const actions = {
 	 *
 	 * @param param0 ActionParams
 	 * @param param0.commit
+	 * @param param0.dispatch
 	 * @param param1 ActionArgs
 	 * @param param1.item
 	 */
-	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit }: ActionParams, { item }: { item: FeedItem}) {
+	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit, dispatch }: ActionParams, { item }: { item: FeedItem}) {
 		ItemService.markRead(item, false)
 
 		if (!item.unread) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, state.unreadCount + 1)
 
-			commit(FEED_MUTATION_TYPES.INCREASE_FEED_UNREAD_COUNT, item.feedId)
+			dispatch(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: item.feedId, delta: +1 })
 		}
 		item.unread = true
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
@@ -287,9 +291,9 @@ export const mutations = {
 	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](state: ItemState, { lastItem, key }: { lastItem: number; key: string; }) {
 		state.lastItemLoaded[key] = lastItem
 	},
-	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: ItemState, feedId: number) {
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: ItemState, feed: Feed) {
 		state.allItems.forEach((item: FeedItem) => {
-			if (item.feedId === feedId) {
+			if (item.feedId === feed.id) {
 				item.unread = false
 			}
 		})

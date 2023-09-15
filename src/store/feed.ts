@@ -18,6 +18,8 @@ export const FEED_ACTION_TYPES = {
 	FEED_SET_UPDATE_MODE: 'FEED_SET_UPDATE_MODE',
 	FEED_SET_TITLE: 'FEED_SET_TITLE',
 
+	MODIFY_FEED_UNREAD_COUNT: 'MODIFY_FEED_UNREAD_COUNT',
+
 	FEED_DELETE: 'FEED_DELETE',
 }
 
@@ -86,7 +88,11 @@ export const actions = {
 		const response = await ItemService.fetchFeedItems(feed.id as number)
 		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.items[0].id })
 
-		commit(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed.id)
+		if (feed.folderId) {
+			commit(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: feed.folderId, delta: -feed.unreadCount })
+		}
+
+		commit(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_PINNED]({ commit }: ActionParams, { feed, pinned }: { feed: Feed, pinned: boolean }) {
@@ -124,6 +130,19 @@ export const actions = {
 
 		commit(FEED_MUTATION_TYPES.FEED_DELETE, feed.id)
 	},
+
+	async [FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT]({ commit, state }: ActionParams, { feedId, delta }: { feedId: number, delta: number }) {
+		commit(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId, delta })
+
+		const feed = state.feeds.find((feed: Feed) => {
+			return feed.id === feedId
+		})
+
+		if (feed?.folderId) {
+			commit(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: feed?.folderId, delta })
+		}
+
+	},
 }
 
 export const mutations = {
@@ -141,9 +160,9 @@ export const mutations = {
 		})
 		_.assign(feed, newFeed)
 	},
-	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: AppState, feedId: number) {
+	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state: AppState, feed: Feed) {
 		const priorFeed = state.feeds.find((stateFeed: Feed) => {
-			return stateFeed.id === feedId
+			return stateFeed.id === feed.id
 		})
 		if (priorFeed) {
 			const priorUnread = priorFeed?.unreadCount
@@ -151,20 +170,12 @@ export const mutations = {
 			state.unreadCount -= priorUnread
 		}
 	},
-	[FEED_MUTATION_TYPES.INCREASE_FEED_UNREAD_COUNT](state: AppState, feedId: number) {
+	[FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT](state: AppState, { feedId, delta }: { feedId: number, delta: number }) {
 		const feed = state.feeds.find((feed: Feed) => {
 			return feed.id === feedId
 		})
 		if (feed) {
-			_.assign(feed, { unreadCount: feed.unreadCount + 1 })
-		}
-	},
-	[FEED_MUTATION_TYPES.DECREASE_FEED_UNREAD_COUNT](state: AppState, feedId: number) {
-		const feed = state.feeds.find((feed: Feed) => {
-			return feed.id === feedId
-		})
-		if (feed) {
-			_.assign(feed, { unreadCount: feed.unreadCount - 1 })
+			_.assign(feed, { unreadCount: feed.unreadCount + delta })
 		}
 	},
 	[FEED_MUTATION_TYPES.FEED_DELETE](state: AppState, feedId: number) {
