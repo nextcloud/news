@@ -42,5 +42,11 @@ module.exports = {
 				'@typescript-eslint/no-explicit-any': 'off',
 			},
 		},
+		{
+			files: ['src/store/*.ts'],
+			rules: {
+				'function-paren-newline': ['error', 'multiline'],
+			},
+		},
 	 ],
 }

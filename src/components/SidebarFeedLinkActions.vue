@@ -131,7 +131,7 @@ export default Vue.extend({
 		rename() {
 			const title = window.prompt(t('news', 'Rename Feed'), this.feed.title)
 
-			// null on escape
+			// null when user presses escape (do nothing)
 			if (title !== null) {
 				this.$store.dispatch(ACTIONS.FEED_SET_TITLE, { feed: this.feed, title })
 			}

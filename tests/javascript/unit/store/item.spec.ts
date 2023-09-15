@@ -1,7 +1,7 @@
 import { AppState } from '../../../../src/store'
 import { FEED_ITEM_ACTION_TYPES, mutations, actions } from '../../../../src/store/item'
 
-import { FEED_ITEM_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 import { ItemService } from '../../../../src/dataservices/item.service'
 
 describe('item.ts', () => {
@@ -68,27 +68,31 @@ describe('item.ts', () => {
 		})
 
 		it('MARK_READ should call GET and commit returned feeds to state', async () => {
-			const item = { id: 1 }
+			const item = { id: 1, feedId: 123, unread: true }
 			const commit = jest.fn()
+			const dispatch = jest.fn()
 			const serviceMock = jest.fn()
 			ItemService.markRead = serviceMock
 
-			await (actions[FEED_ITEM_ACTION_TYPES.MARK_READ] as any)({ commit }, { item })
+			await (actions[FEED_ITEM_ACTION_TYPES.MARK_READ] as any)({ commit, dispatch }, { item })
 
 			expect(serviceMock).toBeCalledWith(item, true)
 			expect(commit).toBeCalled()
+			expect(dispatch).toBeCalledWith(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: 123, delta: -1 })
 		})
 
 		it('MARK_UNREAD should call GET and commit returned feeds to state', async () => {
-			const item = { id: 1 }
+			const item = { id: 1, feedId: 123 }
 			const commit = jest.fn()
+			const dispatch = jest.fn()
 			const serviceMock = jest.fn()
 			ItemService.markRead = serviceMock
 
-			await (actions[FEED_ITEM_ACTION_TYPES.MARK_UNREAD] as any)({ commit }, { item })
+			await (actions[FEED_ITEM_ACTION_TYPES.MARK_UNREAD] as any)({ commit, dispatch }, { item })
 
 			expect(serviceMock).toBeCalledWith(item, false)
 			expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
+			expect(dispatch).toBeCalledWith(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: 123, delta: 1 })
 		})
 
 		it('STAR_ITEM should call GET and commit returned feeds to state', async () => {
@@ -211,6 +215,18 @@ describe('item.ts', () => {
 
 				(mutations[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED] as any)(state, { loaded: false, key: 'starred' })
 				expect(state.allItemsLoaded.starred).toEqual(false)
+			})
+		})
+
+		describe('SET_FEED_ALL_READ', () => {
+			it('should set allItems with feedId as read', () => {
+				const state = { allItems: [{ id: 1, feedId: 123, unread: true }, { id: 2, feedId: 345, unread: true }] } as any
+
+				(mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ] as any)(state, { id: 123 })
+				expect(state.allItems[0].unread).toEqual(false);
+
+				(mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ] as any)(state, { id: 345 })
+				expect(state.allItems[1].unread).toEqual(false)
 			})
 		})
 	})
