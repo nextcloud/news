@@ -31,4 +31,39 @@ describe('feed.service.ts', () => {
 			expect(args[1].url).toEqual('http://example.com')
 		})
 	})
+
+	describe('markRead', () => {
+		it('should call POST with item id + read in URL and highestItemId param', async () => {
+			await FeedService.markRead({ feedId: 1, highestItemId: 234 })
+
+			expect(axios.post).toBeCalled()
+			const args = (axios.post as any).mock.calls[0]
+
+			expect(args[0]).toContain('1/read')
+			expect(args[1].highestItemId).toEqual(234)
+		})
+	})
+
+	describe('updateFeed', () => {
+		it('should call PATCH with item id in URL and title param', async () => {
+			await FeedService.updateFeed({ feedId: 1, title: 'abc' })
+
+			expect(axios.patch).toBeCalled()
+			const args = (axios.patch as any).mock.calls[0]
+
+			expect(args[0]).toContain('1')
+			expect(args[1].title).toEqual('abc')
+		})
+	})
+
+	describe('deleteFeed', () => {
+		it('should call DELETE with item id in URL ', async () => {
+			await FeedService.deleteFeed({ feedId: 1 })
+
+			expect(axios.delete).toBeCalled()
+			const args = (axios.delete as any).mock.calls[0]
+
+			expect(args[0]).toContain('1')
+		})
+	})
 })
