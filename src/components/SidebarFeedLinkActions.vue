@@ -8,11 +8,17 @@
 		<NcActionButton v-if="feed.pinned"
 			icon="icon-pinned"
 			@click="setPinned(false)">
+			<template #icon>
+				<PinOffIcon />
+			</template>
 			{{ t("news", "Unpin from top") }}
 		</NcActionButton>
 		<NcActionButton v-if="!feed.pinned"
 			icon="icon-pinned"
 			@click="setPinned(true)">
+			<template #icon>
+				<PinIcon />
+			</template>
 			{{ t("news", "Pin to top") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.ordering === FEED_ORDER.NEWEST"
@@ -21,7 +27,7 @@
 			{{ t("news", "Newest first") }}
 		</NcActionButton>
 		<NcActionButton v-else-if="feed.ordering === FEED_ORDER.OLDEST"
-			icon="icon-caret-dark"
+			icon="icon-caret-dark feed-reverse-ordering"
 			@click="setOrdering(FEED_ORDER.DEFAULT)">
 			{{ t("news", "Oldest first") }}
 		</NcActionButton>
@@ -33,21 +39,37 @@
 		<NcActionButton v-if="!feed.fullTextEnabled"
 			icon="icon-full-text-disabled"
 			@click="setFullText(true)">
+			<template #icon>
+				<TextShortIcon />
+			</template>
 			{{ t("news", "Enable full text") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.fullTextEnabled"
 			icon="icon-full-text-enabled"
 			@click="setFullText(false)">
+			<template #icon>
+				<TextLongIcon />
+			</template>
 			{{ t("news", "Disable full text") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
 			icon="icon-updatemode-default"
 			@click="setUpdateMode(FEED_UPDATE_MODE.IGNORE)">
+			<template #icon>
+				<span class="custom-icon">
+					<img :src="UnreadSvg">
+				</span>
+			</template>
 			{{ t("news", "Unread updated") }}
 		</NcActionButton>
 		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
 			icon="icon-updatemode-unread"
 			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
+			<template #icon>
+				<span class="custom-icon">
+					<img :src="IgnoreSvg">
+				</span>
+			</template>
 			{{ t("news", "Ignore updated") }}
 		</NcActionButton>
 		<NcActionButton icon="icon-rename"
@@ -70,7 +92,6 @@
 
 <script lang="ts">
 
-import { mapState } from 'vuex'
 import Vue from 'vue'
 
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
@@ -79,15 +100,25 @@ import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationI
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
 
 import RssIcon from 'vue-material-design-icons/Rss.vue'
+import PinIcon from 'vue-material-design-icons/Pin.vue'
+import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
+import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
+import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
 
 import { ACTIONS } from '../store'
 import { Feed } from '../types/Feed'
+const UnreadSvg = require('../../img/updatemodeunread.svg')
+const IgnoreSvg = require('../../img/updatemodedefault.svg')
 
 export default Vue.extend({
 	components: {
 		NcActionButton,
 		NcAppNavigationItem,
 		RssIcon,
+		PinIcon,
+		PinOffIcon,
+		TextShortIcon,
+		TextLongIcon,
 	},
 	props: {
 		feedId: {
@@ -99,6 +130,8 @@ export default Vue.extend({
 		return {
 			FEED_ORDER,
 			FEED_UPDATE_MODE,
+			UnreadSvg,
+			IgnoreSvg,
 		}
 	},
 
@@ -110,9 +143,6 @@ export default Vue.extend({
 		},
 	},
 	methods: {
-		alert(msg: string) {
-			window.alert(msg)
-		},
 		markRead() {
 			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
 		},
@@ -147,3 +177,19 @@ export default Vue.extend({
 })
 
 </script>
+
+<style>
+.custom-icon {
+	width: 44px;
+	height: 44px;
+	display: flex;
+	align-self: center;
+	justify-self: center;
+	align-items: center;
+	justify-content: center;
+}
+
+.feed-reverse-ordering {
+	transform: rotate(180deg);
+}
+</style>
