@@ -41,12 +41,6 @@ export const actions = {
 		{ commit }: ActionParams,
 		{ folder }: { folder: Folder },
 	) {
-		/**
-		 * TODO: look into reversiblyDelete?
-      this.getByFolderId(folderId).forEach(function (feed) {
-          promises.push(self.reversiblyDelete(feed.id, false, true));
-      });
-		 */
 		await FolderService.deleteFolder({ id: folder.id })
 		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
 	},
@@ -127,9 +121,7 @@ export const mutations = {
 		state: AppState,
 		feed: Feed,
 	) {
-		const folder = state.folders.find((folder: Folder) => {
-			return folder.id === feed.folderId
-		})
+		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
 
 		if (folder) {
 			folder.feedCount -= feed.unreadCount
