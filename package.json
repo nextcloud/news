@@ -141,7 +141,7 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1",
       "^Components/(.*)$": "<rootDir>/src/components/$1",
-      "^.+\\.(css|less)$": "<rootDir>/tests/javascript/helpers/CSSStub.js"
+      "^.+\\.(css|less|svg)$": "<rootDir>/tests/javascript/helpers/CSSStub.js"
     },
     "testEnvironment": "jsdom",
     "transform": {
