@@ -67,7 +67,8 @@
     "symfony/console": "^4.4.19",
     "psr/log": "^1.1.0",
     "vimeo/psalm": "^5.15",
-    "bamarni/composer-bin-plugin": "^1.8"
+    "bamarni/composer-bin-plugin": "^1.8",
+    "nextcloud/ocp": "dev-master"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
