@@ -21,10 +21,6 @@ return ['routes' => [
 ['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
 ['name' => 'page#explore', 'url' => '/explore/feeds.{lang}.json', 'verb' => 'GET'],
 
-// admin
-['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],
-['name' => 'admin#migrate', 'url' => '/admin/migrate', 'verb' => 'POST'],
-
 // folders
 ['name' => 'folder#index', 'url' => '/folders', 'verb' => 'GET'],
 ['name' => 'folder#create', 'url' => '/folders', 'verb' => 'POST'],
