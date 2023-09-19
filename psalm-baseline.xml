@@ -1401,6 +1401,12 @@
     <InvalidArgument>
       <code>$exception</code>
     </InvalidArgument>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[new self($exception->getMessage(), $exception->getCode(), $exception)]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code>ServiceException</code>
+    </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
       <code>from</code>
     </PossiblyUnusedMethod>
@@ -1413,6 +1419,12 @@
     <InvalidArgument>
       <code>$exception</code>
     </InvalidArgument>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[new self($exception->getMessage(), $exception->getCode(), $exception)]]></code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType>
+      <code>ServiceException</code>
+    </MoreSpecificReturnType>
     <PossiblyUnusedMethod>
       <code>from</code>
     </PossiblyUnusedMethod>
