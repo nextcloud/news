@@ -28,6 +28,9 @@ use OCA\News\Explore\RecommendedSites;
 use OCA\News\Db\ListType;
 use OCP\IUserSession;
 
+/**
+ * @IgnoreOpenAPI
+ */
 class PageController extends Controller
 {
     use JSONHttpErrorTrait;

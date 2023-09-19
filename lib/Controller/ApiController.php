@@ -28,6 +28,7 @@ use \OCP\AppFramework\ApiController as BaseApiController;
  * Class ApiController
  *
  * @package OCA\News\Controller
+ * @IgnoreOpenAPI
  */
 class ApiController extends BaseApiController
 {

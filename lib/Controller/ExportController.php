@@ -26,6 +26,7 @@ use OCP\IUserSession;
  * Class ExportController
  *
  * @package OCA\News\Controller
+ * @IgnoreOpenAPI
  */
 class ExportController extends Controller
 {
