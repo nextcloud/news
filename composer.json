@@ -65,7 +65,8 @@
     "guzzlehttp/guzzle": "^7.3.0",
     "doctrine/dbal": "^3.6.6",
     "symfony/console": "^4.4.19",
-    "psr/log": "^1.1.0"
+    "psr/log": "^1.1.0",
+    "vimeo/psalm": "^5.15"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
@@ -87,5 +88,9 @@
       "composer/package-versions-deprecated": true,
       "phpstan/extension-installer": true
     }
+  },
+  "scripts": {
+    "psalm": "psalm --threads=1",
+    "psalm:update-baseline": "psalm --threads=1 --update-baseline --set-baseline=psalm-baseline.xml"
   }
 }
