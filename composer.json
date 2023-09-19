@@ -66,7 +66,8 @@
     "doctrine/dbal": "^3.6.6",
     "symfony/console": "^4.4.19",
     "psr/log": "^1.1.0",
-    "vimeo/psalm": "^5.15"
+    "vimeo/psalm": "^5.15",
+    "bamarni/composer-bin-plugin": "^1.8"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
@@ -86,10 +87,19 @@
   "config": {
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
-      "phpstan/extension-installer": true
+      "phpstan/extension-installer": true,
+      "bamarni/composer-bin-plugin": true
     }
   },
   "scripts": {
+    "post-install-cmd": [
+      "[ $COMPOSER_DEV_MODE -eq 0 ] || composer bin all install",
+      "composer dump-autoload"
+    ],
+    "post-update-cmd": [
+      "[ $COMPOSER_DEV_MODE -eq 0 ] || composer bin all update --ansi",
+      "composer dump-autoload"
+    ],
     "psalm": "psalm --threads=1",
     "psalm:update-baseline": "psalm --threads=1 --update-baseline --set-baseline=psalm-baseline.xml"
   }
