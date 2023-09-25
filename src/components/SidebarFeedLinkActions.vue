@@ -86,7 +86,6 @@
 				<RssIcon />
 			</template>
 		</NcAppNavigationItem>
-
 	</span>
 </template>
 

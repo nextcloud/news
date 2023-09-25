@@ -48,7 +48,8 @@
 				:name="topLevelItem.name || topLevelItem.title"
 				:icon="''"
 				:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
-				:allow-collapse="true">
+				:allow-collapse="true"
+				:force-menu="true">
 				<template #default>
 					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
 						:key="feed.name"
@@ -85,14 +86,13 @@
 				</template>
 				<template #actions>
 					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined" :feed-id="topLevelItem.id" />
-
 					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="markFolderRead(topLevelItem)">
 						{{ t("news", "Mark read") }}
 					</NcActionButton>
 					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-rename" @click="renameFolder(topLevelItem)">
 						{{ t("news", "Rename") }}
 					</NcActionButton>
-					<NcActionButton icon="icon-delete" @click="deleteFolder(topLevelItem)">
+					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-delete" @click="deleteFolder(topLevelItem)">
 						{{ t("news", "Delete") }}
 					</NcActionButton>
 				</template>
@@ -121,7 +121,6 @@ import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigationNewItem.js'
-// import AppNavigationCounter from '@nextcloud/vue/dist/Components/AppNavigationCounter'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
@@ -136,6 +135,7 @@ import { ROUTES } from '../routes'
 import { ACTIONS, AppState } from '../store'
 
 import AddFeed from './AddFeed.vue'
+import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
@@ -175,6 +175,7 @@ export default Vue.extend({
 		EarthIcon,
 		FolderPlusIcon,
 		PlusIcon,
+		SidebarFeedLinkActions,
 	},
 	data: () => {
 		return {
@@ -185,6 +186,11 @@ export default Vue.extend({
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
 		...mapState(SideBarState),
+	},
+	created() {
+		if (this.$route.query.subscribe_to) {
+			this.showAddFeed = true
+		}
 	},
 	methods: {
 		newFolder(value: string) {
