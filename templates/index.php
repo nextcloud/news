@@ -1,14 +1,19 @@
 <?php
+use OCA\News\Plugin\Client\Plugin;
+
 script('news', 'nextcloud-news-main');
-style('news', 'navigation');
-style('news', 'explore');
-style('news', 'admin');
-style('news', 'app');
-style('news', 'content');
-style('news', 'custom');
-style('news', 'mobile');
-style('news', 'settings');
-style('news', 'shortcuts');
+
+// load plugin scripts and styles
+foreach (Plugin::getStyles() as $appName => $fileName) {
+  style($appName, $fileName);
+}
+foreach (Plugin::getScripts() as $appName => $fileName) {
+  script($appName, $fileName);
+}
+
+print_unescaped($this->inc('part.content.warnings'))
+
 ?>
+
 
 <div id="q-app"></div>

@@ -203,7 +203,7 @@ export default Vue.extend({
 		align-self: start;
 	}
 
-	.button-container .action-item .button-vue, .button-container .material-design-icon {
+	.feed-item-row .button-container .button-vue, .feed-item-row .button-container .button-vue .button-vue__wrapper, .feed-item-row .button-container .material-design-icon {
 		width: 30px !important;
     min-width: 30px;
     min-height: 30px;
