@@ -115,17 +115,17 @@ export default Vue.extend({
 			const elapsed = current - previous
 
 			if (elapsed < msPerMinute) {
-				return Math.round(elapsed / 1000) + ' ' + t('news', 'seconds')
+				return t('news', '{num} seconds', { num: Math.round(elapsed / 1000) })
 			} else if (elapsed < msPerHour) {
-				return Math.round(elapsed / msPerMinute) + ' ' + t('news', 'minutes ago')
+				return t('news', '{num} minutes ago', { num: Math.round(elapsed / msPerMinute) })
 			} else if (elapsed < msPerDay) {
-				return Math.round(elapsed / msPerHour) + ' ' + t('news', 'hours ago')
+				return t('news', '{num} hours ago', { num: Math.round(elapsed / msPerHour) })
 			} else if (elapsed < msPerMonth) {
-				return Math.round(elapsed / msPerDay) + ' ' + t('news', 'days ago')
+				return t('news', '{num} days ago', { num: Math.round(elapsed / msPerDay) })
 			} else if (elapsed < msPerYear) {
-				return Math.round(elapsed / msPerMonth) + ' ' + t('news', 'months ago')
+				return t('news', '{num} months ago', { num: Math.round(elapsed / msPerMonth) })
 			} else {
-				return Math.round(elapsed / msPerYear) + ' ' + t('news', 'years ago')
+				return t('news', '{num} years ago', { num: Math.round(elapsed / msPerYear) })
 			}
 		},
 		getFeed(id: number): Feed {

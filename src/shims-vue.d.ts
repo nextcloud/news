@@ -12,4 +12,4 @@ declare module '@nextcloud/vue/dist/Components/*' {
 };
 
 // Necessary to access translate in typescript components
-function t(app, key): string { }
+function t(app, key, params?): string { }
