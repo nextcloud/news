@@ -9,6 +9,9 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Fixed
 
 # Releases
+## [24.0.0] - 2023-09-26
+No major changes compared to 24.0.0-beta1.
+
 ## [24.0.0-beta1] - 2023-08-26
 ### Changed
 - Drop support for Nextcloud 25, Supported: 26, 27 (#2316)
