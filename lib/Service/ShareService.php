@@ -114,6 +114,8 @@ class ShareService
         $sharedItem->setStarred(false);
         $sharedItem->setSharedBy($userId);
 
+        // TODO: should we set the pub date to the date of share?
+
         // Get 'shared with me' dummy feed
         $feedUrl = $this->urlGenerator->getBaseUrl() . '/news/sharedwithme';
         $feed = $this->feedService->findByUrl($shareRecipientId, $feedUrl);
