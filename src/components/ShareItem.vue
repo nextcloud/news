@@ -56,6 +56,11 @@ import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
 
 import { ShareService } from '../dataservices/share.service'
 
+type ShareUser = {
+  shareName: string;
+  displayName: string;
+}
+
 export default Vue.extend({
 	components: {
 		NcModal,
@@ -75,14 +80,25 @@ export default Vue.extend({
 			users: [],
 			selected: [],
 			searching: false,
-		} as any
+		} as {
+      userName: string;
+      users: ShareUser[];
+      selected: ShareUser[];
+      searching: boolean;
+      debounceSearchUsers?: () => void;
+    }
 	},
 	created() {
 		this.debounceSearchUsers = _.debounce(this.searchUsers, 800)
 	},
 	methods: {
-		clickUser(user: any) {
-			const selectedUsers = this.selected.map((val: any) => { return val.shareName })
+		/**
+		 * Adds or removes user to selected list
+		 *
+		 * @param user {ShareUser} user that was clicked
+		 */
+		clickUser(user: ShareUser) {
+			const selectedUsers = this.selected.map((val: ShareUser) => { return val.shareName })
 			if (selectedUsers.includes(user.shareName)) {
 				this.selected.splice(selectedUsers.indexOf(user.shareName), 1)
 			} else {
@@ -90,6 +106,9 @@ export default Vue.extend({
 			}
 		},
 
+		/**
+		 * Searches for Users based on user input to display for sharing
+		 */
 		async searchUsers() {
 			this.users = []
 			this.searching = true
@@ -105,7 +124,7 @@ export default Vue.extend({
 		 * Shares an item with another use in the same nextcloud instance
 		 */
 		async share() {
-			await ShareService.share(this.itemId, this.selected.map((val: any) => { return val.shareName }))
+			await ShareService.share(this.itemId, this.selected.map((val: ShareUser) => { return val.shareName }))
 
 			this.$emit('close')
 		},

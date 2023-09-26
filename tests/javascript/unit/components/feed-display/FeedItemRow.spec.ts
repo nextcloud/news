@@ -68,13 +68,13 @@ describe('FeedItemRow.vue', () => {
 
 		let relativeTimestamp = (wrapper.vm as any).getRelativeTimestamp(pastTimestamp)
 
-		expect(relativeTimestamp).toEqual('10 seconds')
+		expect(relativeTimestamp).toEqual('{num} seconds')
 
 		pastTimestamp = currentTimestamp - 1000 * 60 * 10 // 10 minutes ago
 
 		relativeTimestamp = (wrapper.vm as any).getRelativeTimestamp(pastTimestamp)
 
-		expect(relativeTimestamp).toEqual('10 minutes ago')
+		expect(relativeTimestamp).toEqual('{num} minutes ago')
 	})
 
 	it('should retrieve feed by ID', () => {
