@@ -19,6 +19,11 @@ describe('Sidebar.vue', () => {
 		wrapper = shallowMount(AppSidebar, {
 			localVue,
 			mocks: {
+				$route: {
+					query: {
+						subscribe_to: undefined,
+					},
+				},
 				$store: {
 					state: {
 						feeds,

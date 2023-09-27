@@ -20,6 +20,11 @@ describe('AddFeed.vue', () => {
 		wrapper = shallowMount(AddFeed, {
 			localVue,
 			mocks: {
+				$route: {
+					query: {
+						subscribe_to: undefined,
+					},
+				},
 				$store: mockStore,
 			},
 		})
