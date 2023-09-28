@@ -190,7 +190,7 @@ export default Vue.extend({
 			return false
 		},
 		playAudio(item: FeedItem) {
-			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, { item })
+			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, item)
 		},
 		stopAudio() {
 			const audioElements = document.getElementsByTagName('audio')

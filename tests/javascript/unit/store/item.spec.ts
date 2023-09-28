@@ -129,6 +129,16 @@ describe('item.ts', () => {
 				expect(state.selectedId).toEqual(123)
 			})
 		})
+
+		describe('SET_PLAYING_ITEM', () => {
+			it('should update selectedId on state', async () => {
+				const state = { playingItem: undefined } as any
+				const item = { id: 123 } as any
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](state, item as any)
+				expect(state.playingItem).toEqual(item)
+			})
+		})
+
 		describe('SET_ITEMS', () => {
 			it('should add feeds to state', () => {
 				const state = { allItems: [] as any } as any

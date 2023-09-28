@@ -55,7 +55,7 @@ export default Vue.extend({
 	},
 	methods: {
 		stopPlaying() {
-			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, { item: undefined })
+			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, undefined)
 		},
 		stopVideo() {
 			const videoElements = document.getElementsByTagName('video')
@@ -82,6 +82,7 @@ export default Vue.extend({
 	#content-display {
 		display: flex;
 		flex-direction: row;
+		height: 100%;
 	}
 
 	#content-display.playing {
