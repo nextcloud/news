@@ -72,7 +72,7 @@ describe('FeedItemDisplay.vue', () => {
 		expect(feed).toEqual(mockFeed)
 	})
 
-	it('toggles starred state', () => {
+	it('should toggle starred state', () => {
 		wrapper.vm.$props.item.starred = true;
 
 		(wrapper.vm as any).toggleStarred(wrapper.vm.$props.item)
@@ -88,5 +88,19 @@ describe('FeedItemDisplay.vue', () => {
 		})
 	})
 
-	// TODO: Audio/Video tests
+	it('should send SET_PLAYING_ITEM with item', () => {
+		const item = { id: 123 };
+		(wrapper.vm as any).playAudio(item)
+
+		expect(commitStub).toBeCalledWith(MUTATIONS.SET_PLAYING_ITEM, item)
+	})
+
+	it('should stop all audio elements in page when playing video', () => {
+		const pauseStub = jest.fn()
+		document.getElementsByTagName = jest.fn().mockReturnValue([{ pause: pauseStub }]);
+
+		(wrapper.vm as any).stopAudio()
+
+		expect(pauseStub).toBeCalled()
+	})
 })
