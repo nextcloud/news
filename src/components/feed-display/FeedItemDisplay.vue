@@ -50,34 +50,39 @@
 				</span>
 			</div>
 
-			<!-- TODO: Test audio/video -->
-			<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure">
-				<button @click="play(item)">
+			<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure audio">
+				<button @click="playAudio(item)">
 					{{ t('news', 'Play audio') }}
 				</button>
 				<a class="button"
+					style="text-decoration: none;"
 					:href="item.enclosureLink"
 					target="_blank"
 					rel="noreferrer">
 					{{ t('news', 'Download audio') }}
 				</a>
 			</div>
-			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure">
+			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure video">
 				<video controls
 					preload="none"
-					news-play-one
 					:src="item.enclosureLink"
-					:type="item.enclosureMime" />
-				<a class="button"
-					:href="item.enclosureLink"
-					target="_blank"
-					rel="noreferrer">
-					{{ t('news', 'Download video') }}
-				</a>
+					:type="item.enclosureMime"
+					:style="{ 'background-image': 'url('+item.mediaThumbnail+')' }"
+					@play="stopAudio()" />
+				<div class="download">
+					<a class="button"
+						style="text-decoration: none;"
+						:href="item.enclosureLink"
+						target="_blank"
+						rel="noreferrer">
+						{{ t('news', 'Download video') }}
+					</a>
+				</div>
 			</div>
 
-			<div v-if="item.mediaThumbnail" class="enclosure thumbnail">
-				<a :href="item.enclosureLink"><img :src="item.mediaThumbnail" alt=""></a>
+			<div v-if="item.mediaThumbnail && getMediaType(item.enclosureMime) !== 'video'" class="enclosure thumbnail">
+				<a v-if="item.enclosureLink" :href="item.enclosureLink"><img :src="item.mediaThumbnail" alt=""></a>
+				<img v-else :src="item.mediaThumbnail" alt="">
 			</div>
 
 			<div v-if="item.mediaDescription" class="enclosure description" v-html="item.mediaDescription" />
@@ -177,11 +182,22 @@ export default Vue.extend({
 		},
 
 		getMediaType(mime: string): 'audio' | 'video' | false {
-			// TODO: figure out how to check media type
+			if (mime && mime.indexOf('audio') === 0) {
+				return 'audio'
+			} else if (mime && mime.indexOf('video') === 0) {
+				return 'video'
+			}
 			return false
 		},
-		play(item: FeedItem) {
-			// TODO: implement play audio/video
+		playAudio(item: FeedItem) {
+			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, { item })
+		},
+		stopAudio() {
+			const audioElements = document.getElementsByTagName('audio')
+
+			for (let i = 0; i < audioElements.length; i++) {
+				audioElements[i].pause()
+			}
 		},
 	},
 })
@@ -200,6 +216,21 @@ export default Vue.extend({
 		padding: 0 50px 50px 50px;
 		overflow-y: scroll;
 		height: 100%;
+	}
+
+	.article video {
+		width: 100%;
+		background-size: cover;
+	}
+
+	.article .enclosure.video {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.article .enclosure.video .download {
+		justify-content: center;
+		display: flex;
 	}
 
 	.article .body {
