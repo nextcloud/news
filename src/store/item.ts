@@ -29,6 +29,7 @@ export type ItemState = {
 	allItems: FeedItem[];
 
 	selectedId?: string;
+	playingItem?: FeedItem
 }
 
 const state: ItemState = {
@@ -40,7 +41,9 @@ const state: ItemState = {
 	unreadCount: 0,
 
 	allItems: [],
+
 	selectedId: undefined,
+	playingItem: undefined,
 }
 
 const getters = {
@@ -289,6 +292,9 @@ export const actions = {
 export const mutations = {
 	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state: ItemState, { id }: { id: string }) {
 		state.selectedId = id
+	},
+	[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](state: ItemState, { item }: { item?: FeedItem }) {
+		state.playingItem = item
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state: ItemState, items: FeedItem[]) {
