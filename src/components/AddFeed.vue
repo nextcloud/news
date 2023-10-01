@@ -151,6 +151,11 @@ export default Vue.extend({
 						|| (this.createNewFolder && (this.newFolderName === '' || this.folderNameExists())))
 		},
 	},
+	created() {
+		if (this.$route.query.subscribe_to) {
+			this.feedUrl = this.$route.query.subscribe_to as string
+		}
+	},
 	methods: {
 		/**
 		 * Adds a New Feed via the Vuex Store

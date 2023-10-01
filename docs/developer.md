@@ -20,7 +20,7 @@ The PHP code should all adhere to [PSR-2](https://www.php-fig.org/psr/psr-2/).
 *Note that this is a different codestyle than Nextcloud itself uses.*
 To test the codestyle you can run `make phpcs`.
 
-For linting JavaScript, a [jshint file](https://github.com/nextcloud/news/blob/master/js/.jshintrc) is used that is run before compiling the JavaScript.
+The application Front End uses Vue 2.7 and the Nextcloud Libraries [Vue Components](https://github.com/nextcloud-libraries/nextcloud-vue) for building the Application running inside your Nextcloud instance. For linting these files, we are using eslint, see the [config file](https://github.com/nextcloud/news/blob/master/.eslintrc.js). We also have Unit Tests for the components that run with Jest, please ensure these pass when adding new features/fixing bugs.
 
 ## General Developer setup
 Check the Nextcloud [documentation](https://docs.nextcloud.com/server/latest/developer_manual/getting_started/devenv.html) to learn how to setup a developer environment, alternatively to a proper web server you can also use the [builtin php server](https://www.php.net/manual/en/features.commandline.webserver.php) on demand, it is enough for development purposes.
