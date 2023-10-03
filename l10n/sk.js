@@ -110,7 +110,7 @@ OC.L10N.register(
     "Ignore updated" : "Ignorovať aktualizáciu",
     "Open feed URL" : "Otvoriť adresu zdroja",
     "Delete" : "Zmazať",
-    "Dismiss" : "Odmietnuť",
+    "Dismiss" : "Zatvoriť",
     "Collapse" : "Zvinúť",
     "Deleted folder" : "Zmazaný priečinok",
     "Undo delete folder" : "Obnoviť zmazaný priečinok",
