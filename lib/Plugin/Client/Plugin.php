@@ -14,7 +14,7 @@
 namespace OCA\News\Plugin\Client;
 
 /**
- * TODO: remove this? it seems old.. there is no global list of plugins anymore and seems like plugins register themselves
+ * TODO: remove this? it seems old.. there is no global list of plugins and seems plugins register themselves?
  *
  * We actually really want to avoid this global list of plugins. A way would be
  * for News plugin apps to register themselves in a special database table
