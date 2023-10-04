@@ -1,13 +1,11 @@
+import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes'
+
 export const APPLICATION_ACTION_TYPES = {
 	SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
 }
 
-export const APPLICATION_MUTATION_TYPES = {
-	SET_ERROR: 'SET_ERROR',
-}
-
 type AppInfoState = {
-	error?: any;
+	error?: Error;
 }
 
 const state: AppInfoState = {
@@ -21,7 +19,7 @@ const getters = {
 }
 
 export const actions = {
-	// async [APPLICATION_ACTION_TYPES.SET_ERROR_MESSAGE]({ commit }: ActionParams) {
+	// async [APPLICATION_ACTION_TYPES...]({ commit }: ActionParams) {
 
 	// },
 }
@@ -29,7 +27,7 @@ export const actions = {
 export const mutations = {
 	[APPLICATION_MUTATION_TYPES.SET_ERROR](
 		state: AppInfoState,
-		error: any,
+		error: Error,
 	) {
 		state.error = error
 	},
