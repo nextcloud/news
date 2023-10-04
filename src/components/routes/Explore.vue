@@ -1,9 +1,13 @@
 <template>
-	<div id="explore">
+	<div id="explore" style="display: flex; justify-items: center;">
 		<AddFeed v-if="showAddFeed" :feed="feed" @close="closeShowAddFeed()" />
-		<div class="grid-container">
+		<div v-if="!exploreSites" style="margin: auto;">
+			{{ t('news', 'No feeds found to add') }}
+		</div>
+		<div v-else class="grid-container" style="display:flex;flex-wrap: wrap;">
 			<div v-for="entry in exploreSites"
 				:key="entry.title"
+				style="flex-grow: 1; max-width: calc(50% - 24px); min-width: 300px; display: flex; flex-direction: column;"
 				class="explore-feed grid-item">
 				<h2 v-if="entry.favicon"
 					class="explore-title"
@@ -15,14 +19,14 @@
 				<h2 v-if="!entry.favicon" class="icon-rss explore-title">
 					{{ entry.title }}
 				</h2>
-				<div class="explore-content">
+				<div class="explore-content" style="flex-grow: 1">
 					<p>{{ entry.description }}</p>
 
 					<div class="explore-logo">
 						<img :src="entry.image">
 					</div>
 				</div>
-				<NcButton @click="subscribe(entry.feed)">
+				<NcButton style="max-width: 100%;" @click="subscribe(entry)">
 					{{ t("news", "Subscribe to") }} {{ entry.title }}
 				</NcButton>
 			</div>
@@ -48,8 +52,12 @@ const ExploreComponent = Vue.extend({
 		NcButton,
 		AddFeed,
 	},
-	data: () => {
-		const exploreSites: ExploreSite[] = []
+	data: (): {
+		exploreSites: ExploreSite[] | undefined;
+		feed: Feed;
+		showAddFeed: boolean;
+	} => {
+		const exploreSites: ExploreSite[] | undefined = []
 		const feed: Feed = {} as Feed
 		const showAddFeed = false
 
@@ -68,15 +76,25 @@ const ExploreComponent = Vue.extend({
 			const settings = await axios.get(router.generateUrl('/apps/news/settings'))
 
 			const exploreUrl = settings.data.settings?.exploreUrl + 'feeds.en.json'
-			const explore = await axios.get(exploreUrl)
+			try {
+				const explore = await axios.get(exploreUrl)
 
-			Object.keys(explore.data).forEach((key) =>
-				explore.data[key].forEach((value: ExploreSite) =>
-					this.exploreSites.push(value),
-				),
-			)
+				Object.keys(explore.data).forEach((key) =>
+					explore.data[key].forEach((value: ExploreSite) => {
+						if (this.exploreSites) {
+							this.exploreSites.push(value)
+						} else {
+							this.exploreSites = [value]
+						}
+					},
+					),
+				)
+			} catch {
+				this.exploreSites = undefined
+			}
+
 		},
-		async subscribe(feed: Feed) {
+		subscribe(feed: Feed) {
 			this.feed = feed
 			this.showAddFeed = true
 		},
