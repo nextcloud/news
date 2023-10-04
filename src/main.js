@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Vuex, { Store } from 'vuex'
+import axios from '@nextcloud/axios'
 
 import App from './App.vue'
 import router from './routes'
-import mainStore from './store'
+import mainStore, { MUTATIONS } from './store'
 
 import { Tooltip } from '@nextcloud/vue'
 
@@ -19,6 +20,19 @@ Vue.use(VueRouter)
 Vue.directive('tooltip', Tooltip)
 
 const store = new Store(mainStore)
+
+axios.interceptors.response(undefined /* onSuccessCallback is intentionally undefined */,
+	// Any status codes that falls outside the range of 2xx cause this function to trigger
+	function(error) {
+
+		store.commit(MUTATIONS.SET_ERROR, error)
+		return Promise.reject(error)
+	},
+)
+
+Vue.config.errorHandler = function(err) {
+	store.commit(MUTATIONS.SET_ERROR, err)
+}
 
 export default new Vue({
 	router,

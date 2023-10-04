@@ -3,7 +3,7 @@
         #cron-warning {
             position: absolute;
             right: 30px;
-            top: 40px;
+            top: 120px;
             z-index: 5;
             padding: 5px;
             background-color: var(--color-main-background);

@@ -1,5 +1,13 @@
 <template>
 	<NcContent app-name="news">
+		<div v-if="app.error" id="warning-box">
+			<div>
+				{{ app.error }}
+			</div>
+			<div>
+				<span style="cursor: pointer;padding: 10px;font-weight: bold;" @click="removeError()">X</span>
+			</div>
+		</div>
 		<div id="news-app">
 			<div id="content-display" :class="{ playing: playingItem }">
 				<Sidebar />
@@ -30,6 +38,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import Sidebar from './components/Sidebar.vue'
@@ -45,6 +54,7 @@ export default Vue.extend({
 		playingItem() {
 			return this.$store.state.items.playingItem
 		},
+		...mapState(['app']),
 	},
 	async created() {
 		// fetch folders and feeds to build side bar
@@ -64,6 +74,9 @@ export default Vue.extend({
 				videoElements[i].pause()
 			}
 		},
+		removeError() {
+			this.$store.commit(MUTATIONS.SET_ERROR, undefined)
+		},
 	},
 })
 </script>
@@ -77,6 +90,19 @@ export default Vue.extend({
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+	}
+
+	#warning-box {
+		position: absolute;
+    right: 35px;
+		top: 15px;
+    z-index: 5000;
+		padding: 5px 10px;
+		background-color: var(--color-main-background);
+		color: var(--color-main-text);
+		box-shadow: 0 0 6px 0 var(--color-box-shadow);
+		border-radius: var(--border-radius);
+		display: flex;
 	}
 
 	#content-display {
