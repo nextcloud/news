@@ -127,6 +127,15 @@ export default Vue.extend({
 		NcButton,
 		NcSelect,
 	},
+	props: {
+		feed: {
+			type: Object,
+			required: false,
+			default: () => {
+				return { url: '' }
+			},
+		},
+	},
 	data: (): AddFeedState => {
 		return {
 			folder: undefined,
@@ -152,7 +161,9 @@ export default Vue.extend({
 		},
 	},
 	created() {
-		if (this.$route.query.subscribe_to) {
+		if (this.feed.feed) {
+			this.feedUrl = this.feed.feed
+		} else if (this.$route.query.subscribe_to) {
 			this.feedUrl = this.$route.query.subscribe_to as string
 		}
 	},
