@@ -1,14 +1,11 @@
 <template>
 	<div class="feed-item-display">
+		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
+
 		<div class="action-bar">
-			<NcActions :force-menu="true">
-				<template #icon>
-					<ShareVariant />
-				</template>
-				<NcActionButton>
-					<template #default>
-						<!-- TODO: Share Menu --> TODO
-					</template>
+			<NcActions>
+				<NcActionButton :title="t('news', 'Share within Instance')" @click="showShareMenu = true">
+					{{ t('news', 'Share') }}
 					<template #icon>
 						<ShareVariant />
 					</template>
@@ -101,6 +98,8 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
+import ShareItem from '../ShareItem.vue'
+
 import { Feed } from '../../types/Feed'
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -113,6 +112,7 @@ export default Vue.extend({
 		ShareVariant,
 		NcActions,
 		NcActionButton,
+		ShareItem,
 	},
 	props: {
 		item: {
@@ -123,6 +123,7 @@ export default Vue.extend({
 	data: () => {
 		return {
 			keepUnread: false,
+			showShareMenu: false,
 		}
 	},
 	computed: {
@@ -169,6 +170,10 @@ export default Vue.extend({
 		 */
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		},
+
+		closeShareMenu() {
+			this.showShareMenu = false
 		},
 
 		getMediaType(mime: string): 'audio' | 'video' | false {

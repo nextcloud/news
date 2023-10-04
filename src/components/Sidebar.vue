@@ -85,7 +85,7 @@
 					</NcCounterBubble>
 				</template>
 				<template #actions>
-					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined" :feed-id="topLevelItem.id" />
+					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')" :feed-id="topLevelItem.id" />
 					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="markFolderRead(topLevelItem)">
 						{{ t("news", "Mark read") }}
 					</NcActionButton>

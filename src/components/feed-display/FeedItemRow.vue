@@ -1,5 +1,6 @@
 <template>
 	<div class="feed-item-row" @click="select()">
+		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
 			<a class="external"
 				target="_blank"
@@ -28,14 +29,9 @@
 			<EyeIcon v-if="item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
 			<EyeCheckIcon v-if="!item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
 			<EyeLockIcon v-if="keepUnread" class="keep-unread" @click="toggleKeepUnread(item)" />
-			<NcActions :force-menu="true">
-				<template #icon>
-					<ShareVariant />
-				</template>
-				<NcActionButton>
-					<template #default>
-						<!-- TODO: Share Menu --> TODO
-					</template>
+			<NcActions>
+				<NcActionButton :title="t('news', 'Share within Instance')" @click="shareItem = item.id; showShareMenu = true">
+					{{ t('news', 'Share') }}
 					<template #icon>
 						<ShareVariant />
 					</template>
@@ -60,6 +56,8 @@ import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
+import ShareItem from '../ShareItem.vue'
+
 import { Feed } from '../../types/Feed'
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -76,6 +74,7 @@ export default Vue.extend({
 		RssIcon,
 		NcActions,
 		NcActionButton,
+		ShareItem,
 	},
 	props: {
 		item: {
@@ -86,6 +85,8 @@ export default Vue.extend({
 	data: () => {
 		return {
 			keepUnread: false,
+			showShareMenu: false,
+			shareItem: undefined,
 		}
 	},
 	computed: {
@@ -114,17 +115,17 @@ export default Vue.extend({
 			const elapsed = current - previous
 
 			if (elapsed < msPerMinute) {
-				return Math.round(elapsed / 1000) + ' ' + t('news', 'seconds')
+				return t('news', '{num} seconds', { num: Math.round(elapsed / 1000) })
 			} else if (elapsed < msPerHour) {
-				return Math.round(elapsed / msPerMinute) + ' ' + t('news', 'minutes ago')
+				return t('news', '{num} minutes ago', { num: Math.round(elapsed / msPerMinute) })
 			} else if (elapsed < msPerDay) {
-				return Math.round(elapsed / msPerHour) + ' ' + t('news', 'hours ago')
+				return t('news', '{num} hours ago', { num: Math.round(elapsed / msPerHour) })
 			} else if (elapsed < msPerMonth) {
-				return Math.round(elapsed / msPerDay) + ' ' + t('news', 'days ago')
+				return t('news', '{num} days ago', { num: Math.round(elapsed / msPerDay) })
 			} else if (elapsed < msPerYear) {
-				return Math.round(elapsed / msPerMonth) + ' ' + t('news', 'months ago')
+				return t('news', '{num} months ago', { num: Math.round(elapsed / msPerMonth) })
 			} else {
-				return Math.round(elapsed / msPerYear) + ' ' + t('news', 'years ago')
+				return t('news', '{num} years ago', { num: Math.round(elapsed / msPerYear) })
 			}
 		},
 		getFeed(id: number): Feed {
@@ -141,6 +142,9 @@ export default Vue.extend({
 		},
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		},
+		closeShareMenu() {
+			this.showShareMenu = false
 		},
 	},
 })
