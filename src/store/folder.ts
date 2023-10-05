@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { AppState, ActionParams } from '../store'
+import { ActionParams } from '../store'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
@@ -29,27 +29,27 @@ const getters = {
 }
 
 export const actions = {
-	async [FOLDER_ACTION_TYPES.FETCH_FOLDERS]({ commit }: ActionParams) {
+	async [FOLDER_ACTION_TYPES.FETCH_FOLDERS]({ commit }: ActionParams<FolderState>) {
 		const folders = await FolderService.fetchAllFolders()
 
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, folders.data.folders)
 	},
 	async [FOLDER_ACTION_TYPES.ADD_FOLDERS](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FolderState>,
 		{ folder }: { folder: Folder },
 	) {
 		const response = await FolderService.createFolder({ name: folder.name })
 		commit(FOLDER_MUTATION_TYPES.SET_FOLDERS, response.data.folders)
 	},
 	async [FOLDER_ACTION_TYPES.DELETE_FOLDER](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FolderState>,
 		{ folder }: { folder: Folder },
 	) {
 		await FolderService.deleteFolder({ id: folder.id })
 		commit(FOLDER_MUTATION_TYPES.DELETE_FOLDER, folder)
 	},
 	async [FOLDER_ACTION_TYPES.FOLDER_SET_NAME](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FolderState>,
 		{ folder, name }: { folder: Folder, name: string },
 	) {
 		await FolderService.renameFolder({ id: folder.id, name })
@@ -59,7 +59,7 @@ export const actions = {
 
 export const mutations = {
 	[FOLDER_MUTATION_TYPES.SET_FOLDERS](
-		state: AppState,
+		state: FolderState,
 		folders: Folder[],
 	) {
 		folders.forEach(it => {
@@ -70,7 +70,7 @@ export const mutations = {
 	},
 
 	[FOLDER_MUTATION_TYPES.DELETE_FOLDER](
-		state: AppState,
+		state: FolderState,
 		folder: Folder,
 	) {
 		const index = state.folders.indexOf(folder)
@@ -78,7 +78,7 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEEDS](
-		state: AppState,
+		state: FolderState,
 		feeds: Feed[],
 	) {
 		feeds.forEach(it => {
@@ -91,7 +91,7 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.ADD_FEED](
-		state: AppState,
+		state: FolderState,
 		feed: Feed,
 	) {
 		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
@@ -102,7 +102,7 @@ export const mutations = {
 	},
 
 	[FOLDER_MUTATION_TYPES.UPDATE_FOLDER](
-		state: AppState,
+		state: FolderState,
 		newFolder: Folder,
 	) {
 		const folder = state.folders.find((f: Folder) => { return f.id === newFolder.id })
@@ -112,7 +112,7 @@ export const mutations = {
 	},
 
 	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](
-		state: AppState,
+		state: FolderState,
 		{ folderId, delta }: {folderId: number; delta: number },
 	) {
 		const folder = state.folders.find((f: Folder) => { return f.id === folderId })
@@ -122,7 +122,7 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
-		state: AppState,
+		state: FolderState,
 		feed: Feed,
 	) {
 		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
