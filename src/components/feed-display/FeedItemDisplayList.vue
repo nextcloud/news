@@ -27,7 +27,6 @@
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll :reached-end="reachedEnd"
-				class="item-list"
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
