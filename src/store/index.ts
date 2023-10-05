@@ -21,7 +21,7 @@ export const ACTIONS = {
 export type AppState = FolderState & FeedState & ItemState & AppInfoState;
 
 type Func = (name: string, value: unknown) => void;
-export type ActionParams = { commit: Func; dispatch: Func; state: AppState };
+export type ActionParams<T> = { commit: Func; dispatch: Func; state: T };
 
 export default {
 	modules: {
