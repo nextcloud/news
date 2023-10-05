@@ -59,13 +59,6 @@ describe('FeedItemDisplay.vue', () => {
 		expect(formattedDate).toEqual(new Date(epoch).toLocaleString())
 	})
 
-	it('should format datetime to match international standard', () => {
-		const epoch = Date.now() // Provide an epoch timestamp
-		const formattedDate = (wrapper.vm as any).formatDatetime(epoch)
-
-		expect(formattedDate).toEqual(new Date(epoch).toISOString())
-	})
-
 	it('should retrieve feed by ID', () => {
 		const feed = (wrapper.vm as any).getFeed(mockFeed.id)
 

@@ -4,7 +4,7 @@ export const APPLICATION_ACTION_TYPES = {
 	SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
 }
 
-type AppInfoState = {
+export type AppInfoState = {
 	error?: Error;
 }
 

@@ -21,19 +21,23 @@ Vue.directive('tooltip', Tooltip)
 
 const store = new Store(mainStore)
 
-axios.interceptors.response(undefined /* onSuccessCallback is intentionally undefined */,
-	// Any status codes that falls outside the range of 2xx cause this function to trigger
-	function(error) {
-
-		store.commit(MUTATIONS.SET_ERROR, error)
-		return Promise.reject(error)
-	},
-)
-
-Vue.config.errorHandler = function(err) {
-	store.commit(MUTATIONS.SET_ERROR, err)
+/**
+ * Handles errors returned during application runtime
+ *
+ * @param {Error} error Error thrown
+ * @return Promise<Error>
+ */
+const handleErrors = function(error) {
+	store.commit(MUTATIONS.SET_ERROR, error)
+	return Promise.reject(error)
 }
 
+axios.interceptors.response.use(undefined /* onSuccessCallback is intentionally undefined (triggers on 2xx responses) */,
+	// Any status codes that falls outside the range of 2xx cause this function to trigger
+	handleErrors,
+)
+
+Vue.config.errorHandler = handleErrors
 export default new Vue({
 	router,
 	store,

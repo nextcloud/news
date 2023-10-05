@@ -69,7 +69,6 @@ export default Vue.extend({
 		},
 		stopVideo() {
 			const videoElements = document.getElementsByTagName('video')
-
 			for (let i = 0; i < videoElements.length; i++) {
 				videoElements[i].pause()
 			}

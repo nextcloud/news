@@ -23,12 +23,16 @@ export const FEED_ACTION_TYPES = {
 	FEED_DELETE: 'FEED_DELETE',
 }
 
-const state = {
+export type FeedState = {
+	feeds: Feed[]
+}
+
+const state: FeedState = {
 	feeds: [],
 }
 
 const getters = {
-	feeds(state: AppState) {
+	feeds(state: FeedState) {
 		return state.feeds
 	},
 }
