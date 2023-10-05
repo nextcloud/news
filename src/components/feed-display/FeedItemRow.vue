@@ -152,10 +152,6 @@ export default Vue.extend({
 </script>
 
 <style>
-	.feed-item-container {
-		border-bottom: 1px solid #222;
-	}
-
 	.feed-item-row {
 		display: flex; padding: 5px 10px;
 	}

@@ -227,6 +227,10 @@ export default Vue.extend({
 
 	.feed-item-container {
 		overflow-y: hidden;
+		-webkit-box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
+		box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
+		border-top: 1px solid var(--color-border);
 	}
 
 	.header {

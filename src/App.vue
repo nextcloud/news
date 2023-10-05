@@ -79,6 +79,10 @@ export default Vue.extend({
 		width: 100%;
 	}
 
+	.route-container {
+		height: 100%;
+	}
+
 	#content-display {
 		display: flex;
 		flex-direction: row;

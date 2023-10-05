@@ -11,6 +11,7 @@
             box-shadow: 0 0 6px 0 var(--color-box-shadow);
             border-radius: var(--border-radius);
             display: flex;
+            max-width: 85%
         }
 
         #cron-warning a {
