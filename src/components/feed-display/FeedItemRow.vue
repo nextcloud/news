@@ -191,6 +191,18 @@ export default Vue.extend({
     margin-left: 20px;
 	}
 
+	@media only screen and (min-width: 320px) {
+		.feed-item-row .date-container {
+			font-size: small;
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		.feed-item-row .date-container {
+			font-size: medium;
+		}
+	}
+
 	.feed-item-row .date-container {
 		color: var(--color-text-lighter);
 		padding-left: 4px;
