@@ -14,12 +14,16 @@ export const FOLDER_ACTION_TYPES = {
 	FOLDER_SET_NAME: 'FOLDER_SET_NAME',
 }
 
-const state = {
+export type FolderState = {
+	folders: Folder[]
+}
+
+const state: FolderState = {
 	folders: [],
 }
 
 const getters = {
-	folders(state: AppState) {
+	folders(state: FolderState) {
 		return state.folders
 	},
 }

@@ -19,6 +19,9 @@ describe('FeedItemDisplay.vue', () => {
 						items: {
 							playingItem: undefined,
 						},
+						app: {
+							error: undefined,
+						},
 					},
 					dispatch: dispatchStub,
 					commit: commitStub,
@@ -45,5 +48,11 @@ describe('FeedItemDisplay.vue', () => {
 		(wrapper.vm as any).stopVideo()
 
 		expect(pauseStub).toBeCalled()
+	})
+
+	it('should remove app state error with commit and undefined', () => {
+		(wrapper.vm as any).removeError()
+
+		expect(commitStub).toBeCalledWith(MUTATIONS.SET_ERROR, undefined)
 	})
 })
