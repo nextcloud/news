@@ -1,7 +1,6 @@
 {
     "Nextcloud": [{
         "title": "Nextcloud News",
-        "favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
         "url": "https://nextcloud.com/news/",
         "feed": "https://nextcloud.com/blog/feed",
         "description": "See what is going on in and around Nextcloud",
@@ -9,7 +8,6 @@
     },
 	{
 		"title": "Nextcloud Podcast",
-		"favicon": "https://nextcloud.com/wp-content/themes/next/assets/img/common/favicon-touch.png",
 		"url": "https://nextcloud.com/podcast/",
 		"feed": "https://nextcloud.com/podcast-feed.rss",
 		"description": "Digital Sovereignty, self hosting, privacy and more",
