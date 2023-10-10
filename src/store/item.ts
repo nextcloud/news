@@ -71,7 +71,7 @@ export const actions = {
 	 * @param param1.start
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
@@ -98,7 +98,7 @@ export const actions = {
 	 * @param param1.start
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
@@ -127,7 +127,7 @@ export const actions = {
 	 * @param param1.start
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
@@ -158,7 +158,7 @@ export const actions = {
 	 * @param param1.feedId
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ feedId, start }: { feedId: number; start: number },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
@@ -185,7 +185,7 @@ export const actions = {
 	 * @param param1.folderId
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ folderId, start }: { folderId: number; start: number },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
@@ -212,7 +212,7 @@ export const actions = {
 	 * @param param1.item
 	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_READ](
-		{ commit, dispatch }: ActionParams,
+		{ commit, dispatch }: ActionParams<ItemState>,
 		{ item }: { item: FeedItem },
 	) {
 		ItemService.markRead(item, true)
@@ -236,7 +236,7 @@ export const actions = {
 	 * @param param1.item
 	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD](
-		{ commit, dispatch }: ActionParams,
+		{ commit, dispatch }: ActionParams<ItemState>,
 		{ item }: { item: FeedItem},
 	) {
 		ItemService.markRead(item, false)
@@ -259,7 +259,7 @@ export const actions = {
 	 * @param param1.item
 	 */
 	[FEED_ITEM_ACTION_TYPES.STAR_ITEM](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ item }: { item: FeedItem},
 	) {
 		ItemService.markStarred(item, true)
@@ -278,7 +278,7 @@ export const actions = {
 	 * @param param1.item
 	 */
 	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<ItemState>,
 		{ item }: { item: FeedItem},
 	) {
 		ItemService.markStarred(item, false)
@@ -290,14 +290,24 @@ export const actions = {
 }
 
 export const mutations = {
-	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state: ItemState, { id }: { id: string }) {
+	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](
+		state: ItemState,
+		{ id }: { id: string },
+	) {
 		state.selectedId = id
 	},
-	[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](state: ItemState, item?: FeedItem) {
+
+	[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](
+		state: ItemState,
+		item?: FeedItem,
+	) {
 		state.playingItem = item
 	},
 
-	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state: ItemState, items: FeedItem[]) {
+	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](
+		state: ItemState,
+		items: FeedItem[],
+	) {
 		if (items) {
 			items.forEach(it => {
 				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {

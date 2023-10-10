@@ -150,15 +150,7 @@ export default Vue.extend({
 		formatDate(epoch: number): string {
 			return new Date(epoch).toLocaleString()
 		},
-		/**
-		 * Returns UTC formatted datetime in format recognized by `datetime` property
-		 *
-		 * @param {number} epoch date value in epoch format
-		 * @return {string} UTC formatted datetime string (in format yyyy-MM-ddTHH:mm:ssZ)
-		 */
-		formatDatetime(epoch: number): string {
-			return new Date(epoch).toISOString()
-		},
+
 		/**
 		 * Retrieve the feed by id number
 		 *

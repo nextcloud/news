@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { ActionParams, AppState } from '../store'
+import { ActionParams } from '../store'
 import { Feed } from '../types/Feed'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
 import { FolderService } from '../dataservices/folder.service'
@@ -23,18 +23,24 @@ export const FEED_ACTION_TYPES = {
 	FEED_DELETE: 'FEED_DELETE',
 }
 
-const state = {
+export type FeedState = {
+	feeds: Feed[];
+	unreadCount: number;
+}
+
+const state: FeedState = {
 	feeds: [],
+	unreadCount: 0,
 }
 
 const getters = {
-	feeds(state: AppState) {
+	feeds(state: FeedState) {
 		return state.feeds
 	},
 }
 
 export const actions = {
-	async [FEED_ACTION_TYPES.FETCH_FEEDS]({ commit }: ActionParams) {
+	async [FEED_ACTION_TYPES.FETCH_FEEDS]({ commit }: ActionParams<FeedState>) {
 		const feeds = await FeedService.fetchAllFeeds()
 
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
@@ -44,7 +50,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.ADD_FEED](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		{ feedReq }: {
 			feedReq: {
 				url: string;
@@ -84,7 +90,10 @@ export const actions = {
 		}
 	},
 
-	async [FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }: ActionParams, { feed }: { feed: Feed }) {
+	async [FEED_ACTION_TYPES.FEED_MARK_READ](
+		{ commit }: ActionParams<FeedState>,
+		{ feed }: { feed: Feed },
+	) {
 		// want to fetch feed so that we can retrieve the "highestItemId"
 		const response = await ItemService.fetchFeedItems(feed.id as number)
 		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.items[0].id })
@@ -97,7 +106,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_PINNED](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		{ feed, pinned }: { feed: Feed, pinned: boolean },
 	) {
 		await FeedService.updateFeed({ feedId: feed.id as number, pinned })
@@ -106,7 +115,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_ORDERING](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		{ feed, ordering }: { feed: Feed, ordering: FEED_ORDER },
 	) {
 		await FeedService.updateFeed({ feedId: feed.id as number, ordering })
@@ -115,7 +124,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_FULL_TEXT](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		{ feed, fullTextEnabled }: { feed: Feed, fullTextEnabled: boolean },
 	) {
 		await FeedService.updateFeed({ feedId: feed.id as number, fullTextEnabled })
@@ -124,7 +133,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		 { feed, updateMode }: { feed: Feed, updateMode: FEED_UPDATE_MODE },
 	) {
 		await FeedService.updateFeed({ feedId: feed.id as number, updateMode })
@@ -133,7 +142,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_TITLE](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		{ feed, title }: { feed: Feed, title: string },
 	) {
 		await FeedService.updateFeed({ feedId: feed.id as number, title })
@@ -142,7 +151,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.FEED_DELETE](
-		{ commit }: ActionParams,
+		{ commit }: ActionParams<FeedState>,
 		{ feed }: { feed: Feed },
 	) {
 		await FeedService.deleteFeed({ feedId: feed.id as number })
@@ -151,7 +160,7 @@ export const actions = {
 	},
 
 	async [FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT](
-		{ commit, state }: ActionParams,
+		{ commit, state }: ActionParams<FeedState>,
 		 { feedId, delta }: { feedId: number, delta: number },
 	) {
 		commit(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId, delta })
@@ -169,7 +178,7 @@ export const actions = {
 
 export const mutations = {
 	[FEED_MUTATION_TYPES.SET_FEEDS](
-		state: AppState,
+		state: FeedState,
 		feeds: Feed[],
 	) {
 		feeds.forEach(it => {
@@ -178,14 +187,14 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.ADD_FEED](
-		state: AppState,
+		state: FeedState,
 		 feed: Feed,
 	) {
 		state.feeds.push(feed)
 	},
 
 	[FEED_MUTATION_TYPES.UPDATE_FEED](
-		state: AppState,
+		state: FeedState,
 		 newFeed: Feed,
 	) {
 		const feed = state.feeds.find((feed: Feed) => {
@@ -195,7 +204,7 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
-		state: AppState,
+		state: FeedState,
 		feed: Feed,
 	) {
 		const priorFeed = state.feeds.find((stateFeed: Feed) => {
@@ -209,7 +218,7 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT](
-		state: AppState,
+		state: FeedState,
 		{ feedId, delta }: { feedId: number, delta: number },
 	) {
 		const feed = state.feeds.find((feed: Feed) => {
@@ -221,7 +230,7 @@ export const mutations = {
 	},
 
 	[FEED_MUTATION_TYPES.FEED_DELETE](
-		state: AppState,
+		state: FeedState,
 		feedId: number,
 	) {
 		state.feeds = state.feeds.filter((feed: Feed) => {
