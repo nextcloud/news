@@ -427,10 +427,10 @@ class FeedFetcher implements IFeedFetcher
             $downloaded = true;
 
             $this->logger->debug(
-                "Feed:{url} Logo:{logo} Status:{status}",
+                "Feed:{feed} Logo:{logo} Status:{status}",
                 [
                 'status' => $response->getStatusCode(),
-                'url'    => $favicon_path,
+                'feed'   => $url,
                 'logo'   => $favicon
                 ]
             );
@@ -448,6 +448,14 @@ class FeedFetcher implements IFeedFetcher
 
         // check if file is actually an image
         if (!$is_image) {
+            $this->logger->debug(
+                "Downloaded file:{file} from {url} is not an image",
+                [
+                'file' => $favicon_path,
+                'url'   => $favicon
+                ]
+            );
+
             $return = $this->faviconFactory->get($base_url);
             return is_string($return) ? $return : null;
         }
@@ -455,6 +463,13 @@ class FeedFetcher implements IFeedFetcher
         list($width, $height, $type, $attr) = getimagesize($favicon_path);
         // check if image is square else fall back to favicon
         if ($width !== $height) {
+            $this->logger->debug(
+                "Downloaded file:{file} from {url} is not square",
+                [
+                'file' => $favicon_path,
+                'url'   => $favicon
+                ]
+            );
             $return = $this->faviconFactory->get($base_url);
             return is_string($return) ? $return : null;
         }
