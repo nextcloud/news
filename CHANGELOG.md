@@ -5,7 +5,8 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [24.x.x]
 ### Changed
-
+- Set User Agent for curl in Scraper
+  
 ### Fixed
 
 # Releases
