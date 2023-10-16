@@ -41,7 +41,7 @@ Vue.config.errorHandler = handleErrors
 export default new Vue({
 	router,
 	store,
-	el: '#q-app',
+	el: '#content',
 	render: (h) => h(App),
 })
 
@@ -51,4 +51,6 @@ export default new Vue({
 function closeCronWarning() {
 	document.getElementById('cron-warning').style.display = 'none'
 }
-document.getElementById('close-cron-warning').onclick = closeCronWarning
+// document.getElementById('close-cron-warning').onclick = closeCronWarning
+
+window.store = store
