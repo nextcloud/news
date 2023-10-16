@@ -8,6 +8,12 @@ webpackConfig.entry['admin-settings'] = path.join(
 	'main-admin.js',
 )
 
+webpackConfig.entry['cron-warning'] = path.join(
+	__dirname,
+	'src',
+	'main-cron-warning.js',
+)
+
 webpackConfig = merge(webpackConfig, {
 	resolve: {
 		extensions: ['.ts'],

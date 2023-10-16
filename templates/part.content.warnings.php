@@ -1,6 +1,6 @@
 <?php if ($_['warnings']['improperlyConfiguredCron']) { 
     
-    script('news', 'test')    
+    script('news', 'nextcloud-news-cron-warning')    
 ?>
 <div></div>
 <?php }; ?>
