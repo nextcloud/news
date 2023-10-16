@@ -3,6 +3,16 @@
 		<div v-if="app.error" id="warning-box">
 			<div>
 				{{ app.error }}
+
+				<ul v-for="link of app.error.links" :key="link.url">
+					<li>
+						<a :href="link.url"
+							target="_blank"
+							rel="noreferrer">
+							{{ link.text }}
+						</a>
+					</li>
+				</ul>
 			</div>
 			<div>
 				<span style="cursor: pointer;padding: 10px;font-weight: bold;" @click="removeError()">X</span>
@@ -102,6 +112,12 @@ export default Vue.extend({
 		box-shadow: 0 0 6px 0 var(--color-box-shadow);
 		border-radius: var(--border-radius);
 		display: flex;
+	}
+
+	#warning-box a {
+		color: #3a84e4;
+		text-decoration: underline;
+		font-size: small;
 	}
 
 	.route-container {

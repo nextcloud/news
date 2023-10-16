@@ -247,6 +247,6 @@ export default Vue.extend({
 	}
 
 	.feed-item-row .button-container .eye-check-icon {
-		color: var(--color-primary-light);
+		color: var(--color-placeholder-dark);
 	}
 </style>
