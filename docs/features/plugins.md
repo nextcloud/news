@@ -9,51 +9,92 @@ There are essentially three different use cases for plugins:
 * Dropping in additional CSS or JavaScript
 
 ## The Basics
-Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app, so you can take advantage of the full [Nextcloud app API](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html). If you want you can [take a look at the developer docs](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html) or [dig into the tutorial](https://docs.nextcloud.org/server/latest/developer_manual/app/tutorial.html).
+Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app, so you can take advantage of the full [Nextcloud app API](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html). [Take a look at the developer docs](https://docs.nextcloud.com/server/latest/developer_manual/app_development/index.html) or [dig into the tutorial](https://docs.nextcloud.com/server/latest/developer_manual/app_development/tutorial.html).
 
 However, if you just want to start slow, the full process is described below.
 
-First create the following directories and files:
+First create a skeleton app using the [web interface](https://apps.nextcloud.com/developer/apps/generate)
+
+The application name affects the name and namespace of your plugin and only one app can exist using the same name. Choose wisely. This will become the directory name in the Nextcloud `apps/` directory
 
 * **newsplugin/**
     * **appinfo/**
         * **app.php**
         * **info.xml**
 
-The first folder name affects the name and namespace of your plugin and only one app can exist using the same name. Choose wisely.
-
-First let's add some meta ata about our app. Open the **newsplugin/appinfo/info.xml** and add the following contents:
-
-```xml
-<?xml version="1.0"?>
-<info>
-    <id>newsplugin</id>
-    <name>Example News Plugin</name>
-    <description>This plugin allows you to share articles via Twitter</description>
-    <licence>AGPL</licence>
-    <author>Your Name Here</author>
-    <version>0.0.1</version>
-    <dependencies>
-        <nextcloud min-version="10"/>
-        <owncloud min-version="9.1"/>
-        <php min-version="5.6"/>
-    </dependencies>
-</info>
-```
-
 **Note**: You must license your app under the [AGPL 3 or later](https://www.gnu.org/licenses/agpl-3.0.en.html) to comply with the News app's license. Don't forget to add the license as plain text file if you want to distribute your app!
 
-Then we want to make sure that our code is only run if the News app is enabled. To do that put the following PHP code into the **newsplugin/appinfo/app.php** file:
+Then we want to make sure that our code is only run if the News app is enabled. To do that put the following PHP code into the **newsplugin/lib/AppInfo/Application.php** file:
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace OCA\NewsBookmarkPlugin\AppInfo;
+
+use OCP\AppFramework\App;
+use OCP\Util;
+use OCP\App as Test;
+
+class Application extends App {
+	public const APP_ID = 'newsbookmarkplugin';
+
+	public function __construct() {
+		parent::__construct(self::APP_ID);
+
+
+        // your code here
+	}
+}
+
+```
+
+
+## Server-Side Plugin
+A Server-Side plugin is a plugin that uses the same infrastructure as the News app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that also shows starred articles as bookmarks.
+
+It's very easy to interface with the News app. Because all Classes are registered in the **news/app/application.php** it takes almost no effort to use the same infrastructure.
+
+**Note**: Keep in mind that these classes are essentially private which means they might break if the News app changes. There is no real public API so use at your own risk ;)
+
+Since you don't want to extend the app but use its resources, its advised that you don't inherit from the **Application** class but rather include it in your own container in **newsplugin/appinfo/application.php**:
 
 ```php
 <?php
 namespace OCA\NewsPlugin\AppInfo;
-use OCP\App;
 
-if (App::isEnabled('news')) {
-    // your code here
+use OCP\AppFramework\App;
+use OCA\News\AppInfo\Application as News;
+
+class Application extends App {
+
+    public function __construct (array $urlParams=[]) {
+        parent::__construct('newsplugin', $urlParams);
+
+        $container = $this->getContainer();
+
+        $container->registerService('NewsContainer', function($c) {
+            $app = new News();
+            return $app->getContainer();
+        });
+
+        $container->registerService(OCA\News\Service\FeedService::class, function($c) {
+            // use the feed service from the news app, you can use all
+            // defined classes but its recommended that you stick to the
+            // mapper and service classes since they are less likely to change
+            return $c->query('NewsContainer')->query(OCA\News\Service\FeedService::class);
+        });
+    }
+
 }
 ```
+
+Using automatic container assembly you can then use it from your code by simply adding the type to your constructors.
+
+
+
+
+# TODO: Update the following
 
 If your plugin integrates with another Nextcloud app, make sure to also require it be installed. If you depend on the Bookmarks app for instance use:
 
@@ -158,47 +199,6 @@ Then open the **newspluing/css/style.css** file and add the following CSS:
 ```
 
 Reload the News app and click the three dots menu, sit back and enjoy :)
-
-## Server-Side Plugin
-A Server-Side plugin is a plugin that uses the same infrastructure as the News app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that also shows starred articles as bookmarks.
-
-It's very easy to interface with the News app. Because all Classes are registered in the **news/app/application.php** it takes almost no effort to use the same infrastructure.
-
-**Note**: Keep in mind that these classes are essentially private which means they might break if the News app changes. There is no real public API so use at your own risk ;)
-
-Since you don't want to extend the app but use its resources, its advised that you don't inherit from the **Application** class but rather include it in your own container in **newsplugin/appinfo/application.php**:
-
-```php
-<?php
-namespace OCA\NewsPlugin\AppInfo;
-
-use OCP\AppFramework\App;
-use OCA\News\AppInfo\Application as News;
-
-class Application extends App {
-
-    public function __construct (array $urlParams=[]) {
-        parent::__construct('newsplugin', $urlParams);
-
-        $container = $this->getContainer();
-
-        $container->registerService('NewsContainer', function($c) {
-            $app = new News();
-            return $app->getContainer();
-        });
-
-        $container->registerService(OCA\News\Service\FeedService::class, function($c) {
-            // use the feed service from the news app, you can use all
-            // defined classes but its recommended that you stick to the
-            // mapper and service classes since they are less likely to change
-            return $c->query('NewsContainer')->query(OCA\News\Service\FeedService::class);
-        });
-    }
-
-}
-```
-
-Using automatic container assembly you can then use it from your code by simply adding the type to your constructors.
 
 
 ### Examples
