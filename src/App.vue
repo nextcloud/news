@@ -104,19 +104,18 @@ export default Vue.extend({
 		display: flex;
 	}
 
-	#content-display {
-		display: flex;
-		flex-direction: row;
+	.route-container {
 		height: 100%;
 	}
 
-	#content-display.playing {
-		height: calc(100vh - 98px)
+	#content-display {
+		display: flex;
+		flex-direction: row;
+		flex: 1;
+		min-height: 0;
 	}
 
 	.podcast {
-		position: absolute;
-		bottom: 0px;
 		height: 40px;
 		display: flex;
 		background-color: #474747;

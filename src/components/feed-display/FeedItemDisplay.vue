@@ -274,6 +274,10 @@ export default Vue.extend({
     font-size: 17px;
 	}
 
+	.article table {
+		white-space: unset;
+	}
+
 	.action-bar {
 		padding: 0px 20px 0px 20px;
 

@@ -152,10 +152,6 @@ export default Vue.extend({
 </script>
 
 <style>
-	.feed-item-container {
-		border-bottom: 1px solid #222;
-	}
-
 	.feed-item-row {
 		display: flex; padding: 5px 10px;
 	}
@@ -193,6 +189,18 @@ export default Vue.extend({
     font-size: 10pt;
     font-weight: normal;
     margin-left: 20px;
+	}
+
+	@media only screen and (min-width: 320px) {
+		.feed-item-row .date-container {
+			font-size: small;
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		.feed-item-row .date-container {
+			font-size: medium;
+		}
 	}
 
 	.feed-item-row .date-container {

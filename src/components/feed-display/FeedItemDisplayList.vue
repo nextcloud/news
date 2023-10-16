@@ -181,9 +181,10 @@ export default Vue.extend({
 
 <style scoped>
 	.feed-item-display-list {
-		height: 100%;
 		display: flex;
 		flex-direction: column;
+		overflow-y: hidden;
+		height: 100%;
 	}
 
 	.virtual-scroll {
@@ -194,12 +195,41 @@ export default Vue.extend({
 	.feed-item-display-container {
 		display: flex;
 		height: 100%;
+		overflow-y: hidden;
+	}
+
+	@media only screen and (min-width: 320px) {
+		.virtual-scroll {
+			flex: 1 1.2 auto;
+		}
+
+		.feed-item-display-container {
+			flex-direction: column;
+		}
+
+		.feed-item-container {
+			flex: 1 1 1000px;
+			max-height: calc(100vh - 200px)
+		}
+	}
+
+	@media only screen and (min-width: 768px) {
+		.feed-item-display-container {
+			flex-direction: row;
+		}
+
+		.feed-item-container {
+			width: 50%;
+			max-height: unset;
+		}
 	}
 
 	.feed-item-container {
-		max-width: 50%;
 		overflow-y: hidden;
-		height: calc(100vh - 50px - 50px - 10px)
+		-webkit-box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
+		-moz-box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
+		box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
+		border-top: 1px solid var(--color-border);
 	}
 
 	.header {
