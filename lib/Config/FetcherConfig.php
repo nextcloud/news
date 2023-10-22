@@ -95,6 +95,29 @@ class FetcherConfig
     }
 
     /**
+     * Checks for available encoding options
+     *
+     * @return String list of supported encoding types
+     */
+    public function checkEncoding()
+    {
+        $supportedEncoding = [];
+
+        // check curl features
+        $curl_features = curl_version()["features"];
+
+        $bitfields = array('CURL_VERSION_LIBZ' => ['gzip', 'deflate'], 'CURL_VERSION_BROTLI' => ['br']);
+        
+        foreach ($bitfields as $feature => $header) {
+            // checking available features via the 'features' bitmask and adding available types to the list
+            if (defined($feature) && $curl_features & constant($feature)) {
+                $supportedEncoding = array_merge($supportedEncoding, $header);
+            }
+        }
+        return implode(", ", $supportedEncoding);
+    }
+
+    /**
      * Configure a guzzle client
      *
      * @return ClientInterface Client to guzzle.
@@ -106,7 +129,7 @@ class FetcherConfig
             'headers' =>  [
                 'User-Agent' => static::DEFAULT_USER_AGENT,
                 'Accept' => static::DEFAULT_ACCEPT,
-                'Accept-Encoding' => 'gzip, deflate',
+                'Accept-Encoding' => $this->checkEncoding()
             ],
         ];
 

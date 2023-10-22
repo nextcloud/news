@@ -19,17 +19,17 @@ jobs:
         database: ['sqlite']
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@afefcaf556d98dc7896cca380e181decb609ca44
+        uses: shivammathur/setup-php@7fdd3ece872ec7ec4c098ae5ab7637d5e0a96067 #2.26.0
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
 
       - name: Set up server non MySQL
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@1e38cb369e2193642279c64ee140fc93ddd4fa77
         with:
           cron: false
           version: ${{ matrix.nextcloud }}
@@ -39,7 +39,7 @@ jobs:
         run: make
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@1e38cb369e2193642279c64ee140fc93ddd4fa77
         with:
           app: ${{ env.APP_NAME }}
           check-code: false
@@ -52,7 +52,7 @@ jobs:
           app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
 
       - name: Upload app tarball to release
-        uses: svenstaro/upload-release-action@2b9d2847a97b04d02ad5c3df2d3a27baa97ce689
+        uses: svenstaro/upload-release-action@1beeb572c19a9242f4361f4cee78f8e0d9aec5df
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}

@@ -85,6 +85,33 @@ teardown() {
   assert_output --partial "${ID_LIST1[*]}"
 }
 
+@test "[$TESTSUITE] Test feed with 'outdated' items https://github.com/nextcloud/news/issues/2236 " {
+ # Create Feed, for the first fetch a timestamp today -1 year is used.
+  FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
+  
+  sleep 2
+  
+  # Get Items
+  ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+
+  # Generate Feed with older items (-o yes)
+  php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 15 -s 9 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml -o yes
+
+  # Trigger Update
+  http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
+  
+  sleep 2
+
+  # Get Items again
+  ID_LIST2=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+
+  output="${ID_LIST2[*]}"
+
+  # Check that they are not equal but that they match partially.
+  assert_not_equal "${ID_LIST1[*]}" "${ID_LIST2[*]}"
+  assert_output --partial "${ID_LIST1[*]}"
+}
+
 @test "[$TESTSUITE] Test purge with small feed" {
   # Generate Feed with 210 items.
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 50 -s 0 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml

@@ -21,7 +21,7 @@ Create a [feature request](https://github.com/nextcloud/news/discussions/new)
 
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>22.0.0</version>
+    <version>24.0.0</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -43,7 +43,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/2.png</screenshot>
     <screenshot small-thumbnail="https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3-small.png">https://raw.githubusercontent.com/nextcloud/news/master/screenshots/3.png</screenshot>
     <dependencies>
-        <php min-version="7.4" min-int-size="64"/>
+        <php min-version="8.0" min-int-size="64"/>
         <database min-version="10">pgsql</database>
         <database>sqlite</database>
         <database min-version="8.0">mysql</database>
@@ -75,6 +75,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <command>OCA\News\Command\Updater\UpdateUser</command>
         <command>OCA\News\Command\Updater\BeforeUpdate</command>
         <command>OCA\News\Command\Updater\AfterUpdate</command>
+        <command>OCA\News\Command\Updater\Job</command>
         <command>OCA\News\Command\Config\FolderList</command>
         <command>OCA\News\Command\Config\FolderAdd</command>
         <command>OCA\News\Command\Config\FolderDelete</command>

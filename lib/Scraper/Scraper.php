@@ -16,6 +16,7 @@ use fivefilters\Readability\Configuration;
 use fivefilters\Readability\ParseException;
 use League\Uri\Exceptions\SyntaxError;
 use Psr\Log\LoggerInterface;
+use OCA\News\Config\FetcherConfig;
 
 class Scraper implements IScraper
 {
@@ -37,7 +38,7 @@ class Scraper implements IScraper
             CURLOPT_RETURNTRANSFER => true,     // return web page
             CURLOPT_HEADER         => false,    // do not return headers
             CURLOPT_FOLLOWLOCATION => true,     // follow redirects
-            //CURLOPT_USERAGENT    => "php-news", // who am i
+            CURLOPT_USERAGENT      => FetcherConfig::DEFAULT_USER_AGENT, // who am i
             CURLOPT_AUTOREFERER    => true,     // set referer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
             CURLOPT_TIMEOUT        => 120,      // timeout on response

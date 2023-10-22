@@ -14,6 +14,9 @@
 
 namespace OCA\News\Service;
 
+use OCP\BackgroundJob\IJobList;
+use OCA\News\Cron\UpdaterJob;
+
 class UpdaterService
 {
 
@@ -32,14 +35,19 @@ class UpdaterService
      */
     private $itemService;
 
+    /** @var IJobList */
+    private $jobList;
+
     public function __construct(
         FolderServiceV2 $folderService,
         FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService
+        ItemServiceV2 $itemService,
+        IJobList $jobList
     ) {
         $this->folderService = $folderService;
         $this->feedService = $feedService;
         $this->itemService = $itemService;
+        $this->jobList = $jobList;
     }
 
 
@@ -59,5 +67,15 @@ class UpdaterService
     public function afterUpdate(): void
     {
         $this->itemService->purgeOverThreshold();
+    }
+
+    public function reset(): int
+    {
+        $myJobList = $this->jobList->getJobsIterator(UpdaterJob::class, 1, 0);
+        $job = $myJobList->current();
+
+        $this->jobList->resetBackgroundJob($job);
+
+        return 0;
     }
 }

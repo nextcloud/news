@@ -51,11 +51,18 @@
     "@nextcloud/moment": "^1.2.1",
     "@nextcloud/password-confirmation": "^1.0.1",
     "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^7.0.1",
+    "@nextcloud/vue": "^7.8.0",
+    "vue": "^2.7.0",
     "lodash": "^4.17.21",
-    "vue": "^2.6.14",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"
+  },
+  "browserslist": [
+    "extends @nextcloud/browserslist-config"
+  ],
+  "engines": {
+    "node": "^16.0.0",
+    "npm": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",

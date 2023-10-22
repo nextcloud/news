@@ -3,13 +3,37 @@ All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
 # Unreleased
-## [23.x.x]
+## [25.x.x]
 ### Changed
 - Vue Rewrite
-  - Add Typescript 
-  - Add Jest for Unit Tests
+# Releases
+## [24.x.x]
+### Changed
+- Set User Agent for curl in Scraper
+  
+### Fixed
 
 # Releases
+## [24.0.0] - 2023-09-26
+No major changes compared to 24.0.0-beta1.
+
+## [24.0.0-beta1] - 2023-08-26
+### Changed
+- Drop support for Nextcloud 25, Supported: 26, 27 (#2316)
+- Add a new command for occ `./occ news:updater:job` allows to check and reset the update job (#2166)
+- Check for available http(s) compression options and use them (gzip, deflate, brotli) (#2328)
+- Change and unify [cache](https://nextcloud.github.io/news/install/#cache) to use the instance ID of Nextcloud (#2331)
+
+## [23.0.0] - 2023-08-16
+No notable changes compared to 23.0.0-beta1
+
+## [23.0.0-beta1] - 2023-08-09
+### Changed
+- Drop support for PHP 7.4 new min. version is php 8.0 (#2237)
+- Upgrade feed-io to v5.1.3 (#2238)
+### Fixed
+- Some feeds missing items (#2236)
+
 ## [22.0.0] - 2023-07-23
 ### Changed
 - Support deflate and gzip compression for HTTP response bodies (#2269)
@@ -48,7 +72,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Use httpLastModified field for If-Modified-Since header when fetching feed updates (#2119)
 
 ## [21.1.0] - 2023-03-20
-No notable changes compared 21.1.0-beta1
+No notable changes compared to 21.1.0-beta1
 
 ## [21.1.0-beta1] - 2023-03-13
 ### Changed
@@ -56,7 +80,7 @@ No notable changes compared 21.1.0-beta1
 - (Nextcloud 26+) Add info card to the admin settings, showing last job execution (#2141)
 
 ## [21.0.0] - 2023-02-28
-No notable changes compared 21.0.0-beta1
+No notable changes compared to 21.0.0-beta1
 
 ## [21.0.0-beta1] - 2023-02-14
 ### Changed

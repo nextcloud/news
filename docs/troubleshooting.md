@@ -32,7 +32,6 @@ Since an attacker can not execute code in contrast to mixed active content, but 
 
 ### Why don't you simply use an HTTPS image/audio/video proxy?
 
-
 For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue, but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. **Even worse**: if your image proxy serves these images from the same domain as your Nextcloud installation, you are [vulnerable to XSS via SVG images](https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf). In addition, people feel safe when essentially they are not.
 
 Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.
@@ -50,25 +49,80 @@ This is very often caused by missing or old files, e.g. by failing to upload all
 Feeds can be updated using Nextcloud's system cron or an external updater via the API. **The feed update is not run in Webcron and AJAX cron mode!**
 
 ### Validating Using System Cron
+!!! info
+
+    This requires Nextcloud 26 or newer and News 24.0.0 or newer.
+
+Follow this checklist:
+
+- Check admin settings of Nextcloud, was the last cron execution ok.
+- Check the logs for errors.
+- Does your [cache configuration](install.md#cache) work? 
+- Check the News admin settings, system cron is used to update news.
+- You should see a info card at the top, which will tell you when the last job execution was.
+    - If the card is red it is very likely that the update job is stuck.
+    - If it is green then maybe only some feeds are failing to update, check the Nextcloud logs.
+
+If you believe the job is stuck you can reset it. For further steps you need to use occ.
+
+You can check again the status of the job.
+(replace www-data with your httpd user)
+```bash
+sudo -u www-data php ./occ news:updater:job
+Checking update Status
+Last Execution was 2023-03-20 12:20:03 UTC
+```
+
+If you think the job is stuck you can reset it, this may lead to issues if the job is currently running!
+
+```bash
+sudo -u www-data php ./occ news:updater:job --reset
+Checking update Status
+Last Execution was 2023-03-20 12:20:03 UTC
+Attempting to reset the job.
+Done, job should execute on next schedule.
+```
+The output of the command should have changed.
+```bash
+sudo -u www-data php ./occ news:updater:job
+Checking update Status
+Last Execution was 1970-01-01 00:00:00 UTC
+```
+
+After some time has passed the timestamp should be close to the current time.
+
+If this did not help, check the logs and open a issue or discussion on GitHub.
+
+#### Outdated Steps
+
+Follow these steps if you are running an older version of News and Nextcloud.
 
 * Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds
-* Check if the cronjob exists with crontab -u www-data -e (replace www-data with your httpd user)
+* Check if the cronjob exists with `crontab -u www-data -e` (replace www-data with your httpd user)
 * Check the file permissions of the cron.php file and if www-data (or whatever your httpd user is called like) can read and execute that script
-* Check if you can execute the cron with sudo -u www-data php -f nextcloud/cron.php (replace www-data with your  httpd user)
-* Check your data/nextcloud.log for errors
-* Check if the cronjob is ever executed by placing an error_log('updating'); in the background job file. If the cronjob runs, there should be an updating log statement in your httpd log.
+* Check if you can execute the cron with `sudo -u www-data php -f nextcloud/cron.php` (replace www-data with your httpd user)
+* Check your `data/nextcloud.log` for errors
+* Check if the cronjob is ever executed by placing an `error_log('updating');` in the [background job file](https://github.com/nextcloud/news/blob/master/lib/Service/UpdaterService.php#L55). If the cronjob runs, there should be an updating log statement in your httpd log.
 * If there is no updating statement in your logs check if your cronjob is executed by executing a different script
 * Check if the oc_jobs table has a reserved_at entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:
 
-#### Info
+  ```sql
+  SELECT * from oc_jobs WHERE class LIKE '%News%' ORDER BY id;
+  ```
 
-* In newer versions of News (21.x.x) the old job OCA\News\Cron\Updater was removed from the DB.
+You will get two rows where column class will be `OCA\News\Cron\Updater` and `OCA\News\Cron\UpdaterJob`.
 
-Reset the reserved_at by executing:
+!!! info
 
-   sql UPDATE oc_jobs SET reserved_at = 0 WHERE id = < id from above SELECT statement > ;
+    In newer versions of News (21.x.x) the old job OCA\News\Cron\Updater was removed from the DB.
 
-If your cron works fine, but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/).
+ Reset the reserved_at by executing
+
+  ```sql
+  UPDATE oc_jobs SET reserved_at = 0 WHERE id = <id from above SELECT statement>;
+  ```
+
+ If your cron works fine, but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
 
 ### Using External Updater
 

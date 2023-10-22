@@ -30,6 +30,7 @@ use OCP\ITempManager;
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
+use OCA\News\Utility\Cache;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Config\FetcherConfig;
 use Psr\Log\LoggerInterface;
@@ -59,11 +60,6 @@ class FeedFetcher implements IFeedFetcher
     private $l10n;
 
     /**
-     * @var ITempManager
-     */
-    private $ITempManager;
-
-    /**
      * @var Time
      */
     private $time;
@@ -73,22 +69,34 @@ class FeedFetcher implements IFeedFetcher
      */
     private $logger;
 
+    /**
+     * @var FetcherConfig
+     */
+    private $fetcherConfig;
+     
+    /**
+     * @var Cache
+     */
+    private $cache;
+
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
         Scraper $scraper,
         IL10N $l10n,
-        ITempManager $ITempManager,
         Time $time,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        FetcherConfig $fetcherConfig,
+        Cache $cache
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
         $this->scraper        = $scraper;
         $this->l10n           = $l10n;
-        $this->ITempManager   = $ITempManager;
         $this->time           = $time;
         $this->logger         = $logger;
+        $this->fetcherConfig  = $fetcherConfig;
+        $this->cache          = $cache;
     }
 
 
@@ -127,7 +135,6 @@ class FeedFetcher implements IFeedFetcher
             $lastModified = null;
         }
         $url = $url2->getNormalizedURL();
-        $this->reader->resetFilters();
         $resource = $this->reader->read($url, null, $lastModified);
 
         $location     = $resource->getUrl();
@@ -388,8 +395,10 @@ class FeedFetcher implements IFeedFetcher
             return is_string($return) ? $return : null;
         }
 
-        // logo will be saved in the tmp folder provided by Nextcloud, file is named as md5 of the url
-        $favicon_path = join(DIRECTORY_SEPARATOR, [$this->ITempManager->getTempBaseDir(), md5($favicon)]);
+        $logo_cache = $this->cache->getCache("feedLogo");
+
+        // file name of the logo is md5 of the url
+        $favicon_path = join(DIRECTORY_SEPARATOR, [$logo_cache, md5($favicon)]);
         $downloaded = false;
 
         if (file_exists($favicon_path)) {
@@ -409,17 +418,18 @@ class FeedFetcher implements IFeedFetcher
                     'headers' => [
                         'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
-                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified)
+                        'If-Modified-Since' => date(DateTime::RFC7231, $last_modified),
+                        'Accept-Encoding'   => $this->fetcherConfig->checkEncoding()
                     ]
                 ]
             );
             $downloaded = true;
 
             $this->logger->debug(
-                "Feed:{url} Logo:{logo} Status:{status}",
+                "Feed:{feed} Logo:{logo} Status:{status}",
                 [
                 'status' => $response->getStatusCode(),
-                'url'    => $favicon_path,
+                'feed'   => $url,
                 'logo'   => $favicon
                 ]
             );
@@ -437,6 +447,14 @@ class FeedFetcher implements IFeedFetcher
 
         // check if file is actually an image
         if (!$is_image) {
+            $this->logger->debug(
+                "Downloaded file:{file} from {url} is not an image",
+                [
+                'file' => $favicon_path,
+                'url'   => $favicon
+                ]
+            );
+
             $return = $this->faviconFactory->get($base_url);
             return is_string($return) ? $return : null;
         }
@@ -444,6 +462,13 @@ class FeedFetcher implements IFeedFetcher
         list($width, $height, $type, $attr) = getimagesize($favicon_path);
         // check if image is square else fall back to favicon
         if ($width !== $height) {
+            $this->logger->debug(
+                "Downloaded file:{file} from {url} is not square",
+                [
+                'file' => $favicon_path,
+                'url'   => $favicon
+                ]
+            );
             $return = $this->faviconFactory->get($base_url);
             return is_string($return) ? $return : null;
         }
