@@ -86,7 +86,7 @@ npm:
 	$(npm) ci
 	$(npm) run build
 ifneq (, $(npm))
-	cd js && $(npm) run build
+	$(npm) run build
 else
 	@echo "npm command not available, please install nodejs first"
 	@exit 1
@@ -173,7 +173,7 @@ appstore:
 	# on macOS there is no option "--parents" for the "cp" command
 	mkdir -p $(appstore_sign_dir)/$(app_name)/js/build $(appstore_sign_dir)/$(app_name)/js/admin
 	cp js/build/app.min.js $(appstore_sign_dir)/$(app_name)/js/build
-	cp js/build/news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
+	cp js/nextcloud-news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
 
 	# export the key and cert to a file
 	@if [ ! -f $(cert_dir)/$(app_name).key ] || [ ! -f $(cert_dir)/$(app_name).crt ]; then \
@@ -205,12 +205,7 @@ php-test-dependencies:
 
 .PHONY: unit-test
 unit-test:
-	@if [ "$(CODECOVERAGE)" = "true" ]; then \
-		./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover; \
-	else \
-		./vendor/phpunit/phpunit/phpunit -c phpunit.xml --no-coverage; \
-	fi
-
+	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched

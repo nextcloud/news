@@ -29,7 +29,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.0', '8.1']
-        nextcloud: ['stable26', 'stable27']
+        nextcloud: ['stable27']
         database: ['sqlite', 'pgsql', 'mysql']
         experimental: [false]
         include:
@@ -41,10 +41,6 @@ jobs:
             nextcloud: pre-release
             database: sqlite
             experimental: true
-          - php-versions: 8.2
-            nextcloud: stable26
-            database: sqlite
-            experimental: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4

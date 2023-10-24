@@ -135,7 +135,6 @@ class FeedFetcher implements IFeedFetcher
             $lastModified = null;
         }
         $url = $url2->getNormalizedURL();
-
         $resource = $this->reader->read($url, null, $lastModified);
 
         $location     = $resource->getUrl();

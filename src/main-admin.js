@@ -8,7 +8,7 @@ import { translate as t } from '@nextcloud/l10n'
 import AdminSettings from './components/AdminSettings.vue'
 
 // eslint-disable-next-line
-__webpack_nonce__ = btoa(getRequestToken())
+__webpack_nonce__ = btoa(getRequestToken());
 
 Vue.mixin({
 	methods: {

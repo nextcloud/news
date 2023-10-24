@@ -19,46 +19,89 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		<NcCheckboxRadioSwitch type="switch"
 			:checked.sync="useCronUpdates"
 			@update:checked="update('useCronUpdates', useCronUpdates)">
-			{{ t('news', 'Use system cron for updates') }}
+			{{ t("news", "Use system cron for updates") }}
 		</NcCheckboxRadioSwitch>
-		<p><em>{{ t('news', 'Disable this if you use a custom updater.') }}</em></p>
+		<p>
+			<em>{{
+				t("news", "Disable this if you use a custom updater.")
+			}}</em>
+		</p>
 
 		<NcTextField :value.sync="autoPurgeCount"
 			:label="t('news', 'Maximum read count per feed')"
 			:label-visible="true"
 			@update:value="update('autoPurgeCount', autoPurgeCount)" />
-		<p><em>{{ t('news', 'Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.') }}</em></p>
+		<p>
+			<em>{{
+				t(
+					"news",
+					"Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off."
+				)
+			}}</em>
+		</p>
 
 		<NcCheckboxRadioSwitch type="switch"
 			:checked.sync="purgeUnread"
 			@update:checked="update('purgeUnread', purgeUnread)">
-			{{ t('news', 'Delete unread articles automatically') }}
+			{{ t("news", "Delete unread articles automatically") }}
 		</NcCheckboxRadioSwitch>
-		<p><em>{{ t('news', 'Enable this if you also want to delete unread articles.') }}</em></p>
+		<p>
+			<em>{{
+				t(
+					"news",
+					"Enable this if you also want to delete unread articles."
+				)
+			}}</em>
+		</p>
 
 		<NcTextField :value.sync="maxRedirects"
 			:label="t('news', 'Maximum redirects')"
 			:label-visible="true"
 			@update:value="update('maxRedirects', maxRedirects)" />
-		<p><em>{{ t('news', 'How many redirects the feed fetcher should follow.') }}</em></p>
+		<p>
+			<em>{{
+				t("news", "How many redirects the feed fetcher should follow.")
+			}}</em>
+		</p>
 
 		<NcTextField :value.sync="feedFetcherTimeout"
 			:label="t('news', 'Feed fetcher timeout')"
 			:label-visible="true"
 			@update:value="update('feedFetcherTimeout', feedFetcherTimeout)" />
-		<p><em>{{ t('news', 'Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.') }}</em></p>
+		<p>
+			<em>{{
+				t(
+					"news",
+					"Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted."
+				)
+			}}</em>
+		</p>
 
 		<NcTextField :value.sync="exploreUrl"
 			:label="t('news', 'Explore Service URL')"
 			:label-visible="true"
 			@update:value="update('exploreUrl', exploreUrl)" />
-		<p><em>{{ t('news', 'If given, this service\'s URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.') }}</em></p>
+		<p>
+			<em>{{
+				t(
+					"news",
+					"If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty."
+				)
+			}}</em>
+		</p>
 
 		<NcTextField :value.sync="updateInterval"
 			:label="t('news', 'Update interval')"
 			:label-visible="true"
 			@update:value="update('updateInterval', updateInterval)" />
-		<p><em>{{ t('news', 'Interval in seconds in which the feeds will be updated.') }}</em></p>
+		<p>
+			<em>{{
+				t(
+					"news",
+					"Interval in seconds in which the feeds will be updated."
+				)
+			}}</em>
+		</p>
 	</NcSettingsSection>
 </template>
 
@@ -72,9 +115,11 @@ import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
-import confirmPassword from '@nextcloud/password-confirmation'
+import { confirmPassword } from '@nextcloud/password-confirmation'
 
 /**
+ * Debounce helper for method
+ * TODO: Should we remove this and use library?
  *
  * @param {function()} func - The callback function
  * @param {number}     wait - Time to wait in miliseconds
@@ -84,7 +129,9 @@ function debounce(func, wait) {
 
 	return function executedFunction(...args) {
 		clearTimeout(timeout)
-		timeout = setTimeout(() => { func.apply(this, args) }, wait)
+		timeout = setTimeout(() => {
+			func.apply(this, args)
+		}, wait)
 	}
 }
 
@@ -120,10 +167,13 @@ export default {
 	methods: {
 		async update(key, value) {
 			await confirmPassword()
-			const url = generateOcsUrl('/apps/provisioning_api/api/v1/config/apps/{appId}/{key}', {
-				appId: 'news',
-				key,
-			})
+			const url = generateOcsUrl(
+				'/apps/provisioning_api/api/v1/config/apps/{appId}/{key}',
+				{
+					appId: 'news',
+					key,
+				},
+			)
 			if (key === 'useCronUpdates' || key === 'purgeUnread') {
 				value = value ? '1' : '0'
 			}
@@ -141,7 +191,7 @@ export default {
 				})
 			}
 		},
-		async handleResponse({ status, errorMessage, error }) {
+		handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)
 				console.error(errorMessage, error)
@@ -157,7 +207,7 @@ export default {
 .news-settings {
 	p {
 		max-width: 700px;
-		margin-top: .25rem;
+		margin-top: 0.25rem;
 		margin-bottom: 1rem;
 	}
 
