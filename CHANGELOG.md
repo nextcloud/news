@@ -5,14 +5,17 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [25.0.0-alpha1] - 2023-10-24
+### Changed
 - Major Rewrite of the Frontend with Vue JS (#748)
   For comments and suggestions for the new UI, please use this: https://github.com/nextcloud/news/discussions/2388
 - Set User Agent for curl in Scraper (#2380)
 - Drop support for Nextcloud 26, Supported 27
 
-### Fixed
-
-# Releases
 ## [24.0.0] - 2023-09-26
 No major changes compared to 24.0.0-beta1.
 
