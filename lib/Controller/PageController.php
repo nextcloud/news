@@ -96,7 +96,6 @@ class PageController extends Controller
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
             ->addAllowedConnectDomain('*')// chrome breaks on audio elements
-            ->allowEvalScript(true)
             ->addAllowedFrameDomain('https://youtube.com')
             ->addAllowedFrameDomain('https://www.youtube.com')
             ->addAllowedFrameDomain('https://player.vimeo.com')
