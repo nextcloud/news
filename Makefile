@@ -92,10 +92,10 @@ else
 	@exit 1
 endif
 
-# Removes the appstore build
+# Removes the appstore build and compiled js files
 .PHONY: clean
 clean:
-	rm -rf ./build
+	rm -rf ./build ./js/*
 
 # Reports PHP codestyle violations
 .PHONY: phpcs
@@ -171,9 +171,8 @@ appstore:
 	find $(appstore_sign_dir) -name .htaccess -exec rm {} \;
 
 	# on macOS there is no option "--parents" for the "cp" command
-	mkdir -p $(appstore_sign_dir)/$(app_name)/js/build $(appstore_sign_dir)/$(app_name)/js/admin
-	cp js/build/app.min.js $(appstore_sign_dir)/$(app_name)/js/build
-	cp js/nextcloud-news-admin-settings.js* $(appstore_sign_dir)/$(app_name)/js/build
+	mkdir -p $(appstore_sign_dir)/$(app_name)/js
+	cp js/* $(appstore_sign_dir)/$(app_name)/js/
 
 	# export the key and cert to a file
 	@if [ ! -f $(cert_dir)/$(app_name).key ] || [ ! -f $(cert_dir)/$(app_name).crt ]; then \

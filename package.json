@@ -1,7 +1,7 @@
 {
   "name": "nextcloud-news",
   "description": "An RSS/Atom feed reader",
-  "main": "js/app.min.js",
+  "main": "js/nextcloud-news-main.js",
   "scripts": {
     "prebuild": "npm install && npm ci",
     "build": "NODE_ENV=production webpack --progress --config webpack.js",

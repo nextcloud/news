@@ -5,12 +5,11 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Vue Rewrite
-# Releases
-## [24.x.x]
-### Changed
-- Set User Agent for curl in Scraper
-  
+- Major Rewrite of the Frontend with Vue JS (#748)
+  For comments and suggestions for the new UI, please use this: https://github.com/nextcloud/news/discussions/2388
+- Set User Agent for curl in Scraper (#2380)
+- Drop support for Nextcloud 26, Supported 27
+
 ### Fixed
 
 # Releases
