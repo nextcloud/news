@@ -128,7 +128,7 @@
     "v-click-outside": "^3.2.0",
     "vue-color": "^2.8.1",
     "vue-eslint-parser": "^9.0.2",
-    "vue-jest": "^3.0.7",
+    "vue-jest": "^4.0.1",
     "vue-loader": "^15.10.1",
     "vue-material-design-icons": "^5.1.2",
     "vue-multiselect": "^2.1.6",
