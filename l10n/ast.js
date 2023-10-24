@@ -11,6 +11,7 @@ OC.L10N.register(
     "Delete" : "Desaniciar",
     "Settings" : "Configuración",
     "Help" : "Ayuda",
+    "Keyboard shortcuts" : "Atayos del tecláu",
     "Documentation" : "Documentación"
 },
 "nplurals=2; plural=(n != 1);");

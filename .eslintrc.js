@@ -19,7 +19,7 @@ module.exports = {
 		'@nextcloud',
 		'plugin:@typescript-eslint/recommended',
 	],
-	ignorePatterns: ['*.d.ts'],
+	ignorePatterns: ['*.d.ts', 'l10n/*.js'],
 	rules: {
 		'no-console': 'warn',
 		'@typescript-eslint/no-var-requires': 'off',

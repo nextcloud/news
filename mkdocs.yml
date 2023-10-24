@@ -11,8 +11,9 @@ nav:
   - clients.md
   - admin.md
   - developer.md
-  - faq.md
+  - troubleshooting.md
   - Features:
+    - Integration: features/integration.md
     - Custom CSS: features/customCSS.md
     - Plugins: features/plugins.md
     - Themes: features/themes.md

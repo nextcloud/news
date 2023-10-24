@@ -24,11 +24,11 @@ use OCA\News\Hooks\UserDeleteHook;
 use OCA\News\Search\FeedSearchProvider;
 use OCA\News\Search\FolderSearchProvider;
 use OCA\News\Search\ItemSearchProvider;
+use OCA\News\Utility\Cache;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\ITempManager;
 use OCP\AppFramework\App;
 
 use OCA\News\Fetcher\FeedFetcher;
@@ -92,15 +92,9 @@ class Application extends App implements IBootstrap
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
 
         $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
-            $directory = $c->get(ITempManager::class)->getTempBaseDir() . '/news/cache/purifier';
-
-            if (!is_dir($directory)) {
-                mkdir($directory, 0770, true);
-            }
-
             $config = HTMLPurifier_Config::createDefault();
             $config->set('HTML.ForbiddenAttributes', 'class');
-            $config->set('Cache.SerializerPath', $directory);
+            $config->set('Cache.SerializerPath', $c->get(Cache::class)->getCache("purifier"));
             $config->set('HTML.SafeIframe', true);
             $config->set(
                 'URI.SafeIframeRegexp',
@@ -140,7 +134,7 @@ class Application extends App implements IBootstrap
 
         $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {
             $favicon = new Favicon();
-            $favicon->cache(['dir' => $c->get(ITempManager::class)->getTempBaseDir()]);
+            $favicon->cache(['dir' => $c->get(Cache::class)->getCache("feedFavicon")]);
             return $favicon;
         });
     }

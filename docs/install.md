@@ -2,8 +2,8 @@
 
 ## Dependencies
 * 64bit OS (starting with News 16.0.0)
-* PHP >= 7.3
-* Nextcloud 22
+* PHP >= 8.0
+* Nextcloud (current stable version)
 * libxml >= 2.7.8
 
 You also need some PHP extensions:
@@ -27,10 +27,19 @@ Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/
 * Use MySQL/MariaDB or PostgreSQL for better database performance
 * Use the [updater script to thread and speed up the update](https://github.com/nextcloud/news-updater)
 
+## Cache
+News and it's libraries require a writeable temporary directory used as cache. The base directory depends on your system.
+You can [configure a custom directory](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=temp#tempdirectory) if you want.
+
+In most cases the base directory will be `/tmp`. News will create a folder `news-$instanceID` the [instance ID is defined by Nextcloud](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=temp#instanceid).
+
+Inside that folder a subfolder `cache` is created, inside this cache folder news and libraries will try to create cache directories for caching images, html and more.
+
+You need to ensure that your web-server user can write to that directory.
+
 ## Before you install/update the News app
 Before you install the app do the following:
 
-* Check that your **nextcloud/data/** directory is owned by your web server user and that it is write/readable
 * Check that your installation fulfills the [requirements listed above](#dependencies)
 * [Set up Nextcloud Background Jobs](https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron) to enable feed updates.
 

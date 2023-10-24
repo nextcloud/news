@@ -28,11 +28,13 @@ use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Fetcher\FeedFetcher;
-use GuzzleHttp\Client;
+use OCA\News\Config\FetcherConfig;
 
 use OCA\News\Utility\Time;
+use OCA\News\Utility\Cache;
 use OCP\IL10N;
 use OCP\ITempManager;
+
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -83,11 +85,6 @@ class FeedFetcherTest extends TestCase
     private $l10n;
 
     /**
-     * @var MockObject|ITempManager
-     */
-    private $ITempManager;
-
-    /**
      * @var MockObject|ItemInterface
      */
     private $item_mock;
@@ -108,9 +105,14 @@ class FeedFetcherTest extends TestCase
     private $scraper;
 
     /**
-     * @var MockObject|Client
+     * @var MockObject|FetcherConfig
      */
-    private $client;
+    private $fetcherConfig;
+
+    /**
+     * @var MockObject|Cache
+     */
+    private $cache;
 
     //metadata
     /**
@@ -158,9 +160,6 @@ class FeedFetcherTest extends TestCase
         $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->ITempManager = $this->getMockBuilder(ITempManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -194,7 +193,10 @@ class FeedFetcherTest extends TestCase
         $this->scraper = $this->getMockBuilder(Scraper::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->client = $this->getMockBuilder(Client::class)
+        $this->fetcherConfig = $this->getMockBuilder(FetcherConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->cache = $this->getMockBuilder(Cache::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->fetcher = new FeedFetcher(
@@ -202,10 +204,10 @@ class FeedFetcherTest extends TestCase
             $this->favicon,
             $this->scraper,
             $this->l10n,
-            $this->ITempManager,
             $timeFactory,
             $this->logger,
-            $this->client
+            $this->fetcherConfig,
+            $this->cache
         );
         $this->url = 'http://tests/';
 

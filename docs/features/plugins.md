@@ -93,7 +93,6 @@ Using automatic container assembly you can then use it from your code by simply 
 
 
 
-
 # TODO: Update the following
 
 If your plugin integrates with another Nextcloud app, make sure to also require it be installed. If you depend on the Bookmarks app for instance use:
@@ -201,10 +200,4 @@ Then open the **newspluing/css/style.css** file and add the following CSS:
 Reload the News app and click the three dots menu, sit back and enjoy :)
 
 
-### Examples
-Client-side plugins:
 
-* [Mail Share](https://github.com/cosenal/mailsharenewsplugin): Client-side plugin to share articles by email
-Server-side plugins:
-
-* [Feed Central](https://github.com/Raydiation/feedcentral): Publish your feeds as RSS

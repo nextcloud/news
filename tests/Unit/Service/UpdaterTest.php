@@ -18,6 +18,8 @@ use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ItemServiceV2;
 use OCA\News\Service\UpdaterService;
 use PHPUnit\Framework\TestCase;
+use OCP\BackgroundJob\IJobList;
+use OCP\BackgroundJob\IJob;
 
 class UpdaterTest extends TestCase
 {
@@ -42,6 +44,11 @@ class UpdaterTest extends TestCase
      */
     private $updater;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IJobList
+     */
+    private $jobList;
+
     protected function setUp(): void
     {
         $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
@@ -53,10 +60,14 @@ class UpdaterTest extends TestCase
         $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->jobList = $this->getMockBuilder(IJobList::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->updater = new UpdaterService(
             $this->folderService,
             $this->feedService,
-            $this->itemService
+            $this->itemService,
+            $this->jobList
         );
     }
 
@@ -83,4 +94,5 @@ class UpdaterTest extends TestCase
             ->method('fetchAll');
         $this->updater->update();
     }
+
 }

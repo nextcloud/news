@@ -38,14 +38,14 @@ class FeedIoClient implements ClientInterface
     }
 
     /**
-     * @param  string                               $url
-     * @param  DateTime                            $modifiedSince
+     * @param  string                                   $url
+     * @param  DateTime|null                            $modifiedSince
      *
      * @return ResponseInterface
      * @throws ServerErrorException|GuzzleException
      * @throws NotFoundException
      */
-    public function getResponse(string $url, DateTime $modifiedSince) : ResponseInterface
+    public function getResponse(string $url, ?DateTime $modifiedSince = null) : ResponseInterface
     {
         $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
         try {
@@ -65,7 +65,7 @@ class FeedIoClient implements ClientInterface
                 case 404:
                     throw new NotFoundException($e->getMessage());
                 default:
-                    throw new ServerErrorException($e->getMessage());
+                    throw new ServerErrorException($e->getResponse());
             }
         }
     }
