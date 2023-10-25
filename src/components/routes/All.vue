@@ -9,6 +9,10 @@
 				:fetch-key="'all'"
 				@load-more="fetchMore()" />
 		</template>
+
+		<div>
+			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
+		</div>
 	</NcAppContent>
 </template>
 
@@ -19,6 +23,7 @@ import { mapState } from 'vuex'
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
+import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -27,12 +32,16 @@ export default Vue.extend({
 	components: {
 		NcAppContent,
 		FeedItemDisplayList,
+		FeedItemDisplay
 	},
 	computed: {
 		...mapState(['items']),
 
 		allItems(): FeedItem[] {
 			return this.$store.getters.allItems
+		},
+		selectedFeedItem(): FeedItem | undefined {
+			return this.$store.getters.selected
 		},
 	},
 	created() {

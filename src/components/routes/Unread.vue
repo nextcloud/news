@@ -14,6 +14,10 @@
 				:config="{ unreadFilter: false }"
 				@load-more="fetchMore()" />
 		</template>
+
+		<div>
+			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
+		</div>
 	</NcAppContent>
 </template>
 
@@ -25,6 +29,7 @@ import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
+import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -39,6 +44,7 @@ export default Vue.extend({
 		NcAppContent,
 		NcCounterBubble,
 		FeedItemDisplayList,
+		FeedItemDisplay
 	},
 	data() {
 		return {
@@ -47,6 +53,9 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['items']),
+		selectedFeedItem(): FeedItem | undefined {
+			return this.$store.getters.selected
+		},
 	},
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
