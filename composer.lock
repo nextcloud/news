@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c452cc9669d6841ce4b9160c6fb23aaa",
+    "content-hash": "3c835e579b12707577c19a4505ff2501",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -66,16 +66,16 @@
         },
         {
             "name": "debril/feed-io",
-            "version": "v5.3.1",
+            "version": "v5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdebril/feed-io.git",
-                "reference": "b1237713ae174fc4dd57aff1e472303a1162ccfc"
+                "reference": "7c206ea5f07a65e7ccccdcdfbe0803806d54caa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/b1237713ae174fc4dd57aff1e472303a1162ccfc",
-                "reference": "b1237713ae174fc4dd57aff1e472303a1162ccfc",
+                "url": "https://api.github.com/repos/alexdebril/feed-io/zipball/7c206ea5f07a65e7ccccdcdfbe0803806d54caa5",
+                "reference": "7c206ea5f07a65e7ccccdcdfbe0803806d54caa5",
                 "shasum": ""
             },
             "require": {
@@ -127,9 +127,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alexdebril/feed-io/issues",
-                "source": "https://github.com/alexdebril/feed-io/tree/v5.3.1"
+                "source": "https://github.com/alexdebril/feed-io/tree/v5.3.2"
             },
-            "time": "2022-10-26T20:20:14+00:00"
+            "time": "2023-10-24T15:16:47+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
