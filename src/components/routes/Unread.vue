@@ -1,24 +1,27 @@
 <template>
-	<div class="route-container">
-		<div class="header">
-			{{ t('news', 'Unread Articles') }}
-			<NcCounterBubble class="counter-bubble">
-				{{ items.unreadCount }}
-			</NcCounterBubble>
-		</div>
+	<NcAppContent>
+		<template #list>
+			<div class="header">
+				{{ t('news', 'Unread Articles') }}
+				<NcCounterBubble class="counter-bubble">
+					{{ items.unreadCount }}
+				</NcCounterBubble>
+			</div>
 
-		<FeedItemDisplayList v-if="unread()"
-			:items="unread()"
-			:fetch-key="'unread'"
-			:config="{ unreadFilter: false }"
-			@load-more="fetchMore()" />
-	</div>
+			<FeedItemDisplayList v-if="unread()"
+				:items="unread()"
+				:fetch-key="'unread'"
+				:config="{ unreadFilter: false }"
+				@load-more="fetchMore()" />
+		</template>
+	</NcAppContent>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
@@ -33,6 +36,7 @@ type UnreadItemState = {
 
 export default Vue.extend({
 	components: {
+		NcAppContent,
 		NcCounterBubble,
 		FeedItemDisplayList,
 	},

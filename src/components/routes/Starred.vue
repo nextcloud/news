@@ -1,23 +1,26 @@
 <template>
-	<div class="route-container">
-		<div class="header">
-			{{ t('news', 'Starred') }}
-			<NcCounterBubble class="counter-bubble">
-				{{ items.starredCount }}
-			</NcCounterBubble>
-		</div>
+	<NcAppContent>
+		<template #list>
+			<div class="header">
+				{{ t('news', 'Starred') }}
+				<NcCounterBubble class="counter-bubble">
+					{{ items.starredCount }}
+				</NcCounterBubble>
+			</div>
 
-		<FeedItemDisplayList :items="starred"
-			:fetch-key="'starred'"
-			:config="{ starFilter: false }"
-			@load-more="fetchMore()" />
-	</div>
+			<FeedItemDisplayList :items="starred"
+				:fetch-key="'starred'"
+				:config="{ starFilter: false }"
+				@load-more="fetchMore()" />
+		</template>
+	</NcAppContent>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
@@ -27,6 +30,7 @@ import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
+		NcAppContent,
 		NcCounterBubble,
 		FeedItemDisplayList,
 	},
@@ -51,9 +55,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-	.route-container {
-		height: 100%;
-	}
 
 	.header {
 		padding-left: 50px;

@@ -1,18 +1,22 @@
 <template>
-	<div class="route-container">
-		<div class="header">
-			{{ t('news', 'All Articles') }}
-		</div>
+	<NcAppContent>
+		<template #list>
+			<div class="header">
+				{{ t('news', 'All Articles') }}
+			</div>
 
-		<FeedItemDisplayList :items="allItems"
-			:fetch-key="'all'"
-			@load-more="fetchMore()" />
-	</div>
+			<FeedItemDisplayList :items="allItems"
+				:fetch-key="'all'"
+				@load-more="fetchMore()" />
+		</template>
+	</NcAppContent>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
 
@@ -21,6 +25,7 @@ import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
+		NcAppContent,
 		FeedItemDisplayList,
 	},
 	computed: {
@@ -44,9 +49,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-	.route-container {
-		height: 100%;
-	}
 
 	.header {
 		padding-left: 50px;
