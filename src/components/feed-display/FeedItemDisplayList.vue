@@ -35,10 +35,6 @@
 					</template>
 				</template>
 			</VirtualScroll>
-
-			<div v-if="selected !== undefined" class="feed-item-container">
-				<FeedItemDisplay :item="selected" />
-			</div>
 		</div>
 	</div>
 </template>
@@ -115,9 +111,6 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		selected(): FeedItem | undefined {
-			return this.$store.getters.selected
-		},
 		reachedEnd(): boolean {
 			return this.mounted && this.$store.state.items.allItemsLoaded[this.fetchKey] === true
 		},
@@ -206,30 +199,12 @@ export default Vue.extend({
 		.feed-item-display-container {
 			flex-direction: column;
 		}
-
-		.feed-item-container {
-			flex: 1 1 1000px;
-			max-height: calc(100vh - 200px)
-		}
 	}
 
 	@media only screen and (min-width: 768px) {
 		.feed-item-display-container {
 			flex-direction: row;
 		}
-
-		.feed-item-container {
-			width: 50%;
-			max-height: unset;
-		}
-	}
-
-	.feed-item-container {
-		overflow-y: hidden;
-		-webkit-box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
-		-moz-box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
-		box-shadow: 1px -1px 5px 0px rgba(0,0,0,0.75);
-		border-top: 1px solid var(--color-border);
 	}
 
 	.header {

@@ -10,6 +10,10 @@
 
 			<FeedItemDisplayList :items="items" :fetch-key="'feed-'+feedId" @load-more="fetchMore()" />
 		</template>
+
+		<div>
+			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
+		</div>
 	</NcAppContent>
 </template>
 
@@ -21,6 +25,7 @@ import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
+import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -31,6 +36,7 @@ export default Vue.extend({
 		NcAppContent,
 		NcCounterBubble,
 		FeedItemDisplayList,
+		FeedItemDisplay
 	},
 	props: {
 		feedId: {
@@ -50,6 +56,9 @@ export default Vue.extend({
 		},
 		id(): number {
 			return Number(this.feedId)
+		},
+		selectedFeedItem(): FeedItem | undefined {
+			return this.$store.getters.selected
 		},
 	},
 	created() {
