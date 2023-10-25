@@ -3,14 +3,14 @@ OC.L10N.register(
     {
     "Download" : "ڈاؤن لوڈ،",
     "Close" : "بند ",
-    "Share" : "تقسیم",
     "Username" : "اسم صارف",
-    "Description" : "تصریح",
-    "Folder" : "Folder",
-    "Credentials" : "Credentials",
     "Password" : "پاسورڈ",
+    "Credentials" : "Credentials",
+    "Share" : "تقسیم",
     "Rename" : "Rename",
     "Delete" : "حذف کریں",
+    "Description" : "تصریح",
+    "Folder" : "Folder",
     "Settings" : "سیٹینگز",
     "Help" : "مدد"
 },

@@ -1,13 +1,13 @@
 OC.L10N.register(
     "news",
     {
-    "Share" : "Падзяліцца",
     "Username" : "Username",
-    "Folder" : "Folder",
-    "Credentials" : "Credentials",
     "Password" : "Password",
+    "Credentials" : "Credentials",
+    "Share" : "Падзяліцца",
     "Rename" : "Rename",
     "Delete" : "Delete",
+    "Folder" : "Folder",
     "Settings" : "Налады",
     "Help" : "Help"
 },

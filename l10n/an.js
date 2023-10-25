@@ -3,14 +3,14 @@ OC.L10N.register(
     {
     "Download" : "Escargar",
     "Close" : "Zarrar",
-    "Share" : "Compartir",
-    "Username" : "Nombre d'usuario",
-    "New folder" : "Nueva carpeta",
     "Folder name" : "Nombre de carpeta",
+    "Username" : "Nombre d'usuario",
     "Password" : "Clau",
-    "Create" : "Crear",
+    "New folder" : "Nueva carpeta",
+    "Share" : "Compartir",
     "Rename" : "Renombrar",
     "Delete" : "Borrar",
+    "Create" : "Crear",
     "Settings" : "Configurazión",
     "Help" : "Aduya"
 },
