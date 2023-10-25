@@ -208,6 +208,9 @@ export default Vue.extend({
 		padding: 0 50px 50px 50px;
 		overflow-y: scroll;
 		height: 100%;
+		max-width: 1024px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	.article video {
