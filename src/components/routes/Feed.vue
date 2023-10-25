@@ -1,20 +1,23 @@
 <template>
-	<div class="route-container">
-		<div class="header">
-			{{ feed ? feed.title : '' }}
-			<NcCounterBubble v-if="feed" class="counter-bubble">
-				{{ feed.unreadCount }}
-			</NcCounterBubble>
-		</div>
+	<NcAppContent>
+		<template #list>
+			<div class="header">
+				{{ feed ? feed.title : '' }}
+				<NcCounterBubble v-if="feed" class="counter-bubble">
+					{{ feed.unreadCount }}
+				</NcCounterBubble>
+			</div>
 
-		<FeedItemDisplayList :items="items" :fetch-key="'feed-'+feedId" @load-more="fetchMore()" />
-	</div>
+			<FeedItemDisplayList :items="items" :fetch-key="'feed-'+feedId" @load-more="fetchMore()" />
+		</template>
+	</NcAppContent>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
@@ -25,6 +28,7 @@ import { Feed } from '../../types/Feed'
 
 export default Vue.extend({
 	components: {
+		NcAppContent,
 		NcCounterBubble,
 		FeedItemDisplayList,
 	},
@@ -64,9 +68,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.route-container {
-	height: 100%;
-}
 
 .header {
 	padding-left: 50px;

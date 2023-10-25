@@ -1,20 +1,23 @@
 <template>
-	<div class="route-container">
-		<div class="header">
-			{{ folder ? folder.name : '' }}
-			<NcCounterBubble v-if="folder" class="counter-bubble">
-				{{ unreadCount }}
-			</NcCounterBubble>
-		</div>
+	<NcAppContent>
+		<template #list>
+			<div class="header">
+				{{ folder ? folder.name : '' }}
+				<NcCounterBubble v-if="folder" class="counter-bubble">
+					{{ unreadCount }}
+				</NcCounterBubble>
+			</div>
 
-		<FeedItemDisplayList :items="items" :fetch-key="'folder-'+folderId" @load-more="fetchMore()" />
-	</div>
+			<FeedItemDisplayList :items="items" :fetch-key="'folder-'+folderId" @load-more="fetchMore()" />
+		</template>
+	</NcAppContent>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
 import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
@@ -26,6 +29,7 @@ import { Folder } from '../../types/Folder'
 
 export default Vue.extend({
 	components: {
+		NcAppContent,
 		NcCounterBubble,
 		FeedItemDisplayList,
 	},
@@ -74,9 +78,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.route-container {
-	height: 100%;
-}
 
 .header {
 	padding-left: 50px;

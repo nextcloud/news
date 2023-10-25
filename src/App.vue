@@ -21,9 +21,7 @@
 		<div id="news-app">
 			<div id="content-display" :class="{ playing: playingItem }">
 				<Sidebar />
-				<NcAppContent>
-					<RouterView />
-				</NcAppContent>
+				<RouterView />
 			</div>
 			<div v-if="playingItem" class="podcast">
 				<audio controls
@@ -50,7 +48,6 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import Sidebar from './components/Sidebar.vue'
 import { ACTIONS, MUTATIONS } from './store'
 
@@ -58,7 +55,6 @@ export default Vue.extend({
 	components: {
 		NcContent,
 		Sidebar,
-		NcAppContent,
 	},
 	computed: {
 		playingItem() {
@@ -118,10 +114,6 @@ export default Vue.extend({
 		color: #3a84e4;
 		text-decoration: underline;
 		font-size: small;
-	}
-
-	.route-container {
-		height: 100%;
 	}
 
 	#content-display {
