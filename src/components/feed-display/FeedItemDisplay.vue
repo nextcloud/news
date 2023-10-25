@@ -267,6 +267,7 @@ export default Vue.extend({
 
 	.article img {
 		width: 100%;
+		height: auto;
 	}
 
 	.article h1 {
