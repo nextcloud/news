@@ -1,31 +1,25 @@
 <template>
-	<NcAppContent>
-		<template #list>
-			<div class="header">
-				{{ folder ? folder.name : '' }}
-				<NcCounterBubble v-if="folder" class="counter-bubble">
-					{{ unreadCount }}
-				</NcCounterBubble>
-			</div>
-
-			<FeedItemDisplayList :items="items" :fetch-key="'folder-'+folderId" @load-more="fetchMore()" />
+	<ContentTemplate
+		:items="items"
+		:fetch-key="'folder-' + folderId"
+		@load-more="fetchMore()"
+	>
+		<template #header>
+			{{ folder ? folder.name : '' }}
+			<NcCounterBubble v-if="folder" class="counter-bubble">
+				{{ unreadCount }}
+			</NcCounterBubble>
 		</template>
-
-		<div>
-			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
-		</div>
-	</NcAppContent>
+	</ContentTemplate>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
-import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
+import ContentTemplate from '../ContentTemplate.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -34,10 +28,8 @@ import { Folder } from '../../types/Folder'
 
 export default Vue.extend({
 	components: {
-		NcAppContent,
+		ContentTemplate,
 		NcCounterBubble,
-		FeedItemDisplayList,
-		FeedItemDisplay
 	},
 	props: {
 		folderId: {
@@ -67,9 +59,6 @@ export default Vue.extend({
 
 			return totalUnread
 		},
-		selectedFeedItem(): FeedItem | undefined {
-			return this.$store.getters.selected
-		},
 	},
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
@@ -87,18 +76,9 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
-.header {
-	padding-left: 50px;
-	position: absolute;
-	top: 1em;
-	font-weight: 700;
-}
-
 .counter-bubble {
 	display: inline-block;
 	vertical-align: sub;
 	margin-left: 10px;
 }
-
 </style>

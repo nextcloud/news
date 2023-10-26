@@ -1,47 +1,33 @@
 <template>
-	<NcAppContent>
-		<template #list>
-			<div class="header">
-				{{ t('news', 'All Articles') }}
-			</div>
-
-			<FeedItemDisplayList :items="allItems"
-				:fetch-key="'all'"
-				@load-more="fetchMore()" />
+	<ContentTemplate
+		:items="allItems"
+		:fetch-key="'all'"
+		@load-more="fetchMore()"
+	>
+		<template #header>
+			{{ t('news', 'All Articles') }}
 		</template>
-
-		<div>
-			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
-		</div>
-	</NcAppContent>
+	</ContentTemplate>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-
-import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
-import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
+import ContentTemplate from '../ContentTemplate.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
-		NcAppContent,
-		FeedItemDisplayList,
-		FeedItemDisplay
+		ContentTemplate,
 	},
 	computed: {
 		...mapState(['items']),
 
 		allItems(): FeedItem[] {
 			return this.$store.getters.allItems
-		},
-		selectedFeedItem(): FeedItem | undefined {
-			return this.$store.getters.selected
 		},
 	},
 	created() {
@@ -58,14 +44,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
-	.header {
-		padding-left: 50px;
-		position: absolute;
-		top: 1em;
-		font-weight: 700;
-	}
-
 	.counter-bubble {
 		display: inline-block;
 		vertical-align: sub;
