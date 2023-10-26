@@ -1,35 +1,26 @@
 <template>
-	<NcAppContent>
-		<template #list>
-			<div class="header">
-				{{ t('news', 'Unread Articles') }}
-				<NcCounterBubble class="counter-bubble">
-					{{ items.unreadCount }}
-				</NcCounterBubble>
-			</div>
-
-			<FeedItemDisplayList v-if="unread()"
-				:items="unread()"
-				:fetch-key="'unread'"
-				:config="{ unreadFilter: false }"
-				@load-more="fetchMore()" />
+	<ContentTemplate
+		:items="unread()"
+		:fetch-key="'unread'"
+		:config="{ unreadFilter: false }"
+		@load-more="fetchMore()"
+	>
+		<template #header>
+			{{ t('news', 'Unread Articles') }}
+			<NcCounterBubble class="counter-bubble">
+				{{ items.unreadCount }}
+			</NcCounterBubble>
 		</template>
-
-		<div>
-			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
-		</div>
-	</NcAppContent>
+	</ContentTemplate>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
-import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
+import ContentTemplate from '../ContentTemplate.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
@@ -41,10 +32,8 @@ type UnreadItemState = {
 
 export default Vue.extend({
 	components: {
-		NcAppContent,
-		NcCounterBubble,
-		FeedItemDisplayList,
-		FeedItemDisplay
+		ContentTemplate,
+		NcCounterBubble
 	},
 	data() {
 		return {
@@ -53,9 +42,6 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['items']),
-		selectedFeedItem(): FeedItem | undefined {
-			return this.$store.getters.selected
-		},
 	},
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
@@ -89,13 +75,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-	.header {
-		padding-left: 50px;
-		position: absolute;
-		top: 1em;
-		font-weight: 700;
-	}
-
 	.counter-bubble {
 		display: inline-block;
 		vertical-align: sub;

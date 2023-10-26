@@ -1,53 +1,39 @@
 <template>
-	<NcAppContent>
-		<template #list>
-			<div class="header">
-				{{ t('news', 'Starred') }}
-				<NcCounterBubble class="counter-bubble">
-					{{ items.starredCount }}
-				</NcCounterBubble>
-			</div>
-
-			<FeedItemDisplayList :items="starred"
-				:fetch-key="'starred'"
-				:config="{ starFilter: false }"
-				@load-more="fetchMore()" />
+	<ContentTemplate
+		:items="starred"
+		:fetch-key="'starred'"
+		:config="{ starFilter: false }"
+		@load-more="fetchMore()"
+	>
+		<template #header>
+			{{ t('news', 'Starred') }}
+			<NcCounterBubble class="counter-bubble">
+				{{ items.starredCount }}
+			</NcCounterBubble>
 		</template>
-
-		<div>
-			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
-		</div>
-	</NcAppContent>
+	</ContentTemplate>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 
-import FeedItemDisplayList from '../feed-display/FeedItemDisplayList.vue'
-import FeedItemDisplay from '../feed-display/FeedItemDisplay.vue'
+import ContentTemplate from '../ContentTemplate.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
-		NcAppContent,
+		ContentTemplate,
 		NcCounterBubble,
-		FeedItemDisplayList,
-		FeedItemDisplay
 	},
 	computed: {
 		...mapState(['items']),
-
 		starred(): FeedItem[] {
 			return this.$store.getters.starred
-		},
-		selectedFeedItem(): FeedItem | undefined {
-			return this.$store.getters.selected
 		},
 	},
 	created() {
@@ -64,14 +50,6 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-
-	.header {
-		padding-left: 50px;
-		position: absolute;
-		top: 1em;
-		font-weight: 700;
-	}
-
 	.counter-bubble {
 		display: inline-block;
 		vertical-align: sub;
