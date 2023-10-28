@@ -16,17 +16,25 @@
 				<RssIcon v-else />
 			</a>
 		</div>
-		<div class="title-container" :class="{ 'unread': item.unread }">
-			<span style="white-space: nowrap" :dir="item.rtl && 'rtl'">
-				{{ item.title }}
+
+		<div class="main-container">
+			<div class="title-container" :class="{ 'unread': item.unread }">
+				<span style="white-space: nowrap" :dir="item.rtl && 'rtl'">
+					{{ item.title }}
+				</span>
+			</div>
+
+			<div class="intro-container">
 				<span class="intro" v-html="item.intro" />
-			</span>
+			</div>
+
+			<div class="date-container">
+				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
+					{{ getRelativeTimestamp(item.pubDate*1000) }}
+				</time>
+			</div>
 		</div>
-		<div class="date-container">
-			<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
-				{{ getRelativeTimestamp(item.pubDate*1000) }}
-			</time>
-		</div>
+
 		<div class="button-container" @click="$event.stopPropagation()">
 			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
 			<EyeIcon v-if="item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
@@ -154,7 +162,7 @@ export default Vue.extend({
 
 <style>
 	.feed-item-row {
-		display: flex; padding: 5px 10px;
+		display: flex; padding: 10px 10px;
 	}
 
 	.feed-item-row:hover {
@@ -166,10 +174,10 @@ export default Vue.extend({
 	}
 
 	.feed-item-row .link-container {
-		padding-right: 5px;
+		padding-right: 12px;
 		display: flex;
 		flex-direction: row;
-		align-self: start;
+		align-self: center;
 	}
 
 	.favicon {
@@ -177,6 +185,10 @@ export default Vue.extend({
 		width: 24px;
 		display: inline-block;
 		background-size: contain;
+	}
+
+	.feed-item-row .main-container {
+		min-width: 0;
 	}
 
 	.feed-item-row .title-container {
@@ -192,11 +204,16 @@ export default Vue.extend({
     font-weight: bold;
 	}
 
+	.feed-item-row .intro-container {
+		line-height: initial;
+		height: 32pt;
+		overflow: hidden;
+	}
+
 	.feed-item-row .intro {
 		color: var(--color-text-lighter);
     font-size: 10pt;
     font-weight: normal;
-    margin-left: 20px;
 	}
 
 	@media only screen and (min-width: 320px) {
@@ -213,14 +230,13 @@ export default Vue.extend({
 
 	.feed-item-row .date-container {
 		color: var(--color-text-lighter);
-		padding-left: 4px;
 		white-space: nowrap;
 	}
 
 	.feed-item-row .button-container {
 		display: flex;
 		flex-direction: row;
-		align-self: start;
+		align-self: center;
 	}
 
 	.feed-item-row .button-container .button-vue, .feed-item-row .button-container .button-vue .button-vue__wrapper, .feed-item-row .button-container .material-design-icon {
