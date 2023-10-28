@@ -25,9 +25,9 @@ teardown() {
 @test "[$TESTSUITE] Add feed without GUIDs" {
   run ./occ news:feed:add "$user" "$NO_GUID_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
   echo "Attention! Are the dates of the feed older than 'one year ago'? If so this is not a bug, adjust the dates. #2201"
-  assert_failure
+  assert_success
 
-  assert_output "Malformed feed: item has no GUID"
+  assert_output --partial "Something-${BATS_SUITE_TEST_NUMBER}"
 }
 
 @test "[$TESTSUITE] List all" {
