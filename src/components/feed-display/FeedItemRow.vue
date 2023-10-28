@@ -8,10 +8,13 @@
 				:href="item.url"
 				:title="t('news', 'Open website')"
 				@click="markRead(item); $event.stopPropagation();">
-				<EarthIcon />
+				<span
+					v-if="getFeed(item.feedId).faviconLink"
+					class="favicon"
+					:style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }"
+				/>
+				<RssIcon v-else />
 			</a>
-			<RssIcon v-if="!getFeed(item.feedId).faviconLink" />
-			<span v-if="getFeed(item.feedId).faviconLink" style="width: 24px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
 		</div>
 		<div class="title-container" :class="{ 'unread': item.unread }">
 			<span style="white-space: nowrap" :dir="item.rtl && 'rtl'">
@@ -45,7 +48,6 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
@@ -65,7 +67,6 @@ import { ACTIONS, MUTATIONS } from '../../store'
 export default Vue.extend({
 	name: 'FeedItemRow',
 	components: {
-		EarthIcon,
 		StarIcon,
 		EyeIcon,
 		EyeCheckIcon,
@@ -169,6 +170,13 @@ export default Vue.extend({
 		display: flex;
 		flex-direction: row;
 		align-self: start;
+	}
+
+	.favicon {
+		height: 24px;
+		width: 24px;
+		display: inline-block;
+		background-size: contain;
 	}
 
 	.feed-item-row .title-container {
