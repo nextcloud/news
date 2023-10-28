@@ -18,7 +18,7 @@
       </NcAppContentList>
     </template>
 
-    <NcAppContentDetails>
+    <NcAppContentDetails class="content-details-container">
       <FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
     </NcAppContentDetails>
   </NcAppContent>
@@ -87,6 +87,10 @@
 	position: absolute;
 	top: 1em;
 	font-weight: 700;
+}
+
+.content-details-container {
+  height: 100%
 }
 
 </style>
