@@ -1,5 +1,8 @@
 <template>
-  <NcAppContent>
+  <NcAppContent
+    :show-details="showDetails"
+    @update:showDetails="unselectItem()"
+  >
     <template #list>
       <NcAppContentList>
         <div class="header">
@@ -23,7 +26,7 @@
 
 <script setup lang="ts">
 
-  import { PropType, computed } from 'vue';
+  import { PropType, computed, ref, watch } from 'vue';
 
   import itemStore from '../store/item';
 
@@ -54,9 +57,26 @@
     (event: 'load-more'): void
   }>();
 
+  const showDetails = ref(false);
+
   const selectedFeedItem = computed(() => {
     return itemStore.getters.selected(itemStore.state);
   })
+
+  watch(selectedFeedItem, (newSelectedFeedItem) => {
+    if (newSelectedFeedItem) {
+      showDetails.value = true;
+    } else {
+      showDetails.value = false;
+    }
+  })
+
+  function unselectItem() {
+    itemStore.mutations.SET_SELECTED_ITEM(
+      itemStore.state,
+      {id: undefined}
+    );
+	}
 
 </script>
 
