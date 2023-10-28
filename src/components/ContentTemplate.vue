@@ -1,21 +1,23 @@
 <template>
   <NcAppContent>
     <template #list>
-      <div class="header">
-        <slot name="header"></slot>
-      </div>
+      <NcAppContentList>
+        <div class="header">
+          <slot name="header"></slot>
+        </div>
 
-      <FeedItemDisplayList
-        :items="items"
-        :fetch-key="fetchKey"
-        :config="config"
-        @load-more="emit('load-more')"
-      />
+        <FeedItemDisplayList
+          :items="items"
+          :fetch-key="fetchKey"
+          :config="config"
+          @load-more="emit('load-more')"
+        />
+      </NcAppContentList>
     </template>
 
-    <div>
+    <NcAppContentDetails>
       <FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
-    </div>
+    </NcAppContentDetails>
   </NcAppContent>
 </template>
 
@@ -26,6 +28,8 @@
   import itemStore from '../store/item';
 
   import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent';
+  import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList';
+  import NcAppContentDetails from '@nextcloud/vue/dist/Components/NcAppContentDetails';
 
   import {FeedItem} from '../types/FeedItem';
 
