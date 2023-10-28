@@ -1,9 +1,7 @@
 <template>
-	<ContentTemplate
-		:items="allItems"
+	<ContentTemplate :items="allItems"
 		:fetch-key="'all'"
-		@load-more="fetchMore()"
-	>
+		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'All Articles') }}
 		</template>

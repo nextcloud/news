@@ -8,11 +8,9 @@
 				:href="item.url"
 				:title="t('news', 'Open website')"
 				@click="markRead(item); $event.stopPropagation();">
-				<span
-					v-if="getFeed(item.feedId).faviconLink"
+				<span v-if="getFeed(item.feedId).faviconLink"
 					class="favicon"
-					:style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }"
-				/>
+					:style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
 				<RssIcon v-else />
 			</a>
 		</div>

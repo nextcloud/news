@@ -1,9 +1,7 @@
 <template>
-	<ContentTemplate
-		:items="items"
+	<ContentTemplate :items="items"
 		:fetch-key="'folder-' + folderId"
-		@load-more="fetchMore()"
-	>
+		@load-more="fetchMore()">
 		<template #header>
 			{{ folder ? folder.name : '' }}
 			<NcCounterBubble v-if="folder" class="counter-bubble">
