@@ -1,10 +1,8 @@
 <template>
-	<ContentTemplate
-		:items="unread()"
+	<ContentTemplate :items="unread()"
 		:fetch-key="'unread'"
 		:config="{ unreadFilter: false }"
-		@load-more="fetchMore()"
-	>
+		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Unread Articles') }}
 			<NcCounterBubble class="counter-bubble">
@@ -33,7 +31,7 @@ type UnreadItemState = {
 export default Vue.extend({
 	components: {
 		ContentTemplate,
-		NcCounterBubble
+		NcCounterBubble,
 	},
 	data() {
 		return {

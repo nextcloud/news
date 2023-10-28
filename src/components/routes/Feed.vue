@@ -1,9 +1,7 @@
 <template>
-	<ContentTemplate
-		:items="items"
+	<ContentTemplate :items="items"
 		:fetch-key="'feed-' + feedId"
-		@load-more="fetchMore()"
-	>
+		@load-more="fetchMore()">
 		<template #header>
 			{{ feed ? feed.title : '' }}
 			<NcCounterBubble v-if="feed" class="counter-bubble">

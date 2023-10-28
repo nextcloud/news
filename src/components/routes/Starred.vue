@@ -1,10 +1,8 @@
 <template>
-	<ContentTemplate
-		:items="starred"
+	<ContentTemplate :items="starred"
 		:fetch-key="'starred'"
 		:config="{ starFilter: false }"
-		@load-more="fetchMore()"
-	>
+		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Starred') }}
 			<NcCounterBubble class="counter-bubble">
