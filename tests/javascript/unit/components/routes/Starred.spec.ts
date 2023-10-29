@@ -2,7 +2,7 @@ import Vuex, { Store } from 'vuex'
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
 import Starred from '../../../../../src/components/routes/Starred.vue'
-import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
+import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
 jest.mock('@nextcloud/axios')
 
@@ -48,7 +48,7 @@ describe('Starred.vue', () => {
 	})
 
 	it('should get starred items from state', () => {
-		expect((wrapper.findComponent(FeedItemDisplayList)).props().items.length).toEqual(1)
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_STARRED action if not fetchingItems.starred', () => {
