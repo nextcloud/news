@@ -49,9 +49,7 @@ defineProps({
 	},
 })
 
-const emit = defineEmits<{
-    (event: 'load-more'): void
-  }>()
+const emit = defineEmits<{(event: 'load-more'): void}>()
 
 const showDetails = ref(false)
 
