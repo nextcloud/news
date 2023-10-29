@@ -54,7 +54,6 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 
 import VirtualScroll from './VirtualScroll.vue'
 import FeedItemRow from './FeedItemRow.vue'
-import FeedItemDisplay from './FeedItemDisplay.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 
@@ -67,7 +66,6 @@ export default Vue.extend({
 	components: {
 		VirtualScroll,
 		FeedItemRow,
-		FeedItemDisplay,
 		FilterIcon,
 		StarIcon,
 		StarCheckIcon,
