@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 
-import { PropType, computed, ref, watch } from 'vue'
+import { type PropType, computed, ref, watch } from 'vue'
 
 import itemStore from '../store/item'
 
