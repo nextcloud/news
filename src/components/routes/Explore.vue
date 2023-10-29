@@ -1,42 +1,45 @@
 <template>
-	<div id="explore">
-		<AddFeed v-if="showAddFeed" :feed="feed" @close="closeShowAddFeed()" />
-		<div v-if="!exploreSites" style="margin: auto;">
-			{{ t('news', 'No feeds found to add') }}
-		</div>
-		<div v-else class="grid-container">
-			<div v-for="entry in exploreSites"
-				:key="entry.title"
-				class="explore-feed grid-item">
-				<h2 v-if="entry.favicon"
-					class="explore-title icon"
-					:style="{ backgroundImage: 'url(' + entry.favicon + ')' }">
-					<a target="_blank" rel="noreferrer" :href="entry.url">
+	<NcAppContent>
+		<div id="explore">
+			<AddFeed v-if="showAddFeed" :feed="feed" @close="closeShowAddFeed()" />
+			<div v-if="!exploreSites" style="margin: auto;">
+				{{ t('news', 'No feeds found to add') }}
+			</div>
+			<div v-else class="grid-container">
+				<div v-for="entry in exploreSites"
+					:key="entry.title"
+					class="explore-feed grid-item">
+					<h2 v-if="entry.favicon"
+						class="explore-title icon"
+						:style="{ backgroundImage: 'url(' + entry.favicon + ')' }">
+						<a target="_blank" rel="noreferrer" :href="entry.url">
+							{{ entry.title }}
+						</a>
+					</h2>
+					<h2 v-if="!entry.favicon" class="icon-rss explore-title">
 						{{ entry.title }}
-					</a>
-				</h2>
-				<h2 v-if="!entry.favicon" class="icon-rss explore-title">
-					{{ entry.title }}
-				</h2>
-				<div class="explore-content" style="flex-grow: 1">
-					<p>{{ entry.description }}</p>
+					</h2>
+					<div class="explore-content" style="flex-grow: 1">
+						<p>{{ entry.description }}</p>
 
-					<div v-if="entry.image" class="explore-logo">
-						<img :src="entry.image">
+						<div v-if="entry.image" class="explore-logo">
+							<img :src="entry.image">
+						</div>
 					</div>
+					<NcButton style="max-width: 100%;" @click="subscribe(entry)">
+						{{ t("news", "Subscribe to") }} {{ entry.title }}
+					</NcButton>
 				</div>
-				<NcButton style="max-width: 100%;" @click="subscribe(entry)">
-					{{ t("news", "Subscribe to") }} {{ entry.title }}
-				</NcButton>
 			</div>
 		</div>
-	</div>
+	</NcAppContent>
 </template>
 
 <script lang="ts">
 
 import Vue from 'vue'
 
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import axios from '@nextcloud/axios'
 import * as router from '@nextcloud/router'
@@ -48,6 +51,7 @@ import { Feed } from '../../types/Feed'
 
 const ExploreComponent = Vue.extend({
 	components: {
+		NcAppContent,
 		NcButton,
 		AddFeed,
 	},
