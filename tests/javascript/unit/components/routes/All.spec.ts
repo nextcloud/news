@@ -2,7 +2,7 @@ import Vuex, { Store } from 'vuex'
 import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
 
 import All from '../../../../../src/components/routes/All.vue'
-import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
+import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
 jest.mock('@nextcloud/axios')
 
@@ -48,7 +48,8 @@ describe('All.vue', () => {
 	})
 
 	it('should get all items from state', () => {
-		expect((wrapper.findComponent(FeedItemDisplayList)).props().items.length).toEqual(3)
+		console.warn('PROPS', wrapper.findComponent(ContentTemplate).props());
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(3)
 	})
 
 	it('should dispatch FETCH_ITEMS action if not fetchingItems.all', () => {
