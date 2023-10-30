@@ -22,6 +22,11 @@
 
 <script setup lang="ts">
 
+/**
+ * This component uses vue's composition api format,
+ * for more information, see https://vuejs.org/guide/extras/composition-api-faq.html
+ */
+
 import { type PropType, computed, ref, watch } from 'vue'
 
 import itemStore from '../store/item'
