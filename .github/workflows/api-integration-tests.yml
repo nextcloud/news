@@ -53,6 +53,8 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
           coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup BATS & httpie
         run: sudo apt-get install -y httpie && npm install -g bats@1.7.0
@@ -97,7 +99,7 @@ jobs:
           database-password: ${{ env.POSTGRES_PASSWORD }}
 
       - name: Prime app build
-        run: make
+        run: make composer
 
       - name: Configure server with app
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
@@ -115,7 +117,7 @@ jobs:
           sleep 2
 
           cd ${{ github.workspace }}/../server
-                  
+
           bats apps/news/tests/api
 
           # Kill php server
@@ -135,7 +137,7 @@ jobs:
           sleep 2
 
           cd ${{ github.workspace }}/../server
-                  
+
           bats apps/news/tests/command
 
           kill %1
