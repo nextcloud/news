@@ -16,6 +16,13 @@
 
 		<NcAppContentDetails class="content-details-container">
 			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
+			<NcEmptyContent v-else
+				:title="t('news', 'No article selected')"
+				:description="t('news', 'Please select an article from the list...')">
+				<template #icon>
+					<TextIcon />
+				</template>
+			</NcEmptyContent>
 		</NcAppContentDetails>
 	</NcAppContent>
 </template>
@@ -34,6 +41,9 @@ import itemStore from '../store/item'
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent'
 import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList'
 import NcAppContentDetails from '@nextcloud/vue/dist/Components/NcAppContentDetails'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent'
+
+import TextIcon from 'vue-material-design-icons/Text.vue'
 
 import { FeedItem } from '../types/FeedItem'
 
