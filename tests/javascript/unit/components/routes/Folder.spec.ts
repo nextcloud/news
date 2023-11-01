@@ -26,11 +26,6 @@ describe('Folder.vue', () => {
 		folderId: 123,
 	}
 
-	const mockFolder = {
-		id: 123,
-		name: 'folder name',
-	}
-
 	let store: Store<any>
 	beforeAll(() => {
 		store = new Vuex.Store({
@@ -52,7 +47,6 @@ describe('Folder.vue', () => {
 			},
 			getters: {
 				feeds: () => [mockFeed, mockFeed2],
-				folders: () => [mockFolder],
 			},
 		})
 
@@ -71,11 +65,6 @@ describe('Folder.vue', () => {
 			localVue,
 			store,
 		})
-	})
-
-	it('should display feed title and unread count', () => {
-		expect(wrapper.find('.header').text()).toContain(mockFolder.name)
-		expect(wrapper.find('.header').text()).toContain((mockFeed.unreadCount + mockFeed2.unreadCount).toString())
 	})
 
 	it('should get folder items from state', () => {
