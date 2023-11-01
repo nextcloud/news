@@ -1,5 +1,5 @@
 <template>
-	<ContentTemplate :items="unread()"
+	<ContentTemplate :items="unread() ?? []"
 		:fetch-key="'unread'"
 		:config="{ unreadFilter: false }"
 		@load-more="fetchMore()">
