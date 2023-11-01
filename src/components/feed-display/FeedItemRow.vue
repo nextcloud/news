@@ -17,7 +17,7 @@
 
 		<div class="main-container">
 			<div class="title-container" :class="{ 'unread': item.unread }">
-				<span style="white-space: nowrap" :dir="item.rtl && 'rtl'">
+				<span :dir="item.rtl && 'rtl'">
 					{{ item.title }}
 				</span>
 			</div>
@@ -194,6 +194,7 @@ export default Vue.extend({
 
 		flex-grow: 1;
 		overflow: hidden;
+		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 
