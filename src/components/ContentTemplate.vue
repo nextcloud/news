@@ -14,7 +14,7 @@
 			</NcAppContentList>
 		</template>
 
-		<NcAppContentDetails class="content-details-container">
+		<NcAppContentDetails>
 			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
 			<NcEmptyContent v-else
 				:title="t('news', 'No article selected')"
@@ -96,10 +96,6 @@ function unselectItem() {
 	position: absolute;
 	top: 1em;
 	font-weight: 700;
-}
-
-.content-details-container {
-  height: 100%
 }
 
 </style>
