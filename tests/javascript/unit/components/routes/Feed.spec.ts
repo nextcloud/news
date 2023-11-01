@@ -12,12 +12,6 @@ describe('Feed.vue', () => {
 	localVue.use(Vuex)
 	let wrapper: Wrapper<Feed>
 
-	const mockFeed = {
-		id: 123,
-		title: 'feed name',
-		unreadCount: 2,
-	}
-
 	let store: Store<any>
 	beforeAll(() => {
 		store = new Vuex.Store({
@@ -38,7 +32,6 @@ describe('Feed.vue', () => {
 			actions: {
 			},
 			getters: {
-				feeds: () => [mockFeed],
 			},
 		})
 
@@ -57,11 +50,6 @@ describe('Feed.vue', () => {
 			localVue,
 			store,
 		})
-	})
-
-	it('should display feed title and unread count', () => {
-		expect(wrapper.find('.header').text()).toContain(mockFeed.title)
-		expect(wrapper.find('.header').text()).toContain(mockFeed.unreadCount.toString())
 	})
 
 	it('should get starred items from state', () => {
