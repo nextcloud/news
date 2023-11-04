@@ -127,6 +127,6 @@ class FolderSearchProviderTest extends TestCase
         $this->assertSame('some_tErm', $entry['title']);
         $this->assertSame('folderpath.svg', $entry['thumbnailUrl']);
         $this->assertSame('', $entry['subline']);
-        $this->assertSame('/news#/items/folders/1', $entry['resourceUrl']);
+        $this->assertSame('/news#/folder/1', $entry['resourceUrl']);
     }
 }

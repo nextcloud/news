@@ -71,7 +71,7 @@ class FolderSearchProvider implements IProvider
                 $this->urlGenerator->imagePath('core', 'filetypes/folder.svg'),
                 $folder->getName(),
                 '',
-                $this->urlGenerator->linkToRoute('news.page.index') . '#/items/folders/' . $folder->getId()
+                $this->urlGenerator->linkToRoute('news.page.index') . '#/folder/' . $folder->getId()
             );
         }
 

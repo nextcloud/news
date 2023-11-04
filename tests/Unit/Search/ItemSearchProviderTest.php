@@ -93,7 +93,7 @@ class ItemSearchProviderTest extends TestCase
         $query->expects($this->once())
                 ->method('getLimit')
                 ->willReturn(10);
-        
+
         $user->expects($this->once())
                 ->method('getUID')
                 ->willReturn('user');
@@ -101,7 +101,7 @@ class ItemSearchProviderTest extends TestCase
         $query->expects($this->once())
               ->method('getTerm')
               ->willReturn('some text');
-        
+
 
         $items = [
             Item::fromRow(['id' => 1,'title' => 'some_tErm', 'body' => 'some text', 'feedId' => 1]),
@@ -142,6 +142,6 @@ class ItemSearchProviderTest extends TestCase
         $this->assertSame('some_tErm', $entry['title']);
         $this->assertSame('folderpath.svg', $entry['thumbnailUrl']);
         $this->assertSame('some text', $entry['subline']);
-        $this->assertSame('/news#/items/feeds/1', $entry['resourceUrl']);
+        $this->assertSame('/news#/feed/1', $entry['resourceUrl']);
     }
 }
