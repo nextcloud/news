@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Adjust search urls to match changed Vue routes (#2408)
 
 # Releases
 ## [25.0.0-alpha1] - 2023-10-24

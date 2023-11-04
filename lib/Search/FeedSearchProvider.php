@@ -70,7 +70,7 @@ class FeedSearchProvider implements IProvider
                 $this->urlGenerator->imagePath('core', 'rss.svg'),
                 $feed->getTitle(),
                 $this->l10n->t('Unread articles') . ': ' . $feed->getUnreadCount(),
-                $this->urlGenerator->linkToRoute('news.page.index') . '#/items/feeds/' . $feed->getId()
+                $this->urlGenerator->linkToRoute('news.page.index') . '#/feed/' . $feed->getId()
             );
         }
 

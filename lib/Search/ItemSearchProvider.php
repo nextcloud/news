@@ -94,13 +94,13 @@ class ItemSearchProvider implements IProvider
         }
 
         $icon = $this->urlGenerator->imagePath('core', 'filetypes/text.svg');
-        
+
         foreach ($search_result as $item) {
             $list[] = new SearchResultEntry(
                 $icon,
                 $item->getTitle(),
                 $this->stripTruncate($item->getBody(), 50),
-                $this->urlGenerator->linkToRoute('news.page.index') . '#/items/feeds/' . $item->getFeedId()
+                $this->urlGenerator->linkToRoute('news.page.index') . '#/feed/' . $item->getFeedId()
             );
         }
 

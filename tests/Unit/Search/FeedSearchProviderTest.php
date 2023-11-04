@@ -125,6 +125,6 @@ class FeedSearchProviderTest extends TestCase
         $this->assertSame('some_tErm', $entry['title']);
         $this->assertSame('folderpath.svg', $entry['thumbnailUrl']);
         $this->assertSame('Unread articles: 1', $entry['subline']);
-        $this->assertSame('/news#/items/feeds/1', $entry['resourceUrl']);
+        $this->assertSame('/news#/feed/1', $entry['resourceUrl']);
     }
 }
