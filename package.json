@@ -60,10 +60,6 @@
   "browserslist": [
     "extends @nextcloud/browserslist-config"
   ],
-  "engines": {
-    "node": "^16.0.0",
-    "npm": "^7.0.0 || ^8.0.0"
-  },
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
