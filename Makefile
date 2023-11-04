@@ -83,9 +83,8 @@ endif
 # Installs npm dependencies
 .PHONY: npm
 npm:
-	$(npm) ci
-	$(npm) run build
 ifneq (, $(npm))
+	$(npm) ci
 	$(npm) run build
 else
 	@echo "npm command not available, please install nodejs first"
