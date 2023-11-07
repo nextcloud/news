@@ -84,7 +84,6 @@ endif
 .PHONY: npm
 npm:
 ifneq (, $(npm))
-	$(npm) ci
 	$(npm) run build
 else
 	@echo "npm command not available, please install nodejs first"
