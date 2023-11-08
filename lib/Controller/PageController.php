@@ -103,7 +103,7 @@ class PageController extends Controller
             ->addAllowedFrameDomain('https://vk.com')
             ->addAllowedFrameDomain('https://www.vk.com');
 
-        if($this->settings->getSystemValue('debug')) {
+        if ($this->settings->getSystemValue('debug')) {
             $csp->allowInlineScript(true);
             $csp->allowEvalScript(true);
         }
