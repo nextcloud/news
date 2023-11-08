@@ -14,7 +14,7 @@ namespace OCA\News\Db;
 
 use OC\DB\QueryBuilder\Literal;
 use OCA\News\Service\Exceptions\ServiceValidationException;
-use Doctrine\DBAL\FetchMode;
+use PDO;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
@@ -201,7 +201,7 @@ class ItemMapperV2 extends NewsMapperV2
                ->groupBy('feed_id');
 
         $feeds = $this->db->executeQuery($feedQb->getSQL())
-                          ->fetchAll(FetchMode::ASSOCIATIVE);
+                          ->fetchAll();
 
         if ($feeds === []) {
             return null;
@@ -227,7 +227,7 @@ class ItemMapperV2 extends NewsMapperV2
             $rangeQuery->setFirstResult(max($threshold, $feed['articlesPerUpdate']));
 
             $items = $this->db->executeQuery($rangeQuery->getSQL(), ['feedId' => $feed['feed_id']])
-                              ->fetchAll(FetchMode::COLUMN);
+                              ->fetchAll(PDO::FETCH_COLUMN);
 
             $total_items = array_merge($total_items, $items);
         }
