@@ -70,6 +70,7 @@ OC.L10N.register(
     "Play audio" : "Reproducir audio",
     "Download audio" : "Descargar audio",
     "Download video" : "Descargar vídeo",
+    "Unread" : "No leído",
     "Open website" : "Abrir página web",
     "Subscribe to" : "Subscribirse a",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Detectado modo Ajax o webcron! ¡Tus fuentes no se actualizarán!",

@@ -56,6 +56,7 @@ OC.L10N.register(
     "Play audio" : "Αναπαραγωγή ήχου",
     "Download audio" : "Λήψη ήχου",
     "Download video" : "Κατεβάστε το βίντεο",
+    "Unread" : "Μη αναγνωσμένο",
     "Open website" : "Άνοιγμα ιστοσελίδας",
     "Subscribe to" : "Εγγραφείτε στο",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ή webcron κατάσταση εντοπίστηκε! Οι ροές σας δεν θα ενημερωθούν!",
