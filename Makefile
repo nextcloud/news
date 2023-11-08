@@ -194,7 +194,7 @@ appstore:
 
 .PHONY: js-test
 js-test:
-	cd js && $(npm) run test
+	$(npm) run test
 
 .PHONY: php-test-dependencies
 php-test-dependencies:
