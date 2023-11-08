@@ -102,6 +102,12 @@ class PageController extends Controller
             ->addAllowedFrameDomain('https://www.player.vimeo.com')
             ->addAllowedFrameDomain('https://vk.com')
             ->addAllowedFrameDomain('https://www.vk.com');
+
+        if($this->settings->getSystemValue('debug')) {
+            $csp->allowInlineScript(true);
+            $csp->allowEvalScript(true);
+        }
+
         $response->setContentSecurityPolicy($csp);
 
         return $response;
