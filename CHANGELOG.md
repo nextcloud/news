@@ -5,13 +5,19 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Use Nextcloud vue components for item list and article view
-- Fix aspect ratio of article images
+
+### Fixed
+
+# Releases
+## [25.0.0-alpha2] - 2023-11-08
+### Changed
+- Add support for Nextcloud 28
+- Use Nextcloud vue components for item list and article view (#2401)
+- Fix aspect ratio of article images (#2401)
 
 ### Fixed
 - Adjust search urls to match changed Vue routes (#2408)
 
-# Releases
 ## [25.0.0-alpha1] - 2023-10-24
 ### Changed
 - Major Rewrite of the Frontend with Vue JS (#748)
