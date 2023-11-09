@@ -44,6 +44,8 @@
     "How many redirects the feed fetcher should follow." : "Nombre de redirections que le récupérateur de flux doit suivre",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nombre maximal de secondes que peut prendre un flux RSS ou Atom pour être chargé. Si le délai est dépassé, la mise à jour sera annulée",
     "Interval in seconds in which the feeds will be updated." : "Fréquence à laquelle les flux seront mis à jour (en secondes).",
+    "No article selected" : "Aucun article sélectionné",
+    "Please select an article from the list..." : "Veuillez sélectionner un article dans la liste ...",
     "User Name" : "Nom d'utilisateur",
     "Share" : "Partager",
     "Share with" : "Partager avec",

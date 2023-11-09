@@ -46,6 +46,8 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "كم عدد مرات إعادة التوجيه redirect التي يتوجب على جالب اللُقَم feed fetcher أن يتّبعها.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "العدد الأقصى للثواني لانتظار تحميل لُقمَة RSS أو Atom. إذا استغرق الأمر وقتًا أطول، فسيتم إنهاء عملية التحديث.",
     "Interval in seconds in which the feeds will be updated." : "الفترة الفاصلة بين تحديثات الإلقام بالثواني",
+    "No article selected" : "لم يتم تحديد أي مقالٍ",
+    "Please select an article from the list..." : "رجاءً، إختَر مقالاً من القائمة ...",
     "User Name" : "اسم المستخدِم",
     "Share" : "مشاركة",
     "Share with" : "شارِكه مع",

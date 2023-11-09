@@ -45,7 +45,7 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Čas, namenjen nalaganju virov RSS in Atom. Če traja dlje je nalaganje virov prekinjeno.",
     "Interval in seconds in which the feeds will be updated." : "Časovni zamik v sekundah za posodabljanje spletnih virov.",
     "Share" : "Souporaba",
-    "Share with" : "Omogoči souporabo…",
+    "Share with" : "Omogoči souporabo …",
     "Mark read" : "Označi kot prebrano",
     "All articles" : "Vsi prispevki",
     "Starred" : "Z zvezdico",
