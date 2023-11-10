@@ -132,7 +132,7 @@
     "vue2-datepicker": "^3.11.0",
     "webpack": "^5.72.1",
     "webpack-cli": "^5.0.0",
-    "webpack-merge": "^5.8.0"
+    "webpack-merge": "^5.10.0"
   },
   "jest": {
     "preset": "ts-jest",
