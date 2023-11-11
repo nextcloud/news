@@ -5,8 +5,9 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Use Nextcloud vue components for item list and article view
-- Fix aspect ratio of article images
+- Use Nextcloud vue components for item list and article view (#2401)
+- Fix aspect ratio of article images (#2401)
+- Allow usage of Vue devtools in Firefox (#2412)
 
 ### Fixed
 - Adjust search urls to match changed Vue routes (#2408)
