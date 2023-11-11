@@ -44,6 +44,8 @@
     "How many redirects the feed fetcher should follow." : "Kolik až přesměrování může být následováno při stahování článků.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nejdelší přijatelné čekání (v sekundách) na načtení RSS nebo Atom kanálu. Při překročení bude pokus o aktualizaci přerušen.",
     "Interval in seconds in which the feeds will be updated." : "Interval (v sekundách) ve kterém budou kanály aktualizovány.",
+    "No article selected" : "Nevybrán žádný článek",
+    "Please select an article from the list..." : "Vyberte jiný článek ze seznamu",
     "User Name" : "Uživatelské jméno",
     "Share" : "Sdílet",
     "Share with" : "Sdílet s",
