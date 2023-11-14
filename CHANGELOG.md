@@ -7,6 +7,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
+- Fix search support for Nextcloud 28
 
 # Releases
 ## [25.0.0-alpha2] - 2023-11-08

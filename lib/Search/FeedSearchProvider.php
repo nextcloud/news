@@ -59,7 +59,12 @@ class FeedSearchProvider implements IProvider
     public function search(IUser $user, ISearchQuery $query): SearchResult
     {
         $list = [];
-        $term = strtolower($query->getTerm());
+        if (method_exists($query, 'getFilter')) {
+            $term = $query->getFilter('term')?->get() ?? '';
+        } else {
+            $term = $query->getTerm();
+        }
+        $term = strtolower($term);
 
         foreach ($this->service->findAllForUser($user->getUID()) as $feed) {
             if (strpos(strtolower($feed->getTitle()), $term) === false) {
