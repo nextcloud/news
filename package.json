@@ -108,7 +108,7 @@
     "node-gettext": "^3.0.0",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "regenerator-runtime": "^0.13.11",
-    "regenerator-transform": "^0.15.0",
+    "regenerator-transform": "^0.15.2",
     "regexpu-core": "^5.2.1",
     "splitpanes": "^3.1.5",
     "string-length": "^5.0.1",
