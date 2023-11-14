@@ -60,13 +60,13 @@ class ItemSearchProvider implements IProvider
     private function stripTruncate(string $string, int $length = 50): string
     {
         $string = strip_tags(trim($string));
-      
+
         if (strlen($string) > $length) {
             $string = wordwrap($string, $length);
             $string = explode("\n", $string, 2);
             $string = $string[0];
         }
-      
+
         return $string;
     }
 
@@ -76,13 +76,19 @@ class ItemSearchProvider implements IProvider
         $offset = (int) ($query->getCursor() ?? 0);
         $limit = $query->getLimit();
 
+        if (method_exists($query, 'getFilter')) {
+            $term = $query->getFilter('term')?->get() ?? '';
+        } else {
+            $term = $query->getTerm();
+        }
+
         $search_result = $this->service->findAllWithFilters(
             $user->getUID(),
             ListType::ALL_ITEMS,
             $limit,
             $offset,
             false,
-            [$query->getTerm()]
+            [$term]
         );
 
         $last = end($search_result);
