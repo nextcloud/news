@@ -7,10 +7,16 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ### Changed
 
 ### Fixed
-- Fix search support for Nextcloud 28
-- Downgrade feed-io to 5.3.1 (#2497)
 
 # Releases
+## [25.0.0-alpha3] - 2023-12-24
+### Changed
+- Changed default page when starting app (#2515)
+- Downgrade feed-io to 5.3.1 (#2497)
+
+### Fixed
+- Fix search support for Nextcloud 28 (#2432)
+
 ## [25.0.0-alpha2] - 2023-11-08
 ### Changed
 - Add support for Nextcloud 28
