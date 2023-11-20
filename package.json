@@ -109,7 +109,7 @@
     "node-polyfill-webpack-plugin": "^2.0.1",
     "regenerator-runtime": "^0.13.11",
     "regenerator-transform": "^0.15.2",
-    "regexpu-core": "^5.2.1",
+    "regexpu-core": "^6.0.0",
     "splitpanes": "^3.1.5",
     "string-length": "^6.0.0",
     "striptags": "^3.2.0",
