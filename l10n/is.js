@@ -23,6 +23,7 @@ OC.L10N.register(
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth auðkenni verða að geymast ódulrituð! Hver sá sem hefur aðgang að þjóninum eða gagnagrunninum mun hafa aðgang að þeim!",
     "Credentials" : "Auðkenni",
     "Subscribe" : "Áskrift",
+    "Last job ran {relativeTime}." : "Síðasta verk var keyrt {relativeTime}.",
     "Maximum read count per feed" : "Hámarkfjöldi lestra á hvert streymi",
     "Maximum redirects" : "Hámarks endurbeiningar",
     "Feed fetcher timeout" : "Tímamörk streymissugu",
