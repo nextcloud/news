@@ -88,17 +88,15 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('innerJoin')
-            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->withConsecutive(
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id'],
+                ['a', 'a', 'a', 'a']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
             ->method('where')
-            ->with('feeds.user_id = :user_id')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-            ->method('andWhere')
-            ->with('feeds.deleted_at = 0')
+            ->with('users.user_id = :user_id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
@@ -149,17 +147,12 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('innerJoin')
-            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->with('items', 'news_user_items', 'users', 'items.id = users.item_id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
             ->method('where')
-            ->with('feeds.user_id = :user_id')
-            ->will($this->returnSelf());
-
-        $this->builder->expects($this->exactly(2))
-            ->method('andWhere')
-            ->withConsecutive(['feeds.deleted_at = 0'], ['key = :val'])
+            ->with('users.user_id = :user_id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(1))
@@ -291,17 +284,17 @@ class ItemMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->once())
             ->method('innerJoin')
-            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
+            ->with('items', 'news_user_items', 'users', 'items.id = users.item_id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
             ->method('where')
-            ->with('feeds.user_id = :user_id')
+            ->with('users.user_id = :user_id')
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['items.id = :item_id'], ['feeds.deleted_at = 0'])
+            ->withConsecutive(['items.id = :item_id'], ['users.deleted_at = 0'])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))

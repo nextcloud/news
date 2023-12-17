@@ -5,6 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Split user data out of feed fields for de-duplication
 
 ### Fixed
 - Fix search support for Nextcloud 28

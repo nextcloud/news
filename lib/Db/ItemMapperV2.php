@@ -31,6 +31,7 @@ use OCP\IDBConnection;
 class ItemMapperV2 extends NewsMapperV2
 {
     const TABLE_NAME = 'news_items';
+    const USER_TABLE_NAME = 'news_user_items';
 
     /**
      * ItemMapper constructor.
@@ -40,7 +41,7 @@ class ItemMapperV2 extends NewsMapperV2
      */
     public function __construct(IDBConnection $db, Time $time)
     {
-        parent::__construct($db, $time, Item::class);
+        parent::__construct($db, $time, Item::class, self::USER_TABLE_NAME);
     }
 
     /**
@@ -56,9 +57,8 @@ class ItemMapperV2 extends NewsMapperV2
         $builder = $this->db->getQueryBuilder();
         $builder->select('items.*')
                 ->from($this->tableName, 'items')
-                ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-                ->where('feeds.user_id = :user_id')
-                ->andWhere('feeds.deleted_at = 0')
+                ->innerJoin('items', self::USER_TABLE_NAME, 'users', 'items.id = users.item_id')
+                ->where('users.user_id = :user_id')
                 ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR);
 
         foreach ($params as $key => $value) {
@@ -103,10 +103,9 @@ class ItemMapperV2 extends NewsMapperV2
         $builder = $this->db->getQueryBuilder();
         $builder->select('items.*')
             ->from($this->tableName, 'items')
-            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-            ->where('feeds.user_id = :user_id')
+            ->innerJoin('items', self::USER_TABLE_NAME, 'users', 'items.id = users.item_id')
+            ->where('users.user_id = :user_id')
             ->andWhere('items.id = :item_id')
-            ->andWhere('feeds.deleted_at = 0')
             ->setParameter('user_id', $userId, IQueryBuilder::PARAM_STR)
             ->setParameter('item_id', $id, IQueryBuilder::PARAM_INT);
 
@@ -459,9 +458,10 @@ class ItemMapperV2 extends NewsMapperV2
     ): array {
         $builder = $this->db->getQueryBuilder();
 
-        $builder->select('items.*')
+        $builder->select('items.*', 'users.unread', 'users.starred', 'users.shared_by')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->innerJoin('items', self::USER_TABLE_NAME, 'users', 'items.id = users.item_id')
             ->andWhere('feeds.deleted_at = 0')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('items.feed_id = :feedId')
@@ -516,9 +516,10 @@ class ItemMapperV2 extends NewsMapperV2
             $folderWhere = $builder->expr()->eq('feeds.folder_id', new Literal($folderId), IQueryBuilder::PARAM_INT);
         }
 
-        $builder->select('items.*')
+        $builder->select('items.*', 'users.unread', 'users.starred', 'users.shared_by')
             ->from($this->tableName, 'items')
             ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->innerJoin('items', self::USER_TABLE_NAME, 'users', 'items.id = users.item_id')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.deleted_at = 0')
             ->andWhere($folderWhere)
@@ -565,11 +566,10 @@ class ItemMapperV2 extends NewsMapperV2
     ): array {
         $builder = $this->db->getQueryBuilder();
 
-        $builder->select('items.*')
+        $builder->select('items.*', 'users.unread', 'users.starred', 'users.shared_by')
             ->from($this->tableName, 'items')
-            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
-            ->andWhere('feeds.user_id = :userId')
-            ->andWhere('feeds.deleted_at = 0')
+            ->innerJoin('items', self::USER_TABLE_NAME, 'users', 'items.id = users.item_id')
+            ->andWhere('users.user_id = :userId')
             ->setParameter('userId', $userId)
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 

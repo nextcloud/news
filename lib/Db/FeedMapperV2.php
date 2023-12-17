@@ -29,6 +29,7 @@ use OCP\AppFramework\Db\Entity;
 class FeedMapperV2 extends NewsMapperV2
 {
     const TABLE_NAME = 'news_feeds';
+    const USER_TABLE_NAME = 'news_user_feeds';
 
     /**
      * FeedMapper constructor.
@@ -38,7 +39,7 @@ class FeedMapperV2 extends NewsMapperV2
      */
     public function __construct(IDBConnection $db, Time $time)
     {
-        parent::__construct($db, $time, Feed::class);
+        parent::__construct($db, $time, Feed::class, self::USER_TABLE_NAME);
     }
 
     /**
@@ -53,7 +54,7 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('feeds.*', $builder->func()->count('items.id', 'unreadCount'))
-            ->from(static::TABLE_NAME, 'feeds')
+            ->from(static::USER_TABLE_NAME, 'feeds')
             ->leftJoin(
                 'feeds',
                 ItemMapperV2::TABLE_NAME,
@@ -84,7 +85,7 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-            ->from(static::TABLE_NAME)
+            ->from(static::USER_TABLE_NAME)
             ->where('user_id = :user_id')
             ->andWhere('id = :id')
             ->setParameter('user_id', $userId)
@@ -102,7 +103,7 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-            ->from(static::TABLE_NAME)
+            ->from(static::USER_TABLE_NAME)
             ->where('deleted_at = 0');
 
         return $this->findEntities($builder);
@@ -123,7 +124,8 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-            ->from(static::TABLE_NAME)
+            ->from(static::TABLE_NAME, 'feeds')
+            ->innerJoin('feeds', self::USER_TABLE_NAME, 'users', 'feeds.id = users.feed_id')
             ->where('user_id = :user_id')
             ->andWhere('url = :url')
             ->setParameter('user_id', $userId)
@@ -143,7 +145,7 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $builder = $this->db->getQueryBuilder();
         $builder->select('*')
-            ->from(static::TABLE_NAME);
+            ->from(static::USER_TABLE_NAME);
 
         if (is_null($id)) {
             $builder->where('folder_id IS NULL');
@@ -168,8 +170,8 @@ class FeedMapperV2 extends NewsMapperV2
     {
         $idBuilder = $this->db->getQueryBuilder();
         $idBuilder->select('items.id')
-            ->from(ItemMapperV2::TABLE_NAME, 'items')
-            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->from(ItemMapperV2::USER_TABLE_NAME, 'items')
+            ->innerJoin('items', FeedMapperV2::USER_TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.id = :feedId')
             ->setParameter('userId', $userId)
@@ -188,7 +190,7 @@ class FeedMapperV2 extends NewsMapperV2
         );
         $time = new Time();
         $builder = $this->db->getQueryBuilder();
-        $builder->update(ItemMapperV2::TABLE_NAME)
+        $builder->update(ItemMapperV2::USER_TABLE_NAME)
             ->set('unread', $builder->createParameter('unread'))
             ->set('last_modified', $builder->createParameter('last_modified'))
             ->andWhere('id IN (:idList)')

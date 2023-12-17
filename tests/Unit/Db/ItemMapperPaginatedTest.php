@@ -64,15 +64,13 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(['items', 'news_user_items', 'users', 'items.id = users.item_id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0']
-            )
+                ['users.user_id = :userId'])
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(2))
@@ -129,14 +127,13 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(['items', 'news_user_items', 'users', 'items.id = users.item_id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(3))
+        $this->builder->expects($this->exactly(2))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
+                ['users.user_id = :userId'],
                 ['items.id > :offset']
             )
             ->will($this->returnSelf());
@@ -196,14 +193,13 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(['items', 'news_user_items', 'users', 'items.id = users.item_id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
+                ['users.user_id = :userId'],
                 ['items.id < :offset'],
                 ['items.unread = :unread']
             )
@@ -267,14 +263,13 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(['items', 'news_user_items', 'users', 'items.id = users.item_id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
+                ['users.user_id = :userId'],
                 ['items.id < :offset'],
                 ['items.unread = :unread']
             )
@@ -336,14 +331,13 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(['items', 'news_user_items', 'users', 'items.id = users.item_id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(4))
+        $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
+                ['users.user_id = :userId'],
                 ['items.id < :offset'],
                 ['items.starred = :starred']
             )
@@ -411,14 +405,13 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(['items', 'news_user_items', 'users', 'items.id = users.item_id'])
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(6))
+        $this->builder->expects($this->exactly(5))
             ->method('andWhere')
             ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
+                ['users.user_id = :userId'],
                 ['items.id < :offset'],
                 ['items.search_index LIKE :term0'],
                 ['items.search_index LIKE :term1'],
@@ -490,9 +483,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
@@ -563,9 +559,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
@@ -634,9 +633,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
@@ -705,9 +707,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(5))
@@ -782,9 +787,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(6))
@@ -875,9 +883,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
@@ -960,9 +971,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(4))
@@ -1043,9 +1057,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(5))
@@ -1129,9 +1146,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(5))
@@ -1218,9 +1238,12 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(1))
+        $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->withConsecutive(
+                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+                ['items', 'news_user_items', 'users', 'items.id = users.item_id']
+            )
             ->will($this->returnSelf());
 
         $this->builder->expects($this->exactly(6))

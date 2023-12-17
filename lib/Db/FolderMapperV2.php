@@ -112,8 +112,8 @@ class FolderMapperV2 extends NewsMapperV2
     {
         $idBuilder = $this->db->getQueryBuilder();
         $idBuilder->select('items.id')
-                  ->from(ItemMapperV2::TABLE_NAME, 'items')
-                  ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+                  ->from(ItemMapperV2::USER_TABLE_NAME, 'items')
+                  ->innerJoin('items', FeedMapperV2::USER_TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
                   ->andWhere('feeds.user_id = :userId')
                   ->andWhere('feeds.folder_id = :folderId')
                   ->setParameter('userId', $userId)
@@ -130,7 +130,7 @@ class FolderMapperV2 extends NewsMapperV2
 
         $time = new Time();
         $builder = $this->db->getQueryBuilder();
-        $builder->update(ItemMapperV2::TABLE_NAME)
+        $builder->update(ItemMapperV2::USER_TABLE_NAME)
             ->set('unread', $builder->createParameter('unread'))
             ->set('last_modified', $builder->createParameter('last_modified'))
             ->andWhere('id IN (:idList)')
