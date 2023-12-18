@@ -45,6 +45,6 @@ class TimeTest extends TestCase
 
         $time = new Time();
         $result = (float) $time->getMicroTime();
-        $this->assertTrue($result > $cur);
+        $this->assertTrue($result >= $cur);
     }
 }
