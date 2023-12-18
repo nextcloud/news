@@ -47,7 +47,7 @@ teardown() {
   run ./occ news:feed:list "$user"
   assert_success
     
-  assert_output --partial '"faviconLink": "https:\/\/nextcloud.com\/wp-content\/uploads\/2022\/03\/favicon.png",'
+  assert_output --partial '"faviconLink": "https:\/\/nextcloud.com\/c\/uploads\/2022\/03\/favicon.png",'
   assert_output --partial  '"faviconLink": "https:\/\/www.heise.de\/favicon.ico?v='
 }
 
