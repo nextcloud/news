@@ -57,7 +57,7 @@
 		"title": "Project Gutenberg",
 		"favicon": "https://www.gutenberg.org/gutenberg/favicon.ico",
 		"url": "https://gutenberg.org/",
-		"feed": "http://www.gutenberg.org/cache/epub/feeds/today.rss",
+		"feed": "https://www.gutenberg.org/cache/epub/feeds/today.rss",
 		"description": "A library of over 60,000 free eBooks",
 		"votes": 100
 	},
@@ -87,9 +87,9 @@
 	},
 	{
 		"title": "ccMixter",
-		"favicon": "http://ccmixter.org/mixter-files/images/mixter-default.gif",
-		"url": "http://ccmixter.org/",
-		"feed": "http://ccmixter.org/api/query?f=rss&tags=editorial_pick&sort=date&dir=DESC&limit=22",
+		"favicon": "https://ccmixter.org/mixter-files/images/mixter-default.gif",
+		"url": "https://ccmixter.org/",
+		"feed": "https://ccmixter.org/api/query?f=rss&tags=editorial_pick&sort=date&dir=DESC&limit=22",
 		"description": "Editor’s picks from the global music community",
 		"votes": 100
 	}]
