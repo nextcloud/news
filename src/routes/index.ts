@@ -18,7 +18,7 @@ export const ROUTES = {
 
 const getInitialRoute = function() {
 	// TODO: Fetch Recent route from Browser Session?
-	return ROUTES.EXPLORE
+	return ROUTES.UNREAD
 }
 
 const routes = [
