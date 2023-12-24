@@ -10,6 +10,7 @@ OC.L10N.register(
     "New Folder" : "Carpeta nueva",
     "Menu" : "Menú",
     "Settings" : "Configuración",
+    "Export" : "Esportar",
     "Help" : "Ayuda",
     "Keyboard shortcuts" : "Atayos del tecláu",
     "Documentation" : "Documentación"
