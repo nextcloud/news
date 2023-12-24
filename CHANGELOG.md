@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 
 ### Fixed
 - Fix search support for Nextcloud 28
+- Downgrade feed-io to 5.3.1 (#2497)
 
 # Releases
 ## [25.0.0-alpha2] - 2023-11-08
