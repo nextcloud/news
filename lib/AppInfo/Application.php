@@ -24,6 +24,7 @@ use OCA\News\Hooks\UserDeleteHook;
 use OCA\News\Search\FeedSearchProvider;
 use OCA\News\Search\FolderSearchProvider;
 use OCA\News\Search\ItemSearchProvider;
+use OCA\News\Listeners\AddMissingIndicesListener;
 use OCA\News\Utility\Cache;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -34,6 +35,7 @@ use OCP\AppFramework\App;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCP\User\Events\BeforeUserDeletedEvent;
+use OCP\DB\Events\AddMissingIndicesEvent;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -87,6 +89,7 @@ class Application extends App implements IBootstrap
 
 
         $context->registerEventListener(BeforeUserDeletedEvent::class, UserDeleteHook::class);
+        $context->registerEventListener(AddMissingIndicesEvent::class, AddMissingIndicesListener::class);
 
         // parameters
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
