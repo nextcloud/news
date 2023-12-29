@@ -5,6 +5,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Add DB index for news_feeds.deleted_at (#2526)
 
 ### Fixed
 
