@@ -23,7 +23,9 @@
 			</div>
 
 			<div class="intro-container">
+				<!-- eslint-disable vue/no-v-html -->
 				<span class="intro" v-html="item.intro" />
+				<!--eslint-enable-->
 			</div>
 
 			<div class="date-container">

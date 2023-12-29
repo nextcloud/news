@@ -80,6 +80,10 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
 	}
 })
 
+/**
+ * Unselect a list item.
+ *
+ */
 function unselectItem() {
 	itemStore.mutations.SET_SELECTED_ITEM(
 		itemStore.state,

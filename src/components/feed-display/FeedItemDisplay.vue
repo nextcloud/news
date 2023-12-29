@@ -85,9 +85,11 @@
 				<img v-else :src="item.mediaThumbnail" alt="">
 			</div>
 
+			<!-- eslint-disable vue/no-v-html -->
 			<div v-if="item.mediaDescription" class="enclosure description" v-html="item.mediaDescription" />
 
 			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
+			<!--eslint-enable-->
 		</div>
 	</div>
 </template>
