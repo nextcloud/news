@@ -29,7 +29,7 @@ export class FeedService {
 	 * Attempts to add a feed to the Nextcloud News backend
 	 * NOTE: this can fail if feed URL is not resolvable
 	 *
-	 * @param param0
+	 * @param param0 Data for the feed
 	 * @param param0.url {String} url of the feed to add
 	 * @param param0.folderId {number} id number of folder to add feed to
 	 * @param param0.user {String} http auth username required for accessing feed
@@ -50,7 +50,7 @@ export class FeedService {
 	/**
 	 * Marks all items in feed, started with highestReadId
 	 *
-	 * @param param0
+	 * @param param0 Data for the feed
 	 * @param param0.feedId {Number} ID number of feed to mark items as read
 	 * @param param0.highestItemId {Number} ID number of the (most recent?) feed item to mark as read (all older items will be marked as read)
 	 * @return {AxiosResponse} Updated feed info (unreadCount = 0) stored in data.feeds[0] property
@@ -64,7 +64,7 @@ export class FeedService {
 	/**
 	 * Update a feeds properties
 	 *
-	 * @param param0
+	 * @param param0 Data for the feed
 	 * @param param0.feedId {Number} ID number of feed to update
 	 * @param param0.pinned {Boolean} should be pinned (true) or not pinned (flse)
 	 * @param param0.ordering {FEED_ORDER} sets feed order (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
@@ -86,7 +86,7 @@ export class FeedService {
 	/**
 	 * Deletes a feed
 	 *
-	 * @param param0
+	 * @param param0 Data for the feed
 	 * @param param0.feedId {Number} ID number of feed to delete
 	 * @return {AxiosResponse} Null value is returned on success
 	 */

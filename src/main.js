@@ -25,7 +25,7 @@ const store = new Store(mainStore)
  * Handles errors returned during application runtime
  *
  * @param {Error} error Error thrown
- * @return Promise<Error>
+ * @return {Promise<Error>} Error promise
  */
 const handleErrors = function(error) {
 	store.commit(MUTATIONS.SET_ERROR, error)

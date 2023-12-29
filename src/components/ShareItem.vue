@@ -95,7 +95,7 @@ export default Vue.extend({
 		/**
 		 * Adds or removes user to selected list
 		 *
-		 * @param user {ShareUser} user that was clicked
+		 * @param {ShareUser} user - User that was clicked
 		 */
 		clickUser(user: ShareUser) {
 			const selectedUsers = this.selected.map((val: ShareUser) => { return val.shareName })

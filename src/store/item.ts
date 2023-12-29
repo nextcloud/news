@@ -66,9 +66,9 @@ export const actions = {
 	 * Fetch Unread Items from Backend and call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit data
 	 * @param param1 ActionArgs
-	 * @param param1.start
+	 * @param param1.start Start arg
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_UNREAD](
 		{ commit }: ActionParams<ItemState>,
@@ -93,9 +93,9 @@ export const actions = {
 	 * Fetch All Items from Backend and call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
-	 * @param param1.start
+	 * @param param1.start Start data
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS](
 		{ commit }: ActionParams<ItemState>,
@@ -122,9 +122,9 @@ export const actions = {
 	 * Fetch Starred Items from Backend and call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
-	 * @param param1.start
+	 * @param param1.start Start data
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED](
 		{ commit }: ActionParams<ItemState>,
@@ -152,10 +152,10 @@ export const actions = {
 	 * Fetch All Feed Items from Backend and call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
-	 * @param param1.start
-	 * @param param1.feedId
+	 * @param param1.start Start data
+	 * @param param1.feedId ID of the feed
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
@@ -179,10 +179,10 @@ export const actions = {
 	 * Fetch Folder Items from Backend and call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
-	 * @param param1.start
-	 * @param param1.folderId
+	 * @param param1.start Start data
+	 * @param param1.folderId ID of the folder
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
@@ -206,10 +206,10 @@ export const actions = {
 	 * Sends message to Backend to mark as read, and then call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
-	 * @param param0.dispatch
+	 * @param param0.commit Commit action
+	 * @param param0.dispatch Dispatch action
 	 * @param param1 ActionArgs
-	 * @param param1.item
+	 * @param param1.item Item argument
 	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_READ](
 		{ commit, dispatch }: ActionParams<ItemState>,
@@ -230,10 +230,10 @@ export const actions = {
 	 * Sends message to Backend to mark as unread, and then call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
-	 * @param param0.dispatch
+	 * @param param0.commit Commit action
+	 * @param param0.dispatch Dispatch
 	 * @param param1 ActionArgs
-	 * @param param1.item
+	 * @param param1.item Item
 	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD](
 		{ commit, dispatch }: ActionParams<ItemState>,
@@ -254,9 +254,9 @@ export const actions = {
 	 * Sends message to Backend to mark as starred, and then call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit action
 	 * @param param1 ActionArgs
-	 * @param param1.item
+	 * @param param1.item Item
 	 */
 	[FEED_ITEM_ACTION_TYPES.STAR_ITEM](
 		{ commit }: ActionParams<ItemState>,
@@ -273,9 +273,9 @@ export const actions = {
 	 * Sends message to Backend to remove mark as starred, and then call commit to update state
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.commit
+	 * @param param0.commit Commit action
 	 * @param param1 ActionArgs
-	 * @param param1.item
+	 * @param param1.item Item
 	 */
 	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM](
 		{ commit }: ActionParams<ItemState>,

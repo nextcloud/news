@@ -17,7 +17,7 @@ export class FolderService {
 	/**
 	 * Creates a new Folder in the Nextcloud News backend
 	 *
-	 * @param param0
+	 * @param param0 Folder data
 	 * @param param0.name {String} New Folder Name
 	 * @return {AxiosResponse} Folder info from backend in data.folders[0] property
 	 */
@@ -28,7 +28,7 @@ export class FolderService {
 	/**
 	 * Update a folder name
 	 *
-	 * @param param0
+	 * @param param0 Folder data
 	 * @param param0.id {Number} ID number of folder to update
 	 * @param param0.name {String} name to set for folder
 	 * @return {AxiosResponse} Null value is returned on success
@@ -42,7 +42,7 @@ export class FolderService {
 	/**
 	 * Deletes a folder in the Nextcloud News backend (by id number)
 	 *
-	 * @param param0
+	 * @param param0 Folder data
 	 * @param param0.id {number} id of folder to delete
 	 * @return {AxiosResponse}
 	 */
