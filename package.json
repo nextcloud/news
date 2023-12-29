@@ -87,7 +87,7 @@
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "debounce": "^2.0.0",
     "emoji-mart-vue-fast": "^15.0.0",
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-import-resolver-webpack": "^0.13.8",
     "eslint-plugin-import": "^2.29.1",
