@@ -123,9 +123,9 @@ Connect to your DB and execute the commands. Don't forget to switch to the right
 For example in mysql: `use nextcloud;`
 
 ```sql
-DROP TABLE oc_news_folders;
-DROP TABLE oc_news_feeds;
 DROP TABLE oc_news_items;
+DROP TABLE oc_news_feeds;
+DROP TABLE oc_news_folders;
 ```
 
 Then we remove the traces in the migrations table.
@@ -149,4 +149,4 @@ DELETE FROM oc_jobs WHERE class='OCA\\News\\Cron\\Updater';
 DELETE FROM oc_jobs WHERE argument='["OCA\\\\News\\\\Cron\\\\Updater","run"]';
 ```
 
-Now nothing is left from News in your nextcloud installation.
+Now nothing is left from News in your Nextcloud installation.
