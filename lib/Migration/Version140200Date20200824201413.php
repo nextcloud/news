@@ -181,6 +181,8 @@ class Version140200Date20200824201413 extends SimpleMigrationStep {
 			$table->addIndex(['user_id'], 'news_feeds_user_id_index');
 			$table->addIndex(['folder_id'], 'news_feeds_folder_id_index');
 			$table->addIndex(['url_hash'], 'news_feeds_url_hash_index');
+			//added with news 25.x
+			$table->addIndex(['deleted_at'], 'news_feeds_deleted_at_index');
 		}
 
 		if (!$schema->hasTable('news_items')) {
