@@ -72,7 +72,7 @@ class Version150004Date20201009183830 extends SimpleMigrationStep {
 	    $item_name = $this->connection->getQueryBuilder()->getTableName('news_items');
 	    $feed_name = $this->connection->getQueryBuilder()->getTableName('news_feeds');
 
-	    $items_query = "DELETE FROM ${item_name} WHERE ${item_name}.`feed_id` NOT IN (SELECT DISTINCT id FROM ${feed_name})";
+	    $items_query = "DELETE FROM {$item_name} WHERE {$item_name}.`feed_id` NOT IN (SELECT DISTINCT id FROM {$feed_name})";
         $this->connection->executeQuery($items_query);
 	}
 }

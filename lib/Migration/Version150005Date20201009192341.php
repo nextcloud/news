@@ -41,13 +41,13 @@ class Version150005Date20201009192341 extends SimpleMigrationStep {
         $feed_name = $this->connection->getQueryBuilder()->getTableName('news_feeds');
         $folder_name = $this->connection->getQueryBuilder()->getTableName('news_folders');
 
-        $items_query = "DELETE FROM ${feed_name} WHERE ${feed_name}.`folder_id` NOT IN (SELECT DISTINCT id FROM ${folder_name}) AND ${feed_name}.`folder_id` IS NOT NULL";
+        $items_query = "DELETE FROM {$feed_name} WHERE {$feed_name}.`folder_id` NOT IN (SELECT DISTINCT id FROM {$folder_name}) AND {$feed_name}.`folder_id` IS NOT NULL";
         $this->connection->executeQuery($items_query);
 
         $item_name = $this->connection->getQueryBuilder()->getTableName('news_items');
         $feed_name = $this->connection->getQueryBuilder()->getTableName('news_feeds');
 
-        $items_query = "DELETE FROM ${item_name} WHERE ${item_name}.`feed_id` NOT IN (SELECT DISTINCT id FROM ${feed_name})";
+        $items_query = "DELETE FROM {$item_name} WHERE {$item_name}.`feed_id` NOT IN (SELECT DISTINCT id FROM {$feed_name})";
         $this->connection->executeQuery($items_query);
 	}
 
