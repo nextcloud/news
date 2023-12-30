@@ -14,7 +14,7 @@
 
  use OCP\EventDispatcher\Event;
  use OCP\EventDispatcher\IEventListener;
- use OCP\DB\Events\AddMissingIncidesEvent;
+ use OCP\DB\Events\AddMissingIndicesEvent;
 
  /**
  * @template-implements IEventListener<Event|AddMissingIndicesEvent>
@@ -23,7 +23,7 @@ class AddMissingIndicesListener implements IEventListener
 {
     public function handle(Event $event): void
     {
-        if (!$event instanceof AddMissingIncidesEvent) {
+        if (!$event instanceof AddMissingIndicesEvent) {
             return;
         }
 
