@@ -9,6 +9,7 @@ OC.L10N.register(
     "Folder" : "Carpeta",
     "New Folder" : "Carpeta nueva",
     "Menu" : "Menú",
+    "Dismiss" : "Escartar",
     "Settings" : "Configuración",
     "Export" : "Esportar",
     "Help" : "Ayuda",
