@@ -72,7 +72,7 @@
     "@nextcloud/eslint-plugin": "^2.0.0",
     "@nextcloud/password-confirmation": "^4.1.0",
     "@nextcloud/stylelint-config": "^2.1.2",
-    "@nextcloud/webpack-vue-config": "^5.1.0",
+    "@nextcloud/webpack-vue-config": "^6.0.0",
     "@types/jest": "^29.5.11",
     "@types/lodash": "^4.14.202",
     "@types/webpack-env": "^1.18.4",
