@@ -52,6 +52,7 @@ OC.L10N.register(
     "Play audio" : "오디오 재생",
     "Download audio" : "오디오 다운로드",
     "Download video" : "동영상 다운로드",
+    "Unread" : "읽지 않음",
     "Open website" : "웹 사이트 열기",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax 및 웹 cron 모드가 감지되었습니다! 피드를 업데이트하지 않습니다!",
     "How to set up the operating system cron" : "운영 체제 cron 설정 방법",
