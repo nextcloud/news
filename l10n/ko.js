@@ -35,6 +35,7 @@ OC.L10N.register(
     "Unable to update news config" : "뉴스 설정을 갱신할 수 없음",
     "Use system cron for updates" : "시스템 cron으로 업데이트",
     "Share" : "공유",
+    "Share with" : "다음과 공유",
     "Mark read" : "읽은 상태로 표시",
     "All articles" : "모든 글",
     "Starred" : "별표",
