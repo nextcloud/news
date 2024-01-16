@@ -34,8 +34,8 @@
     "url": "https://github.com/nextcloud/news/issues"
   },
   "engines": {
-    "node": "18.18.2 || ^20.9.0",
-    "npm": "9.8.1 || ^10.1.0"
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
   },
   "resolutions": {
     "natives": "1.1.3"
