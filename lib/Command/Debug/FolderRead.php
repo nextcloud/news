@@ -45,7 +45,7 @@ class FolderRead extends Command
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('news:folder:read')
             ->setDescription('Read folder')
@@ -59,9 +59,9 @@ class FolderRead extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return int|void
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $user = $input->getArgument('user-id');
 
