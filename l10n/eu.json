@@ -45,6 +45,7 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "RSS edo Atom jario bat kargatzeko gehienez itxarongo den segundo kopurua; gehiago luzatzen bada eguneraketa bertan behera utziko da.",
     "Interval in seconds in which the feeds will be updated." : "Jarioak zenbat segundoko tartean eguneratuko diren.",
     "Share" : "Partekatu",
+    "Share with" : "Partekatu honekin",
     "Mark read" : "Markatu irakurrita",
     "All articles" : "Artikulu guztiak",
     "Starred" : "Izardunak",
