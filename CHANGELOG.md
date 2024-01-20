@@ -8,6 +8,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 - Add DB index for news_feeds.deleted_at (#2526)
 
 ### Fixed
+- Mark over 65535 unread items as "read"
 
 # Releases
 ## [25.0.0-alpha3] - 2023-12-24
