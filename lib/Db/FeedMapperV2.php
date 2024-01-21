@@ -186,11 +186,10 @@ class FeedMapperV2 extends NewsMapperV2
             },
             $this->db->executeQuery($idBuilder->getSQL(), $idBuilder->getParameters())->fetchAll()
         );
-        
-        $chunked_idList = array_chunk($idList,65500);
+
+        $chunked_idList = array_chunk($idList, 65500);
         $res = 0;
-        foreach ($chunked_idList as $idList_chunk)
-        {
+        foreach ($chunked_idList as $idList_chunk) {
             $time = new Time();
             $builder = $this->db->getQueryBuilder();
             $builder->update(ItemMapperV2::TABLE_NAME)
