@@ -5,12 +5,18 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 # Unreleased
 ## [25.x.x]
 ### Changed
+
+### Fixed
+
+
+# Releases
+## [25.0.0-alpha4] - 2023-01-25
+### Changed
 - Add DB index for news_feeds.deleted_at (#2526)
 
 ### Fixed
-- Mark over 65535 unread items as "read"
+- PostgreSQL implement fix for marking over 65535 unread items as "read" (#2557)
 
-# Releases
 ## [25.0.0-alpha3] - 2023-12-24
 ### Changed
 - Changed default page when starting app (#2515)
