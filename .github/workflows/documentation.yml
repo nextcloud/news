@@ -1,25 +1,53 @@
-name: Publish docs via GitHub Pages
+name: Documentation
+
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'docs/**'
+  pull_request:
+  release:
+    types: [published]
 
 jobs:
-  build:
-    name: Deploy docs
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout master
-        uses: actions/checkout@v4
 
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
+    name: Build and deploy
+    steps:
+      - name: Check actor permission level
+        # Only allow admin to deploy on release
+        if: github.event.release
+        uses: skjnldsv/check-actor-permission@69e92a3c4711150929bca9fcf34448c5bf5526e7 # v2
+        with:
+          require: admin
+
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+      - name: Read package.json node and npm engines version
+        uses: skjnldsv/read-package-engines-version-actions@8205673bab74a63eb9b8093402fd9e0e018663a1 # v2.2
+        id: versions
+        with:
+          fallbackNode: '^20'
+          fallbackNpm: '^10'
+
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+        uses: actions/setup-node@b39b52d1213e96004bfcb1c61a8a6fa8ab84f3e8 # v4.0.1
+        with:
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
+
+      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g npm@"${{ steps.versions.outputs.npmVersion }}"
+
+      - name: Install dependencies & build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #CUSTOM_DOMAIN: optionaldomain.com
-          #CONFIG_FILE: folder/mkdocs.yml
-          #EXTRA_PACKAGES: build-base
-          # GITHUB_DOMAIN: github.myenterprise.com
+          CYPRESS_INSTALL_BINARY: 0
+        run: |
+          npm ci
+          npm run build --if-present
+          npm run build:doc --if-present
+
+      - name: Deploy
+        # Only deploy on release
+        if: github.event.release
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847 # v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/doc
