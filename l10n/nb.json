@@ -45,6 +45,7 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maksimalt antall sekunder å vente på at en RSS- eller Atom-strøm skal lastes; hvis det tar lengre tid vil oppdateringen bli avbrutt.",
     "Interval in seconds in which the feeds will be updated." : "Intervall i sekunder som strømmene vil bli oppdatert.",
     "Share" : "Del",
+    "Share with" : "Del med",
     "Mark read" : "Merk som lest",
     "All articles" : "Alle artikler",
     "Starred" : "Merket",
