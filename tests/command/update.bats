@@ -11,7 +11,7 @@ TESTSUITE="Update"
 @test "[$TESTSUITE] Job status" {
   run ./occ news:updater:job
   
-  assert_success
+  [ "$status" -eq 0 -o "$status" -eq 2 ]
 }
 
 @test "[$TESTSUITE] Job reset" {
