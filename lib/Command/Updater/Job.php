@@ -9,7 +9,10 @@
 namespace OCA\News\Command\Updater;
 
 use DateTime;
+use DateInterval;
 use OCP\Util;
+use OCP\IConfig;
+use OCA\News\AppInfo\Application;
 use OCA\News\Service\StatusService;
 use OCA\News\Service\UpdaterService;
 use Symfony\Component\Console\Command\Command;
@@ -20,6 +23,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Job extends Command
 {
     /**
+     * @var IConfig
+     */
+    private $config;
+
+    /**
      * @var StatusService Status service
      */
     private $statusService;
@@ -29,9 +37,10 @@ class Job extends Command
      */
     private $updaterService;
 
-    public function __construct(StatusService $statusService, UpdaterService $updaterService)
+    public function __construct(IConfig $config, StatusService $statusService, UpdaterService $updaterService)
     {
         parent::__construct();
+        $this->config = $config;
         $this->statusService = $statusService;
         $this->updaterService = $updaterService;
     }
@@ -64,12 +73,27 @@ class Job extends Command
         $output->writeln("Checking update Status");
         $date = new DateTime();
         $date->setTimestamp($this->statusService->getUpdateTime());
-        $output->writeln("Last Execution was ".$date->format('Y-m-d H:i:s e'));
+        $now = new DateTime('now');
+        $elapsedInterval = $now->diff($date);
+        $output->writeln("Last Execution was ".$date->format('Y-m-d H:i:s e').
+          $elapsedInterval->format("; %h hours, %i minutes, %s seconds ago"));
 
         if ($reset) {
             $output->writeln("Attempting to reset the job.");
             $this->updaterService->reset();
             $output->writeln("Done, job should execute on next schedule.");
+        } else {
+            $updateInterval = $this->config->getAppValue(
+                Application::NAME,
+                'updateInterval',
+                Application::DEFAULT_SETTINGS['updateInterval']
+            );
+            $threshold = ($updateInterval * 2) + 900;
+            $elapsedSeconds = $now->getTimestamp() - $date->getTimestamp();
+            if ($elapsedSeconds > $threshold) {
+                $output->writeln("Something's wrong.");
+                return 2;
+            }
         }
         return 0;
     }
