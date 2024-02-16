@@ -82,19 +82,21 @@ class Job extends Command
             $output->writeln("Attempting to reset the job.");
             $this->updaterService->reset();
             $output->writeln("Done, job should execute on next schedule.");
-        } else {
-            $updateInterval = $this->config->getAppValue(
-                Application::NAME,
-                'updateInterval',
-                Application::DEFAULT_SETTINGS['updateInterval']
-            );
-            $threshold = ($updateInterval * 2) + 900;
-            $elapsedSeconds = $now->getTimestamp() - $date->getTimestamp();
-            if ($elapsedSeconds > $threshold) {
-                $output->writeln("Something is wrong with the news cronjob, execution delay exceeded the configured interval.");
-                return 2;
-            }
+            return 0;
+        } 
+
+        $updateInterval = $this->config->getAppValue(
+            Application::NAME,
+            'updateInterval',
+            Application::DEFAULT_SETTINGS['updateInterval']
+        );
+        $threshold = ($updateInterval * 2) + 900;
+        $elapsedSeconds = $now->getTimestamp() - $date->getTimestamp();
+        if ($elapsedSeconds > $threshold) {
+            $output->writeln("Something is wrong with the news cronjob, execution delay exceeded the configured interval.");
+            return 2;
         }
+
         return 0;
     }
 }
