@@ -77,8 +77,8 @@ The same check that is done in the News admin settings can be done using occ too
 Adding the --check-elapsed option displays the time elapsed since the last execution,
 and if it's considered too long ago, a message will be displayed, and the command returns
 with exit code 2. This can be used in scripts to send an alert for example.
-```bash
-sudo -u www-data php ./occ news:updater:job --check-elapsed
+```console
+$ sudo -u www-data php ./occ news:updater:job --check-elapsed
 Checking update Status
 Last Execution was 2023-03-20 12:20:03 UTC
 8 hours, 21 minutes, 20 seconds ago
