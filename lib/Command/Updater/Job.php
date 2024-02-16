@@ -57,12 +57,19 @@ class Job extends Command
                 InputOption::VALUE_NONE,
                 'If the job should be reset, warning this might lead to issues.'
             )
+            ->addOption(
+                'check-elapsed',
+                null,
+                InputOption::VALUE_NONE,
+                'Check if the last job execution was too long ago. Return exit code 2 if so.'
+            )
             ->setDescription('Console API for checking the update job status and to reset it.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $reset = (bool) $input->getOption('reset');
+        $checkElapsed = (bool) $input->getOption('check-elapsed');
 
         [$major, $minor, $micro] = Util::getVersion();
         
@@ -75,8 +82,10 @@ class Job extends Command
         $date->setTimestamp($this->statusService->getUpdateTime());
         $now = new DateTime('now');
         $elapsedInterval = $now->diff($date);
-        $output->writeln("Last Execution was ".$date->format('Y-m-d H:i:s e').
-          $elapsedInterval->format("; %h hours, %i minutes, %s seconds ago"));
+        $output->writeln("Last Execution was ".$date->format('Y-m-d H:i:s e'));
+        if ($checkElapsed) {
+            $output->writeln($elapsedInterval->format('%h hours, %i minutes, %s seconds ago'));
+        }
 
         if ($reset) {
             $output->writeln("Attempting to reset the job.");
@@ -85,16 +94,18 @@ class Job extends Command
             return 0;
         } 
 
-        $updateInterval = $this->config->getAppValue(
-            Application::NAME,
-            'updateInterval',
-            Application::DEFAULT_SETTINGS['updateInterval']
-        );
-        $threshold = ($updateInterval * 2) + 900;
-        $elapsedSeconds = $now->getTimestamp() - $date->getTimestamp();
-        if ($elapsedSeconds > $threshold) {
-            $output->writeln("Something is wrong with the news cronjob, execution delay exceeded the configured interval.");
-            return 2;
+        if ($checkElapsed) {
+            $updateInterval = $this->config->getAppValue(
+                Application::NAME,
+                'updateInterval',
+                Application::DEFAULT_SETTINGS['updateInterval']
+            );
+            $threshold = ($updateInterval * 2) + 900;
+            $elapsedSeconds = $now->getTimestamp() - $date->getTimestamp();
+            if ($elapsedSeconds > $threshold) {
+                $output->writeln("Something is wrong with the news cronjob, execution delay exceeded the configured interval.");
+                return 2;
+            }
         }
 
         return 0;
