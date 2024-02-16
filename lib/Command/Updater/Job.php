@@ -91,7 +91,7 @@ class Job extends Command
             $threshold = ($updateInterval * 2) + 900;
             $elapsedSeconds = $now->getTimestamp() - $date->getTimestamp();
             if ($elapsedSeconds > $threshold) {
-                $output->writeln("Something's wrong.");
+                $output->writeln("Something is wrong with the news cronjob, execution delay exceeded the configured interval.");
                 return 2;
             }
         }
