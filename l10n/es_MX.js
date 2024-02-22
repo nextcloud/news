@@ -23,6 +23,7 @@ OC.L10N.register(
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "¡Las credenciales HTTP Basic Auth deben ser almacenadas decriptadas! ¡Todos aquellos que tengan acceso al servidor o a la base de datos tendrán acceso a ellas!",
     "Credentials" : "Credenciales",
     "Subscribe" : "Suscribir",
+    "Last job ran {relativeTime}." : "El último trabajo se ejecutó {relativeTime}.",
     "Maximum read count per feed" : "Conteo máximo de lecturas por fuente",
     "Maximum redirects" : "Redirecciones máximas",
     "Feed fetcher timeout" : "Tiempo de vida para el buscador de fuentes",
