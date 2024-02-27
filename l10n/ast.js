@@ -2,8 +2,10 @@ OC.L10N.register(
     "news",
     {
     "Download" : "Baxar",
+    "Close" : "Zarrar",
     "Password" : "Contraseña",
     "New folder" : "Carpeta nueva",
+    "Rename" : "Renomar",
     "Delete" : "Desaniciar",
     "Description" : "Descripción",
     "Folder" : "Carpeta",
