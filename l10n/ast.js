@@ -16,6 +16,7 @@ OC.L10N.register(
     "Menu" : "Menú",
     "Dismiss" : "Escartar",
     "Settings" : "Configuración",
+    "Import" : "Importar",
     "Export" : "Esportar",
     "Help" : "Ayuda",
     "Keyboard shortcuts" : "Atayos del tecláu",
