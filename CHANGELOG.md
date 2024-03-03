@@ -6,6 +6,7 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 ## [25.x.x]
 ### Changed
 - make occ news:updater:job exit with code 2 if last update was too long ago
+- Fix deprecated variable reference in ExportController.php
 
 ### Fixed
 
