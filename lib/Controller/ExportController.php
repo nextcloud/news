@@ -61,7 +61,7 @@ class ExportController extends Controller
 
         return new DataDownloadResponse(
             $this->opmlService->export($this->getUserId()),
-            "subscriptions-${date}.opml",
+            "subscriptions-{$date}.opml",
             'text/xml'
         );
     }
