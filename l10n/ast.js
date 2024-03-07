@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Download" : "Baxar",
     "Close" : "Zarrar",
+    "Folder name" : "Nome de la carpeta",
     "Password" : "Contraseña",
     "New folder" : "Carpeta nueva",
     "Share" : "Compartir",
