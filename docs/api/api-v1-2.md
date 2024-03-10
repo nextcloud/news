@@ -23,6 +23,7 @@ You have to design your app with these things in mind!:
 * **Use a library to compare versions, ideally one that uses semantic versioning**
 
 ## Authentication & Basics
+
 Because REST is stateless you have to send user and password each time you access the API. Therefore running Nextcloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
 
 The base URL for all calls is:
@@ -42,11 +43,13 @@ where $CREDENTIALS is:
     base64(USER:PASSWORD)
 
 ## How To Sync
+
 This is a small overview over how you should sync your articles with the Nextcloud News app. For more fine-grained details about the API see further down.
 
-All routes are given relative to the base API url (e.g.: https://yournextcloud.com/index.php/apps/news/api/v1-2)
+All routes are given relative to the base API url (e.g.: <https://yournextcloud.com/index.php/apps/news/api/v1-2>)
 
 ### Initial Sync
+
 The intial sync happens, when a user adds a Nextcloud account in your app. In that case you should fetch all feeds, folders and unread or starred articles from the News app. Do not fetch all articles, not only because it syncs faster, but also because the user is primarily interested in unread articles. To fetch all unread and starred articles, you must call 4 routes:
 
 * **unread articles**: GET /items?type=3&getRead=false&batchSize=-1
@@ -57,6 +60,7 @@ The intial sync happens, when a user adds a Nextcloud account in your app. In th
 The JSON response structures can be viewed further down.
 
 ### Syncing
+
 When syncing, you want to push read/unread and starred/unstarred items to the server and receive new and updated items, feeds and folders. To do that, call the following routes:
 
 * **Notify the News app of unread articles**: PUT /items/unread/multiple {"items": [1, 3, 5] }
@@ -67,31 +71,32 @@ When syncing, you want to push read/unread and starred/unstarred items to the se
 * **Get new feeds**: GET /feeds
 * **Get new items and modified items**: GET /items/updated?lastModified=12123123123&type=3
 
-
 ## Accessing API from a web application
 
 **News 1.401** implements CORS which allows web applications to access the API. **To access the API in a webapp you need to send the correct authorization header instead of simply putting auth data into the URL!**. An example request in jQuery would look like this:
 
 ```js
 $.ajax({
-	type: 'GET',
-	url: 'https://yournextcloud.com/index.php/apps/news/api/v1-2/version',
-	contentType: 'application/json',
-	success: function (response) {
-		// handle success
-	},
-	error: function () {
-		// handle errors
-	},
-	beforeSend: function (xhr) {
-		var username = 'john';
-		var password = 'doe';
-		var auth = btoa(username + ':' + password);
-		xhr.setRequestHeader('Authorization', 'Basic ' + auth);
-	}
+ type: 'GET',
+ url: 'https://yournextcloud.com/index.php/apps/news/api/v1-2/version',
+ contentType: 'application/json',
+ success: function (response) {
+  // handle success
+ },
+ error: function () {
+  // handle errors
+ },
+ beforeSend: function (xhr) {
+  var username = 'john';
+  var password = 'doe';
+  var auth = btoa(username + ':' + password);
+  xhr.setRequestHeader('Authorization', 'Basic ' + auth);
+ }
 });
 ```
+
 An example with AngularJS would look like this:
+
 ```js
 angular.module('YourApp', [])
     .config(['$httpProvider', '$provide', function ($httpProvider, $provide) {
@@ -129,14 +134,17 @@ angular.module('YourApp', [])
 ```
 
 ## Input
+
 In general the input parameters can be in the URL or request body, the App Framework doesnt differentiate between them.
 
 So JSON in the request body like:
-```jsonc
+
+```json
 {
   "id": 3
 }
 ```
+
 will be treated the same as
 
     /?id=3
@@ -149,11 +157,13 @@ It is recommended though that you use the following convention:
 * **DELETE**: parameters as JSON in the request body
 
 ## Output
+
 The output is JSON.
 
 ## API Endpoints
 
 ### Folders
+
 #### Get all folders
 
 * **Status**: Implemented
@@ -161,7 +171,8 @@ The output is JSON.
 * **Route**: /folders
 * **Parameters**: none
 * **Returns**:
-```jsonc
+
+```json
 {
   "folders": [
     {
@@ -173,22 +184,26 @@ The output is JSON.
 ```
 
 #### Create a folder
+
 Creates a new folder and returns a new folder object
 
 * **Status**: Implemented
 * **Method**: POST
 * **Route**: /folders
 * **Parameters**:
-```jsonc
+
+```json
 {
   "name": "folder name"
 }
 ```
+
 * **Return codes**:
- * **HTTP 409**: If the folder exists already
- * **HTTP 422**: If the folder name is invalid (for instance empty)
+* **HTTP 409**: If the folder exists already
+* **HTTP 422**: If the folder name is invalid (for instance empty)
 * **Returns**:
-```jsonc
+
+```json
 {
   "folders": [
     {
@@ -200,6 +215,7 @@ Creates a new folder and returns a new folder object
 ```
 
 #### Delete a folder
+
 Deletes a folder with the id folderId and all the feeds it contains
 
 * **Status**: Implemented
@@ -207,25 +223,28 @@ Deletes a folder with the id folderId and all the feeds it contains
 * **Route**: /folders/{folderId}
 * **Parameters**: none
 * **Return codes**:
- * **HTTP 404**: If the folder does not exist
+* **HTTP 404**: If the folder does not exist
 * **Returns**: nothing
 
 #### Rename a folder
+
 Only the name can be updated
 
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /folders/{folderId}
 * **Parameters**:
-```jsonc
+
+```json
 {
   "name": "folder name"
 }
 ```
+
 * **Return codes**:
- * **HTTP 409**: If the folder name does already exist
- * **HTTP 404**: If the folder does not exist
- * **HTTP 422**: If the folder name is invalid (for instance empty)
+* **HTTP 409**: If the folder name does already exist
+* **HTTP 404**: If the folder does not exist
+* **HTTP 422**: If the folder name is invalid (for instance empty)
 * **Returns**: nothing
 
 #### Mark items of a folder as read
@@ -234,15 +253,17 @@ Only the name can be updated
 * **Method**: PUT
 * **Route**: /folders/{folderId}/read
 * **Parameters**:
-```jsonc
+
+```json
 {
     // mark all items read lower than equal that id
     // this is mean to prevent marking items as read which the client/user does not yet know of
     "newestItemId": 10
 }
 ```
+
 * **Return codes**:
- * **HTTP 404**: If the feed does not exist
+* **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
 ### Feeds
@@ -261,7 +282,8 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **Route**: /feeds
 * **Parameters**: none
 * **Returns**:
-```jsonc
+
+```json
 {
   "feeds": [
     {
@@ -290,23 +312,27 @@ The following attributes are **not sanitized** meaning: including them in your w
 ```
 
 #### Create a feed
+
 Creates a new feed and returns the feed
 
 * **Status**: Implemented
 * **Method**: POST
 * **Route**: /feeds
 * **Parameters**:
-```jsonc
+
+```json
 {
   "url": "http:\/\/www.cyanogenmod.org\/wp-content\/themes\/cyanogenmod\/images\/favicon.ico",
   "folderId": 81 //  id of the parent folder, null for root
 }
 ```
+
 * **Return codes**:
- * **HTTP 409**: If the feed exists already
- * **HTTP 422**: If the feed cant be read (most likely contains errors)
+* **HTTP 409**: If the feed exists already
+* **HTTP 422**: If the feed cant be read (most likely contains errors)
 * **Returns**:
-```jsonc
+
+```json
 {
   "feeds": [
     {
@@ -327,6 +353,7 @@ Creates a new feed and returns the feed
 ```
 
 #### Delete a feed
+
 Deletes a feed with the id feedId and all of its  items
 
 * **Status**: Implemented
@@ -334,7 +361,7 @@ Deletes a feed with the id feedId and all of its  items
 * **Route**: /feeds/{feedId}
 * **Parameters**: none
 * **Return codes**:
- * **HTTP 404**: If the feed does not exist
+* **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
 #### Move a feed to a different folder
@@ -343,13 +370,15 @@ Deletes a feed with the id feedId and all of its  items
 * **Method**: PUT
 * **Route**: /feeds/{feedId}/move
 * **Parameters**:
-```jsonc
+
+```json
 {
   "folderId": null //  id of the parent folder, null for root
 }
 ```
+
 * **Return codes**:
- * **HTTP 404**: If the feed does not exist
+* **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
 #### Rename a feed
@@ -358,13 +387,15 @@ Deletes a feed with the id feedId and all of its  items
 * **Method**: PUT
 * **Route**: /feeds/{feedId}/rename
 * **Parameters**:
-```jsonc
+
+```json
 {
   "feedTitle": "New Title"
 }
 ```
+
 * **Return codes**:
- * **HTTP 404**: If the feed does not exist
+* **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
 #### Mark items of a feed as read
@@ -373,17 +404,18 @@ Deletes a feed with the id feedId and all of its  items
 * **Method**: PUT
 * **Route**: /feeds/{feedId}/read
 * **Parameters**:
-```jsonc
+
+```json
 {
   // mark all items read lower than equal that id
   // this is mean to prevent marking items as read which the client/user does not yet know of
   "newestItemId": 10
 }
 ```
-* **Return codes**:
- * **HTTP 404**: If the feed does not exist
-* **Returns**: nothing
 
+* **Return codes**:
+* **HTTP 404**: If the feed does not exist
+* **Returns**: nothing
 
 ### Items
 
@@ -400,6 +432,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 * **mediaDescription**
 
 #### Types
+
 | Name             | Default | Types        |
 |------------------|---------|--------------|
 | author           | null    | string\|null |
@@ -422,13 +455,15 @@ The following attributes are **not sanitized** meaning: including them in your w
 | unread           | false   | bool         |
 | updatedDate      |         | string\|null |
 | url              |         | string\|null |
-    
+
 #### Get items
+
 * **Status**: Implemented
 * **Method**: GET
 * **Route**: /items
 * **Parameters**:
-```jsonc
+
+```json
 {
   "batchSize": 10, //  the number of items that should be returned, defaults to -1, new in 5.2.3: -1 returns all items
   "offset": 30, // only return older (lower than equal that id) items than the one with id 30
@@ -438,8 +473,10 @@ The following attributes are **not sanitized** meaning: including them in your w
   "oldestFirst": false  // implemented in 3.002, if true it reverse the sort order
 }
 ```
+
 * **Returns**:
-```jsonc
+
+```json
 {
   "items": [
     {
@@ -467,12 +504,14 @@ The following attributes are **not sanitized** meaning: including them in your w
 ```
 
 ##### Example
+
 Autopaging would work like this:
 
 * Get the **first 20** items from a feed with **id 12**
 
 **GET /items**:
-```jsonc
+
+```json
 {
   "batchSize": 20,
   "offset": 0,
@@ -486,7 +525,7 @@ The item with the lowest item id is 43.
 
 * Get the next **20** items: **GET /items**:
 
-```jsonc
+```json
 {
   "batchSize": 20,
   "offset": 43,
@@ -496,15 +535,16 @@ The item with the lowest item id is 43.
 }
 ```
 
-
 #### Get updated items
+
 This is used to stay up to date.
 
 * **Status**: Implemented
 * **Method**: GET
 * **Route**: /items/updated
 * **Parameters**:
-```jsonc
+
+```json
 {
   "lastModified": 123231, // returns only items with a lastModified timestamp >= than this one
                           // this may also return already existing items whose read or starred status
@@ -513,8 +553,10 @@ This is used to stay up to date.
   "id": 12 // the id of the folder or feed, Use 0 for Starred and All
 }
 ```
+
 * **Returns**:
-```jsonc
+
+```json
 {
   "items": [
     {
@@ -539,62 +581,73 @@ This is used to stay up to date.
 ```
 
 #### Mark an item as read
+
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{itemId}/read
 * **Parameters**: none
 * **Return codes**:
- * **HTTP 404**: If the item does not exist
+* **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
 #### Mark multiple items as read
+
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/read/multiple
 * **Parameters**:
-```jsonc
+
+```json
 {
   "items": [2, 3] // ids of the items
 }
 ```
+
 * **Returns**: nothing
 
 #### Mark an item as unread
+
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{itemId}/unread
 * **Parameters**: none
 * **Return codes**:
- * **HTTP 404**: If the item does not exist
+* **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
 #### Mark multiple items as unread
+
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/unread/multiple
 * **Parameters**:
-```jsonc
+
+```json
 {
   "items": [2, 3] // ids of the items
 }
 ```
+
 * **Returns**: nothing
 
 #### Mark an item as starred
+
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{feedId}/{guidHash}/star
 * **Parameters**: none
 * **Return codes**:
- * **HTTP 404**: If the item does not exist
+* **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
 #### Mark multiple items as starred
+
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/star/multiple
 * **Parameters**:
-```jsonc
+
+```json
 {
   "items": [
     {
@@ -604,23 +657,27 @@ This is used to stay up to date.
   ]
 }
 ```
+
 * **Returns**: nothing
 
 #### Mark an item as unstarred
+
 * **Status**: Implemented
 * **Method**: PUT
 * **Route**: /items/{feedId}/{guidHash}/unstar
 * **Parameters**: none
 * **Return codes**:
- * **HTTP 404**: If the item does not exist
+* **HTTP 404**: If the item does not exist
 * **Returns**: nothing
 
 #### Mark multiple items as unstarred
+
 * **Status**: Implemented in 1.2
 * **Method**: PUT
 * **Route**: /items/unstar/multiple
 * **Parameters**:
-```jsonc
+
+```json
 {
   "items": [
     {
@@ -630,6 +687,7 @@ This is used to stay up to date.
   ]
 }
 ```
+
 * **Returns**: nothing
 
 #### Mark all items as read
@@ -638,17 +696,18 @@ This is used to stay up to date.
 * **Method**: PUT
 * **Route**: /items/read
 * **Parameters**:
-```jsonc
+
+```json
 {
     // mark all items read lower than equal that id
     // this is mean to prevent marking items as read which the client/user does not yet know of
     "newestItemId": 10
 }
 ```
-* **Return codes**:
- * **HTTP 404**: If the feed does not exist
-* **Returns**: nothing
 
+* **Return codes**:
+* **HTTP 404**: If the feed does not exist
+* **Returns**: nothing
 
 ### Updater
 
@@ -664,6 +723,7 @@ Updating should be done in the following fashion:
 This [implementation in Python](https://github.com/nextcloud/news-updater) should give you a good idea how to design and run it.
 
 #### Trigger cleanup before update
+
 This is used to clean up the database. It deletes folders and feeds that are marked for deletion
 
 * **Status**: Implemented in 1.601
@@ -674,7 +734,9 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f nextcloud/occ news:updater:before-update
+```bash
+php -f nextcloud/occ news:updater:before-update
+```
 
 #### Get feed ids and usernames for all feeds
 
@@ -684,7 +746,8 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 * **Route**: /feeds/all
 * **Parameters**: none
 * **Returns**:
-```jsonc
+
+```json
 {
   "feeds": [
     {
@@ -697,8 +760,9 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 
 **New in 8.1.0, Removed in 16.0.0**: The console command for achieving the same result is:
 
-    php -f nextcloud/occ news:updater:all-feeds
-
+```bash
+php -f nextcloud/occ news:updater:all-feeds
+```
 
 #### Trigger a feed update
 
@@ -707,21 +771,26 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 * **Method**: GET
 * **Route**: /feeds/update
 * **Parameters**:
-```jsonc
+
+```json
 {
   "userId": "john",
   "feedId": 3
 }
 ```
+
 * **Return codes**:
- * **HTTP 404**: If the feed does not exist
+* **HTTP 404**: If the feed does not exist
 * **Returns**: Nothing
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f nextcloud/occ news:updater:update-feed 3 john
+```bash
+php -f nextcloud/occ news:updater:update-feed 3 john
+```
 
 #### Trigger cleanup after update
+
 This is used to clean up the database. It removes old read articles which are not starred
 
 * **Status**: Implemented in 1.601
@@ -732,7 +801,9 @@ This is used to clean up the database. It removes old read articles which are no
 
 **New in 8.1.0**: The console command for achieving the same result is:
 
-    php -f nextcloud/occ news:updater:after-update
+```bash
+php -f nextcloud/occ news:updater:after-update
+```
 
 ### Version
 
@@ -743,7 +814,8 @@ This is used to clean up the database. It removes old read articles which are no
 * **Route**: /version
 * **Parameters**: none
 * **Returns**:
-```jsonc
+
+```json
 {
   "version": "5.2.3"
 }
@@ -760,7 +832,8 @@ This API can be used to display warnings and errors in your client if the web ap
 * **Route**: /status
 * **Parameters**: none
 * **Returns**:
-```jsonc
+
+```json
 {
   "version": "5.2.4",
   "warnings": {
@@ -786,8 +859,9 @@ If **incorrectDbCharset** is true you should display a warning that database cha
 This API can be used to retrieve metadata about the current user.
 
 DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.
-- https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata for user data
-- `https://nc.url/avatar/{userid}/{size}?v={1|2}` for the avatar
+
+* <https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata> for user data
+* `https://nc.url/avatar/{userid}/{size}?v={1|2}` for the avatar
 
 #### Get the status
 
@@ -796,7 +870,8 @@ DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.
 * **Route**: /user
 * **Parameters**: none
 * **Returns**:
-```jsonc
+
+```json
 {
   "userId": "john",
   "displayName": "John Doe",

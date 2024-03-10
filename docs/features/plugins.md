@@ -9,6 +9,7 @@ There are essentially three different use cases for plugins:
 * Dropping in additional CSS or JavaScript
 
 ## The Basics
+
 Whatever plugin you want to create, you first need to create a basic structure. A plugin is basically  just an app, so you can take advantage of the full [Nextcloud app API](https://docs.nextcloud.org/server/latest/developer_manual/app/index.html). [Take a look at the developer docs](https://docs.nextcloud.com/server/latest/developer_manual/app_development/index.html) or [dig into the tutorial](https://docs.nextcloud.com/server/latest/developer_manual/app_development/tutorial.html).
 
 However, if you just want to start slow, the full process is described below.
@@ -18,9 +19,9 @@ First create a skeleton app using the [web interface](https://apps.nextcloud.com
 The application name affects the name and namespace of your plugin and only one app can exist using the same name. Choose wisely. This will become the directory name in the Nextcloud `apps/` directory
 
 * **newsplugin/**
-    * **appinfo/**
-        * **app.php**
-        * **info.xml**
+  * **appinfo/**
+    * **app.php**
+    * **info.xml**
 
 **Note**: You must license your app under the [AGPL 3 or later](https://www.gnu.org/licenses/agpl-3.0.en.html) to comply with the News app's license. Don't forget to add the license as plain text file if you want to distribute your app!
 
@@ -37,20 +38,20 @@ use OCP\Util;
 use OCP\App as Test;
 
 class Application extends App {
-	public const APP_ID = 'newsbookmarkplugin';
+ public const APP_ID = 'newsbookmarkplugin';
 
-	public function __construct() {
-		parent::__construct(self::APP_ID);
+ public function __construct() {
+  parent::__construct(self::APP_ID);
 
 
         // your code here
-	}
+ }
 }
 
 ```
 
-
 ## Server-Side Plugin
+
 A Server-Side plugin is a plugin that uses the same infrastructure as the News app for its own purposes. An example would be a plugin that makes the starred entries of a user available via an interface or a bookmark app that also shows starred articles as bookmarks.
 
 It's very easy to interface with the News app. Because all Classes are registered in the **news/app/application.php** it takes almost no effort to use the same infrastructure.
@@ -91,8 +92,6 @@ class Application extends App {
 
 Using automatic container assembly you can then use it from your code by simply adding the type to your constructors.
 
-
-
 # TODO: Update the following
 
 If your plugin integrates with another Nextcloud app, make sure to also require it be installed. If you depend on the Bookmarks app for instance use:
@@ -132,6 +131,7 @@ This will tell the News app to load the following files after its own JavaScript
 * **newspluing/css/style.css**
 
 ### Adding Basic JavaScript Functionality
+
 You can basically add any JavaScript you want. If you want to add a new article action, this is a bit more complicated because it's hard to hook into Angular from the outside. Therefore, the News app provides an API which makes creating additional article actions a breeze.
 
 A basic article action looks like this:
@@ -146,20 +146,20 @@ The **addArticleAction** method expects a function with the following parameters
 
 * **$actionsElement**: The DOM element wrapped in jQuery where your plugin should be appended to
 * **article**: The current article's data (readonly!). The article object has the following properties:
-    * **id**: the article ID in the News database
-    * **url**: the article URL it points to
-    * **title**: the article title
-    * **author**: the article author
-    * **pubDate**: the article published date, a Unix timestamp
-    * **body**: the HTML content
-    * **enclosureMime**: if an enclosure is added, this is the mime type
-    * **enclosureLink**: this is the source of the enclosure
-    * **mediaThumbnail**: if there is a media attached, this is its thumbnail
-    * **mediaDescription**: if there is a media attached, this is its description
-    * **feedId**: the feed ID it belongs to
-    * **unread**: if the article is unread (bool)
-    * **starred**: if the article is starred (bool)
-    * **lastModified**: the last modified date
+  * **id**: the article ID in the News database
+  * **url**: the article URL it points to
+  * **title**: the article title
+  * **author**: the article author
+  * **pubDate**: the article published date, a Unix timestamp
+  * **body**: the HTML content
+  * **enclosureMime**: if an enclosure is added, this is the mime type
+  * **enclosureLink**: this is the source of the enclosure
+  * **mediaThumbnail**: if there is a media attached, this is its thumbnail
+  * **mediaDescription**: if there is a media attached, this is its description
+  * **feedId**: the feed ID it belongs to
+  * **unread**: if the article is unread (bool)
+  * **starred**: if the article is starred (bool)
+  * **lastModified**: the last modified date
 
 With that in mind, let's add the Twitter button. Open the JavaScript file at **newsplugin/js/script.js** and add the following contents:
 
@@ -198,6 +198,3 @@ Then open the **newspluing/css/style.css** file and add the following CSS:
 ```
 
 Reload the News app and click the three dots menu, sit back and enjoy :)
-
-
-
