@@ -28,6 +28,22 @@ theme:
   logo: assets/logo.svg
   favicon: assets/favicon.png
   font: false
+  palette:
+   - media: "(prefers-color-scheme: light)"
+     scheme: default
+     accent: indigo
+     primary: indigo
+     toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+   - media: "(prefers-color-scheme: dark)"
+     scheme: slate
+     primary: indigo
+     accent: indigo
+     toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
   features:
     - navigation.indexes
     - navigation.tracking
@@ -37,6 +53,13 @@ theme:
 
 markdown_extensions:
   - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: "code-line"
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 # extra:
 #   version:
