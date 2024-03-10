@@ -1,18 +1,18 @@
 # Troubleshooting
 
-This is a brief list of common issues that come up with NextCloud News. 
+This is a brief list of common issues that come up with NextCloud News.
 
 ## My browser shows a mixed content warning (Connection is Not Secure)
 
 If you are serving your Nextcloud over HTTPS your browser will very likely warn you with a yellow warnings sign about your connection not being secure.
 
- * Chrome will show no green HTTPS lock sign. 
- * Firefox will show you the following image Mixed Passive Content ![Mixed Content Type](https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/security/files/2015/10/mixed-passive-click1-600x221.png)
+* Chrome will show no green HTTPS lock sign.
+* Firefox will show you the following image Mixed Passive Content ![Mixed Content Type](https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/security/files/2015/10/mixed-passive-click1-600x221.png)
 
 Note that this warning **is not red and won't block the page like the following images** which signal a serious issue:
 
- * Chrome ![Chrome error](https://www.inmotionhosting.com/support/images/stories/website/errors/ssl/chrome-self-signed-ssl-warning.png)
- * Firefox ![Firefox error](https://www.howtogeek.com/wp-content/uploads/2014/02/650x367xchrome-mixed-content-https-problem.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.r_lQiZiq38.png)
+* Chrome ![Chrome error](https://www.inmotionhosting.com/support/images/stories/website/errors/ssl/chrome-self-signed-ssl-warning.png)
+* Firefox ![Firefox error](https://www.howtogeek.com/wp-content/uploads/2014/02/650x367xchrome-mixed-content-https-problem.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.r_lQiZiq38.png)
 
 ### What is the cause of the (yellow) error message?
 
@@ -49,34 +49,37 @@ This is very often caused by missing or old files, e.g. by failing to upload all
 Feeds can be updated using Nextcloud's system cron or an external updater via the API. **The feed update is not run in Webcron and AJAX cron mode!**
 
 ### Validating Using System Cron
+
 !!! info
 
     This requires Nextcloud 26 or newer and News 24.0.0 or newer.
 
 Follow this checklist:
 
-- Check admin settings of Nextcloud, was the last cron execution ok.
-- Check the logs for errors.
-- Does your [cache configuration](install.md#cache) work? 
-- Check the News admin settings, system cron is used to update news.
-- You should see a info card at the top, which will tell you when the last job execution was.
-    - If the card is red it is very likely that the update job is stuck.
-    - If it is green then maybe only some feeds are failing to update, check the Nextcloud logs.
+* Check admin settings of Nextcloud, was the last cron execution ok.
+* Check the logs for errors.
+* Does your [cache configuration](install.md#cache) work?
+* Check the News admin settings, system cron is used to update news.
+* You should see a info card at the top, which will tell you when the last job execution was.
+  * If the card is red it is very likely that the update job is stuck.
+  * If it is green then maybe only some feeds are failing to update, check the Nextcloud logs.
 
 If you believe the job is stuck you can reset it. For further steps you need to use occ.
 
 You can check again the status of the job.
-(replace www-data with your httpd user)
+(replace `www-data` with your httpd user)
+
 ```bash
 sudo -u www-data php ./occ news:updater:job
 Checking update Status
 Last Execution was 2023-03-20 12:20:03 UTC
 ```
 
-The same check that is done in the News admin settings can be done using occ too. 
-Adding the --check-elapsed option displays the time elapsed since the last execution,
+The same check that is done in the News admin settings can be done using occ too.
+Adding the `--check-elapsed` option displays the time elapsed since the last execution,
 and if it's considered too long ago, a message will be displayed, and the command returns
 with exit code 2. This can be used in scripts to send an alert for example.
+
 ```console
 $ sudo -u www-data php ./occ news:updater:job --check-elapsed
 Checking update Status
@@ -94,7 +97,9 @@ Last Execution was 2023-03-20 12:20:03 UTC
 Attempting to reset the job.
 Done, job should execute on next schedule.
 ```
+
 The output of the command should have changed.
+
 ```bash
 sudo -u www-data php ./occ news:updater:job
 Checking update Status
@@ -152,7 +157,7 @@ The command `occ news:updater:after-update [--purge-unread] [<purge-count>]` can
 
 The purge count only applies to the items that are purged. For example, when purging a feed that has 100 unread items, 100 starred read items and 100 unstarred read items, using a purge-count of 50 would keep all unread and starred items and the latest 50 read items. Using a `purge-count` of 50 along with `--purge-unread` would keep the all starred items plus the latest 50 from the set of unread and read items.
 
-## Missing 4-byte support SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value: ...
+## Missing 4-byte support SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value:
 
 This is likely caused by your feed using emojis in the feed title or text.
 
