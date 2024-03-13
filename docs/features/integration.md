@@ -23,8 +23,8 @@ Ex.
 #### Firefox
 
 1. Install Firefox Add-on Extension [Awesome RSS](https://addons.mozilla.org/en-US/firefox/addon/awesome-rss/)
-2. Open the `Preferences` for the extension
-3. In the 'Subscribe using' section, select the `NextCloud` radio button
-4. In the field link field, enter the base NextCloud URL.
+1. Open the `Preferences` for the extension
+1. In the 'Subscribe using' section, select the `NextCloud` radio button
+1. In the field link field, enter the base NextCloud URL.
     * Domain based example: <https://cloud.mydomain.com/>
     * Domain+subpath based example: <https://cloud.mydomain.com/nextcloud/>
