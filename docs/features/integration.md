@@ -13,10 +13,10 @@ Ex.
 #### Chrome / Edge
 
 1. Install [RSS Subscription Extension (by Google)](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd) extension
-2. Open the extension's options menu
-3. Click `Add..`
-4. In the *Description* field, enter a description for the RSS reader entry. 'NextCloud News' is a reasonable name.
-5. Enter `https://<NEXTCLOUD_BASE_PATH>/index.php/apps/news?subscribe_to=%s` replacing &lt;NEXTCLOUD_BASE_PATH&gt; with the base URL path to your NextCloud instance.
+1. Open the extension's options menu
+1. Click `Add..`
+1. In the *Description* field, enter a description for the RSS reader entry. 'NextCloud News' is a reasonable name.
+1. Enter `https://<NEXTCLOUD_BASE_PATH>/index.php/apps/news?subscribe_to=%s` replacing &lt;NEXTCLOUD_BASE_PATH&gt; with the base URL path to your NextCloud instance.
     * Domain based example: <https://cloud.mydomain.com/index.php/apps/news?subscribe_to=%s>
     * Domain+subpath based example: <https://cloud.mydomain.com/nextcloud/index.php/apps/news?subscribe_to=%s>
 
