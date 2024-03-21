@@ -3,14 +3,14 @@
 		@update:showDetails="unselectItem()">
 		<template #list>
 			<NcAppContentList>
-				<div class="header">
-					<slot name="header" />
-				</div>
-
 				<FeedItemDisplayList :items="items"
 					:fetch-key="fetchKey"
 					:config="config"
-					@load-more="emit('load-more')" />
+					@load-more="emit('load-more')">
+					<template #header>
+						<slot name="header" />
+					</template>
+				</FeedItemDisplayList>
 			</NcAppContentList>
 		</template>
 
@@ -92,14 +92,3 @@ function unselectItem() {
 }
 
 </script>
-
-<style scoped>
-
-.header {
-	padding-left: 50px;
-	position: absolute;
-	top: 1em;
-	font-weight: 700;
-}
-
-</style>
