@@ -190,6 +190,7 @@ export default Vue.extend({
 	.feed-item-row .main-container {
 		flex-grow: 1;
 		min-width: 0;
+		flex-grow: 1;
 	}
 
 	.feed-item-row .title-container {
