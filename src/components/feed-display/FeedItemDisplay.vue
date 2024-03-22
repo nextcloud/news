@@ -200,7 +200,6 @@ export default Vue.extend({
 
 <style>
 	.feed-item-display {
-		max-height: 100%;
 		overflow-y: hidden;
 		display: flex;
 		flex-direction: column;
@@ -208,7 +207,6 @@ export default Vue.extend({
 
 	.article {
 		padding: 0 50px 50px 50px;
-		overflow-y: scroll;
 		height: 100%;
 		max-width: 1024px;
 		margin-left: auto;
