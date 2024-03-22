@@ -3,26 +3,28 @@
 		@update:showDetails="unselectItem()">
 		<template #list>
 			<NcAppContentList>
-				<div class="header">
-					<slot name="header" />
-				</div>
-
 				<FeedItemDisplayList :items="items"
 					:fetch-key="fetchKey"
 					:config="config"
-					@load-more="emit('load-more')" />
+					@load-more="emit('load-more')">
+					<template #header>
+						<slot name="header" />
+					</template>
+				</FeedItemDisplayList>
 			</NcAppContentList>
 		</template>
 
-		<NcAppContentDetails>
-			<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
-			<NcEmptyContent v-else
-				:title="t('news', 'No article selected')"
-				:description="t('news', 'Please select an article from the list...')">
-				<template #icon>
-					<TextIcon />
-				</template>
-			</NcEmptyContent>
+		<NcAppContentDetails class="feed-item-content">
+			<div ref="contentElement" class="feed-item-content-wrapper">
+				<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
+				<NcEmptyContent v-else
+					:title="t('news', 'No article selected')"
+					:description="t('news', 'Please select an article from the list...')">
+					<template #icon>
+						<TextIcon />
+					</template>
+				</NcEmptyContent>
+			</div>
 		</NcAppContentDetails>
 	</NcAppContent>
 </template>
@@ -68,6 +70,8 @@ const emit = defineEmits<{(event: 'load-more'): void}>()
 
 const showDetails = ref(false)
 
+const contentElement = ref()
+
 const selectedFeedItem = computed(() => {
 	return itemStore.getters.selected(itemStore.state)
 })
@@ -75,6 +79,7 @@ const selectedFeedItem = computed(() => {
 watch(selectedFeedItem, (newSelectedFeedItem) => {
 	if (newSelectedFeedItem) {
 		showDetails.value = true
+		contentElement.value?.scrollTo(0, 0)
 	} else {
 		showDetails.value = false
 	}
@@ -93,13 +98,14 @@ function unselectItem() {
 
 </script>
 
-<style scoped>
-
-.header {
-	padding-left: 50px;
-	position: absolute;
-	top: 1em;
-	font-weight: 700;
+<style>
+.feed-item-content {
+	overflow:hidden;
+	height: 100%
 }
 
+.feed-item-content-wrapper {
+	height: 100%;
+	overflow-y: scroll;
+}
 </style>

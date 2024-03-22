@@ -1,6 +1,10 @@
 <template>
 	<div class="feed-item-display-list">
 		<div class="header">
+			<div class="header-content">
+				<slot name="header" />
+			</div>
+
 			<NcActions class="filter-container" :force-menu="true">
 				<template #icon>
 					<FilterIcon />
@@ -206,8 +210,15 @@ export default Vue.extend({
 	}
 
 	.header {
-		justify-content: right;
 		display: flex;
+		align-items: center;
+		justify-content: right;
+	}
+
+	.header-content {
+		flex-grow: 1;
+		padding-left: 50px;
+		font-weight: 700;
 	}
 
 	.filter-container {
