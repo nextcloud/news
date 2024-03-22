@@ -49,7 +49,7 @@ import TextIcon from 'vue-material-design-icons/Text.vue'
 
 import { FeedItem } from '../types/FeedItem'
 
-import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
+import FeedItemDisplayList, { Config } from './feed-display/FeedItemDisplayList.vue'
 import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
 
 defineProps({
@@ -62,7 +62,7 @@ defineProps({
 		required: true,
 	},
 	config: {
-		type: Object,
+		type: Object as PropType<Config>,
 	},
 })
 
