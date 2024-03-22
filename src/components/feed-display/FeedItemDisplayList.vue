@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { type PropType } from 'vue'
 import _ from 'lodash'
 
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
@@ -64,6 +64,11 @@ import { FeedItem } from '../../types/FeedItem'
 const DEFAULT_DISPLAY_LIST_CONFIG = {
 	starFilter: true,
 	unreadFilter: true,
+}
+
+export type Config = {
+	unreadFilter: boolean;
+	starFlter: boolean;
 }
 
 export default Vue.extend({
@@ -88,7 +93,7 @@ export default Vue.extend({
 			required: true,
 		},
 		config: {
-			type: Object,
+			type: Object as PropType<Config>,
 			default: () => {
 				return DEFAULT_DISPLAY_LIST_CONFIG
 			},
@@ -136,7 +141,7 @@ export default Vue.extend({
 		unreadFilter(item: FeedItem): boolean {
 			return item.unread
 		},
-		toggleFilter(filter: () => boolean) {
+		toggleFilter(filter: (item: FeedItem) => boolean) {
 			if (this.filter === filter) {
 				this.filter = this.noFilter
 				if (filter === this.unreadFilter) {
