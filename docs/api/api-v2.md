@@ -7,6 +7,7 @@ The **News app** offers a RESTful API which can be used to sync folders, feeds a
 In addition, an updater API is exposed which enables API users to run feed updates in parallel using a REST API or Nextcloud console API.
 
 ## Conventions
+
 This document uses the following conventions:
 
 * Object aliases as comments
@@ -22,6 +23,7 @@ There are two types of aliases:
 * Object arrays
 
 **Objects**:
+
 ```js
 {
     "folder": { /* folder object */ },
@@ -31,6 +33,7 @@ There are two types of aliases:
 means that the folder attributes will be listed inside the **folder** object
 
 **Object arrays**:
+
 ```js
 {
     "folders": [ /* array of folder objects */ ],
@@ -78,6 +81,7 @@ You have to design your app with these things in mind!:
 * **Use a library to compare versions**, ideally one that uses semantic versioning
 
 ## Request Format
+
 The base URL for all calls is:
 
     https://yournextcloud.com/index.php/apps/news/api/v2
@@ -110,9 +114,11 @@ The request body is either passed in the URL in case of a **GET** request (e.g.:
 **Note**: The current Etag implementation contains a unix timestamp in milliseconds. This is an implementation detail and you should not rely on it.
 
 ### API Level Detection
+
 Check the [API level route](#api-level)
 
 ### Authentication
+
 Because REST is stateless you have to re-send user and password each time you access the API. Therefore running Nextcloud **with SSL is highly recommended** otherwise **everyone in your network can log your credentials**.
 
 Credentials are passed as an HTTP header using [HTTP basic auth](https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side):
@@ -128,6 +134,7 @@ This authentication/authorization method will be the recommended default until c
 **Note**: Even if login cookies are sent back to your client, they will not be considered for authentication.
 
 ## Response Format
+
 The status codes are not always provided by the News app itself, but might also be returned because of Nextcloud internal errors.
 
 The following status codes can always be returned by Nextcloud:
@@ -167,6 +174,7 @@ The response body is a JSON structure that looks like this, which contains the a
 In case of an **4xx** or **5xx** error the request was not successful and has to be retried. For instance marking items as read locally and syncing should send the same request again the next time the user syncs in case an error occurred.
 
 ## Security Guidelines
+
 Read the following notes carefully to prevent being subject to security exploits:
 
 * You should always enforce SSL certificate verification and never offer a way to turn it off. Certificate verification is important to prevent MITM attacks which is especially important in the mobile world where users are almost always connected to untrusted networks. In case a user runs a self-signed certificate on his server ask him to either install his certificate on his device or direct him to one of the many ways to sign his certificate for free (most notably letsencrypt.com)
@@ -176,7 +184,8 @@ Read the following notes carefully to prevent being subject to security exploits
 * If you are building a client in JavaScript or are using a link with **target="blank"**, remember to set the **window.opener** property to **null** and/or add a **rel="noreferrer"** to your link to prevent your app from being [target by an XSS attack](https://medium.com/@jitbit/target-blank-the-most-underestimated-vulnerability-ever-96e328301f4c#.wf2ddytbh)
 
 ## Syncing
-All routes are given relative to the base API url, e.g.: **/sync** becomes  **https://yourNextcloud.com/index.php/apps/news/api/v2/sync**
+
+All routes are given relative to the base API url, e.g.: **/sync** becomes  **<https://yourNextcloud.com/index.php/apps/news/api/v2/sync>**
 
 There are two usecases for syncing:
 
@@ -184,6 +193,7 @@ There are two usecases for syncing:
 * **Syncing local and remote changes**: the user has synced at least once and wants to submit and receive changes
 
 ### Initial Sync
+
 The intial sync happens when a user adds an Nextcloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:
 
 * **Method**: GET
@@ -202,6 +212,7 @@ and the following HTTP headers:
 * **Etag**: A string containing a cache header, maximum size 64 ASCII characters, e.g. 6d82cbb050ddc7fa9cbb659014546e59
 
 and the following request body:
+
 ```js
 {
     "folders": [ /* array of folder objects */ ],
@@ -216,8 +227,8 @@ and the following request body:
 * [Feeds](#feeds)
 * [Items](#items)
 
-
 ### Sync Local And Remote Changes
+
 After the initial sync the app has all folders, feeds and items. Now you want to push changes and retrieve updates from the server. To do this, make the following request:
 
 * **Method**: POST
@@ -274,6 +285,7 @@ This also applies to folders and feeds, however the reduced folder and feed obje
 If you push a list of items to be marked read/starred, there can also be less items in the response than the ones which were initially sent. This means that the item was deleted by the cleanup job and should be removed from the client device.
 
 For instance let's take a look at the following example. You are **POST**ing the following JSON:
+
 ```json
 {
     "items": [{
@@ -314,7 +326,9 @@ The item with the **id** **7** is missing from the response. This means that it 
 For folders and feeds all ids will be returned so you can compare the existing ids with your locally available feeds and folders and remove the difference.
 
 ## Folders
+
 Folders are represented using the following data structure:
+
 ```json
 {
     "id": 3,
@@ -328,6 +342,7 @@ The attributes mean the following:
 * **name**: Abitrary long text, folder's name
 
 ### Deleting A Folder
+
 To delete a folder, use the following request:
 
 * **Method**: DELETE
@@ -356,6 +371,7 @@ In case of an HTTP 200, the deleted folder is returned in full in the response, 
 **Note**: If you delete a folder locally, you should also delete all feeds whose **folderId** attribute matches the folder's **id** attribute and also delete all items whose **feedId** attribute matches the feeds' **id** attribute. This is done automatically on the server and will also be missing on the next request.
 
 ### Creating A Folder
+
 To create a folder, use the following request:
 
 * **Method**: POST
@@ -363,6 +379,7 @@ To create a folder, use the following request:
 * **Authentication**: [required](#authentication)
 
 with the following request body:
+
 ```json
 {
     "name": "Folder name"
@@ -386,6 +403,7 @@ In case of an HTTP 200, the created or already existing folder is returned in fu
 ```
 
 ### Changing A Folder
+
 The following attributes can be changed on the folder:
 
 * **name**
@@ -399,6 +417,7 @@ To change any number of attributes on a folder, use the following request and pr
 * **Authentication**: [required](#authentication)
 
 with the following request body:
+
 ```json
 {
     "name": "New folder name"
@@ -424,8 +443,8 @@ In case of an HTTP 200, the changed or already existing folder is returned in fu
 }
 ```
 
-
 ## Feeds
+
 Feeds are represented using the following data structure:
 
 ```json
@@ -464,8 +483,8 @@ The attributes mean the following:
     * **1**: Error occured during feed update
   * **message**: Translated error message depending on the user's configured server locale
 
-
 ### Deleting A Feed
+
 To delete a feed, use the following request:
 
 * **Method**: DELETE
@@ -474,7 +493,6 @@ To delete a feed, use the following request:
   * **{id}**: feed's id
 * **Authentication**: [required](#authentication)
 
-
 The following response is being returned:
 
 Status codes:
@@ -482,7 +500,6 @@ Status codes:
 * **200**: Feed was deleted successfully
 * **404**: Feed with given id was not found, no error object
 * Other Nextcloud errors, see [Response Format](#response-format)
-
 
 In case of an HTTP 200, the deleted feed is returned in full in the response, e.g.:
 
@@ -497,14 +514,15 @@ In case of an HTTP 200, the deleted feed is returned in full in the response, e.
 **Note**: If you delete a feed locally, you should also delete all items whose **feedId** attribute matches the feeds' **id** attribute. This is done automatically on the server and will also be missing on the next request.
 
 ### Creating A feed
+
 To create a feed, use the following request:
 
 * **Method**: POST
 * **Route**: /feeds
 * **Authentication**: [required](#authentication)
 
-
 with the following request body:
+
 ```json
 {
     "url": "https://feed.url.com",
@@ -518,7 +536,7 @@ with the following request body:
 }
 ```
 
-* **url**: Abitrary long text, the url needs to have the full schema e.g. https://the-url.com. In case the user omits the schema, prepending **https** is recommended
+* **url**: Abitrary long text, the url needs to have the full schema e.g. <https://the-url.com>. In case the user omits the schema, prepending **https** is recommended
 * **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 * **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
 * **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
@@ -526,7 +544,6 @@ with the following request body:
 * **ordering (optional)**: See [Feeds](#feeds)
 * **isPinned (optional)**: See [Feeds](#feeds)
 * **fullTextEnabled (optional)**: See [Feeds](#feeds)
-
 
 The following response is being returned:
 
@@ -557,6 +574,7 @@ In case of an HTTP 200, the created feed is returned in full in the response, e.
 **Note**: Because the next sync would also pull in the added feed and items again, the added items will be omitted for saving bandwidth. This also means that after successfully creating a feed you will need to query the [sync route](#sync-local-and-remote-changes) again.
 
 ### Changing A Feed
+
 To change a feed, use the following request:
 
 * **Method**: PATCH
@@ -565,8 +583,8 @@ To change a feed, use the following request:
   * **{id}**: feed's id
 * **Authentication**: [required](#authentication)
 
-
 with the following request body:
+
 ```json
 {
     "url": "https://feed.url.com",
@@ -586,9 +604,9 @@ All parameters are optional
 * **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
 * **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
 * **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
-* **ordering (optional)**: See [feeds](#Feeds)
-* **isPinned (optional)**: See [feeds](#Feeds)
-* **fullTextEnabled (optional)**: See [feeds](#Feeds)
+* **ordering (optional)**: See [feeds](#feeds)
+* **isPinned (optional)**: See [feeds](#feeds)
+* **fullTextEnabled (optional)**: See [feeds](#feeds)
 * **folderId (optional)**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 
 The following response is being returned:
@@ -648,7 +666,9 @@ The attributes mean the following:
 * **contentHash**: 64 ASCII characters, used to determine if the item on the client is up to or out of date. The difference between the contentHash and the fingerprint attribute is that contentHash is always calculated from a stable set of attributes (title, author, url, enclosure, body) whereas the fingerprint is calculated from a set of attributes depending on the feed. The reason for this is that some feeds use different URLs for the same article so you would not want to include the URL as uniqueness criteria in that case. If the fingerprint was used for syncing however, an URL update would never reach the client.
 
 ### Full
+
 A full item contains the full content:
+
 ```json
 {
     "id": 5,
@@ -671,7 +691,9 @@ A full item contains the full content:
 ```
 
 ### Reduced
+
 A reduced item only contains the item status:
+
 ```json
 {
     "id": 5,
@@ -681,6 +703,7 @@ A reduced item only contains the item status:
 ```
 
 ## Updater
+
 Instead of using the built in, slow cron updater you can use the parallel update API to update feeds. The API can be accessed through REST or Nextcloud console API.
 
 The API should be used in the following way:
@@ -696,11 +719,14 @@ If the REST API is used, Authorization is required via Basic Auth and the user n
 If the Nextcloud console API is used, no authorization is required.
 
 ### Clean Up Before Update
+
 This is used to clean up the database. It deletes folders and feeds that are marked for deletion.
 
 **Console API**:
 
-    php -f /path/to/nextcloud/occ news:updater:before-update
+```bash
+php -f /path/to/nextcloud/occ news:updater:before-update
+```
 
 **REST API**:
 
@@ -709,18 +735,20 @@ This is used to clean up the database. It deletes folders and feeds that are mar
 * **Authentication**: [admin](#authentication)
 
 ### Get All Feeds And User Ids
+
 This call returns pairs of feed ids and user ids.
 
 **Console API**:
 
-    php -f /path/to/nextcloud/occ news:updater:all-feeds
+```bash
+php -f /path/to/nextcloud/occ news:updater:all-feeds
+```
 
 **REST API**:
 
 * **Method**: GET
 * **Route**: /updater/all-feeds
 * **Authentication**: [admin](#authentication)
-
 
 Both APIs will return the following response body or terminal output:
 
@@ -734,6 +762,7 @@ Both APIs will return the following response body or terminal output:
 ```
 
 ### Update A User's Feed
+
 After all feed ids and user ids are known, feeds can be updated in parallel.
 
 **Console API**:
@@ -742,8 +771,9 @@ After all feed ids and user ids are known, feeds can be updated in parallel.
   * **{feedId}**: the feed's id
   * **{userId}**: the user's id
 
-
-    php -f /path/to/nextcloud/occ news:updater:update-feed {feedId} {userId}
+```bash
+php -f /path/to/nextcloud/occ news:updater:update-feed {feedId} {userId}
+```
 
 **REST API**:
 
@@ -754,13 +784,15 @@ After all feed ids and user ids are known, feeds can be updated in parallel.
   * **{userId}**: the user's id
 * **Authentication**: [admin](#authentication)
 
-
 ### Clean Up After Update
+
 This is used to clean up the database. It removes old read articles which are not starred.
 
 **Console API**:
 
-    php -f /path/to/nextcloud/occ news:updater:after-update
+```bash
+php -f /path/to/nextcloud/occ news:updater:after-update
+```
 
 **REST API**:
 
@@ -769,12 +801,12 @@ This is used to clean up the database. It removes old read articles which are no
 * **Authentication**: [admin](#authentication)
 
 ## Meta Data
+
 The retrieve meta data about the app, use the following request:
 
 * **Method**: GET
 * **Route**: /
 * **Authentication**: [required](#authentication)
-
 
 The following response is being returned:
 
@@ -813,12 +845,12 @@ The attributes mean the following:
     * **data**: Abitrary long text, the user's image encoded as base64
     * **mime**: Abitrary long text, avatar mimetype
 
-
 ## API Level
+
 To find out which API levels are supported, make a request to the following route:
 
 * **Method**: GET
-* **Route**: https://yournextcloud.com/index.php/apps/news/api
+* **Route**: <https://yournextcloud.com/index.php/apps/news/api>
 * **Authentication**: none
 
 The following response is being returned:
@@ -829,6 +861,7 @@ Status codes:
 * **404**: The user is either running a version prior to **8.8.0** or the News app is disabled or not installed.
 
 In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
+
 ```json
 {
     "apiLevels": ["v1-2", "v2"]
@@ -840,7 +873,7 @@ In case of an HTTP 200, the supported API levels are returned as JSON, e.g.:
 To find out if a user is running an older News version than **8.8.0**, make a request to the following route:
 
 * **Method**: GET
-* **Route**: https://yournextcloud.com/index.php/apps/news/api/v1-2/version
+* **Route**: <https://yournextcloud.com/index.php/apps/news/api/v1-2/version>
 * **Authentication**: [required](#authentication)
 
 Status codes:
