@@ -13,19 +13,25 @@
     "All articles" : "Tolos artículos",
     "Rename" : "Renomar",
     "Delete" : "Desaniciar",
+    "Rename Feed" : "Renomar el feed",
+    "Newest first" : "Primero lo nuevo",
+    "Oldest first" : "Primero lo antiguo",
     "I wanted you to see this article" : "Quiero ver esti artículu",
     "Description" : "Descripción",
+    "Refresh" : "Anovar",
     "Folder" : "Carpeta",
     "Go back" : "Dir p'atrás",
     "New Folder" : "Carpeta nueva",
     "Create" : "Crear",
     "Menu" : "Menú",
     "Dismiss" : "Escartar",
+    "Collapse" : "Recoyer",
     "Settings" : "Configuración",
     "Import" : "Importar",
     "Export" : "Esportar",
     "Help" : "Ayuda",
     "Keyboard shortcuts" : "Atayos del tecláu",
-    "Documentation" : "Documentación"
+    "Documentation" : "Documentación",
+    "Report a bug" : "Informar d'un fallju"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
