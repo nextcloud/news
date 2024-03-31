@@ -30,6 +30,7 @@ OC.L10N.register(
     "Explore Service URL" : "Explorar la URL del Servicio",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",
     "Share" : "Compartir",
+    "Share with" : "Compartir con",
     "Mark read" : "Marcar como leído",
     "All articles" : "Todos los artículos",
     "Starred" : "Marcados",
