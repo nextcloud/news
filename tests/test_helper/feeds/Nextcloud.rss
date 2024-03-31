@@ -21,9 +21,9 @@
 	<generator>https://wordpress.org/?v=6.0.1</generator>
 
 <image>
-	<url>https://nextcloud.com/wp-content/uploads/2022/03/favicon.png</url>
+	<url>http://localhost:8090/logo.png</url>
 	<title>Nextcloud</title>
-	<link>https://nextcloud.com/</link>
+	<link>http://localhost:8090</link>
 	<width>32</width>
 	<height>32</height>
 </image> 
