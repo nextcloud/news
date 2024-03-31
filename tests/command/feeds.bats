@@ -39,16 +39,17 @@ teardown() {
   assert_output --partial "Something-${BATS_SUITE_TEST_NUMBER}"
 }
 
+# Test if Feed-Logo is used if available (NC_FEED) and if favicon is used if no logo is provided (HEISE_FEED)
 @test "[$TESTSUITE] Favicon" {
 
-  ./occ news:feed:add "$user" "https://nextcloud.com/blog/static-feed/" --title "Something-${BATS_SUITE_TEST_NUMBER}"
-  ./occ news:feed:add "$user" "https://www.heise.de/rss/heise-atom.xml" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  ./occ news:feed:add "$user" "$HEISE_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
 
   run ./occ news:feed:list "$user"
   assert_success
     
-  assert_output --partial '"faviconLink": "https:\/\/nextcloud.com\/c\/uploads\/2022\/03\/favicon.png",'
-  assert_output --partial  '"faviconLink": "https:\/\/www.heise.de\/favicon.ico?v='
+  assert_output --partial '"faviconLink": "http:\/\/localhost:8090\/logo.png",'
+  assert_output --partial  '"faviconLink": "http:\/\/localhost:8090\/favicon.ico'
 }
 
 @test "[$TESTSUITE] List all items" {
