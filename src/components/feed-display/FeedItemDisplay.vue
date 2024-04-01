@@ -34,8 +34,7 @@
 					{{ t('news', 'by') }} {{ item.author }}
 				</span>
 				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
-					<!-- TODO: Fix link to feed -->
-					<a :href="`#/items/feeds/${item.feedId}/`">
+					<a :href="`#/feed/${item.feedId}/`">
 						{{ getFeed(item.feedId).title }}
 						<img v-if="getFeed(item.feedId).faviconLink"
 							:src="getFeed(item.feedId).faviconLink"
