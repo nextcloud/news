@@ -2,17 +2,22 @@
 All notable changes to this project will be documented in this file.
 The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), older entries don't fully match.
 
+You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
+
 # Unreleased
 ## [25.x.x]
 ### Changed
-- make occ news:updater:job exit with code 2 if last update was too long ago (#2590)
-- Fix deprecated variable reference in ExportController.php (#2602)
-- Add support for Nextcloud 29 (#2611)
 
 ### Fixed
 
 
 # Releases
+## [25.0.0-alpha5] - 2024-04-01
+### Changed
+- make occ news:updater:job exit with code 2 if last update was too long ago (#2590)
+- Fix deprecated variable reference in ExportController.php (#2602)
+- Add support for Nextcloud 29 (#2611)
+
 ## [25.0.0-alpha4] - 2023-01-25
 ### Changed
 - Add DB index for news_feeds.deleted_at (#2526)
