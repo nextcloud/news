@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Noticies",
     "Download" : "Baxar",
     "Close" : "Zarrar",
     "No folder" : "Nun hai nenguna carpeta",
