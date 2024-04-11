@@ -18,6 +18,7 @@ OC.L10N.register(
     "Web address" : "Direición web",
     "No folder" : "Nun hai nenguna carpeta",
     "Folder name" : "Nome de la carpeta",
+    "Username" : "Nome d'usuariu",
     "Password" : "Contraseña",
     "Feed exists already!" : "¡El feed yá esiste!",
     "New folder" : "Carpeta nueva",
