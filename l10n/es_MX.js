@@ -64,6 +64,7 @@ OC.L10N.register(
     "Keep article unread" : "Mantener el artículo como no-leído",
     "Remove keep article unread" : "Eliminar mantener artículo como no leído",
     "Error while searching for users" : "Error al buscar usuarios",
+    "Share on social media" : "Compartir en redes sociales",
     "Keyboard shortcut" : "Atajo del teclado",
     "Description" : "Descripción",
     "right" : "derecha",
