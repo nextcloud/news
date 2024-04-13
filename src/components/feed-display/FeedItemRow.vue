@@ -196,9 +196,9 @@ export default Vue.extend({
 		color: var(--color-text-lighter);
 
 		flex-grow: 1;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		overflow: visible;
+		overflow-wrap: break-word;
+		white-space: normal;
 	}
 
 	.feed-item-row .title-container.unread {
