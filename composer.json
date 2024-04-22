@@ -46,7 +46,7 @@
     "riimu/kit-pathjoin": "^1.2.0",
     "debril/feed-io": "v5.3.1",
     "arthurhoaro/favicon": "^2.0.0",
-    "fivefilters/readability.php": "^3.1",
+    "fivefilters/readability.php": "^3.2",
     "ext-json": "*",
     "ext-simplexml": "*",
     "ext-libxml": "*",
