@@ -60,6 +60,7 @@ OC.L10N.register(
     "Unstar article" : "Зняти зірочку зі статті",
     "Keep article unread" : "Залишити статтю непрочитаною",
     "Remove keep article unread" : "Позначити статтю як прочитану",
+    "Share on social media" : "Поділитися у соціяльних медіях",
     "Keyboard shortcut" : "Сполучення клавіш",
     "Description" : "Опис",
     "right" : "праворуч",
