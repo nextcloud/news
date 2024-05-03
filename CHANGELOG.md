@@ -7,9 +7,11 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Improve layout of feed item row (#2569)
 
 ### Fixed
-
+- Reset content scroll position when feed item is changed (#2569)
+- Fix link to feed in article header (#2569)
 
 # Releases
 ## [25.0.0-alpha5] - 2024-04-01
