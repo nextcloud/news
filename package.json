@@ -67,7 +67,7 @@
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-typescript": "^7.23.3",
     "@nextcloud/babel-config": "^1.0.0",
-    "@nextcloud/browserslist-config": "^3.0.0",
+    "@nextcloud/browserslist-config": "^3.0.1",
     "@nextcloud/eslint-config": "^8.0.0",
     "@nextcloud/eslint-plugin": "^2.0.0",
     "@nextcloud/password-confirmation": "^4.1.0",
