@@ -35,6 +35,7 @@ OC.L10N.register(
     "Download audio" : "Lejupielādēt audio",
     "Download video" : "Lejupielādēt video",
     "Open website" : "Atvērt vietni",
+    "{num} days ago" : "Pirms {num} dienām",
     "Keyboard shortcut" : "Tastatūras saīsne",
     "Description" : "Apraksts",
     "right" : "pa labi",

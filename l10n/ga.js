@@ -6,6 +6,7 @@ OC.L10N.register(
     "Folder name" : "Ainm fillteáin",
     "Username" : "Ainm úsáideora",
     "Password" : "Pasfhocal",
+    "New folder" : "Fillteán nua",
     "Share" : "Comhroinn",
     "Starred" : "Réiltín",
     "Rename" : "Athainmnigh",
@@ -16,6 +17,7 @@ OC.L10N.register(
     "Dismiss" : "Díbhe",
     "Collapse" : "Laghdaigh",
     "Settings" : "Socruithe",
+    "Help" : "Cabhrú",
     "Keyboard shortcuts" : "Aicearraí méarchláir",
     "Report a bug" : "Tuairiscigh fabht"
 },
