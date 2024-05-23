@@ -12,6 +12,7 @@ OC.L10N.register(
     "Rename" : "Athainmnigh",
     "Delete" : "Scrios",
     "Rename Feed" : "Athainmnigh Fotha",
+    "Description" : "Cur síos",
     "Refresh" : "Athnuaigh",
     "Create" : "Cruthaigh",
     "Dismiss" : "Díbhe",
@@ -19,6 +20,7 @@ OC.L10N.register(
     "Settings" : "Socruithe",
     "Help" : "Cabhrú",
     "Keyboard shortcuts" : "Aicearraí méarchláir",
+    "Documentation" : "Doiciméadúchán",
     "Report a bug" : "Tuairiscigh fabht"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");
