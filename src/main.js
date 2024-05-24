@@ -16,6 +16,7 @@ Vue.prototype.OCA = OCA
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
+Vue.use(require('vue-shortkey'))
 
 Vue.directive('tooltip', Tooltip)
 
