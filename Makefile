@@ -226,3 +226,11 @@ feed-server:
 .PHONY: nextcloud-server
 nextcloud-server:
 	php -S 127.0.0.1:8080 -t "$(CURDIR)/../../."
+
+.PHONY: term
+term:
+	zellij --layout term.kdl attach nextcloud-news -c
+
+.PHONY: term-kill
+term-kill:
+	zellij delete-session nextcloud-news -f

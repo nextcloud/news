@@ -1,0 +1,30 @@
+// https://zellij.dev/documentation/creating-a-layout
+layout {
+  pane split_direction="vertical" size="60%" {
+    pane {
+      command "lazygit"
+      focus true
+    }
+    pane cwd="docker" command="docker" {
+      args "compose" "up"
+      start_suspended false
+    }
+  }
+  pane split_direction="vertical" size="40%" {
+    pane size="25%" {
+      command "npm"
+      args "install"
+    }
+    pane size="25%" {
+      command "composer"
+      args "install"
+    }
+    pane size="50%" {
+      command "npm"
+      args "run" "watch"
+    }
+  }
+  pane size=1 borderless=true {
+    plugin location="zellij:status-bar"
+  }
+}
