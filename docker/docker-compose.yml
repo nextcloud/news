@@ -1,0 +1,19 @@
+name: nextcloud-news
+
+services:
+  app:
+    build: .
+    ports:
+      - 8081:80
+    environment:
+      - NEXTCLOUD_ADMIN_USER=admin
+      - NEXTCLOUD_ADMIN_PASSWORD=admin
+      - SQLITE_DATABASE=mydb
+      - NEXTCLOUD_TRUSTED_DOMAINS=localhost 127.0.0.1
+    volumes:
+      - nextcloud:/var/www/html
+      - ..:/var/www/html/custom_apps/news
+      - ./news.config.php:/var/www/html/config/news.config.php
+
+volumes:
+  nextcloud:
