@@ -7,6 +7,8 @@ OC.L10N.register(
     "Username" : "Ainm úsáideora",
     "Password" : "Pasfhocal",
     "New folder" : "Fillteán nua",
+    "Credentials" : "Dintiúir",
+    "Last job ran {relativeTime}." : "Rith an post deireanach {relativeTime}.",
     "Share" : "Comhroinn",
     "Starred" : "Réiltín",
     "Rename" : "Athainmnigh",
