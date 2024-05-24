@@ -28,6 +28,12 @@
 					</template>
 				</NcActionButton>
 			</NcActions>
+			<button v-shortkey="['k']" class="hidden" @shortkey="jumpToPreviousItem">
+				Prev
+			</button>
+			<button v-shortkey="['j']" class="hidden" @shortkey="jumpToNextItem">
+				Next
+			</button>
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll :reached-end="reachedEnd"
@@ -35,7 +41,7 @@
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
 					<template v-for="item in filterSortedItems()">
-						<FeedItemRow :key="item.id" :item="item" />
+						<FeedItemRow :key="item.id" :ref="'feedItemRow' + item.id" :item="item" />
 					</template>
 				</template>
 			</VirtualScroll>
@@ -124,6 +130,9 @@ export default Vue.extend({
 		cfg() {
 			return _.defaults({ ...this.config }, DEFAULT_DISPLAY_LIST_CONFIG)
 		},
+		selectedItem() {
+			return this.$store.getters.selected
+		},
 	},
 	mounted() {
 		this.mounted = true
@@ -174,6 +183,55 @@ export default Vue.extend({
 			}
 
 			return response.sort(this.sort)
+		},
+		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
+		clickItem(item: FeedItem) {
+			const refName = 'feedItemRow' + item.id
+			const ref = this.$refs[refName]
+			// Make linter happy
+			const componentInstance = Array.isArray(ref) && ref.length && ref.length > 0 ? ref[0] : undefined
+			const element = componentInstance ? componentInstance.$el : undefined
+
+			if (element) {
+				element.click()
+
+				// TODO: This doesn't seem to do a lot in the VirtualScroll component
+				element.scrollIntoView(true)
+				// this.$nextTick(() => element.scrollIntoView())
+			}
+		},
+		currentIndex(items: FeedItem[]): number {
+			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
+		},
+		// TODO: Make jumpToPreviousItem() highlight the current item
+		jumpToPreviousItem() {
+			console.log('Previous item')
+			const items = this.filterSortedItems()
+			let currentIndex = this.currentIndex(items)
+			console.log('currentIndex', currentIndex)
+			// Prepare to jump to the first item, if none was selected
+			if (currentIndex === -1) {
+				currentIndex = 1
+			}
+			// Jump to the previous item
+			if (currentIndex > 0) {
+				const previousItem = items[currentIndex - 1]
+				console.log('previousItem', previousItem)
+				this.clickItem(previousItem)
+			}
+		},
+		// TODO: Make jumpToNextItem() highlight the current item
+		jumpToNextItem() {
+			console.log('Next item')
+			const items = this.filterSortedItems()
+			const currentIndex = this.currentIndex(items)
+			console.log('currentIndex', currentIndex)
+			// Jump to the first item, if none was selected, otherwise jump to the next item
+			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
+				const nextItem = items[currentIndex + 1]
+				console.log('nextItem', nextItem)
+				this.clickItem(nextItem)
+			}
 		},
 	},
 })

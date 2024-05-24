@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - added alternative development environment (#2670)
+- Implement `j` and `k` keyboards shortcuts for navigating through feed items (#2671)
 
 ### Fixed
 
