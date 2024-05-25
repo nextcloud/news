@@ -20,7 +20,7 @@ OC.L10N.register(
     "Folder exists already!" : "Mape jau pastāv.",
     "Credentials" : "Akreditācijas dati",
     "Subscribe" : "Abonēt",
-    "Maximum redirects" : "Maksimāli pieļaujamais pārsūtīšanu skaits",
+    "Maximum redirects" : "Lielākais pieļaujamais pārvirzījumu skaits",
     "Use system cron for updates" : "Izmantot sistēmas cron atjauninājumiem",
     "Share" : "Koplietot",
     "All articles" : "Visi raksti",
