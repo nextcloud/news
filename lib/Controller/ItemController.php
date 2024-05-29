@@ -180,9 +180,14 @@ class ItemController extends Controller
             $return['items'] = $this->shareService->mapSharedByDisplayNames($items);
 
             // this gets thrown if there are no items
-            // in that case just return an empty array
+            // in that case just return an empty response
         } catch (ServiceException $ex) {
-            //NO-OP
+            return [
+                'items' => [],
+                'feeds' => [],
+                'newestItemId' => null,
+                'starred' => 0,
+            ];
         }
 
         return $return;
