@@ -18,6 +18,7 @@ OC.L10N.register(
     "Oldest first" : "Is sine ar dtús",
     "Description" : "Cur síos",
     "Refresh" : "Athnuaigh",
+    "Go back" : "Dul ar ais",
     "Create" : "Cruthaigh",
     "Dismiss" : "Díbhe",
     "Collapse" : "Laghdaigh",
