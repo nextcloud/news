@@ -35,6 +35,15 @@ Change into the news directory and run `make` to build the app, you will need ph
 
 Now you can basically use the news app and test any changes you make on your local development environment. Check out the `appinfo/routes.php` file and `lib/controller/` directory for details on API controllers. Or check out `package.json` for npm scripts and the `src/` directory for the front end Vue Application.
 
+## Alternative Developer setup
+With [PR 2670](https://github.com/nextcloud/news/pull/2670) new options to create a development environment were added.
+
+See the README in the docker directory.
+
+There is also a nix-shell config and zellij layout prepared.
+
+If you have issues with the setup create a [new discussion](https://github.com/nextcloud/news/discussions).
+
 ### Frontend Tips/Organization
 
 - We use the Nextcloud Vue component library for most of the form controls and navigation
