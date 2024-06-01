@@ -16,6 +16,7 @@ OC.L10N.register(
     "Rename Feed" : "Athainmnigh Fotha",
     "Newest first" : "Is nua ar dtús",
     "Oldest first" : "Is sine ar dtús",
+    "Share on social media" : "Roinn ar na meáin shóisialta",
     "Description" : "Cur síos",
     "Refresh" : "Athnuaigh",
     "Go back" : "Dul ar ais",
