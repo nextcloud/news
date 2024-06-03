@@ -9,6 +9,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - added alternative development environment (#2670)
 - Implement `j` and `k` keyboards shortcuts for navigating through feed items (#2671)
+- Implement `s`, `i` and `l` keyboards shortcuts for staring current feed item (#2677)
+- Implement `o` keyboards shortcut for opening the URL of current feed item (#2677)
+- Implement `u` keyboards shortcut for marking current feed item read/unread (#2677)
 - Implement highlighting of active feed item (#2677)
 
 ### Fixed
