@@ -36,12 +36,16 @@
 			</button>
 		</div>
 		<div class="feed-item-display-container">
-			<VirtualScroll :reached-end="reachedEnd"
+			<VirtualScroll ref="virtualScroll"
+				:reached-end="reachedEnd"
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
 					<template v-for="item in filterSortedItems()">
-						<FeedItemRow :key="item.id" :ref="'feedItemRow' + item.id" :item="item" />
+						<FeedItemRow :key="item.id"
+							:ref="'feedItemRow' + item.id"
+							:item="item"
+							:class="{ 'active': selectedItem && selectedItem.id === item.id }" />
 					</template>
 				</template>
 			</VirtualScroll>
@@ -74,7 +78,7 @@ const DEFAULT_DISPLAY_LIST_CONFIG = {
 
 export type Config = {
 	unreadFilter: boolean;
-	starFlter: boolean;
+	starFilter: boolean;
 }
 
 export default Vue.extend({
@@ -121,6 +125,7 @@ export default Vue.extend({
 				}
 			},
 			cache: [] as FeedItem[] | undefined,
+			selectedItem: undefined as FeedItem | undefined,
 		}
 	},
 	computed: {
@@ -130,8 +135,13 @@ export default Vue.extend({
 		cfg() {
 			return _.defaults({ ...this.config }, DEFAULT_DISPLAY_LIST_CONFIG)
 		},
-		selectedItem() {
+		getSelectedItem() {
 			return this.$store.getters.selected
+		},
+	},
+	watch: {
+		getSelectedItem(newVal) {
+			this.selectedItem = newVal
 		},
 	},
 	mounted() {
@@ -185,7 +195,7 @@ export default Vue.extend({
 			return response.sort(this.sort)
 		},
 		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
-		clickItem(item: FeedItem) {
+		clickItem(item: FeedItem, alignToTop = false) {
 			const refName = 'feedItemRow' + item.id
 			const ref = this.$refs[refName]
 			// Make linter happy
@@ -194,21 +204,17 @@ export default Vue.extend({
 
 			if (element) {
 				element.click()
-
-				// TODO: This doesn't seem to do a lot in the VirtualScroll component
-				element.scrollIntoView(true)
-				// this.$nextTick(() => element.scrollIntoView())
+				const virtualScroll = this.$refs.virtualScroll
+				// TODO: This is still jerky and even can derail the current item
+				// virtualScroll.showElement(element, alignToTop)
 			}
 		},
 		currentIndex(items: FeedItem[]): number {
 			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
 		},
-		// TODO: Make jumpToPreviousItem() highlight the current item
 		jumpToPreviousItem() {
-			console.log('Previous item')
 			const items = this.filterSortedItems()
 			let currentIndex = this.currentIndex(items)
-			console.log('currentIndex', currentIndex)
 			// Prepare to jump to the first item, if none was selected
 			if (currentIndex === -1) {
 				currentIndex = 1
@@ -216,21 +222,16 @@ export default Vue.extend({
 			// Jump to the previous item
 			if (currentIndex > 0) {
 				const previousItem = items[currentIndex - 1]
-				console.log('previousItem', previousItem)
-				this.clickItem(previousItem)
+				this.clickItem(previousItem, true)
 			}
 		},
-		// TODO: Make jumpToNextItem() highlight the current item
 		jumpToNextItem() {
-			console.log('Next item')
 			const items = this.filterSortedItems()
 			const currentIndex = this.currentIndex(items)
-			console.log('currentIndex', currentIndex)
 			// Jump to the first item, if none was selected, otherwise jump to the next item
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
 				const nextItem = items[currentIndex + 1]
-				console.log('nextItem', nextItem)
-				this.clickItem(nextItem)
+				this.clickItem(nextItem, false)
 			}
 		},
 	},

@@ -31,12 +31,16 @@ export default Vue.extend({
 			scrollHeight: 500,
 			initialLoadingSkeleton: false,
 			initialLoadingTimeout: null,
+			elementToShow: null,
 		}
 	},
 	computed: {
 		fetching() {
 			return this.$store.state.items.fetchingItems[this.key]
 		},
+	},
+	created() {
+		this.elementToShowAlignToTop = false
 	},
 	watch: {
 		newBookmark() {
@@ -57,6 +61,10 @@ export default Vue.extend({
 		onScroll() {
 			this.scrollTop = this.$el.scrollTop
 			this.scrollHeight = this.$el.scrollHeight
+		},
+		showElement(element, alignToTop) {
+			this.elementToShow = element
+			this.elementToShowAlignToTop = alignToTop
 		},
 	},
 	render(h) {
@@ -106,7 +114,13 @@ export default Vue.extend({
 
 		const scrollTop = this.scrollTop
 		this.$nextTick(() => {
-			this.$el.scrollTop = scrollTop
+			if (this.elementToShow) {
+				// this.elementToShow.scrollIntoView(this.elementToShowAlignToTop)
+				this.elementToShow.scrollIntoView({ behavior: 'smooth', block: 'center' })
+				this.elementToShow = null
+			} else {
+				this.$el.scrollTop = scrollTop
+			}
 		})
 
 		return h('div', {

@@ -276,4 +276,8 @@ export default Vue.extend({
 	.feed-item-row .button-container .eye-check-icon {
 		color: var(--color-placeholder-dark);
 	}
+
+	.active, .active:hover {
+		background-color: var(--color-background-darker);
+	}
 </style>

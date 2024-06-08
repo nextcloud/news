@@ -6,4 +6,5 @@ export type FeedItem = {
   feedId: number;
   guidHash: string;
   pubDate: number;
+  url: string;
 };

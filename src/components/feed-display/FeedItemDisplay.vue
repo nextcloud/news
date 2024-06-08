@@ -12,7 +12,12 @@
 				</NcActionButton>
 			</NcActions>
 			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
+			<EyeIcon v-if="item.unread" @click="toggleRead(item)" />
+			<EyeCheckIcon v-if="!item.unread" @click="toggleRead(item)" />
 			<CloseIcon @click="clearSelected()" />
+			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="toggleStarred(item)" />
+			<button v-shortkey="['o']" class="hidden" @shortkey="openUrl(item)" />
+			<button v-shortkey="['u']" class="hidden" @shortkey="toggleRead(item)" />
 		</div>
 		<div class="article">
 			<div class="heading">
@@ -109,10 +114,14 @@ import ShareItem from '../ShareItem.vue'
 import { Feed } from '../../types/Feed'
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
+import EyeIcon from 'vue-material-design-icons/Eye.vue'
+import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 
 export default Vue.extend({
 	name: 'FeedItemDisplay',
 	components: {
+		EyeCheckIcon,
+		EyeIcon,
 		CloseIcon,
 		StarIcon,
 		ShareVariant,
@@ -168,6 +177,21 @@ export default Vue.extend({
 		 */
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		},
+
+		toggleRead(item: FeedItem): void {
+			if (item.unread) {
+				this.$store.dispatch(ACTIONS.MARK_READ, { item })
+			} else {
+				this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
+			}
+		},
+
+		openUrl(item: FeedItem): void {
+			// Open the item url in a new tab
+			if (item.url) {
+				window.open(item.url, '_blank')
+			}
 		},
 
 		closeShareMenu() {

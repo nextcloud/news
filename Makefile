@@ -229,7 +229,7 @@ nextcloud-server:
 
 .PHONY: term
 term:
-	zellij --layout term.kdl attach nextcloud-news -c
+	zellij --layout term.kdl attach nextcloud-news -cf
 
 .PHONY: term-kill
 term-kill:
