@@ -16,8 +16,8 @@ jobs:
     name: "Update Test: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }}"
     strategy:
       matrix:
-        php-versions: ['8.1']
-        nextcloud: ['stable27']
+        php-versions: ['8.3']
+        nextcloud: ['stable29']
         database: ['sqlite']
         experimental: [false]
     steps:
@@ -71,7 +71,7 @@ jobs:
           sleep 2
 
           cd ${{ github.workspace }}/../server
-                  
+
           bats apps/news/tests/updater
 
           # Kill php server

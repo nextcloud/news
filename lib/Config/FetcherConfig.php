@@ -17,7 +17,7 @@ use FeedIo\Adapter\ClientInterface;
 use \GuzzleHttp\Client;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
-use OCP\IConfig;
+use OCP\IAppConfig;
 
 /**
  * Class FetcherConfig
@@ -63,14 +63,14 @@ class FetcherConfig
      *
      * @param IConfig $config
      */
-    public function __construct(IConfig $config)
+    public function __construct(IAppConfig $config)
     {
-        $this->client_timeout = $config->getAppValue(
+        $this->client_timeout = $config->getValueInt(
             Application::NAME,
             'feedFetcherTimeout',
             Application::DEFAULT_SETTINGS['feedFetcherTimeout']
         );
-        $this->redirects = $config->getAppValue(
+        $this->redirects = $config->getValueInt(
             Application::NAME,
             'maxRedirects',
             Application::DEFAULT_SETTINGS['maxRedirects']
@@ -97,9 +97,9 @@ class FetcherConfig
     /**
      * Checks for available encoding options
      *
-     * @return String list of supported encoding types
+     * @return string list of supported encoding types
      */
-    public function checkEncoding()
+    public function checkEncoding(): string
     {
         $supportedEncoding = [];
 
@@ -107,7 +107,7 @@ class FetcherConfig
         $curl_features = curl_version()["features"];
 
         $bitfields = array('CURL_VERSION_LIBZ' => ['gzip', 'deflate'], 'CURL_VERSION_BROTLI' => ['br']);
-        
+
         foreach ($bitfields as $feature => $header) {
             // checking available features via the 'features' bitmask and adding available types to the list
             if (defined($feature) && $curl_features & constant($feature)) {
