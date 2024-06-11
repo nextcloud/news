@@ -8,6 +8,7 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\Search\ISearchQuery;
+use OCP\Search\IFilter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -85,13 +86,21 @@ class FeedSearchProviderTest extends TestCase
         $query = $this->getMockBuilder(ISearchQuery::class)
                      ->getMock();
 
+        $term = $this->getMockBuilder(IFilter::class)
+                     ->getMock();
+
         $user->expects($this->once())
               ->method('getUID')
               ->willReturn('user');
 
         $query->expects($this->once())
-              ->method('getTerm')
-              ->willReturn('Term');
+              ->method('getFilter')
+              ->with('term')
+              ->willReturn($term);
+
+        $term->expects($this->once())
+             ->method('get')
+             ->willReturn('some_term');
 
         $folders = [
             Feed::fromRow(['id' => 1,'title' => 'some_tErm', 'unread_count'=> 1]),
@@ -103,10 +112,9 @@ class FeedSearchProviderTest extends TestCase
                             ->with('user')
                             ->willReturn($folders);
 
-        $this->l10n->expects($this->exactly(2))
-            ->method('t')
-            ->withConsecutive(['Unread articles'], ['News'])
-            ->willReturnArgument(0);
+        $this->l10n->expects($this->atLeast(2))
+                   ->method('t')
+                   ->willReturnArgument(0);
 
         $this->generator->expects($this->once())
                         ->method('imagePath')

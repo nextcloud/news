@@ -11,6 +11,7 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\Search\ISearchQuery;
+use OCP\Search\IFilter;
 use PHPUnit\Framework\TestCase;
 
 class FolderSearchProviderTest extends TestCase
@@ -87,13 +88,21 @@ class FolderSearchProviderTest extends TestCase
         $query = $this->getMockBuilder(ISearchQuery::class)
                      ->getMock();
 
+        $term = $this->getMockBuilder(IFilter::class)
+                     ->getMock();
+
         $user->expects($this->once())
               ->method('getUID')
               ->willReturn('user');
 
         $query->expects($this->once())
-              ->method('getTerm')
-              ->willReturn('Term');
+              ->method('getFilter')
+              ->with('term')
+              ->willReturn($term);
+
+        $term->expects($this->once())
+             ->method('get')
+             ->willReturn('some_term');
 
         $folders = [
             Folder::fromRow(['id' => 1,'name' => 'some_tErm']),

@@ -70,6 +70,11 @@ class FeedControllerTest extends TestCase
     private $user;
 
     /**
+     * @var MockObject|IUserSession
+     */
+    private $userSession;
+
+    /**
      * @var FeedController
      */
     private $class;
@@ -106,10 +111,10 @@ class FeedControllerTest extends TestCase
             ->method('getUID')
             ->will($this->returnValue($this->uid));
         $this->userSession = $this->getMockBuilder(IUserSession::class)
-            ->getMock();
+                                  ->getMock();
         $this->userSession->expects($this->any())
-            ->method('getUser')
-            ->will($this->returnValue($this->user));
+                          ->method('getUser')
+                          ->will($this->returnValue($this->user));
         $request = $this->getMockBuilder(IRequest::class)
             ->disableOriginalConstructor()
             ->getMock();

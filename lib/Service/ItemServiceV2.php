@@ -23,7 +23,7 @@ use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -35,24 +35,18 @@ class ItemServiceV2 extends Service
 {
 
     /**
-     * @var IConfig
-     */
-    protected $config;
-
-    /**
      * ItemService constructor.
      *
      * @param ItemMapperV2    $mapper
-     * @param IConfig         $config
+     * @param IAppConfig      $config
      * @param LoggerInterface $logger
      */
     public function __construct(
         ItemMapperV2 $mapper,
-        IConfig $config,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        protected IAppConfig $config
     ) {
         parent::__construct($mapper, $logger);
-        $this->config = $config;
     }
 
     /**
@@ -152,17 +146,17 @@ class ItemServiceV2 extends Service
      */
     public function purgeOverThreshold(int $threshold = null, bool $purgeUnread = null): ?int
     {
-        $threshold = (int) ($threshold ?? $this->config->getAppValue(
+        $threshold = $threshold ?? $this->config->getValueInt(
             Application::NAME,
             'autoPurgeCount',
             Application::DEFAULT_SETTINGS['autoPurgeCount']
-        ));
+        );
 
-        $purgeUnread = (bool) ($purgeUnread ?? $this->config->getAppValue(
+        $purgeUnread = $purgeUnread ?? $this->config->getValueBool(
             Application::NAME,
             'purgeUnread',
             Application::DEFAULT_SETTINGS['purgeUnread']
-        ));
+        );
 
         if ($threshold <= 0) {
             return null;

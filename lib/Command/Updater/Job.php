@@ -10,8 +10,7 @@ namespace OCA\News\Command\Updater;
 
 use DateTime;
 use DateInterval;
-use OCP\Util;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCA\News\AppInfo\Application;
 use OCA\News\Service\StatusService;
 use OCA\News\Service\UpdaterService;
@@ -22,27 +21,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Job extends Command
 {
-    /**
-     * @var IConfig
-     */
-    private $config;
-
-    /**
-     * @var StatusService Status service
-     */
-    private $statusService;
-
-    /**
-     * @var UpdaterService Update service
-     */
-    private $updaterService;
-
-    public function __construct(IConfig $config, StatusService $statusService, UpdaterService $updaterService)
-    {
+    public function __construct(
+        private IAppConfig $config,
+        private StatusService $statusService,
+        private UpdaterService $updaterService
+    ) {
         parent::__construct();
-        $this->config = $config;
-        $this->statusService = $statusService;
-        $this->updaterService = $updaterService;
     }
 
     /**
@@ -71,12 +55,6 @@ class Job extends Command
         $reset = (bool) $input->getOption('reset');
         $checkElapsed = (bool) $input->getOption('check-elapsed');
 
-        [$major, $minor, $micro] = Util::getVersion();
-        
-        if ($major < 26) {
-            $output->writeln("Error: This only works with Nextcloud 26 or newer.");
-            return 1;
-        }
         $output->writeln("Checking update Status");
         $date = new DateTime();
         $date->setTimestamp($this->statusService->getUpdateTime());
@@ -95,7 +73,7 @@ class Job extends Command
         }
 
         if ($checkElapsed) {
-            $updateInterval = $this->config->getAppValue(
+            $updateInterval = $this->config->getValueString(
                 Application::NAME,
                 'updateInterval',
                 Application::DEFAULT_SETTINGS['updateInterval']

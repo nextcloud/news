@@ -17,10 +17,8 @@ namespace OCA\News\Tests\Unit\Service;
 use FeedIo\Explorer;
 use FeedIo\Reader\ReadErrorException;
 
-use OC\L10N\L10N;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
-use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemServiceV2;
@@ -29,8 +27,6 @@ use OCP\AppFramework\Db\DoesNotExistException;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
-use OCP\IConfig;
-use OCP\IL10N;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -72,11 +68,6 @@ class FeedServiceTest extends TestCase
     private $purifier;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|L10N
-     */
-    private $l10n;
-
-    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
      */
     private $logger;
@@ -85,6 +76,8 @@ class FeedServiceTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject|Explorer
      */
     private $explorer;
+
+    private $response;
 
     protected function setUp(): void
     {
@@ -98,9 +91,7 @@ class FeedServiceTest extends TestCase
         $timeFactory->expects($this->any())
             ->method('getTime')
             ->will($this->returnValue($this->time));
-        $this->l10n = $this->getMockBuilder(IL10N::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+
         $this->mapper = $this
             ->getMockBuilder(FeedMapperV2::class)
             ->disableOriginalConstructor()
@@ -119,9 +110,6 @@ class FeedServiceTest extends TestCase
             ->getMock();
         $this->purifier = $this
             ->getMockBuilder(\HTMLPurifier::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $config = $this->getMockBuilder(IConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
 

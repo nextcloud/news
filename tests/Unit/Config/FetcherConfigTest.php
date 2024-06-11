@@ -20,16 +20,13 @@
 
 namespace OCA\News\Tests\Config;
 
-use OCA\News\Command\Debug\ItemList;
-use OCA\News\Command\Updater\UpdateFeed;
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Fetcher\Client\FeedIoClient;
-use OCA\News\Service\ItemServiceV2;
+use OCP\IAppConfig;
 use OCP\IConfig;
+use OCP\App\IAppManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class FetcherConfigTest
@@ -40,17 +37,31 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FetcherConfigTest extends TestCase
 {
-    /** @var MockObject|IConfig */
+    /** @var MockObject|IAppConfig */
     protected $config;
+
+    /** @var MockObject|IConfig */
+    protected $sysconfig;
+
+    /** @var MockObject|IAppManager */
+    protected $appmanager;
 
     /** @var FetcherConfig */
     protected $class;
 
     protected function setUp(): void
     {
-        $this->config = $this->getMockBuilder(IConfig::class)
+        $this->config = $this->getMockBuilder(IAppConfig::class)
                               ->disableOriginalConstructor()
                               ->getMock();
+
+        $this->sysconfig = $this->getMockBuilder(IConfig::class)
+                                ->disableOriginalConstructor()
+                                ->getMock();
+
+        $this->appmanager = $this->getMockBuilder(IAppManager::class)
+                                 ->disableOriginalConstructor()
+                                 ->getMock();
     }
 
     /**
@@ -58,21 +69,25 @@ class FetcherConfigTest extends TestCase
      */
     public function testGetClient()
     {
-        $this->class = new FetcherConfig($this->config);
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager);
 
         $this->assertInstanceOf(FeedIoClient::class, $this->class->getClient());
     }
 
     public function testGetUserAgent()
     {
-        $this->config->expects($this->exactly(3))
-            ->method('getAppValue')
-            ->willReturnMap([
-                ['news', 'feedFetcherTimeout', 60, '60'],
-                ['news', 'maxRedirects', 10, '10'],
-                ['news', 'installed_version', '1.0', '123.45']
+        $this->config->expects($this->exactly(2))
+                     ->method('getValueInt')
+                     ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, FALSE, 60],
+                ['news', 'maxRedirects', 10, FALSE, 10],
             ]);
-        $this->class = new FetcherConfig($this->config);
+
+        $this->appmanager->expects($this->exactly(1))
+                         ->method('getAppVersion')
+                         ->willReturn('123.45');
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager);
 
         $expected = 'NextCloud-News/123.45';
         $response = $this->class->getUserAgent();
@@ -81,13 +96,18 @@ class FetcherConfigTest extends TestCase
 
     public function testGetUserAgentUnknownVersion()
     {
-        $this->config->expects($this->exactly(3))
-            ->method('getAppValue')
-            ->willReturnMap([
-                ['news', 'feedFetcherTimeout', 60, '60'],
-                ['news', 'maxRedirects', 10, '10']
-            ]);
-        $this->class = new FetcherConfig($this->config);
+        $this->config->expects($this->exactly(2))
+                     ->method('getValueInt')
+                     ->willReturnMap([
+                        ['news', 'feedFetcherTimeout', 60, false, 60],
+                        ['news', 'maxRedirects', 10, false, 10]
+                     ]);
+
+        $this->appmanager->expects($this->exactly(1))
+                         ->method('getAppVersion')
+                         ->willReturn('1.0');
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager);
 
         $expected = 'NextCloud-News/1.0';
         $response = $this->class->getUserAgent();

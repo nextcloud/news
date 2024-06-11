@@ -23,7 +23,7 @@ use \OCP\AppFramework\Db\DoesNotExistException;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ListType;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
-use OCP\IConfig;
+use OCP\IAppConfig;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +47,7 @@ class ItemServiceTest extends TestCase
     private $class;
 
     /**
-     * @var MockObject|IConfig
+     * @var MockObject|IAppConfig
      */
     private $config;
 
@@ -63,6 +63,14 @@ class ItemServiceTest extends TestCase
      * @var string
      */
     private $user;
+    /**
+     * @var string
+     */
+    private $offset;
+    private $limit;
+    private $showAll;
+    private $updatedSince;
+    private $id;
 
 
     protected function setUp(): void
@@ -70,7 +78,7 @@ class ItemServiceTest extends TestCase
         $this->mapper = $this->getMockBuilder(ItemMapperV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(IConfig::class)
+        $this->config = $this->getMockBuilder(IAppConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -80,8 +88,8 @@ class ItemServiceTest extends TestCase
 
         $this->class = new ItemServiceV2(
             $this->mapper,
-            $this->config,
-            $this->logger
+            $this->logger,
+            $this->config
         );
         $this->user = 'jack';
         $this->id = 3;
@@ -605,28 +613,33 @@ class ItemServiceTest extends TestCase
 
     public function testPurgeOverThresholdNull()
     {
-        $this->config->expects($this->exactly(2))
-            ->method('getAppValue')
-            ->withConsecutive(['news', 'autoPurgeCount', 200], ['news', 'purgeUnread', false])
-            ->willReturnOnConsecutiveCalls(200, false);
-        
+        $this->config->expects($this->exactly(1))
+                     ->method('getValueInt')
+                     ->with('news', 'autoPurgeCount', 200)
+                     ->willReturn(200);
+
+        $this->config->expects($this->exactly(1))
+                     ->method('getValueBool')
+                     ->with('news', 'purgeUnread', false)
+                     ->willReturn(false);
+
         $this->mapper->expects($this->once())
-            ->method('deleteOverThreshold')
-            ->with(200, false);
+             ->method('deleteOverThreshold')
+             ->with(200, false);
 
         $this->class->purgeOverThreshold();
     }
 
     public function testPurgeOverThresholdSet()
     {
-        $this->config->expects($this->once())
-            ->method('getAppValue')
-            ->with('news', 'purgeUnread', false)
-            ->will($this->returnValue(false));
+        $this->config->expects($this->exactly(1))
+                     ->method('getValueBool')
+                     ->with('news', 'purgeUnread', false)
+                     ->willReturn(false);
 
         $this->mapper->expects($this->once())
-            ->method('deleteOverThreshold')
-            ->with(5);
+             ->method('deleteOverThreshold')
+             ->with(5);
 
         $this->class->purgeOverThreshold(5);
     }

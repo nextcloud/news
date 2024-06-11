@@ -40,7 +40,7 @@
     "source": "https://github.com/nextcloud/news/"
   },
   "require": {
-    "php": "~8.0",
+    "php": "^8.2",
     "ezyang/htmlpurifier": "^4.17.0",
     "pear/net_url2": "^2.2.2",
     "riimu/kit-pathjoin": "^1.2.0",

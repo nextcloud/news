@@ -17,7 +17,7 @@ namespace OCA\News\Controller;
 
 use OCA\News\Service\UpdaterService;
 use \OCP\IRequest;
-use \OCP\IConfig;
+use \OCP\IAppConfig;
 use \OCP\IUserSession;
 
 use \OCA\News\Service\StatusService;
@@ -25,21 +25,14 @@ use \OCA\News\Service\StatusService;
 class UtilityApiController extends ApiController
 {
 
-    private $updaterService;
-    private $settings;
-    private $statusService;
-
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        UpdaterService $updater,
-        IConfig $settings,
-        StatusService $statusService
+        private UpdaterService $updaterService,
+        private IAppConfig $settings,
+        private StatusService $statusService
     ) {
         parent::__construct($request, $userSession);
-        $this->updaterService = $updater;
-        $this->settings = $settings;
-        $this->statusService = $statusService;
     }
 
 
@@ -50,7 +43,7 @@ class UtilityApiController extends ApiController
      */
     public function version(): array
     {
-        $version = $this->settings->getAppValue(
+        $version = $this->settings->getValueString(
             $this->appName,
             'installed_version'
         );

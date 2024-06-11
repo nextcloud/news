@@ -10,9 +10,9 @@ jobs:
     name: "Coverage: Nextcloud ${{ matrix.nextcloud }} PHP ${{ matrix.php-version }}"
     strategy:
       matrix:
-        nextcloud: ['stable27']
+        php-version: ["8.3"]
+        nextcloud: ['stable29']
         codecoverage: [true]
-        php-version: ["8.1"]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,11 +41,11 @@ jobs:
 
       - name: Prep PHP tests
         run: cd ../server/apps/news && make php-test-dependencies
-      
+
       - name: Unittests
         run: cd ../server/apps/news && make unit-test
         env:
           CODECOVERAGE: ${{ matrix.codecoverage }}
-      
+
       - name: Upload codecoverage
         run: cd ../server/apps/news && bash <(curl -s https://codecov.io/bash) -f build/php-unit.clover
