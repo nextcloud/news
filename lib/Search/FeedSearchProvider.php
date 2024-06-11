@@ -20,20 +20,12 @@ use OCP\Search\SearchResultEntry;
  */
 class FeedSearchProvider implements IProvider
 {
-    /** @var IL10N */
-    private $l10n;
 
-    /** @var IURLGenerator */
-    private $urlGenerator;
-
-    /** @var FeedServiceV2 */
-    private $service;
-
-    public function __construct(IL10N $l10n, IURLGenerator $urlGenerator, FeedServiceV2 $service)
-    {
-        $this->l10n = $l10n;
-        $this->urlGenerator = $urlGenerator;
-        $this->service = $service;
+    public function __construct(
+        private IL10N $l10n,
+        private IURLGenerator $urlGenerator,
+        private FeedServiceV2 $service
+    ) {
     }
 
     public function getId(): string
@@ -66,13 +58,14 @@ class FeedSearchProvider implements IProvider
         }
         $term = strtolower($term);
 
+        $imageurl = $this->urlGenerator->imagePath('core', 'rss.svg');
         foreach ($this->service->findAllForUser($user->getUID()) as $feed) {
             if (strpos(strtolower($feed->getTitle()), $term) === false) {
                 continue;
             }
 
             $list[] = new SearchResultEntry(
-                $this->urlGenerator->imagePath('core', 'rss.svg'),
+                $imageurl,
                 $feed->getTitle(),
                 $this->l10n->t('Unread articles') . ': ' . $feed->getUnreadCount(),
                 $this->urlGenerator->linkToRoute('news.page.index') . '#/feed/' . $feed->getId()

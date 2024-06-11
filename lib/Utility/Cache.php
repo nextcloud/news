@@ -15,7 +15,7 @@ use OCP\IConfig;
 
 class Cache
 {
-   
+
 
     /**
      * @var ITempManager
