@@ -47,6 +47,7 @@ class ItemApiControllerTest extends TestCase
     private $request;
     private $msg;
     private $uid = 'tom';
+    private $appName;
     private $class;
 
     protected function setUp(): void

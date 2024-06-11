@@ -60,20 +60,17 @@ class FolderSearchProvider implements IProvider
     public function search(IUser $user, ISearchQuery $query): SearchResult
     {
         $list = [];
-        if (method_exists($query, 'getFilter')) {
-            $term = $query->getFilter('term')?->get() ?? '';
-        } else {
-            $term = $query->getTerm();
-        }
+        $term = $query->getFilter('term')?->get() ?? '';
         $term = strtolower($term);
 
+        $imageurl = $this->urlGenerator->imagePath('core', 'filetypes/folder.svg');
         foreach ($this->service->findAllForUser($user->getUID()) as $folder) {
             if (strpos(strtolower($folder->getName()), $term) === false) {
                 continue;
             }
 
             $list[] = new SearchResultEntry(
-                $this->urlGenerator->imagePath('core', 'filetypes/folder.svg'),
+                $imageurl,
                 $folder->getName(),
                 '',
                 $this->urlGenerator->linkToRoute('news.page.index') . '#/folder/' . $folder->getId()

@@ -14,32 +14,18 @@
 namespace OCA\News\Service;
 
 use OCA\News\AppInfo\Application;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCP\IDBConnection;
 use OCP\BackgroundJob\IJobList;
-use OCP\Util;
 use OCA\News\Cron\UpdaterJob;
 
 class StatusService
 {
-    /** @var IConfig */
-    private $settings;
-    /** @var string */
-    private $appName;
-    /** @var IDBConnection */
-    private $connection;
-    /** @var IJobList */
-    private $jobList;
-
     public function __construct(
-        IConfig $settings,
-        IDBConnection $connection,
-        IJobList $jobList
+        private IAppConfig $settings,
+        private IDBConnection $connection,
+        private IJobList $jobList
     ) {
-        $this->settings = $settings;
-        $this->connection = $connection;
-        $this->appName = Application::NAME;
-        $this->jobList = $jobList;
     }
 
     /**
@@ -50,13 +36,13 @@ class StatusService
     public function isCronProperlyConfigured(): bool
     {
         //Is NC cron enabled?
-        $cronMode = $this->settings->getAppValue('core', 'backgroundjobs_mode');
+        $cronMode = $this->settings->getValueString('core', 'backgroundjobs_mode', '');
         //Expect nextcloud cron
-        $cronOff = !boolval($this->settings->getAppValue(
+        $cronOff = !$this->settings->getValueBool(
             Application::NAME,
             'useCronUpdates',
             Application::DEFAULT_SETTINGS['useCronUpdates']
-        ));
+        );
 
         // check for cron modes which may lead to problems
         return $cronMode === 'cron' || $cronOff;
@@ -70,8 +56,8 @@ class StatusService
      */
     public function getStatus(): array
     {
-        $version = $this->settings->getAppValue(
-            $this->appName,
+        $version = $this->settings->getValueString(
+            Application::NAME,
             'installed_version'
         );
 
@@ -94,7 +80,7 @@ class StatusService
 
         $myJobList = $this->jobList->getJobsIterator(UpdaterJob::class, 1, 0);
         $time = $myJobList->current()->getLastRun();
-        
+
         return $time;
     }
 }

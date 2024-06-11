@@ -18,6 +18,9 @@ use \GuzzleHttp\Client;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use OCP\IConfig;
+use OCP\IAppConfig;
+use OCP\App\IAppManager;
+use Net_URL2;
 
 /**
  * Class FetcherConfig
@@ -67,34 +70,31 @@ class FetcherConfig
     /**
      * FetcherConfig constructor.
      *
-     * @param IConfig $config
+     * @param IAppConfig $config    App configuration
+     * @param IConfig $systemconfig System configuration
      */
-    public function __construct(IConfig $config)
+    public function __construct(IAppConfig $config, IConfig $systemconfig, IAppManager $appManager)
     {
-        $this->client_timeout = $config->getAppValue(
+        $this->version = $appManager->getAppVersion(Application::NAME);
+        $this->client_timeout = $config->getValueInt(
             Application::NAME,
             'feedFetcherTimeout',
             Application::DEFAULT_SETTINGS['feedFetcherTimeout']
         );
-        $this->redirects = $config->getAppValue(
+        $this->redirects = $config->getValueInt(
             Application::NAME,
             'maxRedirects',
             Application::DEFAULT_SETTINGS['maxRedirects']
         );
-        $this->version = $config->getAppValue(
-            Application::NAME,
-            'installed_version',
-            '1.0'
-        );
 
-        $proxy = $config->getSystemValue('proxy', null);
+        $proxy = $systemconfig->getSystemValue('proxy', null);
         if (is_null($proxy)) {
             return $this;
         }
 
-        $url = new \Net_URL2($proxy);
+        $url = new Net_URL2($proxy);
 
-        $creds = $config->getSystemValue('proxyuserpwd', null);
+        $creds = $systemconfig->getSystemValue('proxyuserpwd', null);
         if ($creds !== null) {
             $auth = explode(':', $creds, 2);
             $url->setUserinfo($auth[0], $auth[1]);
@@ -108,9 +108,9 @@ class FetcherConfig
     /**
      * Checks for available encoding options
      *
-     * @return String list of supported encoding types
+     * @return string list of supported encoding types
      */
-    public function checkEncoding()
+    public function checkEncoding(): string
     {
         $supportedEncoding = [];
 

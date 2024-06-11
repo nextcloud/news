@@ -9,6 +9,7 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\Search\ISearchQuery;
+use OCP\Search\IFilter;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -86,10 +87,13 @@ class ItemSearchProviderTest extends TestCase
         $query = $this->getMockBuilder(ISearchQuery::class)
                      ->getMock();
 
+        $term = $this->getMockBuilder(IFilter::class)
+                      ->getMock();
+
         $query->expects($this->once())
                 ->method('getCursor')
                 ->willReturn(null);
-        
+
         $query->expects($this->once())
                 ->method('getLimit')
                 ->willReturn(10);
@@ -99,8 +103,13 @@ class ItemSearchProviderTest extends TestCase
                 ->willReturn('user');
 
         $query->expects($this->once())
-              ->method('getTerm')
-              ->willReturn('some text');
+              ->method('getFilter')
+              ->with('term')
+              ->willReturn($term);
+
+        $term->expects($this->once())
+             ->method('get')
+             ->willReturn('some text');
 
 
         $items = [

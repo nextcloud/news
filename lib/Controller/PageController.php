@@ -16,6 +16,8 @@ namespace OCA\News\Controller;
 use OCA\News\AppInfo\Application;
 use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
+use OCP\IAppConfig;
+use OCP\Util;
 use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
@@ -32,46 +34,17 @@ class PageController extends Controller
 {
     use JSONHttpErrorTrait;
 
-    /**
-     * @var IConfig
-     */
-    private $settings;
-
-    /**
-     * @var IL10N
-     */
-    private $l10n;
-
-    /**
-     * @var IURLGenerator
-     */
-    private $urlGenerator;
-
-    /**
-     * @var RecommendedSites
-     */
-    private $recommendedSites;
-
-    /**
-     * @var StatusService
-     */
-    private $statusService;
-
     public function __construct(
         IRequest $request,
-        IConfig $settings,
-        IURLGenerator $urlGenerator,
-        IL10N $l10n,
-        RecommendedSites $recommendedSites,
-        StatusService $statusService,
-        ?IUserSession $userSession
+        ?IUserSession $userSession,
+        private IAppConfig $settings,
+        private IConfig $config,
+        private IURLGenerator $urlGenerator,
+        private IL10N $l10n,
+        private RecommendedSites $recommendedSites,
+        private StatusService $statusService
     ) {
         parent::__construct($request, $userSession);
-        $this->settings = $settings;
-        $this->urlGenerator = $urlGenerator;
-        $this->l10n = $l10n;
-        $this->recommendedSites = $recommendedSites;
-        $this->statusService = $statusService;
     }
 
 
@@ -82,11 +55,19 @@ class PageController extends Controller
     public function index(): TemplateResponse
     {
         $status = $this->statusService->getStatus();
+
+        // TODO: Remove check when dropping NC 30.
+        if (class_exists('\OCP\ServerVersion')) {
+            $version = (new \OCP\ServerVersion())->getMajorVersion();
+        } else {
+            $version = Util::getVersion()[0];
+        }
+
         $response = new TemplateResponse(
             $this->appName,
             'index',
             [
-                'nc_major_version' => \OCP\Util::getVersion()[0],
+                'nc_major_version' => $version,
                 'warnings' => $status['warnings'],
                 'url_generator' => $this->urlGenerator
             ]
@@ -121,7 +102,7 @@ class PageController extends Controller
             'compactExpand'
         ];
 
-        $exploreUrl = $this->settings->getAppValue(
+        $exploreUrl = $this->settings->getValueString(
             $this->appName,
             'exploreUrl',
             Application::DEFAULT_SETTINGS['exploreUrl']
@@ -141,7 +122,7 @@ class PageController extends Controller
         ];
 
         foreach ($settings as $setting) {
-            $result[$setting] = $this->settings->getUserValue(
+            $result[$setting] = $this->config->getUserValue(
                 $this->getUserId(),
                 $this->appName,
                 $setting
@@ -177,7 +158,7 @@ class PageController extends Controller
 
         foreach ($settings as $setting => $value) {
             $value = $value ? '1' : '0';
-            $this->settings->setUserValue(
+            $this->config->setUserValue(
                 $this->getUserId(),
                 $this->appName,
                 $setting,
@@ -195,13 +176,13 @@ class PageController extends Controller
      */
     public function explore(string $lang)
     {
-        $this->settings->setUserValue(
+        $this->config->setUserValue(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             0
         );
-        $this->settings->setUserValue(
+        $this->config->setUserValue(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',

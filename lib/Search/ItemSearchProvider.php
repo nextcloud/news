@@ -75,13 +75,7 @@ class ItemSearchProvider implements IProvider
         $list = [];
         $offset = (int) ($query->getCursor() ?? 0);
         $limit = $query->getLimit();
-
-        if (method_exists($query, 'getFilter')) {
-            $term = $query->getFilter('term')?->get() ?? '';
-        } else {
-            $term = $query->getTerm();
-        }
-
+        $term = $query->getFilter('term')?->get() ?? '';
         $search_result = $this->service->findAllWithFilters(
             $user->getUID(),
             ListType::ALL_ITEMS,

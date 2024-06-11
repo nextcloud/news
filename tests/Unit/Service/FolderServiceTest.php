@@ -89,7 +89,7 @@ class FolderServiceTest extends TestCase
         $this->logger = $this->getMockBuilder(LoggerInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->class = new FolderServiceV2($this->mapper, $this->feedService, $timeFactory, $this->logger);
+        $this->class = new FolderServiceV2($this->mapper, $this->logger, $this->feedService, $timeFactory);
     }
 
     public function testFindAll()

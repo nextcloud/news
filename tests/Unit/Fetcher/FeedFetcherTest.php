@@ -155,6 +155,9 @@ class FeedFetcherTest extends TestCase
     private $modified;
     private $location;
 
+    private $categories;
+    private $categoriesJson;
+
     protected function setUp(): void
     {
         $this->l10n = $this->getMockBuilder(IL10N::class)
