@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Fix undefined item when using `j` and `k` keyboards shortcuts in an empty feed (#2689)
 
 # Releases
 ## [25.0.0-alpha7] - 2024-06-10

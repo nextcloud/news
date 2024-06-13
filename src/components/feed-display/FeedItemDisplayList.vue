@@ -196,6 +196,10 @@ export default Vue.extend({
 		},
 		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
 		clickItem(item: FeedItem, alignToTop = false) {
+			if (!item) {
+				return
+			}
+
 			const refName = 'feedItemRow' + item.id
 			const ref = this.$refs[refName]
 			// Make linter happy
