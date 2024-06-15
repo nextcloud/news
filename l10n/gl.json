@@ -25,7 +25,7 @@
     "Folder exists already!" : "Xa existe o cartafol!",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "As credenciais para HTTP Basic Auth deben estar gardadas sen cifrar! Calquera persoa con acceso ao servidor poderá acceder a elas!",
     "Credentials" : "Credenciais",
-    "Auto discover Feed" : "Feed de detección automática",
+    "Auto discover Feed" : "Fonte de achado automático",
     "Subscribe" : "Subscribirse",
     "Last job execution ran {relativeTime}. Something seems wrong." : "A última execución do traballo executouse o {relativeTime}. Algo parece funcionar mal.",
     "Last job ran {relativeTime}." : "O último traballo executouse {relativeTime}.",
