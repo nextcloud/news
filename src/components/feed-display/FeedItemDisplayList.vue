@@ -113,8 +113,8 @@ export default Vue.extend({
 		return {
 			mounted: false,
 
-			// no filter to start
-			filter: () => { return true as boolean },
+			// Show unread items at start
+			filter: () => { return this.unreadFilter },
 
 			// Always want to sort by date (most recent first)
 			sort: (a: FeedItem, b: FeedItem) => {
@@ -144,10 +144,48 @@ export default Vue.extend({
 			this.selectedItem = newVal
 		},
 	},
+	created() {
+		this.loadFilter()
+	},
 	mounted() {
 		this.mounted = true
 	},
 	methods: {
+		storeFilter() {
+			try {
+				let filterString = 'noFilter'
+
+				if (this.filter === this.starFilter) {
+					filterString = 'starFilter'
+				} else if (this.filter === this.unreadFilter) {
+					filterString = 'unreadFilter'
+				}
+
+				localStorage.setItem('news-filter', filterString)
+			} catch (error) {
+				console.error('Error saving filter to local storage:', error)
+			}
+		},
+		loadFilter() {
+			try {
+				const filterString = localStorage.getItem('news-filter')
+
+				if (filterString) {
+					switch (filterString) {
+					case 'starFilter':
+						this.filter = this.starFilter
+						break
+					case 'unreadFilter':
+						this.filter = this.unreadFilter
+						break
+					default:
+						this.filter = this.noFilter
+					}
+				}
+			} catch (error) {
+				console.error('Error loading filter from local storage:', error)
+			}
+		},
 		fetchMore() {
 			this.$emit('load-more')
 		},
@@ -169,6 +207,8 @@ export default Vue.extend({
 			} else {
 				this.filter = filter as () => boolean
 			}
+
+			this.storeFilter()
 		},
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
