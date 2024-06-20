@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Persist the filter state and show unread items by default (#2704)
 
 ### Fixed
 - Fix undefined item when using `j` and `k` keyboards shortcuts in an empty feed (#2689)
