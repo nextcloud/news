@@ -34,7 +34,7 @@ jobs:
           coverage: none
 
       - name: Setup BATS & httpie
-        run: sudo apt-get install -y httpie && npm install -g bats@1.7.0
+        run: sudo apt-get install -y httpie && sudo npm install -g bats@1.11.0
 
       - name: Set up server
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
