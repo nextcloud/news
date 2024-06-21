@@ -16,6 +16,7 @@ namespace OCA\News\Service;
 use DateTime;
 use FeedIo\Explorer;
 use FeedIo\Reader\ReadErrorException;
+use FeedIo\Reader\NoAccurateParserException;
 use HTMLPurifier;
 
 use OCA\News\Db\FeedMapperV2;
@@ -283,10 +284,17 @@ class FeedServiceV2 extends Service
                 $feed->getBasicAuthPassword(),
                 $feed->getHttpLastModified()
             );
-        } catch (ReadErrorException $ex) {
+        } catch (ReadErrorException | NoAccurateParserException $ex) {
             $feed->setUpdateErrorCount($feed->getUpdateErrorCount() + 1);
             $feed->setLastUpdateError($ex->getMessage());
 
+            $this->logger->warning(
+                'Error while parsing feed: {url} {error}',
+                [
+                'url'   => $location,
+                'error' => $ex
+                ]
+            );
             return $this->mapper->update($feed);
         }
 
