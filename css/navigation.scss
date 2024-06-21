@@ -207,6 +207,10 @@
     background-image: url('../img/updatemodeunread.svg');
 }
 
+#app-navigation .icon-arrow {
+    background-image: url('../img/arrow.svg');
+}
+
 #app-navigation .updateerror a {
     background-color: var(--color-warning) !important;
 }

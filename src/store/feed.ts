@@ -9,6 +9,7 @@ import { ItemService } from '../dataservices/item.service'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
+	MOVE_FEED: 'MOVE_FEED',
 	FETCH_FEEDS: 'FETCH_FEEDS',
 	FEED_MARK_READ: 'FEED_MARK_READ',
 
@@ -84,6 +85,26 @@ export const actions = {
 			})
 
 			commit(FEED_MUTATION_TYPES.ADD_FEED, response.data.feeds[0])
+		} catch (e) {
+			// TODO: show error to user if failure
+			console.log(e)
+		}
+	},
+
+	async [FEED_ACTION_TYPES.MOVE_FEED](
+		{ commit }: ActionParams<FeedState>,
+		{ feedId, folderId }: { feedId: number, folderId: number },
+	) {
+		// Check that url is resolvable
+		try {
+			const response = await FeedService.moveFeed({
+				feedId,
+				folderId,
+			})
+
+			// The feed list seems to refresh, but the parent folder does not update in the UI
+			// We will do this directly by resetting the states of the folders and feeds and fetching them again
+			// commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feedId, folderId })
 		} catch (e) {
 			// TODO: show error to user if failure
 			console.log(e)

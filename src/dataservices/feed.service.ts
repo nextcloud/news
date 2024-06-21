@@ -84,6 +84,20 @@ export class FeedService {
 	}
 
 	/**
+	 * Move a feed to a different folder
+	 *
+	 * @param param0 Data for the feed
+	 * @param param0.feedId {Number} ID number of feed to update
+	 * @param param0.folderId {Number} ID number of folder to move feed to
+	 * @return {AxiosResponse} Null value is returned on success
+	 */
+	static moveFeed({ feedId, folderId }: { feedId: number, folderId: number }): Promise<AxiosResponse> {
+		return axios.patch(API_ROUTES.FEED + `/${feedId}`, {
+			folderId,
+		})
+	}
+
+	/**
 	 * Deletes a feed
 	 *
 	 * @param param0 Data for the feed
