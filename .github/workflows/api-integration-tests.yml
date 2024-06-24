@@ -62,7 +62,7 @@ jobs:
       ### MySQL specific setup
       - name: Setup mysql
         if: matrix.database == 'mysql'
-        uses: getong/mariadb-action@v1.2
+        uses: getong/mariadb-action@v1.11
         with:
           mariadb version: '10.5'
           host port: ${{ env.MYSQL_PORT }}
