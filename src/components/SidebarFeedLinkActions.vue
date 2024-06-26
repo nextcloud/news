@@ -76,6 +76,13 @@
 			@click="rename()">
 			{{ t("news", "Rename") }}
 		</NcActionButton>
+		<NcActionButton icon="icon-arrow"
+			@click="move()">
+			<template #icon>
+				<ArrowRightIcon />
+			</template>
+			{{ t("news", "Move") }}
+		</NcActionButton>
 		<NcActionButton icon="icon-delete"
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
@@ -86,6 +93,7 @@
 				<RssIcon />
 			</template>
 		</NcAppNavigationItem>
+		<MoveFeed v-if="showMoveFeed" :feed="feed" @close="closeShowMoveFeed()" />
 	</span>
 </template>
 
@@ -103,14 +111,17 @@ import PinIcon from 'vue-material-design-icons/Pin.vue'
 import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
 import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
+import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
 
 import { ACTIONS } from '../store'
 import { Feed } from '../types/Feed'
+import MoveFeed from './MoveFeed.vue'
 const UnreadSvg = require('../../img/updatemodeunread.svg')
 const IgnoreSvg = require('../../img/updatemodedefault.svg')
 
 export default Vue.extend({
 	components: {
+		MoveFeed,
 		NcActionButton,
 		NcAppNavigationItem,
 		RssIcon,
@@ -118,6 +129,7 @@ export default Vue.extend({
 		PinOffIcon,
 		TextShortIcon,
 		TextLongIcon,
+		ArrowRightIcon,
 	},
 	props: {
 		feedId: {
@@ -131,6 +143,7 @@ export default Vue.extend({
 			FEED_UPDATE_MODE,
 			UnreadSvg,
 			IgnoreSvg,
+			showMoveFeed: false,
 		}
 	},
 
@@ -164,6 +177,12 @@ export default Vue.extend({
 			if (title !== null) {
 				this.$store.dispatch(ACTIONS.FEED_SET_TITLE, { feed: this.feed, title })
 			}
+		},
+		move() {
+			this.showMoveFeed = true
+		},
+		closeShowMoveFeed() {
+			this.showMoveFeed = false
 		},
 		deleteFeed() {
 			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
