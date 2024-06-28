@@ -1,0 +1,1137 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Nextcloud News App">
+      
+      
+        <meta name="author" content="Nextcloud News Team">
+      
+      
+        <link rel="canonical" href="https://nextcloud.github.io/news/troubleshooting/">
+      
+      
+        <link rel="prev" href="../developer/">
+      
+      
+        <link rel="next" href="../features/integration/">
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Troubleshooting - Nextcloud News App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#troubleshooting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nextcloud News App" class="md-header__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nextcloud News App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Troubleshooting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nextcloud/news" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nextcloud News App" class="md-nav__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    Nextcloud News App
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nextcloud/news" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation/Update & Uninstall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clients/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Admin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#my-browser-shows-a-mixed-content-warning-connection-is-not-secure" class="md-nav__link">
+    <span class="md-ellipsis">
+      My browser shows a mixed content warning (Connection is Not Secure)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="My browser shows a mixed content warning (Connection is Not Secure)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-cause-of-the-yellow-error-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is the cause of the (yellow) error message?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-doesnt-the-news-app-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why doesn't the News app fix it?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-dont-you-simply-use-an-https-imageaudiovideo-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why don't you simply use an HTTPS image/audio/video proxy?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-am-getting-exception-someclass-does-not-exist-errors-in-my-nextcloudlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      I am getting: Exception: Some\Class does not exist errors in my nextcloud.log
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feeds-not-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feeds not updated
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feeds not updated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validating-using-system-cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validating Using System Cron
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validating Using System Cron">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outdated-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outdated Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-external-updater" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using External Updater
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-table-grows-too-big" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database table grows too big
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missing-4-byte-support-sqlstate22007-invalid-datetime-format-1366-incorrect-string-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing 4-byte support SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/customCSS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom CSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    REST API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            REST API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api-v1-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v1.2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api-v1-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v1.3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api-v2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintenance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#my-browser-shows-a-mixed-content-warning-connection-is-not-secure" class="md-nav__link">
+    <span class="md-ellipsis">
+      My browser shows a mixed content warning (Connection is Not Secure)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="My browser shows a mixed content warning (Connection is Not Secure)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-the-cause-of-the-yellow-error-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is the cause of the (yellow) error message?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-doesnt-the-news-app-fix-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why doesn't the News app fix it?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-dont-you-simply-use-an-https-imageaudiovideo-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why don't you simply use an HTTPS image/audio/video proxy?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#i-am-getting-exception-someclass-does-not-exist-errors-in-my-nextcloudlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      I am getting: Exception: Some\Class does not exist errors in my nextcloud.log
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feeds-not-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feeds not updated
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feeds not updated">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#validating-using-system-cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validating Using System Cron
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validating Using System Cron">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#outdated-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Outdated Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-external-updater" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using External Updater
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-table-grows-too-big" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database table grows too big
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#missing-4-byte-support-sqlstate22007-invalid-datetime-format-1366-incorrect-string-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      Missing 4-byte support SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="troubleshooting">Troubleshooting</h1>
+<p>This is a brief list of common issues that come up with NextCloud News.</p>
+<h2 id="my-browser-shows-a-mixed-content-warning-connection-is-not-secure">My browser shows a mixed content warning (Connection is Not Secure)</h2>
+<p>If you are serving your Nextcloud over HTTPS your browser will very likely warn you with a yellow warnings sign about your connection not being secure.</p>
+<ul>
+<li>Chrome will show no green HTTPS lock sign.</li>
+<li>Firefox will show you the following image Mixed Passive Content <img alt="Mixed Content Type" src="https://ffp4g1ylyit3jdyti1hqcvtb-wpengine.netdna-ssl.com/security/files/2015/10/mixed-passive-click1-600x221.png" /></li>
+</ul>
+<p>Note that this warning <strong>is not red and won't block the page like the following images</strong> which signal a serious issue:</p>
+<ul>
+<li>Chrome <img alt="Chrome error" src="https://www.inmotionhosting.com/support/images/stories/website/errors/ssl/chrome-self-signed-ssl-warning.png" /></li>
+<li>Firefox <img alt="Firefox error" src="https://www.howtogeek.com/wp-content/uploads/2014/02/650x367xchrome-mixed-content-https-problem.png.pagespeed.gp+jp+jw+pj+js+rj+rp+rw+ri+cp+md.ic.r_lQiZiq38.png" /></li>
+</ul>
+<h3 id="what-is-the-cause-of-the-yellow-error-message">What is the cause of the (yellow) error message?</h3>
+<p>This warning is caused by mixed passive content and means that your page loads passive resources from non HTTPS resources, such as:</p>
+<ul>
+<li>Images</li>
+<li>Video/Audio</li>
+<li>Some Ads</li>
+</ul>
+<p>This allows a possible attacker to perform a MITM (man-in-the-middle) attack by serving you different images or audio/video.</p>
+<h3 id="why-doesnt-the-news-app-fix-it">Why doesn't the News app fix it?</h3>
+<p>The News app fully prevents mixed <strong>active</strong> content by only allowing HTTPS iframes from known locations; other possible mixed active content elements such as &lt;script\&gt; are stripped from the feed. Because images and audio/video are an integral part of a feed, we can not simply strip them.</p>
+<p>Since an attacker can not execute code in contrast to mixed active content, but only replace images/audio/video in your feed reader, this is <strong>not considered to be a security issue</strong>. If, for whatever reason (e.g. feed which would allow fishing), this is a security problem for you, contact the specific feed provider and ask him to serve his feed content over HTTPS.</p>
+<h3 id="why-dont-you-simply-use-an-https-imageaudiovideo-proxy">Why don't you simply use an HTTPS image/audio/video proxy?</h3>
+<p>For the same reason that we can't fix non HTTPS websites: It does not fix the underlying issue, but only silences it. If you are using an image HTTPS proxy, an attacker can simply attack your image proxy since the proxy fetches insecure content. <strong>Even worse</strong>: if your image proxy serves these images from the same domain as your Nextcloud installation, you are <a href="https://www.owasp.org/images/0/03/Mario_Heiderich_OWASP_Sweden_The_image_that_called_me.pdf">vulnerable to XSS via SVG images</a>. In addition, people feel safe when essentially they are not.</p>
+<p>Since most people don't understand mixed content and don't have two domains and a standalone server for the image proxy, it is very likely they will choose to host it under the same domain.</p>
+<p>Because we care about our users' security and don't want to hide security warnings, we won't fix (aka silence) this issue.</p>
+<p>The only fix for this issue is that feed providers serve their content over HTTPS.</p>
+<h2 id="i-am-getting-exception-someclass-does-not-exist-errors-in-my-nextcloudlog">I am getting: Exception: Some\Class does not exist errors in my nextcloud.log</h2>
+<p>This is very often caused by missing or old files, e.g. by failing to upload all the News app files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.</p>
+<h2 id="feeds-not-updated">Feeds not updated</h2>
+<p>Feeds can be updated using Nextcloud's system cron or an external updater via the API. <strong>The feed update is not run in Webcron and AJAX cron mode!</strong></p>
+<h3 id="validating-using-system-cron">Validating Using System Cron</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This requires Nextcloud 26 or newer and News 24.0.0 or newer.</p>
+</div>
+<p>Follow this checklist:</p>
+<ul>
+<li>Check admin settings of Nextcloud, was the last cron execution ok.</li>
+<li>Check the logs for errors.</li>
+<li>Does your <a href="../install/#cache">cache configuration</a> work?</li>
+<li>Check the News admin settings, system cron is used to update news.</li>
+<li>You should see a info card at the top, which will tell you when the last job execution was.</li>
+<li>If the card is red it is very likely that the update job is stuck.</li>
+<li>If it is green then maybe only some feeds are failing to update, check the Nextcloud logs.</li>
+</ul>
+<p>If you believe the job is stuck you can reset it. For further steps you need to use occ.</p>
+<p>You can check again the status of the job.
+(replace <code>www-data</code> with your httpd user)</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>-u<span class="w"> </span>www-data<span class="w"> </span>php<span class="w"> </span>./occ<span class="w"> </span>news:updater:job
+</span><span id="code-line-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Checking<span class="w"> </span>update<span class="w"> </span>Status
+</span><span id="code-line-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Last<span class="w"> </span>Execution<span class="w"> </span>was<span class="w"> </span><span class="m">2023</span>-03-20<span class="w"> </span><span class="m">12</span>:20:03<span class="w"> </span>UTC
+</span></code></pre></div>
+<p>The same check that is done in the News admin settings can be done using occ too.
+Adding the <code>--check-elapsed</code> option displays the time elapsed since the last execution,
+and if it's considered too long ago, a message will be displayed, and the command returns
+with exit code 2. This can be used in scripts to send an alert for example.</p>
+<div class="language-console highlight"><pre><span></span><code><span id="code-line-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>-u<span class="w"> </span>www-data<span class="w"> </span>php<span class="w"> </span>./occ<span class="w"> </span>news:updater:job<span class="w"> </span>--check-elapsed
+</span><span id="code-line-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">Checking update Status</span>
+</span><span id="code-line-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="go">Last Execution was 2023-03-20 12:20:03 UTC</span>
+</span><span id="code-line-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="go">8 hours, 21 minutes, 20 seconds ago</span>
+</span><span id="code-line-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="go">Something is wrong with the news cronjob, execution delay exceeded the configured interval.</span>
+</span></code></pre></div>
+<p>If you think the job is stuck you can reset it, this may lead to issues if the job is currently running!</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>-u<span class="w"> </span>www-data<span class="w"> </span>php<span class="w"> </span>./occ<span class="w"> </span>news:updater:job<span class="w"> </span>--reset
+</span><span id="code-line-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Checking<span class="w"> </span>update<span class="w"> </span>Status
+</span><span id="code-line-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Last<span class="w"> </span>Execution<span class="w"> </span>was<span class="w"> </span><span class="m">2023</span>-03-20<span class="w"> </span><span class="m">12</span>:20:03<span class="w"> </span>UTC
+</span><span id="code-line-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Attempting<span class="w"> </span>to<span class="w"> </span>reset<span class="w"> </span>the<span class="w"> </span>job.
+</span><span id="code-line-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Done,<span class="w"> </span>job<span class="w"> </span>should<span class="w"> </span>execute<span class="w"> </span>on<span class="w"> </span>next<span class="w"> </span>schedule.
+</span></code></pre></div>
+<p>The output of the command should have changed.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>-u<span class="w"> </span>www-data<span class="w"> </span>php<span class="w"> </span>./occ<span class="w"> </span>news:updater:job
+</span><span id="code-line-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Checking<span class="w"> </span>update<span class="w"> </span>Status
+</span><span id="code-line-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Last<span class="w"> </span>Execution<span class="w"> </span>was<span class="w"> </span><span class="m">1970</span>-01-01<span class="w"> </span><span class="m">00</span>:00:00<span class="w"> </span>UTC
+</span></code></pre></div>
+<p>After some time has passed the timestamp should be close to the current time.</p>
+<p>If this did not help, check the logs and open a issue or discussion on GitHub.</p>
+<h4 id="outdated-steps">Outdated Steps</h4>
+<p>Follow these steps if you are running an older version of News and Nextcloud.</p>
+<ul>
+<li>Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds</li>
+<li>Check if the cronjob exists with <code>crontab -u www-data -e</code> (replace www-data with your httpd user)</li>
+<li>Check the file permissions of the cron.php file and if www-data (or whatever your httpd user is called like) can read and execute that script</li>
+<li>Check if you can execute the cron with <code>sudo -u www-data php -f nextcloud/cron.php</code> (replace www-data with your httpd user)</li>
+<li>Check your <code>data/nextcloud.log</code> for errors</li>
+<li>Check if the cronjob is ever executed by placing an <code>error_log('updating');</code> in the <a href="https://github.com/nextcloud/news/blob/master/lib/Service/UpdaterService.php#L55">background job file</a>. If the cronjob runs, there should be an updating log statement in your httpd log.</li>
+<li>If there is no updating statement in your logs check if your cronjob is executed by executing a different script</li>
+<li>Check if the oc_jobs table has a reserved_at entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:</li>
+</ul>
+<div class="language-sql highlight"><pre><span></span><code><span id="code-line-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">oc_jobs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%News%&#39;</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id</span><span class="p">;</span>
+</span></code></pre></div>
+<p>You will get two rows where column class will be <code>OCA\News\Cron\Updater</code> and <code>OCA\News\Cron\UpdaterJob</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In newer versions of News (21.x.x) the old job OCA\News\Cron\Updater was removed from the DB.</p>
+</div>
+<p>Reset the reserved_at by executing</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="code-line-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">oc_jobs</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">reserved_at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&lt;</span><span class="n">id</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">statement</span><span class="o">&gt;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>If your cron works fine, but Nextcloud's cronjobs are never executed, file a bug in <a href="https://github.com/nextcloud/server/">server</a></p>
+<h3 id="using-external-updater">Using External Updater</h3>
+<ul>
+<li>Check if your configuration is set to not use the system cron.</li>
+<li>Consult the documentation of the updater</li>
+<li>Check your data/nextcloud.log for errors</li>
+</ul>
+<h2 id="database-table-grows-too-big">Database table grows too big</h2>
+<p>If your users have subscribed to some high-volume feeds where a lot of items remain unread, this can lead to an oversized news table over time. As a consequence, the database upgrade of the news app can take several hours, during which Nextcloud cannot be used.</p>
+<p>By default, Nextcloud News purges old news items above a certain threshold each time it fetches new news items. The maximum number of items per feed that should be kept during the purging can be defined through the “Maximum read count per feed” setting in the admin UI or the <code>autoPurgeCount</code> value in the config. Additionally you may enable the option to also purge unread items <code>purgeUnread</code>. This is useful if your users have large amounts of unread items. Starred items are always exempt from purging.</p>
+<p>The command <code>occ news:updater:after-update [--purge-unread] [&lt;purge-count&gt;]</code> can be used to manually purge old news items across the instance. With the <code>--purge-unread option</code>, unread items are also purged (starred items are still exempt). If <code>purge-count</code> is not specified, the configured <code>autoPurgeCount</code> is used.</p>
+<p>The purge count only applies to the items that are purged. For example, when purging a feed that has 100 unread items, 100 starred read items and 100 unstarred read items, using a purge-count of 50 would keep all unread and starred items and the latest 50 read items. Using a <code>purge-count</code> of 50 along with <code>--purge-unread</code> would keep the all starred items plus the latest 50 from the set of unread and read items.</p>
+<h2 id="missing-4-byte-support-sqlstate22007-invalid-datetime-format-1366-incorrect-string-value">Missing 4-byte support SQLSTATE[22007]: Invalid datetime format: 1366 Incorrect string value:</h2>
+<p>This is likely caused by your feed using emojis in the feed title or text.</p>
+<p>The DB is then not able to store the feed and runs into strange decoding errors.</p>
+<p>You need to convert your DB to support 4 bytes, check the <a href="https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/mysql_4byte_support.html">Nextcloud documentation</a>.</p>
+<p>References <a href="https://github.com/nextcloud/news/issues/1165">#1165</a> <a href="https://github.com/nextcloud/news/issues/526">#526</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.tracking", "navigation.instant", "navigation.expand", "navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>

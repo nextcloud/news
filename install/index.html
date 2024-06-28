@@ -1,0 +1,1114 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Nextcloud News App">
+      
+      
+        <meta name="author" content="Nextcloud News Team">
+      
+      
+        <link rel="canonical" href="https://nextcloud.github.io/news/install/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../clients/">
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>Installation/Update & Uninstall - Nextcloud News App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#installationupdate-uninstall" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Nextcloud News App" class="md-header__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nextcloud News App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Installation/Update & Uninstall
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nextcloud/news" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Nextcloud News App" class="md-nav__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../assets/logo.svg" alt="logo">
+
+    </a>
+    Nextcloud News App
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nextcloud/news" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Installation/Update & Uninstall
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Installation/Update & Uninstall
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-notices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Notices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cache
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-installupdate-the-news-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before you install/update the News app
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-from-the-app-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing from the app store
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-from-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing from archive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-from-git-development-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing from Git (development version)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing from Git (development version)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstall-with-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uninstall with cleanup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../clients/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Admin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/customCSS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom CSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../features/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    REST API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            REST API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api-v1-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v1.2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api-v1-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v1.3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/api-v2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintenance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-databases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Databases
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-notices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Notices
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cache
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#before-you-installupdate-the-news-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before you install/update the News app
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-from-the-app-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing from the app store
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-from-archive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing from archive
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-from-git-development-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing from Git (development version)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing from Git (development version)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#build-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build Dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstall-with-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uninstall with cleanup
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="installationupdate-uninstall">Installation/Update &amp; Uninstall</h1>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>64bit OS (starting with News 16.0.0)</li>
+<li>PHP &gt;= 8.0</li>
+<li>Nextcloud (current stable version)</li>
+<li>libxml &gt;= 2.7.8</li>
+</ul>
+<p>You also need some PHP extensions:</p>
+<ul>
+<li>json</li>
+<li>simplexml</li>
+<li>xml</li>
+<li>dom</li>
+<li>curl</li>
+<li>iconv</li>
+</ul>
+<h2 id="supported-databases">Supported Databases</h2>
+<ul>
+<li>PostgreSQL &gt;= 10</li>
+<li>MariaDB &gt;= 10.2</li>
+<li>MySQL &gt;= 8.0</li>
+<li>SQLite (discouraged)</li>
+</ul>
+<p>Also see the <a href="https://docs.nextcloud.com/server/stable/admin_manual/configuration_database/linux_database_configuration.html?highlight=database">Nextcloud documentation</a>. Oracle is currently not supported by News.</p>
+<h2 id="performance-notices">Performance Notices</h2>
+<ul>
+<li>Use MySQL/MariaDB or PostgreSQL for better database performance</li>
+<li>Use the <a href="https://github.com/nextcloud/news-updater">updater script to thread and speed up the update</a></li>
+</ul>
+<h2 id="cache">Cache</h2>
+<p>News and it's libraries require a writeable temporary directory used as cache. The base directory depends on your system.
+You can <a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=temp#tempdirectory">configure a custom directory</a> if you want.</p>
+<p>In most cases the base directory will be <code>/tmp</code>. News will create a folder <code>news-$instanceID</code> the <a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=temp#instanceid">instance ID is defined by Nextcloud</a>.</p>
+<p>Inside that folder a subfolder <code>cache</code> is created, inside this cache folder news and libraries will try to create cache directories for caching images, html and more.</p>
+<p>You need to ensure that your web-server user can write to that directory.</p>
+<h2 id="before-you-installupdate-the-news-app">Before you install/update the News app</h2>
+<p>Before you install the app do the following:</p>
+<ul>
+<li>Check that your installation fulfills the <a href="#dependencies">requirements listed above</a></li>
+<li><a href="https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron">Set up Nextcloud Background Jobs</a> to enable feed updates.</li>
+</ul>
+<p>Then proceed to install the app either from an archive (zip/tar.gz) or clone it from the repository using git</p>
+<h2 id="installing-from-the-app-store">Installing from the <a href="https://apps.nextcloud.com/apps/news">app store</a></h2>
+<p>This is the easiest solution: Simply go the apps page (section: "Multimedia") and enable the News app</p>
+<h2 id="installing-from-archive">Installing from archive</h2>
+<ul>
+<li>Go to the <a href="https://github.com/nextcloud/news/releases">Nextcloud News GitHub releases page</a> and download the latest release/archive to your server</li>
+<li>The news.tar.gz file contains the compiled and signed app files, if you install from source you have to build the app on your own.</li>
+<li>On your server, check if there is a folder called <strong>nextcloud/apps/news</strong>. If there is one, delete it.</li>
+<li>Extract the downloaded archive to the <strong>nextcloud/apps/</strong> folder.</li>
+<li>Remove the version from the extracted folder (e.g. rename <strong>nextcloud/apps/news-4.0.3/</strong> to <strong>nextcloud/apps/news/</strong></li>
+<li>
+<p>If you are a version greater than or equal to 8.0.0 and downloaded the <strong>Source code</strong> zip or tar.gz, you need to install the JavaScript and PHP dependencies and compile the JavaScript first. On your terminal, change into the <strong>nextcloud/apps/news/</strong> directory and run the following command (requires node &gt;5.6, npm, curl, make and which):</p>
+<div class="language-text highlight"><pre><span></span><code>sudo -u www-data make  # www-data might vary depending on your distribution
+</code></pre></div>
+</li>
+<li>
+<p>Finally make sure that the <strong>nextcloud/apps/news</strong> directory is owned by the web server user</p>
+<div class="language-text highlight"><pre><span></span><code>sudo chown -R www-data:www-data nextcloud/apps/news  # www-data:www-data might vary depending on your distribution
+</code></pre></div>
+</li>
+<li>
+<p>Activate the <strong>News</strong> app in the apps menu</p>
+</li>
+</ul>
+<h2 id="installing-from-git-development-version">Installing from Git (development version)</h2>
+<h3 id="build-dependencies">Build Dependencies</h3>
+<p>These Dependencies are only relevant if you want to build the source code:</p>
+<ul>
+<li>make</li>
+<li>which</li>
+<li>Node.js &gt;= 6</li>
+<li>npm</li>
+<li>
+<p>composer</p>
+</li>
+<li>
+<p>The master branch will always be stable in conjunction with the latest master branch from Nextcloud</p>
+</li>
+<li>JavaScript and PHP libraries are not included anymore since 8.0.0 and will require you to run <strong>make</strong> after updating/installing the app</li>
+<li>
+<p>In your terminal go into the <strong>nextcloud/apps/</strong> directory and then run the following command:</p>
+<div class="language-text highlight"><pre><span></span><code>git clone https://github.com/nextcloud/news.git
+cd news
+make
+</code></pre></div>
+</li>
+<li>
+<p>If you are using a stable Nextcloud release, stay with the <a href="https://github.com/nextcloud/news/releases">latest git tag release which is running on your version</a>. To get an overview over all existing tags run:</p>
+<div class="language-text highlight"><pre><span></span><code>git tag
+</code></pre></div>
+</li>
+</ul>
+<p>You can switch to a release which will be supported on your installation by running:</p>
+<div class="language-text highlight"><pre><span></span><code>  git checkout tags/TAG
+  make  # if News version &gt;= 8.0.0
+</code></pre></div>
+<p>For instance, to use the 5.2.8 release, run:</p>
+<div class="language-text highlight"><pre><span></span><code>  git checkout tags/5.2.8
+</code></pre></div>
+<ul>
+<li>Activate the <strong>News</strong> app in the apps menu</li>
+</ul>
+<p>To update the News app use change into the <strong>nextcloud/apps/news/</strong> directory using your terminal and then run:</p>
+<div class="language-text highlight"><pre><span></span><code>git pull --rebase origin master
+make
+</code></pre></div>
+<h2 id="uninstall-with-cleanup">Uninstall with cleanup</h2>
+<p>First uninstall the app via the web-interface or via occ:</p>
+<div class="language-console highlight"><pre><span></span><code><span id="code-line-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">./occ app:remove news</span>
+</span></code></pre></div>
+<p>This currently does not remove any of the database tables.
+Data in your <code>/tmp</code> directory will be automatically deleted by the OS.
+If you changed the temporary directory for Nextcloud you need to check on your own.</p>
+<p>Careful, this next part is only intended for admins, that know what they are doing.</p>
+<p>To remove the tables from the DB we drop the tables of News.
+Your installation might have a different prefix than <code>oc_</code> but it is the default in most installations.
+Connect to your DB and execute the commands. Don't forget to switch to the right database.
+For example in mysql: <code>use nextcloud;</code></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="code-line-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">oc_news_items</span><span class="p">;</span>
+</span><span id="code-line-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">oc_news_feeds</span><span class="p">;</span>
+</span><span id="code-line-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">oc_news_folders</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Then we remove the traces in the migrations table.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="code-line-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">oc_migrations</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">app</span><span class="o">=</span><span class="s1">&#39;news&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Next delete the app configuration.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="code-line-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">oc_appconfig</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">appid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;news&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>And finally remove the jobs from the job table.
+The last two lines are only needed for older installations.</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="code-line-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">oc_jobs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s1">&#39;OCA\\News\\Cron\\UpdaterJob&#39;</span><span class="p">;</span>
+</span><span id="code-line-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">oc_jobs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">class</span><span class="o">=</span><span class="s1">&#39;OCA\\News\\Cron\\Updater&#39;</span><span class="p">;</span>
+</span><span id="code-line-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">oc_jobs</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">argument</span><span class="o">=</span><span class="s1">&#39;[&quot;OCA\\\\News\\\\Cron\\\\Updater&quot;,&quot;run&quot;]&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Now nothing is left from News in your Nextcloud installation.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes", "navigation.tracking", "navigation.instant", "navigation.expand", "navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>
