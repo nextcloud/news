@@ -25,7 +25,7 @@ OC.L10N.register(
     "Feed exists already!" : "Esta fonte de novas xa existe!",
     "New folder" : "Novo cartafol",
     "Folder exists already!" : "Xa existe o cartafol!",
-    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "As credenciais para HTTP Basic Auth deben estar gardadas sen cifrar! Calquera persoa con acceso ao servidor poderá acceder a elas!",
+    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "As credenciais para a autenticación básica HTTP (Basic Auth) deben estar gardadas sen cifrar! Calquera persoa con acceso ao servidor poderá acceder a elas!",
     "Credentials" : "Credenciais",
     "Auto discover Feed" : "Fonte de achado automático",
     "Subscribe" : "Subscribirse",
