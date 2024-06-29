@@ -9,8 +9,8 @@ jobs:
     name: "Frontend: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
     strategy:
       matrix:
-        php-versions: ['8.1']
-        nextcloud: ['stable27']
+        php-versions: ['8.3']
+        nextcloud: ['stable29']
         database: ['sqlite']
         experimental: [false]
     steps:

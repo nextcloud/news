@@ -17,34 +17,18 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCA\News\AppInfo\Application;
 use OCA\News\Service\StatusService;
 use OCA\News\Service\UpdaterService;
-use OCP\IConfig;
+use OCP\IAppConfig;
 
 class UpdaterJob extends TimedJob
 {
 
-    /**
-     * @var IConfig
-     */
-    private $config;
-    /**
-     * @var StatusService
-     */
-    private $statusService;
-    /**
-     * @var UpdaterService
-     */
-    private $updaterService;
-
     public function __construct(
         ITimeFactory $time,
-        IConfig $config,
-        StatusService $status,
-        UpdaterService $updaterService
+        private IAppConfig $config,
+        private StatusService $status,
+        private UpdaterService $updaterService
     ) {
         parent::__construct($time);
-        $this->config = $config;
-        $this->statusService = $status;
-        $this->updaterService = $updaterService;
 
         $interval = $this->config->getAppValue(
             Application::NAME,
@@ -58,9 +42,9 @@ class UpdaterJob extends TimedJob
     /**
      * @return void
      */
-    protected function run($argument)
+    protected function run($argument): void
     {
-        $uses_cron = (bool) $this->config->getAppValue(
+        $uses_cron = $this->config->getValueBool(
             Application::NAME,
             'useCronUpdates',
             Application::DEFAULT_SETTINGS['useCronUpdates']

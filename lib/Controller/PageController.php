@@ -16,7 +16,7 @@ namespace OCA\News\Controller;
 use OCA\News\AppInfo\Application;
 use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -32,46 +32,16 @@ class PageController extends Controller
 {
     use JSONHttpErrorTrait;
 
-    /**
-     * @var IConfig
-     */
-    private $settings;
-
-    /**
-     * @var IL10N
-     */
-    private $l10n;
-
-    /**
-     * @var IURLGenerator
-     */
-    private $urlGenerator;
-
-    /**
-     * @var RecommendedSites
-     */
-    private $recommendedSites;
-
-    /**
-     * @var StatusService
-     */
-    private $statusService;
-
     public function __construct(
         IRequest $request,
-        IConfig $settings,
-        IURLGenerator $urlGenerator,
-        IL10N $l10n,
-        RecommendedSites $recommendedSites,
-        StatusService $statusService,
-        ?IUserSession $userSession
+        ?IUserSession $userSession,
+        private IAppConfig $settings,
+        private IURLGenerator $urlGenerator,
+        private IL10N $l10n,
+        private RecommendedSites $recommendedSites,
+        private StatusService $statusService
     ) {
         parent::__construct($request, $userSession);
-        $this->settings = $settings;
-        $this->urlGenerator = $urlGenerator;
-        $this->l10n = $l10n;
-        $this->recommendedSites = $recommendedSites;
-        $this->statusService = $statusService;
     }
 
 
@@ -121,7 +91,7 @@ class PageController extends Controller
             'compactExpand'
         ];
 
-        $exploreUrl = $this->settings->getAppValue(
+        $exploreUrl = $this->settings->getValueString(
             $this->appName,
             'exploreUrl',
             Application::DEFAULT_SETTINGS['exploreUrl']
