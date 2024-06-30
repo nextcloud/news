@@ -18,6 +18,9 @@ push-db:
 bash:
 	$(DOCKER_COMPOSE) run --rm app su -c "bash" www-data
 
+cron:
+	$(DOCKER_COMPOSE) run --rm app su -c "php cron.php" www-data
+
 check-code:
 	$(DOCKER_COMPOSE) run --rm app su -c "./occ app:check-code news" www-data
 
