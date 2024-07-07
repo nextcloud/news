@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Add support for moving feeds to another folder from the sidebar feed menu (#2707)
 - Persist the filter state and show unread items by default (#2704)
 
 ### Fixed

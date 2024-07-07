@@ -39,9 +39,6 @@ export default Vue.extend({
 			return this.$store.state.items.fetchingItems[this.key]
 		},
 	},
-	created() {
-		this.elementToShowAlignToTop = false
-	},
 	watch: {
 		newBookmark() {
 			this.$el.scrollTop = 0
@@ -49,6 +46,9 @@ export default Vue.extend({
 		newFolder() {
 			this.$el.scrollTop = 0
 		},
+	},
+	created() {
+		this.elementToShowAlignToTop = false
 	},
 	mounted() {
 		this.onScroll()
