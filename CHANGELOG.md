@@ -7,13 +7,20 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+
+
+### Fixed
+
+
+# Releases
+## [25.0.0-alpha8] - 2024-07-07
+### Changed
 - Add support for moving feeds to another folder from the sidebar feed menu (#2707)
 - Persist the filter state and show unread items by default (#2704)
 
 ### Fixed
 - Fix undefined item when using `j` and `k` keyboards shortcuts in an empty feed (#2689)
 
-# Releases
 ## [25.0.0-alpha7] - 2024-06-10
 ### Changed
 - added alternative development environment (#2670)
