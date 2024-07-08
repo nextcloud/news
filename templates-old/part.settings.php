@@ -2,12 +2,12 @@
     <button name="app settings"
             class="settings-button"
             data-apps-slide-toggle="#app-settings-content">
-        <?php p($l->t('Settings')); ?>
+        <?php p($l->t('News settings')); ?>
     </button>
 </div>
 
 <div id="app-settings-content">
-    <h3><?php p($l->t('Settings')); ?></h3>
+    <h3><?php p($l->t('News settings')); ?></h3>
 
     <fieldset class="settings-fieldset">
         <ul class="settings-fieldset-interior">
