@@ -6,6 +6,7 @@ OC.L10N.register(
     "Username" : "Isem n useqdac",
     "Password" : "Awal uffir",
     "New folder" : "Akaram amaynut",
+    "Move" : "Senkez",
     "Share" : "Bḍu",
     "Rename" : "Beddel isem",
     "Delete" : "Kkes",

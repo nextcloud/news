@@ -28,6 +28,7 @@ OC.L10N.register(
     "Feed fetcher timeout" : "עבר זמן מרבי להזנת ערוץ התוכן",
     "Explore Service URL" : "חקירת נתיב שירות",
     "Use system cron for updates" : "שימוש ב־cron של המערכת לעדכונים",
+    "Move" : "העברה",
     "Share" : "שתף",
     "Mark read" : "סימון כנקרא",
     "All articles" : "כל המאמרים",

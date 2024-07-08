@@ -22,6 +22,7 @@ OC.L10N.register(
     "Subscribe" : "Abonēt",
     "Maximum redirects" : "Lielākais pieļaujamais pārvirzījumu skaits",
     "Use system cron for updates" : "Izmantot sistēmas cron atjauninājumiem",
+    "Move" : "Pārvietot",
     "Share" : "Koplietot",
     "All articles" : "Visi raksti",
     "Starred" : "Svarīgs",

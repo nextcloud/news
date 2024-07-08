@@ -7,6 +7,7 @@ OC.L10N.register(
     "Username" : "Nama pengguna",
     "Password" : "Kata laluan",
     "Credentials" : "Credentials",
+    "Move" : "Move",
     "Share" : "Kongsi",
     "Rename" : "Namakan",
     "Delete" : "Padam",

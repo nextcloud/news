@@ -37,6 +37,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Cât de multe redirecționări ar trebui aplicația să urmărească.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Numărul maxim de secunde de așteptare pentru fuxurile RSS sau Atom; dacă ține mai mult timp atunci actualizarea va fi oprită.",
     "Interval in seconds in which the feeds will be updated." : "Interval actualizare a fluxurilor de date specificat în secunde.",
+    "Move" : "Mută",
     "Share" : "Partajează",
     "Mark read" : "Marchează ca citit",
     "All articles" : "Toate articolele",

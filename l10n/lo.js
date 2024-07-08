@@ -8,6 +8,7 @@ OC.L10N.register(
     "Password" : "ລະຫັດຜ່ານ",
     "New folder" : "ໂຟນເດີໃຫມ່",
     "Credentials" : "ຂໍມູນປະຈຳຕົວ",
+    "Move" : "ຍ້າຍ",
     "Share" : "ແບ່ງປັນ",
     "Rename" : "ປ່ຽນຊື່",
     "Delete" : "ລຶບ",

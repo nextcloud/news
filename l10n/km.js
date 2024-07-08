@@ -9,6 +9,7 @@ OC.L10N.register(
     "Password" : "ពាក្យសម្ងាត់",
     "New folder" : "ថត​ថ្មី",
     "Credentials" : "Credentials",
+    "Move" : "Move",
     "Share" : "ចែក​រំលែក",
     "All articles" : "អត្ថបទ​ទាំង​អស់",
     "Starred" : "បាន​ដាក់​ផ្កាយ",

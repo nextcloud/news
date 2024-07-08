@@ -42,6 +42,7 @@
     "How many redirects the feed fetcher should follow." : "Za iloma przekierowaniami ma nastąpić podążanie przy pobieraniu kanałów.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maksymalna liczba sekund oczekiwania na wczytanie kanału RSS lub Atom; jeśli potrwa to zbyt długo, aktualizacja zostanie przerwana.",
     "Interval in seconds in which the feeds will be updated." : "Przedział czasu w sekundach, w którym kanały będą zaktualizowane.",
+    "Move" : "Przenieś",
     "Share" : "Udostępnij",
     "Share with" : "Udostępnij dla",
     "Mark read" : "Oznacz jako przeczytane",

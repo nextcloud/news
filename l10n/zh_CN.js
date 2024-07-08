@@ -45,6 +45,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "订阅源获取器最多应跟随多少次重定向。",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "最长的等待RSS或Atom订阅源加载的秒数；如果比这个时间更长更新将会中止。",
     "Interval in seconds in which the feeds will be updated." : "订阅源更新的时间间隔（以秒为单位）。",
+    "Move" : "移动",
     "Share" : "分享",
     "Share with" : "共享给",
     "Mark read" : "标记为已读",

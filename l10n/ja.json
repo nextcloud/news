@@ -37,6 +37,7 @@
     "How many redirects the feed fetcher should follow." : "フィードフェッチャーに許可するリダイレクト数です。",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "RSS / Atom フィードの読み込み待機秒数の制限;設定時間より長くかかる場合はアップデートが中止されます。",
     "Interval in seconds in which the feeds will be updated." : "フィードを更新するまでの間隔を秒数で指定してください。",
+    "Move" : "移動",
     "User Name" : "ユーザーネーム",
     "Share" : "共有",
     "Share with" : "共有対象",

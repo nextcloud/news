@@ -12,6 +12,7 @@ OC.L10N.register(
     "New folder" : "Шинэ хавтас",
     "Credentials" : "Итгэмжлэл",
     "Subscribe" : "Захиалга",
+    "Move" : "Зөөх",
     "Share" : "Түгээх",
     "Explore" : "Хайх",
     "Rename" : "Нэрлэнэ үү",

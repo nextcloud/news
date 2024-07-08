@@ -13,6 +13,7 @@ OC.L10N.register(
     "Credentials" : "Акредитиви",
     "Subscribe" : "Претплата",
     "Last job ran {relativeTime}." : "Последната процедура се изврши пред {relativeTime}.",
+    "Move" : "Премести",
     "Share" : "Сподели",
     "Mark read" : "Означи како прочитано",
     "All articles" : "Сите статии",

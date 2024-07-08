@@ -14,6 +14,7 @@ OC.L10N.register(
     "Folder exists already!" : "Dosierujo jam ekzistas!",
     "Credentials" : "Aŭtentigiloj",
     "Subscribe" : "Aboni",
+    "Move" : "Movi",
     "Share" : "Kunhavigi",
     "Share with" : "Kunhavigi kun",
     "Mark read" : "Marki kiel legita",

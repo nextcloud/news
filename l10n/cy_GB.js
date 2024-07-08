@@ -9,6 +9,7 @@ OC.L10N.register(
     "New folder" : "Ffolder newydd",
     "Credentials" : "Credentials",
     "Subscribe" : "Tanysgrifio",
+    "Move" : "Symud",
     "Share" : "Rhannu",
     "Mark read" : "Marcio wedi'i ddarllen",
     "Rename" : "Ailenwi",

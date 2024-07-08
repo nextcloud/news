@@ -32,6 +32,7 @@ OC.L10N.register(
     "Successfully updated news configuration" : "Конфігурацію новин успішно оновлено",
     "Use system cron for updates" : "Використовуйте системний cron для оновлень",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Визначає максимальну кількість статей, які можна прочитати на канал, які не будуть видалені під час завдання очищення; якщо старі статті знову з’являються після прочитання, збільште це значення; від'ємні значення, такі як -1, вимкнуть цю функцію.",
+    "Move" : "Перемістити",
     "User Name" : "Ім'я користувача",
     "Share" : "Спільний доступ",
     "Share with" : "Поділитися з",

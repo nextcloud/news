@@ -27,6 +27,7 @@ OC.L10N.register(
     "Feed fetcher timeout" : "ლენტის მომპოვებლის დროის ამოწურვა",
     "Explore Service URL" : "სერვის მისამართის დათვალიერება",
     "Use system cron for updates" : "განახლებისთვის გამოიყენეთ სისტემური კრონი",
+    "Move" : "გადატანა",
     "Share" : "გაზიარება",
     "Mark read" : "მონიშნეთ წაკითხულად",
     "All articles" : "ყველა არტიკლი",

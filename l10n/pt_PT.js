@@ -32,6 +32,7 @@ OC.L10N.register(
     "Update interval" : "Intervalo de actualização",
     "Use system cron for updates" : "Use o programador do sistema para as atualizações",
     "Disable this if you use a custom updater." : "Desative isto se é um sistema de atualizações feito à medida.",
+    "Move" : "Mover",
     "Share" : "Partilhar",
     "Share with" : "Partilhar com",
     "Mark read" : "Marcar como lido",

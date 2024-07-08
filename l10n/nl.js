@@ -38,6 +38,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Hoeveel omleidingen de feed-fetcher moet volgen.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maximaal aantal seconden om te wachten tot een RSS- of Atom-feed is geladen; als het langer duurt, wordt de update afgebroken.",
     "Interval in seconds in which the feeds will be updated." : "Interval in seconden waarin de feeds worden bijgewerkt.",
+    "Move" : "Verplaatsen",
     "Share" : "Delen",
     "Mark read" : "Als gelezen markeren",
     "All articles" : "Alle artikelen",

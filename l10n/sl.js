@@ -48,6 +48,7 @@ OC.L10N.register(
     "Interval in seconds in which the feeds will be updated." : "Časovni zamik v sekundah za posodabljanje spletnih virov.",
     "No article selected" : "Ni izbranega prispevka",
     "Please select an article from the list..." : "Izberite prispevek s seznama.",
+    "Move" : "Premakni",
     "User Name" : "Uporabniško ime",
     "Share" : "Souporaba",
     "Share with" : "Omogoči souporabo …",

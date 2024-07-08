@@ -40,6 +40,7 @@
     "Enable this if you also want to delete unread articles." : "읽지 않은 글을 자동으로 삭제하고자 할 경우 이 옵션을 활성화하십시오.",
     "No article selected" : "선택한 글 없음",
     "Please select an article from the list..." : "목록에서 글을 선택하십시오...",
+    "Move" : "이동",
     "User Name" : "사용자 이름",
     "Share" : "공유",
     "Share with" : "다음과 공유",

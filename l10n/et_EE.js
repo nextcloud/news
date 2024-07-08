@@ -29,6 +29,7 @@ OC.L10N.register(
     "Explore Service URL" : "Sirvi teenuse URL-i",
     "Use system cron for updates" : "Kasuta süsteemi croni uuendusteks",
     "Delete unread articles automatically" : "Kustuta automaatselt lugemata artiklid",
+    "Move" : "Liiguta",
     "Share" : "Jaga",
     "Mark read" : "Märgi loetuks",
     "All articles" : "Kõik artiklid",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "Password" : "Password",
     "New folder" : "New folder",
     "Credentials" : "Hisob ma'lumotlari",
+    "Move" : "Move",
     "Rename" : "Rename",
     "Delete" : "Delete",
     "right" : "right",

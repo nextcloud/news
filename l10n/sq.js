@@ -27,6 +27,7 @@ OC.L10N.register(
     "Feed fetcher timeout" : "Mbarim kohe për sjellësin e prurjeve",
     "Explore Service URL" : "URL Shërbimi Eksplorimesh",
     "Use system cron for updates" : "Përdor sistemin cron për përditësime",
+    "Move" : "Zhvendos",
     "Share" : "Shpërndaje",
     "Mark read" : "Shëno të lexuar",
     "All articles" : "Krejt artikujt",

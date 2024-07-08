@@ -8,6 +8,7 @@ OC.L10N.register(
     "Password" : "Գաղտնաբառ",
     "New folder" : "Նոր պանակ",
     "Credentials" : "Credentials",
+    "Move" : "Տեղափոխել",
     "Share" : "Կիսվել",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",

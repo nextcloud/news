@@ -44,6 +44,7 @@
     "How many redirects the feed fetcher should follow." : "Cantidad máxima de redireccionamientos que el recuperador de fuentes debe seguir.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Tiempo máximo en segundos para esperar a que se cargue una fuente RSS o Atom; si tarda más, la actualización se abortará.",
     "Interval in seconds in which the feeds will be updated." : "Intervalo en segundos en el que se actualizarán las fuentes.",
+    "Move" : "Mover",
     "Share" : "Compartir",
     "Mark read" : "Marcar como leído",
     "All articles" : "Todos los artículos",

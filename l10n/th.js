@@ -22,6 +22,7 @@ OC.L10N.register(
     "Maximum redirects" : "เปลี่ยนเส้นทางสูงสุด",
     "Feed fetcher timeout" : "ตัวเรียกฟีดหมดเวลา",
     "Explore Service URL" : "URL บริการสำรวจ",
+    "Move" : "ย้าย",
     "Share" : "แชร์",
     "All articles" : "บทความทั้งหมด",
     "Starred" : "ติดดาวแล้ว",

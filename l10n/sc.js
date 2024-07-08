@@ -36,6 +36,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Cantas rediretziones podet sighire su trastu de recùperu de is fontes.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nùmeru màssimu de segundos pro isetare su carrigamentu de una fonte RSS o Atom; si bi ponet tropu tempus s'agiornamentu s'at a firmare.",
     "Interval in seconds in which the feeds will be updated." : "Tretu in segundos pro agiornare is fontes.",
+    "Move" : "Tràmuda",
     "Share" : "Cumpartzi",
     "Mark read" : "Marca lèghidos",
     "All articles" : "Totu is artìculos",

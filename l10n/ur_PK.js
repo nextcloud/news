@@ -6,6 +6,7 @@ OC.L10N.register(
     "Username" : "اسم صارف",
     "Password" : "پاسورڈ",
     "Credentials" : "Credentials",
+    "Move" : "Move",
     "Share" : "تقسیم",
     "Rename" : "Rename",
     "Delete" : "حذف کریں",

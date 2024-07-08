@@ -41,6 +41,7 @@ OC.L10N.register(
     "Interval in seconds in which the feeds will be updated." : "Syötteiden päivitysväli sekunteina.",
     "No article selected" : "Artikkelia ei ole valittu",
     "Please select an article from the list..." : "Valitse artikkeli listalta...",
+    "Move" : "Siirrä",
     "User Name" : "Käyttäjänimi",
     "Share" : "Jaa",
     "Share with" : "Jaa",

@@ -34,6 +34,7 @@ OC.L10N.register(
     "Use system cron for updates" : "Använda \"system cron\" för uppdateringar",
     "Disable this if you use a custom updater." : "Slå av detta om du anväder en egen uppdateringsprocess.",
     "Interval in seconds in which the feeds will be updated." : "Antal sekunder mellan uppdateringar av flödena.",
+    "Move" : "Flytta",
     "Share" : "Dela",
     "Share with" : "Dela med",
     "Mark read" : "Markera som läst",

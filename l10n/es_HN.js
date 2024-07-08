@@ -27,6 +27,7 @@ OC.L10N.register(
     "Feed fetcher timeout" : "Tiempo de vida para el buscador de fuentes",
     "Explore Service URL" : "Explorar la URL del Servicio",
     "Use system cron for updates" : "Usa el cron del sistema para las actualizaciones",
+    "Move" : "Mover",
     "Share" : "Compartir",
     "Mark read" : "Marcar como leído",
     "All articles" : "Todos los artículos",

@@ -37,6 +37,7 @@ OC.L10N.register(
     "Delete unread articles automatically" : "Automatiškai ištrinti neskaitytus straipsnius",
     "Enable this if you also want to delete unread articles." : "Įjunkite, jei tuo pačiu norite ištrinti neskaitytus straipsnius.",
     "How many redirects the feed fetcher should follow." : "Kiek kartų kanalų gaviklis turėtų sekti paskui peradresavimus.",
+    "Move" : "Perkelti",
     "Share" : "Bendrinti",
     "Share with" : "Bendrinti su",
     "Mark read" : "Žymėti kaip skaitytą",

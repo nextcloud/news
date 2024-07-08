@@ -8,6 +8,7 @@ OC.L10N.register(
     "Username" : "பயனாளர் பெயர்",
     "Password" : "கடவுச்சொல்",
     "Credentials" : "சான்று ஆவணங்கள்",
+    "Move" : "Move",
     "Share" : "பகிர்வு",
     "Rename" : "பெயர்மாற்றம்",
     "Delete" : "நீக்குக",

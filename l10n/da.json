@@ -44,6 +44,7 @@
     "How many redirects the feed fetcher should follow." : "Hvor mange omdirigeringer feedhenteren skal følge.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maksimalt antal sekunder at vente på, at et RSS- eller Atom-feed indlæses; hvis det tager længere tid, vil opdateringen blive afbrudt.",
     "Interval in seconds in which the feeds will be updated." : "Interval i sekunder, hvori feeds vil blive opdateret.",
+    "Move" : "Flyt",
     "Share" : "Del",
     "Share with" : "Del med",
     "Mark read" : "Marker som læst",

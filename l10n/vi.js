@@ -15,6 +15,7 @@ OC.L10N.register(
     "Credentials" : "Giấy chứng nhận",
     "Subscribe" : "Theo dõi",
     "Last job ran {relativeTime}." : "Công việc cuối cùng đã chạy {relativeTime}.",
+    "Move" : "Dịch chuyển",
     "Share" : "Chia sẻ",
     "Mark read" : "Đánh dấu là đã đọc",
     "All articles" : "Mọi bài viết",

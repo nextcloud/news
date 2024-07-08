@@ -21,6 +21,7 @@ OC.L10N.register(
     "Maximum redirects" : "Nombre maximal de redireccions",
     "Feed fetcher timeout" : "Relambi d'espèra maximum del recuperador de flux",
     "Explore Service URL" : "URL del servici d'exploracion",
+    "Move" : "Desplaçar",
     "Share" : "Partejar",
     "All articles" : "Totes los articles",
     "Starred" : "Espingolats",

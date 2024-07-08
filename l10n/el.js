@@ -32,6 +32,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Πόσες ανακατευθύνσεις θα μπορεί να ακολουθεί η υπηρεσία ροών.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Μέγιστος χρόνος σε δευτερόλεπτα, αναμονής φόρτωσης μιας ροής RSS ή Atom; εάν χρειαστεί περισσότερο χρόνο η ενημέρωση θα ματαιωθεί.",
     "Interval in seconds in which the feeds will be updated." : "Διάστημα σε δευτερόλεπτα στο οποίο θα ενημερωθούν τα feeds.",
+    "Move" : "Μετακίνηση",
     "Share" : "Διαμοιρασμός",
     "Share with" : "Διαμοιρασμός με",
     "Mark read" : "Σημείωση ως ανεγνωσμένου",

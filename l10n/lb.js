@@ -13,6 +13,7 @@ OC.L10N.register(
     "Folder exists already!" : "Dësen Dossier gëtt et schonns!",
     "Credentials" : "Credentials",
     "Subscribe" : "Umellen",
+    "Move" : "Verschieben",
     "Share" : "Deelen",
     "All articles" : "All Artikelen",
     "Explore" : "Erfuerschen",

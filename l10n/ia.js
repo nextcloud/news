@@ -14,6 +14,7 @@ OC.L10N.register(
     "Folder exists already!" : "Dossier ja existe!",
     "Credentials" : "Datos de authentication",
     "Subscribe" : "Subscribe",
+    "Move" : "Mover",
     "Share" : "Compartir",
     "All articles" : "Tote articulos",
     "Starred" : "Favoritate",

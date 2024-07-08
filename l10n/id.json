@@ -44,6 +44,7 @@
     "How many redirects the feed fetcher should follow." : "Berapa arahan pembaca umpan harus mengikuti.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Jumlah maksimum untuk menunggu umpan RSS atau Atom untuk dimuat; jika membutuhkan waktu yang lama, pembaruan akan dibatalkan.",
     "Interval in seconds in which the feeds will be updated." : "Interval dalam detik di mana umpan akan diperbarui.",
+    "Move" : "Pindah",
     "Share" : "Bagikan",
     "Mark read" : "Tandai sebagai dibaca",
     "All articles" : "Semua artikel",

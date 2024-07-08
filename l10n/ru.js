@@ -46,6 +46,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Сколько перенаправлений должен обрабатывать загрузчик лент.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Максимальное количество секунд ожидания загрузки ленты RSS или Atom; если обновление занимает больше времени, то оно будет отменено",
     "Interval in seconds in which the feeds will be updated." : "Интервал обновления лент в секундах",
+    "Move" : "Переместить",
     "Share" : "Поделиться",
     "Share with" : "Поделиться",
     "Mark read" : "Пометить прочтённым",

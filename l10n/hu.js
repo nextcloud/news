@@ -46,6 +46,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Hány átirányítást kell követnie a hírcsatornának.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "A maximális idő, amennyit egy RSS vagy Atom hírcsatorna olvasására vár. Ha tovább tart, akkor a frissítés meg lesz szakítva.",
     "Interval in seconds in which the feeds will be updated." : "A hírcsatornák frissítési intervalluma másodpercekben.",
+    "Move" : "Áthelyezés",
     "User Name" : "Felhasználónév",
     "Share" : "Megosztás",
     "Share with" : "Megosztva a következővel",

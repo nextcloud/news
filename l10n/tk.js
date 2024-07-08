@@ -7,6 +7,7 @@ OC.L10N.register(
     "Username" : "Ulanyjy ady",
     "Password" : "Açarsöz",
     "New folder" : "Täze papka döretmek",
+    "Move" : "Göçüriň",
     "Share" : "Paýlaş",
     "Rename" : "Adyny üýtgetmek",
     "Delete" : "Pozmak",

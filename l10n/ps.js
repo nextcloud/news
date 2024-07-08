@@ -6,6 +6,7 @@ OC.L10N.register(
     "Username" : "کارن نوم",
     "Password" : "پاسورډ",
     "New folder" : "نوی فولډر",
+    "Move" : "انتقال",
     "Share" : "شریکول",
     "Rename" : "نوم بدلول",
     "Delete" : "ړنګول",

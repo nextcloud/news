@@ -10,6 +10,7 @@ OC.L10N.register(
     "Password" : "Passord",
     "New folder" : "Ny mappe",
     "Credentials" : "Credentials",
+    "Move" : "Move",
     "Share" : "Del",
     "Rename" : "Endra namn",
     "Delete" : "Ta bort",

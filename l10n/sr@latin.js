@@ -8,6 +8,7 @@ OC.L10N.register(
     "Password" : "Password",
     "New folder" : "Nova fascikla",
     "Credentials" : "Credentials",
+    "Move" : "Premesti",
     "Share" : "Podeli",
     "Starred" : "Ozvezdano",
     "Rename" : "Rename",

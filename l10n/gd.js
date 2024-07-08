@@ -7,6 +7,7 @@ OC.L10N.register(
     "Username" : "Ainm-cleachdaiche",
     "Password" : "Facal-faire",
     "New folder" : "Pasgan ùr",
+    "Move" : "Gluais",
     "Share" : "Co-roinn",
     "Rename" : "Thoir ainm ùr air",
     "Delete" : "Sguab às",

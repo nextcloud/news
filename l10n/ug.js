@@ -9,6 +9,7 @@ OC.L10N.register(
     "Password" : "ئىم",
     "New folder" : "يېڭى قىسقۇچ",
     "Credentials" : "Credentials",
+    "Move" : "Move",
     "Share" : "ھەمبەھىر",
     "Starred" : "يۇلتۇزلۇق",
     "Rename" : "ئات ئۆزگەرت",
