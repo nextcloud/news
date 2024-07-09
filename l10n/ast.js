@@ -34,6 +34,7 @@ OC.L10N.register(
     "No article selected" : "Nun se seleicionó nengún artículu",
     "Please select an article from the list..." : "Seleiciona un artículu de la llista…",
     "If given, this service" : "Si s'apurre, esti serviciu",
+    "Move" : "Mover",
     "Share" : "Compartir",
     "Share with" : "Compartir con",
     "All articles" : "Tolos artículos",

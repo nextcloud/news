@@ -11,6 +11,7 @@ OC.L10N.register(
     "Credentials" : "Səlahiyyətlər",
     "Subscribe" : "Abunə",
     "Last job ran {relativeTime}." : "Son işin icra vaxtı {relativeTime}.",
+    "Move" : "Move",
     "Share" : "Paylaş",
     "All articles" : "Bütün məqalələr",
     "Starred" : "Ulduzlu",

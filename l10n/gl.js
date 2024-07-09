@@ -49,6 +49,7 @@ OC.L10N.register(
     "No article selected" : "Non seleccionou ningún artigo",
     "Please select an article from the list..." : "Seleccione un artigo da lista…",
     "If given, this service" : "Si se da, este servizo",
+    "Move feed to folder" : "Mover a fonte ao cartafol",
     "Move" : "Mover",
     "User Name" : "Nome de usuario",
     "Share" : "Compartir",

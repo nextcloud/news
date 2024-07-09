@@ -13,6 +13,7 @@ OC.L10N.register(
     "New folder" : "Nuwe vouer",
     "Folder exists already!" : "Vouers bestaan reeds!",
     "Subscribe" : "Teken in",
+    "Move" : "Skuif",
     "Share" : "Deel",
     "All articles" : "Alle artikels",
     "Explore" : "Ontdek",

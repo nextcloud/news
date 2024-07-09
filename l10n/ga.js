@@ -49,6 +49,7 @@ OC.L10N.register(
     "No article selected" : "Níor roghnaíodh aon alt",
     "Please select an article from the list..." : "Roghnaigh alt ón liosta le do thoil...",
     "If given, this service" : "Má thugtar, an tseirbhís seo",
+    "Move feed to folder" : "Bog an fotha go dtí an fillteán",
     "Move" : "Bog",
     "User Name" : "Ainm Úsáideora",
     "Share" : "Comhroinn",
