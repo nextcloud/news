@@ -49,6 +49,7 @@ OC.L10N.register(
     "No article selected" : "Ingen artikkel valgt",
     "Please select an article from the list..." : "Vennligst velg en artikkel fra lasten...",
     "If given, this service" : "Hvis gitt, denne tjenesten",
+    "Move feed to folder" : "Flytt nyhetsstrøm til mappe",
     "Move" : "Flytt",
     "User Name" : "Brukernavn",
     "Share" : "Del",
