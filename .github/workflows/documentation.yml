@@ -1,25 +1,61 @@
-name: Publish docs via GitHub Pages
+# This workflow is provided via the organization template repository
+#
+# https://github.com/nextcloud/.github
+# https://docs.github.com/en/actions/learn-github-actions/sharing-workflows-with-your-organization
+#
+# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
+
+name: Documentation
+
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'docs/**'
+  pull_request:
+  release:
+    types: [published]
 
 jobs:
-  build:
-    name: Deploy docs
+  build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout master
-        uses: actions/checkout@v4
 
-      - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@master
-        # Or use mhausenblas/mkdocs-deploy-gh-pages@nomaterial to build without the mkdocs-material theme
+    name: Build and deploy
+    steps:
+      - name: Check actor permission level
+        # Only allow admin to deploy on release
+        if: github.event.release
+        uses: skjnldsv/check-actor-permission@69e92a3c4711150929bca9fcf34448c5bf5526e7 # v2
+        with:
+          require: admin
+
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+
+      - name: Read package.json node and npm engines version
+        uses: skjnldsv/read-package-engines-version-actions@06d6baf7d8f41934ab630e97d9e6c0bc9c9ac5e4 # v3
+        id: versions
+        with:
+          fallbackNode: '^20'
+          fallbackNpm: '^10'
+
+      - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: ${{ steps.versions.outputs.nodeVersion }}
+
+      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g 'npm@${{ steps.versions.outputs.npmVersion }}'
+
+      - name: Install dependencies & build
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #CUSTOM_DOMAIN: optionaldomain.com
-          #CONFIG_FILE: folder/mkdocs.yml
-          #EXTRA_PACKAGES: build-base
-          # GITHUB_DOMAIN: github.myenterprise.com
+          CYPRESS_INSTALL_BINARY: 0
+        run: |
+          npm ci
+          npm run build --if-present
+          npm run build:doc --if-present
+
+      - name: Deploy
+        # Only deploy on release
+        if: github.event.release
+        uses: peaceiris/actions-gh-pages@4f9cc6602d3f66b9c108549d475ec49e8ef4d45e # v4.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist/doc
