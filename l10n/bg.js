@@ -46,6 +46,7 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Колко пренасочвания трябва да следва инструментът за извличане на емисии.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Максималното време в секунди за изчакване зареждането на RSS или Atom емисия; ако отнема по-дълго актуализирането се прекратява",
     "Interval in seconds in which the feeds will be updated." : "Интервал в секунди, в който емисиите ще бъдат актуализирани.",
+    "Move" : "Преместване",
     "Share" : "Споделяне",
     "Mark read" : "Означи като прочетена",
     "All articles" : "Всички статии",

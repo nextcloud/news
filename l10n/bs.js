@@ -7,6 +7,7 @@ OC.L10N.register(
     "Password" : "Lozinka",
     "New folder" : "Nova fascikla",
     "Credentials" : "Vjerodajnice",
+    "Move" : "Move",
     "Share" : "Podjeli",
     "Starred" : "Označeno",
     "Rename" : "Preimenuj",

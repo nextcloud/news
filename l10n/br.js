@@ -10,6 +10,7 @@ OC.L10N.register(
     "Password" : "Ger-tremen",
     "New folder" : "Heuliad nevez",
     "Credentials" : "Kretaatoù",
+    "Move" : "Diplasañ",
     "Share" : "Rannan",
     "All articles" : "Pep pennad",
     "Rename" : "Adenvel",

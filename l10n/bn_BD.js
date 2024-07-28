@@ -13,6 +13,7 @@ OC.L10N.register(
     "Folder exists already!" : "ফোল্ডার ইতোমধ্যে বিদ্যমান!",
     "Credentials" : "Credentials",
     "Subscribe" : "গ্রাহক হোন",
+    "Move" : "Move",
     "Share" : "ভাগাভাগি কর",
     "All articles" : "সব লেখা",
     "Starred" : "তারা চিহ্নিত",

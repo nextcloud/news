@@ -4,6 +4,7 @@ OC.L10N.register(
     "Username" : "Username",
     "Password" : "Password",
     "Credentials" : "Credentials",
+    "Move" : "Move",
     "Share" : "Падзяліцца",
     "Rename" : "Rename",
     "Delete" : "Delete",
