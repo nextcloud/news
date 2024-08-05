@@ -38,6 +38,7 @@ OC.L10N.register(
     "Download audio" : "ดาวน์โหลดเสียง",
     "Download video" : "ดาวน์โหลดวิดีโอ",
     "Open website" : "เปิดเว็บไซต์",
+    "{num} years ago" : "{num}ปีที่แล้ว",
     "How to set up the operating system cron" : "วิธีการตั้งค่า cron ของระบบปฏิบัติการ",
     "Install and set up a faster parallel updater that uses the News app's update API" : "ติดตั้งและตั้งค่าตัวอัปเดตขนานที่เร็วขึ้น ซึ่งใช้ API การอัปเดตของแอปข่าว",
     "No articles available" : "ไม่มีบทความที่อ่านได้",
