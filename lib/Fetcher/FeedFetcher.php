@@ -142,7 +142,8 @@ class FeedFetcher implements IFeedFetcher
         $feed = $this->buildFeed(
             $parsedFeed,
             $url,
-            $location
+            $location,
+            $resource->getResponse()->getLastModified()
         );
 
         $items = [];
@@ -485,7 +486,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return Feed
      */
-    protected function buildFeed(FeedInterface $feed, string $url, string $location): Feed
+    protected function buildFeed(FeedInterface $feed, string $url, string $location, ?DateTime $httpLastModified): Feed
     {
         $newFeed = new Feed();
 
@@ -497,8 +498,8 @@ class FeedFetcher implements IFeedFetcher
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
-        if ($feed->getLastModified() instanceof DateTime) {
-            $newFeed->setHttpLastModified($feed->getLastModified()->format(DateTime::RSS));
+        if ($httpLastModified instanceof DateTime) {
+            $newFeed->setHttpLastModified($httpLastModified->format(DateTime::RSS));
         }
         $newFeed->setAdded($this->time->getTime());
 
