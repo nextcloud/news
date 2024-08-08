@@ -137,13 +137,17 @@ class FeedFetcher implements IFeedFetcher
         $url = $url2->getNormalizedURL();
         $resource = $this->reader->read($url, null, $lastModified);
 
+        if ($resource->getResponse()->getLastModified() instanceof DateTime) {
+            $lastModified = $resource->getResponse()->getLastModified();
+        }
+
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();
         $feed = $this->buildFeed(
             $parsedFeed,
             $url,
             $location,
-            $resource->getResponse()->getLastModified()
+            $lastModified
         );
 
         $items = [];
