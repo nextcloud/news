@@ -137,18 +137,19 @@ class FeedFetcher implements IFeedFetcher
         $url = $url2->getNormalizedURL();
         $resource = $this->reader->read($url, null, $lastModified);
 
-        if ($resource->getResponse()->getLastModified() instanceof DateTime) {
-            $lastModified = $resource->getResponse()->getLastModified();
-        }
-
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();
         $feed = $this->buildFeed(
             $parsedFeed,
             $url,
-            $location,
-            $lastModified
+            $location
         );
+
+        if (!is_null($resource->getResponse()->getLastModified())) {
+            $feed->setHttpLastModified($resource->getResponse()->getLastModified()->format(DateTime::RSS));
+        } elseif(!is_null($lastModified)) {
+            $feed->setHttpLastModified($lastModified->format(DateTime::RSS));
+        }
 
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
@@ -490,7 +491,7 @@ class FeedFetcher implements IFeedFetcher
      *
      * @return Feed
      */
-    protected function buildFeed(FeedInterface $feed, string $url, string $location, ?DateTime $httpLastModified): Feed
+    protected function buildFeed(FeedInterface $feed, string $url, string $location): Feed
     {
         $newFeed = new Feed();
 
@@ -502,8 +503,8 @@ class FeedFetcher implements IFeedFetcher
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
-        if ($httpLastModified instanceof DateTime) {
-            $newFeed->setHttpLastModified($httpLastModified->format(DateTime::RSS));
+        if ($feed->getLastModified() instanceof DateTime) {
+            $newFeed->setHttpLastModified($feed->getLastModified()->format(DateTime::RSS));
         }
         $newFeed->setAdded($this->time->getTime());
 
