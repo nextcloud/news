@@ -145,6 +145,12 @@ class FeedFetcher implements IFeedFetcher
             $location
         );
 
+        if (!is_null($resource->getResponse()->getLastModified())) {
+            $feed->setHttpLastModified($resource->getResponse()->getLastModified()->format(DateTime::RSS));
+        } elseif (!is_null($lastModified)) {
+            $feed->setHttpLastModified($lastModified->format(DateTime::RSS));
+        }
+
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
         $feedName = $parsedFeed->getTitle();
