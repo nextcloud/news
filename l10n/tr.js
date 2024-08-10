@@ -49,6 +49,7 @@ OC.L10N.register(
     "No article selected" : "Herhangi bir yazı seçilmemiş",
     "Please select an article from the list..." : "Lütfen listeden bir yazı seçin...",
     "If given, this service" : "Belirtilmiş ise bu hizmet",
+    "Move feed to folder" : "Akışı klasöre taşı",
     "Move" : "Taşı",
     "User Name" : "Kullanıcı adı",
     "Share" : "Paylaş",
