@@ -194,7 +194,7 @@ There are two usecases for syncing:
 
 ### Initial Sync
 
-The intial sync happens when a user adds an Nextcloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:
+The initial sync happens when a user adds an Nextcloud account in your app. In that case you want to download all folders, feeds and unread/starred items. To do this, make the following request:
 
 * **Method**: GET
 * **Route**: /sync

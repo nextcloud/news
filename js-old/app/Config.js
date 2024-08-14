@@ -129,7 +129,7 @@ app.config(function ($routeProvider, $provide, $httpProvider, $locationProvider)
                     if (type === FEED_TYPE.FEED) {
                         var feed = FeedResource.getById(parameters.id);
 
-                        // on intial load, the feed ordering is undefined
+                        // on initial load, the feed ordering is undefined
                         if (feed === undefined || feed.ordering === 2) {
                             parameters.oldestFirst = false;
                         } else if (feed.ordering === 1) {
