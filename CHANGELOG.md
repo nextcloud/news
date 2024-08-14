@@ -661,7 +661,7 @@ You can now delete unread items via occ:
 
 ### Fixed
 
-- Fix false cron notifaction #823
+- Fix false cron notification #823
 - Fix cron updater not working #819 #824
 - Fix invalid UserId when logged out #822
 - Fix autoPurge not working #824
@@ -708,7 +708,7 @@ You can now delete unread items via occ:
 ### Changed
 - JS library updates #737 #741
 - Allow data URI scheme inside the body of an item #733
-- Update to new BackgroudJob logic #704
+- Update to new BackgroundJob logic #704
 - Update feed-io to v4.7.8
 
 ### Fixed
@@ -870,7 +870,7 @@ You can now delete unread items via occ:
 
 ### Fixed
 - Highlight in compact mode #109
-- Prevent raw angluar templates from flashing on page load #429
+- Prevent raw angular templates from flashing on page load #429
 - HTML elements where not rendered #428
 - Provide UserAgent to prevent HTTP 403 errors #428
 

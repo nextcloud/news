@@ -1,2 +1,8 @@
 [files]
-extend-exclude = [ "l10n/*.js*", "js-old/**", "/tests/test_helper/feeds/*", "AUTHORS.md" ]
+extend-exclude = [ 
+    "l10n/*.js*",
+    "js-old/**",
+    "/tests/test_helper/feeds/*",
+    "tests/Unit/Db/ItemTest.php",
+    "AUTHORS.md"
+]

@@ -50,7 +50,7 @@ All routes are given relative to the base API url (e.g.: <https://yournextcloud.
 
 ### Initial Sync
 
-The intial sync happens, when a user adds a Nextcloud account in your app. In that case you should fetch all feeds, folders and unread or starred articles from the News app. Do not fetch all articles, not only because it syncs faster, but also because the user is primarily interested in unread articles. To fetch all unread and starred articles, you must call 4 routes:
+The initial sync happens, when a user adds a Nextcloud account in your app. In that case you should fetch all feeds, folders and unread or starred articles from the News app. Do not fetch all articles, not only because it syncs faster, but also because the user is primarily interested in unread articles. To fetch all unread and starred articles, you must call 4 routes:
 
 * **unread articles**: GET /items?type=3&getRead=false&batchSize=-1
 * **starred articles**: GET /items?type=2&getRead=true&batchSize=-1
@@ -297,7 +297,7 @@ The following attributes are **not sanitized** meaning: including them in your w
       "ordering": 0, // 0 means no special ordering, 1 means oldest first, 2 newest first, new in 5.1.0
       "link": "http://theoatmeal.com/",
       "pinned": true // if a feed should be sorted before other feeds, added in 6.0.3,
-      "updateErrorCount": 0, // added in 8.6.0, 0 if no errors occured during the last update,
+      "updateErrorCount": 0, // added in 8.6.0, 0 if no errors occurred during the last update,
                              // otherwise is incremented for each failed update.
                              // Once it reaches a threshold, a message should be displayed to the user
                              // indicating that the feed has failed to update that many times.
