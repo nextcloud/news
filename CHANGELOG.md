@@ -10,7 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 ### Fixed
-
+- Allow feed title to be null in DB. #2745
 
 # Releases
 ## [25.0.0-alpha8] - 2024-07-07
