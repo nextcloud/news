@@ -78,6 +78,7 @@ OC.L10N.register(
     "Download video" : "Videó letöltése",
     "Unread" : "Olvasatlan",
     "Open website" : "Weboldal megnyitása",
+    "All Articles" : "Minden cikk",
     "Subscribe to" : "Feliratkozás:",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax vagy webcron mód észlelve. A hírcsatornái nem lesznek frissítve.",
     "How to set up the operating system cron" : "Hogyan állítsa be az operációs rendszer cron időzítőjét",
