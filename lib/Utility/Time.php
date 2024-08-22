@@ -19,7 +19,7 @@ class Time
     }
 
     /**
-     * @return string the current unix time in miliseconds
+     * @return string the current unix time in milliseconds
      */
     public function getMicroTime(): string
     {

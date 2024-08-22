@@ -51,7 +51,7 @@ class FetcherConfig
     const DEFAULT_USER_AGENT = 'NextCloud-News/1.0';
 
     /**
-     * Acccept header for the client.
+     * Accept header for the client.
      * @var string
      */
     const DEFAULT_ACCEPT = 'application/rss+xml, application/rdf+xml;q=0.8, ' .
@@ -107,7 +107,7 @@ class FetcherConfig
         $curl_features = curl_version()["features"];
 
         $bitfields = array('CURL_VERSION_LIBZ' => ['gzip', 'deflate'], 'CURL_VERSION_BROTLI' => ['br']);
-        
+
         foreach ($bitfields as $feature => $header) {
             // checking available features via the 'features' bitmask and adding available types to the list
             if (defined($feature) && $curl_features & constant($feature)) {

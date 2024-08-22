@@ -339,7 +339,7 @@ Folders are represented using the following data structure:
 The attributes mean the following:
 
 * **id**: 64bit Integer, id
-* **name**: Abitrary long text, folder's name
+* **name**: Arbitrary long text, folder's name
 
 ### Deleting A Folder
 
@@ -424,7 +424,7 @@ with the following request body:
 }
 ```
 
-* **name**: Abitrary long text, the folder's name
+* **name**: Arbitrary long text, the folder's name
 
 The following response is being returned:
 
@@ -467,8 +467,8 @@ Feeds are represented using the following data structure:
 The attributes mean the following:
 
 * **id**: 64bit Integer, id
-* **name**: Abitrary long text, feed's name
-* **faviconLink**: Abitrary long text, feed's favicon location, **null** if not found
+* **name**: Arbitrary long text, feed's name
+* **faviconLink**: Arbitrary long text, feed's favicon location, **null** if not found
 * **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
 * **ordering**: 64bit Integer, overrides the feed's default ordering:
   * **0**: Default
@@ -480,7 +480,7 @@ The attributes mean the following:
 * **isPinned**: Boolean, Used to list certain feeds before others. Feeds are first ordered by their **isPinned** value (true before false) and then by their name in alphabetical order
 * **error**: error object, only present if an error occurred:
   * **code**: The error code:
-    * **1**: Error occured during feed update
+    * **1**: Error occurred during feed update
   * **message**: Translated error message depending on the user's configured server locale
 
 ### Deleting A Feed
@@ -536,11 +536,11 @@ with the following request body:
 }
 ```
 
-* **url**: Abitrary long text, the url needs to have the full schema e.g. <https://the-url.com>. In case the user omits the schema, prepending **https** is recommended
+* **url**: Arbitrary long text, the url needs to have the full schema e.g. <https://the-url.com>. In case the user omits the schema, prepending **https** is recommended
 * **folderId**: 64bit Integer, the feed's folder or **0** in case no folder is specified
-* **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
-* **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
-* **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
+* **name (optional)**: Arbitrary long text, the feeds name or if not given taken from the RSS/Atom feed
+* **basicAuthUser (optional)**: Arbitrary long text, if given basic auth headers are sent for the feed
+* **basicAuthPassword (optional)**: Arbitrary long text, if given basic auth headers are sent for the feed
 * **ordering (optional)**: See [Feeds](#feeds)
 * **isPinned (optional)**: See [Feeds](#feeds)
 * **fullTextEnabled (optional)**: See [Feeds](#feeds)
@@ -600,10 +600,10 @@ with the following request body:
 
 All parameters are optional
 
-* **url (optional)**: Abitrary long text, the url which was entered by the user with the full schema
-* **name (optional)**: Abitrary long text, the feeds name or if not given taken from the RSS/Atom feed
-* **basicAuthUser (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
-* **basicAuthPassword (optional)**: Abitrary long text, if given basic auth headers are sent for the feed
+* **url (optional)**: Arbitrary long text, the url which was entered by the user with the full schema
+* **name (optional)**: Arbitrary long text, the feeds name or if not given taken from the RSS/Atom feed
+* **basicAuthUser (optional)**: Arbitrary long text, if given basic auth headers are sent for the feed
+* **basicAuthPassword (optional)**: Arbitrary long text, if given basic auth headers are sent for the feed
 * **ordering (optional)**: See [feeds](#feeds)
 * **isPinned (optional)**: See [feeds](#feeds)
 * **fullTextEnabled (optional)**: See [feeds](#feeds)
@@ -648,15 +648,15 @@ Items can occur in two different formats:
 The attributes mean the following:
 
 * **id**: 64bit Integer, id
-* **url**: Abitrary long text, location of the online resource
-* **title**: Abitrary long text, item's title
-* **author**: Abitrary long text, name of the author/authors
+* **url**: Arbitrary long text, location of the online resource
+* **title**: Arbitrary long text, item's title
+* **author**: Arbitrary long text, name of the author/authors
 * **publishedAt**: String representing an ISO 8601 DateTime object, when the item was published
 * **lastModifiedAt**: String representing an ISO 8601 DateTime object, when the item was last modified
 * **enclosure**: An enclosure object or null if none is present
-  * **mimeType**: Abitrary long text, the enclosures mime type
-  * **url**: Abitrary long text, location of the enclosure
-* **body**: Abitrary long text, **sanitized (meaning: does not have to be escape)**, contains the item's content
+  * **mimeType**: Arbitrary long text, the enclosures mime type
+  * **url**: Arbitrary long text, location of the enclosure
+* **body**: Arbitrary long text, **sanitized (meaning: does not have to be escape)**, contains the item's content
 * **feedId**: 64bit Integer, the item's feed it belongs to
 * **isUnread**: Boolean, true if unread, false if read
 * **isStarred**: Boolean, true if starred, false if not starred
@@ -835,15 +835,15 @@ In case of an HTTP 200, the the following response is returned:
 
 The attributes mean the following:
 
-* **version**: Abitrary long text, News app version
+* **version**: Arbitrary long text, News app version
 * **issues**: An object containing a dictionary of issues which need to be displayed to the user:
   * **improperlyConfiguredCron**: Boolean, if true this means that no feed updates are run on the server because the updater is misconfigured
 * **user**: user information:
-  * **userId**: Abitrary long text, the login name
-  * **displayName**: Abitrary long text, the full name like it's displayed in the web interface
+  * **userId**: Arbitrary long text, the login name
+  * **displayName**: Arbitrary long text, the full name like it's displayed in the web interface
   * **avatar**: an avatar object, null if none is set
-    * **data**: Abitrary long text, the user's image encoded as base64
-    * **mime**: Abitrary long text, avatar mimetype
+    * **data**: Arbitrary long text, the user's image encoded as base64
+    * **mime**: Arbitrary long text, avatar mimetype
 
 ## API Level
 

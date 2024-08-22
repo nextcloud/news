@@ -32,7 +32,7 @@ interface IScraper
     public function getContent(): ?string;
 
     /**
-     * Get the RTL (rigth-to-left) information
+     * Get the RTL (right-to-left) information
      *
      * @param  bool $default Return this value if the scraper is unable to determine it
      *
