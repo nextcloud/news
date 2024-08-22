@@ -123,7 +123,7 @@ export class ItemService {
 	/**
 	 * Makes backend call to mark item as read/unread in DB
 	 *
-	 * @param {FeedItem} item FeedItem (containing id) that wil be marked as read/unread
+	 * @param {FeedItem} item FeedItem (containing id) that will be marked as read/unread
 	 * @param {boolean} read if read or not
 	 */
 	static async markRead(item: FeedItem, read: boolean): Promise<void> {
@@ -135,7 +135,7 @@ export class ItemService {
 	/**
 	 * Makes backend call to mark item as starred/unstarred in DB
 	 *
-	 * @param {FeedItem} item FeedItem (containing id) that wil be marked as starred/unstarred
+	 * @param {FeedItem} item FeedItem (containing id) that will be marked as starred/unstarred
 	 * @param {boolean} read if starred or not
 	 */
 	static async markStarred(item: FeedItem, read: boolean): Promise<void> {

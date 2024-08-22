@@ -122,7 +122,7 @@ import { confirmPassword } from '@nextcloud/password-confirmation'
  * TODO: Should we remove this and use library?
  *
  * @param {Function} func - The callback function
- * @param {number}     wait - Time to wait in miliseconds
+ * @param {number}     wait - Time to wait in milliseconds
  */
 function debounce(func, wait) {
 	let timeout
