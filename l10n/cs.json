@@ -28,7 +28,7 @@
     "Auto discover Feed" : "Automaticky objevit kanál",
     "Subscribe" : "Přihlásit se k odběru",
     "Last job execution ran {relativeTime}. Something seems wrong." : "Minulé vykonání úlohy bylo {relativeTime}. Zdá se, že něco není v pořádku.",
-    "Last job ran {relativeTime}." : "Úloha minule běžela {relativeTime}.",
+    "Last job ran {relativeTime}." : "Poslední úloha proběhla {relativeTime}.",
     "Maximum read count per feed" : "Maximální počet načítaných novinek na kanál",
     "Maximum redirects" : "Nejvyšší počet přesměrování",
     "Feed fetcher timeout" : "Časový limit při stahování článků",
