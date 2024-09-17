@@ -275,7 +275,6 @@ class PageControllerTest extends TestCase
         $out = $this->controller->explore('en');
 
         $this->assertEquals($in, $out);
-
     }
 
     public function testExploreError()
@@ -295,7 +294,5 @@ class PageControllerTest extends TestCase
         $out = $this->controller->explore('nl');
 
         $this->assertEquals(404, $out->getStatus());
-
     }
-
 }

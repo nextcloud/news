@@ -27,7 +27,6 @@ use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
-
 class ItemApiControllerTest extends TestCase
 {
     /**

@@ -18,7 +18,6 @@ use \OCA\News\Db\Feed;
 use OCA\News\Utility\OPMLExporter;
 use PHPUnit\Framework\TestCase;
 
-
 class OPMLExporterTest extends TestCase
 {
     /** @var OPMLExporter */
@@ -156,6 +155,4 @@ class OPMLExporterTest extends TestCase
             $this->getAttribute($elems->item(1)->childNodes->item(0), 'htmlUrl')
         );
     }
-
-
 }

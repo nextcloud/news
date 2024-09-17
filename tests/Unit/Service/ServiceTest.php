@@ -133,5 +133,4 @@ class ServiceTest extends TestCase
 
         $this->class->deleteUser('');
     }
-
 }

@@ -24,7 +24,6 @@
 
 namespace OCA\News\Tests\Unit\Fetcher;
 
-
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Fetcher\IFeedFetcher;
 use PHPUnit\Framework\TestCase;
@@ -142,6 +141,4 @@ class FetcherTest extends TestCase
 
         $this->assertEquals($return, $result);
     }
-
-
 }

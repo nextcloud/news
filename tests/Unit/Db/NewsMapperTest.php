@@ -25,7 +25,8 @@ use PHPUnit\Framework\TestCase;
  *
  * @package OCA\News\Tests\Unit\Db
  */
-abstract class TmpNewsMapper extends NewsMapperV2 {
+abstract class TmpNewsMapper extends NewsMapperV2
+{
     const TABLE_NAME = 'NAME';
 }
 

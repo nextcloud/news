@@ -1276,5 +1276,4 @@ class ItemMapperPaginatedTest extends MapperTestUtility
         $result = $this->class->findAllFolder('jack', 2, 10, 10, false, false, ['key', 'word']);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
-
 }

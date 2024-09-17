@@ -33,7 +33,8 @@ class FolderTest extends TestCase
                 'name' => 'name',
                 'opened' => false,
                 'feeds' => [],
-            ], $folder->toAPI()
+            ],
+            $folder->toAPI()
         );
     }
 
@@ -75,7 +76,8 @@ class FolderTest extends TestCase
             'userId' => 'abc',
             'opened' => true,
             'deletedAt' => 9,
-            ], $folder->jsonSerialize()
+            ],
+            $folder->jsonSerialize()
         );
     }
     public function testSetDeletedAt()

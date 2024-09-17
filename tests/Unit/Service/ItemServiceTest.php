@@ -630,5 +630,4 @@ class ItemServiceTest extends TestCase
 
         $this->class->purgeOverThreshold(5);
     }
-
 }

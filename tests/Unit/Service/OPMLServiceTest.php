@@ -40,7 +40,6 @@ use OCP\IL10N;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-
 class OPMLServiceTest extends TestCase
 {
     /**
@@ -139,5 +138,4 @@ class OPMLServiceTest extends TestCase
 
         $this->assertEquals('doc', $this->class->export('jack'));
     }
-
 }

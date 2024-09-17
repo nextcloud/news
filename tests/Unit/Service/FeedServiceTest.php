@@ -35,7 +35,6 @@ use OCP\IL10N;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-
 class FeedServiceTest extends TestCase
 {
 
@@ -215,8 +214,13 @@ class FeedServiceTest extends TestCase
             );
 
         $feed = $this->class->create(
-            $this->uid, $url, $folderId,  false, null,
-            'user', 'pass'
+            $this->uid,
+            $url,
+            $folderId,
+            false,
+            null,
+            'user',
+            'pass'
         );
 
         $this->assertEquals($feed->getFolderId(), $folderId);
@@ -274,8 +278,13 @@ class FeedServiceTest extends TestCase
             );
 
         $feed = $this->class->create(
-            $this->uid, $url, $folderId,  false, 'title',
-            'user', 'pass'
+            $this->uid,
+            $url,
+            $folderId,
+            false,
+            'title',
+            'user',
+            'pass'
         );
 
         $this->assertEquals($feed->getFolderId(), $folderId);
@@ -337,8 +346,13 @@ class FeedServiceTest extends TestCase
             );
 
         $feed = $this->class->create(
-            $this->uid, $url, $folderId,  false, null,
-            'user', 'pass'
+            $this->uid,
+            $url,
+            $folderId,
+            false,
+            null,
+            'user',
+            'pass'
         );
 
         $this->assertEquals($feed->getFolderId(), $folderId);
@@ -445,7 +459,7 @@ class FeedServiceTest extends TestCase
 
         $feed->expects($this->once())
              ->method('getPreventUpdate')
-             ->will($this->returnValue(TRUE));
+             ->will($this->returnValue(true));
 
         $this->assertSame($feed, $this->class->fetch($feed));
     }
@@ -462,7 +476,7 @@ class FeedServiceTest extends TestCase
 
         $feed->expects($this->exactly(2))
              ->method('getPreventUpdate')
-             ->will($this->returnValue(TRUE));
+             ->will($this->returnValue(true));
 
         $this->class->fetchAll();
     }
@@ -475,7 +489,7 @@ class FeedServiceTest extends TestCase
 
         $feed->expects($this->once())
              ->method('getPreventUpdate')
-             ->will($this->returnValue(FALSE));
+             ->will($this->returnValue(false));
 
         $feed->expects($this->once())
              ->method('getLocation')
@@ -512,7 +526,7 @@ class FeedServiceTest extends TestCase
 
         $feed->expects($this->once())
              ->method('getPreventUpdate')
-             ->will($this->returnValue(FALSE));
+             ->will($this->returnValue(false));
 
         $feed->expects($this->once())
              ->method('getLocation')
@@ -536,7 +550,7 @@ class FeedServiceTest extends TestCase
 
         $feed->expects($this->once())
              ->method('getPreventUpdate')
-             ->will($this->returnValue(FALSE));
+             ->will($this->returnValue(false));
 
         $feed->expects($this->once())
              ->method('getLocation')
@@ -703,7 +717,7 @@ class FeedServiceTest extends TestCase
         $feed2 = Feed::fromRow(['id' => 3]);
         $this->mapper->expects($this->exactly(1))
             ->method('findFromUser')
-            ->with($this->uid,$feed->getId())
+            ->with($this->uid, $feed->getId())
             ->willReturnOnConsecutiveCalls($this->returnValue($feed));
 
         $feed2->setFullTextEnabled(false);
@@ -826,5 +840,4 @@ class FeedServiceTest extends TestCase
 
         $this->class->read($this->uid, 1);
     }
-
 }

@@ -49,7 +49,6 @@ class FeedMapperTest extends MapperTestUtility
         $feed2->resetUpdatedFields();
 
         $this->feeds = [$feed1, $feed2];
-
     }
 
     /**

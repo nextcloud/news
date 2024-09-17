@@ -427,7 +427,8 @@ class FeedControllerTest extends TestCase
 
         $this->assertEquals($msg, $params['message']);
         $this->assertEquals(
-            $response->getStatus(), Http::STATUS_UNPROCESSABLE_ENTITY
+            $response->getStatus(),
+            Http::STATUS_UNPROCESSABLE_ENTITY
         );
     }
 
@@ -782,6 +783,4 @@ class FeedControllerTest extends TestCase
         $this->assertEquals('test', $params['message']);
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
     }
-
-
 }

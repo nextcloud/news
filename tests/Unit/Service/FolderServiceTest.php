@@ -28,7 +28,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-
 class FolderServiceTest extends TestCase
 {
 
@@ -287,5 +286,4 @@ class FolderServiceTest extends TestCase
 
         $this->class->read('jack', 1);
     }
-
 }

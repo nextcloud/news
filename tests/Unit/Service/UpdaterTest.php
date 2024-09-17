@@ -94,5 +94,4 @@ class UpdaterTest extends TestCase
             ->method('fetchAll');
         $this->updater->update();
     }
-
 }

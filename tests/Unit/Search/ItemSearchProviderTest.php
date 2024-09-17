@@ -116,7 +116,8 @@ class ItemSearchProviderTest extends TestCase
                                 10,
                                 0,
                                 false,
-                                ['some text'])
+                                ['some text']
+                            )
                             ->willReturn($items);
 
 
