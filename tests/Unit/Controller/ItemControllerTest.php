@@ -30,7 +30,6 @@ use OCP\IUser;
 use OCP\IUserSession;
 use PHPUnit\Framework\TestCase;
 
-
 class ItemControllerTest extends TestCase
 {
 
@@ -624,6 +623,4 @@ class ItemControllerTest extends TestCase
         $response = $this->controller->newItems(ListType::FEED, 2, 3);
         $this->assertEquals([], $response);
     }
-
-
 }

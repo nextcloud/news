@@ -63,7 +63,8 @@ class FeedTest extends TestCase
                 'updateErrorCount' => 2,
                 'lastUpdateError' => 'hi',
                 'items' => [],
-            ], $feed->toAPI()
+            ],
+            $feed->toAPI()
         );
     }
 
@@ -121,7 +122,8 @@ class FeedTest extends TestCase
             'lastUpdateError' => 'hi',
             'basicAuthUser' => 'user',
             'basicAuthPassword' => 'password'
-            ], $feed->jsonSerialize()
+            ],
+            $feed->jsonSerialize()
         );
     }
 
@@ -200,6 +202,4 @@ class FeedTest extends TestCase
         $feed->setPinned(true);
         $this->assertEquals(true, $feed->getPinned());
     }
-
-
 }

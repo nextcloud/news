@@ -585,5 +585,4 @@ class ItemMapperAfterTest extends MapperTestUtility
         $result = $this->class->findAllAfter('jack', 232, 1610903351);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
-
 }

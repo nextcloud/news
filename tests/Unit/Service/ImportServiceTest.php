@@ -36,7 +36,6 @@ use OCP\IL10N;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-
 class ImportServiceTest extends TestCase
 {
     /**
@@ -228,5 +227,4 @@ class ImportServiceTest extends TestCase
 
         $this->assertEquals($feed, $result);
     }
-
 }

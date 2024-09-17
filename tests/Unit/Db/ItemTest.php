@@ -228,7 +228,8 @@ class ItemTest extends TestCase
             'categories' => ['food'],
             'sharedBy' => 'jack',
             'sharedByDisplayName' => 'Jack'
-            ], $item->jsonSerialize()
+            ],
+            $item->jsonSerialize()
         );
     }
 
@@ -274,7 +275,8 @@ class ItemTest extends TestCase
             'starred' => true,
             'feedLink' => 'http://test',
             'rtl' => true
-            ], $item->toExport($feeds)
+            ],
+            $item->toExport($feeds)
         );
     }
 

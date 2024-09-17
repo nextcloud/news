@@ -1113,5 +1113,4 @@ class ItemMapperTest extends MapperTestUtility
         $res = $this->class->deleteOverThreshold(3, false);
         $this->assertSame(10, $res);
     }
-
 }

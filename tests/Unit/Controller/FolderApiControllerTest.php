@@ -31,7 +31,6 @@ use OCP\IUserSession;
 
 use PHPUnit\Framework\TestCase;
 
-
 class FolderApiControllerTest extends TestCase
 {
 
@@ -89,7 +88,8 @@ class FolderApiControllerTest extends TestCase
         $this->assertEquals(
             [
             'folders' => [$folders[0]->toAPI()]
-            ], $response
+            ],
+            $response
         );
     }
 
@@ -113,7 +113,8 @@ class FolderApiControllerTest extends TestCase
         $this->assertEquals(
             [
             'folders' => [$folder->toAPI()]
-            ], $response
+            ],
+            $response
         );
     }
 
@@ -153,7 +154,8 @@ class FolderApiControllerTest extends TestCase
         $data = $response->getData();
         $this->assertEquals($msg, $data['message']);
         $this->assertEquals(
-            Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus()
+            Http::STATUS_UNPROCESSABLE_ENTITY,
+            $response->getStatus()
         );
     }
 
@@ -260,7 +262,8 @@ class FolderApiControllerTest extends TestCase
         $data = $response->getData();
         $this->assertEquals($this->msg, $data['message']);
         $this->assertEquals(
-            Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus()
+            Http::STATUS_UNPROCESSABLE_ENTITY,
+            $response->getStatus()
         );
     }
 
@@ -278,15 +281,11 @@ class FolderApiControllerTest extends TestCase
     {
         $response = $this->class->update(null, '');
         $this->assertSame(400, $response->getStatus());
-
     }
 
     public function testDeleteRoot()
     {
         $response = $this->class->delete(null);
         $this->assertSame(400, $response->getStatus());
-
     }
-
-
 }

@@ -145,6 +145,4 @@ class UtilityApiControllerTest extends TestCase
 
         $this->assertEquals($in, $result);
     }
-
-
 }

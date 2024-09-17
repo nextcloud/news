@@ -29,8 +29,6 @@ class JSONHttpErrorTest extends TestCase
         $this->assertEquals(['message' => 'hi'], $result->getData());
         $this->assertEquals(3, $result->getStatus());
     }
-
-
 }
 
 

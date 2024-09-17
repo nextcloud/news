@@ -36,7 +36,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
-
 class ShareServiceTest extends TestCase
 {
     /**

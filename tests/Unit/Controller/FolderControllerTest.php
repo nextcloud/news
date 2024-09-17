@@ -306,5 +306,4 @@ class FolderControllerTest extends TestCase
         $this->assertEquals(Http::STATUS_CONFLICT, $response->getStatus());
         $this->assertEquals($this->msg, $params['message']);
     }
-
 }

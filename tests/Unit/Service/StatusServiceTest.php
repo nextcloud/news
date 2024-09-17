@@ -20,7 +20,6 @@ use OCP\BackgroundJob\IJobList;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-
 class StatusServiceTest extends TestCase
 {
     /**
@@ -228,5 +227,4 @@ class StatusServiceTest extends TestCase
         $response = $this->service->isCronProperlyConfigured();
         $this->assertTrue($response);
     }
-
 }

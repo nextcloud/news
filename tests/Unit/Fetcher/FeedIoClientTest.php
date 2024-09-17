@@ -3,7 +3,6 @@
 
 namespace OCA\News\Tests\Unit\Fetcher;
 
-
 use DateTime;
 use FeedIo\Adapter\Guzzle\Response;
 use FeedIo\Adapter\NotFoundException;
