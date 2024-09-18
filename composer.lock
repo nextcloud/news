@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c16e0d323ab66fb24181d84b4137e11",
+    "content-hash": "9d92caeef3cc6b6f0605ab8a8a5ca3a8",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -1371,16 +1371,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.0",
+            "version": "1.12.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "384af967d35b2162f69526c7276acadce534d0e1"
+                "reference": "0fcbf194ab63d8159bb70d9aa3e1350051632009"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/384af967d35b2162f69526c7276acadce534d0e1",
-                "reference": "384af967d35b2162f69526c7276acadce534d0e1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0fcbf194ab63d8159bb70d9aa3e1350051632009",
+                "reference": "0fcbf194ab63d8159bb70d9aa3e1350051632009",
                 "shasum": ""
             },
             "require": {
@@ -1425,7 +1425,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-27T09:18:05+00:00"
+            "time": "2024-09-09T08:10:35+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
