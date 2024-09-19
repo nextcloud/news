@@ -60,7 +60,7 @@
     "phpstan/phpstan-doctrine": "^1.5.3",
     "phpstan/phpstan-strict-rules": "^1.5.2",
     "phpstan/phpstan-phpunit": "^1.4.0",
-    "phpstan/extension-installer": "^1.4.2",
+    "phpstan/extension-installer": "^1.4.3",
     "phpstan/phpstan-deprecation-rules": "^1.2",
     "guzzlehttp/guzzle": "^7.3.0",
     "doctrine/dbal": "^3.9.1",
