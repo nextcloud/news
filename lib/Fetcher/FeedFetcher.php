@@ -73,7 +73,7 @@ class FeedFetcher implements IFeedFetcher
      * @var FetcherConfig
      */
     private $fetcherConfig;
-     
+
     /**
      * @var Cache
      */
@@ -379,11 +379,11 @@ class FeedFetcher implements IFeedFetcher
         $favicon = null;
         // trim the string because authors do funny things
         $feed_logo = $feed->getLogo();
-        
+
         if (!is_null($feed_logo)) {
             $favicon = trim($feed_logo);
         }
-        
+
         ini_set('user_agent', FetcherConfig::DEFAULT_USER_AGENT);
 
         $base_url = new Net_URL2($url);
@@ -500,15 +500,11 @@ class FeedFetcher implements IFeedFetcher
             $title = strip_tags($this->decodeTwice($feed->getTitle()));
             $newFeed->setTitle($title);
         }
+
         $newFeed->setUrl($url);  // the url used to add the feed
         $newFeed->setLocation($location);  // the url where the feed was found
         $newFeed->setLink($feed->getLink());  // <link> attribute in the feed
-        if ($feed->getLastModified() instanceof DateTime) {
-            $newFeed->setHttpLastModified($feed->getLastModified()->format(DateTime::RSS));
-        }
         $newFeed->setAdded($this->time->getTime());
-
-
 
         $favicon = $this->getFavicon($feed, $url);
         $newFeed->setFaviconLink($favicon);
