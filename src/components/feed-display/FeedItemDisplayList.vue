@@ -235,7 +235,7 @@ export default Vue.extend({
 			return response.sort(this.sort)
 		},
 		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
-		clickItem(item: FeedItem, alignToTop = false) {
+		clickItem(item: FeedItem) {
 			if (!item) {
 				return
 			}
@@ -249,8 +249,8 @@ export default Vue.extend({
 			if (element) {
 				element.click()
 				const virtualScroll = this.$refs.virtualScroll
-				// TODO: This is still jerky and even can derail the current item
-				// virtualScroll.showElement(element, alignToTop)
+				virtualScroll.showElement(element)
+
 			}
 		},
 		currentIndex(items: FeedItem[]): number {
@@ -266,7 +266,7 @@ export default Vue.extend({
 			// Jump to the previous item
 			if (currentIndex > 0) {
 				const previousItem = items[currentIndex - 1]
-				this.clickItem(previousItem, true)
+				this.clickItem(previousItem)
 			}
 		},
 		jumpToNextItem() {
@@ -275,7 +275,7 @@ export default Vue.extend({
 			// Jump to the first item, if none was selected, otherwise jump to the next item
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
 				const nextItem = items[currentIndex + 1]
-				this.clickItem(nextItem, false)
+				this.clickItem(nextItem)
 			}
 		},
 	},

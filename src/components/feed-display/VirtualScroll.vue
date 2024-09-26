@@ -10,7 +10,7 @@ import ItemSkeleton from './ItemSkeleton.vue'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 // const GRID_ITEM_WIDTH = 250 + 10
-const LIST_ITEM_HEIGHT = 45 + 1
+const LIST_ITEM_HEIGHT = 110 + 1
 
 export default Vue.extend({
 	name: 'VirtualScroll',
@@ -47,9 +47,6 @@ export default Vue.extend({
 			this.$el.scrollTop = 0
 		},
 	},
-	created() {
-		this.elementToShowAlignToTop = false
-	},
 	mounted() {
 		this.onScroll()
 		window.addEventListener('resize', this.onScroll)
@@ -64,7 +61,6 @@ export default Vue.extend({
 		},
 		showElement(element, alignToTop) {
 			this.elementToShow = element
-			this.elementToShowAlignToTop = alignToTop
 		},
 	},
 	render(h) {
@@ -115,8 +111,7 @@ export default Vue.extend({
 		const scrollTop = this.scrollTop
 		this.$nextTick(() => {
 			if (this.elementToShow) {
-				// this.elementToShow.scrollIntoView(this.elementToShowAlignToTop)
-				this.elementToShow.scrollIntoView({ behavior: 'smooth', block: 'center' })
+				this.elementToShow.scrollIntoView({ behavior: 'auto', block: 'nearest' })
 				this.elementToShow = null
 			} else {
 				this.$el.scrollTop = scrollTop
