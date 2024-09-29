@@ -62,4 +62,35 @@ class FetcherConfigTest extends TestCase
 
         $this->assertInstanceOf(FeedIoClient::class, $this->class->getClient());
     }
+
+    public function testGetUserAgent()
+    {
+        $this->config->expects($this->exactly(3))
+            ->method('getAppValue')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, '60'],
+                ['news', 'maxRedirects', 10, '10'],
+                ['news', 'installed_version', '1.0', '123.45']
+            ]);
+        $this->class = new FetcherConfig($this->config);
+
+        $expected = 'NextCloud-News/123.45';
+        $response = $this->class->getUserAgent();
+        $this->assertEquals($expected, $response);
+    }
+
+    public function testGetUserAgentUnknownVersion()
+    {
+        $this->config->expects($this->exactly(3))
+            ->method('getAppValue')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, '60'],
+                ['news', 'maxRedirects', 10, '10']
+            ]);
+        $this->class = new FetcherConfig($this->config);
+
+        $expected = 'NextCloud-News/1.0';
+        $response = $this->class->getUserAgent();
+        $this->assertEquals($expected, $response);
+    }
 }

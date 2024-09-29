@@ -32,6 +32,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\App;
 
+use OCA\News\Fetcher\FaviconDataAccess;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCP\User\Events\BeforeUserDeletedEvent;
@@ -135,9 +136,15 @@ class Application extends App implements IBootstrap
             return new Explorer($config->getClient(), $c->get(LoggerInterface::class));
         });
 
+        $context->registerService(FaviconDataAccess::class, function (ContainerInterface $c): FaviconDataAccess {
+            $config = $c->get(FetcherConfig::class);
+            return new FaviconDataAccess($config);
+        });
+
         $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {
             $favicon = new Favicon();
             $favicon->cache(['dir' => $c->get(Cache::class)->getCache("feedFavicon")]);
+            $favicon->setDataAccess($c->get(FaviconDataAccess::class));
             return $favicon;
         });
     }
