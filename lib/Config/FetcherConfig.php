@@ -45,6 +45,12 @@ class FetcherConfig
     protected $redirects;
 
     /**
+     * Version number for the news application.
+     * @var string
+     */
+    private $version;
+
+    /**
      * User agent for the client.
      * @var string
      */
@@ -74,6 +80,11 @@ class FetcherConfig
             Application::NAME,
             'maxRedirects',
             Application::DEFAULT_SETTINGS['maxRedirects']
+        );
+        $this->version = $config->getAppValue(
+            Application::NAME,
+            'installed_version',
+            '1.0'
         );
 
         $proxy = $config->getSystemValue('proxy', null);
@@ -127,7 +138,7 @@ class FetcherConfig
         $config = [
             'timeout' => $this->client_timeout,
             'headers' =>  [
-                'User-Agent' => static::DEFAULT_USER_AGENT,
+                'User-Agent' => $this->getUserAgent(),
                 'Accept' => static::DEFAULT_ACCEPT,
                 'Accept-Encoding' => $this->checkEncoding()
             ],
@@ -142,5 +153,19 @@ class FetcherConfig
 
         $client = new Client($config);
         return new FeedIoClient($client);
+    }
+
+    /**
+     * Gets a user agent name for the client
+     *
+     * @return string
+     */
+    public function getUserAgent(): string
+    {
+        if (is_null($this->version)) {
+            return self::DEFAULT_USER_AGENT;
+        }
+
+        return 'NextCloud-News/' . $this->version;
     }
 }

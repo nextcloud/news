@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 ### Fixed
+- Use updated user agent when fetching feeds and favicons (#2788)
 - Allow feed title to be null in DB. (#2745)
 - Store HTTP last modified date from response header (#2724)
 - Admin settings could not be saved (#2533)

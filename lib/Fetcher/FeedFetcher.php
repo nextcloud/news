@@ -384,7 +384,7 @@ class FeedFetcher implements IFeedFetcher
             $favicon = trim($feed_logo);
         }
 
-        ini_set('user_agent', FetcherConfig::DEFAULT_USER_AGENT);
+        ini_set('user_agent', $this->fetcherConfig->getUserAgent());
 
         $base_url = new Net_URL2($url);
         $base_url->setPath("");
