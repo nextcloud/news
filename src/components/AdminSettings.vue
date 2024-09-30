@@ -16,91 +16,76 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 				{{ t('news', 'Last job ran {relativeTime}.', {relativeTime}) }}
 			</NcNoteCard>
 		</template>
-		<NcCheckboxRadioSwitch type="switch"
-			:checked.sync="useCronUpdates"
-			@update:checked="update('useCronUpdates', useCronUpdates)">
-			{{ t("news", "Use system cron for updates") }}
-		</NcCheckboxRadioSwitch>
-		<p>
-			<em>{{
-				t("news", "Disable this if you use a custom updater.")
-			}}</em>
+		<div class="field">
+			<NcCheckboxRadioSwitch type="switch"
+				:checked.sync="useCronUpdates"
+				@update:checked="update('useCronUpdates', useCronUpdates)">
+				{{ t("news", "Use system cron for updates") }}
+			</NcCheckboxRadioSwitch>
+		</div>
+		<p class="settings-hint">
+			{{ t("news", "Disable this if you use a custom updater.") }}
 		</p>
 
-		<NcTextField :value.sync="autoPurgeCount"
-			:label="t('news', 'Maximum read count per feed')"
-			:label-visible="true"
-			@update:value="update('autoPurgeCount', autoPurgeCount)" />
-		<p>
-			<em>{{
-				t(
-					"news",
-					"Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off."
-				)
-			}}</em>
+		<div class="field">
+			<NcTextField :value.sync="autoPurgeCount"
+				:label="t('news', 'Maximum read count per feed')"
+				:label-visible="true"
+				@update:value="update('autoPurgeCount', autoPurgeCount)" />
+		</div>
+		<p class="settings-hint">
+			{{ t( "news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
 		</p>
 
-		<NcCheckboxRadioSwitch type="switch"
-			:checked.sync="purgeUnread"
-			@update:checked="update('purgeUnread', purgeUnread)">
-			{{ t("news", "Delete unread articles automatically") }}
-		</NcCheckboxRadioSwitch>
-		<p>
-			<em>{{
-				t(
-					"news",
-					"Enable this if you also want to delete unread articles."
-				)
-			}}</em>
+		<div class="field">
+			<NcCheckboxRadioSwitch type="switch"
+				:checked.sync="purgeUnread"
+				@update:checked="update('purgeUnread', purgeUnread)">
+				{{ t("news", "Delete unread articles automatically") }}
+			</NcCheckboxRadioSwitch>
+		</div>
+		<p class="settings-hint">
+			{{ t( "news", "Enable this if you also want to delete unread articles.") }}
 		</p>
 
-		<NcTextField :value.sync="maxRedirects"
-			:label="t('news', 'Maximum redirects')"
-			:label-visible="true"
-			@update:value="update('maxRedirects', maxRedirects)" />
-		<p>
-			<em>{{
-				t("news", "How many redirects the feed fetcher should follow.")
-			}}</em>
+		<div class="field">
+			<NcTextField :value.sync="maxRedirects"
+				:label="t('news', 'Maximum redirects')"
+				:label-visible="true"
+				@update:value="update('maxRedirects', maxRedirects)" />
+		</div>
+		<p class="settings-hint">
+			{{ t("news", "How many redirects the feed fetcher should follow.") }}
 		</p>
 
-		<NcTextField :value.sync="feedFetcherTimeout"
-			:label="t('news', 'Feed fetcher timeout')"
-			:label-visible="true"
-			@update:value="update('feedFetcherTimeout', feedFetcherTimeout)" />
-		<p>
-			<em>{{
-				t(
-					"news",
-					"Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted."
-				)
-			}}</em>
+		<div class="field">
+			<NcTextField :value.sync="feedFetcherTimeout"
+				:label="t('news', 'Feed fetcher timeout')"
+				:label-visible="true"
+				@update:value="update('feedFetcherTimeout', feedFetcherTimeout)" />
+		</div>
+		<p class="settings-hint">
+			{{ t("news", "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.") }}
 		</p>
 
-		<NcTextField :value.sync="exploreUrl"
-			:label="t('news', 'Explore Service URL')"
-			:label-visible="true"
-			@update:value="update('exploreUrl', exploreUrl)" />
-		<p>
-			<em>{{
-				t(
-					"news",
-					"If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty."
-				)
-			}}</em>
+		<div class="field">
+			<NcTextField :value.sync="exploreUrl"
+				:label="t('news', 'Explore Service URL')"
+				:label-visible="true"
+				@update:value="update('exploreUrl', exploreUrl)" />
+		</div>
+		<p class="settings-hint">
+			{{ t("news", "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
 		</p>
 
-		<NcTextField :value.sync="updateInterval"
-			:label="t('news', 'Update interval')"
-			:label-visible="true"
-			@update:value="update('updateInterval', updateInterval)" />
-		<p>
-			<em>{{
-				t(
-					"news",
-					"Interval in seconds in which the feeds will be updated."
-				)
-			}}</em>
+		<div class="field">
+			<NcTextField :value.sync="updateInterval"
+				:label="t('news', 'Update interval')"
+				:label-visible="true"
+				@update:value="update('updateInterval', updateInterval)" />
+		</div>
+		<p class="settings-hint">
+			{{ t("news", "Interval in seconds in which the feeds will be updated.") }}
 		</p>
 	</NcSettingsSection>
 </template>
