@@ -24,6 +24,7 @@ use OCP\IURLGenerator;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
+use OCP\AppFramework\Services\IInitialState;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
@@ -34,17 +35,53 @@ class PageController extends Controller
 {
     use JSONHttpErrorTrait;
 
+    /**
+     * @var IConfig
+     */
+    private $settings;
+
+    /**
+     * @var IL10N
+     */
+    private $l10n;
+
+    /**
+     * @var IURLGenerator
+     */
+    private $urlGenerator;
+
+    /**
+     * @var RecommendedSites
+     */
+    private $recommendedSites;
+
+    /**
+     * @var StatusService
+     */
+    private $statusService;
+
+    /*
+     * @var IInitialState
+     */
+    private $initialState;
+
     public function __construct(
         IRequest $request,
-        ?IUserSession $userSession,
-        private IAppConfig $settings,
-        private IConfig $config,
-        private IURLGenerator $urlGenerator,
-        private IL10N $l10n,
-        private RecommendedSites $recommendedSites,
-        private StatusService $statusService
+        IConfig $settings,
+        IURLGenerator $urlGenerator,
+        IL10N $l10n,
+        RecommendedSites $recommendedSites,
+        StatusService $statusService,
+        IInitialState $initialState,
+        ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
+        $this->settings = $settings;
+        $this->urlGenerator = $urlGenerator;
+        $this->l10n = $l10n;
+        $this->recommendedSites = $recommendedSites;
+        $this->statusService = $statusService;
+        $this->initialState = $initialState;
     }
 
 
@@ -72,6 +109,22 @@ class PageController extends Controller
                 'url_generator' => $this->urlGenerator
             ]
         );
+
+        $usersettings = [
+            'compact',
+            'compactExpand',
+            'preventReadOnScroll',
+            'oldestFirst',
+            'showAll'
+        ];
+        foreach ($usersettings as $setting) {
+            $this->initialState->provideInitialState($setting, $this->settings->getUserValue(
+                $this->getUserId(),
+                $this->appName,
+		$setting,
+	        '0')
+            );
+        }
 
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
