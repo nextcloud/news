@@ -118,10 +118,10 @@ export default Vue.extend({
 
 			// Always want to sort by date (most recent first)
 			sort: (a: FeedItem, b: FeedItem) => {
-				if (a.pubDate > b.pubDate) {
-					return -1
+				if (this.$store.getters.oldestFirst) {
+					return a.pubDate < b.pubDate ? -1 : 1
 				} else {
-					return 1
+					return a.pubDate > b.pubDate ? -1 : 1
 				}
 			},
 			cache: [] as FeedItem[] | undefined,

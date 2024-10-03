@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { AxiosResponse } from 'axios'
 import axios from '@nextcloud/axios'
+import store from './../store/app.ts'
 
 import { API_ROUTES } from '../types/ApiRoutes'
 import { FeedItem } from '../types/FeedItem'
@@ -31,9 +32,9 @@ export class ItemService {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
-				oldestFirst: false,
+				oldestFirst: store.state.oldestFirst,
 				search: '',
-				showAll: true,
+				showAll: store.state.showAll,
 				type: ITEM_TYPES.ALL,
 				offset: start,
 			},
@@ -50,9 +51,9 @@ export class ItemService {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
-				oldestFirst: false,
+				oldestFirst: store.state.oldestFirst,
 				search: '',
-				showAll: true,
+				showAll: store.state.showAll,
 				type: ITEM_TYPES.STARRED,
 				offset: start,
 			},
@@ -69,9 +70,9 @@ export class ItemService {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
-				oldestFirst: false,
+				oldestFirst: store.state.oldestFirst,
 				search: '',
-				showAll: false,
+				showAll: store.state.showAll,
 				type: ITEM_TYPES.UNREAD,
 				offset: start,
 			},
@@ -89,9 +90,9 @@ export class ItemService {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
-				oldestFirst: false,
+				oldestFirst: store.state.oldestFirst,
 				search: '',
-				showAll: true,
+				showAll: store.state.showAll,
 				type: ITEM_TYPES.FEED,
 				offset: start,
 				id: feedId,
@@ -110,9 +111,9 @@ export class ItemService {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
-				oldestFirst: false,
+				oldestFirst: store.state.oldestFirst,
 				search: '',
-				showAll: true,
+				showAll: store.state.showAll,
 				type: ITEM_TYPES.FOLDER,
 				offset: start,
 				id: folderId,

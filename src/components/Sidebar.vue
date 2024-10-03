@@ -111,6 +111,63 @@
 				</template>
 			</NcAppNavigationItem>
 		</template>
+		<template #footer>
+			<NcAppNavigationSettings :name="t('news', 'Settings')">
+				<NcButton @click="showHelp = true">
+					{{ t('news', 'Keyboard shortcuts') }}
+				</NcButton>
+				<HelpModal v-if="showHelp" @close="showHelp=false" />
+				<div>
+					<div>
+						<input id="toggle-preventreadonscroll"
+							v-model="preventReadOnScroll"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-preventreadonscroll">
+							{{ t('news', 'Disable mark read through scrolling') }}
+						</label>
+					</div>
+<!---
+					<div>
+						<input id="toggle-compact"
+							v-model="compact"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-compact">
+							{{ t('news', 'Compact view') }}
+						</label>
+					</div>
+					<div>
+						<input id="toggle-compactexpand"
+							v-model="compactExpand"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-compactexpand">
+							{{ t('news', 'Expand articles on key navigation') }}
+						</label>
+					</div>
+--->
+					<div>
+						<input id="toggle-showall"
+							v-model="showAll"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-showall">
+							{{ t('news', 'Show all articles') }}
+						</label>
+					</div>
+					<div>
+						<input id="toggle-oldestfirst"
+							v-model="oldestFirst"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-oldestfirst">
+							{{ t('news', 'Reverse ordering (oldest on top)') }}
+						</label>
+					</div>
+				</div>
+			</NcAppNavigationSettings>
+		</template>
 	</NcAppNavigation>
 </template>
 
@@ -118,13 +175,19 @@
 
 import { mapState } from 'vuex'
 import Vue from 'vue'
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+import { showError, showSuccess } from '@nextcloud/dialogs'
 
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigationNewItem.js'
+import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
@@ -139,6 +202,8 @@ import { ACTIONS, AppState } from '../store'
 import AddFeed from './AddFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 
+import HelpModal from './modals/HelpModal.vue'
+import { subscribe } from '@nextcloud/event-bus'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 
@@ -168,8 +233,11 @@ export default Vue.extend({
 		NcAppNavigationNew,
 		NcAppNavigationItem,
 		NcAppNavigationNewItem,
+		NcAppNavigationSettings,
+		NcCheckboxRadioSwitch,
 		NcCounterBubble,
 		NcActionButton,
+		NcButton,
 		AddFeed,
 		RssIcon,
 		FolderIcon,
@@ -178,23 +246,105 @@ export default Vue.extend({
 		FolderPlusIcon,
 		PlusIcon,
 		SidebarFeedLinkActions,
+		HelpModal,
 	},
 	data: () => {
 		return {
 			showAddFeed: false,
 			ROUTES,
+			showHelp: false,
 		}
 	},
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
 		...mapState(SideBarState),
+		compact: {
+			get() {
+				return this.$store.getters.compact
+			},
+			set(newValue) {
+				this.saveSetting('compact', newValue)
+			},
+		},
+		compactExpand: {
+			get() {
+				return this.$store.getters.compactExpand
+			},
+			set(newValue) {
+				this.saveSetting('compactExpand', newValue)
+			},
+		},
+		oldestFirst: {
+			get() {
+				return this.$store.getters.oldestFirst
+
+			},
+			set(newValue) {
+				this.saveSetting('oldestFirst', newValue)
+			},
+		},
+		preventReadOnScroll: {
+			get() {
+				return this.$store.getters.preventReadOnScroll
+
+			},
+			set(newValue) {
+				this.saveSetting('preventReadOnScroll', newValue)
+			},
+		},
+		showAll: {
+			get() {
+				return this.$store.getters.showAll
+
+			},
+			set(newValue) {
+				this.saveSetting('showAll', newValue)
+			},
+		},
 	},
 	created() {
 		if (this.$route.query.subscribe_to) {
 			this.showAddFeed = true
 		}
 	},
+	mounted() {
+		subscribe('news:global:toggle-help-dialog', () => {
+			this.showHelp = !this.showHelp
+		})
+	},
 	methods: {
+		async saveSetting(key, value) {
+			this.$store.commit(key, {value: value})
+			const url = generateOcsUrl(
+				'/apps/provisioning_api/api/v1/config/users/{appId}/{key}',
+				{
+					appId: 'news',
+					key,
+				},
+			)
+			value = value ? '1' : '0'
+			try {
+				const { data } = await axios.post(url, {
+					configValue: value,
+				})
+				this.handleResponse({
+					status: data.ocs?.meta?.status,
+				})
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Unable to update news config'),
+					error: e,
+				})
+			}
+		},
+		handleResponse({ status, errorMessage, error }) {
+			if (status !== 'ok') {
+				showError(errorMessage)
+				console.error(errorMessage, error)
+			} else {
+				showSuccess(t('news',  'Successfully updated news configuration'))
+			}
+		},
 		newFolder(value: string) {
 			const folderName = value.trim()
 			const folder = { name: folderName }
