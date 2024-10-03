@@ -2,7 +2,7 @@
     "Nextcloud": [{
         "title": "Nextcloud News",
         "url": "https://nextcloud.com/news/",
-        "feed": "https://nextcloud.com/blog/feed",
+        "feed": "https://nextcloud.com/feed",
         "description": "See what is going on in and around Nextcloud",
         "votes": 1000
     },
