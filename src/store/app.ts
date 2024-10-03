@@ -15,7 +15,7 @@ const state: AppInfoState = {
 	compactExpand: loadState('news', 'compactExpand') === '1',
 	oldestFirst: loadState('news', 'oldestFirst') === '1',
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll') === '1',
-	showAll: loadState('news', 'showAll') === '1'
+	showAll: loadState('news', 'showAll') === '1',
 }
 
 const getters = {
@@ -36,7 +36,7 @@ const getters = {
 	},
 	showAll() {
 		return state.showAll
-	}
+	},
 }
 
 export const actions = {
@@ -52,25 +52,25 @@ export const mutations = {
 	) {
 		state.error = error
 	},
-	compact (
+	compact(
 		state: AppInfoState,
 		{ value }: { value: newValue },
 	) {
 		state.compact = value
 	},
-	compactExpand (
+	compactExpand(
 		state: AppInfoState,
 		{ value }: { value: newValue },
 	) {
 		state.compactExpand = value
 	},
-	oldestFirst (
+	oldestFirst(
 		state: AppInfoState,
 		{ value }: { value: newValue },
 	) {
 		state.oldestFirst = value
 	},
-	preventReadOnScroll (
+	preventReadOnScroll(
 		state: AppInfoState,
 		{ value }: { value: newValue },
 	) {
@@ -81,7 +81,7 @@ export const mutations = {
 		{ value }: { value: newValue },
 	) {
 		state.showAll = value
-	}
+	},
 }
 
 export default {
