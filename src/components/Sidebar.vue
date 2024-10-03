@@ -125,7 +125,7 @@
 							{{ t('news', 'Disable mark read through scrolling') }}
 						</label>
 					</div>
-<!---
+					<!---
 					<div>
 						<input id="toggle-compact"
 							v-model="compact"
@@ -144,7 +144,7 @@
 							{{ t('news', 'Expand articles on key navigation') }}
 						</label>
 					</div>
---->
+					--->
 					<div>
 						<input id="toggle-showall"
 							v-model="showAll"
@@ -176,13 +176,13 @@ import Vue from 'vue'
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 import { showError, showSuccess } from '@nextcloud/dialogs'
+import { subscribe } from '@nextcloud/event-bus'
 
 import NcAppNavigation from '@nextcloud/vue/dist/Components/NcAppNavigation.js'
 import NcAppNavigationNew from '@nextcloud/vue/dist/Components/NcAppNavigationNew.js'
 import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
 import NcAppNavigationNewItem from '@nextcloud/vue/dist/Components/NcAppNavigationNewItem.js'
 import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigationSettings.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
@@ -201,7 +201,6 @@ import AddFeed from './AddFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 
 import HelpModal from './modals/HelpModal.vue'
-import { subscribe } from '@nextcloud/event-bus'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 
@@ -232,7 +231,6 @@ export default Vue.extend({
 		NcAppNavigationItem,
 		NcAppNavigationNewItem,
 		NcAppNavigationSettings,
-		NcCheckboxRadioSwitch,
 		NcCounterBubble,
 		NcActionButton,
 		NcButton,
@@ -312,7 +310,7 @@ export default Vue.extend({
 	},
 	methods: {
 		async saveSetting(key, value) {
-			this.$store.commit(key, {value: value})
+			this.$store.commit(key, { value })
 			const url = generateOcsUrl(
 				'/apps/provisioning_api/api/v1/config/users/{appId}/{key}',
 				{
@@ -340,7 +338,7 @@ export default Vue.extend({
 				showError(errorMessage)
 				console.error(errorMessage, error)
 			} else {
-				showSuccess(t('news',  'Successfully updated news configuration'))
+				showSuccess(t('news', 'Successfully updated news configuration'))
 			}
 		},
 		newFolder(value: string) {
