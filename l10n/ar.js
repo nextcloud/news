@@ -74,7 +74,7 @@ OC.L10N.register(
     "Disable full text" : "إلغاء تمكني النص الكامل",
     "Unread updated" : "تحديثات غير مقرؤة",
     "Ignore updated" : "تجاهل التحديثات",
-    "Share within Instance" : "شارك داخل نفس الخادوم",
+    "Share within Instance" : "شارك داخل نفس الخادم",
     "by" : "من قِبَل",
     "from" : "من",
     "shared by" : "مُشاركة من",
