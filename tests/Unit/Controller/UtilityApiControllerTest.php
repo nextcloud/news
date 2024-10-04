@@ -18,7 +18,7 @@ namespace OCA\News\Tests\Unit\Controller;
 use OCA\News\Controller\UtilityApiController;
 use OCA\News\Service\StatusService;
 use OCA\News\Service\UpdaterService;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserSession;
@@ -29,7 +29,7 @@ class UtilityApiControllerTest extends TestCase
 {
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     * @var \PHPUnit\Framework\MockObject\MockObject|IAppConfig
      */
     private $settings;
 
@@ -71,7 +71,7 @@ class UtilityApiControllerTest extends TestCase
     protected function setUp(): void
     {
         $this->appName = 'news';
-        $this->settings = $this->getMockBuilder(IConfig::class)
+        $this->settings = $this->getMockBuilder(IAppConfig::class)
              ->disableOriginalConstructor()
              ->getMock();
         $this->request = $this->getMockBuilder(IRequest::class)
@@ -105,12 +105,9 @@ class UtilityApiControllerTest extends TestCase
     public function testGetVersion()
     {
         $this->settings->expects($this->once())
-            ->method('getAppValue')
-            ->with(
-                $this->equalTo($this->appName),
-                $this->equalTo('installed_version')
-            )
-            ->will($this->returnValue('1.0'));
+            ->method('getValueString')
+            ->with($this->appName, 'installed_version')
+            ->willReturn('1.0');
 
         $response = $this->newsAPI->version();
         $version = $response['version'];

@@ -28,24 +28,13 @@ use Psr\Log\LoggerInterface;
  */
 class FolderServiceV2 extends Service
 {
-    /**
-     * @var FeedServiceV2
-     */
-    private $feedService;
-    /**
-     * @var TimeFactory
-     */
-    private $timeFactory;
-
     public function __construct(
         FolderMapperV2 $mapper,
-        FeedServiceV2 $feedService,
-        TimeFactory $timeFactory,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        private FeedServiceV2 $feedService,
+        private TimeFactory $timeFactory,
     ) {
         parent::__construct($mapper, $logger);
-        $this->feedService = $feedService;
-        $this->timeFactory = $timeFactory;
     }
 
     /**

@@ -7,11 +7,11 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        php-versions: ['8.0', '8.1', '8.2' ]
-        nextcloud: [ 'stable27' ]
+        php-versions: ['8.2', '8.3' ]
+        nextcloud: [ 'stable29' ]
         database: [ 'sqlite' ]
         include:
-          - php-versions: 8.2
+          - php-versions: 8.3
             nextcloud: pre-release
             database: sqlite
             experimental: true

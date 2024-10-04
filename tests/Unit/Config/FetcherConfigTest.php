@@ -20,16 +20,12 @@
 
 namespace OCA\News\Tests\Config;
 
-use OCA\News\Command\Debug\ItemList;
-use OCA\News\Command\Updater\UpdateFeed;
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Fetcher\Client\FeedIoClient;
-use OCA\News\Service\ItemServiceV2;
+use OCP\IAppConfig;
 use OCP\IConfig;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class FetcherConfigTest
@@ -40,17 +36,24 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class FetcherConfigTest extends TestCase
 {
-    /** @var MockObject|IConfig */
+    /** @var MockObject|IAppConfig */
     protected $config;
+
+    /** @var MockObject|IConfig */
+    protected $sysconfig;
 
     /** @var FetcherConfig */
     protected $class;
 
     protected function setUp(): void
     {
-        $this->config = $this->getMockBuilder(IConfig::class)
+        $this->config = $this->getMockBuilder(IAppConfig::class)
                               ->disableOriginalConstructor()
                               ->getMock();
+
+        $this->sysconfig = $this->getMockBuilder(IConfig::class)
+                                ->disableOriginalConstructor()
+                                ->getMock();
     }
 
     /**
@@ -58,7 +61,7 @@ class FetcherConfigTest extends TestCase
      */
     public function testGetClient()
     {
-        $this->class = new FetcherConfig($this->config);
+        $this->class = new FetcherConfig($this->config, $this->sysconfig);
 
         $this->assertInstanceOf(FeedIoClient::class, $this->class->getClient());
     }

@@ -7,7 +7,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-
+- Require NC 29
+- Require PHP 8.2 or higher
 
 ### Fixed
 

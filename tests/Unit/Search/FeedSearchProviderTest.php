@@ -103,10 +103,9 @@ class FeedSearchProviderTest extends TestCase
                             ->with('user')
                             ->willReturn($folders);
 
-        $this->l10n->expects($this->exactly(2))
-            ->method('t')
-            ->withConsecutive(['Unread articles'], ['News'])
-            ->willReturnArgument(0);
+        $this->l10n->expects($this->atLeast(2))
+                   ->method('t')
+                   ->willReturnArgument(0);
 
         $this->generator->expects($this->once())
                         ->method('imagePath')

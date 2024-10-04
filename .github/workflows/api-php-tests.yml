@@ -9,14 +9,14 @@ jobs:
     name: "PHP: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }} - DB ${{ matrix.database }}"
     strategy:
       matrix:
-        php-versions: ['8.1']
-        nextcloud: ['stable27']
+        php-versions: ['8.3']
+        nextcloud: ['stable29']
         database: ['sqlite']
         experimental: [false]
         codecoverage: [false]
         include:
-          - php-versions: 8.2
-            nextcloud: stable27
+          - php-versions: 8.3
+            nextcloud: stable29
             database: sqlite
             experimental: false
             codecoverage: true
