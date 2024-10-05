@@ -189,8 +189,8 @@ export default Vue.extend({
 		fetchMore() {
 			this.$emit('load-more')
 		},
-		noFilter(): boolean {
-			return true
+		noFilter(item: FeedItem): boolean {
+			return this.$store.getters.showAll ? true : item.unread || item.starred
 		},
 		starFilter(item: FeedItem): boolean {
 			return item.starred
