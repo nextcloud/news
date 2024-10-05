@@ -116,12 +116,12 @@ export default Vue.extend({
 			// Show unread items at start
 			filter: () => { return this.unreadFilter },
 
-			// Always want to sort by date (most recent first)
+			// Always want to sort by id
 			sort: (a: FeedItem, b: FeedItem) => {
 				if (this.$store.getters.oldestFirst) {
-					return a.pubDate < b.pubDate ? -1 : 1
+					return a.id < b.id ? -1 : 1
 				} else {
-					return a.pubDate > b.pubDate ? -1 : 1
+					return a.id > b.id ? -1 : 1
 				}
 			},
 			cache: [] as FeedItem[] | undefined,
