@@ -115,9 +115,9 @@ export const actions = {
 		{ commit }: ActionParams<FeedState>,
 		{ feed }: { feed: Feed },
 	) {
-		// want to fetch feed so that we can retrieve the "highestItemId"
+		// want to fetch feed so that we can retrieve the "newestItemId"
 		const response = await ItemService.fetchFeedItems(feed.id as number)
-		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.items[0].id })
+		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.newestItemId })
 
 		if (feed.folderId) {
 			commit(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: feed.folderId, delta: -feed.unreadCount })
