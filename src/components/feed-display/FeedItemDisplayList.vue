@@ -28,10 +28,22 @@
 					</template>
 				</NcActionButton>
 			</NcActions>
+			<button v-shortkey="['arrowleft']" class="hidden" @shortkey="jumpToPreviousItem">
+				Prev
+			</button>
 			<button v-shortkey="['k']" class="hidden" @shortkey="jumpToPreviousItem">
 				Prev
 			</button>
+			<button v-shortkey="['p']" class="hidden" @shortkey="jumpToPreviousItem">
+				Prev
+			</button>
+			<button v-shortkey="['arrowright']" class="hidden" @shortkey="jumpToNextItem">
+				Next
+			</button>
 			<button v-shortkey="['j']" class="hidden" @shortkey="jumpToNextItem">
+				Next
+			</button>
+			<button v-shortkey="['n']" class="hidden" @shortkey="jumpToNextItem">
 				Next
 			</button>
 		</div>
