@@ -34,7 +34,10 @@
 					</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :name="t('news', 'All articles')" icon="icon-rss" :to="{ name: ROUTES.ALL }">
+			<NcAppNavigationItem v-if="showAll"
+				:name="t('news', 'All articles')"
+				icon="icon-rss"
+				:to="{ name: ROUTES.ALL }">
 				<template #icon>
 					<RssIcon />
 				</template>
@@ -389,6 +392,7 @@ export default Vue.extend({
 		isFolder(item: Feed | Folder) {
 			return (item as Folder).name !== undefined
 		},
+
 	},
 })
 
