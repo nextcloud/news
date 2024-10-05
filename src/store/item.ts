@@ -16,6 +16,7 @@ export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
 	FETCH_FOLDER_FEED_ITEMS: 'FETCH_FOLDER_FEED_ITEMS',
 	FETCH_ITEMS: 'FETCH_ITEMS',
+	RESET_ITEMS: 'RESET_ITEMS',
 }
 
 export type ItemState = {
@@ -288,6 +289,25 @@ export const actions = {
 		item.starred = false
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
+	},
+
+	/**
+	 * Remove all loaded items from memory and reset ItemsLoaded counters
+	 *
+	 * @param param0 ActionParams
+	 * @param param0.dispatch Dispatch
+	 * @param param1 ActionArgs
+	 * @param param1.start Start data
+	 */
+	[FEED_ITEM_ACTION_TYPES.RESET_ITEMS](
+		{ dispatch }: ActionParams<ItemState>,
+		{ start }: { start: number } = { start: 0 },
+	) {
+		state.allItems.splice(start, state.allItems.length)
+		state.allItemsLoaded = {}
+		state.lastItemLoaded = {}
+		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_STARRED)
+		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_ITEMS)
 	},
 }
 
