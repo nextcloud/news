@@ -280,6 +280,7 @@ export default Vue.extend({
 			},
 			set(newValue) {
 				this.saveSetting('oldestFirst', newValue)
+				this.$store.dispatch(ACTIONS.RESET_ITEMS)
 			},
 		},
 		preventReadOnScroll: {
