@@ -16,14 +16,14 @@ use OCP\EventDispatcher\IEventListener;
 class UserSettingsListener implements IEventListener {
 
 	public function handle(Event $event): void {
-		if ($event instanceof BeforePreferenceSetEvent) {
-			if ($event->getAppId() === 'news') {
-				$event->setValid(true);
-			}
-		} elseif ($event instanceof BeforePreferenceDeletedEvent) {
-			if ($event->getAppId() === 'news') {
-				$event->setValid(true);
-			}
+		if (!($event instanceof BeforePreferenceSetEvent || $event instanceof BeforePreferenceDeletedEvent)) {
+		  return;
 		}
+
+		if ($event->getAppId() !== 'news') {
+            return;
+		}
+
+		$event->setValid(true);
 	}
 }
