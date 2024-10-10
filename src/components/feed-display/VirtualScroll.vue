@@ -35,8 +35,11 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		fetching() {
-			return this.$store.state.items.fetchingItems[this.key]
+		fetching: {
+			cache: false,
+			get: function () {
+				return this.$store.state.items.fetchingItems[this.fetchKey]
+			}
 		},
 	},
 	watch: {
