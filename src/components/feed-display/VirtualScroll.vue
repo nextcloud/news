@@ -46,6 +46,9 @@ export default Vue.extend({
 		newFolder() {
 			this.$el.scrollTop = 0
 		},
+		fetchKey() {
+			this.scrollTop = 0
+		},
 	},
 	mounted() {
 		this.onScroll()
