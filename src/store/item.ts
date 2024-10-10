@@ -84,9 +84,11 @@ export const actions = {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'unread', loaded: true })
 		}
 
-		const lastItem = response?.data.items[response?.data.items.length - 1].id
-		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'unread', lastItem })
-		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: false })
+		if (response?.data.items.length > 0) {
+			const lastItem = response?.data.items[response?.data.items.length - 1].id
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'unread', lastItem })
+			commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: false })
+		}
 	},
 
 	/**
