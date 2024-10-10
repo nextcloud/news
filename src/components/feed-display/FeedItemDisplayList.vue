@@ -28,10 +28,22 @@
 					</template>
 				</NcActionButton>
 			</NcActions>
+			<button v-shortkey="['arrowleft']" class="hidden" @shortkey="jumpToPreviousItem">
+				Prev
+			</button>
 			<button v-shortkey="['k']" class="hidden" @shortkey="jumpToPreviousItem">
 				Prev
 			</button>
+			<button v-shortkey="['p']" class="hidden" @shortkey="jumpToPreviousItem">
+				Prev
+			</button>
+			<button v-shortkey="['arrowright']" class="hidden" @shortkey="jumpToNextItem">
+				Next
+			</button>
 			<button v-shortkey="['j']" class="hidden" @shortkey="jumpToNextItem">
+				Next
+			</button>
+			<button v-shortkey="['n']" class="hidden" @shortkey="jumpToNextItem">
 				Next
 			</button>
 		</div>
@@ -116,12 +128,12 @@ export default Vue.extend({
 			// Show unread items at start
 			filter: () => { return this.unreadFilter },
 
-			// Always want to sort by date (most recent first)
+			// Always want to sort by id
 			sort: (a: FeedItem, b: FeedItem) => {
-				if (a.pubDate > b.pubDate) {
-					return -1
+				if (this.$store.getters.oldestFirst) {
+					return a.id < b.id ? -1 : 1
 				} else {
-					return 1
+					return a.id > b.id ? -1 : 1
 				}
 			},
 			cache: [] as FeedItem[] | undefined,
@@ -189,8 +201,8 @@ export default Vue.extend({
 		fetchMore() {
 			this.$emit('load-more')
 		},
-		noFilter(): boolean {
-			return true
+		noFilter(item: FeedItem): boolean {
+			return this.$store.getters.showAll ? true : item.unread
 		},
 		starFilter(item: FeedItem): boolean {
 			return item.starred
