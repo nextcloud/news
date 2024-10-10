@@ -333,6 +333,13 @@ export const mutations = {
 		state.unreadCount = count
 	},
 
+	[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT](
+		state: ItemState,
+		{ delta }: { delta: number },
+	) {
+		state.unreadCount += delta
+	},
+
 	[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](
 		state: ItemState,
 		{ item }: { item: FeedItem },
