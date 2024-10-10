@@ -122,6 +122,7 @@ export const actions = {
 		if (feed.folderId) {
 			commit(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: feed.folderId, delta: -feed.unreadCount })
 		}
+		commit(FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT, { delta: -feed.unreadCount })
 
 		commit(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 	},
