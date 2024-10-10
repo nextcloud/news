@@ -35,16 +35,16 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		fetching() {
-			return this.$store.state.items.fetchingItems[this.key]
+		fetching: {
+			cache: false,
+			get() {
+				return this.$store.state.items.fetchingItems[this.fetchKey]
+			},
 		},
 	},
 	watch: {
-		newBookmark() {
-			this.$el.scrollTop = 0
-		},
-		newFolder() {
-			this.$el.scrollTop = 0
+		fetchKey() {
+			this.scrollTop = 0
 		},
 	},
 	mounted() {
@@ -59,7 +59,7 @@ export default Vue.extend({
 			this.scrollTop = this.$el.scrollTop
 			this.scrollHeight = this.$el.scrollHeight
 		},
-		showElement(element, alignToTop) {
+		showElement(element) {
 			this.elementToShow = element
 		},
 	},

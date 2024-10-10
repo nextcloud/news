@@ -29,7 +29,9 @@
 					<EyeIcon />
 				</template>
 				<template #counter>
-					<NcCounterBubble>{{ items.unreadCount }}</NcCounterBubble>
+					<NcCounterBubble v-if="items.unreadCount > 0">
+						{{ items.unreadCount }}
+					</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :name="t('news', 'All articles')" icon="icon-rss" :to="{ name: ROUTES.ALL }">
