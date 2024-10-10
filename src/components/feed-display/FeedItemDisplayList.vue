@@ -202,7 +202,7 @@ export default Vue.extend({
 			this.$emit('load-more')
 		},
 		noFilter(item: FeedItem): boolean {
-			return this.$store.getters.showAll ? true : item.unread || item.starred
+			return this.$store.getters.showAll ? true : item.unread
 		},
 		starFilter(item: FeedItem): boolean {
 			return item.starred
