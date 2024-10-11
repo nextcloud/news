@@ -48,6 +48,7 @@ OC.L10N.register(
     "Interval in seconds in which the feeds will be updated." : "Interval (v sekundách) ve kterém budou kanály aktualizovány.",
     "No article selected" : "Nevybrán žádný článek",
     "Please select an article from the list..." : "Vyberte jiný článek ze seznamu",
+    "Move feed to folder" : "Přesunout kanál do složky",
     "Move" : "Přesunout",
     "User Name" : "Uživatelské jméno",
     "Share" : "Sdílet",
