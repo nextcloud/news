@@ -25,7 +25,7 @@ OC.L10N.register(
     "Feed exists already!" : "اللُقمة موجودة بالفعل!",
     "New folder" : "مجلد جديد",
     "Folder exists already!" : "المجلد موجود بالفعل",
-    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "يجب تخزين بيانات اعتماد المصادقة الأساسية لبروتوكول HTTP دون تشفير! بحيث يتمكن كل شخص لديه حق الوصول إلى الخادوم أو قاعدة البيانات من الوصول إليها!",
+    "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "يجب تخزين بيانات اعتماد المصادقة الأساسية لبروتوكول HTTP دون تشفير! بحيث يتمكن كل شخص لديه حق الوصول إلى الخادم أو قاعدة البيانات من الوصول إليها!",
     "Credentials" : "حيثيّات الدخول credentials",
     "Auto discover Feed" : "الاستكشاف التلقائي لِلُّقم",
     "Subscribe" : "إشترك subscribe",
