@@ -16,7 +16,7 @@ Vue.prototype.OCA = OCA
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
-Vue.use(require('vue-shortkey'))
+Vue.use(require('vue-shortkey'), { prevent: ['input', 'textarea'] })
 
 Vue.directive('tooltip', Tooltip)
 
