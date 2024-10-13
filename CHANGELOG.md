@@ -10,7 +10,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 ### Fixed
-
+- Scroll position is not reset when switching between articles & feeds (#2548)
+- Unread counter does not count down when folders or feeds are marked read (#2800)
+- Query fetching status didn't work (#2800)
 
 # Releases
 ## [25.0.0-alpha9] - 2024-10-03
