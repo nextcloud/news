@@ -18,7 +18,6 @@ use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
 use OCP\IAppConfig;
 use OCP\Util;
-use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -36,7 +35,7 @@ class PageController extends Controller
     use JSONHttpErrorTrait;
 
     /**
-     * @var IConfig
+     * @var IAppConfig
      */
     private $settings;
 
@@ -67,7 +66,7 @@ class PageController extends Controller
 
     public function __construct(
         IRequest $request,
-        IConfig $settings,
+        IAppConfig $settings,
         IURLGenerator $urlGenerator,
         IL10N $l10n,
         RecommendedSites $recommendedSites,

@@ -130,26 +130,6 @@
 							{{ t('news', 'Disable mark read through scrolling') }}
 						</label>
 					</div>
-					<!---
-					<div>
-						<input id="toggle-compact"
-							v-model="compact"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-compact">
-							{{ t('news', 'Compact view') }}
-						</label>
-					</div>
-					<div>
-						<input id="toggle-compactexpand"
-							v-model="compactExpand"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-compactexpand">
-							{{ t('news', 'Expand articles on key navigation') }}
-						</label>
-					</div>
-					--->
 					<div>
 						<input id="toggle-showall"
 							v-model="showAll"
