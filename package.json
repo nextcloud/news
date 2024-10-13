@@ -97,7 +97,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-vue": "^9.27.0",
-    "eslint-webpack-plugin": "^4.0.1",
+    "eslint-webpack-plugin": "^4.2.0",
     "focus-trap": "^7.5.4",
     "hammerjs": "^2.0.8",
     "ical.js": "^1.5.0",
