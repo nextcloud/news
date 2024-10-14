@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { AxiosResponse } from 'axios'
 import axios from '@nextcloud/axios'
-import store from './../store/app.ts'
+import store from './../store/app'
 
 import { API_ROUTES } from '../types/ApiRoutes'
 import { FeedItem } from '../types/FeedItem'

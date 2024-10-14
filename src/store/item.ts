@@ -303,11 +303,11 @@ export const actions = {
 		{ dispatch }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
-		state.allItems.splice(start, state.allItems.length)
+		state.allItems.splice(start, state.allItems.length - start)
 		state.allItemsLoaded = {}
 		state.lastItemLoaded = {}
-		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_STARRED)
-		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_ITEMS)
+		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_STARRED, 0)
+		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_ITEMS, 0)
 	},
 }
 
