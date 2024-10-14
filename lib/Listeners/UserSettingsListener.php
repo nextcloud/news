@@ -13,17 +13,19 @@ use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 
 /** @template-implements IEventListener<BeforePreferenceSetEvent|BeforePreferenceDeletedEvent> */
-class UserSettingsListener implements IEventListener {
+class UserSettingsListener implements IEventListener
+{
 
-	public function handle(Event $event): void {
-		if (!($event instanceof BeforePreferenceSetEvent || $event instanceof BeforePreferenceDeletedEvent)) {
-		  return;
-		}
-
-		if ($event->getAppId() !== 'news') {
+    public function handle(Event $event): void
+    {
+        if (!($event instanceof BeforePreferenceSetEvent || $event instanceof BeforePreferenceDeletedEvent)) {
             return;
-		}
+        }
 
-		$event->setValid(true);
-	}
+        if ($event->getAppId() !== 'news') {
+            return;
+        }
+
+        $event->setValid(true);
+    }
 }
