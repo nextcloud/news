@@ -7,17 +7,20 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Require NC 29
-- Require PHP 8.2 or higher
 
+### Fixed
+
+# Releases
+## [25.0.0-alpha10] - 2024-10-14
+### Changed
+- Require NC 29 or 30, dropped support for NC 28
+- Require PHP 8.2 or higher
 ### Fixed
 - Scroll position is not reset when switching between articles & feeds (#2548)
 - Unread counter does not count down when folders or feeds are marked read (#2800)
 - Query fetching status didn't work (#2800)
 - Keyboard shortcuts are active even when searching (#2738)
 
-
-# Releases
 ## [25.0.0-alpha9] - 2024-10-03
 ### Fixed
 - Use updated user agent when fetching feeds and favicons (#2788)
