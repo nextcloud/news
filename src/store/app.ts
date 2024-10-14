@@ -7,15 +7,20 @@ export const APPLICATION_ACTION_TYPES = {
 
 export type AppInfoState = {
 	error?: Error;
+	compact: boolean;
+	compactExpand: boolean;
+	oldestFirst: boolean;
+	preventReadOnScroll: boolean;
+	showAll: boolean;
 }
 
 const state: AppInfoState = {
 	error: undefined,
-	compact: loadState('news', 'compact') === '1',
-	compactExpand: loadState('news', 'compactExpand') === '1',
-	oldestFirst: loadState('news', 'oldestFirst') === '1',
-	preventReadOnScroll: loadState('news', 'preventReadOnScroll') === '1',
-	showAll: loadState('news', 'showAll') === '1',
+	compact: loadState('news', 'compact', null) === '1',
+	compactExpand: loadState('news', 'compactExpand', null) === '1',
+	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
+	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
+	showAll: loadState('news', 'showAll', null) === '1',
 }
 
 const getters = {
@@ -54,31 +59,31 @@ export const mutations = {
 	},
 	compact(
 		state: AppInfoState,
-		{ value }: { value: newValue },
+		{ value }: { value: boolean },
 	) {
 		state.compact = value
 	},
 	compactExpand(
 		state: AppInfoState,
-		{ value }: { value: newValue },
+		{ value }: { value: boolean },
 	) {
 		state.compactExpand = value
 	},
 	oldestFirst(
 		state: AppInfoState,
-		{ value }: { value: newValue },
+		{ value }: { value: boolean },
 	) {
 		state.oldestFirst = value
 	},
 	preventReadOnScroll(
 		state: AppInfoState,
-		{ value }: { value: newValue },
+		{ value }: { value: boolean },
 	) {
 		state.preventReadOnScroll = value
 	},
 	showAll(
 		state: AppInfoState,
-		{ value }: { value: newValue },
+		{ value }: { value: boolean },
 	) {
 		state.showAll = value
 	},
