@@ -18,6 +18,7 @@ use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
 use OCP\IAppConfig;
 use OCP\Util;
+use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -34,53 +35,18 @@ class PageController extends Controller
 {
     use JSONHttpErrorTrait;
 
-    /**
-     * @var IAppConfig
-     */
-    private $settings;
-
-    /**
-     * @var IL10N
-     */
-    private $l10n;
-
-    /**
-     * @var IURLGenerator
-     */
-    private $urlGenerator;
-
-    /**
-     * @var RecommendedSites
-     */
-    private $recommendedSites;
-
-    /**
-     * @var StatusService
-     */
-    private $statusService;
-
-    /*
-     * @var IInitialState
-     */
-    private $initialState;
-
     public function __construct(
         IRequest $request,
-        IAppConfig $settings,
-        IURLGenerator $urlGenerator,
-        IL10N $l10n,
-        RecommendedSites $recommendedSites,
-        StatusService $statusService,
-        IInitialState $initialState,
-        ?IUserSession $userSession
+        ?IUserSession $userSession,
+        private IAppConfig $settings,
+        private IConfig $config,
+        private IURLGenerator $urlGenerator,
+        private IL10N $l10n,
+        private RecommendedSites $recommendedSites,
+        private StatusService $statusService,
+        private IInitialState $initialState
     ) {
         parent::__construct($request, $userSession);
-        $this->settings = $settings;
-        $this->urlGenerator = $urlGenerator;
-        $this->l10n = $l10n;
-        $this->recommendedSites = $recommendedSites;
-        $this->statusService = $statusService;
-        $this->initialState = $initialState;
     }
 
 
@@ -116,13 +82,14 @@ class PageController extends Controller
             'oldestFirst',
             'showAll'
         ];
+
         foreach ($usersettings as $setting) {
-            $this->initialState->provideInitialState($setting, $this->settings->getUserValue(
+            $this->initialState->provideInitialState($setting, $this->config->getUserValue(
                 $this->getUserId(),
                 $this->appName,
-		$setting,
-	        '0')
-            );
+                $setting,
+                '0'
+            ));
         }
 
         $csp = new ContentSecurityPolicy();

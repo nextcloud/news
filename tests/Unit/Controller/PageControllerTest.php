@@ -26,6 +26,7 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserSession;
+use OCP\AppFramework\Services\IInitialState;
 use PHPUnit\Framework\TestCase;
 
 class PageControllerTest extends TestCase
@@ -87,6 +88,11 @@ class PageControllerTest extends TestCase
     private $userSession;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|IInitialState
+     */
+    private $initialState;
+
+    /**
      * Gets run before each test
      */
     public function setUp(): void
@@ -131,6 +137,9 @@ class PageControllerTest extends TestCase
         $this->userSession->expects($this->any())
             ->method('getUser')
             ->will($this->returnValue($this->user));
+        $this->initialState = $this->getMockBuilder(IInitialState::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->controller = new PageController(
             $this->request,
             $this->userSession,
@@ -139,7 +148,8 @@ class PageControllerTest extends TestCase
             $this->urlGenerator,
             $this->l10n,
             $this->recommended,
-            $this->status
+            $this->status,
+            $this->initialState
         );
     }
 
