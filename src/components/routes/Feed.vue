@@ -1,5 +1,6 @@
 <template>
 	<ContentTemplate :items="items"
+		:config="{ ordering: feed?.ordering || FEED_ORDER.NEWEST }"
 		:fetch-key="'feed-' + feedId"
 		@load-more="fetchMore()">
 		<template #header>
@@ -22,6 +23,7 @@ import ContentTemplate from '../ContentTemplate.vue'
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 import { Feed } from '../../types/Feed'
+import { FEED_ORDER } from '../../dataservices/feed.service'
 
 export default Vue.extend({
 	components: {
@@ -35,6 +37,9 @@ export default Vue.extend({
 		},
 	},
 	computed: {
+		FEED_ORDER() {
+			return FEED_ORDER
+		},
 		...mapState(['items', 'feeds']),
 		feed(): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === this.id)
@@ -56,7 +61,7 @@ export default Vue.extend({
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems['feed-' + this.feedId]) {
-			  this.$store.dispatch(ACTIONS.FETCH_FEED_ITEMS, { feedId: this.id })
+			  this.$store.dispatch(ACTIONS.FETCH_FEED_ITEMS, { feedId: this.id, ordering: this.feed?.ordering || 0 })
 			}
 		},
 	},
