@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Feed ordering will now be used as ordering in feed item list (#2678)
 
 ### Fixed
 - First features for user settings after vue migration (#2795)

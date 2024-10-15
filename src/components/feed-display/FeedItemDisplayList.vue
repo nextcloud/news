@@ -82,15 +82,18 @@ import VirtualScroll from './VirtualScroll.vue'
 import FeedItemRow from './FeedItemRow.vue'
 
 import { FeedItem } from '../../types/FeedItem'
+import { FEED_ORDER } from '../../dataservices/feed.service'
 
 const DEFAULT_DISPLAY_LIST_CONFIG = {
 	starFilter: true,
 	unreadFilter: true,
+	ordering: FEED_ORDER.NEWEST,
 }
 
 export type Config = {
 	unreadFilter: boolean;
 	starFilter: boolean;
+	ordering: number;
 }
 
 export default Vue.extend({
@@ -128,12 +131,25 @@ export default Vue.extend({
 			// Show unread items at start
 			filter: () => { return this.unreadFilter },
 
-			// Always want to sort by id
+			// Determine the sorting order
 			sort: (a: FeedItem, b: FeedItem) => {
-				if (this.$store.getters.oldestFirst) {
-					return a.id < b.id ? -1 : 1
+				let oldestFirst
+				switch (this.config.ordering) {
+				case FEED_ORDER.OLDEST:
+					oldestFirst = true
+					break
+				case FEED_ORDER.NEWEST:
+					oldestFirst = false
+					break
+				case FEED_ORDER.DEFAULT:
+				default:
+					oldestFirst = this.$store.getters.oldestFirst
+				}
+
+				if (a.pubDate > b.pubDate) {
+					return oldestFirst ? 1 : -1
 				} else {
-					return a.id > b.id ? -1 : 1
+					return oldestFirst ? -1 : 1
 				}
 			},
 			cache: [] as FeedItem[] | undefined,

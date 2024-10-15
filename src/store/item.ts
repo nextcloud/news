@@ -159,14 +159,14 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.start Start data
 	 * @param param1.feedId ID of the feed
+	 * @param param1.ordering Ordering of the feed
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ feedId, start }: { feedId: number; start: number },
+		{ feedId, start, ordering }: { feedId: number; start: number; ordering: number },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
-		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
-
+		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId], ordering)
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
