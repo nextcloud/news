@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Feed ordering will now be used as ordering in feed item list (#2678)
 
 ### Fixed
 - restore old scroll behavior to scroll after articles needed for mark scroll on read (#2817)

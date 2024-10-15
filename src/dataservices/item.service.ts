@@ -5,6 +5,7 @@ import store from './../store/app'
 
 import { API_ROUTES } from '../types/ApiRoutes'
 import { FeedItem } from '../types/FeedItem'
+import { FEED_ORDER } from './feed.service'
 
 export const ITEM_TYPES = {
 	FEED: 0,
@@ -84,13 +85,27 @@ export class ItemService {
 	 *
 	 * @param feedId id number of feed to retrieve items for
 	 * @param start (id of last unread item loaded)
+	 * @param ordering (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
 	 * @return {AxiosResponse} response object containing backend request response
 	 */
-	static async fetchFeedItems(feedId: number, start?: number): Promise<AxiosResponse> {
+	static async fetchFeedItems(feedId: number, start?: number, ordering?: number): Promise<AxiosResponse> {
+		let oldestFirst
+		switch (ordering) {
+		case FEED_ORDER.OLDEST:
+			oldestFirst = true
+			break
+		case FEED_ORDER.NEWEST:
+			oldestFirst = false
+			break
+		case FEED_ORDER.DEFAULT:
+		default:
+			oldestFirst = store.state.oldestFirst
+		}
+
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
-				oldestFirst: store.state.oldestFirst,
+				oldestFirst,
 				search: '',
 				showAll: store.state.showAll,
 				type: ITEM_TYPES.FEED,
