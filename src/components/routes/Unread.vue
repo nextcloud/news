@@ -53,7 +53,7 @@ export default Vue.extend({
 				if (this.$store.getters.unread.length > 0) {
 					this.unreadCache = this.$store.getters.unread
 				}
-			} else if (this.$store.getters.unread.length > (this.unreadCache?.length)) {
+			} else {
 				for (const item of this.$store.getters.unread) {
 					if (this.unreadCache.find((unread: FeedItem) => unread.id === item.id) === undefined) {
 						this.unreadCache.push(item)
