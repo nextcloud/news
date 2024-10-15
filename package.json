@@ -90,7 +90,7 @@
     "emoji-mart-vue-fast": "^15.0.0",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.0.0",
-    "eslint-import-resolver-webpack": "^0.13.8",
+    "eslint-import-resolver-webpack": "^0.13.9",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsdoc": "^39.2.1",
     "eslint-plugin-node": "^11.1.0",
