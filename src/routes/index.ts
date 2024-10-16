@@ -7,6 +7,8 @@ import FeedPanel from '../components/routes/Feed.vue'
 import FolderPanel from '../components/routes/Folder.vue'
 import AllPanel from '../components/routes/All.vue'
 
+import store from './../store/app'
+
 export const ROUTES = {
 	EXPLORE: 'explore',
 	STARRED: 'starred',
@@ -17,8 +19,30 @@ export const ROUTES = {
 }
 
 const getInitialRoute = function() {
-	// TODO: Fetch Recent route from Browser Session?
-	return ROUTES.UNREAD
+	const params: { feedId?: string; folderId?: string } = {}
+
+	switch (store.state.lastViewedFeedType) {
+	case '0':
+		params.feedId = store.state.lastViewedFeedId
+		return {
+			name: ROUTES.FEED,
+			params,
+		}
+	case '1':
+		params.folderId = store.state.lastViewedFeedId
+		return {
+			name: ROUTES.FOLDER,
+			params,
+		}
+	case '2':
+		return { name: ROUTES.STARRED }
+	case '3':
+		return { name: ROUTES.ALL }
+	case '5':
+		return { name: ROUTES.EXPLORE }
+	default:
+		return { name: ROUTES.UNREAD }
+	}
 }
 
 const routes = [

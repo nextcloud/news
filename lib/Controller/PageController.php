@@ -80,7 +80,9 @@ class PageController extends Controller
             'compactExpand',
             'preventReadOnScroll',
             'oldestFirst',
-            'showAll'
+            'showAll',
+            'lastViewedFeedId',
+            'lastViewedFeedType'
         ];
 
         foreach ($usersettings as $setting) {
