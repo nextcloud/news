@@ -12,6 +12,8 @@ export type AppInfoState = {
 	oldestFirst: boolean;
 	preventReadOnScroll: boolean;
 	showAll: boolean;
+	lastViewedFeedId: string;
+	lastViewedFeedType: string;
 }
 
 const state: AppInfoState = {
@@ -21,6 +23,8 @@ const state: AppInfoState = {
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
 	showAll: loadState('news', 'showAll', null) === '1',
+	lastViewedFeedId: loadState('news', 'lastViewedFeedId', '0'),
+	lastViewedFeedType: loadState('news', 'lastViewedFeedType', '6'),
 }
 
 const getters = {
@@ -41,6 +45,12 @@ const getters = {
 	},
 	showAll() {
 		return state.showAll
+	},
+	lastViewedFeedId() {
+		return state.lastViewedFeedId
+	},
+	lastViewedFeedType() {
+		return state.lastViewedFeedType
 	},
 }
 
