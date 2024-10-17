@@ -33,6 +33,7 @@ describe('FeedItemDisplayList.vue', () => {
 			},
 			getters: {
 				unread: () => [mockItem, mockItem],
+				showAll: () => { return true },
 			},
 		})
 

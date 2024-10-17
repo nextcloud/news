@@ -11,6 +11,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 - First features for user settings after vue migration (#2795)
 - fix formatting in navigation.scss to make styleint happy
+- scroll stops after first bunch of items when they are marked read during scroll
+- marked read items disappear when showAll is disabled in folder or feed view
+- Feed item lists are merged when filtered (#2516)
 
 # Releases
 ## [25.0.0-alpha10] - 2024-10-14
