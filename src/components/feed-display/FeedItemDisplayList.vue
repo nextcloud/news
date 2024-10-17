@@ -70,15 +70,18 @@ import VirtualScroll from './VirtualScroll.vue'
 import FeedItemRow from './FeedItemRow.vue'
 
 import { FeedItem } from '../../types/FeedItem'
+import { FEED_ORDER } from '../../dataservices/feed.service'
 
 const DEFAULT_DISPLAY_LIST_CONFIG = {
 	starFilter: true,
 	unreadFilter: true,
+	ordering: FEED_ORDER.NEWEST,
 }
 
 export type Config = {
 	unreadFilter: boolean;
 	starFilter: boolean;
+	ordering: number;
 }
 
 export default Vue.extend({
@@ -119,9 +122,9 @@ export default Vue.extend({
 			// Always want to sort by date (most recent first)
 			sort: (a: FeedItem, b: FeedItem) => {
 				if (a.pubDate > b.pubDate) {
-					return -1
+					return this.config.ordering === FEED_ORDER.OLDEST ? 1 : -1
 				} else {
-					return 1
+					return this.config.ordering === FEED_ORDER.OLDEST ? -1 : 1
 				}
 			},
 			cache: [] as FeedItem[] | undefined,
