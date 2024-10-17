@@ -14,6 +14,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - scroll stops after first bunch of items when they are marked read during scroll
 - marked read items disappear when showAll is disabled in folder or feed view
 - Feed item lists are merged when filtered (#2516)
+- Mark as read on Scroll (#2503)
 
 # Releases
 ## [25.0.0-alpha10] - 2024-10-14
