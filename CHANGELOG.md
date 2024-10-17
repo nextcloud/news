@@ -15,6 +15,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - marked read items disappear when showAll is disabled in folder or feed view
 - Feed item lists are merged when filtered (#2516)
 - Mark as read on Scroll (#2503)
+- Open news with the last viewed feed or folder (#2507)
 
 # Releases
 ## [25.0.0-alpha10] - 2024-10-14
