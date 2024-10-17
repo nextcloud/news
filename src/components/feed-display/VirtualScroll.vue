@@ -7,6 +7,7 @@
 import Vue from 'vue'
 
 import ItemSkeleton from './ItemSkeleton.vue'
+import { ACTIONS } from '../../store'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 // const GRID_ITEM_WIDTH = 250 + 10
@@ -32,6 +33,9 @@ export default Vue.extend({
 			initialLoadingSkeleton: false,
 			initialLoadingTimeout: null,
 			elementToShow: null,
+			checkMarkRead: true,
+			seenItems: new Map(),
+			lastRendered: null,
 		}
 	},
 	computed: {
@@ -46,6 +50,11 @@ export default Vue.extend({
 		fetchKey() {
 			this.scrollTop = 0
 		},
+		lastRendered() {
+			if (!this.$store.getters.preventReadOnScroll) {
+				this.addToSeen(this.lastRendered)
+			}
+		},
 	},
 	mounted() {
 		this.onScroll()
@@ -55,9 +64,39 @@ export default Vue.extend({
 		window.removeEventListener('resize', this.onScroll)
 	},
 	methods: {
+		addToSeen(children) {
+			if (children) {
+				children.forEach((child) => {
+					if (!this.seenItems.has(child.key) && child.componentOptions.propsData.item.unread) {
+						this.seenItems.set(child.key, { offset: child.elm.offsetTop, item: child.componentOptions.propsData.item })
+					}
+				})
+			}
+		},
+		markReadOnScroll() {
+			for (const [key, value] of this.seenItems) {
+				if (this.scrollTop > value.offset) {
+					const item = value.item
+					if (item.unread) {
+						this.$store.dispatch(ACTIONS.MARK_READ, { item })
+					}
+					this.seenItems.delete(key)
+				}
+			}
+		},
 		onScroll() {
 			this.scrollTop = this.$el.scrollTop
 			this.scrollHeight = this.$el.scrollHeight
+
+			if (!this.$store.getters.preventReadOnScroll) {
+				if (this.checkMarkRead) {
+					this.checkMarkRead = false
+					setTimeout(() => {
+						this.markReadOnScroll()
+						this.checkMarkRead = true
+				        }, 500)
+				}
+			}
 		},
 		showElement(element) {
 			this.elementToShow = element
@@ -79,6 +118,7 @@ export default Vue.extend({
 			children = childComponents.slice(upperPaddingItems, upperPaddingItems + renderedItems)
 			renderedItems = children.length
 			lowerPaddingItems = Math.max(childComponents.length - upperPaddingItems - renderedItems, 0)
+			this.lastRendered = children
 		}
 
 		if (!this.reachedEnd && lowerPaddingItems === 0) {
