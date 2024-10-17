@@ -58,7 +58,7 @@
 }
 
 #app-navigation .add-new-popup select,
-#app-navigation #new-feed [name="folderName"] {
+#app-navigation #new-feed [name='folderName'] {
     width: calc(100% - 36px);
     border-right: 0;
     border-top-right-radius: 0;
@@ -190,6 +190,7 @@
     white-space: nowrap;
 }
 
+// stylelint-disable-next-line block-no-empty
 #app-navigation .error-message:hover .title
 #app-navigation .error-message:hover .message {
 
@@ -244,40 +245,44 @@
     transform: rotate(180deg);
 }
 
+// stylelint-disable-next-line block-no-empty
 #app-navigation .feed-normal-ordering {
 }
 
 #app-navigation ul > li {
-	min-height: 4em;
-	position: relative;
+    min-height: 4em;
+    position: relative;
 }
 
 #app-navigation ul > li .app-navigation-entry-utils {
-	top: 0;
-	position: absolute;
-	right: 0;
+    top: 0;
+    position: absolute;
+    right: 0;
 }
+
 #app-navigation ul > li .app-navigation-entry-utils > ul {
-	display:flex;
-	flex-direction:row;
-	position: absolute;
-	right: 0;
+    display:flex;
+    flex-direction:row;
+    position: absolute;
+    right: 0;
 }
+
 .app-navigation-entry-utils > ul > li.app-navigation-entry-utils-counter {
-	padding: 9px;
+    padding: 9px;
 }
+
 #app-navigation li.feed > a {
-	background-repeat: no-repeat;
-	background-size: contain;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #app-navigation li.feed {
-	padding-left:44px;
+    padding-left:44px;
 }
 
-#app-navigation [class*="icon-"]{
-	background-position:left;
-	background-position-x:13px;
+#app-navigation [class*='icon-']{
+    background-position:left;
+    background-position-x:13px;
 }
 
 #app-navigation .icon-pinned {
