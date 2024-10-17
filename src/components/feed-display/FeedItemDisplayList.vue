@@ -155,6 +155,9 @@ export default Vue.extend({
 		getSelectedItem(newVal) {
 			this.selectedItem = newVal
 		},
+		fetchKey() {
+			this.cache = undefined
+		},
 	},
 	created() {
 		this.loadFilter()
