@@ -41,8 +41,9 @@ export default Vue.extend({
 			return FEED_ORDER
 		},
 		...mapState(['items', 'feeds']),
-		feed(): Feed {
-			return this.$store.getters.feeds.find((feed: Feed) => feed.id === this.id)
+		feed(): Feed | null {
+			const feeds = this.$store.getters.feeds
+			return feeds ? feeds.find((feed: Feed) => feed.id === this.id) : null
 		},
 		items(): FeedItem[] {
 			return this.$store.state.items.allItems.filter((item: FeedItem) => {
