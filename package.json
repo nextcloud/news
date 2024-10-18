@@ -71,7 +71,7 @@
     "@nextcloud/babel-config": "^1.0.0",
     "@nextcloud/browserslist-config": "^3.0.1",
     "@nextcloud/eslint-config": "^8.0.0",
-    "@nextcloud/eslint-plugin": "^2.0.0",
+    "@nextcloud/eslint-plugin": "^2.2.1",
     "@nextcloud/password-confirmation": "^4.1.0",
     "@nextcloud/stylelint-config": "^2.1.2",
     "@nextcloud/webpack-vue-config": "^5.1.0",
