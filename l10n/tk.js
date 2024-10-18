@@ -9,6 +9,7 @@ OC.L10N.register(
     "New folder" : "Täze papka döretmek",
     "Move" : "Göçüriň",
     "Share" : "Paýlaş",
+    "Settings" : "Sazlamalar",
     "Rename" : "Adyny üýtgetmek",
     "Delete" : "Pozmak",
     "Newest first" : "Täze ilkinji",
@@ -16,7 +17,6 @@ OC.L10N.register(
     "Refresh" : "Täzelemek",
     "Create" : "Dörediň",
     "Dismiss" : "Ýapmak.",
-    "Settings" : "Sazlamalar",
     "Help" : "Kömek"
 },
 "nplurals=2; plural=(n != 1);");

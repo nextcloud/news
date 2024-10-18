@@ -9,6 +9,7 @@ OC.L10N.register(
     "New folder" : "Pasgan ùr",
     "Move" : "Gluais",
     "Share" : "Co-roinn",
+    "Settings" : "Roghainnean",
     "Rename" : "Thoir ainm ùr air",
     "Delete" : "Sguab às",
     "Newest first" : "As ùire an toiseach",
@@ -16,7 +17,6 @@ OC.L10N.register(
     "Refresh" : "Ath-nuadhaich",
     "Create" : "Cruthaich",
     "Dismiss" : "Leig seachad",
-    "Settings" : "Roghainnean",
     "Help" : "Cobhair"
 },
 "nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3;");

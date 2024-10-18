@@ -8,6 +8,7 @@ OC.L10N.register(
     "New folder" : "Akaram amaynut",
     "Move" : "Senkez",
     "Share" : "Bḍu",
+    "Settings" : "Iɣewwaṛen",
     "Rename" : "Beddel isem",
     "Delete" : "Kkes",
     "Newest first" : "Imaynuten d imezwura",
@@ -15,7 +16,6 @@ OC.L10N.register(
     "Refresh" : "Sismeḍ",
     "Create" : "Snulfu-d",
     "Dismiss" : "Agi",
-    "Settings" : "Iɣewwaṛen",
     "Help" : "Tallalt"
 },
 "nplurals=2; plural=(n != 1);");

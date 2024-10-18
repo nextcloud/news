@@ -8,9 +8,9 @@ OC.L10N.register(
     "New folder" : "نوی فولډر",
     "Move" : "انتقال",
     "Share" : "شریکول",
+    "Settings" : "سمونې",
     "Rename" : "نوم بدلول",
     "Delete" : "ړنګول",
-    "Settings" : "سمونې",
     "Help" : "مرسته"
 },
 "nplurals=2; plural=(n != 1);");

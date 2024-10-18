@@ -10,6 +10,8 @@ OC.L10N.register(
     "Move" : "Move",
     "Share" : "Podjeli",
     "Starred" : "Označeno",
+    "Settings" : "Postavke",
+    "Keyboard shortcuts" : "Tipkovni prečaci",
     "Rename" : "Preimenuj",
     "Delete" : "Obriši",
     "by" : "od strane",
@@ -18,11 +20,9 @@ OC.L10N.register(
     "Folder" : "Fasikla",
     "Create" : "Kreiraj",
     "Collapse" : "Proširi",
-    "Settings" : "Postavke",
     "Import" : "Uvezi",
     "Export" : "Izvezi",
     "Help" : "Pomoć",
-    "Keyboard shortcuts" : "Tipkovni prečaci",
     "Documentation" : "Dokumentacija"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

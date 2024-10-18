@@ -10,13 +10,13 @@ OC.L10N.register(
     "New folder" : "New folder",
     "Credentials" : "Hisob ma'lumotlari",
     "Move" : "Move",
+    "Settings" : "Settings",
     "Rename" : "Rename",
     "Delete" : "Delete",
     "right" : "right",
     "left" : "left",
     "Refresh" : "Refresh",
     "Dismiss" : "Dismiss",
-    "Settings" : "Settings",
     "Help" : "Help"
 },
 "nplurals=1; plural=0;");

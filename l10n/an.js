@@ -8,10 +8,10 @@ OC.L10N.register(
     "Password" : "Clau",
     "New folder" : "Nueva carpeta",
     "Share" : "Compartir",
+    "Settings" : "Configurazión",
     "Rename" : "Renombrar",
     "Delete" : "Borrar",
     "Create" : "Crear",
-    "Settings" : "Configurazión",
     "Help" : "Aduya"
 },
 "nplurals=2; plural=(n != 1);");

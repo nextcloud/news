@@ -10,6 +10,7 @@ OC.L10N.register(
     "Credentials" : "ຂໍມູນປະຈຳຕົວ",
     "Move" : "ຍ້າຍ",
     "Share" : "ແບ່ງປັນ",
+    "Settings" : "ການຕັ້ງຄ່າ",
     "Rename" : "ປ່ຽນຊື່",
     "Delete" : "ລຶບ",
     "Newest first" : "ໃໝ່ທີ່ສຸດກ່ອນ",
@@ -18,7 +19,6 @@ OC.L10N.register(
     "Folder" : "ໂຟນເດີ",
     "Create" : "ສ້າງ",
     "Dismiss" : "ຍົກເລີກ",
-    "Settings" : "ການຕັ້ງຄ່າ",
     "Help" : "ການຊ່ວຍເຫຼືອ"
 },
 "nplurals=1; plural=0;");
