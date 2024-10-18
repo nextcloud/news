@@ -204,8 +204,8 @@ export default Vue.extend({
 		fetchMore() {
 			this.$emit('load-more')
 		},
-		noFilter(item: FeedItem): boolean {
-			return this.$store.getters.showAll ? true : item.unread
+		noFilter(): boolean {
+			return true
 		},
 		starFilter(item: FeedItem): boolean {
 			return item.starred
@@ -228,9 +228,16 @@ export default Vue.extend({
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
 
+			let itemFilter = this.filter
+
+			if ((this.fetchKey !== 'starred' && this.filter !== this.starFilter)
+				&& !this.$store.getters.showAll) {
+				itemFilter = this.unreadFilter
+			}
+
 			// if we're filtering on unread, we want to cache the unread items when the user presses the filter button
 			// that way when the user opens an item, it won't be removed from the displayed list of items (once it's no longer unread)
-			if (!this.$store.getters.showAll || this.filter === this.unreadFilter) {
+			if (itemFilter === this.unreadFilter) {
 				if (!this.cache) {
 					if (this.items.length > 0) {
 						this.cache = this.items.filter(this.unreadFilter)
