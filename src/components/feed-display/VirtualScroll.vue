@@ -177,4 +177,11 @@ export default Vue.extend({
 	position: relative;
 	overflow-y: scroll;
 }
+.container-window::after {
+    content: '';
+    display: block;
+    /* Subtract the height of the Nextcloud and Feed header. */
+    height: calc(100vh - 50px - 54px);
+    background-repeat: no-repeat;
+}
 </style>
