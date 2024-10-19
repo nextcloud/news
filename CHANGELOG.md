@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- restore old scroll behaviour to scoll after arcticles needed for mark scroll on read (#2817)
 
 
 # Releases
