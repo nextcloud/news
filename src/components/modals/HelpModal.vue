@@ -138,7 +138,7 @@
 							<kbd>a</kbd>
 						</td>
 						<td>
-							{{ t('news', 'Mark current articles feed/folder read') }}
+							{{ t('news', 'Mark current articles feed/folder as read') }}
 						</td>
 					</tr>
 				</tbody>
