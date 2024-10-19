@@ -9,15 +9,18 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+
+
+# Releases
+## [25.0.0-alpha11] - 2024-10-19
+### Fixed
 - First features for user settings after vue migration (#2795)
-- fix formatting in navigation.scss to make styleint happy
-- scroll stops after first bunch of items when they are marked read during scroll
-- marked read items disappear when showAll is disabled in folder or feed view
+- scroll stops after first bunch of items when they are marked read during scroll (#2814)
+- marked read items disappear when showAll is disabled in folder or feed view (#2814)
 - Feed item lists are merged when filtered (#2516)
 - Mark as read on Scroll (#2503)
 - Open news with the last viewed feed or folder (#2507)
 
-# Releases
 ## [25.0.0-alpha10] - 2024-10-14
 ### Changed
 - Require NC 29 or 30, dropped support for NC 28
