@@ -68,6 +68,7 @@ OC.L10N.register(
     "{num} months ago" : "hai {num} meses",
     "{num} years ago" : "hai {num} años",
     "Keyboard shortcut" : "Atayos del tecláu",
+    "Action" : "Aición",
     "Refresh" : "Anovar",
     "Load next feed" : "Cargar el feed siguiente",
     "Load previous feed" : "Cargar el feed anterior",
