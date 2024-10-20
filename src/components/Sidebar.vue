@@ -48,60 +48,64 @@
 				</template>
 			</NcAppNavigationItem>
 
-			<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
-				:key="topLevelItem.name || topLevelItem.title"
-				:name="topLevelItem.name || topLevelItem.title"
-				:icon="''"
-				:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
-				:allow-collapse="true"
-				:force-menu="true">
-				<template #default>
-					<NcAppNavigationItem v-for="feed in topLevelItem.feeds"
-						:key="feed.name"
-						:name="feed.title"
-						:icon="''"
-						:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
-						<template #icon>
-							<RssIcon v-if="!feed.faviconLink" />
-							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
-						</template>
-						<template #counter>
-							<NcCounterBubble v-if="feed.unreadCount > 0">
-								{{ feed.unreadCount }}
-							</NcCounterBubble>
-						</template>
+			<template v-if="loading">
+				<NcAppNavigationItem name="Loading Feeds" :loading="true" />
+			</template>
+			<template v-else>
+				<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
+					:key="topLevelItem.name || topLevelItem.title"
+					:name="topLevelItem.name || topLevelItem.title"
+					:icon="''"
+					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
+					:allow-collapse="true"
+					:force-menu="true">
+					<template v-for="feed in topLevelItem.feeds">
+						<NcAppNavigationItem :key="feed.name"
+							:name="feed.title"
+							:icon="''"
+							:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
+							<template #icon>
+								<RssIcon v-if="!feed.faviconLink" />
+								<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
+							</template>
+							<template #counter>
+								<NcCounterBubble v-if="feed.unreadCount > 0">
+									{{ feed.unreadCount }}
+								</NcCounterBubble>
+							</template>
 
-						<template #actions>
-							<SidebarFeedLinkActions :feed-id="feed.id" />
-						</template>
-					</NcAppNavigationItem>
-				</template>
-				<template #icon>
-					<FolderIcon v-if="topLevelItem.feedCount !== undefined" style="width:22px" />
-					<RssIcon v-if="topLevelItem.feedCount === undefined && !topLevelItem.faviconLink" />
-					<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
-				</template>
-				<template #counter>
-					<NcCounterBubble v-if="topLevelItem.feedCount > 0">
-						{{ topLevelItem.feedCount }}
-					</NcCounterBubble>
-					<NcCounterBubble v-if="topLevelItem.unreadCount > 0">
-						{{ topLevelItem.unreadCount }}
-					</NcCounterBubble>
-				</template>
-				<template #actions>
-					<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')" :feed-id="topLevelItem.id" />
-					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="markFolderRead(topLevelItem)">
-						{{ t("news", "Mark read") }}
-					</NcActionButton>
-					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-rename" @click="renameFolder(topLevelItem)">
-						{{ t("news", "Rename") }}
-					</NcActionButton>
-					<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-delete" @click="deleteFolder(topLevelItem)">
-						{{ t("news", "Delete") }}
-					</NcActionButton>
-				</template>
-			</NcAppNavigationItem>
+							<template #actions>
+								<SidebarFeedLinkActions :feed-id="feed.id" />
+							</template>
+						</NcAppNavigationItem>
+					</template>
+					<template #icon>
+						<FolderIcon v-if="topLevelItem.feedCount !== undefined" style="width:22px" />
+						<RssIcon v-if="topLevelItem.feedCount === undefined && !topLevelItem.faviconLink" />
+						<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
+					</template>
+					<template #counter>
+						<NcCounterBubble v-if="topLevelItem.feedCount > 0">
+							{{ topLevelItem.feedCount }}
+						</NcCounterBubble>
+						<NcCounterBubble v-if="topLevelItem.unreadCount > 0">
+							{{ topLevelItem.unreadCount }}
+						</NcCounterBubble>
+					</template>
+					<template #actions>
+						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')" :feed-id="topLevelItem.id" />
+						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="markFolderRead(topLevelItem)">
+							{{ t("news", "Mark read") }}
+						</NcActionButton>
+						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-rename" @click="renameFolder(topLevelItem)">
+							{{ t("news", "Rename") }}
+						</NcActionButton>
+						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-delete" @click="deleteFolder(topLevelItem)">
+							{{ t("news", "Delete") }}
+						</NcActionButton>
+					</template>
+				</NcAppNavigationItem>
+			</template>
 
 			<NcAppNavigationItem :name="t('news', 'Explore')"
 				icon="true"
@@ -239,6 +243,11 @@ export default Vue.extend({
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
 		...mapState(SideBarState),
+		loading: {
+			get() {
+				return this.$store.getters.loading
+			},
+		},
 		compact: {
 			get() {
 				return this.$store.getters.compact
@@ -373,7 +382,6 @@ export default Vue.extend({
 		isFolder(item: Feed | Folder) {
 			return (item as Folder).name !== undefined
 		},
-
 	},
 })
 
