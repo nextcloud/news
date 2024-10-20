@@ -56,9 +56,11 @@
 					:key="topLevelItem.name || topLevelItem.title"
 					:name="topLevelItem.name || topLevelItem.title"
 					:icon="''"
+					:open="topLevelItem.opened"
 					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 					:allow-collapse="true"
-					:force-menu="true">
+					:force-menu="true"
+					@update:open="toggleFolderState(topLevelItem)">
 					<template v-for="feed in topLevelItem.feeds">
 						<NcAppNavigationItem :key="feed.name"
 							:name="feed.title"
@@ -381,6 +383,10 @@ export default Vue.extend({
 		},
 		isFolder(item: Feed | Folder) {
 			return (item as Folder).name !== undefined
+		},
+		toggleFolderState(folder: Folder) {
+			this.$set(folder, 'opened', !folder.opened)
+			this.$store.dispatch(ACTIONS.FOLDER_OPEN_STATE, { folder })
 		},
 	},
 })

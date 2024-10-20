@@ -5,4 +5,5 @@ export type Folder = {
   feedCount: number;
   name: string;
   id: number;
+  opened: boolean;
 }

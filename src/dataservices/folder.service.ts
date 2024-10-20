@@ -40,6 +40,20 @@ export class FolderService {
 	}
 
 	/**
+	 * Update folder open state
+	 *
+	 * @param param0 Folder data
+	 * @param param0.id {Number} ID number of folder to update
+	 * @param param0.opened {Boolean} opened state
+	 * @return {AxiosResponse} Null value is returned on success
+	 */
+	static folderOpenState({ id, opened }: { id: number, opened: boolean }): Promise<AxiosResponse> {
+		return axios.post(API_ROUTES.FOLDER + `/${id}/open`, {
+			open: opened,
+		})
+	}
+
+	/**
 	 * Deletes a folder in the Nextcloud News backend (by id number)
 	 *
 	 * @param param0 Folder data

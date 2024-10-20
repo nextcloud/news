@@ -12,6 +12,7 @@ export const FOLDER_ACTION_TYPES = {
 	DELETE_FOLDER: 'DELETE_FOLDER',
 
 	FOLDER_SET_NAME: 'FOLDER_SET_NAME',
+	FOLDER_OPEN_STATE: 'FOLDER_OPEN_STATE',
 }
 
 export type FolderState = {
@@ -54,6 +55,12 @@ export const actions = {
 	) {
 		await FolderService.renameFolder({ id: folder.id, name })
 		commit(FOLDER_MUTATION_TYPES.UPDATE_FOLDER, { id: folder.id, name })
+	},
+	async [FOLDER_ACTION_TYPES.FOLDER_OPEN_STATE](
+		state: ActionParams<FolderState>,
+		{ folder }: { folder: Folder },
+	) {
+		await FolderService.folderOpenState({ id: folder.id, opened: folder.opened })
 	},
 }
 
