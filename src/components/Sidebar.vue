@@ -186,7 +186,7 @@ import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 
 import { ROUTES } from '../routes'
-import { ACTIONS, AppState } from '../store'
+import { ACTIONS } from '../store'
 
 import AddFeed from './AddFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
@@ -194,26 +194,6 @@ import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 import HelpModal from './modals/HelpModal.vue'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
-
-const SideBarState = {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	topLevelNav(localState: any, state: AppState): (Feed | Folder)[] {
-		let navItems: (Feed | Folder)[] = state.feeds.filter((feed: Feed) => {
-			return feed.folderId === undefined || feed.folderId === null
-		})
-		navItems = navItems.concat(state.folders)
-
-		// bring pinned items to the top
-		return navItems.sort((item, item2) => {
-			if ((item as Feed).pinned && !(item2 as Feed).pinned) {
-				return -1
-			} else if ((item2 as Feed).pinned && !(item as Feed).pinned) {
-				return 1
-			}
-			return 0
-		})
-	},
-}
 
 export default Vue.extend({
 	components: {
@@ -244,7 +224,37 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
-		...mapState(SideBarState),
+		topLevelNav(): (Feed | Folder)[] {
+			const showAll = this.$store.getters.showAll
+
+			const feeds: { pinned: Feed[], visible: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
+				if (feed.pinned) result.pinned.push(feed)
+				if (showAll || feed.unreadCount > 0) {
+					result.visible.push(feed)
+					if (feed.folderId === undefined || feed.folderId === null) {
+						result.ungrouped.push(feed)
+					}
+				}
+				return result
+			}, { pinned: [], visible: [], ungrouped: [] })
+
+			const visibleFolders = this.$store.getters.folders
+				.filter((folder: Folder) => {
+					return showAll || feeds.visible.some((feed: Feed) => feed.folderId === folder.id)
+				})
+				.map((folder: Folder) => {
+					folder.feeds = feeds.visible.filter((feed: Feed) => feed.folderId === folder.id)
+					return folder
+				})
+
+			const navItems: (Feed | Folder)[] = [
+				...feeds.pinned,
+				...feeds.ungrouped,
+				...visibleFolders,
+			]
+
+			return navItems
+		},
 		loading: {
 			get() {
 				return this.$store.getters.loading

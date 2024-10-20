@@ -31,6 +31,7 @@ describe('Sidebar.vue', () => {
 					},
 					getters: {
 						feeds,
+						showAll: () => { return true },
 					},
 					dispatch: jest.fn(),
 				},
@@ -97,6 +98,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds: [],
 						folders: [],
+						showAll: () => { return true },
 					},
 				},
 			})
@@ -112,6 +114,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds,
 						folders,
+						showAll: () => { return true },
 					},
 				},
 			})
@@ -127,6 +130,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds,
 						folders,
+						showAll: () => { return true },
 					},
 				},
 			})
@@ -142,6 +146,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds,
 						folders,
+						showAll: () => { return true },
 					},
 				},
 			})
@@ -157,6 +162,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds,
 						folders,
+						showAll: () => { return true },
 					},
 				},
 			})
@@ -172,6 +178,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds,
 						folders,
+						showAll: () => { return true },
 					},
 				},
 			})
