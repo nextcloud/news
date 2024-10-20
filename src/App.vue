@@ -68,6 +68,8 @@ export default Vue.extend({
 		// fetch folders and feeds to build side bar
 		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
 		await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+
+		this.$store.commit(MUTATIONS.SET_LOADING, { value: false })
 	},
 	methods: {
 		stopPlaying() {

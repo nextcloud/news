@@ -7,6 +7,7 @@ export const APPLICATION_ACTION_TYPES = {
 
 export type AppInfoState = {
 	error?: Error;
+	loading: boolean;
 	compact: boolean;
 	compactExpand: boolean;
 	oldestFirst: boolean;
@@ -18,6 +19,7 @@ export type AppInfoState = {
 
 const state: AppInfoState = {
 	error: undefined,
+	loading: true,
 	compact: loadState('news', 'compact', null) === '1',
 	compactExpand: loadState('news', 'compactExpand', null) === '1',
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
@@ -30,6 +32,9 @@ const state: AppInfoState = {
 const getters = {
 	error(state: AppInfoState) {
 		return state.error
+	},
+	loading() {
+		return state.loading
 	},
 	compact() {
 		return state.compact
@@ -66,6 +71,12 @@ export const mutations = {
 		error: Error,
 	) {
 		state.error = error
+	},
+	[APPLICATION_MUTATION_TYPES.SET_LOADING](
+		state: AppInfoState,
+		{ value }: { value: boolean },
+	) {
+		state.loading = value
 	},
 	compact(
 		state: AppInfoState,
