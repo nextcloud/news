@@ -10,7 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - restore old scroll behaviour to scroll after articles needed for mark scroll on read (#2817)
-
+- 25.0.0-alpha2: Feed folderbar menu always opens collapsed (#2508)
 
 # Releases
 ## [25.0.0-alpha11] - 2024-10-19
