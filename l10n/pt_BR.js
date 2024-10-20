@@ -112,6 +112,7 @@ OC.L10N.register(
     "Load next folder" : "Carregar nova pasta",
     "Scroll to active navigation entry" : "Rolar para ativar a navegação",
     "Shift" : "Shift",
+    "Mark current articles feed/folder read" : "Marcar feed/pasta de artigos atuais como lidos",
     "All Articles" : "Todos os Artigos",
     "No feeds found to add" : "Nenhum feed encontrado para adicionar",
     "Subscribe to" : "Inscrever-se em",
