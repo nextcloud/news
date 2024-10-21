@@ -19,6 +19,9 @@ use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\CORS;
 
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -29,27 +32,18 @@ class FolderApiController extends ApiController
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
 
-    /**
-     * @var FolderServiceV2
-     */
-    private $folderService;
-
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        FolderServiceV2 $folderService
+        private FolderServiceV2 $folderService
     ) {
         parent::__construct($request, $userSession);
-
-        $this->folderService = $folderService;
     }
 
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function index(): array
     {
         $folders = $this->folderService->findAllForUser($this->getUserId());
@@ -58,14 +52,13 @@ class FolderApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param string $name
      *
      * @return array|mixed|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function create(string $name)
     {
         try {
@@ -81,14 +74,13 @@ class FolderApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function delete(?int $folderId)
     {
         if (is_null($folderId)) {
@@ -106,15 +98,14 @@ class FolderApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int|null $folderId
      * @param string   $name
      *
      * @return array|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function update(?int $folderId, string $name)
     {
         if (is_null($folderId)) {
@@ -136,13 +127,12 @@ class FolderApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int|null $folderId  ID of the folder
      * @param int      $newestItemId The newest read item
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function read(?int $folderId, int $newestItemId): void
     {
         $folderId = $folderId === 0 ? null : $folderId;

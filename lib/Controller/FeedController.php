@@ -23,6 +23,7 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\IConfig;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 
 use OCA\News\Db\ListType;
 use OCP\IUserSession;
@@ -31,48 +32,20 @@ class FeedController extends Controller
 {
     use JSONHttpErrorTrait;
 
-    /**
-     * @var FeedServiceV2
-     */
-    private $feedService;
-    /**
-     * @var ItemServiceV2
-     */
-    private $itemService;
-    /**
-     * @var FolderServiceV2
-     */
-    private $folderService;
-    /**
-     * @var ImportService
-     */
-    private $importService;
-    /**
-     * @var IConfig
-     */
-    private $settings;
-
     public function __construct(
         IRequest $request,
-        FolderServiceV2 $folderService,
-        FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService,
-        ImportService $importService,
-        IConfig $settings,
+        private FolderServiceV2 $folderService,
+        private FeedServiceV2 $feedService,
+        private ItemServiceV2 $itemService,
+        private ImportService $importService,
+        private IConfig $settings,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
-        $this->folderService = $folderService;
-        $this->feedService   = $feedService;
-        $this->itemService   = $itemService;
-        $this->importService = $importService;
-        $this->settings      = $settings;
     }
 
 
-    /**
-     * @NoAdminRequired
-     */
+    #[NoAdminRequired]
     public function index(): array
     {
 
@@ -98,9 +71,7 @@ class FeedController extends Controller
     }
 
 
-    /**
-     * @NoAdminRequired
-     */
+    #[NoAdminRequired]
     public function active(): array
     {
         $feedId = (int) $this->settings->getUserValue(
@@ -146,8 +117,6 @@ class FeedController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param string $url
      * @param int|null    $parentFolderId
      * @param string|null $title
@@ -156,6 +125,7 @@ class FeedController extends Controller
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function create(
         string $url,
         ?int $parentFolderId,
@@ -205,12 +175,11 @@ class FeedController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $feedId
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function delete(int $feedId)
     {
         try {
@@ -226,12 +195,11 @@ class FeedController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $feedId
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function update(int $feedId)
     {
         try {
@@ -255,11 +223,10 @@ class FeedController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param array $json
      * @return array
      */
+    #[NoAdminRequired]
     public function import(array $json): array
     {
         $feed = $this->importService->importArticles($this->getUserId(), $json);
@@ -277,12 +244,11 @@ class FeedController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $feedId
      * @param int $highestItemId
      * @return array
      */
+    #[NoAdminRequired]
     public function read(int $feedId, int $highestItemId): array
     {
         $this->feedService->read($this->getUserId(), $feedId, $highestItemId);
@@ -299,12 +265,11 @@ class FeedController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $feedId
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function restore(int $feedId)
     {
         try {
@@ -319,8 +284,6 @@ class FeedController extends Controller
     }
 
     /**
-     * @NoAdminRequired
-     *
      * @param int         $feedId
      * @param bool        $pinned
      * @param bool        $fullTextEnabled
@@ -331,6 +294,7 @@ class FeedController extends Controller
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function patch(
         int $feedId,
         ?bool $pinned = null,

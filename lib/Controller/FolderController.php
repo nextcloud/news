@@ -17,6 +17,7 @@ use OCA\News\Service\Exceptions\ServiceException;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -27,28 +28,21 @@ class FolderController extends Controller
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
 
-    /**
-     * @var FolderServiceV2
-     */
-    private $folderService;
-
     public function __construct(
         IRequest $request,
-        FolderServiceV2 $folderService,
+        private FolderServiceV2 $folderService,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
-        $this->folderService = $folderService;
     }
 
 
     /**
-     * @NoAdminRequired
-     *
      * @return array[]
      *
      * @psalm-return array{folders: array}
      */
+    #[NoAdminRequired]
     public function index(): array
     {
         $folders = $this->folderService->findAllForUser($this->getUserId());
@@ -57,13 +51,12 @@ class FolderController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int|null $folderId
      * @param bool     $open
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function open(?int $folderId, bool $open)
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -79,13 +72,12 @@ class FolderController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param string   $folderName
      * @param int|null $parent
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function create(string $folderName, ?int $parent = null)
     {
         $this->folderService->purgeDeleted($this->getUserId(), time() - 600);
@@ -96,12 +88,11 @@ class FolderController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function delete(?int $folderId)
     {
         if (is_null($folderId)) {
@@ -120,13 +111,12 @@ class FolderController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int|null $folderId   The ID of the folder
      * @param string   $folderName The new name of the folder
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function rename(?int $folderId, string $folderName)
     {
         if (is_null($folderId)) {
@@ -144,8 +134,6 @@ class FolderController extends Controller
     }
 
     /**
-     * @NoAdminRequired
-     *
      * @param int|null $folderId
      * @param int      $maxItemId
      *
@@ -154,6 +142,7 @@ class FolderController extends Controller
      * @throws ServiceConflictException
      * @throws ServiceNotFoundException
      */
+    #[NoAdminRequired]
     public function read(?int $folderId, int $maxItemId): void
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -163,12 +152,11 @@ class FolderController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function restore(?int $folderId)
     {
         $folderId = $folderId === 0 ? null : $folderId;

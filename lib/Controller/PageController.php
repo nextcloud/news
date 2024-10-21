@@ -25,6 +25,8 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
@@ -49,11 +51,8 @@ class PageController extends Controller
         parent::__construct($request, $userSession);
     }
 
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function index(): TemplateResponse
     {
         $status = $this->statusService->getStatus();
@@ -109,10 +108,7 @@ class PageController extends Controller
         return $response;
     }
 
-
-    /**
-     * @NoAdminRequired
-     */
+    #[NoAdminRequired]
     public function settings(): array
     {
         $settings = [
@@ -154,14 +150,13 @@ class PageController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param bool $showAll
      * @param bool $compact
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
      * @param bool $compactExpand
      */
+    #[NoAdminRequired]
     public function updateSettings(
         bool $showAll,
         bool $compact,
@@ -189,12 +184,11 @@ class PageController extends Controller
     }
 
     /**
-     * @NoAdminRequired
-     *
      * @param string $lang
      *
      * @return Http\JSONResponse|array
      */
+    #[NoAdminRequired]
     public function explore(string $lang)
     {
         $this->config->setUserValue(

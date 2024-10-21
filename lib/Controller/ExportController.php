@@ -21,6 +21,9 @@ use OCP\AppFramework\Http\DataDownloadResponse;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http\JSONResponse;
 use OCP\IUserSession;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\CORS;
 
 /**
  * Class ExportController
@@ -30,31 +33,20 @@ use OCP\IUserSession;
 class ExportController extends Controller
 {
 
-    private $opmlService;
-    private $folderService;
-    private $feedService;
-    private $itemService;
-
     public function __construct(
         IRequest $request,
-        FolderServiceV2 $folderService,
-        FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService,
-        OpmlService $opmlService,
+        private FolderServiceV2 $folderService,
+        private FeedServiceV2 $feedService,
+        private ItemServiceV2 $itemService,
+        private OpmlService $opmlService,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
-        $this->feedService = $feedService;
-        $this->folderService = $folderService;
-        $this->opmlService = $opmlService;
-        $this->itemService = $itemService;
     }
 
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function opml(): DataDownloadResponse
     {
         $date = date('Y-m-d');
@@ -67,10 +59,8 @@ class ExportController extends Controller
     }
 
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function articles(): JSONResponse
     {
         $feeds = $this->feedService->findAllForUser($this->getUserId());
