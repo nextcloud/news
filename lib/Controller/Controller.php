@@ -27,10 +27,6 @@ use \OCP\IUserSession;
  */
 class Controller extends BaseController
 {
-    /**
-     * @var IUserSession|null
-     */
-    private $userSession;
 
     /**
      * ApiController constructor.
@@ -40,11 +36,9 @@ class Controller extends BaseController
      * @param IRequest          $request        The request
      * @param IUserSession|null $userSession    The user session
      */
-    public function __construct(IRequest $request, ?IUserSession $userSession)
+    public function __construct(IRequest $request, private ?IUserSession $userSession)
     {
         parent::__construct(Application::NAME, $request);
-
-        $this->userSession = $userSession;
     }
 
     /**

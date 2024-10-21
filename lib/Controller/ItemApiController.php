@@ -23,6 +23,9 @@ use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\CORS;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
@@ -35,27 +38,16 @@ class ItemApiController extends ApiController
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
 
-    /**
-     * @var ItemServiceV2
-     */
-    private $itemService;
-
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        ItemServiceV2 $itemService
+        private ItemServiceV2 $itemService
     ) {
         parent::__construct($request, $userSession);
-
-        $this->itemService = $itemService;
     }
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int  $type
      * @param int  $id
      * @param bool $getRead
@@ -64,6 +56,9 @@ class ItemApiController extends ApiController
      * @param bool $oldestFirst
      * @return array|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function index(
         int $type = 3,
         int $id = 0,
@@ -116,10 +111,6 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int $type
      * @param int $id
      * @param int $lastModified
@@ -127,6 +118,9 @@ class ItemApiController extends ApiController
      *
      * @throws ServiceValidationException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function updated(int $type = 3, int $id = 0, int $lastModified = 0): array
     {
         // needs to be turned into a millisecond timestamp to work properly
@@ -171,15 +165,14 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int $itemId
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function read(int $itemId)
     {
         return $this->setRead($itemId, true);
@@ -187,15 +180,14 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int $itemId
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unread(int $itemId)
     {
         return $this->setRead($itemId, false);
@@ -241,16 +233,15 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int    $feedId
      * @param string $guidHash
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function star(int $feedId, string $guidHash)
     {
         return $this->setStarred($feedId, $guidHash, true);
@@ -258,16 +249,15 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int    $feedId
      * @param string $guidHash
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unstar(int $feedId, string $guidHash)
     {
         return $this->setStarred($feedId, $guidHash, false);
@@ -275,15 +265,14 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int $itemId
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function starByItemId(int $itemId)
     {
         return $this->setStarredByItemId($itemId, true);
@@ -291,15 +280,14 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int $itemId
      *
      * @return array|JSONResponse
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unstarByItemId(int $itemId)
     {
         return $this->setStarredByItemId($itemId, false);
@@ -307,16 +295,13 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     *
-     * @NoCSRFRequired
-     *
-     * @CORS
-     *
      * @param int $newestItemId
      *
      * @return void
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function readAll(int $newestItemId): void
     {
         $this->itemService->readAll($this->getUserId(), $newestItemId);
@@ -341,18 +326,15 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     *
-     * @NoCSRFRequired
-     *
-     * @CORS
-     *
      * @param int[] $items item ids
      *
      * @return void
      *
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function readMultiple(array $items): void
     {
         $this->setMultipleRead($items, true);
@@ -360,16 +342,15 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int[] $itemIds item ids
      *
      * @return void
      *
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function readMultipleByIds(array $itemIds): void
     {
         $this->setMultipleRead($itemIds, true);
@@ -377,18 +358,15 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     *
-     * @NoCSRFRequired
-     *
-     * @CORS
-     *
      * @param int[] $items item ids
      *
      * @return void
      *
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unreadMultiple(array $items): void
     {
         $this->setMultipleRead($items, false);
@@ -396,16 +374,15 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int[] $itemIds item ids
      *
      * @return void
      *
      * @throws ServiceConflictException
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unreadMultipleByIds(array $itemIds): void
     {
         $this->setMultipleRead($itemIds, false);
@@ -458,16 +435,13 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     *
-     * @NoCSRFRequired
-     *
-     * @CORS
-     *
      * @param int[] $items items
      *
      * @return void
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function starMultiple(array $items): void
     {
         $this->setMultipleStarred($items, true);
@@ -475,16 +449,13 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     *
-     * @NoCSRFRequired
-     *
-     * @CORS
-     *
      * @param array $items items
      *
      * @return void
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unstarMultiple(array $items): void
     {
         $this->setMultipleStarred($items, false);
@@ -492,14 +463,13 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int[] $items item ids
      *
      * @return void
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function starMultipleByItemIds(array $itemIds): void
     {
         $this->setMultipleStarredByItemIds($itemIds, true);
@@ -507,14 +477,13 @@ class ItemApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param array $items item ids
      *
      * @return void
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function unstarMultipleByItemIds(array $itemIds): void
     {
         $this->setMultipleStarredByItemIds($itemIds, false);

@@ -25,6 +25,9 @@ use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\Attribute\CORS;
+use \OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use \OCP\AppFramework\Http\Attribute\NoAdminRequired;
 
 use Psr\Log\LoggerInterface;
 
@@ -32,40 +35,20 @@ class FeedApiController extends ApiController
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
 
-    /**
-     * @var ItemServiceV2
-     */
-    private $itemService;
-
-    /**
-     * @var FeedServiceV2
-     */
-    private $feedService;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService,
-        LoggerInterface $logger
+        private FeedServiceV2 $feedService,
+        private ItemServiceV2 $itemService,
+        private LoggerInterface $logger
     ) {
         parent::__construct($request, $userSession);
-        $this->feedService = $feedService;
-        $this->itemService = $itemService;
-        $this->logger = $logger;
     }
 
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function index(): array
     {
 
@@ -85,15 +68,15 @@ class FeedApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
+     * Create a feed
      * @param string   $url
      * @param int|null $folderId
      *
      * @return array|mixed|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function create(string $url, ?int $folderId = null)
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -122,14 +105,14 @@ class FeedApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
+     * Delete a feed
      * @param int $feedId
      *
      * @return array|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function delete(int $feedId)
     {
         try {
@@ -143,13 +126,13 @@ class FeedApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
+     * Mark a feed as read
      * @param int $feedId
      * @param int $newestItemId
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function read(int $feedId, int $newestItemId): void
     {
         $this->feedService->read($this->getUserId(), $feedId, $newestItemId);
@@ -157,15 +140,15 @@ class FeedApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
+     * Move a feed
      * @param int      $feedId
      * @param int|null $folderId
      *
      * @return array|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function move(int $feedId, ?int $folderId)
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -184,15 +167,15 @@ class FeedApiController extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
+     * Rename a feed
      * @param int    $feedId
      * @param string $feedTitle
      *
      * @return array|JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function rename(int $feedId, string $feedTitle)
     {
         try {
@@ -207,11 +190,8 @@ class FeedApiController extends ApiController
         return [];
     }
 
-
-    /**
-     * @NoCSRFRequired
-     * @CORS
-     */
+    #[CORS]
+    #[NoCSRFRequired]
     public function fromAllUsers(): array
     {
         $feeds = $this->feedService->findAll();
@@ -234,6 +214,7 @@ class FeedApiController extends ApiController
      * @param string $userId
      * @param int    $feedId
      */
+    #[NoCSRFRequired]
     public function update(string $userId, int $feedId): void
     {
         try {

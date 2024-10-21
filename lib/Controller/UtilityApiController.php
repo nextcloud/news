@@ -19,6 +19,9 @@ use OCA\News\Service\UpdaterService;
 use \OCP\IRequest;
 use \OCP\IAppConfig;
 use \OCP\IUserSession;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\CORS;
 
 use \OCA\News\Service\StatusService;
 
@@ -36,11 +39,9 @@ class UtilityApiController extends ApiController
     }
 
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function version(): array
     {
         $version = $this->settings->getValueString(
@@ -51,31 +52,23 @@ class UtilityApiController extends ApiController
     }
 
 
-    /**
-     * @NoCSRFRequired
-     * @CORS
-     */
+    #[CORS]
+    #[NoCSRFRequired]
     public function beforeUpdate(): void
     {
         $this->updaterService->beforeUpdate();
     }
 
-
-    /**
-     * @NoCSRFRequired
-     * @CORS
-     */
+    #[CORS]
+    #[NoCSRFRequired]
     public function afterUpdate(): void
     {
         $this->updaterService->afterUpdate();
     }
 
-
-    /**
-     * @CORS
-     * @NoCSRFRequired
-     * @NoAdminRequired
-     */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function status(): array
     {
         return $this->statusService->getStatus();

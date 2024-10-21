@@ -20,6 +20,7 @@ use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 
 use \OCA\News\Service\Exceptions\ServiceException;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -36,29 +37,12 @@ class ItemController extends Controller
 {
     use JSONHttpErrorTrait;
 
-    /**
-     * @var ItemServiceV2
-     */
-    private $itemService;
-    /**
-     * @var FeedServiceV2
-     */
-    private $feedService;
-    /**
-     * @var ShareService
-     */
-    private $shareService;
-    /**
-     * @var IConfig
-     */
-    private $settings;
-
     public function __construct(
         IRequest $request,
-        FeedServiceV2 $feedService,
-        ItemServiceV2 $itemService,
-        ShareService $shareService,
-        IConfig $settings,
+        private FeedServiceV2 $feedService,
+        private ItemServiceV2 $itemService,
+        private ShareService $shareService,
+        private IConfig $settings,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
@@ -70,8 +54,6 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int    $type
      * @param int    $id
      * @param int    $limit
@@ -81,6 +63,7 @@ class ItemController extends Controller
      * @param string $search
      * @return array
      */
+    #[NoAdminRequired]
     public function index(
         int $type = 3,
         int $id = 0,
@@ -195,13 +178,12 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $type
      * @param int $id
      * @param int $lastModified
      * @return array
      */
+    #[NoAdminRequired]
     public function newItems(int $type, int $id, $lastModified = 0): array
     {
         $showAll = $this->settings->getUserValue(
@@ -256,14 +238,13 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int    $feedId
      * @param string $guidHash
      * @param bool   $isStarred
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function star(int $feedId, string $guidHash, bool $isStarred)
     {
         try {
@@ -282,13 +263,12 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int  $itemId
      * @param bool $isRead
      *
      * @return array|JSONResponse
      */
+    #[NoAdminRequired]
     public function read(int $itemId, $isRead = true)
     {
         try {
@@ -302,12 +282,11 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $highestItemId
      *
      * @return array
      */
+    #[NoAdminRequired]
     public function readAll(int $highestItemId): array
     {
         $this->itemService->readAll($this->getUserId(), $highestItemId);
@@ -316,12 +295,11 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int[] $itemIds item ids
      *
      * @return void
      */
+    #[NoAdminRequired]
     public function readMultiple(array $itemIds): void
     {
         foreach ($itemIds as $id) {
@@ -335,11 +313,10 @@ class ItemController extends Controller
 
 
     /**
-     * @NoAdminRequired
-     *
      * @param int $itemId              Item to share
      * @param string $shareRecipientId User to share the item with
      */
+    #[NoAdminRequired]
     public function share(int $itemId, string $shareRecipientId)
     {
         try {

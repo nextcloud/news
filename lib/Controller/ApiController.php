@@ -23,6 +23,9 @@ use \OCP\IUser;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\ApiController as BaseApiController;
+use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\PublicPage;
 
 /**
  * Class ApiController
@@ -32,11 +35,6 @@ use \OCP\AppFramework\ApiController as BaseApiController;
 class ApiController extends BaseApiController
 {
     /**
-     * @var IUserSession|null
-     */
-    private $userSession;
-
-    /**
      * ApiController constructor.
      *
      * Stores the user session to be able to leverage the user in further methods
@@ -44,10 +42,9 @@ class ApiController extends BaseApiController
      * @param IRequest          $request        The request
      * @param IUserSession|null $userSession    The user session
      */
-    public function __construct(IRequest $request, ?IUserSession $userSession)
+    public function __construct(IRequest $request, private ?IUserSession $userSession)
     {
         parent::__construct(Application::NAME, $request);
-        $this->userSession = $userSession;
     }
 
     /**
@@ -73,12 +70,11 @@ class ApiController extends BaseApiController
     /**
      * Indication of the API levels
      *
-     * @PublicPage
-     * @NoCSRFRequired
-     * @CORS
-     *
-     * @return array
+     * @return array<string, string[]>
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[PublicPage]
     public function index(): array
     {
         return [

@@ -14,6 +14,9 @@ namespace OCA\News\Controller;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\CORS;
 
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\ItemServiceV2;
@@ -24,36 +27,22 @@ class FolderApiV2Controller extends ApiController
     use ApiPayloadTrait;
     use JSONHttpErrorTrait;
 
-    /**
-     * @var FolderServiceV2
-     */
-    private $folderService;
-
-    /**
-     * @var ItemServiceV2
-     */
-    private $itemService;
-
     public function __construct(
         IRequest $request,
         IUserSession $userSession,
-        FolderServiceV2 $folderService,
-        ItemServiceV2 $itemService
+        private FolderServiceV2 $folderService,
+        private ItemServiceV2 $itemService
     ) {
         parent::__construct($request, $userSession);
-
-        $this->folderService = $folderService;
-        $this->itemService = $itemService;
     }
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param string $name
      * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function create(string $name)
     {
         if (trim($name) === '') {
@@ -70,13 +59,13 @@ class FolderApiV2Controller extends ApiController
     }
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
      * @param int    $folderId
      * @param string $name
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function update(int $folderId, string $name)
     {
         if (trim($name) === '') {
@@ -97,13 +86,12 @@ class FolderApiV2Controller extends ApiController
 
 
     /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     * @CORS
-     *
      * @param int $folderId
      * @return array|\OCP\AppFramework\Http\JSONResponse
      */
+    #[CORS]
+    #[NoCSRFRequired]
+    #[NoAdminRequired]
     public function delete(int $folderId)
     {
         try {
