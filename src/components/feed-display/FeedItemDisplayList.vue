@@ -146,7 +146,7 @@ export default Vue.extend({
 					oldestFirst = this.$store.getters.oldestFirst
 				}
 
-				if (a.pubDate > b.pubDate) {
+				if (a.id > b.id) {
 					return oldestFirst ? 1 : -1
 				} else {
 					return oldestFirst ? -1 : 1
