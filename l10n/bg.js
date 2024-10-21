@@ -79,6 +79,7 @@ OC.L10N.register(
     "Unread" : "Непрочетено",
     "Open website" : "Отвори интернет станица",
     "Keyboard shortcut" : "Клавишни комбинации",
+    "Action" : "Действие",
     "right" : "дясно",
     "Jump to next article" : "Отиди на следващата статия",
     "left" : "ляво",

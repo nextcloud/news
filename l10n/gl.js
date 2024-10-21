@@ -112,7 +112,6 @@ OC.L10N.register(
     "Load next folder" : "Cargar o seguinte cartafol",
     "Scroll to active navigation entry" : "Desprazar ata a entrada de navegación activa",
     "Shift" : "Cambiar",
-    "Mark current articles feed/folder read" : "Marcar os actuais artigos de fonte/cartafol como lidos",
     "All Articles" : "Todos os artigos",
     "No feeds found to add" : "Non se atoparon fontes para engadir",
     "Subscribe to" : "Subscribirse a",
