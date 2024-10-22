@@ -112,6 +112,7 @@ OC.L10N.register(
     "Load next folder" : "Nächsten Ordner laden",
     "Scroll to active navigation entry" : "Zum aktiven Navigationseintrag scrollen",
     "Shift" : "Umschalttaste",
+    "Mark current articles feed/folder as read" : "Feed/Ordner dieses Artikels als gelesen markieren",
     "All Articles" : "Alle Artikel",
     "No feeds found to add" : "Keine Feeds zum Hinzufügen gefunden",
     "Subscribe to" : "Abonnieren von",

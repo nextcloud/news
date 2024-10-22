@@ -112,6 +112,7 @@ OC.L10N.register(
     "Load next folder" : "載入下個資料夾",
     "Scroll to active navigation entry" : "捲動至使用中的導覽項",
     "Shift" : "Shift",
+    "Mark current articles feed/folder as read" : "將目前文章的 feed 或資料夾標示為已讀",
     "All Articles" : "所有文章",
     "No feeds found to add" : "找不到要新增的 feed",
     "Subscribe to" : "訂閱",

@@ -112,6 +112,7 @@ OC.L10N.register(
     "Load next folder" : "Luchtaigh an chéad fhillteán eile",
     "Scroll to active navigation entry" : "Scrollaigh go dtí iontráil nascleanúna gníomhach",
     "Shift" : "Shift",
+    "Mark current articles feed/folder as read" : "Marcáil fotha/fillteán na n-alt reatha mar atá léite",
     "All Articles" : "Gach Airteagal",
     "No feeds found to add" : "Níor aimsíodh fothaí le cur leis",
     "Subscribe to" : "Liostáil le",

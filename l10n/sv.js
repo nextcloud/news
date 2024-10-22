@@ -111,6 +111,7 @@ OC.L10N.register(
     "Load next folder" : "Läs in nästkommande mapp",
     "Scroll to active navigation entry" : "Skrolla till aktiv navigations-post",
     "Shift" : "Shift",
+    "Mark current articles feed/folder as read" : "Markera aktuellt artikelflöde/mapp som läst",
     "All Articles" : "Alla artiklar",
     "No feeds found to add" : "Inga flöden hittades att lägga till",
     "Subscribe to" : "Prenumerera på",

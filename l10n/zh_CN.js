@@ -81,7 +81,7 @@ OC.L10N.register(
     "{num} minutes ago" : "{num}分钟前",
     "{num} hours ago" : "{num}小时前",
     "{num} days ago" : "{num}天前",
-    "{num} months ago" : "{num}月前",
+    "{num} months ago" : "{num} 月前",
     "{num} years ago" : "{num}年前",
     "Keyboard shortcut" : "键盘快捷键",
     "Action" : "操作",
