@@ -13,6 +13,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - restore old scroll behavior to scroll after articles needed for mark scroll on read (#2817)
 - 25.0.0-alpha2: Feed folder bar menu always opens collapsed (#2508)
 - fix: hide folder/feeds with no unread items when `showAll` is disabled (#2503)
+- Items keep popping up in Folder, All or Unread view (#2833)
 
 # Releases
 ## [25.0.0-alpha11] - 2024-10-19
