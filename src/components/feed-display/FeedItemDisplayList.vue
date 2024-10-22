@@ -229,6 +229,10 @@ export default Vue.extend({
 		unreadFilter(item: FeedItem): boolean {
 			return item.unread
 		},
+		outOfScopeFilter(item: FeedItem): boolean {
+			const lastItemLoaded = this.$store.state.items.lastItemLoaded[this.fetchKey]
+			return (this.$store.getters.oldestFirst ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
+		},
 		toggleFilter(filter: (item: FeedItem) => boolean) {
 			if (this.filter === filter) {
 				this.filter = this.noFilter
@@ -268,6 +272,11 @@ export default Vue.extend({
 				response = [...this.cache as FeedItem[]]
 			} else {
 				response = response.filter(this.filter)
+			}
+
+			// filter items that are already loaded but do not yet match the current view (unread, all, folder...)
+			if (!this.fetchKey.startsWith('feed-') && this.$store.state.items.lastItemLoaded[this.fetchKey] > 0) {
+				response = response.filter(this.outOfScopeFilter)
 			}
 
 			return response.sort(this.sort)

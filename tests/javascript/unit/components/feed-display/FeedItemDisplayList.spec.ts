@@ -27,6 +27,9 @@ describe('FeedItemDisplayList.vue', () => {
 					allItemsLoaded: {
 						unread: false,
 					},
+					lastItemLoaded: {
+						unread: 0,
+					},
 				},
 			},
 			actions: {
