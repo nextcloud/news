@@ -96,6 +96,11 @@ export type Config = {
 	ordering: number;
 }
 
+export type Config = {
+	unreadFilter: boolean;
+	starFlter: boolean;
+}
+
 export default Vue.extend({
 	components: {
 		VirtualScroll,
