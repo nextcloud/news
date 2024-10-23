@@ -64,7 +64,8 @@ class FeedMapperV2 extends NewsMapperV2
             ->andWhere('feeds.deleted_at = 0')
             ->groupBy('feeds.id')
             ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
-            ->setParameter('user_id', $userId);
+            ->setParameter('user_id', $userId)
+            ->addOrderBy('title');
 
         return $this->findEntities($builder);
     }
@@ -88,7 +89,8 @@ class FeedMapperV2 extends NewsMapperV2
             ->where('user_id = :user_id')
             ->andWhere('id = :id')
             ->setParameter('user_id', $userId)
-            ->setParameter('id', $id);
+            ->setParameter('id', $id)
+            ->addOrderBy('title');
 
         return $this->findEntity($builder);
     }
