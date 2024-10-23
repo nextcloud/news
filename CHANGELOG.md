@@ -7,7 +7,13 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Feed ordering will now be used as ordering in feed item list (#2678)
+
+### Fixed
+
+# Releases
+## [25.0.0-alpha12] - 2024-10-23
+### Changed
+- Feed ordering will now be used for sorting items (#2678)
 
 ### Fixed
 - restore old scroll behavior to scroll after articles needed for mark scroll on read (#2817)
@@ -15,7 +21,6 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - fix: hide folder/feeds with no unread items when `showAll` is disabled (#2503)
 - Items keep popping up in Folder, All or Unread view (#2833)
 
-# Releases
 ## [25.0.0-alpha11] - 2024-10-19
 ### Fixed
 - First features for user settings after vue migration (#2795)
