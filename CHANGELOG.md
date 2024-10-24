@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Folders and Feeds in Sidebar are not sorted alphabetically (#2838)
 
 # Releases
 ## [25.0.0-alpha12] - 2024-10-23
