@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Unread Counter becomes negative (#2839)
 
 # Releases
 ## [25.0.0-alpha12] - 2024-10-23
