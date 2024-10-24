@@ -44,10 +44,13 @@ const getters = {
 
 export const actions = {
 	async [FEED_ACTION_TYPES.FETCH_FEEDS]({ commit }: ActionParams<FeedState>) {
-		const feeds = await FeedService.fetchAllFeeds()
+		const response = await FeedService.fetchAllFeeds()
+		if (response.data.newestItemId) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		}
 
-		commit(FEED_MUTATION_TYPES.SET_FEEDS, feeds.data.feeds)
-		commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, (feeds.data.feeds.reduce((total: number, feed: Feed) => {
+		commit(FEED_MUTATION_TYPES.SET_FEEDS, response.data.feeds)
+		commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, (response.data.feeds.reduce((total: number, feed: Feed) => {
 			return total + feed.unreadCount
 		}, 0)))
 	},
@@ -208,11 +211,11 @@ export const mutations = {
 		feeds: Feed[],
 	) {
 		feeds.forEach(it => {
-			state.feeds.push(it)
 			if (it.ordering) {
 				state.ordering['feed-' + it.id] = it.ordering
 			}
 		})
+		state.feeds = [...feeds]
 	},
 
 	[FEED_MUTATION_TYPES.ADD_FEED](
