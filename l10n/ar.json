@@ -1,7 +1,7 @@
 { "translations": {
     "Request failed, network connection unavailable!" : "فشل الطلب، لا يوجد اتصال بالشبكة!",
     "Request unauthorized. Are you logged in?" : "طلب غير مصرح به. هل قمت بتسجيل الدخول؟",
-    "Request forbidden. Are you an administrator?" : "طلب مرفوض. هل أنت مُشرف؟",
+    "Request forbidden. Are you an administrator?" : "طلب مرفوض. هل أنت مدير؟",
     "Token expired or app not enabled! Reload the page!" : "انتهت صلاحية الأَمَارة token، أو أن التطبيق لم يتم تمكينه! حمّل الصفحة من جديد!",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "خطأ داخلي في الخادم! يرجى التحقق من ملف data/nextcloud.log للحصول على معلومات إضافية!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "فشل الطلب. نكست كلاود تحت فى حالة صيانة الآن!",
