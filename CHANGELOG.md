@@ -15,6 +15,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - j shortcut doesn't load more items in infinite scroll (#2847)
 - Feed ordering uses wrong values (#2846)
 - Folders and Feeds in Sidebar are not sorted alphabetically (#2838)
+- Unread Counter becomes negative (#2839)
 
 # Releases
 ## [25.0.0-alpha12] - 2024-10-23

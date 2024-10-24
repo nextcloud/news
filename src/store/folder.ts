@@ -69,11 +69,7 @@ export const mutations = {
 		state: FolderState,
 		folders: Folder[],
 	) {
-		folders.forEach(it => {
-			it.feedCount = 0
-			it.feeds = []
-			state.folders.push(it)
-		})
+		state.folders = [...folders]
 	},
 
 	[FOLDER_MUTATION_TYPES.DELETE_FOLDER](
@@ -88,13 +84,19 @@ export const mutations = {
 		state: FolderState,
 		feeds: Feed[],
 	) {
+		const updatedFolders = state.folders.map(folder => ({
+			...folder,
+			feeds: [] as Feed[],
+			feedCount: 0,
+		}))
 		feeds.forEach(it => {
-			const folder = state.folders.find((folder: Folder) => { return folder.id === it.folderId })
+			const folder = updatedFolders.find((folder: Folder) => { return folder.id === it.folderId })
 			if (folder) {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
 			}
 		})
+		state.folders = updatedFolders
 	},
 
 	[FEED_MUTATION_TYPES.ADD_FEED](

@@ -83,6 +83,7 @@ import FeedItemRow from './FeedItemRow.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { FEED_ORDER } from '../../dataservices/feed.service'
+import { ACTIONS } from '../../store'
 
 const DEFAULT_DISPLAY_LIST_CONFIG = {
 	starFilter: true,
@@ -156,6 +157,9 @@ export default Vue.extend({
 		getSelectedItem() {
 			return this.$store.getters.selected
 		},
+		getNewestItemId() {
+			return this.$store.state.items.newestItemId
+		},
 		changedFeedOrdering() {
 			if (this.fetchKey.startsWith('feed-')) {
 				return this.$store.state.feeds.ordering[this.fetchKey]
@@ -174,8 +178,16 @@ export default Vue.extend({
 		changedShowAll() {
 			return this.$store.getters.showAll
 		},
+		isLoading() {
+			return this.$store.getters.loading
+		},
 	},
 	watch: {
+		async getNewestItemId() {
+			if (!this.isLoading) {
+				await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+			}
+		},
 		getSelectedItem(newVal) {
 			this.selectedItem = newVal
 		},

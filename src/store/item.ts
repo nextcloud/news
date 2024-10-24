@@ -23,6 +23,7 @@ export type ItemState = {
 	fetchingItems: { [key: string]: boolean };
 	allItemsLoaded: { [key: string]: boolean };
 	lastItemLoaded: { [key: string]: number };
+	newestItemId: number;
 
 	starredCount: number;
 	unreadCount: number;
@@ -37,6 +38,7 @@ const state: ItemState = {
 	fetchingItems: {},
 	allItemsLoaded: {},
 	lastItemLoaded: {},
+	newestItemId: 0,
 
 	starredCount: 0,
 	unreadCount: 0,
@@ -60,6 +62,9 @@ const getters = {
 	allItems(state: ItemState) {
 		return state.allItems
 	},
+	newestItemId(state: ItemState) {
+		return state.newestItemId
+	},
 }
 
 export const actions = {
@@ -78,6 +83,9 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
 		const response = await ItemService.debounceFetchUnread(start || state.lastItemLoaded.unread)
+		if (response?.data.newestItemId) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 
@@ -107,6 +115,9 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
 
 		const response = await ItemService.debounceFetchAll(start || state.lastItemLoaded.all)
+		if (response?.data.newestItemId) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 
@@ -135,6 +146,10 @@ export const actions = {
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
 		const response = await ItemService.debounceFetchStarred(start || state.lastItemLoaded.starred)
+
+		if (response?.data.newestItemId) {
+			state.newestItemId = response?.data.newestItemId
+		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.starred) {
@@ -166,6 +181,9 @@ export const actions = {
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
 		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
+		if (response?.data.newestItemId) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
@@ -192,6 +210,9 @@ export const actions = {
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
 		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
+		if (response?.data.newestItemId) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
@@ -324,11 +345,25 @@ export const mutations = {
 		items: FeedItem[],
 	) {
 		if (items) {
+			let newestFetchedItemId = 0
+			const newItems: FeedItem[] = []
+
 			items.forEach(it => {
 				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
-					state.allItems.push(it)
+					newItems.push(it)
+					if (state.newestItemId < Number(it.id)) {
+						newestFetchedItemId = Number(it.id)
+					}
 				}
 			})
+
+			if (newItems.length > 0) {
+				state.allItems = [...state.allItems, ...newItems]
+			}
+
+			if (newestFetchedItemId > state.newestItemId) {
+				state.newestItemId = newestFetchedItemId
+			}
 		}
 	},
 
@@ -388,6 +423,13 @@ export const mutations = {
 		{ lastItem, key }: { lastItem: number; key: string; },
 	) {
 		state.lastItemLoaded[key] = lastItem
+	},
+
+	[FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID](
+		state: ItemState,
+		newestItemId: number,
+	) {
+		state.newestItemId = newestItemId
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
