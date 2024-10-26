@@ -53,7 +53,7 @@
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
-					<template v-for="item in filterSortedItems()">
+					<template v-for="item in filteredItemcache">
 						<FeedItemRow :key="item.id"
 							:ref="'feedItemRow' + item.id"
 							:item="item"
@@ -153,6 +153,7 @@ export default Vue.extend({
 				}
 			},
 			cache: [] as FeedItem[] | undefined,
+			filteredItemcache: [] as FeedItem,
 			selectedItem: undefined as FeedItem | undefined,
 		}
 	},
@@ -174,6 +175,14 @@ export default Vue.extend({
 		fetchKey() {
 			this.cache = undefined
 		},
+		// rebuild filtered item list only when items has changed
+		items: {
+			handler() {
+				this.refreshItemList()
+			},
+			immediate: true,
+			deep: false,
+		},
 	},
 	created() {
 		this.loadFilter()
@@ -182,6 +191,11 @@ export default Vue.extend({
 		this.mounted = true
 	},
 	methods: {
+		refreshItemList() {
+			if (this.items.length > 0) {
+				this.filteredItemcache = this.filterSortedItems()
+			}
+		},
 		storeFilter() {
 			try {
 				let filterString = 'noFilter'
@@ -244,6 +258,7 @@ export default Vue.extend({
 			}
 
 			this.storeFilter()
+			this.refreshItemList()
 		},
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
@@ -304,7 +319,7 @@ export default Vue.extend({
 			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
 		},
 		jumpToPreviousItem() {
-			const items = this.filterSortedItems()
+			const items = this.filteredItemcache
 			let currentIndex = this.currentIndex(items)
 			// Prepare to jump to the first item, if none was selected
 			if (currentIndex === -1) {
@@ -316,8 +331,9 @@ export default Vue.extend({
 				this.clickItem(previousItem)
 			}
 		},
+
 		jumpToNextItem() {
-			const items = this.filterSortedItems()
+			const items = this.filteredItemcache
 			const currentIndex = this.currentIndex(items)
 			// Jump to the first item, if none was selected, otherwise jump to the next item
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
