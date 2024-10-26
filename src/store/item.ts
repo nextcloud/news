@@ -365,7 +365,7 @@ export const mutations = {
 		{ item }: { item: FeedItem },
 	) {
 		const idx = state.allItems.findIndex((it) => it.id === item.id)
-		state.allItems.splice(idx, 1, item)
+		state.allItems[idx] = { ...state.allItems[idx], ...item }
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](
