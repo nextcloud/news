@@ -141,7 +141,7 @@ export default Vue.extend({
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
 		markRead(item: FeedItem): void {
-			if (!this.keepUnread) {
+			if (!this.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			}
 		},
