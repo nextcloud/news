@@ -16,7 +16,7 @@ export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
 	FETCH_FOLDER_FEED_ITEMS: 'FETCH_FOLDER_FEED_ITEMS',
 	FETCH_ITEMS: 'FETCH_ITEMS',
-	RESET_ITEMS: 'RESET_ITEMS',
+	RESET_LAST_ITEM_LOADED: 'RESET_LAST_ITEM_LOADED',
 }
 
 export type ItemState = {
@@ -159,14 +159,13 @@ export const actions = {
 	 * @param param1 ActionArgs
 	 * @param param1.start Start data
 	 * @param param1.feedId ID of the feed
-	 * @param param1.ordering Ordering of the feed
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ feedId, start, ordering }: { feedId: number; start: number; ordering: number },
+		{ feedId, start }: { feedId: number; start: number },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
-		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId], ordering)
+		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
@@ -292,22 +291,16 @@ export const actions = {
 	},
 
 	/**
-	 * Remove all loaded items from memory and reset ItemsLoaded counters
+	 * Reset lastItemsLoaded counters
 	 *
 	 * @param param0 ActionParams
-	 * @param param0.dispatch Dispatch
-	 * @param param1 ActionArgs
-	 * @param param1.start Start data
+	 * @param param0.commit Commit action
+	 * @param param0.state ItemState
 	 */
-	[FEED_ITEM_ACTION_TYPES.RESET_ITEMS](
-		{ dispatch }: ActionParams<ItemState>,
-		{ start }: { start: number } = { start: 0 },
-	) {
-		state.allItems.splice(start, state.allItems.length - start)
-		state.allItemsLoaded = {}
-		state.lastItemLoaded = {}
-		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_STARRED, 0)
-		dispatch(FEED_ITEM_ACTION_TYPES.FETCH_ITEMS, 0)
+	[FEED_ITEM_ACTION_TYPES.RESET_LAST_ITEM_LOADED]({ commit, state }: ActionParams<ItemState>) {
+		Object.entries(state.lastItemLoaded).forEach(([key]) => {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key, lastItem: undefined })
+		})
 	},
 }
 

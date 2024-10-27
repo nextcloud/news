@@ -27,11 +27,13 @@ export const FEED_ACTION_TYPES = {
 export type FeedState = {
 	feeds: Feed[];
 	unreadCount: number;
+	ordering: { [key: string]: number };
 }
 
 const state: FeedState = {
 	feeds: [],
 	unreadCount: 0,
+	ordering: {},
 }
 
 const getters = {
@@ -140,6 +142,8 @@ export const actions = {
 		{ commit }: ActionParams<FeedState>,
 		{ feed, ordering }: { feed: Feed, ordering: FEED_ORDER },
 	) {
+		state.ordering = { ...state.ordering, ['feed-' + feed.id]: ordering }
+		commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'feed-' + feed.id, lastItem: undefined })
 		await FeedService.updateFeed({ feedId: feed.id as number, ordering })
 
 		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, ordering })
@@ -205,6 +209,9 @@ export const mutations = {
 	) {
 		feeds.forEach(it => {
 			state.feeds.push(it)
+			if (it.ordering) {
+				state.ordering['feed-' + it.id] = it.ordering
+			}
 		})
 	},
 

@@ -282,8 +282,8 @@ export default Vue.extend({
 
 			},
 			set(newValue) {
+				this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				this.saveSetting('oldestFirst', newValue)
-				this.$store.dispatch(ACTIONS.RESET_ITEMS)
 			},
 		},
 		preventReadOnScroll: {
