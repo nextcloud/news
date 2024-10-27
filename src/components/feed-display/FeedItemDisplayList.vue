@@ -133,23 +133,10 @@ export default Vue.extend({
 
 			// Determine the sorting order
 			sort: (a: FeedItem, b: FeedItem) => {
-				let oldestFirst
-				switch (this.config.ordering) {
-				case FEED_ORDER.OLDEST:
-					oldestFirst = true
-					break
-				case FEED_ORDER.NEWEST:
-					oldestFirst = false
-					break
-				case FEED_ORDER.DEFAULT:
-				default:
-					oldestFirst = this.$store.getters.oldestFirst
-				}
-
 				if (a.id > b.id) {
-					return oldestFirst ? 1 : -1
+					return this.listOrdering ? 1 : -1
 				} else {
-					return oldestFirst ? -1 : 1
+					return this.listOrdering ? -1 : 1
 				}
 			},
 			cache: [] as FeedItem[] | undefined,
@@ -167,12 +154,28 @@ export default Vue.extend({
 		getSelectedItem() {
 			return this.$store.getters.selected
 		},
+		changedFeedOrdering() {
+			if (this.fetchKey.startsWith('feed-')) {
+				return this.$store.state.feeds.ordering[this.fetchKey]
+			}
+			return 0
+		},
+		changedGlobalOrdering() {
+			return this.$store.getters.oldestFirst
+		},
+		changedOrdering() {
+			return {
+			        feedOrdering: this.changedFeedOrdering,
+			        globalOrdering: this.changedGlobalOrdering,
+		      }
+		},
 	},
 	watch: {
 		getSelectedItem(newVal) {
 			this.selectedItem = newVal
 		},
 		fetchKey() {
+			this.listOrdering = this.getListOrdering()
 			this.cache = undefined
 		},
 		// rebuild filtered item list only when items has changed
@@ -183,8 +186,19 @@ export default Vue.extend({
 			immediate: true,
 			deep: false,
 		},
+		// ordering has changed rebuild item list
+		changedOrdering() {
+			this.listOrdering = this.getListOrdering()
+			// make sure the first items from this ordering are loaded
+			this.fetchMore()
+			this.cache = undefined
+			// refresh the list with the new ordering
+			this.refreshItemList()
+			this.$refs.virtualScroll.scrollTop = 0
+		},
 	},
 	created() {
+		this.listOrdering = this.getListOrdering()
 		this.loadFilter()
 	},
 	mounted() {
@@ -195,6 +209,25 @@ export default Vue.extend({
 			if (this.items.length > 0) {
 				this.filteredItemcache = this.filterSortedItems()
 			}
+		},
+		getListOrdering(): boolean {
+			if (!this.fetchKey.startsWith('feed-')) {
+				return this.$store.getters.oldestFirst
+			}
+			// this.config.ordering is only defined in feed route
+			let oldestFirst
+			switch (this.$store.state.feeds.ordering[this.fetchKey]) {
+			case FEED_ORDER.OLDEST:
+				oldestFirst = true
+				break
+			case FEED_ORDER.NEWEST:
+				oldestFirst = false
+				break
+			case FEED_ORDER.DEFAULT:
+			default:
+				oldestFirst = this.$store.getters.oldestFirst
+			}
+			return oldestFirst
 		},
 		storeFilter() {
 			try {
@@ -245,7 +278,7 @@ export default Vue.extend({
 		},
 		outOfScopeFilter(item: FeedItem): boolean {
 			const lastItemLoaded = this.$store.state.items.lastItemLoaded[this.fetchKey]
-			return (this.$store.getters.oldestFirst ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
+			return (this.listOrdering ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
 		},
 		toggleFilter(filter: (item: FeedItem) => boolean) {
 			if (this.filter === filter) {
@@ -289,8 +322,8 @@ export default Vue.extend({
 				response = response.filter(this.filter)
 			}
 
-			// filter items that are already loaded but do not yet match the current view (unread, all, folder...)
-			if (!this.fetchKey.startsWith('feed-') && this.$store.state.items.lastItemLoaded[this.fetchKey] > 0) {
+			// filter items that are already loaded but do not yet match the current view
+			if (this.$store.state.items.lastItemLoaded[this.fetchKey] > 0) {
 				response = response.filter(this.outOfScopeFilter)
 			}
 

@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { AxiosResponse } from 'axios'
 import axios from '@nextcloud/axios'
 import store from './../store/app'
+import feedstore from './../store/feed'
 
 import { API_ROUTES } from '../types/ApiRoutes'
 import { FeedItem } from '../types/FeedItem'
@@ -85,12 +86,11 @@ export class ItemService {
 	 *
 	 * @param feedId id number of feed to retrieve items for
 	 * @param start (id of last unread item loaded)
-	 * @param ordering (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
 	 * @return {AxiosResponse} response object containing backend request response
 	 */
-	static async fetchFeedItems(feedId: number, start?: number, ordering?: number): Promise<AxiosResponse> {
+	static async fetchFeedItems(feedId: number, start?: number): Promise<AxiosResponse> {
 		let oldestFirst
-		switch (ordering) {
+		switch (feedstore.state.ordering['feed-' + feedId]) {
 		case FEED_ORDER.OLDEST:
 			oldestFirst = true
 			break

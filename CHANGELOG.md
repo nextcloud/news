@@ -8,8 +8,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - Performance improvements on item list
+- Rework feed and global sort ordering
 
 ### Fixed
+- starred items in a feed can prevent further scrolling
 
 # Releases
 ## [25.0.0-alpha12] - 2024-10-23
