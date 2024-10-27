@@ -4,9 +4,9 @@ import axios from '@nextcloud/axios'
 import { API_ROUTES } from '../types/ApiRoutes'
 
 export enum FEED_ORDER {
+	DEFAULT = 0,
 	OLDEST = 1,
-	NEWEST = 0,
-	DEFAULT = 2,
+	NEWEST = 2,
 }
 
 export enum FEED_UPDATE_MODE {
