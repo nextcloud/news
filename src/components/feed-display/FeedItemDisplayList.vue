@@ -142,6 +142,7 @@ export default Vue.extend({
 			cache: [] as FeedItem[] | undefined,
 			filteredItemcache: [] as FeedItem,
 			selectedItem: undefined as FeedItem | undefined,
+			debouncedClickItem: null,
 		}
 	},
 	computed: {
@@ -203,6 +204,7 @@ export default Vue.extend({
 	},
 	mounted() {
 		this.mounted = true
+		this.setupDebouncedClick()
 	},
 	methods: {
 		refreshItemList() {
@@ -329,6 +331,12 @@ export default Vue.extend({
 
 			return response.sort(this.sort)
 		},
+		// debounce clicks to prevent multiple api calls when on the end of the actual loaded list
+		setupDebouncedClick() {
+			this.debouncedClickItem = _.debounce((Item) => {
+				this.clickItem(Item)
+			}, 20, { leading: true })
+		},
 		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
 		clickItem(item: FeedItem) {
 			if (!item) {
@@ -361,7 +369,8 @@ export default Vue.extend({
 			// Jump to the previous item
 			if (currentIndex > 0) {
 				const previousItem = items[currentIndex - 1]
-				this.clickItem(previousItem)
+				this.debouncedClickItem(previousItem)
+
 			}
 		},
 
@@ -371,7 +380,7 @@ export default Vue.extend({
 			// Jump to the first item, if none was selected, otherwise jump to the next item
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
 				const nextItem = items[currentIndex + 1]
-				this.clickItem(nextItem)
+				this.debouncedClickItem(nextItem)
 			}
 		},
 	},
