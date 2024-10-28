@@ -12,6 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - starred items in a feed can prevent further scrolling
+- j shortcut doesn't load more items in infinite scroll (#2847)
 - Feed ordering uses wrong values (#2846)
 
 # Releases
