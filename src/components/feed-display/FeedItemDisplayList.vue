@@ -170,6 +170,9 @@ export default Vue.extend({
 			        globalOrdering: this.changedGlobalOrdering,
 		      }
 		},
+		changedShowAll() {
+			return this.$store.getters.showAll
+		},
 	},
 	watch: {
 		getSelectedItem(newVal) {
@@ -196,6 +199,11 @@ export default Vue.extend({
 			// refresh the list with the new ordering
 			this.refreshItemList()
 			this.$refs.virtualScroll.scrollTop = 0
+		},
+		// showAll has changed rebuild item list
+		changedShowAll() {
+			this.cache = undefined
+			this.refreshItemList()
 		},
 	},
 	created() {
