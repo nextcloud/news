@@ -143,6 +143,7 @@ export default Vue.extend({
 			filteredItemcache: [] as FeedItem,
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
+			listOrdering: this.getListOrdering(),
 		}
 	},
 	computed: {
@@ -207,7 +208,6 @@ export default Vue.extend({
 		},
 	},
 	created() {
-		this.listOrdering = this.getListOrdering()
 		this.loadFilter()
 	},
 	mounted() {
@@ -221,10 +221,10 @@ export default Vue.extend({
 			}
 		},
 		getListOrdering(): boolean {
+			// all routes expect feeds use global ordering
 			if (!this.fetchKey.startsWith('feed-')) {
 				return this.$store.getters.oldestFirst
 			}
-			// this.config.ordering is only defined in feed route
 			let oldestFirst
 			switch (this.$store.state.feeds.ordering[this.fetchKey]) {
 			case FEED_ORDER.OLDEST:
@@ -336,7 +336,6 @@ export default Vue.extend({
 			if (this.$store.state.items.lastItemLoaded[this.fetchKey] > 0) {
 				response = response.filter(this.outOfScopeFilter)
 			}
-
 			return response.sort(this.sort)
 		},
 		// debounce clicks to prevent multiple api calls when on the end of the actual loaded list
