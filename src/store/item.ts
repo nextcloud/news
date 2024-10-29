@@ -358,7 +358,15 @@ export const mutations = {
 		{ item }: { item: FeedItem },
 	) {
 		const idx = state.allItems.findIndex((it) => it.id === item.id)
-		state.allItems[idx] = { ...state.allItems[idx], ...item }
+		// Since spread-syntax doesn't work here properly with vue2, update
+		// each property on its own as workaround to prevent rebuilding
+		// the whole item list when changing the unread or starred status
+		// state.allItems[idx] = { ...state.allItems[idx], ...item }
+		state.allItems[idx].starred = item.starred
+		state.allItems[idx].unread = item.unread
+		// UPDATE_ITEM currently only used when toggle starred and unread
+		// add title to make js-test happy
+		state.allItems[idx].title = item.title
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](
