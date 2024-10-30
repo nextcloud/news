@@ -16,10 +16,6 @@ const LIST_ITEM_HEIGHT = 110 + 1
 export default Vue.extend({
 	name: 'VirtualScroll',
 	props: {
-		reachedEnd: {
-			type: Boolean,
-			required: true,
-		},
 		fetchKey: {
 			type: String,
 			required: true,
@@ -39,6 +35,12 @@ export default Vue.extend({
 		}
 	},
 	computed: {
+		reachedEnd: {
+			cache: false,
+			get() {
+				return this.$store.state.items.allItemsLoaded[this.fetchKey] === true
+			},
+		},
 		fetching: {
 			cache: false,
 			get() {

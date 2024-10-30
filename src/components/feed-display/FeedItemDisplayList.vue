@@ -52,7 +52,6 @@
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll ref="virtualScroll"
-				:reached-end="reachedEnd"
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
@@ -151,9 +150,6 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		reachedEnd(): boolean {
-			return this.mounted && this.$store.state.items.allItemsLoaded[this.fetchKey] === true
-		},
 		cfg() {
 			return _.defaults({ ...this.config }, DEFAULT_DISPLAY_LIST_CONFIG)
 		},
