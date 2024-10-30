@@ -91,6 +91,8 @@ export const actions = {
 
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'unread', loaded: true })
+		} else {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'unread', loaded: false })
 		}
 
 		if (response?.data.items.length > 0) {
@@ -123,6 +125,8 @@ export const actions = {
 
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'all', loaded: true })
+		} else {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'all', loaded: false })
 		}
 
 		if (response?.data.items.length > 0) {
@@ -158,6 +162,8 @@ export const actions = {
 
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: true })
+		} else {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: false })
 		}
 		if (response?.data.items.length > 0) {
 			const lastItem = response?.data.items[response?.data.items.length - 1].id
@@ -187,6 +193,8 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
+		} else {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: false })
 		}
 		if (response?.data.items.length > 0) {
 			const lastItem = response?.data.items[response?.data.items.length - 1].id
@@ -217,6 +225,8 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'folder-' + folderId, loaded: true })
+		} else {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'folder-' + folderId, loaded: false })
 		}
 		if (response?.data.items.length > 0) {
 			const lastItem = response?.data.items[response?.data.items.length - 1].id
@@ -363,6 +373,7 @@ export const mutations = {
 
 			if (newestFetchedItemId > state.newestItemId) {
 				state.newestItemId = newestFetchedItemId
+				state.allItemsLoaded = {}
 			}
 		}
 	},
@@ -429,7 +440,10 @@ export const mutations = {
 		state: ItemState,
 		newestItemId: number,
 	) {
-		state.newestItemId = newestItemId
+		if (state.newestItemId !== newestItemId) {
+			state.newestItemId = newestItemId
+			state.allItemsLoaded = {}
+		}
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
