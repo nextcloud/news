@@ -191,9 +191,12 @@ export default Vue.extend({
 		getSelectedItem(newVal) {
 			this.selectedItem = newVal
 		},
-		fetchKey() {
-			this.listOrdering = this.getListOrdering()
-			this.cache = undefined
+		// clear cache on route change
+		fetchKey: {
+			handler() {
+				this.cache = undefined
+			},
+			immediate: true,
 		},
 		// rebuild filtered item list only when items has changed
 		items: {

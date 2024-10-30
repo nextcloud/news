@@ -47,8 +47,11 @@ export default Vue.extend({
 		},
 	},
 	watch: {
-		fetchKey() {
-			this.scrollTop = 0
+		fetchKey: {
+			handler() {
+				this.scrollTop = 0
+			},
+			immediate: true,
 		},
 		lastRendered() {
 			if (!this.$store.getters.preventReadOnScroll) {
