@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - Performance improvements on item list
 - Rework feed and global sort ordering
+- Add 'r' shortkey to refresh feed and item list
 
 ### Fixed
 - starred items in a feed can prevent further scrolling

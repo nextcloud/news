@@ -46,6 +46,9 @@
 			<button v-shortkey="['n']" class="hidden" @shortkey="jumpToNextItem">
 				Next
 			</button>
+			<button v-shortkey="['r']" class="hidden" @shortkey="refreshFeedList">
+				Refresh
+			</button>
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll ref="virtualScroll"
@@ -230,6 +233,17 @@ export default Vue.extend({
 		this.setupDebouncedClick()
 	},
 	methods: {
+		async refreshFeedList() {
+			// with ordering newest>oldest complete refresh of item list needed
+			if (!this.listOrdering) {
+				this.cache = undefined
+				this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
+				this.$refs.virtualScroll.scrollTop = 0
+				this.fetchMore()
+			}
+			// sync feed counter with backend
+			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+		},
 		refreshItemList() {
 			if (this.items.length > 0) {
 				this.filteredItemcache = this.filterSortedItems()
