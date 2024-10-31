@@ -114,7 +114,7 @@ OC.L10N.register(
     "Shift" : "العالي shift",
     "Mark current articles feed/folder as read" : "وضع علامة مقروء على موجز/مجلد المقالات الحالية",
     "All Articles" : "كل المقالات",
-    "No feeds found to add" : "لم يمكن العثور على أية موجز لإضافته",
+    "No feeds found to add" : "لم يمكن العثور على أي موجز لإضافته",
     "Subscribe to" : "إشترك في",
     "Unread Articles" : "المقالات غير المقروءة",
     "If given, this service" : "إذا أُعطِيَت هذه الخدمة",
