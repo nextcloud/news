@@ -154,6 +154,15 @@
 							{{ t('news', 'Reverse ordering (oldest on top)') }}
 						</label>
 					</div>
+					<div>
+						<input id="toggle-disableRefresh"
+							v-model="disableRefresh"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-disableRefresh">
+							{{ t('news', 'Disable automatic refresh') }}
+						</label>
+					</div>
 				</div>
 			</NcAppNavigationSettings>
 		</template>
@@ -220,6 +229,7 @@ export default Vue.extend({
 			showAddFeed: false,
 			ROUTES,
 			showHelp: false,
+			polling: null,
 		}
 	},
 	computed: {
@@ -304,16 +314,42 @@ export default Vue.extend({
 				this.saveSetting('showAll', newValue)
 			},
 		},
+		disableRefresh: {
+			get() {
+				return this.$store.getters.disableRefresh
+
+			},
+			set(newValue) {
+				if (!newValue) {
+					// refresh feeds every minute
+					this.polling = setInterval(() => {
+						this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+					}, 60000)
+				} else {
+					clearInterval(this.polling)
+				}
+				this.saveSetting('disableRefresh', newValue)
+			},
+		},
 	},
 	created() {
 		if (this.$route.query.subscribe_to) {
 			this.showAddFeed = true
+		}
+		if (!this.disableRefresh) {
+			// refresh feeds every minute
+			this.polling = setInterval(() => {
+				this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+			}, 60000)
 		}
 	},
 	mounted() {
 		subscribe('news:global:toggle-help-dialog', () => {
 			this.showHelp = !this.showHelp
 		})
+	},
+	beforeDestroy() {
+		clearInterval(this.polling)
 	},
 	methods: {
 		async saveSetting(key, value) {

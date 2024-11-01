@@ -81,7 +81,8 @@ class PageController extends Controller
             'oldestFirst',
             'showAll',
             'lastViewedFeedId',
-            'lastViewedFeedType'
+            'lastViewedFeedType',
+            'disableRefresh'
         ];
 
         foreach ($usersettings as $setting) {
@@ -170,6 +171,7 @@ class PageController extends Controller
             'preventReadOnScroll' => $preventReadOnScroll,
             'oldestFirst'         => $oldestFirst,
             'compactExpand'       => $compactExpand,
+            'disableRefresh'      => $disableRefresh,
         ];
 
         foreach ($settings as $setting => $value) {
