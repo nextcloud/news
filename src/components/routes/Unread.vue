@@ -64,7 +64,7 @@ export default Vue.extend({
 			return this.unreadCache
 		},
 		async fetchMore() {
-			if (this.unreadCache && !this.$store.state.items.fetchingItems.unread) {
+			if (!this.$store.state.items.fetchingItems.unread) {
 			  this.$store.dispatch(ACTIONS.FETCH_UNREAD)
 			}
 		},
