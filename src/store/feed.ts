@@ -211,7 +211,7 @@ export const mutations = {
 		feeds: Feed[],
 	) {
 		feeds.forEach(it => {
-			if (it.ordering) {
+			if (typeof it?.ordering === 'number') {
 				state.ordering['feed-' + it.id] = it.ordering
 			}
 		})
