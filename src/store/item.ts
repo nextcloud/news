@@ -24,6 +24,7 @@ export type ItemState = {
 	allItemsLoaded: { [key: string]: boolean };
 	lastItemLoaded: { [key: string]: number };
 	newestItemId: number;
+	syncNeeded: boolean;
 
 	starredCount: number;
 	unreadCount: number;
@@ -39,6 +40,7 @@ const state: ItemState = {
 	allItemsLoaded: {},
 	lastItemLoaded: {},
 	newestItemId: 0,
+	syncNeeded: false,
 
 	starredCount: 0,
 	unreadCount: 0,
@@ -83,8 +85,8 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
 		const response = await ItemService.debounceFetchUnread(start || state.lastItemLoaded.unread)
-		if (response?.data.newestItemId) {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
+			state.syncNeeded = true
 		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
@@ -117,8 +119,8 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
 
 		const response = await ItemService.debounceFetchAll(start || state.lastItemLoaded.all)
-		if (response?.data.newestItemId) {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
+			state.syncNeeded = true
 		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
@@ -150,9 +152,8 @@ export const actions = {
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
 		const response = await ItemService.debounceFetchStarred(start || state.lastItemLoaded.starred)
-
-		if (response?.data.newestItemId) {
-			state.newestItemId = response?.data.newestItemId
+		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
+			state.syncNeeded = true
 		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
@@ -187,9 +188,10 @@ export const actions = {
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
 		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
-		if (response?.data.newestItemId) {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
+			state.syncNeeded = true
 		}
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
 		if (response?.data.items.length < 40) {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'feed-' + feedId, loaded: true })
@@ -218,8 +220,8 @@ export const actions = {
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
 		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
-		if (response?.data.newestItemId) {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
+		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
+			state.syncNeeded = true
 		}
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, response?.data.items)
@@ -372,8 +374,7 @@ export const mutations = {
 			}
 
 			if (newestFetchedItemId > state.newestItemId) {
-				state.newestItemId = newestFetchedItemId
-				state.allItemsLoaded = {}
+				state.syncNeeded = true
 			}
 		}
 	},
@@ -444,6 +445,7 @@ export const mutations = {
 			state.newestItemId = newestItemId
 			state.allItemsLoaded = {}
 		}
+		state.syncNeeded = false
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
