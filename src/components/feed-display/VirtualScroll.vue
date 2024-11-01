@@ -126,8 +126,8 @@ export default Vue.extend({
 			this.lastRendered = children
 		}
 
-		if (!this.reachedEnd && lowerPaddingItems === 0) {
-			if (!this.fetching) {
+		if (lowerPaddingItems === 0) {
+			if (!this.reachedEnd && !this.fetching) {
 				this.$emit('load-more')
 			}
 			if (upperPaddingItems + renderedItems + lowerPaddingItems === 0) {
