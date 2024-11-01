@@ -193,6 +193,9 @@ export default Vue.extend({
 		// clear cache on route change
 		fetchKey: {
 			handler() {
+				if (this.listOrdering === false) {
+					this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
+				}
 				this.cache = undefined
 			},
 			immediate: true,
@@ -207,16 +210,20 @@ export default Vue.extend({
 		},
 		// ordering has changed rebuild item list
 		changedOrdering() {
-			this.listOrdering = this.getListOrdering()
-			// make sure the first items from this ordering are loaded
-			this.fetchMore()
-			this.cache = undefined
-			// refresh the list with the new ordering
-			this.refreshItemList()
-			this.$refs.virtualScroll.scrollTop = 0
+			const newListOrdering = this.getListOrdering()
+			if (newListOrdering !== this.listOrdering) {
+				this.listOrdering = newListOrdering
+				this.$refs.virtualScroll.scrollTop = 0
+				// make sure the first items from this ordering are loaded
+				this.fetchMore()
+				this.cache = undefined
+				// refresh the list with the new ordering
+				this.refreshItemList()
+			}
 		},
 		// showAll has changed rebuild item list
 		changedShowAll() {
+			this.$refs.virtualScroll.scrollTop = 0
 			this.cache = undefined
 			this.refreshItemList()
 		},
@@ -232,10 +239,12 @@ export default Vue.extend({
 		async refreshFeedList() {
 			// with ordering newest>oldest complete refresh of item list needed
 			if (!this.listOrdering) {
-				this.cache = undefined
 				this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				this.$refs.virtualScroll.scrollTop = 0
+				// make sure the first items from this ordering are loaded
 				this.fetchMore()
+				this.cache = undefined
+				this.refreshItemList()
 			}
 			// sync feed counter with backend
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
