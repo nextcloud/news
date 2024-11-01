@@ -13,6 +13,7 @@ export type AppInfoState = {
 	oldestFirst: boolean;
 	preventReadOnScroll: boolean;
 	showAll: boolean;
+	disableRefresh: boolean;
 	lastViewedFeedId: string;
 	lastViewedFeedType: string;
 }
@@ -25,6 +26,7 @@ const state: AppInfoState = {
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
 	showAll: loadState('news', 'showAll', null) === '1',
+	disableRefresh: loadState('news', 'disableRefresh', null) === '1',
 	lastViewedFeedId: loadState('news', 'lastViewedFeedId', '0'),
 	lastViewedFeedType: loadState('news', 'lastViewedFeedType', '6'),
 }
@@ -50,6 +52,9 @@ const getters = {
 	},
 	showAll() {
 		return state.showAll
+	},
+	disableRefresh() {
+		return state.disableRefresh
 	},
 	lastViewedFeedId() {
 		return state.lastViewedFeedId
@@ -107,6 +112,12 @@ export const mutations = {
 		{ value }: { value: boolean },
 	) {
 		state.showAll = value
+	},
+	disableRefresh(
+		state: AppInfoState,
+		{ value }: { value: boolean },
+	) {
+		state.disableRefresh = value
 	},
 }
 
