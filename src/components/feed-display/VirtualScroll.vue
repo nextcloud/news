@@ -52,6 +52,7 @@ export default Vue.extend({
 		fetchKey: {
 			handler() {
 				this.scrollTop = 0
+				this.seenItems = new Map()
 			},
 			immediate: true,
 		},
