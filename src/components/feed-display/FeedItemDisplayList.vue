@@ -156,8 +156,8 @@ export default Vue.extend({
 		getSelectedItem() {
 			return this.$store.getters.selected
 		},
-		getNewestItemId() {
-			return this.$store.state.items.newestItemId
+		syncNeeded() {
+			return this.$store.state.items.syncNeeded
 		},
 		changedFeedOrdering() {
 			if (this.fetchKey.startsWith('feed-')) {
@@ -182,8 +182,8 @@ export default Vue.extend({
 		},
 	},
 	watch: {
-		async getNewestItemId() {
-			if (!this.isLoading) {
+		async syncNeeded(needSync) {
+			if (!this.isLoading && needSync) {
 				await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 			}
 		},
