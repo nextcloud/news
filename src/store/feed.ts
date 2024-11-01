@@ -27,12 +27,14 @@ export const FEED_ACTION_TYPES = {
 export type FeedState = {
 	feeds: Feed[];
 	unreadCount: number;
+	newestItemId: number;
 	ordering: { [key: string]: number };
 }
 
 const state: FeedState = {
 	feeds: [],
 	unreadCount: 0,
+	newestItemId: 0,
 	ordering: {},
 }
 
@@ -46,6 +48,7 @@ export const actions = {
 	async [FEED_ACTION_TYPES.FETCH_FEEDS]({ commit }: ActionParams<FeedState>) {
 		const response = await FeedService.fetchAllFeeds()
 		if (response.data.newestItemId) {
+			commit(FEED_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
 			commit(FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID, response.data.newestItemId)
 		}
 
@@ -120,9 +123,7 @@ export const actions = {
 		{ commit }: ActionParams<FeedState>,
 		{ feed }: { feed: Feed },
 	) {
-		// want to fetch feed so that we can retrieve the "newestItemId"
-		const response = await ItemService.fetchFeedItems(feed.id as number)
-		await FeedService.markRead({ feedId: feed.id as number, highestItemId: response.data.newestItemId })
+		await FeedService.markRead({ feedId: feed.id as number, highestItemId: state.newestItemId })
 
 		if (feed.folderId) {
 			commit(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: feed.folderId, delta: -feed.unreadCount })
@@ -233,6 +234,13 @@ export const mutations = {
 			return feed.id === newFeed.id
 		})
 		_.assign(feed, newFeed)
+	},
+
+	[FEED_MUTATION_TYPES.SET_NEWEST_ITEM_ID](
+		state: FeedState,
+		newestItemId: number,
+	) {
+		state.newestItemId = newestItemId
 	},
 
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
