@@ -156,6 +156,7 @@ class PageController extends Controller
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
      * @param bool $compactExpand
+     * @param bool $disableRefresh
      */
     #[NoAdminRequired]
     public function updateSettings(
@@ -163,7 +164,8 @@ class PageController extends Controller
         bool $compact,
         bool $preventReadOnScroll,
         bool $oldestFirst,
-        bool $compactExpand
+        bool $compactExpand,
+        bool $disableRefresh
     ): void {
         $settings = [
             'showAll'             => $showAll,
