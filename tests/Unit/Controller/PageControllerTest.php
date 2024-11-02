@@ -276,17 +276,18 @@ class PageControllerTest extends TestCase
      */
     public function testUpdateSettings()
     {
-        $this->config->expects($this->exactly(5))
+        $this->config->expects($this->exactly(6))
                     ->method('setUserValue')
                     ->withConsecutive(
                         ['becka', 'news', 'showAll', '1'],
                         ['becka', 'news', 'compact', '1'],
                         ['becka', 'news', 'preventReadOnScroll', '0'],
                         ['becka', 'news', 'oldestFirst', '1'],
-                        ['becka', 'news', 'compactExpand', '1']
+                        ['becka', 'news', 'compactExpand', '1'],
+                        ['becka', 'news', 'disableRefresh', '0']
                     );
 
-        $this->controller->updateSettings(true, true, false, true, true);
+        $this->controller->updateSettings(true, true, false, true, true, false);
     }
 
     public function testExplore()
