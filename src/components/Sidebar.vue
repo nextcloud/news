@@ -73,6 +73,12 @@
 								<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
 							</template>
 							<template #counter>
+								<NcCounterBubble v-show="feed.updateErrorCount > 0"
+									v-tooltip="feed.lastUpdateError"
+									type="highlighted"
+									style="background-color: red">
+									{{ feed.updateErrorCount }}
+								</NcCounterBubble>
 								<NcCounterBubble v-show="feed.unreadCount > 0">
 									{{ feed.unreadCount }}
 								</NcCounterBubble>
@@ -84,11 +90,18 @@
 						</NcAppNavigationItem>
 					</template>
 					<template #icon>
-						<FolderIcon v-if="topLevelItem.feedCount !== undefined" style="width:22px" />
+						<FolderAlertIcon v-if="isFolder(topLevelItem) && hasErrorFeeds(topLevelItem)" v-tooltip="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
+						<FolderIcon v-if="topLevelItem.feedCount !== undefined && !hasErrorFeeds(topLevelItem)" style="width:22px" />
 						<RssIcon v-if="topLevelItem.feedCount === undefined && !topLevelItem.faviconLink" />
 						<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
 					</template>
 					<template #counter>
+						<NcCounterBubble v-if="topLevelItem.updateErrorCount > 0"
+							v-tooltip="topLevelItem.lastUpdateError"
+							type="highlighted"
+							style="background-color: red">
+							{{ topLevelItem.updateErrorCount }}
+						</NcCounterBubble>
 						<NcCounterBubble v-show="topLevelItem.feedCount > 0">
 							{{ topLevelItem.feedCount }}
 						</NcCounterBubble>
@@ -194,6 +207,7 @@ import FolderIcon from 'vue-material-design-icons/Folder.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+import FolderAlertIcon from 'vue-material-design-icons/FolderAlert.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 
 import { ROUTES } from '../routes'
@@ -221,6 +235,7 @@ export default Vue.extend({
 		FolderIcon,
 		EyeIcon,
 		EarthIcon,
+		FolderAlertIcon,
 		FolderPlusIcon,
 		PlusIcon,
 		SidebarFeedLinkActions,
@@ -232,6 +247,7 @@ export default Vue.extend({
 			ROUTES,
 			showHelp: false,
 			polling: null,
+			errorFolder: new Map(),
 		}
 	},
 	computed: {
@@ -239,6 +255,7 @@ export default Vue.extend({
 		topLevelNav(): (Feed | Folder)[] {
 			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
 				if (feed.pinned) result.pinned.push(feed)
+				if (feed.updateErrorCount > 0) this.errorFolder.set('folder-' + feed.folderId, true)
 				if (feed.folderId === undefined || feed.folderId === null) {
 					result.ungrouped.push(feed)
 				}
@@ -433,14 +450,17 @@ export default Vue.extend({
 		hasActiveFeeds(folder) {
 			return folder.feeds.some(item => this.isActiveFeed(item))
 		},
+		hasErrorFeeds(folder) {
+			return this.errorFolder.has('folder-' + folder.id)
+		},
 		showItem(item: Feed | Folder) {
 			if (this.showAll) {
 				return true
 			}
 			if (this.isFolder(item)) {
-				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item)
+				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item) || this.hasErrorFeeds(item)
 			} else {
-				return item.pinned || item.unreadCount > 0 || this.isActiveFeed(item)
+				return item.pinned || item.unreadCount > 0 || item.updateErrorCount > 0 || this.isActiveFeed(item)
 			}
 		},
 	},
