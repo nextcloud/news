@@ -29,12 +29,12 @@
 					<EyeIcon />
 				</template>
 				<template #counter>
-					<NcCounterBubble v-if="items.unreadCount > 0">
+					<NcCounterBubble v-show="items.unreadCount > 0">
 						{{ items.unreadCount }}
 					</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem v-if="showAll"
+			<NcAppNavigationItem v-show="showAll"
 				:name="t('news', 'All articles')"
 				icon="icon-rss"
 				:to="{ name: ROUTES.ALL }">
@@ -53,6 +53,7 @@
 			</template>
 			<template v-else>
 				<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
+					v-show="showItem(topLevelItem)"
 					:key="topLevelItem.name || topLevelItem.title"
 					:name="topLevelItem.name || topLevelItem.title"
 					:icon="''"
@@ -62,7 +63,8 @@
 					:force-menu="true"
 					@update:open="toggleFolderState(topLevelItem)">
 					<template v-for="feed in topLevelItem.feeds">
-						<NcAppNavigationItem :key="feed.name"
+						<NcAppNavigationItem v-show="showItem(feed)"
+							:key="feed.name"
 							:name="feed.title"
 							:icon="''"
 							:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
@@ -71,7 +73,7 @@
 								<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
 							</template>
 							<template #counter>
-								<NcCounterBubble v-if="feed.unreadCount > 0">
+								<NcCounterBubble v-show="feed.unreadCount > 0">
 									{{ feed.unreadCount }}
 								</NcCounterBubble>
 							</template>
@@ -87,10 +89,10 @@
 						<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
 					</template>
 					<template #counter>
-						<NcCounterBubble v-if="topLevelItem.feedCount > 0">
+						<NcCounterBubble v-show="topLevelItem.feedCount > 0">
 							{{ topLevelItem.feedCount }}
 						</NcCounterBubble>
-						<NcCounterBubble v-if="topLevelItem.unreadCount > 0">
+						<NcCounterBubble v-show="topLevelItem.unreadCount > 0">
 							{{ topLevelItem.unreadCount }}
 						</NcCounterBubble>
 					</template>
@@ -235,32 +237,20 @@ export default Vue.extend({
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
 		topLevelNav(): (Feed | Folder)[] {
-			const showAll = this.$store.getters.showAll
-
-			const feeds: { pinned: Feed[], visible: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
+			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
 				if (feed.pinned) result.pinned.push(feed)
-				if (showAll || feed.unreadCount > 0) {
-					result.visible.push(feed)
-					if (feed.folderId === undefined || feed.folderId === null) {
-						result.ungrouped.push(feed)
-					}
+				if (feed.folderId === undefined || feed.folderId === null) {
+					result.ungrouped.push(feed)
 				}
 				return result
-			}, { pinned: [], visible: [], ungrouped: [] })
+			}, { pinned: [], ungrouped: [] })
 
-			const visibleFolders = this.$store.getters.folders
-				.filter((folder: Folder) => {
-					return showAll || feeds.visible.some((feed: Feed) => feed.folderId === folder.id)
-				})
-				.map((folder: Folder) => {
-					folder.feeds = feeds.visible.filter((feed: Feed) => feed.folderId === folder.id)
-					return folder
-				})
+			const folders = this.$store.getters.folders
 
 			const navItems: (Feed | Folder)[] = [
 				...feeds.pinned,
 				...feeds.ungrouped,
-				...visibleFolders,
+				...folders,
 			]
 
 			return navItems
@@ -433,6 +423,25 @@ export default Vue.extend({
 		toggleFolderState(folder: Folder) {
 			this.$set(folder, 'opened', !folder.opened)
 			this.$store.dispatch(ACTIONS.FOLDER_OPEN_STATE, { folder })
+		},
+		isActiveFeed(feed) {
+			return this.$route.name === 'feed' ? feed.id === Number(this.$route.params?.feedId) : false
+		},
+		isActiveFolder(folder) {
+			return this.$route.name === 'folder' ? folder.id === Number(this.$route.params?.folderId) : false
+		},
+		hasActiveFeeds(folder) {
+			return folder.feeds.some(item => this.isActiveFeed(item))
+		},
+		showItem(item: Feed | Folder) {
+			if (this.showAll) {
+				return true
+			}
+			if (this.isFolder(item)) {
+				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item)
+			} else {
+				return item.pinned || item.unreadCount > 0 || this.isActiveFeed(item)
+			}
 		},
 	},
 })
