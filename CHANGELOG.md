@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Rework feed and global sort ordering
 - Add 'r' shortkey to refresh feed and item list
 - Show automatically new news items on VueJS implementation (#2502)
+- Show when feeds and folder have errors
 
 ### Fixed
 - starred items in a feed can prevent further scrolling
