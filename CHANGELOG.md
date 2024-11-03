@@ -12,6 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Add 'r' shortkey to refresh feed and item list
 - Show automatically new news items on VueJS implementation (#2502)
 - Show when feeds and folder have errors
+- Add keyboard shortcuts 'd', 'f', 'c' and 'v' to switch between feeds and folders
 
 ### Fixed
 - starred items in a feed can prevent further scrolling

@@ -55,6 +55,7 @@
 				<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
 					v-show="showItem(topLevelItem)"
 					:key="topLevelItem.name || topLevelItem.title"
+					:ref="isFolder(topLevelItem) ? 'folder-' + topLevelItem.id : 'feed-' + topLevelItem.id"
 					:name="topLevelItem.name || topLevelItem.title"
 					:icon="''"
 					:open="topLevelItem.opened"
@@ -65,6 +66,7 @@
 					<template v-for="feed in topLevelItem.feeds">
 						<NcAppNavigationItem v-show="showItem(feed)"
 							:key="feed.name"
+							:ref="'feed-' + feed.id"
 							:name="feed.title"
 							:icon="''"
 							:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
@@ -134,6 +136,10 @@
 					<EarthIcon />
 				</template>
 			</NcAppNavigationItem>
+			<button v-shortkey="['d']" class="hidden" @shortkey="nextFeed('prev')" />
+			<button v-shortkey="['f']" class="hidden" @shortkey="nextFeed('next')" />
+			<button v-shortkey="['c']" class="hidden" @shortkey="nextFolder('prev')" />
+			<button v-shortkey="['v']" class="hidden" @shortkey="nextFolder('next')" />
 		</template>
 		<template #footer>
 			<NcAppNavigationSettings :name="t('news', 'Settings')">
@@ -338,6 +344,17 @@ export default Vue.extend({
 				this.saveSetting('disableRefresh', newValue)
 			},
 		},
+		navFolder() {
+			return this.topLevelNav.filter(item => item.name !== undefined && this.showItem(item))
+		},
+		navFeeds() {
+			return this.navFolder
+				.filter(folder => folder.opened)
+				.reduce((result, folder) => {
+					return result.concat(folder.feeds)
+				}, [])
+				.filter(item => this.showItem(item))
+		},
 	},
 	created() {
 		if (this.$route.query.subscribe_to) {
@@ -461,6 +478,51 @@ export default Vue.extend({
 				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item) || this.hasErrorFeeds(item)
 			} else {
 				return item.pinned || item.unreadCount > 0 || item.updateErrorCount > 0 || this.isActiveFeed(item)
+			}
+		},
+		getFeedIndex(direction) {
+			if (this.$route.name === 'feed') {
+				const feedIndex = this.navFeeds.findIndex((it) => it.id === Number(this.$route.params.feedId))
+				return direction === 'prev' ? feedIndex - 1 : feedIndex + 1
+			} else {
+				const folder = this.navFolder.find((folder: Folder) => this.isActiveFolder(folder))
+				if (!folder) {
+					return -1
+				}
+				// search for the nearest feed
+				if (direction === 'next') {
+					return this.navFeeds.findIndex((it) => it.folderId >= folder.id)
+				} else {
+					return this.navFeeds.findLastIndex((it) => it.folderId < folder.id)
+				}
+			}
+		},
+		getFolderIndex(direction) {
+			if (this.$route.name === 'feed') {
+				// use folder id from feed when the active item is a feed
+				const feed = this.navFeeds.find((feed: Feed) => this.isActiveFeed(feed))
+				const folderIndex = feed ? this.navFolder.findIndex((it) => it.id === feed.folderId) : -1
+				return direction === 'prev' ? folderIndex : folderIndex + 1
+			} else {
+				const folderIndex = this.navFolder.findIndex((it) => it.id === Number(this.$route.params.folderId))
+				return direction === 'prev' ? folderIndex - 1 : folderIndex + 1
+			}
+		},
+		nextFeed(direction) {
+			const newIndex = this.getFeedIndex(direction)
+			if (newIndex >= 0 && newIndex < this.navFeeds.length) {
+				const feedId = this.navFeeds[newIndex].id.toString()
+				this.$router.push({ name: 'feed', params: { feedId } })
+				this.$refs['feed-' + feedId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
+
+			}
+		},
+		nextFolder(direction) {
+			const newIndex = this.getFolderIndex(direction)
+			if (newIndex >= 0 && newIndex < this.navFolder.length) {
+				const folderId = this.navFolder[newIndex].id.toString()
+				this.$router.push({ name: 'folder', params: { folderId } })
+				this.$refs['folder-' + folderId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
 			}
 		},
 	},
