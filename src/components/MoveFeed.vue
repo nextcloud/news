@@ -73,30 +73,12 @@ export default Vue.extend({
 		async moveFeed() {
 			const data = {
 				feedId: this.feed.id,
-				folderId: this.folder ? this.folder.id : null,
+				folderId: this.folder ? this.folder.id : 0,
 			}
 			await this.$store.dispatch(ACTIONS.MOVE_FEED, data)
-			await this.reloadFeeds()
+			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 
 			this.$emit('close')
-		},
-		async reloadFeeds() {
-			// Clear feeds and folders
-			const currentState = this.$store.state
-			const newState = {
-				...currentState,
-				folders: {
-					folders: [],
-				},
-				feeds: {
-					feeds: [],
-				},
-			}
-			this.$store.replaceState(newState)
-
-			// Fetch feeds and folders
-			await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
-			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 		},
 	},
 })
