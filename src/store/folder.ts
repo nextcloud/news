@@ -69,7 +69,7 @@ export const mutations = {
 		state: FolderState,
 		folders: Folder[],
 	) {
-		state.folders = [...folders]
+		state.folders = [...state.folders, ...folders]
 	},
 
 	[FOLDER_MUTATION_TYPES.DELETE_FOLDER](

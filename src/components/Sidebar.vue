@@ -93,9 +93,9 @@
 					</template>
 					<template #icon>
 						<FolderAlertIcon v-if="isFolder(topLevelItem) && hasErrorFeeds(topLevelItem)" v-tooltip="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
-						<FolderIcon v-if="topLevelItem.feedCount !== undefined && !hasErrorFeeds(topLevelItem)" style="width:22px" />
-						<RssIcon v-if="topLevelItem.feedCount === undefined && !topLevelItem.faviconLink" />
-						<span v-if="topLevelItem.feedCount === undefined && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
+						<FolderIcon v-if="isFolder(topLevelItem) && !hasErrorFeeds(topLevelItem)" style="width:22px" />
+						<RssIcon v-if="!isFolder(topLevelItem) && !topLevelItem.faviconLink" />
+						<span v-if="!isFolder(topLevelItem) && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
 					</template>
 					<template #counter>
 						<NcCounterBubble v-if="topLevelItem.updateErrorCount > 0"
