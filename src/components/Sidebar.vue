@@ -485,15 +485,19 @@ export default Vue.extend({
 				const feedIndex = this.navFeeds.findIndex((it) => it.id === Number(this.$route.params.feedId))
 				return direction === 'prev' ? feedIndex - 1 : feedIndex + 1
 			} else {
-				const folder = this.navFolder.find((folder: Folder) => this.isActiveFolder(folder))
-				if (!folder) {
-					return -1
-				}
+				// get current folder index
+				const folderIndex = this.getFolderIndex(direction)
 				// search for the nearest feed
 				if (direction === 'next') {
-					return this.navFeeds.findIndex((it) => it.folderId >= folder.id)
+					return this.navFeeds.findIndex((feed) => {
+						const feedFolderIndex = this.navFolder.findIndex(folder => folder.id === feed.folderId)
+						return feedFolderIndex >= folderIndex - 1
+					})
 				} else {
-					return this.navFeeds.findLastIndex((it) => it.folderId < folder.id)
+					return this.navFeeds.findLastIndex((feed) => {
+						const feedFolderIndex = this.navFolder.findIndex(folder => folder.id === feed.folderId)
+						return feedFolderIndex <= folderIndex
+					})
 				}
 			}
 		},
