@@ -10,6 +10,10 @@ jest.mock('@nextcloud/axios')
 jest.mock('@nextcloud/initial-state')
 jest.mock('@nextcloud/router')
 jest.mock('@nextcloud/dialogs')
+jest.mock('@nextcloud/password-confirmation', () => ({
+    confirmPassword: jest.fn(),
+    password_policy: {},
+}));
 
 describe('AdminSettings.vue', () => {
 	'use strict'
