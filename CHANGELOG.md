@@ -7,6 +7,12 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [25.0.0-alpha13] - 2024-11-07
+### Changed
 - Performance improvements on item list
 - Rework feed and global sort ordering
 - Add 'r' shortkey to refresh feed and item list
@@ -21,7 +27,6 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Folders and Feeds in Sidebar are not sorted alphabetically (#2838)
 - Unread Counter becomes negative (#2839)
 
-# Releases
 ## [25.0.0-alpha12] - 2024-10-23
 ### Changed
 - Feed ordering will now be used for sorting items (#2678)
