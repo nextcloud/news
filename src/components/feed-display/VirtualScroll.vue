@@ -10,8 +10,6 @@ import ItemSkeleton from './ItemSkeleton.vue'
 import { ACTIONS } from '../../store'
 
 const GRID_ITEM_HEIGHT = 200 + 10
-// const GRID_ITEM_WIDTH = 250 + 10
-const LIST_ITEM_HEIGHT = 110 + 1
 
 export default Vue.extend({
 	name: 'VirtualScroll',
@@ -45,6 +43,12 @@ export default Vue.extend({
 			cache: false,
 			get() {
 				return this.$store.state.items.fetchingItems[this.fetchKey]
+			},
+		},
+		compactMode: {
+			cache: false,
+			get() {
+				return this.$store.getters.compact
 			},
 		},
 	},
@@ -113,12 +117,11 @@ export default Vue.extend({
 		let renderedItems = 0
 		let upperPaddingItems = 0
 		let lowerPaddingItems = 0
-		let itemHeight = 1
+		const itemHeight = this.compactMode ? 37 : 111
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.$el && this.$el.getBoundingClientRect) {
 			const childComponents = this.$slots.default.filter(child => !!child.componentOptions)
 			const viewport = this.$el.getBoundingClientRect()
-			itemHeight = LIST_ITEM_HEIGHT
 			renderedItems = Math.floor((viewport.height + padding + padding) / itemHeight)
 			upperPaddingItems = Math.floor(Math.max(this.scrollTop - padding, 0) / itemHeight)
 			children = childComponents.slice(upperPaddingItems, upperPaddingItems + renderedItems)
@@ -157,7 +160,7 @@ export default Vue.extend({
 		const scrollTop = this.scrollTop
 		this.$nextTick(() => {
 			if (this.elementToShow) {
-				this.elementToShow.scrollIntoView({ behavior: 'auto', block: 'nearest' })
+				this.elementToShow.scrollIntoView({ behavior: 'auto', block: 'start' })
 				this.elementToShow = null
 			} else {
 				this.$el.scrollTop = scrollTop

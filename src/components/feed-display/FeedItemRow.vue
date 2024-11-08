@@ -1,5 +1,5 @@
 <template>
-	<div class="feed-item-row" @click="select()">
+	<div class="feed-item-row" :class="{ 'compact': compactMode }" @click="select()">
 		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
 			<a class="external"
@@ -16,20 +16,20 @@
 			</a>
 		</div>
 
-		<div class="main-container">
-			<div class="title-container" :class="{ 'unread': item.unread }">
+		<div class="main-container" :class="{ 'compact': compactMode }">
+			<div class="title-container" :class="{ 'compact': compactMode, 'unread': item.unread }">
 				<span :dir="item.rtl && 'rtl'">
 					{{ item.title }}
 				</span>
 			</div>
 
-			<div class="intro-container">
+			<div class="intro-container" :class="{ 'compact': compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
 				<span class="intro" v-html="item.intro" />
 				<!--eslint-enable-->
 			</div>
 
-			<div class="date-container">
+			<div class="date-container" :class="{ 'compact': compactMode }">
 				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
 					{{ getRelativeTimestamp(item.pubDate*1000) }}
 				</time>
@@ -100,11 +100,15 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['feeds']),
+		compactMode() {
+			return this.$store.getters.compact
+		},
 	},
 	methods: {
 		select(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			this.markRead(this.item)
+			this.$emit('show-details')
 		},
 		formatDate(epoch: number): string {
 			return new Date(epoch).toLocaleString()
@@ -165,6 +169,10 @@ export default Vue.extend({
 		display: flex; padding: 10px 10px;
 	}
 
+	.feed-item-row.compact {
+		display: flex; padding: 1px 1px !important;
+	}
+
 	.feed-item-row:hover {
 		background-color: var(--color-background-hover);
 	}
@@ -193,6 +201,12 @@ export default Vue.extend({
 		flex-grow: 1;
 	}
 
+	.feed-item-row .main-container.compact {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
 	.feed-item-row .title-container {
 		color: var(--color-text-lighter);
 
@@ -204,7 +218,12 @@ export default Vue.extend({
 
 	.feed-item-row .title-container.unread {
 		color: var(--color-main-text);
-    font-weight: bold;
+		font-weight: bold;
+	}
+
+	.feed-item-row .title-container.compact {
+		flex: 0 1 auto;
+		overflow: unset;
 	}
 
 	.feed-item-row .intro-container {
@@ -213,10 +232,18 @@ export default Vue.extend({
 		overflow: hidden;
 	}
 
+	.feed-item-row .intro-container.compact {
+		flex: 1 1 auto;
+		height: 26pt !important;
+		align-content: center;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
 	.feed-item-row .intro {
 		color: var(--color-text-lighter);
-    font-size: 10pt;
-    font-weight: normal;
+		font-size: 10pt;
+		font-weight: normal;
 	}
 
 	@media only screen and (min-width: 320px) {
@@ -236,6 +263,10 @@ export default Vue.extend({
 		white-space: nowrap;
 	}
 
+	.feed-item-row .date-container.compact {
+		flex: 0 0 auto;
+	}
+
 	.feed-item-row .button-container {
 		display: flex;
 		flex-direction: row;
@@ -244,9 +275,9 @@ export default Vue.extend({
 
 	.feed-item-row .button-container .button-vue, .feed-item-row .button-container .button-vue .button-vue__wrapper, .feed-item-row .button-container .material-design-icon {
 		width: 30px !important;
-    min-width: 30px;
-    min-height: 30px;
-    height: 30px;
+		min-width: 30px;
+		min-height: 30px;
+		height: 30px;
 	}
 
 	.feed-item-row .button-container .material-design-icon {

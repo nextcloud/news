@@ -14,7 +14,7 @@
 			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
 			<EyeIcon v-if="item.unread" @click="toggleRead(item)" />
 			<EyeCheckIcon v-if="!item.unread" @click="toggleRead(item)" />
-			<CloseIcon @click="clearSelected()" />
+			<CloseIcon @click="compactMode ? $emit('show-details') : clearSelected()" />
 			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="toggleStarred(item)" />
 			<button v-shortkey="['o']" class="hidden" @shortkey="openUrl(item)" />
 			<button v-shortkey="['u']" class="hidden" @shortkey="toggleRead(item)" />
@@ -143,6 +143,9 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['feeds']),
+		compactMode() {
+			return this.$store.getters.compact
+		},
 	},
 	methods: {
 		/**

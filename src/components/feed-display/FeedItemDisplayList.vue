@@ -36,7 +36,8 @@
 						<FeedItemRow :key="item.id"
 							:ref="'feedItemRow' + item.id"
 							:item="item"
-							:class="{ 'active': selectedItem && selectedItem.id === item.id }" />
+							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
+							@show-details="$emit('show-details')" />
 					</template>
 				</template>
 			</VirtualScroll>
@@ -53,7 +54,7 @@ import FeedItemRow from './FeedItemRow.vue'
 
 import { FeedItem } from '../../types/FeedItem'
 import { FEED_ORDER } from '../../dataservices/feed.service'
-import { ACTIONS } from '../../store'
+import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
@@ -262,7 +263,8 @@ export default Vue.extend({
 			const element = componentInstance ? componentInstance.$el : undefined
 
 			if (element) {
-				element.click()
+				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
+				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 				const virtualScroll = this.$refs.virtualScroll
 				virtualScroll.showElement(element)
 

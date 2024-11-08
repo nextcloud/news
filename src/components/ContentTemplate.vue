@@ -1,10 +1,12 @@
 <template>
-	<NcAppContent :show-details="showDetails"
-		@update:showDetails="unselectItem()">
+	<NcAppContent :layout="compactMode ? 'no-split' : 'vertical-split'"
+		:show-details="showDetails"
+		@update:showDetails="showItem(false)">
 		<template #list>
 			<NcAppContentList>
 				<FeedItemDisplayList :items="items"
 					:fetch-key="fetchKey"
+					@show-details="showItem(true)"
 					@load-more="emit('load-more')">
 					<template #header>
 						<slot name="header" />
@@ -15,7 +17,9 @@
 
 		<NcAppContentDetails class="feed-item-content">
 			<div ref="contentElement" class="feed-item-content-wrapper">
-				<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
+				<FeedItemDisplay v-if="selectedFeedItem"
+					:item="selectedFeedItem"
+					@show-details="showItem(false)" />
 				<NcEmptyContent v-else
 					style="margin-top: 20vh"
 					:name="t('news', 'No article selected')"
@@ -38,6 +42,7 @@
 
 import { type PropType, computed, ref, watch } from 'vue'
 
+import appStore from '../store/app'
 import itemStore from '../store/item'
 
 import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
@@ -69,28 +74,30 @@ const showDetails = ref(false)
 
 const contentElement = ref()
 
+const compactMode = computed(() => {
+	return appStore.getters.compact(appStore.state)
+})
+
 const selectedFeedItem = computed(() => {
 	return itemStore.getters.selected(itemStore.state)
 })
 
 watch(selectedFeedItem, (newSelectedFeedItem) => {
 	if (newSelectedFeedItem) {
-		showDetails.value = true
 		contentElement.value?.scrollTo(0, 0)
 	} else {
-		showDetails.value = false
+		showItem(false)
 	}
 })
 
 /**
- * Unselect a list item.
+ * set showDetails value
+ *
+ * @param {boolean} value Show or hide item
  *
  */
-function unselectItem() {
-	itemStore.mutations.SET_SELECTED_ITEM(
-		itemStore.state,
-		{ id: undefined },
-	)
+function showItem(value) {
+	showDetails.value = value
 }
 
 </script>
