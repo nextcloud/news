@@ -7,6 +7,7 @@
 				rel="noreferrer"
 				:href="item.url"
 				:title="t('news', 'Open website')"
+				@click.middle="markRead(item); $event.stopPropagation();"
 				@click="markRead(item); $event.stopPropagation();">
 				<span v-if="getFeed(item.feedId).faviconLink"
 					class="favicon"
