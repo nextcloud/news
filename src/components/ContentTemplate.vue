@@ -18,7 +18,8 @@
 			<div ref="contentElement" class="feed-item-content-wrapper">
 				<FeedItemDisplay v-if="selectedFeedItem" :item="selectedFeedItem" />
 				<NcEmptyContent v-else
-					:title="t('news', 'No article selected')"
+					style="margin-top: 20vh"
+					:name="t('news', 'No article selected')"
 					:description="t('news', 'Please select an article from the list...')">
 					<template #icon>
 						<TextIcon />
@@ -40,10 +41,10 @@ import { type PropType, computed, ref, watch } from 'vue'
 
 import itemStore from '../store/item'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent'
-import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList'
-import NcAppContentDetails from '@nextcloud/vue/dist/Components/NcAppContentDetails'
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList.js'
+import NcAppContentDetails from '@nextcloud/vue/dist/Components/NcAppContentDetails.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 
 import TextIcon from 'vue-material-design-icons/Text.vue'
 

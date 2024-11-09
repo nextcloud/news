@@ -87,7 +87,7 @@
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
-		<NcAppNavigationItem :title="t('news', 'Open Feed URL')"
+		<NcAppNavigationItem :name="t('news', 'Open Feed URL')"
 			:href="feed.location">
 			<template #icon>
 				<RssIcon />

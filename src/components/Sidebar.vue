@@ -11,7 +11,7 @@
 			</template>
 		</NcAppNavigationNew>
 		<template #list>
-			<NcAppNavigationNewItem :title="t('news', 'New folder')"
+			<NcAppNavigationNewItem :name="t('news', 'New folder')"
 				:icon="''"
 				@new-item="newFolder">
 				<template #icon>

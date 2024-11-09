@@ -4,7 +4,7 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-	<NcSettingsSection :title="t('news', 'News')"
+	<NcSettingsSection :name="t('news', 'News')"
 		class="news-settings"
 		doc-url="https://nextcloud.github.io/news/admin/">
 		<template v-if="lastCron !== 0">
