@@ -123,6 +123,21 @@ export const mutations = {
 		}
 	},
 
+	[FOLDER_MUTATION_TYPES.REMOVE_FOLDER_FEED](
+		state: FolderState,
+		{ feedId, folderId, unreadCount }: { feedId: number, folderId: number, unreadCount: number },
+	) {
+		const folder = state.folders.find((folder: Folder) => { return folder.id === folderId })
+		if (folder) {
+			folder.feedCount -= unreadCount
+			const updatedFeeds = folder.feeds.filter((feed: Feed) => {
+				return feed.id !== feedId
+			})
+			folder.feeds = [...updatedFeeds]
+		}
+
+	},
+
 	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](
 		state: FolderState,
 		{ folderId, delta }: {folderId: number; delta: number },

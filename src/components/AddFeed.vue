@@ -172,7 +172,7 @@ export default Vue.extend({
 		 * Adds a New Feed via the Vuex Store
 		 */
 		async addFeed() {
-			this.$store.dispatch(ACTIONS.ADD_FEED, {
+			await this.$store.dispatch(ACTIONS.ADD_FEED, {
 				feedReq: {
 					url: this.feedUrl,
 					folder: this.createNewFolder ? { name: this.newFolderName } : this.folder,
@@ -181,6 +181,7 @@ export default Vue.extend({
 					password: this.feedPassword === '' ? undefined : this.feedPassword,
 				},
 			})
+			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 
 			this.$emit('close')
 		},
