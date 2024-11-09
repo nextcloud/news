@@ -7,6 +7,7 @@
 		</NcActionButton>
 		<NcActionButton v-if="feed.pinned"
 			icon="icon-pinned"
+			:close-after-click="true"
 			@click="setPinned(false)">
 			<template #icon>
 				<PinOffIcon />
@@ -15,6 +16,7 @@
 		</NcActionButton>
 		<NcActionButton v-if="!feed.pinned"
 			icon="icon-pinned"
+			:close-after-click="true"
 			@click="setPinned(true)">
 			<template #icon>
 				<PinIcon />
@@ -77,6 +79,7 @@
 			{{ t("news", "Rename") }}
 		</NcActionButton>
 		<NcActionButton icon="icon-arrow"
+			:close-after-click="true"
 			@click="move()">
 			<template #icon>
 				<ArrowRightIcon />
@@ -84,6 +87,7 @@
 			{{ t("news", "Move") }}
 		</NcActionButton>
 		<NcActionButton icon="icon-delete"
+			:close-after-click="true"
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
