@@ -186,6 +186,10 @@ export const actions = {
 	) {
 		await FeedService.deleteFeed({ feedId: feed.id as number })
 
+		if (feed.folderId) {
+			commit(FOLDER_MUTATION_TYPES.REMOVE_FOLDER_FEED, { feedId: feed.id, folderId: feed.folderId, unreadCount: feed.unreadCount })
+		}
+
 		commit(FEED_MUTATION_TYPES.FEED_DELETE, feed.id)
 	},
 
@@ -273,9 +277,10 @@ export const mutations = {
 		state: FeedState,
 		feedId: number,
 	) {
-		state.feeds = state.feeds.filter((feed: Feed) => {
+		const updatedFeeds = state.feeds.filter((feed: Feed) => {
 			return feed.id !== feedId
 		})
+		state.feeds = [...updatedFeeds]
 	},
 }
 
