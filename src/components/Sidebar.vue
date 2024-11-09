@@ -63,7 +63,7 @@
 					:allow-collapse="true"
 					:force-menu="true"
 					@update:open="toggleFolderState(topLevelItem)">
-					<template v-for="feed in topLevelItem.feeds">
+					<template v-for="feed in sortedFolderFeeds(topLevelItem)">
 						<NcAppNavigationItem v-show="showItem(feed)"
 							:key="feed.name"
 							:ref="'feed-' + feed.id"
@@ -260,10 +260,10 @@ export default Vue.extend({
 		...mapState(['feeds', 'folders', 'items']),
 		topLevelNav(): (Feed | Folder)[] {
 			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
-				if (feed.pinned) result.pinned.push(feed)
 				if (feed.updateErrorCount > 0) this.errorFolder.set('folder-' + feed.folderId, true)
 				if (feed.folderId === undefined || feed.folderId === null) {
-					result.ungrouped.push(feed)
+					if (feed.pinned) result.pinned.push(feed)
+					else result.ungrouped.push(feed)
 				}
 				return result
 			}, { pinned: [], ungrouped: [] })
@@ -351,7 +351,7 @@ export default Vue.extend({
 			return this.navFolder
 				.filter(folder => folder.opened)
 				.reduce((result, folder) => {
-					return result.concat(folder.feeds)
+					return result.concat(this.sortedFolderFeeds(folder))
 				}, [])
 				.filter(item => this.showItem(item))
 		},
@@ -479,6 +479,9 @@ export default Vue.extend({
 			} else {
 				return item.pinned || item.unreadCount > 0 || item.updateErrorCount > 0 || this.isActiveFeed(item)
 			}
+		},
+		sortedFolderFeeds(item: Feed | Folder) {
+			return this.isFolder(item) ? item.feeds.slice().sort((a, b) => (b.pinned === true) - (a.pinned === true)) : []
 		},
 		getFeedIndex(direction) {
 			if (this.$route.name === 'feed') {
