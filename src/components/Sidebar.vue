@@ -92,13 +92,13 @@
 						</NcAppNavigationItem>
 					</template>
 					<template #icon>
-						<FolderAlertIcon v-if="isFolder(topLevelItem) && hasErrorFeeds(topLevelItem)" v-tooltip="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
-						<FolderIcon v-if="isFolder(topLevelItem) && !hasErrorFeeds(topLevelItem)" style="width:22px" />
+						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 0" v-tooltip="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
+						<FolderIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount === 0" style="width:22px" />
 						<RssIcon v-if="!isFolder(topLevelItem) && !topLevelItem.faviconLink" />
 						<span v-if="!isFolder(topLevelItem) && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
 					</template>
 					<template #counter>
-						<NcCounterBubble v-if="topLevelItem.updateErrorCount > 0"
+						<NcCounterBubble v-if="!isFolder(topLevelItem) && topLevelItem.updateErrorCount > 0"
 							v-tooltip="topLevelItem.lastUpdateError"
 							type="highlighted"
 							style="background-color: red">
@@ -253,14 +253,12 @@ export default Vue.extend({
 			ROUTES,
 			showHelp: false,
 			polling: null,
-			errorFolder: new Map(),
 		}
 	},
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
 		topLevelNav(): (Feed | Folder)[] {
 			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
-				if (feed.updateErrorCount > 0) this.errorFolder.set('folder-' + feed.folderId, true)
 				if (feed.folderId === undefined || feed.folderId === null) {
 					if (feed.pinned) result.pinned.push(feed)
 					else result.ungrouped.push(feed)
@@ -472,15 +470,12 @@ export default Vue.extend({
 		hasActiveFeeds(folder) {
 			return folder.feeds.some(item => this.isActiveFeed(item))
 		},
-		hasErrorFeeds(folder) {
-			return this.errorFolder.has('folder-' + folder.id)
-		},
 		showItem(item: Feed | Folder) {
 			if (this.showAll) {
 				return true
 			}
 			if (this.isFolder(item)) {
-				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item) || this.hasErrorFeeds(item)
+				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item) || item.updateErrorCount > 0
 			} else {
 				return item.pinned || item.unreadCount > 0 || item.updateErrorCount > 0 || this.isActiveFeed(item)
 			}

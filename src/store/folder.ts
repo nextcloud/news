@@ -88,12 +88,14 @@ export const mutations = {
 			...folder,
 			feeds: [] as Feed[],
 			feedCount: 0,
+			updateErrorCount: 0,
 		}))
 		feeds.forEach(it => {
 			const folder = updatedFolders.find((folder: Folder) => { return folder.id === it.folderId })
 			if (folder) {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
+				folder.updateErrorCount += it.updateErrorCount
 			}
 		})
 		state.folders = updatedFolders
@@ -107,6 +109,7 @@ export const mutations = {
 		if (folder) {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
+			folder.updateErrorCount += feed.updateErrorCount
 		}
 	},
 
