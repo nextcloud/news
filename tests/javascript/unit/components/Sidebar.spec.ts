@@ -14,6 +14,12 @@ describe('Sidebar.vue', () => {
 		id: 2, title: 'second', folderId: 123,
 	}]
 
+	const folder = {
+		id: 123,
+		name: 'abc',
+		feeds: [{ id: 1, title: 'first', folderId: 123 }]
+	}
+
 	beforeAll(() => {
 		const localVue = createLocalVue()
 		wrapper = shallowMount(AppSidebar, {
@@ -55,10 +61,20 @@ describe('Sidebar.vue', () => {
 		})
 
 		it('should dispatch message to store with folder object on delete folder', () => {
-			const folder = {};
+			window.confirm = jest.fn().mockReturnValue(true);
 			(wrapper.vm as any).deleteFolder(folder)
 
+			folder.feeds.forEach((feed: any) => {
+				expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_DELETE, { feed })
+			})
 			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.DELETE_FOLDER, { folder })
+		})
+
+		it('should not dispatch message to store with folder object on delete folder', () => {
+			window.confirm = jest.fn().mockReturnValue(false);
+			(wrapper.vm as any).deleteFolder(folder)
+
+			expect((wrapper.vm as any).$store.dispatch).not.toHaveBeenCalled()
 		})
 
 		it('should set showAddFeed to true', () => {
