@@ -348,12 +348,17 @@ export default Vue.extend({
 			return this.topLevelNav.filter(item => item.name !== undefined && this.showItem(item))
 		},
 		navFeeds() {
-			return this.navFolder
+			const topLevelFeeds = this.topLevelNav.filter(item => item.title !== undefined && this.showItem(item))
+			const folderFeeds = this.navFolder
 				.filter(folder => folder.opened)
 				.reduce((result, folder) => {
 					return result.concat(this.sortedFolderFeeds(folder))
 				}, [])
 				.filter(item => this.showItem(item))
+			return [
+				...topLevelFeeds,
+				...folderFeeds,
+			]
 		},
 	},
 	created() {
