@@ -12,5 +12,7 @@ export type Feed = {
   ordering: FEED_ORDER;
   fullTextEnabled: boolean;
   updateMode: FEED_UPDATE_MODE;
+  updateErrorCount: number;
+  lastUpdateError: string;
   location: string;
 }
