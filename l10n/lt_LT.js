@@ -52,6 +52,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Klavišų kombinacijos",
     "Show all articles" : "Rodyti visus straipsnius",
     "Reverse ordering (oldest on top)" : "Atvirkštinis rikiavimas (seniausi viršuje)",
+    "Disable automatic refresh" : "Išjungti automatinį įkėlimą iš naujo",
     "Are you sure you want to mark all read?" : "Ar tikrai norite žymėti visus kaip skaitytus?",
     "Rename Folder" : "Pervadinti aplanką",
     "Rename" : "Pervadinti",
