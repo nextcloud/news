@@ -69,7 +69,8 @@ export const mutations = {
 		state: FolderState,
 		folders: Folder[],
 	) {
-		state.folders = [...state.folders, ...folders]
+		const updatedFolders = [...state.folders, ...folders].sort((a, b) => a.name.localeCompare(b.name))
+		state.folders = [...updatedFolders]
 	},
 
 	[FOLDER_MUTATION_TYPES.DELETE_FOLDER](

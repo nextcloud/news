@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - switching feeds with key navigation does not work with top level feeds (#2863)
+- proper handling when adding or deleting feeds and folders
 
 # Releases
 ## [25.0.0-alpha13] - 2024-11-07

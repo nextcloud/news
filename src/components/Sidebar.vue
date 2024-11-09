@@ -446,7 +446,14 @@ export default Vue.extend({
 			}
 		},
 		deleteFolder(folder: Folder) {
-			this.$store.dispatch(ACTIONS.DELETE_FOLDER, { folder })
+			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
+
+			if (shouldDelete) {
+				folder.feeds.forEach(feed => {
+					this.$store.dispatch(ACTIONS.FEED_DELETE, { feed })
+				})
+				this.$store.dispatch(ACTIONS.DELETE_FOLDER, { folder })
+			}
 		},
 		showShowAddFeed() {
 			this.showAddFeed = true
