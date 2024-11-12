@@ -184,6 +184,28 @@
 							{{ t('news', 'Disable automatic refresh') }}
 						</label>
 					</div>
+					<h1>{{ t('news', 'Abonnements (OPML)') }}</h1>
+					<div class="button-container">
+						<NcButton aria-label="UploadOpml"
+							:disabled="loading"
+							@click="$refs.fileSelect.click()">
+							<template #icon>
+								<UploadIcon :size="20" />
+							</template>
+						</NcButton>
+						<input ref="fileSelect"
+							type="file"
+							class="hidden"
+							accept=".opml"
+							@change="importOpml">
+						<NcButton aria-label="DownloadOpml"
+							:disabled="loading"
+							@click="exportOpml">
+							<template #icon>
+								<DownloadIcon :size="20" />
+							</template>
+						</NcButton>
+					</div>
 				</div>
 			</NcAppNavigationSettings>
 		</template>
@@ -215,9 +237,11 @@ import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
 import FolderAlertIcon from 'vue-material-design-icons/FolderAlert.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
+import UploadIcon from 'vue-material-design-icons/Upload.vue'
+import DownloadIcon from 'vue-material-design-icons/Download.vue'
 
 import { ROUTES } from '../routes'
-import { ACTIONS } from '../store'
+import { ACTIONS, MUTATIONS } from '../store'
 
 import AddFeed from './AddFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
@@ -244,6 +268,8 @@ export default Vue.extend({
 		FolderAlertIcon,
 		FolderPlusIcon,
 		PlusIcon,
+		UploadIcon,
+		DownloadIcon,
 		SidebarFeedLinkActions,
 		HelpModal,
 	},
@@ -253,6 +279,8 @@ export default Vue.extend({
 			ROUTES,
 			showHelp: false,
 			polling: null,
+			uploadStatus: null,
+			selectedFile: null,
 		}
 	},
 	computed: {
@@ -403,6 +431,61 @@ export default Vue.extend({
 				})
 			}
 		},
+		async importOpml(event) {
+			const file = event.target.files[0]
+			if (file && file.type === 'text/x-opml+xml') {
+				this.selectedFile = file
+			} else {
+				showError(t('news', 'Please select a valid OPML file'))
+				return
+			}
+
+			this.$store.commit(MUTATIONS.SET_LOADING, { value: true })
+			const formData = new FormData()
+			formData.append('file', this.selectedFile)
+
+			try {
+				const response = await fetch('import/opml', {
+					method: 'POST',
+					body: formData,
+				})
+
+				if (response.ok) {
+					showSuccess(t('news', 'File successfully uploaded'))
+				} else {
+					showError(t('news', 'Error uploading the opml file'))
+				}
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Error connecting to the server'),
+					error: e,
+				})
+			}
+			// refresh feeds and folders after import
+			this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
+			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+			this.$store.commit(MUTATIONS.SET_LOADING, { value: false })
+		},
+		async exportOpml() {
+			try {
+				const response = await fetch('export/opml')
+				if (response.ok) {
+					const formattedDate = new Date().toISOString().split('T')[0]
+					const blob = await response.blob()
+					const link = document.createElement('a')
+					link.href = URL.createObjectURL(blob)
+					link.download = 'subscriptions-' + formattedDate + '.opml'
+					link.click()
+				} else {
+					showError(t('news', 'Error retrieving the opml file'))
+				}
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Error connecting to the server'),
+					error: e,
+				})
+			}
+		},
 		handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)
@@ -543,3 +626,14 @@ export default Vue.extend({
 })
 
 </script>
+
+<style scoped>
+.button-container {
+  display: flex;
+  width: 100%;
+}
+
+.button-container button {
+  flex: 1;
+}
+</style>
