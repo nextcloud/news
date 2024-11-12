@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - If title of feed is empty during creation set hostname of feed as title (#2872)
+- Add command to import OPML file
 
 ### Fixed
 - Feed without Title returned by DB causes exception (#2872)
