@@ -232,7 +232,7 @@ class FeedServiceV2 extends Service
         if ($this->existsForUser($userId, $feedUrl)) {
             throw new ServiceConflictException('Feed with this URL exists');
         }
-        
+
         if ($feed === null) {
             throw new ServiceNotFoundException('Failed to fetch feed');
         }
@@ -242,11 +242,15 @@ class FeedServiceV2 extends Service
             ->setHttpLastModified(null)
             ->setArticlesPerUpdate(count($items));
 
-        if (!is_null($title)) {
+        if ($title !== null) {
             $feed->setTitle($title);
         }
+   
+        if ($feed->getTitle() === null) {
+            $feed->setTitle(parse_url($feedUrl)['host']);
+        }
 
-        if (!is_null($user)) {
+        if ($user !== null) {
             $feed->setBasicAuthUser($user)
                 ->setBasicAuthPassword($password);
         }
