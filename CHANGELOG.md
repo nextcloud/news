@@ -7,8 +7,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- If title of feed is empty during creation set hostname of feed as title (#2872)
 
 ### Fixed
+- Feed without Title returned by DB causes exception (#2872)
 
 # Releases
 ## [25.0.0-alpha14] - 2024-11-10
