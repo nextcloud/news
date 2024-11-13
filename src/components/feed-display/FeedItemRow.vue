@@ -38,9 +38,9 @@
 
 		<div class="button-container" @click="$event.stopPropagation()">
 			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
-			<EyeIcon v-if="item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
-			<EyeCheckIcon v-if="!item.unread && !keepUnread" @click="toggleKeepUnread(item)" />
-			<EyeLockIcon v-if="keepUnread" class="keep-unread" @click="toggleKeepUnread(item)" />
+			<EyeIcon v-if="item.unread && !item.keepUnread" @click="toggleKeepUnread(item)" />
+			<EyeCheckIcon v-if="!item.unread && !item.keepUnread" @click="toggleKeepUnread(item)" />
+			<EyeLockIcon v-if="item.keepUnread" class="keep-unread" @click="toggleKeepUnread(item)" />
 			<NcActions>
 				<NcActionButton :title="t('news', 'Share within Instance')" @click="shareItem = item.id; showShareMenu = true">
 					{{ t('news', 'Share') }}
@@ -94,7 +94,6 @@ export default Vue.extend({
 	},
 	data: () => {
 		return {
-			keepUnread: false,
 			showShareMenu: false,
 			shareItem: undefined,
 		}
@@ -142,12 +141,12 @@ export default Vue.extend({
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
 		markRead(item: FeedItem): void {
-			if (!this.keepUnread && item.unread) {
+			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			}
 		},
 		toggleKeepUnread(item: FeedItem): void {
-			this.keepUnread = !this.keepUnread
+			this.$set(item, 'keepUnread', !item.keepUnread)
 			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
 		},
 		toggleStarred(item: FeedItem): void {

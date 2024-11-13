@@ -7,4 +7,5 @@ export type FeedItem = {
   guidHash: string;
   pubDate: number;
   url: string;
+  keepUnread: boolean;
 };

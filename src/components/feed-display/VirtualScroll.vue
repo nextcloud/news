@@ -83,7 +83,7 @@ export default Vue.extend({
 			for (const [key, value] of this.seenItems) {
 				if (this.scrollTop > value.offset) {
 					const item = value.item
-					if (item.unread) {
+					if (!item.keepUnread && item.unread) {
 						this.$store.dispatch(ACTIONS.MARK_READ, { item })
 					}
 					this.seenItems.delete(key)

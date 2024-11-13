@@ -46,7 +46,7 @@ describe('FeedItemRow.vue', () => {
 	})
 
 	it('should initialize without expanded and without keepUnread', () => {
-		expect(wrapper.vm.$data.keepUnread).toBeFalsy()
+		expect(wrapper.vm.$props.item.keepUnread).toBeFalsy()
 	})
 
 	it('should format date to match locale', () => {
@@ -86,7 +86,7 @@ describe('FeedItemRow.vue', () => {
 
 	describe('markRead', () => {
 		it('should mark item as read when keepUnread is false', () => {
-			wrapper.vm.$data.keepUnread = false;
+			wrapper.vm.$props.item.keepUnread = false;
 			(wrapper.vm as any).markRead(wrapper.vm.$props.item)
 
 			expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.MARK_READ, {
@@ -95,17 +95,17 @@ describe('FeedItemRow.vue', () => {
 		})
 
 		it('should not mark item as read when keepUnread is true', () => {
-			wrapper.vm.$data.keepUnread = true;
-			(wrapper.vm as any).markRead(wrapper.vm.$data.item)
+			wrapper.vm.$props.item.keepUnread = true;
+			(wrapper.vm as any).markRead(wrapper.vm.$props.item)
 
 			expect(dispatchStub).not.toHaveBeenCalled()
 		})
 	})
 
 	it('toggles keepUnread state', () => {
-		const initialKeepUnread = wrapper.vm.$data.keepUnread;
-		(wrapper.vm as any).toggleKeepUnread(wrapper.vm.$data.item)
-		const updatedKeepUnread = wrapper.vm.$data.keepUnread
+		const initialKeepUnread = wrapper.vm.$props.item.keepUnread;
+		(wrapper.vm as any).toggleKeepUnread(wrapper.vm.$props.item)
+		const updatedKeepUnread = wrapper.vm.$props.item.keepUnread
 
 		expect(updatedKeepUnread).toBe(!initialKeepUnread)
 	})
