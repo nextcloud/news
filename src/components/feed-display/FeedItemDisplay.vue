@@ -180,7 +180,7 @@ export default Vue.extend({
 		},
 
 		toggleRead(item: FeedItem): void {
-			if (item.unread) {
+			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			} else {
 				this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })

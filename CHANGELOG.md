@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - Feed without Title returned by DB causes exception (#2872)
+- Keep Unread is now respected during mark read on scroll and is kept during feed/folder changes
 
 # Releases
 ## [25.0.0-alpha14] - 2024-11-10
