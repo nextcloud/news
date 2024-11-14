@@ -5,7 +5,6 @@
 			<NcAppContentList>
 				<FeedItemDisplayList :items="items"
 					:fetch-key="fetchKey"
-					:config="config"
 					@load-more="emit('load-more')">
 					<template #header>
 						<slot name="header" />
@@ -50,7 +49,7 @@ import TextIcon from 'vue-material-design-icons/Text.vue'
 
 import { FeedItem } from '../types/FeedItem'
 
-import FeedItemDisplayList, { Config } from './feed-display/FeedItemDisplayList.vue'
+import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
 import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
 
 defineProps({
@@ -61,9 +60,6 @@ defineProps({
 	fetchKey: {
 		type: String,
 		required: true,
-	},
-	config: {
-		type: Object as PropType<Config>,
 	},
 })
 

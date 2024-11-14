@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { type PropType } from 'vue'
+import Vue from 'vue'
 import _ from 'lodash'
 
 import VirtualScroll from './VirtualScroll.vue'
@@ -54,14 +54,6 @@ import FeedItemRow from './FeedItemRow.vue'
 import { FeedItem } from '../../types/FeedItem'
 import { FEED_ORDER } from '../../dataservices/feed.service'
 import { ACTIONS } from '../../store'
-
-const DEFAULT_DISPLAY_LIST_CONFIG = {
-	ordering: FEED_ORDER.NEWEST,
-}
-
-export type Config = {
-	ordering: number;
-}
 
 export default Vue.extend({
 	components: {
@@ -76,12 +68,6 @@ export default Vue.extend({
 		fetchKey: {
 			type: String,
 			required: true,
-		},
-		config: {
-			type: Object as PropType<Config>,
-			default: () => {
-				return DEFAULT_DISPLAY_LIST_CONFIG
-			},
 		},
 	},
 	data() {
@@ -104,9 +90,6 @@ export default Vue.extend({
 		}
 	},
 	computed: {
-		cfg() {
-			return _.defaults({ ...this.config }, DEFAULT_DISPLAY_LIST_CONFIG)
-		},
 		getSelectedItem() {
 			return this.$store.getters.selected
 		},
