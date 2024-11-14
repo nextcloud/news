@@ -5,7 +5,6 @@ import { Feed } from '../types/Feed'
 import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
 import { FolderService } from '../dataservices/folder.service'
 import { FEED_ORDER, FEED_UPDATE_MODE, FeedService } from '../dataservices/feed.service'
-import { ItemService } from '../dataservices/item.service'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
@@ -95,12 +94,12 @@ export const actions = {
 			commit(FEED_MUTATION_TYPES.ADD_FEED, response.data.feeds[0])
 		} catch (e) {
 			// TODO: show error to user if failure
-			console.log(e)
+			console.error(e)
 		}
 	},
 
 	async [FEED_ACTION_TYPES.MOVE_FEED](
-		{ commit }: ActionParams<FeedState>,
+		state: FeedState,
 		{ feedId, folderId }: { feedId: number, folderId: number },
 	) {
 		// Check that url is resolvable
@@ -110,12 +109,12 @@ export const actions = {
 				folderId,
 			})
 
-			// The feed list seems to refresh, but the parent folder does not update in the UI
-			// We will do this directly by resetting the states of the folders and feeds and fetching them again
-			// commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feedId, folderId })
+			if (!response) {
+				console.error('error moving feed %d', feedId)
+			}
 		} catch (e) {
 			// TODO: show error to user if failure
-			console.log(e)
+			console.error(e)
 		}
 	},
 
