@@ -343,11 +343,7 @@ export default Vue.extend({
 
 	.header-content {
 		flex-grow: 1;
-		padding-left: 50px;
+		padding-left: 52px;
 		font-weight: 700;
-	}
-
-	.filter-container {
-		padding: 5px;
 	}
 </style>
