@@ -61,8 +61,6 @@ export default Vue.extend({
 			return this.$store.state.folders.folders
 		},
 		disableMoveFeed(): boolean {
-			console.log('feed', this.feed)
-			console.log('this.folder', this.folder)
 			return (this.folder !== undefined && this.folder.id === this.feed.folderId)
 		},
 	},
