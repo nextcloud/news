@@ -88,9 +88,6 @@ export default Vue.extend({
 		return {
 			mounted: false,
 
-			// Show unread items at start
-			filter: () => { return this.unreadFilter },
-
 			// Determine the sorting order
 			sort: (a: FeedItem, b: FeedItem) => {
 				if (a.id > b.id) {
@@ -230,9 +227,6 @@ export default Vue.extend({
 		fetchMore() {
 			this.$emit('load-more')
 		},
-		noFilter(): boolean {
-			return true
-		},
 		unreadFilter(item: FeedItem): boolean {
 			return item.unread
 		},
@@ -243,15 +237,9 @@ export default Vue.extend({
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
 
-			let itemFilter = this.filter
-
-			if (this.fetchKey !== 'starred' && !this.$store.getters.showAll) {
-				itemFilter = this.unreadFilter
-			}
-
 			// if we're filtering on unread, we want to cache the unread items when the user presses the filter button
 			// that way when the user opens an item, it won't be removed from the displayed list of items (once it's no longer unread)
-			if (itemFilter === this.unreadFilter) {
+			if (this.fetchKey !== 'starred' && !this.$store.getters.showAll) {
 				if (!this.cache) {
 					if (this.items.length > 0) {
 						this.cache = this.items.filter(this.unreadFilter)
@@ -264,8 +252,6 @@ export default Vue.extend({
 					}
 				}
 				response = [...this.cache as FeedItem[]]
-			} else {
-				response = response.filter(this.filter)
 			}
 
 			// filter items that are already loaded but do not yet match the current view
