@@ -1,7 +1,6 @@
 <template>
 	<ContentTemplate :items="unread() ?? []"
 		:fetch-key="'unread'"
-		:config="{ unreadFilter: false }"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Unread Articles') }}
