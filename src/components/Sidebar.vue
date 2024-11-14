@@ -129,9 +129,6 @@
 			<NcAppNavigationItem :name="t('news', 'Explore')"
 				icon="true"
 				:to="{ name: ROUTES.EXPLORE }">
-				<template #counter>
-					<NcCounterBubble>35</NcCounterBubble>
-				</template>
 				<template #icon>
 					<EarthIcon />
 				</template>
