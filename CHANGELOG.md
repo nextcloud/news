@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Add command to import OPML file
 - Add API to import OPML file or request body
 - add import/export `opml` to user settings (#2541)
+- Remove non-functional unread and starred filter
 
 ### Fixed
 - Feed without Title returned by DB causes exception (#2872)
