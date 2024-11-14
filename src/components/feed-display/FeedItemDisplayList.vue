@@ -5,29 +5,6 @@
 				<slot name="header" />
 			</div>
 
-			<NcActions class="filter-container" :force-menu="true">
-				<template #icon>
-					<FilterIcon />
-				</template>
-				<NcActionButton v-if="cfg.unreadFilter" @click="toggleFilter(unreadFilter)">
-					<template #default>
-						{{ t("news", "Unread") }}
-					</template>
-					<template #icon>
-						<EyeIcon v-if="filter !== unreadFilter" />
-						<EyeCheckIcon v-if="filter === unreadFilter" />
-					</template>
-				</NcActionButton>
-				<NcActionButton v-if="cfg.starFilter" @click="toggleFilter(starFilter)">
-					<template #default>
-						{{ t("news", "Starred") }}
-					</template>
-					<template #icon>
-						<StarIcon v-if="filter !== starFilter" />
-						<StarCheckIcon v-if="filter === starFilter" />
-					</template>
-				</NcActionButton>
-			</NcActions>
 			<button v-shortkey="['arrowleft']" class="hidden" @shortkey="jumpToPreviousItem">
 				Prev
 			</button>
@@ -71,15 +48,6 @@
 import Vue, { type PropType } from 'vue'
 import _ from 'lodash'
 
-import FilterIcon from 'vue-material-design-icons/Filter.vue'
-import StarIcon from 'vue-material-design-icons/Star.vue'
-import StarCheckIcon from 'vue-material-design-icons/StarCheck.vue'
-import EyeIcon from 'vue-material-design-icons/Eye.vue'
-import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
-
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-
 import VirtualScroll from './VirtualScroll.vue'
 import FeedItemRow from './FeedItemRow.vue'
 
@@ -88,14 +56,10 @@ import { FEED_ORDER } from '../../dataservices/feed.service'
 import { ACTIONS } from '../../store'
 
 const DEFAULT_DISPLAY_LIST_CONFIG = {
-	starFilter: true,
-	unreadFilter: true,
 	ordering: FEED_ORDER.NEWEST,
 }
 
 export type Config = {
-	unreadFilter: boolean;
-	starFilter: boolean;
 	ordering: number;
 }
 
@@ -103,13 +67,6 @@ export default Vue.extend({
 	components: {
 		VirtualScroll,
 		FeedItemRow,
-		FilterIcon,
-		StarIcon,
-		StarCheckIcon,
-		EyeIcon,
-		EyeCheckIcon,
-		NcActions,
-		NcActionButton,
 	},
 	props: {
 		items: {
@@ -228,9 +185,6 @@ export default Vue.extend({
 			this.refreshItemList()
 		},
 	},
-	created() {
-		this.loadFilter()
-	},
 	mounted() {
 		this.mounted = true
 		this.setupDebouncedClick()
@@ -273,49 +227,11 @@ export default Vue.extend({
 			}
 			return oldestFirst
 		},
-		storeFilter() {
-			try {
-				let filterString = 'noFilter'
-
-				if (this.filter === this.starFilter) {
-					filterString = 'starFilter'
-				} else if (this.filter === this.unreadFilter) {
-					filterString = 'unreadFilter'
-				}
-
-				localStorage.setItem('news-filter', filterString)
-			} catch (error) {
-				console.error('Error saving filter to local storage:', error)
-			}
-		},
-		loadFilter() {
-			try {
-				const filterString = localStorage.getItem('news-filter')
-
-				if (filterString) {
-					switch (filterString) {
-					case 'starFilter':
-						this.filter = this.starFilter
-						break
-					case 'unreadFilter':
-						this.filter = this.unreadFilter
-						break
-					default:
-						this.filter = this.noFilter
-					}
-				}
-			} catch (error) {
-				console.error('Error loading filter from local storage:', error)
-			}
-		},
 		fetchMore() {
 			this.$emit('load-more')
 		},
 		noFilter(): boolean {
 			return true
-		},
-		starFilter(item: FeedItem): boolean {
-			return item.starred
 		},
 		unreadFilter(item: FeedItem): boolean {
 			return item.unread
@@ -324,26 +240,12 @@ export default Vue.extend({
 			const lastItemLoaded = this.$store.state.items.lastItemLoaded[this.fetchKey]
 			return (this.listOrdering ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
 		},
-		toggleFilter(filter: (item: FeedItem) => boolean) {
-			if (this.filter === filter) {
-				this.filter = this.noFilter
-				if (filter === this.unreadFilter) {
-					this.cache = undefined
-				}
-			} else {
-				this.filter = filter as () => boolean
-			}
-
-			this.storeFilter()
-			this.refreshItemList()
-		},
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
 
 			let itemFilter = this.filter
 
-			if ((this.fetchKey !== 'starred' && this.filter !== this.starFilter)
-				&& !this.$store.getters.showAll) {
+			if (this.fetchKey !== 'starred' && !this.$store.getters.showAll) {
 				itemFilter = this.unreadFilter
 			}
 
@@ -467,6 +369,7 @@ export default Vue.extend({
 		display: flex;
 		align-items: center;
 		justify-content: right;
+		height: 54px;
 	}
 
 	.header-content {
