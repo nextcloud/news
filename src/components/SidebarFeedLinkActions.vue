@@ -120,8 +120,8 @@ import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
 import { ACTIONS } from '../store'
 import { Feed } from '../types/Feed'
 import MoveFeed from './MoveFeed.vue'
-const UnreadSvg = require('../../img/updatemodeunread.svg')
-const IgnoreSvg = require('../../img/updatemodedefault.svg')
+import UnreadSvg from '../../img/updatemodeunread.svg'
+import IgnoreSvg from '../../img/updatemodedefault.svg'
 
 export default Vue.extend({
 	components: {
