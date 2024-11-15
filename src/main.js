@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueShortKey from 'vue-shortkey'
 import Vuex, { Store } from 'vuex'
 import axios from '@nextcloud/axios'
 
@@ -16,7 +17,7 @@ Vue.prototype.OCA = OCA
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
-Vue.use(require('vue-shortkey'), { prevent: ['input', 'textarea'] })
+Vue.use(VueShortKey, { prevent: ['input', 'textarea'] })
 
 Vue.directive('tooltip', Tooltip)
 
