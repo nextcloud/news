@@ -1,8 +1,6 @@
 import axios from '@nextcloud/axios'
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 
-import * as router from '@nextcloud/router'
-
 import Explore from '../../../../../src/components/routes/Explore.vue'
 
 jest.mock('@nextcloud/axios')
@@ -13,7 +11,6 @@ describe('Explore.vue', () => {
 
 	it('should initialize without showing AddFeed Component', () => {
 		(axios as any).get.mockResolvedValue({ data: { } });
-		(router as any).generateUrl = jest.fn().mockReturnValue('')
 
 		const wrapper = shallowMount(Explore, {
 			localVue,
