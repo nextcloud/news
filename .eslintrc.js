@@ -19,10 +19,12 @@ module.exports = {
 		'@nextcloud',
 		'plugin:@typescript-eslint/recommended',
 	],
-	ignorePatterns: ['*.d.ts', 'l10n/*.js'],
 	rules: {
 		'no-console': 'warn',
 		'@typescript-eslint/no-var-requires': 'off',
+
+		// disable deprecated func-call-spacing
+		'@typescript-eslint/func-call-spacing': 'off',
 
 		// TODO: Trouble importing .ts files into .vue files for some reason?
 		'import/extensions': 'off',
