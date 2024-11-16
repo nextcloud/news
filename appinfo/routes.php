@@ -15,52 +15,14 @@
 
 return ['routes' => [
 // page
-['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
-['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'PUT'],
 ['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
-['name' => 'page#explore', 'url' => '/explore/feeds.{lang}.json', 'verb' => 'GET'],
 
 // admin
 ['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],
 ['name' => 'admin#migrate', 'url' => '/admin/migrate', 'verb' => 'POST'],
 
-// folders
-['name' => 'folder#index', 'url' => '/folders', 'verb' => 'GET'],
-['name' => 'folder#create', 'url' => '/folders', 'verb' => 'POST'],
-['name' => 'folder#delete', 'url' => '/folders/{folderId}', 'verb' => 'DELETE'],
-['name' => 'folder#restore', 'url' => '/folders/{folderId}/restore', 'verb' => 'POST'],
-['name' => 'folder#rename', 'url' => '/folders/{folderId}/rename', 'verb' => 'POST'],
-['name' => 'folder#read', 'url' => '/folders/{folderId}/read', 'verb' => 'POST'],
-['name' => 'folder#open', 'url' => '/folders/{folderId}/open', 'verb' => 'POST'],
-
-// feeds
-['name' => 'feed#index', 'url' => '/feeds', 'verb' => 'GET'],
-['name' => 'feed#create', 'url' => '/feeds', 'verb' => 'POST'],
-['name' => 'feed#delete', 'url' => '/feeds/{feedId}', 'verb' => 'DELETE'],
-['name' => 'feed#restore', 'url' => '/feeds/{feedId}/restore', 'verb' => 'POST'],
-['name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'],
-['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
-['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],
-['name' => 'feed#import', 'url' => '/feeds/import/articles', 'verb' => 'POST'],
-['name' => 'feed#patch', 'url' => '/feeds/{feedId}', 'verb' => 'PATCH'],
-
-// items
-['name' => 'item#index', 'url' => '/items', 'verb' => 'GET'],
-['name' => 'item#new_items', 'url' => '/items/new', 'verb' => 'GET'],
-['name' => 'item#readAll', 'url' => '/items/read', 'verb' => 'POST'],
-['name' => 'item#read', 'url' => '/items/{itemId}/read', 'verb' => 'POST'],
-['name' => 'item#read_multiple', 'url' => '/items/read/multiple', 'verb' => 'POST'],
-['name' => 'item#star', 'url' => '/items/{feedId}/{guidHash}/star', 'verb' => 'POST'],
-['name' => 'item#share', 'url' => '/items/{itemId}/share/{shareRecipientId}', 'verb' => 'POST'],
-
-// export
-['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],
-['name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'],
-
 // general API
 ['name' => 'api#index', 'url' => '/api', 'verb' => 'GET'],
-
 ['name' => 'utility_api#preflighted_cors', 'url' => '/api/{apiVersion}/{path}', 'verb' => 'OPTIONS', 'requirements' => ['apiVersion' => 'v(1-[23]|2)', 'path' => '.+']],
 ['name' => 'utility_api#version', 'url' => '/api/{apiVersion}/version', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v(1-[23]|2)']],
 

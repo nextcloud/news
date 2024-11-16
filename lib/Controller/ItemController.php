@@ -21,6 +21,7 @@ use \OCP\IRequest;
 use \OCP\IConfig;
 use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 
 use \OCA\News\Service\Exceptions\ServiceException;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -64,6 +65,7 @@ class ItemController extends Controller
      * @return array
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/items')]
     public function index(
         int $type = 3,
         int $id = 0,
@@ -184,6 +186,7 @@ class ItemController extends Controller
      * @return array
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/items/new')]
     public function newItems(int $type, int $id, $lastModified = 0): array
     {
         $showAll = $this->settings->getUserValue(
@@ -245,6 +248,7 @@ class ItemController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/items/{feedId}/{guidHash}/star')]
     public function star(int $feedId, string $guidHash, bool $isStarred)
     {
         try {
@@ -269,6 +273,7 @@ class ItemController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/items/{itemId}/read')]
     public function read(int $itemId, $isRead = true)
     {
         try {
@@ -287,6 +292,7 @@ class ItemController extends Controller
      * @return array
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/items/read')]
     public function readAll(int $highestItemId): array
     {
         $this->itemService->readAll($this->getUserId(), $highestItemId);
@@ -300,6 +306,7 @@ class ItemController extends Controller
      * @return void
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/items/read/multiple')]
     public function readMultiple(array $itemIds): void
     {
         foreach ($itemIds as $id) {
@@ -317,6 +324,7 @@ class ItemController extends Controller
      * @param string $shareRecipientId User to share the item with
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/items/{itemId}/share/{shareRecipientId}')]
     public function share(int $itemId, string $shareRecipientId)
     {
         try {
