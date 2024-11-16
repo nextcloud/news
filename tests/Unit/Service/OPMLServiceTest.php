@@ -19,6 +19,7 @@ use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\OpmlService;
 use OCA\News\Utility\OPMLExporter;
+use OCA\News\Utility\OPMLImporter;
 
 use OCA\News\Db\Feed;
 
@@ -41,6 +42,11 @@ class OPMLServiceTest extends TestCase
      */
     private $exporter;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|OPMLImporter
+     */
+    private $importer;
+
     /** @var OpmlService */
     private $class;
 
@@ -59,6 +65,9 @@ class OPMLServiceTest extends TestCase
         $this->exporter = $this->getMockBuilder(OPMLExporter::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->importer = $this->getMockBuilder(OPMLImporter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->folderService = $this
             ->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
@@ -73,7 +82,8 @@ class OPMLServiceTest extends TestCase
         $this->class = new OpmlService(
             $this->folderService,
             $this->feedService,
-            $this->exporter
+            $this->exporter,
+            $this->importer,
         );
         $this->uid = 'jack';
     }
