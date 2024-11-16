@@ -23,7 +23,7 @@ use \OCP\AppFramework\Http\JSONResponse;
 use OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
-use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 
 /**
  * Class ExportController
@@ -47,6 +47,7 @@ class ExportController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/export/opml')]
     public function opml(): DataDownloadResponse
     {
         $date = date('Y-m-d');
@@ -61,6 +62,7 @@ class ExportController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/export/articles')]
     public function articles(): JSONResponse
     {
         $feeds = $this->feedService->findAllForUser($this->getUserId());

@@ -18,6 +18,7 @@ use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -43,6 +44,7 @@ class FolderController extends Controller
      * @psalm-return array{folders: array}
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/folders')]
     public function index(): array
     {
         $folders = $this->folderService->findAllForUser($this->getUserId());
@@ -57,6 +59,7 @@ class FolderController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/folders/{folderId}/open')]
     public function open(?int $folderId, bool $open)
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -78,6 +81,7 @@ class FolderController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/folders')]
     public function create(string $folderName, ?int $parent = null)
     {
         $this->folderService->purgeDeleted($this->getUserId(), time() - 600);
@@ -93,6 +97,7 @@ class FolderController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'DELETE', url: '/folders/{folderId}')]
     public function delete(?int $folderId)
     {
         if (is_null($folderId)) {
@@ -117,6 +122,7 @@ class FolderController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/folders/{folderId}/rename')]
     public function rename(?int $folderId, string $folderName)
     {
         if (is_null($folderId)) {
@@ -143,6 +149,7 @@ class FolderController extends Controller
      * @throws ServiceNotFoundException
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/folders/{folderId}/read')]
     public function read(?int $folderId, int $maxItemId): void
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -157,6 +164,7 @@ class FolderController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/folders/{folderId}/restore')]
     public function restore(?int $folderId)
     {
         $folderId = $folderId === 0 ? null : $folderId;

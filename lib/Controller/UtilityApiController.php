@@ -22,6 +22,7 @@ use \OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
 
 use \OCA\News\Service\StatusService;
 

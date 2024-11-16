@@ -26,6 +26,7 @@ use \OCP\AppFramework\ApiController as BaseApiController;
 use OCP\AppFramework\Http\Attribute\CORS;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\PublicPage;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
 
 /**
  * Class ApiController

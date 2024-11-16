@@ -27,6 +27,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
@@ -53,6 +54,7 @@ class PageController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/')]
     public function index(): TemplateResponse
     {
         $status = $this->statusService->getStatus();
@@ -110,6 +112,7 @@ class PageController extends Controller
     }
 
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/settings')]
     public function settings(): array
     {
         $settings = [
@@ -159,6 +162,7 @@ class PageController extends Controller
      * @param bool $disableRefresh
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'PUT', url: '/settings')]
     public function updateSettings(
         bool $showAll,
         bool $compact,
@@ -193,6 +197,7 @@ class PageController extends Controller
      * @return Http\JSONResponse|array
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/explore/feeds.{lang}.json')]
     public function explore(string $lang)
     {
         $this->config->setUserValue(
