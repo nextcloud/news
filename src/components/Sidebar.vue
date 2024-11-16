@@ -163,6 +163,15 @@
 							{{ t('news', 'Compact view') }}
 						</label>
 					</div>
+					<div v-if="compact">
+						<input id="toggle-compact-expand"
+							v-model="compactExpand"
+							type="checkbox"
+							class="checkbox">
+						<label for="toggle-compact-expand">
+							{{ t('news', 'Expanded compact view') }}
+						</label>
+					</div>
 					<div>
 						<input id="toggle-showall"
 							v-model="showAll"
