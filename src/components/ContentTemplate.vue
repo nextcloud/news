@@ -1,5 +1,5 @@
 <template>
-	<NcAppContent :layout="compactMode ? 'no-split' : 'vertical-split'"
+	<NcAppContent :layout="layout"
 		:show-details="showDetails"
 		@update:showDetails="showItem(false)">
 		<template #list>
@@ -74,8 +74,12 @@ const showDetails = ref(false)
 
 const contentElement = ref()
 
-const compactMode = computed(() => {
-	return appStore.getters.compact(appStore.state)
+const layout = computed(() => {
+	if (appStore.getters.compact(appStore.state)) {
+		return appStore.getters.compactExpand(appStore.state) ? 'horizontal-split' : 'no-split'
+	} else {
+		return 'vertical-split'
+	}
 })
 
 const selectedFeedItem = computed(() => {

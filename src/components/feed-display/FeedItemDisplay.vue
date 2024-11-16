@@ -144,7 +144,7 @@ export default Vue.extend({
 	computed: {
 		...mapState(['feeds']),
 		compactMode() {
-			return this.$store.getters.compact
+			return (this.$store.getters.compact && !this.$store.getters.compactExpand)
 		},
 	},
 	methods: {
