@@ -14,6 +14,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Remove non-functional unread and starred filter
 - add single column layout (compact mode) (#2503)
 - add horizontal split layout (expanded compact mode) (#2503)
+- add single column layout (compact mode) (#2505)
+- add horizontal split layout (expanded compact mode) (#2505)
+- Allow to further drag the feedview list (and/or provide alternative view) (#2505)
 
 ### Fixed
 - Feed without Title returned by DB causes exception (#2872)

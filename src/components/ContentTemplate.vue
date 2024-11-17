@@ -1,6 +1,7 @@
 <template>
 	<NcAppContent :layout="layout"
 		:show-details="showDetails"
+		:list-max-width="100"
 		@update:showDetails="showItem(false)">
 		<template #list>
 			<NcAppContentList>
