@@ -56,7 +56,10 @@ return ['routes' => [
 
 // export
 ['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],
-['name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'],
+['name' => 'item#share', 'url' => '/items/{itemId}/share/{shareRecipientId}', 'verb' => 'POST'],
+
+// import
+['name' => 'import#opml', 'url' => '/import/opml', 'verb' => 'POST'],
 
 // general API
 ['name' => 'api#index', 'url' => '/api', 'verb' => 'GET'],
