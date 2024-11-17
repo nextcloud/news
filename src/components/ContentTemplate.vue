@@ -107,7 +107,7 @@ function showItem(value) {
 
 </script>
 
-<style>
+<style scoped>
 .feed-item-content {
 	overflow:hidden;
 	height: 100%
@@ -116,5 +116,19 @@ function showItem(value) {
 .feed-item-content-wrapper {
 	height: 100%;
 	overflow-y: scroll;
+}
+
+/*
+ * can be removed when fixed in nextcloud-vue library
+ * https://github.com/nextcloud-libraries/nextcloud-vue/pull/6227
+ */
+>>> .splitpanes.default-theme.splitpanes--horizontal .splitpanes__splitter {
+	background-color: var(--color-main-background) !important;
+	border-top: 1px solid var(--color-border) !important;
+}
+
+>>> .splitpanes.default-theme.splitpanes--horizontal .splitpanes__splitter::before,
+>>> .splitpanes.default-theme.splitpanes--horizontal .splitpanes__splitter::after {
+	background-color: var(--color-border) !important;
 }
 </style>
