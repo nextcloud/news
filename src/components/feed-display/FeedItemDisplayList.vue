@@ -131,6 +131,7 @@ export default Vue.extend({
 		// clear cache on route change
 		fetchKey: {
 			handler() {
+				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 				if (this.listOrdering === false) {
 					this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				}
