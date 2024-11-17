@@ -341,6 +341,7 @@ export default Vue.extend({
 		align-items: center;
 		justify-content: right;
 		height: 54px;
+		min-height: 54px;
 	}
 
 	.header-content {

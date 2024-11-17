@@ -265,6 +265,7 @@ export default Vue.extend({
 
 	.feed-item-row .date-container.compact {
 		flex: 0 0 auto;
+		font-size: small;
 	}
 
 	.feed-item-row .button-container {
