@@ -83,7 +83,7 @@ OC.L10N.register(
     "Ignore updated" : "Ignorar actualizados",
     "Share within Instance" : "Compartir dentro da instancia",
     "by" : "por",
-    "from" : "dende",
+    "from" : "desde",
     "shared by" : "compartido por",
     "Play audio" : "Reproducir son",
     "Download audio" : "Descargar son",
