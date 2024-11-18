@@ -41,12 +41,13 @@ class ImportController extends Controller
     public function opml(): void
     {
         $data = '';
-        if ($this->request->files->has('file')) {
-            $file = $this->request->files->get('file');
-            $data = $file->getContent();
+        if (isset($this->request->files['file'])) {
+            $file = $this->request->files['file'];
+            $data = file_get_contents($file['tmp_name']);
         } else {
             $data = $this->request->getContent();
         }
+
 
         $this->opmlService->import($this->getUserId(), $data);
     }
