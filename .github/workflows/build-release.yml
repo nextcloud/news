@@ -68,7 +68,7 @@ jobs:
           appstore_token: ${{ secrets.APPSTORE_TOKEN }}
           download_url: ${{ steps.attach_to_release.outputs.browser_download_url }}
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-          nightly: ${{ github.event.release.prerelease }}
+          nightly: false          
 
       - name: Delete crt and key from local storage
         run: rm -f ~/.nextcloud/certificates/*
