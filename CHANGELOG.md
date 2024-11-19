@@ -7,6 +7,23 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [25.0.0] - 2024-11-19
+This is a major new release with a lot of changes.
+The frontend of news was rewritten from scratch to change to Vue.js coming from the original implementation with AngularJS.
+
+Also we require PHP 8.2+ now and support Nextcloud 29 and 30.
+
+For the full Changelog checkout the entries for 25.0.0-alpha1 to 25.0.0.
+
+### Changes since 25.0.0-alpha14
+
+The following changes and fixes were done since the last alpha version 14.
+
+### Changed
 - If title of feed is empty during creation set hostname of feed as title (#2872)
 - Add command to import OPML file
 - Add API to import OPML file or request body
@@ -20,7 +37,6 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Feed without Title returned by DB causes exception (#2872)
 - Keep Unread is now respected during mark read on scroll and is kept during feed/folder changes
 
-# Releases
 ## [25.0.0-alpha14] - 2024-11-10
 ### Changed
 - Small visual changes introduced by Nextcloud.
