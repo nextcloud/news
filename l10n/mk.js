@@ -26,7 +26,6 @@ OC.L10N.register(
     "Oldest first" : "Старите прво",
     "by" : "од",
     "from" : "од",
-    "Unread" : "Непрочитана",
     "Open website" : "Отвори вебсајт",
     "{num} months ago" : "пред {num} месеци",
     "Keyboard shortcut" : "Кратенка преку тастатура",
