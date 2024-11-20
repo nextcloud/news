@@ -36,7 +36,7 @@ export class ItemService {
 				limit: 40,
 				oldestFirst: store.state.oldestFirst,
 				search: '',
-				showAll: store.state.showAll,
+				showAll: true,
 				type: ITEM_TYPES.ALL,
 				offset: start,
 			},
