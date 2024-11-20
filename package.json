@@ -131,7 +131,7 @@
     "vue-multiselect": "^3.1.0",
     "vue-template-compiler": "^2.7.16",
     "vue2-datepicker": "^3.11.0",
-    "webpack": "^5.94.0",
+    "webpack": "^5.96.1",
     "webpack-cli": "^5.0.0",
     "webpack-merge": "^6.0.1"
   },
