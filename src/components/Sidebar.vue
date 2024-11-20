@@ -34,8 +34,7 @@
 					</NcCounterBubble>
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem v-show="showAll"
-				:name="t('news', 'All articles')"
+			<NcAppNavigationItem :name="t('news', 'All articles')"
 				icon="icon-rss"
 				:to="{ name: ROUTES.ALL }">
 				<template #icon>
