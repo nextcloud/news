@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - remove confirmation dialog when mark read folders/feeds
 
 ### Fixed
+- shortkey 'r' not working in unread view when "Show all articles" is enabled
 
 # Releases
 ## [25.0.0] - 2024-11-19

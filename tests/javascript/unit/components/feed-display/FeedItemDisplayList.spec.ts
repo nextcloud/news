@@ -17,6 +17,7 @@ describe('FeedItemDisplayList.vue', () => {
 		feedId: 1,
 		title: 'feed item',
 		pubDate: Date.now() / 1000,
+		unread: true,
 	}
 
 	let store: Store<any>
