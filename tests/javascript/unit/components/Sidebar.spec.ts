@@ -20,6 +20,11 @@ describe('Sidebar.vue', () => {
 		feeds: [{ id: 1, title: 'first', folderId: 123 }]
 	}
 
+	const folders = [{
+		id: 456,
+		name: 'def',
+	}]
+
 	beforeAll(() => {
 		const localVue = createLocalVue()
 		wrapper = shallowMount(AppSidebar, {
@@ -37,6 +42,7 @@ describe('Sidebar.vue', () => {
 					},
 					getters: {
 						feeds,
+						folders,
 						showAll: () => { return true },
 					},
 					dispatch: jest.fn(),
@@ -58,6 +64,12 @@ describe('Sidebar.vue', () => {
 			(wrapper.vm as any).newFolder('abc')
 
 			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.ADD_FOLDERS, { folder: { name: 'abc' } })
+		})
+
+		it('should not dispatch message to store with folder name to create new folder with existing name', () => {
+			(wrapper.vm as any).newFolder('def')
+
+			expect((wrapper.vm as any).$store.dispatch).not.toHaveBeenCalled()
 		})
 
 		it('should dispatch message to store with folder object on delete folder', () => {
