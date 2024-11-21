@@ -63,6 +63,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "اختصارات لوحة المفاتيح",
     "Disable mark read through scrolling" : "تعطيل علامة القراءة من خلال التمرير",
     "Compact view" : "العرض المضغوط",
+    "Expanded compact view" : "عرض مضغوط مُوسَّع",
     "Show all articles" : "أظهر جميع المواضيع",
     "Reverse ordering (oldest on top)" : "عكس الترتيب (الأقدم بالأعلي)",
     "Disable automatic refresh" : "تعطيل التحديث التلقائي",
