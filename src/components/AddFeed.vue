@@ -87,7 +87,12 @@
 						type="primary"
 						:disabled="disableAddFeed"
 						@click="addFeed()">
-						{{ t("news", "Subscribe") }}
+						<div v-if="addingFeed">
+							<NcLoadingIcon name="Adding feed" />
+						</div>
+						<div v-else>
+							{{ t("news", "Subscribe") }}
+						</div>
 					</NcButton>
 				</fieldset>
 			</form>
@@ -103,6 +108,7 @@ import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
 
 import { Folder } from '../types/Folder'
 import { ACTIONS } from '../store'
@@ -126,6 +132,7 @@ export default Vue.extend({
 		NcCheckboxRadioSwitch,
 		NcButton,
 		NcSelect,
+		NcLoadingIcon,
 	},
 	props: {
 		feed: {
@@ -142,6 +149,7 @@ export default Vue.extend({
 			newFolderName: '',
 
 			autoDiscover: true,
+			addingFeed: false,
 			createNewFolder: false,
 			withBasicAuth: false,
 
@@ -157,6 +165,7 @@ export default Vue.extend({
 		disableAddFeed(): boolean {
 			return (this.feedUrl === ''
 						|| this.feedUrlExists()
+						|| this.addingFeed
 						|| (this.createNewFolder && (this.newFolderName === '' || this.folderNameExists())))
 		},
 	},
@@ -172,6 +181,7 @@ export default Vue.extend({
 		 * Adds a New Feed via the Vuex Store
 		 */
 		async addFeed() {
+			this.addingFeed = true
 			await this.$store.dispatch(ACTIONS.ADD_FEED, {
 				feedReq: {
 					url: this.feedUrl,
@@ -183,6 +193,7 @@ export default Vue.extend({
 			})
 			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 
+			this.addingFeed = false
 			this.$emit('close')
 		},
 		/**
