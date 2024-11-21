@@ -224,7 +224,10 @@ export default Vue.extend({
 
 			// if we're filtering on unread, we want to cache the unread items when the user presses the filter button
 			// that way when the user opens an item, it won't be removed from the displayed list of items (once it's no longer unread)
-			if (this.fetchKey !== 'starred' && this.fetchKey !== 'all' && !this.$store.getters.showAll) {
+			if (this.fetchKey === 'unread'
+				|| (!this.$store.getters.showAll
+					&& this.fetchKey !== 'starred'
+					&& this.fetchKey !== 'all')) {
 				if (!this.cache) {
 					if (this.items.length > 0) {
 						this.cache = this.items.filter(this.unreadFilter)
