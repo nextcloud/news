@@ -100,13 +100,11 @@ describe('Sidebar.vue', () => {
 		})
 
 		it('should call mark feed read for all feeds in state', () => {
-			window.confirm = jest.fn().mockReturnValue(true);
 			(wrapper.vm as any).markAllRead()
 			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledTimes(2)
 		})
 
 		it('should call mark feed read for all feeds in state with matching folderId', () => {
-			window.confirm = jest.fn().mockReturnValue(true);
 			(wrapper.vm as any).markFolderRead({ id: 123 })
 			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledTimes(1)
 		})

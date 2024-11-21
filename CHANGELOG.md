@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - always show `All articles` route entry
+- remove confirmation dialog when mark read folders/feeds
 
 ### Fixed
 
