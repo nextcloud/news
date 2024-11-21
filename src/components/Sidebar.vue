@@ -510,8 +510,12 @@ export default Vue.extend({
 		},
 		newFolder(value: string) {
 			const folderName = value.trim()
-			const folder = { name: folderName }
-			this.$store.dispatch(ACTIONS.ADD_FOLDERS, { folder })
+			if (this.$store.getters.folders.some(f => f.name === folderName)) {
+				showError(t('news', 'Folder exists already!'))
+			} else {
+				const folder = { name: folderName }
+				this.$store.dispatch(ACTIONS.ADD_FOLDERS, { folder })
+			}
 		},
 		markAllRead() {
 			const shouldMarkRead = window.confirm(t('news', 'Are you sure you want to mark all read?'))
