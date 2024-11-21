@@ -2,6 +2,7 @@
 	<span>
 		<NcActionButton v-if="feed.unreadCount > 0"
 			icon="icon-checkmark"
+			:close-after-click="true"
 			@click="markRead">
 			{{ t("news", "Mark read") }}
 		</NcActionButton>

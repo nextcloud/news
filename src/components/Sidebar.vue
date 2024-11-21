@@ -112,7 +112,10 @@
 					</template>
 					<template #actions>
 						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')" :feed-id="topLevelItem.id" />
-						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-checkmark" @click="markFolderRead(topLevelItem)">
+						<NcActionButton v-if="topLevelItem.name !== undefined"
+							icon="icon-checkmark"
+							:close-after-click="true"
+							@click="markFolderRead(topLevelItem)">
 							{{ t("news", "Mark read") }}
 						</NcActionButton>
 						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-rename" @click="renameFolder(topLevelItem)">
@@ -518,25 +521,17 @@ export default Vue.extend({
 			}
 		},
 		markAllRead() {
-			const shouldMarkRead = window.confirm(t('news', 'Are you sure you want to mark all read?'))
-
-			if (shouldMarkRead) {
-				this.$store.getters.feeds.forEach((feed: Feed) => {
-					this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
-				})
-			}
+			this.$store.getters.feeds.forEach((feed: Feed) => {
+				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
+			})
 		},
 		markFolderRead(folder: Folder) {
-			const shouldMarkRead = window.confirm(t('news', 'Are you sure you want to mark all read?'))
-
-			if (shouldMarkRead) {
-				const feeds = this.$store.getters.feeds.filter((feed: Feed) => {
-					return feed.folderId === folder.id
-				})
-				feeds.forEach((feed: Feed) => {
-					this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
-				})
-			}
+			const feeds = this.$store.getters.feeds.filter((feed: Feed) => {
+				return feed.folderId === folder.id
+			})
+			feeds.forEach((feed: Feed) => {
+				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
+			})
 		},
 		renameFolder(folder: Folder) {
 			const name = window.prompt(t('news', 'Rename Folder'), folder.name)
