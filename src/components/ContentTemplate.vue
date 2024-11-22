@@ -8,6 +8,7 @@
 				<FeedItemDisplayList :items="items"
 					:fetch-key="fetchKey"
 					@show-details="showItem(true)"
+					@mark-read="emit('mark-read')"
 					@load-more="emit('load-more')">
 					<template #header>
 						<slot name="header" />

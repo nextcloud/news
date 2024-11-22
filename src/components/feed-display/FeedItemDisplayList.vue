@@ -26,6 +26,9 @@
 			<button v-shortkey="['r']" class="hidden" @shortkey="refreshFeedList">
 				Refresh
 			</button>
+			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
+				markRead
+			</button>
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll ref="virtualScroll"
