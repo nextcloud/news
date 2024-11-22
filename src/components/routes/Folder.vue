@@ -1,6 +1,7 @@
 <template>
 	<ContentTemplate :items="items"
 		:fetch-key="'folder-' + folderId"
+		@mark-read="markRead()"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ folder ? folder.name : '' }}
@@ -68,6 +69,14 @@ export default Vue.extend({
 			if (!this.$store.state.items.fetchingItems['folder-' + this.folderId]) {
 			  this.$store.dispatch(ACTIONS.FETCH_FOLDER_FEED_ITEMS, { folderId: this.id })
 			}
+		},
+		async markRead() {
+			const feeds = this.$store.getters.feeds.filter((feed: Feed) => {
+				return feed.folderId === this.folder.id
+			})
+			feeds.forEach((feed: Feed) => {
+				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
+			})
 		},
 	},
 })

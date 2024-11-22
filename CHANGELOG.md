@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - always show `All articles` route entry
 - remove confirmation dialog when mark read folders/feeds
+- add shortcut 'shift + a' to mark all articles in current feed/folder read
 
 ### Fixed
 - shortkey 'r' not working in unread view when "Show all articles" is enabled

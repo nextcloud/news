@@ -2,6 +2,7 @@
 	<ContentTemplate v-if="!loading"
 		:items="items"
 		:fetch-key="'feed-' + feedId"
+		@mark-read="markRead()"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ feed ? feed.title : '' }}
@@ -63,6 +64,9 @@ export default Vue.extend({
 			if (!this.loading && !this.$store.state.items.fetchingItems['feed-' + this.feedId]) {
 			  this.$store.dispatch(ACTIONS.FETCH_FEED_ITEMS, { feedId: this.id })
 			}
+		},
+		async markRead() {
+			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
 		},
 	},
 })
