@@ -63,6 +63,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "鍵盤快捷鍵",
     "Disable mark read through scrolling" : "停用捲動時標記已讀",
     "Compact view" : "簡潔檢視",
+    "Expanded compact view" : "展開後的精簡檢視",
     "Show all articles" : "顯示全部文章",
     "Reverse ordering (oldest on top)" : "反向排序（最舊的文章排在最上面）",
     "Disable automatic refresh" : "停用自動刷新",
