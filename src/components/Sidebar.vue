@@ -580,7 +580,7 @@ export default Vue.extend({
 			if (this.isFolder(item)) {
 				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item) || item.updateErrorCount > 0
 			} else {
-				return item.pinned || item.unreadCount > 0 || item.updateErrorCount > 0 || this.isActiveFeed(item)
+				return item.unreadCount > 0 || item.updateErrorCount > 0 || this.isActiveFeed(item)
 			}
 		},
 		sortedFolderFeeds(item: Feed | Folder) {
