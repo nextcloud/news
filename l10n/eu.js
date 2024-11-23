@@ -63,7 +63,6 @@ OC.L10N.register(
     "Compact view" : "Ikuspegi trinkoa",
     "Show all articles" : "Erakutsi artikulu guztiak",
     "Reverse ordering (oldest on top)" : "Alderantzizko ordena (zaharrenak goian)",
-    "Are you sure you want to mark all read?" : "Ziur guztiak irakurritako gisa markatu nahi dituzula?",
     "Rename Folder" : "Berrizendatu karpeta",
     "Are you sure you want to delete?" : "Ziur zaude ezabatu nahi duzula?",
     "Rename" : "Berrizendatu",

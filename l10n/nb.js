@@ -64,7 +64,6 @@ OC.L10N.register(
     "Compact view" : "Kompakt visning",
     "Show all articles" : "Vis alle artikler",
     "Reverse ordering (oldest on top)" : "Omvendt sortering (elste øverst)",
-    "Are you sure you want to mark all read?" : "Er du sikker du vil markere alle som lest?",
     "Rename Folder" : "Omdøp mappe",
     "Are you sure you want to delete?" : "Er du sikker på at du vil slette?",
     "Rename" : "Gi nytt navn",

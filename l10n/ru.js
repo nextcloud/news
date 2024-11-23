@@ -64,7 +64,6 @@ OC.L10N.register(
     "Compact view" : "Компактный вид",
     "Show all articles" : "Показать все статьи",
     "Reverse ordering (oldest on top)" : "Обратный порядок (самые старые сверху)",
-    "Are you sure you want to mark all read?" : "Вы уверены, что хотите отметить все прочитанным?",
     "Rename Folder" : "Переименовать Папку",
     "Are you sure you want to delete?" : "Вы уверены, что хотите удалить?",
     "Rename" : "Переименовать",

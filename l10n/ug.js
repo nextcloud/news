@@ -64,7 +64,6 @@ OC.L10N.register(
     "Compact view" : "ئىخچام كۆرۈنۈش",
     "Show all articles" : "بارلىق ماقالىلەرنى كۆرسەت",
     "Reverse ordering (oldest on top)" : "تەتۈر زاكاز قىلىش (ئۈستىدىكى ئەڭ كونا)",
-    "Are you sure you want to mark all read?" : "ئوقۇلغانلارنىڭ ھەممىسىگە بەلگە قويماقچىمۇ؟",
     "Rename Folder" : "ھۆججەت قىسقۇچنىڭ نامىنى ئۆزگەرتىڭ",
     "Are you sure you want to delete?" : "ئۆچۈرمەكچىمۇ؟",
     "Rename" : "ئات ئۆزگەرت",

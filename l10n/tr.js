@@ -64,7 +64,6 @@ OC.L10N.register(
     "Compact view" : "Sıkışık görünüm",
     "Show all articles" : "Tüm yazıları görüntüle",
     "Reverse ordering (oldest on top)" : "Sıralamayı tersine çevir (eskiden yeniye)",
-    "Are you sure you want to mark all read?" : "Tüm dosyaları okunmuş olarak işaretlemek istediğinize emin misiniz?",
     "Rename Folder" : "Klasörü yeniden adlandır",
     "Are you sure you want to delete?" : "Silmek istediğinize emin misiniz?",
     "Rename" : "Yeniden adlandır",

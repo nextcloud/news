@@ -56,7 +56,6 @@ OC.L10N.register(
     "Compact view" : "Tiivis näkymä",
     "Show all articles" : "Näytä kaikki artikkelit",
     "Reverse ordering (oldest on top)" : "Käänteinen järjestys (vanhimmat ensin)",
-    "Are you sure you want to mark all read?" : "Haluatko varmasti merkitä kaikki luetuiksi?",
     "Rename Folder" : "Nimeä kansio uudelleen",
     "Are you sure you want to delete?" : "Haluatko varmasti poistaa?",
     "Rename" : "Nimeä uudelleen",

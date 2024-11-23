@@ -65,7 +65,6 @@ OC.L10N.register(
     "Show all articles" : "Visa alla artiklar",
     "Reverse ordering (oldest on top)" : "Omvänd ordning (äldst överst)",
     "Disable automatic refresh" : "Inaktivera automatisk uppdatering",
-    "Are you sure you want to mark all read?" : "Är du säker på att du vill markera allt som läst?",
     "Rename Folder" : "Byt namn på mapp",
     "Are you sure you want to delete?" : "Är du säker på att du vill ta bort?",
     "Rename" : "Byt namn",

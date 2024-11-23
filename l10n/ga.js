@@ -66,7 +66,6 @@ OC.L10N.register(
     "Show all articles" : "Taispeáin gach alt",
     "Reverse ordering (oldest on top)" : "Ordú droim ar ais (is sine ar an mbarr)",
     "Disable automatic refresh" : "Díchumasaigh athnuachan uathoibríoch",
-    "Are you sure you want to mark all read?" : "An bhfuil tú cinnte gur mhaith leat gach léamh a mharcáil?",
     "Rename Folder" : "Athainmnigh Fillteán",
     "Are you sure you want to delete?" : "An bhfuil tú cinnte gur mhaith leat a scriosadh?",
     "Rename" : "Athainmnigh",

@@ -72,7 +72,6 @@ OC.L10N.register(
     "Error uploading the opml file" : "Erro ao carregar o aquivo opml",
     "Error connecting to the server" : "Error ao conectar ao servidor",
     "Error retrieving the opml file" : "Erro ao recuperar o arquivo oml",
-    "Are you sure you want to mark all read?" : "Tem certeza de que deseja marcar tudo como lido?",
     "Rename Folder" : "Renomear pasta",
     "Are you sure you want to delete?" : "Tem certeza de que deseja excluir?",
     "Rename" : "Renomear",

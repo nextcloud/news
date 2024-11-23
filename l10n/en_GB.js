@@ -73,7 +73,6 @@ OC.L10N.register(
     "Error uploading the opml file" : "Error uploading the opml file",
     "Error connecting to the server" : "Error connecting to the server",
     "Error retrieving the opml file" : "Error retrieving the opml file",
-    "Are you sure you want to mark all read?" : "Are you sure you want to mark all read?",
     "Rename Folder" : "Rename Folder",
     "Are you sure you want to delete?" : "Are you sure you want to delete?",
     "Rename" : "Rename",

@@ -66,7 +66,6 @@ OC.L10N.register(
     "Show all articles" : "Прикажи све чланке",
     "Reverse ordering (oldest on top)" : "Обрнуто ређање (најстарији на врху)",
     "Disable automatic refresh" : "Искључи аутоматско освежавање",
-    "Are you sure you want to mark all read?" : "Да ли сте сигурни да желите све да означите као прочитано?",
     "Rename Folder" : "Промени назив фолдера",
     "Are you sure you want to delete?" : "Да ли сте сигурни да желите да обришете?",
     "Rename" : "Преименуј",

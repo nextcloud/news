@@ -63,7 +63,6 @@ OC.L10N.register(
     "Compact view" : "Compact view",
     "Show all articles" : "Show all articles",
     "Reverse ordering (oldest on top)" : "Reverse ordering (oldest on top)",
-    "Are you sure you want to mark all read?" : "Are you sure you want to mark all read?",
     "Rename Folder" : "Rename Folder",
     "Are you sure you want to delete?" : "Are you sure you want to delete?",
     "Rename" : "Rename",

@@ -66,7 +66,6 @@ OC.L10N.register(
     "Show all articles" : "Alle Artikel anzeigen",
     "Reverse ordering (oldest on top)" : "Sortierung umkehren (älteste zuerst)",
     "Disable automatic refresh" : "Automatisches Aktualisieren deaktivieren",
-    "Are you sure you want to mark all read?" : "Möchtest du wirklich alle als gelesen markieren?",
     "Rename Folder" : "Ordner umbenennen",
     "Are you sure you want to delete?" : "Bist du sicher, dass du löschen möchtest?",
     "Rename" : "Umbenennen",

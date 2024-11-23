@@ -63,7 +63,6 @@ OC.L10N.register(
     "Compact view" : "Vista compacta",
     "Show all articles" : "Mostrar todos los artículos",
     "Reverse ordering (oldest on top)" : "Ordenación inversa (la más antigua en la parte superior)",
-    "Are you sure you want to mark all read?" : "¿Estás seguro de querer marcar todos los artículos como leídos?",
     "Rename Folder" : "Renombrar Carpeta",
     "Are you sure you want to delete?" : "¿Seguro que quieres borrar?",
     "Rename" : "Renombrar",

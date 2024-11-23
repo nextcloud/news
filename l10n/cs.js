@@ -66,7 +66,6 @@ OC.L10N.register(
     "Show all articles" : "Zobrazit všechny články",
     "Reverse ordering (oldest on top)" : "Opačné řazení (od nejstarších)",
     "Disable automatic refresh" : "Vypnout automatické znovunačítání",
-    "Are you sure you want to mark all read?" : "Opravdu chcete vše označit jako přečtené?",
     "Rename Folder" : "Přejmenovat složku",
     "Are you sure you want to delete?" : "Opravdu chcete smazat?",
     "Rename" : "Přejmenovat",

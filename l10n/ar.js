@@ -73,7 +73,6 @@ OC.L10N.register(
     "Error uploading the opml file" : "خطأ أثناء رفع ملف OPML",
     "Error connecting to the server" : "خطأ في التوصيل مع الخادوم",
     "Error retrieving the opml file" : "خطأ في استرجاع ملف OPML",
-    "Are you sure you want to mark all read?" : "هل أنت متأكد أنك تريد تمييز الكل كـ\"مقروءٍ\"؟",
     "Rename Folder" : "تغير تسمية مجلد",
     "Are you sure you want to delete?" : "هل أنت متأكد من أنك تريد الحذف؟",
     "Rename" : "إعادة التسمية",
