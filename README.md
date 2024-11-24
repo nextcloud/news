@@ -3,6 +3,8 @@
 
 The News app is an RSS/Atom feed aggregator. It offers a [RESTful API](https://nextcloud.github.io/news/developer/#apis) for app developers. The source code is [available on GitHub](https://github.com/nextcloud/news)
 
+You can install it via the integrated app store browser in Nextcloud, [News in the appstore](https://apps.nextcloud.com/apps/news).
+
 ## Documentation
 The documentation can be found [here](https://nextcloud.github.io/news/), the source of the documentation is on [GitHub](https://github.com/nextcloud/news/blob/master/docs)
 
@@ -31,4 +33,5 @@ To receive notifications when a new News app version was released, simply add th
 * [Sean Molenaar](https://github.com/SMillerDev)
 
 ### Special thanks to the Feed-IO library
-Please consider donating to the developer of the RSS parser that powers the Nextcloud News App: [https://github.com/sponsors/alexdebril](https://github.com/sponsors/alexdebril)
+Feed-io takes care of fetching feeds and processing them.
+[alexdebril/feed-io](https://github.com/alexdebril/feed-io)
