@@ -135,10 +135,18 @@
 					<EarthIcon />
 				</template>
 			</NcAppNavigationItem>
-			<button v-shortkey="['d']" class="hidden" @shortkey="nextFeed('prev')" />
-			<button v-shortkey="['f']" class="hidden" @shortkey="nextFeed('next')" />
-			<button v-shortkey="['c']" class="hidden" @shortkey="nextFolder('prev')" />
-			<button v-shortkey="['v']" class="hidden" @shortkey="nextFolder('next')" />
+			<button v-shortkey="['d']" class="hidden" @shortkey="nextFeed('prev')">
+				prevFeed
+			</button>
+			<button v-shortkey="['f']" class="hidden" @shortkey="nextFeed('next')">
+				nextFeed
+			</button>
+			<button v-shortkey="['c']" class="hidden" @shortkey="nextFolder('prev')">
+				prevFolder
+			</button>
+			<button v-shortkey="['v']" class="hidden" @shortkey="nextFolder('next')">
+				nextFolder
+			</button>
 		</template>
 		<template #footer>
 			<NcAppNavigationSettings :name="t('news', 'Settings')">
@@ -213,6 +221,7 @@
 						<input ref="fileSelect"
 							type="file"
 							class="hidden"
+							aria-hidden="true"
 							accept=".opml"
 							@change="importOpml">
 						<NcButton aria-label="DownloadOpml"
