@@ -15,9 +15,15 @@
 			<EyeIcon v-if="item.unread" @click="toggleRead(item)" />
 			<EyeCheckIcon v-if="!item.unread" @click="toggleRead(item)" />
 			<CloseIcon @click="compactMode ? $emit('show-details') : clearSelected()" />
-			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="toggleStarred(item)" />
-			<button v-shortkey="['o']" class="hidden" @shortkey="openUrl(item)" />
-			<button v-shortkey="['u']" class="hidden" @shortkey="toggleRead(item)" />
+			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="toggleStarred(item)">
+				toggleStarred
+			</button>
+			<button v-shortkey="['o']" class="hidden" @shortkey="openUrl(item)">
+				openUrl
+			</button>
+			<button v-shortkey="['u']" class="hidden" @shortkey="toggleRead(item)">
+				toggleRead
+			</button>
 		</div>
 		<div class="article">
 			<div class="heading">
