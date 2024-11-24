@@ -54,6 +54,7 @@ OC.L10N.register(
     "Show all articles" : "Rodyti visus straipsnius",
     "Reverse ordering (oldest on top)" : "Atvirkštinis rikiavimas (seniausi viršuje)",
     "Disable automatic refresh" : "Išjungti automatinį įkėlimą iš naujo",
+    "Please select a valid OPML file" : "Pasirinkite tinkamą OPML failą",
     "Rename Folder" : "Pervadinti aplanką",
     "Are you sure you want to delete?" : "Ar tikrai norite ištrinti?",
     "Rename" : "Pervadinti",
