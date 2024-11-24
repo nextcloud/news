@@ -1,8 +1,8 @@
 # Installation/Update & Uninstall
 
 ## Dependencies
-* 64bit OS (starting with News 16.0.0)
-* PHP >= 8.0
+* 64bit Operating System
+* PHP >= 8.2
 * Nextcloud (current stable version)
 * libxml >= 2.7.8
 
