@@ -7,14 +7,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- always show `All articles` route entry
-- remove confirmation dialog when mark read folders/feeds
-- add shortcut 'shift + a' to mark all articles in current feed/folder read
 
 ### Fixed
-- shortcut 'r' not working in unread view when "Show all articles" is enabled
 
 # Releases
+## [25.0.1] - 2024-11-24
+### Changed
+- always show `All articles` route entry (#2913)
+- remove confirmation dialog when mark read folders/feeds (#2913)
+- add shortcut 'shift + a' to mark all articles in current feed/folder read (#2913)
+
+### Fixed
+- shortcut 'r' not working in unread view when "Show all articles" is enabled (#2913)
+
 ## [25.0.0] - 2024-11-19
 This is a major new release with a lot of changes.
 The frontend of news was rewritten from scratch to change to Vue.js coming from the original implementation with AngularJS.
