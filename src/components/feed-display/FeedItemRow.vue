@@ -18,9 +18,9 @@
 
 		<div class="main-container" :class="{ 'compact': compactMode }">
 			<div class="title-container" :class="{ 'compact': compactMode, 'unread': item.unread }">
-				<span :dir="item.rtl && 'rtl'">
+				<h1 :dir="item.rtl && 'rtl'">
 					{{ item.title }}
-				</span>
+				</h1>
 			</div>
 
 			<div class="intro-container" :class="{ 'compact': compactMode }">

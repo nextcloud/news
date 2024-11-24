@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- add h1 header to title in feed item row for better accessibility
 
 # Releases
 ## [25.0.1] - 2024-11-24
