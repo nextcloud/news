@@ -9,9 +9,12 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
-- add h1 header to title in feed item row for better accessibility
 
 # Releases
+## [25.0.2] - 2024-11-25
+### Fixed
+- add h1 header to title in feed item row for better accessibility (#2921)
+
 ## [25.0.1] - 2024-11-24
 ### Changed
 - always show `All articles` route entry (#2913)
