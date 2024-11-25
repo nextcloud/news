@@ -1,15 +1,17 @@
 <template>
 	<NcAppNavigation>
 		<AddFeed v-if="showAddFeed" @close="closeShowAddFeed()" />
-		<NcAppNavigationNew :text="t('news', 'Subscribe')"
-			button-id="new-feed-button"
-			button-class="icon-add"
-			:icon="''"
-			@click="showShowAddFeed()">
-			<template #icon>
-				<PlusIcon />
-			</template>
-		</NcAppNavigationNew>
+		<template #search>
+			<NcAppNavigationNew :text="t('news', 'Subscribe')"
+				button-id="new-feed-button"
+				button-class="icon-add"
+				:icon="''"
+				@click="showShowAddFeed()">
+				<template #icon>
+					<PlusIcon />
+				</template>
+			</NcAppNavigationNew>
+		</template>
 		<template #list>
 			<NcAppNavigationNewItem :name="t('news', 'New folder')"
 				:icon="''"
