@@ -37,10 +37,23 @@
 		</div>
 
 		<div class="button-container" @click="$event.stopPropagation()">
-			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
-			<EyeIcon v-if="item.unread && !item.keepUnread" @click="toggleKeepUnread(item)" />
-			<EyeCheckIcon v-if="!item.unread && !item.keepUnread" @click="toggleKeepUnread(item)" />
-			<EyeLockIcon v-if="item.keepUnread" class="keep-unread" @click="toggleKeepUnread(item)" />
+			<StarIcon :class="{'starred': item.starred }"
+				:title="t('news', 'Toggle star article')"
+				tabindex="0"
+				@click="toggleStarred(item)" />
+			<EyeIcon v-if="item.unread && !item.keepUnread"
+				:title="t('news', 'Keep article unread')"
+				tabindex="0"
+				@click="toggleKeepUnread(item)" />
+			<EyeCheckIcon v-if="!item.unread && !item.keepUnread"
+				:title="t('news', 'Toggle keep current article unread')"
+				tabindex="0"
+				@click="toggleKeepUnread(item)" />
+			<EyeLockIcon v-if="item.keepUnread"
+				:title="t('news', 'Remove keep article unread')"
+				tabindex="0"
+				class="keep-unread"
+				@click="toggleKeepUnread(item)" />
 			<NcActions>
 				<NcActionButton :title="t('news', 'Share within Instance')" @click="shareItem = item.id; showShareMenu = true">
 					{{ t('news', 'Share') }}
