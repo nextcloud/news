@@ -77,10 +77,18 @@
 					</tr>
 					<tr>
 						<td>
-							<kbd>e</kbd>
+							<kbd>enter</kbd>
 						</td>
 						<td>
-							{{ t('news', 'Toggle expand article in compact view') }}
+							{{ t('news', 'Show article details in compact view') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<kbd>esc</kbd>
+						</td>
+						<td>
+							{{ t('news', 'Close article details in compact view') }}
 						</td>
 					</tr>
 					<tr>

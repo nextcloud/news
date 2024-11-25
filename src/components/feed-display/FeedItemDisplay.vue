@@ -27,6 +27,12 @@
 				@shortkey="toggleRead(item)">
 				toggleRead
 			</button>
+			<button v-if="compactMode"
+				v-shortkey="['esc']"
+				class="hidden"
+				@shortkey="$emit('show-details')">
+				closeDetails
+			</button>
 		</div>
 		<div class="article">
 			<div class="heading">
