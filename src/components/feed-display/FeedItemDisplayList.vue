@@ -27,7 +27,16 @@
 				Refresh
 			</button>
 			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
-				markRead
+				markFeedRead
+			</button>
+			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="selectedItem && toggleStarred(selectedItem)">
+				toggleStarred
+			</button>
+			<button v-shortkey="['u']" class="hidden" @shortkey="selectedItem && toggleRead(selectedItem)">
+				toggleRead
+			</button>
+			<button v-shortkey="['o']" class="hidden" @shortkey="selectedItem && openUrl(selectedItem)">
+				openUrl
 			</button>
 		</div>
 		<div class="feed-item-display-container">
@@ -120,6 +129,9 @@ export default Vue.extend({
 		},
 		isLoading() {
 			return this.$store.getters.loading
+		},
+		compactMode() {
+			return (this.$store.getters.compact && !this.$store.getters.compactExpand)
 		},
 	},
 	watch: {
@@ -302,6 +314,25 @@ export default Vue.extend({
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
 				const nextItem = items[currentIndex + 1]
 				this.debouncedClickItem(nextItem)
+			}
+		},
+
+		toggleStarred(item: FeedItem): void {
+			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		},
+
+		toggleRead(item: FeedItem): void {
+			if (!item.keepUnread && item.unread) {
+				this.$store.dispatch(ACTIONS.MARK_READ, { item })
+			} else {
+				this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
+			}
+		},
+
+		openUrl(item: FeedItem): void {
+			// Open the item url in a new tab
+			if (item.url) {
+				window.open(item.url, '_blank')
 			}
 		},
 	},
