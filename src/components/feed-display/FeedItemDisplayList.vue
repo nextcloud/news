@@ -29,6 +29,12 @@
 			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
 				markFeedRead
 			</button>
+			<button v-if="compactMode"
+				v-shortkey="['enter']"
+				class="hidden"
+				@shortkey="selectedItem && $emit('show-details')">
+				showDetails
+			</button>
 			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="selectedItem && toggleStarred(selectedItem)">
 				toggleStarred
 			</button>
