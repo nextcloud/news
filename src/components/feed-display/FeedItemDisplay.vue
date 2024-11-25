@@ -11,10 +11,10 @@
 					</template>
 				</NcActionButton>
 			</NcActions>
-			<StarIcon :class="{'starred': item.starred }" @click="toggleStarred(item)" />
-			<EyeIcon v-if="item.unread" @click="toggleRead(item)" />
-			<EyeCheckIcon v-if="!item.unread" @click="toggleRead(item)" />
-			<CloseIcon @click="compactMode ? $emit('show-details') : clearSelected()" />
+			<StarIcon :class="{'starred': item.starred }" tabindex="0" @click="toggleStarred(item)" />
+			<EyeIcon v-if="item.unread" tabindex="0" @click="toggleRead(item)" />
+			<EyeCheckIcon v-if="!item.unread" tabindex="0" @click="toggleRead(item)" />
+			<CloseIcon tabindex="0" @click="compactMode ? $emit('show-details') : clearSelected()" />
 			<button v-if="compactMode"
 				v-shortkey="{s: ['s'], l: ['l'], i: ['i']}"
 				class="hidden"
