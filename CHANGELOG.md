@@ -9,7 +9,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
-- add h1 header to title in feed item row for better accessibility
+- add h1 header to title in feed item row for better accessibility (#2921)
+- Downgrade htmlpurifier to 4.17.0 to fix log flooding (#2924)
 
 # Releases
 ## [25.0.1] - 2024-11-24
