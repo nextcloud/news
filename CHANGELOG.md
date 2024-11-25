@@ -8,11 +8,12 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - Items list style in compact mode to improve readability (and better match v24's style) (#2918)
-- add shortcuts 'enter' and 'esc' to open/close article details in compact mode
+- add shortcuts `enter` and `esc` to open/close article details in compact mode
 
 ### Fixed
 - scrollbar in sidebar subscribe area / move new folder button in same area than subscribe (#2932)
 - move shortcuts to list component to work also in compact mode
+- add proper title to icons in item list and details view for better accessibility
 
 # Releases
 ## [25.0.2] - 2024-11-25
