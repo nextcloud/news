@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- scrollbar in sidebar subscribe area / move new folder button in same area than subscribe (#2932)
 
 # Releases
 ## [25.0.2] - 2024-11-25
