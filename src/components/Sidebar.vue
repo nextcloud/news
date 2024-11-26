@@ -1,18 +1,16 @@
 <template>
 	<NcAppNavigation>
 		<AddFeed v-if="showAddFeed" @close="closeShowAddFeed()" />
-		<template #search>
-			<NcAppNavigationNew :text="t('news', 'Subscribe')"
-				button-id="new-feed-button"
-				button-class="icon-add"
-				:icon="''"
-				@click="showShowAddFeed()">
-				<template #icon>
-					<PlusIcon />
-				</template>
-			</NcAppNavigationNew>
-		</template>
-		<template #list>
+		<NcAppNavigationNew :text="t('news', 'Subscribe')"
+			button-id="new-feed-button"
+			button-class="icon-add"
+			:icon="''"
+			@click="showShowAddFeed()">
+			<template #icon>
+				<PlusIcon />
+			</template>
+		</NcAppNavigationNew>
+		<div class="new-folder-container">
 			<NcAppNavigationNewItem :name="t('news', 'New folder')"
 				:icon="''"
 				@new-item="newFolder">
@@ -20,6 +18,8 @@
 					<FolderPlusIcon />
 				</template>
 			</NcAppNavigationNewItem>
+		</div>
+		<template #list>
 
 			<NcAppNavigationItem :name="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
@@ -659,5 +659,16 @@ export default Vue.extend({
 
 .button-container button {
   flex: 1;
+}
+.new-folder-container {
+	padding: calc(var(--default-grid-baseline, 4px)* 2);
+}
+
+/*
+ * workaround remove extra scroll bar in navigation body
+ */
+:deep(.app-navigation__body) {
+    overflow-y: unset !important;
+    flex: 1 0 auto;
 }
 </style>
