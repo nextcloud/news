@@ -30,6 +30,12 @@
 				markFeedRead
 			</button>
 			<button v-if="compactMode"
+				v-shortkey="['e']"
+				class="hidden"
+				@shortkey="selectedItem && $emit('show-details')">
+				showDetails
+			</button>
+			<button v-if="compactMode"
 				v-shortkey="['enter']"
 				class="hidden"
 				@shortkey="selectedItem && $emit('show-details')">

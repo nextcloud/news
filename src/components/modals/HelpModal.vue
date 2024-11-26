@@ -77,6 +77,8 @@
 					</tr>
 					<tr>
 						<td>
+							<kbd>e</kbd>
+							/
 							<kbd>enter</kbd>
 						</td>
 						<td>
