@@ -117,7 +117,7 @@ export default Vue.extend({
 		let renderedItems = 0
 		let upperPaddingItems = 0
 		let lowerPaddingItems = 0
-		const itemHeight = this.compactMode ? 37 : 111
+		const itemHeight = this.compactMode ? 44 : 111
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.$el && this.$el.getBoundingClientRect) {
 			const childComponents = this.$slots.default.filter(child => !!child.componentOptions)

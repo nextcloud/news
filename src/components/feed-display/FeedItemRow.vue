@@ -170,7 +170,11 @@ export default Vue.extend({
 	}
 
 	.feed-item-row.compact {
-		display: flex; padding: 1px 1px !important;
+		display: flex; padding: 4px 4px !important;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.feed-item-row.compact a.external {
+		line-height: 0;
 	}
 
 	.feed-item-row:hover {
