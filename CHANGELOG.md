@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Items list style in compact mode to improve readability (and better match v24's style) (#2918)
 
 ### Fixed
 - scrollbar in sidebar subscribe area / move new folder button in same area than subscribe (#2932)
