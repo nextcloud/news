@@ -41,7 +41,8 @@ jobs:
           app: 'news'
           check-code: false
 
-      - name: Install frontend requirements
-        run: sudo apt update && sudo apt install firefox
+      - name: Firefox version
+        run: firefox -v
+
       - name: Run frontend tests
         run: cd ../server/apps/news && make js-test
