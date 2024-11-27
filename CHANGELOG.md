@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - add region role to content list and details so that it can be used by screen readers
 
 ### Fixed
+- use appropriate semantic HTML elements for the item list to be recognised by screen readers
 
 # Releases
 ## [25.0.3] - 2024-11-27
