@@ -22,7 +22,11 @@
 		<div class="main-container" :class="{ 'compact': compactMode }">
 			<div class="title-container" :class="{ 'compact': compactMode, 'unread': item.unread }">
 				<h1 :dir="item.rtl && 'rtl'">
-					{{ item.title }}
+					<a href="#"
+						:title="t('news', 'Open article')"
+						@click="select()">
+						{{ item.title }}
+					</a>
 				</h1>
 			</div>
 

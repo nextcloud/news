@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - use appropriate semantic HTML elements for the item list to be recognised by screen readers
+- make title in item list clickable for screen readers to select the current item
 
 # Releases
 ## [25.0.3] - 2024-11-27
