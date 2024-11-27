@@ -7,6 +7,8 @@
 			<NcAppContentList>
 				<FeedItemDisplayList :items="items"
 					:fetch-key="fetchKey"
+					role="region"
+					:aria-label="t('news', 'Article list')"
 					@show-details="showItem(true)"
 					@mark-read="emit('mark-read')"
 					@load-more="emit('load-more')">
@@ -17,7 +19,9 @@
 			</NcAppContentList>
 		</template>
 
-		<NcAppContentDetails class="feed-item-content">
+		<NcAppContentDetails class="feed-item-content"
+			role="region"
+			:aria-label="t('news', 'Article details')">
 			<div ref="contentElement" class="feed-item-content-wrapper">
 				<FeedItemDisplay v-if="selectedFeedItem"
 					:item="selectedFeedItem"
