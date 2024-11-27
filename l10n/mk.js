@@ -24,6 +24,7 @@ OC.L10N.register(
     "Delete" : "Избриши",
     "Newest first" : "Новите прво",
     "Oldest first" : "Старите прво",
+    "Mark unread" : "Означи како непрочитано",
     "by" : "од",
     "from" : "од",
     "Open website" : "Отвори вебсајт",

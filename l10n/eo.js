@@ -27,6 +27,8 @@ OC.L10N.register(
     "Delete" : "Forigi",
     "Newest first" : "Pli novaj unue",
     "Oldest first" : "Malpli novaj unue",
+    "Mark unread" : "Marki kiel nelegita",
+    "Close details" : "Fermi detalojn",
     "by" : "de",
     "from" : "el",
     "Open website" : "Malfermi TTT-ejon",
