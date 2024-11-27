@@ -1,5 +1,8 @@
 <template>
-	<div class="feed-item-row" :class="{ 'compact': compactMode }" @click="select()">
+	<li class="feed-item-row"
+		:class="{ 'compact': compactMode }"
+		:aria-label="item.title"
+		@click="select()">
 		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
 			<a class="external"
@@ -63,7 +66,7 @@
 				</NcActionButton>
 			</NcActions>
 		</div>
-	</div>
+	</li>
 </template>
 
 <script lang="ts">
