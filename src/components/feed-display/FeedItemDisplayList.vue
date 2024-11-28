@@ -56,9 +56,11 @@
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
-					<template v-for="item in filteredItemcache">
+					<template v-for="(item, index) in filteredItemcache">
 						<FeedItemRow :key="item.id"
 							:ref="'feedItemRow' + item.id"
+							:item-count="filteredItemcache.length"
+							:item-index="index + 1"
 							:item="item"
 							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
 							@show-details="$emit('show-details')" />

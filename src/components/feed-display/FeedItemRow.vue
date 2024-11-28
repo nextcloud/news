@@ -2,6 +2,8 @@
 	<li class="feed-item-row"
 		:class="{ 'compact': compactMode }"
 		:aria-label="item.title"
+		:aria-setsize="itemCount"
+		:aria-posinset="itemIndex"
 		@click="select()">
 		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
@@ -109,6 +111,14 @@ export default Vue.extend({
 	props: {
 		item: {
 			type: Object,
+			required: true,
+		},
+		itemCount: {
+			type: Number,
+			required: true,
+		},
+		itemIndex: {
+			type: Number,
 			required: true,
 		},
 	},
