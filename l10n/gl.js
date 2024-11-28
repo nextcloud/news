@@ -116,6 +116,8 @@ OC.L10N.register(
     "Jump to previous article" : "Saltar ao artigo anterior",
     "Star article and jump to next one" : "Destacar o artigo e ir ao seguinte",
     "Open article in new tab" : "Abrir o artigo nunha nova lapela",
+    "Show article details in compact view" : "Amosar os detalles do artigo na vista compacta",
+    "Close article details in compact view" : "Pechar os detalles do artigo na vista compacta",
     "Refresh" : "Actualizar",
     "Load next feed" : "Cargar a seguinte fonte",
     "Load previous feed" : "Cargar a fonte anterior",

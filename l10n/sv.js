@@ -114,6 +114,8 @@ OC.L10N.register(
     "Jump to previous article" : "Hoppa till föregående artikel",
     "Star article and jump to next one" : "Stärnmärk artikel och hoppa till nästa",
     "Open article in new tab" : "Öppna artikeln i ny flik",
+    "Show article details in compact view" : "Visa artikeldetaljer i kompakt vy",
+    "Close article details in compact view" : "Stäng artikeldetaljer i kompakt vy",
     "Refresh" : "Uppdatera",
     "Load next feed" : "Läs in nästkommande flöde",
     "Load previous feed" : "Läs in föregående flöde",
