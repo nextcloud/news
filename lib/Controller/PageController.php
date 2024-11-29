@@ -75,14 +75,14 @@ class PageController extends Controller
         );
 
         $usersettings = [
-            'compact',
-            'compactExpand',
             'preventReadOnScroll',
             'oldestFirst',
             'showAll',
             'lastViewedFeedId',
             'lastViewedFeedType',
-            'disableRefresh'
+            'disableRefresh',
+            'displaymode',
+            'splitmode'
         ];
 
         foreach ($usersettings as $setting) {
@@ -114,10 +114,10 @@ class PageController extends Controller
     {
         $settings = [
             'showAll',
-            'compact',
             'preventReadOnScroll',
             'oldestFirst',
-            'compactExpand'
+            'displaymode',
+            'splitmode'
         ];
 
         $exploreUrl = $this->settings->getValueString(
@@ -152,28 +152,28 @@ class PageController extends Controller
 
     /**
      * @param bool $showAll
-     * @param bool $compact
      * @param bool $preventReadOnScroll
      * @param bool $oldestFirst
-     * @param bool $compactExpand
      * @param bool $disableRefresh
+     * @param int  $displaymode
+     * @param int  $splitmode
      */
     #[NoAdminRequired]
     public function updateSettings(
         bool $showAll,
-        bool $compact,
         bool $preventReadOnScroll,
         bool $oldestFirst,
-        bool $compactExpand,
-        bool $disableRefresh
+        bool $disableRefresh,
+        int  $displaymode,
+        int  $splitmode
     ): void {
         $settings = [
             'showAll'             => $showAll,
-            'compact'             => $compact,
             'preventReadOnScroll' => $preventReadOnScroll,
             'oldestFirst'         => $oldestFirst,
-            'compactExpand'       => $compactExpand,
             'disableRefresh'      => $disableRefresh,
+            'displaymode'         => $displaymode,
+            'splitmode'           => $splitmode,
         ];
 
         foreach ($settings as $setting => $value) {

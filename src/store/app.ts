@@ -8,8 +8,8 @@ export const APPLICATION_ACTION_TYPES = {
 export type AppInfoState = {
 	error?: Error;
 	loading: boolean;
-	compact: boolean;
-	compactExpand: boolean;
+	displaymode: string;
+	splitmode: string;
 	oldestFirst: boolean;
 	preventReadOnScroll: boolean;
 	showAll: boolean;
@@ -21,8 +21,8 @@ export type AppInfoState = {
 const state: AppInfoState = {
 	error: undefined,
 	loading: true,
-	compact: loadState('news', 'compact', null) === '1',
-	compactExpand: loadState('news', 'compactExpand', null) === '1',
+	displaymode: loadState('news', 'displaymode', '0'),
+	splitmode: loadState('news', 'splitmode', '0'),
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
 	showAll: loadState('news', 'showAll', null) === '1',
@@ -38,11 +38,11 @@ const getters = {
 	loading() {
 		return state.loading
 	},
-	compact() {
-		return state.compact
+	displaymode() {
+		return state.displaymode
 	},
-	compactExpand() {
-		return state.compactExpand
+	splitmode() {
+		return state.splitmode
 	},
 	oldestFirst() {
 		return state.oldestFirst
@@ -83,17 +83,17 @@ export const mutations = {
 	) {
 		state.loading = value
 	},
-	compact(
+	displaymode(
 		state: AppInfoState,
-		{ value }: { value: boolean },
+		{ value }: { value: string },
 	) {
-		state.compact = value
+		state.displaymode = value
 	},
-	compactExpand(
+	splitmode(
 		state: AppInfoState,
-		{ value }: { value: boolean },
+		{ value }: { value: string },
 	) {
-		state.compactExpand = value
+		state.splitmode = value
 	},
 	oldestFirst(
 		state: AppInfoState,

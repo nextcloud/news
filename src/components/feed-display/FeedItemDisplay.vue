@@ -25,20 +25,20 @@
 				@click="toggleRead(item)" />
 			<CloseIcon :title="t('news', 'Close details')"
 				tabindex="0"
-				@click="compactMode ? $emit('show-details') : clearSelected()" />
-			<button v-if="compactMode"
+				@click="splitModeOff ? $emit('show-details') : clearSelected()" />
+			<button v-if="splitModeOff"
 				v-shortkey="{s: ['s'], l: ['l'], i: ['i']}"
 				class="hidden"
 				@shortkey="toggleStarred(item)">
 				toggleStarred
 			</button>
-			<button v-if="compactMode"
+			<button v-if="splitModeOff"
 				v-shortkey="['u']"
 				class="hidden"
 				@shortkey="toggleRead(item)">
 				toggleRead
 			</button>
-			<button v-if="compactMode"
+			<button v-if="splitModeOff"
 				v-shortkey="['esc']"
 				class="hidden"
 				@shortkey="$emit('show-details')">
@@ -169,8 +169,8 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['feeds']),
-		compactMode() {
-			return (this.$store.getters.compact && !this.$store.getters.compactExpand)
+		splitModeOff() {
+			return this.$store.getters.splitmode === '2'
 		},
 	},
 	methods: {

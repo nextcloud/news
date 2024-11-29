@@ -193,12 +193,12 @@ class PageControllerTest extends TestCase
         $result = [
             'settings' => [
                 'showAll' => true,
-                'compact' => true,
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
-                'compactExpand' => true,
                 'language' => 'de',
-                'exploreUrl' => 'test'
+                'exploreUrl' => 'test',
+                'displaymode' => '0',
+                'splitmode' => '0'
             ]
         ];
 
@@ -210,10 +210,10 @@ class PageControllerTest extends TestCase
                      ->method('getUserValue')
                      ->withConsecutive(
                         ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'compact'],
                         ['becka', 'news', 'preventReadOnScroll'],
                         ['becka', 'news', 'oldestFirst'],
-                        ['becka', 'news', 'compactExpand']
+                        ['becka', 'news', 'displaymode'],
+                        ['becka', 'news', 'splitmode']
                      )
                      ->will($this->returnValue('1'));
         $this->settings->expects($this->once())
@@ -236,12 +236,12 @@ class PageControllerTest extends TestCase
         $result = [
             'settings' => [
                 'showAll' => true,
-                'compact' => true,
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
                 'language' => 'de',
-                'compactExpand' => true,
-                'exploreUrl' => 'abc'
+                'exploreUrl' => 'abc',
+                'displaymode' => '0',
+                'splitmode' => '0'
             ]
         ];
 
@@ -253,10 +253,10 @@ class PageControllerTest extends TestCase
                     ->method('getUserValue')
                     ->withConsecutive(
                         ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'compact'],
                         ['becka', 'news', 'preventReadOnScroll'],
                         ['becka', 'news', 'oldestFirst'],
-                        ['becka', 'news', 'compactExpand']
+                        ['becka', 'news', 'displaymode'],
+                        ['becka', 'news', 'splitmode']
                     )
                     ->will($this->returnValue('1'));
         $this->settings->expects($this->once())
@@ -280,10 +280,10 @@ class PageControllerTest extends TestCase
                     ->method('setUserValue')
                     ->withConsecutive(
                         ['becka', 'news', 'showAll', '1'],
-                        ['becka', 'news', 'compact', '1'],
                         ['becka', 'news', 'preventReadOnScroll', '0'],
                         ['becka', 'news', 'oldestFirst', '1'],
-                        ['becka', 'news', 'compactExpand', '1'],
+                        ['becka', 'news', 'displaymode', '0'],
+                        ['becka', 'news', 'splitmode', '1'],
                         ['becka', 'news', 'disableRefresh', '0']
                     );
 

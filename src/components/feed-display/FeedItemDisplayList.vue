@@ -29,13 +29,13 @@
 			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
 				markFeedRead
 			</button>
-			<button v-if="compactMode"
+			<button v-if="splitModeOff"
 				v-shortkey="['e']"
 				class="hidden"
 				@shortkey="selectedItem && $emit('show-details')">
 				showDetails
 			</button>
-			<button v-if="compactMode"
+			<button v-if="splitModeOff"
 				v-shortkey="['enter']"
 				class="hidden"
 				@shortkey="selectedItem && $emit('show-details')">
@@ -144,8 +144,8 @@ export default Vue.extend({
 		isLoading() {
 			return this.$store.getters.loading
 		},
-		compactMode() {
-			return (this.$store.getters.compact && !this.$store.getters.compactExpand)
+		splitModeOff() {
+			return this.$store.getters.splitmode === '2'
 		},
 	},
 	watch: {
