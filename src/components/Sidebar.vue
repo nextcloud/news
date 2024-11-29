@@ -156,6 +156,34 @@
 				</NcButton>
 				<HelpModal v-if="showHelp" @close="showHelp=false" />
 				<div>
+					<div class="select-container">
+						<label>
+							{{ t('news', 'Display mode') }}
+						</label>
+						<select id="select-displaymode"
+							v-model="displaymode"
+							:value="displaymode">
+							<option v-for="displayMode in displayModeOptions"
+								:key="displayMode.id"
+								:value="displayMode.id">
+								{{ displayMode.name }}
+							</option>
+						</select>
+					</div>
+					<div class="select-container">
+						<label>
+							{{ t('news', 'Split mode') }}
+						</label>
+						<select id="select-splitmode"
+							v-model="splitmode"
+							:value="splitmode">
+							<option v-for="splitMode in splitModeOptions"
+								:key="splitMode.id"
+								:value="splitMode.id">
+								{{ splitMode.name }}
+							</option>
+						</select>
+					</div>
 					<div>
 						<input id="toggle-preventreadonscroll"
 							v-model="preventReadOnScroll"
@@ -163,24 +191,6 @@
 							class="checkbox">
 						<label for="toggle-preventreadonscroll">
 							{{ t('news', 'Disable mark read through scrolling') }}
-						</label>
-					</div>
-					<div>
-						<input id="toggle-compact"
-							v-model="compact"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-compact">
-							{{ t('news', 'Compact view') }}
-						</label>
-					</div>
-					<div v-if="compact">
-						<input id="toggle-compact-expand"
-							v-model="compactExpand"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-compact-expand">
-							{{ t('news', 'Expanded compact view') }}
 						</label>
 					</div>
 					<div>
@@ -308,6 +318,30 @@ export default Vue.extend({
 			polling: null,
 			uploadStatus: null,
 			selectedFile: null,
+			displayModeOptions: [
+				{
+					id: '0',
+					name: t('news', 'Default'),
+				},
+				{
+					id: '1',
+					name: t('news', 'Compact'),
+				},
+			],
+			splitModeOptions: [
+				{
+					id: '0',
+					name: t('news', 'Vertical'),
+				},
+				{
+					id: '1',
+					name: t('news', 'Horizontal'),
+				},
+				{
+					id: '2',
+					name: t('news', 'Off'),
+				},
+			],
 		}
 	},
 	computed: {
@@ -336,20 +370,20 @@ export default Vue.extend({
 				return this.$store.getters.loading
 			},
 		},
-		compact: {
+		displaymode: {
 			get() {
-				return this.$store.getters.compact
+				return this.$store.getters.displaymode
 			},
 			set(newValue) {
-				this.saveSetting('compact', newValue)
+				this.saveSetting('displaymode', newValue)
 			},
 		},
-		compactExpand: {
+		splitmode: {
 			get() {
-				return this.$store.getters.compactExpand
+				return this.$store.getters.splitmode
 			},
 			set(newValue) {
-				this.saveSetting('compactExpand', newValue)
+				this.saveSetting('splitmode', newValue)
 			},
 		},
 		oldestFirst: {
@@ -443,7 +477,9 @@ export default Vue.extend({
 					key,
 				},
 			)
-			value = value ? '1' : '0'
+			if (typeof value === 'boolean') {
+				value = value ? '1' : '0'
+			}
 			try {
 				const { data } = await axios.post(url, {
 					configValue: value,
@@ -659,6 +695,18 @@ export default Vue.extend({
 .button-container button {
   flex: 1;
 }
+
+.select-container {
+  display: flex;
+  align-items: center;
+}
+
+.select-container select {
+  min-width: 140px;
+  text-overflow: ellipsis;
+  margin-left: auto;
+}
+
 .new-folder-container {
 	padding: calc(var(--default-grid-baseline, 4px)* 2);
 }

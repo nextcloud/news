@@ -22,7 +22,7 @@
 		</div>
 
 		<div class="main-container" :class="{ 'compact': compactMode }">
-			<div class="title-container" :class="{ 'compact': compactMode, 'unread': item.unread }">
+			<div class="title-container" :class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }">
 				<h1 :dir="item.rtl && 'rtl'">
 					<a href="#"
 						:title="t('news', 'Open article')"
@@ -32,13 +32,13 @@
 				</h1>
 			</div>
 
-			<div class="intro-container" :class="{ 'compact': compactMode }">
+			<div v-if="!compactMode || !verticalSplit" class="intro-container" :class="{ 'compact': compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
 				<span class="intro" v-html="item.intro" />
 				<!--eslint-enable-->
 			</div>
 
-			<div class="date-container" :class="{ 'compact': compactMode }">
+			<div v-if="!compactMode || !verticalSplit" class="date-container" :class="{ 'compact': compactMode }">
 				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
 					{{ getRelativeTimestamp(item.pubDate*1000) }}
 				</time>
@@ -131,7 +131,10 @@ export default Vue.extend({
 	computed: {
 		...mapState(['feeds']),
 		compactMode() {
-			return this.$store.getters.compact
+			return this.$store.getters.displaymode === '1'
+		},
+		verticalSplit() {
+			return this.$store.getters.splitmode === '0'
 		},
 	},
 	methods: {

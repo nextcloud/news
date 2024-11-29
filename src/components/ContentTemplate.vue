@@ -81,9 +81,13 @@ const showDetails = ref(false)
 const contentElement = ref()
 
 const layout = computed(() => {
-	if (appStore.getters.compact(appStore.state)) {
-		return appStore.getters.compactExpand(appStore.state) ? 'horizontal-split' : 'no-split'
-	} else {
+	switch (appStore.getters.splitmode(appStore.state)) {
+	case '1':
+		return 'horizontal-split'
+	case '2':
+		return 'no-split'
+	case '0':
+	default:
 		return 'vertical-split'
 	}
 })

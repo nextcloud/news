@@ -48,7 +48,7 @@ export default Vue.extend({
 		compactMode: {
 			cache: false,
 			get() {
-				return this.$store.getters.compact
+				return this.$store.getters.displaymode === '1'
 			},
 		},
 	},
