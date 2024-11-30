@@ -173,7 +173,11 @@ export default Vue.extend({
 		},
 		[
 			h('div', { class: 'upper-padding', style: { height: Math.max((upperPaddingItems) * itemHeight, 0) + 'px' } }),
-			h('ul', { class: 'container-window', style: { height: Math.max((renderedItems) * itemHeight, 0) + 'px' } }, children),
+			h('div', {
+				class: 'container-window',
+				style: { height: Math.max((renderedItems) * itemHeight, 0) + 'px' },
+				attrs: { role: 'feed' },
+			}, children),
 			h('div', { class: 'lower-padding', style: { height: Math.max((lowerPaddingItems) * itemHeight, 0) + 'px' } }),
 		])
 	},

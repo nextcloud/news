@@ -176,6 +176,7 @@
 						</label>
 						<select id="select-splitmode"
 							v-model="splitmode"
+							:disabled="displaymode === '2'"
 							:value="splitmode">
 							<option v-for="splitMode in splitModeOptions"
 								:key="splitMode.id"
@@ -326,6 +327,10 @@ export default Vue.extend({
 				{
 					id: '1',
 					name: t('news', 'Compact'),
+				},
+				{
+					id: '2',
+					name: t('news', 'Screenreader'),
 				},
 			],
 			splitModeOptions: [

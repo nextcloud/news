@@ -1,5 +1,8 @@
 <template>
-	<div class="feed-item-display">
+	<article class="feed-item-display"
+		:class="{ 'screenreader': screenReaderMode }"
+		:aria-setsize="itemCount"
+		:aria-posinset="itemIndex">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
@@ -38,7 +41,7 @@
 				@shortkey="toggleRead(item)">
 				toggleRead
 			</button>
-			<button v-if="splitModeOff"
+			<button v-if="splitModeOff && !screenReaderMode"
 				v-shortkey="['esc']"
 				class="hidden"
 				@shortkey="$emit('show-details')">
@@ -121,7 +124,7 @@
 			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
 			<!--eslint-enable-->
 		</div>
-	</div>
+	</article>
 </template>
 
 <script lang="ts">
@@ -160,6 +163,16 @@ export default Vue.extend({
 			type: Object,
 			required: true,
 		},
+		itemCount: {
+			type: Number,
+			required: false,
+			default: null,
+		},
+		itemIndex: {
+			type: Number,
+			required: false,
+			default: null,
+		},
 	},
 	data: () => {
 		return {
@@ -169,6 +182,9 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['feeds']),
+		screenReaderMode() {
+			return this.$store.getters.displaymode === '2'
+		},
 		splitModeOff() {
 			return this.$store.getters.splitmode === '2'
 		},
@@ -248,6 +264,10 @@ export default Vue.extend({
 		overflow-y: hidden;
 		display: flex;
 		flex-direction: column;
+	}
+
+	.feed-item-display.screenreader {
+		height: 111px;
 	}
 
 	.article {

@@ -29,13 +29,13 @@
 			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
 				markFeedRead
 			</button>
-			<button v-if="splitModeOff"
+			<button v-if="splitModeOff && !screenReaderMode"
 				v-shortkey="['e']"
 				class="hidden"
 				@shortkey="selectedItem && $emit('show-details')">
 				showDetails
 			</button>
-			<button v-if="splitModeOff"
+			<button v-if="splitModeOff && !screenReaderMode"
 				v-shortkey="['enter']"
 				class="hidden"
 				@shortkey="selectedItem && $emit('show-details')">
@@ -57,7 +57,16 @@
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
 					<template v-for="(item, index) in filteredItemcache">
-						<FeedItemRow :key="item.id"
+						<FeedItemDisplay v-if="screenReaderMode"
+							:key="item.id"
+							:ref="'feedItemRow' + item.id"
+							:item-count="filteredItemcache.length"
+							:item-index="index + 1"
+							:item="item"
+							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
+							@show-details="$emit('show-details')" />
+						<FeedItemRow v-else
+							:key="item.id"
 							:ref="'feedItemRow' + item.id"
 							:item-count="filteredItemcache.length"
 							:item-index="index + 1"
@@ -76,6 +85,7 @@ import Vue from 'vue'
 import _ from 'lodash'
 
 import VirtualScroll from './VirtualScroll.vue'
+import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
 
 import { FeedItem } from '../../types/FeedItem'
@@ -85,6 +95,7 @@ import { ACTIONS, MUTATIONS } from '../../store'
 export default Vue.extend({
 	components: {
 		VirtualScroll,
+		FeedItemDisplay,
 		FeedItemRow,
 	},
 	props: {
@@ -143,6 +154,9 @@ export default Vue.extend({
 		},
 		isLoading() {
 			return this.$store.getters.loading
+		},
+		screenReaderMode() {
+			return this.$store.getters.displaymode === '2'
 		},
 		splitModeOff() {
 			return this.$store.getters.splitmode === '2'
