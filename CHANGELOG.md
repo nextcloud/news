@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - add region role to content list and details so that it can be used by screen readers
 - split display settings in "display mode" and "split mode" to allow combining modes
+- add display mode optimized for screen readers
 
 ### Fixed
 - use appropriate semantic HTML elements for the item list to be recognised by screen readers

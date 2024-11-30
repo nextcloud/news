@@ -42,7 +42,8 @@ const getters = {
 		return state.displaymode
 	},
 	splitmode() {
-		return state.splitmode
+		// ignore split mode when screenreader mode is set
+		return state.displaymode === '2' ? '2' : state.splitmode
 	},
 	oldestFirst() {
 		return state.oldestFirst
