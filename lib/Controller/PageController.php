@@ -115,9 +115,7 @@ class PageController extends Controller
         $settings = [
             'showAll',
             'preventReadOnScroll',
-            'oldestFirst',
-            'displaymode',
-            'splitmode'
+            'oldestFirst'
         ];
 
         $exploreUrl = $this->settings->getValueString(
@@ -164,16 +162,12 @@ class PageController extends Controller
         bool $preventReadOnScroll,
         bool $oldestFirst,
         bool $disableRefresh,
-        int  $displaymode,
-        int  $splitmode
     ): void {
         $settings = [
             'showAll'             => $showAll,
             'preventReadOnScroll' => $preventReadOnScroll,
             'oldestFirst'         => $oldestFirst,
-            'disableRefresh'      => $disableRefresh,
-            'displaymode'         => $displaymode,
-            'splitmode'           => $splitmode,
+            'disableRefresh'      => $disableRefresh
         ];
 
         foreach ($settings as $setting => $value) {
