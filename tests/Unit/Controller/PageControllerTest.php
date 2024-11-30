@@ -196,9 +196,7 @@ class PageControllerTest extends TestCase
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
                 'language' => 'de',
-                'exploreUrl' => 'test',
-                'displaymode' => '0',
-                'splitmode' => '0'
+                'exploreUrl' => 'test'
             ]
         ];
 
@@ -206,14 +204,12 @@ class PageControllerTest extends TestCase
              ->method('getLanguageCode')
              ->will($this->returnValue('de'));
 
-        $this->config->expects($this->exactly(5))
+        $this->config->expects($this->exactly(3))
                      ->method('getUserValue')
                      ->withConsecutive(
                         ['becka', 'news', 'showAll'],
                         ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst'],
-                        ['becka', 'news', 'displaymode'],
-                        ['becka', 'news', 'splitmode']
+                        ['becka', 'news', 'oldestFirst']
                      )
                      ->will($this->returnValue('1'));
         $this->settings->expects($this->once())
@@ -239,9 +235,7 @@ class PageControllerTest extends TestCase
                 'preventReadOnScroll' => true,
                 'oldestFirst' => true,
                 'language' => 'de',
-                'exploreUrl' => 'abc',
-                'displaymode' => '0',
-                'splitmode' => '0'
+                'exploreUrl' => 'abc'
             ]
         ];
 
@@ -249,14 +243,12 @@ class PageControllerTest extends TestCase
                    ->method('getLanguageCode')
                    ->will($this->returnValue('de'));
 
-        $this->config->expects($this->exactly(5))
+        $this->config->expects($this->exactly(3))
                     ->method('getUserValue')
                     ->withConsecutive(
                         ['becka', 'news', 'showAll'],
                         ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst'],
-                        ['becka', 'news', 'displaymode'],
-                        ['becka', 'news', 'splitmode']
+                        ['becka', 'news', 'oldestFirst']
                     )
                     ->will($this->returnValue('1'));
         $this->settings->expects($this->once())
@@ -276,18 +268,16 @@ class PageControllerTest extends TestCase
      */
     public function testUpdateSettings()
     {
-        $this->config->expects($this->exactly(6))
+        $this->config->expects($this->exactly(4))
                     ->method('setUserValue')
                     ->withConsecutive(
                         ['becka', 'news', 'showAll', '1'],
                         ['becka', 'news', 'preventReadOnScroll', '0'],
                         ['becka', 'news', 'oldestFirst', '1'],
-                        ['becka', 'news', 'displaymode', '0'],
-                        ['becka', 'news', 'splitmode', '1'],
                         ['becka', 'news', 'disableRefresh', '0']
                     );
 
-        $this->controller->updateSettings(true, true, false, true, true, false);
+        $this->controller->updateSettings(true, false, true, false);
     }
 
     public function testExplore()
