@@ -460,7 +460,7 @@ export default Vue.extend({
 		},
 		async importOpml(event) {
 			const file = event.target.files[0]
-			if (file && file.type === 'text/x-opml+xml') {
+			if (file) {
 				this.selectedFile = file
 			} else {
 				showError(t('news', 'Please select a valid OPML file'))
