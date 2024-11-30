@@ -22,15 +22,15 @@
 		</div>
 
 		<div class="main-container" :class="{ 'compact': compactMode }">
-			<div class="title-container" :class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }">
-				<h1 :dir="item.rtl && 'rtl'">
-					<a href="#"
-						:title="t('news', 'Open article')"
-						@click="select()">
-						{{ item.title }}
-					</a>
-				</h1>
-			</div>
+			<h1 class="title-container"
+				:class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }"
+				:dir="item.rtl && 'rtl'">
+				<a href="#"
+					:title="t('news', 'Open article')"
+					@click="select()">
+					{{ item.title }}
+				</a>
+			</h1>
 
 			<div v-if="!compactMode || !verticalSplit" class="intro-container" :class="{ 'compact': compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
@@ -245,15 +245,17 @@ export default Vue.extend({
 	}
 
 	.feed-item-row .title-container {
-		color: var(--color-text-lighter);
-
 		flex-grow: 1;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 
-	.feed-item-row .title-container.unread {
+	.feed-item-row .title-container a {
+		color: var(--color-text-lighter);
+	}
+
+	.feed-item-row .title-container.unread a {
 		color: var(--color-main-text);
 		font-weight: bold;
 	}
