@@ -7,8 +7,7 @@ setup() {
   load "../test_helper/bats-support/load"
   load "../test_helper/bats-assert/load"
   load "helpers/settings"
-  TAG="25.0.0-alpha11"
-  # $(curl --silent "https://api.github.com/repos/nextcloud/news/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+  TAG=$(curl --silent "https://api.github.com/repos/nextcloud/news/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
   
 }
 
