@@ -362,6 +362,7 @@ export const mutations = {
 
 			items.forEach(it => {
 				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
+					if (!it.title) { it.title = it.url }
 					newItems.push(it)
 					if (state.newestItemId < Number(it.id)) {
 						newestFetchedItemId = Number(it.id)
