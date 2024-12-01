@@ -314,7 +314,7 @@ export default Vue.extend({
 	}
 
 	.article img {
-		width: 100%;
+		max-width: 100%;
 		height: auto;
 	}
 
