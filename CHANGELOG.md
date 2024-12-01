@@ -13,7 +13,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - use appropriate semantic HTML elements for the item list to be recognised by screen readers
 - make title in item list clickable for screen readers to select the current item
 - remove mime type check when importing `opml`, they are not reliable anyway
-- Embeded images are all scaled to max (#2945)
+- Embedded images are all scaled to max (#2945)
 - If an article doesn't have title, there's no link to the article (#758)
 
 # Releases
