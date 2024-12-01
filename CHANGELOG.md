@@ -7,18 +7,23 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- add region role to content list and details so that it can be used by screen readers
-- split display settings in "display mode" and "split mode" to allow combining modes
-- add display mode optimized for screen readers
 
 ### Fixed
-- use appropriate semantic HTML elements for the item list to be recognised by screen readers
-- make title in item list clickable for screen readers to select the current item
-- remove mime type check when importing `opml`, they are not reliable anyway
+
+# Releases
+## [25.1.0] - 2024-12-01
+### Changed
+- add region role to content list and details so that it can be used by screen readers (#2946)
+- split display settings in "display mode" and "split mode" to allow combining modes (#2950)
+- add display mode optimized for screen readers (#2950)
+
+### Fixed
+- use appropriate semantic HTML elements for the item list to be recognised by screen readers (#2946)
+- make title in item list clickable for screen readers to select the current item (#2946)
+- remove mime type check when importing `opml`, they are not reliable anyway (#2951)
 - Embedded images are all scaled to max (#2945)
 - If an article doesn't have title, there's no link to the article (#758)
 
-# Releases
 ## [25.0.3] - 2024-11-27
 ### Changed
 - Items list style in compact mode to improve readability (and better match v24's style) (#2918)
