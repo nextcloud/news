@@ -26,7 +26,8 @@
 				:title="t('news', 'Mark unread')"
 				tabindex="0"
 				@click="toggleRead(item)" />
-			<CloseIcon :title="t('news', 'Close details')"
+			<CloseIcon v-if="!screenReaderMode"
+				:title="t('news', 'Close details')"
 				tabindex="0"
 				@click="splitModeOff ? $emit('show-details') : clearSelected()" />
 			<button v-if="splitModeOff"
