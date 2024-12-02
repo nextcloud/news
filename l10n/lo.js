@@ -11,6 +11,7 @@ OC.L10N.register(
     "Move" : "ຍ້າຍ",
     "Share" : "ແບ່ງປັນ",
     "Settings" : "ການຕັ້ງຄ່າ",
+    "Default" : "ເລີ່ມຕົ້ນ",
     "Rename" : "ປ່ຽນຊື່",
     "Delete" : "ລຶບ",
     "Newest first" : "ໃໝ່ທີ່ສຸດກ່ອນ",

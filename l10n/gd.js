@@ -10,6 +10,7 @@ OC.L10N.register(
     "Move" : "Gluais",
     "Share" : "Co-roinn",
     "Settings" : "Roghainnean",
+    "Default" : "Bunaiteach",
     "Rename" : "Thoir ainm ùr air",
     "Delete" : "Sguab às",
     "Newest first" : "As ùire an toiseach",

@@ -22,6 +22,7 @@ OC.L10N.register(
     "Starred" : "Starred",
     "Settings" : "Cài đặt",
     "Keyboard shortcuts" : "Phím tắt",
+    "Off" : "Tắt",
     "Rename" : "Sửa tên",
     "Delete" : "Xóa",
     "Rename Feed" : "Đổi tên nguồn dữ liệu",

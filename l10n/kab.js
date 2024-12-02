@@ -9,6 +9,8 @@ OC.L10N.register(
     "Move" : "Senkez",
     "Share" : "Bḍu",
     "Settings" : "Iɣewwaṛen",
+    "Default" : "Prédéfini(e)",
+    "Off" : "Ur irmid ara",
     "Rename" : "Beddel isem",
     "Delete" : "Kkes",
     "Newest first" : "Imaynuten d imezwura",

@@ -20,6 +20,7 @@ OC.L10N.register(
     "Starred" : "Со ѕвезда",
     "Settings" : "Параметри",
     "Keyboard shortcuts" : "Кратенки преку тастатура",
+    "Default" : "Предефиниран",
     "Rename" : "Преименувај",
     "Delete" : "Избриши",
     "Newest first" : "Новите прво",

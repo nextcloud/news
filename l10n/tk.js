@@ -10,6 +10,7 @@ OC.L10N.register(
     "Move" : "Göçüriň",
     "Share" : "Paýlaş",
     "Settings" : "Sazlamalar",
+    "Default" : "Bellenen",
     "Rename" : "Adyny üýtgetmek",
     "Delete" : "Pozmak",
     "Newest first" : "Täze ilkinji",
