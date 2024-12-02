@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ab7a1f7419832d35bdca2ce60ff32e8",
+    "content-hash": "5f68d363e140be5a959d48847fdca6d2",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -194,30 +194,30 @@
         },
         {
             "name": "fivefilters/readability.php",
-            "version": "v3.2.0",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fivefilters/readability.php.git",
-                "reference": "433a15f6649881c53c11bffd41ebccbfce6efabb"
+                "reference": "71ab250f44ec9ed6aea1c52acde0e45d2973f990"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/433a15f6649881c53c11bffd41ebccbfce6efabb",
-                "reference": "433a15f6649881c53c11bffd41ebccbfce6efabb",
+                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/71ab250f44ec9ed6aea1c52acde0e45d2973f990",
+                "reference": "71ab250f44ec9ed6aea1c52acde0e45d2973f990",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-mbstring": "*",
                 "ext-xml": "*",
-                "league/uri": "^7",
+                "league/uri": "^7.0",
                 "masterminds/html5": "^2.0",
                 "php": ">=8.1",
                 "psr/log": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
-                "monolog/monolog": "^3",
-                "phpunit/phpunit": "^10"
+                "monolog/monolog": "^3.0",
+                "phpunit/phpunit": "^10.0 || ^11.0"
             },
             "suggest": {
                 "monolog/monolog": "Allow logging debug information"
@@ -253,9 +253,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fivefilters/readability.php/issues",
-                "source": "https://github.com/fivefilters/readability.php/tree/v3.2.0"
+                "source": "https://github.com/fivefilters/readability.php/tree/v3.3.0"
             },
-            "time": "2024-04-21T13:31:40+00:00"
+            "time": "2024-11-29T16:18:11+00:00"
         },
         {
             "name": "league/uri",
@@ -3273,7 +3273,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -3284,6 +3284,6 @@
         "ext-dom": "*",
         "ext-curl": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
