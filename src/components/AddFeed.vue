@@ -3,7 +3,8 @@
 		<div id="new-feed">
 			<form name="feedform">
 				<fieldset style="padding: 16px">
-					<input v-model="feedUrl"
+					<input ref="feedInput"
+						v-model="feedUrl"
 						type="text"
 						:placeholder="t('news', 'Web address')"
 						:class="{ 'invalid': feedUrlExists() }"
@@ -175,6 +176,8 @@ export default Vue.extend({
 		} else if (this.$route.query.subscribe_to) {
 			this.feedUrl = this.$route.query.subscribe_to as string
 		}
+		this.$nextTick(() => this.$refs?.feedInput?.focus())
+
 	},
 	methods: {
 		/**

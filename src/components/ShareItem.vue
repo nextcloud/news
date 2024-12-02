@@ -3,7 +3,8 @@
 		<div id="share-item">
 			<form name="feedform">
 				<fieldset>
-					<input v-model="userName"
+					<input ref="nameInput"
+						v-model="userName"
 						type="text"
 						:placeholder="t('news', 'User Name')"
 						name="user"
@@ -90,6 +91,8 @@ export default Vue.extend({
 	},
 	created() {
 		this.debounceSearchUsers = _.debounce(this.searchUsers, 800)
+		this.$nextTick(() => this.$refs?.nameInput?.focus())
+
 	},
 	methods: {
 		/**
