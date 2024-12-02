@@ -12,6 +12,7 @@
 				rel="noreferrer"
 				:href="item.url"
 				:title="t('news', 'Open website')"
+				:aria-label="`${t('news', 'Open website')} ${item.url}`"
 				@click.middle="markRead(item); $event.stopPropagation();"
 				@click="markRead(item); $event.stopPropagation();">
 				<span v-if="getFeed(item.feedId).faviconLink"
@@ -25,9 +26,7 @@
 			<h1 class="title-container"
 				:class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }"
 				:dir="item.rtl && 'rtl'">
-				<a href="#"
-					:title="t('news', 'Open article')"
-					@click="select()">
+				<a href="#" @click="select()">
 					{{ item.title }}
 				</a>
 			</h1>
