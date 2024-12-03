@@ -10,6 +10,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Show red error bubble only if more than 8 updates fail.
 
 ### Fixed
+- set correct input focus when opening `AddFeed` or `Share` modals
+- add item url to open website button aria label for screen readers
+- allow using `toggle starred` and `mark read` icons with keyboard
+- remove close button from list items in screen reader mode
 
 # Releases
 ## [25.1.0] - 2024-12-01
