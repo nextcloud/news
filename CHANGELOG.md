@@ -14,6 +14,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - add item url to open website button aria label for screen readers
 - allow using `toggle starred` and `mark read` icons with keyboard
 - remove close button from list items in screen reader mode
+- mark read on scroll marks visible items as read using vertical compact display mode
 
 # Releases
 ## [25.1.0] - 2024-12-01
