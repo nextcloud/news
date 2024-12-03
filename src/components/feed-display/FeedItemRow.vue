@@ -31,9 +31,9 @@
 				</a>
 			</h1>
 
-			<div v-if="!compactMode || !verticalSplit" class="intro-container" :class="{ 'compact': compactMode }">
+			<div class="intro-container" :class="{ 'compact': compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
-				<span class="intro" v-html="item.intro" />
+				<span v-if="!compactMode || !verticalSplit" class="intro" v-html="item.intro" />
 				<!--eslint-enable-->
 			</div>
 
