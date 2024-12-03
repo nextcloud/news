@@ -6,30 +6,46 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
-			<NcActions>
-				<NcActionButton :title="t('news', 'Share within Instance')" @click="showShareMenu = true">
-					{{ t('news', 'Share') }}
+			<NcActions :inline="4">
+				<NcActionButton :title="t('news', 'Share within Instance')"
+					@click="showShareMenu = true">
+					{{ t('news', 'Share within Instance') }}
 					<template #icon>
 						<ShareVariant />
 					</template>
 				</NcActionButton>
+				<NcActionButton :title="t('news', 'Toggle star article')"
+					@click="toggleStarred(item)">
+					{{ t('news', 'Toggle star article') }}
+					<template #icon>
+						<StarIcon :class="{'starred': item.starred }" :size="24" />
+					</template>
+				</NcActionButton>
+				<NcActionButton v-if="item.unread"
+					:title="t('news', 'Mark read')"
+					@click="toggleRead(item)">
+					{{ t('news', 'Mark read') }}
+					<template #icon>
+						<EyeIcon :size="24" />
+					</template>
+				</NcActionButton>
+				<NcActionButton v-if="!item.unread"
+					:title="t('news', 'Mark unread')"
+					@click="toggleRead(item)">
+					{{ t('news', 'Mark unread') }}
+					<template #icon>
+						<EyeCheckIcon :size="24" />
+					</template>
+				</NcActionButton>
+				<NcActionButton v-if="!screenReaderMode"
+					:title="t('news', 'Close details')"
+					@click="splitModeOff ? $emit('show-details') : clearSelected()">
+					{{ t('news', 'Close details') }}
+					<template #icon>
+						<CloseIcon :size="24" />
+					</template>
+				</NcActionButton>
 			</NcActions>
-			<StarIcon :class="{'starred': item.starred }"
-				:title="t('news', 'Toggle star article')"
-				tabindex="0"
-				@click="toggleStarred(item)" />
-			<EyeIcon v-if="item.unread"
-				:title="t('news', 'Mark read')"
-				tabindex="0"
-				@click="toggleRead(item)" />
-			<EyeCheckIcon v-if="!item.unread"
-				:title="t('news', 'Mark unread')"
-				tabindex="0"
-				@click="toggleRead(item)" />
-			<CloseIcon v-if="!screenReaderMode"
-				:title="t('news', 'Close details')"
-				tabindex="0"
-				@click="splitModeOff ? $emit('show-details') : clearSelected()" />
 			<button v-if="splitModeOff"
 				v-shortkey="{s: ['s'], l: ['l'], i: ['i']}"
 				class="hidden"
@@ -349,18 +365,18 @@ export default Vue.extend({
 	}
 
 	.action-bar {
-		padding: 0px 20px 0px 20px;
+		padding: 10px 20px 0px 20px;
 
 		display: flex;
 		justify-content: right
 	}
 
-	.action-bar .material-design-icon{
-		cursor: pointer;
-		margin: 5px;
-	}
-
-	.action-bar .material-design-icon:hover {
-		color: var(--color-text-light);
+	.feed-item-display .action-bar .button-vue,
+	.feed-item-display .action-bar .button-vue .button-vue__wrapper
+	{
+		width: 30px !important;
+		min-width: 30px;
+		min-height: 30px;
+		height: 30px;
 	}
 </style>
