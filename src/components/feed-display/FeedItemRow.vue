@@ -45,26 +45,40 @@
 		</div>
 
 		<div class="button-container" @click="$event.stopPropagation()">
-			<StarIcon :class="{'starred': item.starred }"
-				:title="t('news', 'Toggle star article')"
-				tabindex="0"
-				@click="toggleStarred(item)" />
-			<EyeIcon v-if="item.unread && !item.keepUnread"
-				:title="t('news', 'Keep article unread')"
-				tabindex="0"
-				@click="toggleKeepUnread(item)" />
-			<EyeCheckIcon v-if="!item.unread && !item.keepUnread"
-				:title="t('news', 'Toggle keep current article unread')"
-				tabindex="0"
-				@click="toggleKeepUnread(item)" />
-			<EyeLockIcon v-if="item.keepUnread"
-				:title="t('news', 'Remove keep article unread')"
-				tabindex="0"
-				class="keep-unread"
-				@click="toggleKeepUnread(item)" />
-			<NcActions>
+			<NcActions :inline="3">
+				<NcActionButton :title="t('news', 'Toggle star article')"
+					@click="toggleStarred(item)">
+					{{ t('news', 'Toggle star article') }}
+					<template #icon>
+						<StarIcon :class="{'starred': item.starred }" :size="24" />
+					</template>
+				</NcActionButton>
+				<NcActionButton v-if="item.unread && !item.keepUnread"
+					:title="t('news', 'Keep article unread')"
+					@click="toggleKeepUnread(item)">
+					{{ t('news', 'Keep article unread') }}
+					<template #icon>
+						<EyeIcon :size="24" />
+					</template>
+				</NcActionButton>
+				<NcActionButton v-if="!item.unread && !item.keepUnread"
+					:title="t('news', 'Toggle keep current article unread')"
+					@click="toggleKeepUnread(item)">
+					{{ t('news', 'Toggle keep current article unread') }}
+					<template #icon>
+						<EyeCheckIcon :size="24" />
+					</template>
+				</NcActionButton>
+				<NcActionButton v-if="item.keepUnread"
+					:title="t('news', 'Remove keep article unread')"
+					@click="toggleKeepUnread(item)">
+					{{ t('news', 'Remove keep article unread') }}
+					<template #icon>
+						<EyeLockIcon :size="24" />
+					</template>
+				</NcActionButton>
 				<NcActionButton :title="t('news', 'Share within Instance')" @click="shareItem = item.id; showShareMenu = true">
-					{{ t('news', 'Share') }}
+					{{ t('news', 'Share within Instance') }}
 					<template #icon>
 						<ShareVariant />
 					</template>
@@ -304,6 +318,7 @@ export default Vue.extend({
 	.feed-item-row .date-container.compact {
 		flex: 0 0 auto;
 		font-size: small;
+		padding-right: 4px;
 	}
 
 	.feed-item-row .button-container {
@@ -312,11 +327,14 @@ export default Vue.extend({
 		align-self: center;
 	}
 
-	.feed-item-row .button-container .button-vue, .feed-item-row .button-container .button-vue .button-vue__wrapper, .feed-item-row .button-container .material-design-icon {
-		width: 30px !important;
-		min-width: 30px;
-		min-height: 30px;
-		height: 30px;
+	.feed-item-row .button-container .button-vue,
+	.feed-item-row .button-container .button-vue .button-vue__wrapper,
+	.feed-item-row .button-container .material-design-icon
+	{
+		width: 24px !important;
+		min-width: 24px;
+		min-height: 24px;
+		height: 24px;
 	}
 
 	.feed-item-row .button-container .material-design-icon {
