@@ -50,6 +50,7 @@ OC.L10N.register(
     "Show all articles" : "Toon alle artikelen",
     "Reverse ordering (oldest on top)" : "Omgekeerde volgorde (oudste boven)",
     "Default" : "Standaard",
+    "Compact" : "Compact",
     "Are you sure you want to delete?" : "Weet je zeker dat je wilt verwijderen?",
     "Rename" : "Naam wijzigen",
     "Delete" : "Verwijderen",
