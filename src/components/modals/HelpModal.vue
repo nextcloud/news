@@ -19,6 +19,22 @@
 				<tbody>
 					<tr>
 						<td>
+							<kbd>PageDown</kbd>
+						</td>
+						<td>
+							{{ t('news', 'Jump to next article') }} {{ t('news', '(screenreader mode)') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<kbd>PageUp</kbd>
+						</td>
+						<td>
+							{{ t('news', 'Jump to previous article') }} {{ t('news', '(screenreader mode)') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<kbd>n</kbd>
 							/
 							<kbd>j</kbd>

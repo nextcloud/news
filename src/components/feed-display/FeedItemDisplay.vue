@@ -1,8 +1,9 @@
 <template>
-	<article class="feed-item-display"
+	<div class="feed-item-display"
 		:class="{ 'screenreader': screenReaderMode }"
+		:aria-posinset="itemIndex"
 		:aria-setsize="itemCount"
-		:aria-posinset="itemIndex">
+		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
@@ -141,7 +142,7 @@
 			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
 			<!--eslint-enable-->
 		</div>
-	</article>
+	</div>
 </template>
 
 <script lang="ts">
@@ -212,6 +213,15 @@ export default Vue.extend({
 		 */
 		clearSelected(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
+		},
+		/**
+		 * Use parent click handler to select item when focused,
+		 * needed by screen reader navigation
+		 */
+		selectItemOnFocus(): void {
+			if (this.screenReaderMode && this.$store.getters.selected !== this.item) {
+				this.$emit('click-item')
+			}
 		},
 		/**
 		 * Returns locale formatted date string

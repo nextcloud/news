@@ -8,6 +8,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - Show red error bubble only if more than 8 updates fail.
+- Emulate structural heading navigation in screen reader mode with the jump to previous/next articles keys
+- Add `PageDown` and `PageUp` for article heading navigation in screen reader mode
 
 ### Fixed
 - set correct input focus when opening `AddFeed` or `Share` modals
