@@ -5,6 +5,12 @@
 				<slot name="header" />
 			</div>
 
+			<button v-if="screenReaderMode"
+				v-shortkey="['pageup']"
+				class="hidden"
+				@shortkey="jumpToPreviousItem">
+				Prev
+			</button>
 			<button v-shortkey="['arrowleft']" class="hidden" @shortkey="jumpToPreviousItem">
 				Prev
 			</button>
@@ -13,6 +19,12 @@
 			</button>
 			<button v-shortkey="['p']" class="hidden" @shortkey="jumpToPreviousItem">
 				Prev
+			</button>
+			<button v-if="screenReaderMode"
+				v-shortkey="['pagedown']"
+				class="hidden"
+				@shortkey="jumpToNextItem">
+				Next
 			</button>
 			<button v-shortkey="['arrowright']" class="hidden" @shortkey="jumpToNextItem">
 				Next
@@ -64,7 +76,7 @@
 							:item-index="index + 1"
 							:item="item"
 							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
-							@show-details="$emit('show-details')" />
+							@click-item="clickItem(item)" />
 						<FeedItemRow v-else
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"

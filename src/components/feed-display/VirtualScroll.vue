@@ -30,6 +30,7 @@ export default Vue.extend({
 			checkMarkRead: true,
 			seenItems: new Map(),
 			lastRendered: null,
+			elementToFocus: null,
 		}
 	},
 	computed: {
@@ -45,10 +46,10 @@ export default Vue.extend({
 				return this.$store.state.items.fetchingItems[this.fetchKey]
 			},
 		},
-		compactMode: {
+		displayMode: {
 			cache: false,
 			get() {
-				return this.$store.getters.displaymode === '1'
+				return this.$store.getters.displaymode
 			},
 		},
 	},
@@ -117,7 +118,7 @@ export default Vue.extend({
 		let renderedItems = 0
 		let upperPaddingItems = 0
 		let lowerPaddingItems = 0
-		const itemHeight = this.compactMode ? 44 : 111
+		const itemHeight = this.displayMode === '1' ? 44 : 111
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.$el && this.$el.getBoundingClientRect) {
 			const childComponents = this.$slots.default.filter(child => !!child.componentOptions)
@@ -160,10 +161,23 @@ export default Vue.extend({
 		const scrollTop = this.scrollTop
 		this.$nextTick(() => {
 			if (this.elementToShow) {
+				// Workaround for buggy scroll with screen readers.
+				// Remember currently selected item to focus on next tick
+				if (this.displayMode === '2') {
+					this.elementToFocus = this.elementToShow
+				}
 				this.elementToShow.scrollIntoView({ behavior: 'auto', block: 'start' })
 				this.elementToShow = null
 			} else {
 				this.$el.scrollTop = scrollTop
+			}
+			// Focus title link in article to emulate structural heading navigation
+			// with screen readers
+			if (this.elementToFocus) {
+				const titleLink = this.elementToFocus.querySelector('a')
+				if (titleLink) {
+					titleLink.focus()
+				}
 			}
 		})
 
