@@ -17,6 +17,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - allow using `toggle starred` and `mark read` icons with keyboard
 - remove close button from list items in screen reader mode
 - mark read on scroll marks visible items as read using vertical compact display mode
+- Items read on other devices do not disappear on pressing 'r'
 
 # Releases
 ## [25.1.0] - 2024-12-01

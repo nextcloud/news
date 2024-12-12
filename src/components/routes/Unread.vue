@@ -39,6 +39,16 @@ export default Vue.extend({
 	},
 	computed: {
 		...mapState(['items']),
+		newestItemId() {
+			return this.$store.state.items.newestItemId === 0
+		},
+	},
+	watch: {
+		newestItemId(clearCache) {
+			if (clearCache) {
+				this.unreadCache = undefined
+			}
+		},
 	},
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })

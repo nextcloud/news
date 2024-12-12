@@ -449,6 +449,13 @@ export const mutations = {
 		state.syncNeeded = false
 	},
 
+	[FEED_ITEM_MUTATION_TYPES.RESET_ITEM_STATES](state: ItemState) {
+		state.allItems = []
+		state.allItemsLoaded = {}
+		state.lastItemLoaded = {}
+		state.newestItemId = 0
+	},
+
 	[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](
 		state: ItemState,
 		feed: Feed,
