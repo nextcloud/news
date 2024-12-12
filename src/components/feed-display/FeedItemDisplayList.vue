@@ -35,7 +35,7 @@
 			<button v-shortkey="['n']" class="hidden" @shortkey="jumpToNextItem">
 				Next
 			</button>
-			<button v-shortkey="['r']" class="hidden" @shortkey="refreshFeedList">
+			<button v-shortkey="['r']" class="hidden" @shortkey="refreshApp">
 				Refresh
 			</button>
 			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
@@ -227,17 +227,13 @@ export default Vue.extend({
 		this.setupDebouncedClick()
 	},
 	methods: {
-		async refreshFeedList() {
-			// with ordering newest>oldest complete refresh of item list needed
-			if (!this.listOrdering) {
-				this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
-				this.$refs.virtualScroll.scrollTop = 0
-				// make sure the first items from this ordering are loaded
-				this.fetchMore()
-				this.cache = undefined
-				this.refreshItemList()
-			}
-			// sync feed counter with backend
+		async refreshApp() {
+			this.$refs.virtualScroll.scrollTop = 0
+			this.cache = undefined
+			// remove all loaded items
+			this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
+			// refetch starred and feeds
+			await this.$store.dispatch(ACTIONS.FETCH_STARRED)
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 		},
 		refreshItemList() {
