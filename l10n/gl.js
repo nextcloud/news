@@ -119,6 +119,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "Atallo de teclado",
     "Action" : "Acción",
     "Jump to next article" : "Ir ao seguinte artigo",
+    "(screenreader mode)" : "(modo lector de pantalla)",
     "Jump to previous article" : "Saltar ao artigo anterior",
     "right" : "dereita",
     "left" : "esquerda",

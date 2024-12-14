@@ -119,6 +119,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "إختصار لوحة المفاتيح",
     "Action" : "الإجراء",
     "Jump to next article" : "الانتقال إلي المقالة التالية",
+    "(screenreader mode)" : "(وضعية قارئ الشاشة)",
     "Jump to previous article" : "الانتقال إلي المقالة السابقة",
     "right" : "يمين",
     "left" : "يسار",

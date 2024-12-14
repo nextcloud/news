@@ -119,6 +119,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "Пречица тастатуре",
     "Action" : "Радња",
     "Jump to next article" : "Пређи на следећи чланак",
+    "(screenreader mode)" : "(режим читача екрана)",
     "Jump to previous article" : "Пређи на претходни чланак",
     "right" : "десно",
     "left" : "лево",

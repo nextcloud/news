@@ -119,6 +119,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "快速鍵",
     "Action" : "動作",
     "Jump to next article" : "跳到下篇文章",
+    "(screenreader mode)" : "（螢幕閱讀程式模式）",
     "Jump to previous article" : "跳到上篇文章",
     "right" : "右邊",
     "left" : "左邊",
