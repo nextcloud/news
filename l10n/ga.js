@@ -119,6 +119,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "Aicearra méarchláir",
     "Action" : "Gníomh",
     "Jump to next article" : "Léim go dtí an chéad alt eile",
+    "(screenreader mode)" : "(mód an léitheora scáileáin)",
     "Jump to previous article" : "Léim go dtí an t-alt roimhe seo",
     "right" : "ceart",
     "left" : "chlé",
