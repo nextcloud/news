@@ -23,7 +23,7 @@ describe('feed.service.ts', () => {
 
 	describe('addFeed', () => {
 		it('should call POST with item id in URL and read param', async () => {
-			await FeedService.addFeed({ url: 'http://example.com', folderId: 0 })
+			await FeedService.addFeed({ url: 'http://example.com', folderId: 0, autoDiscover: false })
 
 			expect(axios.post).toBeCalled()
 			const args = (axios.post as any).mock.calls[0]

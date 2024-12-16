@@ -63,6 +63,7 @@ export const actions = {
 			feedReq: {
 				url: string;
 				folder?: { id: number; name?: string; },
+				autoDiscover: boolean;
 				user?: string;
 				password?: string;
 			}
@@ -87,6 +88,7 @@ export const actions = {
 			const response = await FeedService.addFeed({
 				url,
 				folderId,
+				autoDiscover: feedReq.autoDiscover,
 				user: feedReq.user,
 				password: feedReq.password,
 			})
