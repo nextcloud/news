@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- show error message in add feed dialog and keep it open if the feed could not be added
 
 ### Fixed
 - adding feed via web-ui always use auto-discover

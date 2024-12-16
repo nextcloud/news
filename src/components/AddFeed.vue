@@ -14,6 +14,13 @@
 						autofocus
 						style="width: 90%;">
 
+					<p v-if="addingFeedError" class="error">
+						{{ addingFeedError }}
+					</p>
+					<p v-if="addingFeedError" class="error">
+						{{ t('news', 'Please check your data/nextcloud.log file for additional information!') }}
+					</p>
+
 					<p v-if="feedUrlExists()" class="error">
 						{{ t("news", "Feed exists already!") }}
 					</p>
@@ -125,6 +132,8 @@ type AddFeedState = {
 	feedUrl?: string;
 	feedUser?: string;
 	feedPassword?: string;
+
+	addingFeedError: string;
 };
 
 export default Vue.extend({
@@ -151,6 +160,7 @@ export default Vue.extend({
 
 			autoDiscover: true,
 			addingFeed: false,
+			addingFeedError: undefined,
 			createNewFolder: false,
 			withBasicAuth: false,
 
@@ -185,7 +195,8 @@ export default Vue.extend({
 		 */
 		async addFeed() {
 			this.addingFeed = true
-			await this.$store.dispatch(ACTIONS.ADD_FEED, {
+			this.addingFeedError = undefined
+			const response = await this.$store.dispatch(ACTIONS.ADD_FEED, {
 				feedReq: {
 					url: this.feedUrl,
 					folder: this.createNewFolder ? { name: this.newFolderName } : this.folder,
@@ -194,10 +205,23 @@ export default Vue.extend({
 					password: this.feedPassword === '' ? undefined : this.feedPassword,
 				},
 			})
-			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-
 			this.addingFeed = false
-			this.$emit('close')
+			switch (response.status) {
+			case 200:
+				this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+				this.$emit('close')
+				break
+			case 409:
+			case 422:
+				this.addingFeedError = response.data.message
+				break
+			case 500:
+				this.addingFeedError = t('news', 'Internal server error!')
+				break
+			default:
+				this.addingFeedError = t('news', 'Unknown error!')
+				break
+			}
 		},
 		/**
 		 * Checks if Feed Url exists in Vuex Store Feeds
@@ -232,5 +256,9 @@ export default Vue.extend({
 <style scoped>
 .invalid {
 	border: 1px solid rgb(251, 72, 72) !important;
+}
+.error {
+	color: rgb(251, 72, 72);
+	padding: 10px;
 }
 </style>

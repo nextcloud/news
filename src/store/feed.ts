@@ -83,7 +83,6 @@ export const actions = {
 			folderId = feedReq.folder?.id || 0
 		}
 
-		// Check that url is resolvable
 		try {
 			const response = await FeedService.addFeed({
 				url,
@@ -94,9 +93,12 @@ export const actions = {
 			})
 
 			commit(FEED_MUTATION_TYPES.ADD_FEED, response.data.feeds[0])
+			return response
 		} catch (e) {
-			// TODO: show error to user if failure
-			console.error(e)
+			if (e && typeof e === 'object' && 'response' in e) {
+				return e.response
+			}
+			return { status: undefined }
 		}
 	},
 
