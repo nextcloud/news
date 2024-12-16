@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- adding feed via web-ui always use auto-discover
 
 # Releases
 ## [25.1.1] - 2024-12-16
