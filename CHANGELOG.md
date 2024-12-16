@@ -7,19 +7,24 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Show red error bubble only if more than 8 updates fail.
-- Emulate structural heading navigation in screen reader mode with the jump to previous/next articles keys
-- Add `PageDown` and `PageUp` for article heading navigation in screen reader mode
 
 ### Fixed
-- set correct input focus when opening `AddFeed` or `Share` modals
-- add item url to open website button aria label for screen readers
-- allow using `toggle starred` and `mark read` icons with keyboard
-- remove close button from list items in screen reader mode
-- mark read on scroll marks visible items as read using vertical compact display mode
-- Items read on other devices do not disappear on pressing 'r'
 
 # Releases
+## [25.1.1] - 2024-12-16
+### Changed
+- Show red error bubble only if more than 8 updates fail. (#2955)
+- Emulate structural heading navigation in screen reader mode with the jump to previous/next articles keys (#2978)
+- Add `PageDown` and `PageUp` for article heading navigation in screen reader mode (#2978)
+
+### Fixed
+- set correct input focus when opening `AddFeed` or `Share` modals (#2965)
+- add item url to open website button aria label for screen readers (#2965)
+- allow using `toggle starred` and `mark read` icons with keyboard (#2965)
+- remove close button from list items in screen reader mode (#2965)
+- mark read on scroll marks visible items as read using vertical compact display mode (#2965)
+- Items read on other devices do not disappear on pressing 'r' (#2981)
+
 ## [25.1.0] - 2024-12-01
 ### Changed
 - add region role to content list and details so that it can be used by screen readers (#2946)
