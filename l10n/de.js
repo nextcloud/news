@@ -119,6 +119,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "Tastaturbefehl",
     "Action" : "Aktion",
     "Jump to next article" : "Zum nächsten Artikel springen",
+    "(screenreader mode)" : "(Screenreader-Modus)",
     "Jump to previous article" : "Zum vorherigen Artikel springen",
     "right" : "Rechts",
     "left" : "Links",

@@ -118,6 +118,7 @@ OC.L10N.register(
     "Keyboard shortcut" : "Tangentbordsgenvägar",
     "Action" : "Ågärd",
     "Jump to next article" : "Hoppa till nästa artikel",
+    "(screenreader mode)" : "(skärmläsarläge)",
     "Jump to previous article" : "Hoppa till föregående artikel",
     "right" : "Höger",
     "left" : "vänster",
