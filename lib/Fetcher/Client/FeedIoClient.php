@@ -14,6 +14,7 @@ use DateTime;
 use FeedIo\Adapter\ClientInterface;
 use FeedIo\Adapter\ResponseInterface;
 use FeedIo\Adapter\Guzzle\Response;
+use FeedIo\Adapter\HttpRequestException;
 use FeedIo\Adapter\NotFoundException;
 use FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\Exception\BadResponseException;
@@ -62,6 +63,8 @@ class FeedIoClient implements ClientInterface
             return new Response($psrResponse, $duration);
         } catch (BadResponseException $e) {
             switch ($e->getResponse()->getStatusCode()) {
+                case 403:
+                    throw new HttpRequestException($e->getMessage());
                 case 404:
                     throw new NotFoundException($e->getMessage());
                 default:
