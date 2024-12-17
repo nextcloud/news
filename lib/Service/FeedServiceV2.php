@@ -212,7 +212,11 @@ class FeedServiceV2 extends Service
                 throw new ServiceNotFoundException($ex->getMessage());
             }
             $this->logger->warning("No valid feed found at URL, attempting auto discovery");
-            $feeds = $this->explorer->discover($feedUrl);
+            try {
+                $feeds = $this->explorer->discover($feedUrl);
+            } catch (\Exception $e) {
+                throw new ServiceNotFoundException($e->getMessage());
+            }
             if ($feeds !== []) {
                 $feedUrl = array_shift($feeds);
             }
