@@ -38,7 +38,7 @@ class Version250200Date20241219085150 extends SimpleMigrationStep {
 
         $table = $schema->getTable('news_feeds');
         if (!$table->hasColumn('next_update_time')) {
-            $table->addColumn('next_update_time', 'integer', [
+            $table->addColumn('next_update_time', 'bigint', [
                 'notnull' => false
             ]);
         }
