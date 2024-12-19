@@ -112,7 +112,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         $this->addType('lastUpdateError', 'string');
         $this->addType('basicAuthUser', 'string');
         $this->addType('basicAuthPassword', 'string');
-        $this->addType('nextUpdateTime', 'string');
+        $this->addType('nextUpdateTime', 'int');
     }
 
     /**
