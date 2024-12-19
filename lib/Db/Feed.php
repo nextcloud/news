@@ -83,8 +83,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected $basicAuthUser = '';
     /** @var string|null */
     protected $basicAuthPassword = '';
-    /** @var string|null */
-    protected $nextUpdateTime = '';
+    /** @var int|null */
+    protected ?int $nextUpdateTime = null;
     /** @var Item[] */
     public $items = [];
 
