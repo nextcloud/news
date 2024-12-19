@@ -145,6 +145,8 @@ class FeedFetcher implements IFeedFetcher
             $location
         );
 
+        $feed->setNextUpdateTime($resource->getNextUpdate()?->getTimestamp());
+
         if (!is_null($resource->getResponse()->getLastModified())) {
             $feed->setHttpLastModified($resource->getResponse()->getLastModified()->format(DateTime::RSS));
         } elseif (!is_null($lastModified)) {

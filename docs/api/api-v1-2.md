@@ -294,6 +294,7 @@ The following attributes are **not sanitized** meaning: including them in your w
       "added": 1367063790,
       "folderId": 4,
       "unreadCount": 9,
+      "nextUpdateTime": 2071387335,
       "ordering": 0, // 0 means no special ordering, 1 means oldest first, 2 newest first, new in 5.1.0
       "link": "http://theoatmeal.com/",
       "pinned": true // if a feed should be sorted before other feeds, added in 6.0.3,
@@ -341,6 +342,7 @@ Creates a new feed and returns the feed
       "title": "The Oatmeal - Comics, Quizzes, & Stories",
       "faviconLink": "http://theoatmeal.com/favicon.ico",
       "added": 1367063790,
+      "nextUpdateTime": 2071387335,
       "folderId": 4,
       "unreadCount": 9,
       "ordering": 0, // 0 means no special ordering, 1 means oldest first, 2 newest first, new in 5.1.0
