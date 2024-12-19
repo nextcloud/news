@@ -83,6 +83,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected $basicAuthUser = '';
     /** @var string|null */
     protected $basicAuthPassword = '';
+    /** @var int|null */
+    protected ?int $nextUpdateTime = null;
     /** @var Item[] */
     public $items = [];
 
@@ -110,6 +112,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         $this->addType('lastUpdateError', 'string');
         $this->addType('basicAuthUser', 'string');
         $this->addType('basicAuthPassword', 'string');
+        $this->addType('nextUpdateTime', 'int');
     }
 
     /**
@@ -297,6 +300,14 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
+     * @return int|null
+     */
+    public function getNextUpdateTime(): ?int
+    {
+        return $this->nextUpdateTime;
+    }
+
+    /**
      * Turns entity attributes into an array
      */
     public function jsonSerialize(): array
@@ -323,7 +334,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'updateErrorCount',
             'lastUpdateError',
             'basicAuthUser',
-            'basicAuthPassword'
+            'basicAuthPassword',
+            'nextUpdateTime'
         ]);
 
         if (is_null($this->link)) {
@@ -648,6 +660,15 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
+    /**
+     * @param int $nextUpdateTime
+     */
+    public function setNextUpdateTime(?int $nextUpdateTime): void
+    {
+        $this->nextUpdateTime = $nextUpdateTime;
+        $this->markFieldUpdated('nextUpdateTime');
+    }
+
     public function toAPI(): array
     {
         return $this->serializeFields(
@@ -664,7 +685,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
                 'pinned',
                 'updateErrorCount',
                 'lastUpdateError',
-                'items'
+                'items',
+                'nextUpdateTime'
             ]
         );
     }
@@ -679,7 +701,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'ordering' => $this->getOrdering(),
             'fullTextEnabled' => $this->getFullTextEnabled(),
             'updateMode' => $this->getUpdateMode(),
-            'isPinned' => $this->getPinned()
+            'isPinned' => $this->getPinned(),
+            'nextUpdateTime' => $this->getNextUpdateTime(),
         ];
 
         if (!is_null($this->getLastUpdateError()) || trim($this->getLastUpdateError()) !== '') {

@@ -143,3 +143,9 @@ teardown() {
   done
 }
 
+@test "[$TESTSUITE] Create Feed and check for nextUpdateTime {
+  # run is not working here.
+  output=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].nextUpdateTime')
+
+  assert_output '2071387335'
+}

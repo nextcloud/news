@@ -32,7 +32,7 @@ use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 /**
- * FIXME Auto-generated migration step: Please modify to your needs!
+ * allows the title of a news feed to be null
  */
 class Version250000Date20240817095614 extends SimpleMigrationStep {
 

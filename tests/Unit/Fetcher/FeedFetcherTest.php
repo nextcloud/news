@@ -711,6 +711,7 @@ class FeedFetcherTest extends TestCase
         $feed->setLocation($this->location);
         $feed->setUrl($url);
         $feed->setAdded($this->time);
+        $feed->setNextUpdateTime(0);
 
         $feed->setFaviconLink('http://anon.google.com');
         $this->favicon->expects($this->exactly(1))

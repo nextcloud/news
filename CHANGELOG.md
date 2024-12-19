@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- API add new field to Feed that indicates when the next update will be done "nextUpdateTime" (#2993)
 
 ### Fixed
 
