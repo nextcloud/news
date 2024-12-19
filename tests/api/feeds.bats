@@ -147,5 +147,5 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].nextUpdateTime')
 
-  assert_output '"http://localhost:8090/Nextcloud.rss"'
+  assert_output '4090814535'
 }
