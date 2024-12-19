@@ -7,11 +7,12 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- show error message in add feed dialog and keep it open if the feed could not be added
+- show error message in add feed dialog and keep it open if the feed could not be added (#2988)
+- API add new field to feed "nextUpdateTime" (#2993)
 
 ### Fixed
-- adding feed via web-ui always use auto-discover
-- show 403 forbidden errors when fetching feeds
+- adding feed via web-ui always use auto-discover (#2988)
+- show 403 forbidden errors when fetching feeds (#2988)
 
 # Releases
 ## [25.1.1] - 2024-12-16

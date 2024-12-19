@@ -63,6 +63,7 @@ class FeedTest extends TestCase
                 'updateErrorCount' => 2,
                 'lastUpdateError' => 'hi',
                 'items' => [],
+                'nextUpdateTime' => ''
             ],
             $feed->toAPI()
         );
@@ -86,7 +87,8 @@ class FeedTest extends TestCase
                 'error' => [
                     'code' => 1,
                     'message' => 'hi'
-                ]
+                ],
+                'nextUpdateTime' => '',
             ],
             $feed->toAPI2()
         );
@@ -121,7 +123,8 @@ class FeedTest extends TestCase
             'updateErrorCount' => 2,
             'lastUpdateError' => 'hi',
             'basicAuthUser' => 'user',
-            'basicAuthPassword' => 'password'
+            'basicAuthPassword' => 'password',
+            'nextUpdateTime' => '',
             ],
             $feed->jsonSerialize()
         );
