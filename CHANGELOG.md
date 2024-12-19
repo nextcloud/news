@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - show error message in add feed dialog and keep it open if the feed could not be added
+- keep margins the same even if an article does not use max width
 
 ### Fixed
 - adding feed via web-ui always use auto-discover
