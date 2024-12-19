@@ -300,9 +300,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @return string
+     * @return int|null
      */
-    public function getNextUpdateTime(): string
+    public function getNextUpdateTime(): ?int
     {
         return $this->nextUpdateTime;
     }
@@ -661,9 +661,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param string $nextUpdateTime
+     * @param int $nextUpdateTime
      */
-    public function setNextUpdateTime(string $nextUpdateTime): void
+    public function setNextUpdateTime(int $nextUpdateTime): void
     {
         $this->nextUpdateTime = $nextUpdateTime;
         $this->markFieldUpdated('nextUpdateTime');
