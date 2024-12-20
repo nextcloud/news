@@ -1,11 +1,12 @@
 <template>
 	<NcAppNavigation>
-		<AddFeed v-if="showAddFeed" @close="closeShowAddFeed()" />
+		<AddFeed v-if="showAddFeed" @close="closeAddFeed()" />
+		<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
 		<NcAppNavigationNew :text="t('news', 'Subscribe')"
 			button-id="new-feed-button"
 			button-class="icon-add"
 			:icon="''"
-			@click="showShowAddFeed()">
+			@click="addFeed()">
 			<template #icon>
 				<PlusIcon />
 			</template>
@@ -87,7 +88,7 @@
 							</template>
 
 							<template #actions>
-								<SidebarFeedLinkActions :feed-id="feed.id" />
+								<SidebarFeedLinkActions :feed-id="feed.id" @move-feed="moveFeed(feed)" />
 							</template>
 						</NcAppNavigationItem>
 					</template>
@@ -112,7 +113,9 @@
 						</NcCounterBubble>
 					</template>
 					<template #actions>
-						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')" :feed-id="topLevelItem.id" />
+						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
+							:feed-id="topLevelItem.id"
+							@move-feed="moveFeed(topLevelItem)" />
 						<NcActionButton v-if="topLevelItem.name !== undefined"
 							icon="icon-checkmark"
 							:close-after-click="true"
@@ -282,6 +285,7 @@ import { ROUTES } from '../routes'
 import { ACTIONS, MUTATIONS } from '../store'
 
 import AddFeed from './AddFeed.vue'
+import MoveFeed from './MoveFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 
 import HelpModal from './modals/HelpModal.vue'
@@ -299,6 +303,7 @@ export default Vue.extend({
 		NcActionButton,
 		NcButton,
 		AddFeed,
+		MoveFeed,
 		RssIcon,
 		FolderIcon,
 		EyeIcon,
@@ -314,6 +319,8 @@ export default Vue.extend({
 	data: () => {
 		return {
 			showAddFeed: false,
+			showMoveFeed: false,
+			feedToMove: undefined,
 			ROUTES,
 			showHelp: false,
 			polling: null,
@@ -602,12 +609,20 @@ export default Vue.extend({
 				this.$store.dispatch(ACTIONS.DELETE_FOLDER, { folder })
 			}
 		},
-		showShowAddFeed() {
+		addFeed() {
 			this.showAddFeed = true
 		},
-		closeShowAddFeed() {
+		closeAddFeed() {
 			this.showAddFeed = false
 		},
+		moveFeed(feed) {
+			this.feedToMove = feed
+			this.showMoveFeed = true
+		},
+		closeMoveFeed() {
+			this.showMoveFeed = false
+		},
+
 		isFolder(item: Feed | Folder) {
 			return (item as Folder).name !== undefined
 		},
