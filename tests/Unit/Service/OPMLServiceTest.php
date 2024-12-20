@@ -23,6 +23,8 @@ use OCA\News\Utility\OPMLImporter;
 
 use OCA\News\Db\Feed;
 
+use Psr\Log\LoggerInterface;
+
 use PHPUnit\Framework\TestCase;
 
 class OPMLServiceTest extends TestCase
@@ -76,6 +78,9 @@ class OPMLServiceTest extends TestCase
             ->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->logger = $this
+            ->getMockBuilder(LoggerInterface::class)
+            ->getMock();
 
         $this->time = 333333;
 
@@ -84,6 +89,7 @@ class OPMLServiceTest extends TestCase
             $this->feedService,
             $this->exporter,
             $this->importer,
+            $this->logger,
         );
         $this->uid = 'jack';
     }
