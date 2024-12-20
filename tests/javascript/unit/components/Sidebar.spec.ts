@@ -90,12 +90,12 @@ describe('Sidebar.vue', () => {
 		})
 
 		it('should set showAddFeed to true', () => {
-			(wrapper.vm as any).showShowAddFeed()
+			(wrapper.vm as any).addFeed()
 			expect(wrapper.vm.$data.showAddFeed).toBeTruthy()
 		})
 
 		it('should set showAddFeed to false', () => {
-			(wrapper.vm as any).closeShowAddFeed()
+			(wrapper.vm as any).closeAddFeed()
 			expect(wrapper.vm.$data.showAddFeed).toBeFalsy()
 		})
 

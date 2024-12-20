@@ -81,7 +81,7 @@
 		</NcActionButton>
 		<NcActionButton icon="icon-arrow"
 			:close-after-click="true"
-			@click="move()">
+			@click="$emit('move-feed')">
 			<template #icon>
 				<ArrowRightIcon />
 			</template>
@@ -98,7 +98,6 @@
 				<RssIcon />
 			</template>
 		</NcAppNavigationItem>
-		<MoveFeed v-if="showMoveFeed" :feed="feed" @close="closeShowMoveFeed()" />
 	</span>
 </template>
 
@@ -120,13 +119,11 @@ import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
 
 import { ACTIONS } from '../store'
 import { Feed } from '../types/Feed'
-import MoveFeed from './MoveFeed.vue'
 import UnreadSvg from '../../img/updatemodeunread.svg'
 import IgnoreSvg from '../../img/updatemodedefault.svg'
 
 export default Vue.extend({
 	components: {
-		MoveFeed,
 		NcActionButton,
 		NcAppNavigationItem,
 		RssIcon,
@@ -148,7 +145,6 @@ export default Vue.extend({
 			FEED_UPDATE_MODE,
 			UnreadSvg,
 			IgnoreSvg,
-			showMoveFeed: false,
 		}
 	},
 
@@ -182,12 +178,6 @@ export default Vue.extend({
 			if (title !== null) {
 				this.$store.dispatch(ACTIONS.FEED_SET_TITLE, { feed: this.feed, title })
 			}
-		},
-		move() {
-			this.showMoveFeed = true
-		},
-		closeShowMoveFeed() {
-			this.showMoveFeed = false
 		},
 		deleteFeed() {
 			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
