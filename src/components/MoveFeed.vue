@@ -53,7 +53,7 @@ export default Vue.extend({
 	},
 	data: (): MoveFeedState => {
 		return {
-			folder: undefined,
+			folder: null,
 		}
 	},
 	computed: {
@@ -61,7 +61,7 @@ export default Vue.extend({
 			return this.$store.state.folders.folders
 		},
 		disableMoveFeed(): boolean {
-			return (this.folder !== undefined && this.folder.id === this.feed.folderId)
+			return (this.folder && this.folder.id === this.feed.folderId)
 		},
 	},
 	methods: {
