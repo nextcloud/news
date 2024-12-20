@@ -14,6 +14,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - adding feed via web-ui always use auto-discover
 - show 403 forbidden errors when fetching feeds
 - prevent move feed dialog from being closed unexpectedly
+- don't abort `opml` import when a single feed exists or can't be added
 
 # Releases
 ## [25.1.1] - 2024-12-16

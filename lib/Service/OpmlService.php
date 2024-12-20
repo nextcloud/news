@@ -14,9 +14,13 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Utility\OPMLExporter;
 use OCA\News\Utility\OPMLImporter;
 use OCA\News\Db\Folder;
+use Psr\Log\LoggerInterface;
 
 class OpmlService
 {
@@ -25,6 +29,7 @@ class OpmlService
         private FeedServiceV2 $feedService,
         private OPMLExporter $exporter,
         private OPMLImporter $importer,
+        private LoggerInterface $logger,
     ) {
         //NO-OP
     }
@@ -57,13 +62,14 @@ class OpmlService
     {
         list($folders, $feeds) = $this->importer->import($userId, $data);
 
+        $error = false;
         $folderEntities  = [];
         $dbFolders = $this->folderService->findAllForUser($userId);
         foreach ($folders as $folder) {
             $existing = array_filter($dbFolders, fn(Folder $dbFolder) => $dbFolder->getName() === $folder['name']);
 
             if (count($existing) > 0) {
-                $folderEntities[$folder['name']] = $existing[0];
+                $folderEntities[$folder['name']] = array_pop($existing);
                 continue;
             }
 
@@ -75,15 +81,27 @@ class OpmlService
         }
 
         foreach ($feeds as $feed) {
+            if ($this->feedService->existsForUser($userId, $feed['url'])) {
+                continue;
+            }
             $parent = $folderEntities[$feed['folder']] ?? null;
-            $this->feedService->create(
-                $userId,
-                $feed['url'],
-                $parent?->getId(),
-                full_text: false,
-                title: $feed['title'],
-                full_discover: false,
-            );
+            try {
+                $this->feedService->create(
+                    $userId,
+                    $feed['url'],
+                    $parent?->getId(),
+                    full_text: false,
+                    title: $feed['title'],
+                    full_discover: false,
+                );
+            } catch (ServiceNotFoundException | ServiceConflictException $e) {
+                $error = true;
+                $this->logger->warning('Could not import feed ' . $feed['url']);
+            }
+        }
+
+        if ($error) {
+            throw new ServiceValidationException('Failed to import all feeds. Please check the server log!');
         }
 
         return true;
