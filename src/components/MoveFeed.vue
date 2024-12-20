@@ -1,7 +1,6 @@
 <template>
 	<NcModal @close="$emit('close')">
 		<div class="modal__content">
-			<h2>{{ t("news", "Move feed to folder") }}</h2>
 			<div class="form-group">
 				<NcSelect v-if="folders"
 					v-model="folder"
@@ -9,7 +8,8 @@
 					:placeholder="'-- ' + t('news', 'No folder') + ' --'"
 					required
 					track-by="id"
-					label="name" />
+					label="name"
+					style="width: 90%;" />
 			</div>
 			<NcButton :wide="true"
 				type="primary"
@@ -87,12 +87,9 @@ export default Vue.extend({
 .invalid {
 	border: 1px solid rgb(251, 72, 72) !important;
 }
-.modal__content {
-	margin: 50px;
-}
 
-.modal__content h2 {
-	text-align: center;
+.modal__content {
+	margin: 16px;
 }
 
 .form-group {
