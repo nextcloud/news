@@ -62,7 +62,7 @@ class OpmlService
     {
         list($folders, $feeds) = $this->importer->import($userId, $data);
 
-        $error = false;
+        $error = 0;
         $folderEntities  = [];
         $dbFolders = $this->folderService->findAllForUser($userId);
         foreach ($folders as $folder) {
