@@ -107,6 +107,9 @@ jobs:
           app: 'news'
           check-code: false
           force: ${{ matrix.experimental }}
+      
+      - name: DEBUG print jq version and build configuration
+        run: jq -V && jq --build-configuration
 
       - name: Run API tests
         working-directory: ../server
