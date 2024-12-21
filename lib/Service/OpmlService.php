@@ -95,7 +95,7 @@ class OpmlService
                     full_discover: false,
                 );
             } catch (ServiceNotFoundException | ServiceConflictException $e) {
-                $error = true;
+                $error++;
                 $this->logger->warning('Could not import feed ' . $feed['url']);
             }
         }
