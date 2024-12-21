@@ -100,7 +100,7 @@ class OpmlService
             }
         }
 
-        if ($error) {
+        if ($error > 0) {
             throw new ServiceValidationException('Failed to import all feeds. Please check the server log!');
         }
 
