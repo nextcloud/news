@@ -7,16 +7,21 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- show error message in add feed dialog and keep it open if the feed could not be added
-- keep margins the same even if an article does not use max width
 
 ### Fixed
-- adding feed via web-ui always use auto-discover
-- show 403 forbidden errors when fetching feeds
-- prevent move feed dialog from being closed unexpectedly
-- don't abort `opml` import when a single feed exists or can't be added
 
 # Releases
+## [25.1.2] - 2024-12-22
+### Changed
+- show error message in add feed dialog and keep it open if the feed could not be added (#2988)
+- keep margins the same even if an article does not use max width (#2995)
+
+### Fixed
+- adding feed via web-ui always use auto-discover (#2988)
+- show 403 forbidden errors when fetching feeds (#2988)
+- prevent move feed dialog from being closed unexpectedly (#2995)
+- don't abort `opml` import when a single feed exists or can't be added (#2996)
+
 ## [25.1.1] - 2024-12-16
 ### Changed
 - Show red error bubble only if more than 8 updates fail. (#2955)
