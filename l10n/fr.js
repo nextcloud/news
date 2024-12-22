@@ -50,7 +50,6 @@ OC.L10N.register(
     "Article details" : "Détails de l'article",
     "No article selected" : "Aucun article sélectionné",
     "Please select an article from the list..." : "Veuillez sélectionner un article dans la liste ...",
-    "Move feed to folder" : "Déplacer le flux vers le dossier",
     "Move" : "Déplacer",
     "User Name" : "Nom d'utilisateur",
     "Share" : "Partager",

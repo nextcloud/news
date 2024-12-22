@@ -48,7 +48,6 @@ OC.L10N.register(
     "Interval in seconds in which the feeds will be updated." : "Intervall i sekunder som strømmene vil bli oppdatert.",
     "No article selected" : "Ingen artikkel valgt",
     "Please select an article from the list..." : "Vennligst velg en artikkel fra lasten...",
-    "Move feed to folder" : "Flytt nyhetsstrøm til mappe",
     "Move" : "Flytt",
     "User Name" : "Brukernavn",
     "Share" : "Del",

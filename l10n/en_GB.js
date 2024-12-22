@@ -53,7 +53,6 @@ OC.L10N.register(
     "Article details" : "Article details",
     "No article selected" : "No article selected",
     "Please select an article from the list..." : "Please select an article from the list...",
-    "Move feed to folder" : "Move feed to folder",
     "Move" : "Move",
     "User Name" : "User Name",
     "Share" : "Share",

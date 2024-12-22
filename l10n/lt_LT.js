@@ -41,7 +41,6 @@ OC.L10N.register(
     "Article list" : "Straipsnių sąrašas",
     "Article details" : "Išsamiau apie straipsnį",
     "Please select an article from the list..." : "Pasirinkite straipsnį iš sąrašo...",
-    "Move feed to folder" : "Perkelti kanalą į aplanką",
     "Move" : "Perkelti",
     "User Name" : "Naudotojo vardas",
     "Share" : "Bendrinti",

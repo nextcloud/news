@@ -53,7 +53,6 @@ OC.L10N.register(
     "Article details" : "Sonraí alt",
     "No article selected" : "Níor roghnaíodh aon alt",
     "Please select an article from the list..." : "Roghnaigh alt ón liosta le do thoil...",
-    "Move feed to folder" : "Bog an fotha go dtí an fillteán",
     "Move" : "Bog",
     "User Name" : "Ainm Úsáideora",
     "Share" : "Comhroinn",

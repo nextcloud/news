@@ -48,7 +48,6 @@ OC.L10N.register(
     "Interval in seconds in which the feeds will be updated." : "フィードを更新するまでの間隔を秒数で指定してください。",
     "No article selected" : "記事が選択されていません",
     "Please select an article from the list..." : "リストから記事を選択してください...",
-    "Move feed to folder" : "フィードをフォルダーに移動する",
     "Move" : "移動",
     "User Name" : "ユーザーネーム",
     "Share" : "共有",

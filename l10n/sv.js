@@ -49,7 +49,6 @@ OC.L10N.register(
     "Article details" : "Artikeldetaljer",
     "No article selected" : "Ingen artikel har valts",
     "Please select an article from the list..." : "Välj en artikel från listan...",
-    "Move feed to folder" : "Flytta flödet till mappen",
     "Move" : "Flytta",
     "User Name" : "Användarnamn",
     "Share" : "Dela",

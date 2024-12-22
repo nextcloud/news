@@ -50,7 +50,6 @@ OC.L10N.register(
     "Article details" : "Детаљи чланка",
     "No article selected" : "Није изабран ниједан чланак",
     "Please select an article from the list..." : "Молимо вас да изаберете чланак из листе...",
-    "Move feed to folder" : "Премести довод у фолдер",
     "Move" : "Помери",
     "User Name" : "Име корисника",
     "Share" : "Подели",

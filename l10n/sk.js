@@ -50,7 +50,6 @@ OC.L10N.register(
     "Article details" : "Detail článku",
     "No article selected" : "Žiadny článok nebol vybraný.",
     "Please select an article from the list..." : "Vyberte prosím článok zo zoznamu...",
-    "Move feed to folder" : "Presunúť kanál do priečinka",
     "Move" : "Presunúť",
     "User Name" : "Úžívateľské meno",
     "Share" : "Zdieľať",

@@ -53,7 +53,6 @@ OC.L10N.register(
     "Article details" : "تفاصيل المقالات",
     "No article selected" : "لم يتم تحديد أي مقالٍ",
     "Please select an article from the list..." : "رجاءً، إختَر مقالاً من القائمة ...",
-    "Move feed to folder" : "نقل اللُقم إلى المجلد",
     "Move" : "نقل",
     "User Name" : "اسم المستخدِم",
     "Share" : "مشاركة",

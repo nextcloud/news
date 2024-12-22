@@ -50,7 +50,6 @@ OC.L10N.register(
     "Article details" : "Artikuluaren xehetasunak",
     "No article selected" : "Ez da artikulurik hautatu",
     "Please select an article from the list..." : "Mesedez, hautatu zerrendako artikulu bat...",
-    "Move feed to folder" : "Mugitu jarioa karpetara",
     "Move" : "Mugitu",
     "User Name" : "Erabiltzaile izena",
     "Share" : "Partekatu",

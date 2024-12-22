@@ -53,7 +53,6 @@ OC.L10N.register(
     "Article details" : "文章細節",
     "No article selected" : "未選取文章",
     "Please select an article from the list..." : "請從清單中選取文章 …",
-    "Move feed to folder" : "將新聞源移動到資料夾",
     "Move" : "移動",
     "User Name" : "用戶名稱",
     "Share" : "分享",

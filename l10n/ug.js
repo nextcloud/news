@@ -48,7 +48,6 @@ OC.L10N.register(
     "Interval in seconds in which the feeds will be updated." : "يەم-خەشەكلەر يېڭىلىنىدىغان سېكۇنتتا ئارىلىق.",
     "No article selected" : "ھېچقانداق ماقالە تاللانمىدى",
     "Please select an article from the list..." : "تىزىملىكتىن ماقالە تاللاڭ ...",
-    "Move feed to folder" : "يەمنى قىسقۇچقا يۆتكەڭ",
     "Move" : "Move",
     "User Name" : "ئىشلەتكۈچى ئىسمى",
     "Share" : "ھەمبەھىر",
