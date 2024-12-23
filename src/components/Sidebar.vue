@@ -23,7 +23,7 @@
 		<template #list>
 			<NcAppNavigationItem :name="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
-					<NcActionButton icon="icon-checkmark" @click="markAllRead()">
+					<NcActionButton ref="triggerButton" icon="icon-checkmark" @click="markAllRead()">
 						{{ t('news','Mark read') }}
 					</NcActionButton>
 				</template>
