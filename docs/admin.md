@@ -63,11 +63,6 @@ The update interval is used to determine when the next update of all feeds shoul
 By default, the value is set to 3600 seconds (1 hour) You can configure this interval as an administrator.
 The new value is only applied after the next run of the updater.
 
-#### What is a good update interval?
+Since News 25.2.0 News no longer will update all feeds instead it will make a individual decision based on when an update for the feed will make sense. Therefore this interval is now only to be understood as the check if an update should be done.
 
-That depends on your individual needs.
-Please keep in mind that the lower you set your update interval, the more traffic is generated.
-
-#### Can I set individual update intervals per feed/user?
-
-No, that is not possible.
+This behavior can be disabled in the Settings although we generally do not recommend that.
