@@ -38,14 +38,17 @@ teardown() {
   for i in $FOLDER_IDS; do
     http --ignore-stdin -b -a ${user}:${APP_PASSWORD} DELETE ${BASE_URLv1}/folders/$i > /dev/null
   done
+
+  # set useNextUpdateTime to true
+  ./occ config:app:set news useNextUpdateTime --value=true
 }
 
 @test "[$TESTSUITE] Test simple update" {
   # Create Feed
   FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
-  
+
   sleep 2
-  
+
   # Get Items
   ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
   # Trigger Update
@@ -59,12 +62,47 @@ teardown() {
   assert_equal "${ID_LIST1[*]}" "${ID_LIST2[*]}"
 }
 
+@test "[$TESTSUITE] Test if nextUpdateTime is updated" {
+  # Create Feed
+  FEED=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED)
+
+  UpdateTime1=$(echo $FEED | jq '.feeds | .[0].nextUpdateTime')
+  FEEDID=$(echo $FEED | jq '.feeds | .[0].id')
+
+  assert_equal ${UpdateTime1} null
+
+  sleep 2
+
+  # Get the current time
+  current_time=$(date +%s)
+
+  # Calculate the expected time range (+1 hour with some tolerance)
+  expected_time_min=$((current_time + 3600 - 60)) # 1 hour - 1 minute tolerance
+  expected_time_max=$((current_time + 3600 + 60)) # 1 hour + 1 minute tolerance
+
+  php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 15 -s 9 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml
+  # Trigger Update
+  http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
+
+  sleep 2
+
+  UpdateTime2=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].nextUpdateTime')
+
+  # Assert that UpdateTime2 is within the expected range
+  run bash -c "[[ $UpdateTime2 -ge $expected_time_min && $UpdateTime2 -le $expected_time_max ]]"
+  assert_success
+
+}
+
 @test "[$TESTSUITE] Test simple update with new content" {
+  # Disable useNextUpdateTime
+  ./occ config:app:set news useNextUpdateTime --value=false
+
   # Create Feed
   FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
-  
+
   sleep 2
-  
+
   # Get Items
   ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
@@ -72,7 +110,7 @@ teardown() {
 
   # Trigger Update
   http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
-  
+
   sleep 2
 
   # Get Items again
@@ -85,34 +123,38 @@ teardown() {
   assert_output --partial "${ID_LIST1[*]}"
 }
 
-@test "[$TESTSUITE] Test feed with 'outdated' items https://github.com/nextcloud/news/issues/2236 " {
- # Create Feed, for the first fetch a timestamp today -1 year is used.
-  FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
-  
-  sleep 2
-  
-  # Get Items
-  ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
-
-  # Generate Feed with older items (-o yes)
-  php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 15 -s 9 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml -o yes
-
-  # Trigger Update
-  http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
-  
-  sleep 2
-
-  # Get Items again
-  ID_LIST2=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
-
-  output="${ID_LIST2[*]}"
-
-  # Check that they are not equal but that they match partially.
-  assert_not_equal "${ID_LIST1[*]}" "${ID_LIST2[*]}"
-  assert_output --partial "${ID_LIST1[*]}"
-}
+# older date is not a thing anymore
+#@test "[$TESTSUITE] Test feed with 'outdated' items https://github.com/nextcloud/news/issues/2236 " {
+# # Create Feed, for the first fetch a timestamp today -1 year is used.
+#  FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
+#
+#  sleep 2
+#
+#  # Get Items
+#  ID_LIST1=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+#
+#  # Generate Feed with older items (-o yes)
+#  php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 15 -s 9 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml -o yes
+#
+#  # Trigger Update
+#  http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds/update userId=${user} feedId=$FEEDID
+#
+#  sleep 2
+#
+#  # Get Items again
+#  ID_LIST2=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
+#
+#  output="${ID_LIST2[*]}"
+#
+#  # Check that they are not equal but that they match partially.
+#  assert_not_equal "${ID_LIST1[*]}" "${ID_LIST2[*]}"
+#  assert_output --partial "${ID_LIST1[*]}"
+#}
 
 @test "[$TESTSUITE] Test purge with small feed" {
+  # Disable useNextUpdateTime
+  ./occ config:app:set news useNextUpdateTime --value=false
+
   # Generate Feed with 210 items.
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 50 -s 0 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml
   # Create Feed
@@ -152,10 +194,10 @@ teardown() {
   for n in "${ID_LIST[@]}" ; do
       ((n > max)) && max=$n
   done
-  
+
   # mark all items of feed as read, returns nothing
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep -Po '(?<=HTTP\/1\.1 )[0-9]{3}(?= OK)')
-  
+
   # cleanup, purge items
   http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/cleanup/after-update
 
@@ -174,13 +216,16 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Test purge with more items than default limit 200" {
+  # Disable useNextUpdateTime
+  ./occ config:app:set news useNextUpdateTime --value=false
+
   # Generate Feed with 210 items.
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 210 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml
   # Create Feed
   FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$TEST_FEED | grep -Po '"id":\K([0-9]+)')
-  
+
   sleep 2
-  
+
   # Get Items
   ID_LIST=($(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/items | grep -Po '"id":\K([0-9]+)' | tr '\n' ' '))
 
@@ -189,10 +234,10 @@ teardown() {
   for n in "${ID_LIST[@]}" ; do
       ((n > max)) && max=$n
   done
-  
+
   # mark all items of feed as read, returns nothing
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep -Po '(?<=HTTP\/1\.1 )[0-9]{3}(?= OK)')
-  
+
   # cleanup, purge items
   http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/cleanup/after-update
 
@@ -209,6 +254,9 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Test Update and pruge with feed item>200; items<200" {
+  # Disable useNextUpdateTime
+  ./occ config:app:set news useNextUpdateTime --value=false
+
   # Generate Feed with 210 items.
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 210 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml
   # Create Feed
@@ -221,7 +269,7 @@ teardown() {
   for n in "${ID_LIST[@]}" ; do
       ((n > max)) && max=$n
   done
-  
+
   # mark all items of feed as read, returns nothing
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep -Po '(?<=HTTP\/1\.1 )[0-9]{3}(?= OK)')
   # cleanup, purge items
@@ -243,7 +291,7 @@ teardown() {
   for n in "${ID_LIST[@]}" ; do
       ((n > max)) && max=$n
   done
-  
+
   # mark all items of feed as read, returns nothing
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEEDID/read newestItemId="$max" 2>&1| grep -Po '(?<=HTTP\/1\.1 )[0-9]{3}(?= OK)')
 
@@ -262,11 +310,14 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Test purge with two feeds with different item count limit" {
+  # Disable useNextUpdateTime
+  ./occ config:app:set news useNextUpdateTime --value=false
+
   # Generate Feed with 260 items.
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 260 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/feed1.xml
   # Generate Feed with 210 items.
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 210 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/feed2.xml
-  
+
   # Create Feeds
   FEED1ID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$FEED1 | grep -Po '"id":\K([0-9]+)')
   FEED2ID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$FEED2 | grep -Po '"id":\K([0-9]+)')
@@ -278,11 +329,11 @@ teardown() {
   for n in "${ID_LIST[@]}" ; do
       ((n > max)) && max=$n
   done
-  
+
   # mark all items of both feeds as read, returns nothing
   STATUS_CODE1=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEED1ID/read newestItemId="$max" 2>&1| grep -Po '(?<=HTTP\/1\.1 )[0-9]{3}(?= OK)')
   STATUS_CODE2=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} PUT ${BASE_URLv1}/feeds/$FEED2ID/read newestItemId="$max" 2>&1| grep -Po '(?<=HTTP\/1\.1 )[0-9]{3}(?= OK)')
-  
+
   # cleanup, purge items
   http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/cleanup/after-update
 

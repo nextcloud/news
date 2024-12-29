@@ -663,10 +663,12 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /**
      * @param int $nextUpdateTime
      */
-    public function setNextUpdateTime(?int $nextUpdateTime): void
+    public function setNextUpdateTime(?int $nextUpdateTime): Feed
     {
         $this->nextUpdateTime = $nextUpdateTime;
         $this->markFieldUpdated('nextUpdateTime');
+
+        return $this;
     }
 
     public function toAPI(): array
