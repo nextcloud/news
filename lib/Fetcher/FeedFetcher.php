@@ -146,6 +146,13 @@ class FeedFetcher implements IFeedFetcher
         );
 
         $feed->setNextUpdateTime($resource->getNextUpdate()?->getTimestamp());
+        $this->logger->debug(
+            'Feed {url} was parsed and nextUpdateTime is {nextUpdateTime}',
+            [
+            'url'   => $url,
+            'nextUpdateTime' => $feed->getNextUpdateTime()
+            ]
+        );
 
         if (!is_null($resource->getResponse()->getLastModified())) {
             $feed->setHttpLastModified($resource->getResponse()->getLastModified()->format(DateTime::RSS));
@@ -158,10 +165,11 @@ class FeedFetcher implements IFeedFetcher
         $feedName = $parsedFeed->getTitle();
         $feedAuthor = $parsedFeed->getAuthor();
         $this->logger->debug(
-            'Feed {url} was modified since last fetch. #{count} items',
+            'Feed {url} was modified since last fetch. #{count} items, nextUpdateTime is {nextUpdateTime}',
             [
             'url'   => $url,
             'count' => count($parsedFeed),
+            'nextUpdateTime' => $feed->getNextUpdateTime(),
             ]
         );
 
