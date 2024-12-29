@@ -8,6 +8,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - API add new field to Feed that indicates when the next update will be done "nextUpdateTime" (#2993)
+- Change logic to update feed only if the nextUpdateTime has been reached (#2999)
+- Add setting to disable the usage of nextUpdateTime (#2999)
 
 ### Fixed
 - `TypeError: this.$refs.actions.$refs.menuButton is undefined` when tabbing through feeds and folders
