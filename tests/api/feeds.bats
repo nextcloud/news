@@ -147,5 +147,6 @@ teardown() {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].nextUpdateTime')
 
-  assert_output '2071387335'
+  # the field nextUpdateTime should be null here since the feed just got created in the DB an the items have not yet been fetched
+  assert_output 'null'
 }
