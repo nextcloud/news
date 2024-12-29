@@ -87,6 +87,17 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		<p class="settings-hint">
 			{{ t("news", "Interval in seconds in which the feeds will be updated.") }}
 		</p>
+
+		<div class="field">
+			<NcCheckboxRadioSwitch type="switch"
+				:checked.sync="useNextUpdateTime"
+				@update:checked="update('useNextUpdateTime', useNextUpdateTime)">
+				{{ t("news", "Use next update time for feed updates") }}
+			</NcCheckboxRadioSwitch>
+		</div>
+		<p class="settings-hint">
+			{{ t("news", "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval.") }}
+		</p>
 	</NcSettingsSection>
 </template>
 
@@ -140,6 +151,7 @@ export default {
 			feedFetcherTimeout: loadState('news', 'feedFetcherTimeout'),
 			exploreUrl: loadState('news', 'exploreUrl'),
 			updateInterval: loadState('news', 'updateInterval'),
+			useNextUpdateTime: loadState('news', 'useNextUpdateTime') === '1',
 			relativeTime: moment(lastCron * 1000).fromNow(),
 			lastCron,
 		}
@@ -159,7 +171,7 @@ export default {
 					key,
 				},
 			)
-			if (key === 'useCronUpdates' || key === 'purgeUnread') {
+			if (key === 'useCronUpdates' || key === 'purgeUnread' || key === 'useNextUpdateTime') {
 				value = value ? '1' : '0'
 			}
 			try {

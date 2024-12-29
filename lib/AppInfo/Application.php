@@ -67,6 +67,7 @@ class Application extends App implements IBootstrap
         'useCronUpdates'           => true,
         'exploreUrl'               => '',
         'updateInterval'           => 3600,
+        'useNextUpdateTime'        => true,
     ];
 
     public function __construct(array $urlParams = [])
