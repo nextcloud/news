@@ -21,10 +21,12 @@ use HTMLPurifier;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
+use OCA\News\AppInfo\Application;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\IAppConfig;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
@@ -61,6 +63,10 @@ class FeedServiceV2 extends Service
      * @var Explorer
      */
     protected $explorer;
+    /**
+     * @var IAppConfig
+     */
+    protected $config;
 
     /**
      * FeedService constructor.
@@ -71,6 +77,7 @@ class FeedServiceV2 extends Service
      * @param Explorer        $explorer    Feed Explorer
      * @param HTMLPurifier    $purifier    HTML Purifier
      * @param LoggerInterface $logger      Logger
+     * @param IAppConfig      $config      App config
      */
     public function __construct(
         FeedMapperV2 $mapper,
@@ -78,7 +85,8 @@ class FeedServiceV2 extends Service
         ItemServiceV2 $itemService,
         Explorer $explorer,
         HTMLPurifier $purifier,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        IAppConfig $config
     ) {
         parent::__construct($mapper, $logger);
 
@@ -86,6 +94,7 @@ class FeedServiceV2 extends Service
         $this->itemService = $itemService;
         $this->explorer    = $explorer;
         $this->purifier    = $purifier;
+        $this->config      = $config;
     }
 
     /**
@@ -244,12 +253,13 @@ class FeedServiceV2 extends Service
         $feed->setFolderId($folderId)
             ->setUserId($userId)
             ->setHttpLastModified(null)
+            ->setNextUpdateTime(null)
             ->setArticlesPerUpdate(count($items));
 
         if ($title !== null) {
             $feed->setTitle($title);
         }
-   
+
         if ($feed->getTitle() === null) {
             $feed->setTitle(parse_url($feedUrl)['host']);
         }
@@ -274,6 +284,28 @@ class FeedServiceV2 extends Service
     {
         if ($feed->getPreventUpdate() === true) {
             return $feed;
+        }
+
+        // Check if the nextUpdateTime check should be used
+        $useNextUpdateTime = $this->config->getValueBool(
+            Application::NAME,
+            'useNextUpdateTime',
+            Application::DEFAULT_SETTINGS['useNextUpdateTime']
+        );
+
+        if ($useNextUpdateTime) {
+            $nextUpdateTime = $feed->getNextUpdateTime();
+            $currentTime = time();
+            $tolerance = 10 * 60; // 10 minutes tolerance
+
+            if ($nextUpdateTime !== null && ($currentTime + $tolerance) < $nextUpdateTime) {
+                $this->logger->info('Feed update skipped. Next update time not reached.', [
+                    'feedUrl' => $feed->getUrl(),
+                    'nextUpdateTime' => $nextUpdateTime,
+                    'currentTime' => $currentTime,
+                ]);
+                return $feed;
+            }
         }
 
         // for backwards compatibility it can be that the location is not set
@@ -325,6 +357,16 @@ class FeedServiceV2 extends Service
 
         $feed->setHttpLastModified($fetchedFeed->getHttpLastModified())
             ->setLocation($fetchedFeed->getLocation());
+
+        // check if useNextUpdateTime is set by the admin
+        // if so update value with the timestamp
+        // otherwise set it to null to indicate to clients
+        // that they can not use that field for any info.
+        if ($useNextUpdateTime) {
+            $feed->setNextUpdateTime($fetchedFeed->getNextUpdateTime());
+        } else {
+            $feed->setNextUpdateTime(null);
+        }
 
         foreach (array_reverse($items) as &$item) {
             $item->setFeedId($feed->getId())
