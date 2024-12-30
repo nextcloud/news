@@ -7,14 +7,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [25.2.0-beta.1] - 2024-12-30
+### Changed
 - API add new field to Feed that indicates when the next update will be done "nextUpdateTime" (#2993)
 - Change logic to update feed only if the nextUpdateTime has been reached (#2999)
 - Add setting to disable the usage of nextUpdateTime (#2999)
 
 ### Fixed
-- `TypeError: this.$refs.actions.$refs.menuButton is undefined` when tabbing through feeds and folders
+- `TypeError: this.$refs.actions.$refs.menuButton is undefined` when tabbing through feeds and folders (#3004)
 
-# Releases
 ## [25.1.2] - 2024-12-22
 ### Changed
 - show error message in add feed dialog and keep it open if the feed could not be added (#2988)
