@@ -2,6 +2,7 @@ name: nextcloud-news
 
 services:
   app:
+    container_name: nextcloud-news-app
     build: .
     ports:
       - 8081:80
