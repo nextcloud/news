@@ -1,7 +1,8 @@
 {
-    "image": "ghcr.io/juliushaertl/nextcloud-dev-php82:latest",
+    "image": "ghcr.io/juliusknorr/nextcloud-dev-php82:latest",
     "forwardPorts": [80],
     "containerEnv": {
+		"NEXTCLOUD_VERSION": "30",
         "NEXTCLOUD_AUTOINSTALL_APPS": "news",
 		"XDEBUG_MODE": "debug"
     },
