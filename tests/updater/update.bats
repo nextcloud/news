@@ -76,9 +76,9 @@ teardown() {
   # Get the current time
   current_time=$(date +%s)
 
-  # Calculate the expected time range (+1 hour with some tolerance)
-  expected_time_min=$((current_time + 3600 - 60)) # 1 hour - 1 minute tolerance
-  expected_time_max=$((current_time + 3600 + 60)) # 1 hour + 1 minute tolerance
+  # Calculate the expected time range (+1 day with some tolerance)
+  expected_time_min=$((current_time + 86400 - 60)) # 1 hour - 1 minute tolerance
+  expected_time_max=$((current_time + 86400 + 60)) # 1 hour + 1 minute tolerance
 
   php ${BATS_TEST_DIRNAME}/../test_helper/php-feed-generator/feed-generator.php -a 15 -s 9 -f ${BATS_TEST_DIRNAME}/../test_helper/feeds/test.xml
   # Trigger Update
@@ -87,6 +87,11 @@ teardown() {
   sleep 2
 
   UpdateTime2=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} GET ${BASE_URLv1}/feeds | jq '.feeds | .[0].nextUpdateTime')
+
+  # Check if UpdateTime2 is within the expected range and print it if not
+  if [[ $UpdateTime2 -lt $expected_time_min || $UpdateTime2 -gt $expected_time_max ]]; then
+    echo "UpdateTime2 is out of range: $UpdateTime2"
+  fi
 
   # Assert that UpdateTime2 is within the expected range
   run bash -c "[[ $UpdateTime2 -ge $expected_time_min && $UpdateTime2 -le $expected_time_max ]]"

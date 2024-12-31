@@ -68,6 +68,12 @@ class FetcherConfig
                            'text/xml;q=0.4, */*;q=0.2';
 
     /**
+     * Duration after which the feed is considered sleepy.
+     * @var int
+     */
+    public const SLEEPY_DURATION = 86400;
+    
+    /**
      * FetcherConfig constructor.
      *
      * @param IAppConfig $config    App configuration
