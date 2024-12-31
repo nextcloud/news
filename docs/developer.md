@@ -25,24 +25,33 @@ To test the codestyle you can run `make phpcs`.
 
 The application Front End uses Vue 2.7 and the Nextcloud Libraries [Vue Components](https://github.com/nextcloud-libraries/nextcloud-vue) for building the Application running inside your Nextcloud instance. For linting these files, we are using eslint, see the [config file](https://github.com/nextcloud/news/blob/master/.eslintrc.js). We also have Unit Tests for the components that run with Jest, please ensure these pass when adding new features/fixing bugs.
 
-## General Developer setup
+## Developer setup
+TL;DR:
 
-Check the Nextcloud [documentation](https://docs.nextcloud.com/server/latest/developer_manual/getting_started/devenv.html) to learn how to setup a developer environment, alternatively to a proper web server you can also use the [builtin php server](https://www.php.net/manual/en/features.commandline.webserver.php) on demand, it is enough for development purposes.
+- Clone [nextcloud server repository](https://github.com/nextcloud/server)
+- run `git submodule update --init`
+- Install the server `php ./occ maintenance:install`
+- Clone the viewer repo if you want to be able to upgrade the setup
+    - `cd apps && git clone https://github.com/nextcloud/viewer.git`
+- Inside apps dir clone the news app: `git clone https://github.com/nextcloud/news.git`
 
-When your setup is running, clone the news repository in the `apps/` directory inside the server.
+For more information check the Nextcloud [documentation](https://docs.nextcloud.com/server/latest/developer_manual/getting_started/devenv.html), the setup of a webserver is not strictly needed for backend development.
 
 Change into the news directory and run `make` to build the app, you will need php, composer, node, npm and maybe more.
 
 Now you can basically use the news app and test any changes you make on your local development environment. Check out the `appinfo/routes.php` file and `lib/controller/` directory for details on API controllers. Or check out `package.json` for npm scripts and the `src/` directory for the front end Vue Application.
 
-## Alternative Developer setup
-With [PR 2670](https://github.com/nextcloud/news/pull/2670) new options to create a development environment were added.
+### Docker
+We also have a docker based environment check the README in the `docker/` directory.
 
-See the README in the docker directory.
+This setup is nice since you get a full nextcloud installation and you can open the interface in the browser, which allows you to easily test your changes.
 
-There is also a nix-shell config and zellij layout prepared.
+There is also a nix-shell config and zellij layout prepared if you are interested in that.
 
-If you have issues with the setup create a [new discussion](https://github.com/nextcloud/news/discussions).
+### Devcontainer
+Check the README in the .devcontainer directory.
+
+If you have issues with setting up a developer environment create a [new discussion](https://github.com/nextcloud/news/discussions/categories/developer).
 
 ### Frontend Tips/Organization
 
@@ -53,7 +62,7 @@ If you have issues with the setup create a [new discussion](https://github.com/n
 
 ## Testing
 
-Please make sure to run all tests before submitting any pull requests.
+When submitting your PR the tests will be run automatically, try to fix any errors. 
 
 ### Frontend Unit Tests
 
