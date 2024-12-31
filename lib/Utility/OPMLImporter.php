@@ -65,10 +65,12 @@ class OPMLImporter
     private function outlineToItem(DOMElement $outline, ?string $parent = null): void
     {
         if ($outline->getAttribute('type') === 'rss') {
+            // take title if available, otherwise use text #2896
+            $title = $outline->getAttribute('title') ?? $outline->getAttribute('text');
             $feed = [
                 'link' => $outline->getAttribute('htmlUrl'),
                 'url' => $outline->getAttribute('xmlUrl'),
-                'title' => $outline->getAttribute('title'),
+                'title' => $title,
                 'folder' => $parent,
             ];
 

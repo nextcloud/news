@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- OPML import use text field for title if title field is missing (#3016) 
 
 # Releases
 ## [25.2.0-beta.1] - 2024-12-30
