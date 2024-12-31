@@ -142,11 +142,6 @@ jobs:
 
           kill %1
 
-      - name: Prep PHP tests
-        working-directory: ../server/apps/news
-        run: make php-test-dependencies
-
-      - name: Feed tests
+      - name: Check feeds if feeds from explore page are reachable
         working-directory: ../server/apps/news
         run: make feed-test
-
