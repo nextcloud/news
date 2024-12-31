@@ -7,7 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-
+- Set maximum delay for updates to "in one day" (#3015)
 ### Fixed
 - OPML import use text field for title if title field is missing (#3016) 
 

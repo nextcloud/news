@@ -145,7 +145,10 @@ class FeedFetcher implements IFeedFetcher
             $location
         );
 
-        $feed->setNextUpdateTime($resource->getNextUpdate()?->getTimestamp());
+        $feed->setNextUpdateTime(nextUpdateTime: $resource->getNextUpdate(
+            sleepyDuration: $this->fetcherConfig::SLEEPY_DURATION
+        )?->getTimestamp());
+
         $this->logger->debug(
             'Feed {url} was parsed and nextUpdateTime is {nextUpdateTime}',
             [
