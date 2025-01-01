@@ -49,6 +49,8 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Kolik až přesměrování může být následováno při stahování článků.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nejdelší přijatelné čekání (v sekundách) na načtení RSS nebo Atom kanálu. Při překročení bude pokus o aktualizaci přerušen.",
     "Interval in seconds in which the feeds will be updated." : "Interval (v sekundách) ve kterém budou kanály aktualizovány.",
+    "Use next update time for feed updates" : "Použít příští čas aktualizace pro nakrmení aktualizací",
+    "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Toto zapněte pro použití vypočítaného času příští aktualizace pro nakrmení aktualizací. Vypněte pro kanály založené čistě na intervalu aktualizace.",
     "Article list" : "Seznam článku",
     "Article details" : "Podrobnosti o článku",
     "No article selected" : "Nevybrán žádný článek",

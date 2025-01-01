@@ -49,6 +49,8 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "How many redirects the feed fetcher should follow.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.",
     "Interval in seconds in which the feeds will be updated." : "Interval in seconds in which the feeds will be updated.",
+    "Use next update time for feed updates" : "Use next update time for feed updates",
+    "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval.",
     "Article list" : "Article list",
     "Article details" : "Article details",
     "No article selected" : "No article selected",

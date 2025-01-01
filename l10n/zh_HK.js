@@ -49,6 +49,8 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Feed 擷取程式應遵循多少重新導向。",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "等待 RSS 或 Atom feed 載入的最大秒數；如果花了更長的時間，更新將會被中止。",
     "Interval in seconds in which the feeds will be updated." : "Feed 更新的時間間隔（以秒為單位）。",
+    "Use next update time for feed updates" : "使用下次更新時間更新 feed",
+    "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "啟用此項可使用計算出的下次更新時間更新 feed。停用則僅根據更新間隔更新 feed。",
     "Article list" : "文章清單",
     "Article details" : "文章細節",
     "No article selected" : "未選取文章",
