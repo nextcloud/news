@@ -8,6 +8,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [25.x.x]
 ### Changed
 - Set maximum delay for updates to "in one day" (#3015)
+- add an information list for feeds that displays data such as last or next update dates (#3021)
+
 ### Fixed
 - OPML import use text field for title if title field is missing (#3016) 
 

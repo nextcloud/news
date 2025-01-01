@@ -158,6 +158,10 @@
 					{{ t('news', 'Keyboard shortcuts') }}
 				</NcButton>
 				<HelpModal v-if="showHelp" @close="showHelp=false" />
+				<NcButton @click="showFeedInfoTable = true">
+					{{ t('news', 'Article feed information') }}
+				</NcButton>
+				<FeedInfoTable v-if="showFeedInfoTable" @close="showFeedInfoTable = false" />
 				<div>
 					<div class="select-container">
 						<label>
@@ -289,6 +293,7 @@ import MoveFeed from './MoveFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 
 import HelpModal from './modals/HelpModal.vue'
+import FeedInfoTable from './modals/FeedInfoTable.vue'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 
@@ -315,6 +320,7 @@ export default Vue.extend({
 		DownloadIcon,
 		SidebarFeedLinkActions,
 		HelpModal,
+		FeedInfoTable,
 	},
 	data: () => {
 		return {
@@ -323,6 +329,7 @@ export default Vue.extend({
 			feedToMove: undefined,
 			ROUTES,
 			showHelp: false,
+			showFeedInfoTable: false,
 			polling: null,
 			uploadStatus: null,
 			selectedFile: null,
@@ -474,6 +481,9 @@ export default Vue.extend({
 	mounted() {
 		subscribe('news:global:toggle-help-dialog', () => {
 			this.showHelp = !this.showHelp
+		})
+		subscribe('news:global:toggle-feed-info', () => {
+			this.showFeedInfoTable = !this.showFeedInfoTable
 		})
 	},
 	beforeDestroy() {
