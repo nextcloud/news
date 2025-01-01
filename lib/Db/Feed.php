@@ -335,7 +335,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'lastUpdateError',
             'basicAuthUser',
             'basicAuthPassword',
-            'nextUpdateTime'
+            'nextUpdateTime',
+            'lastModified'
         ]);
 
         if (is_null($this->link)) {

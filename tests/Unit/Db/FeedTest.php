@@ -125,6 +125,7 @@ class FeedTest extends TestCase
             'basicAuthUser' => 'user',
             'basicAuthPassword' => 'password',
             'nextUpdateTime' => '',
+            'lastModified' => '0',
             ],
             $feed->jsonSerialize()
         );
