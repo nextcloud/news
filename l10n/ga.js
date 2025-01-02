@@ -49,6 +49,8 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Cé mhéad athsheolaidh ba chóir don lorgaire beathaithe a leanúint.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Uaslíon soicind chun fanacht le fotha RSS nó Atom a luchtú; má thógann sé níos faide cuirfear deireadh leis an nuashonrú.",
     "Interval in seconds in which the feeds will be updated." : "Eatramh i soicindí ina ndéanfar na fothaí a nuashonrú.",
+    "Use next update time for feed updates" : "Úsáid an chéad am nuashonraithe eile le haghaidh nuashonruithe fotha",
+    "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Cumasaigh é seo chun an chéad am nuashonraithe eile ríofa a úsáid le haghaidh nuashonruithe fothaí. Díchumasaigh fothaí a nuashonrú bunaithe ar an eatramh nuashonraithe amháin.",
     "Article list" : "Liosta alt",
     "Article details" : "Sonraí alt",
     "No article selected" : "Níor roghnaíodh aon alt",
