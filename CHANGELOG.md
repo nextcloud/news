@@ -14,6 +14,14 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - OPML import use text field for title if title field is missing (#3016) 
 
 # Releases
+## [25.2.0-beta.2] - 2024-01-02
+### Changed
+- Set maximum delay for updates to "in one day" (#3015)
+- add an information list for feeds that displays data such as last or next update dates (#3021)
+
+### Fixed
+- OPML import use text field for title if title field is missing (#3016)
+
 ## [25.2.0-beta.1] - 2024-12-30
 ### Changed
 - API add new field to Feed that indicates when the next update will be done "nextUpdateTime" (#2993)
