@@ -114,6 +114,9 @@ export default {
 	},
 	methods: {
 		formatDate(timestamp) {
+			if (!timestamp) {
+				return t('news', 'Not available')
+			}
 			return new Date(timestamp).toLocaleDateString(undefined, {
 				day: '2-digit',
 				month: '2-digit',
