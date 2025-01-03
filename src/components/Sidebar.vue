@@ -154,13 +154,17 @@
 		</template>
 		<template #footer>
 			<NcAppNavigationSettings :name="t('news', 'Settings')">
-				<NcButton @click="showHelp = true">
-					{{ t('news', 'Keyboard shortcuts') }}
-				</NcButton>
-				<HelpModal v-if="showHelp" @close="showHelp=false" />
-				<NcButton @click="showFeedInfoTable = true">
-					{{ t('news', 'Article feed information') }}
-				</NcButton>
+				<div class="settings-button">
+					<NcButton wide="true" @click="showHelp = true">
+						{{ t('news', 'Keyboard shortcuts') }}
+					</NcButton>
+				</div>
+				<HelpModal v-if="showHelp" @close="showHelp = false" />
+				<div class="settings-button">
+					<NcButton wide="true" @click="showFeedInfoTable = true">
+						{{ t('news', 'Article feed information') }}
+					</NcButton>
+				</div>
 				<FeedInfoTable v-if="showFeedInfoTable" @close="showFeedInfoTable = false" />
 				<div>
 					<div class="select-container">
@@ -228,7 +232,7 @@
 							{{ t('news', 'Disable automatic refresh') }}
 						</label>
 					</div>
-					<h1>{{ t('news', 'Abonnements (OPML)') }}</h1>
+					<h2>{{ t('news', 'Abonnements (OPML)') }}</h2>
 					<div class="button-container">
 						<NcButton aria-label="UploadOpml"
 							:disabled="loading"
@@ -735,6 +739,10 @@ export default Vue.extend({
   min-width: 140px;
   text-overflow: ellipsis;
   margin-left: auto;
+}
+
+.settings-button {
+  padding: 2px;
 }
 
 .new-folder-container {
