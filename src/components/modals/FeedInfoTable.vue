@@ -13,45 +13,57 @@
 						<th @click="sortBy('id')">
 							<span class="column-title">
 								ID
-								<SortAscIcon v-if="sortKey === 'id' && sortOrder === 1" />
-								<SortDescIcon v-if="sortKey === 'id' && sortOrder !== 1" />
+								<div class="sort-icon">
+									<SortAscIcon v-show="sortKey === 'id' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-show="sortKey === 'id' && sortOrder !== 1" :size="20" />
+								</div>
 							</span>
 						</th>
 						<th @click="sortBy('title')">
 							<span class="column-title">
 								{{ t('news', 'Title') }}
-								<SortAscIcon v-if="sortKey === 'title' && sortOrder === 1" />
-								<SortDescIcon v-if="sortKey === 'title' && sortOrder !== 1" />
+								<span class="sort-icon">
+									<SortAscIcon v-show="sortKey === 'title' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-show="sortKey === 'title' && sortOrder !== 1" :size="20" />
+								</span>
 							</span>
 						</th>
 						<th @click="sortBy('lastModified')">
 							<span class="column-title">
 								{{ t('news', 'Last update') }}
-								<SortAscIcon v-if="sortKey === 'lastModified' && sortOrder === 1" />
-								<SortDescIcon v-if="sortKey === 'lastModified' && sortOrder !== 1" />
+								<span class="sort-icon">
+									<SortAscIcon v-show="sortKey === 'lastModified' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-show="sortKey === 'lastModified' && sortOrder !== 1" :size="20" />
+								</span>
 							</span>
 						</th>
 						<th @click="sortBy('nextUpdateTime')">
 							<span class="column-title">
 								{{ t('news', 'Next update') }}
-								<SortAscIcon v-if="sortKey === 'nextUpdateTime' && sortOrder === 1" />
-								<SortDescIcon v-if="sortKey === 'nextUpdateTime' && sortOrder !== 1" />
+								<span class="sort-icon">
+									<SortAscIcon v-show="sortKey === 'nextUpdateTime' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-show="sortKey === 'nextUpdateTime' && sortOrder !== 1" :size="20" />
+								</span>
 							</span>
 						</th>
 						<th :title="t('news', 'Articles per update')"
 							@click="sortBy('articlesPerUpdate')">
 							<span class="column-title">
 								APU
-								<SortAscIcon v-if="sortKey === 'articlesPerUpdate' && sortOrder === 1" />
-								<SortDescIcon v-if="sortKey === 'articlesPerUpdate' && sortOrder !== 1" />
+								<span class="sort-icon">
+									<SortAscIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder !== 1" :size="20" />
+								</span>
 							</span>
 						</th>
 						<th :title="t('news', 'Error Count') "
 							@click="sortBy('updateErrorCount')">
 							<span class="column-title">
 								EC
-								<SortAscIcon v-if="sortKey === 'updateErrorCount' && sortOrder === 1" />
-								<SortDescIcon v-if="sortKey === 'updateErrorCount' && sortOrder !== 1" />
+								<span class="sort-icon">
+									<SortAscIcon v-if="sortKey === 'updateErrorCount' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-if="sortKey === 'updateErrorCount' && sortOrder !== 1" :size="20" />
+								</span>
 							</span>
 						</th>
 					</tr>
@@ -165,15 +177,19 @@ export default {
 		th {
 			cursor: pointer;
 			font-weight: bold;
-			padding: .75rem 1rem .75rem 0;
 			border-bottom: 2px solid var(--color-background-darker);
 			&:hover {
 				background-color: var(--color-background-hover);
+				border-radius: 10px;
 			}
 		}
 
+		th * {
+			cursor: pointer;
+		}
+
 		td {
-			padding: .75rem 1rem .75rem 0;
+			padding: .25rem 1rem .25rem 0;
 			border-top: 1px solid var(--color-background-dark);
 			border-bottom: unset;
 
@@ -196,10 +212,17 @@ export default {
 		}
 
 		.column-title {
+			width: 100%;
 			display: flex;
+			justify-content: center;
 			align-items: center;
 			gap: 4px;
+			padding: .25rem 1rem .25rem 0;
 		}
 
+		.sort-icon {
+			height: 20px;
+			width: 20px;
+		}
 	}
 </style>
