@@ -86,6 +86,8 @@ OC.L10N.register(
     "Keep article unread" : "مقاله را نخوانید",
     "Toggle keep current article unread" : "جستجوی مقاله فعلی خوانده نشده",
     "Remove keep article unread" : "مقاله را نخوانید حذف کنید",
+    "Title" : "Title",
+    "Not available" : "در دسترس نیست",
     "Keyboard shortcut" : "صفحه کلید",
     "Action" : "عمل",
     "Jump to next article" : "پرش به مقاله بعدی",

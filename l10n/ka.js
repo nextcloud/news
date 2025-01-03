@@ -97,6 +97,7 @@ OC.L10N.register(
     "{num} days ago" : "{num} days ago",
     "{num} months ago" : "{num} months ago",
     "{num} years ago" : "{num} years ago",
+    "Not available" : "Not available",
     "Keyboard shortcut" : "Keyboard shortcut",
     "Action" : "Action",
     "Jump to next article" : "Jump to next article",

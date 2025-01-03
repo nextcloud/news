@@ -77,6 +77,8 @@ OC.L10N.register(
     "Keep article unread" : "Bewaar artikel als ongelezen",
     "Toggle keep current article unread" : "Omswitchen hou huidig artikel ongelezen",
     "Remove keep article unread" : "Verwijder ongelezen houden artikel",
+    "Title" : "Titel",
+    "Last update" : "Laatste update",
     "Keyboard shortcut" : "Sneltoets",
     "Action" : "Actie",
     "Jump to next article" : "Ga naar volgend artikel",

@@ -82,6 +82,7 @@ OC.L10N.register(
     "Keep article unread" : "Tandai artikel belum dibaca",
     "Toggle keep current article unread" : "Tombol alih tandai artikel saat ini belum dibaca",
     "Remove keep article unread" : "Hapus tanda artikel belum dibaca",
+    "Not available" : "Tidak tersedia",
     "Keyboard shortcut" : "Pintasan keyboard",
     "Jump to next article" : "Lompat ke artikel berikutnya",
     "Jump to previous article" : "Lompat ke artikel sebelumnya",

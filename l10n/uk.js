@@ -75,6 +75,8 @@ OC.L10N.register(
     "{num} days ago" : "{num} днів тому",
     "{num} months ago" : "{num} місяців тому",
     "{num} years ago" : "{num} років тому",
+    "Title" : "Заголовок",
+    "Not available" : "Не доступно",
     "Keyboard shortcut" : "Сполучення клавіш",
     "Action" : "Дія ",
     "Jump to next article" : "Наступна стаття",

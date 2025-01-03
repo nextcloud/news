@@ -30,6 +30,7 @@ OC.L10N.register(
     "from" : "од",
     "Open website" : "Отвори вебсајт",
     "{num} months ago" : "пред {num} месеци",
+    "Not available" : "Недостапно",
     "Keyboard shortcut" : "Кратенка преку тастатура",
     "right" : "десно",
     "left" : "лево",

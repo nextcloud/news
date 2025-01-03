@@ -15,6 +15,7 @@ OC.L10N.register(
     "Delete" : "Pozmak",
     "Newest first" : "Täze ilkinji",
     "Oldest first" : "Ilki bilen iň köne",
+    "Not available" : "Elýeterli däl",
     "Refresh" : "Täzelemek",
     "Create" : "Dörediň",
     "Dismiss" : "Ýapmak.",

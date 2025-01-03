@@ -115,6 +115,8 @@ OC.L10N.register(
     "{num} days ago" : "duela {num} egun",
     "{num} months ago" : "duela {num} hilabete",
     "{num} years ago" : "duela {num} urte",
+    "Title" : "Izenburua",
+    "Last update" : "Azken eguneraketa",
     "Keyboard shortcut" : "Teklatuko lasterbidea",
     "Action" : "Ekintza",
     "Jump to next article" : "Joan hurrengo artikulura",

@@ -98,6 +98,7 @@ OC.L10N.register(
     "{num} days ago" : "{num} dage siden",
     "{num} months ago" : "{num} måneder siden",
     "{num} years ago" : "{num} år siden",
+    "Not available" : "Ikke tilgængelig",
     "Keyboard shortcut" : "Tastaturgenvej",
     "Action" : "Handling",
     "Jump to next article" : "Gå til næste artikel",

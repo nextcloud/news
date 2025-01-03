@@ -71,6 +71,8 @@ OC.L10N.register(
     "Keep article unread" : "Διατήρηση άρθρου ως μη αναγνωσμένου",
     "Toggle keep current article unread" : "Εναλλαγή διατήρισης τρέχοντος άρθρου ως μη αναγνωσμένου",
     "Remove keep article unread" : "Αφαίρεση διατήρησης άρθρου ως μη αναγνωσμένου",
+    "Title" : "Τίτλος",
+    "Last update" : "Τελευταία ενημέρωση",
     "Keyboard shortcut" : "Συντόμευση πλητρολογίου",
     "Action" : "Ενέργεια",
     "Jump to next article" : "Επόμενο άρθρο",

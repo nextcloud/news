@@ -80,6 +80,7 @@ OC.L10N.register(
     "{num} days ago" : "{num} dies a oe",
     "{num} months ago" : "{num} meses a oe",
     "{num} years ago" : "{num} annos a oe",
+    "Title" : "Tìtulu",
     "Keyboard shortcut" : "Curtziadòrgiu de tecladu",
     "Action" : "Atzione",
     "Jump to next article" : "Brinca a s'artìculu imbeniente",

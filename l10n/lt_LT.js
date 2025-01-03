@@ -89,6 +89,8 @@ OC.L10N.register(
     "{num} days ago" : "prieš {num} d.",
     "{num} months ago" : "prieš {num} mėn.",
     "{num} years ago" : "prieš {num} m.",
+    "Title" : "Pavadinimas",
+    "Last update" : "Paskutinis atnaujinimas",
     "Keyboard shortcut" : "Spartusis klavišas",
     "Action" : "Veiksmas",
     "Jump to next article" : "Peršokti į kitą straipsnį",

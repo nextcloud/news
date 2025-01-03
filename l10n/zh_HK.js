@@ -120,6 +120,7 @@ OC.L10N.register(
     "{num} days ago" : "{num} 日前",
     "{num} months ago" : "{num} 個月前",
     "{num} years ago" : "{num} 年前",
+    "Title" : "標題",
     "Keyboard shortcut" : "鍵盤快捷鍵",
     "Action" : "操作",
     "Jump to next article" : "跳到下篇文章",

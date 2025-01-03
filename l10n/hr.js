@@ -73,6 +73,7 @@ OC.L10N.register(
     "Keep article unread" : "Drži članak kao nepročitan",
     "Toggle keep current article unread" : "Prebaci i zadržati trenutni članak nepročitanim",
     "Remove keep article unread" : "Makni održavanje članaka nepročitanim",
+    "Title" : "Naslov",
     "Keyboard shortcut" : "Tipkovni prečac",
     "Action" : "Radnja",
     "Jump to next article" : "Prijeđi na sljedeći članak",

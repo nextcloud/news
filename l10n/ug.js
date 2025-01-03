@@ -100,6 +100,8 @@ OC.L10N.register(
     "{num} days ago" : "{num} days ago",
     "{num} months ago" : "{num} months ago",
     "{num} years ago" : "{num} years ago",
+    "Title" : "ماۋزۇ",
+    "Not available" : "ئىشلەتكىلى بولمايدۇ",
     "Keyboard shortcut" : "كۇنۇپكا تاختىسى تېزلەتمىسى",
     "Action" : "ھەرىكەت",
     "Jump to next article" : "كېيىنكى ماقالىگە ئاتلاڭ",

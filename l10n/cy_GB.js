@@ -21,6 +21,7 @@ OC.L10N.register(
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
     "from" : "oddi wrth",
+    "Not available" : "Ddim ar gael",
     "Refresh" : "Adnewyddu",
     "Description" : "Disgrifiad",
     "Folder" : "Plygell",

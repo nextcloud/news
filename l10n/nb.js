@@ -101,6 +101,8 @@ OC.L10N.register(
     "{num} days ago" : "{num} dager siden",
     "{num} months ago" : "{num} måneder siden",
     "{num} years ago" : "{num} år siden",
+    "Title" : "Navn",
+    "Not available" : "Ikke ledig",
     "Keyboard shortcut" : "Hurtigtast",
     "Action" : "Handling",
     "Jump to next article" : "Gå til neste artikkel",

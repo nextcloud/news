@@ -89,6 +89,7 @@ OC.L10N.register(
     "{num} days ago" : "{num} päivää sitten",
     "{num} months ago" : "{num} kuukautta sitten",
     "{num} years ago" : "{num} vuotta sitten",
+    "Title" : "Nimeke",
     "Keyboard shortcut" : "Näppäimistön pikanäppäin",
     "Action" : "Toiminto",
     "Jump to next article" : "Siirry seuraavaan artikkeliin",

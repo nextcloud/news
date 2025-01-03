@@ -118,6 +118,8 @@
     "{num} days ago" : "{num} lá ó shin",
     "{num} months ago" : "{num} mí ó shin",
     "{num} years ago" : "{num} bliain ó shin",
+    "Title" : "Teideal",
+    "Not available" : "Níl sé ar fáil",
     "Keyboard shortcut" : "Aicearra méarchláir",
     "Action" : "Gníomh",
     "Jump to next article" : "Léim go dtí an chéad alt eile",

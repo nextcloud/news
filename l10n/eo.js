@@ -32,6 +32,7 @@ OC.L10N.register(
     "by" : "de",
     "from" : "el",
     "Open website" : "Malfermi TTT-ejon",
+    "Not available" : "Ne disponeble",
     "right" : "dekstro",
     "left" : "maldekstro",
     "Refresh" : "Refreŝigi",

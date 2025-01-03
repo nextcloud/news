@@ -117,6 +117,8 @@ OC.L10N.register(
     "{num} days ago" : "{num} dagar sedan",
     "{num} months ago" : "{num} månader sedan",
     "{num} years ago" : "{num} år sedan",
+    "Title" : "Titel",
+    "Last update" : "Senaste uppdatering",
     "Keyboard shortcut" : "Tangentbordsgenvägar",
     "Action" : "Ågärd",
     "Jump to next article" : "Hoppa till nästa artikel",

@@ -99,6 +99,7 @@ OC.L10N.register(
     "{num} days ago" : "{num}日前",
     "{num} months ago" : "{num}ヶ月前",
     "{num} years ago" : "{num}年前",
+    "Title" : "タイトル",
     "Keyboard shortcut" : "キーボードショートカット",
     "Action" : "アクション",
     "Jump to next article" : "次の記事へジャンプ",

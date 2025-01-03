@@ -16,6 +16,7 @@ OC.L10N.register(
     "Delete" : "நீக்குக",
     "by" : "மூலம்",
     "from" : "இலிருந்து",
+    "Title" : "தலைப்பு",
     "Refresh" : "மீள் ஏற்றுக",
     "Description" : "விவரிப்பு",
     "Folder" : "கோப்புறை",

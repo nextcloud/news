@@ -96,6 +96,8 @@
     "{num} days ago" : "pred {num} dnevi",
     "{num} months ago" : "pred {num} meseci",
     "{num} years ago" : "pred {num} leti",
+    "Title" : "Naslov",
+    "Last update" : "Zadnja posodobitev",
     "Keyboard shortcut" : "Tipkovna bližnica",
     "Action" : "Dejanje",
     "Jump to next article" : "Skoči na naslednji prispevek",

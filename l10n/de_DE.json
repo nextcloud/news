@@ -118,6 +118,8 @@
     "{num} days ago" : "Vor {num} Tagen",
     "{num} months ago" : "Vor {num} Monaten",
     "{num} years ago" : "Vor {num} Jahren",
+    "Title" : "Titel",
+    "Last update" : "Letzte Aktualisierung",
     "Keyboard shortcut" : "Tastaturbefehl",
     "Action" : "Aktion",
     "Jump to next article" : "Zum nächsten Artikel springen",

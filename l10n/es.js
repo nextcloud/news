@@ -101,6 +101,8 @@ OC.L10N.register(
     "{num} days ago" : "Hace {num} días",
     "{num} months ago" : "Hace {num} meses",
     "{num} years ago" : "Hace {num} años",
+    "Title" : "Título",
+    "Last update" : "Última actualización",
     "Keyboard shortcut" : "Atajo de teclado",
     "Action" : "Acción",
     "Jump to next article" : "Ir al artículo siguiente",

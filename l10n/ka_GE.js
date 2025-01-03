@@ -62,6 +62,7 @@ OC.L10N.register(
     "Keep article unread" : "დატოვეთ არტიკლი წაუკითხავი",
     "Toggle keep current article unread" : "გადართეთ არტიკლის წაუკთხავად დატოვება",
     "Remove keep article unread" : "მოაშორეთ არტიკლს წაუკითხავად დატოვება",
+    "Title" : "სათაური",
     "Keyboard shortcut" : "კლავიატურის კომბინაცია",
     "Action" : "ქმედება",
     "Jump to next article" : "შემდეგ არტიკლზე გადასვლა",
