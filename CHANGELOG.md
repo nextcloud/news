@@ -13,6 +13,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 - OPML import use text field for title if title field is missing (#3016) 
 - style fixes in settings section and feed info table
+- sorting in the feed information table changes also the original sorting
 
 # Releases
 ## [25.2.0-beta.2] - 2024-01-02
