@@ -109,7 +109,7 @@ export default {
 			feeds: state => state.feeds.feeds,
 		}),
 		sortedFeeds() {
-			const sorted = this.feeds
+			const sorted = [...this.feeds]
 			if (this.sortKey) {
 				sorted.sort((a, b) => {
 					const valueA = a[this.sortKey]
