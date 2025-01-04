@@ -7,16 +7,17 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Set maximum delay for updates to "in one day" (#3015)
-- add an information list for feeds that displays data such as last or next update dates (#3021)
 
 ### Fixed
-- OPML import use text field for title if title field is missing (#3016) 
-- style fixes in settings section and feed info table
-- sorting in the feed information table changes also the original sorting
+
 
 # Releases
-## [25.2.0-beta.2] - 2024-01-02
+## [25.2.0-beta.3] - 2025-01-04
+### Fixed
+- style fixes in settings section and feed info table (#3024)
+- sorting in the feed information table changes also the original sorting (#3024)
+
+## [25.2.0-beta.2] - 2025-01-02
 ### Changed
 - Set maximum delay for updates to "in one day" (#3015)
 - add an information list for feeds that displays data such as last or next update dates (#3021)
