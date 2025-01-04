@@ -100,6 +100,8 @@ OC.L10N.register(
     "{num} days ago" : "Fa {num} dies",
     "{num} months ago" : "Fa {num} mesos",
     "{num} years ago" : "Fa {num} anys",
+    "Title" : "Títol",
+    "Last update" : "Darrera actualització",
     "Keyboard shortcut" : "Drecera de teclat",
     "Action" : "Acció",
     "Jump to next article" : "Vés al següent article",

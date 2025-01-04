@@ -70,6 +70,8 @@ OC.L10N.register(
     "{num} days ago" : "hai {num} díes",
     "{num} months ago" : "hai {num} meses",
     "{num} years ago" : "hai {num} años",
+    "Title" : "Títulu",
+    "Not available" : "Nun ta disponible",
     "Keyboard shortcut" : "Atayos del tecláu",
     "Action" : "Aición",
     "Refresh" : "Anovar",

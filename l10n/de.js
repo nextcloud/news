@@ -119,6 +119,7 @@ OC.L10N.register(
     "{num} months ago" : "Vor {num} Monaten",
     "{num} years ago" : "Vor {num} Jahren",
     "Title" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
+    "Last update" : "Letzte Aktualisierung",
     "Not available" : "Benötigt keine Übersetzung. Hier wird nur die formelle Übersetzung verwendet (de_DE).",
     "Keyboard shortcut" : "Tastaturbefehl",
     "Action" : "Aktion",
