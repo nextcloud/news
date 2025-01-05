@@ -57,10 +57,12 @@ class PageController extends Controller
     {
         $status = $this->statusService->getStatus();
 
-        // TODO: Remove check when dropping NC 30.
+        // TODO: Remove check when dropping NC 30. Also consider dropping the reportUnmatchedIgnoredErrors line from
+        // the phpstan config.
         if (class_exists('\OCP\ServerVersion')) {
             $version = (new \OCP\ServerVersion())->getMajorVersion();
         } else {
+            /* @phpstan-ignore staticMethod.deprecated */
             $version = Util::getVersion()[0];
         }
 
