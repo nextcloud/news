@@ -27,6 +27,7 @@ use OCP\IConfig;
 use OCP\App\IAppManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class FetcherConfigTest
@@ -49,6 +50,9 @@ class FetcherConfigTest extends TestCase
     /** @var FetcherConfig */
     protected $class;
 
+    /** @var MockObject|LoggerInterface */
+    protected $logger;
+
     protected function setUp(): void
     {
         $this->config = $this->getMockBuilder(IAppConfig::class)
@@ -62,6 +66,11 @@ class FetcherConfigTest extends TestCase
         $this->appmanager = $this->getMockBuilder(IAppManager::class)
                                  ->disableOriginalConstructor()
                                  ->getMock();
+
+        $this->logger = $this->getMockBuilder(LoggerInterface::class)
+                                ->disableOriginalConstructor()
+                                ->getMock();
+
     }
 
     /**
@@ -69,7 +78,7 @@ class FetcherConfigTest extends TestCase
      */
     public function testGetClient()
     {
-        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager);
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
         $this->assertInstanceOf(FeedIoClient::class, $this->class->getClient());
     }
@@ -87,7 +96,7 @@ class FetcherConfigTest extends TestCase
                          ->method('getAppVersion')
                          ->willReturn('123.45');
 
-        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager);
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
         $expected = 'NextCloud-News/123.45';
         $response = $this->class->getUserAgent();
@@ -107,7 +116,7 @@ class FetcherConfigTest extends TestCase
                          ->method('getAppVersion')
                          ->willReturn('1.0');
 
-        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager);
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
         $expected = 'NextCloud-News/1.0';
         $response = $this->class->getUserAgent();
