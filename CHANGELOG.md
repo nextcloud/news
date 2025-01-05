@@ -12,7 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - fix proxy port removed if standard port for the protocol (#3027)
-
+- background updater may stumble over invalid datetime strings from feeds (#3028)
 
 # Releases
 ## [25.2.0-beta.3] - 2025-01-04
