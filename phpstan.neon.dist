@@ -1,6 +1,7 @@
 parameters:
   inferPrivatePropertyTypeFromConstructor: true
   treatPhpDocTypesAsCertain: false
+  reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - %currentWorkingDirectory%/../../lib/base.php
   excludePaths:
