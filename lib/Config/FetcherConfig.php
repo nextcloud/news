@@ -14,6 +14,7 @@
 namespace OCA\News\Config;
 
 use FeedIo\Adapter\ClientInterface;
+use Psr\Log\LoggerInterface;
 use \GuzzleHttp\Client;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
@@ -72,15 +73,28 @@ class FetcherConfig
      * @var int
      */
     public const SLEEPY_DURATION = 86400;
+
+    /**
+     * Logger
+     * @var LoggerInterface
+     */
+    private LoggerInterface $logger;
     
     /**
      * FetcherConfig constructor.
      *
      * @param IAppConfig $config    App configuration
      * @param IConfig $systemconfig System configuration
+     * @param IAppManager $appManager App manager
+     * @param LoggerInterface $logger Logger
      */
-    public function __construct(IAppConfig $config, IConfig $systemconfig, IAppManager $appManager)
-    {
+    public function __construct(
+        IAppConfig $config,
+        IConfig $systemconfig,
+        IAppManager $appManager,
+        LoggerInterface $logger
+    ) {
+        $this->logger = $logger;
         $this->version = $appManager->getAppVersion(Application::NAME);
         $this->client_timeout = $config->getValueInt(
             Application::NAME,
@@ -95,8 +109,13 @@ class FetcherConfig
 
         $proxy = $systemconfig->getSystemValue('proxy', null);
         if (is_null($proxy)) {
+            $this->logger->debug('No proxy configuration found');
             return $this;
         }
+        $this->logger->debug(
+            'Proxy configuration found: {proxy}',
+            ['proxy' => $proxy]
+        );
 
         $url = new Net_URL2($proxy);
 
@@ -107,6 +126,11 @@ class FetcherConfig
         }
 
         $this->proxy = $url->getNormalizedURL();
+
+        $this->logger->debug(
+            'Proxy configuration finalized: {proxy}',
+            ['proxy' => $proxy]
+        );
 
         return $this;
     }
