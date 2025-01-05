@@ -33,7 +33,13 @@ It should show something like this:
 CONTAINER ID   IMAGE                  COMMAND                  CREATED         STATUS         PORTS                                       NAMES
 a1b2c3d4e5f6   nextcloud-news-app     "docker-entrypoint.…"   2 hours ago     Up 2 hours     0.0.0.0:8081->80/tcp                        nextcloud-news-app
 ```
-To open a shell run
+
+To open a shell as www-data which you need to run occ commands run:
+``` bash
+docker exec -u www-data -it nextcloud-news-app /bin/bash
+```
+
+To open a shell as root run
 ``` bash
 docker exec -it nextcloud-news-app /bin/bash
 ```
