@@ -130,7 +130,11 @@ class FeedFetcher implements IFeedFetcher
             $url2->setUserinfo(rawurlencode($user), rawurlencode($password));
         }
         if (!is_null($httpLastModified) && trim($httpLastModified) !== '') {
-            $lastModified = new DateTime($httpLastModified);
+            try {
+                $lastModified = new DateTime($httpLastModified);
+            } catch (\Exception) {
+                $lastModified = null;
+            }
         } else {
             $lastModified = null;
         }
@@ -294,11 +298,15 @@ class FeedFetcher implements IFeedFetcher
         $item->setGuidHash(md5($item->getGuid()));
 
         $lastModified = $parsedItem->getLastModified() ?? new DateTime();
-        if ($parsedItem->getValue('pubDate') !== null) {
-            $pubDT = new DateTime($parsedItem->getValue('pubDate'));
-        } elseif ($parsedItem->getValue('published') !== null) {
-            $pubDT = new DateTime($parsedItem->getValue('published'));
-        } else {
+        try {
+            if ($parsedItem->getValue('pubDate') !== null) {
+                $pubDT = new DateTime($parsedItem->getValue('pubDate'));
+            } elseif ($parsedItem->getValue('published') !== null) {
+                $pubDT = new DateTime($parsedItem->getValue('published'));
+            } else {
+                $pubDT = $lastModified;
+            }
+        } catch (\Exception) {
             $pubDT = $lastModified;
         }
 
