@@ -16,6 +16,7 @@ OC.L10N.register(
     "Delete" : "Obriši",
     "by" : "od strane",
     "from" : "od",
+    "Title" : "Naslov",
     "Description" : "Opis",
     "Folder" : "Fasikla",
     "Create" : "Kreiraj",

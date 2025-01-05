@@ -86,6 +86,7 @@ OC.L10N.register(
     "Keep article unread" : "Постоянното означаване като непрочетена",
     "Toggle keep current article unread" : "Промяна запазва статуса на статията като непрочетена",
     "Remove keep article unread" : "Премахни постоянното означаване като непрочетена",
+    "Title" : "Заглавие",
     "Keyboard shortcut" : "Клавишни комбинации",
     "Action" : "Действие",
     "Jump to next article" : "Отиди на следващата статия",
