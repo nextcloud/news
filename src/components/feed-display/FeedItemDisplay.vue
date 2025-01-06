@@ -7,7 +7,7 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
-			<NcActions :inline="4" style="flex-grow: 1;">
+			<NcActions :inline="4" style="flex-grow: 1;" v-show="!hideItemNav">
 				<NcActionButton :title="t('news', 'Previous Item')"
 					@click="$root.$emit('prev-item')">
 					{{ t('news', 'Previous') }}
@@ -211,6 +211,10 @@ export default Vue.extend({
 			required: false,
 			default: null,
 		},
+		hideItemNav: {
+			type: Boolean,
+			default: false
+		}
 	},
 	data: () => {
 		return {
