@@ -275,7 +275,10 @@ export default Vue.extend({
 
 	.feed-item-row .title-container.compact {
 		flex: 0 1 auto;
-		overflow: unset;
+		overflow-y: unset;
+		overflow-x: scroll;
+		max-width: 100%;
+		text-overflow: clip;
 	}
 
 	.feed-item-row .intro-container {
@@ -285,7 +288,7 @@ export default Vue.extend({
 	}
 
 	.feed-item-row .intro-container.compact {
-		flex: 1 1 auto;
+		flex: 1 1;
 		height: 26pt !important;
 		align-content: center;
 		text-overflow: ellipsis;
