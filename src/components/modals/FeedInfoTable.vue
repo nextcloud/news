@@ -70,12 +70,22 @@
 				</thead>
 				<tbody>
 					<tr v-for="feed in sortedFeeds" :key="feed.id">
-						<td>{{ feed.id }}</td>
-						<td>{{ feed.title }}</td>
-						<td>{{ formatDate(feed.lastModified/1000) }}</td>
-						<td>{{ formatDate(feed.nextUpdateTime*1000) }}</td>
-						<td>{{ feed.articlesPerUpdate }}</td>
-						<td :title="feed.lastUpdateError">
+						<td class="number">
+							{{ feed.id }}
+						</td>
+						<td class="text">
+							{{ feed.title }}
+						</td>
+						<td class="date">
+							{{ formatDate(feed.lastModified/1000) }}
+						</td>
+						<td class="date">
+							{{ formatDate(feed.nextUpdateTime*1000) }}
+						</td>
+						<td class="number">
+							{{ feed.articlesPerUpdate }}
+						</td>
+						<td class="number" :title="feed.lastUpdateError">
 							{{ feed.updateErrorCount }}
 						</td>
 					</tr>
@@ -193,21 +203,16 @@ export default {
 			border-top: 1px solid var(--color-background-dark);
 			border-bottom: unset;
 
-			&.noborder {
-				border-top: unset;
+			&.text {
+				text-align: left;
 			}
 
-			&.ellipsis_top {
-				padding-bottom: 0;
+			&.number {
+				text-align: right;
 			}
 
-			&.ellipsis {
-				padding-top: 0;
-				padding-bottom: 0;
-			}
-
-			&.ellipsis_bottom {
-				padding-top: 0;
+			&.date {
+				text-align: center;
 			}
 		}
 
@@ -224,5 +229,13 @@ export default {
 			height: 20px;
 			width: 20px;
 		}
+
+	}
+
+	/* overwrite the fixed large modal width */
+	:deep(.modal-wrapper--large > .modal-container) {
+		max-width: 90%;
+		width: max-content;
+		max-height: min(90%, 100% - 2 * var(--header-height));
 	}
 </style>
