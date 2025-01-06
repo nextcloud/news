@@ -225,6 +225,8 @@ export default Vue.extend({
 	mounted() {
 		this.mounted = true
 		this.setupDebouncedClick()
+		this.$root.$on('next-item',this.jumpToNextItem)
+		this.$root.$on('prev-item',this.jumpToPreviousItem)
 	},
 	methods: {
 		async refreshApp() {

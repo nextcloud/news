@@ -7,6 +7,22 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
+			<NcActions :inline="4" style="flex-grow: 1;">
+				<NcActionButton :title="t('news', 'Previous Item')"
+					@click="$root.$emit('prev-item')">
+					{{ t('news', 'Previous') }}
+					<template #icon>
+						<ArrowLeftThickIcon />
+					</template>
+				</NcActionButton>
+				<NcActionButton :title="t('news', 'Next Item')"
+					@click="$root.$emit('next-item')">
+					{{ t('news', 'Next') }}
+					<template #icon>
+						<ArrowRightThickIcon />
+					</template>
+				</NcActionButton>
+			</NcActions>
 			<NcActions :inline="4">
 				<NcActionButton :title="t('news', 'Share within Instance')"
 					@click="showShareMenu = true">
@@ -152,6 +168,8 @@ import { mapState } from 'vuex'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
+import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
+import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
 
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
@@ -175,6 +193,8 @@ export default Vue.extend({
 		NcActions,
 		NcActionButton,
 		ShareItem,
+		ArrowLeftThickIcon,
+		ArrowRightThickIcon
 	},
 	props: {
 		item: {
