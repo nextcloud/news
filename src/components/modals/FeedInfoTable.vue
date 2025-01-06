@@ -8,6 +8,41 @@
 		<div class="table-modal">
 			<h2>{{ t('news', 'Article feed information') }}</h2>
 			<table>
+				<tr>
+					<td>
+						{{ t('news', 'Last update') }}:
+					</td>
+					<td>
+						{{ t('news', 'Time when the feed was last downloaded') }}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						{{ t('news', 'Next update') }}:
+					</td>
+					<td>
+						{{ t('news', 'Time when the next feed update will be done') }}<br>
+						({{ t('news', 'Only if activated in the admin settings, otherwise the regular update interval is used') }})
+					</td>
+				</tr>
+				<tr>
+					<td>
+						APU ({{ t('news', 'Articles per update') }}):
+					</td>
+					<td>
+						{{ t('news', 'Maximum number of articles reached in a feed update') }}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						EC ({{ t('news', 'Error Count') }}):
+					</td>
+					<td>
+						{{ t('news', 'Number of errors that have occurred since the last successful feed update') }}
+					</td>
+				</tr>
+			</table>
+			<table>
 				<thead>
 					<tr>
 						<th @click="sortBy('id')">
