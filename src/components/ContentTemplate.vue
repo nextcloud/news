@@ -1,6 +1,7 @@
 <template>
 	<NcAppContent :layout="layout"
 		:show-details="showDetails"
+		:mobile-layout="'horizontal-split'"
 		:list-max-width="100"
 		@update:showDetails="showItem(false)">
 		<template #list>
