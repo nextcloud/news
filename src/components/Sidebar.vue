@@ -540,7 +540,12 @@ export default Vue.extend({
 				})
 
 				if (response.ok) {
-					showSuccess(t('news', 'File successfully uploaded'))
+					const data = await response.json()
+					if (data.status === 'ok') {
+						showSuccess(t('news', 'File successfully uploaded'))
+					} else {
+						showError(data.message, { timeout: -1 })
+					}
 				} else {
 					showError(t('news', 'Error uploading the opml file'))
 				}
