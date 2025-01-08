@@ -14,6 +14,7 @@
 namespace OCA\News\Controller;
 
 use OCA\News\Service\OpmlService;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use \OCP\IRequest;
 use OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
@@ -38,7 +39,7 @@ class ImportController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    public function opml(): void
+    public function opml(): array
     {
         $data = '';
         if (isset($this->request->files['file'])) {
@@ -49,6 +50,21 @@ class ImportController extends Controller
         }
 
 
-        $this->opmlService->import($this->getUserId(), $data);
+        $status = '';
+        $message = '';
+        try {
+            $this->opmlService->import($this->getUserId(), $data);
+            $status = "ok";
+        } catch (ServiceValidationException $e) {
+            $status = "error";
+            $message = $e->getMessage();
+        }
+
+        $response = [
+            'status' => $status,
+            'message' => $message,
+        ];
+
+        return $response;
     }
 }
