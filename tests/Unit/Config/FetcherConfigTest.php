@@ -122,4 +122,31 @@ class FetcherConfigTest extends TestCase
         $response = $this->class->getUserAgent();
         $this->assertEquals($expected, $response);
     }
+
+    public function testProxyPortPreserved()
+    {
+        $this->config->expects($this->exactly(2))
+                     ->method('getValueInt')
+                     ->willReturnMap([
+                        ['news', 'feedFetcherTimeout', 60, false, 60],
+                        ['news', 'maxRedirects', 10, false, 10]
+                     ]);
+
+        $this->appmanager->expects($this->exactly(1))
+                         ->method('getAppVersion')
+                         ->willReturn('1.0');
+
+        $this->sysconfig->expects($this->exactly(2))
+                        ->method('getSystemValue')
+                        ->willReturnMap([
+                            ['proxy', null, 'http://192.168.178.1:80'],
+                            ['proxyuserpwd', null , null]
+                        ]);
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+        
+        $expected = 'http://192.168.178.1:80';
+        $response = $this->class->getProxy();
+        $this->assertEquals($expected, $response);
+        }
 }

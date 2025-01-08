@@ -125,11 +125,11 @@ class FetcherConfig
             $url->setUserinfo($auth[0], $auth[1]);
         }
 
-        $this->proxy = $url->getNormalizedURL();
+        $this->proxy = $url->getURL();
 
         $this->logger->debug(
             'Proxy configuration finalized: {proxy}',
-            ['proxy' => $proxy]
+            ['proxy' => $this->proxy]
         );
 
         return $this;
@@ -197,5 +197,15 @@ class FetcherConfig
         }
 
         return 'NextCloud-News/' . $this->version;
+    }
+
+    /**
+     * Get the proxy configuration
+     *
+     * @return string|null
+     */
+    public function getProxy(): ?string
+    {
+        return $this->proxy;
     }
 }
