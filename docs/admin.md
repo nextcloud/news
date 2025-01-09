@@ -63,6 +63,8 @@ The update interval is used to determine when the next update of all feeds shoul
 By default, the value is set to 3600 seconds (1 hour) You can configure this interval as an administrator.
 The new value is only applied after the next run of the updater.
 
-Since News 25.2.0 News no longer will update all feeds instead it will make a individual decision based on when an update for the feed will make sense. Therefore this interval is now only to be understood as the check if an update should be done.
+Starting with News 25.2.0, the app can dynamically adjust update schedules based on feed activity. This feature, disabled by default, can be enabled by the Nextcloud administrator.
 
-This behavior can be disabled in the Settings although we generally do not recommend that.
+By analyzing feed data, the app can optimize update frequencies, potentially reducing server load and network traffic. However, this feature may not work correctly with all feeds.
+
+Users can check the calculated next update time in the app's settings. This information will only be displayed when the dynamic update scheduling feature is enabled.
