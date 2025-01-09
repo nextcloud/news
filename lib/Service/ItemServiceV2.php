@@ -144,7 +144,7 @@ class ItemServiceV2 extends Service
      *
      * @return int|null Amount of deleted items or null if not applicable
      */
-    public function purgeOverThreshold(int $threshold = null, bool $purgeUnread = null): ?int
+    public function purgeOverThreshold(?int $threshold = null, ?bool $purgeUnread = null): ?int
     {
         $threshold = $threshold ?? $this->config->getValueInt(
             Application::NAME,
