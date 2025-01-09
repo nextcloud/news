@@ -392,7 +392,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         ];
     }
 
-    public function setAuthor(string $author = null): self
+    public function setAuthor(?string $author = null): self
     {
         if (!is_null($author)) {
             $author = strip_tags($author);
@@ -406,7 +406,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setBody(string $body = null): self
+    public function setBody(?string $body = null): self
     {
         // FIXME: this should not happen if the target="_blank" is already
         // on the link
@@ -420,7 +420,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setContentHash(string $contentHash = null): self
+    public function setContentHash(?string $contentHash = null): self
     {
         if ($this->contentHash !== $contentHash) {
             $this->contentHash = $contentHash;
@@ -430,7 +430,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setEnclosureLink(string $enclosureLink = null): self
+    public function setEnclosureLink(?string $enclosureLink = null): self
     {
         if ($this->enclosureLink !== $enclosureLink) {
             $this->enclosureLink = $enclosureLink;
@@ -440,7 +440,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setEnclosureMime(string $enclosureMime = null): self
+    public function setEnclosureMime(?string $enclosureMime = null): self
     {
         if ($this->enclosureMime !== $enclosureMime) {
             $this->enclosureMime = $enclosureMime;
@@ -450,7 +450,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setMediaThumbnail(string $mediaThumbnail = null): self
+    public function setMediaThumbnail(?string $mediaThumbnail = null): self
     {
         if ($this->mediaThumbnail !== $mediaThumbnail) {
             $this->mediaThumbnail = $mediaThumbnail;
@@ -460,7 +460,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setMediaDescription(string $mediaDescription = null): self
+    public function setMediaDescription(?string $mediaDescription = null): self
     {
         if ($this->mediaDescription !== $mediaDescription) {
             $this->mediaDescription = $mediaDescription;
@@ -480,7 +480,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setFingerprint(string $fingerprint = null): self
+    public function setFingerprint(?string $fingerprint = null): self
     {
         if ($this->fingerprint !== $fingerprint) {
             $this->fingerprint = $fingerprint;
@@ -510,7 +510,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setLastModified(string $lastModified = null): self
+    public function setLastModified(?string $lastModified = null): self
     {
         if ($this->lastModified !== $lastModified) {
             $this->lastModified = $lastModified;
@@ -520,7 +520,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setPubDate(int $pubDate = null): self
+    public function setPubDate(?int $pubDate = null): self
     {
         if ($this->pubDate !== $pubDate) {
             $this->pubDate = $pubDate;
@@ -540,7 +540,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setSearchIndex(string $searchIndex = null): self
+    public function setSearchIndex(?string $searchIndex = null): self
     {
         if ($this->searchIndex !== $searchIndex) {
             $this->searchIndex = $searchIndex;
@@ -560,7 +560,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setTitle(string $title = null): self
+    public function setTitle(?string $title = null): self
     {
         if (!is_null($title)) {
             $title = trim(strip_tags($title));
@@ -574,7 +574,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setSharedBy(string $sharedBy = null): self
+    public function setSharedBy(?string $sharedBy = null): self
     {
         if ($this->sharedBy !== $sharedBy) {
             $this->sharedBy = $sharedBy;
@@ -584,7 +584,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setSharedByDisplayName(string $sharedByDisplayName = null): self
+    public function setSharedByDisplayName(?string $sharedByDisplayName = null): self
     {
         if ($this->sharedByDisplayName !== $sharedByDisplayName) {
             $this->sharedByDisplayName = $sharedByDisplayName;
@@ -603,7 +603,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setUrl(string $url = null): self
+    public function setUrl(?string $url = null): self
     {
         if (is_null($url)) {
             return $this;
@@ -620,7 +620,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setCategoriesJson(string $categoriesJson = null): self
+    public function setCategoriesJson(?string $categoriesJson = null): self
     {
         if ($this->categoriesJson !== $categoriesJson) {
             $this->categoriesJson = $categoriesJson;
@@ -630,7 +630,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
-    public function setCategories(array $categories = null): self
+    public function setCategories(?array $categories = null): self
     {
         $categoriesJson = !is_null($categories) ? json_encode($categories) : null;
         $this->setCategoriesJson($categoriesJson);
