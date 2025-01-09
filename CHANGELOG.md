@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- enable support for php 8.4 (#3038)
 
 ### Fixed
 
