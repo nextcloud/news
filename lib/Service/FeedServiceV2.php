@@ -299,7 +299,7 @@ class FeedServiceV2 extends Service
             $tolerance = 10 * 60; // 10 minutes tolerance
 
             if ($nextUpdateTime !== null && ($currentTime + $tolerance) < $nextUpdateTime) {
-                $this->logger->info('Feed update skipped. Next update time not reached.', [
+                $this->logger->info('Update for {feedURL} skipped. Next update time not reached.', [
                     'feedUrl' => $feed->getUrl(),
                     'nextUpdateTime' => $nextUpdateTime,
                     'currentTime' => $currentTime,
