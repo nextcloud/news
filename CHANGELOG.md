@@ -6,16 +6,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ## [25.x.x]
+
+
+# Releases
+## [25.0.0] - 2025-01-10
 ### Changed
-- add explanations for the individual values in the feed information table
-- show error message from `opml` import in web-ui
-- disable new setting "nextUpdateTime" introduced in #2999 by default
+- add explanations for the individual values in the feed information table (#3031)
+- show error message from `opml` import in web-ui (#3036)
+- disable new setting "nextUpdateTime" introduced in #2999 by default (#3039)
 
 ### Fixed
 - fix proxy port removed if standard port for the protocol (#3027)
 - background updater may stumble over invalid datetime strings from feeds (#3028)
 
-# Releases
 ## [25.2.0-beta.3] - 2025-01-04
 ### Fixed
 - style fixes in settings section and feed info table (#3024)
