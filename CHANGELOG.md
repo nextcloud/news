@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - add explanations for the individual values in the feed information table
 - show error message from `opml` import in web-ui
+- enable PHP 8.4
 
 ### Fixed
 - fix proxy port removed if standard port for the protocol (#3027)
