@@ -320,12 +320,12 @@ export default Vue.extend({
 			const element = componentInstance ? componentInstance.$el : undefined
 
 			if (element) {
-				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
-				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 				const virtualScroll = this.$refs.virtualScroll
 				virtualScroll.showElement(element)
-
 			}
+
+			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
+			this.$store.dispatch(ACTIONS.MARK_READ, { item })
 		},
 		currentIndex(items: FeedItem[]): number {
 			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
