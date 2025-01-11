@@ -7,7 +7,7 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
-			<NcActions :inline="4" style="flex-grow: 1;" v-show="!hideItemNav">
+			<NcActions class='action-bar-nav' :inline="4" style="flex-grow: 1;" v-show="!hideItemNav">
 				<NcActionButton :title="t('news', 'Previous Item')"
 					@click="$root.$emit('prev-item')">
 					{{ t('news', 'Previous') }}
@@ -310,7 +310,9 @@ export default Vue.extend({
 
 </script>
 
-<style>
+<style lang="scss">
+	$breakpoint-mobile: 1024px;
+
 	.feed-item-display {
 		overflow-y: hidden;
 		display: flex;
@@ -403,7 +405,13 @@ export default Vue.extend({
 		padding: 10px 20px 0px 20px;
 
 		display: flex;
-		justify-content: right
+		justify-content: right;
+	}
+
+	.action-bar-nav {
+		@media only screen and (width > $breakpoint-mobile) {
+			display: none !important;
+		}
 	}
 
 	.feed-item-display .action-bar .button-vue,
@@ -414,4 +422,5 @@ export default Vue.extend({
 		min-height: 30px;
 		height: 30px;
 	}
+
 </style>
