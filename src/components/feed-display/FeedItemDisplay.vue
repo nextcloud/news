@@ -7,7 +7,9 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
-			<NcActions class='action-bar-nav' :inline="4" style="flex-grow: 1;" v-show="!hideItemNav">
+			<NcActions v-show="!hideItemNav"
+				class="action-bar-nav"
+				:inline="4">
 				<NcActionButton :title="t('news', 'Previous Item')"
 					@click="$root.$emit('prev-item')">
 					{{ t('news', 'Previous') }}
@@ -194,7 +196,7 @@ export default Vue.extend({
 		NcActionButton,
 		ShareItem,
 		ArrowLeftThickIcon,
-		ArrowRightThickIcon
+		ArrowRightThickIcon,
 	},
 	props: {
 		item: {
@@ -213,8 +215,8 @@ export default Vue.extend({
 		},
 		hideItemNav: {
 			type: Boolean,
-			default: false
-		}
+			default: false,
+		},
 	},
 	data: () => {
 		return {
@@ -409,6 +411,8 @@ export default Vue.extend({
 	}
 
 	.action-bar-nav {
+		flex-grow: 1;
+
 		@media only screen and (width > $breakpoint-mobile) {
 			display: none !important;
 		}
