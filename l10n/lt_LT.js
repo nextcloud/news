@@ -90,6 +90,7 @@ OC.L10N.register(
     "{num} months ago" : "prieš {num} mėn.",
     "{num} years ago" : "prieš {num} m.",
     "Last update" : "Paskutinis atnaujinimas",
+    "Next update" : "Kitas atnaujinimas",
     "Title" : "Pavadinimas",
     "Keyboard shortcut" : "Spartusis klavišas",
     "Action" : "Veiksmas",
