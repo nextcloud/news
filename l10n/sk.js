@@ -10,7 +10,7 @@ OC.L10N.register(
     "News feeds" : "Spravodajský kanál",
     "Unread articles" : "Neprečítané články",
     "News" : "Správy",
-    "News folders" : "Priečinky pre spravodajstvo",
+    "News folders" : "Adresáre s Novinovými článkami",
     "News articles" : "Novinové články",
     "Shared with me" : "Zdieľané so mnou",
     "An RSS/Atom feed reader" : "RSS/Atom čítačka",
