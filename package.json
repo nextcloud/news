@@ -73,7 +73,7 @@
     "@nextcloud/eslint-config": "^8.4.1",
     "@nextcloud/eslint-plugin": "^2.2.1",
     "@nextcloud/stylelint-config": "^2.1.2",
-    "@nextcloud/webpack-vue-config": "^5.1.0",
+    "@nextcloud/webpack-vue-config": "^6.2.0",
     "@types/jest": "^29.5.14",
     "@types/lodash": "^4.17.14",
     "@types/webpack-env": "^1.18.5",
