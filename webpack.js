@@ -1,4 +1,3 @@
-const { merge } = require('webpack-merge')
 let webpackConfig = require('@nextcloud/webpack-vue-config')
 const path = require('path')
 
@@ -13,12 +12,6 @@ webpackConfig.entry['cron-warning'] = path.join(
 	'src',
 	'main-cron-warning.js',
 )
-
-webpackConfig = merge(webpackConfig, {
-	resolve: {
-		extensions: ['.ts'],
-	},
-})
 
 // Add TS Loader for processing typescript in vue templates
 webpackConfig.module.rules.push({
