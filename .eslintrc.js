@@ -1,23 +1,7 @@
 module.exports = {
-	root: true,
-	parser: 'vue-eslint-parser',
-	parserOptions: {
-		parser: {
-			ts: '@typescript-eslint/parser',
-		},
-		ecmaVersion: 2020,
-	},
-	env: {
-		jest: true,
-	},
 	extends: [
-		'eslint:recommended',
-		'plugin:vue/base',
-		'plugin:vue/essential',
-		'@vue/standard',
-		'@vue/typescript/recommended',
 		'@nextcloud',
-		'plugin:@typescript-eslint/recommended',
+		'@nextcloud/eslint-config/typescript',
 	],
 	rules: {
 		'no-console': 'warn',
