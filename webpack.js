@@ -1,4 +1,5 @@
 let webpackConfig = require('@nextcloud/webpack-vue-config')
+const webpackRules = require('@nextcloud/webpack-vue-config/rules')
 const path = require('path')
 
 webpackConfig.entry['admin-settings'] = path.join(
@@ -14,18 +15,16 @@ webpackConfig.entry['cron-warning'] = path.join(
 )
 
 // Add TS Loader for processing typescript in vue templates
-webpackConfig.module.rules.push({
+webpackRules.RULE_TS = {
 	test: /.ts$/,
 	exclude: [/node_modules/],
-	use: [
-		{
-			loader: 'ts-loader',
-			options: {
-				transpileOnly: true,
-				appendTsSuffixTo: ['\\.vue$'],
-			},
-		},
-	],
-})
+	loader: 'ts-loader',
+	options: {
+		transpileOnly: true,
+		appendTsSuffixTo: ['\\.vue$'],
+	},
+}
+
+webpackConfig.module.rules = Object.values(webpackRules)
 
 module.exports = webpackConfig
