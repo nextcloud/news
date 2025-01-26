@@ -1,5 +1,4 @@
-import { AxiosResponse } from 'axios'
-import axios from '@nextcloud/axios'
+import axios, { AxiosResponse } from '@nextcloud/axios'
 
 import { API_ROUTES } from '../types/ApiRoutes'
 

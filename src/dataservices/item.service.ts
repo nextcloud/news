@@ -1,6 +1,5 @@
 import _ from 'lodash'
-import { AxiosResponse } from 'axios'
-import axios from '@nextcloud/axios'
+import axios, { AxiosResponse } from '@nextcloud/axios'
 import store from './../store/app'
 import feedstore from './../store/feed'
 
