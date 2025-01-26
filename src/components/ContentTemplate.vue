@@ -26,7 +26,6 @@
 			<div ref="contentElement" class="feed-item-content-wrapper">
 				<FeedItemDisplay v-if="selectedFeedItem"
 					:item="selectedFeedItem"
-					:hide-item-nav="layout === 'no-split'"
 					@show-details="showItem(false)" />
 				<NcEmptyContent v-else
 					style="margin-top: 20vh"

@@ -7,7 +7,7 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
-			<NcActions v-show="!hideItemNav"
+			<NcActions v-show="!splitModeOff"
 				class="action-bar-nav"
 				:inline="4">
 				<NcActionButton :title="t('news', 'Previous Item')"
@@ -212,10 +212,6 @@ export default Vue.extend({
 			type: Number,
 			required: false,
 			default: null,
-		},
-		hideItemNav: {
-			type: Boolean,
-			default: false,
 		},
 	},
 	data: () => {
