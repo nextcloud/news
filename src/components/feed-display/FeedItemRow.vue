@@ -219,6 +219,7 @@ export default Vue.extend({
 		display: flex; padding: 4px 4px !important;
 		border-bottom: 1px solid var(--color-border);
 	}
+
 	.feed-item-row.compact a.external {
 		line-height: 0;
 	}
@@ -248,7 +249,6 @@ export default Vue.extend({
 	.feed-item-row .main-container {
 		flex-grow: 1;
 		min-width: 0;
-		flex-grow: 1;
 	}
 
 	.feed-item-row .main-container.compact {

@@ -113,11 +113,11 @@ export default ExploreComponent
 
 <style scoped>
 #explore {
-    height: 100%;
-    width: 100%;
-    padding: 45px 0 45px 45px;
-		display: flex;
-		justify-items: center;
+	height: 100%;
+	width: 100%;
+	padding: 45px 0 45px 45px;
+	display: flex;
+	justify-items: center;
 }
 
 #explore .grid-container {
@@ -126,21 +126,21 @@ export default ExploreComponent
 }
 
 #explore .grid-item {
-    width: 300px;
-    border: 2px solid var(--color-border);
-    border-radius: var(--border-radius-large);
-    margin: 0 24px 24px 0;
-    padding: 24px;
-		flex-grow: 1;
-		max-width: calc(50% - 24px);
-		display: flex;
-		flex-direction: column;
+	width: 300px;
+	border: 2px solid var(--color-border);
+	border-radius: var(--border-radius-large);
+	margin: 0 24px 24px 0;
+	padding: 24px;
+	flex-grow: 1;
+	max-width: calc(50% - 24px);
+	display: flex;
+	flex-direction: column;
 }
 
 #explore .grid-item .explore-title {
-    background-repeat: no-repeat;
-    background-position: 0 center;
-    background-size: 24px;
+	background-repeat: no-repeat;
+	background-position: 0 center;
+	background-size: 24px;
 }
 
 #explore .grid-item .explore-title.icon {
@@ -148,35 +148,35 @@ export default ExploreComponent
 }
 
 #explore .grid-item .explore-title a {
-    word-wrap: break-word;
+	word-wrap: break-word;
 }
 
 #explore .grid-item .explore-title a:hover,
 #explore .grid-item .explore-title a:focus {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 #explore .grid-item .explore-logo {
-    text-align: center;
-    margin-top: 25px;
+	text-align: center;
+	margin-top: 25px;
 }
 
 #explore .grid-item .explore-logo img {
-    width: 100%;
+	width: 100%;
 }
 
 #explore .grid-item .explore-subscribe {
-    margin-top: 16px;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	margin-top: 16px;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #explore .grid-item .explore-content {
 	justify-content: center;
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 	margin-bottom: 10px;
 }
 </style>

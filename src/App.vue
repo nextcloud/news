@@ -97,9 +97,9 @@ export default Vue.extend({
 
 	#warning-box {
 		position: absolute;
-    right: 35px;
+		right: 35px;
 		top: 15px;
-    z-index: 5000;
+		z-index: 5000;
 		padding: 5px 10px;
 		background-color: var(--color-main-background);
 		color: var(--color-main-text);
@@ -131,7 +131,7 @@ export default Vue.extend({
 	.podcast audio {
 		flex-grow: 1;
 		background-color: rgba(0,0,0,0);
-    height: 40px;
+		height: 40px;
 	}
 
 	.podcast .podcast-download {

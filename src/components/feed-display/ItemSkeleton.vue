@@ -5,7 +5,7 @@
   -->
 
 <template>
-	<div class="item-skeleton">
+	<div>
 		<div class="item__labels" />
 		<div class="item__actions" />
 	</div>
@@ -23,10 +23,3 @@ export default Vue.extend({
 	},
 })
 </script>
-
-<style>
-.item-skeleton {
-	background: 'var(--color-placeholder-dark)';
-	height: '45px';
-}
-</style>

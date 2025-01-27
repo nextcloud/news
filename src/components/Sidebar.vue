@@ -727,38 +727,38 @@ export default Vue.extend({
 
 <style scoped>
 .button-container {
-  display: flex;
-  width: 100%;
+	display: flex;
+	width: 100%;
 }
 
 .button-container button {
-  flex: 1;
+	flex: 1;
 }
 
 .select-container {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .select-container select {
-  min-width: 140px;
-  text-overflow: ellipsis;
-  margin-left: auto;
+	min-width: 140px;
+	text-overflow: ellipsis;
+	margin-left: auto;
 }
 
 .settings-button {
-  padding: 2px;
+	padding: 2px;
 }
 
 .new-folder-container {
-	padding: calc(var(--default-grid-baseline, 4px)* 2);
+	padding: calc(var(--default-grid-baseline, 4px) * 2);
 }
 
 /*
  * workaround remove extra scroll bar in navigation body
  */
 :deep(.app-navigation__body) {
-    overflow-y: unset !important;
-    flex: 1 0 auto;
+	overflow-y: unset !important;
+	flex: 1 0 auto;
 }
 </style>
