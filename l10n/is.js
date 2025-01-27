@@ -94,6 +94,7 @@ OC.L10N.register(
     "No unread articles available" : "Engar ólesnar greinar tiltækar",
     "Star article" : "Stjörnumerkja grein",
     "Unstar article" : "Taka stjörnugjöf af grein",
+    "Share on social media" : "Deila á samfélagsmiðlum",
     "Description" : "Lýsing",
     "Toggle expand article in compact view" : "Víxla útflettingu greinar af/á í þjappaðri sýn",
     "Mark current article's feed/folder read" : "Merkja streymi/möppu núverandi greinar sem lesið",
