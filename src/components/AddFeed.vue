@@ -257,6 +257,7 @@ export default Vue.extend({
 .invalid {
 	border: 1px solid rgb(251, 72, 72) !important;
 }
+
 .error {
 	color: rgb(251, 72, 72);
 	padding: 10px;

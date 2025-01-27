@@ -323,7 +323,7 @@ export default Vue.extend({
 
 	.article .body {
 		color: var(--color-main-text);
-    font-size: 15px;
+		font-size: 15px;
 	}
 
 	.article a {
@@ -352,13 +352,13 @@ export default Vue.extend({
 
 	.article .subtitle {
 		color: var(--color-text-lighter);
-    font-size: 15px;
-    padding: 25px 0;
+		font-size: 15px;
+		padding: 25px 0;
 	}
 
 	.article .author {
 		color: var(--color-text-lighter);
-    font-size: 15px;
+		font-size: 15px;
 	}
 
 	.article img {
@@ -368,7 +368,7 @@ export default Vue.extend({
 
 	.article h1 {
 		font-weight: bold;
-    font-size: 17px;
+		font-size: 17px;
 	}
 
 	.article table {

@@ -138,23 +138,23 @@ export default Vue.extend({
 
 <style>
 #share-item .user-bubble__content * {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 #share-item fieldset {
-  padding: 16px;
+	padding: 16px;
 }
 
 #share-item input {
-  width: 90%;
+	width: 90%;
 }
 
 #share-item .user-bubble-container {
-  margin: 10px;
+	margin: 10px;
 }
 
 #share-item .user-bubble__wrapper {
-  margin: 5px 10px;
+	margin: 5px 10px;
 }
 
 </style>
