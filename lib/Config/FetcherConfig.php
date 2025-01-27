@@ -72,7 +72,7 @@ class FetcherConfig
      * Duration after which the feed is considered sleepy.
      * @var int
      */
-    public const SLEEPY_DURATION = 86400;
+    public const SLEEPY_DURATION = 7 * 86400;
 
     /**
      * Logger
