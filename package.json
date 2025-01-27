@@ -56,7 +56,7 @@
     "@vue/vue2-jest": "^29.2.6",
     "lodash": "^4.17.21",
     "vue": "^2.7.16",
-    "vue-router": "^3.5.3",
+    "vue-router": "^4.5.0",
     "vue-shortkey": "^3.1.7",
     "vuex": "^3.6.2"
   },
