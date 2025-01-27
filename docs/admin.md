@@ -65,6 +65,6 @@ The new value is only applied after the next run of the updater.
 
 Starting with News 25.2.0, the app can dynamically adjust update schedules based on feed activity. This feature, disabled by default, can be enabled by the Nextcloud administrator.
 
-By analyzing feed data, the app can optimize update frequencies, potentially reducing server load and network traffic. However, this feature may not work correctly with all feeds.
+By analyzing feed data, the app can optimize update frequencies, potentially reducing server load and network traffic. The time until the next calculated update point is limited to a maximum of 24 hours. However, this feature may not work correctly with all feeds.
 
 Users can check the calculated next update time in the app's settings. This information will only be displayed when the dynamic update scheduling feature is enabled.
