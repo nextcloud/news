@@ -6,10 +6,13 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ## [25.x.x]
+### Changed
 
+### Fixed
+- Show error on folders only if at least one feed has more than eight errors
 
 # Releases
-## [25.0.0] - 2025-01-10
+## [25.2.0] - 2025-01-10
 ### Changed
 - add explanations for the individual values in the feed information table (#3031)
 - show error message from `opml` import in web-ui (#3036)
