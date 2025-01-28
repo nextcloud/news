@@ -155,6 +155,11 @@
 		<template #footer>
 			<NcAppNavigationSettings :name="t('news', 'Settings')">
 				<div class="settings-button">
+					<NcButton wide="true" target="_blank" href="https://nextcloud.github.io/news/">
+						{{ t('news', 'Documentation') }}
+					</NcButton>
+				</div>
+				<div class="settings-button">
 					<NcButton wide="true" @click="showHelp = true">
 						{{ t('news', 'Keyboard shortcuts') }}
 					</NcButton>
