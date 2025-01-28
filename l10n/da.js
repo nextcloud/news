@@ -62,7 +62,7 @@ OC.L10N.register(
     "Disable mark read through scrolling" : "Slå markér som læst fra når der rulles",
     "Show all articles" : "Vis alle artikler",
     "Reverse ordering (oldest on top)" : "Vend om på rækkefølgen (ældste øverst)",
-    "Off" : "Fra",
+    "Off" : "Deaktiver",
     "Rename Folder" : "Omdøb mappe",
     "Are you sure you want to delete?" : "Er du sikker på at du vil slette?",
     "Rename" : "Omdøb",
