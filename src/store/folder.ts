@@ -100,7 +100,9 @@ export const mutations = {
 			if (folder) {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
-				folder.updateErrorCount += it.updateErrorCount
+				if (it.updateErrorCount > 8) {
+					folder.updateErrorCount += it.updateErrorCount
+				}
 			}
 		})
 		state.folders = updatedFolders
