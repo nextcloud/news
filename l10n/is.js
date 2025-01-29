@@ -45,6 +45,7 @@ OC.L10N.register(
     "Disable mark read through scrolling" : "Gera óvirkt að merkja sem lesið við skrun",
     "Show all articles" : "Birta allar greinar",
     "Reverse ordering (oldest on top)" : "Öfug röðun (elsta efst)",
+    "Default" : "Sjálfgefið",
     "Vertical" : "Lóðrétt",
     "Horizontal" : "Lárétt",
     "Rename" : "Endurnefna",
