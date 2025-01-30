@@ -146,7 +146,6 @@ appstore:
 	install -d "$(appstore_sign_dir)/$(app_name)"
 	cp -r \
 	"appinfo" \
-	"css" \
 	"img" \
 	"l10n" \
 	"lib" \
