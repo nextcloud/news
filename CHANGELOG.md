@@ -7,14 +7,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Set mobileLayout to `horizontal-split` and add nav buttons for articles in mobile view
-- set the duration after which a feed is considered sleepy to 7 days when using `nextUpdateTime`
-- limit the time to the next update to a maximum of 24 hours when using `nextUpdateTime`
 
 ### Fixed
-- Show error on folders only if at least one feed has more than eight errors
 
 # Releases
+## [25.2.1-beta.1] - 2025-01-30
+### Changed
+- Set mobileLayout to `horizontal-split` and add nav buttons for articles in mobile view (#3046)
+- set the duration after which a feed is considered sleepy to 7 days when using `nextUpdateTime` (#3074)
+- limit the time to the next update to a maximum of 24 hours when using `nextUpdateTime` (#3074)
+
+### Fixed
+- Show error on folders only if at least one feed has more than eight errors (#3073)
+
 ## [25.2.0] - 2025-01-10
 ### Changed
 - add explanations for the individual values in the feed information table (#3031)
