@@ -7,7 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-
+- Set mobileLayout to `horizontal-split` and add nav buttons for articles in mobile view
 ### Fixed
 - Show error on folders only if at least one feed has more than eight errors
 

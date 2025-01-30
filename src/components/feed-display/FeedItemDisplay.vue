@@ -7,6 +7,24 @@
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
+			<NcActions v-show="!splitModeOff"
+				class="action-bar-nav"
+				:inline="4">
+				<NcActionButton :title="t('news', 'Previous Item')"
+					@click="$root.$emit('prev-item')">
+					{{ t('news', 'Previous') }}
+					<template #icon>
+						<ArrowLeftThickIcon />
+					</template>
+				</NcActionButton>
+				<NcActionButton :title="t('news', 'Next Item')"
+					@click="$root.$emit('next-item')">
+					{{ t('news', 'Next') }}
+					<template #icon>
+						<ArrowRightThickIcon />
+					</template>
+				</NcActionButton>
+			</NcActions>
 			<NcActions :inline="4">
 				<NcActionButton :title="t('news', 'Share within Instance')"
 					@click="showShareMenu = true">
@@ -152,6 +170,8 @@ import { mapState } from 'vuex'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
+import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
+import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
 
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
@@ -175,6 +195,8 @@ export default Vue.extend({
 		NcActions,
 		NcActionButton,
 		ShareItem,
+		ArrowLeftThickIcon,
+		ArrowRightThickIcon,
 	},
 	props: {
 		item: {
@@ -286,7 +308,9 @@ export default Vue.extend({
 
 </script>
 
-<style>
+<style lang="scss">
+	$breakpoint-mobile: 1024px;
+
 	.feed-item-display {
 		overflow-y: hidden;
 		display: flex;
@@ -379,7 +403,15 @@ export default Vue.extend({
 		padding: 10px 20px 0px 20px;
 
 		display: flex;
-		justify-content: right
+		justify-content: right;
+	}
+
+	.action-bar-nav {
+		flex-grow: 1;
+
+		@media only screen and (width > $breakpoint-mobile) {
+			display: none !important;
+		}
 	}
 
 	.feed-item-display .action-bar .button-vue,
@@ -390,4 +422,5 @@ export default Vue.extend({
 		min-height: 30px;
 		height: 30px;
 	}
+
 </style>
