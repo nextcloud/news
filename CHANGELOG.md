@@ -11,6 +11,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [25.2.1-beta.2] - 2025-01-30
+### Fixed
+- Fix for the build pipeline (#3078)
+
 ## [25.2.1-beta.1] - 2025-01-30
 ### Changed
 - Set mobileLayout to `horizontal-split` and add nav buttons for articles in mobile view (#3046)
