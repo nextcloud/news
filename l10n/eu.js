@@ -61,6 +61,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Erroreak dituzten jarioak ditu!",
     "Explore" : "Arakatu",
     "Settings" : "Ezarpenak",
+    "Documentation" : "Dokumentazioa",
     "Keyboard shortcuts" : "Teklatuaren lasterbideak",
     "Display mode" : "Erakuste-modua",
     "Split mode" : "Modu banatua",
@@ -95,6 +96,8 @@ OC.L10N.register(
     "Disable full text" : "Desgaitu testu osoa",
     "Unread updated" : "Markatu eguneratuak irakurri gabe",
     "Ignore updated" : "Ez ikusi eguneratuak",
+    "Previous" : "Aurrekoa",
+    "Next" : "Hurrengoa",
     "Share within Instance" : "Partekatu instantzian",
     "Toggle star article" : "Txandakatu artikuluaren izarra",
     "Mark unread" : "Markatu irakurri gabe bezala",
@@ -179,7 +182,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Irakurri gabeko/izarra duten artikuluak",
     "Error when importing: file does not contain valid JSON" : "Errorea inportatzean: fitxategiak ez du baliozko JSONa",
     "Help" : "Laguntza",
-    "Documentation" : "Dokumentazioa",
     "Report a bug" : "Jakinarazi errore bat"
 },
 "nplurals=2; plural=(n != 1);");

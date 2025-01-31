@@ -8,6 +8,7 @@
     "Move" : "Move",
     "Share" : "﻿ಹಂಚಿಕೊಳ್ಳಿ",
     "Settings" : "ಆಯ್ಕೆ",
+    "Documentation" : "ದಸ್ತಾವೇಜು",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
     "Delete" : "﻿ಅಳಿಸಿ",
     "right" : "ಬಲ",
@@ -16,7 +17,6 @@
     "Create" : "ಸೃಷ್ಟಿಸಿ",
     "Import" : "ಆಮದು",
     "Export" : "ರಫ್ತು",
-    "Help" : "﻿ಸಹಾಯ",
-    "Documentation" : "ದಸ್ತಾವೇಜು"
+    "Help" : "﻿ಸಹಾಯ"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

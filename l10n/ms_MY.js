@@ -10,8 +10,10 @@ OC.L10N.register(
     "Move" : "Move",
     "Share" : "Kongsi",
     "Settings" : "Tetapan",
+    "Documentation" : "Dokumentasi",
     "Rename" : "Namakan",
     "Delete" : "Padam",
+    "Previous" : "Sebelum",
     "by" : "oleh",
     "from" : "dari",
     "Refresh" : "Refresh",
@@ -20,7 +22,6 @@ OC.L10N.register(
     "Create" : "Buat",
     "Import" : "Import",
     "Export" : "Export",
-    "Help" : "Bantuan",
-    "Documentation" : "Dokumentasi"
+    "Help" : "Bantuan"
 },
 "nplurals=1; plural=0;");

@@ -8,8 +8,10 @@
     "Move" : "Move",
     "Share" : "Kongsi",
     "Settings" : "Tetapan",
+    "Documentation" : "Dokumentasi",
     "Rename" : "Namakan",
     "Delete" : "Padam",
+    "Previous" : "Sebelum",
     "by" : "oleh",
     "from" : "dari",
     "Refresh" : "Refresh",
@@ -18,7 +20,6 @@
     "Create" : "Buat",
     "Import" : "Import",
     "Export" : "Export",
-    "Help" : "Bantuan",
-    "Documentation" : "Dokumentasi"
+    "Help" : "Bantuan"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

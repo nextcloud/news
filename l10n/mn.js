@@ -20,6 +20,8 @@ OC.L10N.register(
     "Delete" : "Устгах",
     "Newest first" : "Шинийг урд нь",
     "Oldest first" : "Хуучныг урд нь",
+    "Previous" : "өмнөх",
+    "Next" : "Даараах",
     "Toggle star article" : "Өгүүллийг соль",
     "from" : "тэндээс",
     "Play audio" : "Аудио тоглуулах",

@@ -64,6 +64,7 @@
     "Has feeds with errors!" : "¡Tiene fuentes con errores!",
     "Explore" : "Explorar",
     "Settings" : "Ajustes",
+    "Documentation" : "Documentación",
     "Keyboard shortcuts" : "Atajos de teclado",
     "Article feed information" : "Información de la fuente del artículo",
     "Display mode" : "Modo de visualización",
@@ -99,6 +100,8 @@
     "Disable full text" : "Deshabilitar texto completo",
     "Unread updated" : "Artículos sin leer actualizados",
     "Ignore updated" : "Ignorar los actualizados",
+    "Previous" : "Anterior",
+    "Next" : "Siguiente",
     "Share within Instance" : "Compartir en la instancia",
     "Toggle star article" : "Marcar como favorito",
     "Mark unread" : "Marcar como no leído",
@@ -193,7 +196,6 @@
     "Unread/Starred Articles" : "Artículos no leídos y favoritos",
     "Error when importing: file does not contain valid JSON" : "Error al importar: el archivo no contiene JSON válido",
     "Help" : "Ayuda",
-    "Documentation" : "Documentación",
     "Report a bug" : "Notificar un error"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

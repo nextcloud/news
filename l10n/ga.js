@@ -66,6 +66,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Tá fothaí le hearráidí!",
     "Explore" : "Déan iniúchadh",
     "Settings" : "Socruithe",
+    "Documentation" : "Doiciméadúchán",
     "Keyboard shortcuts" : "Aicearraí méarchláir",
     "Article feed information" : "Faisnéis beatha alt",
     "Display mode" : "Mód taispeána",
@@ -101,6 +102,8 @@ OC.L10N.register(
     "Disable full text" : "Díchumasaigh an téacs iomlán",
     "Unread updated" : "Nuashonraithe gan léamh",
     "Ignore updated" : "Déan neamhaird de nuashonraithe",
+    "Previous" : "Roimhe Seo",
+    "Next" : "Ar aghaidh",
     "Share within Instance" : "Roinn laistigh de chás",
     "Toggle star article" : "Scoránaigh alt réalta",
     "Mark unread" : "Marcáil neamhléite",
@@ -195,7 +198,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Ailt Neamhléite/Réaltacha",
     "Error when importing: file does not contain valid JSON" : "Earráid agus an comhad á iompórtáil: níl JSON bailí sa chomhad",
     "Help" : "Cabhrú",
-    "Documentation" : "Doiciméadúchán",
     "Report a bug" : "Tuairiscigh fabht"
 },
 "nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);");

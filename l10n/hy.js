@@ -13,6 +13,7 @@ OC.L10N.register(
     "Settings" : "Կարգավորումներ",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
+    "Previous" : "Նախորդ",
     "Refresh" : "Թարմացնել",
     "Description" : "Նկարագրություն",
     "Folder" : "Պանակ",

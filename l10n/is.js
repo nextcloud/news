@@ -41,6 +41,7 @@ OC.L10N.register(
     "Starred" : "Stjörnumerkt",
     "Explore" : "Skoða",
     "Settings" : "Stillingar",
+    "Documentation" : "Hjálparskjöl",
     "Keyboard shortcuts" : "Flýtilyklar",
     "Disable mark read through scrolling" : "Gera óvirkt að merkja sem lesið við skrun",
     "Show all articles" : "Birta allar greinar",
@@ -60,6 +61,8 @@ OC.L10N.register(
     "Disable full text" : "Afvirkja allan texta",
     "Unread updated" : "Ólesið uppfært",
     "Ignore updated" : "Hunsa uppfært",
+    "Previous" : "Fyrra",
+    "Next" : "Næst",
     "Toggle star article" : "Víxla stjörnumerkingu af/á grein",
     "Mark unread" : "Merkja sem ólesið",
     "Close details" : "Loka nánari upplýsingum",
@@ -122,7 +125,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Ólesnar/stjörnumerktar greinar",
     "Error when importing: file does not contain valid JSON" : "Villa við innflutning: skrá inniheldur ekki gilt JSON",
     "Help" : "Hjálp",
-    "Documentation" : "Hjálparskjöl",
     "Report a bug" : "Tilkynna um villu"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

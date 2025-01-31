@@ -48,6 +48,7 @@
     "Starred" : "Pažymėti žvaigždute",
     "Explore" : "Išvalgyti",
     "Settings" : "Nustatymai",
+    "Documentation" : "Dokumentacija",
     "Keyboard shortcuts" : "Klavišų kombinacijos",
     "Show all articles" : "Rodyti visus straipsnius",
     "Reverse ordering (oldest on top)" : "Atvirkštinis rikiavimas (seniausi viršuje)",
@@ -69,6 +70,8 @@
     "Disable full text" : "Išjungti raiškųjį tekstą",
     "Unread updated" : "Žymėti atnaujintus straipsnius kaip neskaitytus",
     "Ignore updated" : "Nepaisyti atnaujintų straipsnių",
+    "Previous" : "Ankstesnis",
+    "Next" : "Kitas",
     "Toggle star article" : "Perjungti straipsnio žymėjimą žvaigždute",
     "Mark unread" : "Žymėti kaip neskaitytą",
     "Close details" : "Užverti išsamesnę informaciją",
@@ -146,7 +149,6 @@
     "Unread/Starred Articles" : "Neskaityti/Pažymėti žvaigždute straipsniai",
     "Error when importing: file does not contain valid JSON" : "Klaida importuojant: faile nėra teisingo JSON",
     "Help" : "Pagalba",
-    "Documentation" : "Dokumentacija",
     "Report a bug" : "Pranešti apie klaidą"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }

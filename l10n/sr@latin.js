@@ -12,6 +12,7 @@ OC.L10N.register(
     "Share" : "Podeli",
     "Starred" : "Ozvezdano",
     "Settings" : "Postavke",
+    "Documentation" : "Dokumentacija",
     "Rename" : "Rename",
     "Delete" : "Delete",
     "Rename Feed" : "Preimenuj dovod",
@@ -24,7 +25,6 @@ OC.L10N.register(
     "Dismiss" : "Odbaci",
     "Import" : "Uvezi",
     "Help" : "Help",
-    "Documentation" : "Dokumentacija",
     "Report a bug" : "Prijavi grešku"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

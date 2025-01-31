@@ -53,6 +53,7 @@ OC.L10N.register(
     "Starred" : "Със звезда",
     "Explore" : "Проучи",
     "Settings" : "Настройки",
+    "Documentation" : "Документация",
     "Keyboard shortcuts" : "Клавишни комбинации",
     "Disable mark read through scrolling" : "Без означаване като \"Прочетена\" след скролиране",
     "Show all articles" : "Показвай всички статии",
@@ -74,6 +75,7 @@ OC.L10N.register(
     "Disable full text" : "Не показвай целия текст",
     "Unread updated" : "Актуализираното не е прочетено",
     "Ignore updated" : "Актуализирано е игнориране",
+    "Next" : "Следващо",
     "Toggle star article" : "Превключи означаването със звезда",
     "Mark unread" : "Маркирай като непрочетено",
     "by" : "от",
@@ -142,7 +144,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Непрочетени/Означени със звезда статии",
     "Error when importing: file does not contain valid JSON" : "Грешка при внасяне: файлът не е валиден JSON",
     "Help" : "Помощ",
-    "Documentation" : "Документация",
     "Report a bug" : "Докладване за грешка"
 },
 "nplurals=2; plural=(n != 1);");

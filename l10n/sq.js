@@ -34,6 +34,7 @@ OC.L10N.register(
     "Starred" : "Me yll",
     "Explore" : "Eksploroni",
     "Settings" : "Rregullimet",
+    "Documentation" : "Dokumentim",
     "Keyboard shortcuts" : "Shkurtore tastiere",
     "Disable mark read through scrolling" : "Çaktivizo shënime si të lexuar gjatë rrëshqitjesh",
     "Show all articles" : "Shfaqi krejt artikujt",
@@ -51,6 +52,8 @@ OC.L10N.register(
     "Disable full text" : "Çaktivizo tekstin e plotë",
     "Unread updated" : "Përditësim i pa lexuar",
     "Ignore updated" : "Injoro përditësimin",
+    "Previous" : "I mëparshëm",
+    "Next" : "I ardhshëm",
     "Toggle star article" : "Vëri/hiqi yll artikullit",
     "by" : "nga",
     "from" : "nga",
@@ -109,7 +112,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Artikuj të Palexuar/Me yll",
     "Error when importing: file does not contain valid JSON" : "Gabim gjatë importimit: kartela nuk përmban JSON të vlefshëm",
     "Help" : "Ndihmë",
-    "Documentation" : "Dokumentim",
     "Report a bug" : "Njoftoni një të metë"
 },
 "nplurals=2; plural=(n != 1);");

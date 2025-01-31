@@ -43,6 +43,7 @@ OC.L10N.register(
     "Starred" : "Označeno zvjezdicom",
     "Explore" : "Istraži",
     "Settings" : "Postavke",
+    "Documentation" : "Dokumentacija",
     "Keyboard shortcuts" : "Tipkovni prečaci",
     "Disable mark read through scrolling" : "Onemogući označavanje kao pročitano pri pomicanju",
     "Show all articles" : "Prikaži sve članke",
@@ -60,6 +61,8 @@ OC.L10N.register(
     "Disable full text" : "Onemogući cijeli tekst",
     "Unread updated" : "Ažurirano nepročitano",
     "Ignore updated" : "Zanemari ažurirano",
+    "Previous" : "Natrag",
+    "Next" : "Dalje",
     "Toggle star article" : "Postavi/ukloni zvjezdicu s članka",
     "Mark unread" : "Označi kao nepročitano",
     "Close details" : "Zatvori pojedinosti",
@@ -129,7 +132,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Nepročitani/članci označeni zvjezdicom",
     "Error when importing: file does not contain valid JSON" : "Pogreška pri uvozu: datoteka ne sadrži valjani JSON",
     "Help" : "Pomoć",
-    "Documentation" : "Dokumentacija",
     "Report a bug" : "Prijavi pogrešku"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

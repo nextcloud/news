@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "Starred",
     "Explore" : "Explore",
     "Settings" : "Settings",
+    "Documentation" : "Documentation",
     "Keyboard shortcuts" : "Keyboard shortcuts",
     "Disable mark read through scrolling" : "Disable mark read through scrolling",
     "Show all articles" : "Show all articles",
@@ -79,6 +80,8 @@ OC.L10N.register(
     "Disable full text" : "Disable full text",
     "Unread updated" : "Unread updated",
     "Ignore updated" : "Ignore updated",
+    "Previous" : "Previous",
+    "Next" : "Next",
     "Share within Instance" : "Share within Instance",
     "Toggle star article" : "Toggle star article",
     "by" : "by",
@@ -157,7 +160,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Unread/Starred Articles",
     "Error when importing: file does not contain valid JSON" : "Error when importing: file does not contain valid JSON",
     "Help" : "Help",
-    "Documentation" : "Documentation",
     "Report a bug" : "Report a bug"
 },
 "nplurals=2; plural=(n!=1);");

@@ -41,6 +41,7 @@ OC.L10N.register(
     "Starred" : "Із зірочкою",
     "Explore" : "Дослідити",
     "Settings" : "Налаштування",
+    "Documentation" : "Документація",
     "Keyboard shortcuts" : "Сполучення клавіш",
     "Disable mark read through scrolling" : "Вимкнути читання поміток при прокрутці",
     "Show all articles" : "Показати всі статті",
@@ -58,6 +59,8 @@ OC.L10N.register(
     "Oldest first" : "Старіші спочатку",
     "Enable full text" : "Увімкнути контекстний",
     "Disable full text" : "Вимкнути контекстний",
+    "Previous" : "Назад",
+    "Next" : "Далі",
     "Toggle star article" : "Позначити статтю",
     "Mark unread" : "Позначити як не прочитане",
     "by" : "по",
@@ -123,7 +126,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Непрочитані/Вибрані статті",
     "Error when importing: file does not contain valid JSON" : "Помилка при імпорті: файл не містить дійсний JSON",
     "Help" : "Допомога",
-    "Documentation" : "Документація",
     "Report a bug" : "Повідомити про помилку"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "Stjernemarkéret",
     "Explore" : "Udforsk",
     "Settings" : "Indstillinger",
+    "Documentation" : "Dokumentation",
     "Keyboard shortcuts" : "Tastaturgenveje",
     "Disable mark read through scrolling" : "Slå markér som læst fra når der rulles",
     "Show all articles" : "Vis alle artikler",
@@ -78,6 +79,8 @@ OC.L10N.register(
     "Disable full text" : "Slå fuld tekst fra",
     "Unread updated" : "Ulæste opdateret",
     "Ignore updated" : "Ignorér updaterede",
+    "Previous" : "Tidligere",
+    "Next" : "Næste",
     "Share within Instance" : "Del i instansen",
     "Toggle star article" : "Slå stjerne for artikel til/fra",
     "Mark unread" : "Marker som ulæst",
@@ -159,7 +162,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Ulæste/stjernemarkerede artikler",
     "Error when importing: file does not contain valid JSON" : "Fejl ved import: filen indeholder ikke gyldig JSON kode",
     "Help" : "Hjælp",
-    "Documentation" : "Dokumentation",
     "Report a bug" : "Rapporter en fejl"
 },
 "nplurals=2; plural=(n != 1);");

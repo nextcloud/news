@@ -19,12 +19,15 @@ OC.L10N.register(
     "All articles" : "Сите статии",
     "Starred" : "Со ѕвезда",
     "Settings" : "Параметри",
+    "Documentation" : "Документација",
     "Keyboard shortcuts" : "Кратенки преку тастатура",
     "Default" : "Предефиниран",
     "Rename" : "Преименувај",
     "Delete" : "Избриши",
     "Newest first" : "Новите прво",
     "Oldest first" : "Старите прво",
+    "Previous" : "Предходна",
+    "Next" : "Следна",
     "Mark unread" : "Означи како непрочитано",
     "by" : "од",
     "from" : "од",
@@ -51,7 +54,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Непрочитани/Означени статии",
     "Error when importing: file does not contain valid JSON" : "Грешка при импортирање: датотеката не содржи валиден JSON",
     "Help" : "Помош",
-    "Documentation" : "Документација",
     "Report a bug" : "Пријави грешка"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

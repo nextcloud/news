@@ -64,6 +64,7 @@
     "Has feeds with errors!" : "新聞源有錯誤!",
     "Explore" : "探索",
     "Settings" : "設定",
+    "Documentation" : "說明文件",
     "Keyboard shortcuts" : "鍵盤快捷鍵",
     "Article feed information" : "文章 feed 資訊",
     "Display mode" : "顯示模式",
@@ -99,6 +100,8 @@
     "Disable full text" : "停用全文",
     "Unread updated" : "已更新未讀項目",
     "Ignore updated" : "略過更新",
+    "Previous" : "上一",
+    "Next" : "下一",
     "Share within Instance" : "在實例內分享",
     "Toggle star article" : "切換文章星號",
     "Mark unread" : "標記為未讀",
@@ -193,7 +196,6 @@
     "Unread/Starred Articles" : "未讀／已加星號文章",
     "Error when importing: file does not contain valid JSON" : "匯入時發生錯誤：檔案並不包含有效的 JSON",
     "Help" : "說明",
-    "Documentation" : "說明文件",
     "Report a bug" : "舉報問題"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

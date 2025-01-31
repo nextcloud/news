@@ -54,6 +54,7 @@ OC.L10N.register(
     "Starred" : "ستاره دار",
     "Explore" : "کاوش",
     "Settings" : "تنظیمات",
+    "Documentation" : "مستندسازی",
     "Keyboard shortcuts" : "میان بر صفحه ی کلید",
     "Disable mark read through scrolling" : "غیرفعال کردن علامت خوانده شده از طریق پیمایش",
     "Show all articles" : "نمایش تمامی مقالات",
@@ -74,6 +75,7 @@ OC.L10N.register(
     "Disable full text" : "متن کامل را غیرفعال کنید",
     "Unread updated" : "خوانده نشده به روز شد",
     "Ignore updated" : "نادیده گرفتن به روز شده",
+    "Previous" : "پیشین",
     "Toggle star article" : "مقاله ستاره را تغییر دهید",
     "Mark unread" : "علامت گذاری به عنوان خوانده نشده",
     "by" : "با",
@@ -143,7 +145,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "مقالات خوانده نشده / ستاره دار",
     "Error when importing: file does not contain valid JSON" : "خطا هنگام وارد کردن: فایل حاوی JSON معتبر نیست.",
     "Help" : "کمک",
-    "Documentation" : "مستندسازی",
     "Report a bug" : "گزارش یک خطا"
 },
 "nplurals=2; plural=(n > 1);");

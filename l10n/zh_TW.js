@@ -66,6 +66,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "feed 有錯誤！",
     "Explore" : "探索",
     "Settings" : "設定",
+    "Documentation" : "說明文件",
     "Keyboard shortcuts" : "鍵盤快捷鍵",
     "Article feed information" : "文章 feed 資訊",
     "Display mode" : "顯示模式",
@@ -101,6 +102,8 @@ OC.L10N.register(
     "Disable full text" : "停用全文",
     "Unread updated" : "已更新未讀",
     "Ignore updated" : "忽略更新",
+    "Previous" : "上一步",
+    "Next" : "下一步",
     "Share within Instance" : "在站台內分享",
     "Toggle star article" : "切換文章星號",
     "Mark unread" : "標記為未讀",
@@ -195,7 +198,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "未讀／已加星號文章",
     "Error when importing: file does not contain valid JSON" : "匯入時發生錯誤：檔案並不包含有效的 JSON",
     "Help" : "說明",
-    "Documentation" : "說明文件",
     "Report a bug" : "回報問題"
 },
 "nplurals=1; plural=0;");

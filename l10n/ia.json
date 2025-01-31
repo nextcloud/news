@@ -18,12 +18,15 @@
     "Starred" : "Favoritate",
     "Explore" : "Explorar",
     "Settings" : "Configurationes",
+    "Documentation" : "Documentation",
     "Keyboard shortcuts" : "Combinationes de claves",
     "Disable mark read through scrolling" : "Disactivar le marcation como legite per rolamento",
     "Show all articles" : "Monstrar tote articulos",
     "Reverse ordering (oldest on top)" : "Ordination reverse (le plus ancian in le topo)",
     "Rename" : "Renominar",
     "Delete" : "Deler",
+    "Previous" : "Previe",
+    "Next" : "Proxime",
     "Toggle star article" : "Alternar stato de favorito del articulo",
     "by" : "per",
     "from" : "ex",
@@ -66,7 +69,6 @@
     "Unread/Starred Articles" : "Articulos Non Legite / Favorite",
     "Error when importing: file does not contain valid JSON" : "Error durante importation: file non contine un JSON valide",
     "Help" : "Adjuta",
-    "Documentation" : "Documentation",
     "Report a bug" : "Reportar un defecto"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

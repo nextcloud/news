@@ -45,6 +45,7 @@ OC.L10N.register(
     "Starred" : "Preferidos",
     "Explore" : "Esplorare",
     "Settings" : "Cunfiguratzione",
+    "Documentation" : "Documentatzione",
     "Keyboard shortcuts" : "Curtziadòrgios de tecladu",
     "Disable mark read through scrolling" : "Disativa su de marcare comente non lèghidu in s'iscurrimentu",
     "Show all articles" : "Mustra is artìculos",
@@ -62,6 +63,8 @@ OC.L10N.register(
     "Disable full text" : "Disativa totu su testu",
     "Unread updated" : "Non lèghidos agiornados",
     "Ignore updated" : "Ignora agiornados",
+    "Previous" : "Pretzedente",
+    "Next" : "Imbeniente",
     "Toggle star article" : "Còmmuta s'agiunta a is preferidos de un'artìculu",
     "Mark unread" : "Marca comente no lèghidu",
     "by" : "dae",
@@ -136,7 +139,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Artìculos non lèghidos/preferidos",
     "Error when importing: file does not contain valid JSON" : "Errore importende: s'archìviu non cuntenet unu JSON bàlidu",
     "Help" : "Agiudu",
-    "Documentation" : "Documentatzione",
     "Report a bug" : "Report a bug"
 },
 "nplurals=2; plural=(n != 1);");

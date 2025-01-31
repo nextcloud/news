@@ -39,6 +39,7 @@ OC.L10N.register(
     "All articles" : "Tolos artículos",
     "Explore" : "Esplorar",
     "Settings" : "Configuración",
+    "Documentation" : "Documentación",
     "Keyboard shortcuts" : "Atayos del tecláu",
     "Show all articles" : "Amosar tolos artículos",
     "Default" : "Por defeutu",
@@ -104,7 +105,6 @@ OC.L10N.register(
     "Import" : "Importar",
     "Export" : "Esportar",
     "Help" : "Ayuda",
-    "Documentation" : "Documentación",
     "Report a bug" : "Informar d'un fallju"
 },
 "nplurals=2; plural=(n != 1);");

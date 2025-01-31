@@ -16,6 +16,7 @@ OC.L10N.register(
     "Delete" : "ລຶບ",
     "Newest first" : "ໃໝ່ທີ່ສຸດກ່ອນ",
     "Oldest first" : "ເກົ່າທີ່ສຸດກ່ອນ",
+    "Previous" : "ກ່ອນໜ້າ",
     "Refresh" : "Refresh",
     "Folder" : "ໂຟນເດີ",
     "Create" : "ສ້າງ",

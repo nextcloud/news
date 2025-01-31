@@ -28,6 +28,7 @@ OC.L10N.register(
     "Starred" : "ติดดาวแล้ว",
     "Explore" : "สำรวจ",
     "Settings" : "การตั้งค่า",
+    "Documentation" : "เอกสารประกอบ",
     "Keyboard shortcuts" : "แป้นพิมพ์ลัด",
     "Disable mark read through scrolling" : "ปิดการทำเป็นอ่านแล้วขณะเลื่อนผ่าน",
     "Show all articles" : "แสดงบทความทั้งหมด",
@@ -37,6 +38,8 @@ OC.L10N.register(
     "Rename Feed" : "เปลี่ยนชื่อฟีด",
     "Newest first" : "ใหม่ที่สุดก่อน",
     "Oldest first" : "เก่าที่สุดก่อน",
+    "Previous" : "ก่อนหน้า",
+    "Next" : "ถัดไป",
     "Toggle star article" : "สลับการติดดาวบทความ",
     "by" : "โดย",
     "from" : "จาก",
@@ -91,7 +94,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "บทความที่ยังไม่ได้อ่าน/ติดดาว",
     "Error when importing: file does not contain valid JSON" : "ข้อผิดพลาดขณะนำเข้า: ไฟล์ไม่มี JSON ที่ถูกต้อง",
     "Help" : "ช่วยเหลือ",
-    "Documentation" : "เอกสารประกอบ",
     "Report a bug" : "รายงานข้อผิดพลาด"
 },
 "nplurals=1; plural=0;");

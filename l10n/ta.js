@@ -11,9 +11,11 @@ OC.L10N.register(
     "Move" : "Move",
     "Share" : "பகிர்வு",
     "Settings" : "அமைப்புகள்",
+    "Documentation" : "ஆவணமாக்கல்",
     "Keyboard shortcuts" : "விசைப்பலகை குறுக்குவழிகள்",
     "Rename" : "பெயர்மாற்றம்",
     "Delete" : "நீக்குக",
+    "Previous" : "முன்தைய",
     "by" : "மூலம்",
     "from" : "இலிருந்து",
     "Title" : "தலைப்பு",
@@ -23,7 +25,6 @@ OC.L10N.register(
     "Create" : "உருவாக்குக",
     "Import" : "இறக்குமதி",
     "Export" : "ஏற்றுமதி",
-    "Help" : "உதவி",
-    "Documentation" : "ஆவணமாக்கல்"
+    "Help" : "உதவி"
 },
 "nplurals=2; plural=(n != 1);");

@@ -13,11 +13,13 @@ OC.L10N.register(
     "Share" : "Rhannu",
     "Mark read" : "Marcio wedi'i ddarllen",
     "Settings" : "Gosodiadau",
+    "Documentation" : "Dogfennaeth",
     "Keyboard shortcuts" : "Llwybrau byr bysellfwrdd",
     "Rename" : "Ailenwi",
     "Delete" : "Dileu",
     "Newest first" : "Diweddaraf gyntaf",
     "Oldest first" : "Hynaf gyntaf",
+    "Previous" : "Blaenorol",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
     "from" : "oddi wrth",
@@ -29,7 +31,6 @@ OC.L10N.register(
     "Create" : "Creu",
     "Import" : "Mewnforio",
     "Export" : "Allforio",
-    "Help" : "Cymorth",
-    "Documentation" : "Dogfennaeth"
+    "Help" : "Cymorth"
 },
 "nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;");

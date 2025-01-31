@@ -15,6 +15,8 @@ OC.L10N.register(
     "Delete" : "Kkes",
     "Newest first" : "Imaynuten d imezwura",
     "Oldest first" : "Iqbuṛen d imezwura",
+    "Previous" : "Ɣer deffir",
+    "Next" : "Uḍfir",
     "Title" : "Azwel",
     "Refresh" : "Sismeḍ",
     "Create" : "Snulfu-d",

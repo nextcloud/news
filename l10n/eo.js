@@ -21,12 +21,15 @@ OC.L10N.register(
     "All articles" : "Ĉiuj artikoloj",
     "Starred" : "Markita",
     "Settings" : "Agordo",
+    "Documentation" : "Dokumentaro",
     "Keyboard shortcuts" : "Fulmoklavoj",
     "Show all articles" : "Montri ĉiujn artikolojn",
     "Rename" : "Alinomigi",
     "Delete" : "Forigi",
     "Newest first" : "Pli novaj unue",
     "Oldest first" : "Malpli novaj unue",
+    "Previous" : "Antaŭa",
+    "Next" : "Posten",
     "Mark unread" : "Marki kiel nelegita",
     "Close details" : "Fermi detalojn",
     "by" : "de",
@@ -51,7 +54,6 @@ OC.L10N.register(
     "Export" : "Elporti",
     "Error when importing: file does not contain valid JSON" : "La enporto eraris: la dosiero ne enhavas validan JSON-on",
     "Help" : "Helpo",
-    "Documentation" : "Dokumentaro",
     "Report a bug" : "Raporti problemon"
 },
 "nplurals=2; plural=(n != 1);");

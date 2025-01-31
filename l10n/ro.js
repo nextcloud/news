@@ -44,6 +44,7 @@ OC.L10N.register(
     "Starred" : "Articole selectate",
     "Explore" : "Explorează",
     "Settings" : "Setări",
+    "Documentation" : "Documentație",
     "Keyboard shortcuts" : "Scurtături din tastatură",
     "Disable mark read through scrolling" : "Dezactivează funcția de \"citit\" prin derulare",
     "Show all articles" : "Arată toate articolele",
@@ -63,6 +64,8 @@ OC.L10N.register(
     "Disable full text" : "Dezactivează afișarea textului complet",
     "Unread updated" : "Articolele necitite au fost actualizate",
     "Ignore updated" : "Ignoră articolele reîmprospătate",
+    "Previous" : "Precedentul",
+    "Next" : "Următorul",
     "Toggle star article" : "Scoate articolul din favorite",
     "by" : "de",
     "from" : "de la",
@@ -128,7 +131,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Articole necitite",
     "Error when importing: file does not contain valid JSON" : "Eroare în timpul importării : fişierul nu conţine  JSON valid",
     "Help" : "Ajutor",
-    "Documentation" : "Documentație",
     "Report a bug" : "Raportează un defect"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");

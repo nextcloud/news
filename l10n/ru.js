@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "Избранное",
     "Explore" : "Обзор",
     "Settings" : "Настройки",
+    "Documentation" : "Документация",
     "Keyboard shortcuts" : "Горячие клавиши",
     "Disable mark read through scrolling" : "Отключить установку отметок о прочтении при прокрутке",
     "Show all articles" : "Показать все статьи",
@@ -82,6 +83,8 @@ OC.L10N.register(
     "Disable full text" : "Отключить полный текст",
     "Unread updated" : "Непрочитанное обновлено",
     "Ignore updated" : "Игнорировать обновлённые",
+    "Previous" : "Назад",
+    "Next" : "Далее",
     "Share within Instance" : "Поделиться в пределах экземпляра",
     "Toggle star article" : "Добавить/убрать из избранного",
     "Mark unread" : "Пометить как непрочитанное",
@@ -163,7 +166,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Непрочтенные/Избранные статьи",
     "Error when importing: file does not contain valid JSON" : "Ошибка при импорте: файл не содержит правильный JSON",
     "Help" : "Помощь",
-    "Documentation" : "Документация",
     "Report a bug" : "Сообщить об ошибке"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

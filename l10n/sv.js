@@ -65,6 +65,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Har flöden med fel!",
     "Explore" : "Utforska",
     "Settings" : "Inställningar",
+    "Documentation" : "Dokumentation",
     "Keyboard shortcuts" : "Tangentbordsgenvägar",
     "Article feed information" : "Artikelflödesinformation",
     "Display mode" : "Visningsläge",
@@ -100,6 +101,8 @@ OC.L10N.register(
     "Disable full text" : "Avaktivera fulltext",
     "Unread updated" : "Markera som oläst",
     "Ignore updated" : "Ignorera uppdaterad",
+    "Previous" : "Föregående",
+    "Next" : "Nästa",
     "Share within Instance" : "Dela inom instans",
     "Toggle star article" : "Växla stjärnmärkning av artiklar",
     "Mark unread" : "Markera som oläst",
@@ -194,7 +197,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Olästa/Stjärnmärkta artiklar",
     "Error when importing: file does not contain valid JSON" : "Fel vid import: filen innehåller inte giltig JSON",
     "Help" : "Hjälp",
-    "Documentation" : "Dokumentation",
     "Report a bug" : "Rapportera ett problem"
 },
 "nplurals=2; plural=(n != 1);");

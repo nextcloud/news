@@ -21,6 +21,7 @@ OC.L10N.register(
     "All articles" : "Mọi bài viết",
     "Starred" : "Starred",
     "Settings" : "Cài đặt",
+    "Documentation" : "Tài liệu hướng dẫn",
     "Keyboard shortcuts" : "Phím tắt",
     "Off" : "Tắt",
     "Rename" : "Sửa tên",
@@ -28,6 +29,8 @@ OC.L10N.register(
     "Rename Feed" : "Đổi tên nguồn dữ liệu",
     "Newest first" : "Mới trước",
     "Oldest first" : "Cũ trước",
+    "Previous" : "Trước",
+    "Next" : "Tiếp theo",
     "Mark unread" : "Đánh dấu là chưa đọc",
     "by" : "bởi",
     "from" : "từ",
@@ -49,7 +52,6 @@ OC.L10N.register(
     "Import" : "Nhập vào",
     "Export" : "Xuất ra",
     "Help" : "Giúp đỡ",
-    "Documentation" : "Tài liệu hướng dẫn",
     "Report a bug" : "Báo cáo lỗi"
 },
 "nplurals=1; plural=0;");

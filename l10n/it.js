@@ -53,6 +53,7 @@ OC.L10N.register(
     "Starred" : "Preferiti",
     "Explore" : "Esplora",
     "Settings" : "Impostazioni",
+    "Documentation" : "Documentazione",
     "Keyboard shortcuts" : "Scorciatoie da tastiera",
     "Disable mark read through scrolling" : "Disabilita la marcatura come letto durante lo scorrimento",
     "Show all articles" : "Mostra tutti gli articoli",
@@ -76,6 +77,8 @@ OC.L10N.register(
     "Disable full text" : "Disabilita intero testo",
     "Unread updated" : "Non letti aggiornati",
     "Ignore updated" : "Ignora aggiornati",
+    "Previous" : "Precedente",
+    "Next" : "Successivo",
     "Toggle star article" : "Commuta l'aggiunta ai preferiti di un articolo",
     "Mark unread" : "Marca come non letto",
     "Close details" : "Chiudi dettagli",
@@ -156,7 +159,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Articoli non letti/preferiti",
     "Error when importing: file does not contain valid JSON" : "Errore durante l'importazione: il file non contiene JSON valido",
     "Help" : "Aiuto",
-    "Documentation" : "Documentazione",
     "Report a bug" : "Segnala un bug"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

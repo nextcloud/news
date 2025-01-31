@@ -34,6 +34,7 @@
     "Starred" : "Tärniga märgitud",
     "Explore" : "Sirvi",
     "Settings" : "Seaded",
+    "Documentation" : "Dokumentatsioon",
     "Keyboard shortcuts" : "Klaviatuuri otseteed",
     "Disable mark read through scrolling" : "Lülita kerimisel loetuks määramine välja",
     "Show all articles" : "Näita kõiki artikleid",
@@ -43,6 +44,7 @@
     "Newest first" : "Uuemad eespool",
     "Oldest first" : "Vanemad eespool",
     "Default order" : "Vaikejärjestus",
+    "Previous" : "Eelmine",
     "Toggle star article" : "Lülita artikli tähtekest",
     "Close details" : "Sulge üksikasjad",
     "by" : "lisas",
@@ -97,7 +99,6 @@
     "Unread/Starred Articles" : "Lugemata/Märgitud artiklid",
     "Error when importing: file does not contain valid JSON" : "Viga importimisel: fail ei sisalda korrektset JSON-i",
     "Help" : "Abiinfo",
-    "Documentation" : "Dokumentatsioon",
     "Report a bug" : "Teata veast"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

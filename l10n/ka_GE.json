@@ -32,6 +32,7 @@
     "Starred" : "ვარსკვლავმინიჭებული",
     "Explore" : "მიმოხილვა",
     "Settings" : "პარამეტრები",
+    "Documentation" : "დოკუმენტაცია",
     "Keyboard shortcuts" : "კლავიატურის კომბინაციები",
     "Disable mark read through scrolling" : "გადახვევით წაკითხულად ქცევის გათიშვა",
     "Show all articles" : "ყველა არტიკლის ჩვენება",
@@ -49,6 +50,7 @@
     "Disable full text" : "სრული ტექსტის გათიშვა",
     "Unread updated" : "განახლებულის წაუკითხავად მონიშვნა",
     "Ignore updated" : "განახლებულის იგნორირება",
+    "Previous" : "წინა",
     "Toggle star article" : "არტიკლის ვარსკლავის გადართვა",
     "Close details" : "დეტალების დახურვა",
     "by" : "მიერ",
@@ -108,7 +110,6 @@
     "Unread/Starred Articles" : "წაუკითხავი/ვარსკლავიანი არტიკლები",
     "Error when importing: file does not contain valid JSON" : "შეცდომა იმპორტირებისას: ფაილი არ შეიცავს მართებულ JSON–ს",
     "Help" : "დახმარება",
-    "Documentation" : "დოკუმენტაცია",
     "Report a bug" : "განაცხადეთ შეცდომა"
 },"pluralForm" :"nplurals=2; plural=(n!=1);"
 }

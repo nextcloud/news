@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "Merket",
     "Explore" : "Utforsk",
     "Settings" : "Innstillinger",
+    "Documentation" : "Dokumentasjon",
     "Keyboard shortcuts" : "Tastatursnarveier",
     "Disable mark read through scrolling" : "Slå av merk som lest ved blading",
     "Show all articles" : "Vis alle artikler",
@@ -81,6 +82,7 @@ OC.L10N.register(
     "Disable full text" : "Skru av fulltekst",
     "Unread updated" : "Uleste oppdatert",
     "Ignore updated" : "Ignorer oppdaterte",
+    "Previous" : "Forrige",
     "Share within Instance" : "Del med forekomst",
     "Toggle star article" : "Veksle stjernemerking av artikkel",
     "Mark unread" : "Marker som ulest",
@@ -162,7 +164,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Uleste/merkede artikler",
     "Error when importing: file does not contain valid JSON" : "Feil under importering: Filen inneholder ikke gyldig JSON",
     "Help" : "Hjelp",
-    "Documentation" : "Dokumentasjon",
     "Report a bug" : "Rapporter en feil"
 },
 "nplurals=2; plural=(n != 1);");

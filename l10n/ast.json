@@ -37,6 +37,7 @@
     "All articles" : "Tolos artículos",
     "Explore" : "Esplorar",
     "Settings" : "Configuración",
+    "Documentation" : "Documentación",
     "Keyboard shortcuts" : "Atayos del tecláu",
     "Show all articles" : "Amosar tolos artículos",
     "Default" : "Por defeutu",
@@ -102,7 +103,6 @@
     "Import" : "Importar",
     "Export" : "Esportar",
     "Help" : "Ayuda",
-    "Documentation" : "Documentación",
     "Report a bug" : "Informar d'un fallju"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

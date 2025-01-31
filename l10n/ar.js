@@ -66,6 +66,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "توجد لُقم إخبارية بأخطاء",
     "Explore" : "إستكشف",
     "Settings" : "إعدادات",
+    "Documentation" : "التوثيق",
     "Keyboard shortcuts" : "اختصارات لوحة المفاتيح",
     "Article feed information" : "معلومات حول خلاصة المقال",
     "Display mode" : "وضعية العرض",
@@ -195,7 +196,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "مقالات غير مقروءة أو مميزة بنجمة ",
     "Error when importing: file does not contain valid JSON" : "خطا عند الاستيراد: الملف لايحتوي على OPML صالح",
     "Help" : "المساعدة",
-    "Documentation" : "التوثيق",
     "Report a bug" : "الإبلاغ عن خطأ"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

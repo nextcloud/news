@@ -52,6 +52,7 @@ OC.L10N.register(
     "Starred" : "별표",
     "Explore" : "탐색",
     "Settings" : "설정",
+    "Documentation" : "문서",
     "Keyboard shortcuts" : "키보드 단축키",
     "Disable mark read through scrolling" : "스크롤 시 읽은 상태로 표시 비활성화",
     "Show all articles" : "모든 글 보기",
@@ -73,6 +74,8 @@ OC.L10N.register(
     "Disable full text" : "전문 사용 안 함",
     "Unread updated" : "업데이트된 항목 읽지 않음으로 표시",
     "Ignore updated" : "업데이트된 항목 무시",
+    "Previous" : "이전",
+    "Next" : "다음",
     "Share within Instance" : "인스턴스 내에서 공유",
     "Toggle star article" : "글 별표 전환",
     "Mark unread" : "읽지 않음 상태로 표시",
@@ -152,7 +155,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "읽지 않은/별표한 글",
     "Error when importing: file does not contain valid JSON" : "가져오기 오류: 파일이 올바른 JSON을 포함하지 않음",
     "Help" : "도움말",
-    "Documentation" : "문서",
     "Report a bug" : "버그 보고"
 },
 "nplurals=1; plural=0;");

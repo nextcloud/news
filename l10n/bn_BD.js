@@ -18,6 +18,7 @@ OC.L10N.register(
     "All articles" : "সব লেখা",
     "Starred" : "তারা চিহ্নিত",
     "Settings" : "নিয়ামকসমূহ",
+    "Documentation" : "নথিবদ্ধকরণ",
     "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
     "Rename" : "পূনঃনামকরণ",
     "Delete" : "মুছে",
@@ -38,7 +39,6 @@ OC.L10N.register(
     "Export" : "রপ্তানি",
     "Unread/Starred Articles" : "অপঠিত/তারকাচিহ্নিত লেখা",
     "Error when importing: file does not contain valid JSON" : "আমদানীজণিত সমস্যা: ফাইলের JSON সঠিক নয়",
-    "Help" : "সহায়িকা",
-    "Documentation" : "নথিবদ্ধকরণ"
+    "Help" : "সহায়িকা"
 },
 "nplurals=2; plural=(n != 1);");

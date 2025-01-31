@@ -13,12 +13,14 @@ OC.L10N.register(
     "Move" : "Move",
     "Share" : "Del",
     "Settings" : "Innstillingar",
+    "Documentation" : "Dokumentasjon",
     "Keyboard shortcuts" : "Tastatursnarvegar",
     "Show all articles" : "Vis alle artiklar",
     "Rename" : "Endra namn",
     "Delete" : "Ta bort",
     "Newest first" : "Nyaste fyrst",
     "Oldest first" : "Eldste fyrst",
+    "Previous" : "Førre",
     "by" : "av",
     "from" : "frå",
     "Download video" : "Last ned video",
@@ -31,7 +33,6 @@ OC.L10N.register(
     "Import" : "Importer",
     "Export" : "Eksporter",
     "Help" : "Hjelp",
-    "Documentation" : "Dokumentasjon",
     "Report a bug" : "Rapporter feil"
 },
 "nplurals=2; plural=(n != 1);");

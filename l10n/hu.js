@@ -56,6 +56,7 @@ OC.L10N.register(
     "Starred" : "Csillagozott",
     "Explore" : "Felfedezés",
     "Settings" : "Beállítások",
+    "Documentation" : "Dokumentáció",
     "Keyboard shortcuts" : "Gyorsbillentyűk",
     "Disable mark read through scrolling" : "Görgetés közbeni olvasottnak jelölés kikapcsolása",
     "Show all articles" : "Minden cikk megjelenítése",
@@ -76,6 +77,8 @@ OC.L10N.register(
     "Disable full text" : "Teljes szöveges mód letiltása",
     "Unread updated" : "Olvasatlan cikk frissítve",
     "Ignore updated" : "Frissített cikk mellőzése",
+    "Previous" : "Előző",
+    "Next" : "Következő",
     "Toggle star article" : "Cikk csillagozása be/ki",
     "Mark unread" : "Olvasatlannak jelölés",
     "Close details" : "Részletek bezárása",
@@ -148,7 +151,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Olvasatlan/csillagozott cikkek",
     "Error when importing: file does not contain valid JSON" : "Hiba az importáláskor: a fájl nem tartalmaz érvényes JSON adatokat",
     "Help" : "Súgó",
-    "Documentation" : "Dokumentáció",
     "Report a bug" : "Hiba bejelentése"
 },
 "nplurals=2; plural=(n != 1);");

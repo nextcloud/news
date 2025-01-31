@@ -18,9 +18,11 @@ OC.L10N.register(
     "All articles" : "All Artikelen",
     "Explore" : "Erfuerschen",
     "Settings" : "Astellungen",
+    "Documentation" : "Dokumentatioun",
     "Show all articles" : "All d'Artikelen uweisen",
     "Rename" : "Ëm-benennen",
     "Delete" : "Läschen",
+    "Previous" : "Zeréck",
     "by" : "vun",
     "from" : "vun",
     "Play audio" : "Toun ofspillen",
@@ -50,7 +52,6 @@ OC.L10N.register(
     "Import" : "Import",
     "Export" : "Export",
     "Help" : "Hëllef",
-    "Documentation" : "Dokumentatioun",
     "Report a bug" : "E Feeler melden"
 },
 "nplurals=2; plural=(n != 1);");

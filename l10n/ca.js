@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "Destacats",
     "Explore" : "Explora",
     "Settings" : "Paràmetres",
+    "Documentation" : "Documentació",
     "Keyboard shortcuts" : "Dreceres de teclat",
     "Disable mark read through scrolling" : "Inhabilita la marca de lectura mitjançant el desplaçament",
     "Show all articles" : "Mostra tots els articles",
@@ -80,6 +81,8 @@ OC.L10N.register(
     "Disable full text" : "Inhabilita el text complet",
     "Unread updated" : "Actualització no llegida",
     "Ignore updated" : "Ignora l'actualització",
+    "Previous" : "Anterior",
+    "Next" : "Següent",
     "Share within Instance" : "Comparteix dins de la instància",
     "Toggle star article" : "Commuta l'article com a destacat",
     "Mark unread" : "Marca com a no llegit",
@@ -161,7 +164,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Articles no llegits/destacats",
     "Error when importing: file does not contain valid JSON" : "S'ha produït un error mentre s'importava: el fitxer no conté un JSON vàlid",
     "Help" : "Ajuda",
-    "Documentation" : "Documentació",
     "Report a bug" : "Informa d'un error"
 },
 "nplurals=2; plural=(n != 1);");

@@ -36,6 +36,7 @@ OC.L10N.register(
     "Starred" : "Tärniga märgitud",
     "Explore" : "Sirvi",
     "Settings" : "Seaded",
+    "Documentation" : "Dokumentatsioon",
     "Keyboard shortcuts" : "Klaviatuuri otseteed",
     "Disable mark read through scrolling" : "Lülita kerimisel loetuks määramine välja",
     "Show all articles" : "Näita kõiki artikleid",
@@ -45,6 +46,7 @@ OC.L10N.register(
     "Newest first" : "Uuemad eespool",
     "Oldest first" : "Vanemad eespool",
     "Default order" : "Vaikejärjestus",
+    "Previous" : "Eelmine",
     "Toggle star article" : "Lülita artikli tähtekest",
     "Close details" : "Sulge üksikasjad",
     "by" : "lisas",
@@ -99,7 +101,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Lugemata/Märgitud artiklid",
     "Error when importing: file does not contain valid JSON" : "Viga importimisel: fail ei sisalda korrektset JSON-i",
     "Help" : "Abiinfo",
-    "Documentation" : "Dokumentatsioon",
     "Report a bug" : "Teata veast"
 },
 "nplurals=2; plural=(n != 1);");

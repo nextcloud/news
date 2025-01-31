@@ -40,6 +40,7 @@ OC.L10N.register(
     "Starred" : "Marcado",
     "Explore" : "Explorar",
     "Settings" : "Definições",
+    "Documentation" : "Documentação",
     "Keyboard shortcuts" : "Atalhos de teclado",
     "Article feed information" : "Informação da \"feed\" do artigo",
     "Disable mark read through scrolling" : "Desativar marcar ler através de movimento",
@@ -52,6 +53,8 @@ OC.L10N.register(
     "Rename Feed" : "Renomear Feed",
     "Newest first" : "Recentes primeiro",
     "Oldest first" : "Antigos primeiro",
+    "Previous" : "Anterior",
+    "Next" : "Seguinte",
     "Toggle star article" : "Alternar estrela do artigo",
     "Mark unread" : "Marcar como não lido",
     "by" : "por",
@@ -114,7 +117,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Artigos Não Lidos/Classificados",
     "Error when importing: file does not contain valid JSON" : "Ocorreu um erro na importação: o ficheiro não contém JSON válido",
     "Help" : "Ajuda",
-    "Documentation" : "Documentação",
     "Report a bug" : "Reportar um erro"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

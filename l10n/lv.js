@@ -27,12 +27,14 @@ OC.L10N.register(
     "All articles" : "Visi raksti",
     "Starred" : "Svarīgs",
     "Settings" : "Iestatījumi",
+    "Documentation" : "Dokumentācija",
     "Keyboard shortcuts" : "Tastatūras saīsnes",
     "Show all articles" : "Rādīt visus rakstus",
     "Rename" : "Pārsaukt",
     "Delete" : "Dzēst",
     "Newest first" : "Jaunākie pirms",
     "Oldest first" : "Vecākie pirms",
+    "Previous" : "Iepriekšējā",
     "by" : "līdz",
     "from" : "no",
     "Play audio" : "Atskaņot audio",
@@ -65,7 +67,6 @@ OC.L10N.register(
     "Export" : "Eksportēt",
     "Error when importing: file does not contain valid JSON" : "Kļūda, importējot: datne nesatur derīgus JSON",
     "Help" : "Palīdzība",
-    "Documentation" : "Dokumentācija",
     "Report a bug" : "Ziņot par kļūdu"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

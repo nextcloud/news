@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "共有",
     "Explore" : "探索",
     "Settings" : "設定",
+    "Documentation" : "ドキュメント",
     "Keyboard shortcuts" : "キーボードショートカット",
     "Disable mark read through scrolling" : "スクロール時の既読マークを無効化",
     "Show all articles" : "すべての記事を表示",
@@ -79,6 +80,8 @@ OC.L10N.register(
     "Disable full text" : "全文検索を無効",
     "Unread updated" : "更新を未読",
     "Ignore updated" : "更新を無視",
+    "Previous" : "前へ",
+    "Next" : "次へ",
     "Share within Instance" : "インスタンス内で共有する",
     "Toggle star article" : "スター付きの記事を切り替え",
     "Mark unread" : "未読にする",
@@ -159,7 +162,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "未読/注目記事",
     "Error when importing: file does not contain valid JSON" : "インポート中のエラー: ファイルは有効なJSONを含んでいません",
     "Help" : "ヘルプ",
-    "Documentation" : "ドキュメント",
     "Report a bug" : "不具合を報告"
 },
 "nplurals=1; plural=0;");

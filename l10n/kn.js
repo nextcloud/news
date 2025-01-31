@@ -10,6 +10,7 @@ OC.L10N.register(
     "Move" : "Move",
     "Share" : "﻿ಹಂಚಿಕೊಳ್ಳಿ",
     "Settings" : "ಆಯ್ಕೆ",
+    "Documentation" : "ದಸ್ತಾವೇಜು",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
     "Delete" : "﻿ಅಳಿಸಿ",
     "right" : "ಬಲ",
@@ -18,7 +19,6 @@ OC.L10N.register(
     "Create" : "ಸೃಷ್ಟಿಸಿ",
     "Import" : "ಆಮದು",
     "Export" : "ರಫ್ತು",
-    "Help" : "﻿ಸಹಾಯ",
-    "Documentation" : "ದಸ್ತಾವೇಜು"
+    "Help" : "﻿ಸಹಾಯ"
 },
 "nplurals=2; plural=(n > 1);");

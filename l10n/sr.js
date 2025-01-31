@@ -66,6 +66,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Постоје дотоци са грешкама!",
     "Explore" : "Истражи",
     "Settings" : "Поставке",
+    "Documentation" : "Документација",
     "Keyboard shortcuts" : "Пречице тастатуре",
     "Article feed information" : "Информације о дотоку чланака",
     "Display mode" : "Режим приказа",
@@ -101,6 +102,8 @@ OC.L10N.register(
     "Disable full text" : "Искључи цео текст",
     "Unread updated" : "Ажуриране непрочитане",
     "Ignore updated" : "Игнориши непрочитане",
+    "Previous" : "Претходно",
+    "Next" : "Следеће",
     "Share within Instance" : "Дели унутар инстанце",
     "Toggle star article" : "Мења озвезданост чланка",
     "Mark unread" : "Означи као непрочитано",
@@ -195,7 +198,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Непрочитани/Озвездани чланци",
     "Error when importing: file does not contain valid JSON" : "Грешка приликом увоза: фајл не садржи исправан JSON",
     "Help" : "Помоћ",
-    "Documentation" : "Документација",
     "Report a bug" : "Пријави грешку"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

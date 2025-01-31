@@ -40,6 +40,7 @@ OC.L10N.register(
     "Starred" : "Με αστέρι",
     "Explore" : "Εξερεύνηση",
     "Settings" : "Ρυθμίσεις",
+    "Documentation" : "Τεκμηρίωση",
     "Keyboard shortcuts" : "Συντομεύσεις πλητρολογίου",
     "Disable mark read through scrolling" : "Απενεργοποίηση σημείωσης ως διαβασμένων κατά τη κύλιση",
     "Show all articles" : "Εμφάνιση όλων των άρθρων",
@@ -58,6 +59,8 @@ OC.L10N.register(
     "Disable full text" : "Απενεργοποίηση πλήρους κειμένου",
     "Unread updated" : "Μη αναγνωσμένο ενημερώθηκε",
     "Ignore updated" : "Αγνόηση ενημέρωσης",
+    "Previous" : "Προηγούμενο",
+    "Next" : "Επόμενο",
     "Toggle star article" : "Εναλλαγή επισήμανσης άρθρου με αστέρι",
     "Mark unread" : "σημειώστε ως μη αναγνωσμένο",
     "Close details" : "Κλείσιμο λεπτομερειών",
@@ -124,7 +127,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Με αστέρι/Μη αναγνωσμένα Άρθρα",
     "Error when importing: file does not contain valid JSON" : "Σφάλμα κατά την εισαγωγή: το αρχείο δεν περιέχει έγκυρο JSON",
     "Help" : "Βοήθεια",
-    "Documentation" : "Τεκμηρίωση",
     "Report a bug" : "Αναφορά σφάλματος"
 },
 "nplurals=2; plural=(n != 1);");

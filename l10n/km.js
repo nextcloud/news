@@ -14,8 +14,10 @@ OC.L10N.register(
     "All articles" : "អត្ថបទ​ទាំង​អស់",
     "Starred" : "បាន​ដាក់​ផ្កាយ",
     "Settings" : "ការកំណត់",
+    "Documentation" : "កម្រង​ឯកសារ",
     "Rename" : "ប្ដូរ​ឈ្មោះ",
     "Delete" : "លុប",
+    "Previous" : "មុន",
     "by" : "ដោយ",
     "from" : "ពី",
     "right" : "ខាង​ស្ដាំ",
@@ -29,7 +31,6 @@ OC.L10N.register(
     "Export" : "នាំចេញ",
     "Unread/Starred Articles" : "អត្ថបទ​ដែល​មិន​បាន​អាន ឬ​បាន​ដាក់​ផ្កាយ",
     "Error when importing: file does not contain valid JSON" : "កំហុស​ពេល​នាំ​ចូល៖ ឯកសារ​មិន​មាន JSON ត្រឹម​ត្រូវ",
-    "Help" : "ជំនួយ",
-    "Documentation" : "កម្រង​ឯកសារ"
+    "Help" : "ជំនួយ"
 },
 "nplurals=1; plural=0;");

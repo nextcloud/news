@@ -51,6 +51,7 @@
     "Starred" : "已加星标",
     "Explore" : "探索",
     "Settings" : "设置",
+    "Documentation" : "文档",
     "Keyboard shortcuts" : "快捷键",
     "Disable mark read through scrolling" : "禁用在滚动时标记文章为已读",
     "Show all articles" : "显示全部文章",
@@ -70,6 +71,8 @@
     "Disable full text" : "禁用全文模式",
     "Unread updated" : "未读更新",
     "Ignore updated" : "忽略更新",
+    "Previous" : "上一个",
+    "Next" : "下一个",
     "Toggle star article" : "切换文章星标状态",
     "Mark unread" : "标记为未读",
     "Close details" : "关闭细节",
@@ -144,7 +147,6 @@
     "Unread/Starred Articles" : "未读/已加星标文章",
     "Error when importing: file does not contain valid JSON" : "导入出错：文件包含非法的JSON数据",
     "Help" : "帮助",
-    "Documentation" : "文档",
     "Report a bug" : "报告问题"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

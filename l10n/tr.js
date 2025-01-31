@@ -66,6 +66,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Sorunlu akışları var!",
     "Explore" : "Keşfet",
     "Settings" : "Ayarlar",
+    "Documentation" : "Belgeler",
     "Keyboard shortcuts" : "Kısayol tuşları",
     "Article feed information" : "Yazı akış bilgileri",
     "Display mode" : "Görüntüleme kipi",
@@ -101,6 +102,8 @@ OC.L10N.register(
     "Disable full text" : "Tam metin kullanılmasın",
     "Unread updated" : "Okunmamış güncellendi",
     "Ignore updated" : "Güncellemeleri yok say",
+    "Previous" : "Önceki",
+    "Next" : "Sonraki",
     "Share within Instance" : "Kopya içinden paylaş",
     "Toggle star article" : "Yazıya yıldız koy/kaldır",
     "Mark unread" : "Okunmamış olarak işaretle",
@@ -195,7 +198,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Okunmamış/yıldızlı yazılar",
     "Error when importing: file does not contain valid JSON" : "İçe aktarma işlemi sırasında sorun çıktı: Dosyada geçerli JSON yok",
     "Help" : "Yardım",
-    "Documentation" : "Belgeler",
     "Report a bug" : "Hata bildirin"
 },
 "nplurals=2; plural=(n > 1);");

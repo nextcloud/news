@@ -64,6 +64,7 @@
     "Has feeds with errors!" : "Contient des flux avec des erreurs!",
     "Explore" : "Explorer",
     "Settings" : "Paramètres",
+    "Documentation" : "Documentation",
     "Keyboard shortcuts" : "Raccourcis clavier",
     "Display mode" : "Mode d'affichage",
     "Split mode" : "Mode découpé",
@@ -98,6 +99,8 @@
     "Disable full text" : "Désactiver le texte intégral",
     "Unread updated" : "Mise à jour non lue",
     "Ignore updated" : "Ignorer la sélection",
+    "Previous" : "Précédente",
+    "Next" : "Suivante",
     "Share within Instance" : "Partager au sein de l'instance",
     "Toggle star article" : "Épingler/Désépingler l'article",
     "Mark unread" : "Marquer comme non-lu",
@@ -192,7 +195,6 @@
     "Unread/Starred Articles" : "Articles non lus / épinglés",
     "Error when importing: file does not contain valid JSON" : "Erreur lors de l'import : le fichier spécifié n'est pas un fichier JSON valide",
     "Help" : "Aide",
-    "Documentation" : "Documentation",
     "Report a bug" : "Signaler un bogue"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

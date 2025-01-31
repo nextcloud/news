@@ -51,6 +51,7 @@ OC.L10N.register(
     "Starred" : "Suosikit",
     "Explore" : "Löydä uusia",
     "Settings" : "Asetukset",
+    "Documentation" : "Dokumentaatio",
     "Keyboard shortcuts" : "Pikanäppäimet",
     "Disable mark read through scrolling" : "Älä merkitse luetuksi vierittäessä",
     "Show all articles" : "Näytä kaikki artikkelit",
@@ -70,6 +71,8 @@ OC.L10N.register(
     "Default order" : "Oletusjärjestys",
     "Enable full text" : "Lataa koko teksti",
     "Disable full text" : "Älä lataa koko tekstiä",
+    "Previous" : "Edellinen",
+    "Next" : "Seuraava",
     "Toggle star article" : "Suosikkimerkintä päälle/pois",
     "Mark unread" : "Merkitse lukemattomaksi",
     "Close details" : "Sulje tiedot",
@@ -147,7 +150,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Suosikit ja lukemattomat artikkelit",
     "Error when importing: file does not contain valid JSON" : "Virhe tuotaessa: tiedosto ei sisällä kelvollista JSONia",
     "Help" : "Ohje",
-    "Documentation" : "Dokumentaatio",
     "Report a bug" : "Ilmoita viasta"
 },
 "nplurals=2; plural=(n != 1);");

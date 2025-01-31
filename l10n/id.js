@@ -53,6 +53,7 @@ OC.L10N.register(
     "Starred" : "Dibintangi",
     "Explore" : "Jelajah",
     "Settings" : "Pengaturan",
+    "Documentation" : "Dokumentasi",
     "Keyboard shortcuts" : "Pintasan keyboard",
     "Disable mark read through scrolling" : "Menonaktifkan tandai baca melalui pengguliran",
     "Show all articles" : "Tampilkan semua artikel",
@@ -71,6 +72,8 @@ OC.L10N.register(
     "Disable full text" : "Nonaktifkan teks lengkap",
     "Unread updated" : "Tidak dibaca diperbarui",
     "Ignore updated" : "Abaikan diperbarui",
+    "Previous" : "Sebelumnya",
+    "Next" : "Berikutnya",
     "Toggle star article" : "Tombol alih bintangi artikel",
     "by" : "oleh",
     "from" : "dari",
@@ -136,7 +139,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Artikel dibintangi/belum dibaca",
     "Error when importing: file does not contain valid JSON" : "Terjadi kesalahan saat mengimor: berkas tidak berisi JSON yang sah",
     "Help" : "Bantuan",
-    "Documentation" : "Dokumentasi",
     "Report a bug" : "Laporkan kerusakan"
 },
 "nplurals=1; plural=0;");

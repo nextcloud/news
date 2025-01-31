@@ -34,6 +34,7 @@ OC.L10N.register(
     "Starred" : "ვარსკვლავმინიჭებული",
     "Explore" : "მიმოხილვა",
     "Settings" : "პარამეტრები",
+    "Documentation" : "დოკუმენტაცია",
     "Keyboard shortcuts" : "კლავიატურის კომბინაციები",
     "Disable mark read through scrolling" : "გადახვევით წაკითხულად ქცევის გათიშვა",
     "Show all articles" : "ყველა არტიკლის ჩვენება",
@@ -51,6 +52,7 @@ OC.L10N.register(
     "Disable full text" : "სრული ტექსტის გათიშვა",
     "Unread updated" : "განახლებულის წაუკითხავად მონიშვნა",
     "Ignore updated" : "განახლებულის იგნორირება",
+    "Previous" : "წინა",
     "Toggle star article" : "არტიკლის ვარსკლავის გადართვა",
     "Close details" : "დეტალების დახურვა",
     "by" : "მიერ",
@@ -110,7 +112,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "წაუკითხავი/ვარსკლავიანი არტიკლები",
     "Error when importing: file does not contain valid JSON" : "შეცდომა იმპორტირებისას: ფაილი არ შეიცავს მართებულ JSON–ს",
     "Help" : "დახმარება",
-    "Documentation" : "დოკუმენტაცია",
     "Report a bug" : "განაცხადეთ შეცდომა"
 },
 "nplurals=2; plural=(n!=1);");

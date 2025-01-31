@@ -66,6 +66,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Ten fontes con erros!",
     "Explore" : "Examinar",
     "Settings" : "Axustes",
+    "Documentation" : "Documentación",
     "Keyboard shortcuts" : "Atallos de teclado",
     "Article feed information" : "Información da fonte de artigos",
     "Display mode" : "Modo de vista",
@@ -101,6 +102,8 @@ OC.L10N.register(
     "Disable full text" : "Desactivar o texto completo",
     "Unread updated" : "Actualización non lida",
     "Ignore updated" : "Ignorar actualizados",
+    "Previous" : "Anterior",
+    "Next" : "Seguinte",
     "Share within Instance" : "Compartir dentro da instancia",
     "Toggle star article" : "Marcar/desmarcar os artigos con estrela",
     "Mark unread" : "Marcar como sen ler",
@@ -195,7 +198,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Artigos destacados ou sen ler",
     "Error when importing: file does not contain valid JSON" : "Produciuse un erro ao importar: o ficheiro non contén un JSON correcto",
     "Help" : "Axuda",
-    "Documentation" : "Documentación",
     "Report a bug" : "Informar dun fallo"
 },
 "nplurals=2; plural=(n != 1);");

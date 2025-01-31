@@ -45,6 +45,7 @@ OC.L10N.register(
     "Starred" : "Ster gegeven",
     "Explore" : "Verkennen",
     "Settings" : "Instellingen",
+    "Documentation" : "Documentatie",
     "Keyboard shortcuts" : "Sneltoetsen",
     "Disable mark read through scrolling" : "Niet als gelezen markeren door scrollen",
     "Show all articles" : "Toon alle artikelen",
@@ -64,6 +65,8 @@ OC.L10N.register(
     "Disable full text" : "Uitschakelen volledige tekst",
     "Unread updated" : "Ongelezen bijgewerkt",
     "Ignore updated" : "Negeer bijgewerkt",
+    "Previous" : "Vorige",
+    "Next" : "Volgende",
     "Toggle star article" : "Omswitchen artikelmarkering ",
     "Mark unread" : "Markeer ongelezen",
     "Close details" : "Sluit details",
@@ -134,7 +137,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Ongelezen/ongemarkeerde artikelen",
     "Error when importing: file does not contain valid JSON" : "Fout tijdens het importeren: bestand bevat geen geldige JSON",
     "Help" : "Help",
-    "Documentation" : "Documentatie",
     "Report a bug" : "Rapporteer een fout"
 },
 "nplurals=2; plural=(n != 1);");

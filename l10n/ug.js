@@ -58,6 +58,7 @@ OC.L10N.register(
     "Starred" : "يۇلتۇزلۇق",
     "Explore" : "ئىزدىنىش",
     "Settings" : "تەڭشەكلەر",
+    "Documentation" : "قوللانما",
     "Keyboard shortcuts" : "كۇنۇپكا تاختىسى تېزلەتمىسى",
     "Disable mark read through scrolling" : "سىيرىلما ئارقىلىق ئوقۇش بەلگىسىنى چەكلەڭ",
     "Show all articles" : "بارلىق ماقالىلەرنى كۆرسەت",
@@ -82,6 +83,7 @@ OC.L10N.register(
     "Disable full text" : "تولۇق تېكىستنى چەكلەڭ",
     "Unread updated" : "ئوقۇلمىغان يېڭىلاندى",
     "Ignore updated" : "يېڭىلانغانغا پەرۋا قىلماڭ",
+    "Previous" : "ئالدىنقى",
     "Share within Instance" : "Instance in Share",
     "Toggle star article" : "چولپان ماقالىسىنى ئالماشتۇرۇڭ",
     "by" : "سەنئەتكار",
@@ -162,7 +164,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "ئوقۇلمىغان / چولپان ماقالىلەر",
     "Error when importing: file does not contain valid JSON" : "ئەكىرىشتە خاتالىق: ھۆججەتتە ئۈنۈملۈك JSON يوق",
     "Help" : "ياردەم",
-    "Documentation" : "قوللانما",
     "Report a bug" : "خاتالىق مەلۇم قىلىڭ"
 },
 "nplurals=2; plural=(n != 1);");

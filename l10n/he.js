@@ -35,6 +35,7 @@ OC.L10N.register(
     "Starred" : "מסומן",
     "Explore" : "דפדוף",
     "Settings" : "הגדרות",
+    "Documentation" : "תיעוד",
     "Keyboard shortcuts" : "קיצורי מקלדת",
     "Disable mark read through scrolling" : "ניטרול סימון כנקרא בעקבות גלילה",
     "Show all articles" : "הצגת כל המאמרים",
@@ -52,6 +53,7 @@ OC.L10N.register(
     "Disable full text" : "השבתת טקסט מלא",
     "Unread updated" : "לא נקראו עודכנו",
     "Ignore updated" : "בהתעלמות עודכנו",
+    "Previous" : "הקודם",
     "Toggle star article" : "החלפת מצב סימון מאמר בכוכב",
     "Mark unread" : "סימון כלא נקרא",
     "Close details" : "סגירת הפרטים",
@@ -113,7 +115,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "מאמרים שלא נקראו / סומנו ככוכב",
     "Error when importing: file does not contain valid JSON" : "שגיאה ביבוא: הקובץ אינו מכיל JSON תקין",
     "Help" : "עזרה",
-    "Documentation" : "תיעוד",
     "Report a bug" : "דיווח על באג"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

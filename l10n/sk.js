@@ -63,6 +63,7 @@ OC.L10N.register(
     "Has feeds with errors!" : "Má kanály s chybami!",
     "Explore" : "Preskúmať",
     "Settings" : "Nastavenia",
+    "Documentation" : "Dokumentácia",
     "Keyboard shortcuts" : "Klávesové skratky",
     "Display mode" : "Mód zobrazenia",
     "Split mode" : "Rozdelený režim",
@@ -97,6 +98,8 @@ OC.L10N.register(
     "Disable full text" : "Zakázať plný text",
     "Unread updated" : "Aktualizovali sa neprečítané",
     "Ignore updated" : "Ignorovať aktualizáciu",
+    "Previous" : "Predchádzajúce",
+    "Next" : "Ďalšie",
     "Share within Instance" : "Zdieľať v rámci inštancie",
     "Toggle star article" : "Prepnúť hviezdičku",
     "Mark unread" : "Označiť ako neprečítané",
@@ -180,7 +183,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Neprečítané články s hviezdičkou",
     "Error when importing: file does not contain valid JSON" : "Chyba pri importe: súbor neobsahuje platný JSON",
     "Help" : "Pomoc",
-    "Documentation" : "Dokumentácia",
     "Report a bug" : "Nahlásiť chybu"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

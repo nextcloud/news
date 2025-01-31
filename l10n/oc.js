@@ -27,6 +27,7 @@ OC.L10N.register(
     "Starred" : "Espingolats",
     "Explore" : "Explorar",
     "Settings" : "Paramètres",
+    "Documentation" : "Documentacion",
     "Keyboard shortcuts" : "Acorchis de clavièr",
     "Disable mark read through scrolling" : "Marcar pas los articles coma legits al moment del percors de las listas",
     "Show all articles" : "Afichar totes los articles",
@@ -36,6 +37,8 @@ OC.L10N.register(
     "Rename" : "Renomenar",
     "Delete" : "Suprimir",
     "Rename Feed" : "Renomenar lo flux",
+    "Previous" : "Precedent",
+    "Next" : "Seguent",
     "Toggle star article" : "Espingolar / Desespingolar l'article",
     "by" : "per",
     "from" : "de",
@@ -87,7 +90,6 @@ OC.L10N.register(
     "Unread/Starred Articles" : "Articles pas legits / espingolats",
     "Error when importing: file does not contain valid JSON" : "Error al moment de l'impòrt : lo fichièr especificat es pas un fichièr JSON valid",
     "Help" : "Ajuda",
-    "Documentation" : "Documentacion",
     "Report a bug" : "Raportar un bug"
 },
 "nplurals=2; plural=(n > 1);");

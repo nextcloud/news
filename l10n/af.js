@@ -18,6 +18,7 @@ OC.L10N.register(
     "All articles" : "Alle artikels",
     "Explore" : "Ontdek",
     "Settings" : "Instellings",
+    "Documentation" : "Dokumentasie",
     "Keyboard shortcuts" : "Sneltoetse",
     "Rename" : "Hernoem",
     "Delete" : "Skrap",
@@ -45,7 +46,6 @@ OC.L10N.register(
     "Deleted folder" : "Geskrapte vouer",
     "Import" : "Voer In",
     "Export" : "Stuur Uit",
-    "Help" : "Hulp",
-    "Documentation" : "Dokumentasie"
+    "Help" : "Hulp"
 },
 "nplurals=2; plural=(n != 1);");
