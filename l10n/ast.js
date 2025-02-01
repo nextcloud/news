@@ -59,6 +59,8 @@ OC.L10N.register(
     "Enable full text" : "Activar el testu completu",
     "Disable full text" : "Desactivar el testu completu",
     "Ignore updated" : "Inorar lo anovao",
+    "Previous" : "Anterior",
+    "Next" : "Siguiente",
     "by" : "por",
     "from" : "de",
     "Play audio" : "Reproducir l'audiu",

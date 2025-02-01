@@ -75,6 +75,8 @@ OC.L10N.register(
     "Keep article unread" : "Halda greininni sem ólesinni",
     "Toggle keep current article unread" : "Víxla af/á að halda greininni sem ólesinni",
     "Remove keep article unread" : "Fjarlægja að halda greininni sem ólesinni",
+    "{num} minutes ago" : "fyrir {num} mínútum síðan",
+    "{num} hours ago" : "fyrir {num} klukkustundum síðan",
     "Keyboard shortcut" : "Flýtilykill",
     "Action" : "Aðgerð",
     "Jump to next article" : "Hoppa á næstu grein",
