@@ -79,7 +79,7 @@ OC.L10N.register(
     "Disable full text" : "Slå fuld tekst fra",
     "Unread updated" : "Ulæste opdateret",
     "Ignore updated" : "Ignorér updaterede",
-    "Previous" : "Tidligere",
+    "Previous" : "Forrige",
     "Next" : "Næste",
     "Share within Instance" : "Del i instansen",
     "Toggle star article" : "Slå stjerne for artikel til/fra",
