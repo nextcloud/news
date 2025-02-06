@@ -41,6 +41,8 @@ OC.L10N.register(
     "Disable mark read through scrolling" : "Lülita kerimisel loetuks määramine välja",
     "Show all articles" : "Näita kõiki artikleid",
     "Reverse ordering (oldest on top)" : "Pööratud järjestus (vanemad eespool)",
+    "Vertical" : "Vertikaalne",
+    "Horizontal" : "Horisontaalne",
     "Rename" : "Nimeta ümber",
     "Delete" : "Kustuta",
     "Newest first" : "Uuemad eespool",
