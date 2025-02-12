@@ -80,6 +80,7 @@ OC.L10N.register(
     "Disable full text" : "Slå fuld tekst fra",
     "Unread updated" : "Ulæste opdateret",
     "Ignore updated" : "Ignorér updaterede",
+    "Previous Item" : "Previous Item",
     "Previous" : "Forrige",
     "Next" : "Næste",
     "Share within Instance" : "Del i instansen",
