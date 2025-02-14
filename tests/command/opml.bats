@@ -1,6 +1,10 @@
 #!/usr/bin/env bats
 
-load "helpers/settings"
+setup(){
+  load "../test_helper/bats-support/load"
+  load "../test_helper/bats-assert/load"
+  load "helpers/settings"
+}
 
 TESTSUITE="OPML"
 
@@ -12,15 +16,13 @@ teardown() {
 }
 
 @test "[$TESTSUITE] Export" {
-  run ./occ news:feed:add "$user" "https://nextcloud.com/blog/static-feed/"  --title "Something-${BATS_SUITE_TEST_NUMBER}"
-  [ "$status" -eq 0 ]
+  run ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
+  assert_success
 
   run ./occ news:opml:export "$user"
-  [ "$status" -eq 0 ]
+  assert_success
 
-  if ! echo "$output" | grep "https://nextcloud.com/"; then
-    ret_status=$?
-    echo "Feed not exported"
-    return $ret_status
+  if ! echo "$output" | grep "Something-${BATS_SUITE_TEST_NUMBER}"; then
+    assert_output --partial "Feed not exported"
   fi
 }
