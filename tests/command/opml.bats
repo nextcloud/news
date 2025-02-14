@@ -15,6 +15,18 @@ teardown() {
   done
 }
 
+@test "[$TESTSUITE] Import" {
+  run ./occ news:opml:import "$user" apps/news/tests/test_helper/feeds/Nextcloud.opml
+  assert_success
+
+  run ./occ news:feed:list "$user"
+  assert_success
+
+  if ! echo "$output" | grep "title.*Nextcloud"; then
+    assert_output --partial "Feed not imported"
+  fi
+}
+
 @test "[$TESTSUITE] Export" {
   run ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
   assert_success
