@@ -7,12 +7,15 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Enable support for php 8.4 (#3038)
-- Enable support for Nextcloud 31 ()
 
 ### Fixed
 
 # Releases
+## [25.3.0-beta.1] - 2025-02-16
+### Changed
+- Enable support for php 8.4 (#3038)
+- Enable support for Nextcloud 31 (#3089)
+
 ## [25.2.1] - 2025-02-16
 No additional changes since the beta releases.
 
