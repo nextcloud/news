@@ -64,6 +64,7 @@ OC.L10N.register(
     "Show all articles" : "Pokaż wszystkie artykuły",
     "Reverse ordering (oldest on top)" : "Odwrotna kolejność (najstarsze na górze)",
     "Default" : "Domyślny",
+    "Compact" : "Kompaktowy",
     "Vertical" : "Pionowo",
     "Horizontal" : "Poziomo",
     "Off" : "Wyłączone",

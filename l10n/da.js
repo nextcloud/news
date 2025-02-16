@@ -64,6 +64,8 @@ OC.L10N.register(
     "Show all articles" : "Vis alle artikler",
     "Reverse ordering (oldest on top)" : "Vend om på rækkefølgen (ældste øverst)",
     "Default" : "Standard",
+    "Vertical" : "Lodret",
+    "Horizontal" : "Vandret",
     "Off" : "Deaktiver",
     "Rename Folder" : "Omdøb mappe",
     "Are you sure you want to delete?" : "Er du sikker på at du vil slette?",
