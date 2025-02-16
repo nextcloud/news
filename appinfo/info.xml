@@ -21,7 +21,7 @@ Create a [feature request](https://github.com/nextcloud/news/discussions/new)
 
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>25.2.1-beta.2</version>
+    <version>25.2.1</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
@@ -30,7 +30,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <author>Jan-Christoph Borchardt (former)</author>
     <namespace>News</namespace>
     <documentation>
-        <user>https://nextcloud.github.io/news/</user>
+        <user>https://nextcloud.github.io/news/user</user>
         <admin>https://nextcloud.github.io/news/admin/</admin>
         <developer>https://nextcloud.github.io/news/developer</developer>
     </documentation>
