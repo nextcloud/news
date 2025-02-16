@@ -11,6 +11,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [25.2.1] - 2025-02-16
+No additional changes since the beta releases.
+
 ## [25.2.1-beta.2] - 2025-01-30
 ### Fixed
 - Fix for the build pipeline (#3078)
