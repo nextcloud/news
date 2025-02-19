@@ -65,7 +65,7 @@ OC.L10N.register(
     "Subscriptions (OPML)" : "Abonementi (OPML)",
     "Import" : "Importēt",
     "Export" : "Eksportēt",
-    "Error when importing: file does not contain valid JSON" : "Kļūda, importējot: datne nesatur derīgus JSON",
+    "Error when importing: file does not contain valid JSON" : "Kļūda ievietošanas laikā: datne nesatur derīgu JSON",
     "Help" : "Palīdzība",
     "Report a bug" : "Ziņot par kļūdu"
 },
