@@ -15,6 +15,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Tipkovni prečaci",
     "Rename" : "Preimenuj",
     "Delete" : "Obriši",
+    "Previous" : "Prethodno",
     "by" : "od strane",
     "from" : "od",
     "Title" : "Naslov",
