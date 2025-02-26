@@ -171,7 +171,7 @@ OC.L10N.register(
     "Share with users" : "Mit Benutzern teilen",
     "No users found" : "Keine Nutzer gefunden",
     "Error while searching for users" : "Fehler bei der Suche nach Benutzern",
-    "Share on social media" : "In den sozialen Medien teilen",
+    "Share on social media" : "Auf sozialen Medien teilen",
     "I wanted you to see this article" : "Ich wünschte, du würdest dir diesen Artikel anschauen",
     "Check out this article" : "Schau dir diesen Artikel an",
     "Description" : "Beschreibung",
