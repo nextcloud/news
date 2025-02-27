@@ -15,14 +15,14 @@
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 تطبيق قارئ اللُقم الإخبارية من نكست كلاود RSS / Atom لـ Nextcloud\n\n- 📲 قم بمزامنة لُقمك مع [عملاء] أجهزة محمولة أو سطح مكتب متعددة (https://nextcloud.github.io/news/clients/) \n- تحديثات تلقائية للُقم الأخبار الخاصة بك \n\n- 🆓 مصدر مجاني ومفتوح بموجب AGPLv3 ، بدون إعلانات \n** مطلوب تشغيل \"مدير  الوظائف الخلفية\" System Cron كي يعمل هذا التطبيق \n\nيمكن إيجاد المتطلبات [هنا](https://nextcloud.github.io/news/install/#dependencies)\n\nسجل التغييرات [هنا](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nأنشيء [بلاغ عن مشكل](https://github.com/nextcloud/news/issues/new/choose)\n\nأنشيء [طلب تحسين](https://github.com/nextcloud/news/discussions/new)\n\nأبلغ عن [مشاكل في الإلقام](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "تنزيل",
     "Close" : "إغلاق",
+    "Internal server error!" : "خطأ داخلي في الخادوم!",
+    "Unknown error!" : "خطأ غير محدد!",
     "Web address" : "عنوان ويب",
     "Please check your data/nextcloud.log file for additional information!" : "رجاءً، لمعلومات أكثر، قم بالاطلاع على ملف data/nextcloud.log !",
     "No folder" : "لا يوجد مجلد",
     "Folder name" : "اسم المجلد",
     "Username" : "اسم المستخدم",
     "Password" : "كلمة المرور",
-    "Internal server error!" : "خطأ داخلي في الخادوم!",
-    "Unknown error!" : "خطأ غير محدد!",
     "Feed exists already!" : "اللُقمة الإخبارية موجود ةمسبقاً!",
     "New folder" : "مجلد جديد",
     "Folder exists already!" : "المجلد موجود بالفعل",
@@ -30,6 +30,8 @@
     "Credentials" : "حيثيّات الدخول credentials",
     "Auto discover Feed" : "الاستكشاف التلقائي للُّقم الإخبارية",
     "Subscribe" : "إشترك subscribe",
+    "Successfully updated news configuration" : "تمّ بنجاحٍ تحديث تهيئة الأخبار",
+    "Unable to update news config" : "تعذّر تحديث تهيئة الأخبار",
     "Last job execution ran {relativeTime}. Something seems wrong." : "آخر مهمة job جرت في {relativeTime}. يبدو أن هنالك خطأً ما.",
     "Last job ran {relativeTime}." : "آخر مهمة JOB جرت في {relativeTime}.",
     "Maximum read count per feed" : "الحد الأقصى لعدّاد القراءة لكل لُقمة",
@@ -37,8 +39,6 @@
     "Feed fetcher timeout" : "مهلة تحميل اللُقمة الإخبارية",
     "Explore Service URL" : "استكشاف عنوان URL للخدمة",
     "Update interval" : "الفترة الفاصلة بين التحدياث",
-    "Successfully updated news configuration" : "تمّ بنجاحٍ تحديث تهيئة الأخبار",
-    "Unable to update news config" : "تعذّر تحديث تهيئة الأخبار",
     "Use system cron for updates" : "للتحديثات، استخدم مُجدول مهام الخلفية cron",
     "Disable this if you use a custom updater." : "أوقف هذا إذا كنت تستخدم برنامج تحديث مخصص.",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "يحدد الحد الأقصى لمقدار المقالات التي يمكن قراءتها في كل لُقمة إخبارية والتي لن يتم حذفها بواسطة مهمة التنظيف. إذا ظهرت المقالات القديمة مرة أخرى بعد قراءتها، قم بزيادة هذه القيمة. القيم السالبة مثل -1 ستوقف تشغيل هذه الميزة.",
@@ -58,6 +58,19 @@
     "Share" : "مشاركة",
     "Share with" : "شارِكه مع",
     "Share with {num} users" : "شاركه مع {num} مستخدِمين",
+    "Default" : "التلقائي",
+    "Compact" : "مُدمج",
+    "Screenreader" : "قارئ الشاشة",
+    "Vertical" : "رأسِي",
+    "Horizontal" : "أفُقِي",
+    "Off" : "معطل",
+    "Please select a valid OPML file" : "رجاءً، إختر ملف OPML صحيح",
+    "File successfully uploaded" : "تمّ رفع الملف بنجاحٍ",
+    "Error uploading the opml file" : "خطأ أثناء رفع ملف OPML",
+    "Error connecting to the server" : "خطأ في التوصيل مع الخادوم",
+    "Error retrieving the opml file" : "خطأ في استرجاع ملف OPML",
+    "Rename Folder" : "تغير تسمية مجلد",
+    "Are you sure you want to delete?" : "هل أنت متأكد من أنك تريد الحذف؟",
     "Mark read" : "عيّن أنه تمت القراءة",
     "All articles" : "جميع المقالات",
     "Starred" : "معلّم بنجمة",
@@ -74,23 +87,10 @@
     "Reverse ordering (oldest on top)" : "عكس الترتيب (الأقدم بالأعلي)",
     "Disable automatic refresh" : "تعطيل التحديث التلقائي",
     "Abonnements (OPML)" : "الاشتراكات (OPML)",
-    "Default" : "التلقائي",
-    "Compact" : "مُدمج",
-    "Screenreader" : "قارئ الشاشة",
-    "Vertical" : "رأسِي",
-    "Horizontal" : "أفُقِي",
-    "Off" : "معطل",
-    "Please select a valid OPML file" : "رجاءً، إختر ملف OPML صحيح",
-    "File successfully uploaded" : "تمّ رفع الملف بنجاحٍ",
-    "Error uploading the opml file" : "خطأ أثناء رفع ملف OPML",
-    "Error connecting to the server" : "خطأ في التوصيل مع الخادوم",
-    "Error retrieving the opml file" : "خطأ في استرجاع ملف OPML",
-    "Rename Folder" : "تغير تسمية مجلد",
-    "Are you sure you want to delete?" : "هل أنت متأكد من أنك تريد الحذف؟",
     "Rename" : "إعادة التسمية",
     "Delete" : "حذف ",
-    "Open Feed URL" : "إفتَح رابط اللُقمة الإخبارية",
     "Rename Feed" : "تغيير تسمية اللُقمة",
+    "Open Feed URL" : "إفتَح رابط اللُقمة الإخبارية",
     "Unpin from top" : "إلغ التثبيت في الأعلى",
     "Pin to top" : "ثبتّ في الأعلى",
     "Newest first" : "الأحدث أولا",
@@ -114,16 +114,17 @@
     "Play audio" : "تشغيل الصوت",
     "Download audio" : "تنزيل الصوت",
     "Download video" : "تنزيل الفيديو",
-    "Open website" : "فتح الموقع",
-    "Keep article unread" : "إبقاء المقالة غير مقروءة",
-    "Toggle keep current article unread" : "تبديل لإبقاء المقالة الحالية غير مقروءة",
-    "Remove keep article unread" : "إلغاء إبقاء المقالة الحالية غير مقروءة",
     "{num} seconds" : "{num} ثوانٍ",
     "{num} minutes ago" : "منذ {num} دقائق",
     "{num} hours ago" : "منذ {num} ساعات",
     "{num} days ago" : "منذ {num} أيام",
     "{num} months ago" : "منذ {num} أشهر",
     "{num} years ago" : "منذ {num} سنوات",
+    "Open website" : "فتح الموقع",
+    "Keep article unread" : "إبقاء المقالة غير مقروءة",
+    "Toggle keep current article unread" : "تبديل لإبقاء المقالة الحالية غير مقروءة",
+    "Remove keep article unread" : "إلغاء إبقاء المقالة الحالية غير مقروءة",
+    "Not available" : "غير متاح",
     "Last update" : "آخر تحديث",
     "Time when the feed was last downloaded" : "الوقت الذي تمّ فيه تنزيل الخلاصة آخر مرة",
     "Next update" : "التحديث التالي",
@@ -134,7 +135,6 @@
     "Error Count" : "عدد الأخطاء",
     "Number of errors that have occurred since the last successful feed update" : "عدد الأخطاء التي حدثت منذ آخر تحديث ناجح للخلاصة",
     "Title" : "العنوان",
-    "Not available" : "غير متاح",
     "Keyboard shortcut" : "إختصار لوحة المفاتيح",
     "Action" : "الإجراء",
     "Jump to next article" : "الانتقال إلي المقالة التالية",
