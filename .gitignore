@@ -23,6 +23,9 @@ tests/test_helper/feeds/test.xml
 tests/test_helper/feeds/feed1.xml
 tests/test_helper/feeds/feed2.xml
 
+#scoped dependencies
+lib/Vendor/*
+
 # python
 PKG-INFO
 *pyc

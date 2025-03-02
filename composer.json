@@ -85,7 +85,28 @@
   "config": {
     "allow-plugins": {
       "composer/package-versions-deprecated": true,
-      "phpstan/extension-installer": true
+      "phpstan/extension-installer": true,
+      "bamarni/composer-bin-plugin": true
     }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "@composer bin all install --ignore-platform-reqs",
+      "rm -Rf build",
+      "vendor/bin/php-scoper add-prefix --force # Scope our dependencies",
+      "rm -Rf lib/Vendor",
+      "find build -maxdepth 1 -mindepth 1 -type d | cut -d '/' -f3 | xargs -I {} rm -Rf vendor/{} # Remove origins",
+      "@php lib-vendor-organizer.php build/ lib/Vendor/ OCA\\\\News\\\\Vendor",
+      "composer dump-autoload"
+    ],
+    "post-update-cmd": [
+      "@composer bin all install --ignore-platform-reqs",
+      "rm -Rf build",
+      "vendor/bin/php-scoper add-prefix --force # Scope our dependencies",
+      "rm -Rf lib/Vendor",
+      "find build -maxdepth 1 -mindepth 1 -type d | cut -d '/' -f3 | xargs -I {} rm -Rf vendor/{} # Remove origins",
+      "@php lib-vendor-organizer.php build/ lib/Vendor/ OCA\\\\News\\\\Vendor",
+      "composer dump-autoload"
+    ]
   }
 }
