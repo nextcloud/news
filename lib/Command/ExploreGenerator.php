@@ -10,8 +10,8 @@
  */
 namespace OCA\News\Command;
 
-use FeedIo\FeedIo;
-use Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\Favicon\Favicon;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

@@ -14,8 +14,8 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use FeedIo\Explorer;
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;

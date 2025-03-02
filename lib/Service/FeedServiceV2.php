@@ -14,10 +14,10 @@
 namespace OCA\News\Service;
 
 use DateTime;
-use FeedIo\Explorer;
-use FeedIo\Reader\ReadErrorException;
-use FeedIo\Reader\NoAccurateParserException;
-use HTMLPurifier;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Reader\NoAccurateParserException;
+use OCA\News\Vendor\HTMLPurifier;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
