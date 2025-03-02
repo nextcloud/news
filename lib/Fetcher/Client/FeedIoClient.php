@@ -11,12 +11,12 @@
 namespace OCA\News\Fetcher\Client;
 
 use DateTime;
-use FeedIo\Adapter\ClientInterface;
-use FeedIo\Adapter\ResponseInterface;
-use FeedIo\Adapter\Guzzle\Response;
-use FeedIo\Adapter\HttpRequestException;
-use FeedIo\Adapter\NotFoundException;
-use FeedIo\Adapter\ServerErrorException;
+use OCA\News\Vendor\FeedIo\Adapter\ClientInterface;
+use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
+use OCA\News\Vendor\FeedIo\Adapter\Guzzle\Response;
+use OCA\News\Vendor\FeedIo\Adapter\HttpRequestException;
+use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
+use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 

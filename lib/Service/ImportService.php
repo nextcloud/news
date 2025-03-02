@@ -17,7 +17,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
-use \HTMLPurifier;
+use OCA\News\Vendor\HTMLPurifier;
 
 /**
  * Class ImportService
