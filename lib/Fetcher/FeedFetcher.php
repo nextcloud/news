@@ -15,15 +15,15 @@ namespace OCA\News\Fetcher;
 
 use DateTime;
 use Favicon\Favicon;
-use FeedIo\Feed\ItemInterface;
-use FeedIo\FeedInterface;
-use FeedIo\FeedIo;
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
+use OCA\News\Vendor\FeedIo\FeedInterface;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 
-use Net_URL2;
+use OCA\News\Vendor\Net_URL2;
 use OCP\IL10N;
 use OCP\ITempManager;
 

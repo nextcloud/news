@@ -4,16 +4,16 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use FeedIo\Adapter\Guzzle\Response;
-use FeedIo\Adapter\NotFoundException;
-use FeedIo\Adapter\ServerErrorException;
+use OCA\News\Vendor\FeedIo\Adapter\Guzzle\Response;
+use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
+use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use OCA\News\Vendor\Psr\Http\Message\RequestInterface;
+use OCA\News\Vendor\Psr\Http\Message\ResponseInterface;
 
 class FeedIoClientTest extends TestCase
 {

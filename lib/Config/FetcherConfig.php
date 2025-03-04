@@ -13,7 +13,7 @@
 
 namespace OCA\News\Config;
 
-use FeedIo\Adapter\ClientInterface;
+use OCA\News\Vendor\FeedIo\Adapter\ClientInterface;
 use Psr\Log\LoggerInterface;
 use \GuzzleHttp\Client;
 use OCA\News\AppInfo\Application;
@@ -21,7 +21,7 @@ use OCA\News\Fetcher\Client\FeedIoClient;
 use OCP\IConfig;
 use OCP\IAppConfig;
 use OCP\App\IAppManager;
-use Net_URL2;
+use OCA\News\Vendor\Net_URL2;
 
 /**
  * Class FetcherConfig
@@ -79,7 +79,7 @@ class FetcherConfig
      * @var LoggerInterface
      */
     private LoggerInterface $logger;
-    
+
     /**
      * FetcherConfig constructor.
      *
