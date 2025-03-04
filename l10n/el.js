@@ -37,6 +37,7 @@ OC.L10N.register(
     "Share with" : "Διαμοιρασμός με",
     "Default" : "Προεπιλογή",
     "Vertical" : "Κάθετα",
+    "Off" : "Απενεργοποιημένο",
     "Mark read" : "Σημείωση ως ανεγνωσμένου",
     "All articles" : "Όλα τα άρθρα",
     "Starred" : "Με αστέρι",
