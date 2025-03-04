@@ -20,12 +20,11 @@ use FeedIo\FeedInterface;
 use FeedIo\FeedIo;
 use FeedIo\Reader\ReadErrorException;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 
-use Net_URL2;
 use OCP\IL10N;
-use OCP\ITempManager;
 
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
@@ -125,9 +124,9 @@ class FeedFetcher implements IFeedFetcher
         ?string $password,
         ?string $httpLastModified
     ): array {
-        $url2 = new Net_URL2($url);
+        $url2 = new Uri($url);
         if (!is_null($user) && trim($user) !== '') {
-            $url2->setUserinfo(rawurlencode($user), rawurlencode($password));
+            $url2 = $url2->withUserInfo(rawurlencode($user), rawurlencode($password));
         }
         if (!is_null($httpLastModified) && trim($httpLastModified) !== '') {
             try {
@@ -138,7 +137,7 @@ class FeedFetcher implements IFeedFetcher
         } else {
             $lastModified = null;
         }
-        $url = $url2->getNormalizedURL();
+        $url = (string) $url2;
         $resource = $this->reader->read($url, null, $lastModified);
 
         $location     = $resource->getUrl();
@@ -408,9 +407,9 @@ class FeedFetcher implements IFeedFetcher
 
         ini_set('user_agent', $this->fetcherConfig->getUserAgent());
 
-        $base_url = new Net_URL2($url);
-        $base_url->setPath("");
-        $base_url = $base_url->getNormalizedURL();
+        $base_url = new Uri($url);
+        $base_url->withPath('');
+        $base_url = (string) $base_url;
 
         // Return if the URL is empty
         if ($base_url === null || trim($base_url) === '') {

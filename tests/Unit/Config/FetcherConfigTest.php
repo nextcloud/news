@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author Sean Molenaar <sean@seanmolenaar.eu>
  *
@@ -56,21 +57,20 @@ class FetcherConfigTest extends TestCase
     protected function setUp(): void
     {
         $this->config = $this->getMockBuilder(IAppConfig::class)
-                              ->disableOriginalConstructor()
-                              ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->sysconfig = $this->getMockBuilder(IConfig::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->appmanager = $this->getMockBuilder(IAppManager::class)
-                                 ->disableOriginalConstructor()
-                                 ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->logger = $this->getMockBuilder(LoggerInterface::class)
-                                ->disableOriginalConstructor()
-                                ->getMock();
-
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     /**
@@ -86,15 +86,15 @@ class FetcherConfigTest extends TestCase
     public function testGetUserAgent()
     {
         $this->config->expects($this->exactly(2))
-                     ->method('getValueInt')
-                     ->willReturnMap([
-                ['news', 'feedFetcherTimeout', 60, FALSE, 60],
-                ['news', 'maxRedirects', 10, FALSE, 10],
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10],
             ]);
 
         $this->appmanager->expects($this->exactly(1))
-                         ->method('getAppVersion')
-                         ->willReturn('123.45');
+            ->method('getAppVersion')
+            ->willReturn('123.45');
 
         $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
@@ -106,15 +106,15 @@ class FetcherConfigTest extends TestCase
     public function testGetUserAgentUnknownVersion()
     {
         $this->config->expects($this->exactly(2))
-                     ->method('getValueInt')
-                     ->willReturnMap([
-                        ['news', 'feedFetcherTimeout', 60, false, 60],
-                        ['news', 'maxRedirects', 10, false, 10]
-                     ]);
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
 
         $this->appmanager->expects($this->exactly(1))
-                         ->method('getAppVersion')
-                         ->willReturn('1.0');
+            ->method('getAppVersion')
+            ->willReturn('1.0');
 
         $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
@@ -123,30 +123,84 @@ class FetcherConfigTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
-    public function testProxyPortPreserved()
+    public function testStandardPortPreserved()
     {
         $this->config->expects($this->exactly(2))
-                     ->method('getValueInt')
-                     ->willReturnMap([
-                        ['news', 'feedFetcherTimeout', 60, false, 60],
-                        ['news', 'maxRedirects', 10, false, 10]
-                     ]);
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
 
         $this->appmanager->expects($this->exactly(1))
-                         ->method('getAppVersion')
-                         ->willReturn('1.0');
+            ->method('getAppVersion')
+            ->willReturn('1.0');
 
         $this->sysconfig->expects($this->exactly(2))
-                        ->method('getSystemValue')
-                        ->willReturnMap([
-                            ['proxy', null, 'http://192.168.178.1:80'],
-                            ['proxyuserpwd', null , null]
-                        ]);
+            ->method('getSystemValue')
+            ->willReturnMap([
+                ['proxy', null, 'http://192.168.178.1:80'],
+                ['proxyuserpwd', null, null]
+            ]);
 
         $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
-        
+
         $expected = 'http://192.168.178.1:80';
         $response = $this->class->getProxy();
         $this->assertEquals($expected, $response);
-        }
+    }
+
+    public function testProxyPortPreserved()
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
+
+        $this->appmanager->expects($this->exactly(1))
+            ->method('getAppVersion')
+            ->willReturn('1.0');
+
+        $this->sysconfig->expects($this->exactly(2))
+            ->method('getSystemValue')
+            ->willReturnMap([
+                ['proxy', null, 'http://192.168.178.1:8080'],
+                ['proxyuserpwd', null, null]
+            ]);
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $expected = 'http://192.168.178.1:8080';
+        $response = $this->class->getProxy();
+        $this->assertEquals($expected, $response);
+    }
+
+    public function testProxyWithAuth()
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
+
+        $this->appmanager->expects($this->exactly(1))
+            ->method('getAppVersion')
+            ->willReturn('1.0');
+
+        $this->sysconfig->expects($this->exactly(2))
+            ->method('getSystemValue')
+            ->willReturnMap([
+                ['proxy', null, 'https://192.168.178.1:443'],
+                ['proxyuserpwd', null, 'admin:password']
+            ]);
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $expected = 'https://admin:password@192.168.178.1:443';
+        $response = $this->class->getProxy();
+        $this->assertEquals($expected, $response);
+    }
 }

@@ -16,12 +16,12 @@ namespace OCA\News\Config;
 use FeedIo\Adapter\ClientInterface;
 use Psr\Log\LoggerInterface;
 use \GuzzleHttp\Client;
+use \GuzzleHttp\Psr7\Uri;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use OCP\IConfig;
 use OCP\IAppConfig;
 use OCP\App\IAppManager;
-use Net_URL2;
 
 /**
  * Class FetcherConfig
@@ -79,7 +79,7 @@ class FetcherConfig
      * @var LoggerInterface
      */
     private LoggerInterface $logger;
-    
+
     /**
      * FetcherConfig constructor.
      *
@@ -117,15 +117,30 @@ class FetcherConfig
             ['proxy' => $proxy]
         );
 
-        $url = new Net_URL2($proxy);
+        $url = new Uri($proxy);
 
         $creds = $systemconfig->getSystemValue('proxyuserpwd', null);
         if ($creds !== null) {
             $auth = explode(':', $creds, 2);
-            $url->setUserinfo($auth[0], $auth[1]);
+            $url = $url->withUserInfo($auth[0], $auth[1]);
         }
 
-        $this->proxy = $url->getURL();
+        //Uri removes standard ports by default, therefore we add it manually
+        $url_string = (string) $url;
+        $scheme = $url->getScheme();
+        $port = $url->getPort();
+
+        if ($port === null && $scheme === 'http') {
+            $port = 80;
+        } elseif ($port === null && $scheme === 'https') {
+            $port = 443;
+        }
+
+        if ($port !== null && strpos($url_string, ':' . $port) === false) {
+            $url_string .= ':' . $port;
+        }
+
+        $this->proxy = $url_string;
 
         $this->logger->debug(
             'Proxy configuration finalized: {proxy}',
