@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- preg_replace_callback(): Compilation failed: digits missing after \x or... (#3105)
 
 # Releases
 ## [25.3.0-beta.1] - 2025-02-16
