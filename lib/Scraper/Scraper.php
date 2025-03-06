@@ -17,6 +17,7 @@ use fivefilters\Readability\ParseException;
 use League\Uri\Exceptions\SyntaxError;
 use Psr\Log\LoggerInterface;
 use OCA\News\Config\FetcherConfig;
+use TypeError;
 
 class Scraper implements IScraper
 {
@@ -76,7 +77,7 @@ class Scraper implements IScraper
 
         try {
             $this->readability->parse($content);
-        } catch (ParseException | SyntaxError $e) {
+        } catch (ParseException | SyntaxError | TypeError $e) {
             $this->logger->error('Unable to parse content from {url}', [
                  'url' => $url,
             ]);
