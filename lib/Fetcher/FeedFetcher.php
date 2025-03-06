@@ -408,8 +408,7 @@ class FeedFetcher implements IFeedFetcher
         ini_set('user_agent', $this->fetcherConfig->getUserAgent());
 
         $base_url = new Uri($url);
-        $base_url->withPath('');
-        $base_url = (string) $base_url;
+        $base_url = (string) $base_url->withPath('/');
 
         // Return if the URL is empty
         if ($base_url === null || trim($base_url) === '') {
