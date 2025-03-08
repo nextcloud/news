@@ -194,16 +194,16 @@
         },
         {
             "name": "fivefilters/readability.php",
-            "version": "v3.3.1",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fivefilters/readability.php.git",
-                "reference": "705feb540737f81204af43295d406d874e59f8bd"
+                "reference": "2cd2d3d7b24d3df9cc1dcb8919451876c693d69b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/705feb540737f81204af43295d406d874e59f8bd",
-                "reference": "705feb540737f81204af43295d406d874e59f8bd",
+                "url": "https://api.github.com/repos/fivefilters/readability.php/zipball/2cd2d3d7b24d3df9cc1dcb8919451876c693d69b",
+                "reference": "2cd2d3d7b24d3df9cc1dcb8919451876c693d69b",
                 "shasum": ""
             },
             "require": {
@@ -253,9 +253,9 @@
             ],
             "support": {
                 "issues": "https://github.com/fivefilters/readability.php/issues",
-                "source": "https://github.com/fivefilters/readability.php/tree/v3.3.1"
+                "source": "https://github.com/fivefilters/readability.php/tree/v3.3.2"
             },
-            "time": "2025-01-14T12:05:02+00:00"
+            "time": "2025-03-07T18:17:00+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -3365,7 +3365,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -3376,6 +3376,6 @@
         "ext-dom": "*",
         "ext-curl": "*"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
