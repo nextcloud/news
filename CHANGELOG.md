@@ -11,6 +11,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [25.3.0] - 2025-03-05
+No major changes since the beta releases.
+
 ## [25.3.0-beta.2] - 2025-03-05
 ### Fixed
 - preg_replace_callback(): Compilation failed: digits missing after \x or... (#3105)
