@@ -74,8 +74,41 @@ foreach ($projectList as $projectDir) {
         );
         continue;
     }
+    if (isset($projectInfo["autoload"]["files"])) {
+        moveByClassMap(
+            $projectInfo,
+            $projectDir,
+            $stripNamespacePrefix,
+            $targetDirectory
+        );
+        continue;
+    }
     printf("No supported autoload configuration in %s" . PHP_EOL, $projectDir);
     exit(2);
+}
+
+function moveByFiles(
+    array $projectInfo,
+    string $projectDir,
+    string $stripNamespacePrefix,
+    string $targetDirectory
+): void {
+    foreach ($projectInfo["autoload"]["files"] as $codeFilePath) {
+        $targetFileName = basename($codeFilePath);
+        $destination = $targetDirectory . $targetFileName;
+        if (file_exists($destination)) {
+            unlink($destination);
+        }
+        if (!rename($projectDir . $codeFilePath, $destination)) {
+            printf(
+                "Failed to move %s to %s" . PHP_EOL,
+                $projectDir . $codeFilePath,
+                $destination
+            );
+            exit(5);
+        }
+        printf('Transformed files: %s' . PHP_EOL, $codeFilePath);
+    }
 }
 
 function moveByClassMap(
@@ -85,6 +118,7 @@ function moveByClassMap(
     string $targetDirectory
 ): void {
     foreach ($projectInfo["autoload"]["classmap"] as $codeFilePath) {
+        //FIXME: can be a directory
         $targetFileName = str_replace("/", "_", $codeFilePath);
         $destination = $targetDirectory . $targetFileName;
         if (file_exists($destination)) {
@@ -98,7 +132,7 @@ function moveByClassMap(
             );
             exit(4);
         }
-        printf('Transformed classpath: %s' . PHP_EOL, $codeFilePath);
+        printf('Transformed classpath: %s (from %s)' . PHP_EOL, $codeFilePath, $projectDir);
     }
 }
 
