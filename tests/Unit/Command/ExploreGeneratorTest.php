@@ -20,10 +20,10 @@
 
 namespace OCA\News\Tests\Unit\Command;
 
-use FeedIo\Feed;
-use FeedIo\FeedIo;
-use Favicon\Favicon;
-use FeedIo\Reader\Result;
+use OCA\News\Vendor\FeedIo\Feed;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\Reader\Result;
 use OCA\News\Command\ExploreGenerator;
 
 use PHPUnit\Framework\MockObject\MockObject;

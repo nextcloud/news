@@ -14,15 +14,15 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use Favicon\Favicon;
-use FeedIo\Adapter\ResponseInterface;
-use FeedIo\Feed\Item\Author;
-use FeedIo\Feed\Item\MediaInterface;
-use FeedIo\Feed\Node\Category;
-use FeedIo\Feed\ItemInterface;
-use FeedIo\FeedInterface;
-use FeedIo\FeedIo;
-use FeedIo\Reader\Result;
+use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
+use OCA\News\Vendor\FeedIo\Feed\Item\Author;
+use OCA\News\Vendor\FeedIo\Feed\Item\MediaInterface;
+use OCA\News\Vendor\FeedIo\Feed\Node\Category;
+use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
+use OCA\News\Vendor\FeedIo\FeedInterface;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\FeedIo\Reader\Result;
 use OC\L10N\L10N;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
