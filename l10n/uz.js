@@ -9,14 +9,18 @@ OC.L10N.register(
     "Password" : "Password",
     "New folder" : "New folder",
     "Credentials" : "Hisob ma'lumotlari",
+    "Subscribe" : "Obuna boʻlish",
     "Move" : "Move",
     "Settings" : "Settings",
     "Rename" : "Rename",
     "Delete" : "Delete",
+    "Not available" : "Mavjud emas",
     "right" : "right",
     "left" : "left",
     "Refresh" : "Refresh",
+    "Description" : "Tavsif",
     "Dismiss" : "Dismiss",
+    "Export" : "Eksport",
     "Help" : "Help"
 },
 "nplurals=1; plural=0;");
