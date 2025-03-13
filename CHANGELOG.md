@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Fix proxy configuration without schema -> default http:// (#3115)
 
 # Releases
 ## [25.3.0] - 2025-03-05

@@ -125,9 +125,16 @@ class FetcherConfig
             $url = $url->withUserInfo($auth[0], $auth[1]);
         }
 
+        // prevent broken scheme '//'
+        $scheme = $url->getScheme();
+
+        if ($scheme !== 'http' && $scheme !== 'https') {
+            $url = $url->withScheme('http');
+            $scheme = $url->getScheme();
+        }
+
         //Uri removes standard ports by default, therefore we add it manually
         $url_string = (string) $url;
-        $scheme = $url->getScheme();
         $port = $url->getPort();
 
         if ($port === null && $scheme === 'http') {

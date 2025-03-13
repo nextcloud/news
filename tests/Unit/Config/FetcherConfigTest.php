@@ -177,6 +177,33 @@ class FetcherConfigTest extends TestCase
         $this->assertEquals($expected, $response);
     }
 
+    public function testProxyIPNoSchema()
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
+
+        $this->appmanager->expects($this->exactly(1))
+            ->method('getAppVersion')
+            ->willReturn('1.0');
+
+        $this->sysconfig->expects($this->exactly(2))
+            ->method('getSystemValue')
+            ->willReturnMap([
+                ['proxy', null, '192.168.178.1:8080'],
+                ['proxyuserpwd', null, null]
+            ]);
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $expected = 'http://192.168.178.1:8080';
+        $response = $this->class->getProxy();
+        $this->assertEquals($expected, $response);
+    }
+
     public function testProxyWithAuth()
     {
         $this->config->expects($this->exactly(2))
@@ -200,6 +227,60 @@ class FetcherConfigTest extends TestCase
         $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
         $expected = 'https://admin:password@192.168.178.1:443';
+        $response = $this->class->getProxy();
+        $this->assertEquals($expected, $response);
+    }
+
+    public function testDomainProxy()
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
+
+        $this->appmanager->expects($this->exactly(1))
+            ->method('getAppVersion')
+            ->willReturn('1.0');
+
+        $this->sysconfig->expects($this->exactly(2))
+            ->method('getSystemValue')
+            ->willReturnMap([
+                ['proxy', null, 'apt.domain.net:3142'],
+                ['proxyuserpwd', null, null]
+            ]);
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $expected = 'http://apt.domain.net:3142';
+        $response = $this->class->getProxy();
+        $this->assertEquals($expected, $response);
+    }
+
+    public function testDomainProxyWithAuth()
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
+
+        $this->appmanager->expects($this->exactly(1))
+            ->method('getAppVersion')
+            ->willReturn('1.0');
+
+        $this->sysconfig->expects($this->exactly(2))
+            ->method('getSystemValue')
+            ->willReturnMap([
+                ['proxy', null, 'apt.domain.net:3142'],
+                ['proxyuserpwd', null, 'admin:password']
+            ]);
+
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $expected = 'http://admin:password@apt.domain.net:3142';
         $response = $this->class->getProxy();
         $this->assertEquals($expected, $response);
     }
