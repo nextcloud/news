@@ -13,7 +13,7 @@
 
 namespace OCA\News\Fetcher;
 
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
 
