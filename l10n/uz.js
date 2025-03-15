@@ -14,6 +14,7 @@ OC.L10N.register(
     "Settings" : "Settings",
     "Rename" : "Rename",
     "Delete" : "Delete",
+    "Previous" : "Oldingi",
     "Not available" : "Mavjud emas",
     "right" : "right",
     "left" : "left",
