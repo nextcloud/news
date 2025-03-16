@@ -11,6 +11,7 @@ OC.L10N.register(
     "Credentials" : "Hisob ma'lumotlari",
     "Subscribe" : "Obuna boʻlish",
     "Move" : "Move",
+    "Share" : "Ulashish",
     "Settings" : "Settings",
     "Rename" : "Rename",
     "Delete" : "Delete",
