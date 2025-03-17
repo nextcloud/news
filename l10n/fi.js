@@ -46,6 +46,7 @@ OC.L10N.register(
     "Share" : "Jaa",
     "Share with" : "Jaa",
     "Share with {num} users" : "Jaa {num} käyttäjän kanssa",
+    "Default" : "Oletus",
     "Vertical" : "Pystysuora",
     "Horizontal" : "Vaakasuora",
     "Rename Folder" : "Nimeä kansio uudelleen",
