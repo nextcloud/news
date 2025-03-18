@@ -98,7 +98,7 @@ clean:
 # Reports PHP codestyle violations
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs --standard=PSR2 --ignore=lib/Migration/Version*.php lib
+	./vendor/bin/phpcs --standard=PSR2 --ignore=lib/Migration/Version*.php,lib/Vendor/* lib
 
 # Reports PHP static violations
 .PHONY: phpstan
