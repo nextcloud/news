@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
+- Sort feeds case-insensitive
 
 ### Fixed
 - Fix proxy configuration without schema -> default http:// (#3115)
