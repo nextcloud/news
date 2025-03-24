@@ -218,12 +218,16 @@ export const mutations = {
 		state: FeedState,
 		feeds: Feed[],
 	) {
-		feeds.forEach(it => {
+		state.feeds = feeds.sort((a, b) => {
+			if (!a.title) return -1 // sort undefined title at top
+			if (!b.title) return 1
+			return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
+		}).map(it => {
 			if (typeof it?.ordering === 'number') {
 				state.ordering['feed-' + it.id] = it.ordering
 			}
+			return it
 		})
-		state.feeds = [...feeds]
 	},
 
 	[FEED_MUTATION_TYPES.ADD_FEED](
