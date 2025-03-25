@@ -40,6 +40,7 @@ OC.L10N.register(
     "User Name" : "Kasutajanimi",
     "Share" : "Jaga",
     "Share with {num} users" : "Jaga {num} kasutajaga",
+    "Compact" : "Kompaktne",
     "Vertical" : "Vertikaalne",
     "Horizontal" : "Horisontaalne",
     "Please select a valid OPML file" : "Palun vali korrektne opml-fail",
