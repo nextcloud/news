@@ -7,12 +7,17 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [25.x.x]
 ### Changed
-- Sort feeds case-insensitive
+
+### Fixed
+
+# Releases
+## [25.3.1] - 2025-03-25
+### Changed
+- Sort feeds case-insensitive (#3125)
 
 ### Fixed
 - Fix proxy configuration without schema -> default http:// (#3115)
 
-# Releases
 ## [25.3.0] - 2025-03-05
 No major changes since the beta releases.
 
