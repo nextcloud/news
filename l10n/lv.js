@@ -64,7 +64,7 @@ OC.L10N.register(
     "Compact view" : "Kompakts skats",
     "Subscriptions (OPML)" : "Abonementi (OPML)",
     "Import" : "Importēt",
-    "Export" : "Eksportēt",
+    "Export" : "Izgūt",
     "Error when importing: file does not contain valid JSON" : "Kļūda ievietošanas laikā: datne nesatur derīgu JSON",
     "Help" : "Palīdzība",
     "Report a bug" : "Ziņot par kļūdu"
