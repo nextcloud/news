@@ -1,5 +1,7 @@
 import { config } from '@vue/test-utils'
 
+(global as any).appName = 'news'
+
 // Note: This was copied from nextcloud/tasks repo
 import { OC } from './OC'
 (global as any).OC = new OC()
