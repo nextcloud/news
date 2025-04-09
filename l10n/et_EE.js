@@ -78,6 +78,7 @@ OC.L10N.register(
     "{num} seconds" : "{num} sekundit",
     "{num} minutes ago" : "{num} minuti eest",
     "{num} hours ago" : "{num} tunni eest",
+    "{num} months ago" : "{num} kuu eest",
     "Open website" : "Ava veebisait",
     "Keep article unread" : "Hoia kui lugemata",
     "Toggle keep current article unread" : "Lülita 'hoia olemasolev artikkel lugemata'",
