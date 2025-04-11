@@ -117,7 +117,7 @@ OC.L10N.register(
     "Download audio" : "下载音频",
     "Download video" : "下载视频",
     "{num} seconds" : "{num} 秒",
-    "{num} minutes ago" : "{num}分钟前",
+    "{num} minutes ago" : "{num} 分钟前",
     "{num} hours ago" : "{num}小时前",
     "{num} days ago" : "{num}天前",
     "{num} months ago" : "{num} 月前",
