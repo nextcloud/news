@@ -4,9 +4,7 @@
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Unread Articles') }}
-			<NcCounterBubble class="counter-bubble">
-				{{ items.unreadCount }}
-			</NcCounterBubble>
+			<NcCounterBubble class="counter-bubble" :count="items.unreadCount" />
 		</template>
 	</ContentTemplate>
 </template>

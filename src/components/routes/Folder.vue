@@ -5,9 +5,7 @@
 		@load-more="fetchMore()">
 		<template #header>
 			{{ folder ? folder.name : '' }}
-			<NcCounterBubble v-if="folder" class="counter-bubble">
-				{{ unreadCount }}
-			</NcCounterBubble>
+			<NcCounterBubble v-if="folder" class="counter-bubble" :count="unreadCount" />
 		</template>
 	</ContentTemplate>
 </template>
