@@ -6,9 +6,7 @@
 		@load-more="fetchMore()">
 		<template #header>
 			{{ feed ? feed.title : '' }}
-			<NcCounterBubble v-if="feed" class="counter-bubble">
-				{{ feed.unreadCount }}
-			</NcCounterBubble>
+			<NcCounterBubble v-if="feed" class="counter-bubble" :count="feed.unreadCount" />
 		</template>
 	</ContentTemplate>
 </template>

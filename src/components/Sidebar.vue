@@ -31,9 +31,7 @@
 					<EyeIcon />
 				</template>
 				<template #counter>
-					<NcCounterBubble v-show="items.unreadCount > 0">
-						{{ items.unreadCount }}
-					</NcCounterBubble>
+					<NcCounterBubble v-show="items.unreadCount > 0" :count="items.unreadCount" />
 				</template>
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :name="t('news', 'All articles')"
@@ -45,7 +43,7 @@
 			</NcAppNavigationItem>
 			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
 				<template #counter>
-					<NcCounterBubble>{{ items.starredCount }}</NcCounterBubble>
+					<NcCounterBubble :count="items.starredCount" />
 				</template>
 			</NcAppNavigationItem>
 
@@ -102,15 +100,10 @@
 						<NcCounterBubble v-if="!isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8"
 							v-tooltip="topLevelItem.lastUpdateError"
 							type="highlighted"
-							style="background-color: red">
-							{{ topLevelItem.updateErrorCount }}
-						</NcCounterBubble>
-						<NcCounterBubble v-show="topLevelItem.feedCount > 0">
-							{{ topLevelItem.feedCount }}
-						</NcCounterBubble>
-						<NcCounterBubble v-show="topLevelItem.unreadCount > 0">
-							{{ topLevelItem.unreadCount }}
-						</NcCounterBubble>
+							style="background-color: red"
+							:count="topLevelItem.updateErrorCount" />
+						<NcCounterBubble v-show="topLevelItem.feedCount > 0" :count="topLevelItem.feedCount" />
+						<NcCounterBubble v-show="topLevelItem.unreadCount > 0" :count="topLevelItem.unreadCount" />
 					</template>
 					<template #actions>
 						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
