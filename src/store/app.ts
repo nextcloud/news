@@ -35,32 +35,32 @@ const getters = {
 	error(state: AppInfoState) {
 		return state.error
 	},
-	loading() {
+	loading(state: AppInfoState) {
 		return state.loading
 	},
-	displaymode() {
+	displaymode(state: AppInfoState) {
 		return state.displaymode
 	},
-	splitmode() {
+	splitmode(state: AppInfoState) {
 		// ignore split mode when screenreader mode is set
 		return state.displaymode === '2' ? '2' : state.splitmode
 	},
-	oldestFirst() {
+	oldestFirst(state: AppInfoState) {
 		return state.oldestFirst
 	},
-	preventReadOnScroll() {
+	preventReadOnScroll(state: AppInfoState) {
 		return state.preventReadOnScroll
 	},
-	showAll() {
+	showAll(state: AppInfoState) {
 		return state.showAll
 	},
-	disableRefresh() {
+	disableRefresh(state: AppInfoState) {
 		return state.disableRefresh
 	},
-	lastViewedFeedId() {
+	lastViewedFeedId(state: AppInfoState) {
 		return state.lastViewedFeedId
 	},
-	lastViewedFeedType() {
+	lastViewedFeedType(state: AppInfoState) {
 		return state.lastViewedFeedType
 	},
 }
