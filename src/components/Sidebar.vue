@@ -59,7 +59,7 @@
 					:icon="''"
 					:open="topLevelItem.opened"
 					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
-					:allow-collapse="true"
+					:allow-collapse="isFolder(topLevelItem)"
 					:force-menu="true"
 					@update:open="toggleFolderState(topLevelItem)">
 					<template v-for="feed in sortedFolderFeeds(topLevelItem)">
