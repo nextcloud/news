@@ -62,34 +62,30 @@
 					:allow-collapse="isFolder(topLevelItem)"
 					:force-menu="true"
 					@update:open="toggleFolderState(topLevelItem)">
-					<template v-for="feed in sortedFolderFeeds(topLevelItem)">
-						<NcAppNavigationItem v-show="showItem(feed)"
-							:key="feed.name"
-							:ref="'feed-' + feed.id"
-							:name="feed.title"
-							:icon="''"
-							:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
-							<template #icon>
-								<RssIcon v-if="!feed.faviconLink" />
-								<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
-							</template>
-							<template #counter>
-								<NcCounterBubble v-show="feed.updateErrorCount > 8"
-									v-tooltip="feed.lastUpdateError"
-									type="highlighted"
-									style="background-color: red">
-									{{ feed.updateErrorCount }}
-								</NcCounterBubble>
-								<NcCounterBubble v-show="feed.unreadCount > 0">
-									{{ feed.unreadCount }}
-								</NcCounterBubble>
-							</template>
+					<NcAppNavigationItem v-for="feed in sortedFolderFeeds(topLevelItem)"
+						v-show="showItem(feed)"
+						:key="feed.name"
+						:ref="'feed-' + feed.id"
+						:name="feed.title"
+						:icon="''"
+						:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
+						<template #icon>
+							<RssIcon v-if="!feed.faviconLink" />
+							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
+						</template>
+						<template #counter>
+							<NcCounterBubble v-show="feed.updateErrorCount > 8"
+								v-tooltip="feed.lastUpdateError"
+								type="highlighted"
+								style="background-color: red"
+								:count="feed.updateErrorCount" />
+							<NcCounterBubble v-show="feed.unreadCount > 0" :count="feed.unreadCount" />
+						</template>
 
-							<template #actions>
-								<SidebarFeedLinkActions :feed-id="feed.id" @move-feed="moveFeed(feed)" />
-							</template>
-						</NcAppNavigationItem>
-					</template>
+						<template #actions>
+							<SidebarFeedLinkActions :feed-id="feed.id" @move-feed="moveFeed(feed)" />
+						</template>
+					</NcAppNavigationItem>
 					<template #icon>
 						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8" v-tooltip="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
 						<FolderIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount <= 8" style="width:22px" />
