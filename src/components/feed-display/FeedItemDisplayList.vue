@@ -4,64 +4,6 @@
 			<div class="header-content">
 				<slot name="header" />
 			</div>
-
-			<button v-if="screenReaderMode"
-				v-shortkey="['pageup']"
-				class="hidden"
-				@shortkey="jumpToPreviousItem">
-				Prev
-			</button>
-			<button v-shortkey="['arrowleft']" class="hidden" @shortkey="jumpToPreviousItem">
-				Prev
-			</button>
-			<button v-shortkey="['k']" class="hidden" @shortkey="jumpToPreviousItem">
-				Prev
-			</button>
-			<button v-shortkey="['p']" class="hidden" @shortkey="jumpToPreviousItem">
-				Prev
-			</button>
-			<button v-if="screenReaderMode"
-				v-shortkey="['pagedown']"
-				class="hidden"
-				@shortkey="jumpToNextItem">
-				Next
-			</button>
-			<button v-shortkey="['arrowright']" class="hidden" @shortkey="jumpToNextItem">
-				Next
-			</button>
-			<button v-shortkey="['j']" class="hidden" @shortkey="jumpToNextItem">
-				Next
-			</button>
-			<button v-shortkey="['n']" class="hidden" @shortkey="jumpToNextItem">
-				Next
-			</button>
-			<button v-shortkey="['r']" class="hidden" @shortkey="refreshApp">
-				Refresh
-			</button>
-			<button v-shortkey="['shift','a']" class="hidden" @shortkey="$emit('mark-read')">
-				markFeedRead
-			</button>
-			<button v-if="splitModeOff && !screenReaderMode"
-				v-shortkey="['e']"
-				class="hidden"
-				@shortkey="selectedItem && $emit('show-details')">
-				showDetails
-			</button>
-			<button v-if="splitModeOff && !screenReaderMode"
-				v-shortkey="['enter']"
-				class="hidden"
-				@shortkey="selectedItem && $emit('show-details')">
-				showDetails
-			</button>
-			<button v-shortkey="{s: ['s'], l: ['l'], i: ['i']}" class="hidden" @shortkey="selectedItem && toggleStarred(selectedItem)">
-				toggleStarred
-			</button>
-			<button v-shortkey="['u']" class="hidden" @shortkey="selectedItem && toggleRead(selectedItem)">
-				toggleRead
-			</button>
-			<button v-shortkey="['o']" class="hidden" @shortkey="selectedItem && openUrl(selectedItem)">
-				openUrl
-			</button>
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll ref="virtualScroll"
@@ -99,6 +41,7 @@ import _ from 'lodash'
 import VirtualScroll from './VirtualScroll.vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 
 import { FeedItem } from '../../types/FeedItem'
 import { FEED_ORDER } from '../../dataservices/feed.service'
@@ -222,6 +165,26 @@ export default Vue.extend({
 			this.refreshItemList()
 		},
 	},
+	created() {
+		// create shortcuts
+		useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
+		useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
+		useHotKey('r', this.refreshApp)
+		useHotKey('a', this.markRead, { shift: true })
+		useHotKey(['s', 'l', 'i'], this.toggleStarred)
+		useHotKey('u', this.toggleRead)
+		useHotKey('o', this.openUrl)
+		// use e/Enter only when split mode is of
+		if (this.splitModeOff && !this.screenReaderMode) {
+			useHotKey('e', this.showDetails)
+			useHotKey('Enter', this.showDetails)
+		}
+		// use PageUP/PageDown only in screen reader mode
+		if (this.screenReaderMode) {
+			useHotKey('PageUp', this.jumpToPreviousItem, { prevent: true })
+			useHotKey('PageDown', this.jumpToNextItem, { prevent: true })
+		}
+	},
 	mounted() {
 		this.mounted = true
 		this.setupDebouncedClick()
@@ -264,6 +227,12 @@ export default Vue.extend({
 		},
 		fetchMore() {
 			this.$emit('load-more')
+		},
+		markRead() {
+			this.$emit('mark-read')
+		},
+		showDetails() {
+			this.$emit('show-details')
 		},
 		unreadFilter(item: FeedItem): boolean {
 			return item.unread
@@ -355,11 +324,16 @@ export default Vue.extend({
 			}
 		},
 
-		toggleStarred(item: FeedItem): void {
-			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		toggleStarred(): void {
+			const item = this.selectedItem
+			if (item) {
+				this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+			}
 		},
 
-		toggleRead(item: FeedItem): void {
+		toggleRead(): void {
+			const item = this.selectedItem
+			if (!item) return
 			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			} else {
@@ -367,9 +341,10 @@ export default Vue.extend({
 			}
 		},
 
-		openUrl(item: FeedItem): void {
+		openUrl(): void {
+			const item = this.selectedItem
 			// Open the item url in a new tab
-			if (item.url) {
+			if (item && item.url) {
 				window.open(item.url, '_blank')
 			}
 		},

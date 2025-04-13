@@ -34,7 +34,7 @@
 					</template>
 				</NcActionButton>
 				<NcActionButton :title="t('news', 'Toggle star article')"
-					@click="toggleStarred(item)">
+					@click="toggleStarred">
 					{{ t('news', 'Toggle star article') }}
 					<template #icon>
 						<StarIcon :class="{'starred': item.starred }" :size="24" />
@@ -42,7 +42,7 @@
 				</NcActionButton>
 				<NcActionButton v-if="item.unread"
 					:title="t('news', 'Mark read')"
-					@click="toggleRead(item)">
+					@click="toggleRead">
 					{{ t('news', 'Mark read') }}
 					<template #icon>
 						<EyeIcon :size="24" />
@@ -50,7 +50,7 @@
 				</NcActionButton>
 				<NcActionButton v-if="!item.unread"
 					:title="t('news', 'Mark unread')"
-					@click="toggleRead(item)">
+					@click="toggleRead">
 					{{ t('news', 'Mark unread') }}
 					<template #icon>
 						<EyeCheckIcon :size="24" />
@@ -65,24 +65,6 @@
 					</template>
 				</NcActionButton>
 			</NcActions>
-			<button v-if="splitModeOff"
-				v-shortkey="{s: ['s'], l: ['l'], i: ['i']}"
-				class="hidden"
-				@shortkey="toggleStarred(item)">
-				toggleStarred
-			</button>
-			<button v-if="splitModeOff"
-				v-shortkey="['u']"
-				class="hidden"
-				@shortkey="toggleRead(item)">
-				toggleRead
-			</button>
-			<button v-if="splitModeOff && !screenReaderMode"
-				v-shortkey="['esc']"
-				class="hidden"
-				@shortkey="$emit('show-details')">
-				closeDetails
-			</button>
 		</div>
 		<div class="article">
 			<div class="heading">
@@ -175,6 +157,7 @@ import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
 
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 
 import ShareItem from '../ShareItem.vue'
 
@@ -229,6 +212,16 @@ export default Vue.extend({
 			return this.$store.getters.splitmode === '2'
 		},
 	},
+	created() {
+		// create shortcuts
+		if (this.splitModeOff) {
+			useHotKey(['s', 'l', 'i'], this.toggleStarred)
+			useHotKey('u', this.toggleRead)
+		}
+		if (this.splitModeOff && !this.screenReaderMode) {
+			useHotKey('Escape', this.closeDetails)
+		}
+	},
 	methods: {
 		/**
 		 * Sends message to state to clear the selectedId number
@@ -266,18 +259,16 @@ export default Vue.extend({
 		},
 		/**
 		 * Sends message to change the items starred property to the opposite value
-		 *
-		 * @param {FeedItem} item item to toggle starred status on
 		 */
-		toggleStarred(item: FeedItem): void {
-			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
+		toggleStarred(): void {
+			this.$store.dispatch(this.item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item: this.item })
 		},
 
-		toggleRead(item: FeedItem): void {
-			if (!item.keepUnread && item.unread) {
-				this.$store.dispatch(ACTIONS.MARK_READ, { item })
+		toggleRead(): void {
+			if (!this.item.keepUnread && this.item.unread) {
+				this.$store.dispatch(ACTIONS.MARK_READ, { item: this.item })
 			} else {
-				this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
+				this.$store.dispatch(ACTIONS.MARK_UNREAD, { item: this.item })
 			}
 		},
 
@@ -302,6 +293,9 @@ export default Vue.extend({
 			for (let i = 0; i < audioElements.length; i++) {
 				audioElements[i].pause()
 			}
+		},
+		closeDetails() {
+			this.$emit('show-details')
 		},
 	},
 })
