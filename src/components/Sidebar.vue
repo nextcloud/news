@@ -139,18 +139,6 @@
 					<EarthIcon />
 				</template>
 			</NcAppNavigationItem>
-			<button v-shortkey="['d']" class="hidden" @shortkey="nextFeed('prev')">
-				prevFeed
-			</button>
-			<button v-shortkey="['f']" class="hidden" @shortkey="nextFeed('next')">
-				nextFeed
-			</button>
-			<button v-shortkey="['c']" class="hidden" @shortkey="nextFolder('prev')">
-				prevFolder
-			</button>
-			<button v-shortkey="['v']" class="hidden" @shortkey="nextFolder('next')">
-				nextFolder
-			</button>
 		</template>
 		<template #footer>
 			<NcAppNavigationSettings :name="t('news', 'Settings')">
@@ -283,6 +271,7 @@ import NcAppNavigationSettings from '@nextcloud/vue/dist/Components/NcAppNavigat
 import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
@@ -486,6 +475,11 @@ export default Vue.extend({
 				this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 			}, 60000)
 		}
+		// create shortcuts for feed/folder navigation
+		useHotKey('d', this.prevFeed)
+		useHotKey('f', this.nextFeed)
+		useHotKey('c', this.prevFolder)
+		useHotKey('v', this.nextFolder)
 	},
 	mounted() {
 		subscribe('news:global:toggle-help-dialog', () => {
@@ -708,7 +702,7 @@ export default Vue.extend({
 				return direction === 'prev' ? folderIndex - 1 : folderIndex + 1
 			}
 		},
-		nextFeed(direction) {
+		switchFeed(direction) {
 			const newIndex = this.getFeedIndex(direction)
 			if (newIndex >= 0 && newIndex < this.navFeeds.length) {
 				const feedId = this.navFeeds[newIndex].id.toString()
@@ -717,13 +711,25 @@ export default Vue.extend({
 
 			}
 		},
-		nextFolder(direction) {
+		prevFeed() {
+			this.switchFeed('prev')
+		},
+		nextFeed() {
+			this.switchFeed('next')
+		},
+		switchFolder(direction) {
 			const newIndex = this.getFolderIndex(direction)
 			if (newIndex >= 0 && newIndex < this.navFolder.length) {
 				const folderId = this.navFolder[newIndex].id.toString()
 				this.$router.push({ name: 'folder', params: { folderId } })
 				this.$refs['folder-' + folderId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
 			}
+		},
+		prevFolder() {
+			this.switchFolder('prev')
+		},
+		nextFolder() {
+			this.switchFolder('next')
 		},
 	},
 })

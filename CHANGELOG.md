@@ -9,6 +9,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- respect global `disable all keyboard shortcuts` setting
+- disable shortcuts in input fields from global overlays (e.g. Nextcloud assistant)
 
 # Releases
 ## [25.3.1] - 2025-03-25
