@@ -8,7 +8,7 @@ OC.L10N.register(
     "Folder name" : "Anv teuliad",
     "Username" : "anv implijer",
     "Password" : "Ger-tremen",
-    "New folder" : "Heuliad nevez",
+    "New folder" : "Teuliad nevez",
     "Credentials" : "Kretaatoù",
     "Move" : "Diplasañ",
     "Share" : "Rannan",
