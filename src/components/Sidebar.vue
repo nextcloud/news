@@ -100,8 +100,8 @@
 							type="highlighted"
 							style="background-color: red"
 							:count="topLevelItem.updateErrorCount" />
-						<NcCounterBubble v-show="topLevelItem.feedCount > 0" :count="topLevelItem.feedCount" />
-						<NcCounterBubble v-show="topLevelItem.unreadCount > 0" :count="topLevelItem.unreadCount" />
+						<NcCounterBubble v-show="topLevelItem.feedCount > 0" :count="topLevelItem.feedCount ? topLevelItem.feedCount : 0" />
+						<NcCounterBubble v-show="topLevelItem.unreadCount > 0" :count="topLevelItem.unreadCount ? topLevelItem.unreadCount : 0" />
 					</template>
 					<template #actions>
 						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
