@@ -1,3 +1,4 @@
+import { reactive } from 'vue'
 import _ from 'lodash'
 
 import { ActionParams } from '../store'
@@ -19,9 +20,9 @@ export type FolderState = {
 	folders: Folder[]
 }
 
-const state: FolderState = {
+const state: FolderState = reactive({
 	folders: [],
-}
+})
 
 const getters = {
 	folders(state: FolderState) {

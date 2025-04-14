@@ -1,3 +1,4 @@
+import { reactive } from 'vue'
 import { ActionParams } from '../store'
 import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
 
@@ -35,7 +36,7 @@ export type ItemState = {
 	playingItem?: FeedItem
 }
 
-const state: ItemState = {
+const state: ItemState = reactive({
 	fetchingItems: {},
 	allItemsLoaded: {},
 	lastItemLoaded: {},
@@ -49,7 +50,7 @@ const state: ItemState = {
 
 	selectedId: undefined,
 	playingItem: undefined,
-}
+})
 
 const getters = {
 	starred(state: ItemState) {
@@ -406,15 +407,7 @@ export const mutations = {
 		{ item }: { item: FeedItem },
 	) {
 		const idx = state.allItems.findIndex((it) => it.id === item.id)
-		// Since spread-syntax doesn't work here properly with vue2, update
-		// each property on its own as workaround to prevent rebuilding
-		// the whole item list when changing the unread or starred status
-		// state.allItems[idx] = { ...state.allItems[idx], ...item }
-		state.allItems[idx].starred = item.starred
-		state.allItems[idx].unread = item.unread
-		// UPDATE_ITEM currently only used when toggle starred and unread
-		// add title to make js-test happy
-		state.allItems[idx].title = item.title
+		Object.assign(state.allItems[idx], item)
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](
