@@ -1,3 +1,4 @@
+import { reactive } from 'vue'
 import { loadState } from '@nextcloud/initial-state'
 import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes'
 
@@ -18,7 +19,7 @@ export type AppInfoState = {
 	lastViewedFeedType: string;
 }
 
-const state: AppInfoState = {
+const state: AppInfoState = reactive({
 	error: undefined,
 	loading: true,
 	displaymode: loadState('news', 'displaymode', '0'),
@@ -29,7 +30,7 @@ const state: AppInfoState = {
 	disableRefresh: loadState('news', 'disableRefresh', null) === '1',
 	lastViewedFeedId: loadState('news', 'lastViewedFeedId', '0'),
 	lastViewedFeedType: loadState('news', 'lastViewedFeedType', '6'),
-}
+})
 
 const getters = {
 	error(state: AppInfoState) {

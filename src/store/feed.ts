@@ -1,3 +1,4 @@
+import { reactive } from 'vue'
 import _ from 'lodash'
 
 import { ActionParams } from '../store'
@@ -30,12 +31,12 @@ export type FeedState = {
 	ordering: { [key: string]: number };
 }
 
-const state: FeedState = {
+const state: FeedState = reactive({
 	feeds: [],
 	unreadCount: 0,
 	newestItemId: 0,
 	ordering: {},
-}
+})
 
 const getters = {
 	feeds(state: FeedState) {
