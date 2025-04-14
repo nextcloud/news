@@ -172,7 +172,7 @@ export default defineComponent({
 			}
 		},
 		toggleKeepUnread(item: FeedItem): void {
-			this.$set(item, 'keepUnread', !item.keepUnread)
+			item.keepUnread = !item.keepUnread
 			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
 		},
 		toggleStarred(item: FeedItem): void {
