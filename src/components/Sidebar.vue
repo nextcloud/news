@@ -636,7 +636,7 @@ export default defineComponent({
 			return (item as Folder).name !== undefined
 		},
 		toggleFolderState(folder: Folder) {
-			this.$set(folder, 'opened', !folder.opened)
+			folder.opened = !folder.opened
 			this.$store.dispatch(ACTIONS.FOLDER_OPEN_STATE, { folder })
 		},
 		isActiveFeed(feed) {
