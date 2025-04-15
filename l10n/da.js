@@ -129,7 +129,7 @@ OC.L10N.register(
     "If given, this service" : "Hvis givet, denne service",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax eller webcron tilstand opdaget! Dine feed vil ikke blive opdateret!",
     "How to set up the operating system cron" : "Sådan opsætter du cron i operativsystemet",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Installere og oprette en hurtigere parallel opdateringsprogram, der bruger Nyheds app's opdateringsAPI",
+    "Install and set up a faster parallel updater that uses the News app's update API" : "Installér og opret et hurtigere parallelt opdateringsprogram, der bruger Nyheder app's opdaterings API",
     "No articles available" : "Ingen tilgængelige artikler",
     "No unread articles available" : "Ingen tilgængelige ulæste artikler",
     "Star article" : "Stjernemarker artiklen",
