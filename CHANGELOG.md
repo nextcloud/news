@@ -5,8 +5,9 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
 
 # Unreleased
-## [25.x.x]
+## [26.x.x]
 ### Changed
+- Drop support for Nextcloud 29
 
 ### Fixed
 - respect global `disable all keyboard shortcuts` setting
