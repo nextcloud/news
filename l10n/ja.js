@@ -53,6 +53,7 @@ OC.L10N.register(
     "Share" : "共有",
     "Share with" : "共有対象",
     "Share with {num} users" : "{num}ユーザーと共有する",
+    "Default" : "デフォルト",
     "Vertical" : "垂直",
     "Horizontal" : "水平",
     "Rename Folder" : "フォルダ名を変更する",
