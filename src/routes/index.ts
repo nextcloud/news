@@ -12,6 +12,7 @@ import store from './../store/app'
 export const ROUTES = {
 	EXPLORE: 'explore',
 	STARRED: 'starred',
+	STARREDFEED: 'starredfeed',
 	UNREAD: 'unread',
 	FEED: 'feed',
 	FOLDER: 'folder',
@@ -36,6 +37,9 @@ const getInitialRoute = function() {
 		}
 	case '2':
 		return { name: ROUTES.STARRED }
+	case '2.5':
+		params.feedId = store.state.lastViewedFeedId
+		return { name: ROUTES.STARREDFEED, params }
 	case '3':
 		return { name: ROUTES.ALL }
 	case '5':
@@ -62,6 +66,12 @@ const routes = [
 	{
 		name: ROUTES.STARRED,
 		path: '/starred',
+		component: StarredPanel,
+		props: true,
+	},
+	{
+		name: ROUTES.STARREDFEED,
+		path: '/starredfeeds/:feedId',
 		component: StarredPanel,
 		props: true,
 	},

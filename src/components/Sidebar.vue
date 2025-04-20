@@ -41,7 +41,23 @@
 					<RssIcon />
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
+			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }" :allow-collapse="true" :force-menu="true">
+				<template v-for="(group, index) in GroupedStars">
+					<NcAppNavigationItem
+						:key="group.feed.name"
+						:ref="'starredfeed-' + group.feed.id"
+						:name="group.feed.title"
+						:icon="''"
+						:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.feed.id.toString() } }">
+						<template #icon>
+							<RssIcon v-if="!group.feed.faviconLink" />
+							<span v-if="group.feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.feed.faviconLink + ')' }" />
+						</template>
+						<template #counter>
+							<NcCounterBubble>{{ group.items.length }}</NcCounterBubble>
+						</template>
+					</NcAppNavigationItem>
+				</template>
 				<template #counter>
 					<NcCounterBubble :count="items.starredCount" />
 				</template>
@@ -283,6 +299,7 @@ import HelpModal from './modals/HelpModal.vue'
 import FeedInfoTable from './modals/FeedInfoTable.vue'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
+import { FeedItem } from '../types/FeedItem'
 
 export default Vue.extend({
 	components: {
@@ -370,6 +387,23 @@ export default Vue.extend({
 			]
 
 			return navItems
+		},
+		GroupedStars(): Array<FeedItem> {
+			const GroupedStars = this.$store.getters.starred.reduce((groups, item: FeedItem) => {
+				const groupKey = item.feedId
+				if (!groups[groupKey]) {
+					let feed: Feed = this.$store.getters.feeds.find((feed: Feed) => feed.id === groupKey)
+					if (feed == undefined)
+						feed = {
+							id: groupKey,
+							title: t('news', 'Unknown feed')
+						}
+					groups[groupKey] = {items: [], feed}
+				}
+				groups[groupKey].items.push(item)
+				return groups
+			}, {})
+			return Object.values(GroupedStars);
 		},
 		loading: {
 			get() {

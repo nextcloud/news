@@ -25,9 +25,18 @@ export default Vue.extend({
 		ContentTemplate,
 		NcCounterBubble,
 	},
+	props: {
+		feedId: {
+			type: String,
+			required: false,
+		},
+	},
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
+			if (this.feedId) {
+				return this.$store.getters.starred.filter((item: FeedItem) => item.feedId == Number(this.feedId));
+			}
 			return this.$store.getters.starred
 		},
 	},
