@@ -76,8 +76,8 @@
 						{{ item.title }}
 					</a>
 				</h1>
-				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDate(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
-					{{ formatDate(item.pubDate*1000) }}
+				<time class="date" :title="formatDate(item.pubDate)" :datetime="formatDateISO(item.pubDate)">
+					{{ formatDate(item.pubDate) }}
 				</time>
 			</div>
 
@@ -163,6 +163,7 @@ import ShareItem from '../ShareItem.vue'
 
 import { Feed } from '../../types/Feed'
 import { FeedItem } from '../../types/FeedItem'
+import { formatDate, formatDateISO } from '../../utils/dateUtils'
 import { ACTIONS, MUTATIONS } from '../../store'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
@@ -223,6 +224,8 @@ export default Vue.extend({
 		}
 	},
 	methods: {
+		formatDate,
+		formatDateISO,
 		/**
 		 * Sends message to state to clear the selectedId number
 		 */
@@ -238,22 +241,6 @@ export default Vue.extend({
 				this.$emit('click-item')
 			}
 		},
-		/**
-		 * Returns locale formatted date string
-		 *
-		 * @param {number} epoch date value in epoch format
-		 * @return {string} locale formatted date string (based on users browser)
-		 */
-		formatDate(epoch: number): string {
-			return new Date(epoch).toLocaleString()
-		},
-
-		/**
-		 * Retrieve the feed by id number
-		 *
-		 * @param {number} id id of feed to fetch
-		 * @return {Feed} associated Feed
-		 */
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},

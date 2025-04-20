@@ -106,7 +106,7 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadi
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
 import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
-import moment from '@nextcloud/moment'
+import { formatDateRelative } from '../utils/dateUtils'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
@@ -152,7 +152,7 @@ export default {
 			exploreUrl: loadState('news', 'exploreUrl'),
 			updateInterval: loadState('news', 'updateInterval'),
 			useNextUpdateTime: loadState('news', 'useNextUpdateTime') === '1',
-			relativeTime: moment(lastCron * 1000).fromNow(),
+			relativeTime: formatDateRelative(lastCron),
 			lastCron,
 		}
 	},
