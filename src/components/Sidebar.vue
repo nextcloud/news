@@ -41,10 +41,13 @@
 					<RssIcon />
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }" :allow-collapse="true" :force-menu="true">
-				<template v-for="(group, index) in GroupedStars">
-					<NcAppNavigationItem
-						:key="group.feed.name"
+			<NcAppNavigationItem :name="t('news', 'Starred')"
+				icon="icon-starred"
+				:to="{ name: ROUTES.STARRED }"
+				:allow-collapse="true"
+				:force-menu="true">
+				<template v-for="(group) in GroupedStars">
+					<NcAppNavigationItem :key="group.feed.name"
 						:ref="'starredfeed-' + group.feed.id"
 						:name="group.feed.title"
 						:icon="''"
@@ -393,17 +396,18 @@ export default Vue.extend({
 				const groupKey = item.feedId
 				if (!groups[groupKey]) {
 					let feed: Feed = this.$store.getters.feeds.find((feed: Feed) => feed.id === groupKey)
-					if (feed == undefined)
+					if (feed === undefined) {
 						feed = {
 							id: groupKey,
-							title: t('news', 'Unknown feed')
+							title: t('news', 'Unknown feed'),
 						}
-					groups[groupKey] = {items: [], feed}
+					}
+					groups[groupKey] = { items: [], feed }
 				}
 				groups[groupKey].items.push(item)
 				return groups
 			}, {})
-			return Object.values(GroupedStars);
+			return Object.values(GroupedStars)
 		},
 		loading: {
 			get() {

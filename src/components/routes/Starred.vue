@@ -29,13 +29,14 @@ export default Vue.extend({
 		feedId: {
 			type: String,
 			required: false,
+			default: undefined,
 		},
 	},
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
 			if (this.feedId) {
-				return this.$store.getters.starred.filter((item: FeedItem) => item.feedId == Number(this.feedId));
+				return this.$store.getters.starred.filter((item: FeedItem) => item.feedId === Number(this.feedId))
 			}
 			return this.$store.getters.starred
 		},
