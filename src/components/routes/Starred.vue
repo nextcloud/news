@@ -1,6 +1,6 @@
 <template>
 	<ContentTemplate :items="starred"
-		:fetch-key="'starred'"
+		:fetch-key="feedId ? 'starredfeed-'+feedId : 'starred'"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Starred') }}
