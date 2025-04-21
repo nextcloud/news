@@ -37,9 +37,6 @@ const getInitialRoute = function() {
 		}
 	case '2':
 		return { name: ROUTES.STARRED }
-	case '2.5':
-		params.feedId = store.state.lastViewedFeedId
-		return { name: ROUTES.STARREDFEED, params }
 	case '3':
 		return { name: ROUTES.ALL }
 	case '5':
