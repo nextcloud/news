@@ -47,7 +47,7 @@
 				:allow-collapse="true"
 				:force-menu="true">
 				<template v-for="(group) in GroupedStars">
-					<NcAppNavigationItem :key="group.feed.name"
+					<NcAppNavigationItem :key="group.feed.id"
 						:ref="'starredfeed-' + group.feed.id"
 						:name="group.feed.title"
 						:icon="''"
