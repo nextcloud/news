@@ -4,7 +4,7 @@
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Starred') }}
-			<NcCounterBubble class="counter-bubble" :count="items.starredCount" />
+			<NcCounterBubble class="counter-bubble" :count="feedId ? starred.length : items.starredCount" />
 		</template>
 	</ContentTemplate>
 </template>
