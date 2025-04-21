@@ -57,7 +57,7 @@
 							<span v-if="group.feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.feed.faviconLink + ')' }" />
 						</template>
 						<template #counter>
-							<NcCounterBubble>{{ group.items.length }}</NcCounterBubble>
+							<NcCounterBubble :count="group.items.length" />
 						</template>
 					</NcAppNavigationItem>
 				</template>
