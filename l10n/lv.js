@@ -43,7 +43,6 @@ OC.L10N.register(
     "Play audio" : "Atskaņot audio",
     "Download audio" : "Lejupielādēt audio",
     "Download video" : "Lejupielādēt video",
-    "{num} days ago" : "Pirms {num} dienām",
     "Open website" : "Atvērt tīmekļvietni",
     "Not available" : "Nav pieejams",
     "Title" : "Virsraksts",

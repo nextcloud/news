@@ -46,7 +46,6 @@ OC.L10N.register(
     "Play audio" : "เล่นเสียง",
     "Download audio" : "ดาวน์โหลดเสียง",
     "Download video" : "ดาวน์โหลดวิดีโอ",
-    "{num} years ago" : "{num}ปีที่แล้ว",
     "Open website" : "เปิดเว็บไซต์",
     "Keep article unread" : "ตั้งเป็นบทความยังไม่ได้อ่าน",
     "Toggle keep current article unread" : "สลับให้บทความในปัจจุบันยังไม่ได้อ่าน",
