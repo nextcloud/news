@@ -12,6 +12,7 @@ OC.L10N.register(
     "Subscribe" : "Obuna boʻlish",
     "Move" : "Move",
     "Share" : "Ulashish",
+    "Off" : "Oʻchirilgan",
     "Settings" : "Settings",
     "Documentation" : "Hujjatlar",
     "Rename" : "Rename",
