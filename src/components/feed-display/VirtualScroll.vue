@@ -4,20 +4,23 @@
   - This file is licensed under the Affero General Public License version 3 or later. See the COPYING file.
   -->
 <script>
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import _ from 'lodash'
 
 import { ACTIONS } from '../../store'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 
-export default Vue.extend({
+export default defineComponent({
 	name: 'VirtualScroll',
 	props: {
 		fetchKey: {
 			type: String,
 			required: true,
 		},
+	},
+	emits: {
+		'load-more': () => true,
 	},
 	data() {
 		return {

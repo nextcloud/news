@@ -248,7 +248,7 @@
 <script lang="ts">
 
 import { mapState } from 'vuex'
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import axios from '@nextcloud/axios'
 import { generateOcsUrl } from '@nextcloud/router'
 import { showError, showSuccess } from '@nextcloud/dialogs'
@@ -286,7 +286,7 @@ import FeedInfoTable from './modals/FeedInfoTable.vue'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcAppNavigation,
 		NcAppNavigationNew,

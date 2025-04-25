@@ -45,13 +45,13 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcContent from '@nextcloud/vue/components/NcContent'
 import Sidebar from './components/Sidebar.vue'
 import { ACTIONS, MUTATIONS } from './store'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcContent,
 		Sidebar,

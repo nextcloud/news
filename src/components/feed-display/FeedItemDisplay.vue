@@ -146,7 +146,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
@@ -168,7 +168,7 @@ import { ACTIONS, MUTATIONS } from '../../store'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 
-export default Vue.extend({
+export default defineComponent({
 	name: 'FeedItemDisplay',
 	components: {
 		EyeCheckIcon,
@@ -197,6 +197,10 @@ export default Vue.extend({
 			required: false,
 			default: null,
 		},
+	},
+	emits: {
+		'click-item': () => true,
+		'show-details': () => true,
 	},
 	data: () => {
 		return {

@@ -110,7 +110,7 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
@@ -136,7 +136,7 @@ type AddFeedState = {
 	addingFeedError: string;
 };
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcModal,
 		NcCheckboxRadioSwitch,
@@ -152,6 +152,9 @@ export default Vue.extend({
 				return { url: '' }
 			},
 		},
+	},
+	emits: {
+		close: () => true,
 	},
 	data: (): AddFeedState => {
 		return {

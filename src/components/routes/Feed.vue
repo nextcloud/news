@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
@@ -23,7 +23,7 @@ import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 import { Feed } from '../../types/Feed'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		ContentTemplate,
 		NcCounterBubble,

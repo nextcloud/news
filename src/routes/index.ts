@@ -1,4 +1,4 @@
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import { generateUrl } from '@nextcloud/router'
 
 import ExplorePanel from '../components/routes/Explore.vue'
@@ -9,6 +9,8 @@ import FolderPanel from '../components/routes/Folder.vue'
 import AllPanel from '../components/routes/All.vue'
 
 import store from './../store/app'
+
+const base = generateUrl('/apps/news')
 
 export const ROUTES = {
 	EXPLORE: 'explore',
@@ -86,9 +88,10 @@ const routes = [
 	},
 ]
 
-export default new VueRouter({
-	mode: 'history',
-	base: generateUrl('/apps/news'),
+const router = createRouter({
+	history: createWebHistory(base),
 	linkActiveClass: 'active',
 	routes,
 })
+
+export default router

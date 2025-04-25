@@ -143,6 +143,9 @@ export default {
 		SortAscIcon,
 		SortDescIcon,
 	},
+	emits: {
+		close: () => true,
+	},
 	data() {
 		return {
 			sortKey: 'title',

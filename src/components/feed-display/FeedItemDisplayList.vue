@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import _ from 'lodash'
 
 import VirtualScroll from './VirtualScroll.vue'
@@ -47,7 +47,7 @@ import { FeedItem } from '../../types/FeedItem'
 import { FEED_ORDER } from '../../dataservices/feed.service'
 import { ACTIONS, MUTATIONS } from '../../store'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		VirtualScroll,
 		FeedItemDisplay,
@@ -62,6 +62,11 @@ export default Vue.extend({
 			type: String,
 			required: true,
 		},
+	},
+	emits: {
+		'load-more': () => true,
+		'mark-read': () => true,
+		'show-details': () => true,
 	},
 	data() {
 		return {

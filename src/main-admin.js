@@ -1,20 +1,13 @@
 // SPDX-FileCopyrightText: 2022 Carl Schwan <carl@carlschwan.eu>
 // SPDX-Licence-Identifier: AGPL-3.0-or-later
 
-import Vue from 'vue'
-import { getRequestToken } from '@nextcloud/auth'
+import { createApp } from 'vue'
 import { translate as t } from '@nextcloud/l10n'
 
 import AdminSettings from './components/AdminSettings.vue'
 
-// eslint-disable-next-line
-__webpack_nonce__ = btoa(getRequestToken());
+const app = createApp(AdminSettings)
 
-Vue.mixin({
-	methods: {
-		t,
-	},
-})
+app.config.globalProperties.t = t
 
-const AdminSettingsView = Vue.extend(AdminSettings)
-new AdminSettingsView().$mount('#vue-admin-news')
+app.mount('#vue-admin-news')
