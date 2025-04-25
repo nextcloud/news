@@ -99,8 +99,8 @@ import EyeLockIcon from 'vue-material-design-icons/EyeLock.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 
 import ShareItem from '../ShareItem.vue'
 

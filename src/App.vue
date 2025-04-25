@@ -47,7 +47,7 @@
 
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcContent from '@nextcloud/vue/components/NcContent'
 import Sidebar from './components/Sidebar.vue'
 import { ACTIONS, MUTATIONS } from './store'
 

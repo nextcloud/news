@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
+import NcModal from '@nextcloud/vue/components/NcModal'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
 import { mapState } from 'vuex'

@@ -102,10 +102,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 </template>
 
 <script>
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
-import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import { formatDateRelative } from '../utils/dateUtils'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'

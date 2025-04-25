@@ -50,10 +50,10 @@
 import Vue from 'vue'
 import _ from 'lodash'
 
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcUserBubble from '@nextcloud/vue/dist/Components/NcUserBubble.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcModal from '@nextcloud/vue/components/NcModal'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 
 import { ShareService } from '../dataservices/share.service'
 
