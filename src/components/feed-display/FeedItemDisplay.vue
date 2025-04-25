@@ -155,8 +155,8 @@ import CloseIcon from 'vue-material-design-icons/Close.vue'
 import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
 import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
 
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 
 import ShareItem from '../ShareItem.vue'

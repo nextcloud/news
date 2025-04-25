@@ -112,11 +112,11 @@
 
 import Vue from 'vue'
 
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcModal from '@nextcloud/vue/components/NcModal'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 
 import { Folder } from '../types/Folder'
 import { ACTIONS } from '../store'

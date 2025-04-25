@@ -13,7 +13,7 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 
-import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
+import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 
 import ContentTemplate from '../ContentTemplate.vue'
 

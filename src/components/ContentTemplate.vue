@@ -53,10 +53,10 @@ import { type PropType, computed, ref, watch } from 'vue'
 import appStore from '../store/app'
 import itemStore from '../store/item'
 
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcAppContentList from '@nextcloud/vue/dist/Components/NcAppContentList.js'
-import NcAppContentDetails from '@nextcloud/vue/dist/Components/NcAppContentDetails.js'
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcAppContentList from '@nextcloud/vue/components/NcAppContentList'
+import NcAppContentDetails from '@nextcloud/vue/components/NcAppContentDetails'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 
 import TextIcon from 'vue-material-design-icons/Text.vue'
 

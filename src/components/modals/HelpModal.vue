@@ -174,8 +174,8 @@
 </template>
 
 <script>
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import Tooltip from '@nextcloud/vue/dist/Directives/Tooltip.js'
+import NcModal from '@nextcloud/vue/components/NcModal'
+import Tooltip from '@nextcloud/vue/directives/Tooltip'
 
 export default {
 	name: 'HelpModal',
