@@ -74,8 +74,9 @@
 							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
 						</template>
 						<template #counter>
-							<NcCounterBubble v-show="feed.updateErrorCount > 8"
-								v-tooltip="feed.lastUpdateError"
+							<NcCounterBubble
+								v-show="feed.updateErrorCount > 8"
+								:title="feed.lastUpdateError"
 								type="highlighted"
 								style="background-color: red"
 								:count="feed.updateErrorCount" />
@@ -87,14 +88,15 @@
 						</template>
 					</NcAppNavigationItem>
 					<template #icon>
-						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8" v-tooltip="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
+						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8" :title="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
 						<FolderIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount <= 8" style="width:22px" />
 						<RssIcon v-if="!isFolder(topLevelItem) && !topLevelItem.faviconLink" />
 						<span v-if="!isFolder(topLevelItem) && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
 					</template>
 					<template #counter>
-						<NcCounterBubble v-if="!isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8"
-							v-tooltip="topLevelItem.lastUpdateError"
+						<NcCounterBubble
+							v-if="!isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8"
+							:title="topLevelItem.lastUpdateError"
 							type="highlighted"
 							style="background-color: red"
 							:count="topLevelItem.updateErrorCount" />

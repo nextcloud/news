@@ -175,15 +175,11 @@
 
 <script>
 import NcModal from '@nextcloud/vue/components/NcModal'
-import Tooltip from '@nextcloud/vue/directives/Tooltip'
 
 export default {
 	name: 'HelpModal',
 	components: {
 		NcModal,
-	},
-	directives: {
-		Tooltip,
 	},
 }
 </script>
