@@ -1,20 +1,22 @@
+import { describe, expect, it, vi } from 'vitest'
+
 import { Folder } from '../../../../src/types/Folder'
 import { AppState } from '../../../../src/store'
 import { FOLDER_ACTION_TYPES, mutations, actions } from '../../../../src/store/folder'
 import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 import { FolderService } from '../../../../src/dataservices/folder.service'
 
-jest.mock('@nextcloud/router')
+vi.mock('@nextcloud/router')
 
 describe('folder.ts', () => {
 	'use strict'
 
 	describe('actions', () => {
 		it('FETCH_FOLDERS should call FolderService.fetchAllFolders and then commit folders returned to state', async () => {
-			FolderService.fetchAllFolders = jest.fn();
+			FolderService.fetchAllFolders = vi.fn();
 			(FolderService.fetchAllFolders as any).mockResolvedValue({ data: { folders: [] } })
 
-			const commit = jest.fn()
+			const commit = vi.fn()
 
 		  await (actions[FOLDER_ACTION_TYPES.FETCH_FOLDERS] as any)({ commit })
 			expect(FolderService.fetchAllFolders).toBeCalled()
@@ -22,11 +24,11 @@ describe('folder.ts', () => {
 		})
 
 		it('ADD_FOLDERS should call FolderService.createFolder and then commit the folders returned to state', async () => {
-			FolderService.createFolder = jest.fn();
+			FolderService.createFolder = vi.fn();
 			(FolderService.createFolder as any).mockResolvedValue({ data: { folders: [] } })
 
 			const folder = {} as Folder
-			const commit = jest.fn()
+			const commit = vi.fn()
 
 		  await actions[FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit } as any, { folder })
 			expect(FolderService.createFolder).toBeCalled()
@@ -34,11 +36,11 @@ describe('folder.ts', () => {
 		})
 
 		it('DELETE_FOLDER should call FolderService.deleteFolder and then commit deleted folder to state', async () => {
-			FolderService.deleteFolder = jest.fn();
+			FolderService.deleteFolder = vi.fn();
 			(FolderService.deleteFolder as any).mockResolvedValue()
 
 			const folder = {} as Folder
-			const commit = jest.fn()
+			const commit = vi.fn()
 
 		  await actions[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit } as any, { folder })
 			expect(FolderService.deleteFolder).toBeCalled()
@@ -46,11 +48,11 @@ describe('folder.ts', () => {
 		})
 
 		it('FOLDER_SET_NAME should call FolderService.renameFolder and then commit deleted folder to state', async () => {
-			FolderService.renameFolder = jest.fn();
+			FolderService.renameFolder = vi.fn();
 			(FolderService.renameFolder as any).mockResolvedValue()
 
 			const folder = {} as Folder
-			const commit = jest.fn()
+			const commit = vi.fn()
 
 		  await actions[FOLDER_ACTION_TYPES.FOLDER_SET_NAME]({ commit } as any, { folder, name: 'newName' } as any)
 			expect(FolderService.renameFolder).toBeCalledWith({ id: folder.id, name: 'newName' })

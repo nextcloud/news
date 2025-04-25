@@ -1,7 +1,9 @@
+import { describe, expect, it, vi } from 'vitest'
+
 import { AppInfoState, mutations } from '../../../../src/store/app'
 import { APPLICATION_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
-jest.mock('@nextcloud/router')
+vi.mock('@nextcloud/router')
 
 describe('app.ts', () => {
 	'use strict'

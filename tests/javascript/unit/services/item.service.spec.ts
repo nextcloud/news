@@ -1,7 +1,9 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { ITEM_TYPES, ItemService } from '../../../../src/dataservices/item.service'
 import axios from '@nextcloud/axios'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('item.service.ts', () => {
 	'use strict'

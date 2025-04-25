@@ -1,12 +1,13 @@
 import { ACTIONS } from '../../../../src/store'
-import { Wrapper, shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import AppSidebar from '../../../../src/components/Sidebar.vue'
 
 describe('Sidebar.vue', () => {
 	'use strict'
 
-	let wrapper: Wrapper<AppSidebar>
+	let wrapper: any
 
 	const feeds = [{
 		id: 1, title: 'first',
@@ -26,26 +27,26 @@ describe('Sidebar.vue', () => {
 	}]
 
 	beforeAll(() => {
-		const localVue = createLocalVue()
 		wrapper = shallowMount(AppSidebar, {
-			localVue,
-			mocks: {
-				$route: {
-					query: {
-						subscribe_to: undefined,
+			global: {
+				mocks: {
+					$route: {
+						query: {
+							subscribe_to: undefined,
+						},
 					},
-				},
-				$store: {
-					state: {
-						feeds,
-						folders: [],
+					$store: {
+						state: {
+							feeds,
+							folders: [],
+						},
+						getters: {
+							feeds,
+							folders,
+							showAll: () => { return true },
+						},
+						dispatch: vi.fn(),
 					},
-					getters: {
-						feeds,
-						folders,
-						showAll: () => { return true },
-					},
-					dispatch: jest.fn(),
 				},
 			},
 		})
@@ -73,7 +74,7 @@ describe('Sidebar.vue', () => {
 		})
 
 		it('should dispatch message to store with folder object on delete folder', () => {
-			window.confirm = jest.fn().mockReturnValue(true);
+			window.confirm = vi.fn().mockReturnValue(true);
 			(wrapper.vm as any).deleteFolder(folder)
 
 			folder.feeds.forEach((feed: any) => {
@@ -83,7 +84,7 @@ describe('Sidebar.vue', () => {
 		})
 
 		it('should not dispatch message to store with folder object on delete folder', () => {
-			window.confirm = jest.fn().mockReturnValue(false);
+			window.confirm = vi.fn().mockReturnValue(false);
 			(wrapper.vm as any).deleteFolder(folder)
 
 			expect((wrapper.vm as any).$store.dispatch).not.toHaveBeenCalled()
@@ -111,7 +112,7 @@ describe('Sidebar.vue', () => {
 
 		it('should call disptch rename folder with response from user', () => {
 			const name = 'new name'
-			window.prompt = jest.fn().mockReturnValue(name);
+			window.prompt = vi.fn().mockReturnValue(name);
 			(wrapper.vm as any).renameFolder({ id: 123 })
 			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FOLDER_SET_NAME, { folder: { id: 123 }, name })
 		})
@@ -216,6 +217,6 @@ describe('Sidebar.vue', () => {
 	// TODO: More Template Testing with https://test-utils.vuejs.org/guide/essentials/a-crash-course.html#adding-a-new-todo
 
 	afterEach(() => {
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 	})
 })

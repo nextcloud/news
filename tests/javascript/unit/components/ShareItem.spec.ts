@@ -1,4 +1,5 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import ShareItem from '../../../../src/components/ShareItem.vue'
 import { ShareService } from '../../../../src/dataservices/share.service'
 
@@ -7,9 +8,7 @@ describe('AddFeed.vue', () => {
 
 	let wrapper: any
 	beforeEach(() => {
-		const localVue = createLocalVue()
 		wrapper = shallowMount(ShareItem, {
-			localVue,
 			propsData: {
 				itemId: 123,
 			},
@@ -36,7 +35,7 @@ describe('AddFeed.vue', () => {
 
 	describe('searchUsers()', () => {
 		it('should call ShareService to fetch users to add to user (display) list', async () => {
-			ShareService.fetchUsers = jest.fn().mockReturnValue({
+			ShareService.fetchUsers = vi.fn().mockReturnValue({
 				data: {
 					ocs: {
 						data: {
@@ -55,7 +54,7 @@ describe('AddFeed.vue', () => {
 
 	describe('share()', () => {
 		it('should call ShareService to share article id with backend', async () => {
-			ShareService.share = jest.fn()
+			ShareService.share = vi.fn()
 			wrapper.vm.selected = [{ displayName: 'display', shareName: 'share' }]
 
 			await wrapper.vm.share()

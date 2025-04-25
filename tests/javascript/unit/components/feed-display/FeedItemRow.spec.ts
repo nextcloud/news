@@ -1,12 +1,14 @@
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'
-import { ACTIONS } from '../../../../../src/store'
+import { ACTIONS, MUTATIONS } from '../../../../../src/store'
 
 describe('FeedItemRow.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	let wrapper: Wrapper<FeedItemRow>
+	let wrapper: any
+	let dispatchStub: any
+	let commitStub: any
 
 	const mockItem = {
 		feedId: 1,
@@ -18,31 +20,32 @@ describe('FeedItemRow.vue', () => {
 		id: 1,
 	}
 
-	const dispatchStub = jest.fn()
-	beforeAll(() => {
+	beforeEach(() => {
+		dispatchStub = vi.fn()
+		commitStub = vi.fn()
+
 		wrapper = shallowMount(FeedItemRow, {
-			propsData: {
+			props: {
 				item: mockItem,
+				itemIndex: 1,
+				itemCount: 1,
 			},
-			localVue,
-			mocks: {
-				$store: {
-					getters: {
-						feeds: [mockFeed],
+			global: {
+				mocks: {
+					$store: {
+						getters: {
+							feeds: [mockFeed],
+						},
+						state: {
+							feeds: [],
+							folders: [],
+						},
+						dispatch: dispatchStub,
+						commit: commitStub,
 					},
-					state: {
-						feeds: [],
-						folders: [],
-					},
-					dispatch: dispatchStub,
-					commit: jest.fn(),
 				},
 			},
 		})
-	})
-
-	beforeEach(() => {
-		dispatchStub.mockReset()
 	})
 
 	it('should initialize without expanded and without keepUnread', () => {
@@ -130,5 +133,15 @@ describe('FeedItemRow.vue', () => {
 		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.STAR_ITEM, {
 			item: wrapper.vm.$props.item,
 		})
+	})
+
+	it('should commit selected item, mark as read, and emit show-details when clicked', async () => {
+		const markReadSpy = vi.spyOn(wrapper.vm, 'markRead')
+
+		await wrapper.trigger('click')
+
+		expect(commitStub).toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem.id })
+		expect(markReadSpy).toHaveBeenCalledWith(mockItem)
+		expect(wrapper.emitted()).toHaveProperty('show-details')
 	})
 })

@@ -1,12 +1,12 @@
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import FeedItemDisplay from '../../../../../src/components/feed-display/FeedItemDisplay.vue'
 import { ACTIONS, MUTATIONS } from '../../../../../src/store'
 
 describe('FeedItemDisplay.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	let wrapper: Wrapper<FeedItemDisplay>
+	let wrapper: any
 
 	const mockItem = {
 		feedId: 1,
@@ -17,25 +17,26 @@ describe('FeedItemDisplay.vue', () => {
 		id: 1,
 	}
 
-	const dispatchStub = jest.fn()
-	const commitStub = jest.fn()
+	const dispatchStub = vi.fn()
+	const commitStub = vi.fn()
 	beforeAll(() => {
 		wrapper = shallowMount(FeedItemDisplay, {
-			propsData: {
+			props: {
 				item: mockItem,
 			},
-			localVue,
-			mocks: {
-				$store: {
-					getters: {
-						feeds: [mockFeed],
+			global: {
+				mocks: {
+					$store: {
+						getters: {
+							feeds: [mockFeed],
+						},
+						state: {
+							feeds: [],
+							folders: [],
+						},
+						dispatch: dispatchStub,
+						commit: commitStub,
 					},
-					state: {
-						feeds: [],
-						folders: [],
-					},
-					dispatch: dispatchStub,
-					commit: commitStub,
 				},
 			},
 		})
@@ -89,8 +90,8 @@ describe('FeedItemDisplay.vue', () => {
 	})
 
 	it('should stop all audio elements in page when playing video', () => {
-		const pauseStub = jest.fn()
-		document.getElementsByTagName = jest.fn().mockReturnValue([{ pause: pauseStub }]);
+		const pauseStub = vi.fn()
+		document.getElementsByTagName = vi.fn().mockReturnValue([{ pause: pauseStub }]);
 
 		(wrapper.vm as any).stopAudio()
 

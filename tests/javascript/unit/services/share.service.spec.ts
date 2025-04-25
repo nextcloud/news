@@ -1,7 +1,9 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { ShareService } from './../../../../src/dataservices/share.service'
 import axios from '@nextcloud/axios'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('share.service.ts', () => {
 	'use strict'

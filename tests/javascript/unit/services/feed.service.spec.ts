@@ -1,7 +1,9 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { FeedService } from './../../../../src/dataservices/feed.service'
 import axios from '@nextcloud/axios'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('feed.service.ts', () => {
 	'use strict'

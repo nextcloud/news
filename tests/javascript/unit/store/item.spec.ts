@@ -1,3 +1,5 @@
+import { describe, expect, it, vi } from 'vitest'
+
 import { AppState } from '../../../../src/store'
 import { FEED_ITEM_ACTION_TYPES, mutations, actions } from '../../../../src/store/item'
 
@@ -10,10 +12,10 @@ describe('item.ts', () => {
 	describe('actions', () => {
 		describe('FETCH_UNREAD', () => {
 			it('should call ItemService and commit items to state', async () => {
-				const fetchMock = jest.fn()
+				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }] } })
 				ItemService.debounceFetchUnread = fetchMock as any
-				const commit = jest.fn()
+				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_UNREAD] as any)({ commit })
 
@@ -24,10 +26,10 @@ describe('item.ts', () => {
 
 		describe('FETCH_STARRED', () => {
 			it('should call ItemService and commit items and starred count to state', async () => {
-				const fetchMock = jest.fn()
+				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }], starred: 3 } })
 				ItemService.debounceFetchStarred = fetchMock as any
-				const commit = jest.fn()
+				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED] as any)({ commit })
 
@@ -40,10 +42,10 @@ describe('item.ts', () => {
 		describe('FETCH_FEED_ITEMS', () => {
 			it('should call ItemService and commit items to state', async () => {
 				const mockItems = [{ id: 123, title: 'feed item' }]
-				const fetchMock = jest.fn()
+				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: mockItems } })
 				ItemService.debounceFetchFeedItems = fetchMock as any
-				const commit = jest.fn()
+				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS] as any)({ commit }, { feedId: 123 })
 
@@ -55,10 +57,10 @@ describe('item.ts', () => {
 		describe('FETCH_FOLDER_FEED_ITEMS', () => {
 			it('should call ItemService and commit items to state', async () => {
 				const mockItems = [{ id: 123, title: 'feed item' }]
-				const fetchMock = jest.fn()
+				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: mockItems } })
 				ItemService.debounceFetchFolderFeedItems = fetchMock as any
-				const commit = jest.fn()
+				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS] as any)({ commit }, { feedId: 123 })
 
@@ -69,9 +71,9 @@ describe('item.ts', () => {
 
 		it('MARK_READ should call GET and commit returned feeds to state', async () => {
 			const item = { id: 1, feedId: 123, unread: true }
-			const commit = jest.fn()
-			const dispatch = jest.fn()
-			const serviceMock = jest.fn()
+			const commit = vi.fn()
+			const dispatch = vi.fn()
+			const serviceMock = vi.fn()
 			ItemService.markRead = serviceMock
 
 			await (actions[FEED_ITEM_ACTION_TYPES.MARK_READ] as any)({ commit, dispatch }, { item })
@@ -83,9 +85,9 @@ describe('item.ts', () => {
 
 		it('MARK_UNREAD should call GET and commit returned feeds to state', async () => {
 			const item = { id: 1, feedId: 123 }
-			const commit = jest.fn()
-			const dispatch = jest.fn()
-			const serviceMock = jest.fn()
+			const commit = vi.fn()
+			const dispatch = vi.fn()
+			const serviceMock = vi.fn()
 			ItemService.markRead = serviceMock
 
 			await (actions[FEED_ITEM_ACTION_TYPES.MARK_UNREAD] as any)({ commit, dispatch }, { item })
@@ -97,8 +99,8 @@ describe('item.ts', () => {
 
 		it('STAR_ITEM should call GET and commit returned feeds to state', async () => {
 			const item = { id: 1 }
-			const commit = jest.fn()
-			const serviceMock = jest.fn()
+			const commit = vi.fn()
+			const serviceMock = vi.fn()
 			ItemService.markStarred = serviceMock
 
 			await (actions[FEED_ITEM_ACTION_TYPES.STAR_ITEM] as any)({ commit }, { item })
@@ -109,8 +111,8 @@ describe('item.ts', () => {
 
 		it('UNSTAR_ITEM should call GET and commit returned feeds to state', async () => {
 			const item = { id: 1 }
-			const commit = jest.fn()
-			const serviceMock = jest.fn()
+			const commit = vi.fn()
+			const serviceMock = vi.fn()
 			ItemService.markStarred = serviceMock
 
 			await (actions[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM] as any)({ commit }, { item })

@@ -1,16 +1,15 @@
 import Vuex, { Store } from 'vuex'
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import All from '../../../../../src/components/routes/All.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('All.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	localVue.use(Vuex)
-	let wrapper: Wrapper<All>
+	let wrapper: any
 
 	const mockItem = {
 		feedId: 1,
@@ -35,20 +34,20 @@ describe('All.vue', () => {
 			},
 		})
 
-		store.dispatch = jest.fn()
-		store.commit = jest.fn()
+		store.dispatch = vi.fn()
+		store.commit = vi.fn()
 
 		wrapper = shallowMount(All, {
-			propsData: {
+			props: {
 				item: mockItem,
 			},
-			localVue,
-			store,
+			global: {
+				plugins: [store],
+			},
 		})
 	})
 
 	it('should get all items from state', () => {
-		console.warn('PROPS', wrapper.findComponent(ContentTemplate).props());
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(3)
 	})
 
