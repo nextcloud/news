@@ -11,14 +11,14 @@
 				class="action-bar-nav"
 				:inline="4">
 				<NcActionButton :title="t('news', 'Previous Item')"
-					@click="$root.$emit('prev-item')">
+					@click="prevItem">
 					{{ t('news', 'Previous') }}
 					<template #icon>
 						<ArrowLeftThickIcon />
 					</template>
 				</NcActionButton>
 				<NcActionButton :title="t('news', 'Next Item')"
-					@click="$root.$emit('next-item')">
+					@click="nextItem">
 					{{ t('news', 'Next') }}
 					<template #icon>
 						<ArrowRightThickIcon />
@@ -58,7 +58,7 @@
 				</NcActionButton>
 				<NcActionButton v-if="!screenReaderMode"
 					:title="t('news', 'Close details')"
-					@click="splitModeOff ? $emit('show-details') : clearSelected()">
+					@click="splitModeOff ? closeDetails() : clearSelected()">
 					{{ t('news', 'Close details') }}
 					<template #icon>
 						<CloseIcon :size="24" />
@@ -201,6 +201,8 @@ export default defineComponent({
 	emits: {
 		'click-item': () => true,
 		'show-details': () => true,
+		'prev-item': () => true,
+		'next-item': () => true,
 	},
 	data: () => {
 		return {
@@ -283,6 +285,12 @@ export default defineComponent({
 		},
 		closeDetails() {
 			this.$emit('show-details')
+		},
+		prevItem() {
+			this.$emit('prev-item')
+		},
+		nextItem() {
+			this.$emit('next-item')
 		},
 	},
 })

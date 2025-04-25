@@ -27,6 +27,8 @@
 			<div ref="contentElement" class="feed-item-content-wrapper">
 				<FeedItemDisplay v-if="selectedFeedItem"
 					:item="selectedFeedItem"
+					@prev-item="jumpToPreviousItem"
+					@next-item="jumpToNextItem"
 					@show-details="showItem(false)" />
 				<NcEmptyContent v-else
 					style="margin-top: 20vh"
@@ -122,6 +124,22 @@ function showItem(value) {
 	if (layout.value === 'no-split' && !value) {
 		itemListElement.value?.enableNavHotkeys()
 	}
+}
+
+/**
+ * jump to previous list item
+ *
+ */
+function jumpToPreviousItem() {
+	itemListElement.value?.jumpToPreviousItem()
+}
+
+/**
+ * jump to next list item
+ *
+ */
+function jumpToNextItem() {
+	itemListElement.value?.jumpToNextItem()
 }
 
 </script>
