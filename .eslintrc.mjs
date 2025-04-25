@@ -2,6 +2,7 @@ module.exports = {
 	extends: [
 		'@nextcloud',
 		'@nextcloud/eslint-config/typescript',
+		'@nextcloud/eslint-config/vue3',
 	],
 	rules: {
 		'no-console': 'warn',

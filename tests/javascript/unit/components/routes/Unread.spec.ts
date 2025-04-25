@@ -1,16 +1,15 @@
 import Vuex, { Store } from 'vuex'
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import Unread from '../../../../../src/components/routes/Unread.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('Unread.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	localVue.use(Vuex)
-	let wrapper: Wrapper<Unread>
+	let wrapper: any
 
 	const mockItem = {
 		feedId: 1,
@@ -35,15 +34,16 @@ describe('Unread.vue', () => {
 			},
 		})
 
-		store.dispatch = jest.fn()
-		store.commit = jest.fn()
+		store.dispatch = vi.fn()
+		store.commit = vi.fn()
 
 		wrapper = shallowMount(Unread, {
-			propsData: {
+			props: {
 				item: mockItem,
 			},
-			localVue,
-			store,
+			global: {
+				plugins: [store],
+			},
 		})
 	})
 

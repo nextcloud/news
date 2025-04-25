@@ -1,30 +1,34 @@
+
 import axios from '@nextcloud/axios'
-import { createLocalVue, shallowMount, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
 
 import 'regenerator-runtime/runtime' // NOTE: Required for testing password-confirmation?
 import AdminSettings from '../../../../src/components/AdminSettings.vue'
 
-jest.mock('@nextcloud/axios')
-jest.mock('@nextcloud/initial-state')
-jest.mock('@nextcloud/router')
-jest.mock('@nextcloud/dialogs')
-jest.mock('@nextcloud/password-confirmation', () => ({
-    confirmPassword: jest.fn(),
+vi.mock('@nextcloud/axios')
+vi.mock('@nextcloud/initial-state')
+vi.mock('@nextcloud/router')
+vi.mock('@nextcloud/dialogs')
+vi.mock('@nextcloud/password-confirmation', () => ({
+    confirmPassword: vi.fn(),
     password_policy: {},
 }));
 
 describe('AdminSettings.vue', () => {
 	'use strict'
 
-	let wrapper: Wrapper<AdminSettings>
+	let wrapper: any
 
 	beforeAll(() => {
-		jest.useFakeTimers()
-		const localVue = createLocalVue();
 		(loadState as any).mockReturnValue('')
-		wrapper = shallowMount(AdminSettings, { localVue })
+		wrapper = shallowMount(AdminSettings, { })
+	})
+
+	beforeEach(() => {
+		vi.useFakeTimers()
 	})
 
 	it('should initialize and fetch settings from state', () => {
@@ -32,8 +36,8 @@ describe('AdminSettings.vue', () => {
 	})
 
 	it('should send post with updated settings', async () => {
-		jest.spyOn(axios, 'post').mockResolvedValue({ data: {} });
-		(wrapper.vm as any).handleResponse = jest.fn()
+		vi.spyOn(axios, 'post').mockResolvedValue({ data: {} });
+		(wrapper.vm as any).handleResponse = vi.fn()
 
 		await wrapper.vm.$options?.methods?.update.call(wrapper.vm, 'key', 'val')
 
@@ -42,7 +46,7 @@ describe('AdminSettings.vue', () => {
 
 	it('should handle bad response', () => {
 		(showError as any).mockClear()
-		console.error = jest.fn()
+		console.error = vi.fn()
 		wrapper.vm.$options?.methods?.handleResponse.call(wrapper.vm, {
 			error: true,
 			errorMessage: 'FAIL',
@@ -55,14 +59,14 @@ describe('AdminSettings.vue', () => {
 		wrapper.vm.$options?.methods?.handleResponse.call(wrapper.vm, {
 			status: 'ok',
 		});
-		(global as any).t = jest.fn()
-		jest.runAllTimers()
+		(global as any).t = vi.fn()
+		vi.runAllTimers()
 
 		expect(showSuccess).toBeCalledTimes(1)
 	})
 
 	afterAll(() => {
-		jest.clearAllMocks()
-		jest.useRealTimers()
+		vi.clearAllMocks()
+		vi.useRealTimers()
 	})
 })

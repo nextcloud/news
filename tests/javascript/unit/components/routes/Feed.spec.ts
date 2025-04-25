@@ -1,16 +1,15 @@
 import Vuex, { Store } from 'vuex'
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import Feed from '../../../../../src/components/routes/Feed.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('Feed.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	localVue.use(Vuex)
-	let wrapper: Wrapper<Feed>
+	let wrapper: any
 
 	let store: Store<any>
 	beforeAll(() => {
@@ -35,20 +34,21 @@ describe('Feed.vue', () => {
 			},
 		})
 
-		store.dispatch = jest.fn()
-		store.commit = jest.fn()
+		store.dispatch = vi.fn()
+		store.commit = vi.fn()
 
 		wrapper = shallowMount(Feed, {
-			propsData: {
+			props: {
 				feedId: '123',
 			},
-			mocks: {
-				$route: {
-					params: {},
+			global: {
+				mocks: {
+					$route: {
+						params: {},
+					},
 				},
+				plugins: [store],
 			},
-			localVue,
-			store,
 		})
 	})
 

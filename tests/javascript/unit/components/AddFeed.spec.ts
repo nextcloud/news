@@ -1,11 +1,12 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import AddFeed from '../../../../src/components/AddFeed.vue'
 import { FEED_ACTION_TYPES } from '../../../../src/store/feed'
 
 describe('AddFeed.vue', () => {
 	'use strict'
 
-	const mockDispatch = jest.fn()
+	const mockDispatch = vi.fn()
 	const mockStore = {
 		state: {
 			folders: { folders: [] },
@@ -16,16 +17,16 @@ describe('AddFeed.vue', () => {
 
 	let wrapper: any
 	beforeEach(() => {
-		const localVue = createLocalVue()
 		wrapper = shallowMount(AddFeed, {
-			localVue,
-			mocks: {
-				$route: {
-					query: {
-						subscribe_to: undefined,
+			global: {
+				mocks: {
+					$route: {
+						query: {
+							subscribe_to: undefined,
+						},
 					},
+					$store: mockStore,
 				},
-				$store: mockStore,
 			},
 		})
 	})
@@ -38,24 +39,20 @@ describe('AddFeed.vue', () => {
 
 	it('should dispatch ADD_FEED action to store', async () => {
 		mockDispatch.mockResolvedValueOnce({ status: 200, data: { message: "ok" }})
-		wrapper.vm.$emit = jest.fn()
 
 		await wrapper.vm.addFeed()
 
-		expect(wrapper.vm.$emit).toBeCalled()
-		expect(mockDispatch).toBeCalled()
-		expect(mockDispatch.mock.calls[0][0]).toEqual(FEED_ACTION_TYPES.ADD_FEED)
+		expect(mockDispatch).toHaveBeenCalledWith(FEED_ACTION_TYPES.ADD_FEED, expect.anything())
+		expect(wrapper.emitted('close'))
 	})
 
 	it('should dispatch ADD_FEED action but not emit close event on non-200 status', async () => {
 		mockDispatch.mockResolvedValueOnce({ status: 422, data: { message: "no found" }})
-		wrapper.vm.$emit = jest.fn()
 
 		await wrapper.vm.addFeed()
 
-		expect(wrapper.vm.$emit).not.toBeCalled()
-		expect(mockDispatch).toBeCalled()
-		expect(mockDispatch.mock.calls[0][0]).toEqual(FEED_ACTION_TYPES.ADD_FEED)
+		expect(mockDispatch).toHaveBeenCalledWith(FEED_ACTION_TYPES.ADD_FEED, expect.anything())
+		expect(wrapper.emitted('close')).toBeUndefined()
 	})
 
 	it('should check if feed url exists and return true', () => {

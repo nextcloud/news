@@ -1,16 +1,15 @@
 import Vuex, { Store } from 'vuex'
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import Folder from '../../../../../src/components/routes/Folder.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('Folder.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	localVue.use(Vuex)
-	let wrapper: Wrapper<Folder>
+	let wrapper: any
 
 	const mockFeed = {
 		id: 789,
@@ -50,20 +49,21 @@ describe('Folder.vue', () => {
 			},
 		})
 
-		store.dispatch = jest.fn()
-		store.commit = jest.fn()
+		store.dispatch = vi.fn()
+		store.commit = vi.fn()
 
 		wrapper = shallowMount(Folder, {
-			propsData: {
+			props: {
 				folderId: '123',
 			},
-			mocks: {
-				$route: {
-					params: {},
+			global: {
+				mocks: {
+					$route: {
+						params: {},
+					},
 				},
+				plugins: [store],
 			},
-			localVue,
-			store,
 		})
 	})
 

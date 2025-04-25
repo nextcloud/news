@@ -1,7 +1,9 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { FolderService } from './../../../../src/dataservices/folder.service'
 import axios from '@nextcloud/axios'
 
-jest.mock('@nextcloud/axios')
+vi.mock('@nextcloud/axios')
 
 describe('folder.service.ts', () => {
 	'use strict'

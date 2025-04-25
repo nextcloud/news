@@ -1,30 +1,31 @@
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import App from '../../../../src/App.vue'
 import { MUTATIONS } from '../../../../src/store'
 
 describe('FeedItemDisplay.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	let wrapper: Wrapper<App>
+	let wrapper: any
 
-	const dispatchStub = jest.fn()
-	const commitStub = jest.fn()
+	const dispatchStub = vi.fn()
+	const commitStub = vi.fn()
 	beforeAll(() => {
 		wrapper = shallowMount(App, {
-			localVue,
-			mocks: {
-				$store: {
-					state: {
-						items: {
-							playingItem: undefined,
+			global: {
+				mocks: {
+					$store: {
+						state: {
+							items: {
+								playingItem: undefined,
+							},
+							app: {
+								error: undefined,
+							},
 						},
-						app: {
-							error: undefined,
-						},
+						dispatch: dispatchStub,
+						commit: commitStub,
 					},
-					dispatch: dispatchStub,
-					commit: commitStub,
 				},
 			},
 		})
@@ -42,8 +43,8 @@ describe('FeedItemDisplay.vue', () => {
 	})
 
 	it('should stop all video elements in page when playing video', () => {
-		const pauseStub = jest.fn()
-		document.getElementsByTagName = jest.fn().mockReturnValue([{ pause: pauseStub }]);
+		const pauseStub = vi.fn()
+		document.getElementsByTagName = vi.fn().mockReturnValue([{ pause: pauseStub }]);
 
 		(wrapper.vm as any).stopVideo()
 

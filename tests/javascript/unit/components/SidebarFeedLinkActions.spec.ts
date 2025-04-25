@@ -1,5 +1,6 @@
 import { ACTIONS } from '../../../../src/store'
-import { Wrapper, shallowMount, createLocalVue } from '@vue/test-utils'
+import { shallowMount } from '@vue/test-utils'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import SidebarFeedLinkActions from '../../../../src/components/SidebarFeedLinkActions.vue'
 import { FEED_UPDATE_MODE, FEED_ORDER } from '../../../../src/dataservices/feed.service'
@@ -7,7 +8,7 @@ import { FEED_UPDATE_MODE, FEED_ORDER } from '../../../../src/dataservices/feed.
 describe('SidebarFeedLinkActions.vue', () => {
 	'use strict'
 
-	let wrapper: Wrapper<SidebarFeedLinkActions>
+	let wrapper: any
 
 	const feeds = [{
 		id: 1, title: 'first',
@@ -16,22 +17,22 @@ describe('SidebarFeedLinkActions.vue', () => {
 	}]
 
 	beforeAll(() => {
-		const localVue = createLocalVue()
 		wrapper = shallowMount(SidebarFeedLinkActions, {
-			localVue,
-			propsData: {
+			props: {
 				feedId: 1,
 			},
-			mocks: {
-				$store: {
-					state: {
-						feeds,
-						folders: [],
+			global: {
+				mocks: {
+					$store: {
+						state: {
+							feeds,
+							folders: [],
+						},
+						getters: {
+							feeds,
+						},
+						dispatch: vi.fn(),
 					},
-					getters: {
-						feeds,
-					},
-					dispatch: jest.fn(),
 				},
 			},
 		})
@@ -73,7 +74,7 @@ describe('SidebarFeedLinkActions.vue', () => {
 		})
 
 		it('should dispatch message to store with feed object on rename feed', () => {
-			window.prompt = jest.fn().mockReturnValue('test');
+			window.prompt = vi.fn().mockReturnValue('test');
 
 			(wrapper.vm as any).rename()
 
@@ -81,7 +82,7 @@ describe('SidebarFeedLinkActions.vue', () => {
 		})
 
 		it('should dispatch message to store with feed object on delete feed', () => {
-			window.confirm = jest.fn().mockReturnValue(true);
+			window.confirm = vi.fn().mockReturnValue(true);
 
 			(wrapper.vm as any).deleteFeed()
 
@@ -90,6 +91,6 @@ describe('SidebarFeedLinkActions.vue', () => {
 	})
 
 	afterEach(() => {
-		jest.clearAllMocks()
+		vi.clearAllMocks()
 	})
 })

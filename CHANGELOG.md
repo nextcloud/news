@@ -7,7 +7,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-
+- Migrate to Vue3
+- Migrate from webpack to vite
+- Migrate from jest to vitest
 
 ### Fixed
 - subscribe_to URL path has changed
