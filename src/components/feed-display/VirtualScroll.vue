@@ -4,7 +4,7 @@
   - This file is licensed under the Affero General Public License version 3 or later. See the COPYING file.
   -->
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, Fragment, h } from 'vue'
 import _ from 'lodash'
 
 import { ACTIONS } from '../../store'
@@ -89,8 +89,8 @@ export default defineComponent({
 		addToSeen(children) {
 			if (children) {
 				children.forEach((child) => {
-					if (!this._seenItems.has(child.key) && child.componentOptions.propsData.item.unread) {
-						this._seenItems.set(child.key, { offset: child.elm.offsetTop, item: child.componentOptions.propsData.item })
+					if (child.el && !this._seenItems.has(child.key) && child.props.item) {
+						this._seenItems.set(child.key, { offset: child.el.offsetTop, item: child.props.item })
 					}
 				})
 			}
@@ -126,7 +126,7 @@ export default defineComponent({
 			this.elementToShow = element
 		},
 	},
-	render(h) {
+	render() {
 		let children = []
 		let renderedItems = 0
 		let upperPaddingItems = 0
@@ -134,7 +134,21 @@ export default defineComponent({
 		const itemHeight = this.displayMode === '1' ? 44 : 111
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.viewport) {
-			const childComponents = this.$slots.default.filter(child => !!child.componentOptions)
+			const childComponents = []
+
+			const findComponents = (vnodes, childComponents) => {
+				vnodes.forEach(vnode => {
+					if (vnode.type?.name?.startsWith('FeedItem')) {
+						childComponents.push(vnode)
+						return
+					}
+					if (vnode.type === Fragment) {
+						findComponents(vnode.children, childComponents)
+					}
+				})
+			}
+			findComponents(this.$slots.default?.(), childComponents)
+
 			renderedItems = Math.floor((this.viewport.height + padding + padding) / itemHeight)
 			upperPaddingItems = Math.floor(Math.max(this.scrollTop - padding, 0) / itemHeight)
 			children = childComponents.slice(upperPaddingItems, upperPaddingItems + renderedItems)
@@ -171,7 +185,7 @@ export default defineComponent({
 
 		return h('div', {
 			class: 'virtual-scroll',
-			on: { scroll: () => this.onScroll() },
+			onScroll: this.onScroll,
 		},
 		[
 			h('div', { class: 'upper-padding', style: { height: Math.max((upperPaddingItems) * itemHeight, 0) + 'px' } }),
