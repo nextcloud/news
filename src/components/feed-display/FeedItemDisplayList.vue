@@ -194,8 +194,6 @@ export default defineComponent({
 	mounted() {
 		this.mounted = true
 		this.setupDebouncedClick()
-		this.$root.$on('next-item', this.jumpToNextItem)
-		this.$root.$on('prev-item', this.jumpToPreviousItem)
 	},
 	destroyed() {
 		this.disableNavHotkeys()
