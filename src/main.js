@@ -7,8 +7,6 @@ import App from './App.vue'
 import router from './routes'
 import mainStore, { MUTATIONS } from './store'
 
-import { Tooltip } from '@nextcloud/vue'
-
 Vue.prototype.t = t
 Vue.prototype.n = n
 Vue.prototype.OC = OC
@@ -16,8 +14,6 @@ Vue.prototype.OCA = OCA
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
-
-Vue.directive('tooltip', Tooltip)
 
 const store = new Store(mainStore)
 
