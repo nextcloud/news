@@ -23,7 +23,7 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcButton from '@nextcloud/vue/components/NcButton'
@@ -36,7 +36,7 @@ type MoveFeedState = {
 	folder?: Folder;
 };
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcModal,
 		NcButton,
@@ -50,6 +50,9 @@ export default Vue.extend({
 				return { url: '' }
 			},
 		},
+	},
+	emits: {
+		close: () => true,
 	},
 	data: (): MoveFeedState => {
 		return {

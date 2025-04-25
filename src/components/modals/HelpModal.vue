@@ -181,6 +181,9 @@ export default {
 	components: {
 		NcModal,
 	},
+	emits: {
+		close: () => true,
+	},
 }
 </script>
 

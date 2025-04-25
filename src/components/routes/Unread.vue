@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
@@ -25,7 +25,7 @@ type UnreadItemState = {
 	unreadCache?: FeedItem[]
 }
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		ContentTemplate,
 		NcCounterBubble,

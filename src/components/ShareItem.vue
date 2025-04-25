@@ -47,7 +47,7 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import _ from 'lodash'
 
 import NcModal from '@nextcloud/vue/components/NcModal'
@@ -62,7 +62,7 @@ type ShareUser = {
   displayName: string;
 }
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcModal,
 		NcButton,
@@ -74,6 +74,9 @@ export default Vue.extend({
 			type: Number,
 			required: true,
 		},
+	},
+	emits: {
+		close: () => true,
 	},
 	data: () => {
 		return {

@@ -37,7 +37,7 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcButton from '@nextcloud/vue/components/NcButton'
@@ -49,7 +49,7 @@ import AddFeed from '../AddFeed.vue'
 import { ExploreSite } from '../../types/ExploreSite'
 import { Feed } from '../../types/Feed'
 
-const ExploreComponent = Vue.extend({
+const ExploreComponent = defineComponent({
 	components: {
 		NcAppContent,
 		NcButton,

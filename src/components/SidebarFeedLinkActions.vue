@@ -103,7 +103,7 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
@@ -122,7 +122,7 @@ import { Feed } from '../types/Feed'
 import UnreadSvg from '../../img/updatemodeunread.svg'
 import IgnoreSvg from '../../img/updatemodedefault.svg'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcActionButton,
 		NcAppNavigationItem,
@@ -138,6 +138,9 @@ export default Vue.extend({
 			type: Number,
 			required: true,
 		},
+	},
+	emits: {
+		'move-feed': () => true,
 	},
 	data: () => {
 		return {

@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 
 import ContentTemplate from '../ContentTemplate.vue'
@@ -17,7 +17,7 @@ import ContentTemplate from '../ContentTemplate.vue'
 import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		ContentTemplate,
 	},

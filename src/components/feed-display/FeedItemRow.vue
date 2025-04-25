@@ -89,7 +89,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 
 import StarIcon from 'vue-material-design-icons/Star.vue'
@@ -109,7 +109,7 @@ import { FeedItem } from '../../types/FeedItem'
 import { formatDate, formatDateRelative, formatDateISO } from '../../utils/dateUtils'
 import { ACTIONS, MUTATIONS } from '../../store'
 
-export default Vue.extend({
+export default defineComponent({
 	name: 'FeedItemRow',
 	components: {
 		StarIcon,
@@ -135,6 +135,9 @@ export default Vue.extend({
 			type: Number,
 			required: true,
 		},
+	},
+	emits: {
+		'show-details': () => true,
 	},
 	data: () => {
 		return {
