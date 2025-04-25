@@ -123,6 +123,13 @@ import UnreadSvg from '../../img/updatemodeunread.svg'
 import IgnoreSvg from '../../img/updatemodedefault.svg'
 
 export default defineComponent({
+	/*
+	 * set custom component name because NcAppNavigationItem actions slot
+	 * filters for NcAction* components
+	 */
+	/* eslint-disable vue/match-component-file-name */
+	name: 'NcActionButtonCustom',
+	/* eslint-enable */
 	components: {
 		NcActionButton,
 		NcAppNavigationItem,
