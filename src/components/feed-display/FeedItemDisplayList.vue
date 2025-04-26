@@ -26,7 +26,7 @@
 							:item-index="index + 1"
 							:item="item"
 							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
-							@show-details="$emit('show-details')" />
+							@show-details="showDetails" />
 					</template>
 				</template>
 			</VirtualScroll>
@@ -80,6 +80,8 @@ export default Vue.extend({
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
 			listOrdering: this.getListOrdering(),
+			stopPrevItemHotkey: null,
+			stopNextItemHotkey: null,
 		}
 	},
 	computed: {
@@ -167,8 +169,7 @@ export default Vue.extend({
 	},
 	created() {
 		// create shortcuts
-		useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
-		useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
+		this.enableNavHotkeys()
 		useHotKey('r', this.refreshApp)
 		useHotKey('a', this.markRead, { shift: true })
 		useHotKey(['s', 'l', 'i'], this.toggleStarred)
@@ -190,6 +191,9 @@ export default Vue.extend({
 		this.setupDebouncedClick()
 		this.$root.$on('next-item', this.jumpToNextItem)
 		this.$root.$on('prev-item', this.jumpToPreviousItem)
+	},
+	destroyed() {
+		this.disableNavHotkeys()
 	},
 	methods: {
 		async refreshApp() {
@@ -231,7 +235,28 @@ export default Vue.extend({
 		markRead() {
 			this.$emit('mark-read')
 		},
+		disableNavHotkeys() {
+			if (this.stopPrevItemHotkey) {
+				this.stopPrevItemHotkey()
+			}
+			if (this.stopNextItemHotkey) {
+				this.stopNextItemHotkey()
+			}
+		},
+		enableNavHotkeys() {
+			this.disableNavHotkeys()
+			this.stopPrevItemHotkey = useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
+			this.stopNextItemHotkey = useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
+		},
 		showDetails() {
+			/*
+			 * disable nav keys when showing details in no-split-mode
+			 * proper navigation (fetchMore, scroll to last item when closed)
+			 * isn't implemented yet
+			 */
+			if (this.splitModeOff) {
+				this.disableNavHotkeys()
+			}
 			this.$emit('show-details')
 		},
 		unreadFilter(item: FeedItem): boolean {

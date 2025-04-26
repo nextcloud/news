@@ -6,7 +6,8 @@
 		@update:showDetails="showItem(false)">
 		<template #list>
 			<NcAppContentList>
-				<FeedItemDisplayList :items="items"
+				<FeedItemDisplayList ref="itemListElement"
+					:items="items"
 					:fetch-key="fetchKey"
 					role="region"
 					:aria-label="t('news', 'Article list')"
@@ -81,6 +82,8 @@ const showDetails = ref(false)
 
 const contentElement = ref()
 
+const itemListElement = ref()
+
 const layout = computed(() => {
 	switch (appStore.getters.splitmode(appStore.state)) {
 	case '1':
@@ -113,6 +116,9 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
  */
 function showItem(value) {
 	showDetails.value = value
+	if (layout.value === 'no-split' && !value) {
+		itemListElement.value?.enableNavHotkeys()
+	}
 }
 
 </script>
