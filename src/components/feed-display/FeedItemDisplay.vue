@@ -215,10 +215,6 @@ export default Vue.extend({
 	},
 	created() {
 		// create shortcuts
-		if (this.splitModeOff) {
-			useHotKey(['s', 'l', 'i'], this.toggleStarred)
-			useHotKey('u', this.toggleRead)
-		}
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('Escape', this.closeDetails)
 		}
