@@ -18,8 +18,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</template>
 		<div class="field">
 			<NcCheckboxRadioSwitch type="switch"
-				:checked.sync="useCronUpdates"
-				@update:checked="update('useCronUpdates', useCronUpdates)">
+				:model-value.sync="useCronUpdates"
+				@update:model-value="update('useCronUpdates', useCronUpdates)">
 				{{ t("news", "Use system cron for updates") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -28,10 +28,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="autoPurgeCount"
+			<NcTextField :model-value.sync="autoPurgeCount"
 				:label="t('news', 'Maximum read count per feed')"
 				:label-visible="true"
-				@update:value="update('autoPurgeCount', autoPurgeCount)" />
+				@update:model-value="update('autoPurgeCount', autoPurgeCount)" />
 		</div>
 		<p class="settings-hint">
 			{{ t( "news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
@@ -39,8 +39,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcCheckboxRadioSwitch type="switch"
-				:checked.sync="purgeUnread"
-				@update:checked="update('purgeUnread', purgeUnread)">
+				:model-value.sync="purgeUnread"
+				@update:model-value="update('purgeUnread', purgeUnread)">
 				{{ t("news", "Delete unread articles automatically") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -49,40 +49,40 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="maxRedirects"
+			<NcTextField :model-value.sync="maxRedirects"
 				:label="t('news', 'Maximum redirects')"
 				:label-visible="true"
-				@update:value="update('maxRedirects', maxRedirects)" />
+				@update:model-value="update('maxRedirects', maxRedirects)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "How many redirects the feed fetcher should follow.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="feedFetcherTimeout"
+			<NcTextField :model-value.sync="feedFetcherTimeout"
 				:label="t('news', 'Feed fetcher timeout')"
 				:label-visible="true"
-				@update:value="update('feedFetcherTimeout', feedFetcherTimeout)" />
+				@update:model-value="update('feedFetcherTimeout', feedFetcherTimeout)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="exploreUrl"
+			<NcTextField :model-value.sync="exploreUrl"
 				:label="t('news', 'Explore Service URL')"
 				:label-visible="true"
-				@update:value="update('exploreUrl', exploreUrl)" />
+				@update:model-value="update('exploreUrl', exploreUrl)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="updateInterval"
+			<NcTextField :model-value.sync="updateInterval"
 				:label="t('news', 'Update interval')"
 				:label-visible="true"
-				@update:value="update('updateInterval', updateInterval)" />
+				@update:model-value="update('updateInterval', updateInterval)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Interval in seconds in which the feeds will be updated.") }}
@@ -90,8 +90,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcCheckboxRadioSwitch type="switch"
-				:checked.sync="useNextUpdateTime"
-				@update:checked="update('useNextUpdateTime', useNextUpdateTime)">
+				:model-value.sync="useNextUpdateTime"
+				@update:model-value="update('useNextUpdateTime', useNextUpdateTime)">
 				{{ t("news", "Use next update time for feed updates") }}
 			</NcCheckboxRadioSwitch>
 		</div>
