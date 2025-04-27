@@ -53,6 +53,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected $folderId;
     /** @var int */
     protected $unreadCount;
+    /** @var int */
+    protected $starredCount;
     /** @var string|null */
     protected $link = null;
     /** @var bool */
@@ -322,6 +324,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'added',
             'folderId',
             'unreadCount',
+            'starredCount',
             'link',
             'preventUpdate',
             'deletedAt',
@@ -589,6 +592,19 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         if ($this->unreadCount !== $unreadCount) {
             $this->unreadCount = $unreadCount;
             $this->markFieldUpdated('unreadCount');
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param int $starredCount
+     */
+    public function setStarredCount(int $starredCount): Feed
+    {
+        if ($this->starredCount !== $starredCount) {
+            $this->starredCount = $starredCount;
+            $this->markFieldUpdated('starredCount');
         }
 
         return $this;
