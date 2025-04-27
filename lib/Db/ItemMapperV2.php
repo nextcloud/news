@@ -556,6 +556,7 @@ class ItemMapperV2 extends NewsMapperV2
      * @throws ServiceValidationException
      */
     public function findAllItems(
+        int $id,
         string $userId,
         int $type,
         int $limit,
@@ -588,6 +589,10 @@ class ItemMapperV2 extends NewsMapperV2
             case ListType::STARRED:
                 $builder->andWhere('items.starred = :starred')
                         ->setParameter('starred', true);
+                if ($id !== 0) {
+                    $builder->andWhere('items.feed_id = :feedId')
+                            ->setParameter('feedId', $id);
+                }
                 break;
             case ListType::UNREAD:
                 $builder->andWhere('items.unread = :unread')
