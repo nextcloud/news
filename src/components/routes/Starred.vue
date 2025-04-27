@@ -43,11 +43,13 @@ export default Vue.extend({
 	},
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
+		this.fetchMore()
+		this.$watch(() => this.$route.params, this.fetchMore)
 	},
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems.starred) {
-			  this.$store.dispatch(ACTIONS.FETCH_STARRED)
+			  this.$store.dispatch(ACTIONS.FETCH_STARRED, { feedId: this.feedId === undefined ? 0 : Number(this.feedId) })
 			}
 		},
 	},
