@@ -46,18 +46,18 @@
 				:to="{ name: ROUTES.STARRED }"
 				:allow-collapse="true"
 				:force-menu="true">
-				<template v-for="(group) in GroupedStars">
-					<NcAppNavigationItem :key="group.feed.id"
-						:ref="'starredfeed-' + group.feed.id"
-						:name="group.feed.title"
+				<template v-for="group in GroupedStars">
+					<NcAppNavigationItem :key="group.id"
+						:ref="'starredfeed-' + group.id"
+						:name="group.title"
 						:icon="''"
-						:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.feed.id.toString() } }">
+						:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.id.toString() } }">
 						<template #icon>
-							<RssIcon v-if="!group.feed.faviconLink" />
-							<span v-if="group.feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.feed.faviconLink + ')' }" />
+							<RssIcon v-if="!group.faviconLink" />
+							<span v-if="group.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.faviconLink + ')' }" />
 						</template>
 						<template #counter>
-							<NcCounterBubble :count="group.items.length" />
+							<NcCounterBubble :count="group.starredCount" />
 						</template>
 					</NcAppNavigationItem>
 				</template>
@@ -391,23 +391,8 @@ export default Vue.extend({
 
 			return navItems
 		},
-		GroupedStars(): Array<FeedItem> {
-			const GroupedStars = this.$store.getters.starred.reduce((groups, item: FeedItem) => {
-				const groupKey = item.feedId
-				if (!groups[groupKey]) {
-					let feed: Feed = this.$store.getters.feeds.find((feed: Feed) => feed.id === groupKey)
-					if (feed === undefined) {
-						feed = {
-							id: groupKey,
-							title: t('news', 'Unknown feed'),
-						}
-					}
-					groups[groupKey] = { items: [], feed }
-				}
-				groups[groupKey].items.push(item)
-				return groups
-			}, {})
-			return Object.values(GroupedStars)
+		GroupedStars(): Array<Feed> {
+			return this.$store.getters.feeds.filter((item: Feed) => item.starredCount !== 0)
 		},
 		loading: {
 			get() {
