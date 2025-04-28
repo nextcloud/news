@@ -4,6 +4,10 @@
 		:aria-label="item.title"
 		:aria-setsize="itemCount"
 		:aria-posinset="itemIndex"
+		role="button"
+		tabindex="0"
+		@keydown.enter="select()"
+		@keydown.space.prevent="select()"
 		@click="select()">
 		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
@@ -26,9 +30,7 @@
 			<h1 class="title-container"
 				:class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }"
 				:dir="item.rtl && 'rtl'">
-				<a href="#" @click="select()">
-					{{ item.title }}
-				</a>
+				{{ item.title }}
 			</h1>
 
 			<div class="intro-container" :class="{ 'compact': compactMode }">
@@ -234,17 +236,14 @@ export default defineComponent({
 	}
 
 	.feed-item-row .title-container {
+		color: var(--color-text-lighter);
 		flex-grow: 1;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 
-	.feed-item-row .title-container a {
-		color: var(--color-text-lighter);
-	}
-
-	.feed-item-row .title-container.unread a {
+	.feed-item-row .title-container.unread {
 		color: var(--color-main-text);
 		font-weight: bold;
 	}
