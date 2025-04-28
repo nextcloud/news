@@ -43,7 +43,7 @@ const getInitialRoute = function() {
 		return { name: ROUTES.EXPLORE }
 	case '7':
 		params.feedId = store.state.lastViewedFeedId
-		return { 
+		return {
 			name: ROUTES.STARREDFEED,
 			params,
 		}

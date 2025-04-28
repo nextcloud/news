@@ -302,7 +302,6 @@ import HelpModal from './modals/HelpModal.vue'
 import FeedInfoTable from './modals/FeedInfoTable.vue'
 import { Folder } from '../types/Folder'
 import { Feed } from '../types/Feed'
-import { FeedItem } from '../types/FeedItem'
 
 export default Vue.extend({
 	components: {
