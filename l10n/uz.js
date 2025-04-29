@@ -18,6 +18,7 @@ OC.L10N.register(
     "Rename" : "Rename",
     "Delete" : "Delete",
     "Previous" : "Oldingi",
+    "Next" : "Keyingisi",
     "Not available" : "Mavjud emas",
     "Title" : "Sarlavha",
     "right" : "right",
