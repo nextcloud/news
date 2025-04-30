@@ -208,6 +208,8 @@ export default Vue.extend({
 		refreshItemList() {
 			if (this.items.length > 0) {
 				this.filteredItemcache = this.filterSortedItems()
+			} else {
+				this.filteredItemcache = []
 			}
 		},
 		getListOrdering(): boolean {
