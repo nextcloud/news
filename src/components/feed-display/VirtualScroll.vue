@@ -5,6 +5,7 @@
   -->
 <script>
 import Vue from 'vue'
+import _ from 'lodash'
 
 import ItemSkeleton from './ItemSkeleton.vue'
 import { ACTIONS } from '../../store'
@@ -27,8 +28,8 @@ export default Vue.extend({
 			initialLoadingSkeleton: false,
 			initialLoadingTimeout: null,
 			elementToShow: null,
-			checkMarkRead: true,
 			elementToFocus: null,
+			debouncedMarkRead: null,
 		}
 	},
 	computed: {
@@ -63,6 +64,7 @@ export default Vue.extend({
 	created() {
 		this._lastRendered = null
 		this._lowerPaddingItems = 0
+		this.debouncedMarkRead = _.debounce(this.markReadOnScroll, 500)
 	},
 	mounted() {
 		this.onScroll()
@@ -103,13 +105,7 @@ export default Vue.extend({
 			this.loadMore()
 
 			if (!this.$store.getters.preventReadOnScroll) {
-				if (this.checkMarkRead) {
-					this.checkMarkRead = false
-					setTimeout(() => {
-						this.markReadOnScroll()
-						this.checkMarkRead = true
-				        }, 500)
-				}
+				this.debouncedMarkRead()
 			}
 		},
 		loadMore() {
