@@ -321,7 +321,9 @@ export default Vue.extend({
 			}
 
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
-			this.$store.dispatch(ACTIONS.MARK_READ, { item })
+			if (!item.keepUnread && item.unread) {
+				this.$store.dispatch(ACTIONS.MARK_READ, { item })
+			}
 		},
 		currentIndex(items: FeedItem[]): number {
 			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
