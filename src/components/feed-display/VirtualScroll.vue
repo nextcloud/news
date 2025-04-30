@@ -29,7 +29,6 @@ export default Vue.extend({
 			elementToShow: null,
 			checkMarkRead: true,
 			seenItems: new Map(),
-			lastRendered: null,
 			elementToFocus: null,
 		}
 	},
@@ -61,13 +60,9 @@ export default Vue.extend({
 			},
 			immediate: true,
 		},
-		lastRendered() {
-			if (!this.$store.getters.preventReadOnScroll) {
-				this.addToSeen(this.lastRendered)
-			}
-		},
 	},
 	created() {
+		this._lastRendered = null
 		this._lowerPaddingItems = 0
 	},
 	mounted() {
@@ -76,6 +71,11 @@ export default Vue.extend({
 	},
 	destroyed() {
 		window.removeEventListener('resize', this.onScroll)
+	},
+	updated() {
+		if (!this.$store.getters.preventReadOnScroll) {
+			this.addToSeen(this._lastRendered)
+		}
 	},
 	methods: {
 		addToSeen(children) {
@@ -140,7 +140,7 @@ export default Vue.extend({
 			renderedItems = children.length
 			lowerPaddingItems = Math.max(childComponents.length - upperPaddingItems - renderedItems, 0)
 			this._lowerPaddingItems = lowerPaddingItems
-			this.lastRendered = children
+			this._lastRendered = children
 
 		}
 
