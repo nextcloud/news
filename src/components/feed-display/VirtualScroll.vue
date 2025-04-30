@@ -28,7 +28,6 @@ export default Vue.extend({
 			initialLoadingTimeout: null,
 			elementToShow: null,
 			checkMarkRead: true,
-			seenItems: new Map(),
 			elementToFocus: null,
 		}
 	},
@@ -56,7 +55,7 @@ export default Vue.extend({
 		fetchKey: {
 			handler() {
 				this.scrollTop = 0
-				this.seenItems = new Map()
+				this._seenItems = new Map()
 			},
 			immediate: true,
 		},
@@ -81,20 +80,20 @@ export default Vue.extend({
 		addToSeen(children) {
 			if (children) {
 				children.forEach((child) => {
-					if (!this.seenItems.has(child.key) && child.componentOptions.propsData.item.unread) {
-						this.seenItems.set(child.key, { offset: child.elm.offsetTop, item: child.componentOptions.propsData.item })
+					if (!this._seenItems.has(child.key) && child.componentOptions.propsData.item.unread) {
+						this._seenItems.set(child.key, { offset: child.elm.offsetTop, item: child.componentOptions.propsData.item })
 					}
 				})
 			}
 		},
 		markReadOnScroll() {
-			for (const [key, value] of this.seenItems) {
+			for (const [key, value] of this._seenItems) {
 				if (this.scrollTop > value.offset) {
 					const item = value.item
 					if (!item.keepUnread && item.unread) {
 						this.$store.dispatch(ACTIONS.MARK_READ, { item })
 					}
-					this.seenItems.delete(key)
+					this._seenItems.delete(key)
 				}
 			}
 		},
