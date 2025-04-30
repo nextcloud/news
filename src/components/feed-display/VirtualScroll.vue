@@ -7,7 +7,6 @@
 import Vue from 'vue'
 import _ from 'lodash'
 
-import ItemSkeleton from './ItemSkeleton.vue'
 import { ACTIONS } from '../../store'
 
 const GRID_ITEM_HEIGHT = 200 + 10
@@ -22,7 +21,7 @@ export default Vue.extend({
 	},
 	data() {
 		return {
-			viewport: { width: 0, height: 0 },
+			viewport: null,
 			scrollTop: 0,
 			scrollHeight: 500,
 			initialLoadingSkeleton: false,
@@ -68,6 +67,12 @@ export default Vue.extend({
 	},
 	mounted() {
 		this.onScroll()
+		this.$nextTick(() => {
+			if (this.$el && this.$el.getBoundingClientRect) {
+				this.viewport = this.$el.getBoundingClientRect()
+			}
+		})
+
 		window.addEventListener('resize', this.onScroll)
 	},
 	destroyed() {
@@ -126,41 +131,17 @@ export default Vue.extend({
 		let lowerPaddingItems = 0
 		const itemHeight = this.displayMode === '1' ? 44 : 111
 		const padding = GRID_ITEM_HEIGHT
-		if (this.$slots.default && this.$el && this.$el.getBoundingClientRect) {
+		if (this.$slots.default && this.viewport) {
 			const childComponents = this.$slots.default.filter(child => !!child.componentOptions)
-			const viewport = this.$el.getBoundingClientRect()
-			renderedItems = Math.floor((viewport.height + padding + padding) / itemHeight)
+			renderedItems = Math.floor((this.viewport.height + padding + padding) / itemHeight)
 			upperPaddingItems = Math.floor(Math.max(this.scrollTop - padding, 0) / itemHeight)
 			children = childComponents.slice(upperPaddingItems, upperPaddingItems + renderedItems)
 			renderedItems = children.length
 			lowerPaddingItems = Math.max(childComponents.length - upperPaddingItems - renderedItems, 0)
 			this._lowerPaddingItems = lowerPaddingItems
 			this._lastRendered = children
-
-		}
-
-		if (lowerPaddingItems === 0) {
-			if (upperPaddingItems + renderedItems + lowerPaddingItems === 0) {
-				if (!this.initialLoadingSkeleton) {
-					// The first 350ms don't display skeletons
-					this.initialLoadingTimeout = setTimeout(() => {
-						this.initialLoadingSkeleton = true
-						this.$forceUpdate()
-					}, 350)
-					return h('div', { class: 'virtual-scroll' })
-				}
-			}
-
-			children = [...children, ...Array(40).fill(0).map(() =>
-				h(ItemSkeleton),
-			)]
-		}
-
-		if (upperPaddingItems + renderedItems + lowerPaddingItems > 0) {
-			this.initialLoadingSkeleton = false
-			if (this.initialLoadingTimeout) {
-				clearTimeout(this.initialLoadingTimeout)
-			}
+		} else {
+			return h('div', { class: 'virtual-scroll' })
 		}
 
 		const scrollTop = this.scrollTop
