@@ -67,6 +67,9 @@ export default Vue.extend({
 			}
 		},
 	},
+	created() {
+		this._lowerPaddingItems = 0
+	},
 	mounted() {
 		this.onScroll()
 		window.addEventListener('resize', this.onScroll)
@@ -98,6 +101,7 @@ export default Vue.extend({
 		onScroll() {
 			this.scrollTop = this.$el.scrollTop
 			this.scrollHeight = this.$el.scrollHeight
+			this.loadMore()
 
 			if (!this.$store.getters.preventReadOnScroll) {
 				if (this.checkMarkRead) {
@@ -106,6 +110,13 @@ export default Vue.extend({
 						this.markReadOnScroll()
 						this.checkMarkRead = true
 				        }, 500)
+				}
+			}
+		},
+		loadMore() {
+			if (this._lowerPaddingItems === 0) {
+				if (!this.reachedEnd && !this.fetching) {
+					this.$emit('load-more')
 				}
 			}
 		},
@@ -128,13 +139,12 @@ export default Vue.extend({
 			children = childComponents.slice(upperPaddingItems, upperPaddingItems + renderedItems)
 			renderedItems = children.length
 			lowerPaddingItems = Math.max(childComponents.length - upperPaddingItems - renderedItems, 0)
+			this._lowerPaddingItems = lowerPaddingItems
 			this.lastRendered = children
+
 		}
 
 		if (lowerPaddingItems === 0) {
-			if (!this.reachedEnd && !this.fetching) {
-				this.$emit('load-more')
-			}
 			if (upperPaddingItems + renderedItems + lowerPaddingItems === 0) {
 				if (!this.initialLoadingSkeleton) {
 					// The first 350ms don't display skeletons
