@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Request failed, network connection unavailable!" : "Pieprasījums neizdevās, nav pieejams tīkla pieslēgums!",
     "Request unauthorized. Are you logged in?" : "Pieprasījums nav pilnvarots. Vai esot pieteicies?",
-    "Token expired or app not enabled! Reload the page!" : "Pilnvara beigusies vai lietotne nav iespējota. Pārlādējiet lapu!",
+    "Token expired or app not enabled! Reload the page!" : "Beigusies pilnvara vai lietotne nav iespējota. Jāpārlādē lapa.",
     "Internal server error! Please check your data/nextcloud.log file for additional information!" : "Iekšēja servera kļūda! Lūdzu pārbaudiet data/nextcloud.log papildus informācijai!",
     "Request failed, Nextcloud is in currently in maintenance mode!" : "Pieprasījums neizdevās, Nextcloud pašlaik darbojas uzturēšanas režīmā!",
     "Unread articles" : "Nelasītie raksti",
