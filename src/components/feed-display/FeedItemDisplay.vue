@@ -165,7 +165,6 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
 import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
@@ -237,7 +236,6 @@ export default defineComponent({
 	},
 
 	computed: {
-		...mapState(['feeds']),
 		screenReaderMode() {
 			return this.$store.getters.displaymode === '2'
 		},

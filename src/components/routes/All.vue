@@ -13,7 +13,6 @@
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
@@ -24,8 +23,6 @@ export default defineComponent({
 	},
 
 	computed: {
-		...mapState(['items']),
-
 		allItems(): FeedItem[] {
 			return this.$store.getters.allItems
 		},
