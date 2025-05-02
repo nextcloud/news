@@ -220,8 +220,13 @@ export const mutations = {
 		feeds: Feed[],
 	) {
 		state.feeds = feeds.sort((a, b) => {
-			if (!a.title) { return -1 } // sort undefined title at top
-			if (!b.title) { return 1 }
+			// sort undefined title at top
+			if (!a.title) {
+				return -1
+			}
+			if (!b.title) {
+				return 1
+			}
 			return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
 		}).map((it) => {
 			if (typeof it?.ordering === 'number') {

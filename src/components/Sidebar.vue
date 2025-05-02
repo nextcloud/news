@@ -375,7 +375,11 @@ export default defineComponent({
 		topLevelNav(): (Feed | Folder)[] {
 			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
 				if (feed.folderId === undefined || feed.folderId === null) {
-					if (feed.pinned) { result.pinned.push(feed) } else { result.ungrouped.push(feed) }
+					if (feed.pinned) {
+						result.pinned.push(feed)
+					} else {
+						result.ungrouped.push(feed)
+					}
 				}
 				return result
 			}, { pinned: [], ungrouped: [] })

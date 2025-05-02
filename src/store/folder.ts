@@ -96,7 +96,9 @@ export const mutations = {
 			updateErrorCount: 0,
 		}))
 		feeds.forEach((it) => {
-			const folder = updatedFolders.find((folder: Folder) => { return folder.id === it.folderId })
+			const folder = updatedFolders.find((folder: Folder) => {
+				return folder.id === it.folderId
+			})
 			if (folder) {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
@@ -112,7 +114,9 @@ export const mutations = {
 		state: FolderState,
 		feed: Feed,
 	) {
-		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === feed.folderId
+		})
 		if (folder) {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
@@ -124,7 +128,9 @@ export const mutations = {
 		state: FolderState,
 		newFolder: Folder,
 	) {
-		const folder = state.folders.find((f: Folder) => { return f.id === newFolder.id })
+		const folder = state.folders.find((f: Folder) => {
+			return f.id === newFolder.id
+		})
 		if (folder) {
 			_.assign(folder, newFolder)
 		}
@@ -134,7 +140,9 @@ export const mutations = {
 		state: FolderState,
 		{ feedId, folderId, unreadCount }: { feedId: number, folderId: number, unreadCount: number },
 	) {
-		const folder = state.folders.find((folder: Folder) => { return folder.id === folderId })
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === folderId
+		})
 		if (folder) {
 			folder.feedCount -= unreadCount
 			const updatedFeeds = folder.feeds.filter((feed: Feed) => {
@@ -148,7 +156,9 @@ export const mutations = {
 		state: FolderState,
 		{ folderId, delta }: { folderId: number, delta: number },
 	) {
-		const folder = state.folders.find((f: Folder) => { return f.id === folderId })
+		const folder = state.folders.find((f: Folder) => {
+			return f.id === folderId
+		})
 		if (folder) {
 			folder.feedCount += delta
 		}
@@ -158,7 +168,9 @@ export const mutations = {
 		state: FolderState,
 		feed: Feed,
 	) {
-		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === feed.folderId
+		})
 
 		if (folder) {
 			folder.feedCount -= feed.unreadCount

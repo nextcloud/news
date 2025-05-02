@@ -56,7 +56,10 @@ export default defineComponent({
 		unreadCount(): number {
 			const totalUnread = this.$store.getters.feeds
 				.filter((feed: Feed) => feed.folderId === this.id)
-				.reduce((acc: number, feed: Feed) => { acc += feed.unreadCount; return acc }, 0)
+				.reduce((acc: number, feed: Feed) => {
+					acc += feed.unreadCount
+					return acc
+				}, 0)
 
 			return totalUnread
 		},
