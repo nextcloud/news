@@ -109,7 +109,9 @@ export default defineComponent({
 		 * @param user - User that was clicked
 		 */
 		clickUser(user: ShareUser) {
-			const selectedUsers = this.selected.map((val: ShareUser) => { return val.shareName })
+			const selectedUsers = this.selected.map((val: ShareUser) => {
+				return val.shareName
+			})
 			if (selectedUsers.includes(user.shareName)) {
 				this.selected.splice(selectedUsers.indexOf(user.shareName), 1)
 			} else {
@@ -135,7 +137,9 @@ export default defineComponent({
 		 * Shares an item with another use in the same nextcloud instance
 		 */
 		async share() {
-			await ShareService.share(this.itemId, this.selected.map((val: ShareUser) => { return val.shareName }))
+			await ShareService.share(this.itemId, this.selected.map((val: ShareUser) => {
+				return val.shareName
+			}))
 
 			this.$emit('close')
 		},

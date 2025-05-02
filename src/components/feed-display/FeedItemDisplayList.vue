@@ -407,7 +407,9 @@ export default defineComponent({
 
 		toggleRead(): void {
 			const item = this.selectedItem
-			if (!item) { return }
+			if (!item) {
+				return
+			}
 			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			} else {
