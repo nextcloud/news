@@ -1,12 +1,12 @@
-import type { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
-import type { ActionParams } from '../store'
-import type { Feed } from '../types/Feed'
+import type { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service.ts'
+import type { ActionParams } from '../store/index.ts'
+import type { Feed } from '../types/Feed.ts'
 
 import _ from 'lodash'
 import { reactive } from 'vue'
-import { FeedService } from '../dataservices/feed.service'
-import { FolderService } from '../dataservices/folder.service'
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes'
+import { FeedService } from '../dataservices/feed.service.ts'
+import { FolderService } from '../dataservices/folder.service.ts'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',

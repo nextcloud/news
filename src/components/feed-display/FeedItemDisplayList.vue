@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import type { FeedItem } from '../../types/FeedItem'
+import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import _ from 'lodash'
@@ -46,8 +46,8 @@ import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
 import VirtualScroll from './VirtualScroll.vue'
-import { FEED_ORDER } from '../../dataservices/feed.service'
-import { ACTIONS, MUTATIONS } from '../../store'
+import { FEED_ORDER } from '../../dataservices/feed.service.ts'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
 	components: {

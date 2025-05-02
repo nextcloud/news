@@ -117,7 +117,7 @@
 
 <script lang="ts">
 
-import type { Feed } from '../types/Feed'
+import type { Feed } from '../types/Feed.ts'
 
 import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
@@ -130,8 +130,8 @@ import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
 import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
 import IgnoreSvg from '../../img/updatemodedefault.svg'
 import UnreadSvg from '../../img/updatemodeunread.svg'
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
-import { ACTIONS } from '../store'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service.ts'
+import { ACTIONS } from '../store/index.ts'
 
 export default defineComponent({
 	/*

@@ -1,11 +1,11 @@
-import type { ActionParams } from '../store'
-import type { Feed } from '../types/Feed'
-import type { FeedItem } from '../types/FeedItem'
+import type { ActionParams } from '../store/index.ts'
+import type { Feed } from '../types/Feed.ts'
+import type { FeedItem } from '../types/FeedItem.ts'
 
 import { reactive } from 'vue'
 import { ItemService } from '../dataservices/item.service'
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
-import { FEED_ACTION_TYPES } from './feed'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes.ts'
+import { FEED_ACTION_TYPES } from './feed.ts'
 
 export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_STARRED: 'FETCH_STARRED',

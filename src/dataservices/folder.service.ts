@@ -1,7 +1,7 @@
 import type { AxiosResponse } from '@nextcloud/axios'
 
 import axios from '@nextcloud/axios'
-import { API_ROUTES } from '../types/ApiRoutes'
+import { API_ROUTES } from '../types/ApiRoutes.ts'
 
 export class FolderService {
 	/**

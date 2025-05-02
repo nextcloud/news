@@ -1,13 +1,13 @@
-import type { AppInfoState } from './app'
-import type { FeedState } from './feed'
-import type { FolderState } from './folder'
-import type { ItemState } from './item'
+import type { AppInfoState } from './app.ts'
+import type { FeedState } from './feed.ts'
+import type { FolderState } from './folder.ts'
+import type { ItemState } from './item.ts'
 
-import { APPLICATION_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes'
-import app, { APPLICATION_ACTION_TYPES } from './app'
-import feeds, { FEED_ACTION_TYPES } from './feed'
-import folders, { FOLDER_ACTION_TYPES } from './folder'
-import items, { FEED_ITEM_ACTION_TYPES } from './item'
+import { APPLICATION_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes.ts'
+import app, { APPLICATION_ACTION_TYPES } from './app.ts'
+import feeds, { FEED_ACTION_TYPES } from './feed.ts'
+import folders, { FOLDER_ACTION_TYPES } from './folder.ts'
+import items, { FEED_ITEM_ACTION_TYPES } from './item.ts'
 
 export const MUTATIONS = {
 	...APPLICATION_MUTATION_TYPES,

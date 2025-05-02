@@ -266,8 +266,8 @@
 
 <script lang="ts">
 
-import type { Feed } from '../types/Feed'
-import type { Folder } from '../types/Folder'
+import type { Feed } from '../types/Feed.ts'
+import type { Folder } from '../types/Folder.ts'
 
 import axios from '@nextcloud/axios'
 import { showError, showSuccess } from '@nextcloud/dialogs'
@@ -298,8 +298,8 @@ import FeedInfoTable from './modals/FeedInfoTable.vue'
 import HelpModal from './modals/HelpModal.vue'
 import MoveFeed from './MoveFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
-import { ROUTES } from '../routes'
-import { ACTIONS, MUTATIONS } from '../store'
+import { ROUTES } from '../routes/index.ts'
+import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
 export default defineComponent({
 	components: {

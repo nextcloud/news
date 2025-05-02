@@ -6,7 +6,7 @@ import FeedPanel from '../components/routes/Feed.vue'
 import FolderPanel from '../components/routes/Folder.vue'
 import StarredPanel from '../components/routes/Starred.vue'
 import UnreadPanel from '../components/routes/Unread.vue'
-import store from './../store/app'
+import store from './../store/app.ts'
 
 const base = generateUrl('/apps/news')
 
