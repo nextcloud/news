@@ -6,4 +6,10 @@ import { recommendedLibrary } from '@nextcloud/eslint-config'
 
 export default [
 	...recommendedLibrary,
+	{
+		rules: {
+			// allow console.error()
+			'no-console': ["error", { allow: ["error"] }],
+		},
+	},
 ]
