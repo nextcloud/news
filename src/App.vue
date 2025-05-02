@@ -53,7 +53,7 @@ import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcContent from '@nextcloud/vue/components/NcContent'
 import Sidebar from './components/Sidebar.vue'
-import { ACTIONS, MUTATIONS } from './store'
+import { ACTIONS, MUTATIONS } from './store/index.ts'
 
 export default defineComponent({
 	components: {

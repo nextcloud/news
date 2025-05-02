@@ -99,8 +99,8 @@
 </template>
 
 <script lang="ts">
-import type { Feed } from '../../types/Feed'
-import type { FeedItem } from '../../types/FeedItem'
+import type { Feed } from '../../types/Feed.ts'
+import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
@@ -113,8 +113,8 @@ import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
-import { ACTIONS, MUTATIONS } from '../../store'
-import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils.ts'
 
 export default defineComponent({
 	name: 'FeedItemRow',

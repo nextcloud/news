@@ -55,7 +55,7 @@
  * for more information, see https://vuejs.org/guide/extras/composition-api-faq.html
  */
 
-import type { FeedItem } from '../types/FeedItem'
+import type { FeedItem } from '../types/FeedItem.ts'
 
 import {
 	type PropType,
@@ -69,8 +69,8 @@ import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import TextIcon from 'vue-material-design-icons/Text.vue'
 import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
 import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
-import appStore from '../store/app'
-import itemStore from '../store/item'
+import appStore from '../store/app.ts'
+import itemStore from '../store/item.ts'
 
 defineProps({
 	items: {

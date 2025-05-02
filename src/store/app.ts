@@ -1,6 +1,6 @@
 import { loadState } from '@nextcloud/initial-state'
 import { reactive } from 'vue'
-import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes'
+import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const APPLICATION_ACTION_TYPES = {
 	SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',

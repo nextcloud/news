@@ -1,12 +1,12 @@
 import type { AxiosResponse } from '@nextcloud/axios'
-import type { FeedItem } from '../types/FeedItem'
+import type { FeedItem } from '../types/FeedItem.ts'
 
 import axios from '@nextcloud/axios'
 import _ from 'lodash'
-import { API_ROUTES } from '../types/ApiRoutes'
-import store from './../store/app'
-import feedstore from './../store/feed'
-import { FEED_ORDER } from './feed.service'
+import { API_ROUTES } from '../types/ApiRoutes.ts'
+import store from './../store/app.ts'
+import feedstore from './../store/feed.ts'
+import { FEED_ORDER } from './feed.service.ts'
 
 export const ITEM_TYPES = {
 	FEED: 0,

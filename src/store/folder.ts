@@ -1,11 +1,11 @@
-import type { ActionParams } from '../store'
-import type { Feed } from '../types/Feed'
-import type { Folder } from '../types/Folder'
+import type { ActionParams } from '../store/index.ts'
+import type { Feed } from '../types/Feed.ts'
+import type { Folder } from '../types/Folder.ts'
 
 import _ from 'lodash'
 import { reactive } from 'vue'
 import { FolderService } from '../dataservices/folder.service'
-import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes'
+import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const FOLDER_ACTION_TYPES = {
 	FETCH_FOLDERS: 'FETCH_FOLDERS',

@@ -6,7 +6,7 @@
 <script>
 import _ from 'lodash'
 import { defineComponent, Fragment, h } from 'vue'
-import { ACTIONS } from '../../store'
+import { ACTIONS } from '../../store/index.ts'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 

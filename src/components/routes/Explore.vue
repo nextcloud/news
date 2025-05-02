@@ -39,8 +39,8 @@
 
 <script lang="ts">
 
-import type { ExploreSite } from '../../types/ExploreSite'
-import type { Feed } from '../../types/Feed'
+import type { ExploreSite } from '../../types/ExploreSite.ts'
+import type { Feed } from '../../types/Feed.ts'
 
 import axios from '@nextcloud/axios'
 import * as router from '@nextcloud/router'

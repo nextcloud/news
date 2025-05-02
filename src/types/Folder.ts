@@ -1,4 +1,4 @@
-import type { Feed } from './Feed'
+import type { Feed } from './Feed.ts'
 
 export type Folder = {
 	feeds: Feed[]

@@ -25,13 +25,13 @@
 
 <script lang="ts">
 
-import type { Folder } from '../types/Folder'
+import type { Folder } from '../types/Folder.ts'
 
 import { defineComponent } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
-import { ACTIONS } from '../store'
+import { ACTIONS } from '../store/index.ts'
 
 type MoveFeedState = {
 	folder?: Folder

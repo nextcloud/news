@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts">
-import type { Feed } from '../../types/Feed'
-import type { FeedItem } from '../../types/FeedItem'
+import type { Feed } from '../../types/Feed.ts'
+import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS, MUTATIONS } from '../../store'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
 	components: {

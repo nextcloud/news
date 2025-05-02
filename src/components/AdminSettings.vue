@@ -120,7 +120,7 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwit
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
-import { formatDateRelative } from '../utils/dateUtils'
+import { formatDateRelative } from '../utils/dateUtils.ts'
 
 /**
  * Debounce helper for method
