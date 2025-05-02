@@ -1,7 +1,6 @@
+import axios from '@nextcloud/axios'
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
-import axios from '@nextcloud/axios'
-
 import App from './App.vue'
 import router from './routes/index.ts'
 import mainStore, { MUTATIONS } from './store/index.ts'

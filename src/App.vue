@@ -6,7 +6,8 @@
 
 				<ul v-for="link of app.error.links" :key="link.url">
 					<li>
-						<a :href="link.url"
+						<a
+							:href="link.url"
 							target="_blank"
 							rel="noreferrer">
 							{{ link.text }}
@@ -24,16 +25,19 @@
 				<RouterView />
 			</div>
 			<div v-if="playingItem" class="podcast">
-				<audio controls
+				<audio
+					controls
 					autoplay
 					:src="playingItem.enclosureLink"
 					@play="stopVideo()" />
-				<a class="button podcast-download"
+				<a
+					class="button podcast-download"
 					:title="t('news', 'Download')"
 					:href="playingItem.enclosureLink"
 					target="_blank"
 					rel="noreferrer">{{ t('news', 'Download') }}</a>
-				<button class="podcast-close"
+				<button
+					class="podcast-close"
 					:title="t('news', 'Close')"
 					@click="stopPlaying()">
 					{{ t('news', 'Close') }}
@@ -56,12 +60,15 @@ export default defineComponent({
 		NcContent,
 		Sidebar,
 	},
+
 	computed: {
 		playingItem() {
 			return this.$store.state.items.playingItem
 		},
+
 		...mapState(['app']),
 	},
+
 	async created() {
 		// fetch starred to get starred count
 		await this.$store.dispatch(ACTIONS.FETCH_STARRED)
@@ -71,16 +78,19 @@ export default defineComponent({
 
 		this.$store.commit(MUTATIONS.SET_LOADING, { value: false })
 	},
+
 	methods: {
 		stopPlaying() {
 			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, undefined)
 		},
+
 		stopVideo() {
 			const videoElements = document.getElementsByTagName('video')
 			for (let i = 0; i < videoElements.length; i++) {
 				videoElements[i].pause()
 			}
 		},
+
 		removeError() {
 			this.$store.commit(MUTATIONS.SET_ERROR, undefined)
 		},

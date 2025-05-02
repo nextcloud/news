@@ -1,5 +1,6 @@
 <template>
-	<ContentTemplate :items="unread() ?? []"
+	<ContentTemplate
+		:items="unread() ?? []"
 		:fetch-key="'unread'"
 		@load-more="fetchMore()">
 		<template #header>
@@ -10,14 +11,12 @@
 </template>
 
 <script lang="ts">
+import type { FeedItem } from '../../types/FeedItem'
+
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
-
 import ContentTemplate from '../ContentTemplate.vue'
-
-import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 
 type UnreadItemState = {
@@ -30,17 +29,20 @@ export default defineComponent({
 		ContentTemplate,
 		NcCounterBubble,
 	},
+
 	data() {
 		return {
 			unreadCache: undefined,
 		} as UnreadItemState
 	},
+
 	computed: {
 		...mapState(['items']),
 		newestItemId() {
 			return this.$store.state.items.newestItemId === 0
 		},
 	},
+
 	watch: {
 		newestItemId(clearCache) {
 			if (clearCache) {
@@ -48,12 +50,14 @@ export default defineComponent({
 			}
 		},
 	},
+
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 		if (this.unread() === undefined) {
 			this.$store.dispatch(ACTIONS.FETCH_UNREAD)
 		}
 	},
+
 	methods: {
 		unread() {
 			if (!this.unreadCache) {
@@ -70,9 +74,10 @@ export default defineComponent({
 
 			return this.unreadCache
 		},
+
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems.unread) {
-			  this.$store.dispatch(ACTIONS.FETCH_UNREAD)
+				this.$store.dispatch(ACTIONS.FETCH_UNREAD)
 			}
 		},
 	},

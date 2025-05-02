@@ -3,7 +3,8 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
-	<NcModal size="normal"
+	<NcModal
+		size="normal"
 		data-text-el="formatting-help"
 		:name="t('news', 'Keyboard shortcuts')"
 		@close="$emit('close')">
@@ -181,6 +182,7 @@ export default {
 	components: {
 		NcModal,
 	},
+
 	emits: {
 		close: () => true,
 	},

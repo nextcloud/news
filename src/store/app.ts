@@ -1,5 +1,5 @@
-import { reactive } from 'vue'
 import { loadState } from '@nextcloud/initial-state'
+import { reactive } from 'vue'
 import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes'
 
 export const APPLICATION_ACTION_TYPES = {
@@ -7,16 +7,16 @@ export const APPLICATION_ACTION_TYPES = {
 }
 
 export type AppInfoState = {
-	error?: Error;
-	loading: boolean;
-	displaymode: string;
-	splitmode: string;
-	oldestFirst: boolean;
-	preventReadOnScroll: boolean;
-	showAll: boolean;
-	disableRefresh: boolean;
-	lastViewedFeedId: string;
-	lastViewedFeedType: string;
+	error?: Error
+	loading: boolean
+	displaymode: string
+	splitmode: string
+	oldestFirst: boolean
+	preventReadOnScroll: boolean
+	showAll: boolean
+	disableRefresh: boolean
+	lastViewedFeedId: string
+	lastViewedFeedType: string
 }
 
 const state: AppInfoState = reactive({

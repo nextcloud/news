@@ -4,9 +4,8 @@
   - This file is licensed under the Affero General Public License version 3 or later. See the COPYING file.
   -->
 <script>
-import { defineComponent, Fragment, h } from 'vue'
 import _ from 'lodash'
-
+import { defineComponent, Fragment, h } from 'vue'
 import { ACTIONS } from '../../store'
 
 const GRID_ITEM_HEIGHT = 200 + 10
@@ -19,9 +18,11 @@ export default defineComponent({
 			required: true,
 		},
 	},
+
 	emits: {
 		'load-more': () => true,
 	},
+
 	data() {
 		return {
 			viewport: null,
@@ -32,6 +33,7 @@ export default defineComponent({
 			debouncedMarkRead: null,
 		}
 	},
+
 	computed: {
 		reachedEnd: {
 			cache: false,
@@ -39,12 +41,14 @@ export default defineComponent({
 				return this.$store.state.items.allItemsLoaded[this.fetchKey] === true
 			},
 		},
+
 		fetching: {
 			cache: false,
 			get() {
 				return this.$store.state.items.fetchingItems[this.fetchKey]
 			},
 		},
+
 		displayMode: {
 			cache: false,
 			get() {
@@ -52,20 +56,24 @@ export default defineComponent({
 			},
 		},
 	},
+
 	watch: {
 		fetchKey: {
 			handler() {
 				this.scrollTop = 0
 				this._seenItems = new Map()
 			},
+
 			immediate: true,
 		},
 	},
+
 	created() {
 		this._lastRendered = null
 		this._lowerPaddingItems = 0
 		this.debouncedMarkRead = _.debounce(this.markReadOnScroll, 500)
 	},
+
 	mounted() {
 		this.loadMore()
 		this.$nextTick(() => {
@@ -76,15 +84,18 @@ export default defineComponent({
 
 		window.addEventListener('resize', this.onScroll)
 	},
-	destroyed() {
+
+	unmounted() {
 		window.removeEventListener('resize', this.onScroll)
 	},
+
 	updated() {
 		this.$nextTick(this.loadMore)
 		if (!this.$store.getters.preventReadOnScroll) {
 			this.addToSeen(this._lastRendered)
 		}
 	},
+
 	methods: {
 		addToSeen(children) {
 			if (children) {
@@ -95,6 +106,7 @@ export default defineComponent({
 				})
 			}
 		},
+
 		markReadOnScroll() {
 			for (const [key, value] of this._seenItems) {
 				if (this.scrollTop > value.offset) {
@@ -106,6 +118,7 @@ export default defineComponent({
 				}
 			}
 		},
+
 		onScroll() {
 			this.scrollTop = this.$el.scrollTop
 			this.scrollHeight = this.$el.scrollHeight
@@ -115,6 +128,7 @@ export default defineComponent({
 				this.debouncedMarkRead()
 			}
 		},
+
 		loadMore() {
 			if (this._lowerPaddingItems === 0) {
 				if (!this.reachedEnd && !this.fetching) {
@@ -122,10 +136,12 @@ export default defineComponent({
 				}
 			}
 		},
+
 		showElement(element) {
 			this.elementToShow = element
 		},
 	},
+
 	render() {
 		let children = []
 		let renderedItems = 0
@@ -137,7 +153,7 @@ export default defineComponent({
 			const childComponents = []
 
 			const findComponents = (vnodes, childComponents) => {
-				vnodes.forEach(vnode => {
+				vnodes.forEach((vnode) => {
 					if (vnode.type?.name?.startsWith('FeedItem')) {
 						childComponents.push(vnode)
 						return
@@ -186,8 +202,7 @@ export default defineComponent({
 		return h('div', {
 			class: 'virtual-scroll',
 			onScroll: this.onScroll,
-		},
-		[
+		}, [
 			h('div', { class: 'upper-padding', style: { height: Math.max((upperPaddingItems) * itemHeight, 0) + 'px' } }),
 			h('div', {
 				class: 'container-window',

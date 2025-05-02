@@ -1,10 +1,11 @@
+import type { AxiosResponse } from '@nextcloud/axios'
+import type { FeedItem } from '../types/FeedItem'
+
+import axios from '@nextcloud/axios'
 import _ from 'lodash'
-import axios, { AxiosResponse } from '@nextcloud/axios'
+import { API_ROUTES } from '../types/ApiRoutes'
 import store from './../store/app'
 import feedstore from './../store/feed'
-
-import { API_ROUTES } from '../types/ApiRoutes'
-import { FeedItem } from '../types/FeedItem'
 import { FEED_ORDER } from './feed.service'
 
 export const ITEM_TYPES = {
@@ -16,7 +17,6 @@ export const ITEM_TYPES = {
 }
 
 export class ItemService {
-
 	static debounceFetchAll = _.debounce(ItemService.fetchAll, 400, { leading: true })
 	static debounceFetchStarred = _.debounce(ItemService.fetchStarred, 400, { leading: true })
 	static debounceFetchUnread = _.debounce(ItemService.fetchUnread, 400, { leading: true })
@@ -27,7 +27,7 @@ export class ItemService {
 	 * Makes backend call to retrieve all items
 	 *
 	 * @param start (id of last starred item loaded)
-	 * @return {AxiosResponse} response object containing backend request response
+	 * @return response object containing backend request response
 	 */
 	static async fetchAll(start: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
@@ -46,7 +46,7 @@ export class ItemService {
 	 * Makes backend call to retrieve starred items
 	 *
 	 * @param start (id of last starred item loaded)
-	 * @return {AxiosResponse} response object containing backend request response
+	 * @return response object containing backend request response
 	 */
 	static async fetchStarred(start: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
@@ -65,7 +65,7 @@ export class ItemService {
 	 * Makes backend call to retrieve unread items
 	 *
 	 * @param start (id of last unread item loaded)
-	 * @return {AxiosResponse} response object containing backend request response
+	 * @return response object containing backend request response
 	 */
 	static async fetchUnread(start: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
@@ -85,20 +85,20 @@ export class ItemService {
 	 *
 	 * @param feedId id number of feed to retrieve items for
 	 * @param start (id of last unread item loaded)
-	 * @return {AxiosResponse} response object containing backend request response
+	 * @return response object containing backend request response
 	 */
 	static async fetchFeedItems(feedId: number, start?: number): Promise<AxiosResponse> {
 		let oldestFirst
 		switch (feedstore.state.ordering['feed-' + feedId]) {
-		case FEED_ORDER.OLDEST:
-			oldestFirst = true
-			break
-		case FEED_ORDER.NEWEST:
-			oldestFirst = false
-			break
-		case FEED_ORDER.DEFAULT:
-		default:
-			oldestFirst = store.state.oldestFirst
+			case FEED_ORDER.OLDEST:
+				oldestFirst = true
+				break
+			case FEED_ORDER.NEWEST:
+				oldestFirst = false
+				break
+			case FEED_ORDER.DEFAULT:
+			default:
+				oldestFirst = store.state.oldestFirst
 		}
 
 		return await axios.get(API_ROUTES.ITEMS, {
@@ -119,7 +119,7 @@ export class ItemService {
 	 *
 	 * @param folderId id number of folder to retrieve items for
 	 * @param start (id of last unread item loaded)
-	 * @return {AxiosResponse} response object containing backend request response
+	 * @return response object containing backend request response
 	 */
 	static async fetchFolderItems(folderId: number, start: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
@@ -138,8 +138,8 @@ export class ItemService {
 	/**
 	 * Makes backend call to mark item as read/unread in DB
 	 *
-	 * @param {FeedItem} item FeedItem (containing id) that will be marked as read/unread
-	 * @param {boolean} read if read or not
+	 * @param item FeedItem (containing id) that will be marked as read/unread
+	 * @param read if read or not
 	 */
 	static async markRead(item: FeedItem, read: boolean): Promise<void> {
 		axios.post(API_ROUTES.ITEMS + `/${item.id}/read`, {
@@ -150,13 +150,12 @@ export class ItemService {
 	/**
 	 * Makes backend call to mark item as starred/unstarred in DB
 	 *
-	 * @param {FeedItem} item FeedItem (containing id) that will be marked as starred/unstarred
-	 * @param {boolean} read if starred or not
+	 * @param item FeedItem (containing id) that will be marked as starred/unstarred
+	 * @param read if starred or not
 	 */
 	static async markStarred(item: FeedItem, read: boolean): Promise<void> {
 		axios.post(API_ROUTES.ITEMS + `/${item.feedId}/${item.guidHash}/star`, {
 			isStarred: read,
 		})
 	}
-
 }

@@ -1,10 +1,10 @@
-import { reactive } from 'vue'
-import { ActionParams } from '../store'
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
+import type { ActionParams } from '../store'
+import type { Feed } from '../types/Feed'
+import type { FeedItem } from '../types/FeedItem'
 
-import { FeedItem } from '../types/FeedItem'
-import { Feed } from '../types/Feed'
+import { reactive } from 'vue'
 import { ItemService } from '../dataservices/item.service'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
 import { FEED_ACTION_TYPES } from './feed'
 
 export const FEED_ITEM_ACTION_TYPES = {
@@ -21,18 +21,18 @@ export const FEED_ITEM_ACTION_TYPES = {
 }
 
 export type ItemState = {
-	fetchingItems: { [key: string]: boolean };
-	allItemsLoaded: { [key: string]: boolean };
-	lastItemLoaded: { [key: string]: number };
-	newestItemId: number;
-	syncNeeded: boolean;
+	fetchingItems: { [key: string]: boolean }
+	allItemsLoaded: { [key: string]: boolean }
+	lastItemLoaded: { [key: string]: number }
+	newestItemId: number
+	syncNeeded: boolean
 
-	starredCount: number;
-	unreadCount: number;
+	starredCount: number
+	unreadCount: number
 
-	allItems: FeedItem[];
+	allItems: FeedItem[]
 
-	selectedId?: string;
+	selectedId?: string
 	playingItem?: FeedItem
 }
 
@@ -185,7 +185,7 @@ export const actions = {
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ feedId, start }: { feedId: number; start: number },
+		{ feedId, start }: { feedId: number, start: number },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
 		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
@@ -217,7 +217,7 @@ export const actions = {
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ folderId, start }: { folderId: number; start: number },
+		{ folderId, start }: { folderId: number, start: number },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
 		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
@@ -273,7 +273,7 @@ export const actions = {
 	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD](
 		{ commit, dispatch }: ActionParams<ItemState>,
-		{ item }: { item: FeedItem},
+		{ item }: { item: FeedItem },
 	) {
 		ItemService.markRead(item, false)
 
@@ -296,7 +296,7 @@ export const actions = {
 	 */
 	[FEED_ITEM_ACTION_TYPES.STAR_ITEM](
 		{ commit }: ActionParams<ItemState>,
-		{ item }: { item: FeedItem},
+		{ item }: { item: FeedItem },
 	) {
 		ItemService.markStarred(item, true)
 
@@ -315,7 +315,7 @@ export const actions = {
 	 */
 	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM](
 		{ commit }: ActionParams<ItemState>,
-		{ item }: { item: FeedItem},
+		{ item }: { item: FeedItem },
 	) {
 		ItemService.markStarred(item, false)
 
@@ -361,7 +361,7 @@ export const mutations = {
 			let newestFetchedItemId = 0
 			const newItems: FeedItem[] = []
 
-			items.forEach(it => {
+			items.forEach((it) => {
 				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
 					if (!it.title) { it.title = it.url }
 					newItems.push(it)
@@ -412,21 +412,21 @@ export const mutations = {
 
 	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](
 		state: ItemState,
-		{ fetching, key }: { fetching: boolean; key: string; },
+		{ fetching, key }: { fetching: boolean, key: string },
 	) {
 		state.fetchingItems[key] = fetching
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](
 		state: ItemState,
-		{ loaded, key }: { loaded: boolean; key: string; },
+		{ loaded, key }: { loaded: boolean, key: string },
 	) {
 		state.allItemsLoaded[key] = loaded
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](
 		state: ItemState,
-		{ lastItem, key }: { lastItem: number; key: string; },
+		{ lastItem, key }: { lastItem: number, key: string },
 	) {
 		state.lastItemLoaded[key] = lastItem
 	},

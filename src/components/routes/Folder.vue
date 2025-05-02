@@ -1,5 +1,6 @@
 <template>
-	<ContentTemplate :items="items"
+	<ContentTemplate
+		:items="items"
 		:fetch-key="'folder-' + folderId"
 		@mark-read="markRead()"
 		@load-more="fetchMore()">
@@ -11,34 +12,35 @@
 </template>
 
 <script lang="ts">
+import type { Feed } from '../../types/Feed'
+import type { FeedItem } from '../../types/FeedItem'
+import type { Folder } from '../../types/Folder'
+
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
-
 import ContentTemplate from '../ContentTemplate.vue'
-
-import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
-import { Feed } from '../../types/Feed'
-import { Folder } from '../../types/Folder'
 
 export default defineComponent({
 	components: {
 		ContentTemplate,
 		NcCounterBubble,
 	},
+
 	props: {
 		folderId: {
 			type: String,
 			required: true,
 		},
 	},
+
 	computed: {
 		...mapState(['items', 'feeds', 'folders']),
 		folder(): Folder {
 			return this.$store.getters.folders.find((folder: Folder) => folder.id === this.id)
 		},
+
 		items(): FeedItem[] {
 			const feeds: Array<number> = this.$store.getters.feeds.filter((feed: Feed) => feed.folderId === this.id).map((feed: Feed) => feed.id)
 
@@ -46,9 +48,11 @@ export default defineComponent({
 				return feeds.includes(item.feedId)
 			}) || []
 		},
+
 		id(): number {
 			return Number(this.folderId)
 		},
+
 		unreadCount(): number {
 			const totalUnread = this.$store.getters.feeds
 				.filter((feed: Feed) => feed.folderId === this.id)
@@ -57,17 +61,20 @@ export default defineComponent({
 			return totalUnread
 		},
 	},
+
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 		this.fetchMore()
 		this.$watch(() => this.$route.params, this.fetchMore)
 	},
+
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems['folder-' + this.folderId]) {
-			  this.$store.dispatch(ACTIONS.FETCH_FOLDER_FEED_ITEMS, { folderId: this.id })
+				this.$store.dispatch(ACTIONS.FETCH_FOLDER_FEED_ITEMS, { folderId: this.id })
 			}
 		},
+
 		async markRead() {
 			const feeds = this.$store.getters.feeds.filter((feed: Feed) => {
 				return feed.folderId === this.folder.id

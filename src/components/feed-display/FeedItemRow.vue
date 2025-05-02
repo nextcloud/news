@@ -1,6 +1,7 @@
 <template>
-	<li class="feed-item-row"
-		:class="{ 'compact': compactMode }"
+	<li
+		class="feed-item-row"
+		:class="{ compact: compactMode }"
 		:aria-label="item.title"
 		:aria-setsize="itemCount"
 		:aria-posinset="itemIndex"
@@ -11,7 +12,8 @@
 		@click="select()">
 		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
-			<a class="external"
+			<a
+				class="external"
 				target="_blank"
 				rel="noreferrer"
 				:href="item.url"
@@ -19,27 +21,29 @@
 				:aria-label="`${t('news', 'Open website')} ${item.url}`"
 				@click.middle="markRead(item); $event.stopPropagation();"
 				@click="markRead(item); $event.stopPropagation();">
-				<span v-if="getFeed(item.feedId).faviconLink"
+				<span
+					v-if="getFeed(item.feedId).faviconLink"
 					class="favicon"
-					:style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
+					:style="{ backgroundImage: 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
 				<RssIcon v-else />
 			</a>
 		</div>
 
-		<div class="main-container" :class="{ 'compact': compactMode }">
-			<h1 class="title-container"
-				:class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }"
+		<div class="main-container" :class="{ compact: compactMode }">
+			<h1
+				class="title-container"
+				:class="{ compact: compactMode && !verticalSplit, unread: item.unread }"
 				:dir="item.rtl && 'rtl'">
 				{{ item.title }}
 			</h1>
 
-			<div class="intro-container" :class="{ 'compact': compactMode }">
+			<div class="intro-container" :class="{ compact: compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
 				<span v-if="!compactMode || !verticalSplit" class="intro" v-html="item.intro" />
 				<!--eslint-enable-->
 			</div>
 
-			<div v-if="!compactMode || !verticalSplit" class="date-container" :class="{ 'compact': compactMode }">
+			<div v-if="!compactMode || !verticalSplit" class="date-container" :class="{ compact: compactMode }">
 				<time class="date" :title="formatDate(item.pubDate)" :datetime="formatDateISO(item.pubDate)">
 					{{ formatDateRelative(item.pubDate) }}
 				</time>
@@ -48,14 +52,16 @@
 
 		<div class="button-container" @click="$event.stopPropagation()">
 			<NcActions :inline="3">
-				<NcActionButton :title="t('news', 'Toggle star article')"
+				<NcActionButton
+					:title="t('news', 'Toggle star article')"
 					@click="toggleStarred(item)">
 					{{ t('news', 'Toggle star article') }}
 					<template #icon>
-						<StarIcon :class="{'starred': item.starred }" :size="24" />
+						<StarIcon :class="{ starred: item.starred }" :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="item.unread && !item.keepUnread"
+				<NcActionButton
+					v-if="item.unread && !item.keepUnread"
 					:title="t('news', 'Keep article unread')"
 					@click="toggleKeepUnread(item)">
 					{{ t('news', 'Keep article unread') }}
@@ -63,7 +69,8 @@
 						<EyeIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="!item.unread && !item.keepUnread"
+				<NcActionButton
+					v-if="!item.unread && !item.keepUnread"
 					:title="t('news', 'Toggle keep current article unread')"
 					@click="toggleKeepUnread(item)">
 					{{ t('news', 'Toggle keep current article unread') }}
@@ -71,7 +78,8 @@
 						<EyeCheckIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="item.keepUnread"
+				<NcActionButton
+					v-if="item.keepUnread"
 					:title="t('news', 'Remove keep article unread')"
 					@click="toggleKeepUnread(item)">
 					{{ t('news', 'Remove keep article unread') }}
@@ -91,25 +99,22 @@
 </template>
 
 <script lang="ts">
+import type { Feed } from '../../types/Feed'
+import type { FeedItem } from '../../types/FeedItem'
+
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-
-import StarIcon from 'vue-material-design-icons/Star.vue'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActions from '@nextcloud/vue/components/NcActions'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import EyeLockIcon from 'vue-material-design-icons/EyeLock.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
-
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-
+import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
-
-import { Feed } from '../../types/Feed'
-import { FeedItem } from '../../types/FeedItem'
-import { formatDate, formatDateRelative, formatDateISO } from '../../utils/dateUtils'
 import { ACTIONS, MUTATIONS } from '../../store'
+import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils'
 
 export default defineComponent({
 	name: 'FeedItemRow',
@@ -124,38 +129,46 @@ export default defineComponent({
 		NcActionButton,
 		ShareItem,
 	},
+
 	props: {
 		item: {
 			type: Object,
 			required: true,
 		},
+
 		itemCount: {
 			type: Number,
 			required: true,
 		},
+
 		itemIndex: {
 			type: Number,
 			required: true,
 		},
 	},
+
 	emits: {
 		'show-details': () => true,
 	},
+
 	data: () => {
 		return {
 			showShareMenu: false,
 			shareItem: undefined,
 		}
 	},
+
 	computed: {
 		...mapState(['feeds']),
 		compactMode() {
 			return this.$store.getters.displaymode === '1'
 		},
+
 		verticalSplit() {
 			return this.$store.getters.splitmode === '0'
 		},
 	},
+
 	methods: {
 		formatDate,
 		formatDateRelative,
@@ -165,21 +178,26 @@ export default defineComponent({
 			this.markRead(this.item)
 			this.$emit('show-details')
 		},
+
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
+
 		markRead(item: FeedItem): void {
 			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			}
 		},
+
 		toggleKeepUnread(item: FeedItem): void {
 			item.keepUnread = !item.keepUnread
 			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
 		},
+
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
 		},
+
 		closeShareMenu() {
 			this.showShareMenu = false
 		},

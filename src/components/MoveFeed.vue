@@ -2,7 +2,8 @@
 	<NcModal @close="$emit('close')">
 		<div class="modal__content">
 			<div class="form-group">
-				<NcSelect v-if="folders"
+				<NcSelect
+					v-if="folders"
 					v-model="folder"
 					:options="folders"
 					:placeholder="'-- ' + t('news', 'No folder') + ' --'"
@@ -11,7 +12,8 @@
 					label="name"
 					style="width: 90%;" />
 			</div>
-			<NcButton :wide="true"
+			<NcButton
+				:wide="true"
 				type="primary"
 				:disabled="disableMoveFeed"
 				@click="moveFeed()">
@@ -23,18 +25,17 @@
 
 <script lang="ts">
 
+import type { Folder } from '../types/Folder'
+
 import { defineComponent } from 'vue'
-
-import NcModal from '@nextcloud/vue/components/NcModal'
 import NcButton from '@nextcloud/vue/components/NcButton'
+import NcModal from '@nextcloud/vue/components/NcModal'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
-
-import { Folder } from '../types/Folder'
 import { ACTIONS } from '../store'
 
 type MoveFeedState = {
-	folder?: Folder;
-};
+	folder?: Folder
+}
 
 export default defineComponent({
 	components: {
@@ -42,6 +43,7 @@ export default defineComponent({
 		NcButton,
 		NcSelect,
 	},
+
 	props: {
 		feed: {
 			type: Object,
@@ -51,22 +53,27 @@ export default defineComponent({
 			},
 		},
 	},
+
 	emits: {
 		close: () => true,
 	},
+
 	data: (): MoveFeedState => {
 		return {
 			folder: null,
 		}
 	},
+
 	computed: {
 		folders(): Folder[] {
 			return this.$store.state.folders.folders
 		},
+
 		disableMoveFeed(): boolean {
 			return (this.folder && this.folder.id === this.feed.folderId)
 		},
 	},
+
 	methods: {
 		/**
 		 * Move a Feed via the Vuex Store
