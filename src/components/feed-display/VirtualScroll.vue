@@ -13,6 +13,9 @@ const GRID_ITEM_HEIGHT = 200 + 10
 export default defineComponent({
 	name: 'VirtualScroll',
 	props: {
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
 		fetchKey: {
 			type: String,
 			required: true,

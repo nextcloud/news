@@ -72,6 +72,9 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * The itemId from the item to share
+		 */
 		itemId: {
 			type: Number,
 			required: true,
