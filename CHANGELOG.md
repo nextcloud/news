@@ -7,16 +7,23 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- Drop support for Nextcloud 29
+
 
 ### Fixed
-- respect global `disable all keyboard shortcuts` setting
-- disable shortcuts in input fields from global overlays (e.g. Nextcloud assistant)
-- fix relative date strings
-- Switching between folders in compact mode doesn't close actual selected item
-- current selected article is removed from the list after showing details in mobile mode
+
 
 # Releases
+## [26.0.0-beta.1] - 2025-05-20
+### Changed
+- Drop support for Nextcloud 29 (#3146)
+
+### Fixed
+- respect global `disable all keyboard shortcuts` setting (#3142)
+- disable shortcuts in input fields from global overlays (e.g. Nextcloud assistant) (#3142)
+- fix relative date strings (#3149)
+- Switching between folders in compact mode doesn't close actual selected item (#3150)
+- current selected article is removed from the list after showing details in mobile mode (#3150)
+
 ## [25.3.1] - 2025-03-25
 ### Changed
 - Sort feeds case-insensitive (#3125)
