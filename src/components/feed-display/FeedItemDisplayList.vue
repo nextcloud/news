@@ -57,11 +57,17 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * The items loaded for this view
+		 */
 		items: {
 			type: Array<FeedItem>,
 			required: true,
 		},
 
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
 		fetchKey: {
 			type: String,
 			required: true,

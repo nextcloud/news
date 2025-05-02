@@ -195,17 +195,26 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * The item to display
+		 */
 		item: {
 			type: Object,
 			required: true,
 		},
 
+		/**
+		 * The number of items in the current list
+		 */
 		itemCount: {
 			type: Number,
 			required: false,
 			default: null,
 		},
 
+		/**
+		 * The index of the item in the current list
+		 */
 		itemIndex: {
 			type: Number,
 			required: false,

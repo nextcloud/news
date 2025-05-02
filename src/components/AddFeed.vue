@@ -152,6 +152,9 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * The optional feed to add through subscribe_to=
+		 */
 		feed: {
 			type: Object,
 			required: false,

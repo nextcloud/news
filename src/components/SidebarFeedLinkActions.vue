@@ -153,6 +153,9 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * The feedId of the feed whose action menu is to be displayed
+		 */
 		feedId: {
 			type: Number,
 			required: true,

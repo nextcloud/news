@@ -45,6 +45,9 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * The feed to move
+		 */
 		feed: {
 			type: Object,
 			required: false,

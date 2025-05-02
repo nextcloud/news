@@ -29,6 +29,9 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * ID of the folder to display
+		 */
 		folderId: {
 			type: String,
 			required: true,

@@ -73,10 +73,16 @@ import appStore from '../store/app.ts'
 import itemStore from '../store/item.ts'
 
 defineProps({
+	/**
+	 * The items loaded for this view
+	 */
 	items: {
 		type: Array as PropType<Array<FeedItem>>,
 		required: true,
 	},
+	/**
+	 * The name of the view e.g. all, unread, feed-10
+	 */
 	fetchKey: {
 		type: String,
 		required: true,

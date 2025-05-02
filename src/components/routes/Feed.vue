@@ -29,6 +29,9 @@ export default defineComponent({
 	},
 
 	props: {
+		/**
+		 * ID of the feed to display
+		 */
 		feedId: {
 			type: String,
 			required: true,
