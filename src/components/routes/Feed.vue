@@ -23,6 +23,7 @@ import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
+	name: 'RoutesFeed',
 	components: {
 		ContentTemplate,
 		NcCounterBubble,

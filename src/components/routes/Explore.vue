@@ -50,6 +50,7 @@ import NcButton from '@nextcloud/vue/components/NcButton'
 import AddFeed from '../AddFeed.vue'
 
 const ExploreComponent = defineComponent({
+	name: 'RoutesExplore',
 	components: {
 		NcAppContent,
 		NcButton,

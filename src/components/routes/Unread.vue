@@ -25,6 +25,7 @@ type UnreadItemState = {
 }
 
 export default defineComponent({
+	name: 'RoutesUnread',
 	components: {
 		ContentTemplate,
 		NcCounterBubble,

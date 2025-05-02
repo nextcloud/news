@@ -20,6 +20,7 @@ import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
+	name: 'RoutesStarred',
 	components: {
 		ContentTemplate,
 		NcCounterBubble,
