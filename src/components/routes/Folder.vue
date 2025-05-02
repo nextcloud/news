@@ -40,7 +40,7 @@ export default defineComponent({
 	},
 
 	computed: {
-		...mapState(['items', 'feeds', 'folders']),
+		...mapState(['items']),
 		folder(): Folder {
 			return this.$store.getters.folders.find((folder: Folder) => folder.id === this.id)
 		},

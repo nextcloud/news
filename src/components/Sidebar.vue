@@ -372,7 +372,7 @@ export default defineComponent({
 	},
 
 	computed: {
-		...mapState(['feeds', 'folders', 'items']),
+		...mapState(['items']),
 		topLevelNav(): (Feed | Folder)[] {
 			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
 				if (feed.folderId === undefined || feed.folderId === null) {

@@ -103,7 +103,6 @@ import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
@@ -168,7 +167,6 @@ export default defineComponent({
 	},
 
 	computed: {
-		...mapState(['feeds']),
 		compactMode() {
 			return this.$store.getters.displaymode === '1'
 		},

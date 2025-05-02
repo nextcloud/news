@@ -40,7 +40,7 @@ export default defineComponent({
 	},
 
 	computed: {
-		...mapState(['items', 'feeds']),
+		...mapState(['items']),
 		feed(): Feed {
 			const feeds = this.$store.getters.feeds
 			return feeds.find((feed: Feed) => feed.id === this.id)
