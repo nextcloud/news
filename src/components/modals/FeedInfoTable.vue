@@ -3,7 +3,8 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
-	<NcModal size="large"
+	<NcModal
+		size="large"
 		@close="$emit('close')">
 		<div class="table-modal">
 			<h2>{{ t('news', 'Article feed information') }}</h2>
@@ -83,7 +84,8 @@
 								</span>
 							</span>
 						</th>
-						<th :title="t('news', 'Articles per update')"
+						<th
+							:title="t('news', 'Articles per update')"
 							@click="sortBy('articlesPerUpdate')">
 							<span class="column-title">
 								APU
@@ -93,7 +95,8 @@
 								</span>
 							</span>
 						</th>
-						<th :title="t('news', 'Error Count') "
+						<th
+							:title="t('news', 'Error Count') "
 							@click="sortBy('updateErrorCount')">
 							<span class="column-title">
 								EC
@@ -114,10 +117,10 @@
 							{{ feed.title }}
 						</td>
 						<td class="date">
-							{{ formatDate(feed.lastModified/1000) }}
+							{{ formatDate(feed.lastModified / 1000) }}
 						</td>
 						<td class="date">
-							{{ formatDate(feed.nextUpdateTime*1000) }}
+							{{ formatDate(feed.nextUpdateTime * 1000) }}
 						</td>
 						<td class="number">
 							{{ feed.articlesPerUpdate }}
@@ -133,10 +136,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
-import { mapState } from 'vuex'
 
 export default {
 	name: 'FeedInfoTable',
@@ -145,19 +148,23 @@ export default {
 		SortAscIcon,
 		SortDescIcon,
 	},
+
 	emits: {
 		close: () => true,
 	},
+
 	data() {
 		return {
 			sortKey: 'title',
 			sortOrder: 1,
 		}
 	},
+
 	computed: {
 		...mapState({
-			feeds: state => state.feeds.feeds,
+			feeds: (state) => state.feeds.feeds,
 		}),
+
 		sortedFeeds() {
 			const sorted = [...this.feeds]
 			if (this.sortKey) {
@@ -174,6 +181,7 @@ export default {
 			return sorted
 		},
 	},
+
 	methods: {
 		formatDate(timestamp) {
 			if (!timestamp) {
@@ -188,6 +196,7 @@ export default {
 				second: '2-digit',
 			})
 		},
+
 		sortBy(key) {
 			if (this.sortKey === key) {
 				this.sortOrder *= -1

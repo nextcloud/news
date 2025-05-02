@@ -2,7 +2,8 @@
 	<NcAppNavigation>
 		<AddFeed v-if="showAddFeed" @close="closeAddFeed()" />
 		<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
-		<NcAppNavigationNew :text="t('news', 'Subscribe')"
+		<NcAppNavigationNew
+			:text="t('news', 'Subscribe')"
 			button-id="new-feed-button"
 			button-class="icon-add"
 			:icon="''"
@@ -12,7 +13,8 @@
 			</template>
 		</NcAppNavigationNew>
 		<div class="new-folder-container">
-			<NcAppNavigationNewItem :name="t('news', 'New folder')"
+			<NcAppNavigationNewItem
+				:name="t('news', 'New folder')"
 				:icon="''"
 				@new-item="newFolder">
 				<template #icon>
@@ -24,7 +26,7 @@
 			<NcAppNavigationItem :name="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
 					<NcActionButton ref="triggerButton" icon="icon-checkmark" @click="markAllRead()">
-						{{ t('news','Mark read') }}
+						{{ t('news', 'Mark read') }}
 					</NcActionButton>
 				</template>
 				<template #icon>
@@ -34,7 +36,8 @@
 					<NcCounterBubble v-show="items.unreadCount > 0" :count="items.unreadCount" />
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :name="t('news', 'All articles')"
+			<NcAppNavigationItem
+				:name="t('news', 'All articles')"
 				icon="icon-rss"
 				:to="{ name: ROUTES.ALL }">
 				<template #icon>
@@ -51,18 +54,20 @@
 				<NcAppNavigationItem name="Loading Feeds" :loading="true" />
 			</template>
 			<template v-else>
-				<NcAppNavigationItem v-for="topLevelItem in topLevelNav"
+				<NcAppNavigationItem
+					v-for="topLevelItem in topLevelNav"
 					v-show="showItem(topLevelItem)"
 					:key="topLevelItem.name || topLevelItem.title"
 					:ref="isFolder(topLevelItem) ? 'folder-' + topLevelItem.id : 'feed-' + topLevelItem.id"
 					:name="topLevelItem.name || topLevelItem.title"
 					:icon="''"
 					:open="topLevelItem.opened"
-					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() }} : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
+					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() } } : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 					:allow-collapse="isFolder(topLevelItem)"
 					:force-menu="true"
 					@update:open="toggleFolderState(topLevelItem)">
-					<NcAppNavigationItem v-for="feed in sortedFolderFeeds(topLevelItem)"
+					<NcAppNavigationItem
+						v-for="feed in sortedFolderFeeds(topLevelItem)"
 						v-show="showItem(feed)"
 						:key="feed.name"
 						:ref="'feed-' + feed.id"
@@ -71,7 +76,7 @@
 						:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
 						<template #icon>
 							<RssIcon v-if="!feed.faviconLink" />
-							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + feed.faviconLink + ')' }" />
+							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + feed.faviconLink + ')' }" />
 						</template>
 						<template #counter>
 							<NcCounterBubble
@@ -91,7 +96,7 @@
 						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8" :title="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
 						<FolderIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount <= 8" style="width:22px" />
 						<RssIcon v-if="!isFolder(topLevelItem) && !topLevelItem.faviconLink" />
-						<span v-if="!isFolder(topLevelItem) && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + topLevelItem.faviconLink + ')' }" />
+						<span v-if="!isFolder(topLevelItem) && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + topLevelItem.faviconLink + ')' }" />
 					</template>
 					<template #counter>
 						<NcCounterBubble
@@ -104,10 +109,12 @@
 						<NcCounterBubble v-show="topLevelItem.unreadCount > 0" :count="topLevelItem.unreadCount ? topLevelItem.unreadCount : 0" />
 					</template>
 					<template #actions>
-						<SidebarFeedLinkActions v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
+						<SidebarFeedLinkActions
+							v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
 							:feed-id="topLevelItem.id"
 							@move-feed="moveFeed(topLevelItem)" />
-						<NcActionButton v-if="topLevelItem.name !== undefined"
+						<NcActionButton
+							v-if="topLevelItem.name !== undefined"
 							icon="icon-checkmark"
 							:close-after-click="true"
 							@click="markFolderRead(topLevelItem)">
@@ -123,7 +130,8 @@
 				</NcAppNavigationItem>
 			</template>
 
-			<NcAppNavigationItem :name="t('news', 'Explore')"
+			<NcAppNavigationItem
+				:name="t('news', 'Explore')"
 				icon="true"
 				:to="{ name: ROUTES.EXPLORE }">
 				<template #icon>
@@ -155,10 +163,12 @@
 						<label>
 							{{ t('news', 'Display mode') }}
 						</label>
-						<select id="select-displaymode"
+						<select
+							id="select-displaymode"
 							v-model="displaymode"
 							:value="displaymode">
-							<option v-for="displayMode in displayModeOptions"
+							<option
+								v-for="displayMode in displayModeOptions"
 								:key="displayMode.id"
 								:value="displayMode.id">
 								{{ displayMode.name }}
@@ -169,11 +179,13 @@
 						<label>
 							{{ t('news', 'Split mode') }}
 						</label>
-						<select id="select-splitmode"
+						<select
+							id="select-splitmode"
 							v-model="splitmode"
 							:disabled="displaymode === '2'"
 							:value="splitmode">
-							<option v-for="splitMode in splitModeOptions"
+							<option
+								v-for="splitMode in splitModeOptions"
 								:key="splitMode.id"
 								:value="splitMode.id">
 								{{ splitMode.name }}
@@ -181,7 +193,8 @@
 						</select>
 					</div>
 					<div>
-						<input id="toggle-preventreadonscroll"
+						<input
+							id="toggle-preventreadonscroll"
 							v-model="preventReadOnScroll"
 							type="checkbox"
 							class="checkbox">
@@ -190,7 +203,8 @@
 						</label>
 					</div>
 					<div>
-						<input id="toggle-showall"
+						<input
+							id="toggle-showall"
 							v-model="showAll"
 							type="checkbox"
 							class="checkbox">
@@ -199,7 +213,8 @@
 						</label>
 					</div>
 					<div>
-						<input id="toggle-oldestfirst"
+						<input
+							id="toggle-oldestfirst"
 							v-model="oldestFirst"
 							type="checkbox"
 							class="checkbox">
@@ -208,7 +223,8 @@
 						</label>
 					</div>
 					<div>
-						<input id="toggle-disableRefresh"
+						<input
+							id="toggle-disableRefresh"
 							v-model="disableRefresh"
 							type="checkbox"
 							class="checkbox">
@@ -218,20 +234,23 @@
 					</div>
 					<h2>{{ t('news', 'Abonnements (OPML)') }}</h2>
 					<div class="button-container">
-						<NcButton aria-label="UploadOpml"
+						<NcButton
+							aria-label="UploadOpml"
 							:disabled="loading"
 							@click="$refs.fileSelect.click()">
 							<template #icon>
 								<UploadIcon :size="20" />
 							</template>
 						</NcButton>
-						<input ref="fileSelect"
+						<input
+							ref="fileSelect"
 							type="file"
 							class="hidden"
 							aria-hidden="true"
 							accept=".opml"
 							@change="importOpml">
-						<NcButton aria-label="DownloadOpml"
+						<NcButton
+							aria-label="DownloadOpml"
 							:disabled="loading"
 							@click="exportOpml">
 							<template #icon>
@@ -247,44 +266,40 @@
 
 <script lang="ts">
 
-import { mapState } from 'vuex'
-import { defineComponent } from 'vue'
+import type { Feed } from '../types/Feed'
+import type { Folder } from '../types/Folder'
+
 import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { subscribe } from '@nextcloud/event-bus'
-
+import { generateOcsUrl } from '@nextcloud/router'
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
+import { defineComponent } from 'vue'
+import { mapState } from 'vuex'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcAppNavigation from '@nextcloud/vue/components/NcAppNavigation'
-import NcAppNavigationNew from '@nextcloud/vue/components/NcAppNavigationNew'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import NcAppNavigationNew from '@nextcloud/vue/components/NcAppNavigationNew'
 import NcAppNavigationNewItem from '@nextcloud/vue/components/NcAppNavigationNewItem'
 import NcAppNavigationSettings from '@nextcloud/vue/components/NcAppNavigationSettings'
-import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcButton from '@nextcloud/vue/components/NcButton'
-import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-
-import RssIcon from 'vue-material-design-icons/Rss.vue'
-import FolderIcon from 'vue-material-design-icons/Folder.vue'
-import EyeIcon from 'vue-material-design-icons/Eye.vue'
-import EarthIcon from 'vue-material-design-icons/Earth.vue'
-import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
-import FolderAlertIcon from 'vue-material-design-icons/FolderAlert.vue'
-import PlusIcon from 'vue-material-design-icons/Plus.vue'
-import UploadIcon from 'vue-material-design-icons/Upload.vue'
+import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
-
-import { ROUTES } from '../routes'
-import { ACTIONS, MUTATIONS } from '../store'
-
+import EarthIcon from 'vue-material-design-icons/Earth.vue'
+import EyeIcon from 'vue-material-design-icons/Eye.vue'
+import FolderIcon from 'vue-material-design-icons/Folder.vue'
+import FolderAlertIcon from 'vue-material-design-icons/FolderAlert.vue'
+import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+import PlusIcon from 'vue-material-design-icons/Plus.vue'
+import RssIcon from 'vue-material-design-icons/Rss.vue'
+import UploadIcon from 'vue-material-design-icons/Upload.vue'
 import AddFeed from './AddFeed.vue'
+import FeedInfoTable from './modals/FeedInfoTable.vue'
+import HelpModal from './modals/HelpModal.vue'
 import MoveFeed from './MoveFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
-
-import HelpModal from './modals/HelpModal.vue'
-import FeedInfoTable from './modals/FeedInfoTable.vue'
-import { Folder } from '../types/Folder'
-import { Feed } from '../types/Feed'
+import { ROUTES } from '../routes'
+import { ACTIONS, MUTATIONS } from '../store'
 
 export default defineComponent({
 	components: {
@@ -311,6 +326,7 @@ export default defineComponent({
 		HelpModal,
 		FeedInfoTable,
 	},
+
 	data: () => {
 		return {
 			showAddFeed: false,
@@ -336,6 +352,7 @@ export default defineComponent({
 					name: t('news', 'Screenreader'),
 				},
 			],
+
 			splitModeOptions: [
 				{
 					id: '0',
@@ -352,13 +369,13 @@ export default defineComponent({
 			],
 		}
 	},
+
 	computed: {
 		...mapState(['feeds', 'folders', 'items']),
 		topLevelNav(): (Feed | Folder)[] {
 			const feeds: { pinned: Feed[], ungrouped: Feed[] } = this.$store.getters.feeds.reduce((result, feed: Feed) => {
 				if (feed.folderId === undefined || feed.folderId === null) {
-					if (feed.pinned) result.pinned.push(feed)
-					else result.ungrouped.push(feed)
+					if (feed.pinned) { result.pinned.push(feed) } else { result.ungrouped.push(feed) }
 				}
 				return result
 			}, { pinned: [], ungrouped: [] })
@@ -373,60 +390,69 @@ export default defineComponent({
 
 			return navItems
 		},
+
 		loading: {
 			get() {
 				return this.$store.getters.loading
 			},
 		},
+
 		displaymode: {
 			get() {
 				return this.$store.getters.displaymode
 			},
+
 			set(newValue) {
 				this.saveSetting('displaymode', newValue)
 			},
 		},
+
 		splitmode: {
 			get() {
 				return this.$store.getters.splitmode
 			},
+
 			set(newValue) {
 				this.saveSetting('splitmode', newValue)
 			},
 		},
+
 		oldestFirst: {
 			get() {
 				return this.$store.getters.oldestFirst
-
 			},
+
 			set(newValue) {
 				this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				this.saveSetting('oldestFirst', newValue)
 			},
 		},
+
 		preventReadOnScroll: {
 			get() {
 				return this.$store.getters.preventReadOnScroll
-
 			},
+
 			set(newValue) {
 				this.saveSetting('preventReadOnScroll', newValue)
 			},
 		},
+
 		showAll: {
 			get() {
 				return this.$store.getters.showAll
-
 			},
+
 			set(newValue) {
 				this.saveSetting('showAll', newValue)
 			},
 		},
+
 		disableRefresh: {
 			get() {
 				return this.$store.getters.disableRefresh
-
 			},
+
 			set(newValue) {
 				if (!newValue) {
 					// refresh feeds every minute
@@ -439,23 +465,26 @@ export default defineComponent({
 				this.saveSetting('disableRefresh', newValue)
 			},
 		},
+
 		navFolder() {
-			return this.topLevelNav.filter(item => item.name !== undefined && this.showItem(item))
+			return this.topLevelNav.filter((item) => item.name !== undefined && this.showItem(item))
 		},
+
 		navFeeds() {
-			const topLevelFeeds = this.topLevelNav.filter(item => item.title !== undefined && this.showItem(item))
+			const topLevelFeeds = this.topLevelNav.filter((item) => item.title !== undefined && this.showItem(item))
 			const folderFeeds = this.navFolder
-				.filter(folder => folder.opened)
+				.filter((folder) => folder.opened)
 				.reduce((result, folder) => {
 					return result.concat(this.sortedFolderFeeds(folder))
 				}, [])
-				.filter(item => this.showItem(item))
+				.filter((item) => this.showItem(item))
 			return [
 				...topLevelFeeds,
 				...folderFeeds,
 			]
 		},
 	},
+
 	created() {
 		if (this.$route.query.subscribe_to) {
 			this.showAddFeed = true
@@ -472,6 +501,7 @@ export default defineComponent({
 		useHotKey('c', this.prevFolder)
 		useHotKey('v', this.nextFolder)
 	},
+
 	mounted() {
 		subscribe('news:global:toggle-help-dialog', () => {
 			this.showHelp = !this.showHelp
@@ -480,9 +510,11 @@ export default defineComponent({
 			this.showFeedInfoTable = !this.showFeedInfoTable
 		})
 	},
-	beforeDestroy() {
+
+	beforeUnmount() {
 		clearInterval(this.polling)
 	},
+
 	methods: {
 		async saveSetting(key, value) {
 			this.$store.commit(key, { value })
@@ -510,6 +542,7 @@ export default defineComponent({
 				})
 			}
 		},
+
 		async importOpml(event) {
 			const file = event.target.files[0]
 			if (file) {
@@ -550,6 +583,7 @@ export default defineComponent({
 			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 			this.$store.commit(MUTATIONS.SET_LOADING, { value: false })
 		},
+
 		async exportOpml() {
 			try {
 				const response = await fetch('export/opml')
@@ -570,6 +604,7 @@ export default defineComponent({
 				})
 			}
 		},
+
 		handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)
@@ -578,20 +613,23 @@ export default defineComponent({
 				showSuccess(t('news', 'Successfully updated news configuration'))
 			}
 		},
+
 		newFolder(value: string) {
 			const folderName = value.trim()
-			if (this.$store.getters.folders.some(f => f.name === folderName)) {
+			if (this.$store.getters.folders.some((f) => f.name === folderName)) {
 				showError(t('news', 'Folder exists already!'))
 			} else {
 				const folder = { name: folderName }
 				this.$store.dispatch(ACTIONS.ADD_FOLDERS, { folder })
 			}
 		},
+
 		markAllRead() {
 			this.$store.getters.feeds.forEach((feed: Feed) => {
 				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
 			})
 		},
+
 		markFolderRead(folder: Folder) {
 			const feeds = this.$store.getters.feeds.filter((feed: Feed) => {
 				return feed.folderId === folder.id
@@ -600,6 +638,7 @@ export default defineComponent({
 				this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed })
 			})
 		},
+
 		renameFolder(folder: Folder) {
 			const name = window.prompt(t('news', 'Rename Folder'), folder.name)
 
@@ -608,26 +647,31 @@ export default defineComponent({
 				this.$store.dispatch(ACTIONS.FOLDER_SET_NAME, { folder, name })
 			}
 		},
+
 		deleteFolder(folder: Folder) {
 			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
 
 			if (shouldDelete) {
-				folder.feeds.forEach(feed => {
+				folder.feeds.forEach((feed) => {
 					this.$store.dispatch(ACTIONS.FEED_DELETE, { feed })
 				})
 				this.$store.dispatch(ACTIONS.DELETE_FOLDER, { folder })
 			}
 		},
+
 		addFeed() {
 			this.showAddFeed = true
 		},
+
 		closeAddFeed() {
 			this.showAddFeed = false
 		},
+
 		moveFeed(feed) {
 			this.feedToMove = feed
 			this.showMoveFeed = true
 		},
+
 		closeMoveFeed() {
 			this.showMoveFeed = false
 		},
@@ -635,19 +679,24 @@ export default defineComponent({
 		isFolder(item: Feed | Folder) {
 			return (item as Folder).name !== undefined
 		},
+
 		toggleFolderState(folder: Folder) {
 			folder.opened = !folder.opened
 			this.$store.dispatch(ACTIONS.FOLDER_OPEN_STATE, { folder })
 		},
+
 		isActiveFeed(feed) {
 			return this.$route.name === 'feed' ? feed.id === Number(this.$route.params?.feedId) : false
 		},
+
 		isActiveFolder(folder) {
 			return this.$route.name === 'folder' ? folder.id === Number(this.$route.params?.folderId) : false
 		},
+
 		hasActiveFeeds(folder) {
-			return folder.feeds.some(item => this.isActiveFeed(item))
+			return folder.feeds.some((item) => this.isActiveFeed(item))
 		},
+
 		showItem(item: Feed | Folder) {
 			if (this.showAll) {
 				return true
@@ -658,9 +707,11 @@ export default defineComponent({
 				return item.unreadCount > 0 || item.updateErrorCount > 8 || this.isActiveFeed(item)
 			}
 		},
+
 		sortedFolderFeeds(item: Feed | Folder) {
 			return this.isFolder(item) ? item.feeds.slice().sort((a, b) => (b.pinned === true) - (a.pinned === true)) : []
 		},
+
 		getFeedIndex(direction) {
 			if (this.$route.name === 'feed') {
 				const feedIndex = this.navFeeds.findIndex((it) => it.id === Number(this.$route.params.feedId))
@@ -671,17 +722,18 @@ export default defineComponent({
 				// search for the nearest feed
 				if (direction === 'next') {
 					return this.navFeeds.findIndex((feed) => {
-						const feedFolderIndex = this.navFolder.findIndex(folder => folder.id === feed.folderId)
+						const feedFolderIndex = this.navFolder.findIndex((folder) => folder.id === feed.folderId)
 						return feedFolderIndex >= folderIndex - 1
 					})
 				} else {
 					return this.navFeeds.findLastIndex((feed) => {
-						const feedFolderIndex = this.navFolder.findIndex(folder => folder.id === feed.folderId)
+						const feedFolderIndex = this.navFolder.findIndex((folder) => folder.id === feed.folderId)
 						return feedFolderIndex <= folderIndex
 					})
 				}
 			}
 		},
+
 		getFolderIndex(direction) {
 			if (this.$route.name === 'feed') {
 				// use folder id from feed when the active item is a feed
@@ -693,21 +745,24 @@ export default defineComponent({
 				return direction === 'prev' ? folderIndex - 1 : folderIndex + 1
 			}
 		},
+
 		switchFeed(direction) {
 			const newIndex = this.getFeedIndex(direction)
 			if (newIndex >= 0 && newIndex < this.navFeeds.length) {
 				const feedId = this.navFeeds[newIndex].id.toString()
 				this.$router.push({ name: 'feed', params: { feedId } })
 				this.$refs['feed-' + feedId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
-
 			}
 		},
+
 		prevFeed() {
 			this.switchFeed('prev')
 		},
+
 		nextFeed() {
 			this.switchFeed('next')
 		},
+
 		switchFolder(direction) {
 			const newIndex = this.getFolderIndex(direction)
 			if (newIndex >= 0 && newIndex < this.navFolder.length) {
@@ -716,9 +771,11 @@ export default defineComponent({
 				this.$refs['folder-' + folderId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
 			}
 		},
+
 		prevFolder() {
 			this.switchFolder('prev')
 		},
+
 		nextFolder() {
 			this.switchFolder('next')
 		},

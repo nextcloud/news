@@ -3,7 +3,8 @@
 		<div id="share-item">
 			<form name="feedform">
 				<fieldset>
-					<input ref="nameInput"
+					<input
+						ref="nameInput"
 						v-model="userName"
 						type="text"
 						:placeholder="t('news', 'User Name')"
@@ -15,7 +16,8 @@
 
 					<div class="user-bubble-container">
 						<NcLoadingIcon v-if="searching" />
-						<NcUserBubble v-for="user in users"
+						<NcUserBubble
+							v-for="user in users"
 							v-else-if="!searching"
 							:key="user.shareName"
 							:size="30"
@@ -25,7 +27,8 @@
 							@click="clickUser(user)" />
 					</div>
 
-					<NcButton :wide="true"
+					<NcButton
+						:wide="true"
 						type="primary"
 						:disabled="selected.length === 0"
 						@click="share()">
@@ -47,19 +50,17 @@
 
 <script lang="ts">
 
-import { defineComponent } from 'vue'
 import _ from 'lodash'
-
-import NcModal from '@nextcloud/vue/components/NcModal'
+import { defineComponent } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
-import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
-
+import NcModal from '@nextcloud/vue/components/NcModal'
+import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import { ShareService } from '../dataservices/share.service'
 
 type ShareUser = {
-  shareName: string;
-  displayName: string;
+	shareName: string
+	displayName: string
 }
 
 export default defineComponent({
@@ -69,15 +70,18 @@ export default defineComponent({
 		NcUserBubble,
 		NcLoadingIcon,
 	},
+
 	props: {
 		itemId: {
 			type: Number,
 			required: true,
 		},
 	},
+
 	emits: {
 		close: () => true,
 	},
+
 	data: () => {
 		return {
 			userName: '',
@@ -85,23 +89,24 @@ export default defineComponent({
 			selected: [],
 			searching: false,
 		} as {
-      userName: string;
-      users: ShareUser[];
-      selected: ShareUser[];
-      searching: boolean;
-      debounceSearchUsers?: () => void;
-    }
+			userName: string
+			users: ShareUser[]
+			selected: ShareUser[]
+			searching: boolean
+			debounceSearchUsers?: () => void
+		}
 	},
+
 	created() {
 		this.debounceSearchUsers = _.debounce(this.searchUsers, 800)
 		this.$nextTick(() => this.$refs?.nameInput?.focus())
-
 	},
+
 	methods: {
 		/**
 		 * Adds or removes user to selected list
 		 *
-		 * @param {ShareUser} user - User that was clicked
+		 * @param user - User that was clicked
 		 */
 		clickUser(user: ShareUser) {
 			const selectedUsers = this.selected.map((val: ShareUser) => { return val.shareName })

@@ -1,12 +1,14 @@
 <template>
-	<NcAppContent :layout="layout"
+	<NcAppContent
+		:layout="layout"
 		:show-details="showDetails"
 		:mobile-layout="'horizontal-split'"
 		:list-max-width="100"
-		@update:showDetails="showItem(false)">
+		@update:show-details="showItem(false)">
 		<template #list>
 			<NcAppContentList>
-				<FeedItemDisplayList ref="itemListElement"
+				<FeedItemDisplayList
+					ref="itemListElement"
 					:items="items"
 					:fetch-key="fetchKey"
 					role="region"
@@ -21,16 +23,19 @@
 			</NcAppContentList>
 		</template>
 
-		<NcAppContentDetails class="feed-item-content"
+		<NcAppContentDetails
+			class="feed-item-content"
 			role="region"
 			:aria-label="t('news', 'Article details')">
 			<div ref="contentElement" class="feed-item-content-wrapper">
-				<FeedItemDisplay v-if="selectedFeedItem"
+				<FeedItemDisplay
+					v-if="selectedFeedItem"
 					:item="selectedFeedItem"
 					@prev-item="jumpToPreviousItem"
 					@next-item="jumpToNextItem"
 					@show-details="showItem(false)" />
-				<NcEmptyContent v-else
+				<NcEmptyContent
+					v-else
 					style="margin-top: 20vh"
 					:name="t('news', 'No article selected')"
 					:description="t('news', 'Please select an article from the list...')">
@@ -50,22 +55,22 @@
  * for more information, see https://vuejs.org/guide/extras/composition-api-faq.html
  */
 
-import { type PropType, computed, ref, watch } from 'vue'
+import type { FeedItem } from '../types/FeedItem'
 
+import {
+	type PropType,
+
+	computed, ref, watch,
+} from 'vue'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcAppContentDetails from '@nextcloud/vue/components/NcAppContentDetails'
+import NcAppContentList from '@nextcloud/vue/components/NcAppContentList'
+import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import TextIcon from 'vue-material-design-icons/Text.vue'
+import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
+import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
 import appStore from '../store/app'
 import itemStore from '../store/item'
-
-import NcAppContent from '@nextcloud/vue/components/NcAppContent'
-import NcAppContentList from '@nextcloud/vue/components/NcAppContentList'
-import NcAppContentDetails from '@nextcloud/vue/components/NcAppContentDetails'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-
-import TextIcon from 'vue-material-design-icons/Text.vue'
-
-import { FeedItem } from '../types/FeedItem'
-
-import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
-import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
 
 defineProps({
 	items: {
@@ -79,8 +84,8 @@ defineProps({
 })
 
 const emit = defineEmits<{
-  (event: 'load-more'): void
-  (event: 'mark-read'): void
+	(event: 'load-more'): void
+	(event: 'mark-read'): void
 }>()
 
 const showDetails = ref(false)
@@ -91,13 +96,13 @@ const itemListElement = ref()
 
 const layout = computed(() => {
 	switch (appStore.getters.splitmode(appStore.state)) {
-	case '1':
-		return 'horizontal-split'
-	case '2':
-		return 'no-split'
-	case '0':
-	default:
-		return 'vertical-split'
+		case '1':
+			return 'horizontal-split'
+		case '2':
+			return 'no-split'
+		case '0':
+		default:
+			return 'vertical-split'
 	}
 })
 
@@ -116,8 +121,7 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
 /**
  * set showDetails value
  *
- * @param {boolean} value Show or hide item
- *
+ * @param value Show or hide item
  */
 function showItem(value) {
 	showDetails.value = value

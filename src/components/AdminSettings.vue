@@ -4,21 +4,23 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-	<NcSettingsSection :name="t('news', 'News')"
+	<NcSettingsSection
+		:name="t('news', 'News')"
 		class="news-settings"
 		doc-url="https://nextcloud.github.io/news/admin/">
 		<template v-if="lastCron !== 0">
 			<NcNoteCard v-if="oldExecution" type="error">
-				{{ t('news', 'Last job execution ran {relativeTime}. Something seems wrong.', {relativeTime}) }}
+				{{ t('news', 'Last job execution ran {relativeTime}. Something seems wrong.', { relativeTime }) }}
 			</NcNoteCard>
 
 			<NcNoteCard v-else type="success">
-				{{ t('news', 'Last job ran {relativeTime}.', {relativeTime}) }}
+				{{ t('news', 'Last job ran {relativeTime}.', { relativeTime }) }}
 			</NcNoteCard>
 		</template>
 		<div class="field">
-			<NcCheckboxRadioSwitch type="switch"
-				:model-value.sync="useCronUpdates"
+			<NcCheckboxRadioSwitch
+				v-model:model-value="useCronUpdates"
+				type="switch"
 				@update:model-value="update('useCronUpdates', useCronUpdates)">
 				{{ t("news", "Use system cron for updates") }}
 			</NcCheckboxRadioSwitch>
@@ -28,28 +30,31 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :model-value.sync="autoPurgeCount"
+			<NcTextField
+				v-model:model-value="autoPurgeCount"
 				:label="t('news', 'Maximum read count per feed')"
 				:label-visible="true"
 				@update:model-value="update('autoPurgeCount', autoPurgeCount)" />
 		</div>
 		<p class="settings-hint">
-			{{ t( "news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
+			{{ t("news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
 		</p>
 
 		<div class="field">
-			<NcCheckboxRadioSwitch type="switch"
-				:model-value.sync="purgeUnread"
+			<NcCheckboxRadioSwitch
+				v-model:model-value="purgeUnread"
+				type="switch"
 				@update:model-value="update('purgeUnread', purgeUnread)">
 				{{ t("news", "Delete unread articles automatically") }}
 			</NcCheckboxRadioSwitch>
 		</div>
 		<p class="settings-hint">
-			{{ t( "news", "Enable this if you also want to delete unread articles.") }}
+			{{ t("news", "Enable this if you also want to delete unread articles.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :model-value.sync="maxRedirects"
+			<NcTextField
+				v-model:model-value="maxRedirects"
 				:label="t('news', 'Maximum redirects')"
 				:label-visible="true"
 				@update:model-value="update('maxRedirects', maxRedirects)" />
@@ -59,7 +64,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :model-value.sync="feedFetcherTimeout"
+			<NcTextField
+				v-model:model-value="feedFetcherTimeout"
 				:label="t('news', 'Feed fetcher timeout')"
 				:label-visible="true"
 				@update:model-value="update('feedFetcherTimeout', feedFetcherTimeout)" />
@@ -69,7 +75,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :model-value.sync="exploreUrl"
+			<NcTextField
+				v-model:model-value="exploreUrl"
 				:label="t('news', 'Explore Service URL')"
 				:label-visible="true"
 				@update:model-value="update('exploreUrl', exploreUrl)" />
@@ -79,7 +86,8 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :model-value.sync="updateInterval"
+			<NcTextField
+				v-model:model-value="updateInterval"
 				:label="t('news', 'Update interval')"
 				:label-visible="true"
 				@update:model-value="update('updateInterval', updateInterval)" />
@@ -89,8 +97,9 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcCheckboxRadioSwitch type="switch"
-				:model-value.sync="useNextUpdateTime"
+			<NcCheckboxRadioSwitch
+				v-model:model-value="useNextUpdateTime"
+				type="switch"
 				@update:model-value="update('useNextUpdateTime', useNextUpdateTime)">
 				{{ t("news", "Use next update time for feed updates") }}
 			</NcCheckboxRadioSwitch>
@@ -102,23 +111,23 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 </template>
 
 <script>
+import axios from '@nextcloud/axios'
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { confirmPassword } from '@nextcloud/password-confirmation'
+import { generateOcsUrl } from '@nextcloud/router'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
-import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import { formatDateRelative } from '../utils/dateUtils'
-import { loadState } from '@nextcloud/initial-state'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
-import { confirmPassword } from '@nextcloud/password-confirmation'
 
 /**
  * Debounce helper for method
  * TODO: Should we remove this and use library?
  *
- * @param {Function} func - The callback function
- * @param {number}     wait - Time to wait in milliseconds
+ * @param func - The callback function
+ * @param wait - Time to wait in milliseconds
  */
 function debounce(func, wait) {
 	let timeout
@@ -142,6 +151,7 @@ export default {
 		NcTextField,
 		NcNoteCard,
 	},
+
 	data() {
 		return {
 			useCronUpdates: loadState('news', 'useCronUpdates') === '1',
@@ -156,11 +166,13 @@ export default {
 			lastCron,
 		}
 	},
+
 	computed: {
 		oldExecution() {
 			return Date.now() / 1000 - this.lastCron > (parseInt(this.updateInterval) * 2) + 900
 		},
 	},
+
 	methods: {
 		async update(key, value) {
 			await confirmPassword()
@@ -188,6 +200,7 @@ export default {
 				})
 			}
 		},
+
 		handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)

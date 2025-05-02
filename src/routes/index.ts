@@ -1,13 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router'
 import { generateUrl } from '@nextcloud/router'
-
+import { createRouter, createWebHistory } from 'vue-router'
+import AllPanel from '../components/routes/All.vue'
 import ExplorePanel from '../components/routes/Explore.vue'
-import StarredPanel from '../components/routes/Starred.vue'
-import UnreadPanel from '../components/routes/Unread.vue'
 import FeedPanel from '../components/routes/Feed.vue'
 import FolderPanel from '../components/routes/Folder.vue'
-import AllPanel from '../components/routes/All.vue'
-
+import StarredPanel from '../components/routes/Starred.vue'
+import UnreadPanel from '../components/routes/Unread.vue'
 import store from './../store/app'
 
 const base = generateUrl('/apps/news')
@@ -22,29 +20,29 @@ export const ROUTES = {
 }
 
 const getInitialRoute = function() {
-	const params: { feedId?: string; folderId?: string } = {}
+	const params: { feedId?: string, folderId?: string } = {}
 
 	switch (store.state.lastViewedFeedType) {
-	case '0':
-		params.feedId = store.state.lastViewedFeedId
-		return {
-			name: ROUTES.FEED,
-			params,
-		}
-	case '1':
-		params.folderId = store.state.lastViewedFeedId
-		return {
-			name: ROUTES.FOLDER,
-			params,
-		}
-	case '2':
-		return { name: ROUTES.STARRED }
-	case '3':
-		return { name: ROUTES.ALL }
-	case '5':
-		return { name: ROUTES.EXPLORE }
-	default:
-		return { name: ROUTES.UNREAD }
+		case '0':
+			params.feedId = store.state.lastViewedFeedId
+			return {
+				name: ROUTES.FEED,
+				params,
+			}
+		case '1':
+			params.folderId = store.state.lastViewedFeedId
+			return {
+				name: ROUTES.FOLDER,
+				params,
+			}
+		case '2':
+			return { name: ROUTES.STARRED }
+		case '3':
+			return { name: ROUTES.ALL }
+		case '5':
+			return { name: ROUTES.EXPLORE }
+		default:
+			return { name: ROUTES.UNREAD }
 	}
 }
 

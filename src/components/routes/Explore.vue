@@ -6,10 +6,12 @@
 				{{ t('news', 'No feeds found to add') }}
 			</div>
 			<div v-else class="grid-container">
-				<div v-for="entry in exploreSites"
+				<div
+					v-for="entry in exploreSites"
 					:key="entry.title"
 					class="explore-feed grid-item">
-					<h2 v-if="entry.favicon"
+					<h2
+						v-if="entry.favicon"
 						class="explore-title icon"
 						:style="{ backgroundImage: 'url(' + entry.favicon + ')' }">
 						<a target="_blank" rel="noreferrer" :href="entry.url">
@@ -37,17 +39,15 @@
 
 <script lang="ts">
 
-import { defineComponent } from 'vue'
+import type { ExploreSite } from '../../types/ExploreSite'
+import type { Feed } from '../../types/Feed'
 
-import NcAppContent from '@nextcloud/vue/components/NcAppContent'
-import NcButton from '@nextcloud/vue/components/NcButton'
 import axios from '@nextcloud/axios'
 import * as router from '@nextcloud/router'
-
+import { defineComponent } from 'vue'
+import NcAppContent from '@nextcloud/vue/components/NcAppContent'
+import NcButton from '@nextcloud/vue/components/NcButton'
 import AddFeed from '../AddFeed.vue'
-
-import { ExploreSite } from '../../types/ExploreSite'
-import { Feed } from '../../types/Feed'
 
 const ExploreComponent = defineComponent({
 	components: {
@@ -55,10 +55,11 @@ const ExploreComponent = defineComponent({
 		NcButton,
 		AddFeed,
 	},
+
 	data: (): {
-		exploreSites: ExploreSite[] | undefined;
-		feed: Feed;
-		showAddFeed: boolean;
+		exploreSites: ExploreSite[] | undefined
+		feed: Feed
+		showAddFeed: boolean
 	} => {
 		const exploreSites: ExploreSite[] | undefined = []
 		const feed: Feed = {} as Feed
@@ -70,6 +71,7 @@ const ExploreComponent = defineComponent({
 			showAddFeed,
 		}
 	},
+
 	async created() {
 		await this.sites()
 	},
@@ -82,25 +84,23 @@ const ExploreComponent = defineComponent({
 			try {
 				const explore = await axios.get(exploreUrl)
 
-				Object.keys(explore.data).forEach((key) =>
-					explore.data[key].forEach((value: ExploreSite) => {
-						if (this.exploreSites) {
-							this.exploreSites.push(value)
-						} else {
-							this.exploreSites = [value]
-						}
-					},
-					),
-				)
+				Object.keys(explore.data).forEach((key) => explore.data[key].forEach((value: ExploreSite) => {
+					if (this.exploreSites) {
+						this.exploreSites.push(value)
+					} else {
+						this.exploreSites = [value]
+					}
+				}))
 			} catch {
 				this.exploreSites = undefined
 			}
-
 		},
+
 		subscribe(feed: Feed) {
 			this.feed = feed
 			this.showAddFeed = true
 		},
+
 		closeShowAddFeed() {
 			this.showAddFeed = false
 		},

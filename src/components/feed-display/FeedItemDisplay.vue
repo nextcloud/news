@@ -1,23 +1,27 @@
 <template>
-	<div class="feed-item-display"
-		:class="{ 'screenreader': screenReaderMode }"
+	<div
+		class="feed-item-display"
+		:class="{ screenreader: screenReaderMode }"
 		:aria-posinset="itemIndex"
 		:aria-setsize="itemCount"
 		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
 
 		<div class="action-bar">
-			<NcActions v-show="!splitModeOff"
+			<NcActions
+				v-show="!splitModeOff"
 				class="action-bar-nav"
 				:inline="4">
-				<NcActionButton :title="t('news', 'Previous Item')"
+				<NcActionButton
+					:title="t('news', 'Previous Item')"
 					@click="prevItem">
 					{{ t('news', 'Previous') }}
 					<template #icon>
 						<ArrowLeftThickIcon />
 					</template>
 				</NcActionButton>
-				<NcActionButton :title="t('news', 'Next Item')"
+				<NcActionButton
+					:title="t('news', 'Next Item')"
 					@click="nextItem">
 					{{ t('news', 'Next') }}
 					<template #icon>
@@ -26,21 +30,24 @@
 				</NcActionButton>
 			</NcActions>
 			<NcActions :inline="4">
-				<NcActionButton :title="t('news', 'Share within Instance')"
+				<NcActionButton
+					:title="t('news', 'Share within Instance')"
 					@click="showShareMenu = true">
 					{{ t('news', 'Share within Instance') }}
 					<template #icon>
 						<ShareVariant />
 					</template>
 				</NcActionButton>
-				<NcActionButton :title="t('news', 'Toggle star article')"
+				<NcActionButton
+					:title="t('news', 'Toggle star article')"
 					@click="toggleStarred">
 					{{ t('news', 'Toggle star article') }}
 					<template #icon>
-						<StarIcon :class="{'starred': item.starred }" :size="24" />
+						<StarIcon :class="{ starred: item.starred }" :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="item.unread"
+				<NcActionButton
+					v-if="item.unread"
 					:title="t('news', 'Mark read')"
 					@click="toggleRead">
 					{{ t('news', 'Mark read') }}
@@ -48,7 +55,8 @@
 						<EyeIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="!item.unread"
+				<NcActionButton
+					v-if="!item.unread"
 					:title="t('news', 'Mark unread')"
 					@click="toggleRead">
 					{{ t('news', 'Mark unread') }}
@@ -56,7 +64,8 @@
 						<EyeCheckIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="!screenReaderMode"
+				<NcActionButton
+					v-if="!screenReaderMode"
 					:title="t('news', 'Close details')"
 					@click="splitModeOff ? closeDetails() : clearSelected()">
 					{{ t('news', 'Close details') }}
@@ -69,7 +78,8 @@
 		<div class="article">
 			<div class="heading">
 				<h1 :dir="item.rtl && 'rtl'">
-					<a target="_blank"
+					<a
+						target="_blank"
 						rel="noreferrer"
 						:href="item.url"
 						:title="item.title">
@@ -88,7 +98,8 @@
 				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
 					<a :href="`#/feed/${item.feedId}/`">
 						{{ getFeed(item.feedId).title }}
-						<img v-if="getFeed(item.feedId).faviconLink"
+						<img
+							v-if="getFeed(item.feedId).faviconLink"
 							:src="getFeed(item.feedId).faviconLink"
 							alt="favicon"
 							style="width: 16px">
@@ -105,7 +116,8 @@
 				<button @click="playAudio(item)">
 					{{ t('news', 'Play audio') }}
 				</button>
-				<a class="button"
+				<a
+					class="button"
 					style="text-decoration: none;"
 					:href="item.enclosureLink"
 					target="_blank"
@@ -114,14 +126,16 @@
 				</a>
 			</div>
 			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure video">
-				<video controls
+				<video
+					controls
 					preload="none"
 					:src="item.enclosureLink"
 					:type="item.enclosureMime"
-					:style="{ 'background-image': 'url('+item.mediaThumbnail+')' }"
+					:style="{ 'background-image': 'url(' + item.mediaThumbnail + ')' }"
 					@play="stopAudio()" />
 				<div class="download">
-					<a class="button"
+					<a
+						class="button"
 						style="text-decoration: none;"
 						:href="item.enclosureLink"
 						target="_blank"
@@ -146,27 +160,24 @@
 </template>
 
 <script lang="ts">
+import type { Feed } from '../../types/Feed'
+import type { FeedItem } from '../../types/FeedItem'
+
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-
-import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
-import StarIcon from 'vue-material-design-icons/Star.vue'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActions from '@nextcloud/vue/components/NcActions'
 import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
 import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
-
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-
-import ShareItem from '../ShareItem.vue'
-
-import { Feed } from '../../types/Feed'
-import { FeedItem } from '../../types/FeedItem'
-import { formatDate, formatDateISO } from '../../utils/dateUtils'
-import { ACTIONS, MUTATIONS } from '../../store'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
+import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
+import StarIcon from 'vue-material-design-icons/Star.vue'
+import ShareItem from '../ShareItem.vue'
+import { ACTIONS, MUTATIONS } from '../../store'
+import { formatDate, formatDateISO } from '../../utils/dateUtils'
 
 export default defineComponent({
 	name: 'FeedItemDisplay',
@@ -182,49 +193,58 @@ export default defineComponent({
 		ArrowLeftThickIcon,
 		ArrowRightThickIcon,
 	},
+
 	props: {
 		item: {
 			type: Object,
 			required: true,
 		},
+
 		itemCount: {
 			type: Number,
 			required: false,
 			default: null,
 		},
+
 		itemIndex: {
 			type: Number,
 			required: false,
 			default: null,
 		},
 	},
+
 	emits: {
 		'click-item': () => true,
 		'show-details': () => true,
 		'prev-item': () => true,
 		'next-item': () => true,
 	},
+
 	data: () => {
 		return {
 			keepUnread: false,
 			showShareMenu: false,
 		}
 	},
+
 	computed: {
 		...mapState(['feeds']),
 		screenReaderMode() {
 			return this.$store.getters.displaymode === '2'
 		},
+
 		splitModeOff() {
 			return this.$store.getters.splitmode === '2'
 		},
 	},
+
 	created() {
 		// create shortcuts
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('Escape', this.closeDetails)
 		}
 	},
+
 	methods: {
 		formatDate,
 		formatDateISO,
@@ -234,6 +254,7 @@ export default defineComponent({
 		clearSelected(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 		},
+
 		/**
 		 * Use parent click handler to select item when focused,
 		 * needed by screen reader navigation
@@ -243,9 +264,11 @@ export default defineComponent({
 				this.$emit('click-item')
 			}
 		},
+
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
+
 		/**
 		 * Sends message to change the items starred property to the opposite value
 		 */
@@ -273,9 +296,11 @@ export default defineComponent({
 			}
 			return false
 		},
+
 		playAudio(item: FeedItem) {
 			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, item)
 		},
+
 		stopAudio() {
 			const audioElements = document.getElementsByTagName('audio')
 
@@ -283,12 +308,15 @@ export default defineComponent({
 				audioElements[i].pause()
 			}
 		},
+
 		closeDetails() {
 			this.$emit('show-details')
 		},
+
 		prevItem() {
 			this.$emit('prev-item')
 		},
+
 		nextItem() {
 			this.$emit('next-item')
 		},

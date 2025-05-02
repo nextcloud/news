@@ -1,11 +1,11 @@
-import { reactive } from 'vue'
-import _ from 'lodash'
+import type { ActionParams } from '../store'
+import type { Feed } from '../types/Feed'
+import type { Folder } from '../types/Folder'
 
-import { ActionParams } from '../store'
-import { Folder } from '../types/Folder'
-import { Feed } from '../types/Feed'
-import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
+import _ from 'lodash'
+import { reactive } from 'vue'
 import { FolderService } from '../dataservices/folder.service'
+import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes'
 
 export const FOLDER_ACTION_TYPES = {
 	FETCH_FOLDERS: 'FETCH_FOLDERS',
@@ -71,8 +71,7 @@ export const mutations = {
 		folders: Folder[],
 	) {
 		const updatedFolders = [...state.folders, ...folders]
-			.filter((folder, index, self) =>
-				self.findIndex(f => f.id === folder.id) === index)
+			.filter((folder, index, self) => self.findIndex((f) => f.id === folder.id) === index)
 			.sort((a, b) => a.name.localeCompare(b.name))
 
 		state.folders = updatedFolders
@@ -90,13 +89,13 @@ export const mutations = {
 		state: FolderState,
 		feeds: Feed[],
 	) {
-		const updatedFolders = state.folders.map(folder => ({
+		const updatedFolders = state.folders.map((folder) => ({
 			...folder,
 			feeds: [] as Feed[],
 			feedCount: 0,
 			updateErrorCount: 0,
 		}))
-		feeds.forEach(it => {
+		feeds.forEach((it) => {
 			const folder = updatedFolders.find((folder: Folder) => { return folder.id === it.folderId })
 			if (folder) {
 				folder.feeds.push(it)
@@ -143,12 +142,11 @@ export const mutations = {
 			})
 			folder.feeds = [...updatedFeeds]
 		}
-
 	},
 
 	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](
 		state: FolderState,
-		{ folderId, delta }: {folderId: number; delta: number },
+		{ folderId, delta }: { folderId: number, delta: number },
 	) {
 		const folder = state.folders.find((f: Folder) => { return f.id === folderId })
 		if (folder) {

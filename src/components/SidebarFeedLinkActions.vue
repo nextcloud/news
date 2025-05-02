@@ -1,12 +1,14 @@
 <template>
 	<span>
-		<NcActionButton v-if="feed.unreadCount > 0"
+		<NcActionButton
+			v-if="feed.unreadCount > 0"
 			icon="icon-checkmark"
 			:close-after-click="true"
 			@click="markRead">
 			{{ t("news", "Mark read") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.pinned"
+		<NcActionButton
+			v-if="feed.pinned"
 			icon="icon-pinned"
 			:close-after-click="true"
 			@click="setPinned(false)">
@@ -15,7 +17,8 @@
 			</template>
 			{{ t("news", "Unpin from top") }}
 		</NcActionButton>
-		<NcActionButton v-if="!feed.pinned"
+		<NcActionButton
+			v-if="!feed.pinned"
 			icon="icon-pinned"
 			:close-after-click="true"
 			@click="setPinned(true)">
@@ -24,22 +27,26 @@
 			</template>
 			{{ t("news", "Pin to top") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.ordering === FEED_ORDER.NEWEST"
+		<NcActionButton
+			v-if="feed.ordering === FEED_ORDER.NEWEST"
 			icon="icon-caret-dark"
 			@click="setOrdering(FEED_ORDER.OLDEST)">
 			{{ t("news", "Newest first") }}
 		</NcActionButton>
-		<NcActionButton v-else-if="feed.ordering === FEED_ORDER.OLDEST"
+		<NcActionButton
+			v-else-if="feed.ordering === FEED_ORDER.OLDEST"
 			icon="icon-caret-dark feed-reverse-ordering"
 			@click="setOrdering(FEED_ORDER.DEFAULT)">
 			{{ t("news", "Oldest first") }}
 		</NcActionButton>
-		<NcActionButton v-else
+		<NcActionButton
+			v-else
 			icon="icon-caret-dark"
 			@click="setOrdering(FEED_ORDER.NEWEST)">
 			{{ t("news", "Default order") }}
 		</NcActionButton>
-		<NcActionButton v-if="!feed.fullTextEnabled"
+		<NcActionButton
+			v-if="!feed.fullTextEnabled"
 			icon="icon-full-text-disabled"
 			@click="setFullText(true)">
 			<template #icon>
@@ -47,7 +54,8 @@
 			</template>
 			{{ t("news", "Enable full text") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.fullTextEnabled"
+		<NcActionButton
+			v-if="feed.fullTextEnabled"
 			icon="icon-full-text-enabled"
 			@click="setFullText(false)">
 			<template #icon>
@@ -55,7 +63,8 @@
 			</template>
 			{{ t("news", "Disable full text") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
+		<NcActionButton
+			v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
 			icon="icon-updatemode-default"
 			@click="setUpdateMode(FEED_UPDATE_MODE.IGNORE)">
 			<template #icon>
@@ -65,7 +74,8 @@
 			</template>
 			{{ t("news", "Unread updated") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
+		<NcActionButton
+			v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
 			icon="icon-updatemode-unread"
 			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
 			<template #icon>
@@ -75,11 +85,13 @@
 			</template>
 			{{ t("news", "Ignore updated") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-rename"
+		<NcActionButton
+			icon="icon-rename"
 			@click="rename()">
 			{{ t("news", "Rename") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-arrow"
+		<NcActionButton
+			icon="icon-arrow"
 			:close-after-click="true"
 			@click="$emit('move-feed')">
 			<template #icon>
@@ -87,12 +99,14 @@
 			</template>
 			{{ t("news", "Move") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-delete"
+		<NcActionButton
+			icon="icon-delete"
 			:close-after-click="true"
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
-		<NcAppNavigationItem :name="t('news', 'Open Feed URL')"
+		<NcAppNavigationItem
+			:name="t('news', 'Open Feed URL')"
 			:href="feed.location">
 			<template #icon>
 				<RssIcon />
@@ -103,33 +117,30 @@
 
 <script lang="ts">
 
-import { defineComponent } from 'vue'
+import type { Feed } from '../types/Feed'
 
+import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
-
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
-
-import RssIcon from 'vue-material-design-icons/Rss.vue'
+import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
 import PinIcon from 'vue-material-design-icons/Pin.vue'
 import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
-import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
+import RssIcon from 'vue-material-design-icons/Rss.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
-import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
-
-import { ACTIONS } from '../store'
-import { Feed } from '../types/Feed'
-import UnreadSvg from '../../img/updatemodeunread.svg'
+import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
 import IgnoreSvg from '../../img/updatemodedefault.svg'
+import UnreadSvg from '../../img/updatemodeunread.svg'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
+import { ACTIONS } from '../store'
 
 export default defineComponent({
 	/*
 	 * set custom component name because NcAppNavigationItem actions slot
 	 * filters for NcAction* components
 	 */
-	/* eslint-disable vue/match-component-file-name */
+
 	name: 'NcActionButtonCustom',
-	/* eslint-enable */
+
 	components: {
 		NcActionButton,
 		NcAppNavigationItem,
@@ -140,15 +151,18 @@ export default defineComponent({
 		TextLongIcon,
 		ArrowRightIcon,
 	},
+
 	props: {
 		feedId: {
 			type: Number,
 			required: true,
 		},
 	},
+
 	emits: {
 		'move-feed': () => true,
 	},
+
 	data: () => {
 		return {
 			FEED_ORDER,
@@ -165,22 +179,28 @@ export default defineComponent({
 			})
 		},
 	},
+
 	methods: {
 		markRead() {
 			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
 		},
+
 		setPinned(pinned: boolean) {
 			this.$store.dispatch(ACTIONS.FEED_SET_PINNED, { feed: this.feed, pinned })
 		},
+
 		setOrdering(ordering: FEED_ORDER) {
 			this.$store.dispatch(ACTIONS.FEED_SET_ORDERING, { feed: this.feed, ordering })
 		},
+
 		setFullText(fullTextEnabled: boolean) {
 			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed: this.feed, fullTextEnabled })
 		},
+
 		setUpdateMode(updateMode: FEED_UPDATE_MODE) {
 			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed: this.feed, updateMode })
 		},
+
 		rename() {
 			const title = window.prompt(t('news', 'Rename Feed'), this.feed.title)
 
@@ -189,6 +209,7 @@ export default defineComponent({
 				this.$store.dispatch(ACTIONS.FEED_SET_TITLE, { feed: this.feed, title })
 			}
 		},
+
 		deleteFeed() {
 			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
 

@@ -1,11 +1,12 @@
-import { reactive } from 'vue'
-import _ from 'lodash'
+import type { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
+import type { ActionParams } from '../store'
+import type { Feed } from '../types/Feed'
 
-import { ActionParams } from '../store'
-import { Feed } from '../types/Feed'
-import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES, FEED_ITEM_MUTATION_TYPES } from '../types/MutationTypes'
+import _ from 'lodash'
+import { reactive } from 'vue'
+import { FeedService } from '../dataservices/feed.service'
 import { FolderService } from '../dataservices/folder.service'
-import { FEED_ORDER, FEED_UPDATE_MODE, FeedService } from '../dataservices/feed.service'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes'
 
 export const FEED_ACTION_TYPES = {
 	ADD_FEED: 'ADD_FEED',
@@ -25,10 +26,10 @@ export const FEED_ACTION_TYPES = {
 }
 
 export type FeedState = {
-	feeds: Feed[];
-	unreadCount: number;
-	newestItemId: number;
-	ordering: { [key: string]: number };
+	feeds: Feed[]
+	unreadCount: number
+	newestItemId: number
+	ordering: { [key: string]: number }
 }
 
 const state: FeedState = reactive({
@@ -62,11 +63,11 @@ export const actions = {
 		{ commit }: ActionParams<FeedState>,
 		{ feedReq }: {
 			feedReq: {
-				url: string;
-				folder?: { id: number; name?: string; },
-				autoDiscover: boolean;
-				user?: string;
-				password?: string;
+				url: string
+				folder?: { id: number, name?: string }
+				autoDiscover: boolean
+				user?: string
+				password?: string
 			}
 		},
 	) {
@@ -168,7 +169,7 @@ export const actions = {
 
 	async [FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE](
 		{ commit }: ActionParams<FeedState>,
-		 { feed, updateMode }: { feed: Feed, updateMode: FEED_UPDATE_MODE },
+		{ feed, updateMode }: { feed: Feed, updateMode: FEED_UPDATE_MODE },
 	) {
 		await FeedService.updateFeed({ feedId: feed.id as number, updateMode })
 
@@ -199,7 +200,7 @@ export const actions = {
 
 	async [FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT](
 		{ commit, state }: ActionParams<FeedState>,
-		 { feedId, delta }: { feedId: number, delta: number },
+		{ feedId, delta }: { feedId: number, delta: number },
 	) {
 		commit(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId, delta })
 
@@ -210,7 +211,6 @@ export const actions = {
 		if (feed?.folderId) {
 			commit(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: feed?.folderId, delta })
 		}
-
 	},
 }
 
@@ -220,10 +220,10 @@ export const mutations = {
 		feeds: Feed[],
 	) {
 		state.feeds = feeds.sort((a, b) => {
-			if (!a.title) return -1 // sort undefined title at top
-			if (!b.title) return 1
+			if (!a.title) { return -1 } // sort undefined title at top
+			if (!b.title) { return 1 }
 			return a.title.localeCompare(b.title, undefined, { sensitivity: 'base' })
-		}).map(it => {
+		}).map((it) => {
 			if (typeof it?.ordering === 'number') {
 				state.ordering['feed-' + it.id] = it.ordering
 			}
@@ -233,14 +233,14 @@ export const mutations = {
 
 	[FEED_MUTATION_TYPES.ADD_FEED](
 		state: FeedState,
-		 feed: Feed,
+		feed: Feed,
 	) {
 		state.feeds.push(feed)
 	},
 
 	[FEED_MUTATION_TYPES.UPDATE_FEED](
 		state: FeedState,
-		 newFeed: Feed,
+		newFeed: Feed,
 	) {
 		const feed = state.feeds.find((feed: Feed) => {
 			return feed.id === newFeed.id

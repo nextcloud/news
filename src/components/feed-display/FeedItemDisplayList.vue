@@ -6,26 +6,29 @@
 			</div>
 		</div>
 		<div class="feed-item-display-container">
-			<VirtualScroll ref="virtualScroll"
+			<VirtualScroll
+				ref="virtualScroll"
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
 				<template v-if="items && items.length > 0">
 					<template v-for="(item, index) in filteredItemcache">
-						<FeedItemDisplay v-if="screenReaderMode"
+						<FeedItemDisplay
+							v-if="screenReaderMode"
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"
 							:item-count="filteredItemcache.length"
 							:item-index="index + 1"
 							:item="item"
-							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
+							:class="{ active: selectedItem && selectedItem.id === item.id }"
 							@click-item="clickItem(item)" />
-						<FeedItemRow v-else
+						<FeedItemRow
+							v-else
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"
 							:item-count="filteredItemcache.length"
 							:item-index="index + 1"
 							:item="item"
-							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
+							:class="{ active: selectedItem && selectedItem.id === item.id }"
 							@show-details="showDetails" />
 					</template>
 				</template>
@@ -35,15 +38,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import _ from 'lodash'
+import type { FeedItem } from '../../types/FeedItem'
 
-import VirtualScroll from './VirtualScroll.vue'
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
+import _ from 'lodash'
+import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
-import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-
-import { FeedItem } from '../../types/FeedItem'
+import VirtualScroll from './VirtualScroll.vue'
 import { FEED_ORDER } from '../../dataservices/feed.service'
 import { ACTIONS, MUTATIONS } from '../../store'
 
@@ -53,21 +55,25 @@ export default defineComponent({
 		FeedItemDisplay,
 		FeedItemRow,
 	},
+
 	props: {
 		items: {
 			type: Array<FeedItem>,
 			required: true,
 		},
+
 		fetchKey: {
 			type: String,
 			required: true,
 		},
 	},
+
 	emits: {
 		'load-more': () => true,
 		'mark-read': () => true,
 		'show-details': () => true,
 	},
+
 	data() {
 		return {
 			mounted: false,
@@ -80,6 +86,7 @@ export default defineComponent({
 					return this.listOrdering ? -1 : 1
 				}
 			},
+
 			cache: [] as FeedItem[] | undefined,
 			filteredItemcache: [] as FeedItem,
 			selectedItem: undefined as FeedItem | undefined,
@@ -89,50 +96,62 @@ export default defineComponent({
 			stopNextItemHotkey: null,
 		}
 	},
+
 	computed: {
 		getSelectedItem() {
 			return this.$store.getters.selected
 		},
+
 		syncNeeded() {
 			return this.$store.state.items.syncNeeded
 		},
+
 		changedFeedOrdering() {
 			if (this.fetchKey.startsWith('feed-')) {
 				return this.$store.state.feeds.ordering[this.fetchKey]
 			}
 			return 0
 		},
+
 		changedGlobalOrdering() {
 			return this.$store.getters.oldestFirst
 		},
+
 		changedOrdering() {
 			return {
-			        feedOrdering: this.changedFeedOrdering,
-			        globalOrdering: this.changedGlobalOrdering,
-		      }
+				feedOrdering: this.changedFeedOrdering,
+				globalOrdering: this.changedGlobalOrdering,
+			}
 		},
+
 		changedShowAll() {
 			return this.$store.getters.showAll
 		},
+
 		isLoading() {
 			return this.$store.getters.loading
 		},
+
 		screenReaderMode() {
 			return this.$store.getters.displaymode === '2'
 		},
+
 		splitModeOff() {
 			return this.$store.getters.splitmode === '2'
 		},
 	},
+
 	watch: {
 		async syncNeeded(needSync) {
 			if (!this.isLoading && needSync) {
 				await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 			}
 		},
+
 		getSelectedItem(newVal) {
 			this.selectedItem = newVal
 		},
+
 		// clear cache on route change
 		fetchKey: {
 			handler() {
@@ -142,16 +161,20 @@ export default defineComponent({
 				}
 				this.cache = undefined
 			},
+
 			immediate: true,
 		},
+
 		// rebuild filtered item list only when items has changed
 		items: {
 			handler() {
 				this.refreshItemList()
 			},
+
 			immediate: true,
 			deep: false,
 		},
+
 		// ordering has changed rebuild item list
 		changedOrdering() {
 			const newListOrdering = this.getListOrdering()
@@ -165,6 +188,7 @@ export default defineComponent({
 				this.refreshItemList()
 			}
 		},
+
 		// showAll has changed rebuild item list
 		changedShowAll() {
 			this.$refs.virtualScroll.scrollTop = 0
@@ -172,6 +196,7 @@ export default defineComponent({
 			this.refreshItemList()
 		},
 	},
+
 	created() {
 		// create shortcuts
 		this.enableNavHotkeys()
@@ -191,13 +216,16 @@ export default defineComponent({
 			useHotKey('PageDown', this.jumpToNextItem, { prevent: true })
 		}
 	},
+
 	mounted() {
 		this.mounted = true
 		this.setupDebouncedClick()
 	},
-	destroyed() {
+
+	unmounted() {
 		this.disableNavHotkeys()
 	},
+
 	methods: {
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
@@ -209,6 +237,7 @@ export default defineComponent({
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 			this.fetchMore()
 		},
+
 		refreshItemList() {
 			if (this.items.length > 0) {
 				this.filteredItemcache = this.filterSortedItems()
@@ -216,6 +245,7 @@ export default defineComponent({
 				this.filteredItemcache = []
 			}
 		},
+
 		getListOrdering(): boolean {
 			// all routes expect feeds use global ordering
 			if (!this.fetchKey.startsWith('feed-')) {
@@ -223,24 +253,27 @@ export default defineComponent({
 			}
 			let oldestFirst
 			switch (this.$store.state.feeds.ordering[this.fetchKey]) {
-			case FEED_ORDER.OLDEST:
-				oldestFirst = true
-				break
-			case FEED_ORDER.NEWEST:
-				oldestFirst = false
-				break
-			case FEED_ORDER.DEFAULT:
-			default:
-				oldestFirst = this.$store.getters.oldestFirst
+				case FEED_ORDER.OLDEST:
+					oldestFirst = true
+					break
+				case FEED_ORDER.NEWEST:
+					oldestFirst = false
+					break
+				case FEED_ORDER.DEFAULT:
+				default:
+					oldestFirst = this.$store.getters.oldestFirst
 			}
 			return oldestFirst
 		},
+
 		fetchMore() {
 			this.$emit('load-more')
 		},
+
 		markRead() {
 			this.$emit('mark-read')
 		},
+
 		disableNavHotkeys() {
 			if (this.stopPrevItemHotkey) {
 				this.stopPrevItemHotkey()
@@ -249,11 +282,13 @@ export default defineComponent({
 				this.stopNextItemHotkey()
 			}
 		},
+
 		enableNavHotkeys() {
 			this.disableNavHotkeys()
 			this.stopPrevItemHotkey = useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
 			this.stopNextItemHotkey = useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
 		},
+
 		showDetails() {
 			/*
 			 * disable nav keys when showing details in no-split-mode
@@ -265,13 +300,16 @@ export default defineComponent({
 			}
 			this.$emit('show-details')
 		},
+
 		unreadFilter(item: FeedItem): boolean {
 			return item.unread
 		},
+
 		outOfScopeFilter(item: FeedItem): boolean {
 			const lastItemLoaded = this.$store.state.items.lastItemLoaded[this.fetchKey]
 			return (this.listOrdering ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
 		},
+
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
 
@@ -301,12 +339,14 @@ export default defineComponent({
 			}
 			return response.sort(this.sort)
 		},
+
 		// debounce clicks to prevent multiple api calls when on the end of the actual loaded list
 		setupDebouncedClick() {
 			this.debouncedClickItem = _.debounce((Item) => {
 				this.clickItem(Item)
 			}, 20, { leading: true })
 		},
+
 		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
 		clickItem(item: FeedItem) {
 			if (!item) {
@@ -329,9 +369,11 @@ export default defineComponent({
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			}
 		},
+
 		currentIndex(items: FeedItem[]): number {
 			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
 		},
+
 		jumpToPreviousItem() {
 			const items = this.filteredItemcache
 			let currentIndex = this.currentIndex(items)
@@ -343,7 +385,6 @@ export default defineComponent({
 			if (currentIndex > 0) {
 				const previousItem = items[currentIndex - 1]
 				this.debouncedClickItem(previousItem)
-
 			}
 		},
 
@@ -366,7 +407,7 @@ export default defineComponent({
 
 		toggleRead(): void {
 			const item = this.selectedItem
-			if (!item) return
+			if (!item) { return }
 			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			} else {

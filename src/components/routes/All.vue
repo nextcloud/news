@@ -1,5 +1,6 @@
 <template>
-	<ContentTemplate :items="allItems"
+	<ContentTemplate
+		:items="allItems"
 		:fetch-key="'all'"
 		@load-more="fetchMore()">
 		<template #header>
@@ -9,18 +10,18 @@
 </template>
 
 <script lang="ts">
+import type { FeedItem } from '../../types/FeedItem'
+
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-
 import ContentTemplate from '../ContentTemplate.vue'
-
-import { FeedItem } from '../../types/FeedItem'
 import { ACTIONS, MUTATIONS } from '../../store'
 
 export default defineComponent({
 	components: {
 		ContentTemplate,
 	},
+
 	computed: {
 		...mapState(['items']),
 
@@ -28,13 +29,15 @@ export default defineComponent({
 			return this.$store.getters.allItems
 		},
 	},
+
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
+
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems.all) {
-			  this.$store.dispatch(ACTIONS.FETCH_ITEMS)
+				this.$store.dispatch(ACTIONS.FETCH_ITEMS)
 			}
 		},
 	},
