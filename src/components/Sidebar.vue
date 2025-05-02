@@ -302,6 +302,7 @@ import { ROUTES } from '../routes/index.ts'
 import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
 export default defineComponent({
+	name: 'SidebarNavigation',
 	components: {
 		NcAppNavigation,
 		NcAppNavigationNew,
