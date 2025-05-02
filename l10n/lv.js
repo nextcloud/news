@@ -27,6 +27,7 @@ OC.L10N.register(
     "Rename Folder" : "Pārdēvēt mapi",
     "All articles" : "Visi raksti",
     "Starred" : "Svarīgs",
+    "Explore" : "Izpētīt",
     "Settings" : "Iestatījumi",
     "Documentation" : "Dokumentācija",
     "Keyboard shortcuts" : "Tastatūras saīsnes",
