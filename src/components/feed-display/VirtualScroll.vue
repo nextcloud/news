@@ -24,8 +24,6 @@ export default Vue.extend({
 			viewport: null,
 			scrollTop: 0,
 			scrollHeight: 500,
-			initialLoadingSkeleton: false,
-			initialLoadingTimeout: null,
 			elementToShow: null,
 			elementToFocus: null,
 			debouncedMarkRead: null,
@@ -66,7 +64,7 @@ export default Vue.extend({
 		this.debouncedMarkRead = _.debounce(this.markReadOnScroll, 500)
 	},
 	mounted() {
-		this.onScroll()
+		this.loadMore()
 		this.$nextTick(() => {
 			if (this.$el && this.$el.getBoundingClientRect) {
 				this.viewport = this.$el.getBoundingClientRect()
@@ -79,6 +77,7 @@ export default Vue.extend({
 		window.removeEventListener('resize', this.onScroll)
 	},
 	updated() {
+		this.$nextTick(this.loadMore)
 		if (!this.$store.getters.preventReadOnScroll) {
 			this.addToSeen(this._lastRendered)
 		}
