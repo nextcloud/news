@@ -49,6 +49,8 @@ OC.L10N.register(
     "Move" : "Pindah",
     "Share" : "Bagikan",
     "Default" : "Default",
+    "Vertical" : "Vertikal",
+    "Horizontal" : "Horizontal",
     "Off" : "Nonaktif",
     "Mark read" : "Tandai sebagai dibaca",
     "All articles" : "Semua artikel",
