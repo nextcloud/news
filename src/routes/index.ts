@@ -26,7 +26,7 @@ const getInitialRoute = function() {
 	case '0':
 		params.feedId = store.state.lastViewedFeedId
 		return {
-			name: ROUTES.FEED,
+			name: ROUTES.FEED || ROUTES.STARREDFEED,
 			params,
 		}
 	case '1':
@@ -41,12 +41,6 @@ const getInitialRoute = function() {
 		return { name: ROUTES.ALL }
 	case '5':
 		return { name: ROUTES.EXPLORE }
-	case '7':
-		params.feedId = store.state.lastViewedFeedId
-		return {
-			name: ROUTES.STARREDFEED,
-			params,
-		}
 	default:
 		return { name: ROUTES.UNREAD }
 	}
