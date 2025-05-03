@@ -204,6 +204,7 @@ export default Vue.extend({
 			// refetch starred and feeds
 			await this.$store.dispatch(ACTIONS.FETCH_STARRED)
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+			this.fetchMore()
 		},
 		refreshItemList() {
 			if (this.items.length > 0) {
