@@ -49,7 +49,7 @@ export class ItemService {
 	 * @param feedId (id of the feed to retrieve starred items for)
 	 * @return {AxiosResponse} response object containing backend request response
 	 */
-	static async fetchStarred(start: number, feedId: number): Promise<AxiosResponse> {
+	static async fetchStarred(feedId: number, start: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
