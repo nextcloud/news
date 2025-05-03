@@ -46,21 +46,20 @@
 				:to="{ name: ROUTES.STARRED }"
 				:allow-collapse="true"
 				:force-menu="true">
-				<template v-for="group in GroupedStars">
-					<NcAppNavigationItem :key="group.id"
-						:ref="'starredfeed-' + group.id"
-						:name="group.title"
-						:icon="''"
-						:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.id.toString() } }">
-						<template #icon>
-							<RssIcon v-if="!group.faviconLink" />
-							<span v-if="group.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.faviconLink + ')' }" />
-						</template>
-						<template #counter>
-							<NcCounterBubble :count="group.starredCount" />
-						</template>
-					</NcAppNavigationItem>
-				</template>
+				<NcAppNavigationItem v-for="group in GroupedStars"
+					:key="group.id"
+					:ref="'starredfeed-' + group.id"
+					:name="group.title"
+					:icon="''"
+					:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.id.toString() } }">
+					<template #icon>
+						<RssIcon v-if="!group.faviconLink" />
+						<span v-if="group.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.faviconLink + ')' }" />
+					</template>
+					<template #counter>
+						<NcCounterBubble :count="group.starredCount" />
+					</template>
+				</NcAppNavigationItem>
 				<template #counter>
 					<NcCounterBubble :count="items.starredCount" />
 				</template>
