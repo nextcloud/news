@@ -36,6 +36,7 @@ OC.L10N.register(
     "User Name" : "Ім'я користувача",
     "Share" : "Спільний доступ",
     "Share with" : "Поділитися з",
+    "Default" : "Типово",
     "Vertical" : "Вертикальний",
     "Horizontal" : "Горизонтальний",
     "Rename Folder" : "Перейменувати каталог",
