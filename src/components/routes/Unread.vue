@@ -1,6 +1,6 @@
 <template>
 	<ContentTemplate
-		:items="unread() ?? []"
+		:items="unread"
 		:fetch-key="'unread'"
 		@load-more="fetchMore()">
 		<template #header>
@@ -19,11 +19,6 @@ import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
-type UnreadItemState = {
-	// need cache so we aren't always removing items when they get read
-	unreadCache?: FeedItem[]
-}
-
 export default defineComponent({
 	name: 'RoutesUnread',
 	components: {
@@ -34,13 +29,17 @@ export default defineComponent({
 	data() {
 		return {
 			unreadCache: undefined,
-		} as UnreadItemState
+		}
 	},
 
 	computed: {
 		...mapState(['items']),
 		newestItemId() {
 			return this.$store.state.items.newestItemId === 0
+		},
+
+		unread(): FeedItem[] {
+			return this.unreadCache ?? []
 		},
 	},
 
@@ -50,32 +49,36 @@ export default defineComponent({
 				this.unreadCache = undefined
 			}
 		},
+
+		// need cache so we aren't always removing items when they get read
+		'$store.getters.unread': {
+			handler(newItems) {
+				const cachedItems = this.unreadCache ?? []
+
+				const cachedItemIds = new Set(cachedItems.map((item) => item.id))
+				const newUnreadCache = [...cachedItems]
+
+				for (const item of newItems) {
+					if (!cachedItemIds.has(item.id)) {
+						newUnreadCache.push(item)
+					}
+				}
+
+				this.unreadCache = newUnreadCache
+			},
+
+			immediate: true,
+		},
 	},
 
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-		if (this.unread() === undefined) {
+		if (this.unread === undefined) {
 			this.$store.dispatch(ACTIONS.FETCH_UNREAD)
 		}
 	},
 
 	methods: {
-		unread() {
-			if (!this.unreadCache) {
-				if (this.$store.getters.unread.length > 0) {
-					this.unreadCache = this.$store.getters.unread
-				}
-			} else {
-				for (const item of this.$store.getters.unread) {
-					if (this.unreadCache.find((unread: FeedItem) => unread.id === item.id) === undefined) {
-						this.unreadCache.push(item)
-					}
-				}
-			}
-
-			return this.unreadCache
-		},
-
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems.unread) {
 				this.$store.dispatch(ACTIONS.FETCH_UNREAD)
