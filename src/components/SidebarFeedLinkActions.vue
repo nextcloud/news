@@ -65,25 +65,21 @@
 		</NcActionButton>
 		<NcActionButton
 			v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
-			icon="icon-updatemode-default"
+			icon="file-document-refresh"
 			@click="setUpdateMode(FEED_UPDATE_MODE.IGNORE)">
 			<template #icon>
-				<span class="custom-icon">
-					<img :src="UnreadSvg">
-				</span>
+				<FileDocumentRefresh />
 			</template>
-			{{ t("news", "Unread updated") }}
+			{{ t("news", "Mark as unread on update") }}
 		</NcActionButton>
 		<NcActionButton
 			v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
-			icon="icon-updatemode-unread"
+			icon="file-document-check"
 			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
 			<template #icon>
-				<span class="custom-icon">
-					<img :src="IgnoreSvg">
-				</span>
+				<FileDocumentCheck />
 			</template>
-			{{ t("news", "Ignore updated") }}
+			{{ t("news", "Keep read status on update") }}
 		</NcActionButton>
 		<NcActionButton
 			icon="icon-rename"
@@ -123,13 +119,13 @@ import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
 import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
+import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
+import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import PinIcon from 'vue-material-design-icons/Pin.vue'
 import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
 import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
-import IgnoreSvg from '../../img/updatemodedefault.svg'
-import UnreadSvg from '../../img/updatemodeunread.svg'
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service.ts'
 import { ACTIONS } from '../store/index.ts'
 
@@ -150,6 +146,8 @@ export default defineComponent({
 		TextShortIcon,
 		TextLongIcon,
 		ArrowRightIcon,
+		FileDocumentRefresh,
+		FileDocumentCheck,
 	},
 
 	props: {
@@ -170,8 +168,6 @@ export default defineComponent({
 		return {
 			FEED_ORDER,
 			FEED_UPDATE_MODE,
-			UnreadSvg,
-			IgnoreSvg,
 		}
 	},
 
@@ -226,16 +222,6 @@ export default defineComponent({
 </script>
 
 <style>
-.custom-icon {
-	width: 44px;
-	height: 44px;
-	display: flex;
-	align-self: center;
-	justify-self: center;
-	align-items: center;
-	justify-content: center;
-}
-
 .feed-reverse-ordering {
 	transform: rotate(180deg);
 }
