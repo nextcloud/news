@@ -182,7 +182,7 @@
 						<select
 							id="select-splitmode"
 							v-model="splitmode"
-							:disabled="displaymode === '2'"
+							:disabled="displaymode === DISPLAY_MODE.SCREENREADER"
 							:value="splitmode">
 							<option
 								v-for="splitMode in splitModeOptions"
@@ -298,6 +298,7 @@ import FeedInfoTable from './modals/FeedInfoTable.vue'
 import HelpModal from './modals/HelpModal.vue'
 import MoveFeed from './MoveFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
+import { DISPLAY_MODE } from '../enums/index.ts'
 import { ROUTES } from '../routes/index.ts'
 import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
@@ -333,6 +334,7 @@ export default defineComponent({
 			showAddFeed: false,
 			showMoveFeed: false,
 			feedToMove: undefined,
+			DISPLAY_MODE,
 			ROUTES,
 			showHelp: false,
 			showFeedInfoTable: false,

@@ -1,18 +1,8 @@
 import type { AxiosResponse } from '@nextcloud/axios'
+import type { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
 
 import axios from '@nextcloud/axios'
 import { API_ROUTES } from '../types/ApiRoutes.ts'
-
-export enum FEED_ORDER {
-	DEFAULT = 0,
-	OLDEST = 1,
-	NEWEST = 2,
-}
-
-export enum FEED_UPDATE_MODE {
-	IGNORE = 1,
-	UNREAD = 0,
-}
 
 export class FeedService {
 	/**
