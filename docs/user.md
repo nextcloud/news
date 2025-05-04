@@ -37,9 +37,9 @@ Sets the sorting order for displaying this feed. The default order is set in the
 ### Enable/Disable Full Text
 When enabled, articles will be fully retrieved from the website during the next fetch, instead of using the RSS feed.
 
-### Unread/Ignore Updated
-- If **Unread Updated** is selected, previously read articles will be marked as unread when updated.
-- Otherwise, changes to articles will be ignored.
+### Mark as unread/Keep read status on update
+- If **Mark as unread on update** is selected, previously read articles will be marked as unread when updated.
+- If **Keep read status on update** is selected, changes to articles will be ignored.
 
 ### Rename
 Rename the feed.

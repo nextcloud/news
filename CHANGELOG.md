@@ -13,7 +13,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - subscribe_to URL path has changed
-
+- change update mode menu text and icon in feed action menu
 
 # Releases
 ## [26.0.0-beta.2] - 2025-05-06
