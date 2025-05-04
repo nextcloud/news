@@ -69,6 +69,14 @@ export default defineComponent({
 
 			immediate: true,
 		},
+
+		reachedEnd: {
+			handler() {
+				if (!this.reachedEnd) {
+					this.loadMore()
+				}
+			},
+		},
 	},
 
 	created() {
