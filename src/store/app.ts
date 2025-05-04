@@ -1,5 +1,6 @@
 import { loadState } from '@nextcloud/initial-state'
 import { reactive } from 'vue'
+import { DISPLAY_MODE, SPLIT_MODE } from '../enums/index.ts'
 import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const APPLICATION_ACTION_TYPES = {
@@ -22,8 +23,8 @@ export type AppInfoState = {
 const state: AppInfoState = reactive({
 	error: undefined,
 	loading: true,
-	displaymode: loadState('news', 'displaymode', '0'),
-	splitmode: loadState('news', 'splitmode', '0'),
+	displaymode: loadState('news', 'displaymode', DISPLAY_MODE.DEFAULT),
+	splitmode: loadState('news', 'splitmode', SPLIT_MODE.VERTICAL),
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
 	showAll: loadState('news', 'showAll', null) === '1',

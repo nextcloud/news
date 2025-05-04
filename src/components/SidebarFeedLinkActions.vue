@@ -126,7 +126,7 @@ import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
 import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service.ts'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
 import { ACTIONS } from '../store/index.ts'
 
 export default defineComponent({

@@ -69,6 +69,7 @@ import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import TextIcon from 'vue-material-design-icons/Text.vue'
 import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
 import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
+import { SPLIT_MODE } from '../enums/index.ts'
 import appStore from '../store/app.ts'
 import itemStore from '../store/item.ts'
 
@@ -102,11 +103,11 @@ const itemListElement = ref()
 
 const layout = computed(() => {
 	switch (appStore.getters.splitmode(appStore.state)) {
-		case '1':
+		case SPLIT_MODE.HORIZONTAL:
 			return 'horizontal-split'
-		case '2':
+		case SPLIT_MODE.OFF:
 			return 'no-split'
-		case '0':
+		case SPLIT_MODE.VERTICAL:
 		default:
 			return 'vertical-split'
 	}

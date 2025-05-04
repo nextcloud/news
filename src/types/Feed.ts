@@ -1,4 +1,4 @@
-import type { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
+import type { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
 
 export type Feed = {
 	folderId?: number

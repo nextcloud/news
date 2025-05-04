@@ -1,4 +1,4 @@
-import type { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service.ts'
+import type { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
 import type { ActionParams } from '../store/index.ts'
 import type { Feed } from '../types/Feed.ts'
 

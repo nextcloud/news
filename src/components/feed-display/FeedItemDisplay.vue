@@ -175,6 +175,7 @@ import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
+import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
 
@@ -237,11 +238,11 @@ export default defineComponent({
 
 	computed: {
 		screenReaderMode() {
-			return this.$store.getters.displaymode === '2'
+			return this.$store.getters.displaymode === DISPLAY_MODE.SCREENREADER
 		},
 
 		splitModeOff() {
-			return this.$store.getters.splitmode === '2'
+			return this.$store.getters.splitmode === SPLIT_MODE.OFF
 		},
 	},
 

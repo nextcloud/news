@@ -46,7 +46,7 @@ import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
 import VirtualScroll from './VirtualScroll.vue'
-import { FEED_ORDER } from '../../dataservices/feed.service.ts'
+import { DISPLAY_MODE, FEED_ORDER, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
@@ -139,11 +139,11 @@ export default defineComponent({
 		},
 
 		screenReaderMode() {
-			return this.$store.getters.displaymode === '2'
+			return this.$store.getters.displaymode === DISPLAY_MODE.SCREENREADER
 		},
 
 		splitModeOff() {
-			return this.$store.getters.splitmode === '2'
+			return this.$store.getters.splitmode === SPLIT_MODE.OFF
 		},
 	},
 

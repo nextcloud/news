@@ -112,6 +112,7 @@ import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
+import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils.ts'
 
@@ -168,11 +169,11 @@ export default defineComponent({
 
 	computed: {
 		compactMode() {
-			return this.$store.getters.displaymode === '1'
+			return this.$store.getters.displaymode === DISPLAY_MODE.COMPACT
 		},
 
 		verticalSplit() {
-			return this.$store.getters.splitmode === '0'
+			return this.$store.getters.splitmode === SPLIT_MODE.VERTICAL
 		},
 	},
 

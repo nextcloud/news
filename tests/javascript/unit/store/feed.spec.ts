@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
 
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums'
 import { Feed } from '../../../../src/types/Feed'
 import { AppState } from '../../../../src/store'
 import { FEED_ACTION_TYPES, mutations, actions } from '../../../../src/store/feed'
-import { FEED_ORDER, FEED_UPDATE_MODE, FeedService } from '../../../../src/dataservices/feed.service'
+import { FeedService } from '../../../../src/dataservices/feed.service'
 
 import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 import { ItemService } from '../../../../src/dataservices/item.service'
