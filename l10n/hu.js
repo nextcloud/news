@@ -89,8 +89,6 @@ OC.L10N.register(
     "Play audio" : "Hang lejátszása",
     "Download audio" : "Hang letöltése",
     "Download video" : "Videó letöltése",
-    "{num} minutes ago" : "{num} perccel ezelőtt",
-    "{num} hours ago" : "{num} órával ezelőtt",
     "Open website" : "Weboldal megnyitása",
     "Keep article unread" : "Cikk olvasatlanul hagyása",
     "Toggle keep current article unread" : "Cikk olvasatlanul hagyása be/ki",

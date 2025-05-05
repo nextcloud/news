@@ -31,7 +31,6 @@ OC.L10N.register(
     "Mark unread" : "Означи како непрочитано",
     "by" : "од",
     "from" : "од",
-    "{num} months ago" : "пред {num} месеци",
     "Open website" : "Отвори вебсајт",
     "Not available" : "Недостапно",
     "Keyboard shortcut" : "Кратенка преку тастатура",
