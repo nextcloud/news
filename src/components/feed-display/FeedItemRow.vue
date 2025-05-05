@@ -38,8 +38,8 @@
 			</div>
 
 			<div v-if="!compactMode || !verticalSplit" class="date-container" :class="{ 'compact': compactMode }">
-				<time class="date" :title="formatDate(item.pubDate*1000, 'yyyy-MM-dd HH:mm:ss')" :datetime="formatDatetime(item.pubDate*1000, 'yyyy-MM-ddTHH:mm:ssZ')">
-					{{ getRelativeTimestamp(item.pubDate*1000) }}
+				<time class="date" :title="formatDate(item.pubDate)" :datetime="formatDateISO(item.pubDate)">
+					{{ formatDateRelative(item.pubDate) }}
 				</time>
 			</div>
 		</div>
@@ -106,6 +106,7 @@ import ShareItem from '../ShareItem.vue'
 
 import { Feed } from '../../types/Feed'
 import { FeedItem } from '../../types/FeedItem'
+import { formatDate, formatDateRelative, formatDateISO } from '../../utils/dateUtils'
 import { ACTIONS, MUTATIONS } from '../../store'
 
 export default Vue.extend({
@@ -151,41 +152,13 @@ export default Vue.extend({
 		},
 	},
 	methods: {
+		formatDate,
+		formatDateRelative,
+		formatDateISO,
 		select(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			this.markRead(this.item)
 			this.$emit('show-details')
-		},
-		formatDate(epoch: number): string {
-			return new Date(epoch).toLocaleString()
-		},
-		formatDatetime(epoch: number): string {
-			return new Date(epoch).toISOString()
-		},
-		getRelativeTimestamp(previous: number): string {
-			const current = Date.now()
-
-			const msPerMinute = 60 * 1000
-			const msPerHour = msPerMinute * 60
-			const msPerDay = msPerHour * 24
-			const msPerMonth = msPerDay * 30
-			const msPerYear = msPerDay * 365
-
-			const elapsed = current - previous
-
-			if (elapsed < msPerMinute) {
-				return t('news', '{num} seconds', { num: Math.round(elapsed / 1000) })
-			} else if (elapsed < msPerHour) {
-				return t('news', '{num} minutes ago', { num: Math.round(elapsed / msPerMinute) })
-			} else if (elapsed < msPerDay) {
-				return t('news', '{num} hours ago', { num: Math.round(elapsed / msPerHour) })
-			} else if (elapsed < msPerMonth) {
-				return t('news', '{num} days ago', { num: Math.round(elapsed / msPerDay) })
-			} else if (elapsed < msPerYear) {
-				return t('news', '{num} months ago', { num: Math.round(elapsed / msPerMonth) })
-			} else {
-				return t('news', '{num} years ago', { num: Math.round(elapsed / msPerYear) })
-			}
 		},
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}

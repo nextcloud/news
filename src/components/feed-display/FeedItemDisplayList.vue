@@ -26,7 +26,7 @@
 							:item-index="index + 1"
 							:item="item"
 							:class="{ 'active': selectedItem && selectedItem.id === item.id }"
-							@show-details="$emit('show-details')" />
+							@show-details="showDetails" />
 					</template>
 				</template>
 			</VirtualScroll>
@@ -80,6 +80,8 @@ export default Vue.extend({
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
 			listOrdering: this.getListOrdering(),
+			stopPrevItemHotkey: null,
+			stopNextItemHotkey: null,
 		}
 	},
 	computed: {
@@ -167,8 +169,7 @@ export default Vue.extend({
 	},
 	created() {
 		// create shortcuts
-		useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
-		useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
+		this.enableNavHotkeys()
 		useHotKey('r', this.refreshApp)
 		useHotKey('a', this.markRead, { shift: true })
 		useHotKey(['s', 'l', 'i'], this.toggleStarred)
@@ -191,6 +192,9 @@ export default Vue.extend({
 		this.$root.$on('next-item', this.jumpToNextItem)
 		this.$root.$on('prev-item', this.jumpToPreviousItem)
 	},
+	destroyed() {
+		this.disableNavHotkeys()
+	},
 	methods: {
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
@@ -200,10 +204,13 @@ export default Vue.extend({
 			// refetch starred and feeds
 			await this.$store.dispatch(ACTIONS.FETCH_STARRED)
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+			this.fetchMore()
 		},
 		refreshItemList() {
 			if (this.items.length > 0) {
 				this.filteredItemcache = this.filterSortedItems()
+			} else {
+				this.filteredItemcache = []
 			}
 		},
 		getListOrdering(): boolean {
@@ -231,7 +238,28 @@ export default Vue.extend({
 		markRead() {
 			this.$emit('mark-read')
 		},
+		disableNavHotkeys() {
+			if (this.stopPrevItemHotkey) {
+				this.stopPrevItemHotkey()
+			}
+			if (this.stopNextItemHotkey) {
+				this.stopNextItemHotkey()
+			}
+		},
+		enableNavHotkeys() {
+			this.disableNavHotkeys()
+			this.stopPrevItemHotkey = useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
+			this.stopNextItemHotkey = useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
+		},
 		showDetails() {
+			/*
+			 * disable nav keys when showing details in no-split-mode
+			 * proper navigation (fetchMore, scroll to last item when closed)
+			 * isn't implemented yet
+			 */
+			if (this.splitModeOff) {
+				this.disableNavHotkeys()
+			}
 			this.$emit('show-details')
 		},
 		unreadFilter(item: FeedItem): boolean {
@@ -294,7 +322,9 @@ export default Vue.extend({
 			}
 
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
-			this.$store.dispatch(ACTIONS.MARK_READ, { item })
+			if (!item.keepUnread && item.unread) {
+				this.$store.dispatch(ACTIONS.MARK_READ, { item })
+			}
 		},
 		currentIndex(items: FeedItem[]): number {
 			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1

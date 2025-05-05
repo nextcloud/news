@@ -51,14 +51,14 @@ describe('FeedItemRow.vue', () => {
 
 	it('should format date to match locale', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
-		const formattedDate = (wrapper.vm as any).formatDate(epoch)
+		const formattedDate = (wrapper.vm as any).formatDate(epoch / 1000)
 
 		expect(formattedDate).toEqual(new Date(epoch).toLocaleString())
 	})
 
 	it('should format datetime to match international standard', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
-		const formattedDate = (wrapper.vm as any).formatDatetime(epoch)
+		const formattedDate = (wrapper.vm as any).formatDateISO(epoch / 1000)
 
 		expect(formattedDate).toEqual(new Date(epoch).toISOString())
 	})
@@ -67,15 +67,21 @@ describe('FeedItemRow.vue', () => {
 		const currentTimestamp = Date.now()
 		let pastTimestamp = currentTimestamp - 1000 * 10 // 10 seconds ago
 
-		let relativeTimestamp = (wrapper.vm as any).getRelativeTimestamp(pastTimestamp)
+		let relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
 
-		expect(relativeTimestamp).toEqual('{num} seconds')
+		expect(relativeTimestamp).toEqual('seconds ago')
 
 		pastTimestamp = currentTimestamp - 1000 * 60 * 10 // 10 minutes ago
 
-		relativeTimestamp = (wrapper.vm as any).getRelativeTimestamp(pastTimestamp)
+		relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
 
-		expect(relativeTimestamp).toEqual('{num} minutes ago')
+		expect(relativeTimestamp).toEqual('10 minutes ago')
+
+		pastTimestamp = currentTimestamp - 1000 * 3600 // 1 hour ago
+
+		relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
+
+		expect(relativeTimestamp).toEqual('an hour ago')
 	})
 
 	it('should retrieve feed by ID', () => {

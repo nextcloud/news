@@ -54,7 +54,7 @@ describe('FeedItemDisplay.vue', () => {
 
 	it('should format date to match locale', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
-		const formattedDate = (wrapper.vm as any).formatDate(epoch)
+		const formattedDate = (wrapper.vm as any).formatDate(epoch / 1000)
 
 		expect(formattedDate).toEqual(new Date(epoch).toLocaleString())
 	})
