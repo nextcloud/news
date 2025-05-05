@@ -306,8 +306,10 @@ export const actions = {
 		ItemService.markStarred(item, true)
 
 		item.starred = true
+		let feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount + 1)
+		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: true })
 	},
 
 	/**
@@ -325,8 +327,10 @@ export const actions = {
 		ItemService.markStarred(item, false)
 
 		item.starred = false
+		let feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
+		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: false })
 	},
 
 	/**
