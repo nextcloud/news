@@ -152,7 +152,12 @@ export const actions = {
 		{ feedId, start }: { feedId: number, start: number } = { feedId: 0, start: 0 },
 	) {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: feedId ? 'starredfeed-' + feedId : 'starred', fetching: true })
-		const response = await ItemService.debounceFetchStarred(feedId, start || state.lastItemLoaded.starred)
+
+		const lastLoadedStarred = feedId
+			? state.lastItemLoaded['starredfeed-' + feedId]
+			: state.lastItemLoaded.starred
+		const offset = start || lastLoadedStarred
+		const response = await ItemService.debounceFetchStarred(feedId, offset)
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
