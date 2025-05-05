@@ -45,12 +45,14 @@
 				icon="icon-starred"
 				:to="{ name: ROUTES.STARRED }"
 				:allow-collapse="true"
+				:exact="true"
 				:force-menu="true">
 				<NcAppNavigationItem v-for="group in GroupedStars"
 					:key="group.id"
 					:ref="'starredfeed-' + group.id"
 					:name="group.title"
 					:icon="''"
+					:exact="true"
 					:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.id.toString() } }">
 					<template #icon>
 						<RssIcon v-if="!group.faviconLink" />

@@ -26,7 +26,7 @@ const getInitialRoute = function() {
 	case '0':
 		params.feedId = store.state.lastViewedFeedId
 		return {
-			name: ROUTES.FEED || ROUTES.STARREDFEED,
+			name: ROUTES.FEED,
 			params,
 		}
 	case '1':
@@ -36,7 +36,16 @@ const getInitialRoute = function() {
 			params,
 		}
 	case '2':
-		return { name: ROUTES.STARRED }
+		if (store.state.lastViewedFeedId) {
+			params.feedId = store.state.lastViewedFeedId
+			return {
+				name: ROUTES.STARREDFEED,
+				params,
+			}
+		}
+		return {
+			name: ROUTES.STARRED,
+		}
 	case '3':
 		return { name: ROUTES.ALL }
 	case '5':
@@ -64,13 +73,18 @@ const routes = [
 		name: ROUTES.STARRED,
 		path: '/starred',
 		component: StarredPanel,
+		redirect: { name: 'starredItems' },
 		props: true,
-	},
-	{
-		name: ROUTES.STARREDFEED,
-		path: '/starredfeeds/:feedId',
-		component: StarredPanel,
-		props: true,
+		children: [
+			{
+				name: 'starredItems',
+				path: '',
+			},
+			{
+				name: ROUTES.STARREDFEED,
+				path: ':feedId',
+			},
+		],
 	},
 	{
 		name: ROUTES.UNREAD,
