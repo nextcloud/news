@@ -45,8 +45,8 @@ export class ItemService {
 	/**
 	 * Makes backend call to retrieve starred items
 	 *
-	 * @param start (id of last starred item loaded)
 	 * @param feedId (id of the feed to retrieve starred items for)
+	 * @param start (id of last starred item loaded)
 	 * @return {AxiosResponse} response object containing backend request response
 	 */
 	static async fetchStarred(feedId: number, start: number): Promise<AxiosResponse> {
