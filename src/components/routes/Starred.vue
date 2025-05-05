@@ -18,7 +18,7 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import ContentTemplate from '../ContentTemplate.vue'
 
 import { FeedItem } from '../../types/FeedItem'
-import { ACTIONS, MUTATIONS } from '../../store'
+import { ACTIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
