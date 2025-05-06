@@ -13,7 +13,11 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 # Releases
-## [26.0.0-beta.1] - 2025-05-20
+## [26.0.0-beta.2] - 2025-05-06
+### Fixed
+-  Item list not updated by automatic or manual refresh (#3155)
+
+## [26.0.0-beta.1] - 2025-05-02
 ### Changed
 - Drop support for Nextcloud 29 (#3146)
 
