@@ -12,7 +12,6 @@ import store from './../store/app'
 export const ROUTES = {
 	EXPLORE: 'explore',
 	STARRED: 'starred',
-	STARREDFEED: 'starredfeed',
 	UNREAD: 'unread',
 	FEED: 'feed',
 	FOLDER: 'folder',
@@ -36,16 +35,7 @@ const getInitialRoute = function() {
 			params,
 		}
 	case '2':
-		if (store.state.lastViewedFeedId) {
-			params.feedId = store.state.lastViewedFeedId
-			return {
-				name: ROUTES.STARREDFEED,
-				params,
-			}
-		}
-		return {
-			name: ROUTES.STARRED,
-		}
+		return { name: ROUTES.STARRED }
 	case '3':
 		return { name: ROUTES.ALL }
 	case '5':
@@ -71,20 +61,9 @@ const routes = [
 	},
 	{
 		name: ROUTES.STARRED,
-		path: '/starred',
+		path: '/starred/:feedId?',
 		component: StarredPanel,
-		redirect: { name: 'starredItems' },
 		props: true,
-		children: [
-			{
-				name: 'starredItems',
-				path: '',
-			},
-			{
-				name: ROUTES.STARREDFEED,
-				path: ':feedId',
-			},
-		],
 	},
 	{
 		name: ROUTES.UNREAD,

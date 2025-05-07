@@ -24,7 +24,7 @@ describe('Starred.vue', () => {
 			state: {
 				items: {
 					fetchingItems: {
-						starred: false,
+						'starred-0': false,
 					},
 				},
 			},

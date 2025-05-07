@@ -1,6 +1,6 @@
 <template>
 	<ContentTemplate :items="starred"
-		:fetch-key="feedId ? 'starredfeed-'+feedId : 'starred'"
+		:fetch-key="'starred-' + feedId"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Starred') }}
@@ -36,15 +36,18 @@ export default Vue.extend({
 		...mapState(['items']),
 		starred(): FeedItem[] {
 			if (this.feedId) {
-				return this.$store.getters.starred.filter((item: FeedItem) => item.feedId === Number(this.feedId))
+				return this.$store.getters.starred.filter((item: FeedItem) => item.feedId === this.id)
 			}
 			return this.$store.getters.starred
+		},
+		id(): number {
+			return Number(this.feedId)
 		},
 	},
 	methods: {
 		async fetchMore() {
-			if (!this.$store.state.items.fetchingItems.starred) {
-			  this.$store.dispatch(ACTIONS.FETCH_STARRED, { feedId: this.feedId === undefined ? 0 : Number(this.feedId) })
+			if (!this.$store.state.items.fetchingItems['starred-' + this.feedId]) {
+				this.$store.dispatch(ACTIONS.FETCH_STARRED, { feedId: this.id })
 			}
 		},
 	},

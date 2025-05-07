@@ -49,11 +49,11 @@
 				:force-menu="true">
 				<NcAppNavigationItem v-for="group in GroupedStars"
 					:key="group.id"
-					:ref="'starredfeed-' + group.id"
+					:ref="'starred-' + group.id"
 					:name="group.title"
 					:icon="''"
 					:exact="true"
-					:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.id.toString() } }">
+					:to="{ name: ROUTES.STARRED, params: { feedId: group.id.toString() } }">
 					<template #icon>
 						<RssIcon v-if="!group.faviconLink" />
 						<span v-if="group.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.faviconLink + ')' }" />
