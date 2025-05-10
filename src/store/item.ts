@@ -144,14 +144,20 @@ export const actions = {
 	 * @param param0 ActionParams
 	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
+	 * @param param1.feedId ID of the feed
 	 * @param param1.start Start data
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_STARRED](
 		{ commit }: ActionParams<ItemState>,
-		{ start }: { start: number } = { start: 0 },
+		{ feedId, start }: { feedId: number, start: number } = { feedId: 0, start: 0 },
 	) {
-		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
-		const response = await ItemService.debounceFetchStarred(start || state.lastItemLoaded.starred)
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: feedId ? 'starredfeed-' + feedId : 'starred', fetching: true })
+
+		const lastLoadedStarred = feedId
+			? state.lastItemLoaded['starredfeed-' + feedId]
+			: state.lastItemLoaded.starred
+		const offset = start || lastLoadedStarred
+		const response = await ItemService.debounceFetchStarred(feedId, offset)
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -162,15 +168,15 @@ export const actions = {
 		}
 
 		if (response?.data.items.length < 40) {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: true })
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: feedId ? 'starredfeed-' + feedId : 'starred', loaded: true })
 		} else {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred', loaded: false })
+			commit(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: feedId ? 'starredfeed-' + feedId : 'starred', loaded: false })
 		}
 		if (response?.data.items.length > 0) {
 			const lastItem = response?.data.items[response?.data.items.length - 1].id
-			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem })
+			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: feedId ? 'starredfeed-' + feedId : 'starred', lastItem })
 		}
-		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: false })
+		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: feedId ? 'starredfeed-' + feedId : 'starred', fetching: false })
 	},
 
 	/**
@@ -300,8 +306,10 @@ export const actions = {
 		ItemService.markStarred(item, true)
 
 		item.starred = true
+		const feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount + 1)
+		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: true })
 	},
 
 	/**
@@ -319,8 +327,10 @@ export const actions = {
 		ItemService.markStarred(item, false)
 
 		item.starred = false
+		const feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
+		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: false })
 	},
 
 	/**

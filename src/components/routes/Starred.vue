@@ -1,10 +1,10 @@
 <template>
 	<ContentTemplate :items="starred"
-		:fetch-key="'starred'"
+		:fetch-key="feedId ? 'starredfeed-'+feedId : 'starred'"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Starred') }}
-			<NcCounterBubble class="counter-bubble" :count="items.starredCount" />
+			<NcCounterBubble class="counter-bubble" :count="feedId ? starred.length : items.starredCount" />
 		</template>
 	</ContentTemplate>
 </template>
@@ -18,26 +18,33 @@ import NcCounterBubble from '@nextcloud/vue/dist/Components/NcCounterBubble.js'
 import ContentTemplate from '../ContentTemplate.vue'
 
 import { FeedItem } from '../../types/FeedItem'
-import { ACTIONS, MUTATIONS } from '../../store'
+import { ACTIONS } from '../../store'
 
 export default Vue.extend({
 	components: {
 		ContentTemplate,
 		NcCounterBubble,
 	},
+	props: {
+		feedId: {
+			type: String,
+			required: false,
+			default: undefined,
+		},
+	},
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
+			if (this.feedId) {
+				return this.$store.getters.starred.filter((item: FeedItem) => item.feedId === Number(this.feedId))
+			}
 			return this.$store.getters.starred
 		},
-	},
-	created() {
-		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 	methods: {
 		async fetchMore() {
 			if (!this.$store.state.items.fetchingItems.starred) {
-			  this.$store.dispatch(ACTIONS.FETCH_STARRED)
+			  this.$store.dispatch(ACTIONS.FETCH_STARRED, { feedId: this.feedId === undefined ? 0 : Number(this.feedId) })
 			}
 		},
 	},

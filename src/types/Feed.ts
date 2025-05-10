@@ -3,6 +3,7 @@ import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
 export type Feed = {
   folderId?: number;
   unreadCount: number;
+  starredCount: number;
   url: string;
   title?: string;
   autoDiscover?: boolean;

@@ -41,7 +41,27 @@
 					<RssIcon />
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
+			<NcAppNavigationItem :name="t('news', 'Starred')"
+				icon="icon-starred"
+				:to="{ name: ROUTES.STARRED }"
+				:allow-collapse="true"
+				:exact="true"
+				:force-menu="true">
+				<NcAppNavigationItem v-for="group in GroupedStars"
+					:key="group.id"
+					:ref="'starredfeed-' + group.id"
+					:name="group.title"
+					:icon="''"
+					:exact="true"
+					:to="{ name: ROUTES.STARREDFEED, params: { feedId: group.id.toString() } }">
+					<template #icon>
+						<RssIcon v-if="!group.faviconLink" />
+						<span v-if="group.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ 'backgroundImage': 'url(' + group.faviconLink + ')' }" />
+					</template>
+					<template #counter>
+						<NcCounterBubble :count="group.starredCount" />
+					</template>
+				</NcAppNavigationItem>
 				<template #counter>
 					<NcCounterBubble :count="items.starredCount" />
 				</template>
@@ -370,6 +390,9 @@ export default Vue.extend({
 			]
 
 			return navItems
+		},
+		GroupedStars(): Array<Feed> {
+			return this.$store.getters.feeds.filter((item: Feed) => item.starredCount !== 0)
 		},
 		loading: {
 			get() {
