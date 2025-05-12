@@ -492,10 +492,17 @@ export default defineComponent({
 		},
 	},
 
+	watch: {
+		'$route.query.subscribe_to': {
+			handler() {
+				if (this.$route.query.subscribe_to) {
+					this.showAddFeed = true
+				}
+			},
+		},
+	},
+
 	created() {
-		if (this.$route.query.subscribe_to) {
-			this.showAddFeed = true
-		}
 		if (!this.disableRefresh) {
 			// refresh feeds every minute
 			this.polling = setInterval(() => {
