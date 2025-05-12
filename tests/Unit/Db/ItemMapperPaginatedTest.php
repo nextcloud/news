@@ -174,7 +174,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $result = $this->class->findAllItems('jack', 3, 10, 10, true, []);
+        $result = $this->class->findAllItems(0, 'jack', 3, 10, 10, true, []);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
