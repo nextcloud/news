@@ -23,7 +23,7 @@ The PHP code should all adhere to [PSR-2](https://www.php-fig.org/psr/psr-2/).
 *Note that this is a different codestyle than Nextcloud itself uses.*
 To test the codestyle you can run `make phpcs`.
 
-The application Front End uses Vue 2.7 and the Nextcloud Libraries [Vue Components](https://github.com/nextcloud-libraries/nextcloud-vue) for building the Application running inside your Nextcloud instance. For linting these files, we are using eslint, see the [config file](https://github.com/nextcloud/news/blob/master/.eslintrc.js). We also have Unit Tests for the components that run with Jest, please ensure these pass when adding new features/fixing bugs.
+The application Front End uses Vue 3.5 and the Nextcloud Libraries [Vue Components](https://github.com/nextcloud-libraries/nextcloud-vue) for building the Application running inside your Nextcloud instance. For linting these files, we are using eslint, see the [config file](https://github.com/nextcloud/news/blob/master/eslint.config.mjs). We also have Unit Tests for the components that run with vitest, please ensure these pass when adding new features/fixing bugs.
 
 ## Developer setup
 TL;DR:
@@ -57,7 +57,7 @@ If you have issues with setting up a developer environment create a [new discuss
 
 - We use the Nextcloud Vue component library for most of the form controls and navigation
 - Vuex is used for state management, this is similar to Redux and has Actions/Mutations and Getters
-- We are using the Nextcloud Webpack Vue configuration and have enabled Typescript support and importing in the Vue components
+- We are using the Nextcloud Vite configuration and have enabled Typescript support and importing in the Vue components
 - We use ESLint and StyleLint for ensuring correct formatting of the Scripts and HTML
 
 ## Testing
@@ -66,7 +66,7 @@ When submitting your PR the tests will be run automatically, try to fix any erro
 
 ### Frontend Unit Tests
 
-Frontend unit tests are written with Jest and can be run with `npm run test`.
+Frontend unit tests are using vitest and can be run with `npm run test`.
 
 ### API and CLI Integration Tests
 
