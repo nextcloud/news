@@ -43,7 +43,7 @@
   "private": true,
   "homepage": "https://github.com/nextcloud/news",
   "dependencies": {
-    "@nextcloud/auth": "^2.4.0",
+    "@nextcloud/auth": "^2.5.0",
     "@nextcloud/axios": "^2.5.0",
     "@nextcloud/dialogs": "^6.2.0",
     "@nextcloud/event-bus": "^3.3.2",
