@@ -180,7 +180,7 @@ OC.L10N.register(
     "Undo delete feed" : "Desfazer exclusão de feed",
     "Menu" : "Menu",
     "Open feed URL" : "Abrir URL do feed",
-    "Dismiss" : "Rejeitar",
+    "Dismiss" : "Dispensar",
     "Collapse" : "Esconder",
     "Deleted folder" : "Pasta excluída",
     "Undo delete folder" : "Desfazer a exclusão de pasta",
