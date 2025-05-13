@@ -1,0 +1,2662 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Nextcloud News App">
+      
+      
+        <meta name="author" content="Nextcloud News Team">
+      
+      
+        <link rel="canonical" href="https://nextcloud.github.io/news/api/api-v1-3/">
+      
+      
+        <link rel="prev" href="../api-v1-2/">
+      
+      
+        <link rel="next" href="../api-v2/">
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
+    
+    
+      
+        <title>API v1.3 - Nextcloud News App</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bcfcd587.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#external-api-v1-3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Nextcloud News App" class="md-header__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Nextcloud News App
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              API v1.3
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/nextcloud/news" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Nextcloud News App" class="md-nav__button md-logo" aria-label="Nextcloud News App" data-md-component="logo">
+      
+  <img src="../../assets/logo.svg" alt="logo">
+
+    </a>
+    Nextcloud News App
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/nextcloud/news" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../install/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation/Update & Uninstall
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Clients
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../admin/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Admin
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Developer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Features
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Features
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/customCSS/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Custom CSS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/plugins/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Plugins
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/themes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Themes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    REST API
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            REST API
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-v1-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v1.2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    API v1.3
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    API v1.3
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api-stability-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      API stability contract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication &amp; Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Sync
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How To Sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Sync
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syncing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-api-from-a-web-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing API from a web application
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Folders
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-all-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all folders
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename a folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-items-of-a-folder-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark items of a folder as read
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feeds
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sanitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sanitation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all feeds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a feed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a feed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-a-feed-to-a-different-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Move a feed to a different folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-a-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename a feed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-items-of-a-feed-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark items of a feed as read
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Items
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sanitation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sanitation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get items
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Get items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-updated-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get updated items
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as read
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as read
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-unread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as unread
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-unread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as unread
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-starred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as starred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-starred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as starred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-unstarred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as unstarred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-unstarred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as unstarred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-all-items-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark all items as read
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updater" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updater
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-cleanup-before-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger cleanup before update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-feed-ids-and-usernames-for-all-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get feed ids and usernames for all feeds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-feed-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger a feed update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger-cleanup-after-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger cleanup after update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    <span class="md-ellipsis">
+      User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-status_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-v2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API v2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenance/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Maintenance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#api-stability-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      API stability contract
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication &amp; Basics
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      How To Sync
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How To Sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initial Sync
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syncing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Syncing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accessing-api-from-a-web-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      Accessing API from a web application
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#input" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      Output
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Endpoints
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Folders
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Folders">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-all-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all folders
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-a-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename a folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-items-of-a-folder-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark items of a folder as read
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feeds
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Feeds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sanitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sanitation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-all-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get all feeds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a feed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-a-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Delete a feed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#move-a-feed-to-a-different-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Move a feed to a different folder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rename-a-feed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rename a feed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-items-of-a-feed-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark items of a feed as read
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Items
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sanitation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sanitation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get items
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Get items">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-updated-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get updated items
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as read
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as read
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-unread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as unread
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-unread" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as unread
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-starred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as starred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-starred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as starred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-an-item-as-unstarred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark an item as unstarred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-multiple-items-as-unstarred" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark multiple items as unstarred
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-all-items-as-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mark all items as read
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updater" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updater
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updater">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trigger-cleanup-before-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger cleanup before update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-feed-ids-and-usernames-for-all-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get feed ids and usernames for all feeds
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger-a-feed-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger a feed update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trigger-cleanup-after-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger cleanup after update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Version
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the version
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user" class="md-nav__link">
+    <span class="md-ellipsis">
+      User
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-the-status_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get the status
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="external-api-v1-3">External API v1-3</h1>
+<p>The <strong>News app 1.3</strong> offers a RESTful API.</p>
+<h2 id="api-stability-contract">API stability contract</h2>
+<p>The API level will <strong>change</strong> if the following occurs:</p>
+<ul>
+<li>A field of an object is removed</li>
+<li>A field of an object has a different datatype</li>
+<li>The meaning of an API call changes</li>
+</ul>
+<p>The API level will <strong>not change</strong> if:</p>
+<ul>
+<li>The app version is changed (e.g. 4.0.1.2 instead of 4.0 or 4.001)</li>
+<li>A new attribute is added (e.g. each item gets a new field "something": 1)</li>
+<li>The order of the JSON attributes is changed on any level (e.g. "id":3 is not the first field anymore, but the last)</li>
+</ul>
+<p>You have to design your app with these things in mind!:</p>
+<ul>
+<li><strong>Don't depend on the order of object attributes. In JSON it does not matter where the object attribute is since you access the value by name, not by index</strong></li>
+<li><strong>Don't limit your app to the currently available attributes. New ones might be added. If you don't handle them, ignore them</strong></li>
+<li><strong>Use a library to compare versions, ideally one that uses semantic versioning</strong></li>
+</ul>
+<h2 id="authentication-basics">Authentication &amp; Basics</h2>
+<p>Because REST is stateless you have to send user and password each time you access the API. Therefore running Nextcloud <strong>with SSL is highly recommended</strong> otherwise <strong>everyone in your network can log your credentials</strong>.</p>
+<p>The base URL for all calls is:</p>
+<div class="language-text highlight"><pre><span></span><code>https://yournextcloud.com/index.php/apps/news/api/v1-3/
+</code></pre></div>
+<p>All defined routes in the Specification are appended to this url. To access all feeds for instance use this url:</p>
+<div class="language-text highlight"><pre><span></span><code>https://yournextcloud.com/index.php/apps/news/api/v1-3/feeds
+</code></pre></div>
+<p>Credentials need to be passed as an HTTP header using <a href="https://en.wikipedia.org/wiki/Basic_access_authentication#Client_side">HTTP basic auth</a>:</p>
+<div class="language-text highlight"><pre><span></span><code>Authorization: Basic $CREDENTIALS
+</code></pre></div>
+<p>where $CREDENTIALS is:</p>
+<div class="language-text highlight"><pre><span></span><code>base64(USER:PASSWORD)
+</code></pre></div>
+<h2 id="how-to-sync">How To Sync</h2>
+<p>This is a small overview over how you should sync your articles with the Nextcloud News app. For more fine-grained details about the API see further down.</p>
+<p>All routes are given relative to the base API url (e.g.: <a href="https://yournextcloud.com/index.php/apps/news/api/v1-3">https://yournextcloud.com/index.php/apps/news/api/v1-3</a>)</p>
+<h3 id="initial-sync">Initial Sync</h3>
+<p>The initial sync happens, when a user adds a Nextcloud account in your app. In that case you should fetch all feeds, folders and unread or starred articles from the News app. Do not fetch all articles, not only because it syncs faster, but also because the user is primarily interested in unread articles. To fetch all unread and starred articles, you must call 4 routes:</p>
+<ul>
+<li><strong>unread articles</strong>: GET /items?type=3&amp;getRead=false&amp;batchSize=-1</li>
+<li><strong>starred articles</strong>: GET /items?type=2&amp;getRead=true&amp;batchSize=-1</li>
+<li><strong>folders</strong>: GET /folders</li>
+<li><strong>feeds</strong>: GET /feeds</li>
+</ul>
+<p>The JSON response structures can be viewed further down.</p>
+<h3 id="syncing">Syncing</h3>
+<p>When syncing, you want to push read/unread and starred/unstarred items to the server and receive new and updated items, feeds and folders. To do that, call the following routes:</p>
+<ul>
+<li><strong>Notify the News app of unread articles</strong>: PUT /items/unread/multiple {"items": [1, 3, 5]}</li>
+<li><strong>Notify the News app of read articles</strong>: PUT /items/read/multiple {"items": [1, 3, 5]}</li>
+<li><strong>Notify the News app of starred articles</strong>: PUT /items/starred/multiple {"itemIds": [1, 3, 5]}</li>
+<li><strong>Notify the News app of unstarred articles</strong>: PUT /items/unstarred/multiple {"itemIds": [1, 3, 5]}</li>
+<li><strong>Get new folders</strong>: GET /folders</li>
+<li><strong>Get new feeds</strong>: GET /feeds</li>
+<li><strong>Get new items and modified items</strong>: GET /items/updated?lastModified=12123123123&amp;type=3</li>
+</ul>
+<h2 id="accessing-api-from-a-web-application">Accessing API from a web application</h2>
+<p><strong>News 1.401</strong> implements CORS which allows web applications to access the API. <strong>To access the API in a webapp you need to send the correct authorization header instead of simply putting auth data into the URL!</strong>. An example request in jQuery would look like this:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="code-line-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+</span><span id="code-line-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w"> </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+</span><span id="code-line-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w"> </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://yournextcloud.com/index.php/apps/news/api/v1-3/version&#39;</span><span class="p">,</span>
+</span><span id="code-line-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w"> </span><span class="nx">contentType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+</span><span id="code-line-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w"> </span><span class="nx">success</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="c1">// handle success</span>
+</span><span id="code-line-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w"> </span><span class="p">},</span>
+</span><span id="code-line-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w"> </span><span class="nx">error</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="c1">// handle errors</span>
+</span><span id="code-line-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w"> </span><span class="p">},</span>
+</span><span id="code-line-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w"> </span><span class="nx">beforeSend</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">xhr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;john&#39;</span><span class="p">;</span>
+</span><span id="code-line-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;doe&#39;</span><span class="p">;</span>
+</span><span id="code-line-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">btoa</span><span class="p">(</span><span class="nx">username</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">password</span><span class="p">);</span>
+</span><span id="code-line-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;Authorization&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Basic &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">auth</span><span class="p">);</span>
+</span><span id="code-line-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w"> </span><span class="p">}</span>
+</span><span id="code-line-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">});</span>
+</span></code></pre></div>
+<p>An example with AngularJS would look like this:</p>
+<div class="language-js highlight"><pre><span></span><code><span id="code-line-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;YourApp&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[])</span>
+</span><span id="code-line-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="p">.</span><span class="nx">config</span><span class="p">([</span><span class="s1">&#39;$httpProvider&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$provide&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">$httpProvider</span><span class="p">,</span><span class="w"> </span><span class="nx">$provide</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="nx">$provide</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;AuthInterceptor&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;Credentials&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$q&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">Credentials</span><span class="p">,</span><span class="w"> </span><span class="nx">$q</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">                </span><span class="nx">request</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">config</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">                    </span><span class="c1">// only set auth headers if url matches the api url</span>
+</span><span id="code-line-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">                    </span><span class="k">if</span><span class="p">(</span><span class="nx">config</span><span class="p">.</span><span class="nx">url</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">Credentials</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">                        </span><span class="nx">auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">btoa</span><span class="p">(</span><span class="nx">Credentials</span><span class="p">.</span><span class="nx">userName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">Credentials</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
+</span><span id="code-line-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">                        </span><span class="nx">config</span><span class="p">.</span><span class="nx">headers</span><span class="p">[</span><span class="s1">&#39;Authorization&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Basic &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">auth</span><span class="p">;</span>
+</span><span id="code-line-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">                    </span><span class="p">}</span>
+</span><span id="code-line-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="nx">config</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">$q</span><span class="p">.</span><span class="nx">when</span><span class="p">(</span><span class="nx">config</span><span class="p">);</span>
+</span><span id="code-line-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">                </span><span class="p">}</span>
+</span><span id="code-line-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">            </span><span class="p">};</span>
+</span><span id="code-line-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="p">}]);</span>
+</span><span id="code-line-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">        </span><span class="nx">$httpProvider</span><span class="p">.</span><span class="nx">interceptors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;AuthInterceptor&#39;</span><span class="p">);</span>
+</span><span id="code-line-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span><span class="p">}])</span>
+</span><span id="code-line-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">    </span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;Credentials&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">            </span><span class="nx">userName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
+</span><span id="code-line-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">            </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">,</span>
+</span><span id="code-line-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">            </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://yournextcloud.com/index.php/apps/news/api&#39;</span>
+</span><span id="code-line-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">        </span><span class="p">};</span>
+</span><span id="code-line-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="p">})</span>
+</span><span id="code-line-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span><span class="p">.</span><span class="nx">run</span><span class="p">([</span><span class="s1">&#39;$http&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">$http</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">        </span><span class="nx">$http</span><span class="p">({</span>
+</span><span id="code-line-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">            </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+</span><span id="code-line-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">            </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://yournextcloud.com/index.php/apps/news/api/v1-3/version&#39;</span>
+</span><span id="code-line-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">        </span><span class="p">}).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">status</span><span class="p">,</span><span class="w"> </span><span class="nx">header</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">            </span><span class="c1">// handle success</span>
+</span><span id="code-line-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">        </span><span class="p">}).</span><span class="nx">error</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">status</span><span class="p">,</span><span class="w"> </span><span class="nx">header</span><span class="p">,</span><span class="w"> </span><span class="nx">config</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">            </span><span class="c1">// handle error</span>
+</span><span id="code-line-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">        </span><span class="p">});</span>
+</span><span id="code-line-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">    </span><span class="p">}]);</span>
+</span></code></pre></div>
+<h2 id="input">Input</h2>
+<p>In general the input parameters can be in the URL or request body, the App Framework doesnt differentiate between them.</p>
+<p>So JSON in the request body like:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="code-line-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="code-line-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>will be treated the same as</p>
+<div class="language-text highlight"><pre><span></span><code>/?id=3
+</code></pre></div>
+<p>It is recommended though that you use the following convention:</p>
+<ul>
+<li><strong>GET</strong>: parameters in the URL</li>
+<li><strong>POST</strong>: parameters as JSON in the request body</li>
+<li><strong>PUT</strong>: parameters as JSON in the request body</li>
+<li><strong>DELETE</strong>: parameters as JSON in the request body</li>
+</ul>
+<h2 id="output">Output</h2>
+<p>The output is JSON.</p>
+<h2 id="api-endpoints">API Endpoints</h2>
+<h3 id="folders">Folders</h3>
+<h4 id="get-all-folders">Get all folders</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /folders</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="code-line-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">&quot;folders&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="code-line-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Media&quot;</span>
+</span><span id="code-line-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="c1">// etc</span>
+</span><span id="code-line-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="code-line-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="create-a-folder">Create a folder</h4>
+<p>Creates a new folder and returns a new folder object</p>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /folders</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="code-line-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;folder name&quot;</span>
+</span><span id="code-line-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 409</strong>: If the folder exists already</li>
+<li><strong>HTTP 422</strong>: If the folder name is invalid (for instance empty)</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
+</span><span id="code-line-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;folders&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="code-line-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Media&quot;</span>
+</span><span id="code-line-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="code-line-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="code-line-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="delete-a-folder">Delete a folder</h4>
+<p>Deletes a folder with the id folderId and all the feeds it contains</p>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: DELETE</li>
+<li><strong>Route</strong>: /folders/{folderId}</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the folder does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="rename-a-folder">Rename a folder</h4>
+<p>Only the name can be updated</p>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: PUT</li>
+<li><strong>Route</strong>: /folders/{folderId}</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
+</span><span id="code-line-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;folder name&quot;</span>
+</span><span id="code-line-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 409</strong>: If the folder name does already exist</li>
+<li><strong>HTTP 404</strong>: If the folder does not exist</li>
+<li><strong>HTTP 422</strong>: If the folder name is invalid (for instance empty)</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-items-of-a-folder-as-read">Mark items of a folder as read</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /folders/{folderId}/read</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="code-line-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="c1">// mark all items read lower than equal that id</span>
+</span><span id="code-line-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="c1">// this is mean to prevent marking items as read which the client/user does not yet know of</span>
+</span><span id="code-line-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&quot;newestItemId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+</span><span id="code-line-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h3 id="feeds">Feeds</h3>
+<h4 id="sanitation">Sanitation</h4>
+<p>The following attributes are <strong>not sanitized</strong> meaning: including them in your web application can lead to XSS:</p>
+<ul>
+<li><strong>title</strong></li>
+<li><strong>link</strong></li>
+</ul>
+<h4 id="get-all-feeds">Get all feeds</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /feeds</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+</span><span id="code-line-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;feeds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">39</span><span class="p">,</span>
+</span><span id="code-line-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://feeds.feedburner.com/oatmealfeed&quot;</span><span class="p">,</span>
+</span><span id="code-line-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The Oatmeal - Comics, Quizzes, &amp; Stories&quot;</span><span class="p">,</span>
+</span><span id="code-line-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">      </span><span class="nt">&quot;faviconLink&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://theoatmeal.com/favicon.ico&quot;</span><span class="p">,</span>
+</span><span id="code-line-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">      </span><span class="nt">&quot;added&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1367063790</span><span class="p">,</span>
+</span><span id="code-line-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">      </span><span class="nt">&quot;nextUpdateTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2071387335</span><span class="p">,</span>
+</span><span id="code-line-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">      </span><span class="nt">&quot;folderId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="code-line-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">      </span><span class="nt">&quot;unreadCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+</span><span id="code-line-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">      </span><span class="nt">&quot;ordering&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// 0 means no special ordering, 1 means oldest first, 2 newest first, new in 5.1.0</span>
+</span><span id="code-line-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">      </span><span class="nt">&quot;link&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://theoatmeal.com/&quot;</span><span class="p">,</span>
+</span><span id="code-line-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">      </span><span class="nt">&quot;pinned&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c1">// if a feed should be sorted before other feeds, added in 6.0.3,</span>
+</span><span id="code-line-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">      </span><span class="nt">&quot;updateErrorCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// added in 8.6.0, 0 if no errors occurred during the last update,</span>
+</span><span id="code-line-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">                             </span><span class="c1">// otherwise is incremented for each failed update.</span>
+</span><span id="code-line-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">                             </span><span class="c1">// Once it reaches a threshold, a message should be displayed to the user</span>
+</span><span id="code-line-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">                             </span><span class="c1">// indicating that the feed has failed to update that many times.</span>
+</span><span id="code-line-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">                             </span><span class="c1">// The webapp displays the message after 50 failed updates</span>
+</span><span id="code-line-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">      </span><span class="nt">&quot;lastUpdateError&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error message here&quot;</span><span class="w">  </span><span class="c1">// added in 8.6.0, empty string or null if no update</span>
+</span><span id="code-line-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">                                               </span><span class="c1">// error happened, otherwise contains the last update error message</span>
+</span><span id="code-line-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="c1">// etc</span>
+</span><span id="code-line-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="code-line-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">  </span><span class="nt">&quot;starredCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+</span><span id="code-line-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="w">  </span><span class="nt">&quot;newestItemId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3443</span><span class="w">  </span><span class="c1">// only sent if there are items</span>
+</span><span id="code-line-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="create-a-feed">Create a feed</h4>
+<p>Creates a new feed and returns the feed</p>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /feeds</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="code-line-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http:\/\/www.cyanogenmod.org\/wp-content\/themes\/cyanogenmod\/images\/favicon.ico&quot;</span><span class="p">,</span>
+</span><span id="code-line-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;folderId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">81</span><span class="w"> </span><span class="c1">//  id of the parent folder, null for root</span>
+</span><span id="code-line-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 409</strong>: If the feed exists already</li>
+<li><strong>HTTP 422</strong>: If the feed cant be read (most likely contains errors)</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+</span><span id="code-line-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;feeds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">39</span><span class="p">,</span>
+</span><span id="code-line-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://feeds.feedburner.com/oatmealfeed&quot;</span><span class="p">,</span>
+</span><span id="code-line-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The Oatmeal - Comics, Quizzes, &amp; Stories&quot;</span><span class="p">,</span>
+</span><span id="code-line-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">      </span><span class="nt">&quot;faviconLink&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://theoatmeal.com/favicon.ico&quot;</span><span class="p">,</span>
+</span><span id="code-line-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">      </span><span class="nt">&quot;added&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1367063790</span><span class="p">,</span>
+</span><span id="code-line-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">      </span><span class="nt">&quot;nextUpdateTime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2071387335</span><span class="p">,</span>
+</span><span id="code-line-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">      </span><span class="nt">&quot;folderId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+</span><span id="code-line-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">      </span><span class="nt">&quot;unreadCount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+</span><span id="code-line-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">      </span><span class="nt">&quot;ordering&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="c1">// 0 means no special ordering, 1 means oldest first, 2 newest first, new in 5.1.0</span>
+</span><span id="code-line-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">      </span><span class="nt">&quot;link&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://theoatmeal.com/&quot;</span><span class="p">,</span>
+</span><span id="code-line-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">      </span><span class="nt">&quot;pinned&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c1">// if a feed should be sorted before other feeds, added in 6.0.3</span>
+</span><span id="code-line-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="code-line-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">  </span><span class="p">],</span>
+</span><span id="code-line-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">  </span><span class="nt">&quot;newestItemId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="w"> </span><span class="c1">// only sent if there are items</span>
+</span><span id="code-line-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="delete-a-feed">Delete a feed</h4>
+<p>Deletes a feed with the id feedId and all of its  items</p>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: DELETE</li>
+<li><strong>Route</strong>: /feeds/{feedId}</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="move-a-feed-to-a-different-folder">Move a feed to a different folder</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /feeds/{feedId}/move</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+</span><span id="code-line-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;folderId&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="c1">//  id of the parent folder, null for root</span>
+</span><span id="code-line-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="rename-a-feed">Rename a feed</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in News 1.807</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /feeds/{feedId}/rename</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+</span><span id="code-line-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">&quot;feedTitle&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;New Title&quot;</span>
+</span><span id="code-line-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-items-of-a-feed-as-read">Mark items of a feed as read</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /feeds/{feedId}/read</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="p">{</span>
+</span><span id="code-line-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span><span class="c1">// mark all items read lower than equal that id</span>
+</span><span id="code-line-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="c1">// this is mean to prevent marking items as read which the client/user does not yet know of</span>
+</span><span id="code-line-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">&quot;newestItemId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+</span><span id="code-line-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h3 id="items">Items</h3>
+<h4 id="sanitation_1">Sanitation</h4>
+<p>The following attributes are <strong>not sanitized</strong> meaning: including them in your web application can lead to  XSS:</p>
+<ul>
+<li><strong>title</strong></li>
+<li><strong>author</strong></li>
+<li><strong>url</strong></li>
+<li><strong>enclosureMime</strong></li>
+<li><strong>enclosureLink</strong></li>
+<li><strong>mediaThumbnail</strong></li>
+<li><strong>mediaDescription</strong></li>
+</ul>
+<h4 id="types">Types</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Default</th>
+<th>Types</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>author</td>
+<td>null</td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>body</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>contentHash</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>enclosureLink</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>enclosureMime</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>feedId</td>
+<td></td>
+<td>int</td>
+</tr>
+<tr>
+<td>fingerprint</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>guid</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td>guidHash</td>
+<td></td>
+<td>string</td>
+</tr>
+<tr>
+<td>id</td>
+<td></td>
+<td>int</td>
+</tr>
+<tr>
+<td>lastModified</td>
+<td>\"0\"</td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>mediaDescription</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>mediaThumbnail</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>pubDate</td>
+<td></td>
+<td>int|null</td>
+</tr>
+<tr>
+<td>rtl</td>
+<td>false</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>starred</td>
+<td>false</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>title</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>unread</td>
+<td>false</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>updatedDate</td>
+<td></td>
+<td>string|null</td>
+</tr>
+<tr>
+<td>url</td>
+<td></td>
+<td>string|null</td>
+</tr>
+</tbody>
+</table>
+<h4 id="get-items">Get items</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /items</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="p">{</span>
+</span><span id="code-line-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="nt">&quot;batchSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="c1">//  the number of items that should be returned, defaults to -1, new in 5.2.3: -1 returns all items</span>
+</span><span id="code-line-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="c1">// only return older (lower than equal that id) items than the one with id 30</span>
+</span><span id="code-line-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// the type of the query (Feed: 0, Folder: 1, Starred: 2, All: 3)</span>
+</span><span id="code-line-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="c1">// the id of the folder or feed, Use 0 for Starred and All</span>
+</span><span id="code-line-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="nt">&quot;getRead&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// if true it returns all items, false returns only unread items</span>
+</span><span id="code-line-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">  </span><span class="nt">&quot;oldestFirst&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="c1">// implemented in 3.002, if true it reverse the sort order</span>
+</span><span id="code-line-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+</span><span id="code-line-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3443</span><span class="p">,</span>
+</span><span id="code-line-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">      </span><span class="nt">&quot;guid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://grulja.wordpress.com/?p=76&quot;</span><span class="p">,</span>
+</span><span id="code-line-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">      </span><span class="nt">&quot;guidHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3059047a572cd9cd5d0bf645faffd077&quot;</span><span class="p">,</span>
+</span><span id="code-line-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/&quot;</span><span class="p">,</span>
+</span><span id="code-line-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plasma-nm after the solid sprint&quot;</span><span class="p">,</span>
+</span><span id="code-line-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">      </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan Grulich (grulja)&quot;</span><span class="p">,</span>
+</span><span id="code-line-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">      </span><span class="nt">&quot;pubDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1367270544</span><span class="p">,</span>
+</span><span id="code-line-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">      </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;p&gt;At first I have to say...&lt;/p&gt;&quot;</span><span class="p">,</span>
+</span><span id="code-line-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">      </span><span class="nt">&quot;enclosureMime&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="code-line-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">      </span><span class="nt">&quot;enclosureLink&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="code-line-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">      </span><span class="nt">&quot;mediaThumbnail&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// new in 14.1.4-rc1</span>
+</span><span id="code-line-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">      </span><span class="nt">&quot;mediaDescription&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="c1">// new in 14.1.4-rc1</span>
+</span><span id="code-line-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">      </span><span class="nt">&quot;feedId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">67</span><span class="p">,</span>
+</span><span id="code-line-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">      </span><span class="nt">&quot;unread&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="code-line-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">      </span><span class="nt">&quot;starred&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="code-line-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">      </span><span class="nt">&quot;rtl&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="c1">// new in 6.0.2</span>
+</span><span id="code-line-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">      </span><span class="nt">&quot;lastModified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1367273003</span><span class="p">,</span>
+</span><span id="code-line-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">      </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aeaae2123&quot;</span><span class="w">  </span><span class="c1">// new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it&#39;s advised to locally mark the other one read as well and filter out duplicates in folder and all articles view</span>
+</span><span id="code-line-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="c1">// etc</span>
+</span><span id="code-line-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="code-line-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="p">}</span>
+</span></code></pre></div>
+<h5 id="example">Example</h5>
+<p>Autopaging would work like this:</p>
+<ul>
+<li>Get the <strong>first 20</strong> items from a feed with <strong>id 12</strong></li>
+</ul>
+<p><strong>GET /items</strong>:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
+</span><span id="code-line-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;batchSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+</span><span id="code-line-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+</span><span id="code-line-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="code-line-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+</span><span id="code-line-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span><span class="nt">&quot;getRead&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="code-line-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The item with the lowest item id is 43.</p>
+<ul>
+<li>Get the next <strong>20</strong> items: <strong>GET /items</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="p">{</span>
+</span><span id="code-line-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="nt">&quot;batchSize&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+</span><span id="code-line-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="nt">&quot;offset&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">43</span><span class="p">,</span>
+</span><span id="code-line-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="code-line-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+</span><span id="code-line-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">  </span><span class="nt">&quot;getRead&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="code-line-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="get-updated-items">Get updated items</h4>
+<p>This is used to stay up to date.</p>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /items/updated</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="p">{</span>
+</span><span id="code-line-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span><span class="nt">&quot;lastModified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">123231</span><span class="p">,</span><span class="w"> </span><span class="c1">// returns only items with a lastModified timestamp &gt;= than this one</span>
+</span><span id="code-line-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">                          </span><span class="c1">// this may also return already existing items whose read or starred status</span>
+</span><span id="code-line-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">                          </span><span class="c1">// has been changed</span>
+</span><span id="code-line-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="c1">// the type of the query (Feed: 0, Folder: 1, Starred: 2, All: 3)</span>
+</span><span id="code-line-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="c1">// the id of the folder or feed, Use 0 for Starred and All</span>
+</span><span id="code-line-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="p">{</span>
+</span><span id="code-line-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="nt">&quot;items&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3443</span><span class="p">,</span>
+</span><span id="code-line-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">      </span><span class="nt">&quot;guid&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://grulja.wordpress.com/?p=76&quot;</span><span class="p">,</span>
+</span><span id="code-line-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">      </span><span class="nt">&quot;guidHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3059047a572cd9cd5d0bf645faffd077&quot;</span><span class="p">,</span>
+</span><span id="code-line-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">      </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://grulja.wordpress.com/2013/04/29/plasma-nm-after-the-solid-sprint/&quot;</span><span class="p">,</span>
+</span><span id="code-line-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Plasma-nm after the solid sprint&quot;</span><span class="p">,</span>
+</span><span id="code-line-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">      </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jan Grulich (grulja)&quot;</span><span class="p">,</span>
+</span><span id="code-line-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">      </span><span class="nt">&quot;pubDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1367270544</span><span class="p">,</span>
+</span><span id="code-line-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">      </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;p&gt;At first I have to say...&lt;/p&gt;&quot;</span><span class="p">,</span>
+</span><span id="code-line-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="w">      </span><span class="nt">&quot;enclosureMime&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="code-line-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a><span class="w">      </span><span class="nt">&quot;enclosureLink&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="code-line-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="w">      </span><span class="nt">&quot;feedId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">67</span><span class="p">,</span>
+</span><span id="code-line-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a><span class="w">      </span><span class="nt">&quot;unread&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="code-line-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="w">      </span><span class="nt">&quot;starred&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="code-line-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="w">      </span><span class="nt">&quot;lastModified&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1367273003</span><span class="p">,</span>
+</span><span id="code-line-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="w">      </span><span class="nt">&quot;fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aeaae2123&quot;</span><span class="w">  </span><span class="c1">// new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it&#39;s advised to locally mark the other one read as well and filter out duplicates in folder and all articles view</span>
+</span><span id="code-line-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="c1">// etc</span>
+</span><span id="code-line-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="code-line-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="mark-an-item-as-read">Mark an item as read</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/{itemId}/read</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the item does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-multiple-items-as-read">Mark multiple items as read</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in API 1.2</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/read/multiple</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
+</span><span id="code-line-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">&quot;itemIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="c1">// ids of the items</span>
+</span><span id="code-line-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-an-item-as-unread">Mark an item as unread</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/{itemId}/unread</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the item does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-multiple-items-as-unread">Mark multiple items as unread</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in API 1.2</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/unread/multiple</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="p">{</span>
+</span><span id="code-line-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="nt">&quot;itemIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="c1">// ids of the items</span>
+</span><span id="code-line-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-an-item-as-starred">Mark an item as starred</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in API 1.3</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/{itemId}/star</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the item does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-multiple-items-as-starred">Mark multiple items as starred</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in API 1.3</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/star/multiple</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="p">{</span>
+</span><span id="code-line-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&quot;itemIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">]</span>
+</span><span id="code-line-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-an-item-as-unstarred">Mark an item as unstarred</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in API 1.3</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/{itemId}/unstar</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the item does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-multiple-items-as-unstarred">Mark multiple items as unstarred</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in API 1.3</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/unstar/multiple</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">{</span>
+</span><span id="code-line-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nt">&quot;itemIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="err">...</span><span class="p">]</span>
+</span><span id="code-line-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h4 id="mark-all-items-as-read">Mark all items as read</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: POST</li>
+<li><strong>Route</strong>: /items/read</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">{</span>
+</span><span id="code-line-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">    </span><span class="c1">// mark all items read lower than equal that id</span>
+</span><span id="code-line-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">    </span><span class="c1">// this is mean to prevent marking items as read which the client/user does not yet know of</span>
+</span><span id="code-line-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">    </span><span class="nt">&quot;newestItemId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+</span><span id="code-line-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: nothing</li>
+</ul>
+<h3 id="updater">Updater</h3>
+<p>To enable people to write their own update scripts instead of relying on the sequential built in web and system cron, API routes and console commands have been created.</p>
+<p>Updating should be done in the following fashion:</p>
+<ul>
+<li>Run the cleanup before the update</li>
+<li>Get all feeds and user ids</li>
+<li>For each feed and user id, run the update command</li>
+<li>Run the cleanup after the update.</li>
+</ul>
+<p>This <a href="https://github.com/nextcloud/news-updater">implementation in Python</a> should give you a good idea how to design and run it.</p>
+<h4 id="trigger-cleanup-before-update">Trigger cleanup before update</h4>
+<p>This is used to clean up the database. It deletes folders and feeds that are marked for deletion</p>
+<ul>
+<li><strong>Status</strong>: Implemented in News 1.601</li>
+<li><strong>Authentication</strong>: Requires admin user</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /cleanup/before-update</li>
+<li><strong>Returns</strong>: Nothing</li>
+</ul>
+<p><strong>New in 8.1.0</strong>: The console command for achieving the same result is:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>php<span class="w"> </span>-f<span class="w"> </span>nextcloud/occ<span class="w"> </span>news:updater:before-update
+</span></code></pre></div>
+<h4 id="get-feed-ids-and-usernames-for-all-feeds">Get feed ids and usernames for all feeds</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in News 1.203</li>
+<li><strong>Authentication</strong>: Requires admin user</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /feeds/all</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="p">{</span>
+</span><span id="code-line-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="w">  </span><span class="nt">&quot;feeds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="code-line-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="code-line-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">39</span><span class="p">,</span>
+</span><span id="code-line-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="w">      </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john&quot;</span><span class="p">,</span>
+</span><span id="code-line-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="c1">// etc</span>
+</span><span id="code-line-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="w">  </span><span class="p">]</span>
+</span><span id="code-line-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>New in 8.1.0, Removed in 16.0.0</strong>: The console command for achieving the same result is:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>php<span class="w"> </span>-f<span class="w"> </span>nextcloud/occ<span class="w"> </span>news:updater:all-feeds
+</span></code></pre></div>
+<h4 id="trigger-a-feed-update">Trigger a feed update</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in News 1.601</li>
+<li><strong>Authentication</strong>: Requires admin user</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /feeds/update</li>
+<li><strong>Parameters</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">{</span>
+</span><span id="code-line-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john&quot;</span><span class="p">,</span>
+</span><span id="code-line-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="w">  </span><span class="nt">&quot;feedId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="code-line-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Return codes</strong>:</li>
+<li><strong>HTTP 404</strong>: If the feed does not exist</li>
+<li><strong>Returns</strong>: Nothing</li>
+</ul>
+<p><strong>New in 8.1.0</strong>: The console command for achieving the same result is:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>php<span class="w"> </span>-f<span class="w"> </span>nextcloud/occ<span class="w"> </span>news:updater:update-feed<span class="w"> </span><span class="m">3</span><span class="w"> </span>john
+</span></code></pre></div>
+<h4 id="trigger-cleanup-after-update">Trigger cleanup after update</h4>
+<p>This is used to clean up the database. It removes old read articles which are not starred</p>
+<ul>
+<li><strong>Status</strong>: Implemented in News 1.601</li>
+<li><strong>Authentication</strong>: Requires admin user</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /cleanup/after-update</li>
+<li><strong>Returns</strong>: Nothing</li>
+</ul>
+<p><strong>New in 8.1.0</strong>: The console command for achieving the same result is:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="code-line-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>php<span class="w"> </span>-f<span class="w"> </span>nextcloud/occ<span class="w"> </span>news:updater:after-update
+</span></code></pre></div>
+<h3 id="version">Version</h3>
+<h4 id="get-the-version">Get the version</h4>
+<ul>
+<li><strong>Status</strong>: Implemented</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /version</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="p">{</span>
+</span><span id="code-line-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.2.3&quot;</span>
+</span><span id="code-line-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="status">Status</h3>
+<p>This API can be used to display warnings and errors in your client if the web app is improperly configured or not working. It is a good idea to call this route on like every 10th update and after the server connection parameters have been changed since it's likely that the user set up a new instance and configured the app improperly.</p>
+<h4 id="get-the-status">Get the status</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in News 5.2.4</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /status</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="p">{</span>
+</span><span id="code-line-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.2.4&quot;</span><span class="p">,</span>
+</span><span id="code-line-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">  </span><span class="nt">&quot;warnings&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="code-line-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="w">    </span><span class="nt">&quot;improperlyConfiguredCron&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">  </span><span class="c1">// if true the webapp will fail to update the feeds correctly</span>
+</span><span id="code-line-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span><span class="nt">&quot;incorrectDbCharset&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+</span><span id="code-line-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="code-line-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>If <strong>improperlyConfiguredCron</strong> is true you should display a warning that the app will not receive updates properly.</p>
+<p>This is due to the fact that the installation runs the cron in ajax mode to update the feeds. This is the default if you don't change anything and means that the app will only receive feed updates if the webinterface is accessed which will lead to lost updates.</p>
+<p>You should show the following warning and the link should be clickable:</p>
+<div class="language-text highlight"><pre><span></span><code>The News App updater is improperly configured and you will lose updates.
+See http://hisdomain.com/index.php/apps/news for instructions on how to fix it.
+</code></pre></div>
+<p>If <strong>incorrectDbCharset</strong> is true you should display a warning that database charset is set up incorrectly and updates with unicode characters might fail</p>
+<h3 id="user">User</h3>
+<p>This API can be used to retrieve metadata about the current user.</p>
+<p>DEPRECATED: This API is deprecated, use the Nextcloud APIs instead.</p>
+<ul>
+<li><a href="https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata">https://docs.nextcloud.com/server/latest/developer_manual/client_apis/OCS/ocs-api-overview.html#user-metadata</a> for user data</li>
+<li><code>https://nc.url/avatar/{userid}/{size}?v={1|2}</code> for the avatar</li>
+</ul>
+<h4 id="get-the-status_1">Get the status</h4>
+<ul>
+<li><strong>Status</strong>: Implemented in News 6.0.5</li>
+<li><strong>Method</strong>: GET</li>
+<li><strong>Route</strong>: /user</li>
+<li><strong>Parameters</strong>: none</li>
+<li><strong>Returns</strong>:</li>
+</ul>
+<div class="language-json highlight"><pre><span></span><code><span id="code-line-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="p">{</span>
+</span><span id="code-line-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;john&quot;</span><span class="p">,</span>
+</span><span id="code-line-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">  </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="p">,</span>
+</span><span id="code-line-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">  </span><span class="nt">&quot;lastLoginTimestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1241231233</span><span class="p">,</span><span class="w">  </span><span class="c1">// unix timestamp</span>
+</span><span id="code-line-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">  </span><span class="nt">&quot;avatar&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// if no avatar exists, this is null</span>
+</span><span id="code-line-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;asdiufadfasdfjlkjlkjljdfdf&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// base64 encoded image</span>
+</span><span id="code-line-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">    </span><span class="nt">&quot;mime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image/jpeg&quot;</span>
+</span><span id="code-line-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="code-line-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="p">}</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.indexes", "navigation.tracking", "navigation.instant", "navigation.expand", "navigation.sections"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1e8ae164.min.js"></script>
+      
+    
+  </body>
+</html>
