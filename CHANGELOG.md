@@ -7,15 +7,22 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- Migrate to Vue3
-- Migrate from webpack to vite
-- Migrate from jest to vitest
+
 
 ### Fixed
-- subscribe_to URL path has changed
-- change update mode menu text and icon in feed action menu
+
 
 # Releases
+## [26.0.0-beta.3] - 2025-05-13
+### Changed
+- Migrate frontend to Vue3 (#3163)
+- Migrate from webpack to vite (#3163)
+- Migrate from jest to vitest (#3163)
+
+### Fixed
+- subscribe_to URL path has changed (#3159)
+- change update mode menu text and icon in feed action menu (#3163)
+
 ## [26.0.0-beta.2] - 2025-05-06
 ### Fixed
 -  Item list not updated by automatic or manual refresh (#3155)
