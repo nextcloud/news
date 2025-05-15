@@ -100,6 +100,8 @@ OC.L10N.register(
     "Default order" : "預設順序",
     "Enable full text" : "啟用全文",
     "Disable full text" : "停用全文",
+    "Mark as unread on update" : "更新時標記為未讀",
+    "Keep read status on update" : "更新時維持已讀狀態",
     "Previous Item" : "上一個項目",
     "Previous" : "上一步",
     "Next Item" : "下一個項目",

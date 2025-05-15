@@ -100,6 +100,8 @@ OC.L10N.register(
     "Default order" : "Vaikejärjestus",
     "Enable full text" : "Kasuta täistekstivaadet",
     "Disable full text" : "Ära lasuta täistekstivaadet",
+    "Mark as unread on update" : "Uuendamisel märgi mitteloetuks",
+    "Keep read status on update" : "Uuendamisel säilita lugemise olek",
     "Previous Item" : "Eelmine kirje",
     "Previous" : "Eelmine",
     "Next Item" : "Järgmine kirje",

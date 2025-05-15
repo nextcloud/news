@@ -99,6 +99,8 @@ OC.L10N.register(
     "Default order" : "Standardordning",
     "Enable full text" : "Aktivera fulltext",
     "Disable full text" : "Avaktivera fulltext",
+    "Mark as unread on update" : "Markera som oläst vid uppdatering",
+    "Keep read status on update" : "Behåll lässtatus vid uppdatering",
     "Previous Item" : "Föregående objekt",
     "Previous" : "Föregående",
     "Next Item" : "Nästa objekt",

@@ -98,6 +98,8 @@
     "Default order" : "默认排序",
     "Enable full text" : "启用全文模式",
     "Disable full text" : "禁用全文模式",
+    "Mark as unread on update" : "更新时标记为未读",
+    "Keep read status on update" : "更新时保持阅读状态",
     "Previous Item" : "上一个项目",
     "Previous" : "上一个",
     "Next Item" : "下一个项目",
