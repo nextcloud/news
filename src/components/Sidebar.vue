@@ -272,7 +272,7 @@ import type { Folder } from '../types/Folder.ts'
 import axios from '@nextcloud/axios'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { subscribe } from '@nextcloud/event-bus'
-import { generateOcsUrl } from '@nextcloud/router'
+import { generateOcsUrl, generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
@@ -571,7 +571,7 @@ export default defineComponent({
 			formData.append('file', this.selectedFile)
 
 			try {
-				const response = await fetch('import/opml', {
+				const response = await fetch(generateUrl('/apps/news/import/opml'), {
 					method: 'POST',
 					body: formData,
 				})
@@ -600,7 +600,7 @@ export default defineComponent({
 
 		async exportOpml() {
 			try {
-				const response = await fetch('export/opml')
+				const response = await fetch(generateUrl('/apps/news/export/opml'))
 				if (response.ok) {
 					const formattedDate = new Date().toISOString().split('T')[0]
 					const blob = await response.blob()
