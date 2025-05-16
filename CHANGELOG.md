@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 ### Fixed
+- Wrong or none items in list after switching feed or folder
 
 
 # Releases
