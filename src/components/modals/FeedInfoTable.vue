@@ -7,7 +7,13 @@
 		size="large"
 		@close="$emit('close')">
 		<div class="table-modal">
-			<h2>{{ t('news', 'Article feed information') }}</h2>
+			<div class="modal-header">
+				<h2>{{ t('news', 'Article feed information') }}</h2>
+				<div v-if="loading" class="loading-message">
+					<NcLoadingIcon size="36" />
+					<h1>{{ t('news', 'Importing feeds') }}...{{ t('news', 'Please wait') }}</h1>
+				</div>
+			</div>
 			<table>
 				<tbody>
 					<tr>
@@ -137,6 +143,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
@@ -144,6 +151,7 @@ import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
 export default {
 	name: 'FeedInfoTable',
 	components: {
+		NcLoadingIcon,
 		NcModal,
 		SortAscIcon,
 		SortDescIcon,
@@ -164,6 +172,10 @@ export default {
 		...mapState({
 			feeds: (state) => state.feeds.feeds,
 		}),
+
+		loading() {
+			return this.$store.getters.loading
+		},
 
 		sortedFeeds() {
 			const sorted = [...this.feeds]
@@ -217,6 +229,18 @@ export default {
 		h2 {
 			font-weight: bold;
 		}
+	}
+
+	.modal-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.loading-message {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 
 	table {
