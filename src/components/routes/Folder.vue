@@ -1,5 +1,6 @@
 <template>
 	<ContentTemplate
+		v-if="!loading"
 		:items="items"
 		:fetch-key="'folder-' + folderId"
 		@mark-read="markRead()"
@@ -57,6 +58,10 @@ export default defineComponent({
 			return Number(this.folderId)
 		},
 
+		loading() {
+			return this.$store.getters.loading
+		},
+
 		unreadCount(): number {
 			const totalUnread = this.$store.getters.feeds
 				.filter((feed: Feed) => feed.folderId === this.id)
@@ -71,8 +76,6 @@ export default defineComponent({
 
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-		this.fetchMore()
-		this.$watch(() => this.$route.params, this.fetchMore)
 	},
 
 	methods: {

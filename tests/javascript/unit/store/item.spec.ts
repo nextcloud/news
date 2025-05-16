@@ -14,7 +14,7 @@ describe('item.ts', () => {
 			it('should call ItemService and commit items to state', async () => {
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }] } })
-				ItemService.debounceFetchUnread = fetchMock as any
+				ItemService.fetchUnread = fetchMock as any
 				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_UNREAD] as any)({ commit })
@@ -28,7 +28,7 @@ describe('item.ts', () => {
 			it('should call ItemService and commit items and starred count to state', async () => {
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }], starred: 3 } })
-				ItemService.debounceFetchStarred = fetchMock as any
+				ItemService.fetchStarred = fetchMock as any
 				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED] as any)({ commit })
@@ -44,7 +44,7 @@ describe('item.ts', () => {
 				const mockItems = [{ id: 123, title: 'feed item' }]
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: mockItems } })
-				ItemService.debounceFetchFeedItems = fetchMock as any
+				ItemService.fetchFeedItems = fetchMock as any
 				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS] as any)({ commit }, { feedId: 123 })
@@ -59,7 +59,7 @@ describe('item.ts', () => {
 				const mockItems = [{ id: 123, title: 'feed item' }]
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: mockItems } })
-				ItemService.debounceFetchFolderFeedItems = fetchMock as any
+				ItemService.fetchFolderItems = fetchMock as any
 				const commit = vi.fn()
 
 				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS] as any)({ commit }, { feedId: 123 })

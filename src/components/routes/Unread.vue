@@ -1,5 +1,6 @@
 <template>
 	<ContentTemplate
+		v-if="!loading"
 		:items="unread"
 		:fetch-key="'unread'"
 		@load-more="fetchMore()">
@@ -40,6 +41,10 @@ export default defineComponent({
 
 		unread(): FeedItem[] {
 			return this.unreadCache ?? []
+		},
+
+		loading() {
+			return this.$store.getters.loading
 		},
 	},
 

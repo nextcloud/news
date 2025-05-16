@@ -1,5 +1,6 @@
 <template>
 	<ContentTemplate
+		v-if="!loading"
 		:items="starred"
 		:fetch-key="'starred'"
 		@load-more="fetchMore()">
@@ -30,6 +31,10 @@ export default defineComponent({
 		...mapState(['items']),
 		starred(): FeedItem[] {
 			return this.$store.getters.starred
+		},
+
+		loading() {
+			return this.$store.getters.loading
 		},
 	},
 

@@ -70,6 +70,9 @@ const getters = {
 	},
 }
 
+// timestamp of the latest fetch request
+let latestFetchRequest = 0
+
 export const actions = {
 	/**
 	 * Fetch Unread Items from Backend and call commit to update state
@@ -83,9 +86,18 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
-		const response = await ItemService.debounceFetchUnread(start || state.lastItemLoaded.unread)
+		const response = await ItemService.fetchUnread(start || state.lastItemLoaded.unread)
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -117,9 +129,18 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
 
-		const response = await ItemService.debounceFetchAll(start || state.lastItemLoaded.all)
+		const response = await ItemService.fetchAll(start || state.lastItemLoaded.all)
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -151,8 +172,17 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred', fetching: true })
-		const response = await ItemService.debounceFetchStarred(start || state.lastItemLoaded.starred)
+		const response = await ItemService.fetchStarred(start || state.lastItemLoaded.starred)
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -187,8 +217,17 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ feedId, start }: { feedId: number, start: number },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
-		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
+		const response = await ItemService.fetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -219,8 +258,17 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ folderId, start }: { folderId: number, start: number },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
-		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
+		const response = await ItemService.fetchFolderItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}

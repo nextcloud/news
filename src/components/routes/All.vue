@@ -1,5 +1,6 @@
 <template>
 	<ContentTemplate
+		v-if="!loading"
 		:items="allItems"
 		:fetch-key="'all'"
 		@load-more="fetchMore()">
@@ -25,6 +26,10 @@ export default defineComponent({
 	computed: {
 		allItems(): FeedItem[] {
 			return this.$store.getters.allItems
+		},
+
+		loading() {
+			return this.$store.getters.loading
 		},
 	},
 

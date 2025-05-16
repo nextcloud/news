@@ -10,7 +10,7 @@
 				ref="virtualScroll"
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
-				<template v-if="items && items.length > 0">
+				<template v-if="filteredItemcache && filteredItemcache.length > 0">
 					<template v-for="(item, index) in filteredItemcache">
 						<FeedItemDisplay
 							v-if="screenReaderMode"
@@ -82,8 +82,6 @@ export default defineComponent({
 
 	data() {
 		return {
-			mounted: false,
-
 			// Determine the sorting order
 			sort: (a: FeedItem, b: FeedItem) => {
 				if (a.id > b.id) {
@@ -100,6 +98,8 @@ export default defineComponent({
 			listOrdering: this.getListOrdering(),
 			stopPrevItemHotkey: null,
 			stopNextItemHotkey: null,
+			refreshItems: false,
+			clearCache: false,
 		}
 	},
 
@@ -165,7 +165,8 @@ export default defineComponent({
 				if (this.listOrdering === false) {
 					this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				}
-				this.cache = undefined
+				this.clearCache = true
+				this.refreshItems = true
 			},
 
 			immediate: true,
@@ -174,7 +175,9 @@ export default defineComponent({
 		// rebuild filtered item list only when items has changed
 		items: {
 			handler() {
-				this.refreshItemList()
+				if (this.items.length > 0) {
+					this.refreshItems = true
+				}
 			},
 
 			immediate: true,
@@ -224,8 +227,19 @@ export default defineComponent({
 	},
 
 	mounted() {
-		this.mounted = true
+		this.refreshItemList()
 		this.setupDebouncedClick()
+	},
+
+	beforeUpdate() {
+		if (this.clearCache) {
+			this.cache = undefined
+			this.clearCache = false
+		}
+		if (this.refreshItems) {
+			this.refreshItemList()
+			this.refreshItems = false
+		}
 	},
 
 	unmounted() {
@@ -235,13 +249,12 @@ export default defineComponent({
 	methods: {
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
-			this.cache = undefined
+			this.clearCache = true
+			this.refreshItems = true
 			// remove all loaded items
 			this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
-			// refetch starred and feeds
-			await this.$store.dispatch(ACTIONS.FETCH_STARRED)
+			// refetch feeds
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-			this.fetchMore()
 		},
 
 		refreshItemList() {

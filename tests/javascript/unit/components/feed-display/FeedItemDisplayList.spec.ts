@@ -39,14 +39,25 @@ describe('FeedItemDisplayList.vue', () => {
 				items: {
 					allItemsLoaded: {
 						unread: false,
+						all: false,
+						'feed-1': false,
 					},
 					lastItemLoaded: {
 						unread: 0,
+						all: 0,
+						'feed-1': 0,
 					},
 					fetchingItems: {
 						unread: false,
+						all: false,
+						'feed-1': false,
 					},
 					syncNeeded: false,
+				},
+				feeds: {
+					ordering: {
+						'feed-1': 0,
+					},
 				},
 			},
 			actions: {
@@ -86,18 +97,10 @@ describe('FeedItemDisplayList.vue', () => {
 
 		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(1)
 
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem, mockItem],
-				fetchKey: 'unread',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false
-				},
-			},
+		// add another unread item
+		await wrapper.setProps({
+			items: [mockItem, mockItem],
+			fetchKey: 'unread',
 		})
 
 		// make sure dom elements are mounted properly
@@ -105,6 +108,30 @@ describe('FeedItemDisplayList.vue', () => {
 		await nextTick()
 
 		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(2)
+
+		// switch route to all with 1 item
+		await wrapper.setProps({
+			items: [mockItem],
+			fetchKey: 'all',
+		})
+
+		// make sure dom elements are mounted properly
+		await nextTick()
+		await nextTick()
+
+		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(1)
+
+		// switch route to feed-1 with 3 items
+		await wrapper.setProps({
+			items: [mockItem, mockItem, mockItem],
+			fetchKey: 'feed-1',
+		})
+
+		// make sure dom elements are mounted properly
+		await nextTick()
+		await nextTick()
+
+		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(3)
 	})
 
 })

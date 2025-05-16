@@ -57,6 +57,10 @@ export const actions = {
 		commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, (response.data.feeds.reduce((total: number, feed: Feed) => {
 			return total + feed.unreadCount
 		}, 0)))
+
+		if (response?.data.starred) {
+			commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, response?.data.starred)
+		}
 	},
 
 	async [FEED_ACTION_TYPES.ADD_FEED](

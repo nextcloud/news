@@ -63,8 +63,6 @@ export default defineComponent({
 
 	created() {
 		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-		this.fetchMore()
-		this.$watch(() => this.$route.params, this.fetchMore)
 	},
 
 	methods: {

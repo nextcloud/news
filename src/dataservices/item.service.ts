@@ -2,7 +2,6 @@ import type { AxiosResponse } from '@nextcloud/axios'
 import type { FeedItem } from '../types/FeedItem.ts'
 
 import axios from '@nextcloud/axios'
-import _ from 'lodash'
 import { API_ROUTES } from '../types/ApiRoutes.ts'
 import { FEED_ORDER } from './../enums/index.ts'
 import store from './../store/app.ts'
@@ -17,12 +16,6 @@ export const ITEM_TYPES = {
 }
 
 export class ItemService {
-	static debounceFetchAll = _.debounce(ItemService.fetchAll, 400, { leading: true })
-	static debounceFetchStarred = _.debounce(ItemService.fetchStarred, 400, { leading: true })
-	static debounceFetchUnread = _.debounce(ItemService.fetchUnread, 400, { leading: true })
-	static debounceFetchFeedItems = _.debounce(ItemService.fetchFeedItems, 400, { leading: true })
-	static debounceFetchFolderFeedItems = _.debounce(ItemService.fetchFolderItems, 400, { leading: true })
-
 	/**
 	 * Makes backend call to retrieve all items
 	 *
