@@ -232,7 +232,7 @@
 							{{ t('news', 'Disable automatic refresh') }}
 						</label>
 					</div>
-					<h2>{{ t('news', 'Abonnements (OPML)') }}</h2>
+					<h3>{{ t('news', 'Abonnements (OPML)') }}</h3>
 					<div class="button-container">
 						<NcButton
 							aria-label="UploadOpml"
@@ -567,6 +567,7 @@ export default defineComponent({
 			}
 
 			this.$store.commit(MUTATIONS.SET_LOADING, { value: true })
+			this.showFeedInfoTable = true
 			const formData = new FormData()
 			formData.append('file', this.selectedFile)
 

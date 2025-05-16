@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
+- Open the feed info table during opml import to show what has been imported after completion
 
 
 ### Fixed
