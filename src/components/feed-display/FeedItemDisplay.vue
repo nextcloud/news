@@ -2,33 +2,33 @@
 	<div
 		class="feed-item-display"
 		:class="{ screenreader: screenReaderMode }"
-		:aria-posinset="itemIndex"
-		:aria-setsize="itemCount"
+		v-bind="screenReaderMode ? { 'aria-setsize': itemCount, 'aria-posinset': itemIndex } : {}"
 		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
-
+		<NcActions
+			v-if="splitModeOff && !screenReaderMode"
+			class="nav-icons"
+			:inline="2">
+			<NcActionButton
+				class="nav-button left"
+				:disabled="itemIndex <= 1"
+				:title="t('news', 'Previous Item')"
+				@click="prevItem">
+				<template #icon>
+					<ChevronLeftIcon :size="32" />
+				</template>
+			</NcActionButton>
+			<NcActionButton
+				class="nav-button right"
+				:disabled="itemIndex >= itemCount"
+				:title="t('news', 'Next Item')"
+				@click="nextItem">
+				<template #icon>
+					<ChevronRightIcon :size="32" />
+				</template>
+			</NcActionButton>
+		</NcActions>
 		<div class="action-bar">
-			<NcActions
-				v-show="!splitModeOff"
-				class="action-bar-nav"
-				:inline="4">
-				<NcActionButton
-					:title="t('news', 'Previous Item')"
-					@click="prevItem">
-					{{ t('news', 'Previous') }}
-					<template #icon>
-						<ArrowLeftThickIcon />
-					</template>
-				</NcActionButton>
-				<NcActionButton
-					:title="t('news', 'Next Item')"
-					@click="nextItem">
-					{{ t('news', 'Next') }}
-					<template #icon>
-						<ArrowRightThickIcon />
-					</template>
-				</NcActionButton>
-			</NcActions>
 			<NcActions :inline="4">
 				<NcActionButton
 					:title="t('news', 'Share within Instance')"
@@ -165,11 +165,12 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
-import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
-import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
+import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
+import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
@@ -191,8 +192,8 @@ export default defineComponent({
 		NcActions,
 		NcActionButton,
 		ShareItem,
-		ArrowLeftThickIcon,
-		ArrowRightThickIcon,
+		ChevronLeftIcon,
+		ChevronRightIcon,
 	},
 
 	props: {
@@ -232,6 +233,7 @@ export default defineComponent({
 
 	data: () => {
 		return {
+			isMobile: useIsMobile(),
 			keepUnread: false,
 			showShareMenu: false,
 			feedUrl: undefined,
@@ -244,7 +246,7 @@ export default defineComponent({
 		},
 
 		splitModeOff() {
-			return this.$store.getters.splitmode === SPLIT_MODE.OFF
+			return (this.$store.getters.splitmode === SPLIT_MODE.OFF || this.isMobile)
 		},
 	},
 
@@ -337,8 +339,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-	$breakpoint-mobile: 1024px;
-
 	.feed-item-display {
 		display: flex;
 		flex-direction: column;
@@ -467,10 +467,19 @@ export default defineComponent({
 
 	.action-bar-nav {
 		flex-grow: 1;
+	}
 
-		@media only screen and (width > $breakpoint-mobile) {
-			display: none !important;
-		}
+	.nav-icons .nav-button {
+		position: absolute;
+		top: 50%;
+	}
+
+	.nav-icons .nav-button.left {
+		inset-inline-start: 1rem;
+	}
+
+	.nav-icons .nav-button.right {
+		inset-inline-end: 1rem;
 	}
 
 	.feed-item-display .action-bar .button-vue,
