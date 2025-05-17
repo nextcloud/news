@@ -7,15 +7,20 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- Open the feed info table during opml import to show what has been imported after completion
 
 
 ### Fixed
-- Wrong or none items in list after switching feed or folder
-- opml import/export not working after vue router changes
 
 
 # Releases
+## [26.0.0-beta.4] - 2025-05-17
+### Changed
+- Open the feed info table during opml import to show what has been imported after completion (#3169)
+
+### Fixed
+- Wrong or none items in list after switching feed or folder (#3168)
+- opml import/export not working after vue router changes (#3169)
+
 ## [26.0.0-beta.3] - 2025-05-13
 ### Changed
 - Migrate frontend to Vue3 (#3163)
