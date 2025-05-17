@@ -30,6 +30,8 @@
 				<FeedItemDisplay
 					v-if="selectedFeedItem"
 					:item="selectedFeedItem"
+					:item-count="items.length"
+					:item-index="currentIndex"
 					@prev-item="jumpToPreviousItem"
 					@next-item="jumpToNextItem"
 					@show-details="showItem(false)" />
@@ -56,6 +58,7 @@
 
 import type { FeedItem } from '../types/FeedItem.ts'
 
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import {
 	type PropType,
 
@@ -72,7 +75,7 @@ import { SPLIT_MODE } from '../enums/index.ts'
 import appStore from '../store/app.ts'
 import itemStore from '../store/item.ts'
 
-defineProps({
+const props = defineProps({
 	/**
 	 * The items loaded for this view
 	 */
@@ -93,6 +96,8 @@ const emit = defineEmits<{
 	(event: 'load-more'): void
 	(event: 'mark-read'): void
 }>()
+
+const isMobile = useIsMobile()
 
 const showDetails = ref(false)
 
@@ -116,9 +121,44 @@ const selectedFeedItem = computed(() => {
 	return itemStore.getters.selected(itemStore.state)
 })
 
+const allItemsLoaded = computed(() => {
+	return itemStore.state.allItemsLoaded[props.fetchKey] === true
+})
+
+const currentIndex = computed(() => {
+	return itemListElement.value?.currentIndex() + 1
+})
+
+const noSplitMode = computed(() => {
+	return (layout.value === 'no-split' || isMobile.value)
+})
+
+watch(allItemsLoaded, (newVal) => {
+	/*
+	 * load new items if available and the details of the
+	 * last item are currently displayed in no-split mode
+	 */
+	if (noSplitMode.value
+		&& newVal === false
+		&& showDetails.value
+		&& currentIndex.value >= props.items.length - 1) {
+		emit('load-more')
+	}
+})
+
 watch(selectedFeedItem, (newSelectedFeedItem) => {
 	if (newSelectedFeedItem) {
 		contentElement.value?.scrollTo(0, 0)
+		/*
+		 * load new items if available before reaching end of
+		 * the list while showing details in no-split mode
+		 */
+		if (noSplitMode.value
+			&& showDetails.value
+			&& !allItemsLoaded.value
+			&& currentIndex.value >= props.items.length - 5) {
+			emit('load-more')
+		}
 	} else {
 		showItem(false)
 	}
@@ -131,8 +171,9 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
  */
 function showItem(value) {
 	showDetails.value = value
-	if (layout.value === 'no-split' && !value) {
-		itemListElement.value?.enableNavHotkeys()
+	// scroll to selected item when closing details in no-split mode
+	if (noSplitMode.value && !value) {
+		itemListElement.value?.scrollToCurrentItem()
 	}
 }
 
