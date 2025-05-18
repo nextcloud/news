@@ -19,16 +19,6 @@
     "by" : "ដោយ",
     "from" : "ពី",
     "right" : "ខាង​ស្ដាំ",
-    "left" : "ខាង​ឆ្វេង",
-    "Description" : "ការ​អធិប្បាយ",
-    "Folder" : "ថត",
-    "Create" : "បង្កើត",
-    "Collapse" : "បត់បង្រួម",
-    "Subscriptions (OPML)" : "ការ​តាមដាន (OPML)",
-    "Import" : "នាំយកចូល",
-    "Export" : "នាំចេញ",
-    "Unread/Starred Articles" : "អត្ថបទ​ដែល​មិន​បាន​អាន ឬ​បាន​ដាក់​ផ្កាយ",
-    "Error when importing: file does not contain valid JSON" : "កំហុស​ពេល​នាំ​ចូល៖ ឯកសារ​មិន​មាន JSON ត្រឹម​ត្រូវ",
-    "Help" : "ជំនួយ"
+    "left" : "ខាង​ឆ្វេង"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -38,21 +38,6 @@ OC.L10N.register(
     "left" : "лево",
     "Refresh" : "Освежи",
     "Load next feed" : "Вчитај следен канал",
-    "Shift" : "Shift",
-    "Description" : "Опис",
-    "Folder" : "Папка",
-    "Go back" : "Назад",
-    "Create" : "Создај",
-    "Deleted feed" : "Избришан канал",
-    "Open feed URL" : "Отвори URL на каналот",
-    "Dismiss" : "Отфрли",
-    "Collapse" : "Собери",
-    "Subscriptions (OPML)" : "Претплати (OPML)",
-    "Import" : "Увези",
-    "Export" : "Извези",
-    "Unread/Starred Articles" : "Непрочитани/Означени статии",
-    "Error when importing: file does not contain valid JSON" : "Грешка при импортирање: датотеката не содржи валиден JSON",
-    "Help" : "Помош",
-    "Report a bug" : "Пријави грешка"
+    "Shift" : "Shift"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

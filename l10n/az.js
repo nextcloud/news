@@ -24,19 +24,6 @@ OC.L10N.register(
     "from" : "ondan",
     "right" : "Sağ",
     "left" : "Sol",
-    "Refresh" : "Yenilə",
-    "Description" : "Açıqlanma",
-    "Folder" : "Qovluq",
-    "Create" : "Yarat",
-    "Menu" : "Menyu",
-    "Dismiss" : "Rədd et",
-    "Collapse" : "Yığılma",
-    "Subscriptions (OPML)" : "Abunəliklər(OPML)",
-    "Import" : "Əlavə et",
-    "Export" : "Çıxarış",
-    "Unread/Starred Articles" : "Oxunulmamış/Ulduzlanmış məqalələr",
-    "Error when importing: file does not contain valid JSON" : "Yüklənmədə səhv: faylda düzgün JSON yoxdur",
-    "Help" : "Kömək",
-    "Report a bug" : "Səhv haqqında bildir"
+    "Refresh" : "Yenilə"
 },
 "nplurals=2; plural=(n != 1);");

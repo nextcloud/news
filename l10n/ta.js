@@ -19,12 +19,6 @@ OC.L10N.register(
     "by" : "மூலம்",
     "from" : "இலிருந்து",
     "Title" : "தலைப்பு",
-    "Refresh" : "மீள் ஏற்றுக",
-    "Description" : "விவரிப்பு",
-    "Folder" : "கோப்புறை",
-    "Create" : "உருவாக்குக",
-    "Import" : "இறக்குமதி",
-    "Export" : "ஏற்றுமதி",
-    "Help" : "உதவி"
+    "Refresh" : "மீள் ஏற்றுக"
 },
 "nplurals=2; plural=(n != 1);");

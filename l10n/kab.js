@@ -18,9 +18,6 @@ OC.L10N.register(
     "Previous" : "Ɣer deffir",
     "Next" : "Uḍfir",
     "Title" : "Azwel",
-    "Refresh" : "Sismeḍ",
-    "Create" : "Snulfu-d",
-    "Dismiss" : "Agi",
-    "Help" : "Tallalt"
+    "Refresh" : "Sismeḍ"
 },
 "nplurals=2; plural=(n != 1);");

@@ -25,19 +25,6 @@
     "from" : "হইতে",
     "right" : "ডান",
     "left" : "বাম",
-    "Refresh" : "নবোদ্যম",
-    "Description" : "বিবরণ",
-    "Folder" : "ফোল্ডার",
-    "Go back" : "ফিরে যাও",
-    "New Folder" : "নতুন ফোল্ডার",
-    "Create" : "তৈরী কর",
-    "Deleted feed" : "মুছে ফেলা ফিড",
-    "Collapse" : "ভাঙো",
-    "Subscriptions (OPML)" : "সাবস্ক্রিপশন (OPML)",
-    "Import" : "আমদানি",
-    "Export" : "রপ্তানি",
-    "Unread/Starred Articles" : "অপঠিত/তারকাচিহ্নিত লেখা",
-    "Error when importing: file does not contain valid JSON" : "আমদানীজণিত সমস্যা: ফাইলের JSON সঠিক নয়",
-    "Help" : "সহায়িকা"
+    "Refresh" : "নবোদ্যম"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

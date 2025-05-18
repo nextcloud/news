@@ -10,9 +10,6 @@ OC.L10N.register(
     "Share" : "تقسیم",
     "Settings" : "سیٹینگز",
     "Rename" : "Rename",
-    "Delete" : "حذف کریں",
-    "Description" : "تصریح",
-    "Folder" : "Folder",
-    "Help" : "مدد"
+    "Delete" : "حذف کریں"
 },
 "nplurals=2; plural=(n != 1);");

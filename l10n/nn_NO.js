@@ -24,15 +24,6 @@ OC.L10N.register(
     "by" : "av",
     "from" : "frå",
     "Download video" : "Last ned video",
-    "Refresh" : "Oppfrisk",
-    "Description" : "Skildring",
-    "Folder" : "Mappe",
-    "New Folder" : "Ny mappe",
-    "Create" : "Lag",
-    "Dismiss" : "Forkast",
-    "Import" : "Importer",
-    "Export" : "Eksporter",
-    "Help" : "Hjelp",
-    "Report a bug" : "Rapporter feil"
+    "Refresh" : "Oppfrisk"
 },
 "nplurals=2; plural=(n != 1);");

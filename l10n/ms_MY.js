@@ -16,12 +16,6 @@ OC.L10N.register(
     "Previous" : "Sebelum",
     "by" : "oleh",
     "from" : "dari",
-    "Refresh" : "Refresh",
-    "Description" : "Keterangan",
-    "Folder" : "Folder",
-    "Create" : "Buat",
-    "Import" : "Import",
-    "Export" : "Export",
-    "Help" : "Bantuan"
+    "Refresh" : "Refresh"
 },
 "nplurals=1; plural=0;");

@@ -34,22 +34,6 @@
     "Open article in new tab" : "Den Artikel an engem neien Tab opmaachen",
     "Refresh" : "Opfrëschen",
     "Load previous folder" : "Den Dossier vu virdrun lueden",
-    "Load next folder" : "Den nächsten Dossier lueden",
-    "No articles available" : "Keng Artikelen verfügbar",
-    "Description" : "Beschreiwung",
-    "Folder" : "Dossier",
-    "Go back" : "Zeréckgoen",
-    "New Folder" : "Neien Dossier",
-    "Create" : "Erstellen",
-    "Menu" : "Menü",
-    "Dismiss" : "Verworf",
-    "Collapse" : "Zesumme falen",
-    "Deleted folder" : "Dossier läschen",
-    "Undo delete folder" : "Dossier läschen réckgängeg maachen",
-    "Subscriptions (OPML)" : "Abonnementer (OPML)",
-    "Import" : "Import",
-    "Export" : "Export",
-    "Help" : "Hëllef",
-    "Report a bug" : "E Feeler melden"
+    "Load next folder" : "Den nächsten Dossier lueden"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -10,7 +10,6 @@ OC.L10N.register(
     "Share" : "شریکول",
     "Settings" : "سمونې",
     "Rename" : "نوم بدلول",
-    "Delete" : "ړنګول",
-    "Help" : "مرسته"
+    "Delete" : "ړنګول"
 },
 "nplurals=2; plural=(n != 1);");

@@ -17,10 +17,6 @@ OC.L10N.register(
     "Newest first" : "ໃໝ່ທີ່ສຸດກ່ອນ",
     "Oldest first" : "ເກົ່າທີ່ສຸດກ່ອນ",
     "Previous" : "ກ່ອນໜ້າ",
-    "Refresh" : "Refresh",
-    "Folder" : "ໂຟນເດີ",
-    "Create" : "ສ້າງ",
-    "Dismiss" : "ຍົກເລີກ",
-    "Help" : "ການຊ່ວຍເຫຼືອ"
+    "Refresh" : "Refresh"
 },
 "nplurals=1; plural=0;");

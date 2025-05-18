@@ -38,22 +38,6 @@ OC.L10N.register(
     "Not available" : "Ne disponeble",
     "right" : "dekstro",
     "left" : "maldekstro",
-    "Refresh" : "Refreŝigi",
-    "Description" : "Priskribo",
-    "Folder" : "Dosierujo",
-    "Go back" : "Revenu",
-    "New Folder" : "Nova dosierujo",
-    "Create" : "Krei",
-    "Deleted feed" : "Forigis fluon",
-    "Undo delete feed" : "Malfari forigon de fluo",
-    "Dismiss" : "Forsendi",
-    "Collapse" : "Maletendi",
-    "Deleted folder" : "Foriĝis dosierujo",
-    "Undo delete folder" : "Malfari forigon de dosierujo",
-    "Import" : "Enporti",
-    "Export" : "Elporti",
-    "Error when importing: file does not contain valid JSON" : "La enporto eraris: la dosiero ne enhavas validan JSON-on",
-    "Help" : "Helpo",
-    "Report a bug" : "Raporti problemon"
+    "Refresh" : "Refreŝigi"
 },
 "nplurals=2; plural=(n != 1);");

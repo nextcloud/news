@@ -15,9 +15,6 @@ OC.L10N.register(
     "Delete" : "Sguab às",
     "Newest first" : "As ùire an toiseach",
     "Oldest first" : "As sine an toiseach",
-    "Refresh" : "Ath-nuadhaich",
-    "Create" : "Cruthaich",
-    "Dismiss" : "Leig seachad",
-    "Help" : "Cobhair"
+    "Refresh" : "Ath-nuadhaich"
 },
 "nplurals=4; plural=(n==1 || n==11) ? 0 : (n==2 || n==12) ? 1 : (n > 2 && n < 20) ? 2 : 3;");

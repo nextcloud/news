@@ -14,12 +14,6 @@ OC.L10N.register(
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
     "Previous" : "Նախորդ",
-    "Refresh" : "Թարմացնել",
-    "Description" : "Նկարագրություն",
-    "Folder" : "Պանակ",
-    "Create" : "Ստեղծել",
-    "Import" : "Ներմուծում",
-    "Export" : "Արտահանում",
-    "Help" : "Օգնություն"
+    "Refresh" : "Թարմացնել"
 },
 "nplurals=2; plural=(n != 1);");

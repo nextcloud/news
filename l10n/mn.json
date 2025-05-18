@@ -35,16 +35,6 @@
     "Load previous feed" : "Өмнөх тэжээлийг ачаална уу",
     "Load previous folder" : "Өмнөх хавтсыг ачаална уу",
     "Load next folder" : "Дараагийн хавтасыг ачаална уу",
-    "How to set up the operating system cron" : "Үйлдлийн системийн cron-г хэрхэн тохируулах талаар",
-    "Description" : "Тодорхойлолт",
-    "Folder" : "Хавтас",
-    "Go back" : "Буцах",
-    "New Folder" : "Шинэ хавтас",
-    "Create" : "Үүсгэх",
-    "Update failed more than 50 times" : "Шинэчлэлт 50-иас дээш удаа амжилтгүй болсон",
-    "Dismiss" : "Арилгах",
-    "Import" : "Импорт",
-    "Export" : "Экспорт",
-    "Help" : "Туслах"
+    "How to set up the operating system cron" : "Үйлдлийн системийн cron-г хэрхэн тохируулах талаар"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
