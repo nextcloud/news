@@ -115,6 +115,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Umschalten lässt den Artikel ungelesen",
     "Remove keep article unread" : "\"Artikel ungelesenen lassen\" entfernen",
     "Not available" : "Nicht verfügbar",
+    "Importing feeds" : "Importiere Feeds",
     "Please wait" : "Bitte warten",
     "Last update" : "Letzte Aktualisierung",
     "Time when the feed was last downloaded" : "Zeitpunkt des letzten Downloads des Feeds",

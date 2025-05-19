@@ -115,6 +115,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "切换保持文章未读状态设置",
     "Remove keep article unread" : "取消保持文章未读",
     "Not available" : "不可用",
+    "Importing feeds" : "正在导入订阅…",
     "Please wait" : "请等待",
     "Last update" : "上次更新",
     "Time when the feed was last downloaded" : "上次下载订阅源的时间",

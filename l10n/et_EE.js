@@ -115,6 +115,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Lülita 'hoia olemasolev artikkel lugemata'",
     "Remove keep article unread" : "Eemalda märgistus 'Hoia kui lugemata'",
     "Not available" : "Pole saadaval",
+    "Importing feeds" : "Impordin uudisvooge",
     "Please wait" : "Palun oota",
     "Last update" : "Viimati uuendatud",
     "Time when the feed was last downloaded" : "Uudisvoo viimase allalaadimise aeg",
