@@ -29,7 +29,7 @@ export default defineComponent({
 
 	data() {
 		return {
-			unreadCache: undefined,
+			unreadCache: [],
 		}
 	},
 
@@ -51,25 +51,20 @@ export default defineComponent({
 	watch: {
 		newestItemId(clearCache) {
 			if (clearCache) {
-				this.unreadCache = undefined
+				this.unreadCache = []
 			}
 		},
 
 		// need cache so we aren't always removing items when they get read
 		'$store.getters.unread': {
 			handler(newItems) {
-				const cachedItems = this.unreadCache ?? []
-
-				const cachedItemIds = new Set(cachedItems.map((item) => item.id))
-				const newUnreadCache = [...cachedItems]
+				const cachedItemIds = new Set(this.unreadCache.map((item) => item.id))
 
 				for (const item of newItems) {
 					if (!cachedItemIds.has(item.id)) {
-						newUnreadCache.push(item)
+						this.unreadCache.push(item)
 					}
 				}
-
-				this.unreadCache = newUnreadCache
 			},
 
 			immediate: true,
