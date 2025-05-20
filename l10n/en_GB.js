@@ -115,6 +115,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Toggle keep current article unread",
     "Remove keep article unread" : "Remove keep article unread",
     "Not available" : "Not available",
+    "Importing feeds" : "Importing feeds",
     "Please wait" : "Please wait",
     "Last update" : "Last update",
     "Time when the feed was last downloaded" : "Time when the feed was last downloaded",

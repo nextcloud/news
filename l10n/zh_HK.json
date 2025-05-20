@@ -113,6 +113,7 @@
     "Toggle keep current article unread" : "切換維持目前文章未讀",
     "Remove keep article unread" : "停止維持未讀狀態",
     "Not available" : "不可用",
+    "Importing feeds" : "正在導入 feeds",
     "Please wait" : "請稍候",
     "Last update" : "上次更新",
     "Time when the feed was last downloaded" : "最後一次下載 feed 的時間",
