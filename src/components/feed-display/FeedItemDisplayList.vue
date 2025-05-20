@@ -92,14 +92,11 @@ export default defineComponent({
 			},
 
 			cache: [] as FeedItem[] | undefined,
-			filteredItemcache: [] as FeedItem,
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
 			listOrdering: this.getListOrdering(),
 			stopPrevItemHotkey: null,
 			stopNextItemHotkey: null,
-			refreshItems: false,
-			clearCache: false,
 		}
 	},
 
@@ -134,6 +131,10 @@ export default defineComponent({
 			return this.$store.getters.showAll
 		},
 
+		filteredItemcache() {
+			return this.items.length > 0 ? this.filterSortedItems() : []
+		},
+
 		isLoading() {
 			return this.$store.getters.loading
 		},
@@ -165,23 +166,10 @@ export default defineComponent({
 				if (this.listOrdering === false) {
 					this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				}
-				this.clearCache = true
-				this.refreshItems = true
+				this.cache = undefined
 			},
 
 			immediate: true,
-		},
-
-		// rebuild filtered item list only when items has changed
-		items: {
-			handler() {
-				if (this.items.length > 0) {
-					this.refreshItems = true
-				}
-			},
-
-			immediate: true,
-			deep: false,
 		},
 
 		// ordering has changed rebuild item list
@@ -193,8 +181,6 @@ export default defineComponent({
 				// make sure the first items from this ordering are loaded
 				this.fetchMore()
 				this.cache = undefined
-				// refresh the list with the new ordering
-				this.refreshItemList()
 			}
 		},
 
@@ -202,7 +188,6 @@ export default defineComponent({
 		changedShowAll() {
 			this.$refs.virtualScroll.scrollTop = 0
 			this.cache = undefined
-			this.refreshItemList()
 		},
 	},
 
@@ -227,19 +212,7 @@ export default defineComponent({
 	},
 
 	mounted() {
-		this.refreshItemList()
 		this.setupDebouncedClick()
-	},
-
-	beforeUpdate() {
-		if (this.clearCache) {
-			this.cache = undefined
-			this.clearCache = false
-		}
-		if (this.refreshItems) {
-			this.refreshItemList()
-			this.refreshItems = false
-		}
 	},
 
 	unmounted() {
@@ -249,20 +222,11 @@ export default defineComponent({
 	methods: {
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
-			this.clearCache = true
-			this.refreshItems = true
+			this.cache = undefined
 			// remove all loaded items
 			this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
 			// refetch feeds
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-		},
-
-		refreshItemList() {
-			if (this.items.length > 0) {
-				this.filteredItemcache = this.filterSortedItems()
-			} else {
-				this.filteredItemcache = []
-			}
 		},
 
 		getListOrdering(): boolean {
