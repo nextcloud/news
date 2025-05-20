@@ -1,6 +1,6 @@
 import Vuex, { Store } from 'vuex'
 import { shallowMount } from '@vue/test-utils'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import Starred from '../../../../../src/components/routes/Starred.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
@@ -47,12 +47,23 @@ describe('Starred.vue', () => {
 		})
 	})
 
+	beforeEach(() => {
+		vi.clearAllMocks()
+	})
+
 	it('should get starred items from state', () => {
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_STARRED action if not fetchingItems.starred', () => {
+                (wrapper.vm as any).$store.state.items.fetchingItems.starred = false;
 		(wrapper.vm as any).fetchMore()
 		expect(store.dispatch).toBeCalled()
+	})
+
+	it('should not dispatch FETCH_STARRED action if fetchingItems.starred', () => {
+                (wrapper.vm as any).$store.state.items.fetchingItems.starred = true;
+		(wrapper.vm as any).fetchMore()
+		expect(store.dispatch).not.toBeCalled()
 	})
 })

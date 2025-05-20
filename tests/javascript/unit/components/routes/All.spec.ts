@@ -1,6 +1,6 @@
 import Vuex, { Store } from 'vuex'
 import { shallowMount } from '@vue/test-utils'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import All from '../../../../../src/components/routes/All.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
@@ -47,19 +47,23 @@ describe('All.vue', () => {
 		})
 	})
 
+	beforeEach(() => {
+		vi.clearAllMocks()
+	})
+
 	it('should get all items from state', () => {
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(3)
 	})
 
 	it('should dispatch FETCH_ITEMS action if not fetchingItems.all', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.all = true;
-
-		(wrapper.vm as any).fetchMore()
-		expect(store.dispatch).not.toBeCalled();
-
 		(wrapper.vm as any).$store.state.items.fetchingItems.all = false;
-
 		(wrapper.vm as any).fetchMore()
 		expect(store.dispatch).toBeCalled()
+	})
+
+	it('should not dispatch FETCH_ITEMS action if fetchingItems.all', () => {
+		(wrapper.vm as any).$store.state.items.fetchingItems.all = true;
+		(wrapper.vm as any).fetchMore()
+		expect(store.dispatch).not.toBeCalled()
 	})
 })
