@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 ### Fixed
+- since `26.0.0-beta.4` the first selected item can disappear from the list if you change from another type of route, e.g. from feed to folder
 
 
 # Releases
