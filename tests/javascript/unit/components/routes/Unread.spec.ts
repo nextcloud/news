@@ -76,6 +76,6 @@ describe('Unread.vue', () => {
 		store.state.items.newestItemId = 0;
 
 		(wrapper.vm as any).$options.watch.newestItemId.call(wrapper.vm, wrapper.vm.newestItemId)
-		expect((wrapper.vm as any).unreadCache).toBeUndefined()
+		expect((wrapper.vm as any).unreadCache).toEqual([])
 	})
 })
