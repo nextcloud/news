@@ -65,7 +65,7 @@
     "@nextcloud/eslint-config": "^9.0.0-rc.1",
     "@nextcloud/stylelint-config": "^3.0.1",
     "@nextcloud/vite-config": "^2.3.2",
-    "@types/lodash": "^4.17.16",
+    "@types/lodash": "^4.17.17",
     "@types/node": "^22.15.21",
     "@vitest/coverage-istanbul": "^3.1.4",
     "@vue/test-utils": "^2.4.6",
