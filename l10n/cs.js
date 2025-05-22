@@ -95,6 +95,7 @@ OC.L10N.register(
     "Enable full text" : "Zobrazovat celý text",
     "Disable full text" : "Nezobrazovat celý text",
     "Mark as unread on update" : "Při aktualizaci označit jako nepřečtené",
+    "Keep read status on update" : "I po aktualizaci ponechat stav přečtené",
     "Previous Item" : "Předchozí položka",
     "Previous" : "Předchozí",
     "Next Item" : "Další položka",
