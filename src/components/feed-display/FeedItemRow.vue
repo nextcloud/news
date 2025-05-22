@@ -32,18 +32,18 @@
 		<div class="main-container" :class="{ compact: compactMode }">
 			<h1
 				class="title-container"
-				:class="{ compact: compactMode && !verticalSplit, unread: item.unread }"
+				:class="{ compact: compactMode, unread: item.unread }"
 				:dir="item.rtl && 'rtl'">
 				{{ item.title }}
 			</h1>
 
 			<div class="intro-container" :class="{ compact: compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
-				<span v-if="!compactMode || !verticalSplit" class="intro" v-html="item.intro" />
+				<span class="intro" v-html="item.intro" />
 				<!--eslint-enable-->
 			</div>
 
-			<div v-if="!compactMode || !verticalSplit" class="date-container" :class="{ compact: compactMode }">
+			<div class="date-container" :class="{ compact: compactMode }">
 				<time class="date" :title="formatDate(item.pubDate)" :datetime="formatDateISO(item.pubDate)">
 					{{ formatDateRelative(item.pubDate) }}
 				</time>
@@ -220,6 +220,7 @@ export default defineComponent({
 	}
 
 	.feed-item-row.compact {
+		container-type: inline-size;
 		display: flex; padding: 4px 4px !important;
 		border-bottom: 1px solid var(--color-border);
 	}
@@ -237,7 +238,7 @@ export default defineComponent({
 	}
 
 	.feed-item-row .link-container {
-		padding-right: 12px;
+		padding-inline-end: 12px;
 		display: flex;
 		flex-direction: row;
 		align-self: center;
@@ -319,10 +320,18 @@ export default defineComponent({
 		white-space: nowrap;
 	}
 
-	.feed-item-row .date-container.compact {
-		flex: 0 0 auto;
-		font-size: small;
-		padding-right: 4px;
+	@container (min-width: 500px) {
+		.feed-item-row .date-container.compact {
+			flex: 0 0 auto;
+			font-size: small;
+			padding-inline-end: 4px;
+		}
+	}
+
+	@container (max-width: 499px) {
+		.feed-item-row .date-container.compact {
+			display: none;
+		}
 	}
 
 	.feed-item-row .button-container {
