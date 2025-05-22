@@ -105,7 +105,7 @@ export default defineComponent({
 
 	#warning-box {
 		position: absolute;
-		right: 35px;
+		inset-inline-end: 35px;
 		top: 15px;
 		z-index: 5000;
 		padding: 5px 10px;

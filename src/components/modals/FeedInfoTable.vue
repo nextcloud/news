@@ -277,11 +277,11 @@ export default {
 			border-bottom: unset;
 
 			&.text {
-				text-align: left;
+				text-align: start;
 			}
 
 			&.number {
-				text-align: right;
+				text-align: end;
 			}
 
 			&.date {

@@ -492,7 +492,7 @@ export default defineComponent({
 
 	.header-content {
 		flex-grow: 1;
-		padding-left: 52px;
+		padding-inline-start: 52px;
 		font-weight: 700;
 	}
 </style>

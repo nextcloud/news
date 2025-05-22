@@ -351,8 +351,8 @@ export default defineComponent({
 		width: 100%;
 		height: 100%;
 		max-width: 1024px;
-		margin-left: auto;
-		margin-right: auto;
+		margin-inline: auto;
+		margin-inline-end: auto;
 	}
 
 	.article video {
@@ -385,7 +385,7 @@ export default defineComponent({
 
 	.article .body ul {
 		margin: 7px 0;
-		padding-left: 14px;
+		padding-inline-start: 14px;
 		list-style-type: disc;
 	}
 
