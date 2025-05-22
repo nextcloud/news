@@ -101,6 +101,6 @@ export default defineComponent({
 .counter-bubble {
 	display: inline-block;
 	vertical-align: sub;
-	margin-left: 10px;
+	margin-inline-start: 10px;
 }
 </style>

@@ -145,7 +145,7 @@ export default ExploreComponent
 }
 
 #explore .grid-item .explore-title.icon {
-	padding-left: 32px;
+	padding-inline-start: 32px;
 }
 
 #explore .grid-item .explore-title a {

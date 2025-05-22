@@ -817,7 +817,7 @@ export default defineComponent({
 .select-container select {
 	min-width: 140px;
 	text-overflow: ellipsis;
-	margin-left: auto;
+	margin-inline-start: auto;
 }
 
 .settings-button {
