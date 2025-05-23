@@ -7,14 +7,17 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- show intro and date if enough space in compact mode
-
 
 ### Fixed
-- since `26.0.0-beta.4` the first selected item can disappear from the list if you change from another type of route, e.g. from feed to folder
-
 
 # Releases
+## [26.0.0-beta.5] - 2025-05-23
+### Changed
+- show intro and date if enough space in compact mode (#3186)
+
+### Fixed
+- since `26.0.0-beta.4` the first selected item can disappear from the list if you change from another type of route, e.g. from feed to folder (#3178)
+
 ## [26.0.0-beta.4] - 2025-05-17
 ### Changed
 - Open the feed info table during opml import to show what has been imported after completion (#3169)
