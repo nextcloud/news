@@ -96,7 +96,7 @@
 					{{ t('news', 'by') }} {{ item.author }}
 				</span>
 				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
-					<a :href="`#/feed/${item.feedId}/`">
+					<a :href="feedUrl">
 						{{ getFeed(item.feedId).title }}
 						<img
 							v-if="getFeed(item.feedId).faviconLink"
@@ -163,6 +163,7 @@
 import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
+import { generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
@@ -233,6 +234,7 @@ export default defineComponent({
 		return {
 			keepUnread: false,
 			showShareMenu: false,
+			feedUrl: undefined,
 		}
 	},
 
@@ -251,6 +253,7 @@ export default defineComponent({
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('Escape', this.closeDetails)
 		}
+		this.feedUrl = generateUrl('/apps/news/feed/' + this.item.feedId)
 	},
 
 	methods: {

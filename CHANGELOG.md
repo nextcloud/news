@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 - content splitter position not recognised when reloading app
 - feed/folder action menu does not close when clicked outside
+- fix feed url in details view
 
 # Releases
 ## [26.0.0-beta.5] - 2025-05-23
