@@ -92,10 +92,7 @@
 			</div>
 
 			<div class="subtitle" :dir="item.rtl && 'rtl'">
-				<span v-show="item.author !== undefined && item.author !== null && item.author.trim() !== ''" class="author">
-					{{ t('news', 'by') }} {{ item.author }}
-				</span>
-				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
+				<span v-if="!item.sharedBy" class="source">
 					<a :href="feedUrl">
 						{{ getFeed(item.feedId).title }}
 						<img
@@ -109,6 +106,9 @@
 					<span v-if="item.author">-</span>
 					{{ t('news', 'shared by') }}
 					{{ item.sharedByDisplayName }}
+				</span>
+				<span v-show="item.author !== undefined && item.author !== null && item.author.trim() !== ''" class="author">
+					{{ t('news', 'by') }} {{ item.author }}
 				</span>
 			</div>
 
@@ -404,7 +404,9 @@ export default defineComponent({
 
 	.article .subtitle {
 		color: var(--color-text-lighter);
+		display: flex;
 		font-size: 15px;
+		gap: 15px;
 		padding: 25px 0;
 	}
 
