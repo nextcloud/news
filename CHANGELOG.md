@@ -9,11 +9,15 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
-- content splitter position not recognised when reloading app
-- feed/folder action menu does not close when clicked outside
-- fix feed url in details view
+
 
 # Releases
+## [26.0.0] - 2025-05-29
+### Fixed
+- content splitter position not recognized when reloading app (#3193)
+- feed/folder action menu does not close when clicked outside (#3193)
+- fix feed url in details view (#3193)
+
 ## [26.0.0-beta.5] - 2025-05-23
 ### Changed
 - show intro and date if enough space in compact mode (#3186)
