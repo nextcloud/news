@@ -120,10 +120,18 @@
 							@click="markFolderRead(topLevelItem)">
 							{{ t("news", "Mark read") }}
 						</NcActionButton>
-						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-rename" @click="renameFolder(topLevelItem)">
+						<NcActionButton
+							v-if="topLevelItem.name !== undefined"
+							icon="icon-rename"
+							:close-after-click="true"
+							@click="renameFolder(topLevelItem)">
 							{{ t("news", "Rename") }}
 						</NcActionButton>
-						<NcActionButton v-if="topLevelItem.name !== undefined" icon="icon-delete" @click="deleteFolder(topLevelItem)">
+						<NcActionButton
+							v-if="topLevelItem.name !== undefined"
+							icon="icon-delete"
+							:close-after-click="true"
+							@click="deleteFolder(topLevelItem)">
 							{{ t("news", "Delete") }}
 						</NcActionButton>
 					</template>

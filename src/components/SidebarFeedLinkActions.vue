@@ -83,6 +83,7 @@
 		</NcActionButton>
 		<NcActionButton
 			icon="icon-rename"
+			:close-after-click="true"
 			@click="rename()">
 			{{ t("news", "Rename") }}
 		</NcActionButton>
