@@ -33,7 +33,6 @@ OC.L10N.register(
     "Next" : "Tiếp theo",
     "Mark unread" : "Đánh dấu là chưa đọc",
     "by" : "bởi",
-    "from" : "từ",
     "Open website" : "Mở trang web",
     "Not available" : "Không khả dụng",
     "Title" : "Tên",

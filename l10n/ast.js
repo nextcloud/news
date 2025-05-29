@@ -56,7 +56,6 @@ OC.L10N.register(
     "Previous" : "Anterior",
     "Next" : "Siguiente",
     "by" : "por",
-    "from" : "de",
     "Play audio" : "Reproducir l'audiu",
     "Download audio" : "Baxar l'audiu",
     "Download video" : "Baxar el videu",

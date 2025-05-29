@@ -31,7 +31,6 @@ OC.L10N.register(
     "Next" : "Proxime",
     "Toggle star article" : "Alternar stato de favorito del articulo",
     "by" : "per",
-    "from" : "ex",
     "Play audio" : "Reproducer audio",
     "Download audio" : "Discargar audio",
     "Download video" : "Discargar video",

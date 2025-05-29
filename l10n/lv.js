@@ -35,7 +35,6 @@ OC.L10N.register(
     "Oldest first" : "Vecākie pirms",
     "Previous" : "Iepriekšējā",
     "by" : "līdz",
-    "from" : "no",
     "Play audio" : "Atskaņot audio",
     "Download audio" : "Lejupielādēt audio",
     "Download video" : "Lejupielādēt video",

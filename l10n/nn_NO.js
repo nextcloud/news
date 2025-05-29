@@ -22,7 +22,6 @@ OC.L10N.register(
     "Oldest first" : "Eldste fyrst",
     "Previous" : "Førre",
     "by" : "av",
-    "from" : "frå",
     "Download video" : "Last ned video",
     "Refresh" : "Oppfrisk"
 },

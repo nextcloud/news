@@ -24,7 +24,6 @@ OC.L10N.register(
     "Delete" : "মুছে",
     "Previous" : "পূর্ববর্তী",
     "by" : "কর্তৃক",
-    "from" : "হইতে",
     "right" : "ডান",
     "left" : "বাম",
     "Refresh" : "নবোদ্যম"

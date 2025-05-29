@@ -51,7 +51,6 @@ OC.L10N.register(
     "Mark unread" : "סימון כלא נקרא",
     "Close details" : "סגירת הפרטים",
     "by" : "על ידי",
-    "from" : "מאת",
     "Play audio" : "השמע קובץ שמע",
     "Download audio" : "הורדת קובץ שמע",
     "Download video" : "הורדת וידאו",

@@ -22,7 +22,6 @@ OC.L10N.register(
     "Previous" : "Blaenorol",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
-    "from" : "oddi wrth",
     "Not available" : "Ddim ar gael",
     "Refresh" : "Adnewyddu"
 },

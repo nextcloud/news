@@ -21,7 +21,6 @@ OC.L10N.register(
     "Delete" : "Sil",
     "Previous" : "Əvvələ",
     "by" : "onunla",
-    "from" : "ondan",
     "right" : "Sağ",
     "left" : "Sol",
     "Refresh" : "Yenilə"

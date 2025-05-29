@@ -49,7 +49,6 @@ OC.L10N.register(
     "Next" : "I ardhshëm",
     "Toggle star article" : "Vëri/hiqi yll artikullit",
     "by" : "nga",
-    "from" : "nga",
     "Play audio" : "Luaje audion",
     "Download audio" : "Shkarko audion",
     "Download video" : "Shkarko videon",

@@ -59,7 +59,6 @@ OC.L10N.register(
     "Toggle star article" : "Позначити статтю",
     "Mark unread" : "Позначити як не прочитане",
     "by" : "по",
-    "from" : "З",
     "Play audio" : "Відтворення аудіо",
     "Download audio" : "Звантажити аудіо",
     "Download video" : "Звантажити відео",

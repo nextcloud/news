@@ -47,7 +47,6 @@ OC.L10N.register(
     "Previous" : "Anterior",
     "Toggle star article" : "Alternar artículos marcados",
     "by" : "por",
-    "from" : "de",
     "Play audio" : "Reproducir audio",
     "Download audio" : "Descargar audio",
     "Download video" : "Descargar video",

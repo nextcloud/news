@@ -19,7 +19,6 @@ OC.L10N.register(
     "Delete" : "លុប",
     "Previous" : "មុន",
     "by" : "ដោយ",
-    "from" : "ពី",
     "right" : "ខាង​ស្ដាំ",
     "left" : "ខាង​ឆ្វេង"
 },

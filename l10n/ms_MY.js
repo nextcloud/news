@@ -15,7 +15,6 @@ OC.L10N.register(
     "Delete" : "Padam",
     "Previous" : "Sebelum",
     "by" : "oleh",
-    "from" : "dari",
     "Refresh" : "Refresh"
 },
 "nplurals=1; plural=0;");

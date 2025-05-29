@@ -39,7 +39,6 @@ OC.L10N.register(
     "Next" : "ถัดไป",
     "Toggle star article" : "สลับการติดดาวบทความ",
     "by" : "โดย",
-    "from" : "จาก",
     "Play audio" : "เล่นเสียง",
     "Download audio" : "ดาวน์โหลดเสียง",
     "Download video" : "ดาวน์โหลดวิดีโอ",

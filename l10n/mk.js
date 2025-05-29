@@ -30,7 +30,6 @@ OC.L10N.register(
     "Next" : "Следна",
     "Mark unread" : "Означи како непрочитано",
     "by" : "од",
-    "from" : "од",
     "Open website" : "Отвори вебсајт",
     "Not available" : "Недостапно",
     "Keyboard shortcut" : "Кратенка преку тастатура",

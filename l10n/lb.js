@@ -24,7 +24,6 @@ OC.L10N.register(
     "Delete" : "Läschen",
     "Previous" : "Zeréck",
     "by" : "vun",
-    "from" : "vun",
     "Play audio" : "Toun ofspillen",
     "Download audio" : "Toun eroflueden",
     "Download video" : "Video eroflueden",

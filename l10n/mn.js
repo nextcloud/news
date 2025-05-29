@@ -23,7 +23,6 @@ OC.L10N.register(
     "Previous" : "өмнөх",
     "Next" : "Даараах",
     "Toggle star article" : "Өгүүллийг соль",
-    "from" : "тэндээс",
     "Play audio" : "Аудио тоглуулах",
     "Download audio" : "Аудиог татаж авах",
     "Download video" : "Видеог татаж авах",

@@ -60,7 +60,6 @@ OC.L10N.register(
     "Mark unread" : "Merkja sem ólesið",
     "Close details" : "Loka nánari upplýsingum",
     "by" : "eftir",
-    "from" : "frá",
     "Play audio" : "Spila hljóð",
     "Download audio" : "Sækja hljóð",
     "Download video" : "Sækja myndskeið",

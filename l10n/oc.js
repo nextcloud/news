@@ -38,7 +38,6 @@ OC.L10N.register(
     "Next" : "Seguent",
     "Toggle star article" : "Espingolar / Desespingolar l'article",
     "by" : "per",
-    "from" : "de",
     "Play audio" : "Escotar",
     "Download audio" : "Telecargar lo son",
     "Download video" : "Telecargar la vidèo",

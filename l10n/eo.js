@@ -33,7 +33,6 @@ OC.L10N.register(
     "Mark unread" : "Marki kiel nelegita",
     "Close details" : "Fermi detalojn",
     "by" : "de",
-    "from" : "el",
     "Open website" : "Malfermi TTT-ejon",
     "Not available" : "Ne disponeble",
     "right" : "dekstro",

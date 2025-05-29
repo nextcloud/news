@@ -26,7 +26,6 @@ OC.L10N.register(
     "Oldest first" : "Oudste eerste",
     "Previous" : "Vorige",
     "by" : "deur",
-    "from" : "van",
     "Play audio" : "Speel oudio af",
     "Download audio" : "Laai oudio af",
     "Download video" : "Laai video af",

@@ -49,7 +49,6 @@ OC.L10N.register(
     "Toggle star article" : "არტიკლის ვარსკლავის გადართვა",
     "Close details" : "დეტალების დახურვა",
     "by" : "მიერ",
-    "from" : "დან",
     "Play audio" : "აუდიოს დაკვრა",
     "Download audio" : "აუდიოს ჩამოტვირთვა",
     "Download video" : "ვიდეოს ჩამოტვირთვა",
