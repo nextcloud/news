@@ -91,7 +91,6 @@ export default defineComponent({
 				}
 			},
 
-			cache: [] as FeedItem[] | undefined,
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
 			listOrdering: this.getListOrdering(),
@@ -166,7 +165,6 @@ export default defineComponent({
 				if (this.listOrdering === false) {
 					this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
 				}
-				this.cache = undefined
 			},
 
 			immediate: true,
@@ -180,14 +178,12 @@ export default defineComponent({
 				this.$refs.virtualScroll.scrollTop = 0
 				// make sure the first items from this ordering are loaded
 				this.fetchMore()
-				this.cache = undefined
 			}
 		},
 
 		// showAll has changed rebuild item list
 		changedShowAll() {
 			this.$refs.virtualScroll.scrollTop = 0
-			this.cache = undefined
 		},
 	},
 
@@ -222,7 +218,6 @@ export default defineComponent({
 	methods: {
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
-			this.cache = undefined
 			// remove all loaded items
 			this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
 			// refetch feeds
@@ -284,10 +279,6 @@ export default defineComponent({
 			this.$emit('show-details')
 		},
 
-		unreadFilter(item: FeedItem): boolean {
-			return item.unread
-		},
-
 		outOfScopeFilter(item: FeedItem): boolean {
 			const lastItemLoaded = this.$store.state.items.lastItemLoaded[this.fetchKey]
 			return (this.listOrdering ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
@@ -295,26 +286,6 @@ export default defineComponent({
 
 		filterSortedItems(): FeedItem[] {
 			let response = [...this.items] as FeedItem[]
-
-			// if we're filtering on unread, we want to cache the unread items when the user presses the filter button
-			// that way when the user opens an item, it won't be removed from the displayed list of items (once it's no longer unread)
-			if (this.fetchKey === 'unread'
-				|| (!this.$store.getters.showAll
-					&& this.fetchKey !== 'starred'
-					&& this.fetchKey !== 'all')) {
-				if (!this.cache) {
-					if (this.items.length > 0) {
-						this.cache = this.items.filter(this.unreadFilter)
-					}
-				} else if (this.items.length > (this.cache?.length)) {
-					for (const item of this.items) {
-						if (item.unread && this.cache.find((unread: FeedItem) => unread.id === item.id) === undefined) {
-							this.cache.push(item)
-						}
-					}
-				}
-				response = [...this.cache as FeedItem[]]
-			}
 
 			// filter items that are already loaded but do not yet match the current view
 			if (this.$store.state.items.lastItemLoaded[this.fetchKey] > 0) {

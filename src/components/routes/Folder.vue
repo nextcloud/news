@@ -1,6 +1,7 @@
 <template>
 	<ContentTemplate
 		v-if="!loading"
+		:key="'folder-' + folderId"
 		:items="items"
 		:fetch-key="'folder-' + folderId"
 		@mark-read="markRead()"
@@ -22,6 +23,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
 	name: 'RoutesFolder',
@@ -40,6 +42,12 @@ export default defineComponent({
 		},
 	},
 
+	data() {
+		return {
+			folderItems: [],
+		}
+	},
+
 	computed: {
 		...mapState(['items']),
 		folder(): Folder {
@@ -47,11 +55,7 @@ export default defineComponent({
 		},
 
 		items(): FeedItem[] {
-			const feeds: Array<number> = this.$store.getters.feeds.filter((feed: Feed) => feed.folderId === this.id).map((feed: Feed) => feed.id)
-
-			return this.$store.state.items.allItems.filter((item: FeedItem) => {
-				return feeds.includes(item.feedId)
-			}) || []
+			return this.folderItems ?? []
 		},
 
 		id(): number {
@@ -60,6 +64,10 @@ export default defineComponent({
 
 		loading() {
 			return this.$store.getters.loading
+		},
+
+		showAll() {
+			return this.$store.getters.showAll
 		},
 
 		unreadCount(): number {
@@ -72,6 +80,37 @@ export default defineComponent({
 
 			return totalUnread
 		},
+	},
+
+	created() {
+		this.$watch(
+			() => [this.folderId, this.showAll, this.$store.state.items.allItems],
+			([newFolderId, newShowAll, newItems], [oldFolderId, oldShowAll] = []) => {
+				const feeds: Array<number> = this.$store.getters.feeds.filter((feed: Feed) => feed.folderId === this.id).map((feed: Feed) => feed.id)
+				/*
+				 * Filter out read items if showAll is disabled
+				 */
+				const newFolderItems = newItems.filter((item: FeedItem) => {
+					return feeds.includes(item.feedId) && (this.showAll || item.unread)
+				}) || []
+				/*
+				 * If showAll is disabled an unread cache is needed so items read
+				 * aren't removed from the list until changing the route or reload
+				 */
+				if (this.showAll) {
+					this.folderItems = newFolderItems
+				} else {
+					/*
+					 * clear unread item cache
+					 */
+					if (newFolderId !== oldFolderId || newShowAll !== oldShowAll) {
+						this.folderItems = []
+					}
+					updateUnreadCache(newFolderItems, this.folderItems)
+				}
+			},
+			{ immediate: true },
+		)
 	},
 
 	methods: {

@@ -215,7 +215,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// switch to feed 1 route with three unread and one read item
 		await wrapper.setProps({
-			items: [mockItem1, mockItem2, mockItem3, mockItem4],
+			items: [mockItem2, mockItem3, mockItem4],
 			fetchKey: 'feed-1',
 		})
 		expect(
@@ -234,9 +234,9 @@ describe('FeedItemDisplayList.vue', () => {
 			'should select first unread FeedItemRow item from feed-1 route',
 		).toEqual(3)
 
-		// switch to folder 1 route with two unread and two read items
+		// switch to folder 1 route with two unread
 		await wrapper.setProps({
-			items: [mockItem1, mockItem2, mockItem3, mockItem4],
+			items: [mockItem3, mockItem4],
 			fetchKey: 'folder-1',
 		})
 		expect(
@@ -408,7 +408,7 @@ describe('FeedItemDisplayList.vue', () => {
 		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
 	})
 
-	it('should clear read FeedItemRow items from input after refresh', async () => {
+	it('should commit RESET_ITEM_STATES and dispatch FETCH_FEEDS when refreshing app', () => {
 		wrapper = mount(FeedItemDisplayList, {
 			attachTo: document.body,
 			props: {
@@ -423,15 +423,9 @@ describe('FeedItemDisplayList.vue', () => {
 			},
 		})
 
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
-		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
-		mockItem1.unread = false
-		mockItem2.unread = false
 		wrapper.vm.refreshApp()
-		await nextTick()
-		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(2)
+		expect(store.commit).toBeCalledWith(MUTATIONS.RESET_ITEM_STATES)
+		expect(store.dispatch).toBeCalledWith(ACTIONS.FETCH_FEEDS)
 	})
+
 })

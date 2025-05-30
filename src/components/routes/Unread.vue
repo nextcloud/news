@@ -19,6 +19,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
 	name: 'RoutesUnread',
@@ -58,13 +59,7 @@ export default defineComponent({
 		// need cache so we aren't always removing items when they get read
 		'$store.getters.unread': {
 			handler(newItems) {
-				const cachedItemIds = new Set(this.unreadCache.map((item) => item.id))
-
-				for (const item of newItems) {
-					if (!cachedItemIds.has(item.id)) {
-						this.unreadCache.push(item)
-					}
-				}
+				updateUnreadCache(newItems, this.unreadCache)
 			},
 
 			immediate: true,

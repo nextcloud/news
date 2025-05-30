@@ -1,15 +1,43 @@
+import { nextTick } from 'vue'
 import Vuex, { Store } from 'vuex'
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import Feed from '../../../../../src/components/routes/Feed.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import { ACTIONS } from '../../../../../src/store'
 
 vi.mock('@nextcloud/axios')
 
 describe('Feed.vue', () => {
 	'use strict'
 	let wrapper: any
+
+	const mockItems = [
+		{
+			id: 1,
+			feedId: 123,
+			title: 'feed item',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 2,
+			feedId: 123,
+			title: 'feed item 2',
+			pubDate: Date.now() / 1000,
+		}, {
+			id: 3,
+			feedId: 123,
+			title: 'feed item 3',
+			pubDate: Date.now() / 1000,
+		}, {
+			id: 4,
+			feedId: 123,
+			title: 'feed item 4',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}
+	]
 
 	const mockFeed = {
 		id: 123,
@@ -22,65 +50,114 @@ describe('Feed.vue', () => {
 		store = new Vuex.Store({
 			state: {
 				items: {
+                                        allItemsLoaded: {
+                                                'feed-123': false,
+                                        },
+                                        lastItemLoaded: {
+                                                'feed-123': 0,
+                                        },
 					fetchingItems: {
 						'feed-123': false,
 					},
-					allItems: [{
-						feedId: 123,
-						title: 'feed item',
-					}, {
-						feedId: 123,
-						title: 'feed item 2',
-					}],
+					allItems: mockItems,
+				},
+				feeds: {
+					ordering: {
+						'feed-123': 0,
+					},
+				},
+				app: {
+					loading: false,
+					showAll: true,
 				},
 			},
 			actions: {
 			},
 			getters: {
 				feeds: () => [mockFeed],
+				showAll: (state) => state.app.showAll,
+				loading: (state) => state.app.loading,
 			},
 		})
 
 		store.dispatch = vi.fn()
 		store.commit = vi.fn()
+	})
+
+	beforeEach(() => {
+                vi.clearAllMocks()
 
 		wrapper = shallowMount(Feed, {
 			props: {
 				feedId: '123',
 			},
 			global: {
-				mocks: {
-					$route: {
-						params: {},
-					},
-				},
 				plugins: [store],
 			},
 		})
 	})
 
-	beforeEach(() => {
-		vi.clearAllMocks()
-	})
-
-	it('should get feed items from state', () => {
+	it('should get two feed items from state when showAll is disabled', async () => {
+		wrapper.vm.$store.state.app.showAll = false
+		await nextTick()
+		expect(wrapper.vm.$store.getters.showAll).toEqual(false)
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(2)
 	})
 
+	it('should get four feed items from state when showAll is enabled', async () => {
+		wrapper.vm.$store.state.app.showAll = true
+		await nextTick()
+		expect(wrapper.vm.$store.getters.showAll).toEqual(true)
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(4)
+	})
+
+	it('should clear unread cache when changing feed', async () => {
+		wrapper.vm.$store.state.app.showAll = false
+		await nextTick()
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(2)
+                await wrapper.setProps({
+                        feedId: '124',
+                })
+		expect(wrapper.vm.$store.getters.showAll).toEqual(false)
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(0)
+
+	})
+
 	it('should dispatch FETCH_FEED_ITEMS action if not fetchingItems.feed-123', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems['feed-123'] = false;
-		(wrapper.vm as any).fetchMore()
-		expect(store.dispatch).toBeCalled()
+		wrapper.vm.$store.state.items.fetchingItems['feed-123'] = false
+		wrapper.vm.fetchMore()
+		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEED_ITEMS, { feedId: 123 })
 	})
 
 	it('should not dispatch FETCH_FEED_ITEMS action if fetchingItems.feed-123', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems['feed-123'] = true;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems['feed-123'] = true
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
 
+	it('should dispatch FETCH_FEED_ITEMS action from content template emit', async () => {
+		wrapper.vm.$store.state.items.fetchingItems['feed-123'] = false
+		wrapper.findComponent(ContentTemplate).vm.$emit('load-more')
+		await nextTick()
+		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEED_ITEMS, { feedId: 123 })
+	})
+
 	it('should dispatch FEED_MARK_READ action', () => {
-		(wrapper.vm as any).markRead()
-		expect(store.dispatch).toBeCalled()
+		wrapper.vm.markRead()
+		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_MARK_READ, { feed: mockFeed })
+	})
+
+	it('should dispatch FEED_MARK_READ from content template emit', () => {
+		wrapper.findComponent(ContentTemplate).vm.$emit('mark-read')
+		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_MARK_READ, { feed: mockFeed })
+	})
+
+	it('should hide content template and not dispatch FETCH_FEED_ITEMS during initial loading', async () => {
+		wrapper.vm.$store.state.app.loading = true
+		await nextTick()
+		wrapper.vm.fetchMore()
+		expect(store.dispatch).not.toBeCalled()
+		expect(wrapper.vm.$store.getters.loading).toEqual(true)
+		expect(wrapper.findComponent(ContentTemplate).exists()).toBe(false)
 	})
 })
