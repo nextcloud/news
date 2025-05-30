@@ -18,7 +18,7 @@ import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { ACTIONS } from '../../store/index.ts'
 
 export default defineComponent({
 	name: 'RoutesUnread',
@@ -69,13 +69,6 @@ export default defineComponent({
 
 			immediate: true,
 		},
-	},
-
-	created() {
-		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-		if (this.unread === undefined) {
-			this.$store.dispatch(ACTIONS.FETCH_UNREAD)
-		}
 	},
 
 	methods: {
