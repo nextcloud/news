@@ -15,7 +15,7 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { ACTIONS } from '../../store/index.ts'
 
 export default defineComponent({
 	name: 'RoutesAll',
@@ -31,10 +31,6 @@ export default defineComponent({
 		loading() {
 			return this.$store.getters.loading
 		},
-	},
-
-	created() {
-		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 
 	methods: {

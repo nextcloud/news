@@ -21,7 +21,7 @@ import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { ACTIONS } from '../../store/index.ts'
 
 export default defineComponent({
 	name: 'RoutesFolder',
@@ -72,10 +72,6 @@ export default defineComponent({
 
 			return totalUnread
 		},
-	},
-
-	created() {
-		this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 	},
 
 	methods: {
