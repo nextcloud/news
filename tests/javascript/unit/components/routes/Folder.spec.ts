@@ -41,9 +41,11 @@ describe('Folder.vue', () => {
 					allItems: [{
 						feedId: 789,
 						title: 'feed item',
+						unread: true,
 					}, {
 						feedId: 456,
 						title: 'feed item 2',
+						unread: true,
 					}],
 				},
 			},

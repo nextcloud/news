@@ -1,6 +1,7 @@
 <template>
 	<ContentTemplate
 		v-if="!loading"
+		:key="'feed-' + feedId"
 		:items="items"
 		:fetch-key="'feed-' + feedId"
 		@mark-read="markRead()"
@@ -21,6 +22,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
 	name: 'RoutesFeed',
@@ -39,6 +41,12 @@ export default defineComponent({
 		},
 	},
 
+	data() {
+		return {
+			feedItems: [],
+		}
+	},
+
 	computed: {
 		...mapState(['items']),
 		feed(): Feed {
@@ -47,9 +55,7 @@ export default defineComponent({
 		},
 
 		items(): FeedItem[] {
-			return this.$store.state.items.allItems.filter((item: FeedItem) => {
-				return item.feedId === this.id
-			}) || []
+			return this.feedItems ?? []
 		},
 
 		id(): number {
@@ -59,6 +65,40 @@ export default defineComponent({
 		loading() {
 			return this.$store.getters.loading
 		},
+
+		showAll() {
+			return this.$store.getters.showAll
+		},
+	},
+
+	created() {
+		this.$watch(
+			() => [this.feedId, this.showAll, this.$store.state.items.allItems],
+			([newFeedId, newShowAll, newItems], [oldFeedId, oldShowAll] = []) => {
+				/*
+				 * Filter out read items if showAll is disabled
+				 */
+				const newFeedItems = newItems.filter((item: FeedItem) => {
+					return item.feedId === this.id && (this.showAll || item.unread)
+				}) || []
+				/*
+				 * If showAll is disabled an unread cache is needed so items read
+				 * aren't removed from the list until changing the route or reload
+				 */
+				if (this.showAll) {
+					this.feedItems = newFeedItems
+				} else {
+					/*
+					 * clear unread item cache
+					 */
+					if (newFeedId !== oldFeedId || newShowAll !== oldShowAll) {
+						this.feedItems = []
+					}
+					updateUnreadCache(newFeedItems, this.feedItems)
+				}
+			},
+			{ immediate: true },
+		)
 	},
 
 	methods: {
