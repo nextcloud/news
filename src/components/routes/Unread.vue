@@ -18,8 +18,8 @@ import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS } from '../../store/index.ts'
-import { outOfScopeFilter } from '../../utils/itemFilter.ts'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
 import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
@@ -41,12 +41,26 @@ export default defineComponent({
 			return this.$store.state.items.newestItemId === 0
 		},
 
+		lastItemLoaded() {
+			return this.$store.state.items.lastItemLoaded.unread
+		},
+
 		unread(): FeedItem[] {
-			return outOfScopeFilter(this.$store, this.unreadCache, 'unread') ?? []
+			let items = this.unreadCache ?? []
+			/*
+			 * Sorting items is needed because the allItems array can contain
+			 * different orderings due to possible individual feed sorting
+			 */
+			items = sortedFeedItems(items, this.oldestFirst)
+			return outOfScopeFilter(this.$store, items, 'unread')
 		},
 
 		loading() {
 			return this.$store.getters.loading
+		},
+
+		oldestFirst() {
+			return this.$store.getters.oldestFirst
 		},
 	},
 
@@ -65,6 +79,15 @@ export default defineComponent({
 
 			immediate: true,
 		},
+	},
+
+	created() {
+		/*
+		 * When sorting newest to oldest lastItemLoaded needs to be reset to get new items for this route
+		 */
+		if (this.oldestFirst === false) {
+			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'unread', lastItem: undefined })
+		}
 	},
 
 	methods: {

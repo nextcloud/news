@@ -128,7 +128,7 @@ import RssIcon from 'vue-material-design-icons/Rss.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
 import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
-import { ACTIONS } from '../store/index.ts'
+import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
 export default defineComponent({
 	/*
@@ -190,6 +190,7 @@ export default defineComponent({
 		},
 
 		setOrdering(ordering: FEED_ORDER) {
+			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'feed-' + String(this.feedId), lastItem: undefined })
 			this.$store.dispatch(ACTIONS.FEED_SET_ORDERING, { feed: this.feed, ordering })
 		},
 

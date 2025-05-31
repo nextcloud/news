@@ -22,8 +22,8 @@ import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS } from '../../store/index.ts'
-import { outOfScopeFilter } from '../../utils/itemFilter.ts'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
 import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
@@ -56,15 +56,29 @@ export default defineComponent({
 		},
 
 		items(): FeedItem[] {
-			return outOfScopeFilter(this.$store, this.folderItems, 'folder-' + this.folderId) ?? []
+			let items = this.folderItems ?? []
+			/*
+			 * Sorting items is needed because the allItems array can contain
+			 * different orderings due to possible individual feed sorting
+			 */
+			items = sortedFeedItems(items, this.oldestFirst)
+			return outOfScopeFilter(this.$store, items, 'folder-' + this.folderId)
 		},
 
 		id(): number {
 			return Number(this.folderId)
 		},
 
+		itemReset() {
+			return this.$store.state.items.newestItemId === 0
+		},
+
 		loading() {
 			return this.$store.getters.loading
+		},
+
+		oldestFirst() {
+			return this.$store.getters.oldestFirst
 		},
 
 		showAll() {
@@ -83,10 +97,25 @@ export default defineComponent({
 		},
 	},
 
+	watch: {
+		folderId: {
+			handler() {
+				/*
+				 * When sorting newest to oldest lastItemLoaded needs to reset to get new items for this route
+				 */
+				if (this.oldestFirst === false) {
+					this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'folder-' + this.folderId, lastItem: undefined })
+				}
+			},
+
+			immediate: true,
+		},
+	},
+
 	created() {
 		this.$watch(
-			() => [this.folderId, this.showAll, this.$store.state.items.allItems],
-			([newFolderId, newShowAll, newItems], [oldFolderId, oldShowAll] = []) => {
+			() => [this.folderId, this.itemReset, this.$store.state.items.allItems],
+			([newFolderId, newLastItem, newItems], [oldFolderId] = []) => {
 				const feeds: Array<number> = this.$store.getters.feeds.filter((feed: Feed) => feed.folderId === this.id).map((feed: Feed) => feed.id)
 				/*
 				 * Filter out read items if showAll is disabled
@@ -104,7 +133,7 @@ export default defineComponent({
 					/*
 					 * clear unread item cache
 					 */
-					if (newFolderId !== oldFolderId || newShowAll !== oldShowAll) {
+					if (newFolderId !== oldFolderId || newLastItem) {
 						this.folderItems = []
 					}
 					updateUnreadCache(newFolderItems, this.folderItems)

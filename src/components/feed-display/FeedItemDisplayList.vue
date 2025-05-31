@@ -10,13 +10,13 @@
 				ref="virtualScroll"
 				:fetch-key="fetchKey"
 				@load-more="fetchMore()">
-				<template v-if="filteredItemcache && filteredItemcache.length > 0">
-					<template v-for="(item, index) in filteredItemcache">
+				<template v-if="items && items.length > 0">
+					<template v-for="(item, index) in items">
 						<FeedItemDisplay
 							v-if="screenReaderMode"
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"
-							:item-count="filteredItemcache.length"
+							:item-count="items.length"
 							:item-index="index + 1"
 							:item="item"
 							:class="{ active: selectedItem && selectedItem.id === item.id }"
@@ -25,7 +25,7 @@
 							v-else
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"
-							:item-count="filteredItemcache.length"
+							:item-count="items.length"
 							:item-index="index + 1"
 							:item="item"
 							:class="{ active: selectedItem && selectedItem.id === item.id }"
@@ -46,7 +46,7 @@ import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
 import VirtualScroll from './VirtualScroll.vue'
-import { DISPLAY_MODE, FEED_ORDER, SPLIT_MODE } from '../../enums/index.ts'
+import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
@@ -82,18 +82,8 @@ export default defineComponent({
 
 	data() {
 		return {
-			// Determine the sorting order
-			sort: (a: FeedItem, b: FeedItem) => {
-				if (a.id > b.id) {
-					return this.listOrdering ? 1 : -1
-				} else {
-					return this.listOrdering ? -1 : 1
-				}
-			},
-
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
-			listOrdering: this.getListOrdering(),
 			stopPrevItemHotkey: null,
 			stopNextItemHotkey: null,
 		}
@@ -108,30 +98,8 @@ export default defineComponent({
 			return this.$store.state.items.syncNeeded
 		},
 
-		changedFeedOrdering() {
-			if (this.fetchKey.startsWith('feed-')) {
-				return this.$store.state.feeds.ordering[this.fetchKey]
-			}
-			return 0
-		},
-
-		changedGlobalOrdering() {
-			return this.$store.getters.oldestFirst
-		},
-
-		changedOrdering() {
-			return {
-				feedOrdering: this.changedFeedOrdering,
-				globalOrdering: this.changedGlobalOrdering,
-			}
-		},
-
-		changedShowAll() {
-			return this.$store.getters.showAll
-		},
-
-		filteredItemcache() {
-			return this.items.length > 0 ? this.filterSortedItems() : []
+		lastItemLoaded() {
+			return this.$store.state.items.lastItemLoaded[this.fetchKey]
 		},
 
 		isLoading() {
@@ -158,32 +126,20 @@ export default defineComponent({
 			this.selectedItem = newVal
 		},
 
-		// clear cache on route change
+		// clear selected item on route change
 		fetchKey: {
 			handler() {
 				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-				if (this.listOrdering === false) {
-					this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
-				}
 			},
 
 			immediate: true,
 		},
 
-		// ordering has changed rebuild item list
-		changedOrdering() {
-			const newListOrdering = this.getListOrdering()
-			if (newListOrdering !== this.listOrdering) {
-				this.listOrdering = newListOrdering
+		// reset scroll position on item reset
+		lastItemLoaded(newVal) {
+			if (newVal === undefined) {
 				this.$refs.virtualScroll.scrollTop = 0
-				// make sure the first items from this ordering are loaded
-				this.fetchMore()
 			}
-		},
-
-		// showAll has changed rebuild item list
-		changedShowAll() {
-			this.$refs.virtualScroll.scrollTop = 0
 		},
 	},
 
@@ -224,26 +180,6 @@ export default defineComponent({
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 		},
 
-		getListOrdering(): boolean {
-			// all routes expect feeds use global ordering
-			if (!this.fetchKey.startsWith('feed-')) {
-				return this.$store.getters.oldestFirst
-			}
-			let oldestFirst
-			switch (this.$store.state.feeds.ordering[this.fetchKey]) {
-				case FEED_ORDER.OLDEST:
-					oldestFirst = true
-					break
-				case FEED_ORDER.NEWEST:
-					oldestFirst = false
-					break
-				case FEED_ORDER.DEFAULT:
-				default:
-					oldestFirst = this.$store.getters.oldestFirst
-			}
-			return oldestFirst
-		},
-
 		fetchMore() {
 			this.$emit('load-more')
 		},
@@ -277,12 +213,6 @@ export default defineComponent({
 				this.disableNavHotkeys()
 			}
 			this.$emit('show-details')
-		},
-
-		filterSortedItems(): FeedItem[] {
-			const response = [...this.items] as FeedItem[]
-
-			return response.sort(this.sort)
 		},
 
 		// debounce clicks to prevent multiple api calls when on the end of the actual loaded list
@@ -320,7 +250,7 @@ export default defineComponent({
 		},
 
 		jumpToPreviousItem() {
-			const items = this.filteredItemcache
+			const items = this.items
 			let currentIndex = this.currentIndex(items)
 			// Prepare to jump to the first item, if none was selected
 			if (currentIndex === -1) {
@@ -334,7 +264,7 @@ export default defineComponent({
 		},
 
 		jumpToNextItem() {
-			const items = this.filteredItemcache
+			const items = this.items
 			const currentIndex = this.currentIndex(items)
 			// Jump to the first item, if none was selected, otherwise jump to the next item
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {

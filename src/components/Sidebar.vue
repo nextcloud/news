@@ -438,7 +438,7 @@ export default defineComponent({
 			},
 
 			set(newValue) {
-				this.$store.dispatch(ACTIONS.RESET_LAST_ITEM_LOADED)
+				this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
 				this.saveSetting('oldestFirst', newValue)
 			},
 		},
@@ -459,6 +459,7 @@ export default defineComponent({
 			},
 
 			set(newValue) {
+				this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
 				this.saveSetting('showAll', newValue)
 			},
 		},

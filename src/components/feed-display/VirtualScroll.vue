@@ -7,6 +7,7 @@
 import _ from 'lodash'
 import { defineComponent, Fragment, h } from 'vue'
 import { ACTIONS } from '../../store/index.ts'
+import { getOldestFirst } from '../../utils/itemFilter.ts'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 
@@ -72,7 +73,11 @@ export default defineComponent({
 
 		reachedEnd: {
 			handler() {
-				if (!this.reachedEnd) {
+				/*
+				 * When sorting oldest to newest show new items when they arrive
+				 */
+				const oldestFirst = getOldestFirst(this.$store, this.fetchKey)
+				if (oldestFirst && !this.reachedEnd) {
 					this.loadMore()
 				}
 			},
