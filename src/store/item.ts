@@ -17,7 +17,6 @@ export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
 	FETCH_FOLDER_FEED_ITEMS: 'FETCH_FOLDER_FEED_ITEMS',
 	FETCH_ITEMS: 'FETCH_ITEMS',
-	RESET_LAST_ITEM_LOADED: 'RESET_LAST_ITEM_LOADED',
 }
 
 export type ItemState = {
@@ -370,19 +369,6 @@ export const actions = {
 		item.starred = false
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
-	},
-
-	/**
-	 * Reset lastItemsLoaded counters
-	 *
-	 * @param param0 ActionParams
-	 * @param param0.commit Commit action
-	 * @param param0.state ItemState
-	 */
-	[FEED_ITEM_ACTION_TYPES.RESET_LAST_ITEM_LOADED]({ commit, state }: ActionParams<ItemState>) {
-		Object.entries(state.lastItemLoaded).forEach(([key]) => {
-			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key, lastItem: undefined })
-		})
 	},
 }
 

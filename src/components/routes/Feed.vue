@@ -21,8 +21,8 @@ import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
-import { ACTIONS } from '../../store/index.ts'
-import { outOfScopeFilter } from '../../utils/itemFilter.ts'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { getOldestFirst, outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
 import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
@@ -56,11 +56,25 @@ export default defineComponent({
 		},
 
 		items(): FeedItem[] {
-			return outOfScopeFilter(this.$store, this.feedItems, 'feed-' + this.feedId) ?? []
+			let items = this.feedItems ?? []
+			/*
+			 * Sorting items is needed because the allItems array can contain
+			 * different orderings due to possible individual feed sorting
+			 */
+			items = sortedFeedItems(items, this.oldestFirst)
+			return outOfScopeFilter(this.$store, items, 'feed-' + this.feedId)
 		},
 
 		id(): number {
 			return Number(this.feedId)
+		},
+
+		oldestFirst() {
+			return getOldestFirst(this.$store, 'feed-' + this.feedId)
+		},
+
+		itemReset() {
+			return this.$store.state.items.newestItemId === 0
 		},
 
 		loading() {
@@ -72,10 +86,25 @@ export default defineComponent({
 		},
 	},
 
+	watch: {
+		feedId: {
+			handler() {
+				/*
+				 * When sorting newest to oldest lastItemLoaded needs to be reset to get new items for this route
+				 */
+				if (this.oldestFirst === false) {
+					this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'feed-' + this.feedId, lastItem: undefined })
+				}
+			},
+
+			immediate: true,
+		},
+	},
+
 	created() {
 		this.$watch(
-			() => [this.feedId, this.showAll, this.$store.state.items.allItems],
-			([newFeedId, newShowAll, newItems], [oldFeedId, oldShowAll] = []) => {
+			() => [this.feedId, this.itemReset, this.$store.state.items.allItems],
+			([newFeedId, newLastItem, newItems], [oldFeedId] = []) => {
 				/*
 				 * Filter out read items if showAll is disabled
 				 */
@@ -92,7 +121,7 @@ export default defineComponent({
 					/*
 					 * clear unread item cache
 					 */
-					if (newFeedId !== oldFeedId || newShowAll !== oldShowAll) {
+					if (newFeedId !== oldFeedId || newLastItem) {
 						this.feedItems = []
 					}
 					updateUnreadCache(newFeedItems, this.feedItems)

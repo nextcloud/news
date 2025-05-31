@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import Vuex, { Store } from 'vuex'
 import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
@@ -72,9 +72,18 @@ describe('FeedItemDisplayList.vue', () => {
 		if (action === ACTIONS.MARK_READ) {
 			param.item.unread = false
 		}
+		if (action === ACTIONS.MARK_UNREAD) {
+			param.item.unread = true
+		}
+		if (action === ACTIONS.STAR_ITEM) {
+			param.item.starred = true
+		}
+		if (action === ACTIONS.UNSTAR_ITEM) {
+			param.item.starred = false
+		}
 	})
 
-	beforeEach(() => {
+	beforeAll(() => {
 		HTMLElement.prototype.scrollIntoView = vi.fn()
 		HTMLElement.prototype.getBoundingClientRect = vi.fn(() => ({
 			width: 500,
@@ -125,23 +134,21 @@ describe('FeedItemDisplayList.vue', () => {
 		})
 		store.commit = commitStub
 		store.dispatch = dispatchStub
+	})
+
+	beforeEach(() => {
+                vi.clearAllMocks()
+
 		// reset unread status
 		mockItem1.unread = true
 		mockItem2.unread = true
 		mockItem3.unread = true
 		mockItem4.unread = true
-	})
 
-	/*
-	 * This test checks whether the correct items are displayed when the route is changed.
-	 * It also tests whether items marked as read remain available and only disappear after
-	 * the route has been changed.
-	 */
-	it('should create FeedItemRow items when switching route', async () => {
 		wrapper = mount(FeedItemDisplayList, {
 			attachTo: document.body,
 			props: {
-				items: [mockItem1],
+				items: [mockItem1, mockItem2, mockItem3, mockItem4],
 				fetchKey: 'unread',
 			},
 			global: {
@@ -151,11 +158,18 @@ describe('FeedItemDisplayList.vue', () => {
 				},
 			},
 		})
+	})
 
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
+	/*
+	 * This test checks whether the correct items are displayed when the route is changed.
+	 * It also tests whether items marked as read remain available and only disappear after
+	 * the route has been changed.
+	 */
+	it('should create FeedItemRow items when switching route', async () => {
+		await wrapper.setProps({
+			items: [mockItem1],
+			fetchKey: 'unread',
+		})
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
 			'should create one FeedItemRow item from input',
@@ -277,152 +291,34 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(2)
 	})
 
-	it('should create four FeedItemRow items from input sorted newest first (global ordering)', async () => {
-		oldestFirst = false
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem1, mockItem2, mockItem3, mockItem4],
-				fetchKey: 'feed-1',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false,
-				},
-			},
-		})
-
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
-		expect(wrapper.vm.$store.getters.oldestFirst).toEqual(false)
-
-		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
-		expect(wrapper.vm.filteredItemcache[0]).toEqual(mockItem4)
-	})
-
-	it('should create four FeedItemRow items from input sorted oldest first (global ordering)', async () => {
-		oldestFirst = true
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem1, mockItem2, mockItem3, mockItem4],
-				fetchKey: 'feed-1',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false,
-				},
-			},
-		})
-
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
-		expect(wrapper.vm.$store.getters.oldestFirst).toEqual(true)
-
-		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
-		expect(wrapper.vm.filteredItemcache[0]).toEqual(mockItem1)
-	})
-
-	it('should create four FeedItemRow items from input sorted newest first (feed ordering)', async () => {
-		store.state.feeds.ordering['feed-1'] = FEED_ORDER.NEWEST
-		oldestFirst = true
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem1, mockItem2, mockItem3, mockItem4],
-				fetchKey: 'feed-1',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false,
-				},
-			},
-		})
-
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
-		expect(wrapper.vm.$store.getters.oldestFirst).toEqual(true)
-
-		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
-		expect(wrapper.vm.filteredItemcache[0]).toEqual(mockItem4)
-	})
-
-	it('should create four FeedItemRow items from input sorted oldest first (feed ordering)', async () => {
-		store.state.feeds.ordering['feed-1'] = FEED_ORDER.OLDEST
-		oldestFirst = false
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem1, mockItem2, mockItem3, mockItem4],
-				fetchKey: 'feed-1',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false,
-				},
-			},
-		})
-
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
-		expect(wrapper.vm.$store.getters.oldestFirst).toEqual(false)
-
-		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
-		expect(wrapper.vm.filteredItemcache[0]).toEqual(mockItem1)
-	})
-
 	it('should create four FeedItemRow items with showAll set', async () => {
 		showAll = true
 		mockItem1.unread = false
 		mockItem2.unread = false
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem1, mockItem2, mockItem3, mockItem4],
-				fetchKey: 'feed-1',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false,
-				},
-			},
+		await wrapper.setProps({
+			items: [mockItem1, mockItem2, mockItem3, mockItem4],
+			fetchKey: 'unread',
 		})
-
-		// make sure dom elements are mounted properly
-		await nextTick()
-		await nextTick()
-
 		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
 	})
 
-	it('should commit RESET_ITEM_STATES and dispatch FETCH_FEEDS when refreshing app', () => {
-		wrapper = mount(FeedItemDisplayList, {
-			attachTo: document.body,
-			props: {
-				items: [mockItem1, mockItem2, mockItem3, mockItem4],
-				fetchKey: 'unread',
-			},
-			global: {
-				plugins: [store],
-				stubs: {
-					VirtualScroll: false,
-				},
-			},
-		})
+	it('should dispatch STAR_ITEM / UNSTAR_ITEM to toggle starred flag', async () => {
+		wrapper.vm.selectedItem = mockItem1
+		wrapper.vm.toggleStarred()
+		expect(store.dispatch).toBeCalledWith(ACTIONS.UNSTAR_ITEM, { item: mockItem1 })
+		wrapper.vm.toggleStarred()
+		expect(store.dispatch).toBeCalledWith(ACTIONS.STAR_ITEM, { item: mockItem1 })
+	})
 
+	it('should dispatch MARK_READ / MARK_UNREAD to toggle read flag', async () => {
+		wrapper.vm.selectedItem = mockItem1
+		wrapper.vm.toggleRead()
+		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
+		wrapper.vm.toggleRead()
+		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_UNREAD, { item: mockItem1 })
+	})
+
+	it('should commit RESET_ITEM_STATES and dispatch FETCH_FEEDS when refreshing app', () => {
 		wrapper.vm.refreshApp()
 		expect(store.commit).toBeCalledWith(MUTATIONS.RESET_ITEM_STATES)
 		expect(store.dispatch).toBeCalledWith(ACTIONS.FETCH_FEEDS)

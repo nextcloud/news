@@ -32,6 +32,7 @@ describe('SidebarFeedLinkActions.vue', () => {
 							feeds,
 						},
 						dispatch: vi.fn(),
+						commit: vi.fn(),
 					},
 				},
 			},
