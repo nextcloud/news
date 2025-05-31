@@ -44,6 +44,7 @@ OC.L10N.register(
     "Share" : "هم‌رسانی",
     "Share with" : "به اشتراک گذاشتن با",
     "Default" : "پیش‌فرض",
+    "Compact" : "فشرده",
     "Vertical" : "Vertical",
     "Horizontal" : "Horizontal",
     "Are you sure you want to delete?" : "Are you sure you want to delete?",
