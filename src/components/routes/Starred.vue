@@ -19,6 +19,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { outOfScopeFilter } from '../../utils/itemFilter.ts'
 
 export default defineComponent({
 	name: 'RoutesStarred',
@@ -30,7 +31,7 @@ export default defineComponent({
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
-			return this.$store.getters.starred
+			return outOfScopeFilter(this.$store, this.$store.getters.starred, 'starred')
 		},
 
 		loading() {

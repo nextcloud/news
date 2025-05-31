@@ -16,6 +16,7 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 import { defineComponent } from 'vue'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { outOfScopeFilter } from '../../utils/itemFilter.ts'
 
 export default defineComponent({
 	name: 'RoutesAll',
@@ -25,7 +26,7 @@ export default defineComponent({
 
 	computed: {
 		allItems(): FeedItem[] {
-			return this.$store.getters.allItems
+			return outOfScopeFilter(this.$store, this.$store.getters.allItems, 'all')
 		},
 
 		loading() {

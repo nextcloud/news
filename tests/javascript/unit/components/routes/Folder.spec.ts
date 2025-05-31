@@ -1,3 +1,4 @@
+import { nextTick } from 'vue'
 import Vuex, { Store } from 'vuex'
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -10,6 +11,34 @@ vi.mock('@nextcloud/axios')
 describe('Folder.vue', () => {
 	'use strict'
 	let wrapper: any
+
+	const mockItems = [
+		{
+			id: 1,
+			feedId: 789,
+			title: 'feed item',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 2,
+			feedId: 456,
+			title: 'feed item 2',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 3,
+			feedId: 456,
+			title: 'feed item 3',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 4,
+			feedId: 789,
+			title: 'feed item 4',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}
+	]
 
 	const mockFeed = {
 		id: 789,
@@ -38,15 +67,15 @@ describe('Folder.vue', () => {
 					fetchingItems: {
 						'folder-123': false,
 					},
-					allItems: [{
-						feedId: 789,
-						title: 'feed item',
-						unread: true,
-					}, {
-						feedId: 456,
-						title: 'feed item 2',
-						unread: true,
-					}],
+					lastItemLoaded: {
+						'folder-123': 1,
+					},
+					allItems: mockItems,
+				},
+				feeds: {
+				},
+				app: {
+					oldestFirst: false,
 				},
 			},
 			actions: {
@@ -54,6 +83,7 @@ describe('Folder.vue', () => {
 			getters: {
 				feeds: () => [mockFeed, mockFeed2],
 				folders: () => [mockFolder],
+				oldestFirst: (state) => state.app.oldestFirst,
 			},
 		})
 
@@ -80,7 +110,21 @@ describe('Folder.vue', () => {
 	})
 
 	it('should get folder items from state', () => {
-		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(2)
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(4)
+	})
+
+	it('should get only first item from state ordering oldest>newest', async () => {
+		(wrapper.vm as any).$store.state.items.lastItemLoaded['folder-123'] = 1;
+		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
+	})
+
+	it('should get only first item from state ordering newest>oldest', async () => {
+		(wrapper.vm as any).$store.state.items.lastItemLoaded['folder-123'] = 4;
+		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_FOLDER_FEED_ITEMS action on fetchMore if not fetchingItems.folder-123', () => {

@@ -279,18 +279,9 @@ export default defineComponent({
 			this.$emit('show-details')
 		},
 
-		outOfScopeFilter(item: FeedItem): boolean {
-			const lastItemLoaded = this.$store.state.items.lastItemLoaded[this.fetchKey]
-			return (this.listOrdering ? lastItemLoaded >= item.id : lastItemLoaded <= item.id)
-		},
-
 		filterSortedItems(): FeedItem[] {
-			let response = [...this.items] as FeedItem[]
+			const response = [...this.items] as FeedItem[]
 
-			// filter items that are already loaded but do not yet match the current view
-			if (this.$store.state.items.lastItemLoaded[this.fetchKey] > 0) {
-				response = response.filter(this.outOfScopeFilter)
-			}
 			return response.sort(this.sort)
 		},
 
