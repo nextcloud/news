@@ -139,6 +139,10 @@ export default defineComponent({
 			return this.$store.getters.loading
 		},
 
+		compactMode() {
+			return this.$store.getters.displaymode === DISPLAY_MODE.COMPACT
+		},
+
 		screenReaderMode() {
 			return this.$store.getters.displaymode === DISPLAY_MODE.SCREENREADER
 		},
@@ -193,7 +197,8 @@ export default defineComponent({
 
 	created() {
 		// create shortcuts
-		this.enableNavHotkeys()
+		useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
+		useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
 		useHotKey('r', this.refreshApp)
 		useHotKey('a', this.markRead, { shift: true })
 		useHotKey(['s', 'l', 'i'], this.toggleStarred)
@@ -213,10 +218,6 @@ export default defineComponent({
 
 	mounted() {
 		this.setupDebouncedClick()
-	},
-
-	unmounted() {
-		this.disableNavHotkeys()
 	},
 
 	methods: {
@@ -257,30 +258,7 @@ export default defineComponent({
 			this.$emit('mark-read')
 		},
 
-		disableNavHotkeys() {
-			if (this.stopPrevItemHotkey) {
-				this.stopPrevItemHotkey()
-			}
-			if (this.stopNextItemHotkey) {
-				this.stopNextItemHotkey()
-			}
-		},
-
-		enableNavHotkeys() {
-			this.disableNavHotkeys()
-			this.stopPrevItemHotkey = useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
-			this.stopNextItemHotkey = useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
-		},
-
 		showDetails() {
-			/*
-			 * disable nav keys when showing details in no-split-mode
-			 * proper navigation (fetchMore, scroll to last item when closed)
-			 * isn't implemented yet
-			 */
-			if (this.splitModeOff) {
-				this.disableNavHotkeys()
-			}
 			this.$emit('show-details')
 		},
 
@@ -353,13 +331,13 @@ export default defineComponent({
 			}
 		},
 
-		currentIndex(items: FeedItem[]): number {
-			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
+		currentIndex(): number {
+			return this.selectedItem ? this.filteredItemcache.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
 		},
 
 		jumpToPreviousItem() {
 			const items = this.filteredItemcache
-			let currentIndex = this.currentIndex(items)
+			let currentIndex = this.currentIndex()
 			// Prepare to jump to the first item, if none was selected
 			if (currentIndex === -1) {
 				currentIndex = 1
@@ -373,11 +351,20 @@ export default defineComponent({
 
 		jumpToNextItem() {
 			const items = this.filteredItemcache
-			const currentIndex = this.currentIndex(items)
+			const currentIndex = this.currentIndex()
 			// Jump to the first item, if none was selected, otherwise jump to the next item
 			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
 				const nextItem = items[currentIndex + 1]
 				this.debouncedClickItem(nextItem)
+			}
+		},
+
+		scrollToCurrentItem() {
+			const items = this.filteredItemcache
+			const currentIndex = this.currentIndex()
+			// scroll to the current selected item
+			if (currentIndex < items.length) {
+				this.$refs.virtualScroll.scrollTop = (this.compactMode ? 44 : 111) * currentIndex
 			}
 		},
 
