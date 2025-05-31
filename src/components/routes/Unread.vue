@@ -19,6 +19,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { outOfScopeFilter } from '../../utils/itemFilter.ts'
 import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
@@ -41,7 +42,7 @@ export default defineComponent({
 		},
 
 		unread(): FeedItem[] {
-			return this.unreadCache ?? []
+			return outOfScopeFilter(this.$store, this.unreadCache, 'unread') ?? []
 		},
 
 		loading() {

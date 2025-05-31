@@ -5,6 +5,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import Feed from '../../../../../src/components/routes/Feed.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import { FEED_ORDER } from '../../../../../src/enums/index.ts'
 import { ACTIONS } from '../../../../../src/store'
 
 vi.mock('@nextcloud/axios')
@@ -63,12 +64,13 @@ describe('Feed.vue', () => {
 				},
 				feeds: {
 					ordering: {
-						'feed-123': 0,
+						'feed-123': FEED_ORDER.DEFAULT,
 					},
 				},
 				app: {
 					loading: false,
 					showAll: true,
+					oldestFirst: false,
 				},
 			},
 			actions: {
@@ -77,6 +79,7 @@ describe('Feed.vue', () => {
 				feeds: () => [mockFeed],
 				showAll: (state) => state.app.showAll,
 				loading: (state) => state.app.loading,
+				oldestFirst: (state) => state.app.oldestFirst,
 			},
 		})
 
@@ -121,6 +124,36 @@ describe('Feed.vue', () => {
 		expect(wrapper.vm.$store.getters.showAll).toEqual(false)
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(0)
 
+	})
+
+	it('should get only first item from state with ordering oldest>newest', async () => {
+		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 1;
+		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
+	})
+
+	it('should get only first item from state with ordering newest>oldest', async () => {
+		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 4;
+		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
+	})
+
+	it('should get only first item from state with FEED_ORDER.OLDEST', async () => {
+		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 1;
+		(wrapper.vm as any).$store.state.feeds.ordering['feed-123'] = FEED_ORDER.OLDEST;
+		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
+	})
+
+	it('should get only first item from state with FEED_ORDER.NEWEST', async () => {
+		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 4;
+		(wrapper.vm as any).$store.state.feeds.ordering['feed-123'] = FEED_ORDER.NEWEST;
+		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_FEED_ITEMS action if not fetchingItems.feed-123', () => {

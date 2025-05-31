@@ -23,6 +23,7 @@ import { mapState } from 'vuex'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS } from '../../store/index.ts'
+import { outOfScopeFilter } from '../../utils/itemFilter.ts'
 import { updateUnreadCache } from '../../utils/unreadCache.ts'
 
 export default defineComponent({
@@ -55,7 +56,7 @@ export default defineComponent({
 		},
 
 		items(): FeedItem[] {
-			return this.folderItems ?? []
+			return outOfScopeFilter(this.$store, this.folderItems, 'folder-' + this.folderId) ?? []
 		},
 
 		id(): number {
