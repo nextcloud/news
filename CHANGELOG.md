@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - enable title scrolling in compact mode on mobile only
 
 ### Fixed
+- prevent incorrect "mark read on scroll" behavior after route change
 
 
 # Releases
