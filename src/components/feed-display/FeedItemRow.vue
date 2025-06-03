@@ -32,7 +32,7 @@
 		<div class="main-container" :class="{ compact: compactMode }">
 			<h1
 				class="title-container"
-				:class="{ compact: compactMode, unread: item.unread }"
+				:class="{ compact: compactMode, mobile: isMobile, unread: item.unread }"
 				:dir="item.rtl && 'rtl'">
 				{{ item.title }}
 			</h1>
@@ -102,6 +102,7 @@
 import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
@@ -162,6 +163,7 @@ export default defineComponent({
 
 	data: () => {
 		return {
+			isMobile: useIsMobile(),
 			showShareMenu: false,
 			shareItem: undefined,
 		}
@@ -278,9 +280,12 @@ export default defineComponent({
 	.feed-item-row .title-container.compact {
 		flex: 0 1 auto;
 		overflow-y: unset;
-		overflow-x: scroll;
 		max-width: 100%;
 		text-overflow: clip;
+	}
+
+	.feed-item-row .title-container.mobile {
+		overflow-x: scroll;
 	}
 
 	.feed-item-row .intro-container {

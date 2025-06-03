@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
+- enable title scrolling in compact mode on mobile only
 
 ### Fixed
 
