@@ -102,12 +102,14 @@ export default defineComponent({
 	},
 
 	unmounted() {
+		this.debouncedMarkRead.flush?.()
+		this.debouncedMarkRead.cancel?.()
 		window.removeEventListener('resize', this.onScroll)
 	},
 
 	updated() {
 		this.$nextTick(this.loadMore)
-		if (!this.$store.getters.preventReadOnScroll) {
+		if (!this.$store.getters.preventReadOnScroll && !this.fetching) {
 			this.addToSeen(this._lastRendered)
 		}
 	},
