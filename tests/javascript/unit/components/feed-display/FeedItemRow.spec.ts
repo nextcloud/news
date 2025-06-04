@@ -72,7 +72,7 @@ describe('FeedItemRow.vue', () => {
 
 		let relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
 
-		expect(relativeTimestamp).toEqual('seconds ago')
+		expect(relativeTimestamp).toEqual('a few seconds ago')
 
 		pastTimestamp = currentTimestamp - 1000 * 60 * 10 // 10 minutes ago
 
