@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [26.x.x]
 ### Changed
 - enable title scrolling in compact mode on mobile only
+- implement item navigation when showing details in no-split mode
 
 ### Fixed
 - prevent incorrect "mark read on scroll" behavior after route change
