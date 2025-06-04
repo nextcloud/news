@@ -7,13 +7,17 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- enable title scrolling in compact mode on mobile only
 
 ### Fixed
-- prevent incorrect "mark read on scroll" behavior after route change
-
 
 # Releases
+## [26.0.1] - 2025-06-04
+### Changed
+- enable title scrolling in compact mode on mobile only (#3205)
+
+### Fixed
+- prevent incorrect "mark read on scroll" behavior after route change (#3206)
+
 ## [26.0.0] - 2025-05-29
 ### Fixed
 - content splitter position not recognized when reloading app (#3193)
