@@ -67,7 +67,7 @@
     "@nextcloud/vite-config": "^2.3.2",
     "@types/lodash": "^4.17.17",
     "@types/node": "^22.15.29",
-    "@vitest/coverage-istanbul": "^3.2.0",
+    "@vitest/coverage-istanbul": "^3.2.1",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
     "jsdom": "^26.1.0",
