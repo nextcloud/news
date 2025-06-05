@@ -340,7 +340,6 @@ export default defineComponent({
 	$breakpoint-mobile: 1024px;
 
 	.feed-item-display {
-		overflow-y: hidden;
 		display: flex;
 		flex-direction: column;
 	}
@@ -402,6 +401,33 @@ export default defineComponent({
 		margin: 7px 0 14px 0;
 	}
 
+	.article .body blockquote {
+		border-inline-start: 2px solid var(--color-border-dark);
+		padding-inline-start: 10px;
+		font-style: italic;
+		margin: 0;
+	}
+
+	.article .body code {
+		background: var(--color-background-hover);
+		font-family: monospace;
+		padding: 0.2em 0.4em;
+		border-radius: 4px;
+	}
+
+	.article .body pre {
+		background: var(--color-background-hover);
+		padding: 1em;
+		border-radius: 4px;
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
+	.article .body pre code {
+		font-family: monospace;
+		color: var(--color-text-lighter);
+	}
+
 	.article .subtitle {
 		color: var(--color-text-lighter);
 		display: flex;
@@ -430,8 +456,11 @@ export default defineComponent({
 	}
 
 	.action-bar {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		background: var(--color-main-background);
 		padding: 10px 20px 0px 20px;
-
 		display: flex;
 		justify-content: right;
 	}
