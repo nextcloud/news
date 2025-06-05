@@ -10,6 +10,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - enable title scrolling in compact mode on mobile only
 
 ### Fixed
+- style fixes for `<blockquote>`, `<pre>` and `<code>` in articles
+- keep action bar position when scrolling article
 
 
 # Releases
