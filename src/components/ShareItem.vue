@@ -29,7 +29,7 @@
 
 					<NcButton
 						:wide="true"
-						type="primary"
+						variant="primary"
 						:disabled="selected.length === 0"
 						@click="share()">
 						<template v-if="selected.length === 0">

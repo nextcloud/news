@@ -13,7 +13,7 @@ const store = createStore(mainStore)
  * @param {Error} error Error thrown
  * @return {Promise<Error>} Error promise
  */
-const handleErrors = function(error) {
+function handleErrors(error) {
 	store.commit(MUTATIONS.SET_ERROR, error)
 	return Promise.reject(error)
 }

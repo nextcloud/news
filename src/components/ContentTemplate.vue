@@ -2,7 +2,6 @@
 	<NcAppContent
 		:layout="layout"
 		:show-details="showDetails"
-		:mobile-layout="'horizontal-split'"
 		:list-max-width="100"
 		@update:show-details="showItem(false)">
 		<template #list>
@@ -128,7 +127,7 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
 /**
  * set showDetails value
  *
- * @param value Show or hide item
+ * @param {boolean} value Show or hide item
  */
 function showItem(value) {
 	showDetails.value = value

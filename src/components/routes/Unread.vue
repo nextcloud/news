@@ -2,7 +2,7 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="unread"
-		:fetch-key="'unread'"
+		fetch-key="unread"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Unread Articles') }}
