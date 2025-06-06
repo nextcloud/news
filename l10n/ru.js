@@ -48,6 +48,7 @@ OC.L10N.register(
     "Share with" : "Поделиться",
     "Share with {num} users" : "Поделиться с {num} пользователями",
     "Default" : "По умолчанию",
+    "Compact" : "Компактный вид",
     "Vertical" : "По вертикали",
     "Horizontal" : "По горизонтали",
     "Off" : "Отключить",
