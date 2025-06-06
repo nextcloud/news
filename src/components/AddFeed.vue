@@ -99,7 +99,7 @@
 
 					<NcButton
 						:wide="true"
-						type="primary"
+						variant="primary"
 						:disabled="disableAddFeed"
 						@click="addFeed()">
 						<div v-if="addingFeed">

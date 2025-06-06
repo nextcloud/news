@@ -19,7 +19,10 @@ export const ROUTES = {
 	ALL: 'all',
 }
 
-const getInitialRoute = function() {
+/**
+ *
+ */
+function getInitialRoute() {
 	const params: { feedId?: string, folderId?: string } = {}
 
 	switch (store.state.lastViewedFeedType) {

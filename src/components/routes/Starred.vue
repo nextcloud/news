@@ -2,7 +2,7 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="starred"
-		:fetch-key="'starred'"
+		fetch-key="starred"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'Starred') }}

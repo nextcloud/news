@@ -6,7 +6,6 @@
 			:text="t('news', 'Subscribe')"
 			button-id="new-feed-button"
 			button-class="icon-add"
-			:icon="''"
 			@click="addFeed()">
 			<template #icon>
 				<PlusIcon />
@@ -15,7 +14,6 @@
 		<div class="new-folder-container">
 			<NcAppNavigationNewItem
 				:name="t('news', 'New folder')"
-				:icon="''"
 				@new-item="newFolder">
 				<template #icon>
 					<FolderPlusIcon />
@@ -23,7 +21,7 @@
 			</NcAppNavigationNewItem>
 		</div>
 		<template #list>
-			<NcAppNavigationItem :name="t('news', 'Unread articles')" icon="icon-rss" :to="{ name: ROUTES.UNREAD }">
+			<NcAppNavigationItem :name="t('news', 'Unread articles')" :to="{ name: ROUTES.UNREAD }">
 				<template #actions>
 					<NcActionButton ref="triggerButton" icon="icon-checkmark" @click="markAllRead()">
 						{{ t('news', 'Mark read') }}
@@ -38,7 +36,6 @@
 			</NcAppNavigationItem>
 			<NcAppNavigationItem
 				:name="t('news', 'All articles')"
-				icon="icon-rss"
 				:to="{ name: ROUTES.ALL }">
 				<template #icon>
 					<RssIcon />
@@ -60,7 +57,6 @@
 					:key="topLevelItem.name || topLevelItem.title"
 					:ref="isFolder(topLevelItem) ? 'folder-' + topLevelItem.id : 'feed-' + topLevelItem.id"
 					:name="topLevelItem.name || topLevelItem.title"
-					:icon="''"
 					:open="topLevelItem.opened"
 					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() } } : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
 					:allow-collapse="isFolder(topLevelItem)"
@@ -72,7 +68,6 @@
 						:key="feed.name"
 						:ref="'feed-' + feed.id"
 						:name="feed.title"
-						:icon="''"
 						:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
 						<template #icon>
 							<RssIcon v-if="!feed.faviconLink" />
@@ -140,7 +135,6 @@
 
 			<NcAppNavigationItem
 				:name="t('news', 'Explore')"
-				icon="true"
 				:to="{ name: ROUTES.EXPLORE }">
 				<template #icon>
 					<EarthIcon />

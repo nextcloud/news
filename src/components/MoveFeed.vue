@@ -14,7 +14,7 @@
 			</div>
 			<NcButton
 				:wide="true"
-				type="primary"
+				variant="primary"
 				:disabled="disableMoveFeed"
 				@click="moveFeed()">
 				{{ t("news", "Move") }}

@@ -2,7 +2,7 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="allItems"
-		:fetch-key="'all'"
+		fetch-key="all"
 		@load-more="fetchMore()">
 		<template #header>
 			{{ t('news', 'All Articles') }}

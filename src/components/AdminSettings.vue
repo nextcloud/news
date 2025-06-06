@@ -126,8 +126,8 @@ import { formatDateRelative } from '../utils/dateUtils.ts'
  * Debounce helper for method
  * TODO: Should we remove this and use library?
  *
- * @param func - The callback function
- * @param wait - Time to wait in milliseconds
+ * @param {Function} func - The callback function
+ * @param {number} wait - Time to wait in milliseconds
  */
 function debounce(func, wait) {
 	let timeout
