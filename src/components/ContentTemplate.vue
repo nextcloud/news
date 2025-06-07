@@ -31,9 +31,9 @@
 					v-if="selectedFeedItem"
 					:item="selectedFeedItem"
 					:item-count="items.length"
-					:item-index="currentIndex"
-					@prev-item="jumpToPreviousItem"
-					@next-item="jumpToNextItem"
+					:item-index="currentIndex + 1"
+					@prev-item="previousItem"
+					@next-item="nextItem"
 					@show-details="showItem(false)" />
 				<NcEmptyContent
 					v-else
@@ -58,12 +58,14 @@
 
 import type { FeedItem } from '../types/FeedItem.ts'
 
+import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import {
 	type PropType,
 
-	computed, ref, watch,
+	computed, onBeforeUnmount, onMounted, ref, watch,
 } from 'vue'
+import { useStore } from 'vuex'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcAppContentDetails from '@nextcloud/vue/components/NcAppContentDetails'
 import NcAppContentList from '@nextcloud/vue/components/NcAppContentList'
@@ -71,9 +73,8 @@ import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import TextIcon from 'vue-material-design-icons/Text.vue'
 import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
 import FeedItemDisplayList from './feed-display/FeedItemDisplayList.vue'
-import { SPLIT_MODE } from '../enums/index.ts'
-import appStore from '../store/app.ts'
-import itemStore from '../store/item.ts'
+import { DISPLAY_MODE, SPLIT_MODE } from '../enums/index.ts'
+import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
 const props = defineProps({
 	/**
@@ -97,16 +98,24 @@ const emit = defineEmits<{
 	(event: 'mark-read'): void
 }>()
 
+const store = useStore()
+
 const isMobile = useIsMobile()
 
 const showDetails = ref(false)
 
-const contentElement = ref()
+const stopPageUpHotkey = ref(null)
+const stopPageDownHotkey = ref(null)
 
+const contentElement = ref()
 const itemListElement = ref()
 
+const displayMode = computed(() => {
+	return store.getters.displaymode
+})
+
 const layout = computed(() => {
-	switch (appStore.getters.splitmode(appStore.state)) {
+	switch (store.getters.splitmode) {
 		case SPLIT_MODE.HORIZONTAL:
 			return 'horizontal-split'
 		case SPLIT_MODE.OFF:
@@ -118,20 +127,91 @@ const layout = computed(() => {
 })
 
 const selectedFeedItem = computed(() => {
-	return itemStore.getters.selected(itemStore.state)
-})
-
-const allItemsLoaded = computed(() => {
-	return itemStore.state.allItemsLoaded[props.fetchKey] === true
+	return store.getters.selected
 })
 
 const currentIndex = computed(() => {
-	return itemListElement.value?.currentIndex() + 1
+	return selectedFeedItem.value ? props.items.findIndex((item: FeedItem) => item.id === selectedFeedItem.value.id) || 0 : -1
+})
+
+const allItemsLoaded = computed(() => {
+	return store.state.items.allItemsLoaded[props.fetchKey] === true
 })
 
 const noSplitMode = computed(() => {
 	return (layout.value === 'no-split' || isMobile.value)
 })
+
+/**
+ * set showDetails value
+ *
+ * @param {boolean} value Show or hide item
+ */
+function showItem(value) {
+	showDetails.value = value
+	// scroll to selected item when closing details in no-split mode
+	if (noSplitMode.value && !value) {
+		itemListElement.value?.scrollToItem(currentIndex.value)
+	}
+}
+
+/**
+ * set selected item id, scroll element to top when in list view
+ * and mark item as read
+ *
+ * @param item to select
+ */
+function selectItem(item: FeedItem) {
+	store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
+	if (!noSplitMode.value || !showDetails.value) {
+		itemListElement.value?.scrollToItem(currentIndex.value)
+	}
+	if (!item.keepUnread && item.unread) {
+		store.dispatch(ACTIONS.MARK_READ, { item })
+	}
+}
+
+/**
+ * jump to previous list item
+ *
+ */
+function previousItem() {
+	// Jump to the previous item
+	if (currentIndex.value > 0) {
+		const previousItem = props.items[currentIndex.value - 1]
+		selectItem(previousItem)
+	}
+}
+
+/**
+ * jump to next list item
+ *
+ */
+function nextItem() {
+	// Jump to the first item, if none was selected, otherwise jump to the next item
+	if (props.items.length > 0 && currentIndex.value < props.items.length - 1) {
+		const nextItem = props.items[currentIndex.value + 1]
+		selectItem(nextItem)
+	}
+}
+
+/**
+ * enable PageUp/Down hotkeys with screen reader mode
+ */
+function enablePageHotkeys() {
+	stopPageUpHotkey.value = useHotKey('PageUp', previousItem, { prevent: true })
+	stopPageDownHotkey.value = useHotKey('PageDown', nextItem, { prevent: true })
+}
+
+/**
+ * disable PageUp/Down hotkeys
+ */
+function disablePageHotkeys() {
+	stopPageUpHotkey.value?.()
+	stopPageUpHotkey.value = null
+	stopPageDownHotkey.value?.()
+	stopPageDownHotkey.value = null
+}
 
 watch(allItemsLoaded, (newVal) => {
 	/*
@@ -164,34 +244,25 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
 	}
 })
 
-/**
- * set showDetails value
- *
- * @param {boolean} value Show or hide item
- */
-function showItem(value) {
-	showDetails.value = value
-	// scroll to selected item when closing details in no-split mode
-	if (noSplitMode.value && !value) {
-		itemListElement.value?.scrollToCurrentItem()
+watch(displayMode, (newDisplayMode) => {
+	if (newDisplayMode === DISPLAY_MODE.SCREENREADER) {
+		enablePageHotkeys()
+	} else {
+		disablePageHotkeys()
 	}
-}
+})
 
-/**
- * jump to previous list item
- *
- */
-function jumpToPreviousItem() {
-	itemListElement.value?.jumpToPreviousItem()
-}
+onMounted(() => {
+	useHotKey(['p', 'k', 'ArrowLeft'], previousItem)
+	useHotKey(['n', 'j', 'ArrowRight'], nextItem)
+	if (displayMode.value === DISPLAY_MODE.SCREENREADER) {
+		enablePageHotkeys()
+	}
+})
 
-/**
- * jump to next list item
- *
- */
-function jumpToNextItem() {
-	itemListElement.value?.jumpToNextItem()
-}
+onBeforeUnmount(() => {
+	disablePageHotkeys()
+})
 
 </script>
 

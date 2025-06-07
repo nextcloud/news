@@ -170,6 +170,7 @@ describe('FeedItemDisplayList.vue', () => {
 			items: [mockItem1],
 			fetchKey: 'unread',
 		})
+
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
 			'should create one FeedItemRow item from input',
@@ -177,7 +178,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first item from unread route
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem1)
+		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
 		expect(selectedItem).toEqual(1)
@@ -218,7 +219,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first item from all route
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem1)
+		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
 		expect(selectedItem).toEqual(1)
@@ -239,7 +240,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first unread item mockitem2
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem2)
+		await wrapper.vm.$refs.feedItemRow2[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem2 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem2.id })
 		expect(selectedItem).toEqual(2)
@@ -260,7 +261,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first unread item mockitem3
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem3)
+		await wrapper.vm.$refs.feedItemRow3[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem3 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem3.id })
 		expect(selectedItem).toEqual(3)
@@ -281,7 +282,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first starred item
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem1)
+		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
 		expect(selectedItem).toEqual(1)

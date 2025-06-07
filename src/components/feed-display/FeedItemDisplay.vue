@@ -2,6 +2,7 @@
 	<div
 		class="feed-item-display"
 		:class="{ screenreader: screenReaderMode }"
+		:style="screenReaderItemHeight"
 		v-bind="screenReaderMode ? { 'aria-setsize': itemCount, 'aria-posinset': itemIndex } : {}"
 		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
@@ -79,6 +80,7 @@
 			<div class="heading">
 				<h1 :dir="item.rtl && 'rtl'">
 					<a
+						ref="titleLink"
 						target="_blank"
 						rel="noreferrer"
 						:href="item.url"
@@ -177,7 +179,7 @@ import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
-import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
+import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
 
@@ -225,7 +227,7 @@ export default defineComponent({
 	},
 
 	emits: {
-		'click-item': () => true,
+		'select-item': () => true,
 		'show-details': () => true,
 		'prev-item': () => true,
 		'next-item': () => true,
@@ -252,6 +254,25 @@ export default defineComponent({
 		splitModeOff() {
 			return (this.$store.getters.splitmode === SPLIT_MODE.OFF || this.isMobile)
 		},
+
+		isSelected() {
+			return this.$store.getters.selected === this.item
+		},
+
+		screenReaderItemHeight() {
+			return this.screenReaderMode ? { height: ITEM_HEIGHT.DEFAULT + 'px' } : undefined
+		},
+	},
+
+	watch: {
+		// Focus title link in article to emulate structural heading navigation
+		// with screen readers
+		async isSelected(newSelected) {
+			if (newSelected && this.screenReaderMode) {
+				await this.$nextTick()
+				this.$refs.titleLink.focus()
+			}
+		},
 	},
 
 	created() {
@@ -272,12 +293,11 @@ export default defineComponent({
 		},
 
 		/**
-		 * Use parent click handler to select item when focused,
-		 * needed by screen reader navigation
+		 * Select item when focused needed by screen reader navigation
 		 */
 		selectItemOnFocus(): void {
-			if (this.screenReaderMode && this.$store.getters.selected !== this.item) {
-				this.$emit('click-item')
+			if (this.screenReaderMode && !this.isSelected) {
+				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			}
 		},
 
@@ -344,7 +364,7 @@ export default defineComponent({
 	}
 
 	.feed-item-display.screenreader {
-		height: 111px;
+		overflow: hidden;
 	}
 
 	.article {
