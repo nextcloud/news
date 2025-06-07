@@ -6,6 +6,7 @@
 <script>
 import _ from 'lodash'
 import { defineComponent, Fragment, h } from 'vue'
+import { DISPLAY_MODE, ITEM_HEIGHT } from '../../enums/index.ts'
 import { ACTIONS } from '../../store/index.ts'
 import { getOldestFirst } from '../../utils/itemFilter.ts'
 
@@ -31,9 +32,6 @@ export default defineComponent({
 		return {
 			viewport: null,
 			scrollTop: 0,
-			scrollHeight: 500,
-			elementToShow: null,
-			elementToFocus: null,
 			debouncedMarkRead: null,
 		}
 	},
@@ -58,6 +56,10 @@ export default defineComponent({
 			get() {
 				return this.$store.getters.displaymode
 			},
+		},
+
+		rowHeight() {
+			return this.displayMode === DISPLAY_MODE.COMPACT ? ITEM_HEIGHT.COMPACT : ITEM_HEIGHT.DEFAULT
 		},
 	},
 
@@ -108,6 +110,7 @@ export default defineComponent({
 	},
 
 	updated() {
+		this.$el.scrollTop = this.scrollTop
 		this.$nextTick(this.loadMore)
 		if (!this.$store.getters.preventReadOnScroll && !this.fetching) {
 			this.addToSeen(this._lastRendered)
@@ -139,7 +142,6 @@ export default defineComponent({
 
 		onScroll() {
 			this.scrollTop = this.$el.scrollTop
-			this.scrollHeight = this.$el.scrollHeight
 			this.loadMore()
 
 			if (!this.$store.getters.preventReadOnScroll) {
@@ -155,8 +157,13 @@ export default defineComponent({
 			}
 		},
 
-		showElement(element) {
-			this.elementToShow = element
+		scrollToItem(currentIndex) {
+			/*
+			 * set scroll positon to current item
+			*/
+			this.$nextTick(() => {
+				this.scrollTop = this.rowHeight * currentIndex
+			})
 		},
 	},
 
@@ -165,7 +172,7 @@ export default defineComponent({
 		let renderedItems = 0
 		let upperPaddingItems = 0
 		let lowerPaddingItems = 0
-		const itemHeight = this.displayMode === '1' ? 44 : 111
+		const itemHeight = this.rowHeight
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.viewport) {
 			const childComponents = []
@@ -193,29 +200,6 @@ export default defineComponent({
 		} else {
 			return h('div', { class: 'virtual-scroll' })
 		}
-
-		const scrollTop = this.scrollTop
-		this.$nextTick(() => {
-			if (this.elementToShow) {
-				// Workaround for buggy scroll with screen readers.
-				// Remember currently selected item to focus on next tick
-				if (this.displayMode === '2') {
-					this.elementToFocus = this.elementToShow
-				}
-				this.elementToShow.scrollIntoView({ behavior: 'auto', block: 'start' })
-				this.elementToShow = null
-			} else {
-				this.$el.scrollTop = scrollTop
-			}
-			// Focus title link in article to emulate structural heading navigation
-			// with screen readers
-			if (this.elementToFocus) {
-				const titleLink = this.elementToFocus.querySelector('a')
-				if (titleLink) {
-					titleLink.focus()
-				}
-			}
-		})
 
 		return h('div', {
 			class: 'virtual-scroll',

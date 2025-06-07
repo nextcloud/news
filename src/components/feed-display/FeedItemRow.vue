@@ -5,6 +5,7 @@
 		:aria-label="item.title"
 		:aria-setsize="itemCount"
 		:aria-posinset="itemIndex"
+		:style="{ height: `${itemHeight}px` }"
 		role="button"
 		tabindex="0"
 		@keydown.enter="select()"
@@ -113,7 +114,7 @@ import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
-import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
+import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils.ts'
 
@@ -176,6 +177,10 @@ export default defineComponent({
 
 		verticalSplit() {
 			return this.$store.getters.splitmode === SPLIT_MODE.VERTICAL
+		},
+
+		itemHeight() {
+			return this.compactMode ? ITEM_HEIGHT.COMPACT : ITEM_HEIGHT.DEFAULT
 		},
 	},
 

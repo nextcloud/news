@@ -19,8 +19,7 @@
 							:item-count="items.length"
 							:item-index="index + 1"
 							:item="item"
-							:class="{ active: selectedItem && selectedItem.id === item.id }"
-							@click-item="clickItem(item)" />
+							:class="{ active: selectedItem && selectedItem.id === item.id }" />
 						<FeedItemRow
 							v-else
 							:key="item.id"
@@ -41,7 +40,6 @@
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-import _ from 'lodash'
 import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
@@ -84,8 +82,6 @@ export default defineComponent({
 		return {
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
-			stopPrevItemHotkey: null,
-			stopNextItemHotkey: null,
 		}
 	},
 
@@ -149,27 +145,16 @@ export default defineComponent({
 
 	created() {
 		// create shortcuts
-		useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
-		useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
 		useHotKey('r', this.refreshApp)
 		useHotKey('a', this.markRead, { shift: true })
 		useHotKey(['s', 'l', 'i'], this.toggleStarred)
 		useHotKey('u', this.toggleRead)
 		useHotKey('o', this.openUrl)
-		// use e/Enter only when split mode is of
+		// use e/Enter only when split mode is off
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('e', this.showDetails)
 			useHotKey('Enter', this.showDetails)
 		}
-		// use PageUP/PageDown only in screen reader mode
-		if (this.screenReaderMode) {
-			useHotKey('PageUp', this.jumpToPreviousItem, { prevent: true })
-			useHotKey('PageDown', this.jumpToNextItem, { prevent: true })
-		}
-	},
-
-	mounted() {
-		this.setupDebouncedClick()
 	},
 
 	methods: {
@@ -193,70 +178,8 @@ export default defineComponent({
 			this.$emit('show-details')
 		},
 
-		// debounce clicks to prevent multiple api calls when on the end of the actual loaded list
-		setupDebouncedClick() {
-			this.debouncedClickItem = _.debounce((Item) => {
-				this.clickItem(Item)
-			}, 20, { leading: true })
-		},
-
-		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
-		clickItem(item: FeedItem) {
-			if (!item) {
-				return
-			}
-
-			const refName = 'feedItemRow' + item.id
-			const ref = this.$refs[refName]
-			// Make linter happy
-			const componentInstance = Array.isArray(ref) && ref.length && ref.length > 0 ? ref[0] : undefined
-			const element = componentInstance ? componentInstance.$el : undefined
-
-			if (element) {
-				const virtualScroll = this.$refs.virtualScroll
-				virtualScroll.showElement(element)
-			}
-
-			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
-			if (!item.keepUnread && item.unread) {
-				this.$store.dispatch(ACTIONS.MARK_READ, { item })
-			}
-		},
-
-		currentIndex(): number {
-			return this.selectedItem ? this.items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
-		},
-
-		jumpToPreviousItem() {
-			const items = this.items
-			let currentIndex = this.currentIndex()
-			// Prepare to jump to the first item, if none was selected
-			if (currentIndex === -1) {
-				currentIndex = 1
-			}
-			// Jump to the previous item
-			if (currentIndex > 0) {
-				const previousItem = items[currentIndex - 1]
-				this.debouncedClickItem(previousItem)
-			}
-		},
-
-		jumpToNextItem() {
-			const items = this.items
-			const currentIndex = this.currentIndex()
-			// Jump to the first item, if none was selected, otherwise jump to the next item
-			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
-				const nextItem = items[currentIndex + 1]
-				this.debouncedClickItem(nextItem)
-			}
-		},
-
-		scrollToCurrentItem() {
-			const currentIndex = this.currentIndex()
-			// scroll to the current selected item
-			if (currentIndex < this.items.length) {
-				this.$refs.virtualScroll.scrollTop = (this.compactMode ? 44 : 111) * currentIndex
-			}
+		scrollToItem(currentIndex) {
+			this.$refs.virtualScroll.scrollToItem(currentIndex)
 		},
 
 		toggleStarred(): void {
