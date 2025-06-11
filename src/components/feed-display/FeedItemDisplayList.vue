@@ -102,10 +102,6 @@ export default defineComponent({
 			return this.$store.getters.loading
 		},
 
-		compactMode() {
-			return this.$store.getters.displaymode === DISPLAY_MODE.COMPACT
-		},
-
 		screenReaderMode() {
 			return this.$store.getters.displaymode === DISPLAY_MODE.SCREENREADER
 		},
@@ -124,15 +120,6 @@ export default defineComponent({
 
 		getSelectedItem(newVal) {
 			this.selectedItem = newVal
-		},
-
-		// clear selected item on route change
-		fetchKey: {
-			handler() {
-				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-			},
-
-			immediate: true,
 		},
 
 		// reset scroll position on item reset

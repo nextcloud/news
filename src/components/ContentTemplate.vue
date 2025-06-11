@@ -43,6 +43,11 @@
 					<template #icon>
 						<TextIcon />
 					</template>
+					<template #action>
+						<NcButton v-if="noSplitMode" variant="secondary" @click="showItem(false)">
+							{{ t('news', 'Show all articles') }}
+						</NcButton>
+					</template>
 				</NcEmptyContent>
 			</div>
 		</NcAppContentDetails>
@@ -58,17 +63,19 @@
 
 import type { FeedItem } from '../types/FeedItem.ts'
 
+import { getBuilder } from '@nextcloud/browser-storage'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import {
 	type PropType,
 
-	computed, onBeforeUnmount, onMounted, ref, watch,
+	computed, onBeforeMount, onBeforeUnmount, onMounted, onUpdated, ref, watch,
 } from 'vue'
 import { useStore } from 'vuex'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcAppContentDetails from '@nextcloud/vue/components/NcAppContentDetails'
 import NcAppContentList from '@nextcloud/vue/components/NcAppContentList'
+import NcButton from '@nextcloud/vue/components/NcButton'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import TextIcon from 'vue-material-design-icons/Text.vue'
 import FeedItemDisplay from './feed-display/FeedItemDisplay.vue'
@@ -100,9 +107,12 @@ const emit = defineEmits<{
 
 const store = useStore()
 
+const browserStorage = getBuilder('nextcloud-news').persist().build()
+
 const isMobile = useIsMobile()
 
 const showDetails = ref(false)
+const initialSelection = ref(false)
 
 const stopPageUpHotkey = ref(null)
 const stopPageDownHotkey = ref(null)
@@ -138,8 +148,20 @@ const allItemsLoaded = computed(() => {
 	return store.state.items.allItemsLoaded[props.fetchKey] === true
 })
 
+const fetchingItems = computed(() => {
+	return store.state.items.fetchingItems[props.fetchKey] === true
+})
+
+const itemReset = computed(() => {
+	return store.state.items.newestItemId === 0
+})
+
 const noSplitMode = computed(() => {
 	return (layout.value === 'no-split' || isMobile.value)
+})
+
+const detailsView = computed(() => {
+	return noSplitMode.value && showDetails.value
 })
 
 /**
@@ -149,6 +171,10 @@ const noSplitMode = computed(() => {
  */
 function showItem(value) {
 	showDetails.value = value
+	// store show details value in local storage
+	if (noSplitMode.value) {
+		browserStorage.setItem('news.show-details', value)
+	}
 	// scroll to selected item when closing details in no-split mode
 	if (noSplitMode.value && !value) {
 		itemListElement.value?.scrollToItem(currentIndex.value)
@@ -218,11 +244,20 @@ watch(allItemsLoaded, (newVal) => {
 	 * load new items if available and the details of the
 	 * last item are currently displayed in no-split mode
 	 */
-	if (noSplitMode.value
+	if (detailsView.value
 		&& newVal === false
-		&& showDetails.value
 		&& currentIndex.value >= props.items.length - 1) {
 		emit('load-more')
+	}
+})
+
+/*
+ * activate initialSelection when refreshing app
+ * and in details view
+ */
+watch(itemReset, (newVal) => {
+	if (detailsView.value && newVal === true) {
+		initialSelection.value = true
 	}
 })
 
@@ -233,14 +268,15 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
 		 * load new items if available before reaching end of
 		 * the list while showing details in no-split mode
 		 */
-		if (noSplitMode.value
-			&& showDetails.value
+		if (detailsView.value
 			&& !allItemsLoaded.value
 			&& currentIndex.value >= props.items.length - 5) {
 			emit('load-more')
 		}
 	} else {
-		showItem(false)
+		if (!noSplitMode.value) {
+			showItem(false)
+		}
 	}
 })
 
@@ -252,16 +288,38 @@ watch(displayMode, (newDisplayMode) => {
 	}
 })
 
+onBeforeMount(() => {
+	store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
+})
+
 onMounted(() => {
+	// create shortcuts
 	useHotKey(['p', 'k', 'ArrowLeft'], previousItem)
 	useHotKey(['n', 'j', 'ArrowRight'], nextItem)
 	if (displayMode.value === DISPLAY_MODE.SCREENREADER) {
 		enablePageHotkeys()
 	}
+	// get show-details flag from browser storage
+	if (noSplitMode.value) {
+		showItem(browserStorage.getItem('news.show-details') === 'true')
+		if (showDetails.value) {
+			initialSelection.value = true
+		}
+	}
 })
 
 onBeforeUnmount(() => {
 	disablePageHotkeys()
+})
+
+onUpdated(() => {
+	// auto-select first item when in details view and initialSelection is set
+	if (initialSelection.value && detailsView.value && !fetchingItems.value) {
+		if (props.items.length > 0) {
+			selectItem(props.items[0])
+			initialSelection.value = false
+		}
+	}
 })
 
 </script>

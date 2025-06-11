@@ -119,7 +119,7 @@ export default defineComponent({
 
 	methods: {
 		addToSeen(children) {
-			if (children) {
+			if (this.$el.offsetParent && children) {
 				children.forEach((child) => {
 					if (child.el && !this._seenItems.has(child.key) && child.props.item) {
 						this._seenItems.set(child.key, { offset: child.el.offsetTop, item: child.props.item })
@@ -158,10 +158,16 @@ export default defineComponent({
 		},
 
 		scrollToItem(currentIndex) {
-			/*
-			 * set scroll positon to current item
-			*/
 			this.$nextTick(() => {
+				/*
+				 * restore view port when closing details view
+				 */
+				if (this.$el.scrollHeight > 0 && this.viewport.height === 0) {
+					this.viewport = this.$el.getBoundingClientRect()
+				}
+				/*
+				 * set scroll position to current item
+				*/
 				this.scrollTop = this.rowHeight * currentIndex
 			})
 		},
