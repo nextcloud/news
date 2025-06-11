@@ -144,6 +144,7 @@ describe('FeedItemDisplayList.vue', () => {
 		mockItem2.unread = true
 		mockItem3.unread = true
 		mockItem4.unread = true
+		selectedItem = undefined
 
 		wrapper = mount(FeedItemDisplayList, {
 			attachTo: document.body,
@@ -208,6 +209,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(4)
 
 		// switch to all route with four items
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem1, mockItem2, mockItem3, mockItem4],
 			fetchKey: 'all',
@@ -229,6 +231,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(4)
 
 		// switch to feed 1 route with three unread and one read item
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem2, mockItem3, mockItem4],
 			fetchKey: 'feed-1',
@@ -250,6 +253,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(3)
 
 		// switch to folder 1 route with two unread
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem3, mockItem4],
 			fetchKey: 'folder-1',
@@ -271,6 +275,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(2)
 
 		// switch to starred route with two starred items
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem1, mockItem2],
 			fetchKey: 'starred',
