@@ -82,7 +82,7 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 				@update:model-value="update('exploreUrl', exploreUrl)" />
 		</div>
 		<p class="settings-hint">
-			{{ t("news", "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
+			{{ t("news", "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
 		</p>
 
 		<div class="field">
