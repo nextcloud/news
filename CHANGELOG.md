@@ -13,6 +13,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - keep action bar position when scrolling article
 - explore `url` does not work when called directly
 - radio switches in add feed dialog not working
+- incorrect feed `url` in article view when navigating in merged routes such as unread or a folder
 
 # Releases
 ## [26.0.1] - 2025-06-04

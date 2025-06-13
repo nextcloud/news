@@ -93,11 +93,11 @@
 
 			<div class="subtitle" :dir="item.rtl && 'rtl'">
 				<span v-if="!item.sharedBy" class="source">
-					<a :href="feedUrl">
-						{{ getFeed(item.feedId).title }}
+					<a :href="feedUrl + feed.id">
+						{{ feed.title }}
 						<img
-							v-if="getFeed(item.feedId).faviconLink"
-							:src="getFeed(item.feedId).faviconLink"
+							v-if="feed.faviconLink"
+							:src="feed.faviconLink"
 							alt="favicon"
 							style="width: 16px">
 					</a>
@@ -234,11 +234,15 @@ export default defineComponent({
 		return {
 			keepUnread: false,
 			showShareMenu: false,
-			feedUrl: undefined,
+			feedUrl: generateUrl('/apps/news/feed/'),
 		}
 	},
 
 	computed: {
+		feed(): Feed {
+			return this.$store.getters.feeds.find((feed: Feed) => feed.id === this.item.feedId) || {}
+		},
+
 		screenReaderMode() {
 			return this.$store.getters.displaymode === DISPLAY_MODE.SCREENREADER
 		},
@@ -253,7 +257,6 @@ export default defineComponent({
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('Escape', this.closeDetails)
 		}
-		this.feedUrl = generateUrl('/apps/news/feed/' + this.item.feedId)
 	},
 
 	methods: {
@@ -274,10 +277,6 @@ export default defineComponent({
 			if (this.screenReaderMode && this.$store.getters.selected !== this.item) {
 				this.$emit('click-item')
 			}
-		},
-
-		getFeed(id: number): Feed {
-			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
 
 		/**
