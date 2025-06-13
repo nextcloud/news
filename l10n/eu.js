@@ -128,7 +128,6 @@ OC.L10N.register(
     "No feeds found to add" : "Ez da aurkitu jariorik gehitzeko",
     "Subscribe to" : "Harpidetu",
     "Unread Articles" : "Irakurri gabeko artikuluak",
-    "If given, this service" : "Ematen badizute, zerbitzu hau",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax edo webcron modua detektatu da! Zure jarioak ez dira eguneratuko!",
     "How to set up the operating system cron" : "Nola konfiguratu sistema eragilearen cron-a",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instalatu eta konfiguratu Berriak aplikazioaren eguneraketa APIa erabiltzen duen eguneratzaile paralelo azkarrago bat"

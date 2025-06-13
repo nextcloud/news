@@ -146,7 +146,6 @@ OC.L10N.register(
     "No feeds found to add" : "Eklenebilecek bir akış bulunamadı",
     "Subscribe to" : "Şuna abone ol",
     "Unread Articles" : "Okunmamış yazılar",
-    "If given, this service" : "Belirtilmiş ise bu hizmet",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ya da internet zamanlanmış görev kipi algılandı! Akışlarınız güncellenmeyecek!",
     "How to set up the operating system cron" : "İşletim sistemi zamanlanmış görevi nasıl ayarlanır",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Haberler uygulamasının güncelleme API yazılımını kullanan daha hızlı bir paralel güncelleyici kurun ve ayarlayın"

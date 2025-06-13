@@ -73,7 +73,6 @@ OC.L10N.register(
     "All Articles" : "Tolos artículos",
     "Subscribe to" : "Soscribise a",
     "Unread Articles" : "Artículos ensin lleer",
-    "If given, this service" : "Si s'apurre, esti serviciu",
     "How to set up the operating system cron" : "Cómo configurar el cron del sistema operativu"
 },
 "nplurals=2; plural=(n != 1);");

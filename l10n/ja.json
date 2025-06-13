@@ -109,7 +109,6 @@
     "No feeds found to add" : "追加するフィードが見つかりません",
     "Subscribe to" : "次を購読:",
     "Unread Articles" : "未読の記事",
-    "If given, this service" : "指定された場合、このサービス",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax か Web cron モードになっています。フィードは自動的に更新されません。",
     "How to set up the operating system cron" : "OSのcronのやり方",
     "Install and set up a faster parallel updater that uses the News app's update API" : "ニュースアプリのアップデートAPIを使用する、高速な並列アップデーターをインストールして、設定します。"

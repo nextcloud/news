@@ -148,7 +148,6 @@ OC.L10N.register(
     "No feeds found to add" : "Inga flöden hittades att lägga till",
     "Subscribe to" : "Prenumerera på",
     "Unread Articles" : "Olästa artiklar",
-    "If given, this service" : "Om den ges, denna tjänst",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax- eller webcron-läge upptäckt! Dina flöden kommer inte uppdateras!",
     "How to set up the operating system cron" : "Hur man ställer in cron från operativsystemet",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Installera och konfigurera en snabbare parallell uppdaterare som använder programmet Nyheter uppdatering API"

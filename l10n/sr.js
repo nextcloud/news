@@ -149,7 +149,6 @@ OC.L10N.register(
     "No feeds found to add" : "Није пронађен ниједан наслов који може да се дода",
     "Subscribe to" : "Претплати се на",
     "Unread Articles" : "Непрочитани чланци",
-    "If given, this service" : "Ако је наведено, овај сервис",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Детектован Ajax или webcron начин рада! Доводи неће бити ажурирани!",
     "How to set up the operating system cron" : "Како подестити крон оперативног система",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Инсталирајте и подесите брже паралелно ажурирање које користи API за ажурирање од ове апликације"

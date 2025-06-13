@@ -144,7 +144,6 @@ OC.L10N.register(
     "No feeds found to add" : "No se han encontrado fuentes a añadir",
     "Subscribe to" : "Subscribirse a",
     "Unread Articles" : "Artículos sin leer",
-    "If given, this service" : "Si se indica, este servicio",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Detectado modo Ajax o webcron! ¡Tus fuentes no se actualizarán!",
     "How to set up the operating system cron" : "Cómo configurar el cron del sistema operativo",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instala y configura un actualizador paralelo más rápido que utiliza la API de actualización de la app News"

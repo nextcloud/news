@@ -149,7 +149,6 @@ OC.L10N.register(
     "No feeds found to add" : "未找到要添加的订阅源",
     "Subscribe to" : "订阅",
     "Unread Articles" : "未读文章",
-    "If given, this service" : "如果提供此服务",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "检测到Ajax或Webcron 模式！您的订阅源将无法被更新！",
     "How to set up the operating system cron" : "如何设置操作系统定时任务",
     "Install and set up a faster parallel updater that uses the News app's update API" : "安装并设置一个更快速的更新程序，它使用新闻应用程序更新API"

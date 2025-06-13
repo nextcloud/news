@@ -149,7 +149,6 @@ OC.L10N.register(
     "No feeds found to add" : "Nenalezeny žádné kanály, které by bylo možné přidat",
     "Subscribe to" : "Přihlásit se k odběru",
     "Unread Articles" : "Nepřečtené články",
-    "If given, this service" : "Pokud zadáno, tato služba",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zjištěn ajax nebo web cron režim! Kanály nebudou aktualizovány!",
     "How to set up the operating system cron" : "Jak nastavit službu plánovače operačního systému (cron)",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Nainstalovat a nastavit rychlejší paralelní systém aktualizace využívající aktualizační aplikační program. rozhraní (API) aplikace Novinky"

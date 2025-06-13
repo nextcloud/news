@@ -146,7 +146,6 @@ OC.L10N.register(
     "No feeds found to add" : "لم يمكن العثور على أي لقمة لإضافته",
     "Subscribe to" : "إشترك في",
     "Unread Articles" : "المقالات غير المقروءة",
-    "If given, this service" : "إذا أُعطِيَت هذه الخدمة",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "تمّ اكتشاف وضعية Ajax أو webcron! سوف لن يتم تحديث إلقامك!",
     "How to set up the operating system cron" : "كيفية تنصيب النظام cron",
     "Install and set up a faster parallel updater that uses the News app's update API" : "تثبيت وإعداد محدث مواز أسرع يستخدم التطبيقات الجديدة لتحديث واجهة برمجة التطبيقات \"API\""

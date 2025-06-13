@@ -146,7 +146,6 @@ OC.L10N.register(
     "No feeds found to add" : "No s'han trobat canals per afegir",
     "Subscribe to" : "Subscriu a",
     "Unread Articles" : "Articles sense llegir",
-    "If given, this service" : "Si es dóna, aquest servei",
     "Ajax or webcron mode detected! Your feeds will not be updated!" : "S'ha detectat el mode Ajax o webcron. Els vostres canals no s'actualitzaran!",
     "How to set up the operating system cron" : "Com configurar el cron del sistema operatiu",
     "Install and set up a faster parallel updater that uses the News app's update API" : "Instal·leu i configureu un actualitzador en paral·lel més ràpid que faci servir l'API d'actualització de l'aplicació de Notí­cies"
