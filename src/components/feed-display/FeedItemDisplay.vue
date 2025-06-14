@@ -2,33 +2,34 @@
 	<div
 		class="feed-item-display"
 		:class="{ screenreader: screenReaderMode }"
-		:aria-posinset="itemIndex"
-		:aria-setsize="itemCount"
+		:style="screenReaderItemHeight"
+		v-bind="screenReaderMode ? { 'aria-setsize': itemCount, 'aria-posinset': itemIndex } : {}"
 		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
-
+		<NcActions
+			v-if="splitModeOff && !screenReaderMode"
+			class="nav-icons"
+			:inline="2">
+			<NcActionButton
+				class="nav-button left"
+				:disabled="itemIndex <= 1"
+				:title="t('news', 'Previous Item')"
+				@click="prevItem">
+				<template #icon>
+					<ChevronLeftIcon :size="32" />
+				</template>
+			</NcActionButton>
+			<NcActionButton
+				class="nav-button right"
+				:disabled="itemIndex >= itemCount"
+				:title="t('news', 'Next Item')"
+				@click="nextItem">
+				<template #icon>
+					<ChevronRightIcon :size="32" />
+				</template>
+			</NcActionButton>
+		</NcActions>
 		<div class="action-bar">
-			<NcActions
-				v-show="!splitModeOff"
-				class="action-bar-nav"
-				:inline="4">
-				<NcActionButton
-					:title="t('news', 'Previous Item')"
-					@click="prevItem">
-					{{ t('news', 'Previous') }}
-					<template #icon>
-						<ArrowLeftThickIcon />
-					</template>
-				</NcActionButton>
-				<NcActionButton
-					:title="t('news', 'Next Item')"
-					@click="nextItem">
-					{{ t('news', 'Next') }}
-					<template #icon>
-						<ArrowRightThickIcon />
-					</template>
-				</NcActionButton>
-			</NcActions>
 			<NcActions :inline="4">
 				<NcActionButton
 					:title="t('news', 'Share within Instance')"
@@ -79,6 +80,7 @@
 			<div class="heading">
 				<h1 :dir="item.rtl && 'rtl'">
 					<a
+						ref="titleLink"
 						target="_blank"
 						rel="noreferrer"
 						:href="item.url"
@@ -89,6 +91,7 @@
 				<time class="date" :title="formatDate(item.pubDate)" :datetime="formatDateISO(item.pubDate)">
 					{{ formatDate(item.pubDate) }}
 				</time>
+				<span> (Item {{ itemIndex }} of {{ itemCount }} loaded items)</span>
 			</div>
 
 			<div class="subtitle" :dir="item.rtl && 'rtl'">
@@ -165,18 +168,19 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
-import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
-import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
+import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
+import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
-import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
+import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
 
@@ -191,8 +195,8 @@ export default defineComponent({
 		NcActions,
 		NcActionButton,
 		ShareItem,
-		ArrowLeftThickIcon,
-		ArrowRightThickIcon,
+		ChevronLeftIcon,
+		ChevronRightIcon,
 	},
 
 	props: {
@@ -224,7 +228,7 @@ export default defineComponent({
 	},
 
 	emits: {
-		'click-item': () => true,
+		'select-item': () => true,
 		'show-details': () => true,
 		'prev-item': () => true,
 		'next-item': () => true,
@@ -232,6 +236,7 @@ export default defineComponent({
 
 	data: () => {
 		return {
+			isMobile: useIsMobile(),
 			keepUnread: false,
 			showShareMenu: false,
 			feedUrl: undefined,
@@ -244,7 +249,26 @@ export default defineComponent({
 		},
 
 		splitModeOff() {
-			return this.$store.getters.splitmode === SPLIT_MODE.OFF
+			return (this.$store.getters.splitmode === SPLIT_MODE.OFF || this.isMobile)
+		},
+
+		isSelected() {
+			return this.$store.getters.selected === this.item
+		},
+
+		screenReaderItemHeight() {
+			return this.screenReaderMode ? { height: ITEM_HEIGHT.DEFAULT + 'px' } : undefined
+		},
+	},
+
+	watch: {
+		// Focus title link in article to emulate structural heading navigation
+		// with screen readers
+		async isSelected(newSelected) {
+			if (newSelected && this.screenReaderMode) {
+				await this.$nextTick()
+				this.$refs.titleLink.focus()
+			}
 		},
 	},
 
@@ -267,12 +291,11 @@ export default defineComponent({
 		},
 
 		/**
-		 * Use parent click handler to select item when focused,
-		 * needed by screen reader navigation
+		 * Select item when focused needed by screen reader navigation
 		 */
 		selectItemOnFocus(): void {
-			if (this.screenReaderMode && this.$store.getters.selected !== this.item) {
-				this.$emit('click-item')
+			if (this.screenReaderMode && !this.isSelected) {
+				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
 			}
 		},
 
@@ -337,15 +360,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-	$breakpoint-mobile: 1024px;
-
 	.feed-item-display {
 		display: flex;
 		flex-direction: column;
 	}
 
 	.feed-item-display.screenreader {
-		height: 111px;
+		overflow: hidden;
 	}
 
 	.article {
@@ -467,10 +488,19 @@ export default defineComponent({
 
 	.action-bar-nav {
 		flex-grow: 1;
+	}
 
-		@media only screen and (width > $breakpoint-mobile) {
-			display: none !important;
-		}
+	.nav-icons .nav-button {
+		position: absolute;
+		top: 50%;
+	}
+
+	.nav-icons .nav-button.left {
+		inset-inline-start: 1rem;
+	}
+
+	.nav-icons .nav-button.right {
+		inset-inline-end: 1rem;
 	}
 
 	.feed-item-display .action-bar .button-vue,
