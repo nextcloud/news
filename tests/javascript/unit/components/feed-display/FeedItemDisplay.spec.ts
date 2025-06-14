@@ -61,7 +61,7 @@ describe('FeedItemDisplay.vue', () => {
 	})
 
 	it('should retrieve feed by ID', () => {
-		const feed = (wrapper.vm as any).getFeed(mockFeed.id)
+		const feed = (wrapper.vm as any).feed
 
 		expect(feed).toEqual(mockFeed)
 	})
