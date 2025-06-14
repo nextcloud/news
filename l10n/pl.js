@@ -90,6 +90,7 @@ OC.L10N.register(
     "Keep article unread" : "Oznacz jako nieprzeczytany",
     "Toggle keep current article unread" : "Przełącz oznaczenie aktualnego artykuły jako nieprzeczytany",
     "Remove keep article unread" : "Usuń oznaczenie jako nieprzeczytany",
+    "Not available" : "Brak dostępności",
     "Please wait" : "Proszę czekać",
     "Last update" : "Ostatnia aktualizacja",
     "Title" : "Tytuł",

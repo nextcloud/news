@@ -5,9 +5,12 @@ OC.L10N.register(
     "Close" : "Funga",
     "Subscribe" : "Jisajili",
     "Share" : "Shirikisha",
+    "Settings" : "Mipangilio",
     "Keyboard shortcuts" : "Mikato ya keyboard",
     "Delete" : "Futa",
     "Not available" : "Haipatikani",
-    "Action" : "Vitendo"
+    "Keyboard shortcut" : "Mikato ya kibodi",
+    "Action" : "Vitendo",
+    "Shift" : "Hamisha"
 },
 "nplurals=2; plural=(n != 1);");

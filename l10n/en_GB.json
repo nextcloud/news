@@ -40,6 +40,7 @@
     "Enable this if you also want to delete unread articles." : "Enable this if you also want to delete unread articles.",
     "How many redirects the feed fetcher should follow." : "How many redirects the feed fetcher should follow.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.",
     "Interval in seconds in which the feeds will be updated." : "Interval in seconds in which the feeds will be updated.",
     "Use next update time for feed updates" : "Use next update time for feed updates",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval.",

@@ -42,6 +42,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "如果您還想刪除未讀的文章，請啟用此功能。",
     "How many redirects the feed fetcher should follow." : "Feed 擷取程式應遵循多少重新導向。",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "等待 RSS 或 Atom feed 載入的最大秒數；如果花了更長的時間，更新將會被中止。",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "若提供，將查詢此服務的 URL 以在探索餵送部分顯示內容。若要使用內建的探索服務，請將此輸入留空。",
     "Interval in seconds in which the feeds will be updated." : "Feed 更新的時間間隔（以秒為單位）。",
     "Use next update time for feed updates" : "使用下次更新時間更新 feed",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "啟用此項可使用計算出的下次更新時間更新 feed。停用則僅根據更新間隔更新 feed。",
