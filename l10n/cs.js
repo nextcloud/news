@@ -42,6 +42,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "Pokud chcete mazat také nepřečtené články, zapněte toto.",
     "How many redirects the feed fetcher should follow." : "Kolik až přesměrování může být následováno při stahování článků.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Nejdelší přijatelné čekání (v sekundách) na načtení RSS nebo Atom kanálu. Při překročení bude pokus o aktualizaci přerušen.",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Pokud zadána, bude URL této služby dotazována ohledně zobrazování kanálů v rámci sekce pro jejich objevování. Pokud se chcete vrátit k výchozí službě pro objevování, ponechte tuto kolonku nevyplněnou.",
     "Interval in seconds in which the feeds will be updated." : "Interval (v sekundách) ve kterém budou kanály aktualizovány.",
     "Use next update time for feed updates" : "Použít příští čas aktualizace pro nakrmení aktualizací",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Toto zapněte pro použití vypočítaného času příští aktualizace pro nakrmení aktualizací. Vypněte pro kanály založené čistě na intervalu aktualizace.",

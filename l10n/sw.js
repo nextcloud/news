@@ -3,6 +3,8 @@ OC.L10N.register(
     {
     "Download" : "Pakua",
     "Close" : "Funga",
+    "Folder name" : "Jina la kisanduku",
+    "New folder" : "Kisanduku kipya",
     "Subscribe" : "Jisajili",
     "Share" : "Shirikisha",
     "Settings" : "Mipangilio",

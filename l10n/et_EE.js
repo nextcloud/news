@@ -42,6 +42,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "Selle eelistusega kustutad ka lugemata artiklid.",
     "How many redirects the feed fetcher should follow." : "Kui palju ümbersuunamisi peaks uudisvoo uuendaja järgima.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maksimaalne ootamise aeg sekundites RSS või Atom uudisvoo laadimisel - kui see kestab kauem, siis uuendamine lõppeb.",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Kui see väli on täidetud, siis sisestatud võrguaadressi kasutatakse uudisvoogude kuvamiseks. Vaikimisi teenuse kasutamiseks jäta väli tühjaks.",
     "Interval in seconds in which the feeds will be updated." : "Uudisvoogude uuendamise välp sekundites",
     "Use next update time for feed updates" : "Uudisvoogude uuendamiseks kasuta järgmist plaanitud aega",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Lülita see valik sisse, kui soovid uudisvoogude uuenduseks kasutada arvutuslikku järgmise uuenduse aega. Lülita see valik välja, kui soovid kasutada vaid uuendusvälpa.",
