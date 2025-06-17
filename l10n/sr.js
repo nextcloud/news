@@ -42,6 +42,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "Укључите ово ако желите да се бришу и непрочитани чланци.",
     "How many redirects the feed fetcher should follow." : "Колико ће се преусмеравања следити.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Време у секундама које ће се чекати да се довод учита. Ако траје дуже, ажурирање ће се прекинути.",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Ако је наведена, URL адреса овог сервиса ће се упитати за приказ довода у одељку истраживања довода. За повратак на коришћење уграђеног сервиса за истраживање, оставите ово празно.",
     "Interval in seconds in which the feeds will be updated." : "Интервал у секундама у којем се ће доводи да се ажурирају.",
     "Use next update time for feed updates" : "Користи наредно време ажурирања за ажурирања дотока",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Укључите ово да се користи израчунато време наредног ажурирања за ажурирања довода вести засновано само на интервалу ажурирања.",
