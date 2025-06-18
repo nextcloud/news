@@ -19,8 +19,7 @@
 							:item-count="items.length"
 							:item-index="index + 1"
 							:item="item"
-							:class="{ active: selectedItem && selectedItem.id === item.id }"
-							@click-item="clickItem(item)" />
+							:class="{ active: selectedItem && selectedItem.id === item.id }" />
 						<FeedItemRow
 							v-else
 							:key="item.id"
@@ -41,7 +40,6 @@
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-import _ from 'lodash'
 import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
@@ -84,8 +82,6 @@ export default defineComponent({
 		return {
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
-			stopPrevItemHotkey: null,
-			stopNextItemHotkey: null,
 		}
 	},
 
@@ -126,15 +122,6 @@ export default defineComponent({
 			this.selectedItem = newVal
 		},
 
-		// clear selected item on route change
-		fetchKey: {
-			handler() {
-				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-			},
-
-			immediate: true,
-		},
-
 		// reset scroll position on item reset
 		lastItemLoaded(newVal) {
 			if (newVal === undefined) {
@@ -145,30 +132,16 @@ export default defineComponent({
 
 	created() {
 		// create shortcuts
-		this.enableNavHotkeys()
 		useHotKey('r', this.refreshApp)
 		useHotKey('a', this.markRead, { shift: true })
 		useHotKey(['s', 'l', 'i'], this.toggleStarred)
 		useHotKey('u', this.toggleRead)
 		useHotKey('o', this.openUrl)
-		// use e/Enter only when split mode is of
+		// use e/Enter only when split mode is off
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('e', this.showDetails)
 			useHotKey('Enter', this.showDetails)
 		}
-		// use PageUP/PageDown only in screen reader mode
-		if (this.screenReaderMode) {
-			useHotKey('PageUp', this.jumpToPreviousItem, { prevent: true })
-			useHotKey('PageDown', this.jumpToNextItem, { prevent: true })
-		}
-	},
-
-	mounted() {
-		this.setupDebouncedClick()
-	},
-
-	unmounted() {
-		this.disableNavHotkeys()
 	},
 
 	methods: {
@@ -188,89 +161,12 @@ export default defineComponent({
 			this.$emit('mark-read')
 		},
 
-		disableNavHotkeys() {
-			if (this.stopPrevItemHotkey) {
-				this.stopPrevItemHotkey()
-			}
-			if (this.stopNextItemHotkey) {
-				this.stopNextItemHotkey()
-			}
-		},
-
-		enableNavHotkeys() {
-			this.disableNavHotkeys()
-			this.stopPrevItemHotkey = useHotKey(['p', 'k', 'ArrowLeft'], this.jumpToPreviousItem)
-			this.stopNextItemHotkey = useHotKey(['n', 'j', 'ArrowRight'], this.jumpToNextItem)
-		},
-
 		showDetails() {
-			/*
-			 * disable nav keys when showing details in no-split-mode
-			 * proper navigation (fetchMore, scroll to last item when closed)
-			 * isn't implemented yet
-			 */
-			if (this.splitModeOff) {
-				this.disableNavHotkeys()
-			}
 			this.$emit('show-details')
 		},
 
-		// debounce clicks to prevent multiple api calls when on the end of the actual loaded list
-		setupDebouncedClick() {
-			this.debouncedClickItem = _.debounce((Item) => {
-				this.clickItem(Item)
-			}, 20, { leading: true })
-		},
-
-		// Trigger the click event programmatically to benefit from the item handling inside the FeedItemRow component
-		clickItem(item: FeedItem) {
-			if (!item) {
-				return
-			}
-
-			const refName = 'feedItemRow' + item.id
-			const ref = this.$refs[refName]
-			// Make linter happy
-			const componentInstance = Array.isArray(ref) && ref.length && ref.length > 0 ? ref[0] : undefined
-			const element = componentInstance ? componentInstance.$el : undefined
-
-			if (element) {
-				const virtualScroll = this.$refs.virtualScroll
-				virtualScroll.showElement(element)
-			}
-
-			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
-			if (!item.keepUnread && item.unread) {
-				this.$store.dispatch(ACTIONS.MARK_READ, { item })
-			}
-		},
-
-		currentIndex(items: FeedItem[]): number {
-			return this.selectedItem ? items.findIndex((item: FeedItem) => item.id === this.selectedItem.id) || 0 : -1
-		},
-
-		jumpToPreviousItem() {
-			const items = this.items
-			let currentIndex = this.currentIndex(items)
-			// Prepare to jump to the first item, if none was selected
-			if (currentIndex === -1) {
-				currentIndex = 1
-			}
-			// Jump to the previous item
-			if (currentIndex > 0) {
-				const previousItem = items[currentIndex - 1]
-				this.debouncedClickItem(previousItem)
-			}
-		},
-
-		jumpToNextItem() {
-			const items = this.items
-			const currentIndex = this.currentIndex(items)
-			// Jump to the first item, if none was selected, otherwise jump to the next item
-			if (currentIndex === -1 || (currentIndex < items.length - 1)) {
-				const nextItem = items[currentIndex + 1]
-				this.debouncedClickItem(nextItem)
-			}
+		scrollToItem(currentIndex) {
+			this.$refs.virtualScroll.scrollToItem(currentIndex)
 		},
 
 		toggleStarred(): void {

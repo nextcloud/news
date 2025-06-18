@@ -144,6 +144,7 @@ describe('FeedItemDisplayList.vue', () => {
 		mockItem2.unread = true
 		mockItem3.unread = true
 		mockItem4.unread = true
+		selectedItem = undefined
 
 		wrapper = mount(FeedItemDisplayList, {
 			attachTo: document.body,
@@ -170,6 +171,7 @@ describe('FeedItemDisplayList.vue', () => {
 			items: [mockItem1],
 			fetchKey: 'unread',
 		})
+
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
 			'should create one FeedItemRow item from input',
@@ -177,7 +179,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first item from unread route
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem1)
+		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
 		expect(selectedItem).toEqual(1)
@@ -207,6 +209,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(4)
 
 		// switch to all route with four items
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem1, mockItem2, mockItem3, mockItem4],
 			fetchKey: 'all',
@@ -218,7 +221,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first item from all route
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem1)
+		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
 		expect(selectedItem).toEqual(1)
@@ -228,6 +231,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(4)
 
 		// switch to feed 1 route with three unread and one read item
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem2, mockItem3, mockItem4],
 			fetchKey: 'feed-1',
@@ -239,7 +243,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first unread item mockitem2
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem2)
+		await wrapper.vm.$refs.feedItemRow2[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem2 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem2.id })
 		expect(selectedItem).toEqual(2)
@@ -249,6 +253,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(3)
 
 		// switch to folder 1 route with two unread
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem3, mockItem4],
 			fetchKey: 'folder-1',
@@ -260,7 +265,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first unread item mockitem3
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem3)
+		await wrapper.vm.$refs.feedItemRow3[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem3 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem3.id })
 		expect(selectedItem).toEqual(3)
@@ -270,6 +275,7 @@ describe('FeedItemDisplayList.vue', () => {
 		).toEqual(2)
 
 		// switch to starred route with two starred items
+		selectedItem = undefined
 		await wrapper.setProps({
 			items: [mockItem1, mockItem2],
 			fetchKey: 'starred',
@@ -281,7 +287,7 @@ describe('FeedItemDisplayList.vue', () => {
 
 		// select first starred item
 		expect(selectedItem).toEqual(undefined)
-		await wrapper.vm.clickItem(mockItem1)
+		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
 		expect(selectedItem).toEqual(1)

@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
+- implement item navigation when showing details in no-split mode
 
 ### Fixed
 - style fixes for `<blockquote>`, `<pre>` and `<code>` in articles
