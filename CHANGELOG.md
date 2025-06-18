@@ -12,6 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - style fixes for `<blockquote>`, `<pre>` and `<code>` in articles
 - keep action bar position when scrolling article
 - explore `url` does not work when called directly
+- incorrect feed `url` in article view when navigating in merged routes such as unread or a folder
 
 # Releases
 ## [26.0.1] - 2025-06-04
