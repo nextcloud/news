@@ -41,6 +41,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "Aktivera detta om du också vill ta bort olästa artiklar.",
     "How many redirects the feed fetcher should follow." : "Hur många omdirigeringar flödet skall tillåtas följa.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maximalt antal sekunder att vänta på att RSS/Atom-flödet läses in; om det tar längre tid avbryts uppdateringen.",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Om det anges kommer URL:en för denna tjänst att användas för att visa flöden i avsnittet utforska flöden. Lämna detta fält tomt för att använda den inbyggda utforskningsfunktionen.",
     "Interval in seconds in which the feeds will be updated." : "Antal sekunder mellan uppdateringar av flödena.",
     "Use next update time for feed updates" : "Använd nästa uppdateringstid för flödesuppdateringar",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Aktivera detta för att använda den beräknade nästa uppdateringstiden för flödesuppdateringar. Inaktivera för att uppdatera flöden baserat enbart på uppdateringsintervallet.",
