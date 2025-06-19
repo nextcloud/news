@@ -52,7 +52,7 @@
     "@nextcloud/router": "^3.0.1",
     "@nextcloud/vue": "^9.0.0-rc.2",
     "lodash": "^4.17.21",
-    "vue": "^3.5.16",
+    "vue": "^3.5.17",
     "vue-material-design-icons": "^5.3.1",
     "vue-router": "^4.5.1",
     "vuex": "^4.1.0"
