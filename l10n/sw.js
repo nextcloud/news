@@ -4,6 +4,7 @@ OC.L10N.register(
     "Download" : "Pakua",
     "Close" : "Funga",
     "Folder name" : "Jina la kisanduku",
+    "Password" : "Nenosiri",
     "New folder" : "Kisanduku kipya",
     "Subscribe" : "Jisajili",
     "Move" : "Hamisha",
