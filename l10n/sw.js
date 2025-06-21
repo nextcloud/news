@@ -13,6 +13,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Mikato ya keyboard",
     "Rename" : "Ipe jina jipya",
     "Delete" : "Futa",
+    "Previous" : "Iliyopita",
     "Not available" : "Haipatikani",
     "Keyboard shortcut" : "Mikato ya kibodi",
     "Action" : "Vitendo",
