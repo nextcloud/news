@@ -52,7 +52,7 @@ jobs:
           app_public_crt: ${{ secrets.APP_PUBLIC_CRT }}
 
       - name: Upload app tarball to release
-        uses: svenstaro/upload-release-action@04733e069f2d7f7f0b4aebc4fbdbce8613b03ccd #v2.9.0
+        uses: svenstaro/upload-release-action@ebd922b779f285dafcac6410a0710daee9c12b82 #v2.10.0
         id: attach_to_release
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
