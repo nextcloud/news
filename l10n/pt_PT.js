@@ -31,6 +31,8 @@ OC.L10N.register(
     "Share" : "Partilhar",
     "Share with" : "Partilhar com",
     "Default" : "Predefinido",
+    "Vertical" : "Vertical",
+    "Horizontal" : "Horizontal",
     "Mark read" : "Marcar como lido",
     "All articles" : "Todos os artigos",
     "Starred" : "Marcado",
