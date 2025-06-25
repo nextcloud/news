@@ -48,7 +48,7 @@
 							style="flex-grow: 1; padding: 22px 12px; margin: 0px;"
 							required>
 
-						<NcCheckboxRadioSwitch v-model:checked="createNewFolder" type="switch">
+						<NcCheckboxRadioSwitch v-model="createNewFolder" type="switch">
 							{{ t("news", "New folder") }}?
 						</NcCheckboxRadioSwitch>
 					</div>
@@ -70,7 +70,7 @@
 					</p>
 
 					<div style="display: flex">
-						<NcCheckboxRadioSwitch v-model:checked="withBasicAuth" type="switch" style="flex-grow: 1;">
+						<NcCheckboxRadioSwitch v-model="withBasicAuth" type="switch" style="flex-grow: 1;">
 							{{ t("news", "Credentials") }}?
 						</NcCheckboxRadioSwitch>
 
@@ -93,7 +93,7 @@
 						</div>
 					</div>
 
-					<NcCheckboxRadioSwitch v-model:checked="autoDiscover" type="switch">
+					<NcCheckboxRadioSwitch v-model="autoDiscover" type="switch">
 						{{ t("news", "Auto discover Feed") }}?
 					</NcCheckboxRadioSwitch>
 
