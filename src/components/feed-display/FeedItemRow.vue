@@ -52,7 +52,7 @@
 		</div>
 
 		<div class="button-container" @click="$event.stopPropagation()">
-			<NcActions :inline="3">
+			<NcActions :inline="isMobile ? 0 : 3">
 				<NcActionButton
 					:title="t('news', 'Toggle star article')"
 					@click="toggleStarred(item)">

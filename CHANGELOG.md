@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - implement item navigation when showing details in no-split mode
 - add swipe down event to refresh item list for mobile devices
+- use three dot menu for `star`, `unread` and `share` button in item list on small devices
 
 ### Fixed
 - style fixes for `<blockquote>`, `<pre>` and `<code>` in articles
