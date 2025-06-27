@@ -40,6 +40,7 @@
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
+import { useSwipe } from '@vueuse/core'
 import { defineComponent } from 'vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
@@ -82,6 +83,7 @@ export default defineComponent({
 		return {
 			selectedItem: undefined as FeedItem | undefined,
 			debouncedClickItem: null,
+			swiping: {},
 		}
 	},
 
@@ -144,7 +146,32 @@ export default defineComponent({
 		}
 	},
 
+	mounted() {
+		this.swiping = useSwipe(this.$el, {
+			onSwipeEnd: this.handleSwipe,
+		})
+	},
+
 	methods: {
+		/**
+		 * handle the swipe event
+		 *
+		 * @param {TouchEvent} e The touch event
+		 * @param {import('@vueuse/core').SwipeDirection} direction The swipe direction of the event
+		 */
+		handleSwipe(e, direction) {
+			const minSwipeY = 70
+			const touchZone = 300
+			if (Math.abs(this.swiping.lengthY) > minSwipeY) {
+				if (this.swiping.coordsStart.y < (touchZone / 2) && direction === 'down') {
+					this.refreshApp()
+				}
+			}
+		},
+
+		/**
+		 * reset item states and sync feed counters
+		 */
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
 			// remove all loaded items
