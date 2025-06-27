@@ -16,6 +16,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - explore `url` does not work when called directly
 - radio switches in add feed dialog not working
 - incorrect feed `url` in article view when navigating in merged routes such as unread or a folder
+- `mark read on scroll` can keep some items unread after refreshing item list
 
 # Releases
 ## [26.0.1] - 2025-06-04
