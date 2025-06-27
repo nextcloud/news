@@ -174,6 +174,7 @@ export default defineComponent({
 		 */
 		async refreshApp() {
 			this.$refs.virtualScroll.scrollTop = 0
+			this.$refs.virtualScroll._seenItems = new Map()
 			// remove all loaded items
 			this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
 			// refetch feeds
