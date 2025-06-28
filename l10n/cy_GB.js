@@ -19,7 +19,6 @@ OC.L10N.register(
     "Delete" : "Dileu",
     "Newest first" : "Diweddaraf gyntaf",
     "Oldest first" : "Hynaf gyntaf",
-    "Previous" : "Blaenorol",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
     "Not available" : "Ddim ar gael",

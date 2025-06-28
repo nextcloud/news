@@ -17,7 +17,6 @@ OC.L10N.register(
     "Documentation" : "កម្រង​ឯកសារ",
     "Rename" : "ប្ដូរ​ឈ្មោះ",
     "Delete" : "លុប",
-    "Previous" : "មុន",
     "by" : "ដោយ",
     "right" : "ខាង​ស្ដាំ",
     "left" : "ខាង​ឆ្វេង"

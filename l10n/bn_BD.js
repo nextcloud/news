@@ -22,7 +22,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
     "Rename" : "পূনঃনামকরণ",
     "Delete" : "মুছে",
-    "Previous" : "পূর্ববর্তী",
     "by" : "কর্তৃক",
     "right" : "ডান",
     "left" : "বাম",

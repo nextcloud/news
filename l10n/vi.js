@@ -29,8 +29,6 @@ OC.L10N.register(
     "Rename Feed" : "Đổi tên nguồn dữ liệu",
     "Newest first" : "Mới trước",
     "Oldest first" : "Cũ trước",
-    "Previous" : "Trước",
-    "Next" : "Tiếp theo",
     "Mark unread" : "Đánh dấu là chưa đọc",
     "by" : "bởi",
     "Open website" : "Mở trang web",

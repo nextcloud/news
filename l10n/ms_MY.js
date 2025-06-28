@@ -13,7 +13,6 @@ OC.L10N.register(
     "Documentation" : "Dokumentasi",
     "Rename" : "Namakan",
     "Delete" : "Padam",
-    "Previous" : "Sebelum",
     "by" : "oleh",
     "Refresh" : "Refresh"
 },

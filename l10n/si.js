@@ -14,7 +14,6 @@ OC.L10N.register(
     "Share" : "බෙදාගන්න",
     "Settings" : "සැකසුම්",
     "Rename" : "නැවත නම් කරන්න",
-    "Previous" : "පෙර",
     "Open website" : "වියමන අඩවිය විවෘත කරන්න",
     "right" : "දකුණ",
     "left" : "වම",

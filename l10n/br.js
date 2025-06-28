@@ -19,7 +19,6 @@ OC.L10N.register(
     "Delete" : "Dilemel",
     "Newest first" : "An hini nevesañ da gentañ",
     "Oldest first" : "An hini kozhoñ da gentañ",
-    "Next" : "War-lerc'h",
     "by" : "gant",
     "Play audio" : "Loc'hañ an audio",
     "Download video" : "Pellkargañ ar video",

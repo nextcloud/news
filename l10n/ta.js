@@ -15,7 +15,6 @@ OC.L10N.register(
     "Keyboard shortcuts" : "விசைப்பலகை குறுக்குவழிகள்",
     "Rename" : "பெயர்மாற்றம்",
     "Delete" : "நீக்குக",
-    "Previous" : "முன்தைய",
     "by" : "மூலம்",
     "Title" : "தலைப்பு",
     "Refresh" : "மீள் ஏற்றுக"

@@ -19,7 +19,6 @@ OC.L10N.register(
     "Documentation" : "Sənədlər",
     "Rename" : "Adı dəyiş",
     "Delete" : "Sil",
-    "Previous" : "Əvvələ",
     "by" : "onunla",
     "right" : "Sağ",
     "left" : "Sol",

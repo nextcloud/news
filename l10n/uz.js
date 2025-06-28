@@ -16,8 +16,6 @@ OC.L10N.register(
     "Documentation" : "Hujjatlar",
     "Rename" : "Rename",
     "Delete" : "Delete",
-    "Previous" : "Oldingi",
-    "Next" : "Keyingisi",
     "Not available" : "Mavjud emas",
     "Title" : "Sarlavha",
     "right" : "right",
