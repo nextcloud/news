@@ -42,6 +42,7 @@ OC.L10N.register(
     "Enable this if you also want to delete unread articles." : "Ative esta opção se você também quiser excluir artigos não lidos.",
     "How many redirects the feed fetcher should follow." : "Quantos redirecionamentos o buscador de feed deve seguir.",
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "O número máximo de segundos para esperar por um feed RSS ou Atom carregar; se ele demorar muito a atualização será cancelada.",
+    "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty." : "Se fornecido, o URL deste serviço será consultado para exibir os feeds na seção de feeds de exploração. Para voltar ao serviço de exploração incorporado, deixe esta entrada vazia.",
     "Interval in seconds in which the feeds will be updated." : "Intervalo em segundos em que os feeds serão atualizados.",
     "Use next update time for feed updates" : "Usar o horário da próxima atualização para atualizações de feed",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Ative esta opção para usar o tempo calculado da próxima atualização para atualizações de feed. Desative para atualizar os feeds com base apenas no intervalo de atualização.",
