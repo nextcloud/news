@@ -7,19 +7,25 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- implement item navigation when showing details in no-split mode
-- add swipe down event to refresh item list for mobile devices
-- use three dot menu for `star`, `unread` and `share` button in item list on small devices
 
 ### Fixed
-- style fixes for `<blockquote>`, `<pre>` and `<code>` in articles
-- keep action bar position when scrolling article
-- explore `url` does not work when called directly
-- radio switches in add feed dialog not working
-- incorrect feed `url` in article view when navigating in merged routes such as unread or a folder
-- `mark read on scroll` can keep some items unread after refreshing item list
 
 # Releases
+## [26.0.2] - 2025-06-29
+### Changed
+- implement item navigation when showing details in no-split mode (#3191)
+- add swipe down event to refresh item list for mobile devices (#3240)
+- use three dot menu for `star`, `unread` and `share` button in item list on small devices (#3240)
+- Add script to automatically find PRs for Changelog lines
+
+### Fixed
+- style fixes for `<blockquote>`, `<pre>` and `<code>` in articles (#3211)
+- keep action bar position when scrolling article (#3211)
+- explore `url` does not work when called directly (#3222)
+- radio switches in add feed dialog not working (#3237)
+- incorrect feed `url` in article view when navigating in merged routes such as unread or a folder (#3224)
+- `mark read on scroll` can keep some items unread after refreshing item list (#3240)
+
 ## [26.0.1] - 2025-06-04
 ### Changed
 - enable title scrolling in compact mode on mobile only (#3205)
