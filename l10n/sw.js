@@ -14,6 +14,8 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Mikato ya keyboard",
     "Rename" : "Ipe jina jipya",
     "Delete" : "Futa",
+    "Newest first" : "Mpya kwanza",
+    "Oldest first" : "Ya zamani kwanza",
     "Not available" : "Haipatikani",
     "Title" : "Kichwa cha habari",
     "Keyboard shortcut" : "Mikato ya kibodi",
