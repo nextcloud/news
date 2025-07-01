@@ -48,13 +48,18 @@ class FeedIoClient implements ClientInterface
      */
     public function getResponse(string $url, ?DateTime $modifiedSince = null) : ResponseInterface
     {
-        $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
         try {
             $options = [
-                'headers' => [
-                    'If-Modified-Since' => $modifiedSince->format('D, d M Y H:i:s e')
-                ]
+                'headers' => []
             ];
+
+            if ($modifiedSince !== null) {
+                $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
+
+                if ($modifiedSince->format('U') >= 0) {
+                    $options['headers']['If-Modified-Since'] = $modifiedSince->format('D, d M Y H:i:s') . ' GMT';
+                }
+            }
 
             $start = microtime(true);
             $psrResponse = $this->guzzleClient->request('get', $url, $options);
