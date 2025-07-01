@@ -208,7 +208,9 @@ class FeedServiceV2 extends Service
         bool $full_discover = true,
         ?string $httpLastModified = null
     ): Entity {
-        $httpLastModified ??= (new DateTime("-1 year"))->format(DateTime::RSS);
+        if ($this->feedFetcher->hasLastModifiedHeader($feedUrl)) {
+            $httpLastModified ??= (new DateTime("-1 year"))->format(DateTime::RSS);
+        }
         try {
             /**
              * @var Feed   $feed

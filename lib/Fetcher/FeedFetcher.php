@@ -111,6 +111,25 @@ class FeedFetcher implements IFeedFetcher
         return true;
     }
 
+    /**
+     * Check if the feed server send the Last-Modified header
+     *
+     * @param string $url The URL to check
+     *
+     * @return bool
+     */
+    public function hasLastModifiedHeader(string $url): bool
+    {
+        $hasLastModified = false;
+        try {
+            $client = new Client(['base_uri' => $url]);
+            $response = $client->request('HEAD');
+            $hasLastModified = $response->hasHeader('Last-Modified');
+        } catch (\Exception) {
+            $this->logger->warning('Check for Last-Modified header failed for ' . $url);
+        }
+        return $hasLastModified;
+    }
 
     /**
      * Fetch a feed from remote
