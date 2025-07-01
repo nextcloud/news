@@ -10,6 +10,7 @@ OC.L10N.register(
     "Move" : "Hamisha",
     "Share" : "Shirikisha",
     "Compact" : "Makubaliano/maafikiano",
+    "Off" : "Imezimwa",
     "Settings" : "Mipangilio",
     "Keyboard shortcuts" : "Mikato ya keyboard",
     "Rename" : "Ipe jina jipya",
