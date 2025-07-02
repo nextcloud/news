@@ -53,12 +53,9 @@ class FeedIoClient implements ClientInterface
                 'headers' => []
             ];
 
-            if ($modifiedSince !== null) {
+            if ($modifiedSince !== null && $modifiedSince->format('U') >= 0) {
                 $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
-
-                if ($modifiedSince->format('U') >= 0) {
-                    $options['headers']['If-Modified-Since'] = $modifiedSince->format('D, d M Y H:i:s') . ' GMT';
-                }
+                $options['headers']['If-Modified-Since'] = $modifiedSince->format('D, d M Y H:i:s') . ' GMT';
             }
 
             $start = microtime(true);
