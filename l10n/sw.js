@@ -12,6 +12,7 @@ OC.L10N.register(
     "Compact" : "Makubaliano/maafikiano",
     "Off" : "Imezimwa",
     "Settings" : "Mipangilio",
+    "Documentation" : "Uhifadhi wa nyaraka",
     "Keyboard shortcuts" : "Mikato ya keyboard",
     "Rename" : "Ipe jina jipya",
     "Delete" : "Futa",
