@@ -125,7 +125,7 @@ describe('item.ts', () => {
 	describe('mutations', () => {
 		describe('SET_SELECTED_ITEM', () => {
 			it('should update selectedId on state', async () => {
-				const state = { selectedId: undefined } as any
+				const state = { selectedId: undefined, recentItemIds: [] as any } as any
 				const item = { id: 123 } as any
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state, item as any)
 				expect(state.selectedId).toEqual(123)

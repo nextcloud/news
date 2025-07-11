@@ -4,6 +4,7 @@ import AllPanel from '../components/routes/All.vue'
 import ExplorePanel from '../components/routes/Explore.vue'
 import FeedPanel from '../components/routes/Feed.vue'
 import FolderPanel from '../components/routes/Folder.vue'
+import RecentPanel from '../components/routes/Recent.vue'
 import StarredPanel from '../components/routes/Starred.vue'
 import UnreadPanel from '../components/routes/Unread.vue'
 import store from './../store/app.ts'
@@ -17,6 +18,7 @@ export const ROUTES = {
 	FEED: 'feed',
 	FOLDER: 'folder',
 	ALL: 'all',
+	RECENT: 'recent',
 }
 
 /**
@@ -85,6 +87,12 @@ const routes = [
 		name: ROUTES.ALL,
 		path: '/all',
 		component: AllPanel,
+		props: true,
+	},
+	{
+		name: ROUTES.RECENT,
+		path: '/recent',
+		component: RecentPanel,
 		props: true,
 	},
 ]

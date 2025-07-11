@@ -156,6 +156,14 @@ export default defineComponent({
 			type: Number,
 			required: true,
 		},
+
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
+		fetchKey: {
+			type: String,
+			required: true,
+		},
 	},
 
 	emits: {
@@ -189,7 +197,7 @@ export default defineComponent({
 		formatDateRelative,
 		formatDateISO,
 		select(): void {
-			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
+			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id, key: this.fetchKey })
 			this.markRead(this.item)
 			this.$emit('show-details')
 		},

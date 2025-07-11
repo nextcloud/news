@@ -23,6 +23,7 @@ describe('FeedItemDisplay.vue', () => {
 		wrapper = shallowMount(FeedItemDisplay, {
 			props: {
 				item: mockItem,
+				fetchKey: 'all',
 			},
 			global: {
 				mocks: {

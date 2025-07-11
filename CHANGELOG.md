@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
+- add recently viewed list
 
 ### Fixed
 - only use Last-Modified header if a feed supports it

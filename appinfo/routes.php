@@ -19,6 +19,7 @@ return ['routes' => [
 ['name' => 'page#index', 'url' => '/all', 'verb' => 'GET', 'postfix' => 'view.all'],
 ['name' => 'page#index', 'url' => '/feed/{feedId}', 'verb' => 'GET', 'postfix' => 'view.feedid'],
 ['name' => 'page#index', 'url' => '/folder/{folderId}', 'verb' => 'GET', 'postfix' => 'view.folderid'],
+['name' => 'page#index', 'url' => '/recent', 'verb' => 'GET', 'postfix' => 'view.recent'],
 ['name' => 'page#index', 'url' => '/starred', 'verb' => 'GET', 'postfix' => 'view.starred'],
 ['name' => 'page#index', 'url' => '/unread', 'verb' => 'GET', 'postfix' => 'view.unread'],
 ['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
