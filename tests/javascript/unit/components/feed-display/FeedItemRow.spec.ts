@@ -29,6 +29,7 @@ describe('FeedItemRow.vue', () => {
 				item: mockItem,
 				itemIndex: 1,
 				itemCount: 1,
+				fetchKey: 'all',
 			},
 			global: {
 				mocks: {
@@ -140,7 +141,7 @@ describe('FeedItemRow.vue', () => {
 
 		await wrapper.trigger('click')
 
-		expect(commitStub).toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem.id })
+		expect(commitStub).toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem.id, key: 'all' })
 		expect(markReadSpy).toHaveBeenCalledWith(mockItem)
 		expect(wrapper.emitted()).toHaveProperty('show-details')
 	})

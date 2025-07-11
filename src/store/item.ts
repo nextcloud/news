@@ -30,6 +30,7 @@ export type ItemState = {
 	unreadCount: number
 
 	allItems: FeedItem[]
+	recentItemIds: string[]
 
 	selectedId?: string
 	playingItem?: FeedItem
@@ -46,6 +47,7 @@ const state: ItemState = reactive({
 	unreadCount: 0,
 
 	allItems: [],
+	recentItemIds: [],
 
 	selectedId: undefined,
 	playingItem: undefined,
@@ -63,6 +65,9 @@ const getters = {
 	},
 	allItems(state: ItemState) {
 		return state.allItems
+	},
+	recentItemIds(state: ItemState) {
+		return state.recentItemIds
 	},
 	newestItemId(state: ItemState) {
 		return state.newestItemId
@@ -375,9 +380,16 @@ export const actions = {
 export const mutations = {
 	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](
 		state: ItemState,
-		{ id }: { id: string },
+		{ id, key }: { id: string, key?: string },
 	) {
 		state.selectedId = id
+		if (id && key !== 'recent') {
+			state.recentItemIds = state.recentItemIds.filter((itemId) => itemId !== id)
+			state.recentItemIds.unshift(id)
+			if (state.recentItemIds.length > 20) {
+				state.recentItemIds.pop()
+			}
+		}
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](

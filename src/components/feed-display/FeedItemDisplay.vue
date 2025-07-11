@@ -224,6 +224,14 @@ export default defineComponent({
 			required: false,
 			default: null,
 		},
+
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
+		fetchKey: {
+			type: String,
+			required: true,
+		},
 	},
 
 	emits: {
@@ -297,7 +305,7 @@ export default defineComponent({
 		 */
 		selectItemOnFocus(): void {
 			if (this.screenReaderMode && !this.isSelected) {
-				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
+				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id, key: this.fetchKey })
 			}
 		},
 

@@ -41,6 +41,13 @@
 					<RssIcon />
 				</template>
 			</NcAppNavigationItem>
+			<NcAppNavigationItem
+				:name="t('news', 'Recently viewed')"
+				:to="{ name: ROUTES.RECENT }">
+				<template #icon>
+					<HistoryIcon />
+				</template>
+			</NcAppNavigationItem>
 			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
 				<template #counter>
 					<NcCounterBubble :count="items.starredCount" />
@@ -292,6 +299,7 @@ import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
 import FolderAlertIcon from 'vue-material-design-icons/FolderAlert.vue'
 import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
+import HistoryIcon from 'vue-material-design-icons/History.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
 import UploadIcon from 'vue-material-design-icons/Upload.vue'
@@ -323,6 +331,7 @@ export default defineComponent({
 		EarthIcon,
 		FolderAlertIcon,
 		FolderPlusIcon,
+		HistoryIcon,
 		PlusIcon,
 		UploadIcon,
 		DownloadIcon,

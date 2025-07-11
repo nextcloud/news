@@ -120,7 +120,7 @@ describe('ContentTemplate.vue', () => {
 	it('should set selected item id and call mark read if unread', async () => {
 		expect(wrapper.vm.selectedFeedItem).toEqual(undefined)
 		wrapper.vm.selectItem(mockItem1)
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id, key: 'unread' })
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
 		expect(wrapper.vm.selectedFeedItem).toEqual(mockItem1)
 	})
@@ -129,7 +129,7 @@ describe('ContentTemplate.vue', () => {
 		mockItem1.unread = false
 		expect(wrapper.vm.selectedFeedItem).toEqual(undefined)
 		wrapper.vm.selectItem(mockItem1)
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id, key: 'unread' })
 		expect(store.dispatch).not.toHaveBeenCalled()
 		expect(wrapper.vm.selectedFeedItem).toEqual(mockItem1)
 	})

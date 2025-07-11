@@ -32,6 +32,7 @@
 					:item="selectedFeedItem"
 					:item-count="items.length"
 					:item-index="currentIndex + 1"
+					:fetch-key="fetchKey"
 					@prev-item="previousItem"
 					@next-item="nextItem"
 					@show-details="showItem(false)" />
@@ -188,7 +189,7 @@ function showItem(value) {
  * @param item to select
  */
 function selectItem(item: FeedItem) {
-	store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id })
+	store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: item.id, key: props.fetchKey })
 	if (!noSplitMode.value || !showDetails.value) {
 		itemListElement.value?.scrollToItem(currentIndex.value)
 	}

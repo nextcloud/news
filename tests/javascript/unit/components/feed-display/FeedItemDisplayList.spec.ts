@@ -181,7 +181,7 @@ describe('FeedItemDisplayList.vue', () => {
 		expect(selectedItem).toEqual(undefined)
 		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id, key: 'unread' })
 		expect(selectedItem).toEqual(1)
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
@@ -223,7 +223,7 @@ describe('FeedItemDisplayList.vue', () => {
 		expect(selectedItem).toEqual(undefined)
 		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id, key: 'all' })
 		expect(selectedItem).toEqual(1)
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
@@ -245,7 +245,7 @@ describe('FeedItemDisplayList.vue', () => {
 		expect(selectedItem).toEqual(undefined)
 		await wrapper.vm.$refs.feedItemRow2[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem2 })
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem2.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem2.id, key: 'feed-1' })
 		expect(selectedItem).toEqual(2)
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
@@ -267,7 +267,7 @@ describe('FeedItemDisplayList.vue', () => {
 		expect(selectedItem).toEqual(undefined)
 		await wrapper.vm.$refs.feedItemRow3[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem3 })
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem3.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem3.id, key: 'folder-1' })
 		expect(selectedItem).toEqual(3)
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,
@@ -289,7 +289,7 @@ describe('FeedItemDisplayList.vue', () => {
 		expect(selectedItem).toEqual(undefined)
 		await wrapper.vm.$refs.feedItemRow1[0].select()
 		expect(store.dispatch).toBeCalledWith(ACTIONS.MARK_READ, { item: mockItem1 })
-		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id })
+		expect(store.commit).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem1.id, key: 'starred' })
 		expect(selectedItem).toEqual(1)
 		expect(
 			(wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length,

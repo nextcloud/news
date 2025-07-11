@@ -19,6 +19,7 @@
 							:item-count="items.length"
 							:item-index="index + 1"
 							:item="item"
+							:fetch-key="fetchKey"
 							:class="{ active: selectedItem && selectedItem.id === item.id }" />
 						<FeedItemRow
 							v-else
@@ -27,6 +28,7 @@
 							:item-count="items.length"
 							:item-index="index + 1"
 							:item="item"
+							:fetch-key="fetchKey"
 							:class="{ active: selectedItem && selectedItem.id === item.id }"
 							@show-details="showDetails" />
 					</template>
