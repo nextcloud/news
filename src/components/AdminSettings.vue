@@ -8,15 +8,19 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		:name="t('news', 'News')"
 		class="news-settings"
 		doc-url="https://nextcloud.github.io/news/admin/">
-		<template v-if="lastCron !== 0">
-			<NcNoteCard v-if="oldExecution" type="error">
-				{{ t('news', 'Last job execution ran {relativeTime}. Something seems wrong.', { relativeTime }) }}
+		<div class="field">
+			<NcNoteCard v-if="lastCron === 0" type="warning">
+				{{ t('news', 'No job execution data available. The cron job may not be running properly.') }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else-if="oldExecution" type="error">
+				{{ t('news', 'Last job execution ran {relativeTime}. Something is wrong.', { relativeTime }) }}
 			</NcNoteCard>
 
 			<NcNoteCard v-else type="success">
 				{{ t('news', 'Last job ran {relativeTime}.', { relativeTime }) }}
 			</NcNoteCard>
-		</template>
+		</div>
 		<div class="field">
 			<NcCheckboxRadioSwitch
 				v-model:model-value="useCronUpdates"
