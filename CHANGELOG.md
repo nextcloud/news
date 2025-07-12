@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [26.x.x]
 ### Changed
 - add recently viewed list
+- switch to php-feed-io/feed-io
 
 ### Fixed
 - only use Last-Modified header if a feed supports it
