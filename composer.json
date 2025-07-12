@@ -1,4 +1,5 @@
 {
+  "name": "nextcloud/news",
   "type": "project",
   "license": "AGPL-3.0",
   "description": "An RSS/Atom feed reader. Requires Nextcloud background jobs or an updater script to be enabled to update your feeds. See the README.md in the apps top directory",
@@ -43,7 +44,7 @@
     "php": "^8.2",
     "ezyang/htmlpurifier": "4.18.0",
     "riimu/kit-pathjoin": "^1.2.0",
-    "debril/feed-io": "v5.3.1",
+    "php-feed-io/feed-io": "v5.3.3",
     "arthurhoaro/favicon": "^2.0.1",
     "fivefilters/readability.php": "^3.3",
     "ext-json": "*",
