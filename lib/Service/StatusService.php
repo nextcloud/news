@@ -75,11 +75,10 @@ class StatusService
      */
     public function getUpdateTime(): int
     {
-
         $time = 0;
 
         $myJobList = $this->jobList->getJobsIterator(UpdaterJob::class, 1, 0);
-        $time = $myJobList->current()->getLastRun();
+        $time = $myJobList->current()?->getLastRun() ?? 0;
 
         return $time;
     }

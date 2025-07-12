@@ -9,7 +9,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
-- only use Last-Modified header if a feed supports it
+- Only use Last-Modified header if a feed supports it
+- Better handling when job status is unknown
 
 # Releases
 ## [26.0.2] - 2025-06-29
