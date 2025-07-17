@@ -7,14 +7,21 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- add recently viewed list
-- switch to php-feed-io/feed-io
+
 
 ### Fixed
-- Only use Last-Modified header if a feed supports it
-- Better handling when job status is unknown
+
 
 # Releases
+## [26.1.0-beta.1] - 2025-07-17
+### Changed
+- add recently viewed list in the web interface (#3250)
+- switch to php-feed-io/feed-io, the new home for feed-io (#3249)
+
+### Fixed
+- only use Last-Modified header if a feed supports it (#3243)
+- better handling when feed update job status is unknown (#3248)
+
 ## [26.0.2] - 2025-06-29
 ### Changed
 - implement item navigation when showing details in no-split mode (#3191)
