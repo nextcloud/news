@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "Naročilo",
     "Successfully updated news configuration" : "Nastavitve novic so uspešno posodobljene",
     "Unable to update news config" : "Ni mogoče posodobiti nastavitev novic",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Zadnji poskus izvedbe je bil izveden {relativeTime}. Kaže, da je prišlo do napake.",
     "Last job ran {relativeTime}." : "Osvežitev je bila nazadnje izvedena {relativeTime}.",
     "Maximum read count per feed" : "Največje število prikazanih virov",
     "Maximum redirects" : "Največje število preusmeritev",

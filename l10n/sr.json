@@ -26,7 +26,6 @@
     "Subscribe" : "Претплати се",
     "Successfully updated news configuration" : "Конфигурација вести је успешно ажурирана",
     "Unable to update news config" : "Кофигурација вести не може да се ажурира",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Последњи посао се извршавао {relativeTime}. Изгледа да нешто није у реду.",
     "Last job ran {relativeTime}." : "Последњи посао се извршавао {relativeTime}.",
     "Maximum read count per feed" : "Максимални број читања по доводу",
     "Maximum redirects" : "Највише преусмеравања",

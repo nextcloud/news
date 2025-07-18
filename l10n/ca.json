@@ -26,7 +26,6 @@
     "Subscribe" : "Subscriu",
     "Successfully updated news configuration" : "Configuració de notícies actualitzada correctament",
     "Unable to update news config" : "No es pot actualitzar la configuració de notícies",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "L'última execució del treball s'ha executat el dia {relativeTime}. Alguna cosa sembla malament.",
     "Last job ran {relativeTime}." : "L'última tasca es va executar {relativeTime}.",
     "Maximum read count per feed" : "Màxim nombre de lectures per canal",
     "Maximum redirects" : "Màxim de redirigits",

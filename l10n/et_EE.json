@@ -26,7 +26,6 @@
     "Subscribe" : "Telli",
     "Successfully updated news configuration" : "Uudisvoogude lugeja seadistuste uuendamine õnnestus",
     "Unable to update news config" : "Uudisvoogude lugeja seadistusi ei õnnestu uuendada",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Viimane käivitus kestis {relativeTime}. See pole päris õige.",
     "Last job ran {relativeTime}." : "Viimane käivitus kestis {relativeTime}.",
     "Maximum read count per feed" : "Maksimaalne lugemiste arv uudisvoo kohta",
     "Maximum redirects" : "Maksimaalsed ümbersuunamised",

@@ -23,7 +23,6 @@
     "Subscribe" : "Подписаться",
     "Successfully updated news configuration" : "Конфигурация новостей успешно обновлена",
     "Unable to update news config" : "Не удалось обновить конфигурацию новостей",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Последнее задание было выполнено {relativeTime}. Похоже, что-то не в порядке.",
     "Last job ran {relativeTime}." : "Последнее задание было запущено {relativeTime}.",
     "Maximum read count per feed" : "Максимальное количество статей для ленты",
     "Maximum redirects" : "Максимум перенаправлений",

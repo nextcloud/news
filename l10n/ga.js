@@ -28,7 +28,6 @@ OC.L10N.register(
     "Subscribe" : "Liostáil",
     "Successfully updated news configuration" : "Nuashonraíodh an chumraíocht nuachta go rathúil",
     "Unable to update news config" : "Ní féidir an chumraíocht nuachta a nuashonrú",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Rith an post deireanach {relativeTime}. Is cosúil go bhfuil rud éigin mícheart.",
     "Last job ran {relativeTime}." : "Rith an post deireanach {relativeTime}.",
     "Maximum read count per feed" : "An líon uasta léite in aghaidh an fhotha",
     "Maximum redirects" : "Uasmhéid atreoruithe",

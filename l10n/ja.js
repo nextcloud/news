@@ -27,7 +27,6 @@ OC.L10N.register(
     "Subscribe" : "購読",
     "Successfully updated news configuration" : "ニュース設定の更新に成功",
     "Unable to update news config" : "ニュース設定の更新ができません",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "最後のジョブ実行で{relativeTime}が実行されました。何かおかしいようです。",
     "Last job ran {relativeTime}." : "最終ジョブ実行は {relativeTime} です。",
     "Maximum read count per feed" : "フィード当たりの最大閲覧数",
     "Maximum redirects" : "最大リダイレクト数",

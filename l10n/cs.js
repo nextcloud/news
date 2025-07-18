@@ -28,7 +28,6 @@ OC.L10N.register(
     "Subscribe" : "Přihlásit se k odběru",
     "Successfully updated news configuration" : "Nastavení pro Novinky úspěšně zaktualizováno",
     "Unable to update news config" : "Nedaří se aktualizovat nastavení pro Novinky",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Minulé vykonání úlohy bylo {relativeTime}. Zdá se, že něco není v pořádku.",
     "Last job ran {relativeTime}." : "Poslední úloha proběhla {relativeTime}.",
     "Maximum read count per feed" : "Maximální počet načítaných novinek na kanál",
     "Maximum redirects" : "Nejvyšší počet přesměrování",

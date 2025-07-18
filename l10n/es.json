@@ -26,7 +26,6 @@
     "Subscribe" : "Suscribirse",
     "Successfully updated news configuration" : "Se actualizó la configuración de noticias de forma exitosa",
     "Unable to update news config" : "No se puede actualizar la configuración de las noticias",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "La última ejecución fue en {relativeTime}. Algo está mal.",
     "Last job ran {relativeTime}." : "Último trabajo realizado {relativeTime}.",
     "Maximum read count per feed" : "Máximo número de lecturas por fuente",
     "Maximum redirects" : "Máximo de redirecciones",

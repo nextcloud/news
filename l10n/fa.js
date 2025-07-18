@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "اشتراک گذاری",
     "Successfully updated news configuration" : "Successfully updated news configuration",
     "Unable to update news config" : "Unable to update news config",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Last job execution ran {relativeTime}. Something seems wrong.",
     "Last job ran {relativeTime}." : "آخرین کار در {time} اجرا شد.",
     "Maximum read count per feed" : "حداکثر تعداد خواندن در هر خوراک",
     "Maximum redirects" : "حداکثر تغییر مسیرها",

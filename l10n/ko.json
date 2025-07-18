@@ -21,7 +21,6 @@
     "Subscribe" : "구독",
     "Successfully updated news configuration" : "뉴스 설정을 성공적으로 갱신함",
     "Unable to update news config" : "뉴스 설정을 갱신할 수 없음",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "마지막 작업이 {relativeTime}에 실행되었습니다. 무언가 잘못된 것 같습니다.",
     "Last job ran {relativeTime}." : "마지막 작업이 {relativeTime}에 실행되었음",
     "Maximum read count per feed" : "피드당 최대 읽은 글 개수",
     "Maximum redirects" : "최대 넘겨주기 수",

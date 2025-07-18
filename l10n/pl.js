@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "Subskrybuj",
     "Successfully updated news configuration" : "Pomyślnie zaktualizowano konfigurację wiadomości",
     "Unable to update news config" : "Nie można zaktualizować konfiguracji wiadomości",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Uruchomiono ostatnie wykonanie zadania {relativeTime}. Coś wydaje się nie tak.",
     "Last job ran {relativeTime}." : "Ostatnie zadanie zostało uruchomione {relativeTime}.",
     "Maximum read count per feed" : "Maksymalna ilość odczytów na kanał",
     "Maximum redirects" : "Maksymalna liczba przekierowań",

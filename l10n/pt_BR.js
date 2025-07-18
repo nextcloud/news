@@ -28,7 +28,6 @@ OC.L10N.register(
     "Subscribe" : "Assinar",
     "Successfully updated news configuration" : "Configuração de notícias atualizada com sucesso",
     "Unable to update news config" : "Não foi possível atualizar a configuração de notícias",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "A execução da última tarefa foi realizada {relativeTime}. Algo parece estar errado.",
     "Last job ran {relativeTime}." : "A última tarefa foi executada {relativeTime}.",
     "Maximum read count per feed" : "O número máximo de leituras por feed",
     "Maximum redirects" : "Redirecionamentos máximos",

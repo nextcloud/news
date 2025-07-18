@@ -26,7 +26,6 @@
     "Subscribe" : "إشترك subscribe",
     "Successfully updated news configuration" : "تمّ بنجاحٍ تحديث تهيئة الأخبار",
     "Unable to update news config" : "تعذّر تحديث تهيئة الأخبار",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "آخر مهمة job جرت في {relativeTime}. يبدو أن هنالك خطأً ما.",
     "Last job ran {relativeTime}." : "آخر مهمة JOB جرت في {relativeTime}.",
     "Maximum read count per feed" : "الحد الأقصى لعدّاد القراءة لكل لُقمة",
     "Maximum redirects" : "الحد الأقصى لعمليات إعادة التوجيه",

@@ -28,7 +28,6 @@ OC.L10N.register(
     "Subscribe" : "Abone ol",
     "Successfully updated news configuration" : "Haberler yapılandırması güncellendi",
     "Unable to update news config" : "Haberler yapılandırması güncellenemedi",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Son görev yürütülmesi: {relativeTime}. Yanlış bir şeyler var.",
     "Last job ran {relativeTime}." : "Son görev yürütülmesi: {relativeTime}.",
     "Maximum read count per feed" : "Bir akış için en fazla okuma sayısı",
     "Maximum redirects" : "En fazla yönlendirme",

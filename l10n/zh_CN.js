@@ -28,7 +28,6 @@ OC.L10N.register(
     "Subscribe" : "订阅",
     "Successfully updated news configuration" : "成功更新新闻设置",
     "Unable to update news config" : "无法更新新闻设置",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "上次任务执行于{relativeTime}。但似乎有些问题。",
     "Last job ran {relativeTime}." : "上次任务执行于{relativeTime}。",
     "Maximum read count per feed" : "每个订阅源的最大阅读次数",
     "Maximum redirects" : "最大重定向次数",

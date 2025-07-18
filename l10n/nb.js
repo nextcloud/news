@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "Abonner",
     "Successfully updated news configuration" : "Nyhetskonfigurasjonen er oppdatert",
     "Unable to update news config" : "Kan ikke oppdatere nyhetskonfigurasjonen",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Siste jobb kjørte {tid}. Noe virker galt.",
     "Last job ran {relativeTime}." : "Siste jobb kjørte {relativeTime}.",
     "Maximum read count per feed" : "Maksimalt antall lest pr. strøm",
     "Maximum redirects" : "Maksimalt antall videresendinger",

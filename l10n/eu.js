@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "Harpidetu",
     "Successfully updated news configuration" : "Berrien konfigurazioa ondo eguneratu da",
     "Unable to update news config" : "Ezin izan da berrien konfigurazioa eguneratu.",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Azken lana exekutatu zen: {time}. Zerbait gaizki dagoela dirudi.",
     "Last job ran {relativeTime}." : "Azken lana {relativeTime}-n egin zen.",
     "Maximum read count per feed" : "Gehienezko irakurketa kopurua jarioko",
     "Maximum redirects" : "Gehienezko birbideratzeak",

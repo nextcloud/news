@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "Berlangganan",
     "Successfully updated news configuration" : "Berhasil memperbarui konfigurasi berita",
     "Unable to update news config" : "Tidak dapat memperbarui konfigurasi berita",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "Eksekusi tugas terakhir dijalankan {relativeTime}.\nAda sesuatu yang salah.",
     "Last job ran {relativeTime}." : "Tugas terakhir dijalankan {relativeTime}.",
     "Maximum read count per feed" : "Jumlah baca maksimum per feed",
     "Maximum redirects" : "Pengalihan maksimum",

@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "Feliratkozás",
     "Successfully updated news configuration" : "A hírek beállítása sikeresen frissítve",
     "Unable to update news config" : "A hírek beállításai nem frissíthetők",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "A legutóbbi feladat futási ideje: {relativeTime}. Valami nincs rendben.",
     "Last job ran {relativeTime}." : "Utolsó feladatfuttatás: {relativeTime}.",
     "Maximum read count per feed" : "Maximális olvasási szám hírfolyamonként",
     "Maximum redirects" : "Maximum átirányítás",

@@ -25,7 +25,6 @@ OC.L10N.register(
     "Subscribe" : "مۇشتەرى بولۇش",
     "Successfully updated news configuration" : "خەۋەر سەپلىمىسى مۇۋەپپەقىيەتلىك يېڭىلاندى",
     "Unable to update news config" : "خەۋەر سەپلىمىسىنى يېڭىلاشقا ئامالسىز",
-    "Last job execution ran {relativeTime}. Something seems wrong." : "ئاخىرقى خىزمەت ئىجراسى {relativeTime} ran ئىجرا قىلىندى. بىر نەرسە خاتادەك قىلىدۇ.",
     "Last job ran {relativeTime}." : "ئاخىرقى خىزمەت {relativeTime} ئىجرا بولدى.",
     "Maximum read count per feed" : "ھەر بىر يەمنىڭ ئەڭ كۆپ ئوقۇش سانى",
     "Maximum redirects" : "ئەڭ چوڭ قايتا نىشانلاش",
