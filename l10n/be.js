@@ -7,6 +7,7 @@ OC.L10N.register(
     "Move" : "Перамясціць",
     "Share" : "Абагуліць",
     "Settings" : "Налады",
+    "Keyboard shortcuts" : "Спалучэнні клавіш",
     "Rename" : "Перайменаваць",
     "Delete" : "Выдаліць",
     "Title" : "Загаловак"
