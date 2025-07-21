@@ -28,7 +28,7 @@ OC.L10N.register(
     "Subscribe" : "訂閱",
     "Successfully updated news configuration" : "成功更新新聞設定",
     "Unable to update news config" : "無法更新新聞設定",
-    "No job execution data available. The cron job may not be running properly." : "沒有可用的工作執行資料。cron 作業可能並未正確執行。",
+    "No job execution data available. The cron job may not be running properly." : "沒有可用的作業執行數據。cron 作業可能並未正確執行。",
     "Last job execution ran {relativeTime}. Something is wrong." : "上次執行作業的時間是 {relativeTime}。似乎有些不對勁。",
     "Last job ran {relativeTime}." : "上次執行作業的時間是 {relativeTime}。",
     "Maximum read count per feed" : "每個 feed 的最大閱讀次數",

@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Username" : "Імя карыстальніка",
     "Password" : "Пароль",
+    "New folder" : "Новая папка",
     "Credentials" : "Уліковыя даныя",
     "Move" : "Перамясціць",
     "Share" : "Абагуліць",
