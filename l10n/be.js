@@ -1,6 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "Download" : "Спампаваць",
+    "Close" : "Закрыць",
+    "Folder name" : "Назва папкі",
     "Username" : "Імя карыстальніка",
     "Password" : "Пароль",
     "New folder" : "Новая папка",

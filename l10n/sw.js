@@ -10,6 +10,8 @@ OC.L10N.register(
     "Move" : "Hamisha",
     "Share" : "Shirikisha",
     "Compact" : "Makubaliano/maafikiano",
+    "Vertical" : "Vertical",
+    "Horizontal" : "Horizontal",
     "Off" : "Imezimwa",
     "Settings" : "Mipangilio",
     "Documentation" : "Uhifadhi wa nyaraka",
