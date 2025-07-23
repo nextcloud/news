@@ -19,6 +19,7 @@ OC.L10N.register(
     "Mark read" : "Означи како прочитано",
     "All articles" : "Сите статии",
     "Starred" : "Со ѕвезда",
+    "Explore" : "Истражувај",
     "Settings" : "Параметри",
     "Documentation" : "Документација",
     "Keyboard shortcuts" : "Кратенки преку тастатура",
