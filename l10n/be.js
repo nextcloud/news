@@ -14,6 +14,8 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Спалучэнні клавіш",
     "Rename" : "Перайменаваць",
     "Delete" : "Выдаліць",
+    "Newest first" : "Спачатку новыя",
+    "Oldest first" : "Спачатку старыя",
     "Title" : "Загаловак",
     "Keyboard shortcut" : "Спалучэнне клавіш"
 },
