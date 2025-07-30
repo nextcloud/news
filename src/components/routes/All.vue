@@ -2,12 +2,9 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="allItems"
+		:list-name="t('news', 'All Articles')"
 		fetch-key="all"
-		@load-more="fetchMore()">
-		<template #header>
-			{{ t('news', 'All Articles') }}
-		</template>
-	</ContentTemplate>
+		@load-more="fetchMore()" />
 </template>
 
 <script lang="ts">
@@ -62,11 +59,3 @@ export default defineComponent({
 	},
 })
 </script>
-
-<style scoped>
-	.counter-bubble {
-		display: inline-block;
-		vertical-align: sub;
-		margin-inline-start: 10px;
-	}
-</style>

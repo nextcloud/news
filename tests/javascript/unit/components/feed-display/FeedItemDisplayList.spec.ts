@@ -56,6 +56,8 @@ describe('FeedItemDisplayList.vue', () => {
 	const mockFeed = {
 		id: 1,
 		folderId: 1,
+		unreadCount: 0,
+		title: 'feed-1',
 	}
 
 	const mockFolder = {
@@ -151,6 +153,8 @@ describe('FeedItemDisplayList.vue', () => {
 			props: {
 				items: [mockItem1, mockItem2, mockItem3, mockItem4],
 				fetchKey: 'unread',
+				listName: 'Unread Articles',
+				listCount: 4,
 			},
 			global: {
 				plugins: [store],

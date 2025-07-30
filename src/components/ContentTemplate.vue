@@ -9,6 +9,8 @@
 				<FeedItemDisplayList
 					ref="itemListElement"
 					:items="items"
+					:list-name="listName"
+					:list-count="listCount"
 					:fetch-key="fetchKey"
 					role="region"
 					:aria-label="t('news', 'Article list')"
@@ -98,6 +100,24 @@ const props = defineProps({
 	fetchKey: {
 		type: String,
 		required: true,
+	},
+
+	/**
+	 * The name of the list
+	 */
+	listName: {
+		type: String,
+		required: false,
+		default: '',
+	},
+
+	/**
+	 * The counter value of the list
+	 */
+	listCount: {
+		type: Number,
+		required: false,
+		default: 0,
 	},
 })
 
