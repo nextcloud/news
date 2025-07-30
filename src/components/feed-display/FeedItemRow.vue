@@ -170,9 +170,14 @@ export default defineComponent({
 		'show-details': () => true,
 	},
 
-	data: () => {
+	setup: () => {
 		return {
 			isMobile: useIsMobile(),
+		}
+	},
+
+	data: () => {
+		return {
 			showShareMenu: false,
 			shareItem: undefined,
 		}
