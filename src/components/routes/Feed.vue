@@ -3,14 +3,11 @@
 		v-if="!loading"
 		:key="'feed-' + feedId"
 		:items="items"
+		:list-name="feed ? feed.title : ''"
+		:list-count="feed ? feed.unreadCount : 0"
 		:fetch-key="'feed-' + feedId"
 		@mark-read="markRead()"
-		@load-more="fetchMore()">
-		<template #header>
-			{{ feed ? feed.title : '' }}
-			<NcCounterBubble v-if="feed" class="counter-bubble" :count="feed.unreadCount" />
-		</template>
-	</ContentTemplate>
+		@load-more="fetchMore()" />
 </template>
 
 <script lang="ts">
@@ -19,7 +16,6 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { getOldestFirst, outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
@@ -29,7 +25,6 @@ export default defineComponent({
 	name: 'RoutesFeed',
 	components: {
 		ContentTemplate,
-		NcCounterBubble,
 	},
 
 	props: {
@@ -144,11 +139,3 @@ export default defineComponent({
 	},
 })
 </script>
-
-<style scoped>
-.counter-bubble {
-	display: inline-block;
-	vertical-align: sub;
-	margin-inline-start: 10px;
-}
-</style>

@@ -2,13 +2,10 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="unread"
+		:list-name="t('news', 'Unread Articles')"
+		:list-count="items.unreadCount"
 		fetch-key="unread"
-		@load-more="fetchMore()">
-		<template #header>
-			{{ t('news', 'Unread Articles') }}
-			<NcCounterBubble class="counter-bubble" :count="items.unreadCount" />
-		</template>
-	</ContentTemplate>
+		@load-more="fetchMore()" />
 </template>
 
 <script lang="ts">
@@ -16,7 +13,6 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
@@ -26,7 +22,6 @@ export default defineComponent({
 	name: 'RoutesUnread',
 	components: {
 		ContentTemplate,
-		NcCounterBubble,
 	},
 
 	data() {
@@ -99,11 +94,3 @@ export default defineComponent({
 	},
 })
 </script>
-
-<style scoped>
-	.counter-bubble {
-		display: inline-block;
-		vertical-align: sub;
-		margin-inline-start: 10px;
-	}
-</style>

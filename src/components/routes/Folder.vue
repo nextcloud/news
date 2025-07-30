@@ -3,14 +3,11 @@
 		v-if="!loading"
 		:key="'folder-' + folderId"
 		:items="items"
+		:list-name="folder ? folder.name : ''"
+		:list-count="folder ? unreadCount : 0"
 		:fetch-key="'folder-' + folderId"
 		@mark-read="markRead()"
-		@load-more="fetchMore()">
-		<template #header>
-			{{ folder ? folder.name : '' }}
-			<NcCounterBubble v-if="folder" class="counter-bubble" :count="unreadCount" />
-		</template>
-	</ContentTemplate>
+		@load-more="fetchMore()" />
 </template>
 
 <script lang="ts">
@@ -20,7 +17,6 @@ import type { Folder } from '../../types/Folder.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
@@ -30,7 +26,6 @@ export default defineComponent({
 	name: 'RoutesFolder',
 	components: {
 		ContentTemplate,
-		NcCounterBubble,
 	},
 
 	props: {
@@ -161,11 +156,3 @@ export default defineComponent({
 	},
 })
 </script>
-
-<style scoped>
-.counter-bubble {
-	display: inline-block;
-	vertical-align: sub;
-	margin-inline-start: 10px;
-}
-</style>

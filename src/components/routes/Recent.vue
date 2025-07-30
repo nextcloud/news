@@ -1,11 +1,8 @@
 <template>
 	<ContentTemplate
 		:items="recentItems"
-		fetch-key="recent">
-		<template #header>
-			{{ t('news', 'Recently viewed') }}
-		</template>
-	</ContentTemplate>
+		:list-name="t('news', 'Recently viewed')"
+		fetch-key="recent" />
 </template>
 
 <script lang="ts">

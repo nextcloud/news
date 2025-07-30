@@ -2,8 +2,21 @@
 	<div class="feed-item-display-list">
 		<div class="header">
 			<div class="header-content">
-				<slot name="header" />
+				<div class="header-text">
+					{{ listName }}
+				</div>
+				<NcCounterBubble v-if="listCount > 0" class="header-counter" :count="listCount" />
 			</div>
+			<NcButton
+				v-if="!isMobile"
+				class="header-button"
+				:title="t('news', 'Refresh list')"
+				variant="tertiary"
+				@click="refreshApp">
+				<template #icon>
+					<RefreshIcon :size="20" />
+				</template>
+			</NcButton>
 		</div>
 		<div class="feed-item-display-container">
 			<VirtualScroll
@@ -42,8 +55,12 @@
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { useSwipe } from '@vueuse/core'
 import { defineComponent } from 'vue'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
+import RefreshIcon from 'vue-material-design-icons/Refresh.vue'
 import FeedItemDisplay from './FeedItemDisplay.vue'
 import FeedItemRow from './FeedItemRow.vue'
 import VirtualScroll from './VirtualScroll.vue'
@@ -55,6 +72,9 @@ export default defineComponent({
 		VirtualScroll,
 		FeedItemDisplay,
 		FeedItemRow,
+		NcButton,
+		NcCounterBubble,
+		RefreshIcon,
 	},
 
 	props: {
@@ -73,6 +93,22 @@ export default defineComponent({
 			type: String,
 			required: true,
 		},
+
+		/**
+		 * The name of the list
+		 */
+		listName: {
+			type: String,
+			required: true,
+		},
+
+		/**
+		 * The counter value of the list
+		 */
+		listCount: {
+			type: Number,
+			required: true,
+		},
 	},
 
 	emits: {
@@ -81,10 +117,15 @@ export default defineComponent({
 		'show-details': () => true,
 	},
 
+	setup() {
+		return {
+			isMobile: useIsMobile(),
+		}
+	},
+
 	data() {
 		return {
 			selectedItem: undefined as FeedItem | undefined,
-			debouncedClickItem: null,
 			swiping: {},
 		}
 	},
@@ -265,16 +306,40 @@ export default defineComponent({
 	}
 
 	.header {
-		display: flex;
-		align-items: center;
-		justify-content: right;
 		height: 54px;
 		min-height: 54px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		min-width: 0;
+		margin-inline-start: 44px;
+		margin-inline-end: 10px;
 	}
 
 	.header-content {
-		flex-grow: 1;
-		padding-inline-start: 52px;
-		font-weight: 700;
+		display: flex;
+		align-items: center;
+		min-width: 0;
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
 	}
+
+	.header-text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		flex-shrink: 1;
+		margin-inline-end: 6px;
+	}
+
+	.header-counter {
+		flex-shrink: 0;
+	}
+
+	.header-button {
+		flex-shrink: 0;
+	}
+
 </style>
