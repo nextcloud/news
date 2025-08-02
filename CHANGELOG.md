@@ -7,13 +7,14 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
-- add refresh button to list header
-
 
 ### Fixed
 
-
 # Releases
+## [26.1.0] - 2025-08-02
+### Changed
+- add refresh button to list header (#3259)
+
 ## [26.1.0-beta.1] - 2025-07-17
 ### Changed
 - add recently viewed list in the web interface (#3250)
