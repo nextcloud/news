@@ -27,6 +27,7 @@ OC.L10N.register(
     "Subscribe" : "Подписаться",
     "Successfully updated news configuration" : "Конфигурация новостей успешно обновлена",
     "Unable to update news config" : "Не удалось обновить конфигурацию новостей",
+    "Last job execution ran {relativeTime}. Something is wrong." : "Последняя задача выполнялась {relativeTime}. Что-то пошло не так.",
     "Last job ran {relativeTime}." : "Последнее задание было запущено {relativeTime}.",
     "Maximum read count per feed" : "Максимальное количество статей для ленты",
     "Maximum redirects" : "Максимум перенаправлений",
