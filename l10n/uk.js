@@ -110,6 +110,7 @@ OC.L10N.register(
     "Play audio" : "Відтворення аудіо",
     "Download audio" : "Звантажити аудіо",
     "Download video" : "Звантажити відео",
+    "Refresh list" : "Оновити список",
     "Open website" : "Відкрити веб-сайт",
     "Keep article unread" : "Залишити статтю непрочитаною",
     "Toggle keep current article unread" : "Залишити статтю непрочитаною",

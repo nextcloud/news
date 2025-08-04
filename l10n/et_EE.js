@@ -110,6 +110,7 @@ OC.L10N.register(
     "Play audio" : "Esita heli",
     "Download audio" : "Laadi helifail alla",
     "Download video" : "Laadi video alla",
+    "Refresh list" : "Uuenda loendit",
     "Open website" : "Ava veebisait",
     "Keep article unread" : "Hoia kui lugemata",
     "Toggle keep current article unread" : "Lülita 'hoia olemasolev artikkel lugemata'",

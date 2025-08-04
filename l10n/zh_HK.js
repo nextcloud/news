@@ -110,6 +110,7 @@ OC.L10N.register(
     "Play audio" : "播放音訊",
     "Download audio" : "下載音訊",
     "Download video" : "下載影片",
+    "Refresh list" : "刷新清單",
     "Open website" : "開啟網站",
     "Keep article unread" : "維持未讀狀態",
     "Toggle keep current article unread" : "切換維持目前文章未讀",
