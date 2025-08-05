@@ -110,6 +110,7 @@ OC.L10N.register(
     "Play audio" : "Seinn fuaime",
     "Download audio" : "Íoslódáil an fhuaim",
     "Download video" : "Íoslódáil físeán",
+    "Refresh list" : "Athnuachan an liosta",
     "Open website" : "Oscail láithreán gréasáin",
     "Keep article unread" : "Coinnigh an t-alt gan léamh",
     "Toggle keep current article unread" : "Scoránaigh coinnigh an t-alt reatha gan léamh",
