@@ -110,6 +110,7 @@ OC.L10N.register(
     "Play audio" : "Reproduzir áudio",
     "Download audio" : "Baixar áudio",
     "Download video" : "Baixar vídeo",
+    "Refresh list" : "Atualizar lista",
     "Open website" : "Abrir website",
     "Keep article unread" : "Manter artigo não lido",
     "Toggle keep current article unread" : "Alternar manter o presente artigo não lido",
