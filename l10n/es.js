@@ -98,6 +98,7 @@ OC.L10N.register(
     "Enable full text" : "Habilitar texto completo",
     "Disable full text" : "Deshabilitar texto completo",
     "Mark as unread on update" : "Marcar como no leído al actualizar",
+    "Keep read status on update" : "Mantener el estado de lectura al actualizar",
     "Share within Instance" : "Compartir en la instancia",
     "Toggle star article" : "Marcar como favorito",
     "Mark unread" : "Marcar como no leído",
