@@ -25,6 +25,7 @@ OC.L10N.register(
     "Newest first" : "Mpya kwanza",
     "Oldest first" : "Ya zamani kwanza",
     "Not available" : "Haipatikani",
+    "Please wait" : "Tafadhali subiri",
     "Title" : "Kichwa cha habari",
     "Keyboard shortcut" : "Mikato ya kibodi",
     "Action" : "Vitendo",
