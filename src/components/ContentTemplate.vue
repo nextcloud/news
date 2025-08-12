@@ -42,7 +42,7 @@
 					v-else
 					style="margin-top: 20vh"
 					:name="t('news', 'No article selected')"
-					:description="t('news', 'Please select an article from the list...')">
+					:description="t('news', 'Please select an article from the list.')">
 					<template #icon>
 						<TextIcon />
 					</template>
