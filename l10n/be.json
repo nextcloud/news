@@ -1,12 +1,16 @@
 { "translations": {
+    "News" : "Навіны",
     "Download" : "Спампаваць",
     "Close" : "Закрыць",
+    "Internal server error!" : "Унутраная памылка сервера!",
+    "Unknown error!" : "Невядомая памылка!",
     "Folder name" : "Назва папкі",
     "Username" : "Імя карыстальніка",
     "Password" : "Пароль",
     "New folder" : "Новая папка",
     "Credentials" : "Уліковыя даныя",
     "Move" : "Перамясціць",
+    "User Name" : "Імя карыстальніка",
     "Share" : "Абагуліць",
     "Settings" : "Налады",
     "Keyboard shortcuts" : "Спалучэнні клавіш",
@@ -14,7 +18,15 @@
     "Delete" : "Выдаліць",
     "Newest first" : "Спачатку новыя",
     "Oldest first" : "Спачатку старыя",
+    "Previous Item" : "Папярэдні элемент",
+    "Next Item" : "Наступны элемент",
+    "Play audio" : "Прайграць аўдыя",
+    "Download audio" : "Спампаваць аўдыя",
+    "Download video" : "Спампаваць відэа",
+    "Refresh list" : "Абнавіць спіс",
     "Title" : "Загаловак",
-    "Keyboard shortcut" : "Спалучэнне клавіш"
+    "Keyboard shortcut" : "Спалучэнне клавіш",
+    "Action" : "Дзеянне",
+    "Refresh" : "Абнавіць"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }
