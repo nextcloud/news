@@ -55,7 +55,7 @@ export const actions = {
 
 		commit(FEED_MUTATION_TYPES.SET_FEEDS, response.data.feeds)
 		commit(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, (response.data.feeds.reduce((total: number, feed: Feed) => {
-			return total + feed.unreadCount
+			return total + Number(feed.unreadCount || 0)
 		}, 0)))
 
 		if (response?.data.starred) {
@@ -236,6 +236,11 @@ export const mutations = {
 			if (typeof it?.ordering === 'number') {
 				state.ordering['feed-' + it.id] = it.ordering
 			}
+
+			if (typeof it.unreadCount !== 'number') {
+				it.unreadCount = Number(it.unreadCount || 0)
+			}
+
 			return it
 		})
 	},
