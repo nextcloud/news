@@ -47,6 +47,7 @@ OC.L10N.register(
     "Article list" : "Zoznam článkov",
     "Article details" : "Detail článku",
     "No article selected" : "Žiadny článok nebol vybraný.",
+    "Please select an article from the list." : "Vyberte prosím článok zo zoznamu.",
     "Show all articles" : "Zobraziť všetky články",
     "Move" : "Presunúť",
     "User Name" : "Úžívateľské meno",

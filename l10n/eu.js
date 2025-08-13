@@ -42,6 +42,7 @@ OC.L10N.register(
     "Article list" : "Artikuluen zerrenda",
     "Article details" : "Artikuluaren xehetasunak",
     "No article selected" : "Ez da artikulurik hautatu",
+    "Please select an article from the list." : "Mesedez, hautatu zerrendako artikulu bat.",
     "Show all articles" : "Erakutsi artikulu guztiak",
     "Move" : "Mugitu",
     "User Name" : "Erabiltzaile izena",

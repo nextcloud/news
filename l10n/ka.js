@@ -40,6 +40,7 @@ OC.L10N.register(
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.",
     "Interval in seconds in which the feeds will be updated." : "Interval in seconds in which the feeds will be updated.",
     "No article selected" : "No article selected",
+    "Please select an article from the list." : "Please select an article from the list.",
     "Show all articles" : "Show all articles",
     "Move" : "Move",
     "User Name" : "User Name",
