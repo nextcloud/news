@@ -37,6 +37,7 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Tiempo máximo en segundos para esperar a que cargue una fuente RSS o Atom; si tarda más, se abortará la actualización.",
     "Interval in seconds in which the feeds will be updated." : "Intervalo en segundos en el que se actualizarán las fuentes.",
     "No article selected" : "Ningún artículo seleccionado",
+    "Please select an article from the list." : "Por favor, seleccione un artículo de la lista.",
     "Show all articles" : "Mostrar todos los artículos",
     "Move" : "Mover",
     "User Name" : "Nombre de usuario",

@@ -50,6 +50,7 @@ OC.L10N.register(
     "Article list" : "Yazı listesi",
     "Article details" : "Yazı ayrıntıları",
     "No article selected" : "Herhangi bir yazı seçilmemiş",
+    "Please select an article from the list." : "Lütfen listeden bir yazı seçin.",
     "Show all articles" : "Tüm yazıları görüntüle",
     "Move" : "Taşı",
     "User Name" : "Kullanıcı adı",

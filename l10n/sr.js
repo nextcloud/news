@@ -48,6 +48,7 @@ OC.L10N.register(
     "Article list" : "Листа чланака",
     "Article details" : "Детаљи чланка",
     "No article selected" : "Није изабран ниједан чланак",
+    "Please select an article from the list." : "Молимо вас да изаберете чланак из листе.",
     "Show all articles" : "Прикажи све чланке",
     "Move" : "Помери",
     "User Name" : "Име корисника",

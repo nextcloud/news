@@ -50,6 +50,7 @@ OC.L10N.register(
     "Article list" : "Lista de artigos",
     "Article details" : "Detalhes do artigo",
     "No article selected" : "Nenhum artigo selecionado",
+    "Please select an article from the list." : "Selecione um artigo da lista.",
     "Show all articles" : "Exibir todos os artigos",
     "Move" : "Mover",
     "User Name" : "Nome de usuário",
