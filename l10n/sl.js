@@ -40,7 +40,6 @@ OC.L10N.register(
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Čas, namenjen nalaganju virov RSS in Atom. Če traja dlje je nalaganje virov prekinjeno.",
     "Interval in seconds in which the feeds will be updated." : "Časovni zamik v sekundah za posodabljanje spletnih virov.",
     "No article selected" : "Ni izbranega prispevka",
-    "Please select an article from the list..." : "Izberite prispevek s seznama.",
     "Show all articles" : "Pokaži vse prispevke",
     "Move" : "Premakni",
     "User Name" : "Uporabniško ime",

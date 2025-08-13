@@ -50,7 +50,6 @@ OC.L10N.register(
     "Article list" : "Liosta alt",
     "Article details" : "Sonraí alt",
     "No article selected" : "Níor roghnaíodh aon alt",
-    "Please select an article from the list..." : "Roghnaigh alt ón liosta le do thoil...",
     "Show all articles" : "Taispeáin gach alt",
     "Move" : "Bog",
     "User Name" : "Ainm Úsáideora",

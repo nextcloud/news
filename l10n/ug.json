@@ -38,7 +38,6 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "RSS ياكى ئاتوم يەملىرىنىڭ يۈكلىنىشىنى ساقلاش ئۈچۈن ئەڭ كۆپ سېكۇنت. ئۇزۇنراق ۋاقىت كەتسە يېڭىلاش ئەمەلدىن قالدۇرۇلىدۇ.",
     "Interval in seconds in which the feeds will be updated." : "يەم-خەشەكلەر يېڭىلىنىدىغان سېكۇنتتا ئارىلىق.",
     "No article selected" : "ھېچقانداق ماقالە تاللانمىدى",
-    "Please select an article from the list..." : "تىزىملىكتىن ماقالە تاللاڭ ...",
     "Show all articles" : "بارلىق ماقالىلەرنى كۆرسەت",
     "Move" : "Move",
     "User Name" : "ئىشلەتكۈچى ئىسمى",

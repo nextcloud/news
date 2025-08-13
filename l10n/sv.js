@@ -49,7 +49,6 @@ OC.L10N.register(
     "Article list" : "Artikellista",
     "Article details" : "Artikeldetaljer",
     "No article selected" : "Ingen artikel har valts",
-    "Please select an article from the list..." : "Välj en artikel från listan...",
     "Show all articles" : "Visa alla artiklar",
     "Move" : "Flytta",
     "User Name" : "Användarnamn",

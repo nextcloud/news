@@ -47,7 +47,6 @@ OC.L10N.register(
     "Article list" : "Lista de artigos",
     "Article details" : "Detalles do artigo",
     "No article selected" : "Non seleccionou ningún artigo",
-    "Please select an article from the list..." : "Seleccione un artigo da lista…",
     "Show all articles" : "Amosar todos os artigos",
     "Move" : "Mover",
     "User Name" : "Nome de usuario",

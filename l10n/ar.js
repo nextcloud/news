@@ -47,7 +47,6 @@ OC.L10N.register(
     "Article list" : "قائمة المقالات",
     "Article details" : "تفاصيل المقالات",
     "No article selected" : "لم يتم تحديد أي مقالٍ",
-    "Please select an article from the list..." : "رجاءً، إختَر مقالاً من القائمة ...",
     "Show all articles" : "أظهر جميع المواضيع",
     "Move" : "نقل",
     "User Name" : "اسم المستخدِم",

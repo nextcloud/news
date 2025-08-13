@@ -40,7 +40,6 @@
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "RSS / Atom フィードの読み込み待機秒数の制限;設定時間より長くかかる場合はアップデートが中止されます。",
     "Interval in seconds in which the feeds will be updated." : "フィードを更新するまでの間隔を秒数で指定してください。",
     "No article selected" : "記事が選択されていません",
-    "Please select an article from the list..." : "リストから記事を選択してください...",
     "Show all articles" : "すべての記事を表示",
     "Move" : "移動",
     "User Name" : "ユーザーネーム",

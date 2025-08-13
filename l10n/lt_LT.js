@@ -35,7 +35,6 @@ OC.L10N.register(
     "How many redirects the feed fetcher should follow." : "Kiek kartų kanalų gaviklis turėtų sekti paskui peradresavimus.",
     "Article list" : "Straipsnių sąrašas",
     "Article details" : "Išsamiau apie straipsnį",
-    "Please select an article from the list..." : "Pasirinkite straipsnį iš sąrašo...",
     "Show all articles" : "Rodyti visus straipsnius",
     "Move" : "Perkelti",
     "User Name" : "Naudotojo vardas",
