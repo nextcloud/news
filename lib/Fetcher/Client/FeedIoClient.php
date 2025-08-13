@@ -13,7 +13,7 @@ namespace OCA\News\Fetcher\Client;
 use DateTime;
 use FeedIo\Adapter\ClientInterface;
 use FeedIo\Adapter\ResponseInterface;
-use FeedIo\Adapter\Guzzle\Response;
+use FeedIo\Adapter\Http\Response;
 use FeedIo\Adapter\HttpRequestException;
 use FeedIo\Adapter\NotFoundException;
 use FeedIo\Adapter\ServerErrorException;
