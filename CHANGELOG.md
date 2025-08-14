@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
+- If feed has no favicon and no logo News will check the linked website of the feed (#3271)
 
 ### Fixed
 - Unread counter displays a huge number of unread posts
