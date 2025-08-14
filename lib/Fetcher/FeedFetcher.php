@@ -416,14 +416,6 @@ class FeedFetcher implements IFeedFetcher
      */
     protected function getFavicon(FeedInterface $feed, string $url): ?string
     {
-        $favicon = null;
-        // trim the string because authors do funny things
-        $feed_logo = $feed->getLogo();
-
-        if (!is_null($feed_logo)) {
-            $favicon = trim($feed_logo);
-        }
-
         ini_set('user_agent', $this->fetcherConfig->getUserAgent());
 
         $base_url = new Uri($url);
@@ -434,16 +426,81 @@ class FeedFetcher implements IFeedFetcher
             return null;
         }
 
-        // check if feed has a logo entry
-        if ($favicon === null || $favicon === '') {
-            $return = $this->faviconFactory->get($base_url);
-            return is_string($return) ? $return : null;
+        // Step 1: Check if feed has a logo entry and try to use it
+        $feed_logo = $feed->getLogo();
+        if (!is_null($feed_logo)) {
+            $favicon = trim($feed_logo);
+            if ($favicon !== '') {
+                $logo_result = $this->tryDownloadFavicon($favicon, $base_url, $url);
+                if ($logo_result !== null) {
+                    return $logo_result;
+                }
+            }
         }
 
+        // Step 2: Try to get favicon from the feed URL
+        $feed_favicon = $this->faviconFactory->get($base_url);
+        if (is_string($feed_favicon) && $feed_favicon !== '') {
+            $this->logger->debug(
+                "Found favicon from feed URL: {favicon} for feed: {feed}",
+                [
+                'favicon' => $feed_favicon,
+                'feed' => $url
+                ]
+            );
+            return $feed_favicon;
+        }
+
+        // Step 3: Try to get favicon from the feed's link element (website URL)
+        $feed_link = $feed->getLink();
+        if (!is_null($feed_link) && trim($feed_link) !== '') {
+            try {
+                $link_uri = new Uri($feed_link);
+                $link_base_url = (string) $link_uri->withPath('/');
+                
+                if ($link_base_url !== $base_url) { // Only try if it's different from feed URL
+                    $link_favicon = $this->faviconFactory->get($link_base_url);
+                    if (is_string($link_favicon) && $link_favicon !== '') {
+                        $this->logger->debug(
+                            "Found favicon from feed link: {favicon} for feed: {feed}",
+                            [
+                            'favicon' => $link_favicon,
+                            'feed' => $url
+                            ]
+                        );
+                        return $link_favicon;
+                    }
+                }
+            } catch (\Exception $e) {
+                $this->logger->debug(
+                    'Could not parse feed link URL {link} for feed {feed}: {error}',
+                    [
+                    'link' => $feed_link,
+                    'feed' => $url,
+                    'error' => $e->getMessage()
+                    ]
+                );
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Try to download and validate a favicon from a given URL
+     *
+     * @param string $favicon_url The favicon URL to download
+     * @param string $base_url    The base URL for relative URLs
+     * @param string $feed_url    The original feed URL for logging
+     *
+     * @return string|null The favicon URL if valid, null otherwise
+     */
+    private function tryDownloadFavicon(string $favicon_url, string $base_url, string $feed_url): ?string
+    {
         $logo_cache = $this->cache->getCache("feedLogo");
 
         // file name of the logo is md5 of the url
-        $favicon_path = join(DIRECTORY_SEPARATOR, [$logo_cache, md5($favicon)]);
+        $favicon_path = join(DIRECTORY_SEPARATOR, [$logo_cache, md5($favicon_url)]);
         $downloaded = false;
 
         if (file_exists($favicon_path)) {
@@ -457,7 +514,7 @@ class FeedFetcher implements IFeedFetcher
             $client = new Client(['base_uri' => $base_url]);
             $response = $client->request(
                 'GET',
-                $favicon,
+                $favicon_url,
                 [
                     'sink' => $favicon_path,
                     'headers' => [
@@ -474,21 +531,27 @@ class FeedFetcher implements IFeedFetcher
                 "Feed:{feed} Logo:{logo} Status:{status}",
                 [
                 'status' => $response->getStatusCode(),
-                'feed'   => $url,
-                'logo'   => $favicon
+                'feed'   => $feed_url,
+                'logo'   => $favicon_url
                 ]
             );
         } catch (RequestException | ConnectException $e) {
             $this->logger->info(
                 'An error occurred while trying to download the feed logo of {url}: {error}',
                 [
-                'url'   => $url,
+                'url'   => $feed_url,
                 'error' => $e->getMessage() ?? 'Unknown'
                 ]
             );
+            return null;
         }
 
-        $is_image = $downloaded && substr(mime_content_type($favicon_path), 0, 5) === "image";
+        if (!$downloaded || !file_exists($favicon_path)) {
+            return null;
+        }
+
+        $mime_type = mime_content_type($favicon_path);
+        $is_image = $mime_type !== false && substr($mime_type, 0, 5) === "image";
 
         // check if file is actually an image
         if (!$is_image) {
@@ -496,29 +559,38 @@ class FeedFetcher implements IFeedFetcher
                 "Downloaded file:{file} from {url} is not an image",
                 [
                 'file' => $favicon_path,
-                'url'   => $favicon
+                'url'   => $favicon_url
                 ]
             );
-
-            $return = $this->faviconFactory->get($base_url);
-            return is_string($return) ? $return : null;
+            return null;
         }
 
-        list($width, $height, $type, $attr) = getimagesize($favicon_path);
-        // check if image is square else fall back to favicon
+        $image_info = getimagesize($favicon_path);
+        if ($image_info === false) {
+            $this->logger->debug(
+                "Could not get image size for file:{file} from {url}",
+                [
+                'file' => $favicon_path,
+                'url'   => $favicon_url
+                ]
+            );
+            return null;
+        }
+
+        list($width, $height, $type, $attr) = $image_info;
+        // check if image is square else reject it
         if ($width !== $height) {
             $this->logger->debug(
                 "Downloaded file:{file} from {url} is not square",
                 [
                 'file' => $favicon_path,
-                'url'   => $favicon
+                'url'   => $favicon_url
                 ]
             );
-            $return = $this->faviconFactory->get($base_url);
-            return is_string($return) ? $return : null;
+            return null;
         }
 
-        return is_string($favicon) ? $favicon : null;
+        return $favicon_url;
     }
 
     /**
