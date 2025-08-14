@@ -50,6 +50,7 @@ OC.L10N.register(
     "Article list" : "Список статей",
     "Article details" : "Деталі статті",
     "No article selected" : "Не вибрано жодної статті",
+    "Please select an article from the list." : "Будь ласка, виберіть статтю зі списку.",
     "Show all articles" : "Показати всі статті",
     "Move" : "Перемістити",
     "User Name" : "Ім'я користувача",
