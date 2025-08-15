@@ -36,7 +36,6 @@ OC.L10N.register(
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Numero massimo di secondi di attesa per il caricamento di una fonte RSS o Atom; se richiede troppo tempo l'aggiornamento sarà interrotto.",
     "Interval in seconds in which the feeds will be updated." : "Intervallo in secondi nel quale le fonti saranno aggiornate.",
     "No article selected" : "Nessun articolo selezionato",
-    "Please select an article from the list." : "Seleziona un articolo dalla lista.",
     "Show all articles" : "Mostra tutti gli articoli",
     "Move" : "Sposta",
     "User Name" : "Nome utente",

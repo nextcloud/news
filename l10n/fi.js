@@ -34,7 +34,6 @@ OC.L10N.register(
     "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted." : "Maksimiaika sekunteina, jonka aikana RSS- tai Atom-syöte odotetaan ladattavaksi. Jos lataus kestää pidempään, se perutaan.",
     "Interval in seconds in which the feeds will be updated." : "Syötteiden päivitysväli sekunteina.",
     "No article selected" : "Artikkelia ei ole valittu",
-    "Please select an article from the list." : "Valitse artikkeli listalta.",
     "Show all articles" : "Näytä kaikki artikkelit",
     "Move" : "Siirrä",
     "User Name" : "Käyttäjänimi",

@@ -50,7 +50,6 @@ OC.L10N.register(
     "Article list" : "Artiklite loend",
     "Article details" : "Artikli üksikasjad",
     "No article selected" : "Ükski artikkel pole valitud",
-    "Please select an article from the list." : "Palun vali loendist artikkel.",
     "Show all articles" : "Näita kõiki artikleid",
     "Move" : "Teisalda",
     "User Name" : "Kasutajanimi",

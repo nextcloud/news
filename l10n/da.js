@@ -45,7 +45,6 @@ OC.L10N.register(
     "Use next update time for feed updates" : "Brug næste opdateringstidspunkt til feedopdateringer",
     "Enable this to use the calculated next update time for feed updates. Disable to update feeds based solely on the update interval." : "Aktiver dette for at bruge det beregnede næste opdateringstidspunkt til feedopdateringer. Deaktiver for at opdatere feeds udelukkende baseret på opdateringsintervallet.",
     "No article selected" : "Der er ikke valgt nogen artikel",
-    "Please select an article from the list." : "Vælg venligst en artikel fra listen.",
     "Show all articles" : "Vis alle artikler",
     "Move" : "Flyt",
     "User Name" : "Brugernavn",
