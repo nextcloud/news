@@ -50,6 +50,7 @@ OC.L10N.register(
     "Article list" : "文章列表",
     "Article details" : "文章详情",
     "No article selected" : "未选择文章",
+    "Please select an article from the list." : "请从列表中选择文章。",
     "Show all articles" : "显示全部文章",
     "Move" : "移动",
     "User Name" : "用户名称",
