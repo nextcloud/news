@@ -1,3 +1,4 @@
+import { formatRelativeTime } from '@nextcloud/l10n'
 import moment from '@nextcloud/moment'
 
 /**
@@ -7,7 +8,7 @@ import moment from '@nextcloud/moment'
  * @return locale formatted date string
  */
 export function formatDate(epoch: number) {
-	return moment.unix(epoch).format('l, LTS') // e.g. "04/20/2025 18:12:21"
+	return moment.unix(epoch).format('L, LTS') // e.g. "04/20/2025 18:12:21"
 }
 
 /**
@@ -17,7 +18,7 @@ export function formatDate(epoch: number) {
  * @return locale relative date string
  */
 export function formatDateRelative(epoch: number) {
-	return moment.unix(epoch).fromNow() // e.g. "one hour ago"
+	return epoch ? formatRelativeTime(epoch * 1000) : '' // e.g. "one hour ago"
 }
 
 /**

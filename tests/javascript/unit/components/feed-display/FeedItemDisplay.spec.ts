@@ -58,7 +58,14 @@ describe('FeedItemDisplay.vue', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
 		const formattedDate = (wrapper.vm as any).formatDate(epoch / 1000)
 
-		expect(formattedDate).toEqual(new Date(epoch).toLocaleString())
+		expect(formattedDate).toEqual(new Date(epoch).toLocaleString(undefined, {
+			year: "numeric",
+			month: "2-digit",
+			day: "2-digit",
+			hour: "2-digit",
+			minute: "2-digit",
+			second: "2-digit",
+		}))
 	})
 
 	it('should retrieve feed by ID', () => {
