@@ -123,10 +123,10 @@
 							{{ feed.title }}
 						</td>
 						<td class="date">
-							{{ formatDate(feed.lastModified / 1000) }}
+							{{ formatDate(feed.lastModified / 1000000) }}
 						</td>
 						<td class="date">
-							{{ formatDate(feed.nextUpdateTime * 1000) }}
+							{{ feed.nextUpdateTime ? formatDate(feed.nextUpdateTime) : t('news', 'Not available') }}
 						</td>
 						<td class="number">
 							{{ feed.articlesPerUpdate }}
@@ -147,6 +147,7 @@ import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
+import { formatDate } from '../../utils/dateUtils.ts'
 
 export default {
 	name: 'FeedInfoTable',
@@ -195,20 +196,7 @@ export default {
 	},
 
 	methods: {
-		formatDate(timestamp) {
-			if (!timestamp) {
-				return t('news', 'Not available')
-			}
-			return new Date(timestamp).toLocaleDateString(undefined, {
-				day: '2-digit',
-				month: '2-digit',
-				year: 'numeric',
-				hour: '2-digit',
-				minute: '2-digit',
-				second: '2-digit',
-			})
-		},
-
+		formatDate,
 		sortBy(key) {
 			if (this.sortKey === key) {
 				this.sortOrder *= -1
