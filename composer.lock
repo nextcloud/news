@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bb7053248c97ec91f26d175325fb8263",
+    "content-hash": "6f8a03cbff4f5e32c465f7aae80f9aee",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -627,16 +627,16 @@
         },
         {
             "name": "php-feed-io/feed-io",
-            "version": "v6.1.0",
+            "version": "v6.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-feed-io/feed-io.git",
-                "reference": "210e107239801e4938559de1444fa50eabccae0d"
+                "reference": "b810297aa631aed9a3df9df82c56e245233fd05b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/210e107239801e4938559de1444fa50eabccae0d",
-                "reference": "210e107239801e4938559de1444fa50eabccae0d",
+                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/b810297aa631aed9a3df9df82c56e245233fd05b",
+                "reference": "b810297aa631aed9a3df9df82c56e245233fd05b",
                 "shasum": ""
             },
             "require": {
@@ -698,7 +698,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-feed-io/feed-io/issues",
-                "source": "https://github.com/php-feed-io/feed-io/tree/v6.1.0"
+                "source": "https://github.com/php-feed-io/feed-io/tree/v6.1.1"
             },
             "funding": [
                 {
@@ -706,7 +706,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-13T10:46:36+00:00"
+            "time": "2025-08-16T08:31:13+00:00"
         },
         {
             "name": "php-http/discovery",

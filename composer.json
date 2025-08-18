@@ -44,7 +44,7 @@
     "php": "^8.2",
     "ezyang/htmlpurifier": "4.18.0",
     "riimu/kit-pathjoin": "^1.2.0",
-    "php-feed-io/feed-io": "^v6.1.0",
+    "php-feed-io/feed-io": "^v6.1.1",
     "arthurhoaro/favicon": "^2.0.1",
     "fivefilters/readability.php": "^3.3",
     "ext-json": "*",
