@@ -16,8 +16,8 @@ OC.L10N.register(
     "Documentation" : "Hujjatlar",
     "Rename" : "Nomini o'zgartirish",
     "Delete" : "O'chirish",
-    "Not available" : "Mavjud emas",
     "Title" : "Sarlavha",
+    "Not available" : "Mavjud emas",
     "right" : "right",
     "left" : "left",
     "Refresh" : "Refresh"
