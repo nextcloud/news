@@ -26,6 +26,8 @@ OC.L10N.register(
     "Download audio" : "Спампаваць аўдыя",
     "Download video" : "Спампаваць відэа",
     "Refresh list" : "Абнавіць спіс",
+    "Open website" : "Адкрыць вэб-сайт",
+    "Please wait" : "Пачакайце",
     "Title" : "Загаловак",
     "Keyboard shortcut" : "Спалучэнне клавіш",
     "Action" : "Дзеянне",
