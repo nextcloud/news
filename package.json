@@ -54,7 +54,7 @@
     "@nextcloud/vue": "^9.0.0-rc.5",
     "@vueuse/core": "^13.7.0",
     "lodash": "^4.17.21",
-    "vue": "^3.5.17",
+    "vue": "^3.5.19",
     "vue-material-design-icons": "^5.3.1",
     "vue-router": "^4.5.1",
     "vuex": "^4.1.0"
