@@ -77,7 +77,13 @@ class Application extends App implements IBootstrap
 
     public function register(IRegistrationContext $context): void
     {
-        @include_once __DIR__ . '/../../vendor/autoload.php';
+        $vendorAutoload = __DIR__ . '/../../vendor/autoload.php';
+        if (file_exists($vendorAutoload)) {
+            require_once $vendorAutoload;
+        } else {
+            // Dependencies not installed - this will cause issues later but we can't prevent app loading here
+            // The error will be thrown when services are actually requested
+        }
 
         $context->registerService(Fetcher::class, function (ContainerInterface $container): Fetcher {
             $fetcher = new Fetcher();
@@ -102,6 +108,11 @@ class Application extends App implements IBootstrap
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
 
         $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
+            if (!class_exists('HTMLPurifier')) {
+                throw new \Exception(
+                    'News app dependencies are not installed. Please run "make" or "composer install --no-dev" in the news app directory to install required dependencies.'
+                );
+            }
             $config = HTMLPurifier_Config::createDefault();
             $config->set('HTML.ForbiddenAttributes', 'class');
             $config->set('Cache.SerializerPath', $c->get(Cache::class)->getCache("purifier"));
@@ -133,11 +144,21 @@ class Application extends App implements IBootstrap
         });
 
         $context->registerService(FeedIo::class, function (ContainerInterface $c): FeedIo {
+            if (!class_exists('FeedIo\\FeedIo')) {
+                throw new \Exception(
+                    'News app dependencies are not installed. Please run "make" or "composer install --no-dev" in the news app directory to install required dependencies.'
+                );
+            }
             $config = $c->get(FetcherConfig::class);
             return new FeedIo($config->getClient(), $c->get(LoggerInterface::class));
         });
 
         $context->registerService(Explorer::class, function (ContainerInterface $c): Explorer {
+            if (!class_exists('FeedIo\\Explorer')) {
+                throw new \Exception(
+                    'News app dependencies are not installed. Please run "make" or "composer install --no-dev" in the news app directory to install required dependencies.'
+                );
+            }
             $config = $c->get(FetcherConfig::class);
             return new Explorer($config->getClient(), $c->get(LoggerInterface::class));
         });
@@ -148,6 +169,11 @@ class Application extends App implements IBootstrap
         });
 
         $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {
+            if (!class_exists('Favicon\\Favicon')) {
+                throw new \Exception(
+                    'News app dependencies are not installed. Please run "make" or "composer install --no-dev" in the news app directory to install required dependencies.'
+                );
+            }
             $favicon = new Favicon();
             $favicon->cache(['dir' => $c->get(Cache::class)->getCache("feedFavicon")]);
             $favicon->setDataAccess($c->get(FaviconDataAccess::class));
