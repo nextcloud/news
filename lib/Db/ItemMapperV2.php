@@ -467,6 +467,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('items.feed_id = :feedId')
             ->setParameter('userId', $userId)
             ->setParameter('feedId', $feedId)
+            ->addOrderBy('items.pub_date', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
         $builder = $this->addSearch($builder, $search);
@@ -476,8 +477,22 @@ class ItemMapperV2 extends NewsMapperV2
         }
 
         if ($offset !== 0) {
-            $builder->andWhere($this->offsetWhere($oldestFirst))
-                    ->setParameter('offset', $offset);
+            try {
+                /** @var Item $offsetItem */
+                $offsetItem = $this->findFromUser($userId, $offset);
+                $offsetPubDate = $offsetItem->getPubDate();
+
+                $operator = $oldestFirst ? '>' : '<';
+                $whereClause = "(items.pub_date $operator :offsetPubDate) OR " .
+                    "(items.pub_date = :offsetPubDate AND items.id $operator :offsetId)";
+
+                $builder->andWhere($whereClause)
+                    ->setParameter('offsetPubDate', $offsetPubDate)
+                    ->setParameter('offsetId', $offset);
+            } catch (DoesNotExistException $e) {
+                // item not found, return empty result
+                $builder->andWhere('1 = 0');
+            }
         }
 
         if ($hideRead === true) {
@@ -523,6 +538,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('feeds.deleted_at = 0')
             ->andWhere($folderWhere)
             ->setParameter('userId', $userId)
+            ->addOrderBy('items.pub_date', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
         $builder = $this->addSearch($builder, $search);
@@ -532,8 +548,22 @@ class ItemMapperV2 extends NewsMapperV2
         }
 
         if ($offset !== 0) {
-            $builder->andWhere($this->offsetWhere($oldestFirst))
-                    ->setParameter('offset', $offset);
+            try {
+                /** @var Item $offsetItem */
+                $offsetItem = $this->findFromUser($userId, $offset);
+                $offsetPubDate = $offsetItem->getPubDate();
+
+                $operator = $oldestFirst ? '>' : '<';
+                $whereClause = "(items.pub_date $operator :offsetPubDate) OR " .
+                    "(items.pub_date = :offsetPubDate AND items.id $operator :offsetId)";
+
+                $builder->andWhere($whereClause)
+                    ->setParameter('offsetPubDate', $offsetPubDate)
+                    ->setParameter('offsetId', $offset);
+            } catch (DoesNotExistException $e) {
+                // item not found, return empty result
+                $builder->andWhere('1 = 0');
+            }
         }
 
         if ($hideRead === true) {
@@ -571,6 +601,7 @@ class ItemMapperV2 extends NewsMapperV2
             ->andWhere('feeds.user_id = :userId')
             ->andWhere('feeds.deleted_at = 0')
             ->setParameter('userId', $userId)
+            ->addOrderBy('items.pub_date', ($oldestFirst ? 'ASC' : 'DESC'))
             ->addOrderBy('items.id', ($oldestFirst ? 'ASC' : 'DESC'));
 
         if ($limit >= 1) {
@@ -578,8 +609,22 @@ class ItemMapperV2 extends NewsMapperV2
         }
 
         if ($offset !== 0) {
-            $builder->andWhere($this->offsetWhere($oldestFirst))
-                    ->setParameter('offset', $offset);
+            try {
+                /** @var Item $offsetItem */
+                $offsetItem = $this->findFromUser($userId, $offset);
+                $offsetPubDate = $offsetItem->getPubDate();
+
+                $operator = $oldestFirst ? '>' : '<';
+                $whereClause = "(items.pub_date $operator :offsetPubDate) OR " .
+                    "(items.pub_date = :offsetPubDate AND items.id $operator :offsetId)";
+
+                $builder->andWhere($whereClause)
+                    ->setParameter('offsetPubDate', $offsetPubDate)
+                    ->setParameter('offsetId', $offset);
+            } catch (DoesNotExistException $e) {
+                // item not found, return empty result
+                $builder->andWhere('1 = 0');
+            }
         }
 
         $builder = $this->addSearch($builder, $search);
@@ -625,19 +670,4 @@ class ItemMapperV2 extends NewsMapperV2
         return $builder;
     }
 
-    /**
-     * Generate an expression for the offset.
-     *
-     * @param bool $oldestFirst Sorting direction
-     *
-     * @return string
-     */
-    private function offsetWhere(bool $oldestFirst): string
-    {
-        if ($oldestFirst === true) {
-            return 'items.id > :offset';
-        }
-
-        return 'items.id < :offset';
-    }
 }

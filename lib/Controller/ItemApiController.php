@@ -65,8 +65,10 @@ class ItemApiController extends ApiController
         bool $getRead = true,
         int $batchSize = -1,
         int $offset = 0,
-        bool $oldestFirst = false
+        $oldestFirst = false
     ): array {
+        $oldestFirst = filter_var($oldestFirst, FILTER_VALIDATE_BOOLEAN);
+
         switch ($type) {
             case ListType::FEED:
                 $items = $this->itemService->findAllInFeedWithFilters(
