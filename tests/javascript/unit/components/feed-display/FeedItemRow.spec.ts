@@ -57,11 +57,11 @@ describe('FeedItemRow.vue', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
 		const formattedDate = (wrapper.vm as any).formatDate(epoch / 1000)
 
-		expect(formattedDate).toEqual(new Date(epoch).toLocaleString(undefined, {
+		expect(formattedDate).toEqual(new Date(epoch).toLocaleString(OC.getLanguage(), {
 			year: "numeric",
 			month: "2-digit",
 			day: "2-digit",
-			hour: "2-digit",
+			hour: "numeric",
 			minute: "2-digit",
 			second: "2-digit",
 		}))
