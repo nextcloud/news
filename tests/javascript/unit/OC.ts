@@ -13,11 +13,11 @@ export class OC {
 	}
 
 	getLanguage() {
-		return 'en-GB'
+		return 'en-US'
 	}
 
 	getLocale() {
-		return 'en_GB'
+		return 'en_US'
 	}
 
 	isUserAdmin() {
