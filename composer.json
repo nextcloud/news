@@ -52,7 +52,7 @@
     "ext-libxml": "*",
     "ext-dom": "*",
     "ext-curl": "*",
-    "guzzlehttp/psr7": "^2.7",
+    "guzzlehttp/psr7": "^2.8",
     "php-http/guzzle7-adapter": "^1.0"
   },
   "require-dev": {
