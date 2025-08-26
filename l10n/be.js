@@ -15,6 +15,7 @@ OC.L10N.register(
     "User Name" : "Імя карыстальніка",
     "Share" : "Абагуліць",
     "Settings" : "Налады",
+    "Documentation" : "Дакументацыя",
     "Keyboard shortcuts" : "Спалучэнні клавіш",
     "Rename" : "Перайменаваць",
     "Delete" : "Выдаліць",
