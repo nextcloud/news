@@ -9,8 +9,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Handling HTML entities via mbstring is deprecated (#3269)
 - Unread counter displays a huge number of unread posts
 - Nextcloud language setting is not respected for numbers and dates
+
 
 # Releases
 ## [26.1.0] - 2025-08-02
