@@ -14,6 +14,7 @@ OC.L10N.register(
     "Move" : "Перамясціць",
     "User Name" : "Імя карыстальніка",
     "Share" : "Абагуліць",
+    "Rename Folder" : "Перайменаваць папку",
     "Settings" : "Налады",
     "Documentation" : "Дакументацыя",
     "Keyboard shortcuts" : "Спалучэнні клавіш",
@@ -32,6 +33,8 @@ OC.L10N.register(
     "Title" : "Загаловак",
     "Keyboard shortcut" : "Спалучэнне клавіш",
     "Action" : "Дзеянне",
+    "Jump to next article" : "Перайсці да наступнага артыкула",
+    "Jump to previous article" : "Перайсці да папярэдняга артыкула",
     "Refresh" : "Абнавіць"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

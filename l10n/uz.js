@@ -11,6 +11,7 @@ OC.L10N.register(
     "Subscribe" : "Obuna boʻlish",
     "Move" : "Move",
     "Share" : "Ulashish",
+    "Default" : "Standart",
     "Off" : "Oʻchirilgan",
     "Settings" : "Sozlamalar",
     "Documentation" : "Hujjatlar",

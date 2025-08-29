@@ -47,6 +47,7 @@ OC.L10N.register(
     "Open article in new tab" : "Atvērt rakstu jaunā cilnē",
     "Refresh" : "Atsvaidzināt",
     "Load previous folder" : "Ielādēt iepriekšējo mapi",
-    "Load next folder" : "Ielādēt nākamo mapi"
+    "Load next folder" : "Ielādēt nākamo mapi",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Noteikts AJAX vai tīmekļa cron. Tavas barotnes netiks atjauninātas."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
