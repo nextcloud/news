@@ -5,16 +5,23 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
 
 # Unreleased
-## [26.x.x]
+## [27.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [27.0.0-beta.1] - 2025-08-31
+### Changed
+- Drop Support for Nextcloud 30 (#3294)
+- Add Support for Nextcloud 32 (#3294)
 - If feed has no favicon and no logo News will check the linked website of the feed (#3271)
 
 ### Fixed
-- Unread counter displays a huge number of unread posts
-- Nextcloud language setting is not respected for numbers and dates
+- Unread counter displays a huge number of unread posts (#3267)
+- Nextcloud language setting is not respected for numbers and dates (#3278)
 - Handling HTML entities via mbstring is deprecated (#3269)
 
-# Releases
 ## [26.1.0] - 2025-08-02
 ### Changed
 - add refresh button to list header (#3259)
