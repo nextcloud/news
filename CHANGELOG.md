@@ -7,14 +7,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [26.x.x]
 ### Changed
+
+### Fixed
+
+# Releases
+## [26.2.0-beta.1] - 2025-08-31
+### Changed
 - If feed has no favicon and no logo News will check the linked website of the feed (#3271)
 
 ### Fixed
-- Unread counter displays a huge number of unread posts
-- Nextcloud language setting is not respected for numbers and dates
+- Unread counter displays a huge number of unread posts (#3267)
+- Nextcloud language setting is not respected for numbers and dates (#3278)
 - Handling HTML entities via mbstring is deprecated (#3269)
 
-# Releases
 ## [26.1.0] - 2025-08-02
 ### Changed
 - add refresh button to list header (#3259)
