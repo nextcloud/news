@@ -52,7 +52,7 @@
     "@nextcloud/password-confirmation": "^6.0.0-rc.0",
     "@nextcloud/router": "^3.0.1",
     "@nextcloud/vue": "^9.0.0-rc.8",
-    "@vueuse/core": "^13.8.0",
+    "@vueuse/core": "^13.9.0",
     "lodash": "^4.17.21",
     "vue": "^3.5.20",
     "vue-material-design-icons": "^5.3.1",
