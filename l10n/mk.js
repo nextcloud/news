@@ -16,6 +16,8 @@ OC.L10N.register(
     "Move" : "Премести",
     "Share" : "Сподели",
     "Default" : "Предефиниран",
+    "Vertical" : "Вертикално",
+    "Horizontal" : "Хоризонтално",
     "Mark read" : "Означи како прочитано",
     "All articles" : "Сите статии",
     "Starred" : "Со ѕвезда",
