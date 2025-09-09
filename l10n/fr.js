@@ -30,7 +30,7 @@ OC.L10N.register(
     "Unable to update news config" : "Impossible de mettre à jour la configuration des actualités",
     "No job execution data available. The cron job may not be running properly." : "Aucune information disponible sur l'exécution de tâche. La tâche cron ne fonctionne peut-être pas correctement.",
     "Last job execution ran {relativeTime}. Something is wrong." : "Dernière tâche cron exécutée : {relativeTime}. Quelque chose s'est mal passé.",
-    "Last job ran {relativeTime}." : "Dernière tâche exécutée {relativeTime}.",
+    "Last job ran {relativeTime}." : "Dernière tâche exécutée en {relativeTime}.",
     "Maximum read count per feed" : "Nombre maximum de lecture par flux",
     "Maximum redirects" : "Nombre maximal de redirections",
     "Feed fetcher timeout" : "Délai d'attente maximum du récupérateur de flux",
