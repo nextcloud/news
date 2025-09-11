@@ -104,7 +104,7 @@ OC.L10N.register(
     "left" : "venstre",
     "Star article and jump to next one" : "Stjernemarker artikel og få til den næste",
     "Open article in new tab" : "Åbn artikel i en ny fane",
-    "Refresh" : "Opdater",
+    "Refresh" : "Opdatér",
     "Load next feed" : "Indlæs næste feed",
     "Load previous feed" : "Indlæs forrige feed",
     "Load previous folder" : "Indlæs forrige mappe",
