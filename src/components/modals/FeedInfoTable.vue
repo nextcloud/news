@@ -123,10 +123,10 @@
 							{{ feed.title }}
 						</td>
 						<td class="date">
-							{{ formatDate(feed.lastModified / 1000000) }}
+							{{ feed.preventUpdate ? t('news', 'Sync disabled') : formatDate(feed.lastModified / 1000000) }}
 						</td>
 						<td class="date">
-							{{ feed.nextUpdateTime ? formatDate(feed.nextUpdateTime) : t('news', 'Not available') }}
+							{{ feed.nextUpdateTime && !feed.preventUpdate ? formatDate(feed.nextUpdateTime) : t('news', 'Not available') }}
 						</td>
 						<td class="number">
 							{{ feed.articlesPerUpdate }}

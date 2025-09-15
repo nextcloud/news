@@ -102,6 +102,24 @@
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
+		<NcActionButton
+			v-if="feed.preventUpdate"
+			:close-after-click="true"
+			@click="setPreventUpdate(false)">
+			<template #icon>
+				<SyncOff />
+			</template>
+			{{ t("news", "Sync disabled") }}
+		</NcActionButton>
+		<NcActionButton
+			v-if="!feed.preventUpdate"
+			:close-after-click="true"
+			@click="setPreventUpdate(true)">
+			<template #icon>
+				<Sync />
+			</template>
+			{{ t("news", "Sync enabled") }}
+		</NcActionButton>
 		<NcAppNavigationItem
 			:name="t('news', 'Open Feed URL')"
 			:href="feed.location">
@@ -125,6 +143,8 @@ import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.v
 import PinIcon from 'vue-material-design-icons/Pin.vue'
 import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
+import Sync from 'vue-material-design-icons/Sync.vue'
+import SyncOff from 'vue-material-design-icons/SyncOff.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
 import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
@@ -144,6 +164,8 @@ export default defineComponent({
 		RssIcon,
 		PinIcon,
 		PinOffIcon,
+		Sync,
+		SyncOff,
 		TextShortIcon,
 		TextLongIcon,
 		ArrowRightIcon,
@@ -183,6 +205,10 @@ export default defineComponent({
 	methods: {
 		markRead() {
 			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
+		},
+
+		setPreventUpdate(preventUpdate: boolean) {
+			this.$store.dispatch(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: this.feed, preventUpdate })
 		},
 
 		setPinned(pinned: boolean) {

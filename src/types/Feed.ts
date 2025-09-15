@@ -9,6 +9,7 @@ export type Feed = {
 	faviconLink?: string
 	id?: number
 	pinned: boolean
+	preventUpdate: boolean
 	ordering: FEED_ORDER
 	fullTextEnabled: boolean
 	updateMode: FEED_UPDATE_MODE

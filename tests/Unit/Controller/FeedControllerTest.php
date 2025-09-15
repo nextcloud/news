@@ -668,6 +668,10 @@ class FeedControllerTest extends TestCase
              ->method('setTitle')
              ->with(true);
 
+        $feed->expects($this->never())
+             ->method('setPreventUpdate')
+             ->with(true);
+
         $this->feedService->expects($this->once())
             ->method('find')
             ->with($this->uid, 4)
@@ -710,6 +714,10 @@ class FeedControllerTest extends TestCase
 
         $feed->expects($this->never())
              ->method('setTitle')
+             ->with(true);
+
+        $feed->expects($this->never())
+             ->method('setPreventUpdate')
              ->with(true);
 
         $this->feedService->expects($this->once())
@@ -772,6 +780,10 @@ class FeedControllerTest extends TestCase
             ->method('setTitle')
             ->with('title');
 
+        $feed->expects($this->once())
+            ->method('setPreventUpdate')
+            ->with(1);
+
         $this->feedService->expects($this->once())
             ->method('find')
             ->with($this->uid, 4)
@@ -782,7 +794,7 @@ class FeedControllerTest extends TestCase
             ->with($this->uid, $feed)
             ->will($this->throwException(new ServiceNotFoundException('test')));
 
-        $response = $this->class->patch(4, 2, false, 1, 1, 1, 'title');
+        $response = $this->class->patch(4, 2, false, 1, 1, 1, 'title', 1);
         $params = json_decode($response->render(), true);
 
         $this->assertEquals('test', $params['message']);
