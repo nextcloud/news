@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [27.x.x]
 ### Changed
 - Add option to enable/disable sync of a feed
+- Add option to modify feeds from feed info table
 
 ### Fixed
 

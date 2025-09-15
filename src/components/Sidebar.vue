@@ -91,7 +91,7 @@
 						</template>
 
 						<template #actions>
-							<SidebarFeedLinkActions :feed-id="feed.id" @move-feed="moveFeed(feed)" />
+							<SidebarFeedLinkActions :feed-id="feed.id" @open-move-dialog="openMoveFeed(feed)" />
 						</template>
 					</NcAppNavigationItem>
 					<template #icon>
@@ -114,7 +114,7 @@
 						<SidebarFeedLinkActions
 							v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
 							:feed-id="topLevelItem.id"
-							@move-feed="moveFeed(topLevelItem)" />
+							@open-move-dialog="openMoveFeed(topLevelItem)" />
 						<NcActionButton
 							v-if="topLevelItem.name !== undefined"
 							icon="icon-checkmark"
@@ -694,7 +694,7 @@ export default defineComponent({
 			this.showAddFeed = false
 		},
 
-		moveFeed(feed) {
+		openMoveFeed(feed) {
 			this.feedToMove = feed
 			this.showMoveFeed = true
 		},
