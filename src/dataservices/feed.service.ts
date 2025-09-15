@@ -60,15 +60,17 @@ export class FeedService {
 	 * @param param0.ordering {FEED_ORDER} sets feed order (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
 	 * @param param0.fullTextEnabled {Boolean} should be full text be enabled (true) or not (flse)
 	 * @param param0.updateMode {FEED_UPDATE_MODE} sets updateMode (0 = UNREAD, 1 = IGNORE)
+	 * @param param0.preventUpdate {boolean} enable/disable feed sync
 	 * @param param0.title {String} title of feed to display
 	 * @return Null value is returned on success
 	 */
-	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode, title }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE, title?: string }): Promise<AxiosResponse> {
+	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode, preventUpdate, title }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE, preventUpdate?: boolean, title?: string }): Promise<AxiosResponse> {
 		return axios.patch(API_ROUTES.FEED + `/${feedId}`, {
 			pinned,
 			ordering,
 			fullTextEnabled,
 			updateMode,
+			preventUpdate,
 			title,
 		})
 	}

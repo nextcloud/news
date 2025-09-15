@@ -15,6 +15,7 @@ export const FEED_ACTION_TYPES = {
 	FEED_MARK_READ: 'FEED_MARK_READ',
 
 	FEED_SET_PINNED: 'FEED_SET_PINNED',
+	FEED_SET_PREVENT_UPDATE: 'FEED_SET_PREVENT_UPDATE',
 	FEED_SET_ORDERING: 'FEED_SET_ORDERING',
 	FEED_SET_FULL_TEXT: 'FEED_SET_FULL_TEXT',
 	FEED_SET_UPDATE_MODE: 'FEED_SET_UPDATE_MODE',
@@ -149,6 +150,15 @@ export const actions = {
 		await FeedService.updateFeed({ feedId: feed.id as number, pinned })
 
 		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, pinned })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_PREVENT_UPDATE](
+		{ commit }: ActionParams<FeedState>,
+		{ feed, preventUpdate }: { feed: Feed, preventUpdate: boolean },
+	) {
+		await FeedService.updateFeed({ feedId: feed.id as number, preventUpdate })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, preventUpdate })
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_ORDERING](
