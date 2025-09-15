@@ -1,17 +1,20 @@
 <template>
-	<NcModal @close="$emit('close')">
-		<div class="modal__content">
-			<div class="form-group">
-				<NcSelect
-					v-if="folders"
-					v-model="folder"
-					:options="folders"
-					:placeholder="'-- ' + t('news', 'No folder') + ' --'"
-					required
-					track-by="id"
-					label="name"
-					style="width: 90%;" />
-			</div>
+	<NcDialog
+		:name="t('news', 'Move feed')"
+		size="small"
+		@close="$emit('close')">
+		<template #default>
+			<NcSelect
+				v-if="folders"
+				v-model="folder"
+				:options="folders"
+				:placeholder="'-- ' + t('news', 'No folder') + ' --'"
+				required
+				:input-label="t('news', 'Please select the new folder')"
+				label="name"
+				style="width: 100%;" />
+		</template>
+		<template #actions>
 			<NcButton
 				:wide="true"
 				variant="primary"
@@ -19,8 +22,8 @@
 				@click="moveFeed()">
 				{{ t("news", "Move") }}
 			</NcButton>
-		</div>
-	</NcModal>
+		</template>
+	</NcDialog>
 </template>
 
 <script lang="ts">
@@ -29,7 +32,7 @@ import type { Folder } from '../types/Folder.ts'
 
 import { defineComponent } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
-import NcModal from '@nextcloud/vue/components/NcModal'
+import NcDialog from '@nextcloud/vue/components/NcDialog'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
 import { ACTIONS } from '../store/index.ts'
 
@@ -39,8 +42,8 @@ type MoveFeedState = {
 
 export default defineComponent({
 	components: {
-		NcModal,
 		NcButton,
+		NcDialog,
 		NcSelect,
 	},
 
@@ -95,20 +98,3 @@ export default defineComponent({
 })
 
 </script>
-
-<style scoped>
-.invalid {
-	border: 1px solid rgb(251, 72, 72) !important;
-}
-
-.modal__content {
-	margin: 16px;
-}
-
-.form-group {
-	margin: calc(var(--default-grid-baseline) * 4) 0;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-}
-</style>
