@@ -90,7 +90,7 @@
 		<NcActionButton
 			icon="icon-arrow"
 			:close-after-click="true"
-			@click="$emit('move-feed')">
+			@click="$emit('open-move-dialog')">
 			<template #icon>
 				<ArrowRightIcon />
 			</template>
@@ -184,7 +184,7 @@ export default defineComponent({
 	},
 
 	emits: {
-		'move-feed': () => true,
+		'open-move-dialog': () => true,
 	},
 
 	data: () => {

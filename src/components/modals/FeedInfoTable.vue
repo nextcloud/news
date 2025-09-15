@@ -3,6 +3,7 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
+	<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
 	<NcModal
 		size="large"
 		@close="$emit('close')">
@@ -56,60 +57,70 @@
 					<tr>
 						<th @click="sortBy('id')">
 							<span class="column-title">
-								ID
 								<div class="sort-icon">
 									<SortAscIcon v-show="sortKey === 'id' && sortOrder === 1" :size="20" />
 									<SortDescIcon v-show="sortKey === 'id' && sortOrder !== 1" :size="20" />
 								</div>
+								ID
 							</span>
 						</th>
+						<th />
 						<th @click="sortBy('title')">
 							<span class="column-title">
-								{{ t('news', 'Title') }}
 								<span class="sort-icon">
 									<SortAscIcon v-show="sortKey === 'title' && sortOrder === 1" :size="20" />
 									<SortDescIcon v-show="sortKey === 'title' && sortOrder !== 1" :size="20" />
 								</span>
+								{{ t('news', 'Title') }}
+							</span>
+						</th>
+						<th @click="sortBy('folderId')">
+							<span class="column-title">
+								<span class="sort-icon">
+									<SortAscIcon v-show="sortKey === 'folderId' && sortOrder === 1" :size="20" />
+									<SortDescIcon v-show="sortKey === 'folderId' && sortOrder !== 1" :size="20" />
+								</span>
+								{{ t('news', 'Folder') }}
 							</span>
 						</th>
 						<th @click="sortBy('lastModified')">
 							<span class="column-title">
-								{{ t('news', 'Last update') }}
 								<span class="sort-icon">
 									<SortAscIcon v-show="sortKey === 'lastModified' && sortOrder === 1" :size="20" />
 									<SortDescIcon v-show="sortKey === 'lastModified' && sortOrder !== 1" :size="20" />
 								</span>
+								{{ t('news', 'Last update') }}
 							</span>
 						</th>
 						<th @click="sortBy('nextUpdateTime')">
 							<span class="column-title">
-								{{ t('news', 'Next update') }}
 								<span class="sort-icon">
 									<SortAscIcon v-show="sortKey === 'nextUpdateTime' && sortOrder === 1" :size="20" />
 									<SortDescIcon v-show="sortKey === 'nextUpdateTime' && sortOrder !== 1" :size="20" />
 								</span>
+								{{ t('news', 'Next update') }}
 							</span>
 						</th>
 						<th
 							:title="t('news', 'Articles per update')"
 							@click="sortBy('articlesPerUpdate')">
 							<span class="column-title">
-								APU
 								<span class="sort-icon">
 									<SortAscIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder === 1" :size="20" />
 									<SortDescIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder !== 1" :size="20" />
 								</span>
+								APU
 							</span>
 						</th>
 						<th
 							:title="t('news', 'Error Count') "
 							@click="sortBy('updateErrorCount')">
 							<span class="column-title">
-								EC
 								<span class="sort-icon">
 									<SortAscIcon v-if="sortKey === 'updateErrorCount' && sortOrder === 1" :size="20" />
 									<SortDescIcon v-if="sortKey === 'updateErrorCount' && sortOrder !== 1" :size="20" />
 								</span>
+								EC
 							</span>
 						</th>
 					</tr>
@@ -119,8 +130,18 @@
 						<td class="number">
 							{{ feed.id }}
 						</td>
+						<td>
+							<NcActions>
+								<SidebarFeedLinkActions
+									:feed-id="feed.id"
+									@open-move-dialog="openMoveFeed(feed)" />
+							</NcActions>
+						</td>
 						<td class="text">
 							{{ feed.title }}
+						</td>
+						<td class="text">
+							{{ folderName(feed) }}
 						</td>
 						<td class="date">
 							{{ feed.preventUpdate ? t('news', 'Sync disabled') : formatDate(feed.lastModified / 1000000) }}
@@ -143,17 +164,23 @@
 
 <script>
 import { mapState } from 'vuex'
+import NcActions from '@nextcloud/vue/components/NcActions'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
+import MoveFeed from '../MoveFeed.vue'
+import SidebarFeedLinkActions from '../SidebarFeedLinkActions.vue'
 import { formatDate } from '../../utils/dateUtils.ts'
 
 export default {
 	name: 'FeedInfoTable',
 	components: {
+		NcActions,
 		NcLoadingIcon,
 		NcModal,
+		MoveFeed,
+		SidebarFeedLinkActions,
 		SortAscIcon,
 		SortDescIcon,
 	},
@@ -164,6 +191,8 @@ export default {
 
 	data() {
 		return {
+			feedToMove: undefined,
+			showMoveFeed: false,
 			sortKey: 'title',
 			sortOrder: 1,
 		}
@@ -172,7 +201,15 @@ export default {
 	computed: {
 		...mapState({
 			feeds: (state) => state.feeds.feeds,
+			folders: (state) => state.folders.folders,
 		}),
+
+		folderMap() {
+			return this.folders.reduce((map, folder) => {
+				map[folder.id] = folder.name
+				return map
+			}, {})
+		},
 
 		loading() {
 			return this.$store.getters.loading
@@ -197,6 +234,19 @@ export default {
 
 	methods: {
 		formatDate,
+		folderName(feed) {
+			return this.folderMap[feed.folderId] || ''
+		},
+
+		openMoveFeed(feed) {
+			this.feedToMove = feed
+			this.showMoveFeed = true
+		},
+
+		closeMoveFeed() {
+			this.showMoveFeed = false
+		},
+
 		sortBy(key) {
 			if (this.sortKey === key) {
 				this.sortOrder *= -1
