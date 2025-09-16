@@ -15,6 +15,7 @@ OC.L10N.register(
     "Off" : "Oʻchirilgan",
     "Settings" : "Sozlamalar",
     "Documentation" : "Hujjatlar",
+    "Keyboard shortcuts" : "Klaviatura yorliqlari",
     "Rename" : "Nomini o'zgartirish",
     "Delete" : "O'chirish",
     "Title" : "Sarlavha",
