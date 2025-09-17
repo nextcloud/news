@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Add option to modify feeds from feed info table
 
 ### Fixed
+- fulltext scraper did not use new user agent
 
 # Releases
 ## [27.0.0-beta.1] - 2025-08-31
