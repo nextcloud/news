@@ -27,6 +27,7 @@ OC.L10N.register(
     "Download audio" : "Toun eroflueden",
     "Download video" : "Video eroflueden",
     "Open website" : "Oppe Websäit",
+    "Folder" : "Dossier",
     "Jump to next article" : "Op den nächsten Artikel sprangen",
     "Jump to previous article" : "Op den Artikel vu virdru sprangen",
     "right" : "riets",

@@ -79,6 +79,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Премахни постоянното означаване като непрочетена",
     "Please wait" : "Моля, изчакайте",
     "Title" : "Заглавие",
+    "Folder" : "Папка",
     "Keyboard shortcut" : "Клавишни комбинации",
     "Action" : "Действие",
     "Jump to next article" : "Отиди на следващата статия",

@@ -33,6 +33,7 @@ OC.L10N.register(
     "by" : "од",
     "Open website" : "Отвори вебсајт",
     "Title" : "Наслов",
+    "Folder" : "Папка",
     "Not available" : "Недостапно",
     "Keyboard shortcut" : "Кратенка преку тастатура",
     "right" : "десно",

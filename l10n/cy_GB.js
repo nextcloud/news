@@ -21,6 +21,7 @@ OC.L10N.register(
     "Oldest first" : "Hynaf gyntaf",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
+    "Folder" : "Plygell",
     "Not available" : "Ddim ar gael",
     "Refresh" : "Adnewyddu"
 },

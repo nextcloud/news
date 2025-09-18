@@ -13,6 +13,7 @@ OC.L10N.register(
     "Settings" : "Կարգավորումներ",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
+    "Folder" : "Պանակ",
     "Refresh" : "Թարմացնել"
 },
 "nplurals=2; plural=(n != 1);");

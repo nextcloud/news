@@ -85,6 +85,7 @@ OC.L10N.register(
     "Please wait" : "Počakajte ...",
     "Last update" : "Zadnja posodobitev",
     "Title" : "Naslov",
+    "Folder" : "Mapa",
     "Keyboard shortcut" : "Tipkovna bližnica",
     "Action" : "Dejanje",
     "Jump to next article" : "Skoči na naslednji prispevek",

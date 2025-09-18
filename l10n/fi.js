@@ -79,6 +79,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Poista artikkelin pitäminen lukemattomana",
     "Please wait" : "Odota hetki",
     "Title" : "Nimeke",
+    "Folder" : "Kansio",
     "Keyboard shortcut" : "Näppäimistön pikanäppäin",
     "Action" : "Toiminto",
     "Jump to next article" : "Siirry seuraavaan artikkeliin",

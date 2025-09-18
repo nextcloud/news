@@ -34,6 +34,7 @@ OC.L10N.register(
     "Download video" : "Discargar video",
     "Open website" : "Aperir sito web",
     "Keep article unread" : "Mantener articulo como non legite",
+    "Folder" : "Dossier",
     "Keyboard shortcut" : "Combination de claves",
     "Jump to next article" : "Saltar al articulo sequente",
     "Jump to previous article" : "Saltar al articulo previe",

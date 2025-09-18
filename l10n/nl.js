@@ -73,6 +73,7 @@ OC.L10N.register(
     "Please wait" : "Even geduld",
     "Last update" : "Laatste update",
     "Title" : "Titel",
+    "Folder" : "Map",
     "Keyboard shortcut" : "Sneltoets",
     "Action" : "Actie",
     "Jump to next article" : "Ga naar volgend artikel",

@@ -127,6 +127,7 @@ OC.L10N.register(
     "Error Count" : "錯誤數",
     "Number of errors that have occurred since the last successful feed update" : "自上次 feed 成功更新後發生的錯誤次數",
     "Title" : "標題",
+    "Folder" : "資料夾",
     "Not available" : "不可用",
     "Keyboard shortcut" : "鍵盤快捷鍵",
     "Action" : "操作",

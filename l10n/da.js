@@ -95,6 +95,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Fjern \"bevar artikel ulæst\"",
     "Please wait" : "Vent venligst",
     "Title" : "Titel",
+    "Folder" : "Mappe",
     "Not available" : "Ikke tilgængelig",
     "Keyboard shortcut" : "Tastaturgenvej",
     "Action" : "Handling",

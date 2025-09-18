@@ -56,6 +56,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Hiqi gjendjen mbaje artikullin të palexuar",
     "Please wait" : "Ju lutem prisni",
     "Title" : "Titulli",
+    "Folder" : "Dosje",
     "Keyboard shortcut" : "Shkurtore tastiere",
     "Action" : "Veprim",
     "Jump to next article" : "Hidhu te artikulli pasues",

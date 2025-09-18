@@ -102,6 +102,7 @@ OC.L10N.register(
     "Please wait" : "Itxaron mesedez",
     "Last update" : "Azken eguneraketa",
     "Title" : "Izenburua",
+    "Folder" : "Karpeta",
     "Keyboard shortcut" : "Teklatuko lasterbidea",
     "Action" : "Ekintza",
     "Jump to next article" : "Joan hurrengo artikulura",

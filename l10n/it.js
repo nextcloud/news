@@ -83,6 +83,7 @@ OC.L10N.register(
     "Please wait" : "Attendere",
     "Last update" : "Ultimo aggiornamento",
     "Title" : "Titolo",
+    "Folder" : "Cartella",
     "Keyboard shortcut" : "Scorciatoia da tastiera",
     "Action" : "Azione",
     "Jump to next article" : "Salta all'articolo successivo",

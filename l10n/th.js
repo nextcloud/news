@@ -45,6 +45,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "สลับให้บทความในปัจจุบันยังไม่ได้อ่าน",
     "Remove keep article unread" : "การลบคงสถานะบทความยังไม่ได้อ่าน",
     "Please wait" : "โปรดรอ",
+    "Folder" : "โฟลเดอร์",
     "Keyboard shortcut" : "แป้นพิมพ์ลัด",
     "Jump to next article" : "ข้ามไปยังบทความถัดไป",
     "Jump to previous article" : "ข้ามไปยังบทความก่อนหน้า",

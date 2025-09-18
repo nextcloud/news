@@ -28,6 +28,7 @@ OC.L10N.register(
     "Play audio" : "Speel oudio af",
     "Download audio" : "Laai oudio af",
     "Download video" : "Laai video af",
+    "Folder" : "Vouer",
     "Keyboard shortcut" : "Snelsleutel",
     "Jump to next article" : "Spring na volgende artikel",
     "Jump to previous article" : "Spring na vorige artikel",

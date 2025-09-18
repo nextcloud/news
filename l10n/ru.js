@@ -113,6 +113,7 @@ OC.L10N.register(
     "Time when the next feed update will be done" : "Время следующего обновления ленты",
     "Error Count" : "Счётчик ошибок",
     "Title" : "Название",
+    "Folder" : "Каталог",
     "Not available" : "Не доступен",
     "Keyboard shortcut" : "Горячие клавиши",
     "Action" : "Действие",

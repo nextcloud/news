@@ -23,6 +23,7 @@ OC.L10N.register(
     "Rename" : "পূনঃনামকরণ",
     "Delete" : "মুছে",
     "by" : "কর্তৃক",
+    "Folder" : "ফোল্ডার",
     "right" : "ডান",
     "left" : "বাম",
     "Refresh" : "নবোদ্যম"

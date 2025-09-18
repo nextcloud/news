@@ -78,6 +78,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Eliminar mantener artículo como no leído",
     "Please wait" : "Por favor aguarda",
     "Title" : "Título",
+    "Folder" : "Carpeta",
     "Not available" : "No disponible",
     "Keyboard shortcut" : "Atajo del teclado",
     "Action" : "Acción",

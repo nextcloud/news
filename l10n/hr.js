@@ -68,6 +68,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Makni održavanje članaka nepročitanim",
     "Please wait" : "Pričekajte",
     "Title" : "Naslov",
+    "Folder" : "Mapa",
     "Keyboard shortcut" : "Tipkovni prečac",
     "Action" : "Radnja",
     "Jump to next article" : "Prijeđi na sljedeći članak",

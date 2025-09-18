@@ -80,6 +80,7 @@ OC.L10N.register(
     "Remove keep article unread" : "مقاله را نخوانید حذف کنید",
     "Please wait" : "Please wait",
     "Title" : "Title",
+    "Folder" : "پوشه",
     "Not available" : "در دسترس نیست",
     "Keyboard shortcut" : "صفحه کلید",
     "Action" : "عمل",

@@ -17,6 +17,7 @@ OC.L10N.register(
     "Delete" : "நீக்குக",
     "by" : "மூலம்",
     "Title" : "தலைப்பு",
+    "Folder" : "கோப்புறை",
     "Refresh" : "மீள் ஏற்றுக"
 },
 "nplurals=2; plural=(n != 1);");

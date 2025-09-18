@@ -33,6 +33,7 @@ OC.L10N.register(
     "by" : "bởi",
     "Open website" : "Mở trang web",
     "Title" : "Tên",
+    "Folder" : "Thư mục",
     "Not available" : "Không khả dụng",
     "Keyboard shortcut" : "Phím tắt",
     "Action" : "Hành động",

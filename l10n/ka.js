@@ -81,6 +81,7 @@ OC.L10N.register(
     "Keep article unread" : "Keep article unread",
     "Toggle keep current article unread" : "Toggle keep current article unread",
     "Remove keep article unread" : "Remove keep article unread",
+    "Folder" : "Folder",
     "Not available" : "Not available",
     "Keyboard shortcut" : "Keyboard shortcut",
     "Action" : "Action",

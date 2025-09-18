@@ -127,6 +127,7 @@ OC.L10N.register(
     "Error Count" : "Liczba błędów",
     "Number of errors that have occurred since the last successful feed update" : "Liczba błędów, które wystąpiły od ostatniej udanej aktualizacji kanału",
     "Title" : "Tytuł",
+    "Folder" : "Katalog",
     "Not available" : "Brak dostępności",
     "Keyboard shortcut" : "Skrót klawiaturowy",
     "Action" : "Akcja",

@@ -87,6 +87,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Fjern behold artikkelen ulest",
     "Please wait" : "Vent",
     "Title" : "Navn",
+    "Folder" : "Mappe",
     "Not available" : "Ikke ledig",
     "Keyboard shortcut" : "Hurtigtast",
     "Action" : "Handling",

@@ -59,6 +59,7 @@ OC.L10N.register(
     "Open website" : "Abrir el sitiu web",
     "Please wait" : "Espera",
     "Title" : "Títulu",
+    "Folder" : "Carpeta",
     "Not available" : "Nun ta disponible",
     "Keyboard shortcut" : "Atayos del tecláu",
     "Action" : "Aición",

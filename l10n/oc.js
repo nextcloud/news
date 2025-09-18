@@ -44,6 +44,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Marcar l'article coma Legit / Non legit",
     "Remove keep article unread" : "Marcar l'article coma legit",
     "Title" : "Títol",
+    "Folder" : "Dorsièr",
     "Keyboard shortcut" : "Acorchis de clavièr",
     "Jump to next article" : "Anar al prochain article",
     "Jump to previous article" : "Anar a l'article precedent",

@@ -127,6 +127,7 @@ OC.L10N.register(
     "Error Count" : "Comhaireamh Earráide",
     "Number of errors that have occurred since the last successful feed update" : "Líon na n-earráidí a tharla ón nuashonrú fotha rathúla deiridh",
     "Title" : "Teideal",
+    "Folder" : "Fillteán",
     "Not available" : "Níl sé ar fáil",
     "Keyboard shortcut" : "Aicearra méarchláir",
     "Action" : "Gníomh",

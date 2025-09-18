@@ -39,6 +39,7 @@ OC.L10N.register(
     "Download video" : "Lejupielādēt video",
     "Open website" : "Atvērt tīmekļvietni",
     "Title" : "Virsraksts",
+    "Folder" : "Mape",
     "Not available" : "Nav pieejams",
     "Keyboard shortcut" : "Tastatūras saīsne",
     "Action" : "Darbība",

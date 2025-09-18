@@ -118,6 +118,7 @@ OC.L10N.register(
     "Error Count" : "Počet chýb",
     "Number of errors that have occurred since the last successful feed update" : "Počet chýb, ktoré sa vyskytli od poslednej úspešnej aktualizácie informačného kanála",
     "Title" : "Názov",
+    "Folder" : "Priečinok",
     "Not available" : "Nie je dostupné",
     "Keyboard shortcut" : "Klávesová skratka",
     "Action" : "Akcia",

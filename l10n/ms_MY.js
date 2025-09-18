@@ -14,6 +14,7 @@ OC.L10N.register(
     "Rename" : "Namakan",
     "Delete" : "Padam",
     "by" : "oleh",
+    "Folder" : "Folder",
     "Refresh" : "Refresh"
 },
 "nplurals=1; plural=0;");

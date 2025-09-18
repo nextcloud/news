@@ -18,6 +18,7 @@ OC.L10N.register(
     "Rename" : "ប្ដូរ​ឈ្មោះ",
     "Delete" : "លុប",
     "by" : "ដោយ",
+    "Folder" : "ថត",
     "right" : "ខាង​ស្ដាំ",
     "left" : "ខាង​ឆ្វេង"
 },

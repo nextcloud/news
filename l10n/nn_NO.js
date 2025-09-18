@@ -22,6 +22,7 @@ OC.L10N.register(
     "Oldest first" : "Eldste fyrst",
     "by" : "av",
     "Download video" : "Last ned video",
+    "Folder" : "Mappe",
     "Refresh" : "Oppfrisk"
 },
 "nplurals=2; plural=(n != 1);");

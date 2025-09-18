@@ -84,6 +84,7 @@ OC.L10N.register(
     "Please wait" : "Kis türelmet",
     "Last update" : "Utolsó frissítés",
     "Title" : "Cím",
+    "Folder" : "Mappa",
     "Not available" : "Nem érhető el",
     "Keyboard shortcut" : "Gyorsbillentyű",
     "Action" : "Művelet",

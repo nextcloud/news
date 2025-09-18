@@ -127,6 +127,7 @@ OC.L10N.register(
     "Error Count" : "Vigade arv",
     "Number of errors that have occurred since the last successful feed update" : "Peale viimast uudisvoo õnnestunud uuendust on tekkinud mitu viga",
     "Title" : "Pealkiri",
+    "Folder" : "Kaust",
     "Not available" : "Pole saadaval",
     "Keyboard shortcut" : "Klaviatuuri otsetee",
     "Action" : "Tegevus",

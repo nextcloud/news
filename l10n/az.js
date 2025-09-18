@@ -20,6 +20,7 @@ OC.L10N.register(
     "Rename" : "Adı dəyiş",
     "Delete" : "Sil",
     "by" : "onunla",
+    "Folder" : "Qovluq",
     "right" : "Sağ",
     "left" : "Sol",
     "Refresh" : "Yenilə"

@@ -127,6 +127,7 @@ OC.L10N.register(
     "Error Count" : "Кількість помилок",
     "Number of errors that have occurred since the last successful feed update" : "Кількість помилок, що виникли з моменту останнього успішного оновлення каналу",
     "Title" : "Заголовок",
+    "Folder" : "Каталог",
     "Not available" : "Не доступно",
     "Keyboard shortcut" : "Сполучення клавіш",
     "Action" : "Дія ",

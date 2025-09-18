@@ -65,6 +65,7 @@ OC.L10N.register(
     "Last update" : "Último refrescamento",
     "Time when the feed was last downloaded" : "A hora em que a \"feed\" foi transferida pela última vez",
     "Title" : "Título",
+    "Folder" : "Pasta",
     "Not available" : "Não disponível",
     "Keyboard shortcut" : "Atalho de teclado",
     "Jump to next article" : "Ir para o artigo seguinte",

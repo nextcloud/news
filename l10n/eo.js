@@ -32,6 +32,7 @@ OC.L10N.register(
     "Close details" : "Fermi detalojn",
     "by" : "de",
     "Open website" : "Malfermi TTT-ejon",
+    "Folder" : "Dosierujo",
     "Not available" : "Ne disponeble",
     "right" : "dekstro",
     "left" : "maldekstro",

@@ -68,6 +68,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Marchează acest articol ca necitit",
     "Remove keep article unread" : "Articol necitit",
     "Title" : "Titlu",
+    "Folder" : "Director",
     "Keyboard shortcut" : "Scurtături din tastatură",
     "Jump to next article" : "Sari la următorul articol",
     "Jump to previous article" : "Sari la următorul articol",

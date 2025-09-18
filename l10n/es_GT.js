@@ -55,6 +55,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Alternar mantener artículo actual como no leído",
     "Remove keep article unread" : "Eliminar mantener artículo como no leído",
     "Please wait" : "Por favor aguarda",
+    "Folder" : "Carpeta",
     "Keyboard shortcut" : "Atajo del teclado",
     "Action" : "Acción",
     "Jump to next article" : "Ir al artículo siguiente ",

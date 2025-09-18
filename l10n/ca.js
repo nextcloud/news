@@ -118,6 +118,7 @@ OC.L10N.register(
     "Error Count" : "Recompte d'errors",
     "Number of errors that have occurred since the last successful feed update" : "Nombre d'errors que s'han produït des de l'última actualització correcta del canal",
     "Title" : "Títol",
+    "Folder" : "Carpeta",
     "Not available" : "No disponible",
     "Keyboard shortcut" : "Drecera de teclat",
     "Action" : "Acció",

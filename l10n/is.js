@@ -66,6 +66,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Víxla af/á að halda greininni sem ólesinni",
     "Remove keep article unread" : "Fjarlægja að halda greininni sem ólesinni",
     "Please wait" : "Bíddu aðeins",
+    "Folder" : "Mappa",
     "Keyboard shortcut" : "Flýtilykill",
     "Action" : "Aðgerð",
     "Jump to next article" : "Hoppa á næstu grein",

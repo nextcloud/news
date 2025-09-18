@@ -127,6 +127,7 @@ OC.L10N.register(
     "Error Count" : "Número de Erros",
     "Number of errors that have occurred since the last successful feed update" : "Número de erros que ocorreram desde a última atualização bem-sucedida do feed",
     "Title" : "Título",
+    "Folder" : "Pasta",
     "Not available" : "Não disponível",
     "Keyboard shortcut" : "Atalhos do teclado",
     "Action" : "Ação",

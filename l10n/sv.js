@@ -126,6 +126,7 @@ OC.L10N.register(
     "Error Count" : "Antal fel",
     "Number of errors that have occurred since the last successful feed update" : "Antal fel som har inträffat sedan den senaste framgångsrika flödesuppdateringen",
     "Title" : "Titel",
+    "Folder" : "Mapp",
     "Not available" : "Inte tillgänglig",
     "Keyboard shortcut" : "Tangentbordsgenvägar",
     "Action" : "Ågärd",

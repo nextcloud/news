@@ -57,6 +57,7 @@ OC.L10N.register(
     "Keep article unread" : "השארת מאמר עם סימון לא נקרא",
     "Toggle keep current article unread" : "החלפת מצב סימון מאמר כלא נקרא",
     "Remove keep article unread" : "ביטול השארת מאמר עם סימון לא נקרא",
+    "Folder" : "תיקייה",
     "Keyboard shortcut" : "קיצור מקלדת",
     "Action" : "פעולה",
     "Jump to next article" : "קפיצה למאמר הבא",

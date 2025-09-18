@@ -86,6 +86,7 @@ OC.L10N.register(
     "Remove keep article unread" : "ماقالىنى ئوقۇماسلىقنى ئۆچۈرۈڭ",
     "Please wait" : "ساقلاپ تۇرۇڭ",
     "Title" : "ماۋزۇ",
+    "Folder" : "قىسقۇچ",
     "Not available" : "ئىشلەتكىلى بولمايدۇ",
     "Keyboard shortcut" : "كۇنۇپكا تاختىسى تېزلەتمىسى",
     "Action" : "ھەرىكەت",

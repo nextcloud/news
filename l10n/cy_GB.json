@@ -19,6 +19,7 @@
     "Oldest first" : "Hynaf gyntaf",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
+    "Folder" : "Plygell",
     "Not available" : "Ddim ar gael",
     "Refresh" : "Adnewyddu"
 },"pluralForm" :"nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;"

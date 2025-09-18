@@ -24,6 +24,7 @@ OC.L10N.register(
     "Play audio" : "Аудио тоглуулах",
     "Download audio" : "Аудиог татаж авах",
     "Download video" : "Видеог татаж авах",
+    "Folder" : "Хавтас",
     "Keyboard shortcut" : "Keyboard товчлуур",
     "Jump to next article" : "Дараагийн өгүүллийг үзээрэй",
     "Jump to previous article" : "Өмнөх нийтлэл рүү очих",

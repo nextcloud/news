@@ -13,6 +13,7 @@ OC.L10N.register(
     "Documentation" : "ದಸ್ತಾವೇಜು",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
     "Delete" : "﻿ಅಳಿಸಿ",
+    "Folder" : "ಕೋಶ",
     "right" : "ಬಲ",
     "left" : "ಎಡ"
 },

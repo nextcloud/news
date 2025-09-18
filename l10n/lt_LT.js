@@ -81,6 +81,7 @@ OC.L10N.register(
     "Last update" : "Paskutinis atnaujinimas",
     "Next update" : "Kitas atnaujinimas",
     "Title" : "Pavadinimas",
+    "Folder" : "Aplankas",
     "Keyboard shortcut" : "Spartusis klavišas",
     "Action" : "Veiksmas",
     "Jump to next article" : "Peršokti į kitą straipsnį",

@@ -68,6 +68,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Còmmunta su mantenimentu de s'artìculu comente non lèghidu",
     "Remove keep article unread" : "Boga su mantenimentu de s'artìculu comente non lèghidu",
     "Title" : "Tìtulu",
+    "Folder" : "Cartella",
     "Keyboard shortcut" : "Curtziadòrgiu de tecladu",
     "Action" : "Atzione",
     "Jump to next article" : "Brinca a s'artìculu imbeniente",

@@ -118,6 +118,7 @@ OC.L10N.register(
     "Error Count" : "عدد الأخطاء",
     "Number of errors that have occurred since the last successful feed update" : "عدد الأخطاء التي حدثت منذ آخر تحديث ناجح للخلاصة",
     "Title" : "العنوان",
+    "Folder" : "مجلد",
     "Not available" : "غير متاح",
     "Keyboard shortcut" : "إختصار لوحة المفاتيح",
     "Action" : "الإجراء",
