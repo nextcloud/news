@@ -74,7 +74,7 @@
     "@vue/tsconfig": "^0.8.1",
     "jsdom": "^27.0.0",
     "regenerator-runtime": "^0.14.1",
-    "vite": "^7.1.6",
+    "vite": "^7.1.7",
     "vitest": "^3.2.4"
   }
 }
