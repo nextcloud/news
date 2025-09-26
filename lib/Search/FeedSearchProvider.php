@@ -55,7 +55,7 @@ class FeedSearchProvider implements IProvider
         $term = strtolower($term);
 
         $imageurl  = $this->urlGenerator->imagePath('core', 'rss.svg');
-        $feeduiurl = $this->urlGenerator->linkToRoute('news.page.index') . '#/feed/';
+        $feeduiurl = $this->urlGenerator->linkToRoute('news.page.index') . 'feed/';
         foreach ($this->service->findAllForUser($user->getUID()) as $feed) {
             if (strpos(strtolower($feed->getTitle()), $term) === false) {
                 continue;

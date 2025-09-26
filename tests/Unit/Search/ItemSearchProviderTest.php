@@ -143,7 +143,7 @@ class ItemSearchProviderTest extends TestCase
         $this->generator->expects($this->exactly(2))
                         ->method('linkToRoute')
                         ->with('news.page.index')
-                        ->willReturn('/news');
+                        ->willReturn('/news/');
 
 
         $result = $this->class->search($user, $query)->jsonSerialize();
@@ -152,6 +152,6 @@ class ItemSearchProviderTest extends TestCase
         $this->assertSame('some_tErm', $entry['title']);
         $this->assertSame('folderpath.svg', $entry['thumbnailUrl']);
         $this->assertSame('some text', $entry['subline']);
-        $this->assertSame('/news#/feed/1', $entry['resourceUrl']);
+        $this->assertSame('/news/feed/1', $entry['resourceUrl']);
     }
 }

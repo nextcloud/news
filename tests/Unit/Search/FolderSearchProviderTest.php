@@ -127,7 +127,7 @@ class FolderSearchProviderTest extends TestCase
         $this->generator->expects($this->once())
                         ->method('linkToRoute')
                         ->with('news.page.index')
-                        ->willReturn('/news');
+                        ->willReturn('/news/');
 
 
         $result = $this->class->search($user, $query)->jsonSerialize();
@@ -136,6 +136,6 @@ class FolderSearchProviderTest extends TestCase
         $this->assertSame('some_tErm', $entry['title']);
         $this->assertSame('folderpath.svg', $entry['thumbnailUrl']);
         $this->assertSame('', $entry['subline']);
-        $this->assertSame('/news#/folder/1', $entry['resourceUrl']);
+        $this->assertSame('/news/folder/1', $entry['resourceUrl']);
     }
 }
