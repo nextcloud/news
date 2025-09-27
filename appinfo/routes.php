@@ -17,6 +17,7 @@ return ['routes' => [
 // page
 ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 ['name' => 'page#index', 'url' => '/all', 'verb' => 'GET', 'postfix' => 'view.all'],
+['name' => 'page#index', 'url' => '/item/{itemId}', 'verb' => 'GET', 'postfix' => 'view.itemid'],
 ['name' => 'page#index', 'url' => '/feed/{feedId}', 'verb' => 'GET', 'postfix' => 'view.feedid'],
 ['name' => 'page#index', 'url' => '/folder/{folderId}', 'verb' => 'GET', 'postfix' => 'view.folderid'],
 ['name' => 'page#index', 'url' => '/recent', 'verb' => 'GET', 'postfix' => 'view.recent'],
