@@ -152,6 +152,6 @@ class ItemSearchProviderTest extends TestCase
         $this->assertSame('some_tErm', $entry['title']);
         $this->assertSame('folderpath.svg', $entry['thumbnailUrl']);
         $this->assertSame('some text', $entry['subline']);
-        $this->assertSame('/news/feed/1', $entry['resourceUrl']);
+        $this->assertSame('/news/item/1', $entry['resourceUrl']);
     }
 }
