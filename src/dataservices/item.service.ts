@@ -20,12 +20,13 @@ export class ItemService {
 	 * Makes backend call to retrieve all items
 	 *
 	 * @param start (id of last item loaded)
+	 * @param limit (number of items loaded)
 	 * @return response object containing backend request response
 	 */
-	static async fetchAll(start: number): Promise<AxiosResponse> {
+	static async fetchAll(start: number, limit: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
-				limit: 40,
+				limit,
 				oldestFirst: store.state.oldestFirst,
 				search: '',
 				showAll: true,

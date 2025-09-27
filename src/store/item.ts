@@ -128,17 +128,18 @@ export const actions = {
 	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
 	 * @param param1.start Start data
+	 * @param param1.limit Number of items
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ start }: { start: number } = { start: 0 },
+		{ start, limit }: { start: number, limit: number } = { start: 0, limit: 40 },
 	) {
 		const requestId = Date.now()
 		latestFetchRequest = requestId
 
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
 
-		const response = await ItemService.fetchAll(start || state.lastItemLoaded.all)
+		const response = await ItemService.fetchAll(start || state.lastItemLoaded.all, limit)
 
 		// skip response if outdated
 		if (latestFetchRequest !== requestId) {
