@@ -19,7 +19,7 @@ export class ItemService {
 	/**
 	 * Makes backend call to retrieve all items
 	 *
-	 * @param start (id of last starred item loaded)
+	 * @param start (id of last item loaded)
 	 * @return response object containing backend request response
 	 */
 	static async fetchAll(start: number): Promise<AxiosResponse> {
@@ -77,7 +77,7 @@ export class ItemService {
 	 * Makes backend call to retrieve items from a specific feed
 	 *
 	 * @param feedId id number of feed to retrieve items for
-	 * @param start (id of last unread item loaded)
+	 * @param start (id of last feed item loaded)
 	 * @return response object containing backend request response
 	 */
 	static async fetchFeedItems(feedId: number, start?: number): Promise<AxiosResponse> {
@@ -111,7 +111,7 @@ export class ItemService {
 	 * Makes backend call to retrieve items from a specific folder
 	 *
 	 * @param folderId id number of folder to retrieve items for
-	 * @param start (id of last unread item loaded)
+	 * @param start (id of last folder item loaded)
 	 * @return response object containing backend request response
 	 */
 	static async fetchFolderItems(folderId: number, start: number): Promise<AxiosResponse> {
