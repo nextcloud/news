@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - Add option to enable/disable sync of a feed
 - Add option to modify feeds from feed info table
+- Open article from unified search result
 
 ### Fixed
 - fulltext scraper did not use new user agent

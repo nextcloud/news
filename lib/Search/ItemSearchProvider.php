@@ -100,7 +100,7 @@ class ItemSearchProvider implements IProvider
                 $icon,
                 $item->getTitle(),
                 $this->stripTruncate($item->getBody(), 50),
-                $this->urlGenerator->linkToRoute('news.page.index') . 'feed/' . $item->getFeedId()
+                $this->urlGenerator->linkToRoute('news.page.index') . 'item/' . $item->getId()
             );
         }
 
