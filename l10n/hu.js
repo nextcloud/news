@@ -48,6 +48,7 @@ OC.L10N.register(
     "Default" : "Alapértelmezett",
     "Vertical" : "Függőleges",
     "Horizontal" : "Vízszintes",
+    "Off" : "Ki",
     "Rename Folder" : "Mappa átnevezése",
     "Are you sure you want to delete?" : "Biztos, hogy törli?",
     "Mark read" : "Olvasottnak jelölés",

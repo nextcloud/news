@@ -36,6 +36,7 @@ OC.L10N.register(
     "Folder" : "Папка",
     "Not available" : "Недостапно",
     "Keyboard shortcut" : "Кратенка преку тастатура",
+    "Action" : "Акција",
     "right" : "десно",
     "left" : "лево",
     "Refresh" : "Освежи",
