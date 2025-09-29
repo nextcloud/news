@@ -7,15 +7,21 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Add option to enable/disable sync of a feed
-- Add option to modify feeds from feed info table
-- Open article from unified search result
 
 ### Fixed
-- fulltext scraper did not use new user agent
-- fix feed `url` in search results
+
 
 # Releases
+## [27.0.0] - 2025-09-29
+### Changed
+- Add option to enable/disable sync of a feed (#3316)
+- Add option to modify feeds from feed info table (#3315)
+- Open article from unified search result (#3330)
+
+### Fixed
+- fulltext scraper did not use new user agent (#3320)
+- fix feed `url` in search results (#3329)
+
 ## [27.0.0-beta.1] - 2025-08-31
 ### Changed
 - Drop Support for Nextcloud 30 (#3294)
