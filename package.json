@@ -66,7 +66,7 @@
     "@nextcloud/browserslist-config": "^3.0.1",
     "@nextcloud/eslint-config": "^9.0.0-rc.5",
     "@nextcloud/stylelint-config": "^3.1.0",
-    "@nextcloud/vite-config": "^2.5.0",
+    "@nextcloud/vite-config": "^2.5.1",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.5.2",
     "@vitest/coverage-istanbul": "^3.2.4",
