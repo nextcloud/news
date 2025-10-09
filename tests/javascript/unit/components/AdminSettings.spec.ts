@@ -16,6 +16,9 @@ vi.mock('@nextcloud/password-confirmation', () => ({
     confirmPassword: vi.fn(),
     password_policy: {},
 }));
+vi.mock('@nextcloud/vue', () => ({
+    NcAppContent: {},
+}));
 
 describe('AdminSettings.vue', () => {
 	'use strict'
