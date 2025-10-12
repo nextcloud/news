@@ -1,8 +1,8 @@
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import SidebarFeedLinkActions from '../../../../src/components/SidebarFeedLinkActions.vue'
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums'
-import { ACTIONS } from '../../../../src/store'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums/index.ts'
+import { ACTIONS } from '../../../../src/store/index.ts'
 
 describe('SidebarFeedLinkActions.vue', () => {
 	'use strict'

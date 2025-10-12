@@ -1,5 +1,5 @@
 import axios from '@nextcloud/axios'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { FolderService } from './../../../../src/dataservices/folder.service'
 
 describe('folder.service.ts', () => {

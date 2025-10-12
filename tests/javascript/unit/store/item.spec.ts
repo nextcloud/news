@@ -1,9 +1,9 @@
-import type { AppState } from '../../../../src/store'
+import type { AppState } from '../../../../src/store/index.ts'
 
 import { describe, expect, it, vi } from 'vitest'
 import { ItemService } from '../../../../src/dataservices/item.service'
-import { actions, FEED_ITEM_ACTION_TYPES, mutations } from '../../../../src/store/item'
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { actions, FEED_ITEM_ACTION_TYPES, mutations } from '../../../../src/store/item.ts'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
 describe('item.ts', () => {
 	'use strict'

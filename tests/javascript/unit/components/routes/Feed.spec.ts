@@ -7,7 +7,7 @@ import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 import Feed from '../../../../../src/components/routes/Feed.vue'
 import { FEED_ORDER } from '../../../../../src/enums/index.ts'
-import { ACTIONS } from '../../../../../src/store'
+import { ACTIONS } from '../../../../../src/store/index.ts'
 
 describe('Feed.vue', () => {
 	'use strict'

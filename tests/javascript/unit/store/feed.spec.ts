@@ -1,12 +1,12 @@
-import type { AppState } from '../../../../src/store'
-import type { Feed } from '../../../../src/types/Feed'
+import type { AppState } from '../../../../src/store/index.ts'
+import type { Feed } from '../../../../src/types/Feed.ts'
 
 import { describe, expect, it, vi } from 'vitest'
 import { FeedService } from '../../../../src/dataservices/feed.service'
 import { ItemService } from '../../../../src/dataservices/item.service'
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums'
-import { actions, FEED_ACTION_TYPES, mutations } from '../../../../src/store/feed'
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums/index.ts'
+import { actions, FEED_ACTION_TYPES, mutations } from '../../../../src/store/feed.ts'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
 describe('feed.ts', () => {
 	'use strict'

@@ -1,10 +1,10 @@
-import type { AppState } from '../../../../src/store'
-import type { Folder } from '../../../../src/types/Folder'
+import type { AppState } from '../../../../src/store/index.ts'
+import type { Folder } from '../../../../src/types/Folder.ts'
 
 import { describe, expect, it, vi } from 'vitest'
 import { FolderService } from '../../../../src/dataservices/folder.service'
-import { actions, FOLDER_ACTION_TYPES, mutations } from '../../../../src/store/folder'
-import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { actions, FOLDER_ACTION_TYPES, mutations } from '../../../../src/store/folder.ts'
+import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
 vi.mock('@nextcloud/router')
 

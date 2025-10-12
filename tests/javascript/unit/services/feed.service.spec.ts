@@ -1,5 +1,5 @@
 import axios from '@nextcloud/axios'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { FeedService } from './../../../../src/dataservices/feed.service'
 
 describe('feed.service.ts', () => {

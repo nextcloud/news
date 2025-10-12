@@ -2,7 +2,7 @@ import type { Store } from 'vuex'
 
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick, ref } from 'vue'
+import { ref } from 'vue'
 import Vuex from 'vuex'
 import ContentTemplate from '../../../../src/components/ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../../../src/store/index.ts'
@@ -10,9 +10,7 @@ import { ACTIONS, MUTATIONS } from '../../../../src/store/index.ts'
 describe('ContentTemplate.vue', () => {
 	'use strict'
 
-	const oldestFirst = false
 	const selectedId = ref(null)
-	const showAll = false
 	let store: Store<any>
 	let wrapper: any
 
