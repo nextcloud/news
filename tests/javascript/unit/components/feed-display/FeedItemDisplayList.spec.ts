@@ -2,7 +2,6 @@ import type { Store } from 'vuex'
 
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { nextTick } from 'vue'
 import Vuex from 'vuex'
 import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
 import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'

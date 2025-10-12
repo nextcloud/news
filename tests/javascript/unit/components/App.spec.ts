@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../../../../src/App.vue'
-import { MUTATIONS } from '../../../../src/store'
+import { MUTATIONS } from '../../../../src/store/index.ts'
 
 describe('FeedItemDisplay.vue', () => {
 	'use strict'

@@ -1,11 +1,11 @@
-import type { AppInfoState } from '../../../../src/store/app'
+import type { AppInfoState } from '../../../../src/store/app.ts'
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createStore } from 'vuex'
 import { DISPLAY_MODE, SPLIT_MODE } from '../../../../src/enums/index.ts'
-import appInfo from '../../../../src/store/app'
-import { mutations } from '../../../../src/store/app'
-import { APPLICATION_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import appInfo from '../../../../src/store/app.ts'
+import { mutations } from '../../../../src/store/app.ts'
+import { APPLICATION_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
 vi.mock('@nextcloud/router')
 

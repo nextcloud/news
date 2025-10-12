@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import AddFeed from '../../../../src/components/AddFeed.vue'
-import { FEED_ACTION_TYPES } from '../../../../src/store/feed'
+import { FEED_ACTION_TYPES } from '../../../../src/store/feed.ts'
 
 describe('AddFeed.vue', () => {
 	'use strict'

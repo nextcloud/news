@@ -1,11 +1,13 @@
 import { config } from '@vue/test-utils'
 import { vi } from 'vitest'
 
-(global as any).appName = 'news'
+global.appName = 'news'
 
-// Note: This was copied from nextcloud/tasks repo
-import { OC } from './OC'
-(global as any).OC = new OC()
+global.OC = {
+	getLanguage() {
+		return 'en-US'
+	},
+}
 
 // Mock nextcloud translate functions
 config.global.mocks.$t = function(_app: any, string: any) {

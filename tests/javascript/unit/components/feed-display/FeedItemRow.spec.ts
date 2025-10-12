@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'
-import { ACTIONS, MUTATIONS } from '../../../../../src/store'
+import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
 
 describe('FeedItemRow.vue', () => {
 	'use strict'

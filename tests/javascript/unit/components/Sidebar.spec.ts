@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSidebar from '../../../../src/components/Sidebar.vue'
-import { ACTIONS } from '../../../../src/store'
+import { ACTIONS } from '../../../../src/store/index.ts'
 
 describe('Sidebar.vue', () => {
 	'use strict'
