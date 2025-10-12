@@ -38,7 +38,7 @@ describe('AddFeed.vue', () => {
 	})
 
 	it('should dispatch ADD_FEED action to store', async () => {
-		mockDispatch.mockResolvedValueOnce({ status: 200, data: { message: "ok" }})
+		mockDispatch.mockResolvedValueOnce({ status: 200, data: { message: 'ok' } })
 
 		await wrapper.vm.addFeed()
 
@@ -47,7 +47,7 @@ describe('AddFeed.vue', () => {
 	})
 
 	it('should dispatch ADD_FEED action but not emit close event on non-200 status', async () => {
-		mockDispatch.mockResolvedValueOnce({ status: 422, data: { message: "no found" }})
+		mockDispatch.mockResolvedValueOnce({ status: 422, data: { message: 'no found' } })
 
 		await wrapper.vm.addFeed()
 

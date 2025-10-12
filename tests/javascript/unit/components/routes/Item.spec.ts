@@ -1,9 +1,10 @@
-import Vuex, { Store } from 'vuex'
+import type { Store } from 'vuex'
+
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import Item from '../../../../../src/components/routes/Item.vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import Item from '../../../../../src/components/routes/Item.vue'
 
 describe('Item.vue', () => {
 	'use strict'
@@ -12,7 +13,7 @@ describe('Item.vue', () => {
 	const mockItems = [
 		{
 			id: 123,
-		}
+		},
 	]
 
 	let store: Store<any>

@@ -1,7 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-
-import { FeedService } from './../../../../src/dataservices/feed.service'
 import axios from '@nextcloud/axios'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { FeedService } from './../../../../src/dataservices/feed.service'
 
 describe('feed.service.ts', () => {
 	'use strict'

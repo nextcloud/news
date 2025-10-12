@@ -1,9 +1,10 @@
-import Vuex, { Store } from 'vuex'
+import type { Store } from 'vuex'
+
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import Recent from '../../../../../src/components/routes/Recent.vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import Recent from '../../../../../src/components/routes/Recent.vue'
 
 describe('Recent.vue', () => {
 	'use strict'
@@ -18,10 +19,10 @@ describe('Recent.vue', () => {
 			id: 3,
 		}, {
 			id: 4,
-		}
+		},
 	]
 
-	const mockItemIds = [ 2, 3 ];
+	const mockItemIds = [2, 3]
 
 	let store: Store<any>
 	beforeAll(() => {

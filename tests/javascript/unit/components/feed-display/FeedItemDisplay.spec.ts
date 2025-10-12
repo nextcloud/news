@@ -1,6 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
 import FeedItemDisplay from '../../../../../src/components/feed-display/FeedItemDisplay.vue'
 import { ACTIONS, MUTATIONS } from '../../../../../src/store'
 
@@ -59,12 +58,12 @@ describe('FeedItemDisplay.vue', () => {
 		const formattedDate = (wrapper.vm as any).formatDate(epoch / 1000)
 
 		expect(formattedDate).toEqual(new Date(epoch).toLocaleString(OC.getLanguage(), {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-			hour: "numeric",
-			minute: "2-digit",
-			second: "2-digit",
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: 'numeric',
+			minute: '2-digit',
+			second: '2-digit',
 		}))
 	})
 

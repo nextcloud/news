@@ -1,10 +1,9 @@
+import type { AppState } from '../../../../src/store'
+
 import { describe, expect, it, vi } from 'vitest'
-
-import { AppState } from '../../../../src/store'
-import { FEED_ITEM_ACTION_TYPES, mutations, actions } from '../../../../src/store/item'
-
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 import { ItemService } from '../../../../src/dataservices/item.service'
+import { actions, FEED_ITEM_ACTION_TYPES, mutations } from '../../../../src/store/item'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
 describe('item.ts', () => {
 	'use strict'
@@ -193,7 +192,7 @@ describe('item.ts', () => {
 
 			it('should set syncNeeded flag when newestItemId changed', () => {
 				const state = { allItems: [] as any, newestItemId: 0 } as any
-				let items = [{ title: 'test', id: 123 }] as any
+				const items = [{ title: 'test', id: 123 }] as any
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.syncNeeded).toEqual(true)
@@ -201,7 +200,7 @@ describe('item.ts', () => {
 
 			it('should set title from url if title is missing', () => {
 				const state = { allItems: [] as any } as any
-				let items = [{ title: '', url: 'https://feedurl', id: 123 }] as any
+				const items = [{ title: '', url: 'https://feedurl', id: 123 }] as any
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems[0].title).toEqual('https://feedurl')
@@ -277,7 +276,7 @@ describe('item.ts', () => {
 				const state = { lastItemLoaded: {} } as AppState
 
 				(mutations[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED] as any)(state, { lastItem: 123, key: 'unread' })
-				expect(state.lastItemLoaded.unread).toEqual(123);
+				expect(state.lastItemLoaded.unread).toEqual(123)
 			})
 		})
 
@@ -286,8 +285,8 @@ describe('item.ts', () => {
 				const state = { newestItemId: 123, allItemsLoaded: { unread: true } } as AppState
 
 				(mutations[FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID] as any)(state, 1234)
-				expect(state.allItemsLoaded.unread).toEqual(undefined);
-				expect(state.newestItemId).toEqual(1234);
+				expect(state.allItemsLoaded.unread).toEqual(undefined)
+				expect(state.newestItemId).toEqual(1234)
 			})
 		})
 
@@ -296,7 +295,7 @@ describe('item.ts', () => {
 				const state = { allItems: [{ id: 1, title: 'abc' }] as any } as AppState
 
 				(mutations[FEED_ITEM_MUTATION_TYPES.RESET_ITEM_STATES] as any)(state)
-				expect(state.allItems.length).toEqual(0);
+				expect(state.allItems.length).toEqual(0)
 			})
 		})
 

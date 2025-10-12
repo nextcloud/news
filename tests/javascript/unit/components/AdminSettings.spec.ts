@@ -1,24 +1,23 @@
-
 import axios from '@nextcloud/axios'
-import { shallowMount } from '@vue/test-utils'
-import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { loadState } from '@nextcloud/initial-state'
+import { shallowMount } from '@vue/test-utils'
+import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import AdminSettings from '../../../../src/components/AdminSettings.vue'
 
 import 'regenerator-runtime/runtime' // NOTE: Required for testing password-confirmation?
-import AdminSettings from '../../../../src/components/AdminSettings.vue'
 
 vi.mock('@nextcloud/axios')
 vi.mock('@nextcloud/initial-state')
 vi.mock('@nextcloud/router')
 vi.mock('@nextcloud/dialogs')
 vi.mock('@nextcloud/password-confirmation', () => ({
-    confirmPassword: vi.fn(),
-    password_policy: {},
-}));
+	confirmPassword: vi.fn(),
+	password_policy: {},
+}))
 vi.mock('@nextcloud/vue', () => ({
-    NcAppContent: {},
-}));
+	NcAppContent: {},
+}))
 
 describe('AdminSettings.vue', () => {
 	'use strict'

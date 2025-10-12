@@ -1,14 +1,13 @@
 import axios from '@nextcloud/axios'
 import { shallowMount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
-
 import Explore from '../../../../../src/components/routes/Explore.vue'
 
 describe('Explore.vue', () => {
 	'use strict'
 
 	it('should initialize without showing AddFeed Component', () => {
-		(axios as any).get.mockResolvedValue({ data: { } });
+		(axios as any).get.mockResolvedValue({ data: { } })
 
 		const wrapper = shallowMount(Explore, {
 			mocks: {

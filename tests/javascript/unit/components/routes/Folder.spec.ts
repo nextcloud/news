@@ -1,10 +1,11 @@
-import { nextTick } from 'vue'
-import Vuex, { Store } from 'vuex'
+import type { Store } from 'vuex'
+
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import Folder from '../../../../../src/components/routes/Folder.vue'
+import { nextTick } from 'vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import Folder from '../../../../../src/components/routes/Folder.vue'
 
 describe('Folder.vue', () => {
 	'use strict'
@@ -35,7 +36,7 @@ describe('Folder.vue', () => {
 			title: 'feed item 4',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}
+		},
 	]
 
 	const mockFeed = {
