@@ -1,10 +1,10 @@
-import { describe, expect, it, vi } from 'vitest'
+import type { AppState } from '../../../../src/store'
+import type { Folder } from '../../../../src/types/Folder'
 
-import { Folder } from '../../../../src/types/Folder'
-import { AppState } from '../../../../src/store'
-import { FOLDER_ACTION_TYPES, mutations, actions } from '../../../../src/store/folder'
-import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { describe, expect, it, vi } from 'vitest'
 import { FolderService } from '../../../../src/dataservices/folder.service'
+import { actions, FOLDER_ACTION_TYPES, mutations } from '../../../../src/store/folder'
+import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
 vi.mock('@nextcloud/router')
 
@@ -18,7 +18,7 @@ describe('folder.ts', () => {
 
 			const commit = vi.fn()
 
-		  await (actions[FOLDER_ACTION_TYPES.FETCH_FOLDERS] as any)({ commit })
+			await (actions[FOLDER_ACTION_TYPES.FETCH_FOLDERS] as any)({ commit })
 			expect(FolderService.fetchAllFolders).toBeCalled()
 			expect(commit).toBeCalled()
 		})
@@ -30,7 +30,7 @@ describe('folder.ts', () => {
 			const folder = {} as Folder
 			const commit = vi.fn()
 
-		  await actions[FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit } as any, { folder })
+			await actions[FOLDER_ACTION_TYPES.ADD_FOLDERS]({ commit } as any, { folder })
 			expect(FolderService.createFolder).toBeCalled()
 			expect(commit).toBeCalled()
 		})
@@ -42,7 +42,7 @@ describe('folder.ts', () => {
 			const folder = {} as Folder
 			const commit = vi.fn()
 
-		  await actions[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit } as any, { folder })
+			await actions[FOLDER_ACTION_TYPES.DELETE_FOLDER]({ commit } as any, { folder })
 			expect(FolderService.deleteFolder).toBeCalled()
 			expect(commit).toBeCalled()
 		})
@@ -54,7 +54,7 @@ describe('folder.ts', () => {
 			const folder = {} as Folder
 			const commit = vi.fn()
 
-		  await actions[FOLDER_ACTION_TYPES.FOLDER_SET_NAME]({ commit } as any, { folder, name: 'newName' } as any)
+			await actions[FOLDER_ACTION_TYPES.FOLDER_SET_NAME]({ commit } as any, { folder, name: 'newName' } as any)
 			expect(FolderService.renameFolder).toBeCalledWith({ id: folder.id, name: 'newName' })
 			expect(commit).toBeCalled()
 		})

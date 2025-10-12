@@ -1,10 +1,11 @@
-import { nextTick } from 'vue'
-import Vuex, { Store } from 'vuex'
+import type { Store } from 'vuex'
+
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import Feed from '../../../../../src/components/routes/Feed.vue'
+import { nextTick } from 'vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import Feed from '../../../../../src/components/routes/Feed.vue'
 import { FEED_ORDER } from '../../../../../src/enums/index.ts'
 import { ACTIONS } from '../../../../../src/store'
 
@@ -35,7 +36,7 @@ describe('Feed.vue', () => {
 			title: 'feed item 4',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}
+		},
 	]
 
 	const mockFeed = {
@@ -49,12 +50,12 @@ describe('Feed.vue', () => {
 		store = new Vuex.Store({
 			state: {
 				items: {
-                                        allItemsLoaded: {
-                                                'feed-123': false,
-                                        },
-                                        lastItemLoaded: {
-                                                'feed-123': 1,
-                                        },
+					allItemsLoaded: {
+						'feed-123': false,
+					},
+					lastItemLoaded: {
+						'feed-123': 1,
+					},
 					fetchingItems: {
 						'feed-123': false,
 					},
@@ -94,7 +95,7 @@ describe('Feed.vue', () => {
 	})
 
 	beforeEach(() => {
-                vi.clearAllMocks()
+		vi.clearAllMocks()
 
 		wrapper = shallowMount(Feed, {
 			props: {
@@ -126,12 +127,11 @@ describe('Feed.vue', () => {
 		store.commit('SET_SHOW_ALL', false)
 		await nextTick()
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(2)
-                await wrapper.setProps({
-                        feedId: '124',
-                })
+		await wrapper.setProps({
+			feedId: '124',
+		})
 		expect(wrapper.vm.$store.getters.showAll).toEqual(false)
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(0)
-
 	})
 
 	it('should get only first item from state with ordering oldest>newest', async () => {

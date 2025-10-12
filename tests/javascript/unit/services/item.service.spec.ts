@@ -1,7 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-
-import { ITEM_TYPES, ItemService } from '../../../../src/dataservices/item.service'
 import axios from '@nextcloud/axios'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { ITEM_TYPES, ItemService } from '../../../../src/dataservices/item.service'
 
 describe('item.service.ts', () => {
 	'use strict'

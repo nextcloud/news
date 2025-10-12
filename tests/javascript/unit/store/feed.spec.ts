@@ -1,13 +1,12 @@
+import type { AppState } from '../../../../src/store'
+import type { Feed } from '../../../../src/types/Feed'
+
 import { describe, expect, it, vi } from 'vitest'
-
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums'
-import { Feed } from '../../../../src/types/Feed'
-import { AppState } from '../../../../src/store'
-import { FEED_ACTION_TYPES, mutations, actions } from '../../../../src/store/feed'
 import { FeedService } from '../../../../src/dataservices/feed.service'
-
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 import { ItemService } from '../../../../src/dataservices/item.service'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums'
+import { actions, FEED_ACTION_TYPES, mutations } from '../../../../src/store/feed'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
 
 describe('feed.ts', () => {
 	'use strict'
@@ -183,7 +182,7 @@ describe('feed.ts', () => {
 
 			it('should sort feeds case insensitive by title', () => {
 				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				let feeds = [{ title: 'gamma' }, { title: 'alpha' }, { title: 'Beta' } ] as Feed[]
+				const feeds = [{ title: 'gamma' }, { title: 'alpha' }, { title: 'Beta' }] as Feed[]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds.length).toEqual(3)
@@ -193,8 +192,8 @@ describe('feed.ts', () => {
 			})
 
 			it('should set feed ordering when set', () => {
-				const state = { feeds: [] as Feed[], ordering: { 'feed-0': 0 }} as AppState
-				let feeds = [{ id: 0, title: 'test', ordering: 2 }] as Feed[]
+				const state = { feeds: [] as Feed[], ordering: { 'feed-0': 0 } } as AppState
+				const feeds = [{ id: 0, title: 'test', ordering: 2 }] as Feed[]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.ordering['feed-0']).toEqual(2)
@@ -202,7 +201,7 @@ describe('feed.ts', () => {
 
 			it('should convert unread count to number', () => {
 				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				let feeds = [{ title: 'test', unreadCount: '10' }] as Feed[]
+				const feeds = [{ title: 'test', unreadCount: '10' }] as Feed[]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds[0].unreadCount).toEqual(10)

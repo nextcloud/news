@@ -1,8 +1,7 @@
-import { ACTIONS } from '../../../../src/store'
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
 import AppSidebar from '../../../../src/components/Sidebar.vue'
+import { ACTIONS } from '../../../../src/store'
 
 describe('Sidebar.vue', () => {
 	'use strict'
@@ -18,7 +17,7 @@ describe('Sidebar.vue', () => {
 	const folder = {
 		id: 123,
 		name: 'abc',
-		feeds: [{ id: 1, title: 'first', folderId: 123 }]
+		feeds: [{ id: 1, title: 'first', folderId: 123 }],
 	}
 
 	const folders = [{

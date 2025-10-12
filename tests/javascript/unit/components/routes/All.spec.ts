@@ -1,10 +1,11 @@
-import { nextTick } from 'vue'
-import Vuex, { Store } from 'vuex'
+import type { Store } from 'vuex'
+
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import All from '../../../../../src/components/routes/All.vue'
+import { nextTick } from 'vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import All from '../../../../../src/components/routes/All.vue'
 
 describe('All.vue', () => {
 	'use strict'
@@ -33,7 +34,7 @@ describe('All.vue', () => {
 			feedId: 1,
 			title: 'feed item 4',
 			pubDate: Date.now() / 1000,
-		}
+		},
 	]
 
 	let store: Store<any>

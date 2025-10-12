@@ -1,16 +1,18 @@
+import type { Store } from 'vuex'
+
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick, ref } from 'vue'
-import Vuex, { Store } from 'vuex'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../src/components/ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../../../src/store/index.ts'
 
 describe('ContentTemplate.vue', () => {
 	'use strict'
 
-	let oldestFirst = false
-	let selectedId = ref(null)
-	let showAll = false
+	const oldestFirst = false
+	const selectedId = ref(null)
+	const showAll = false
 	let store: Store<any>
 	let wrapper: any
 
@@ -112,7 +114,7 @@ describe('ContentTemplate.vue', () => {
 				plugins: [store],
 			},
 		})
-                vi.clearAllMocks()
+		vi.clearAllMocks()
 	})
 
 	it('should set selected item id and call mark read if unread', async () => {
@@ -151,5 +153,4 @@ describe('ContentTemplate.vue', () => {
 		wrapper.vm.nextItem()
 		expect(wrapper.vm.selectedFeedItem).toEqual(mockItem1)
 	})
-
 })

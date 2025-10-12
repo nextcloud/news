@@ -1,7 +1,9 @@
+import type { Store } from 'vuex'
+
 import { mount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import Vuex, { Store } from 'vuex'
+import Vuex from 'vuex'
 import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
 import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'
 import VirtualScroll from '../../../../../src/components/feed-display/VirtualScroll.vue'
@@ -11,7 +13,7 @@ import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
 describe('FeedItemDisplayList.vue', () => {
 	'use strict'
 
-	let oldestFirst = false
+	const oldestFirst = false
 	let selectedItem = null
 	let showAll = false
 	let store: Store<any>
@@ -137,7 +139,7 @@ describe('FeedItemDisplayList.vue', () => {
 	})
 
 	beforeEach(() => {
-                vi.clearAllMocks()
+		vi.clearAllMocks()
 
 		// reset unread status
 		mockItem1.unread = true
@@ -331,5 +333,4 @@ describe('FeedItemDisplayList.vue', () => {
 		expect(store.commit).toBeCalledWith(MUTATIONS.RESET_ITEM_STATES)
 		expect(store.dispatch).toBeCalledWith(ACTIONS.FETCH_FEEDS)
 	})
-
 })

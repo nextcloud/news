@@ -1,10 +1,11 @@
+import type { AppInfoState } from '../../../../src/store/app'
+
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createStore } from 'vuex'
-
+import { DISPLAY_MODE, SPLIT_MODE } from '../../../../src/enums/index.ts'
 import appInfo from '../../../../src/store/app'
-import { AppInfoState, mutations } from '../../../../src/store/app'
+import { mutations } from '../../../../src/store/app'
 import { APPLICATION_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
-import { DISPLAY_MODE, SPLIT_MODE }  from '../../../../src/enums/index.ts'
 
 vi.mock('@nextcloud/router')
 
@@ -18,7 +19,7 @@ describe('app.ts', () => {
 			store = createStore({
 				modules: {
 					appInfo,
-				}
+				},
 			})
 		})
 
@@ -105,7 +106,7 @@ describe('app.ts', () => {
 			expect(state.loading).toEqual(true);
 
 			(mutations[APPLICATION_MUTATION_TYPES.SET_LOADING] as any)(state, { value: false })
-			expect(state.loading).toEqual(false);
+			expect(state.loading).toEqual(false)
 		})
 
 		it('displaymode should update the value in the state', () => {

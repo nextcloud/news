@@ -22,5 +22,5 @@ config.global.mocks.n = config.global.mocks.$n
 // Mock nextcloud helpers
 vi.mock('@nextcloud/axios')
 vi.mock('@nextcloud/capabilities', () => ({
-  getCapabilities: vi.fn(() => ({})),
+	getCapabilities: vi.fn(() => ({})),
 }))

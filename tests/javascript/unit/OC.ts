@@ -1,5 +1,4 @@
 export class OC {
-
 	generateUrl(url: any) {
 		return ''
 	}

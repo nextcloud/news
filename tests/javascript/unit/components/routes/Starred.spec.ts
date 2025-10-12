@@ -1,10 +1,11 @@
-import { nextTick } from 'vue'
-import Vuex, { Store } from 'vuex'
+import type { Store } from 'vuex'
+
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import Starred from '../../../../../src/components/routes/Starred.vue'
+import { nextTick } from 'vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
+import Starred from '../../../../../src/components/routes/Starred.vue'
 
 describe('Starred.vue', () => {
 	'use strict'
@@ -37,7 +38,7 @@ describe('Starred.vue', () => {
 			title: 'feed item 4',
 			pubDate: Date.now() / 1000,
 			starred: true,
-		}
+		},
 	]
 
 	let store: Store<any>
@@ -99,13 +100,13 @@ describe('Starred.vue', () => {
 	})
 
 	it('should dispatch FETCH_STARRED action if not fetchingItems.starred', () => {
-                (wrapper.vm as any).$store.state.items.fetchingItems.starred = false;
+		(wrapper.vm as any).$store.state.items.fetchingItems.starred = false;
 		(wrapper.vm as any).fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
 	it('should not dispatch FETCH_STARRED action if fetchingItems.starred', () => {
-                (wrapper.vm as any).$store.state.items.fetchingItems.starred = true;
+		(wrapper.vm as any).$store.state.items.fetchingItems.starred = true;
 		(wrapper.vm as any).fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
