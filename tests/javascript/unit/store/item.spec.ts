@@ -211,7 +211,7 @@ describe('item.ts', () => {
 			it('should add a single feed to state', () => {
 				const state = { } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT] as any)(state, 13)
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT](state, 13)
 				expect(state.starredCount).toEqual(13)
 			})
 		})
@@ -220,7 +220,7 @@ describe('item.ts', () => {
 			it('should set unreadCount with value passed in', () => {
 				const state = { unreadCount: 0 } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT] as any)(state, 123)
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT](state, 123)
 				expect(state.unreadCount).toEqual(123)
 			})
 		})
@@ -229,10 +229,10 @@ describe('item.ts', () => {
 			it('should modify unreadCount with value passed in', () => {
 				const state = { unreadCount: 123 } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT] as any)(state, { delta: 5 })
-				expect(state.unreadCount).toEqual(128);
+				mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT](state, { delta: 5 })
+				expect(state.unreadCount).toEqual(128)
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT] as any)(state, { delta: -3 })
+				mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT](state, { delta: -3 })
 				expect(state.unreadCount).toEqual(125)
 			})
 		})
@@ -242,7 +242,7 @@ describe('item.ts', () => {
 				const state = { allItems: [{ id: 1, title: 'abc' }] as any } as AppState
 				const item = { title: 'test', id: 1 } as any
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM] as any)(state, { item })
+				mutations[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](state, { item })
 				expect(state.allItems[0]).toEqual(item)
 			})
 		})
@@ -251,10 +251,10 @@ describe('item.ts', () => {
 			it('should set fetchingItems value with key passed in', () => {
 				const state = { fetchingItems: {} } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_FETCHING] as any)(state, { fetching: true, key: 'starred' })
-				expect(state.fetchingItems.starred).toEqual(true);
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](state, { fetching: true, key: 'starred' })
+				expect(state.fetchingItems.starred).toEqual(true)
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_FETCHING] as any)(state, { fetching: false, key: 'starred' })
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](state, { fetching: false, key: 'starred' })
 				expect(state.fetchingItems.starred).toEqual(false)
 			})
 		})
@@ -263,10 +263,10 @@ describe('item.ts', () => {
 			it('should set allItemsLoaded value with key passed in', () => {
 				const state = { allItemsLoaded: {} } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED] as any)(state, { loaded: true, key: 'starred' })
-				expect(state.allItemsLoaded.starred).toEqual(true);
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](state, { loaded: true, key: 'starred' })
+				expect(state.allItemsLoaded.starred).toEqual(true)
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED] as any)(state, { loaded: false, key: 'starred' })
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](state, { loaded: false, key: 'starred' })
 				expect(state.allItemsLoaded.starred).toEqual(false)
 			})
 		})
@@ -275,7 +275,7 @@ describe('item.ts', () => {
 			it('should set lastItemLoaded value with key passed in', () => {
 				const state = { lastItemLoaded: {} } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED] as any)(state, { lastItem: 123, key: 'unread' })
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](state, { lastItem: 123, key: 'unread' })
 				expect(state.lastItemLoaded.unread).toEqual(123)
 			})
 		})
@@ -284,7 +284,7 @@ describe('item.ts', () => {
 			it('should set newestItemId and reset allItemsLoaded values', () => {
 				const state = { newestItemId: 123, allItemsLoaded: { unread: true } } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID] as any)(state, 1234)
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID](state, 1234)
 				expect(state.allItemsLoaded.unread).toEqual(undefined)
 				expect(state.newestItemId).toEqual(1234)
 			})
@@ -294,7 +294,7 @@ describe('item.ts', () => {
 			it('should reset item states', () => {
 				const state = { allItems: [{ id: 1, title: 'abc' }] as any } as AppState
 
-				(mutations[FEED_ITEM_MUTATION_TYPES.RESET_ITEM_STATES] as any)(state)
+				mutations[FEED_ITEM_MUTATION_TYPES.RESET_ITEM_STATES](state)
 				expect(state.allItems.length).toEqual(0)
 			})
 		})
@@ -303,10 +303,10 @@ describe('item.ts', () => {
 			it('should set allItems with feedId as read', () => {
 				const state = { allItems: [{ id: 1, feedId: 123, unread: true }, { id: 2, feedId: 345, unread: true }] } as any
 
-				(mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ] as any)(state, { id: 123 })
-				expect(state.allItems[0].unread).toEqual(false);
+				mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state, { id: 123 })
+				expect(state.allItems[0].unread).toEqual(false)
 
-				(mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ] as any)(state, { id: 345 })
+				mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state, { id: 345 })
 				expect(state.allItems[1].unread).toEqual(false)
 			})
 		})
