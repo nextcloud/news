@@ -5,8 +5,6 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import Item from '../../../../../src/components/routes/Item.vue'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 
-vi.mock('@nextcloud/axios')
-
 describe('Item.vue', () => {
 	'use strict'
 	let wrapper: any

@@ -8,8 +8,6 @@ import VirtualScroll from '../../../../../src/components/feed-display/VirtualScr
 import { FEED_ORDER } from '../../../../../src/enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
 
-vi.mock('@nextcloud/axios')
-
 describe('FeedItemDisplayList.vue', () => {
 	'use strict'
 

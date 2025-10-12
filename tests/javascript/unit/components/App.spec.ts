@@ -27,6 +27,9 @@ describe('FeedItemDisplay.vue', () => {
 						commit: commitStub,
 					},
 				},
+				stubs: {
+					RouterView: true,
+				},
 			},
 		})
 	})

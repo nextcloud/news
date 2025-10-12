@@ -8,8 +8,6 @@ import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 import { FEED_ORDER } from '../../../../../src/enums/index.ts'
 import { ACTIONS } from '../../../../../src/store'
 
-vi.mock('@nextcloud/axios')
-
 describe('Feed.vue', () => {
 	'use strict'
 	let wrapper: any
