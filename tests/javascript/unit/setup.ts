@@ -1,5 +1,5 @@
 import { config } from '@vue/test-utils'
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { vi } from 'vitest'
 
 (global as any).appName = 'news'
 
@@ -19,6 +19,8 @@ config.global.mocks.$n = function(app: any, singular: any) {
 }
 config.global.mocks.n = config.global.mocks.$n
 
-afterAll(() => {
-	// TODO: afterAll tests?
-})
+// Mock nextcloud helpers
+vi.mock('@nextcloud/axios')
+vi.mock('@nextcloud/capabilities', () => ({
+  getCapabilities: vi.fn(() => ({})),
+}))

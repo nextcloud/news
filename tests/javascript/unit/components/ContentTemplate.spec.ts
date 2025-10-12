@@ -5,8 +5,6 @@ import Vuex, { Store } from 'vuex'
 import ContentTemplate from '../../../../src/components/ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../../../src/store/index.ts'
 
-vi.mock('@nextcloud/axios')
-
 describe('ContentTemplate.vue', () => {
 	'use strict'
 
