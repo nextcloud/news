@@ -90,64 +90,64 @@ describe('app.ts', () => {
 		it('SET_ERROR should update the error in the state', () => {
 			const state = { error: undefined } as AppInfoState
 
-			const error = { message: 'test err' };
+			const error = { message: 'test err' }
 
-			(mutations[APPLICATION_MUTATION_TYPES.SET_ERROR] as any)(state, error)
-			expect(state.error).toEqual(error);
+			mutations[APPLICATION_MUTATION_TYPES.SET_ERROR](state, error)
+			expect(state.error).toEqual(error)
 
-			(mutations[APPLICATION_MUTATION_TYPES.SET_ERROR] as any)(state, undefined)
+			mutations[APPLICATION_MUTATION_TYPES.SET_ERROR](state, undefined)
 			expect(state.error).toEqual(undefined)
 		})
 
 		it('SET_LOADING should update loading flag in the state', () => {
 			const state = { loading: undefined } as AppInfoState
 
-			(mutations[APPLICATION_MUTATION_TYPES.SET_LOADING] as any)(state, { value: true })
-			expect(state.loading).toEqual(true);
+			mutations[APPLICATION_MUTATION_TYPES.SET_LOADING](state, { value: true })
+			expect(state.loading).toEqual(true)
 
-			(mutations[APPLICATION_MUTATION_TYPES.SET_LOADING] as any)(state, { value: false })
+			mutations[APPLICATION_MUTATION_TYPES.SET_LOADING](state, { value: false })
 			expect(state.loading).toEqual(false)
 		})
 
 		it('displaymode should update the value in the state', () => {
 			const state = { displaymode: undefined } as AppInfoState
 
-			(mutations.displaymode as any)(state, { value: DISPLAY_MODE.DEFAULT })
+			mutations.displaymode(state, { value: DISPLAY_MODE.DEFAULT })
 			expect(state.displaymode).toEqual(DISPLAY_MODE.DEFAULT)
 		})
 
 		it('splitmode should update the value in the state', () => {
 			const state = { splitmode: undefined } as AppInfoState
 
-			(mutations.splitmode as any)(state, { value: SPLIT_MODE.OFF })
+			mutations.splitmode(state, { value: SPLIT_MODE.OFF })
 			expect(state.splitmode).toEqual(SPLIT_MODE.OFF)
 		})
 
 		it('oldestFirst should update the value in the state', () => {
 			const state = { oldestFirst: undefined } as AppInfoState
 
-			(mutations.oldestFirst as any)(state, { value: true })
+			mutations.oldestFirst(state, { value: true })
 			expect(state.oldestFirst).toEqual(true)
 		})
 
 		it('preventReadOnScroll should update the value in the state', () => {
 			const state = { preventReadOnScroll: undefined } as AppInfoState
 
-			(mutations.preventReadOnScroll as any)(state, { value: true })
+			mutations.preventReadOnScroll(state, { value: true })
 			expect(state.preventReadOnScroll).toEqual(true)
 		})
 
 		it('showAll should update the value in the state', () => {
 			const state = { showAll: undefined } as AppInfoState
 
-			(mutations.showAll as any)(state, { value: true })
+			mutations.showAll(state, { value: true })
 			expect(state.showAll).toEqual(true)
 		})
 
 		it('disableRefresh should update the value in the state', () => {
 			const state = { disableRefresh: undefined } as AppInfoState
 
-			(mutations.disableRefresh as any)(state, { value: true })
+			mutations.disableRefresh(state, { value: true })
 			expect(state.disableRefresh).toEqual(true)
 		})
 	})
