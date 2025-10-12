@@ -83,6 +83,46 @@ describe('folder.ts', () => {
 			expect(state.folders.length).toEqual(0)
 		})
 
+		it('SET_FEEDS should add the feed to the folder in the state', () => {
+			const state = { folders: [{ name: 'test', id: 123 }] as Folder[] } as AppState
+			const feeds = [{ id: 345, folderId: 123, title: 'article' }] as Feed[]
+
+			(mutations[FEED_MUTATION_TYPES.SET_FEEDS] as any)(state, feeds)
+			expect(state.folders.length).toEqual(1)
+			expect(state.folders[0].feeds.length).toEqual(1)
+			expect(state.folders[0].feeds[0].id).toEqual(345)
+		})
+
+		it('SET_FEEDS should update the folder unreadCount with the feed unreadCount', () => {
+			const state = { folders: [{ name: 'test', id: 123, unreadCount: 0 }] as Folder[] } as AppState
+			const feeds = [{ id: 345, folderId: 123, title: 'article', unreadCount: 5 }] as Feed[]
+
+			(mutations[FEED_MUTATION_TYPES.SET_FEEDS] as any)(state, feeds)
+			expect(state.folders.length).toEqual(1)
+			expect(state.folders[0].feedCount).toEqual(5)
+		})
+
+		it('SET_FEEDS should update the folder updateErrorCount with the feed updateErrorCount when greater than eight', () => {
+			const state = { folders: [{ name: 'test', id: 123, feedCount: 0 }] as Folder[] } as AppState
+			const feeds = [{ id: 345, folderId: 123, title: 'article', updateErrorCount: 9 }] as Feed[]
+
+			(mutations[FEED_MUTATION_TYPES.SET_FEEDS] as any)(state, feeds)
+			expect(state.folders.length).toEqual(1)
+			expect(state.folders[0].updateErrorCount).toEqual(9)
+		})
+
+		it('ADD_FEED should add the feed to the folder in the state and update counters', () => {
+			const state = { folders: [{ name: 'test', id: 123, feeds: [] as Feed[], feedCount: 0, updateErrorCount: 0 }] as Folder[] } as AppState
+			const feed = { id: 345, folderId: 123, title: 'article', unreadCount: 5, updateErrorCount: 9 } as Feed
+
+			(mutations[FEED_MUTATION_TYPES.ADD_FEED] as any)(state, feed)
+			expect(state.folders.length).toEqual(1)
+			expect(state.folders[0].feeds.length).toEqual(1)
+			expect(state.folders[0].feeds[0].id).toEqual(345)
+			expect(state.folders[0].feedCount).toEqual(5)
+			expect(state.folders[0].updateErrorCount).toEqual(9)
+		})
+
 		it('UPDATE_FOLDER should update the folder  properties in the state', () => {
 			const state = { folders: [{ name: 'test', id: 123 }] as Folder[] } as AppState
 			const newFolder = { id: 123, name: 'newName' };

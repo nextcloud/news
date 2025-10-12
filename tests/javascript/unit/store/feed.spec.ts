@@ -83,6 +83,16 @@ describe('feed.ts', () => {
 			})
 		})
 
+		describe('FEED_SET_PREVENT_UPDATE', () => {
+			it('should call FeedService.updateFeed and commit updated `preventUpdate` property to state', async () => {
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await (actions[FEED_ACTION_TYPES.FEED_SET_PREVENT_UPDATE] as any)({ commit }, { feed: { id: 1 }, preventUpdate: true })
+				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, preventUpdate: true })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, preventUpdate: true })
+			})
+		})
+
 		describe('FEED_SET_ORDERING', () => {
 			it('should call FeedService.updateFeed and commit updated `ordering` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
@@ -170,6 +180,33 @@ describe('feed.ts', () => {
 				expect(state.feeds.length).toEqual(1)
 				expect(state.feeds[0]).toEqual(feeds[0])
 			})
+
+			it('should sort feeds case insensitive by title', () => {
+				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
+				let feeds = [{ title: 'gamma' }, { title: 'alpha' }, { title: 'Beta' } ] as Feed[]
+
+				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
+				expect(state.feeds.length).toEqual(3)
+				expect(state.feeds[0].title).toEqual('alpha')
+				expect(state.feeds[1].title).toEqual('Beta')
+				expect(state.feeds[2].title).toEqual('gamma')
+			})
+
+			it('should set feed ordering when set', () => {
+				const state = { feeds: [] as Feed[], ordering: { 'feed-0': 0 }} as AppState
+				let feeds = [{ id: 0, title: 'test', ordering: 2 }] as Feed[]
+
+				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
+				expect(state.ordering['feed-0']).toEqual(2)
+			})
+
+			it('should convert unread count to number', () => {
+				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
+				let feeds = [{ title: 'test', unreadCount: '10' }] as Feed[]
+
+				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
+				expect(state.feeds[0].unreadCount).toEqual(10)
+			})
 		})
 
 		describe('ADD_FEED', () => {
@@ -190,6 +227,15 @@ describe('feed.ts', () => {
 
 				mutations[FEED_MUTATION_TYPES.UPDATE_FEED](state, feed)
 				expect(state.feeds[0].title).toEqual('test')
+			})
+		})
+
+		describe('SET_NEWEST_ITEM_ID', () => {
+			it('should update newestItemId in state', () => {
+				const state = { newestItemId: 0 } as AppState
+
+				mutations[FEED_MUTATION_TYPES.SET_NEWEST_ITEM_ID](state, 123)
+				expect(state.newestItemId).toEqual(123)
 			})
 		})
 

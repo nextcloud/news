@@ -24,6 +24,20 @@ describe('item.ts', () => {
 			})
 		})
 
+		describe('FETCH_ITEMS', () => {
+			it('should call ItemService and commit items to state', async () => {
+				const fetchMock = vi.fn()
+				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }] } })
+				ItemService.fetchAll = fetchMock as any
+				const commit = vi.fn()
+
+				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_ITEMS] as any)({ commit })
+
+				expect(fetchMock).toBeCalled()
+				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
+			})
+		})
+
 		describe('FETCH_STARRED', () => {
 			it('should call ItemService and commit items and starred count to state', async () => {
 				const fetchMock = vi.fn()
@@ -176,6 +190,22 @@ describe('item.ts', () => {
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems.length).toEqual(2)
 			})
+
+			it('should set syncNeeded flag when newestItemId changed', () => {
+				const state = { allItems: [] as any, newestItemId: 0 } as any
+				let items = [{ title: 'test', id: 123 }] as any
+
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
+				expect(state.syncNeeded).toEqual(true)
+			})
+
+			it('should set title from url if title is missing', () => {
+				const state = { allItems: [] as any } as any
+				let items = [{ title: '', url: 'https://feedurl', id: 123 }] as any
+
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
+				expect(state.allItems[0].title).toEqual('https://feedurl')
+			})
 		})
 
 		describe('SET_STARRED_COUNT', () => {
@@ -193,6 +223,18 @@ describe('item.ts', () => {
 
 				(mutations[FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT] as any)(state, 123)
 				expect(state.unreadCount).toEqual(123)
+			})
+		})
+
+		describe('MODIFY_UNREAD_COUNT', () => {
+			it('should modify unreadCount with value passed in', () => {
+				const state = { unreadCount: 123 } as AppState
+
+				(mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT] as any)(state, { delta: 5 })
+				expect(state.unreadCount).toEqual(128);
+
+				(mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_UNREAD_COUNT] as any)(state, { delta: -3 })
+				expect(state.unreadCount).toEqual(125)
 			})
 		})
 
@@ -227,6 +269,34 @@ describe('item.ts', () => {
 
 				(mutations[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED] as any)(state, { loaded: false, key: 'starred' })
 				expect(state.allItemsLoaded.starred).toEqual(false)
+			})
+		})
+
+		describe('SET_LAST_ITEM_LOADED', () => {
+			it('should set lastItemLoaded value with key passed in', () => {
+				const state = { lastItemLoaded: {} } as AppState
+
+				(mutations[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED] as any)(state, { lastItem: 123, key: 'unread' })
+				expect(state.lastItemLoaded.unread).toEqual(123);
+			})
+		})
+
+		describe('SET_NEWEST_ITEM_ID', () => {
+			it('should set newestItemId and reset allItemsLoaded values', () => {
+				const state = { newestItemId: 123, allItemsLoaded: { unread: true } } as AppState
+
+				(mutations[FEED_ITEM_MUTATION_TYPES.SET_NEWEST_ITEM_ID] as any)(state, 1234)
+				expect(state.allItemsLoaded.unread).toEqual(undefined);
+				expect(state.newestItemId).toEqual(1234);
+			})
+		})
+
+		describe('RESET_ITEM_STATES', () => {
+			it('should reset item states', () => {
+				const state = { allItems: [{ id: 1, title: 'abc' }] as any } as AppState
+
+				(mutations[FEED_ITEM_MUTATION_TYPES.RESET_ITEM_STATES] as any)(state)
+				expect(state.allItems.length).toEqual(0);
 			})
 		})
 
