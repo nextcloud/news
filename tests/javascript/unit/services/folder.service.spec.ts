@@ -6,14 +6,14 @@ describe('folder.service.ts', () => {
 	'use strict'
 
 	beforeEach(() => {
-		(axios.get as any).mockReset();
-		(axios.post as any).mockReset();
-		(axios.delete as any).mockReset()
+		axios.get.mockReset()
+		axios.post.mockReset()
+		axios.delete.mockReset()
 	})
 
 	describe('fetchAllFolders', () => {
 		it('should call GET to retrieve all folders', async () => {
-			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+			axios.get.mockResolvedValue({ data: { feeds: [] } })
 
 			await FolderService.fetchAllFolders()
 
@@ -26,7 +26,7 @@ describe('folder.service.ts', () => {
 			await FolderService.createFolder({ name: 'abc' })
 
 			expect(axios.post).toBeCalled()
-			const args = (axios.post as any).mock.calls[0]
+			const args = axios.post.mock.calls[0]
 
 			expect(args[1].folderName).toEqual('abc')
 		})
@@ -37,7 +37,7 @@ describe('folder.service.ts', () => {
 			await FolderService.renameFolder({ id: 123, name: 'abc' })
 
 			expect(axios.post).toBeCalled()
-			const args = (axios.post as any).mock.calls[0]
+			const args = axios.post.mock.calls[0]
 
 			expect(args[0]).toContain('123/rename')
 			expect(args[1].folderName).toEqual('abc')
@@ -49,7 +49,7 @@ describe('folder.service.ts', () => {
 			await FolderService.deleteFolder({ id: 123 })
 
 			expect(axios.delete).toBeCalled()
-			const args = (axios.delete as any).mock.calls[0]
+			const args = axios.delete.mock.calls[0]
 
 			expect(args[0]).toContain('123')
 		})

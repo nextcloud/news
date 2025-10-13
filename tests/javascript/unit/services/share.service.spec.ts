@@ -6,18 +6,18 @@ describe('share.service.ts', () => {
 	'use strict'
 
 	beforeEach(() => {
-		(axios.get as any).mockReset();
-		(axios.post as any).mockReset()
+		axios.get.mockReset()
+		axios.post.mockReset()
 	})
 
 	describe('fetchUsers', () => {
 		it('should call GET to retrieve users', async () => {
-			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+			axios.get.mockResolvedValue({ data: { feeds: [] } })
 
 			await ShareService.fetchUsers('abc')
 
 			expect(axios.get).toBeCalled()
-			const args = (axios.get as any).mock.calls[0]
+			const args = axios.get.mock.calls[0]
 
 			expect(args[0]).toContain('search=abc')
 		})
@@ -28,7 +28,7 @@ describe('share.service.ts', () => {
 			await ShareService.share(123, ['share-user'])
 
 			expect(axios.post).toBeCalledTimes(1)
-			let args = (axios.post as any).mock.calls[0]
+			let args = axios.post.mock.calls[0]
 
 			expect(args[0]).toContain('123/share/share-user')
 
@@ -36,9 +36,9 @@ describe('share.service.ts', () => {
 
 			expect(axios.post).toBeCalledTimes(3)
 
-			args = (axios.post as any).mock.calls[1]
+			args = axios.post.mock.calls[1]
 			expect(args[0]).toContain('345/share/share-user')
-			args = (axios.post as any).mock.calls[2]
+			args = axios.post.mock.calls[2]
 			expect(args[0]).toContain('345/share/share2')
 		})
 	})

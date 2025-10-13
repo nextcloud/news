@@ -6,13 +6,13 @@ describe('feed.service.ts', () => {
 	'use strict'
 
 	beforeEach(() => {
-		(axios.get as any).mockReset();
-		(axios.post as any).mockReset()
+		axios.get.mockReset()
+		axios.post.mockReset()
 	})
 
 	describe('fetchAllFeeds', () => {
 		it('should call GET to retrieve all feeds', async () => {
-			(axios as any).get.mockResolvedValue({ data: { feeds: [] } })
+			axios.get.mockResolvedValue({ data: { feeds: [] } })
 
 			await FeedService.fetchAllFeeds()
 
@@ -25,7 +25,7 @@ describe('feed.service.ts', () => {
 			await FeedService.addFeed({ url: 'http://example.com', folderId: 0, autoDiscover: false })
 
 			expect(axios.post).toBeCalled()
-			const args = (axios.post as any).mock.calls[0]
+			const args = axios.post.mock.calls[0]
 
 			expect(args[1].url).toEqual('http://example.com')
 		})
@@ -36,7 +36,7 @@ describe('feed.service.ts', () => {
 			await FeedService.markRead({ feedId: 1, highestItemId: 234 })
 
 			expect(axios.post).toBeCalled()
-			const args = (axios.post as any).mock.calls[0]
+			const args = axios.post.mock.calls[0]
 
 			expect(args[0]).toContain('1/read')
 			expect(args[1].highestItemId).toEqual(234)
@@ -48,7 +48,7 @@ describe('feed.service.ts', () => {
 			await FeedService.updateFeed({ feedId: 1, title: 'abc' })
 
 			expect(axios.patch).toBeCalled()
-			const args = (axios.patch as any).mock.calls[0]
+			const args = axios.patch.mock.calls[0]
 
 			expect(args[0]).toContain('1')
 			expect(args[1].title).toEqual('abc')
@@ -60,7 +60,7 @@ describe('feed.service.ts', () => {
 			await FeedService.deleteFeed({ feedId: 1 })
 
 			expect(axios.delete).toBeCalled()
-			const args = (axios.delete as any).mock.calls[0]
+			const args = axios.delete.mock.calls[0]
 
 			expect(args[0]).toContain('1')
 		})
