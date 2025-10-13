@@ -83,28 +83,28 @@ describe('All.vue', () => {
 	})
 
 	it('should get only first item from state ordering oldest>newest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded.all = 1;
-		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		wrapper.vm.$store.state.items.lastItemLoaded.all = 1
+		wrapper.vm.$store.state.app.oldestFirst = true
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state ordering newest>oldest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded.all = 4;
-		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		wrapper.vm.$store.state.items.lastItemLoaded.all = 4
+		wrapper.vm.$store.state.app.oldestFirst = false
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_ITEMS action if not fetchingItems.all', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.all = false;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems.all = false
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
 	it('should not dispatch FETCH_ITEMS action if fetchingItems.all', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.all = true;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems.all = true
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
 })

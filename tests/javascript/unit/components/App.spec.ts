@@ -39,22 +39,22 @@ describe('FeedItemDisplay.vue', () => {
 	})
 
 	it('should send SET_PLAYING_ITEM with undefined to stop playback', () => {
-		(wrapper.vm as any).stopPlaying()
+		wrapper.vm.stopPlaying()
 
 		expect(commitStub).toBeCalledWith(MUTATIONS.SET_PLAYING_ITEM, undefined)
 	})
 
 	it('should stop all video elements in page when playing video', () => {
 		const pauseStub = vi.fn()
-		document.getElementsByTagName = vi.fn().mockReturnValue([{ pause: pauseStub }]);
+		document.getElementsByTagName = vi.fn().mockReturnValue([{ pause: pauseStub }])
 
-		(wrapper.vm as any).stopVideo()
+		wrapper.vm.stopVideo()
 
 		expect(pauseStub).toBeCalled()
 	})
 
 	it('should remove app state error with commit and undefined', () => {
-		(wrapper.vm as any).removeError()
+		wrapper.vm.removeError()
 
 		expect(commitStub).toBeCalledWith(MUTATIONS.SET_ERROR, undefined)
 	})

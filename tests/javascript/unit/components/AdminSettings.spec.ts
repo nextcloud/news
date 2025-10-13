@@ -24,7 +24,7 @@ describe('AdminSettings.vue', () => {
 	let wrapper: any
 
 	beforeAll(() => {
-		(loadState as any).mockReturnValue('')
+		loadState.mockReturnValue('')
 		wrapper = shallowMount(AdminSettings, { })
 	})
 
@@ -37,8 +37,8 @@ describe('AdminSettings.vue', () => {
 	})
 
 	it('should send post with updated settings', async () => {
-		vi.spyOn(axios, 'post').mockResolvedValue({ data: {} });
-		(wrapper.vm as any).handleResponse = vi.fn()
+		vi.spyOn(axios, 'post').mockResolvedValue({ data: {} })
+		wrapper.vm.handleResponse = vi.fn()
 
 		await wrapper.vm.$options?.methods?.update.call(wrapper.vm, 'key', 'val')
 
@@ -46,7 +46,7 @@ describe('AdminSettings.vue', () => {
 	})
 
 	it('should handle bad response', () => {
-		(showError as any).mockClear()
+		showError.mockClear()
 		console.error = vi.fn()
 		wrapper.vm.$options?.methods?.handleResponse.call(wrapper.vm, {
 			error: true,
@@ -59,8 +59,8 @@ describe('AdminSettings.vue', () => {
 	it('should handle success response', () => {
 		wrapper.vm.$options?.methods?.handleResponse.call(wrapper.vm, {
 			status: 'ok',
-		});
-		(global as any).t = vi.fn()
+		})
+		global.t = vi.fn()
 		vi.runAllTimers()
 
 		expect(showSuccess).toBeCalledTimes(1)

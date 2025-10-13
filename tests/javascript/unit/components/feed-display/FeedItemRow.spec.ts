@@ -54,7 +54,7 @@ describe('FeedItemRow.vue', () => {
 
 	it('should format date to match locale', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
-		const formattedDate = (wrapper.vm as any).formatDate(epoch / 1000)
+		const formattedDate = wrapper.vm.formatDate(epoch / 1000)
 
 		expect(formattedDate).toEqual(new Date(epoch).toLocaleString(OC.getLanguage(), {
 			year: 'numeric',
@@ -68,7 +68,7 @@ describe('FeedItemRow.vue', () => {
 
 	it('should format datetime to match international standard', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
-		const formattedDate = (wrapper.vm as any).formatDateISO(epoch / 1000)
+		const formattedDate = wrapper.vm.formatDateISO(epoch / 1000)
 
 		expect(formattedDate).toEqual(new Date(epoch).toISOString())
 	})
@@ -77,33 +77,33 @@ describe('FeedItemRow.vue', () => {
 		const currentTimestamp = Date.now()
 		let pastTimestamp = currentTimestamp - 1000 * 10 // 10 seconds ago
 
-		let relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
+		let relativeTimestamp = wrapper.vm.formatDateRelative(pastTimestamp / 1000)
 
 		expect(relativeTimestamp).toEqual('10 seconds ago')
 
 		pastTimestamp = currentTimestamp - 1000 * 60 * 10 // 10 minutes ago
 
-		relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
+		relativeTimestamp = wrapper.vm.formatDateRelative(pastTimestamp / 1000)
 
 		expect(relativeTimestamp).toEqual('10 minutes ago')
 
 		pastTimestamp = currentTimestamp - 1000 * 3600 // 1 hour ago
 
-		relativeTimestamp = (wrapper.vm as any).formatDateRelative(pastTimestamp / 1000)
+		relativeTimestamp = wrapper.vm.formatDateRelative(pastTimestamp / 1000)
 
 		expect(relativeTimestamp).toEqual('1 hour ago')
 	})
 
 	it('should retrieve feed by ID', () => {
-		const feed = (wrapper.vm as any).getFeed(mockFeed.id)
+		const feed = wrapper.vm.getFeed(mockFeed.id)
 
 		expect(feed).toEqual(mockFeed)
 	})
 
 	describe('markRead', () => {
 		it('should mark item as read when keepUnread is false', () => {
-			wrapper.vm.$props.item.keepUnread = false;
-			(wrapper.vm as any).markRead(wrapper.vm.$props.item)
+			wrapper.vm.$props.item.keepUnread = false
+			wrapper.vm.markRead(wrapper.vm.$props.item)
 
 			expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.MARK_READ, {
 				item: wrapper.vm.$props.item,
@@ -111,32 +111,32 @@ describe('FeedItemRow.vue', () => {
 		})
 
 		it('should not mark item as read when keepUnread is true', () => {
-			wrapper.vm.$props.item.keepUnread = true;
-			(wrapper.vm as any).markRead(wrapper.vm.$props.item)
+			wrapper.vm.$props.item.keepUnread = true
+			wrapper.vm.markRead(wrapper.vm.$props.item)
 
 			expect(dispatchStub).not.toHaveBeenCalled()
 		})
 	})
 
 	it('toggles keepUnread state', () => {
-		const initialKeepUnread = wrapper.vm.$props.item.keepUnread;
-		(wrapper.vm as any).toggleKeepUnread(wrapper.vm.$props.item)
+		const initialKeepUnread = wrapper.vm.$props.item.keepUnread
+		wrapper.vm.toggleKeepUnread(wrapper.vm.$props.item)
 		const updatedKeepUnread = wrapper.vm.$props.item.keepUnread
 
 		expect(updatedKeepUnread).toBe(!initialKeepUnread)
 	})
 
 	it('toggles starred state', () => {
-		wrapper.vm.$props.item.starred = true;
+		wrapper.vm.$props.item.starred = true
 
-		(wrapper.vm as any).toggleStarred(wrapper.vm.$props.item)
+		wrapper.vm.toggleStarred(wrapper.vm.$props.item)
 		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.UNSTAR_ITEM, {
 			item: wrapper.vm.$props.item,
 		})
 
-		wrapper.vm.$props.item.starred = false;
+		wrapper.vm.$props.item.starred = false
 
-		(wrapper.vm as any).toggleStarred(wrapper.vm.$props.item)
+		wrapper.vm.toggleStarred(wrapper.vm.$props.item)
 		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.STAR_ITEM, {
 			item: wrapper.vm.$props.item,
 		})

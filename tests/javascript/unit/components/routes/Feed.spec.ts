@@ -135,31 +135,31 @@ describe('Feed.vue', () => {
 	})
 
 	it('should get only first item from state with ordering oldest>newest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 1;
-		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		wrapper.vm.$store.state.items.lastItemLoaded['feed-123'] = 1
+		wrapper.vm.$store.state.app.oldestFirst = true
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state with ordering newest>oldest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 4;
-		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		wrapper.vm.$store.state.items.lastItemLoaded['feed-123'] = 4
+		wrapper.vm.$store.state.app.oldestFirst = false
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state with FEED_ORDER.OLDEST', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 1;
-		(wrapper.vm as any).$store.state.feeds.ordering['feed-123'] = FEED_ORDER.OLDEST;
-		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		wrapper.vm.$store.state.items.lastItemLoaded['feed-123'] = 1
+		wrapper.vm.$store.state.feeds.ordering['feed-123'] = FEED_ORDER.OLDEST
+		wrapper.vm.$store.state.app.oldestFirst = false
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state with FEED_ORDER.NEWEST', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded['feed-123'] = 4;
-		(wrapper.vm as any).$store.state.feeds.ordering['feed-123'] = FEED_ORDER.NEWEST;
-		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		wrapper.vm.$store.state.items.lastItemLoaded['feed-123'] = 4
+		wrapper.vm.$store.state.feeds.ordering['feed-123'] = FEED_ORDER.NEWEST
+		wrapper.vm.$store.state.app.oldestFirst = true
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})

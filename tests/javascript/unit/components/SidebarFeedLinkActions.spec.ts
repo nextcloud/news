@@ -39,54 +39,54 @@ describe('SidebarFeedLinkActions.vue', () => {
 	})
 
 	beforeEach(() => {
-		(wrapper.vm as any).$store.dispatch.mockReset()
+		wrapper.vm.$store.dispatch.mockReset()
 	})
 
 	describe('User Actions', () => {
 		it('should dispatch message to store with feed object', () => {
-			(wrapper.vm as any).markRead()
+			wrapper.vm.markRead()
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_MARK_READ, { feed: feeds[0] })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_MARK_READ, { feed: feeds[0] })
 		})
 
 		it('should dispatch message to store with feed object and pinned', () => {
-			(wrapper.vm as any).setPinned(true)
+			wrapper.vm.setPinned(true)
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PINNED, { feed: feeds[0], pinned: true })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PINNED, { feed: feeds[0], pinned: true })
 		})
 
 		it('should dispatch message to store with feed object and fullTextEnabled', () => {
-			(wrapper.vm as any).setOrdering(FEED_ORDER.NEWEST)
+			wrapper.vm.setOrdering(FEED_ORDER.NEWEST)
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_ORDERING, { feed: feeds[0], ordering: FEED_ORDER.NEWEST })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_ORDERING, { feed: feeds[0], ordering: FEED_ORDER.NEWEST })
 		})
 
 		it('should dispatch message to store with feed object and fullTextEnabled', () => {
-			(wrapper.vm as any).setFullText(true)
+			wrapper.vm.setFullText(true)
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_FULL_TEXT, { feed: feeds[0], fullTextEnabled: true })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_FULL_TEXT, { feed: feeds[0], fullTextEnabled: true })
 		})
 
 		it('should dispatch message to store with feed object and new updateMode', () => {
-			(wrapper.vm as any).setUpdateMode(FEED_UPDATE_MODE.IGNORE)
+			wrapper.vm.setUpdateMode(FEED_UPDATE_MODE.IGNORE)
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.IGNORE })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.IGNORE })
 		})
 
 		it('should dispatch message to store with feed object on rename feed', () => {
-			window.prompt = vi.fn().mockReturnValue('test');
+			window.prompt = vi.fn().mockReturnValue('test')
 
-			(wrapper.vm as any).rename()
+			wrapper.vm.rename()
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_TITLE, { feed: feeds[0], title: 'test' })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_TITLE, { feed: feeds[0], title: 'test' })
 		})
 
 		it('should dispatch message to store with feed object on delete feed', () => {
-			window.confirm = vi.fn().mockReturnValue(true);
+			window.confirm = vi.fn().mockReturnValue(true)
 
-			(wrapper.vm as any).deleteFeed()
+			wrapper.vm.deleteFeed()
 
-			expect((wrapper.vm as any).$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_DELETE, { feed: feeds[0] })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_DELETE, { feed: feeds[0] })
 		})
 	})
 

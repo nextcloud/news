@@ -65,14 +65,14 @@ describe('Item.vue', () => {
 	})
 
 	it('should dispatch FETCH_ITEMS action if not fetchingItems.all', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.all = false;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems.all = false
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
 	it('should not dispatch FETCH_ITEMS action if fetchingItems.all', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.all = true;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems.all = true
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
 })

@@ -88,37 +88,37 @@ describe('Unread.vue', () => {
 	})
 
 	it('should get only first item from state ordering oldest>newest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded.unread = 1;
-		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		wrapper.vm.$store.state.items.lastItemLoaded.unread = 1
+		wrapper.vm.$store.state.app.oldestFirst = true
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state ordering newest>oldest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded.unread = 4;
-		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		wrapper.vm.$store.state.items.lastItemLoaded.unread = 4
+		wrapper.vm.$store.state.app.oldestFirst = false
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_UNREAD action if not fetchingItems.unread', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.unread = false;
+		wrapper.vm.$store.state.items.fetchingItems.unread = false
 
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
 	it('should not dispatch FETCH_UNREAD action if fetchingItems.unread', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.unread = true;
+		wrapper.vm.$store.state.items.fetchingItems.unread = true
 
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
 
 	it('should clear unread cache when newestItemId resets', () => {
-		store.state.items.newestItemId = 0;
+		store.state.items.newestItemId = 0
 
-		(wrapper.vm as any).$options.watch.newestItemId.call(wrapper.vm, wrapper.vm.newestItemId)
-		expect((wrapper.vm as any).unreadCache).toEqual([])
+		wrapper.vm.$options.watch.newestItemId.call(wrapper.vm, wrapper.vm.newestItemId)
+		expect(wrapper.vm.unreadCache).toEqual([])
 	})
 })
