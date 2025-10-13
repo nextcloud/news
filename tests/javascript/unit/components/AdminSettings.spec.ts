@@ -7,7 +7,6 @@ import AdminSettings from '../../../../src/components/AdminSettings.vue'
 
 import 'regenerator-runtime/runtime' // NOTE: Required for testing password-confirmation?
 
-vi.mock('@nextcloud/axios')
 vi.mock('@nextcloud/initial-state')
 vi.mock('@nextcloud/router')
 vi.mock('@nextcloud/dialogs')

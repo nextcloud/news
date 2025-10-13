@@ -7,7 +7,7 @@ describe('Explore.vue', () => {
 	'use strict'
 
 	it('should initialize without showing AddFeed Component', () => {
-		(axios as any).get.mockResolvedValue({ data: { } })
+		axios.get.mockResolvedValue({ data: { } })
 
 		const wrapper = shallowMount(Explore, {
 			mocks: {
