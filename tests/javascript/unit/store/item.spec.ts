@@ -13,7 +13,7 @@ describe('item.ts', () => {
 			it('should call ItemService and commit items to state', async () => {
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }] } })
-				ItemService.fetchUnread = fetchMock as any
+				ItemService.fetchUnread = fetchMock
 				const commit = vi.fn()
 
 				await actions[FEED_ITEM_ACTION_TYPES.FETCH_UNREAD]({ commit })
@@ -27,7 +27,7 @@ describe('item.ts', () => {
 			it('should call ItemService and commit items to state', async () => {
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }] } })
-				ItemService.fetchAll = fetchMock as any
+				ItemService.fetchAll = fetchMock
 				const commit = vi.fn()
 
 				await actions[FEED_ITEM_ACTION_TYPES.FETCH_ITEMS]({ commit })
@@ -41,7 +41,7 @@ describe('item.ts', () => {
 			it('should call ItemService and commit items and starred count to state', async () => {
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: [{ id: 123 }], starred: 3 } })
-				ItemService.fetchStarred = fetchMock as any
+				ItemService.fetchStarred = fetchMock
 				const commit = vi.fn()
 
 				await actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit })
@@ -57,7 +57,7 @@ describe('item.ts', () => {
 				const mockItems = [{ id: 123, title: 'feed item' }]
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: mockItems } })
-				ItemService.fetchFeedItems = fetchMock as any
+				ItemService.fetchFeedItems = fetchMock
 				const commit = vi.fn()
 
 				await actions[FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS]({ commit }, { feedId: 123 })
@@ -72,7 +72,7 @@ describe('item.ts', () => {
 				const mockItems = [{ id: 123, title: 'feed item' }]
 				const fetchMock = vi.fn()
 				fetchMock.mockResolvedValue({ data: { items: mockItems } })
-				ItemService.fetchFolderItems = fetchMock as any
+				ItemService.fetchFolderItems = fetchMock
 				const commit = vi.fn()
 
 				await actions[FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS]({ commit }, { feedId: 123 })
@@ -138,26 +138,26 @@ describe('item.ts', () => {
 	describe('mutations', () => {
 		describe('SET_SELECTED_ITEM', () => {
 			it('should update selectedId on state', async () => {
-				const state = { selectedId: undefined, recentItemIds: [] as any } as any
-				const item = { id: 123 } as any
-				mutations[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state, item as any)
+				const state = { selectedId: undefined, recentItemIds: [] }
+				const item = { id: 123 }
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](state, item)
 				expect(state.selectedId).toEqual(123)
 			})
 		})
 
 		describe('SET_PLAYING_ITEM', () => {
 			it('should update selectedId on state', async () => {
-				const state = { playingItem: undefined } as any
-				const item = { id: 123 } as any
-				mutations[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](state, item as any)
+				const state = { playingItem: undefined }
+				const item = { id: 123 }
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](state, item)
 				expect(state.playingItem).toEqual(item)
 			})
 		})
 
 		describe('SET_ITEMS', () => {
 			it('should add feeds to state', () => {
-				const state = { allItems: [] as any } as any
-				let items = [] as any
+				const state = { allItems: [] }
+				let items = []
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems.length).toEqual(0)
@@ -174,8 +174,8 @@ describe('item.ts', () => {
 			})
 
 			it('should not add duplicates', () => {
-				const state = { allItems: [] as any } as any
-				let items = [{ title: 'test', id: 123 }] as any
+				const state = { allItems: [] }
+				let items = [{ title: 'test', id: 123 }]
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems.length).toEqual(1)
@@ -191,16 +191,16 @@ describe('item.ts', () => {
 			})
 
 			it('should set syncNeeded flag when newestItemId changed', () => {
-				const state = { allItems: [] as any, newestItemId: 0 } as any
-				const items = [{ title: 'test', id: 123 }] as any
+				const state = { allItems: [], newestItemId: 0 }
+				const items = [{ title: 'test', id: 123 }]
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.syncNeeded).toEqual(true)
 			})
 
 			it('should set title from url if title is missing', () => {
-				const state = { allItems: [] as any } as any
-				const items = [{ title: '', url: 'https://feedurl', id: 123 }] as any
+				const state = { allItems: [] }
+				const items = [{ title: '', url: 'https://feedurl', id: 123 }]
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems[0].title).toEqual('https://feedurl')
@@ -239,8 +239,8 @@ describe('item.ts', () => {
 
 		describe('UPDATE_ITEM', () => {
 			it('should add a single feed to state', () => {
-				const state = { allItems: [{ id: 1, title: 'abc' }] as any } as AppState
-				const item = { title: 'test', id: 1 } as any
+				const state = { allItems: [{ id: 1, title: 'abc' }] } as AppState
+				const item = { title: 'test', id: 1 }
 
 				mutations[FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM](state, { item })
 				expect(state.allItems[0]).toEqual(item)
@@ -292,7 +292,7 @@ describe('item.ts', () => {
 
 		describe('RESET_ITEM_STATES', () => {
 			it('should reset item states', () => {
-				const state = { allItems: [{ id: 1, title: 'abc' }] as any } as AppState
+				const state = { allItems: [{ id: 1, title: 'abc' }] } as AppState
 
 				mutations[FEED_ITEM_MUTATION_TYPES.RESET_ITEM_STATES](state)
 				expect(state.allItems.length).toEqual(0)
@@ -301,7 +301,7 @@ describe('item.ts', () => {
 
 		describe('SET_FEED_ALL_READ', () => {
 			it('should set allItems with feedId as read', () => {
-				const state = { allItems: [{ id: 1, feedId: 123, unread: true }, { id: 2, feedId: 345, unread: true }] } as any
+				const state = { allItems: [{ id: 1, feedId: 123, unread: true }, { id: 2, feedId: 345, unread: true }] }
 
 				mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state, { id: 123 })
 				expect(state.allItems[0].unread).toEqual(false)

@@ -65,9 +65,9 @@ describe('AddFeed.vue', () => {
 
 			await wrapper.vm.share()
 
-			let args = (ShareService.share as any).mock.calls[0]
+			let args = ShareService.share.mock.calls[0]
 			expect(args[1]).toEqual(['share'])
-			args = (ShareService.share as any).mock.calls[1]
+			args = ShareService.share.mock.calls[1]
 			expect(args[1]).toEqual(['share', 'share2'])
 		})
 	})

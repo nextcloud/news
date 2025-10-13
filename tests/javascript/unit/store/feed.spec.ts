@@ -1,5 +1,4 @@
 import type { AppState } from '../../../../src/store/index.ts'
-import type { Feed } from '../../../../src/types/Feed.ts'
 
 import { describe, expect, it, vi } from 'vitest'
 import { FeedService } from '../../../../src/dataservices/feed.service'
@@ -14,8 +13,8 @@ describe('feed.ts', () => {
 	describe('actions', () => {
 		describe('FETCH_FEEDS', () => {
 			it('should call FeedService.fetchAllFeeds and commit returned feeds to state', async () => {
-				FeedService.fetchAllFeeds = vi.fn();
-				(FeedService.fetchAllFeeds as any).mockResolvedValue({ data: { feeds: [] } })
+				FeedService.fetchAllFeeds = vi.fn()
+				FeedService.fetchAllFeeds.mockResolvedValue({ data: { feeds: [] } })
 				const commit = vi.fn()
 				await actions[FEED_ACTION_TYPES.FETCH_FEEDS]({ commit })
 				expect(FeedService.fetchAllFeeds).toBeCalled()
@@ -26,19 +25,19 @@ describe('feed.ts', () => {
 
 		describe('ADD_FEED', () => {
 			it('should call FeedService.addFeed and commit feed to state', async () => {
-				FeedService.addFeed = vi.fn();
-				(FeedService.addFeed as any).mockResolvedValue({ data: { feeds: [] } })
+				FeedService.addFeed = vi.fn()
+				FeedService.addFeed.mockResolvedValue({ data: { feeds: [] } })
 				const commit = vi.fn()
-				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit } as any, { feedReq: { url: '' } } as any)
+				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit }, { feedReq: { url: '' } })
 				expect(FeedService.addFeed).toBeCalled()
 				expect(commit).toBeCalled()
 			})
 
 			it('should call FeedService.addFeed and not call commit if error', async () => {
-				FeedService.addFeed = vi.fn();
-				(FeedService.addFeed as any).mockRejectedValue()
+				FeedService.addFeed = vi.fn()
+				FeedService.addFeed.mockRejectedValue()
 				const commit = vi.fn()
-				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit } as any, { feedReq: { url: '' } } as any)
+				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit }, { feedReq: { url: '' } })
 				expect(FeedService.addFeed).toBeCalled()
 
 				expect(commit).not.toBeCalled()
@@ -47,8 +46,8 @@ describe('feed.ts', () => {
 
 		describe('FEED_MARK_READ', () => {
 			it('should call FeedService.markRead and commit all items read to state', async () => {
-				ItemService.fetchFeedItems = vi.fn();
-				(ItemService.fetchFeedItems as any).mockResolvedValue({ data: { items: [{ id: 123 }] } })
+				ItemService.fetchFeedItems = vi.fn()
+				ItemService.fetchFeedItems.mockResolvedValue({ data: { items: [{ id: 123 }] } })
 				FeedService.markRead = vi.fn()
 				const commit = vi.fn()
 				const feed = { id: 1, title: 'feed' }
@@ -59,8 +58,8 @@ describe('feed.ts', () => {
 			})
 
 			it('should commit MODIFY_FOLDER_UNREAD_COUNT with feed unreadCount if folderId exists on feed ', async () => {
-				ItemService.fetchFeedItems = vi.fn();
-				(ItemService.fetchFeedItems as any).mockResolvedValue({ data: { items: [{ id: 123 }] } })
+				ItemService.fetchFeedItems = vi.fn()
+				ItemService.fetchFeedItems.mockResolvedValue({ data: { items: [{ id: 123 }] } })
 				FeedService.markRead = vi.fn()
 				const commit = vi.fn()
 				const feed = { id: 1, title: 'feed', folderId: 234, unreadCount: 2 }
@@ -167,13 +166,13 @@ describe('feed.ts', () => {
 	describe('mutations', () => {
 		describe('SET_FEEDS', () => {
 			it('should add feeds to state', () => {
-				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				let feeds = [] as any
+				const state = { feeds: [], folders: [] } as AppState
+				let feeds = []
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds.length).toEqual(0)
 
-				feeds = [{ title: 'test' }] as Feed[]
+				feeds = [{ title: 'test' }]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds.length).toEqual(1)
@@ -181,8 +180,8 @@ describe('feed.ts', () => {
 			})
 
 			it('should sort feeds case insensitive by title', () => {
-				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				const feeds = [{ title: 'gamma' }, { title: 'alpha' }, { title: 'Beta' }] as Feed[]
+				const state = { feeds: [], folders: [] } as AppState
+				const feeds = [{ title: 'gamma' }, { title: 'alpha' }, { title: 'Beta' }]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds.length).toEqual(3)
@@ -192,16 +191,16 @@ describe('feed.ts', () => {
 			})
 
 			it('should set feed ordering when set', () => {
-				const state = { feeds: [] as Feed[], ordering: { 'feed-0': 0 } } as AppState
-				const feeds = [{ id: 0, title: 'test', ordering: 2 }] as Feed[]
+				const state = { feeds: [], ordering: { 'feed-0': 0 } } as AppState
+				const feeds = [{ id: 0, title: 'test', ordering: 2 }]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.ordering['feed-0']).toEqual(2)
 			})
 
 			it('should convert unread count to number', () => {
-				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				const feeds = [{ title: 'test', unreadCount: '10' }] as Feed[]
+				const state = { feeds: [], folders: [] } as AppState
+				const feeds = [{ title: 'test', unreadCount: '10' }]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds[0].unreadCount).toEqual(10)
@@ -210,8 +209,8 @@ describe('feed.ts', () => {
 
 		describe('ADD_FEED', () => {
 			it('should add a single feed to state', () => {
-				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				const feed = { title: 'test' } as any
+				const state = { feeds: [], folders: [] } as AppState
+				const feed = { title: 'test' }
 
 				mutations[FEED_MUTATION_TYPES.ADD_FEED](state, feed)
 				expect(state.feeds.length).toEqual(1)
@@ -221,8 +220,8 @@ describe('feed.ts', () => {
 
 		describe('UPDATE_FEED', () => {
 			it('should update a feed in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1 }] as Feed[], folders: [] as any[] } as AppState
-				const feed = { title: 'test', id: 1 } as any
+				const state = { feeds: [{ title: 'oldName', id: 1 }], folders: [] } as AppState
+				const feed = { title: 'test', id: 1 }
 
 				mutations[FEED_MUTATION_TYPES.UPDATE_FEED](state, feed)
 				expect(state.feeds[0].title).toEqual('test')
@@ -240,8 +239,8 @@ describe('feed.ts', () => {
 
 		describe('SET_FEED_ALL_READ', () => {
 			it('should update a feed unreadCount to 0 in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }] as Feed[], folders: [] as any[] } as AppState
-				const feed = { title: 'test', id: 1 } as any
+				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }], folders: [] } as AppState
+				const feed = { title: 'test', id: 1 }
 
 				mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state, feed)
 				expect(state.feeds[0].unreadCount).toEqual(0)
@@ -250,18 +249,18 @@ describe('feed.ts', () => {
 
 		describe('MODIFY_FEED_UNREAD_COUNT', () => {
 			it('should update a feed unreadCount to 0 in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }] as Feed[], folders: [] as any[] } as AppState
+				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }], folders: [] } as AppState
 
-				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT](state, { feedId: 1, delta: -1 } as any)
+				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT](state, { feedId: 1, delta: -1 })
 				expect(state.feeds[0].unreadCount).toEqual(3)
 			})
 		})
 
 		describe('FEED_DELETE', () => {
 			it('should update a feed unreadCount to 0 in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }] as Feed[], folders: [] as any[] } as AppState
+				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }], folders: [] } as AppState
 
-				mutations[FEED_MUTATION_TYPES.FEED_DELETE](state, 1 as any)
+				mutations[FEED_MUTATION_TYPES.FEED_DELETE](state, 1)
 				expect(state.feeds.length).toEqual(0)
 			})
 		})

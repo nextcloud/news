@@ -113,37 +113,37 @@ describe('Folder.vue', () => {
 	})
 
 	it('should get only first item from state ordering oldest>newest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded['folder-123'] = 1;
-		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		wrapper.vm.$store.state.items.lastItemLoaded['folder-123'] = 1
+		wrapper.vm.$store.state.app.oldestFirst = true
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state ordering newest>oldest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded['folder-123'] = 4;
-		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		wrapper.vm.$store.state.items.lastItemLoaded['folder-123'] = 4
+		wrapper.vm.$store.state.app.oldestFirst = false
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_FOLDER_FEED_ITEMS action on fetchMore if not fetchingItems.folder-123', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems['folder-123'] = false;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems['folder-123'] = false
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
 	it('should not dispatch FETCH_FOLDER_FEED_ITEMS action on fetchMore if fetchingItems.folder-123', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems['folder-123'] = true;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems['folder-123'] = true
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
 
 	it('should dispatch FEED_MARK_READ action on markRead', () => {
-		(wrapper.vm as any).markRead()
+		wrapper.vm.markRead()
 		expect(store.dispatch).toBeCalledTimes(2)
 	})
 
 	it('should return folder unread count', () => {
-		expect((wrapper.vm as any).unreadCount).toEqual(4)
+		expect(wrapper.vm.unreadCount).toEqual(4)
 	})
 })

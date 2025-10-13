@@ -84,7 +84,7 @@ describe('item.service.ts', () => {
 
 	describe('markRead', () => {
 		it('should call POST with item id in URL and read param', async () => {
-			await ItemService.markRead({ id: 123 } as any, true)
+			await ItemService.markRead({ id: 123 }, true)
 
 			expect(axios.post).toBeCalled()
 			const args = axios.post.mock.calls[0]
@@ -96,7 +96,7 @@ describe('item.service.ts', () => {
 
 	describe('markStarred', () => {
 		it('should call POST with item feedId and guidHash in URL and read param', async () => {
-			await ItemService.markStarred({ feedId: 1, guidHash: 'abc' } as any, false)
+			await ItemService.markStarred({ feedId: 1, guidHash: 'abc' }, false)
 
 			expect(axios.post).toBeCalled()
 			const args = axios.post.mock.calls[0]

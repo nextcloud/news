@@ -86,28 +86,28 @@ describe('Starred.vue', () => {
 	})
 
 	it('should get only first item from state ordering oldest>newest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded.starred = 1;
-		(wrapper.vm as any).$store.state.app.oldestFirst = true
+		wrapper.vm.$store.state.items.lastItemLoaded.starred = 1
+		wrapper.vm.$store.state.app.oldestFirst = true
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state ordering newest>oldest', async () => {
-		(wrapper.vm as any).$store.state.items.lastItemLoaded.starred = 4;
-		(wrapper.vm as any).$store.state.app.oldestFirst = false
+		wrapper.vm.$store.state.items.lastItemLoaded.starred = 4
+		wrapper.vm.$store.state.app.oldestFirst = false
 		await nextTick
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_STARRED action if not fetchingItems.starred', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.starred = false;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems.starred = false
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
 	it('should not dispatch FETCH_STARRED action if fetchingItems.starred', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.starred = true;
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.$store.state.items.fetchingItems.starred = true
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
 })
