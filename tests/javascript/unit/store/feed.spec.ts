@@ -17,7 +17,7 @@ describe('feed.ts', () => {
 				FeedService.fetchAllFeeds = vi.fn();
 				(FeedService.fetchAllFeeds as any).mockResolvedValue({ data: { feeds: [] } })
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FETCH_FEEDS] as any)({ commit })
+				await actions[FEED_ACTION_TYPES.FETCH_FEEDS]({ commit })
 				expect(FeedService.fetchAllFeeds).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEEDS, [])
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, 0)
@@ -53,7 +53,7 @@ describe('feed.ts', () => {
 				const commit = vi.fn()
 				const feed = { id: 1, title: 'feed' }
 
-				await (actions[FEED_ACTION_TYPES.FEED_MARK_READ] as any)({ commit }, { feed })
+				await actions[FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }, { feed })
 				expect(FeedService.markRead).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 			})
@@ -65,7 +65,7 @@ describe('feed.ts', () => {
 				const commit = vi.fn()
 				const feed = { id: 1, title: 'feed', folderId: 234, unreadCount: 2 }
 
-				await (actions[FEED_ACTION_TYPES.FEED_MARK_READ] as any)({ commit }, { feed })
+				await actions[FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }, { feed })
 				expect(FeedService.markRead).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 				expect(commit).toBeCalledWith(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: 234, delta: -2 })
@@ -76,7 +76,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `pinned` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_PINNED] as any)({ commit }, { feed: { id: 1 }, pinned: true })
+				await actions[FEED_ACTION_TYPES.FEED_SET_PINNED]({ commit }, { feed: { id: 1 }, pinned: true })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, pinned: true })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, pinned: true })
 			})
@@ -86,7 +86,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `preventUpdate` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_PREVENT_UPDATE] as any)({ commit }, { feed: { id: 1 }, preventUpdate: true })
+				await actions[FEED_ACTION_TYPES.FEED_SET_PREVENT_UPDATE]({ commit }, { feed: { id: 1 }, preventUpdate: true })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, preventUpdate: true })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, preventUpdate: true })
 			})
@@ -96,7 +96,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `ordering` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_ORDERING] as any)({ commit }, { feed: { id: 1 }, ordering: FEED_ORDER.DEFAULT })
+				await actions[FEED_ACTION_TYPES.FEED_SET_ORDERING]({ commit }, { feed: { id: 1 }, ordering: FEED_ORDER.DEFAULT })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, ordering: FEED_ORDER.DEFAULT })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, ordering: FEED_ORDER.DEFAULT })
 			})
@@ -106,7 +106,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `fullTextEnabled` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_FULL_TEXT] as any)({ commit }, { feed: { id: 1 }, fullTextEnabled: true })
+				await actions[FEED_ACTION_TYPES.FEED_SET_FULL_TEXT]({ commit }, { feed: { id: 1 }, fullTextEnabled: true })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, fullTextEnabled: true })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, fullTextEnabled: true })
 			})
@@ -116,7 +116,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `updateMode` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE] as any)({ commit }, { feed: { id: 1 }, updateMode: FEED_UPDATE_MODE.IGNORE })
+				await actions[FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE]({ commit }, { feed: { id: 1 }, updateMode: FEED_UPDATE_MODE.IGNORE })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, updateMode: FEED_UPDATE_MODE.IGNORE })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, updateMode: FEED_UPDATE_MODE.IGNORE })
 			})
@@ -126,7 +126,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `title` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_TITLE] as any)({ commit }, { feed: { id: 1 }, title: 'newTitle' })
+				await actions[FEED_ACTION_TYPES.FEED_SET_TITLE]({ commit }, { feed: { id: 1 }, title: 'newTitle' })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, title: 'newTitle' })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, title: 'newTitle' })
 			})
@@ -136,7 +136,7 @@ describe('feed.ts', () => {
 			it('should call FeedService.deleteFeed and commit to state', async () => {
 				FeedService.deleteFeed = vi.fn()
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_DELETE] as any)({ commit }, { feed: { id: 1 } })
+				await actions[FEED_ACTION_TYPES.FEED_DELETE]({ commit }, { feed: { id: 1 } })
 				expect(FeedService.deleteFeed).toBeCalledWith({ feedId: 1 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.FEED_DELETE, 1)
 			})
@@ -148,7 +148,7 @@ describe('feed.ts', () => {
 			}
 			it('should commit to state', async () => {
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT] as any)({ commit, state }, { feedId: 1, delta: -2 })
+				await actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT]({ commit, state }, { feedId: 1, delta: -2 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: 1, delta: -2 })
 			})
 
@@ -157,7 +157,7 @@ describe('feed.ts', () => {
 					feeds: [{ id: 1, folderId: 234 }],
 				}
 				const commit = vi.fn()
-				await (actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT] as any)({ commit, state }, { feedId: 1, delta: -2 })
+				await actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT]({ commit, state }, { feedId: 1, delta: -2 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: 1, delta: -2 })
 				expect(commit).toBeCalledWith(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: 234, delta: -2 })
 			})

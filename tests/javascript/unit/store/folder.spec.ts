@@ -18,7 +18,7 @@ describe('folder.ts', () => {
 
 			const commit = vi.fn()
 
-			await (actions[FOLDER_ACTION_TYPES.FETCH_FOLDERS] as any)({ commit })
+			await actions[FOLDER_ACTION_TYPES.FETCH_FOLDERS]({ commit })
 			expect(FolderService.fetchAllFolders).toBeCalled()
 			expect(commit).toBeCalled()
 		})
