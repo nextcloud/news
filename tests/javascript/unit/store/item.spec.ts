@@ -16,7 +16,7 @@ describe('item.ts', () => {
 				ItemService.fetchUnread = fetchMock as any
 				const commit = vi.fn()
 
-				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_UNREAD] as any)({ commit })
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_UNREAD]({ commit })
 
 				expect(fetchMock).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
@@ -30,7 +30,7 @@ describe('item.ts', () => {
 				ItemService.fetchAll = fetchMock as any
 				const commit = vi.fn()
 
-				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_ITEMS] as any)({ commit })
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_ITEMS]({ commit })
 
 				expect(fetchMock).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
@@ -44,7 +44,7 @@ describe('item.ts', () => {
 				ItemService.fetchStarred = fetchMock as any
 				const commit = vi.fn()
 
-				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED] as any)({ commit })
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit })
 
 				expect(fetchMock).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
@@ -60,7 +60,7 @@ describe('item.ts', () => {
 				ItemService.fetchFeedItems = fetchMock as any
 				const commit = vi.fn()
 
-				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS] as any)({ commit }, { feedId: 123 })
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS]({ commit }, { feedId: 123 })
 
 				expect(fetchMock).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, mockItems)
@@ -75,7 +75,7 @@ describe('item.ts', () => {
 				ItemService.fetchFolderItems = fetchMock as any
 				const commit = vi.fn()
 
-				await (actions[FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS] as any)({ commit }, { feedId: 123 })
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS]({ commit }, { feedId: 123 })
 
 				expect(fetchMock).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, mockItems)
@@ -89,7 +89,7 @@ describe('item.ts', () => {
 			const serviceMock = vi.fn()
 			ItemService.markRead = serviceMock
 
-			await (actions[FEED_ITEM_ACTION_TYPES.MARK_READ] as any)({ commit, dispatch }, { item })
+			await actions[FEED_ITEM_ACTION_TYPES.MARK_READ]({ commit, dispatch }, { item })
 
 			expect(serviceMock).toBeCalledWith(item, true)
 			expect(commit).toBeCalled()
@@ -103,7 +103,7 @@ describe('item.ts', () => {
 			const serviceMock = vi.fn()
 			ItemService.markRead = serviceMock
 
-			await (actions[FEED_ITEM_ACTION_TYPES.MARK_UNREAD] as any)({ commit, dispatch }, { item })
+			await actions[FEED_ITEM_ACTION_TYPES.MARK_UNREAD]({ commit, dispatch }, { item })
 
 			expect(serviceMock).toBeCalledWith(item, false)
 			expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
@@ -116,7 +116,7 @@ describe('item.ts', () => {
 			const serviceMock = vi.fn()
 			ItemService.markStarred = serviceMock
 
-			await (actions[FEED_ITEM_ACTION_TYPES.STAR_ITEM] as any)({ commit }, { item })
+			await actions[FEED_ITEM_ACTION_TYPES.STAR_ITEM]({ commit }, { item })
 
 			expect(serviceMock).toBeCalledWith(item, true)
 			expect(commit).toBeCalled()
@@ -128,7 +128,7 @@ describe('item.ts', () => {
 			const serviceMock = vi.fn()
 			ItemService.markStarred = serviceMock
 
-			await (actions[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM] as any)({ commit }, { item })
+			await actions[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM]({ commit }, { item })
 
 			expect(serviceMock).toBeCalledWith(item, false)
 			expect(commit).toBeCalled()
