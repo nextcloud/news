@@ -376,18 +376,20 @@ class FeedFetcher implements IFeedFetcher
                 libxml_clear_errors();
             }
             
-            // Convert to UTF-8 if needed with comprehensive encoding detection
-            $encodingList = ['UTF-8', 'ISO-8859-1', 'Windows-1252', 'ASCII', 'UTF-16', 'UTF-16BE', 'UTF-16LE'];
-            $detectedEncoding = mb_detect_encoding($body, $encodingList, true);
-            if ($detectedEncoding !== false && $detectedEncoding !== 'UTF-8') {
-                $convertedBody = mb_convert_encoding($body, 'UTF-8', $detectedEncoding);
-                if ($convertedBody !== false) {
-                    $body = $convertedBody;
-                } else {
-                    $this->logger->warning(
-                        'Failed to convert encoding from {from} to UTF-8 for feed item',
-                        ['from' => $detectedEncoding]
-                    );
+            if (!mb_check_encoding($body, 'UTF-8')) {
+                // Convert to UTF-8 if needed with comprehensive encoding detection
+                $encodingList = ['ISO-8859-1', 'Windows-1252', 'ASCII', 'UTF-16', 'UTF-16BE', 'UTF-16LE'];
+                $detectedEncoding = mb_detect_encoding($body, $encodingList, true);
+                if ($detectedEncoding !== false) {
+                    $convertedBody = mb_convert_encoding($body, 'UTF-8', $detectedEncoding);
+                    if ($convertedBody !== false) {
+                        $body = $convertedBody;
+                    } else {
+                        $this->logger->warning(
+                            'Failed to convert encoding from {from} to UTF-8 for feed item',
+                            ['from' => $detectedEncoding]
+                        );
+                    }
                 }
             }
         }
