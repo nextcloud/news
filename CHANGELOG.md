@@ -9,10 +9,13 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
-- Latvian accented characters messed up
 
 
 # Releases
+## [27.0.1] - 2025-10-17
+### Fixed
+- Latvian accented characters messed up (#3363)
+
 ## [27.0.0] - 2025-09-29
 ### Changed
 - Add option to enable/disable sync of a feed (#3316)
