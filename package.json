@@ -72,7 +72,7 @@
     "@vitest/coverage-istanbul": "^3.2.4",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
-    "jsdom": "^27.0.0",
+    "jsdom": "^27.0.1",
     "regenerator-runtime": "^0.14.1",
     "vite": "^7.1.11",
     "vitest": "^3.2.4"
