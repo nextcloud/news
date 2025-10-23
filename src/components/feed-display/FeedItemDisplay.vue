@@ -157,6 +157,15 @@
 
 			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
 			<!--eslint-enable-->
+
+			<div v-if="item.categories?.length > 0" class="feed-item-categories">
+				<NcChip
+					v-for="category in item.categories"
+					:key="category"
+					:text="category"
+					no-close
+					variant="secondary" />
+			</div>
 		</div>
 	</div>
 </template>
@@ -171,6 +180,7 @@ import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
+import NcChip from '@nextcloud/vue/components/NcChip'
 import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
 import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
 import CloseIcon from 'vue-material-design-icons/Close.vue'
@@ -193,6 +203,7 @@ export default defineComponent({
 		ShareVariant,
 		NcActions,
 		NcActionButton,
+		NcChip,
 		ShareItem,
 		ChevronLeftIcon,
 		ChevronRightIcon,
@@ -516,6 +527,13 @@ export default defineComponent({
 		min-width: 30px;
 		min-height: 30px;
 		height: 30px;
+	}
+
+	.feed-item-categories {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--default-grid-baseline);
+		margin-top: var(--default-grid-baseline);
 	}
 
 </style>

@@ -38,6 +38,14 @@ describe('FeedItemDisplay.vue', () => {
 						commit: commitStub,
 					},
 				},
+				stubs: {
+					NcChip: {
+						name: 'NcChip',
+						props: ['text', 'variant', 'noClose'],
+						template: '<span class="nc-chip">{{ text }}</span>',
+					},
+
+				},
 			},
 		})
 	})
@@ -103,5 +111,32 @@ describe('FeedItemDisplay.vue', () => {
 		wrapper.vm.stopAudio()
 
 		expect(pauseStub).toBeCalled()
+	})
+
+	it('should show no chips when item has no categories', () => {
+		const chips = wrapper.findAllComponents({ name: 'NcChip' })
+
+		expect(chips.length).toBe(0)
+	})
+
+	it('should show no chips when item.categories is empty', async () => {
+		await wrapper.setProps({
+			item: { ...mockItem, categories: [] },
+		})
+		const chips = wrapper.findAllComponents({ name: 'NcChip' })
+
+		expect(chips.length).toBe(0)
+	})
+
+	it('should show three chips with text from item.categories', async () => {
+		await wrapper.setProps({
+			item: { ...mockItem, categories: ['Nextcloud', 'News', 'Reader'] },
+		})
+		const chips = wrapper.findAllComponents({ name: 'NcChip' })
+		expect(chips.length).toBe(3)
+
+		expect(chips[0].text()).toBe('Nextcloud')
+		expect(chips[1].text()).toBe('News')
+		expect(chips[2].text()).toBe('Reader')
 	})
 })
