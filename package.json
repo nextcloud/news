@@ -69,12 +69,12 @@
     "@nextcloud/vite-config": "^2.5.2",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.9.1",
-    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/coverage-istanbul": "^4.0.2",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.8.1",
     "jsdom": "^27.0.1",
     "regenerator-runtime": "^0.14.1",
-    "vite": "^7.1.11",
-    "vitest": "^3.2.4"
+    "vite": "^7.1.12",
+    "vitest": "^4.0.2"
   }
 }
