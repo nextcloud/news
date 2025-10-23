@@ -18,7 +18,7 @@ export default createAppConfig({
 		},
 		test: {
 			coverage: {
-				include: ['src/**'],
+				include: ['src/**/*.ts', 'src/**/*.vue'],
 				provider: 'istanbul',
 				reporter: ['lcov', 'text'],
 			},
