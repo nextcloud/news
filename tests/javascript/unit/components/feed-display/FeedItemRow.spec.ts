@@ -151,4 +151,11 @@ describe('FeedItemRow.vue', () => {
 		expect(markReadSpy).toHaveBeenCalledWith(mockItem)
 		expect(wrapper.emitted()).toHaveProperty('show-details')
 	})
+
+	it('should set showShareMenu to false', () => {
+		wrapper.vm.showShareMenu = true
+
+		wrapper.vm.closeShareMenu()
+		expect(wrapper.vm.showShareMenu).toEqual(false)
+	})
 })
