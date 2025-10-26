@@ -7,12 +7,16 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Display categories at the end of an article
+
 
 ### Fixed
 
 
 # Releases
+## [27.1.0] - 2025-10-26
+### Changed
+- Display categories at the end of an article (#3380)
+
 ## [27.0.1] - 2025-10-17
 ### Fixed
 - Latvian accented characters messed up (#3363)
