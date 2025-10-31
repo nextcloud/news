@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 ### Fixed
+- `favicon` links not updated for existing feeds
 
 
 # Releases
