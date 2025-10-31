@@ -56,6 +56,43 @@ foreach ($projectList as $projectDir) {
         file_get_contents($projectDir . "composer.json"),
         true
     );
+    
+    // Special handling for HTMLPurifier main class file
+    if (strpos($projectDir, 'htmlpurifier') !== false) {
+        $htmlPurifierFile = $projectDir . 'library/HTMLPurifier.php';
+        $htmlPurifierComposerFile = $projectDir . 'library/HTMLPurifier.composer.php';
+        
+        if (file_exists($htmlPurifierFile)) {
+            $destination = $targetDirectory . 'HTMLPurifier.php';
+            if (file_exists($destination)) {
+                unlink($destination);
+            }
+            if (!copy($htmlPurifierFile, $destination)) {
+                printf(
+                    "Failed to copy HTMLPurifier.php to %s" . PHP_EOL,
+                    $destination
+                );
+                exit(6);
+            }
+            printf('Copied HTMLPurifier main class file' . PHP_EOL);
+        }
+        
+        if (file_exists($htmlPurifierComposerFile)) {
+            $destination = $targetDirectory . 'HTMLPurifier.composer.php';
+            if (file_exists($destination)) {
+                unlink($destination);
+            }
+            if (!copy($htmlPurifierComposerFile, $destination)) {
+                printf(
+                    "Failed to copy HTMLPurifier.composer.php to %s" . PHP_EOL,
+                    $destination
+                );
+                exit(7);
+            }
+            printf('Copied HTMLPurifier composer file' . PHP_EOL);
+        }
+    }
+    
     if (isset($projectInfo["autoload"]["psr-4"])) {
         moveByPSR4(
             $projectInfo,

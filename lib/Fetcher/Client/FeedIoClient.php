@@ -19,6 +19,7 @@ use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
 use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
+use OCA\News\Vendor\GuzzleHttp\Psr7\Response as ScopedPsr7Response;
 
 /**
  * Guzzle dependent HTTP client
@@ -36,6 +37,23 @@ class FeedIoClient implements ClientInterface
     public function __construct(\GuzzleHttp\ClientInterface $guzzleClient)
     {
         $this->guzzleClient = $guzzleClient;
+    }
+
+    /**
+     * Wrap an unscoped PSR-7 response into a scoped one
+     *
+     * @param \Psr\Http\Message\ResponseInterface $unscopedResponse
+     * @return \OCA\News\Vendor\Psr\Http\Message\ResponseInterface
+     */
+    private function wrapResponse(\Psr\Http\Message\ResponseInterface $unscopedResponse): \OCA\News\Vendor\Psr\Http\Message\ResponseInterface
+    {
+        return new ScopedPsr7Response(
+            $unscopedResponse->getStatusCode(),
+            $unscopedResponse->getHeaders(),
+            $unscopedResponse->getBody(),
+            $unscopedResponse->getProtocolVersion(),
+            $unscopedResponse->getReasonPhrase()
+        );
     }
 
     /**
@@ -62,7 +80,7 @@ class FeedIoClient implements ClientInterface
             $psrResponse = $this->guzzleClient->request('get', $url, $options);
             $duration = intval(round(microtime(true) - $start, 3) * 1000);
 
-            return new Response($psrResponse, $duration);
+            return new Response($this->wrapResponse($psrResponse), $duration);
         } catch (BadResponseException $e) {
             switch ($e->getResponse()->getStatusCode()) {
                 case 403:
@@ -70,7 +88,7 @@ class FeedIoClient implements ClientInterface
                 case 404:
                     throw new NotFoundException($e->getMessage());
                 default:
-                    throw new ServerErrorException($e->getResponse());
+                    throw new ServerErrorException($this->wrapResponse($e->getResponse()));
             }
         }
     }

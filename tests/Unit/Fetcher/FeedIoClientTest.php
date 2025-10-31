@@ -39,6 +39,13 @@ class FeedIoClientTest extends TestCase
     {
         $response = $this->getMockBuilder(ResponseInterface::class)
                          ->getMock();
+        
+        // Mock methods needed for wrapResponse
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getHeaders')->willReturn([]);
+        $response->method('getBody')->willReturn($this->createMock(\Psr\Http\Message\StreamInterface::class));
+        $response->method('getProtocolVersion')->willReturn('1.1');
+        $response->method('getReasonPhrase')->willReturn('OK');
 
         $this->guzzleClient->expects($this->once())
                            ->method('request')
@@ -80,6 +87,13 @@ class FeedIoClientTest extends TestCase
                          ->getMock();
         $response = $this->getMockBuilder(ResponseInterface::class)
                          ->getMock();
+
+        // Mock methods needed for wrapResponse in the exception handler
+        $response->method('getStatusCode')->willReturn(500);
+        $response->method('getHeaders')->willReturn([]);
+        $response->method('getBody')->willReturn($this->createMock(\Psr\Http\Message\StreamInterface::class));
+        $response->method('getProtocolVersion')->willReturn('1.1');
+        $response->method('getReasonPhrase')->willReturn('Internal Server Error');
 
         $this->guzzleClient->expects($this->once())
                            ->method('request')
