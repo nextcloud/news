@@ -210,7 +210,7 @@ scope-if-needed:
 
 .PHONY: unit-test
 unit-test: scope-if-needed
-	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
+	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --no-coverage
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
