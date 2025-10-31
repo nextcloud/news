@@ -9,7 +9,7 @@ $composerJson = \json_decode($composerJsonRaw, true);
 $dependencies = [];
 $finderConfig = [];
 
-$dependenciesListRaw = shell_exec('composer show --format=json --tree');
+$dependenciesListRaw = shell_exec('composer show --format=json --tree --no-dev');
 if($dependenciesListRaw === null || $dependenciesListRaw === false) {
     error_log('Cannot determine dependencies');
     exit(1);

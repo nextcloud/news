@@ -83,8 +83,8 @@ foreach ($projectList as $projectDir) {
         );
         continue;
     }
-    printf("No supported autoload configuration in %s" . PHP_EOL, $projectDir);
-    exit(2);
+    // Skip packages without supported autoload configuration
+    printf("Skipping %s (no supported autoload configuration)" . PHP_EOL, $projectDir);
 }
 
 function moveByFiles(
