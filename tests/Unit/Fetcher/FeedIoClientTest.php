@@ -12,8 +12,8 @@ use GuzzleHttp\Exception\BadResponseException;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use OCA\News\Vendor\Psr\Http\Message\RequestInterface;
-use OCA\News\Vendor\Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class FeedIoClientTest extends TestCase
 {
