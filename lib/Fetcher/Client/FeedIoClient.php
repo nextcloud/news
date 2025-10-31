@@ -45,8 +45,9 @@ class FeedIoClient implements ClientInterface
      * @param \Psr\Http\Message\ResponseInterface $unscopedResponse
      * @return \OCA\News\Vendor\Psr\Http\Message\ResponseInterface
      */
-    private function wrapResponse(\Psr\Http\Message\ResponseInterface $unscopedResponse): \OCA\News\Vendor\Psr\Http\Message\ResponseInterface
-    {
+    private function wrapResponse(
+        \Psr\Http\Message\ResponseInterface $unscopedResponse
+    ): \OCA\News\Vendor\Psr\Http\Message\ResponseInterface {
         return new ScopedPsr7Response(
             $unscopedResponse->getStatusCode(),
             $unscopedResponse->getHeaders(),
