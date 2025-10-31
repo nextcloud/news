@@ -115,7 +115,7 @@ class FeedServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder(\HTMLPurifier::class)
+            ->getMockBuilder(\OCA\News\Vendor\HTMLPurifier::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this

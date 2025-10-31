@@ -70,7 +70,7 @@ class ImportServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder(\HTMLPurifier::class)
+            ->getMockBuilder(\OCA\News\Vendor\HTMLPurifier::class)
             ->disableOriginalConstructor()
             ->getMock();
 

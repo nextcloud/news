@@ -79,6 +79,7 @@ ifeq (, $(shell which composer 2> /dev/null))
 	mv composer.phar "$(build_tools_directory)"
 endif
 	$(composer) install --prefer-dist --no-dev
+	$(composer) scope-dependencies
 
 # Installs npm dependencies
 .PHONY: npm

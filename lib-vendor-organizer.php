@@ -118,21 +118,44 @@ function moveByClassMap(
     string $targetDirectory
 ): void {
     foreach ($projectInfo["autoload"]["classmap"] as $codeFilePath) {
-        //FIXME: can be a directory
-        $targetFileName = str_replace("/", "_", $codeFilePath);
-        $destination = $targetDirectory . $targetFileName;
-        if (file_exists($destination)) {
-            unlink($destination);
+        $sourcePath = $projectDir . $codeFilePath;
+        
+        // Handle both files and directories
+        if (is_dir($sourcePath)) {
+            // For directories, move them as-is
+            $targetFileName = str_replace("/", "_", rtrim($codeFilePath, '/'));
+            $destination = $targetDirectory . $targetFileName;
+            
+            if (file_exists($destination)) {
+                rmdir_recursive($destination);
+            }
+            if (!rename($sourcePath, $destination)) {
+                printf(
+                    "Failed to move directory %s to %s" . PHP_EOL,
+                    $sourcePath,
+                    $destination
+                );
+                exit(4);
+            }
+            printf('Transformed classpath directory: %s (from %s)' . PHP_EOL, $codeFilePath, $projectDir);
+        } else {
+            // For files, move them as before
+            $targetFileName = str_replace("/", "_", $codeFilePath);
+            $destination = $targetDirectory . $targetFileName;
+            
+            if (file_exists($destination)) {
+                unlink($destination);
+            }
+            if (!rename($sourcePath, $destination)) {
+                printf(
+                    "Failed to move %s to %s" . PHP_EOL,
+                    $sourcePath,
+                    $destination
+                );
+                exit(4);
+            }
+            printf('Transformed classpath file: %s (from %s)' . PHP_EOL, $codeFilePath, $projectDir);
         }
-        if (!rename($projectDir . $codeFilePath, $destination)) {
-            printf(
-                "Failed to move %s to %s" . PHP_EOL,
-                $projectDir . $codeFilePath,
-                $destination
-            );
-            exit(4);
-        }
-        printf('Transformed classpath: %s (from %s)' . PHP_EOL, $codeFilePath, $projectDir);
     }
 }
 

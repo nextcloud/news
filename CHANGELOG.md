@@ -7,7 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-
+- Scope PHP dependencies to avoid conflicts with other apps (#3384)
 
 ### Fixed
 
