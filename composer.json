@@ -78,7 +78,13 @@
   "autoload": {
     "psr-4": {
       "OCA\\News\\": "lib/"
-    }
+    },
+    "classmap": [
+      "lib/Vendor/HTMLPurifier/"
+    ],
+    "files": [
+      "lib/Vendor/HTMLPurifier.composer.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
