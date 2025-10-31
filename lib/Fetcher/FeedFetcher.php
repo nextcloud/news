@@ -514,7 +514,6 @@ class FeedFetcher implements IFeedFetcher
 
         // file name of the logo is md5 of the url
         $favicon_path = join(DIRECTORY_SEPARATOR, [$logo_cache, md5($favicon_url)]);
-        $downloaded = false;
 
         if (file_exists($favicon_path)) {
             $last_modified = filemtime($favicon_path);
@@ -538,7 +537,6 @@ class FeedFetcher implements IFeedFetcher
                     ]
                 ]
             );
-            $downloaded = true;
 
             $this->logger->debug(
                 "Feed:{feed} Logo:{logo} Status:{status}",
@@ -548,6 +546,15 @@ class FeedFetcher implements IFeedFetcher
                 'logo'   => $favicon_url
                 ]
             );
+
+            // Logo not modified, keep old url
+            if ($response->getStatusCode() === 304) {
+                return $favicon_url;
+            }
+
+            if (!file_exists($favicon_path) || filesize($favicon_path) === 0) {
+                return null;
+            }
         } catch (RequestException | ConnectException $e) {
             $this->logger->info(
                 'An error occurred while trying to download the feed logo of {url}: {error}',
@@ -556,10 +563,6 @@ class FeedFetcher implements IFeedFetcher
                 'error' => $e->getMessage() ?? 'Unknown'
                 ]
             );
-            return null;
-        }
-
-        if (!$downloaded || !file_exists($favicon_path)) {
             return null;
         }
 

@@ -370,6 +370,12 @@ class FeedServiceV2 extends Service
             $feed->setNextUpdateTime(null);
         }
 
+        // update favicon link
+        $fetchedFavicon = $fetchedFeed->getFaviconLink();
+        if ($fetchedFavicon) {
+            $feed->setFaviconLink($fetchedFavicon);
+        }
+
         foreach (array_reverse($items) as &$item) {
             $item->setFeedId($feed->getId())
                 ->setBody($this->purifier->purify($item->getBody()));
