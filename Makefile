@@ -201,12 +201,15 @@ php-test-dependencies:
 	$(composer) update --prefer-dist
 	$(composer) scope-dependencies
 
-.PHONY: unit-test
-unit-test:
+.PHONY: scope-if-needed
+scope-if-needed:
 	@if [ ! -d "lib/Vendor" ]; then \
 		echo "Scoped dependencies not found. Running composer scope-dependencies..."; \
 		$(composer) scope-dependencies; \
 	fi
+
+.PHONY: unit-test
+unit-test: scope-if-needed
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
