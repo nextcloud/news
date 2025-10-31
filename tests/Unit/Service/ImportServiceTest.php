@@ -72,6 +72,7 @@ class ImportServiceTest extends TestCase
         $this->purifier = $this
             ->getMockBuilder(\OCA\News\Vendor\HTMLPurifier::class)
             ->disableOriginalConstructor()
+            ->addMethods(['purify'])
             ->getMock();
 
         $this->time = 333333;
