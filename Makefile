@@ -199,6 +199,7 @@ js-test:
 .PHONY: php-test-dependencies
 php-test-dependencies:
 	$(composer) update --prefer-dist
+	$(composer) scope-dependencies
 
 .PHONY: unit-test
 unit-test:
