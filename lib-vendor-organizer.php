@@ -247,35 +247,6 @@ function rmdir_recursive($dir)
     rmdir($dir);
 }
 
-// Update composer.json to include HTMLPurifier classmap
-$composerJsonPath = getcwd() . '/composer.json';
-if (file_exists($composerJsonPath)) {
-    $composerData = json_decode(file_get_contents($composerJsonPath), true);
-    
-    // Remove classmap if it exists (causes conflicts with HTMLPurifier)
-    if (isset($composerData['autoload']['classmap'])) {
-        unset($composerData['autoload']['classmap']);
-        printf('Removed classmap from composer.json (not needed)' . PHP_EOL);
-    }
-    
-    // Add files for HTMLPurifier autoloader
-    if (!isset($composerData['autoload']['files'])) {
-        $composerData['autoload']['files'] = [];
-    }
-    
-    $autoloadFile = 'lib/Vendor/HTMLPurifier.autoload.php';
-    if (!in_array($autoloadFile, $composerData['autoload']['files'])) {
-        $composerData['autoload']['files'][] = $autoloadFile;
-        printf('Added HTMLPurifier autoloader to composer.json' . PHP_EOL);
-    }
-    
-    // Write back to composer.json
-    file_put_contents(
-        $composerJsonPath,
-        json_encode($composerData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL
-    );
-}
-
 // Create a custom autoloader for HTMLPurifier classes
 $autoloaderPath = $targetDirectory . 'HTMLPurifier.autoload.php';
 $autoloaderContent = <<<'PHP'
@@ -329,4 +300,3 @@ PHP;
 
 file_put_contents($autoloaderPath, $autoloaderContent);
 printf('Created HTMLPurifier autoloader' . PHP_EOL);
-
