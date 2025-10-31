@@ -13,6 +13,13 @@
 
 namespace OCA\News\AppInfo;
 
+// Load HTMLPurifier autoloader (not loaded by Nextcloud's autoloader)
+file_put_contents('/tmp/htmlpurifier_autoload.log', date('H:i:s') . " Application.php: Loading HTMLPurifier autoloader files\n", FILE_APPEND);
+require_once __DIR__ . '/../Vendor/HTMLPurifier.composer.php';
+file_put_contents('/tmp/htmlpurifier_autoload.log', "  -> Loaded HTMLPurifier.composer.php\n", FILE_APPEND);
+require_once __DIR__ . '/../Vendor/HTMLPurifier.autoload.php';
+file_put_contents('/tmp/htmlpurifier_autoload.log', "  -> Loaded HTMLPurifier.autoload.php\n", FILE_APPEND);
+
 use OCA\News\Vendor\FeedIo\Explorer;
 use OCA\News\Vendor\FeedIo\FeedIo;
 use OCA\News\Vendor\HTMLPurifier;

@@ -246,3 +246,87 @@ function rmdir_recursive($dir)
     }
     rmdir($dir);
 }
+
+// Update composer.json to include HTMLPurifier classmap
+$composerJsonPath = getcwd() . '/composer.json';
+if (file_exists($composerJsonPath)) {
+    $composerData = json_decode(file_get_contents($composerJsonPath), true);
+    
+    // Remove classmap if it exists (causes conflicts with HTMLPurifier)
+    if (isset($composerData['autoload']['classmap'])) {
+        unset($composerData['autoload']['classmap']);
+        printf('Removed classmap from composer.json (not needed)' . PHP_EOL);
+    }
+    
+    // Add files for HTMLPurifier autoloader
+    if (!isset($composerData['autoload']['files'])) {
+        $composerData['autoload']['files'] = [];
+    }
+    
+    $autoloadFile = 'lib/Vendor/HTMLPurifier.autoload.php';
+    if (!in_array($autoloadFile, $composerData['autoload']['files'])) {
+        $composerData['autoload']['files'][] = $autoloadFile;
+        printf('Added HTMLPurifier autoloader to composer.json' . PHP_EOL);
+    }
+    
+    // Write back to composer.json
+    file_put_contents(
+        $composerJsonPath,
+        json_encode($composerData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . PHP_EOL
+    );
+}
+
+// Create a custom autoloader for HTMLPurifier classes
+$autoloaderPath = $targetDirectory . 'HTMLPurifier.autoload.php';
+$autoloaderContent = <<<'PHP'
+<?php
+/**
+ * Custom autoloader for HTMLPurifier classes in OCA\News\Vendor namespace
+ */
+spl_autoload_register(function ($class) {
+    $originalClass = $class;
+    
+    // Handle both namespaced and non-namespaced HTMLPurifier classes
+    // If class starts with HTMLPurifier without namespace, add the namespace
+    if (strpos($class, 'HTMLPurifier') === 0 && strpos($class, '\\') === false) {
+        $class = 'OCA\\News\\Vendor\\' . $class;
+    }
+    
+    // Only handle classes in OCA\News\Vendor namespace that start with HTMLPurifier
+    if (strpos($class, 'OCA\\News\\Vendor\\HTMLPurifier') === 0) {
+        // Don't reload if already loaded
+        if (class_exists($class, false)) {
+            return true;
+        }
+        
+        $className = substr($class, strlen('OCA\\News\\Vendor\\'));
+        
+        // HTMLPurifier_ClassName -> HTMLPurifier/ClassName.php
+        // But HTMLPurifier itself (no underscore) -> HTMLPurifier.php (root level)
+        if ($className === 'HTMLPurifier') {
+            $file = __DIR__ . '/HTMLPurifier.php';
+        } else {
+            // Replace all underscores to get path: HTMLPurifier_Config -> HTMLPurifier/Config.php
+            $file = __DIR__ . '/' . str_replace('_', '/', $className) . '.php';
+        }
+        
+        if (file_exists($file)) {
+            include_once $file;
+            
+            // If we loaded a class in response to a non-namespaced request, create an alias
+            if (strpos($originalClass, '\\') === false && class_exists($class, false)) {
+                if (!class_exists($originalClass, false)) {
+                    class_alias($class, $originalClass, false);
+                }
+            }
+            
+            return true;
+        }
+    }
+    return false;
+});
+PHP;
+
+file_put_contents($autoloaderPath, $autoloaderContent);
+printf('Created HTMLPurifier autoloader' . PHP_EOL);
+
