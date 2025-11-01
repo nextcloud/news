@@ -6,5 +6,6 @@ parameters:
     - %currentWorkingDirectory%/../../lib/base.php
   excludePaths:
     - %currentWorkingDirectory%/lib/Migration/*.php
+    - %currentWorkingDirectory%/lib/Vendor/*
     - %currentWorkingDirectory%/lib/AppInfo/Application.php
     - %currentWorkingDirectory%/lib/Fetcher/Client/Legacy*.php
