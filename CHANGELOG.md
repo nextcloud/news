@@ -12,7 +12,11 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 # Releases
-## [28.0.0-alpha.2]
+## [28.0.0-alpha.3] - 2025-11-01
+### Changed
+- Include composer.json in release archive (#3384)
+
+## [28.0.0-alpha.2] - 2025-11-01
 ### Changed
 - Scope PHP dependencies to avoid conflicts with other apps (#3384)
 

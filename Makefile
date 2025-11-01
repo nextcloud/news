@@ -153,6 +153,9 @@ appstore:
 	"templates" \
 	"vendor" \
 	"$(appstore_sign_dir)/$(app_name)"
+	
+	# copy composer.json for autoload configuration
+	cp "composer.json" "$(appstore_sign_dir)/$(app_name)"
 
 	# remove vendor directory (dependencies are scoped in lib/Vendor/)
 	rm -rf "$(appstore_sign_dir)/$(app_name)/vendor"
