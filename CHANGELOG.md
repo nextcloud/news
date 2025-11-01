@@ -7,12 +7,15 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Scope PHP dependencies to avoid conflicts with other apps (#3384)
 
 ### Fixed
 
 
 # Releases
+## [28.0.0-alpha.2]
+### Changed
+- Scope PHP dependencies to avoid conflicts with other apps (#3384)
+
 ## [27.1.0] - 2025-10-26
 ### Changed
 - Display categories at the end of an article (#3380)
