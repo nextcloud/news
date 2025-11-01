@@ -79,6 +79,7 @@
             "OCA\\News\\": "lib/"
         },
         "files": [
+            "lib/Vendor/getallheaders.php",
             "lib/Vendor/HTMLPurifier.composer.php",
             "lib/Vendor/HTMLPurifier.autoload.php"
         ]

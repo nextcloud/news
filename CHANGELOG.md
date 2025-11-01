@@ -12,6 +12,11 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 # Releases
+## [28.0.0-alpha.5]
+### Fixed
+- Include vendor/autoload.php and vendor/composer/ in release for proper autoloading
+- Add getallheaders.php to composer.json autoload files array
+
 ## [28.0.0-alpha.3] - 2025-11-01
 ### Changed
 - Include composer.json in release archive (#3384)

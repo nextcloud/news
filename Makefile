@@ -157,8 +157,8 @@ appstore:
 	# copy composer.json for autoload configuration
 	cp "composer.json" "$(appstore_sign_dir)/$(app_name)"
 
-	# remove vendor directory (dependencies are scoped in lib/Vendor/)
-	rm -rf "$(appstore_sign_dir)/$(app_name)/vendor"
+	# remove vendor dependencies (they are scoped in lib/Vendor/) but keep autoloader
+	find "$(appstore_sign_dir)/$(app_name)/vendor" -mindepth 1 -maxdepth 1 ! -name 'composer' ! -name 'autoload.php' -exec rm -rf {} +
 	
 	# clean up unwanted files from scoped dependencies
 	find "$(appstore_sign_dir)/$(app_name)/lib/Vendor" -name .git -type d -exec rm -rf {} + 2>/dev/null || true
