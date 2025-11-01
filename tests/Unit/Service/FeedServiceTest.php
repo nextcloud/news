@@ -14,8 +14,8 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use FeedIo\Explorer;
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
@@ -115,8 +115,9 @@ class FeedServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder(\HTMLPurifier::class)
+            ->getMockBuilder(\OCA\News\Vendor\HTMLPurifier::class)
             ->disableOriginalConstructor()
+            ->onlyMethods(['purify'])
             ->getMock();
         $this->config = $this
             ->getMockBuilder(IAppConfig::class)

@@ -8,11 +8,27 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [27.x.x]
 ### Changed
 
-
 ### Fixed
 
 
 # Releases
+## [28.0.0-alpha.6]
+### Fixed
+- Use fully qualified class names for scoped dependencies to avoid autoloading during file parsing
+
+## [28.0.0-alpha.5]
+### Fixed
+- Include vendor/autoload.php and vendor/composer/ in release for proper autoloading
+- Add getallheaders.php to composer.json autoload files array
+
+## [28.0.0-alpha.3] - 2025-11-01
+### Changed
+- Include composer.json in release archive (#3384)
+
+## [28.0.0-alpha.2] - 2025-11-01
+### Changed
+- Scope PHP dependencies to avoid conflicts with other apps (#3384)
+
 ## [27.1.0] - 2025-10-26
 ### Changed
 - Display categories at the end of an article (#3380)

@@ -11,6 +11,9 @@ js/
 site/
 coverage
 
+#scoped dependencies
+lib/Vendor/*
+
 #bats
 tests/api/helpers/settings-override.bash
 tests/test_helper/feeds/test.xml

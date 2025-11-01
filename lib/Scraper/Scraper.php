@@ -11,10 +11,10 @@
 
 namespace OCA\News\Scraper;
 
-use fivefilters\Readability\Readability;
-use fivefilters\Readability\Configuration;
-use fivefilters\Readability\ParseException;
-use League\Uri\Exceptions\SyntaxError;
+use OCA\News\Vendor\fivefilters\Readability\Readability;
+use OCA\News\Vendor\fivefilters\Readability\Configuration;
+use OCA\News\Vendor\fivefilters\Readability\ParseException;
+use OCA\News\Vendor\League\Uri\Exceptions\SyntaxError;
 use Psr\Log\LoggerInterface;
 use OCA\News\Config\FetcherConfig;
 

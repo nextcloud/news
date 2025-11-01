@@ -7,6 +7,10 @@ This ensures that you don't start working on something which collides with the t
 
 For small fixes and improvements feel free to directly create a PR, the maintainers are happy to review your code.
 
+## Important Developer Guides
+
+- [Dependency Scoping](dependencies-scoping-dev.md) - **Required reading**: How scoped dependencies work and how to use them
+
 ## APIs
 
 News offers an API that can be used by clients to synchronize with the server.
