@@ -17,7 +17,6 @@ use DateTime;
 use OCA\News\Vendor\FeedIo\Explorer;
 use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use OCA\News\Vendor\FeedIo\Reader\NoAccurateParserException;
-use OCA\News\Vendor\HTMLPurifier;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
@@ -54,7 +53,7 @@ class FeedServiceV2 extends Service
     /**
      * HTML Purifier
      *
-     * @var HTMLPurifier
+     * @var \OCA\News\Vendor\HTMLPurifier
      */
     protected $purifier;
     /**
@@ -71,20 +70,20 @@ class FeedServiceV2 extends Service
     /**
      * FeedService constructor.
      *
-     * @param FeedMapperV2    $mapper      DB layer for feeds
-     * @param FeedFetcher     $feedFetcher FeedIO interface
-     * @param ItemServiceV2   $itemService Service to manage items
-     * @param Explorer        $explorer    Feed Explorer
-     * @param HTMLPurifier    $purifier    HTML Purifier
-     * @param LoggerInterface $logger      Logger
-     * @param IAppConfig      $config      App config
+     * @param FeedMapperV2                           $mapper      DB layer for feeds
+     * @param FeedFetcher                            $feedFetcher FeedIO interface
+     * @param ItemServiceV2                          $itemService Service to manage items
+     * @param Explorer                               $explorer    Feed Explorer
+     * @param \OCA\News\Vendor\HTMLPurifier          $purifier    HTML Purifier
+     * @param LoggerInterface                        $logger      Logger
+     * @param IAppConfig                             $config      App config
      */
     public function __construct(
         FeedMapperV2 $mapper,
         FeedFetcher $feedFetcher,
         ItemServiceV2 $itemService,
         Explorer $explorer,
-        HTMLPurifier $purifier,
+        \OCA\News\Vendor\HTMLPurifier $purifier,
         LoggerInterface $logger,
         IAppConfig $config
     ) {

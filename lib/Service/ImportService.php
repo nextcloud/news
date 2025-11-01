@@ -17,7 +17,6 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
-use OCA\News\Vendor\HTMLPurifier;
 
 /**
  * Class ImportService
@@ -43,22 +42,22 @@ class ImportService
      */
     protected $logger;
     /**
-     * @var HTMLPurifier
+     * @var \OCA\News\Vendor\HTMLPurifier
      */
     protected $purifier;
 
     /**
      * FeedService constructor.
      *
-     * @param FeedServiceV2   $feedService Service for feeds
-     * @param ItemServiceV2   $itemService Service to manage items
-     * @param HTMLPurifier    $purifier    HTML Purifier
-     * @param LoggerInterface $logger      Logger
+     * @param FeedServiceV2                      $feedService Service for feeds
+     * @param ItemServiceV2                      $itemService Service to manage items
+     * @param \OCA\News\Vendor\HTMLPurifier      $purifier    HTML Purifier
+     * @param LoggerInterface                    $logger      Logger
      */
     public function __construct(
         FeedServiceV2 $feedService,
         ItemServiceV2 $itemService,
-        HTMLPurifier $purifier,
+        \OCA\News\Vendor\HTMLPurifier $purifier,
         LoggerInterface $logger
     ) {
         $this->itemService = $itemService;
