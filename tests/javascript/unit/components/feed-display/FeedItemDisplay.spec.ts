@@ -1,5 +1,6 @@
 import { shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import FeedItemDisplay from '../../../../../src/components/feed-display/FeedItemDisplay.vue'
 import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
 
@@ -55,12 +56,6 @@ describe('FeedItemDisplay.vue', () => {
 		commitStub.mockReset()
 	})
 
-	it('should send SET_SELECTED_ITEM with undefined id', () => {
-		wrapper.vm.clearSelected()
-
-		expect(commitStub).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
-	})
-
 	it('should format date to match locale', () => {
 		const epoch = Date.now() // Provide an epoch timestamp
 		const formattedDate = wrapper.vm.formatDate(epoch / 1000)
@@ -81,20 +76,123 @@ describe('FeedItemDisplay.vue', () => {
 		expect(feed).toEqual(mockFeed)
 	})
 
+	it('should focus on new selected item when using screen reader mode', async () => {
+		const el = { focus: vi.fn() }
+		Object.defineProperty(wrapper.vm.$refs, 'titleLink', { value: el, configurable: true })
+
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(true)
+		wrapper.vm.$options.watch.isSelected.call(wrapper.vm, true)
+		await nextTick()
+
+		expect(el.focus).toHaveBeenCalled()
+	})
+
+	it('should not focus on new selected item when not using screen reader mode', async () => {
+		const el = { focus: vi.fn() }
+		Object.defineProperty(wrapper.vm.$refs, 'titleLink', { value: el, configurable: true })
+
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(false)
+		wrapper.vm.$options.watch.isSelected.call(wrapper.vm, true)
+		await nextTick()
+
+		expect(el.focus).not.toHaveBeenCalled()
+	})
+
+	it('should send SET_SELECTED_ITEM with undefined id', () => {
+		wrapper.vm.clearSelected()
+
+		expect(commitStub).toBeCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
+	})
+
+	it('should send SET_SELECTED_ITEM with item on focus when using screen reader mode and item is not selected', () => {
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(true)
+		vi.spyOn(wrapper.vm, 'isSelected', 'get').mockReturnValue(false)
+		wrapper.vm.selectItemOnFocus()
+
+		expect(commitStub).toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem.id, key: 'all' })
+	})
+
+	it('should not send SET_SELECTED_ITEM with item on focus when not using screen reader mode', () => {
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(false)
+		vi.spyOn(wrapper.vm, 'isSelected', 'get').mockReturnValue(false)
+		wrapper.vm.selectItemOnFocus()
+
+		expect(commitStub).not.toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM)
+
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(false)
+		vi.spyOn(wrapper.vm, 'isSelected', 'get').mockReturnValue(true)
+		wrapper.vm.selectItemOnFocus()
+
+		expect(commitStub).not.toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM)
+	})
+
+	it('should not send SET_SELECTED_ITEM with item on focus when item is already selected', () => {
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(true)
+		vi.spyOn(wrapper.vm, 'isSelected', 'get').mockReturnValue(true)
+		wrapper.vm.selectItemOnFocus()
+
+		expect(commitStub).not.toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM)
+	})
+
 	it('should toggle starred state', () => {
 		wrapper.vm.$props.item.starred = true
 
-		wrapper.vm.toggleStarred(wrapper.vm.$props.item)
+		wrapper.vm.toggleStarred()
 		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.UNSTAR_ITEM, {
 			item: wrapper.vm.$props.item,
 		})
 
 		wrapper.vm.$props.item.starred = false
 
-		wrapper.vm.toggleStarred(wrapper.vm.$props.item)
+		wrapper.vm.toggleStarred()
 		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.STAR_ITEM, {
 			item: wrapper.vm.$props.item,
 		})
+	})
+
+	it('should toggle unread state', () => {
+		wrapper.vm.$props.item.keepUnread = false
+		wrapper.vm.$props.item.unread = true
+
+		wrapper.vm.toggleRead()
+		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.MARK_READ, {
+			item: wrapper.vm.$props.item,
+		})
+
+		wrapper.vm.$props.item.unread = false
+
+		wrapper.vm.toggleRead()
+		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.MARK_UNREAD, {
+			item: wrapper.vm.$props.item,
+		})
+	})
+
+	it('should not toggle unread state if keepUnread is set', () => {
+		wrapper.vm.$props.item.keepUnread = true
+		wrapper.vm.$props.item.unread = true
+
+		wrapper.vm.toggleRead()
+		expect(dispatchStub).not.toHaveBeenCalledWith(ACTIONS.MARK_READ, {
+			item: wrapper.vm.$props.item,
+		})
+	})
+
+	it('should set showShareMenu to false', () => {
+		wrapper.vm.showShareMenu = true
+
+		wrapper.vm.closeShareMenu()
+		expect(wrapper.vm.showShareMenu).toEqual(false)
+	})
+
+	it('should return the correct media type', () => {
+		let mime = wrapper.vm.getMediaType('audio/mp4')
+		expect(mime).toEqual('audio')
+
+		mime = wrapper.vm.getMediaType('video/mpeg')
+		expect(mime).toEqual('video')
+
+		mime = wrapper.vm.getMediaType('application/pdf')
+		expect(mime).toEqual(false)
 	})
 
 	it('should send SET_PLAYING_ITEM with item', () => {
@@ -111,6 +209,27 @@ describe('FeedItemDisplay.vue', () => {
 		wrapper.vm.stopAudio()
 
 		expect(pauseStub).toBeCalled()
+	})
+
+	it('should emit "prev-item" when calling prevItem', () => {
+		wrapper.vm.prevItem()
+
+		expect(wrapper.emitted()).toHaveProperty('prev-item')
+		expect(wrapper.emitted('prev-item')!.length).toBe(1)
+	})
+
+	it('should emit "next-item" when calling nextItem', () => {
+		wrapper.vm.nextItem()
+
+		expect(wrapper.emitted()).toHaveProperty('next-item')
+		expect(wrapper.emitted('next-item')!.length).toBe(1)
+	})
+
+	it('should emit "show-details" when calling closeDetails', () => {
+		wrapper.vm.closeDetails()
+
+		expect(wrapper.emitted()).toHaveProperty('show-details')
+		expect(wrapper.emitted('show-details')!.length).toBe(1)
 	})
 
 	it('should show no chips when item has no categories', () => {

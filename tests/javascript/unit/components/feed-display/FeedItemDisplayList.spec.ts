@@ -311,6 +311,27 @@ describe('FeedItemDisplayList.vue', () => {
 		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
 	})
 
+	it('should emit "load-more" when calling fetchMore', () => {
+		wrapper.vm.fetchMore()
+
+		expect(wrapper.emitted()).toHaveProperty('load-more')
+		expect(wrapper.emitted('load-more')!.length).toBe(2)
+	})
+
+	it('should emit "mark-read" when calling markRead', () => {
+		wrapper.vm.markRead()
+
+		expect(wrapper.emitted()).toHaveProperty('mark-read')
+		expect(wrapper.emitted('mark-read')!.length).toBe(1)
+	})
+
+	it('should emit "show-details" when calling showDetails', () => {
+		wrapper.vm.showDetails()
+
+		expect(wrapper.emitted()).toHaveProperty('show-details')
+		expect(wrapper.emitted('show-details')!.length).toBe(1)
+	})
+
 	it('should dispatch STAR_ITEM / UNSTAR_ITEM to toggle starred flag', async () => {
 		wrapper.vm.selectedItem = mockItem1
 		wrapper.vm.toggleStarred()
