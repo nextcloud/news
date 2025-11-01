@@ -22,7 +22,7 @@ if(!is_array($dependenciesList) || !isset($dependenciesList['installed'])) {
 
 addDependencies($dependenciesList['installed'], $dependencies);
 
-function isIgnoreable(array $depInfo, array $dependencies): bool {
+function isIgnorable(array $depInfo, array $dependencies): bool {
     return ($depInfo['name'] === 'php'
         || $depInfo['name'] === 'bamarni/composer-bin-plugin'
         || str_starts_with($depInfo['name'], 'ext-')
@@ -32,7 +32,7 @@ function isIgnoreable(array $depInfo, array $dependencies): bool {
 
 function addDependencies(array $requires, array &$dependencies): void {
     foreach($requires as $depInfo) {
-        if (isIgnoreable($depInfo, $dependencies)) {
+        if (isIgnorable($depInfo, $dependencies)) {
             continue;
         }
         if (!isset($dependencies[$depInfo['name']])) {

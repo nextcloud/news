@@ -1,0 +1,8 @@
+# Ignore generated/automated files
+AUTHORS.md
+
+# Ignore build artifacts and dependencies
+vendor/
+node_modules/
+build/
+lib/Vendor/
