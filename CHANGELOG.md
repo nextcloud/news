@@ -12,6 +12,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 
 # Releases
+## [28.0.0-alpha.6]
+### Fixed
+- Use fully qualified class names for scoped dependencies to avoid autoloading during file parsing
+
 ## [28.0.0-alpha.5]
 ### Fixed
 - Include vendor/autoload.php and vendor/composer/ in release for proper autoloading

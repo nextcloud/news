@@ -13,12 +13,6 @@
 
 namespace OCA\News\AppInfo;
 
-use OCA\News\Vendor\FeedIo\Explorer;
-use OCA\News\Vendor\FeedIo\FeedIo;
-use OCA\News\Vendor\HTMLPurifier;
-use OCA\News\Vendor\HTMLPurifier_Config;
-use OCA\News\Vendor\Favicon\Favicon;
-
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Hooks\UserDeleteHook;
 use OCA\News\Search\FeedSearchProvider;
@@ -101,8 +95,8 @@ class Application extends App implements IBootstrap
         // parameters
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
 
-        $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
-            $config = HTMLPurifier_Config::createDefault();
+        $context->registerService(\OCA\News\Vendor\HTMLPurifier::class, function (ContainerInterface $c) {
+            $config = \OCA\News\Vendor\HTMLPurifier_Config::createDefault();
             $config->set('HTML.ForbiddenAttributes', 'class');
             $config->set('Cache.SerializerPath', $c->get(Cache::class)->getCache("purifier"));
             $config->set('HTML.SafeIframe', true);
@@ -129,17 +123,17 @@ class Application extends App implements IBootstrap
 
             $def = $config->getHTMLDefinition(true);
             $def->addAttribute('iframe', 'allowfullscreen', 'Bool');
-            return new HTMLPurifier($config);
+            return new \OCA\News\Vendor\HTMLPurifier($config);
         });
 
-        $context->registerService(FeedIo::class, function (ContainerInterface $c): FeedIo {
+        $context->registerService(\OCA\News\Vendor\FeedIo\FeedIo::class, function (ContainerInterface $c) {
             $config = $c->get(FetcherConfig::class);
-            return new FeedIo($config->getClient(), $c->get(LoggerInterface::class));
+            return new \OCA\News\Vendor\FeedIo\FeedIo($config->getClient(), $c->get(LoggerInterface::class));
         });
 
-        $context->registerService(Explorer::class, function (ContainerInterface $c): Explorer {
+        $context->registerService(\OCA\News\Vendor\FeedIo\Explorer::class, function (ContainerInterface $c) {
             $config = $c->get(FetcherConfig::class);
-            return new Explorer($config->getClient(), $c->get(LoggerInterface::class));
+            return new \OCA\News\Vendor\FeedIo\Explorer($config->getClient(), $c->get(LoggerInterface::class));
         });
 
         $context->registerService(FaviconDataAccess::class, function (ContainerInterface $c): FaviconDataAccess {
@@ -147,8 +141,8 @@ class Application extends App implements IBootstrap
             return new FaviconDataAccess($config);
         });
 
-        $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {
-            $favicon = new Favicon();
+        $context->registerService(\OCA\News\Vendor\Favicon\Favicon::class, function (ContainerInterface $c) {
+            $favicon = new \OCA\News\Vendor\Favicon\Favicon();
             $favicon->cache(['dir' => $c->get(Cache::class)->getCache("feedFavicon")]);
             $favicon->setDataAccess($c->get(FaviconDataAccess::class));
             return $favicon;
