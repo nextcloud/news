@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "60553c15670c8435674bfe7f9c91b159",
+    "content-hash": "19e6ef1776cd9147469308223abb48c3",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -1216,60 +1216,6 @@
                 "source": "https://github.com/ralouphie/getallheaders/tree/develop"
             },
             "time": "2019-03-08T08:55:37+00:00"
-        },
-        {
-            "name": "riimu/kit-pathjoin",
-            "version": "v1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Riimu/Kit-PathJoin.git",
-                "reference": "8ad2656c79527dba9f7f20e1229dcd38abfe8cee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Riimu/Kit-PathJoin/zipball/8ad2656c79527dba9f7f20e1229dcd38abfe8cee",
-                "reference": "8ad2656c79527dba9f7f20e1229dcd38abfe8cee",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.3",
-                "phpunit/phpunit": "^5.7 || ^6.2",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Riimu\\Kit\\PathJoin\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Riikka Kalliomäki",
-                    "email": "riikka.kalliomaki@gmail.com",
-                    "homepage": "http://riimu.net"
-                }
-            ],
-            "description": "Cross-platform library for normalizing and joining file system paths",
-            "homepage": "http://kit.riimu.net",
-            "keywords": [
-                "file",
-                "join",
-                "normalize",
-                "path",
-                "system"
-            ],
-            "support": {
-                "issues": "https://github.com/Riimu/Kit-PathJoin/issues",
-                "source": "https://github.com/Riimu/Kit-PathJoin/tree/master"
-            },
-            "time": "2017-07-09T14:41:04+00:00"
         }
     ],
     "packages-dev": [
