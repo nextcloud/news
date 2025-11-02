@@ -10,8 +10,8 @@
 
 namespace OCA\News\Utility;
 
-use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
-use Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface;
+use OCA\News\Vendor\Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
+use OCA\News\Vendor\Symfony\Component\HtmlSanitizer\HtmlSanitizerInterface;
 use OCA\News\Utility\SafeIframeAttributeSanitizer;
 
 /**
@@ -73,6 +73,6 @@ class HtmlSanitizer
         // This is implicitly done by allowSafeElements() which doesn't include 'class'
         // in the safe attributes list by default
 
-        return new \Symfony\Component\HtmlSanitizer\HtmlSanitizer($config);
+        return new \OCA\News\Vendor\Symfony\Component\HtmlSanitizer\HtmlSanitizer($config);
     }
 }

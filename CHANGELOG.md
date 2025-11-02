@@ -5,8 +5,9 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
 
 # Unreleased
-## [27.x.x]
+## [28.x.x]
 ### Changed
+- Scope PHP dependencies to prevent conflicts with other Nextcloud apps (#3397)
 
 ### Fixed
 
