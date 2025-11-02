@@ -1,0 +1,5 @@
+{
+    "require": {
+        "humbug/php-scoper": "^0.18.17"
+    }
+}

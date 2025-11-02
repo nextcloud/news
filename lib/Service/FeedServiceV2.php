@@ -14,9 +14,9 @@
 namespace OCA\News\Service;
 
 use DateTime;
-use FeedIo\Explorer;
-use FeedIo\Reader\ReadErrorException;
-use FeedIo\Reader\NoAccurateParserException;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Reader\NoAccurateParserException;
 
 use OCA\News\Constants;
 use OCA\News\Db\FeedMapperV2;

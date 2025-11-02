@@ -4,9 +4,9 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use FeedIo\Adapter\Http\Response;
-use FeedIo\Adapter\NotFoundException;
-use FeedIo\Adapter\ServerErrorException;
+use OCA\News\Vendor\FeedIo\Adapter\Http\Response;
+use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
+use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use OCA\News\Fetcher\Client\FeedIoClient;

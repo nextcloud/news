@@ -13,9 +13,9 @@
 
 namespace OCA\News\AppInfo;
 
-use FeedIo\Explorer;
-use FeedIo\FeedIo;
-use Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\Favicon\Favicon;
 
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Hooks\UserDeleteHook;

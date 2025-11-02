@@ -14,13 +14,13 @@
 namespace OCA\News\Fetcher;
 
 use DateTime;
-use Favicon\Favicon;
-use FeedIo\Feed\ItemInterface;
-use FeedIo\FeedInterface;
-use FeedIo\FeedIo;
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
+use OCA\News\Vendor\FeedIo\FeedInterface;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
+use OCA\News\Vendor\GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 

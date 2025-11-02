@@ -13,7 +13,7 @@
 
 namespace OCA\News\Config;
 
-use FeedIo\Adapter\ClientInterface;
+use OCA\News\Vendor\FeedIo\Adapter\ClientInterface;
 use Psr\Log\LoggerInterface;
 use \GuzzleHttp\Client;
 use \GuzzleHttp\Psr7\Uri;

@@ -79,6 +79,7 @@ ifeq (, $(shell which composer 2> /dev/null))
 	mv composer.phar "$(build_tools_directory)"
 endif
 	$(composer) install --prefer-dist --no-dev
+	$(composer) scope-dependencies
 
 # Installs npm dependencies
 .PHONY: npm
@@ -98,7 +99,7 @@ clean:
 # Reports PHP codestyle violations
 .PHONY: phpcs
 phpcs:
-	./vendor/bin/phpcs --standard=PSR2 --ignore=lib/Migration/Version*.php lib
+	./vendor/bin/phpcs --standard=PSR2 --ignore=lib/Migration/Version*.php,lib/Vendor/* lib
 
 # Reports PHP static violations
 .PHONY: phpstan
@@ -152,13 +153,18 @@ appstore:
 	"templates" \
 	"vendor" \
 	"$(appstore_sign_dir)/$(app_name)"
+	
+	# copy composer.json for autoload configuration
+	cp "composer.json" "$(appstore_sign_dir)/$(app_name)"
 
-	# remove composer binaries, those aren't needed
-	rm -rf "$(appstore_sign_dir)/$(app_name)/vendor/bin"
-	# the App Store doesn't like .git
-	rm -rf "$(appstore_sign_dir)/$(app_name)/vendor/arthurhoaro/favicon/.git"
-	# remove large test files
-	rm -rf "$(appstore_sign_dir)/$(app_name)/vendor/fivefilters/readability.php/test"
+	# remove vendor dependencies (they are scoped in lib/Vendor/) but keep autoloader
+	find "$(appstore_sign_dir)/$(app_name)/vendor" -mindepth 1 -maxdepth 1 ! -name 'composer' ! -name 'autoload.php' -exec rm -rf {} +
+	
+	# clean up unwanted files from scoped dependencies
+	find "$(appstore_sign_dir)/$(app_name)/lib/Vendor" -name .git -type d -exec rm -rf {} + 2>/dev/null || true
+	find "$(appstore_sign_dir)/$(app_name)/lib/Vendor" -name .htaccess -exec rm -f {} + 2>/dev/null || true
+	find "$(appstore_sign_dir)/$(app_name)/lib/Vendor" -type d -name test -exec rm -rf {} + 2>/dev/null || true
+	find "$(appstore_sign_dir)/$(app_name)/lib/Vendor" -type d -name tests -exec rm -rf {} + 2>/dev/null || true
 
 	install "COPYING" "$(appstore_sign_dir)/$(app_name)"
 	install "AUTHORS.md" "$(appstore_sign_dir)/$(app_name)"
@@ -198,9 +204,17 @@ js-test:
 .PHONY: php-test-dependencies
 php-test-dependencies:
 	$(composer) update --prefer-dist
+	$(composer) scope-dependencies
+
+.PHONY: scope-if-needed
+scope-if-needed:
+	@if [ ! -d "lib/Vendor" ]; then \
+		echo "Scoped dependencies not found. Running composer scope-dependencies..."; \
+		$(composer) scope-dependencies; \
+	fi
 
 .PHONY: unit-test
-unit-test:
+unit-test: scope-if-needed
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
 
 # Command for running JS and PHP tests. Works for package.json files in the js/

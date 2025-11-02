@@ -11,7 +11,7 @@
 
 namespace OCA\News\Fetcher;
 
-use Favicon\DataAccess;
+use OCA\News\Vendor\Favicon\DataAccess;
 
 use OCA\News\Config\FetcherConfig;
 
