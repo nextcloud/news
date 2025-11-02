@@ -81,6 +81,8 @@ For running all tests suites you can run:
 
     make test
 
+For detailed information on setting up a testing environment (including how to set up Nextcloud for running PHPUnit tests), see the [Testing section in the developer documentation](https://github.com/nextcloud/news/blob/master/docs/developer.md#testing)
+
 Packaging is done via:
 
     make dist
