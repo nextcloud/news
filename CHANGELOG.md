@@ -7,14 +7,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Replaced HTMLPurifier with Symfony HTML Sanitizer for improved performance and maintainability
 
 
 ### Fixed
-- `favicon` links not updated for existing feeds
 
 
 # Releases
+## [27.2.0-beta.1] - 2025-11-02
+### Changed
+- Replaced HTMLPurifier with Symfony HTML Sanitizer for improved performance and maintainability (#3393)
+
+### Fixed
+- `favicon` links not updated for existing feeds (#3391)
+
 ## [27.1.0] - 2025-10-26
 ### Changed
 - Display categories at the end of an article (#3380)
