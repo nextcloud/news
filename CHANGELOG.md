@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
+- Replaced HTMLPurifier with Symfony HTML Sanitizer for improved performance and maintainability
 
 
 ### Fixed

@@ -17,6 +17,7 @@ namespace OCA\News\Tests\Unit\Service;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Utility\HtmlSanitizer;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
@@ -50,7 +51,7 @@ class ImportServiceTest extends TestCase
     private $logger;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
+     * @var \PHPUnit\Framework\MockObject\MockObject|HtmlSanitizer
      */
     private $purifier;
 
@@ -70,7 +71,7 @@ class ImportServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder(\HTMLPurifier::class)
+            ->getMockBuilder(HtmlSanitizer::class)
             ->disableOriginalConstructor()
             ->getMock();
 

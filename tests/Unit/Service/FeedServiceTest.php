@@ -23,6 +23,7 @@ use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemServiceV2;
 use OCA\News\Utility\Time;
+use OCA\News\Utility\HtmlSanitizer;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IAppConfig;
 
@@ -64,7 +65,7 @@ class FeedServiceTest extends TestCase
     private $time;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
+     * @var \PHPUnit\Framework\MockObject\MockObject|HtmlSanitizer
      */
     private $purifier;
 
@@ -115,7 +116,7 @@ class FeedServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder(\HTMLPurifier::class)
+            ->getMockBuilder(HtmlSanitizer::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this
@@ -601,7 +602,7 @@ class FeedServiceTest extends TestCase
 
         $this->purifier->expects($this->exactly(2))
             ->method('purify')
-            ->withConsecutive(['2', null], ['1', null])
+            ->withConsecutive(['2'], ['1'])
             ->will($this->returnArgument(0));
 
         $this->itemService->expects($this->exactly(2))

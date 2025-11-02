@@ -15,8 +15,6 @@ namespace OCA\News\AppInfo;
 
 use FeedIo\Explorer;
 use FeedIo\FeedIo;
-use HTMLPurifier;
-use HTMLPurifier_Config;
 use Favicon\Favicon;
 
 use OCA\News\Config\FetcherConfig;
@@ -27,6 +25,7 @@ use OCA\News\Search\ItemSearchProvider;
 use OCA\News\Listeners\AddMissingIndicesListener;
 use OCA\News\Listeners\UserSettingsListener;
 use OCA\News\Utility\Cache;
+use OCA\News\Utility\HtmlSanitizer;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -101,35 +100,8 @@ class Application extends App implements IBootstrap
         // parameters
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
 
-        $context->registerService(HTMLPurifier::class, function (ContainerInterface $c): HTMLPurifier {
-            $config = HTMLPurifier_Config::createDefault();
-            $config->set('HTML.ForbiddenAttributes', 'class');
-            $config->set('Cache.SerializerPath', $c->get(Cache::class)->getCache("purifier"));
-            $config->set('HTML.SafeIframe', true);
-            $config->set(
-                'URI.SafeIframeRegexp',
-                '%^https://(?:www\.)?(' .
-                'youtube(?:-nocookie)?.com/embed/|' .
-                'player.vimeo.com/video/|' .
-                'vk.com/video_ext.php)%'
-            ); //allow YouTube and Vimeo
-
-            // Additionally to the defaults, allow the data URI scheme.
-            // See http://htmlpurifier.org/live/configdoc/plain.html#URI.AllowedSchemes
-            $config->set('URI.AllowedSchemes', [
-                'http' => true,
-                'https' => true,
-                'data' => true,
-                'mailto' => true,
-                'ftp' => true,
-                'nntp' => true,
-                'news' => true,
-                'tel' => true,
-            ]);
-
-            $def = $config->getHTMLDefinition(true);
-            $def->addAttribute('iframe', 'allowfullscreen', 'Bool');
-            return new HTMLPurifier($config);
+        $context->registerService(HtmlSanitizer::class, function (ContainerInterface $c): HtmlSanitizer {
+            return new HtmlSanitizer(HtmlSanitizer::createSanitizer());
         });
 
         $context->registerService(FeedIo::class, function (ContainerInterface $c): FeedIo {
