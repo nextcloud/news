@@ -62,11 +62,89 @@ If you have issues with setting up a developer environment create a [new discuss
 
 ## Testing
 
-When submitting your PR the tests will be run automatically, try to fix any errors. 
+When submitting your PR the tests will be run automatically, try to fix any errors.
 
-### Frontend Unit Tests
+### Setting up a Testing Environment
+
+The News app is a Nextcloud app, so to run proper tests (especially PHPUnit tests), you need to install it inside a Nextcloud setup.
+
+#### Prerequisites
+
+- PHP (8.1 or higher)
+- Composer
+- Node.js and npm
+- Git
+- SQLite, MySQL, or PostgreSQL (SQLite is easiest for testing)
+
+#### Setting up Nextcloud for Testing
+
+1. **Clone the Nextcloud server repository**:
+   ```bash
+   git clone https://github.com/nextcloud/server.git nextcloud
+   cd nextcloud
+   ```
+
+2. **Initialize submodules**:
+   ```bash
+   git submodule update --init
+   ```
+
+3. **Install Nextcloud**:
+   ```bash
+   php occ maintenance:install --database "sqlite" --database-name "nextcloud" \
+       --database-host "127.0.0.1" --database-user "root" --database-pass "" \
+       --admin-user "admin" --admin-pass "admin"
+   ```
+   
+   Note: For SQLite, you can skip the database connection parameters.
+
+4. **Clone the News app into the apps directory**:
+   ```bash
+   cd apps
+   git clone https://github.com/nextcloud/news.git
+   cd news
+   ```
+
+5. **Build the News app**:
+   ```bash
+   make
+   ```
+
+6. **Enable the News app**:
+   ```bash
+   cd ../..  # Go back to Nextcloud server root
+   php occ app:enable news
+   ```
+
+Now your testing environment is ready! The News app is installed at `nextcloud/apps/news/`.
+
+### Running Tests
+
+All test commands should be run from the News app directory (`nextcloud/apps/news/`).
+
+#### PHP Unit Tests
+
+PHPUnit tests require the app to be installed in a Nextcloud instance (see setup above).
+
+```bash
+# Install test dependencies
+make php-test-dependencies
+
+# Run unit tests
+make unit-test
+```
+
+The unit tests use the `tests/bootstrap.php` file which expects to find Nextcloud's test bootstrap at `../../../tests/bootstrap.php` (relative to the News app directory).
+
+#### Frontend Unit Tests
 
 Frontend unit tests are using vitest and can be run with `npm run test`.
+
+```bash
+npm run test
+```
+
+These tests don't require a full Nextcloud installation.
 
 ### API and CLI Integration Tests
 
@@ -77,7 +155,7 @@ Check how to install bats on your system in the [official documentation](https:/
 You also need to pull the submodules of the news repo.
 
 ```bash
-git submodules update --init
+git submodule update --init
 ```
 
 The cli tests expect that the feeds are reachable at `http://localhost:8090`, to achieve that you can use `make feed-server &` the `&` means it'll run in the background.
