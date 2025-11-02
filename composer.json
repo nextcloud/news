@@ -42,7 +42,6 @@
   },
   "require": {
     "php": "^8.2",
-    "riimu/kit-pathjoin": "^1.2.0",
     "php-feed-io/feed-io": "^v6.1.2",
     "arthurhoaro/favicon": "^2.0.1",
     "fivefilters/readability.php": "^3.3",
