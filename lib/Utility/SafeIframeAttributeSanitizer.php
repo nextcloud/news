@@ -10,8 +10,8 @@
 
 namespace OCA\News\Utility;
 
-use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
-use Symfony\Component\HtmlSanitizer\Visitor\AttributeSanitizer\AttributeSanitizerInterface;
+use OCA\News\Vendor\Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
+use OCA\News\Vendor\Symfony\Component\HtmlSanitizer\Visitor\AttributeSanitizer\AttributeSanitizerInterface;
 
 /**
  * Custom attribute sanitizer for iframe src attributes

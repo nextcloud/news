@@ -78,6 +78,7 @@ ifeq (, $(shell which composer 2> /dev/null))
 	curl -sS https://getcomposer.org/installer | php
 	mv composer.phar "$(build_tools_directory)"
 endif
+	rm -rf vendor/
 	$(composer) install --prefer-dist --no-dev
 	$(composer) scope-dependencies
 

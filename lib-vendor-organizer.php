@@ -3,7 +3,7 @@
 $sourceDirectory = $argv[1];
 $sourceDirectory = rtrim($sourceDirectory, "/") . "/";
 
-if (!str_starts_with("/", $sourceDirectory)) {
+if (!str_starts_with($sourceDirectory, "/")) {
     $sourceDirectory = getcwd() . "/" . $sourceDirectory;
 }
 
@@ -177,7 +177,7 @@ function moveByPSR4(
         if (file_exists($destination)) {
             rmdir_recursive($destination);
         }
-        if(!mkdir($destination, 0777, true)) {
+        if (!mkdir($destination, 0777, true)) {
             printf(
                 "Failed to create %s" . PHP_EOL,
                 $destination

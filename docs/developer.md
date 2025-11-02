@@ -7,6 +7,7 @@ This ensures that you don't start working on something which collides with the t
 
 For small fixes and improvements feel free to directly create a PR, the maintainers are happy to review your code.
 
+
 ## APIs
 
 News offers an API that can be used by clients to synchronize with the server.
@@ -16,6 +17,22 @@ Work on V2 has started with low priority.
 - [API-V1.2](api/api-v1-2.md)
 - [API-V1.3](api/api-v1-3.md)
 - [API-V2](api/api-v2.md)
+
+## PHP Dependency Scoping
+
+The News app uses **dependency scoping** to isolate its PHP dependencies and prevent conflicts with other Nextcloud apps. All vendor dependencies are prefixed with the `OCA\News\Vendor` namespace and stored in `lib/Vendor/` instead of the standard `vendor/` directory.
+
+This is important because when multiple apps use different versions of the same library (e.g., feed-io), PHP cannot handle duplicate class declarations. Scoping ensures each app gets its own isolated copy of dependencies.
+
+When building the app, run:
+```bash
+make build
+# or manually
+composer install --no-dev
+composer scope-dependencies
+```
+
+For detailed information about how dependency scoping works, configuration, and implementation details, see the [PHP Dependency Scoping documentation](dependencies-scoping.md).
 
 ## Coding Style Guidelines
 
