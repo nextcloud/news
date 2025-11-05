@@ -69,6 +69,9 @@ return ['routes' => [
 // import
 ['name' => 'import#opml', 'url' => '/import/opml', 'verb' => 'POST'],
 
+// favicon
+['name' => 'favicon#get', 'url' => '/favicon/{feedUrlHash}', 'verb' => 'GET'],
+
 // general API
 ['name' => 'api#index', 'url' => '/api', 'verb' => 'GET'],
 
@@ -123,6 +126,9 @@ return ['routes' => [
 ['name' => 'item_api#star_multiple', 'url' => '/api/v1-2/items/star/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
 ['name' => 'item_api#unstar_multiple_by_item_ids', 'url' => '/api/{apiVersion}/items/unstar/multiple', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
 ['name' => 'item_api#unstar_multiple', 'url' => '/api/v1-2/items/unstar/multiple', 'verb' => 'PUT'], // Backward compatibility. Corrected HTTP method as of v1.3
+
+// favicon
+['name' => 'favicon_api#get', 'url' => '/api/{apiVersion}/favicon/{feedUrlHash}', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-3']],
 
 // API 2
 ['name' => 'folder_api_v2#create', 'url' => '/api/v2/folders', 'verb' => 'POST'],
