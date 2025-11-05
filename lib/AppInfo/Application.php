@@ -67,6 +67,7 @@ class Application extends App implements IBootstrap
         'exploreUrl'               => '',
         'updateInterval'           => 3600,
         'useNextUpdateTime'        => false,
+        'lastLogoPurge'            => 0,
     ];
 
     public function __construct(array $urlParams = [])

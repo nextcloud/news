@@ -22,6 +22,7 @@ use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Utility\AppData;
 use OCA\News\Utility\Time;
 use OCA\News\Utility\HtmlSanitizer;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -84,6 +85,11 @@ class FeedServiceTest extends TestCase
      */
     private $config;
 
+    /**
+     * @var AppData
+     */
+    protected $appData;
+
     private $response;
 
     protected function setUp(): void
@@ -123,6 +129,10 @@ class FeedServiceTest extends TestCase
             ->getMockBuilder(IAppConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->appData = $this
+            ->getMockBuilder(AppData::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         
         $this->class = new FeedServiceV2(
             $this->mapper,
@@ -131,7 +141,8 @@ class FeedServiceTest extends TestCase
             $this->explorer,
             $this->purifier,
             $this->logger,
-            $this->config
+            $this->config,
+            $this->appData
         );
         $this->uid = 'jack';
     }
