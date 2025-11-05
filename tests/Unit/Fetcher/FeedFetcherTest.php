@@ -32,6 +32,7 @@ use OCA\News\Config\FetcherConfig;
 
 use OCA\News\Utility\Time;
 use OCA\News\Utility\Cache;
+use OCA\News\Utility\AppData;
 use OCP\IL10N;
 use OCP\ITempManager;
 
@@ -113,6 +114,11 @@ class FeedFetcherTest extends TestCase
      * @var MockObject|Cache
      */
     private $cache;
+
+    /**
+     * @var MockObject|AppData
+     */
+    private $appData;
 
     //metadata
     /**
@@ -202,16 +208,25 @@ class FeedFetcherTest extends TestCase
         $this->cache = $this->getMockBuilder(Cache::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->fetcher = new FeedFetcher(
-            $this->reader,
-            $this->favicon,
-            $this->scraper,
-            $this->l10n,
-            $timeFactory,
-            $this->logger,
-            $this->fetcherConfig,
-            $this->cache
-        );
+        $this->appData = $this->getMockBuilder(AppData::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->fetcher =  $this->getMockBuilder(FeedFetcher::class)
+            ->setConstructorArgs([
+                $this->reader,
+                $this->favicon,
+                $this->scraper,
+                $this->l10n,
+                $timeFactory,
+                $this->logger,
+                $this->fetcherConfig,
+                $this->cache,
+                $this->appData
+            ])
+            ->onlyMethods(['downloadFavicon'])
+            ->getMock();
+        $this->fetcher->method('downloadFavicon')
+            ->willReturn('http://anon.google.com');
         $this->url = 'http://tests/';
 
         $this->permalink = 'http://permalink';
