@@ -95,11 +95,10 @@
 
 			<div class="subtitle" :dir="item.rtl && 'rtl'">
 				<span v-if="!item.sharedBy" class="source">
-					<a :href="feedUrl + feed.id">
+					<a :href="feedUrl + '/' + feed.id">
 						{{ feed.title }}
 						<img
-							v-if="feed.faviconLink"
-							:src="feed.faviconLink"
+							:src="feedIcon"
 							alt="favicon"
 							style="width: 16px">
 					</a>
@@ -174,7 +173,6 @@
 import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
-import { generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { defineComponent } from 'vue'
@@ -191,6 +189,7 @@ import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
 import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { API_ROUTES } from '../../types/ApiRoutes.ts'
 import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
 
 export default defineComponent({
@@ -257,13 +256,17 @@ export default defineComponent({
 			isMobile: useIsMobile(),
 			keepUnread: false,
 			showShareMenu: false,
-			feedUrl: generateUrl('/apps/news/feed/'),
+			feedUrl: API_ROUTES.FEED,
 		}
 	},
 
 	computed: {
 		feed(): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === this.item.feedId) || {}
+		},
+
+		feedIcon() {
+			return API_ROUTES.FAVICON + '/' + this.feed.urlHash
 		},
 
 		screenReaderMode() {

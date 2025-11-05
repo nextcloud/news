@@ -213,6 +213,14 @@ describe('Sidebar.vue', () => {
 		})
 	})
 
+	describe('Methods', () => {
+		it('should return favicon route with feed url hash', () => {
+			const feed = { name: 'feed1', id: 1, urlHash: '51f108ce113f11fbcbb7da6083c621cd' }
+			const feedIcon = wrapper.vm.feedIcon(feed)
+			expect(feedIcon).toEqual('//index.php/apps/news/favicon/51f108ce113f11fbcbb7da6083c621cd')
+		})
+	})
+
 	// TODO: More Template Testing with https://test-utils.vuejs.org/guide/essentials/a-crash-course.html#adding-a-new-todo
 
 	afterEach(() => {

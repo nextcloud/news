@@ -77,8 +77,7 @@
 						:name="feed.title"
 						:to="{ name: ROUTES.FEED, params: { feedId: feed.id.toString() } }">
 						<template #icon>
-							<RssIcon v-if="!feed.faviconLink" />
-							<span v-if="feed.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + feed.faviconLink + ')' }" />
+							<span style="width: 16px; height: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + feedIcon(feed) + ')' }" />
 						</template>
 						<template #counter>
 							<NcCounterBubble
@@ -97,8 +96,7 @@
 					<template #icon>
 						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8" :title="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
 						<FolderIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount <= 8" style="width:22px" />
-						<RssIcon v-if="!isFolder(topLevelItem) && !topLevelItem.faviconLink" />
-						<span v-if="!isFolder(topLevelItem) && topLevelItem.faviconLink" style="height: 16px; width: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + topLevelItem.faviconLink + ')' }" />
+						<span v-if="!isFolder(topLevelItem)" style="height: 16px; width: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + feedIcon(topLevelItem) + ')' }" />
 					</template>
 					<template #counter>
 						<NcCounterBubble
@@ -311,6 +309,7 @@ import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
 import { DISPLAY_MODE } from '../enums/index.ts'
 import { ROUTES } from '../routes/index.ts'
 import { ACTIONS, MUTATIONS } from '../store/index.ts'
+import { API_ROUTES } from '../types/ApiRoutes.ts'
 
 export default defineComponent({
 	name: 'SidebarNavigation',
@@ -502,6 +501,7 @@ export default defineComponent({
 				...folderFeeds,
 			]
 		},
+
 	},
 
 	watch: {
@@ -805,6 +805,10 @@ export default defineComponent({
 
 		nextFolder() {
 			this.switchFolder('next')
+		},
+
+		feedIcon(feed: Feed) {
+			return API_ROUTES.FAVICON + '/' + feed.urlHash
 		},
 	},
 })
