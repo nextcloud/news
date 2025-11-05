@@ -701,6 +701,15 @@ This is used to stay up to date.
 * **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
+### `Favicon`
+
+* **Status**: Implemented in News 27.2.x
+* **Method**: GET
+* **Route**: /favicon/{feedUrlHash}
+* **Returns**: image/*
+
+The hash is generated using md5 from the feed URL.
+
 ### Updater
 
 To enable people to write their own update scripts instead of relying on the sequential built in web and system cron, API routes and console commands have been created.
