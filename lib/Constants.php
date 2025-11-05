@@ -12,4 +12,5 @@ class Constants
 {
     public const LOGO_IMAGE_DIR = 'feedLogoImage';
     public const LOGO_INFO_DIR = 'feedLogoInfo';
+    public const LOGO_PRUNE_INTERVAL = 604800; // 1 week
 }
