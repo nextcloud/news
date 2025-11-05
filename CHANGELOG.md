@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [27.x.x]
 ### Changed
 - Download and store feed logos in the `appdata` directory
+- Add API Endpoint to serve feed logos from backend
 
 
 ### Fixed
