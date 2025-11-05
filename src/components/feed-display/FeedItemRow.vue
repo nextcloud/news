@@ -23,10 +23,8 @@
 				@click.middle="markRead(item); $event.stopPropagation();"
 				@click="markRead(item); $event.stopPropagation();">
 				<span
-					v-if="getFeed(item.feedId).faviconLink"
 					class="favicon"
-					:style="{ backgroundImage: 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
-				<RssIcon v-else />
+					:style="{ backgroundImage: 'url(' + feedIcon + ')' }" />
 			</a>
 		</div>
 
@@ -110,12 +108,12 @@ import NcActions from '@nextcloud/vue/components/NcActions'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import EyeLockIcon from 'vue-material-design-icons/EyeLock.vue'
-import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
 import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { API_ROUTES } from '../../types/ApiRoutes.ts'
 import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils.ts'
 
 export default defineComponent({
@@ -126,7 +124,6 @@ export default defineComponent({
 		EyeCheckIcon,
 		EyeLockIcon,
 		ShareVariant,
-		RssIcon,
 		NcActions,
 		NcActionButton,
 		ShareItem,
@@ -194,6 +191,10 @@ export default defineComponent({
 
 		itemHeight() {
 			return this.compactMode ? ITEM_HEIGHT.COMPACT : ITEM_HEIGHT.DEFAULT
+		},
+
+		feedIcon() {
+			return API_ROUTES.FAVICON + '/' + this.getFeed(this.item.feedId).urlHash
 		},
 	},
 
