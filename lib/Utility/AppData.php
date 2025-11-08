@@ -7,11 +7,11 @@
  */
 namespace OCA\News\Utility;
 
-use OCP\IRequest;
 use OCP\Files\IAppData;
 use OCP\Files\GenericFileException;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\Files\StorageNotAvailableException;
 use \Psr\Log\LoggerInterface;
 
 class AppData
@@ -42,7 +42,7 @@ class AppData
      *
      * @return SimpleFolder The object of the appdata folder
      */
-    public function getAppFolder(string $foldername): \OC\Files\SimpleFS\SimpleFolder
+    public function getAppFolder(string $foldername): ?\OC\Files\SimpleFS\SimpleFolder
     {
         try {
             return $this->appData->getFolder($foldername);
@@ -51,7 +51,11 @@ class AppData
                 return $this->appData->newFolder($foldername);
             } catch (NotPermittedException $e) {
                 $this->logger->error('Creating appdata folder ' . $foldername. ' is not permitted.');
+                return null;
             }
+        } catch (StorageNotAvailableException $e) {
+                $this->logger->error('AppData storage ' . $foldername . ' is not available.');
+                return null;
         } catch (\RuntimeException $e) {
             $this->logger->error($e->getMessage(), ['exception' => $e]);
         }

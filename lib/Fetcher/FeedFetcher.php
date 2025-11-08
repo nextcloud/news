@@ -540,7 +540,7 @@ class FeedFetcher implements IFeedFetcher
         string $favicon_url,
         string $base_url,
         string $feed_url,
-        bool   $use_mtime,
+        bool   $use_mtime
     ): ?string {
 
         $logo_cache = $this->cache->getCache("feedLogo");
