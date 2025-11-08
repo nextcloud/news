@@ -25,7 +25,6 @@ class FaviconController extends Controller
         private AppData $appData
     ) {
         parent::__construct($request, $userSession);
-        $this->appData = $appData;
     }
 
     /**
