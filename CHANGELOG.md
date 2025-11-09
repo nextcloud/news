@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
+- Show time of the last feed logo purge in admin settings
 
 
 ### Fixed

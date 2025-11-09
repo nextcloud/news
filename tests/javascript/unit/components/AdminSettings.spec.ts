@@ -25,7 +25,13 @@ describe('AdminSettings.vue', () => {
 
 	beforeAll(() => {
 		loadState.mockReturnValue('')
-		wrapper = shallowMount(AdminSettings, { })
+		wrapper = shallowMount(AdminSettings, {
+			data() {
+				return {
+					updateInterval: 3600,
+				}
+			},
+		})
 	})
 
 	beforeEach(() => {
@@ -33,7 +39,39 @@ describe('AdminSettings.vue', () => {
 	})
 
 	it('should initialize and fetch settings from state', () => {
-		expect(loadState).toBeCalledTimes(9)
+		expect(loadState).toBeCalledTimes(10)
+	})
+
+	it('returns true when lastCron is too old', async () => {
+		const now = 1000000000
+		vi.setSystemTime(now * 1000)
+		wrapper.vm.lastCron = now - 8200
+
+		expect(wrapper.vm.oldExecution).toBe(true)
+	})
+
+	it('returns false when lastCron within range', async () => {
+		const now = 1000000000
+		vi.setSystemTime(now * 1000)
+		wrapper.vm.lastCron = now - 8000
+
+		expect(wrapper.vm.oldExecution).toBe(false)
+	})
+
+	it('returns true when lastLogoPurge is more than 7 days ago', () => {
+		const now = 1000000000
+		vi.setSystemTime(now * 1000)
+		wrapper.vm.lastLogoPurge = now - 605800
+
+		expect(wrapper.vm.oldLastLogoPurge).toBe(true)
+	})
+
+	it('returns false when lastLogoPurge is less than 7 days ago', () => {
+		const now = 1000000000
+		vi.setSystemTime(now * 1000)
+		wrapper.vm.lastLogoPurge = now - 604800
+
+		expect(wrapper.vm.oldLastLogoPurge).toBe(false)
 	})
 
 	it('should send post with updated settings', async () => {
