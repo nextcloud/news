@@ -7,15 +7,18 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Download and store feed logos in the `appdata` directory
-- Add API Endpoint to serve feed logos from backend
-- Web-Frontend now uses feed logos fetched from backend
 
 
 ### Fixed
 
 
 # Releases
+## [27.2.0-beta.2] - 2025-11-09
+### Changed
+- Download and store feed logos in the `appdata` directory (#3392)
+- Add API Endpoint to serve feed logos from backend (#3392)
+- Web-Frontend now uses feed logos fetched from backend (#3392)
+
 ## [27.2.0-beta.1] - 2025-11-02
 ### Changed
 - Replaced HTMLPurifier with Symfony HTML Sanitizer for improved performance and maintainability (#3393)
