@@ -9,6 +9,20 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		class="news-settings"
 		doc-url="https://nextcloud.github.io/news/admin/">
 		<div class="field">
+			<NcNoteCard v-if="lastLogoPurge === 0" type="warning">
+				{{ t('news', 'Logo purge has never been run.') }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else-if="oldLastLogoPurge" type="error">
+				{{ t('news', 'Last logo purge ran {relativeLastLogoPurge}. Something is wrong.', { relativeLastLogoPurge }) }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else type="success">
+				{{ t('news', 'Last logo purge job ran {relativeLastLogoPurge}.', { relativeLastLogoPurge }) }}
+			</NcNoteCard>
+		</div>
+
+		<div class="field">
 			<NcNoteCard v-if="lastCron === 0" type="warning">
 				{{ t('news', 'No job execution data available. The cron job may not be running properly.') }}
 			</NcNoteCard>
@@ -146,6 +160,7 @@ function debounce(func, wait) {
 
 const successMessage = debounce(() => showSuccess(t('news', 'Successfully updated news configuration')), 500)
 const lastCron = loadState('news', 'lastCron')
+const lastLogoPurge = loadState('news', 'lastLogoPurge')
 
 export default {
 	name: 'AdminSettings',
@@ -168,12 +183,18 @@ export default {
 			useNextUpdateTime: loadState('news', 'useNextUpdateTime') === '1',
 			relativeTime: formatDateRelative(lastCron),
 			lastCron,
+			relativeLastLogoPurge: formatDateRelative(lastLogoPurge),
+			lastLogoPurge,
 		}
 	},
 
 	computed: {
 		oldExecution() {
 			return Date.now() / 1000 - this.lastCron > (parseInt(this.updateInterval) * 2) + 900
+		},
+
+		oldLastLogoPurge() {
+			return Date.now() / 1000 - this.lastLogoPurge > 604800
 		},
 	},
 
