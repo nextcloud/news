@@ -7,13 +7,16 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Show time of the last feed logo purge in admin settings
 
 
 ### Fixed
 
 
 # Releases
+## [27.2.0-beta.3] - 2025-11-10
+### Changed
+- Show time of the last feed logo purge in admin settings (#3414)
+
 ## [27.2.0-beta.2] - 2025-11-09
 ### Changed
 - Download and store feed logos in the `appdata` directory (#3392)
