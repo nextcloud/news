@@ -601,6 +601,12 @@ class FeedFetcher implements IFeedFetcher
             return null;
         }
 
+        // MIME types that are no bitmap images, but can be safely accepted without additional checks
+        $allowed_mimes = [
+                'image/svg+xml',
+                'image/svg'
+        ];
+
         $mime_type = mime_content_type($favicon_cache);
         $is_image = $mime_type !== false && substr($mime_type, 0, 5) === "image";
 
@@ -617,31 +623,33 @@ class FeedFetcher implements IFeedFetcher
             return null;
         }
 
-        $image_info = getimagesize($favicon_cache);
-        if ($image_info === false) {
-            $this->logger->debug(
-                "Could not get image size for file:{file} from {url}",
-                [
-                'file' => $favicon_cache,
-                'url'   => $favicon_url
-                ]
-            );
-            unlink($favicon_cache);
-            return null;
-        }
+        if (!in_array($mime_type, $allowed_mimes, true)) {
+            $image_info = getimagesize($favicon_cache);
+            if ($image_info === false) {
+                $this->logger->debug(
+                    "Could not get image size for file:{file} from {url}",
+                    [
+                    'file' => $favicon_cache,
+                    'url'   => $favicon_url
+                    ]
+                );
+                unlink($favicon_cache);
+                return null;
+            }
 
-        list($width, $height, $type, $attr) = $image_info;
-        // check if image is square else reject it
-        if ($width !== $height) {
-            $this->logger->debug(
-                "Downloaded file:{file} from {url} is not square",
-                [
-                'file' => $favicon_cache,
-                'url'   => $favicon_url
-                ]
-            );
-            unlink($favicon_cache);
-            return null;
+            list($width, $height, $type, $attr) = $image_info;
+            // check if image is square else reject it
+            if ($width !== $height) {
+                $this->logger->debug(
+                    "Downloaded file:{file} from {url} is not square",
+                    [
+                    'file' => $favicon_cache,
+                    'url'   => $favicon_url
+                    ]
+                );
+                unlink($favicon_cache);
+                return null;
+            }
         }
 
         // file name of the stored logo info is md5 of the feed url
