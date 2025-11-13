@@ -204,14 +204,17 @@ class PageControllerTest extends TestCase
              ->method('getLanguageCode')
              ->will($this->returnValue('de'));
 
-        $this->config->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $this->config->expects($matcher)
                      ->method('getUserValue')
-                     ->withConsecutive(
-                        ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst']
-                     )
-                     ->will($this->returnValue('1'));
+                     ->willReturnCallback(function (...$args) use ($matcher) {
+                         match ($matcher->numberOfInvocations()) {
+                             1 => $this->assertEquals(['becka', 'news', 'showAll'], $args),
+                             2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll'], $args),
+                             3 => $this->assertEquals(['becka', 'news', 'oldestFirst'], $args),
+                         };
+                         return '1';
+                     });
         $this->settings->expects($this->once())
                        ->method('getValueString')
                        ->with('news', 'exploreUrl')
@@ -243,14 +246,17 @@ class PageControllerTest extends TestCase
                    ->method('getLanguageCode')
                    ->will($this->returnValue('de'));
 
-        $this->config->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $this->config->expects($matcher)
                     ->method('getUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst']
-                    )
-                    ->will($this->returnValue('1'));
+                    ->willReturnCallback(function (...$args) use ($matcher) {
+                        match ($matcher->numberOfInvocations()) {
+                            1 => $this->assertEquals(['becka', 'news', 'showAll'], $args),
+                            2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll'], $args),
+                            3 => $this->assertEquals(['becka', 'news', 'oldestFirst'], $args),
+                        };
+                        return '1';
+                    });
         $this->settings->expects($this->once())
                         ->method('getValueString')
                         ->with('news', 'exploreUrl')
@@ -268,14 +274,17 @@ class PageControllerTest extends TestCase
      */
     public function testUpdateSettings()
     {
-        $this->config->expects($this->exactly(4))
+        $matcher = $this->exactly(4);
+        $this->config->expects($matcher)
                     ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'showAll', '1'],
-                        ['becka', 'news', 'preventReadOnScroll', '0'],
-                        ['becka', 'news', 'oldestFirst', '1'],
-                        ['becka', 'news', 'disableRefresh', '0']
-                    );
+                    ->willReturnCallback(function (...$args) use ($matcher) {
+                        match ($matcher->numberOfInvocations()) {
+                            1 => $this->assertEquals(['becka', 'news', 'showAll', '1'], $args),
+                            2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll', '0'], $args),
+                            3 => $this->assertEquals(['becka', 'news', 'oldestFirst', '1'], $args),
+                            4 => $this->assertEquals(['becka', 'news', 'disableRefresh', '0'], $args),
+                        };
+                    });
 
         $this->controller->updateSettings(true, false, true, false);
     }
@@ -283,12 +292,15 @@ class PageControllerTest extends TestCase
     public function testExplore()
     {
         $in = ['test'];
-        $this->config->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->config->expects($matcher)
                     ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'lastViewedFeedId', 0],
-                        ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
-                    );
+                    ->willReturnCallback(function (...$args) use ($matcher) {
+                        match ($matcher->numberOfInvocations()) {
+                            1 => $this->assertEquals(['becka', 'news', 'lastViewedFeedId', 0], $args),
+                            2 => $this->assertEquals(['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE], $args),
+                        };
+                    });
 
         $this->recommended->expects($this->once())
                         ->method('forLanguage')
@@ -302,12 +314,15 @@ class PageControllerTest extends TestCase
 
     public function testExploreError()
     {
-        $this->config->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->config->expects($matcher)
                     ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'lastViewedFeedId', 0],
-                        ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
-                    );
+                    ->willReturnCallback(function (...$args) use ($matcher) {
+                        match ($matcher->numberOfInvocations()) {
+                            1 => $this->assertEquals(['becka', 'news', 'lastViewedFeedId', 0], $args),
+                            2 => $this->assertEquals(['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE], $args),
+                        };
+                    });
 
         $this->recommended->expects($this->once())
                         ->method('forLanguage')

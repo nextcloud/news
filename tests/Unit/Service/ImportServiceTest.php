@@ -202,9 +202,15 @@ class ImportServiceTest extends TestCase
                 )
             );
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('insertOrUpdate')
-            ->withConsecutive([$item]);
+            ->willReturnCallback(function (...$args) use ($matcher, $item) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$item], $args),
+                    2 => $this->assertEquals([$item], $args),
+                };
+            });
         $this->purifier->expects($this->exactly(2))
             ->method('purify')
             ->with($this->equalTo($item->getBody()))

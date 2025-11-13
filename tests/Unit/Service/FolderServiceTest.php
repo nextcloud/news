@@ -280,9 +280,14 @@ class FolderServiceTest extends TestCase
             ->with('jack', 1)
             ->will($this->returnValue($folder));
 
-        $this->mapper->expects($this->exactly(1))
+        $matcher = $this->exactly(1);
+        $this->mapper->expects($matcher)
             ->method('read')
-            ->withConsecutive(['jack', 1, null]);
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals(['jack', 1, null], $args),
+                };
+            });
 
         $this->class->read('jack', 1);
     }

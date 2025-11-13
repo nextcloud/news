@@ -166,12 +166,15 @@ class ItemControllerTest extends TestCase
 
     public function testReadMultiple()
     {
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('read')
-            ->withConsecutive(
-                ['user', 2, true],
-                ['user', 4, true]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals(['user', 2, true], $args),
+                    2 => $this->assertEquals(['user', 4, true], $args),
+                };
+            });
 
         $this->controller->readMultiple([2, 4]);
     }
@@ -180,13 +183,19 @@ class ItemControllerTest extends TestCase
     public function testReadMultipleDontStopOnException()
     {
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('read')
-            ->withConsecutive(
-                ['user', 2, true],
-                ['user', 4, true]
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('yo')), new Item());
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals(['user', 2, true], $args),
+                    2 => $this->assertEquals(['user', 4, true], $args),
+                };
+                return match ($matcher->numberOfInvocations()) {
+                    1 => throw new ServiceNotFoundException('yo'),
+                    2 => new Item(),
+                };
+            });
         $this->controller->readMultiple([2, 4]);
     }
 
@@ -244,19 +253,28 @@ class ItemControllerTest extends TestCase
      */
     private function itemsApiExpects($id, $type, $oldestFirst = '1'): void
     {
-        $this->settings->expects($this->exactly(2))
+        $matcher1 = $this->exactly(2);
+        $this->settings->expects($matcher1)
             ->method('getUserValue')
-            ->withConsecutive(
-                ['user', $this->appName, 'showAll'],
-                ['user', $this->appName, 'oldestFirst']
-            )
-            ->willReturnOnConsecutiveCalls('1', $oldestFirst);
-        $this->settings->expects($this->exactly(2))
+            ->willReturnCallback(function (...$args) use ($matcher1, $oldestFirst) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['user', $this->appName, 'showAll'], $args),
+                    2 => $this->assertEquals(['user', $this->appName, 'oldestFirst'], $args),
+                };
+                return match ($matcher1->numberOfInvocations()) {
+                    1 => '1',
+                    2 => $oldestFirst,
+                };
+            });
+        $matcher2 = $this->exactly(2);
+        $this->settings->expects($matcher2)
             ->method('setUserValue')
-            ->withConsecutive(
-                ['user', $this->appName, 'lastViewedFeedId', $id],
-                ['user', $this->appName, 'lastViewedFeedType', $type]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher2, $id, $type) {
+                match ($matcher2->numberOfInvocations()) {
+                    1 => $this->assertEquals(['user', $this->appName, 'lastViewedFeedId', $id], $args),
+                    2 => $this->assertEquals(['user', $this->appName, 'lastViewedFeedType', $type], $args),
+                };
+            });
     }
 
 

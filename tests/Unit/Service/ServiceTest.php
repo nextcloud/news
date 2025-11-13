@@ -127,9 +127,15 @@ class ServiceTest extends TestCase
                     ->with('')
                     ->willReturn([$feed1, $feed2]);
 
-        $this->mapper->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->mapper->expects($matcher)
             ->method('delete')
-            ->withConsecutive([$feed1], [$feed2]);
+            ->willReturnCallback(function (...$args) use ($matcher, $feed1, $feed2) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$feed1], $args),
+                    2 => $this->assertEquals([$feed2], $args),
+                };
+            });
 
         $this->class->deleteUser('');
     }
