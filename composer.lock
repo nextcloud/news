@@ -623,16 +623,16 @@
         },
         {
             "name": "php-feed-io/feed-io",
-            "version": "v6.1.2",
+            "version": "v6.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-feed-io/feed-io.git",
-                "reference": "d82d09b92148612657e8203906a6f0b95a194ce7"
+                "reference": "2ce072d4b20188bf8ecdaed40ee60ea739287102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/d82d09b92148612657e8203906a6f0b95a194ce7",
-                "reference": "d82d09b92148612657e8203906a6f0b95a194ce7",
+                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/2ce072d4b20188bf8ecdaed40ee60ea739287102",
+                "reference": "2ce072d4b20188bf8ecdaed40ee60ea739287102",
                 "shasum": ""
             },
             "require": {
@@ -695,7 +695,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-feed-io/feed-io/issues",
-                "source": "https://github.com/php-feed-io/feed-io/tree/v6.1.2"
+                "source": "https://github.com/php-feed-io/feed-io/tree/v6.2.0"
             },
             "funding": [
                 {
@@ -703,7 +703,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-09-29T06:16:27+00:00"
+            "time": "2025-11-13T18:44:34+00:00"
         },
         {
             "name": "php-http/discovery",
