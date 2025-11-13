@@ -7,13 +7,14 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [27.x.x]
 ### Changed
-- Add support for `svg` feed logos
-
 
 ### Fixed
 
-
 # Releases
+## [27.2.0] - 2025-11-13
+### Changed
+- Add support for `svg` feed logos (#3425)
+
 ## [27.2.0-beta.3] - 2025-11-10
 ### Changed
 - Show time of the last feed logo purge in admin settings (#3414)
