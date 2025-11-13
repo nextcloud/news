@@ -497,14 +497,28 @@ class ItemMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $selectbuilder->expects($matcher)
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['items.id <= :maxItemId'], ['items.unread = :unread'])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['feeds.user_id = :userId'], $args),
+                2 => $this->assertEquals(['items.id <= :maxItemId'], $args),
+                3 => $this->assertEquals(['items.unread = :unread'], $args)
+            };
+        })
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $selectbuilder->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(['userId', 'admin'], ['maxItemId', 4], ['unread', true])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['userId', 'admin'], $args),
+                2 => $this->assertEquals(['maxItemId', 4], $args),
+                3 => $this->assertEquals(['unread', true], $args)
+            };
+        })
             ->will($this->returnSelf());
 
         $selectbuilder->expects($this->exactly(1))
@@ -905,9 +919,15 @@ class ItemMapperTest extends MapperTestUtility
                  ->with('feed_id = :feedId')
                  ->willReturnSelf();
 
-        $builder2->expects($this->exactly(2))
-                 ->method('andWhere')
-                 ->withConsecutive(['starred = false'], ['unread = false'])
+        $matcher = $this->exactly(2);
+        $builder2->expects($matcher)
+            ->method('andWhere')
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['starred = false'], $args),
+                2 => $this->assertEquals(['unread = false'], $args)
+            };
+        })
                  ->willReturnSelf();
 
         $builder2->expects($this->never())
@@ -1062,9 +1082,15 @@ class ItemMapperTest extends MapperTestUtility
                  ->with('feed_id = :feedId')
                  ->willReturnSelf();
 
-        $builder2->expects($this->exactly(2))
-                 ->method('andWhere')
-                 ->withConsecutive(['starred = false'], ['unread = false'])
+        $matcher = $this->exactly(2);
+        $builder2->expects($matcher)
+            ->method('andWhere')
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['starred = false'], $args),
+                2 => $this->assertEquals(['unread = false'], $args)
+            };
+        })
                  ->willReturnSelf();
 
         $builder2->expects($this->never())

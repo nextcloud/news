@@ -192,9 +192,15 @@ class NewsMapperTest extends TestCase
             ->with('NAME')
             ->will($this->returnSelf());
 
-        $qb->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $qb->expects($matcher)
             ->method('andWhere')
-            ->withConsecutive(['deleted_at != 0'], ['user_id = :user_id'])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['deleted_at != 0'], $args),
+                2 => $this->assertEquals(['user_id = :user_id'], $args)
+            };
+        })
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
@@ -225,9 +231,15 @@ class NewsMapperTest extends TestCase
             ->with('NAME')
             ->will($this->returnSelf());
 
-        $qb->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $qb->expects($matcher)
             ->method('andWhere')
-            ->withConsecutive(['deleted_at != 0'], ['deleted_at < :deleted_at'])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['deleted_at != 0'], $args),
+                2 => $this->assertEquals(['deleted_at < :deleted_at'], $args)
+            };
+        })
             ->will($this->returnSelf());
 
         $qb->expects($this->once())
@@ -258,14 +270,27 @@ class NewsMapperTest extends TestCase
             ->with('NAME')
             ->will($this->returnSelf());
 
-        $qb->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $qb->expects($matcher)
             ->method('andWhere')
-            ->withConsecutive(['deleted_at != 0'], ['user_id = :user_id'], ['deleted_at < :deleted_at'])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['deleted_at != 0'], $args),
+                2 => $this->assertEquals(['user_id = :user_id'], $args),
+                3 => $this->assertEquals(['deleted_at < :deleted_at'], $args)
+            };
+        })
             ->will($this->returnSelf());
 
-        $qb->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $qb->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(['user_id', 'jack'], ['deleted_at', 1])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['user_id', 'jack'], $args),
+                2 => $this->assertEquals(['deleted_at', 1], $args)
+            };
+        })
             ->will($this->returnSelf());
 
         $qb->expects($this->once())

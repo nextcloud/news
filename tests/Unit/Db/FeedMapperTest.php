@@ -483,14 +483,26 @@ class FeedMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $selectbuilder->expects($matcher)
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['feeds.user_id = :userId'], $args),
+                2 => $this->assertEquals(['feeds.id = :feedId'], $args)
+            };
+        })
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $selectbuilder->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(['userId', 'admin'], ['feedId', 1])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['userId', 'admin'], $args),
+                2 => $this->assertEquals(['feedId', 1], $args)
+            };
+        })
             ->will($this->returnSelf());
 
         $selectbuilder->expects($this->exactly(1))
@@ -585,14 +597,28 @@ class FeedMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $selectbuilder->expects($matcher)
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.id = :feedId'], ['items.id <= :maxItemId'])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['feeds.user_id = :userId'], $args),
+                2 => $this->assertEquals(['feeds.id = :feedId'], $args),
+                3 => $this->assertEquals(['items.id <= :maxItemId'], $args)
+            };
+        })
             ->will($this->returnSelf());
 
-        $selectbuilder->expects($this->exactly(3))
+        $matcher = $this->exactly(3);
+        $selectbuilder->expects($matcher)
             ->method('setParameter')
-            ->withConsecutive(['userId', 'admin'], ['feedId', 1], ['maxItemId', 4])
+            ->willReturnCallback(function (...$args) use ($matcher) {
+            match ($matcher->numberOfInvocations()) {
+                1 => $this->assertEquals(['userId', 'admin'], $args),
+                2 => $this->assertEquals(['feedId', 1], $args),
+                3 => $this->assertEquals(['maxItemId', 4], $args)
+            };
+        })
             ->will($this->returnSelf());
 
         $selectbuilder->expects($this->exactly(1))

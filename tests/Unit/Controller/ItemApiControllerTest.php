@@ -392,37 +392,49 @@ class ItemApiControllerTest extends TestCase
 
     public function testReadMultiple()
     {
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('read')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, true],
-                [$this->user->getUID(), 4, true]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 2, true], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 4, true], $args),
+                };
+            });
         $this->class->readMultipleByIds([2, 4]);
     }
 
 
     public function testReadMultipleDoesntCareAboutException()
     {
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('read')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, true],
-                [$this->user->getUID(), 4, true]
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 2, true], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 4, true], $args),
+                };
+                return match ($matcher->numberOfInvocations()) {
+                    1 => throw new ServiceNotFoundException(''),
+                    2 => new Item(),
+                };
+            });
         $this->class->readMultipleByIds([2, 4]);
     }
 
 
     public function testUnreadMultiple()
     {
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('read')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, false],
-                [$this->user->getUID(), 4, false]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 2, false], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 4, false], $args),
+                };
+            });
         $this->class->unreadMultipleByIds([2, 4]);
     }
 
@@ -440,12 +452,15 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('starByGuid')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, 'a', true],
-                [$this->user->getUID(), 4, 'b', true]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 2, 'a', true], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 4, 'b', true], $args),
+                };
+            });
         $this->class->starMultiple($ids);
     }
 
@@ -463,13 +478,19 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('starByGuid')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, 'a', true],
-                [$this->user->getUID(), 4, 'b', true]
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 2, 'a', true], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 4, 'b', true], $args),
+                };
+                return match ($matcher->numberOfInvocations()) {
+                    1 => throw new ServiceNotFoundException(''),
+                    2 => new Item(),
+                };
+            });
 
         $this->class->starMultiple($ids);
     }
@@ -488,12 +509,15 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('starByGuid')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, 'a', false],
-                [$this->user->getUID(), 4, 'b', false]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 2, 'a', false], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 4, 'b', false], $args),
+                };
+            });
 
         $this->class->unstarMultiple($ids);
     }
@@ -523,12 +547,15 @@ class ItemApiControllerTest extends TestCase
     {
         $ids = [ 345, 678 ];
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('star')
-            ->withConsecutive(
-                [$this->user->getUID(), 345, true],
-                [$this->user->getUID(), 678, true]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 345, true], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 678, true], $args),
+                };
+            });
         $this->class->starMultipleByItemIds($ids);
     }
 
@@ -537,12 +564,15 @@ class ItemApiControllerTest extends TestCase
     {
         $ids = [ 345, 678 ];
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
             ->method('star')
-            ->withConsecutive(
-                [$this->user->getUID(), 345, false],
-                [$this->user->getUID(), 678, false]
-            );
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->user->getUID(), 345, false], $args),
+                    2 => $this->assertEquals([$this->user->getUID(), 678, false], $args),
+                };
+            });
 
         $this->class->unstarMultipleByItemIds($ids);
     }

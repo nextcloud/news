@@ -140,9 +140,15 @@ class ExploreGeneratorTest extends TestCase
             ->with('votes')
             ->willReturn(100);
 
-        $this->consoleOutput->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->consoleOutput->expects($matcher)
             ->method('writeln')
-            ->withConsecutive(['<error>Failed to fetch feed info:</error>'], ['Failure']);
+            ->willReturnCallback(function (...$args) use ($matcher) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals(['<error>Failed to fetch feed info:</error>'], $args),
+                    2 => $this->assertEquals(['Failure'], $args),
+                };
+            });
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(1, $result);

@@ -199,13 +199,19 @@ class FeedControllerTest extends TestCase
      */
     private function activeInitMocks($id, $type): void
     {
-        $this->settings->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->settings->expects($matcher)
             ->method('getUserValue')
-            ->withConsecutive(
-                [$this->uid, $this->appName, 'lastViewedFeedId'],
-                [$this->uid, $this->appName, 'lastViewedFeedType']
-            )
-            ->willReturnOnConsecutiveCalls($id, $type);
+            ->willReturnCallback(function (...$args) use ($matcher, $id, $type) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals([$this->uid, $this->appName, 'lastViewedFeedId'], $args),
+                    2 => $this->assertEquals([$this->uid, $this->appName, 'lastViewedFeedType'], $args),
+                };
+                return match ($matcher->numberOfInvocations()) {
+                    1 => $id,
+                    2 => $type,
+                };
+            });
     }
 
 

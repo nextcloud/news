@@ -75,12 +75,15 @@ class ShowFeedTest extends TestCase
                            ->with('feed', true, 'user', 'user')
                            ->willReturn([['feed'], [['items']]]);
 
-        $this->consoleOutput->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->consoleOutput->expects($matcher)
                             ->method('writeln')
-                            ->withConsecutive(
-                                ["Feed: [\n    \"feed\"\n]"],
-                                ["Items: [\n    [\n        \"items\"\n    ]\n]"]
-                            );
+                            ->willReturnCallback(function (...$args) use ($matcher) {
+                                match ($matcher->numberOfInvocations()) {
+                                    1 => $this->assertEquals(["Feed: [\n    \"feed\"\n]"], $args),
+                                    2 => $this->assertEquals(["Items: [\n    [\n        \"items\"\n    ]\n]"], $args),
+                                };
+                            });
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(0, $result);
@@ -109,12 +112,15 @@ class ShowFeedTest extends TestCase
                            ->with('feed', true, 'user', 'user')
                            ->will($this->throwException(new ServiceNotFoundException('test')));
 
-        $this->consoleOutput->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->consoleOutput->expects($matcher)
                             ->method('writeln')
-                            ->withConsecutive(
-                                ['<error>Failed to fetch feed info:</error>'],
-                                ['test']
-                            );
+                            ->willReturnCallback(function (...$args) use ($matcher) {
+                                match ($matcher->numberOfInvocations()) {
+                                    1 => $this->assertEquals(['<error>Failed to fetch feed info:</error>'], $args),
+                                    2 => $this->assertEquals(['test'], $args),
+                                };
+                            });
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(1, $result);
