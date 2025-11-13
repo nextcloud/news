@@ -89,26 +89,30 @@ class StatusServiceTest extends TestCase
 
     public function testGetStatusNoCorrectCronAjax()
     {
-        $this->settings->expects($this->exactly(2))
+        $matcher1 = $this->exactly(2);
+        $this->settings->expects($matcher1)
             ->method('getValueString')
-            ->withConsecutive(
-                ['news', 'installed_version'],
-                ['core', 'backgroundjobs_mode'],
-            )
-            ->will($this->returnValueMap([
-                ['news', 'installed_version', '', false, '1.0'],
-                ['core', 'backgroundjobs_mode', '', false, 'ajax'],
-            ]));
+            ->willReturnCallback(function (...$args) use ($matcher1) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['news', 'installed_version'], $args),
+                    2 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                };
+                return match ($matcher1->numberOfInvocations()) {
+                    1 => '1.0',
+                    2 => 'ajax',
+                };
+            });
 
 
-        $this->settings->expects($this->exactly(1))
+        $matcher2 = $this->exactly(1);
+        $this->settings->expects($matcher2)
              ->method('getValueBool')
-             ->withConsecutive(
-               ['news', 'useCronUpdates']
-             )
-             ->will($this->returnValueMap([
-               ['news', 'useCronUpdates', true, false, true],
-             ]));
+             ->willReturnCallback(function (...$args) use ($matcher2) {
+                 match ($matcher2->numberOfInvocations()) {
+                     1 => $this->assertEquals(['news', 'useCronUpdates'], $args),
+                 };
+                 return true;
+             });
 
         $this->connection->expects($this->exactly(1))
             ->method('supports4ByteText')
@@ -156,26 +160,30 @@ class StatusServiceTest extends TestCase
 
     public function testGetStatusReportsNon4ByteText()
     {
-        $this->settings->expects($this->exactly(2))
+        $matcher1 = $this->exactly(2);
+        $this->settings->expects($matcher1)
             ->method('getValueString')
-            ->withConsecutive(
-                ['news', 'installed_version'],
-                ['core', 'backgroundjobs_mode'],
-            )
-            ->will($this->returnValueMap([
-                ['news', 'installed_version', '', false, '1.0'],
-                ['core', 'backgroundjobs_mode', '', false, 'cron'],
-            ]));
+            ->willReturnCallback(function (...$args) use ($matcher1) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['news', 'installed_version'], $args),
+                    2 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                };
+                return match ($matcher1->numberOfInvocations()) {
+                    1 => '1.0',
+                    2 => 'cron',
+                };
+            });
 
 
-        $this->settings->expects($this->exactly(1))
+        $matcher2 = $this->exactly(1);
+        $this->settings->expects($matcher2)
              ->method('getValueBool')
-             ->withConsecutive(
-                ['news', 'useCronUpdates']
-             )
-             ->will($this->returnValueMap([
-                ['news', 'useCronUpdates', true, false, true],
-             ]));
+             ->willReturnCallback(function (...$args) use ($matcher2) {
+                 match ($matcher2->numberOfInvocations()) {
+                     1 => $this->assertEquals(['news', 'useCronUpdates'], $args),
+                 };
+                 return true;
+             });
 
         $this->connection->expects($this->exactly(1))
                          ->method('supports4ByteText')
@@ -194,24 +202,26 @@ class StatusServiceTest extends TestCase
 
     public function testIsProperlyConfiguredNone()
     {
-        $this->settings->expects($this->exactly(1))
+        $matcher1 = $this->exactly(1);
+        $this->settings->expects($matcher1)
             ->method('getValueString')
-            ->withConsecutive(
-                ['core', 'backgroundjobs_mode'],
-            )
-            ->will($this->returnValueMap([
-                ['core', 'backgroundjobs_mode', '', false, 'ajax'],
-            ]));
+            ->willReturnCallback(function (...$args) use ($matcher1) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                };
+                return 'ajax';
+            });
 
 
-        $this->settings->expects($this->exactly(1))
+        $matcher2 = $this->exactly(1);
+        $this->settings->expects($matcher2)
              ->method('getValueBool')
-             ->withConsecutive(
-                ['news', 'useCronUpdates']
-             )
-             ->will($this->returnValueMap([
-                ['news', 'useCronUpdates', true, false, true],
-             ]));
+             ->willReturnCallback(function (...$args) use ($matcher2) {
+                 match ($matcher2->numberOfInvocations()) {
+                     1 => $this->assertEquals(['news', 'useCronUpdates'], $args),
+                 };
+                 return true;
+             });
 
         $response = $this->service->isCronProperlyConfigured();
         $this->assertFalse($response);
@@ -219,24 +229,26 @@ class StatusServiceTest extends TestCase
 
     public function testIsProperlyConfiguredModeCronNoSystem()
     {
-        $this->settings->expects($this->exactly(1))
+        $matcher1 = $this->exactly(1);
+        $this->settings->expects($matcher1)
             ->method('getValueString')
-            ->withConsecutive(
-                ['core', 'backgroundjobs_mode'],
-            )
-            ->will($this->returnValueMap([
-                ['core', 'backgroundjobs_mode', '', false, 'cron'],
-            ]));
+            ->willReturnCallback(function (...$args) use ($matcher1) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                };
+                return 'cron';
+            });
 
 
-        $this->settings->expects($this->exactly(1))
+        $matcher2 = $this->exactly(1);
+        $this->settings->expects($matcher2)
              ->method('getValueBool')
-             ->withConsecutive(
-                ['news', 'useCronUpdates']
-             )
-             ->will($this->returnValueMap([
-                ['news', 'useCronUpdates', true, false, true],
-             ]));
+             ->willReturnCallback(function (...$args) use ($matcher2) {
+                 match ($matcher2->numberOfInvocations()) {
+                     1 => $this->assertEquals(['news', 'useCronUpdates'], $args),
+                 };
+                 return true;
+             });
 
         $response = $this->service->isCronProperlyConfigured();
         $this->assertTrue($response);
@@ -244,24 +256,26 @@ class StatusServiceTest extends TestCase
 
     public function testIsProperlyConfiguredModeCron()
     {
-        $this->settings->expects($this->exactly(1))
+        $matcher1 = $this->exactly(1);
+        $this->settings->expects($matcher1)
             ->method('getValueString')
-            ->withConsecutive(
-                ['core', 'backgroundjobs_mode'],
-            )
-            ->will($this->returnValueMap([
-                ['core', 'backgroundjobs_mode', '', false, 'cron'],
-            ]));
+            ->willReturnCallback(function (...$args) use ($matcher1) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                };
+                return 'cron';
+            });
 
 
-        $this->settings->expects($this->exactly(1))
+        $matcher2 = $this->exactly(1);
+        $this->settings->expects($matcher2)
              ->method('getValueBool')
-             ->withConsecutive(
-                ['news', 'useCronUpdates']
-             )
-             ->will($this->returnValueMap([
-                ['news', 'useCronUpdates', true, false, true],
-             ]));
+             ->willReturnCallback(function (...$args) use ($matcher2) {
+                 match ($matcher2->numberOfInvocations()) {
+                     1 => $this->assertEquals(['news', 'useCronUpdates'], $args),
+                 };
+                 return true;
+             });
 
         $response = $this->service->isCronProperlyConfigured();
         $this->assertTrue($response);
