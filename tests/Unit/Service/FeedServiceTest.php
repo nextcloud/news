@@ -336,13 +336,19 @@ class FeedServiceTest extends TestCase
                        ->method('discover')
                        ->with($url)
                        ->will($this->returnValue(['http://discover.test']));
-        $this->fetcher->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->fetcher->expects($matcher)
             ->method('fetch')
-            ->withConsecutive(
-                ['http://test'],
-                ['http://discover.test']
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ReadErrorException('There is no feed')), $this->returnValue($return));
+            ->willReturnCallback(function (...$args) use ($matcher, $return) {
+                match ($matcher->numberOfInvocations()) {
+                    1 => $this->assertEquals(['http://test'], $args),
+                    2 => $this->assertEquals(['http://discover.test'], $args),
+                };
+                return match ($matcher->numberOfInvocations()) {
+                    1 => throw new ReadErrorException('There is no feed'),
+                    2 => $return,
+                };
+            });
 
         $this->mapper->expects($this->once())
             ->method('insert')
@@ -611,15 +617,27 @@ class FeedServiceTest extends TestCase
             ->with($feed)
             ->will($this->returnValue($feed));
 
-        $this->purifier->expects($this->exactly(2))
+        $matcher1 = $this->exactly(2);
+        $this->purifier->expects($matcher1)
             ->method('purify')
-            ->withConsecutive(['2'], ['1'])
-            ->will($this->returnArgument(0));
+            ->willReturnCallback(function (...$args) use ($matcher1) {
+                match ($matcher1->numberOfInvocations()) {
+                    1 => $this->assertEquals(['2'], $args),
+                    2 => $this->assertEquals(['1'], $args),
+                };
+                return $args[0];
+            });
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher2 = $this->exactly(2);
+        $this->itemService->expects($matcher2)
             ->method('insertOrUpdate')
-            ->withConsecutive([$item2], [$item1])
-            ->will($this->returnValue($feed));
+            ->willReturnCallback(function (...$args) use ($matcher2, $item2, $item1, $feed) {
+                match ($matcher2->numberOfInvocations()) {
+                    1 => $this->assertEquals([$item2], $args),
+                    2 => $this->assertEquals([$item1], $args),
+                };
+                return $feed;
+            });
 
         $this->assertSame($feed, $this->class->fetch($feed));
         $this->assertEquals(2, $feed->getUnreadCount());
@@ -825,10 +843,16 @@ class FeedServiceTest extends TestCase
             ->with($this->uid)
             ->will($this->returnValue([$feed1, $feed2]));
 
-        $this->itemService->expects($this->exactly(2))
+        $matcher = $this->exactly(2);
+        $this->itemService->expects($matcher)
                           ->method('findAllInFeed')
-                          ->withConsecutive(['jack', 1], ['jack', 2])
-                          ->willReturn(['a']);
+                          ->willReturnCallback(function (...$args) use ($matcher) {
+                              match ($matcher->numberOfInvocations()) {
+                                  1 => $this->assertEquals(['jack', 1], $args),
+                                  2 => $this->assertEquals(['jack', 2], $args),
+                              };
+                              return ['a'];
+                          });
 
         $feeds = $this->class->findAllForUserRecursive($this->uid);
         $this->assertEquals(['a'], $feeds[0]->items);
@@ -845,9 +869,14 @@ class FeedServiceTest extends TestCase
             ->with($this->uid, 1)
             ->will($this->returnValue($feed1));
 
-        $this->mapper->expects($this->exactly(1))
+        $matcher = $this->exactly(1);
+        $this->mapper->expects($matcher)
                      ->method('read')
-                     ->withConsecutive(['jack', 1, null]);
+                     ->willReturnCallback(function (...$args) use ($matcher) {
+                         match ($matcher->numberOfInvocations()) {
+                             1 => $this->assertEquals(['jack', 1, null], $args),
+                         };
+                     });
 
         $this->class->read($this->uid, 1);
     }
