@@ -7,11 +7,15 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [28.x.x]
 ### Changed
-- Scope PHP dependencies to prevent conflicts with other Nextcloud apps (#3397)
+
 
 ### Fixed
 
 # Releases
+## [28.0.0-beta.1] - 2025-11-13
+### Changed
+- Scope PHP dependencies to prevent conflicts with other Nextcloud apps (#3397)
+
 ## [27.2.0] - 2025-11-13
 ### Changed
 - Add support for `svg` feed logos (#3425)
