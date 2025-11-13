@@ -93,9 +93,10 @@ class StatusServiceTest extends TestCase
         $this->settings->expects($matcher1)
             ->method('getValueString')
             ->willReturnCallback(function (...$args) use ($matcher1) {
+                // getValueString signature has default parameters
                 match ($matcher1->numberOfInvocations()) {
-                    1 => $this->assertEquals(['news', 'installed_version'], $args),
-                    2 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                    1 => $this->assertEquals(['news', 'installed_version', '', false], array_slice($args, 0, 4)),
+                    2 => $this->assertEquals(['core', 'backgroundjobs_mode', '', false], array_slice($args, 0, 4)),
                 };
                 return match ($matcher1->numberOfInvocations()) {
                     1 => '1.0',
@@ -164,9 +165,10 @@ class StatusServiceTest extends TestCase
         $this->settings->expects($matcher1)
             ->method('getValueString')
             ->willReturnCallback(function (...$args) use ($matcher1) {
+                // getValueString signature has default parameters
                 match ($matcher1->numberOfInvocations()) {
-                    1 => $this->assertEquals(['news', 'installed_version'], $args),
-                    2 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                    1 => $this->assertEquals(['news', 'installed_version', '', false], array_slice($args, 0, 4)),
+                    2 => $this->assertEquals(['core', 'backgroundjobs_mode', '', false], array_slice($args, 0, 4)),
                 };
                 return match ($matcher1->numberOfInvocations()) {
                     1 => '1.0',
@@ -206,8 +208,9 @@ class StatusServiceTest extends TestCase
         $this->settings->expects($matcher1)
             ->method('getValueString')
             ->willReturnCallback(function (...$args) use ($matcher1) {
+                // getValueString signature has default parameters
                 match ($matcher1->numberOfInvocations()) {
-                    1 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                    1 => $this->assertEquals(['core', 'backgroundjobs_mode', '', false], array_slice($args, 0, 4)),
                 };
                 return 'ajax';
             });
@@ -233,8 +236,9 @@ class StatusServiceTest extends TestCase
         $this->settings->expects($matcher1)
             ->method('getValueString')
             ->willReturnCallback(function (...$args) use ($matcher1) {
+                // getValueString signature has default parameters
                 match ($matcher1->numberOfInvocations()) {
-                    1 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                    1 => $this->assertEquals(['core', 'backgroundjobs_mode', '', false], array_slice($args, 0, 4)),
                 };
                 return 'cron';
             });
@@ -260,8 +264,9 @@ class StatusServiceTest extends TestCase
         $this->settings->expects($matcher1)
             ->method('getValueString')
             ->willReturnCallback(function (...$args) use ($matcher1) {
+                // getValueString signature has default parameters
                 match ($matcher1->numberOfInvocations()) {
-                    1 => $this->assertEquals(['core', 'backgroundjobs_mode'], $args),
+                    1 => $this->assertEquals(['core', 'backgroundjobs_mode', '', false], array_slice($args, 0, 4)),
                 };
                 return 'cron';
             });

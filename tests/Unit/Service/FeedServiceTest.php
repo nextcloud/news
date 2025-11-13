@@ -340,9 +340,10 @@ class FeedServiceTest extends TestCase
         $this->fetcher->expects($matcher)
             ->method('fetch')
             ->willReturnCallback(function (...$args) use ($matcher, $return) {
+                // fetch signature has additional optional parameters
                 match ($matcher->numberOfInvocations()) {
-                    1 => $this->assertEquals(['http://test'], $args),
-                    2 => $this->assertEquals(['http://discover.test'], $args),
+                    1 => $this->assertEquals('http://test', $args[0]),
+                    2 => $this->assertEquals('http://discover.test', $args[0]),
                 };
                 return match ($matcher->numberOfInvocations()) {
                     1 => throw new ReadErrorException('There is no feed'),

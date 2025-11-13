@@ -257,9 +257,10 @@ class ItemControllerTest extends TestCase
         $this->settings->expects($matcher1)
             ->method('getUserValue')
             ->willReturnCallback(function (...$args) use ($matcher1, $oldestFirst) {
+                // getUserValue signature: getUserValue(string $userId, string $appName, string $key, string $default = '', bool $lazy = false)
                 match ($matcher1->numberOfInvocations()) {
-                    1 => $this->assertEquals(['user', $this->appName, 'showAll'], $args),
-                    2 => $this->assertEquals(['user', $this->appName, 'oldestFirst'], $args),
+                    1 => $this->assertEquals(['user', $this->appName, 'showAll', '', false], array_slice($args, 0, 5)),
+                    2 => $this->assertEquals(['user', $this->appName, 'oldestFirst', '', false], array_slice($args, 0, 5)),
                 };
                 return match ($matcher1->numberOfInvocations()) {
                     1 => '1',
@@ -270,9 +271,10 @@ class ItemControllerTest extends TestCase
         $this->settings->expects($matcher2)
             ->method('setUserValue')
             ->willReturnCallback(function (...$args) use ($matcher2, $id, $type) {
+                // setUserValue signature: setUserValue(string $userId, string $appName, string $key, string $value, string $preCondition = null)
                 match ($matcher2->numberOfInvocations()) {
-                    1 => $this->assertEquals(['user', $this->appName, 'lastViewedFeedId', $id], $args),
-                    2 => $this->assertEquals(['user', $this->appName, 'lastViewedFeedType', $type], $args),
+                    1 => $this->assertEquals(['user', $this->appName, 'lastViewedFeedId', $id, null], array_slice($args, 0, 5)),
+                    2 => $this->assertEquals(['user', $this->appName, 'lastViewedFeedType', $type, null], array_slice($args, 0, 5)),
                 };
             });
     }

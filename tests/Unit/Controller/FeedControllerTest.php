@@ -203,9 +203,10 @@ class FeedControllerTest extends TestCase
         $this->settings->expects($matcher)
             ->method('getUserValue')
             ->willReturnCallback(function (...$args) use ($matcher, $id, $type) {
+                // getUserValue signature: getUserValue(string $userId, string $appName, string $key, string $default = '', bool $lazy = false)
                 match ($matcher->numberOfInvocations()) {
-                    1 => $this->assertEquals([$this->uid, $this->appName, 'lastViewedFeedId'], $args),
-                    2 => $this->assertEquals([$this->uid, $this->appName, 'lastViewedFeedType'], $args),
+                    1 => $this->assertEquals([$this->uid, $this->appName, 'lastViewedFeedId', '', false], array_slice($args, 0, 5)),
+                    2 => $this->assertEquals([$this->uid, $this->appName, 'lastViewedFeedType', '', false], array_slice($args, 0, 5)),
                 };
                 return match ($matcher->numberOfInvocations()) {
                     1 => $id,

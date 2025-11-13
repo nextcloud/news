@@ -208,10 +208,11 @@ class PageControllerTest extends TestCase
         $this->config->expects($matcher)
                      ->method('getUserValue')
                      ->willReturnCallback(function (...$args) use ($matcher) {
+                         // getUserValue signature: getUserValue(string $userId, string $appName, string $key, string $default = '', bool $lazy = false)
                          match ($matcher->numberOfInvocations()) {
-                             1 => $this->assertEquals(['becka', 'news', 'showAll'], $args),
-                             2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll'], $args),
-                             3 => $this->assertEquals(['becka', 'news', 'oldestFirst'], $args),
+                             1 => $this->assertEquals(['becka', 'news', 'showAll', '', false], array_slice($args, 0, 5)),
+                             2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll', '', false], array_slice($args, 0, 5)),
+                             3 => $this->assertEquals(['becka', 'news', 'oldestFirst', '', false], array_slice($args, 0, 5)),
                          };
                          return '1';
                      });
@@ -250,10 +251,11 @@ class PageControllerTest extends TestCase
         $this->config->expects($matcher)
                     ->method('getUserValue')
                     ->willReturnCallback(function (...$args) use ($matcher) {
+                        // getUserValue signature: getUserValue(string $userId, string $appName, string $key, string $default = '', bool $lazy = false)
                         match ($matcher->numberOfInvocations()) {
-                            1 => $this->assertEquals(['becka', 'news', 'showAll'], $args),
-                            2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll'], $args),
-                            3 => $this->assertEquals(['becka', 'news', 'oldestFirst'], $args),
+                            1 => $this->assertEquals(['becka', 'news', 'showAll', '', false], array_slice($args, 0, 5)),
+                            2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll', '', false], array_slice($args, 0, 5)),
+                            3 => $this->assertEquals(['becka', 'news', 'oldestFirst', '', false], array_slice($args, 0, 5)),
                         };
                         return '1';
                     });
@@ -278,11 +280,12 @@ class PageControllerTest extends TestCase
         $this->config->expects($matcher)
                     ->method('setUserValue')
                     ->willReturnCallback(function (...$args) use ($matcher) {
+                        // setUserValue signature: setUserValue(string $userId, string $appName, string $key, string $value, string $preCondition = null)
                         match ($matcher->numberOfInvocations()) {
-                            1 => $this->assertEquals(['becka', 'news', 'showAll', '1'], $args),
-                            2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll', '0'], $args),
-                            3 => $this->assertEquals(['becka', 'news', 'oldestFirst', '1'], $args),
-                            4 => $this->assertEquals(['becka', 'news', 'disableRefresh', '0'], $args),
+                            1 => $this->assertEquals(['becka', 'news', 'showAll', '1', null], array_slice($args, 0, 5)),
+                            2 => $this->assertEquals(['becka', 'news', 'preventReadOnScroll', '0', null], array_slice($args, 0, 5)),
+                            3 => $this->assertEquals(['becka', 'news', 'oldestFirst', '1', null], array_slice($args, 0, 5)),
+                            4 => $this->assertEquals(['becka', 'news', 'disableRefresh', '0', null], array_slice($args, 0, 5)),
                         };
                     });
 
@@ -296,9 +299,10 @@ class PageControllerTest extends TestCase
         $this->config->expects($matcher)
                     ->method('setUserValue')
                     ->willReturnCallback(function (...$args) use ($matcher) {
+                        // setUserValue signature: setUserValue(string $userId, string $appName, string $key, string $value, string $preCondition = null)
                         match ($matcher->numberOfInvocations()) {
-                            1 => $this->assertEquals(['becka', 'news', 'lastViewedFeedId', 0], $args),
-                            2 => $this->assertEquals(['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE], $args),
+                            1 => $this->assertEquals(['becka', 'news', 'lastViewedFeedId', 0, null], array_slice($args, 0, 5)),
+                            2 => $this->assertEquals(['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE, null], array_slice($args, 0, 5)),
                         };
                     });
 
@@ -318,9 +322,10 @@ class PageControllerTest extends TestCase
         $this->config->expects($matcher)
                     ->method('setUserValue')
                     ->willReturnCallback(function (...$args) use ($matcher) {
+                        // setUserValue signature: setUserValue(string $userId, string $appName, string $key, string $value, string $preCondition = null)
                         match ($matcher->numberOfInvocations()) {
-                            1 => $this->assertEquals(['becka', 'news', 'lastViewedFeedId', 0], $args),
-                            2 => $this->assertEquals(['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE], $args),
+                            1 => $this->assertEquals(['becka', 'news', 'lastViewedFeedId', 0, null], array_slice($args, 0, 5)),
+                            2 => $this->assertEquals(['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE, null], array_slice($args, 0, 5)),
                         };
                     });
 
