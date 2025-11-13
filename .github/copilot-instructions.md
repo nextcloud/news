@@ -99,6 +99,87 @@ Nextcloud News is an RSS/Atom feed aggregator app for Nextcloud. It's a PHP back
 - `*.chunk.mjs` - Code-split chunks
 - `*.license` - License info files
 
+## Developer Environment Setup
+
+**IMPORTANT**: To run PHP unit tests and integration tests, you need a full Nextcloud server installation. The News app cannot run PHP tests standalone.
+
+### Quick Setup Options
+
+**Option 1: Docker (Recommended for Quick Start)**
+```bash
+cd docker/
+make build
+docker compose up
+```
+- Nextcloud accessible at <http://localhost:8081/index.php/apps/news>
+- Login: admin/admin
+- News app pre-installed and configured
+- See `docker/README.md` for details
+
+**Option 2: DevContainer (VS Code)**
+- Open repository in VS Code with Dev Containers extension
+- VS Code will prompt to "Reopen in Container"
+- Uses Nextcloud Docker image from [nextcloud-dev](https://github.com/juliusknorr/nextcloud-dev)
+- See `.devcontainer/README.md` for details
+
+**Option 3: Manual Nextcloud Server Setup**
+```bash
+# Clone Nextcloud server repository
+git clone https://github.com/nextcloud/server.git
+cd server
+git submodule update --init
+
+# Install Nextcloud
+php ./occ maintenance:install --database=sqlite --admin-user=admin --admin-pass=admin
+
+# Clone News app into apps directory
+cd apps
+git clone https://github.com/nextcloud/news.git
+cd news
+
+# Build the News app
+make build
+
+# Enable the app
+cd ../..
+php ./occ app:enable news
+```
+
+### Running Tests with Nextcloud Server
+
+Once Nextcloud is set up:
+
+**PHP Unit Tests**:
+```bash
+cd apps/news
+make php-test-dependencies  # Install test dependencies
+make unit-test  # Run PHPUnit tests
+```
+
+**Integration Tests** (requires running servers):
+```bash
+# Terminal 1: Start feed server
+cd apps/news
+make feed-server  # Runs on localhost:8090
+
+# Terminal 2: Start Nextcloud server
+cd server
+php -S localhost:8080  # From Nextcloud root
+
+# Terminal 3: Run tests
+cd apps/news
+bats tests/api      # API integration tests
+bats tests/command  # CLI integration tests
+```
+
+**Debugging**: Check Nextcloud logs at `server/data/nextcloud.log` or use the logging web interface.
+
+For more setup details, see:
+- `docs/developer.md` - Complete developer setup guide
+- `docs/install.md` - Installation and build dependencies
+- `docker/README.md` - Docker environment details
+- `.devcontainer/README.md` - DevContainer setup
+
 ## Testing
 
 ### JavaScript Tests
