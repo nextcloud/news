@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d676903a0c96831eb8519f46dc544ffa",
+    "content-hash": "fcb935f9d206d51a0ac235a744ed35fa",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
