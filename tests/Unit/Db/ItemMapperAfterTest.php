@@ -62,15 +62,20 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.user_id = :userId'],
+            ['feeds.id = :feedId'],
+            ['feeds.deleted_at = 0']
+        ];
+        $andWhereIndex = 0;
+
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.user_id = :userId'],
-                ['feeds.id = :feedId'],
-                ['feeds.deleted_at = 0']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -127,16 +132,21 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.user_id = :userId'],
+            ['feeds.id = :feedId'],
+            ['feeds.deleted_at = 0'],
+            ['items.unread = :unread']
+        ];
+        $andWhereIndex = 0;
+
         $this->builder->expects($this->exactly(5))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.user_id = :userId'],
-                ['feeds.id = :feedId'],
-                ['feeds.deleted_at = 0'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -193,23 +203,33 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
+        $innerJoinCalls = [
+            ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+            ['feeds', 'news_folders', 'folders', 'feeds.folder_id = folders.id']
+        ];
+        $innerJoinIndex = 0;
+
         $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(
-                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
-                ['feeds', 'news_folders', 'folders', 'feeds.folder_id = folders.id']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$innerJoinCalls, &$innerJoinIndex) {
+                $this->assertEquals($innerJoinCalls[$innerJoinIndex++], $args);
+                return $this->builder;
+            });
+
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.user_id = :userId'],
+            ['feeds.deleted_at = 0'],
+            ['folders.id = :folderId']
+        ];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['folders.id = :folderId']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -261,24 +281,34 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->with('news_items', 'items')
             ->will($this->returnSelf());
 
+        $innerJoinCalls = [
+            ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
+            ['feeds', 'news_folders', 'folders', 'feeds.folder_id = folders.id']
+        ];
+        $innerJoinIndex = 0;
+
         $this->builder->expects($this->exactly(2))
             ->method('innerJoin')
-            ->withConsecutive(
-                ['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'],
-                ['feeds', 'news_folders', 'folders', 'feeds.folder_id = folders.id']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$innerJoinCalls, &$innerJoinIndex) {
+                $this->assertEquals($innerJoinCalls[$innerJoinIndex++], $args);
+                return $this->builder;
+            });
+
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.user_id = :userId'],
+            ['feeds.deleted_at = 0'],
+            ['folders.id = :folderId'],
+            ['items.unread = :unread']
+        ];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(5))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['folders.id = :folderId'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -337,18 +367,23 @@ class ItemMapperAfterTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.deleted_at = 0'],
+            ['feeds.user_id = :userId'],
+            ['items.unread = :unread']
+        ];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -406,18 +441,23 @@ class ItemMapperAfterTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.deleted_at = 0'],
+            ['feeds.user_id = :userId'],
+            ['items.starred = :starred']
+        ];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.starred = :starred']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -475,17 +515,22 @@ class ItemMapperAfterTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.deleted_at = 0'],
+            ['feeds.user_id = :userId']
+        ];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
@@ -541,17 +586,22 @@ class ItemMapperAfterTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [
+            ['items.last_modified >= :updatedSince'],
+            ['feeds.deleted_at = 0'],
+            ['feeds.user_id = :userId']
+        ];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(
-                ['items.last_modified >= :updatedSince'],
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setParameters')
