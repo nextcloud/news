@@ -103,76 +103,93 @@ Nextcloud News is an RSS/Atom feed aggregator app for Nextcloud. It's a PHP back
 
 **IMPORTANT**: To run PHP unit tests and integration tests, you need a full Nextcloud server installation. The News app cannot run PHP tests standalone.
 
-### Quick Setup Options
+### Setup for GitHub Copilot Agents
 
-**Option 1: Docker (Recommended for Quick Start)**
-```bash
-cd docker/
-make build
-docker compose up
+**Context**: When working on this repository, GitHub has already cloned the News app for you. However, PHP tests require the News app to be installed within a Nextcloud server structure.
+
+**Required Directory Structure**:
 ```
-- Nextcloud accessible at <http://localhost:8081/index.php/apps/news>
-- Login: admin/admin
-- News app pre-installed and configured
-- See `docker/README.md` for details
+/some/parent/directory/
+├── server/                    # Nextcloud server
+│   ├── apps/
+│   │   └── news/             # News app (symlinked or moved here)
+│   ├── occ
+│   ├── data/
+│   └── ...
+└── news/                      # Original cloned News repo (this workspace)
+```
 
-**Option 2: DevContainer (VS Code)**
-- Open repository in VS Code with Dev Containers extension
-- VS Code will prompt to "Reopen in Container"
-- Uses Nextcloud Docker image from [nextcloud-dev](https://github.com/juliusknorr/nextcloud-dev)
-- See `.devcontainer/README.md` for details
+**Setup Steps** (run these commands from the News app directory):
 
-**Option 3: Manual Nextcloud Server Setup**
 ```bash
-# Clone Nextcloud server repository
-git clone https://github.com/nextcloud/server.git
+# Step 1: Clone Nextcloud server (adjacent to News repo, not inside it)
+cd ..  # Go up one level from the News repo
+git clone --depth 1 --branch stable32 https://github.com/nextcloud/server.git
 cd server
 git submodule update --init
 
-# Install Nextcloud
+# Step 2: Install Nextcloud
 php ./occ maintenance:install --database=sqlite --admin-user=admin --admin-pass=admin
 
-# Clone News app into apps directory
+# Step 3: Link the News app into the server's apps directory
+# (Using symlink to keep working in the original repo)
 cd apps
-git clone https://github.com/nextcloud/news.git
+ln -s ../../news news  # Assuming news repo is ../news relative to server/
 cd news
 
-# Build the News app
+# Step 4: Build the News app (now from server/apps/news)
 make build
 
-# Enable the app
-cd ../..
+# Step 5: Enable the app
+cd ../..  # Back to server root
 php ./occ app:enable news
+
+# Step 6: All future work should be done from server/apps/news
+cd apps/news
 ```
+
+**Alternative: Move instead of symlink**:
+```bash
+# After cloning server (from parent directory containing both repos)
+mv news server/apps/
+cd server/apps/news
+# Continue from step 4 above
+```
+
+**CRITICAL**: After setup, **always work from `server/apps/news`** directory, not the original clone location. This ensures PHP tests can find Nextcloud's bootstrap files.
 
 ### Running Tests with Nextcloud Server
 
 Once Nextcloud is set up:
 
-**PHP Unit Tests**:
+**PHP Unit Tests** (from `server/apps/news`):
 ```bash
-cd apps/news
 make php-test-dependencies  # Install test dependencies
 make unit-test  # Run PHPUnit tests
 ```
 
 **Integration Tests** (requires running servers):
 ```bash
-# Terminal 1: Start feed server
-cd apps/news
+# Terminal 1: Start feed server (from server/apps/news)
 make feed-server  # Runs on localhost:8090
 
-# Terminal 2: Start Nextcloud server
-cd server
-php -S localhost:8080  # From Nextcloud root
+# Terminal 2: Start Nextcloud server (from server root)
+cd ../..  # Go to server root
+php -S localhost:8080
 
-# Terminal 3: Run tests
-cd apps/news
+# Terminal 3: Run tests (from server/apps/news)
 bats tests/api      # API integration tests
 bats tests/command  # CLI integration tests
 ```
 
-**Debugging**: Check Nextcloud logs at `server/data/nextcloud.log` or use the logging web interface.
+**JavaScript Tests** (can run from anywhere in News app):
+```bash
+npm run test  # Runs vitest - doesn't need Nextcloud
+npm run lint  # ESLint
+npm run stylelint  # Style linting
+```
+
+**Debugging**: Check Nextcloud logs at `server/data/nextcloud.log`
 
 For more setup details, see:
 - `docs/developer.md` - Complete developer setup guide
