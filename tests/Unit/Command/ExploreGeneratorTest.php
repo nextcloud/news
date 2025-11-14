@@ -140,9 +140,18 @@ class ExploreGeneratorTest extends TestCase
             ->with('votes')
             ->willReturn(100);
 
+        $expectedCalls = [
+            ['<error>Failed to fetch feed info:</error>', 0],
+            ['Failure', 0]
+        ];
+        $callIndex = 0;
+
         $this->consoleOutput->expects($this->exactly(2))
             ->method('writeln')
-            ->withConsecutive(['<error>Failed to fetch feed info:</error>'], ['Failure']);
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+            });
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(1, $result);
