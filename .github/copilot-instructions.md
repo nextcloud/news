@@ -105,25 +105,32 @@ Nextcloud News is an RSS/Atom feed aggregator app for Nextcloud. It's a PHP back
 
 ### Setup for GitHub Copilot Agents
 
-**Context**: When working on this repository, GitHub has already cloned the News app for you. However, PHP tests require the News app to be installed within a Nextcloud server structure.
+**Context**: When working on this repository, GitHub has already cloned the News app for you (typically in a path like `/home/runner/work/news/news` on GitHub Actions). However, PHP tests require the News app to be installed within a Nextcloud server structure.
 
-**Required Directory Structure**:
+**GitHub Actions Directory Structure**:
 ```
-/some/parent/directory/
-├── server/                    # Nextcloud server
-│   ├── apps/
-│   │   └── news/             # News app (symlinked or moved here)
-│   ├── occ
-│   ├── data/
+/home/runner/work/news/        # GitHub workspace root
+├── news/                      # News app (auto-cloned by GitHub)
+│   ├── lib/
+│   ├── src/
 │   └── ...
-└── news/                      # Original cloned News repo (this workspace)
+└── server/                    # Nextcloud server (you need to clone this)
+    ├── apps/
+    │   └── news/             # Symlink or copy of news repo goes here
+    ├── occ
+    ├── data/
+    └── ...
 ```
 
-**Setup Steps** (run these commands from the News app directory):
+**Setup Steps**:
 
 ```bash
-# Step 1: Clone Nextcloud server (adjacent to News repo, not inside it)
-cd ..  # Go up one level from the News repo
+# Determine your current location (GitHub typically checks out to a subdirectory)
+# If you're in /home/runner/work/news/news, go up one level to the workspace root
+# If you're already in /home/runner/work/news, you're in the right place
+cd /home/runner/work/news  # Or use: cd $(dirname $(pwd))/.. if in news/news
+
+# Step 1: Clone Nextcloud server (adjacent to News repo)
 git clone --depth 1 --branch stable32 https://github.com/nextcloud/server.git
 cd server
 git submodule update --init
@@ -131,10 +138,9 @@ git submodule update --init
 # Step 2: Install Nextcloud
 php ./occ maintenance:install --database=sqlite --admin-user=admin --admin-pass=admin
 
-# Step 3: Link the News app into the server's apps directory
-# (Using symlink to keep working in the original repo)
+# Step 3: Symlink the News app into server's apps directory
 cd apps
-ln -s ../../news news  # Assuming news repo is ../news relative to server/
+ln -s ../../news news  # Points to ../news relative to server/apps/
 cd news
 
 # Step 4: Build the News app (now from server/apps/news)
@@ -144,19 +150,15 @@ make build
 cd ../..  # Back to server root
 php ./occ app:enable news
 
-# Step 6: All future work should be done from server/apps/news
+# Step 6: Return to News app directory for testing
 cd apps/news
 ```
 
-**Alternative: Move instead of symlink**:
-```bash
-# After cloning server (from parent directory containing both repos)
-mv news server/apps/
-cd server/apps/news
-# Continue from step 4 above
-```
-
-**CRITICAL**: After setup, **always work from `server/apps/news`** directory, not the original clone location. This ensures PHP tests can find Nextcloud's bootstrap files.
+**CRITICAL**: 
+- After setup, **work from `server/apps/news`** (the symlinked location)
+- This ensures PHP tests can find Nextcloud's bootstrap at `../../../tests/bootstrap.php`
+- JavaScript tests can run from anywhere in the News app directory
+- All file edits should be made in the symlinked location (changes will reflect in the original repo via symlink)
 
 ### Running Tests with Nextcloud Server
 
