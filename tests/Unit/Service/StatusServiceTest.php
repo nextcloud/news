@@ -90,8 +90,8 @@ class StatusServiceTest extends TestCase
     public function testGetStatusNoCorrectCronAjax()
     {
         $getValueStringCalls = [
-            ['news', 'installed_version'],
-            ['core', 'backgroundjobs_mode'],
+            ['news', 'installed_version', '', false],
+            ['core', 'backgroundjobs_mode', '', false],
         ];
         $getValueStringReturns = ['1.0', 'ajax'];
         $getValueStringIndex = 0;
@@ -155,8 +155,8 @@ class StatusServiceTest extends TestCase
     public function testGetStatusReportsNon4ByteText()
     {
         $getValueStringCalls = [
-            ['news', 'installed_version'],
-            ['core', 'backgroundjobs_mode'],
+            ['news', 'installed_version', '', false],
+            ['core', 'backgroundjobs_mode', '', false],
         ];
         $getValueStringReturns = ['1.0', 'cron'];
         $getValueStringIndex = 0;
