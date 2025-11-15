@@ -6,7 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
-
+- Replace deprecated PHPUnit `withConsecutive` method to prepare for PHPUnit 10 upgrade
 
 ### Fixed
 - Article sharing throws 404 error due to incorrect URL path construction

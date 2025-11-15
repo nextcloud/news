@@ -127,9 +127,18 @@ class ServiceTest extends TestCase
                     ->with('')
                     ->willReturn([$feed1, $feed2]);
 
+        $expectedCalls = [
+            [$feed1],
+            [$feed2]
+        ];
+        $callIndex = 0;
+
         $this->mapper->expects($this->exactly(2))
             ->method('delete')
-            ->withConsecutive([$feed1], [$feed2]);
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+            });
 
         $this->class->deleteUser('');
     }
