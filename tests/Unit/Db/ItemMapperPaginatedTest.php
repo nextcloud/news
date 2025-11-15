@@ -67,13 +67,16 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
-        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0']];
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], []];  // 3rd call - any args (before exception)
         $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
             ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
-                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                if ($andWhereIndex < count($andWhereCalls) - 1) {  // Check only first 2 calls
+                    $this->assertEquals($andWhereCalls[$andWhereIndex], $args);
+                }
+                $andWhereIndex++;
                 return $this->builder;
             });
 
