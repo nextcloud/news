@@ -315,8 +315,8 @@ class ItemMapperTest extends MapperTestUtility
             });
 
         $setParameterCalls = [
-            ['user_id', 'jack', null],
-            ['item_id', 4, null]
+            ['user_id', 'jack', 2],  // PDO::PARAM_STR
+            ['item_id', 4, 1]  // PDO::PARAM_INT
         ];
         $setParameterIndex = 0;
 
@@ -369,8 +369,8 @@ class ItemMapperTest extends MapperTestUtility
             });
 
         $setParameterCalls = [
-            ['feed_id', 4, null],
-            ['guid_hash', 'hash', null]
+            ['feed_id', 4, 1],  // PDO::PARAM_INT
+            ['guid_hash', 'hash', 2]  // PDO::PARAM_STR
         ];
         $setParameterIndex = 0;
 
@@ -428,9 +428,9 @@ class ItemMapperTest extends MapperTestUtility
             });
 
         $setParameterCalls = [
-            ['user_id', 'jack', null],
-            ['feed_id', 4, null],
-            ['guid_hash', 'hash', null]
+            ['user_id', 'jack', 2],  // PDO::PARAM_STR
+            ['feed_id', 4, 1],  // PDO::PARAM_INT
+            ['guid_hash', 'hash', 2]  // PDO::PARAM_STR
         ];
         $setParameterIndex = 0;
 
@@ -607,13 +607,13 @@ class ItemMapperTest extends MapperTestUtility
             ->with('id IN (:idList)')
             ->will($this->returnSelf());
 
-        $setParameterCalls = [['idList', [1, 2], null], ['unread', false, null], ['last_modified', null, null]];
-        $setParameterIndex = 0;
+        $setParameterCalls2 = [['idList', [1, 2], null], ['unread', false, null], ['last_modified', null, null]];
+        $setParameterIndex2 = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
-                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls2, &$setParameterIndex2) {
+                $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
                 return $this->builder;
             });
 
@@ -781,7 +781,7 @@ class ItemMapperTest extends MapperTestUtility
                  ->willReturn('FEED_SQL');
 
         $executeQueryCalls = [
-            ['FEED_SQL'],
+            ['FEED_SQL', [], []],  // executeQuery gets default empty arrays for params and types
             ['RANGE_SQL', ['feedId' => 5], []],
             ['RANGE_SQL', ['feedId' => 1], []]
         ];
@@ -945,7 +945,7 @@ class ItemMapperTest extends MapperTestUtility
                  ->willReturn('FEED_SQL');
 
         $executeQueryCalls = [
-            ['FEED_SQL'],
+            ['FEED_SQL', [], []],  // executeQuery gets default empty arrays for params and types
             ['RANGE_SQL', ['feedId' => 5], []],
             ['RANGE_SQL', ['feedId' => 1], []]
         ];
@@ -1117,7 +1117,7 @@ class ItemMapperTest extends MapperTestUtility
                  ->willReturn('FEED_SQL');
 
         $executeQueryCalls = [
-            ['FEED_SQL'],
+            ['FEED_SQL', [], []],  // executeQuery gets default empty arrays for params and types
             ['RANGE_SQL', ['feedId' => 5], []]
         ];
         $executeQueryReturns = [$result1, $result2, $result3];

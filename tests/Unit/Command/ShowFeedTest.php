@@ -76,8 +76,8 @@ class ShowFeedTest extends TestCase
                            ->willReturn([['feed'], [['items']]]);
 
         $expectedCalls = [
-            ["Feed: [\n    \"feed\"\n]"],
-            ["Items: [\n    [\n        \"items\"\n    ]\n]"]
+            ["Feed: [\n    \"feed\"\n]", 0],  // writeln includes verbosity level
+            ["Items: [\n    [\n        \"items\"\n    ]\n]", 0]
         ];
         $callIndex = 0;
 
@@ -116,8 +116,8 @@ class ShowFeedTest extends TestCase
                            ->will($this->throwException(new ServiceNotFoundException('test')));
 
         $expectedCalls = [
-            ['<error>Failed to fetch feed info:</error>'],
-            ['test']
+            ['<error>Failed to fetch feed info:</error>', 0],  // writeln includes verbosity level
+            ['test', 0]
         ];
         $callIndex = 0;
 

@@ -131,13 +131,14 @@ class ServiceTest extends TestCase
             [$feed1],
             [$feed2]
         ];
+        $returns = [$feed1, $feed2];  // delete() returns the deleted entity
         $callIndex = 0;
 
         $this->mapper->expects($this->exactly(2))
             ->method('delete')
-            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$returns, &$callIndex) {
                 $this->assertEquals($expectedCalls[$callIndex], $args);
-                $callIndex++;
+                return $returns[$callIndex++];
             });
 
         $this->class->deleteUser('');

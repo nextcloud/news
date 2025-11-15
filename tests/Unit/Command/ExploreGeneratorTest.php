@@ -141,8 +141,8 @@ class ExploreGeneratorTest extends TestCase
             ->willReturn(100);
 
         $expectedCalls = [
-            ['<error>Failed to fetch feed info:</error>'],
-            ['Failure']
+            ['<error>Failed to fetch feed info:</error>', 0],
+            ['Failure', 0]
         ];
         $callIndex = 0;
 
