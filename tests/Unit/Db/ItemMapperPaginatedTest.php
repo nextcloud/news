@@ -64,21 +64,31 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -129,22 +139,31 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['items.id > :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['items.id > :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -196,23 +215,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['items.id < :offset'], ['items.unread = :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['items.id < :offset'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null],
+            ['unread', true, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setMaxResults')
@@ -267,23 +295,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['items.id < :offset'], ['items.unread = :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['items.id < :offset'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null],
+            ['unread', true, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->never())
             ->method('setMaxResults');
@@ -336,23 +373,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['items.id < :offset'], ['items.starred = :starred']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['items.id < :offset'],
-                ['items.starred = :starred']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null],
+            ['starred', true, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['starred', true])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -411,31 +457,28 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['items.id < :offset'], ['items.search_index LIKE :term0'], ['items.search_index LIKE :term1'], ['items.starred = :starred']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(6))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['items.id < :offset'],
-                ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1'],
-                ['items.starred = :starred']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [['userId', 'jack'], null, ['offset', 10], null, ['term0', '%key%'], null, ['term1', '%word%'], null, ['starred', true], null];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(5))
             ->method('setParameter')
-            ->withConsecutive(
-                ['userId', 'jack'],
-                ['offset', 10],
-                ['term0', '%key%'],
-                ['term1', '%word%'],
-                ['starred', true]
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -492,23 +535,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.deleted_at = 0'], ['feeds.user_id = :userId'], ['items.feed_id = :feedId'], ['items.id < :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.feed_id = :feedId'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['feedId', 2, null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['feedId', 2], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -565,23 +617,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.deleted_at = 0'], ['feeds.user_id = :userId'], ['items.feed_id = :feedId'], ['items.id < :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.feed_id = :feedId'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['feedId', 2, null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['feedId', 2], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->never())
@@ -636,23 +697,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.deleted_at = 0'], ['feeds.user_id = :userId'], ['items.feed_id = :feedId'], ['items.id > :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.feed_id = :feedId'],
-                ['items.id > :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['feedId', 2, null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['feedId', 2], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('setMaxResults')
@@ -707,24 +777,33 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.deleted_at = 0'], ['feeds.user_id = :userId'], ['items.feed_id = :feedId'], ['items.id < :offset'], ['items.unread = :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(5))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.feed_id = :feedId'],
-                ['items.id < :offset'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['feedId', 2, null],
+            ['offset', 10, null],
+            ['unread', true, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['feedId', 2], ['offset', 10], ['unread', true])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -784,31 +863,28 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.deleted_at = 0'], ['feeds.user_id = :userId'], ['items.feed_id = :feedId'], ['items.search_index LIKE :term0'], ['items.search_index LIKE :term1'], ['items.id < :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(6))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.deleted_at = 0'],
-                ['feeds.user_id = :userId'],
-                ['items.feed_id = :feedId'],
-                ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [['userId', 'jack'], null, ['feedId', 2], null, ['term0', '%key%'], null, ['term1', '%word%'], null, ['offset', 10], null];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(5))
             ->method('setParameter')
-            ->withConsecutive(
-                ['userId', 'jack'],
-                ['feedId', 2],
-                ['term0', '%key%'],
-                ['term1', '%word%'],
-                ['offset', 10]
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -877,23 +953,31 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['x IS NULL'], ['items.id < :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['x IS NULL'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -962,23 +1046,31 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['x IS NULL'], ['items.id < :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['x IS NULL'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->never())
@@ -1045,24 +1137,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['x IS NULL'], ['items.id < :offset'], ['items.unread = :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(5))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['x IS NULL'],
-                ['items.id < :offset'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null],
+            ['unread', true, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -1131,24 +1231,32 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['x IS NULL'], ['items.id > :offset'], ['items.unread = :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(5))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['x IS NULL'],
-                ['items.id > :offset'],
-                ['items.unread = :unread']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['offset', 10, null],
+            ['unread', true, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['offset', 10], ['unread', true])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
@@ -1220,25 +1328,33 @@ class ItemMapperPaginatedTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('innerJoin')
-            ->withConsecutive(['items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id'])
+            ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
+
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.deleted_at = 0'], ['x = y'], ['items.search_index LIKE :term0'], ['items.search_index LIKE :term1'], ['items.id < :offset']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(6))
             ->method('andWhere')
-            ->withConsecutive(
-                ['feeds.user_id = :userId'],
-                ['feeds.deleted_at = 0'],
-                ['x = y'],
-                ['items.search_index LIKE :term0'],
-                ['items.search_index LIKE :term1'],
-                ['items.id < :offset']
-            )
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [
+            ['userId', 'jack', null],
+            ['term0', '%key%', null],
+            ['term1', '%word%', null],
+            ['offset', 10, null]
+        ];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(4))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'jack'], ['term0', '%key%'], ['term1', '%word%'], ['offset', 10])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
 
         $this->builder->expects($this->exactly(1))
