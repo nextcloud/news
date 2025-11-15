@@ -188,12 +188,18 @@ class PageControllerTest extends TestCase
     public function testExplore()
     {
         $in = ['test'];
+        $setUserValueCalls = [
+            ['becka', 'news', 'lastViewedFeedId', 0],
+            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
+        ];
+        $setUserValueIndex = 0;
+
         $this->userConfig->expects($this->exactly(2))
                     ->method('setValueInt')
-                    ->withConsecutive(
-                        ['becka', 'news', 'lastViewedFeedId', 0],
-                        ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
-                    );
+                    ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
+                        $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
+                        $setUserValueIndex++;
+                    });
 
         $this->recommended->expects($this->once())
                         ->method('forLanguage')
@@ -207,12 +213,18 @@ class PageControllerTest extends TestCase
 
     public function testExploreError()
     {
+        $setUserValueCalls = [
+            ['becka', 'news', 'lastViewedFeedId', 0],
+            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
+        ];
+        $setUserValueIndex = 0;
+
         $this->userConfig->expects($this->exactly(2))
                     ->method('setValueInt')
-                    ->withConsecutive(
-                        ['becka', 'news', 'lastViewedFeedId', 0],
-                        ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
-                    );
+                    ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
+                        $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
+                        $setUserValueIndex++;
+                    });
 
         $this->recommended->expects($this->once())
                         ->method('forLanguage')
