@@ -120,15 +120,25 @@ class FolderMapperTest extends MapperTestUtility
                       ->with('user_id = :user_id')
                       ->will($this->returnSelf());
 
+        $andWhereCalls = [['id = :id'], ['deleted_at = 0']];
+        $andWhereIndex = 0;
+
         $this->builder->expects($this->exactly(2))
                       ->method('andWhere')
-                      ->withConsecutive(['id = :id'], ['deleted_at = 0'])
-                      ->will($this->returnSelf());
+                      ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                          $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                          return $this->builder;
+                      });
+
+        $setParameterCalls = [['user_id', 'jack', null], ['id', 1, null]];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
                       ->method('setParameter')
-                      ->withConsecutive(['user_id', 'jack'], ['id', 1])
-                      ->will($this->returnSelf());
+                      ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                          $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                          return $this->builder;
+                      });
 
         $this->builder->expects($this->once())
                       ->method('executeQuery')
