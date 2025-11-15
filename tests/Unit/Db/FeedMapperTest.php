@@ -721,23 +721,23 @@ class FeedMapperTest extends MapperTestUtility
                 return $this->builder;
             });
 
-        $andWhereCalls = [['id IN (:idList)'], ['unread != :unread']];
-        $andWhereIndex = 0;
+        $andWhereCalls2 = [['id IN (:idList)'], ['unread != :unread']];
+        $andWhereIndex2 = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
-                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls2, &$andWhereIndex2) {
+                $this->assertEquals($andWhereCalls2[$andWhereIndex2++], $args);
                 return $this->builder;
             });
 
-        $setParameterCalls = [['unread', false, null], ['idList', [1, 2], null], ['last_modified', null, null]];
-        $setParameterIndex = 0;
+        $setParameterCalls2 = [['unread', false, null], ['idList', [1, 2], null], ['last_modified', null, null]];
+        $setParameterIndex2 = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
-                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls2, &$setParameterIndex2) {
+                $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
                 return $this->builder;
             });
 
