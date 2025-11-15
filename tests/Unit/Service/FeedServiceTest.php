@@ -338,23 +338,21 @@ class FeedServiceTest extends TestCase
                        ->will($this->returnValue(['http://discover.test']));
 
         $expectedCalls = [
-            ['http://test'],
-            ['http://discover.test']
-        ];
-        $returns = [
-            $this->throwException(new ReadErrorException('There is no feed')),
-            $this->returnValue($return)
+            ['http://test', false, 'user', 'pass', null],
+            ['http://discover.test', false, 'user', 'pass', null]
         ];
         $callIndex = 0;
 
         $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
-            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$returns, &$callIndex) {
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex, $return) {
                 $this->assertEquals($expectedCalls[$callIndex], $args);
                 if ($callIndex === 0) {
+                    $callIndex++;
                     throw new ReadErrorException('There is no feed');
                 }
-                return $returns[$callIndex++]->invoke($this);
+                $callIndex++;
+                return $return;
             });
 
         $this->mapper->expects($this->once())

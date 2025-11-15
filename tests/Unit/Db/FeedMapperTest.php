@@ -232,13 +232,18 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(1))
             ->method('andWhere')
-            ->withConsecutive(['id = :id'])
+            ->with('id = :id')
             ->will($this->returnSelf());
+
+        $setParameterCalls = [['user_id', 'jack', null], ['id', 1, null]];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['user_id', 'jack'], ['id', 1])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->once())
             ->method('executeQuery')
