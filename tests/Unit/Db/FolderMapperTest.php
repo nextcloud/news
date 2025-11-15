@@ -179,15 +179,25 @@ class FolderMapperTest extends MapperTestUtility
             ->with('user_id = :user_id')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['id = :id'], ['deleted_at = 0']];
+        $andWhereIndex = 0;
+
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['id = :id'], ['deleted_at = 0'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [['user_id', 'jack', null], ['id', 1, null]];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['user_id', 'jack'], ['id', 1])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->once())
             ->method('executeQuery')
@@ -228,15 +238,25 @@ class FolderMapperTest extends MapperTestUtility
             ->with('user_id = :user_id')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['id = :id'], ['deleted_at = 0']];
+        $andWhereIndex = 0;
+
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['id = :id'], ['deleted_at = 0'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [['user_id', 'jack', null], ['id', 1, null]];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['user_id', 'jack'], ['id', 1])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->once())
             ->method('executeQuery')
@@ -321,15 +341,25 @@ class FolderMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.folder_id = :folderId']];
+        $andWhereIndex = 0;
+
         $selectbuilder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.folder_id = :folderId'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex, $selectbuilder) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $selectbuilder;
+            });
+
+        $setParameterCalls = [['userId', 'admin', null], ['folderId', 1, null]];
+        $setParameterIndex = 0;
 
         $selectbuilder->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'admin'], ['folderId', 1])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex, $selectbuilder) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $selectbuilder;
+            });
 
         $selectbuilder->expects($this->exactly(1))
             ->method('getSQL')
@@ -361,20 +391,35 @@ class FolderMapperTest extends MapperTestUtility
             ->with('news_items')
             ->will($this->returnSelf());
 
+        $setCalls = [['unread', 'unread'], ['last_modified', 'last_modified']];
+        $setIndex = 0;
+
         $this->builder->expects($this->exactly(2))
             ->method('set')
-            ->withConsecutive(['unread', 'unread'], ['last_modified', 'last_modified'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setCalls, &$setIndex) {
+                $this->assertEquals($setCalls[$setIndex++], $args);
+                return $this->builder;
+            });
+
+        $andWhereCalls = [['id IN (:idList)'], ['unread != :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [['unread', false, null], ['idList', [1, 2], null], ['last_modified', null, null]];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['unread', false], ['idList', [1, 2]], ['last_modified'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('getSQL')
@@ -424,15 +469,25 @@ class FolderMapperTest extends MapperTestUtility
             ->with('items', 'news_feeds', 'feeds', 'items.feed_id = feeds.id')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['feeds.user_id = :userId'], ['feeds.folder_id = :folderId'], ['items.id <= :maxItemId']];
+        $andWhereIndex = 0;
+
         $selectbuilder->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(['feeds.user_id = :userId'], ['feeds.folder_id = :folderId'], ['items.id <= :maxItemId'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex, $selectbuilder) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $selectbuilder;
+            });
+
+        $setParameterCalls = [['userId', 'admin', null], ['folderId', 1, null], ['maxItemId', 4, null]];
+        $setParameterIndex = 0;
 
         $selectbuilder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['userId', 'admin'], ['folderId', 1], ['maxItemId', 4])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex, $selectbuilder) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $selectbuilder;
+            });
 
         $selectbuilder->expects($this->exactly(1))
             ->method('getSQL')
@@ -464,20 +519,35 @@ class FolderMapperTest extends MapperTestUtility
             ->with('news_items')
             ->will($this->returnSelf());
 
+        $setCalls = [['unread', 'unread'], ['last_modified', 'last_modified']];
+        $setIndex = 0;
+
         $this->builder->expects($this->exactly(2))
             ->method('set')
-            ->withConsecutive(['unread', 'unread'], ['last_modified', 'last_modified'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setCalls, &$setIndex) {
+                $this->assertEquals($setCalls[$setIndex++], $args);
+                return $this->builder;
+            });
+
+        $andWhereCalls = [['id IN (:idList)'], ['unread != :unread']];
+        $andWhereIndex = 0;
 
         $this->builder->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['id IN (:idList)'], ['unread != :unread'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex++], $args);
+                return $this->builder;
+            });
+
+        $setParameterCalls = [['unread', false, null], ['idList', [1, 2], null], ['last_modified', null, null]];
+        $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
-            ->withConsecutive(['unread', false], ['idList', [1, 2]], ['last_modified'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
+                return $this->builder;
+            });
 
         $this->builder->expects($this->exactly(1))
             ->method('getSQL')
