@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ## [28.x.x]
 ### Changed
 - Add `occ` commands for importing/exporting articles
+- Add importing/exporting articles to frontend settings
 
 
 ### Fixed
