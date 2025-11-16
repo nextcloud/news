@@ -285,6 +285,32 @@
 							</template>
 						</NcButton>
 					</div>
+					<h3>{{ t('news', 'Articles (JSON)') }}</h3>
+					<div class="button-container">
+						<NcButton
+							aria-label="UploadArticles"
+							:disabled="loading"
+							@click="$refs.articlesFileSelect.click()">
+							<template #icon>
+								<UploadIcon :size="20" />
+							</template>
+						</NcButton>
+						<input
+							ref="articlesFileSelect"
+							type="file"
+							class="hidden"
+							aria-hidden="true"
+							accept=".json"
+							@change="importArticles">
+						<NcButton
+							aria-label="DownloadArticles"
+							:disabled="loading"
+							@click="exportArticles">
+							<template #icon>
+								<DownloadIcon :size="20" />
+							</template>
+						</NcButton>
+					</div>
 				</div>
 			</NcAppNavigationSettings>
 		</template>
@@ -659,6 +685,66 @@ export default defineComponent({
 					link.click()
 				} else {
 					showError(t('news', 'Error retrieving the opml file'))
+				}
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Error connecting to the server'),
+					error: e,
+				})
+			}
+		},
+
+		async importArticles(event) {
+			const file = event.target.files[0]
+			if (!file) {
+				showError(t('news', 'Please select a valid json file'))
+				return
+			}
+
+			const formData = new FormData()
+			formData.append('file', file)
+
+			try {
+				const response = await axios.post(
+					generateUrl('/apps/news/import/articles'),
+					formData,
+					{ headers: {} },
+				)
+
+				if (response.status === 200) {
+					const data = await response.data
+					if (data.status === 'ok') {
+						showSuccess(t('news', 'File successfully uploaded'))
+						this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+					} else {
+						showError(data.message, { timeout: -1 })
+					}
+				} else {
+					showError(t('news', 'Error uploading the json file'))
+				}
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Error connecting to the server'),
+					error: e,
+				})
+			}
+		},
+
+		async exportArticles() {
+			try {
+				const response = await axios.get(
+					generateUrl('/apps/news/export/articles'),
+					{ responseType: 'blob' },
+				)
+
+				if (response.status === 200) {
+					const formattedDate = new Date().toISOString().split('T')[0]
+					const link = document.createElement('a')
+					link.href = URL.createObjectURL(response.data)
+					link.download = 'articles-' + formattedDate + '.json'
+					link.click()
+				} else {
+					showError(t('news', 'Error retrieving the json file'))
 				}
 			} catch (e) {
 				this.handleResponse({
