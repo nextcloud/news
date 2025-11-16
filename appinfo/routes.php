@@ -51,7 +51,6 @@ return ['routes' => [
 ['name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'],
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
 ['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],
-['name' => 'feed#import', 'url' => '/feeds/import/articles', 'verb' => 'POST'],
 ['name' => 'feed#patch', 'url' => '/feeds/{feedId}', 'verb' => 'PATCH'],
 
 // items
@@ -65,10 +64,12 @@ return ['routes' => [
 
 // export
 ['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],
+['name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'],
 ['name' => 'item#share', 'url' => '/items/{itemId}/share/{shareRecipientId}', 'verb' => 'POST'],
 
 // import
 ['name' => 'import#opml', 'url' => '/import/opml', 'verb' => 'POST'],
+['name' => 'import#articles', 'url' => '/import/articles', 'verb' => 'POST'],
 
 // favicon
 ['name' => 'favicon#get', 'url' => '/favicon/{feedUrlHash}', 'verb' => 'GET'],

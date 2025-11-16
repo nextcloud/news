@@ -37,7 +37,6 @@ class FeedController extends Controller
         private FolderServiceV2 $folderService,
         private FeedServiceV2 $feedService,
         private ItemServiceV2 $itemService,
-        private ImportService $importService,
         private IConfig $settings,
         ?IUserSession $userSession
     ) {
@@ -219,27 +218,6 @@ class FeedController extends Controller
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
-    }
-
-
-    /**
-     * @param array $json
-     * @return array
-     */
-    #[NoAdminRequired]
-    public function import(array $json): array
-    {
-        $feed = $this->importService->importArticles($this->getUserId(), $json);
-
-        $params = [
-            'starred' => count($this->itemService->starred($this->getUserId()))
-        ];
-
-        if (!is_null($feed)) {
-            $params['feeds'] = [$feed];
-        }
-
-        return $params;
     }
 
 
