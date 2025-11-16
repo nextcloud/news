@@ -1,7 +1,11 @@
+import axios from '@nextcloud/axios'
+import { showError, showSuccess } from '@nextcloud/dialogs'
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSidebar from '../../../../src/components/Sidebar.vue'
 import { ACTIONS } from '../../../../src/store/index.ts'
+
+vi.mock('@nextcloud/dialogs')
 
 describe('Sidebar.vue', () => {
 	'use strict'
@@ -52,6 +56,7 @@ describe('Sidebar.vue', () => {
 	})
 
 	beforeEach(() => {
+		vi.restoreAllMocks()
 		wrapper.vm.$store.dispatch.mockReset()
 	})
 
@@ -233,6 +238,104 @@ describe('Sidebar.vue', () => {
 	})
 
 	describe('Methods', () => {
+		it('should show error when no file is selected', async () => {
+			const event = { target: { files: [] } }
+
+			await wrapper.vm.importArticles.call(wrapper, event)
+
+			expect(showError).toHaveBeenCalled()
+		})
+
+		it('should show success when status is 200 and file is valid', async () => {
+			const mockFile = new File(['{}'], 'articles.json', { type: 'application/json' })
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockResolvedValue({
+				status: 200,
+				data: { status: 'ok' },
+			})
+
+			await wrapper.vm.importArticles.call(wrapper, event)
+
+			expect(showSuccess).toHaveBeenCalled()
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEEDS)
+		})
+
+		it('should show backend error message when status 200 but backend returns error', async () => {
+			const mockFile = new File(['{}'], 'articles.json', { type: 'application/json' })
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockResolvedValue({
+				status: 200,
+				data: { status: 'error', message: 'error importing articles' },
+			})
+
+			await wrapper.vm.importArticles.call(wrapper, event)
+
+			expect(showError).toHaveBeenCalledWith('error importing articles', { timeout: -1 })
+		})
+
+		it('should show error message when not status 200', async () => {
+			const mockFile = new File(['{}'], 'articles.json', { type: 'application/json' })
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockResolvedValue({
+				status: 412,
+			})
+
+			await wrapper.vm.importArticles.call(wrapper, event)
+
+			expect(showError).toHaveBeenCalledWith('Error uploading the json file')
+		})
+
+		it('should show network error on server error', async () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			const mockFile = new File(['{}'], 'articles.json')
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockRejectedValue('network error')
+
+			await wrapper.vm.importArticles.call(wrapper, event)
+
+			expect(showError).toHaveBeenCalledWith('Error connecting to the server')
+		})
+
+		it('should download file when status is 200', async () => {
+			const blob = { slice: vi.fn() }
+			axios.get.mockResolvedValue({ status: 200, data: blob })
+
+			const clickMock = vi.fn()
+
+			vi.spyOn(document, 'createElement').mockReturnValue({
+				href: '',
+				download: '',
+				click: clickMock,
+			})
+
+			vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob://test')
+
+			await wrapper.vm.exportArticles.call(wrapper)
+
+			expect(clickMock).toHaveBeenCalled()
+		})
+
+		it('should show error when status is not 200', async () => {
+			axios.get.mockResolvedValue({ status: 500 })
+
+			await wrapper.vm.exportArticles.call(wrapper)
+
+			expect(showError).toHaveBeenCalled()
+		})
+
+		it('should show network error on server error', async () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			axios.get.mockRejectedValue('network error')
+
+			await wrapper.vm.exportArticles.call(wrapper)
+
+			expect(showError).toHaveBeenCalledWith('Error connecting to the server')
+		})
+
 		it('should return favicon route with feed url hash', () => {
 			const feed = { name: 'feed1', id: 1, urlHash: '51f108ce113f11fbcbb7da6083c621cd' }
 			const feedIcon = wrapper.vm.feedIcon(feed)
