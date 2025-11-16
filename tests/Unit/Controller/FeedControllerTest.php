@@ -51,10 +51,6 @@ class FeedControllerTest extends TestCase
      */
     private $feedService;
     /**
-     * @var MockObject|ImportService
-     */
-    private $importService;
-    /**
      * @var MockObject|ItemServiceV2
      */
     private $itemService;
@@ -98,10 +94,6 @@ class FeedControllerTest extends TestCase
             ->getMockBuilder(FeedServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->importService = $this
-            ->getMockBuilder(ImportService::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->folderService = $this
             ->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
@@ -123,7 +115,6 @@ class FeedControllerTest extends TestCase
             $this->folderService,
             $this->feedService,
             $this->itemService,
-            $this->importService,
             $this->settings,
             $this->userSession
         );
@@ -533,49 +524,6 @@ class FeedControllerTest extends TestCase
 
         $this->assertEquals('{"message":"NO!"}', $render);
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
-    }
-
-
-    public function testImport()
-    {
-        $feed = new Feed();
-
-        $expected = [
-            'starred' => 3,
-            'feeds' => [$feed]
-        ];
-
-        $this->importService->expects($this->once())
-            ->method('importArticles')
-            ->with($this->uid, ['json'],)
-            ->will($this->returnValue($feed));
-
-        $this->itemService->expects($this->once())
-            ->method('starred')
-            ->with($this->uid)
-            ->will($this->returnValue([1, 2, 3]));
-
-        $response = $this->class->import(['json']);
-
-        $this->assertEquals($expected, $response);
-    }
-
-
-    public function testImportCreatesNoAdditionalFeed()
-    {
-        $this->importService->expects($this->once())
-            ->method('importArticles')
-            ->with($this->uid, ['json'])
-            ->will($this->returnValue(null));
-
-        $this->itemService->expects($this->once())
-            ->method('starred')
-            ->with($this->uid)
-            ->will($this->returnValue([1, 2, 3]));
-
-        $response = $this->class->import(['json']);
-
-        $this->assertEquals(['starred' => 3], $response);
     }
 
 

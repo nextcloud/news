@@ -13,9 +13,7 @@
 
 namespace OCA\News\Controller;
 
-use OCA\News\Service\FeedServiceV2;
-use OCA\News\Service\FolderServiceV2;
-use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\ExportService;
 use OCA\News\Service\OpmlService;
 use OCP\AppFramework\Http\DataDownloadResponse;
 use \OCP\IRequest;
@@ -35,9 +33,7 @@ class ExportController extends Controller
 
     public function __construct(
         IRequest $request,
-        private FolderServiceV2 $folderService,
-        private FeedServiceV2 $feedService,
-        private ItemServiceV2 $itemService,
+        private ExportService $exportService,
         private OpmlService $opmlService,
         ?IUserSession $userSession
     ) {
@@ -58,28 +54,10 @@ class ExportController extends Controller
         );
     }
 
-
-    #[NoCSRFRequired]
     #[NoAdminRequired]
     public function articles(): JSONResponse
     {
-        $feeds = $this->feedService->findAllForUser($this->getUserId());
-        $starred = $this->itemService->findAllForUser($this->getUserId(), ['unread' => false, 'starred' => true]);
-        $unread = $this->itemService->findAllForUser($this->getUserId(), ['unread' => true]);
-
-        $items = array_merge($starred, $unread);
-
-        // build assoc array for fast access
-        $feedsDict = [];
-        foreach ($feeds as $feed) {
-            $feedsDict['feed' . $feed->getId()] = $feed;
-        }
-
-        $articles = [];
-        foreach ($items as $item) {
-            $articles[] = $item->toExport($feedsDict);
-        }
-
+        $articles = $this->exportService->articles($this->getUserId());
         $response = new JSONResponse($articles);
         $response->addHeader(
             'Content-Disposition',
