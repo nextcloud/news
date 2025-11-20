@@ -25,7 +25,6 @@ export default defineComponent({
 	name: 'RoutesStarred',
 	components: {
 		ContentTemplate,
-		NcCounterBubble,
 	},
 
 	props: {
