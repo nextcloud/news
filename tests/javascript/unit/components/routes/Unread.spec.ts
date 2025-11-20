@@ -1,22 +1,43 @@
-import Vuex, { Store } from 'vuex'
-import { shallowMount, createLocalVue, Wrapper } from '@vue/test-utils'
+import type { Store } from 'vuex'
 
-import Unread from '../../../../../src/components/routes/Unread.vue'
+import { shallowMount } from '@vue/test-utils'
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
+import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
-
-jest.mock('@nextcloud/axios')
+import Unread from '../../../../../src/components/routes/Unread.vue'
 
 describe('Unread.vue', () => {
 	'use strict'
-	const localVue = createLocalVue()
-	localVue.use(Vuex)
-	let wrapper: Wrapper<Unread>
+	let wrapper: any
 
-	const mockItem = {
-		feedId: 1,
-		title: 'feed item',
-		pubDate: Date.now() / 1000,
-	}
+	const mockItems = [
+		{
+			id: 1,
+			feedId: 1,
+			title: 'feed item',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 2,
+			feedId: 1,
+			title: 'feed item 2',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 3,
+			feedId: 1,
+			title: 'feed item 3',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		}, {
+			id: 4,
+			feedId: 1,
+			title: 'feed item 4',
+			pubDate: Date.now() / 1000,
+			unread: true,
+		},
+	]
 
 	let store: Store<any>
 	beforeAll(() => {
@@ -26,40 +47,78 @@ describe('Unread.vue', () => {
 					fetchingItems: {
 						unread: false,
 					},
+					lastItemLoaded: {
+						unread: 1,
+					},
+					newestItemId: {
+						number: 12,
+					},
+					unread: mockItems,
+				},
+				feeds: {
+				},
+				app: {
+					oldestFirst: false,
 				},
 			},
 			actions: {
 			},
 			getters: {
-				unread: () => [mockItem, mockItem],
+				unread: () => mockItems,
+				oldestFirst: (state) => state.app.oldestFirst,
 			},
 		})
 
-		store.dispatch = jest.fn()
-		store.commit = jest.fn()
+		store.dispatch = vi.fn()
+		store.commit = vi.fn()
 
 		wrapper = shallowMount(Unread, {
-			propsData: {
-				item: mockItem,
+			global: {
+				plugins: [store],
 			},
-			localVue,
-			store,
 		})
+	})
+
+	beforeEach(() => {
+		vi.clearAllMocks()
 	})
 
 	it('should get unread items from state', () => {
-		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(2)
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(4)
+	})
+
+	it('should get only first item from state ordering oldest>newest', async () => {
+		wrapper.vm.$store.state.items.lastItemLoaded.unread = 1
+		wrapper.vm.$store.state.app.oldestFirst = true
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
+	})
+
+	it('should get only first item from state ordering newest>oldest', async () => {
+		wrapper.vm.$store.state.items.lastItemLoaded.unread = 4
+		wrapper.vm.$store.state.app.oldestFirst = false
+		await nextTick
+		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should dispatch FETCH_UNREAD action if not fetchingItems.unread', () => {
-		(wrapper.vm as any).$store.state.items.fetchingItems.unread = true;
+		wrapper.vm.$store.state.items.fetchingItems.unread = false
 
-		(wrapper.vm as any).fetchMore()
-		expect(store.dispatch).not.toBeCalled();
-
-		(wrapper.vm as any).$store.state.items.fetchingItems.unread = false;
-
-		(wrapper.vm as any).fetchMore()
+		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
+	})
+
+	it('should not dispatch FETCH_UNREAD action if fetchingItems.unread', () => {
+		wrapper.vm.$store.state.items.fetchingItems.unread = true
+
+		wrapper.vm.fetchMore()
+		expect(store.dispatch).not.toBeCalled()
+	})
+
+	it('should clear unread cache when newestItemId resets', () => {
+		store.state.items.newestItemId = 0
+
+		wrapper.vm.$options.watch.newestItemId.call(wrapper.vm, wrapper.vm.newestItemId)
+		expect(wrapper.vm.unreadCache).toEqual([])
 	})
 })

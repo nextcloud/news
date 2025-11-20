@@ -3,7 +3,8 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
-	<NcModal size="normal"
+	<NcModal
+		size="normal"
 		data-text-el="formatting-help"
 		:name="t('news', 'Keyboard shortcuts')"
 		@close="$emit('close')">
@@ -174,16 +175,16 @@
 </template>
 
 <script>
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import Tooltip from '@nextcloud/vue/dist/Directives/Tooltip.js'
+import NcModal from '@nextcloud/vue/components/NcModal'
 
 export default {
 	name: 'HelpModal',
 	components: {
 		NcModal,
 	},
-	directives: {
-		Tooltip,
+
+	emits: {
+		close: () => true,
 	},
 }
 </script>

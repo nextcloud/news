@@ -14,22 +14,24 @@
 namespace OCA\News\Fetcher;
 
 use DateTime;
-use Favicon\Favicon;
-use FeedIo\Feed\ItemInterface;
-use FeedIo\FeedInterface;
-use FeedIo\FeedIo;
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
+use OCA\News\Vendor\FeedIo\FeedInterface;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Uri;
+use OCA\News\Vendor\GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
 
 use OCP\IL10N;
 
+use OCA\News\Constants;
 use OCA\News\Db\Item;
 use OCA\News\Db\Feed;
 use OCA\News\Utility\Time;
 use OCA\News\Utility\Cache;
+use OCA\News\Utility\AppData;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Config\FetcherConfig;
 use Psr\Log\LoggerInterface;
@@ -78,6 +80,11 @@ class FeedFetcher implements IFeedFetcher
      */
     private $cache;
 
+    /**
+     * @var AppData
+     */
+    private $appData;
+
     public function __construct(
         FeedIo $fetcher,
         Favicon $favicon,
@@ -86,7 +93,8 @@ class FeedFetcher implements IFeedFetcher
         Time $time,
         LoggerInterface $logger,
         FetcherConfig $fetcherConfig,
-        Cache $cache
+        Cache $cache,
+        AppData $appData
     ) {
         $this->reader         = $fetcher;
         $this->faviconFactory = $favicon;
@@ -96,6 +104,7 @@ class FeedFetcher implements IFeedFetcher
         $this->logger         = $logger;
         $this->fetcherConfig  = $fetcherConfig;
         $this->cache          = $cache;
+        $this->appData        = $appData;
     }
 
 
@@ -111,6 +120,25 @@ class FeedFetcher implements IFeedFetcher
         return true;
     }
 
+    /**
+     * Check if the feed server send the Last-Modified header
+     *
+     * @param string $url The URL to check
+     *
+     * @return bool
+     */
+    public function hasLastModifiedHeader(string $url): bool
+    {
+        $hasLastModified = false;
+        try {
+            $client = new Client(['base_uri' => $url]);
+            $response = $client->request('HEAD');
+            $hasLastModified = $response->hasHeader('Last-Modified');
+        } catch (\Exception) {
+            $this->logger->warning('Check for Last-Modified header failed for ' . $url);
+        }
+        return $hasLastModified;
+    }
 
     /**
      * Fetch a feed from remote
@@ -343,11 +371,7 @@ class FeedFetcher implements IFeedFetcher
 
         // purification is done in the service layer
         if (!is_null($body)) {
-            $body = mb_convert_encoding(
-                $body,
-                'HTML-ENTITIES',
-                mb_detect_encoding($body)
-            );
+            // First, handle CDATA sections if present
             if (strpos($body, 'CDATA') !== false) {
                 libxml_use_internal_errors(true);
                 $data = simplexml_load_string(
@@ -359,6 +383,23 @@ class FeedFetcher implements IFeedFetcher
                     $body = (string) $data;
                 }
                 libxml_clear_errors();
+            }
+            
+            if (!mb_check_encoding($body, 'UTF-8')) {
+                // Convert to UTF-8 if needed with comprehensive encoding detection
+                $encodingList = ['ISO-8859-1', 'Windows-1252', 'ASCII', 'UTF-16', 'UTF-16BE', 'UTF-16LE'];
+                $detectedEncoding = mb_detect_encoding($body, $encodingList, true);
+                if ($detectedEncoding !== false) {
+                    $convertedBody = mb_convert_encoding($body, 'UTF-8', $detectedEncoding);
+                    if ($convertedBody !== false) {
+                        $body = $convertedBody;
+                    } else {
+                        $this->logger->warning(
+                            'Failed to convert encoding from {from} to UTF-8 for feed item',
+                            ['from' => $detectedEncoding]
+                        );
+                    }
+                }
             }
         }
 
@@ -397,14 +438,6 @@ class FeedFetcher implements IFeedFetcher
      */
     protected function getFavicon(FeedInterface $feed, string $url): ?string
     {
-        $favicon = null;
-        // trim the string because authors do funny things
-        $feed_logo = $feed->getLogo();
-
-        if (!is_null($feed_logo)) {
-            $favicon = trim($feed_logo);
-        }
-
         ini_set('user_agent', $this->fetcherConfig->getUserAgent());
 
         $base_url = new Uri($url);
@@ -415,20 +448,110 @@ class FeedFetcher implements IFeedFetcher
             return null;
         }
 
-        // check if feed has a logo entry
-        if ($favicon === null || $favicon === '') {
-            $return = $this->faviconFactory->get($base_url);
-            return is_string($return) ? $return : null;
+        // Step 1: Check if current feed logo still exists
+        $feed_logo = $this->appData->getFileContent(Constants::LOGO_INFO_DIR, 'url_'.md5($url));
+        if (!is_null($feed_logo)) {
+            $favicon = trim($feed_logo);
+            if ($favicon !== '') {
+                $logo_result = $this->downloadFavicon($favicon, $base_url, $url, true);
+                if ($logo_result !== null) {
+                    return $logo_result;
+                }
+            }
         }
+
+        // Step 2: Check if feed has a logo entry and try to use it
+        $feed_logo = $feed->getLogo();
+        if (!is_null($feed_logo)) {
+            $favicon = trim($feed_logo);
+            if ($favicon !== '') {
+                $logo_result = $this->downloadFavicon($favicon, $base_url, $url, false);
+                if ($logo_result !== null) {
+                    return $logo_result;
+                }
+            }
+        }
+
+        // Step 3: Try to get favicon from the feed URL
+        $feed_favicon = $this->faviconFactory->get($base_url);
+        if (is_string($feed_favicon) && $feed_favicon !== '') {
+            $this->logger->debug(
+                "Found favicon from feed URL: {favicon} for feed: {feed}",
+                [
+                'favicon' => $feed_favicon,
+                'feed' => $url
+                ]
+            );
+            $logo_result = $this->downloadFavicon($feed_favicon, $base_url, $url, false);
+            if ($logo_result !== null) {
+                return $logo_result;
+            }
+        }
+
+        // Step 4: Try to get favicon from the feed's link element (website URL)
+        $feed_link = $feed->getLink();
+        if (!is_null($feed_link) && trim($feed_link) !== '') {
+            try {
+                $link_uri = new Uri($feed_link);
+                $link_base_url = (string) $link_uri->withPath('/');
+                
+                if ($link_base_url !== $base_url) { // Only try if it's different from feed URL
+                    $link_favicon = $this->faviconFactory->get($link_base_url);
+                    if (is_string($link_favicon) && $link_favicon !== '') {
+                        $this->logger->debug(
+                            "Found favicon from feed link: {favicon} for feed: {feed}",
+                            [
+                            'favicon' => $link_favicon,
+                            'feed' => $url
+                            ]
+                        );
+                        $logo_result = $this->downloadFavicon($link_favicon, $base_url, $url, false);
+                        if ($logo_result !== null) {
+                                return $logo_result;
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
+                $this->logger->debug(
+                    'Could not parse feed link URL {link} for feed {feed}: {error}',
+                    [
+                    'link' => $feed_link,
+                    'feed' => $url,
+                    'error' => $e->getMessage()
+                    ]
+                );
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Try to download and validate a favicon from a given URL
+     *
+     * @param string $favicon_url The favicon URL to download
+     * @param string $base_url    The base URL for relative URLs
+     * @param string $feed_url    The original feed URL for logging
+     * @param bool   $use_mtime   Use if-modified-since to check for changes
+     *
+     * @return string|null The favicon URL if valid and modified, null otherwise
+     */
+    protected function downloadFavicon(
+        string $favicon_url,
+        string $base_url,
+        string $feed_url,
+        bool   $use_mtime
+    ): ?string {
 
         $logo_cache = $this->cache->getCache("feedLogo");
 
-        // file name of the logo is md5 of the url
-        $favicon_path = join(DIRECTORY_SEPARATOR, [$logo_cache, md5($favicon)]);
-        $downloaded = false;
+        // file name of the cached logo is md5 of the favicon url
+        $favicon_url_hash = md5($favicon_url);
+        $favicon_cache = join(DIRECTORY_SEPARATOR, [$logo_cache, $favicon_url_hash]);
 
-        if (file_exists($favicon_path)) {
-            $last_modified = filemtime($favicon_path);
+        // use mtime from stored logo when looking for changes in step 1
+        if ($use_mtime) {
+            $last_modified = $this->appData->getMTime(Constants::LOGO_IMAGE_DIR, $favicon_url_hash) ?? 0;
         } else {
             $last_modified = 0;
         }
@@ -438,9 +561,9 @@ class FeedFetcher implements IFeedFetcher
             $client = new Client(['base_uri' => $base_url]);
             $response = $client->request(
                 'GET',
-                $favicon,
+                $favicon_url,
                 [
-                    'sink' => $favicon_path,
+                    'sink' => $favicon_cache,
                     'headers' => [
                         'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
@@ -449,57 +572,95 @@ class FeedFetcher implements IFeedFetcher
                     ]
                 ]
             );
-            $downloaded = true;
 
             $this->logger->debug(
                 "Feed:{feed} Logo:{logo} Status:{status}",
                 [
                 'status' => $response->getStatusCode(),
-                'feed'   => $url,
-                'logo'   => $favicon
+                'feed'   => $feed_url,
+                'logo'   => $favicon_url
                 ]
             );
+
+            // Logo not modified, keep old url
+            if ($response->getStatusCode() === 304) {
+                return $favicon_url;
+            }
+
+            if (!file_exists($favicon_cache) || filesize($favicon_cache) === 0) {
+                return null;
+            }
         } catch (RequestException | ConnectException $e) {
             $this->logger->info(
                 'An error occurred while trying to download the feed logo of {url}: {error}',
                 [
-                'url'   => $url,
+                'url'   => $feed_url,
                 'error' => $e->getMessage() ?? 'Unknown'
                 ]
             );
+            return null;
         }
 
-        $is_image = $downloaded && substr(mime_content_type($favicon_path), 0, 5) === "image";
+        // MIME types that are no bitmap images, but can be safely accepted without additional checks
+        $allowed_mimes = [
+                'image/svg+xml',
+                'image/svg'
+        ];
+
+        $mime_type = mime_content_type($favicon_cache);
+        $is_image = $mime_type !== false && substr($mime_type, 0, 5) === "image";
 
         // check if file is actually an image
         if (!$is_image) {
             $this->logger->debug(
                 "Downloaded file:{file} from {url} is not an image",
                 [
-                'file' => $favicon_path,
-                'url'   => $favicon
+                'file' => $favicon_cache,
+                'url'   => $favicon_url
                 ]
             );
-
-            $return = $this->faviconFactory->get($base_url);
-            return is_string($return) ? $return : null;
+            unlink($favicon_cache);
+            return null;
         }
 
-        list($width, $height, $type, $attr) = getimagesize($favicon_path);
-        // check if image is square else fall back to favicon
-        if ($width !== $height) {
-            $this->logger->debug(
-                "Downloaded file:{file} from {url} is not square",
-                [
-                'file' => $favicon_path,
-                'url'   => $favicon
-                ]
-            );
-            $return = $this->faviconFactory->get($base_url);
-            return is_string($return) ? $return : null;
+        if (!in_array($mime_type, $allowed_mimes, true)) {
+            $image_info = getimagesize($favicon_cache);
+            if ($image_info === false) {
+                $this->logger->debug(
+                    "Could not get image size for file:{file} from {url}",
+                    [
+                    'file' => $favicon_cache,
+                    'url'   => $favicon_url
+                    ]
+                );
+                unlink($favicon_cache);
+                return null;
+            }
+
+            list($width, $height, $type, $attr) = $image_info;
+            // check if image is square else reject it
+            if ($width !== $height) {
+                $this->logger->debug(
+                    "Downloaded file:{file} from {url} is not square",
+                    [
+                    'file' => $favicon_cache,
+                    'url'   => $favicon_url
+                    ]
+                );
+                unlink($favicon_cache);
+                return null;
+            }
         }
 
-        return is_string($favicon) ? $favicon : null;
+        // file name of the stored logo info is md5 of the feed url
+        $favicon_filename = md5($feed_url);
+        // copy verified feed icon data to appData
+        $this->appData->putFileContent(Constants::LOGO_IMAGE_DIR, $favicon_url_hash, file_get_contents($favicon_cache));
+        $this->appData->putFileContent(Constants::LOGO_INFO_DIR, 'img_'.$favicon_filename, $favicon_url_hash);
+        $this->appData->putFileContent(Constants::LOGO_INFO_DIR, 'url_'.$favicon_filename, $favicon_url);
+        unlink($favicon_cache);
+
+        return $favicon_url;
     }
 
     /**

@@ -1,12 +1,14 @@
 <template>
 	<span>
-		<NcActionButton v-if="feed.unreadCount > 0"
+		<NcActionButton
+			v-if="feed.unreadCount > 0"
 			icon="icon-checkmark"
 			:close-after-click="true"
 			@click="markRead">
 			{{ t("news", "Mark read") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.pinned"
+		<NcActionButton
+			v-if="feed.pinned"
 			icon="icon-pinned"
 			:close-after-click="true"
 			@click="setPinned(false)">
@@ -15,7 +17,8 @@
 			</template>
 			{{ t("news", "Unpin from top") }}
 		</NcActionButton>
-		<NcActionButton v-if="!feed.pinned"
+		<NcActionButton
+			v-if="!feed.pinned"
 			icon="icon-pinned"
 			:close-after-click="true"
 			@click="setPinned(true)">
@@ -24,22 +27,26 @@
 			</template>
 			{{ t("news", "Pin to top") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.ordering === FEED_ORDER.NEWEST"
+		<NcActionButton
+			v-if="feed.ordering === FEED_ORDER.NEWEST"
 			icon="icon-caret-dark"
 			@click="setOrdering(FEED_ORDER.OLDEST)">
 			{{ t("news", "Newest first") }}
 		</NcActionButton>
-		<NcActionButton v-else-if="feed.ordering === FEED_ORDER.OLDEST"
+		<NcActionButton
+			v-else-if="feed.ordering === FEED_ORDER.OLDEST"
 			icon="icon-caret-dark feed-reverse-ordering"
 			@click="setOrdering(FEED_ORDER.DEFAULT)">
 			{{ t("news", "Oldest first") }}
 		</NcActionButton>
-		<NcActionButton v-else
+		<NcActionButton
+			v-else
 			icon="icon-caret-dark"
 			@click="setOrdering(FEED_ORDER.NEWEST)">
 			{{ t("news", "Default order") }}
 		</NcActionButton>
-		<NcActionButton v-if="!feed.fullTextEnabled"
+		<NcActionButton
+			v-if="!feed.fullTextEnabled"
 			icon="icon-full-text-disabled"
 			@click="setFullText(true)">
 			<template #icon>
@@ -47,7 +54,8 @@
 			</template>
 			{{ t("news", "Enable full text") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.fullTextEnabled"
+		<NcActionButton
+			v-if="feed.fullTextEnabled"
 			icon="icon-full-text-enabled"
 			@click="setFullText(false)">
 			<template #icon>
@@ -55,44 +63,65 @@
 			</template>
 			{{ t("news", "Disable full text") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
-			icon="icon-updatemode-default"
+		<NcActionButton
+			v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
+			icon="file-document-refresh"
 			@click="setUpdateMode(FEED_UPDATE_MODE.IGNORE)">
 			<template #icon>
-				<span class="custom-icon">
-					<img :src="UnreadSvg">
-				</span>
+				<FileDocumentRefresh />
 			</template>
-			{{ t("news", "Unread updated") }}
+			{{ t("news", "Mark as unread on update") }}
 		</NcActionButton>
-		<NcActionButton v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
-			icon="icon-updatemode-unread"
+		<NcActionButton
+			v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
+			icon="file-document-check"
 			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
 			<template #icon>
-				<span class="custom-icon">
-					<img :src="IgnoreSvg">
-				</span>
+				<FileDocumentCheck />
 			</template>
-			{{ t("news", "Ignore updated") }}
+			{{ t("news", "Keep read status on update") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-rename"
+		<NcActionButton
+			icon="icon-rename"
+			:close-after-click="true"
 			@click="rename()">
 			{{ t("news", "Rename") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-arrow"
+		<NcActionButton
+			icon="icon-arrow"
 			:close-after-click="true"
-			@click="$emit('move-feed')">
+			@click="$emit('open-move-dialog')">
 			<template #icon>
 				<ArrowRightIcon />
 			</template>
 			{{ t("news", "Move") }}
 		</NcActionButton>
-		<NcActionButton icon="icon-delete"
+		<NcActionButton
+			icon="icon-delete"
 			:close-after-click="true"
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
-		<NcAppNavigationItem :name="t('news', 'Open Feed URL')"
+		<NcActionButton
+			v-if="feed.preventUpdate"
+			:close-after-click="true"
+			@click="setPreventUpdate(false)">
+			<template #icon>
+				<SyncOff />
+			</template>
+			{{ t("news", "Sync disabled") }}
+		</NcActionButton>
+		<NcActionButton
+			v-if="!feed.preventUpdate"
+			:close-after-click="true"
+			@click="setPreventUpdate(true)">
+			<template #icon>
+				<Sync />
+			</template>
+			{{ t("news", "Sync enabled") }}
+		</NcActionButton>
+		<NcAppNavigationItem
+			:name="t('news', 'Open Feed URL')"
 			:href="feed.location">
 			<template #icon>
 				<RssIcon />
@@ -103,48 +132,65 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import type { Feed } from '../types/Feed.ts'
 
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcAppNavigationItem from '@nextcloud/vue/dist/Components/NcAppNavigationItem.js'
-
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../dataservices/feed.service'
-
-import RssIcon from 'vue-material-design-icons/Rss.vue'
+import { defineComponent } from 'vue'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
+import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
+import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
+import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import PinIcon from 'vue-material-design-icons/Pin.vue'
 import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
-import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
+import RssIcon from 'vue-material-design-icons/Rss.vue'
+import Sync from 'vue-material-design-icons/Sync.vue'
+import SyncOff from 'vue-material-design-icons/SyncOff.vue'
 import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
-import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
+import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
+import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
-import { ACTIONS } from '../store'
-import { Feed } from '../types/Feed'
-import UnreadSvg from '../../img/updatemodeunread.svg'
-import IgnoreSvg from '../../img/updatemodedefault.svg'
+export default defineComponent({
+	/*
+	 * set custom component name because NcAppNavigationItem actions slot
+	 * filters for NcAction* components
+	 */
 
-export default Vue.extend({
+	name: 'NcActionButtonCustom',
+
 	components: {
 		NcActionButton,
 		NcAppNavigationItem,
 		RssIcon,
 		PinIcon,
 		PinOffIcon,
+		Sync,
+		SyncOff,
 		TextShortIcon,
 		TextLongIcon,
 		ArrowRightIcon,
+		FileDocumentRefresh,
+		FileDocumentCheck,
 	},
+
 	props: {
+		/**
+		 * The feedId of the feed whose action menu is to be displayed
+		 */
 		feedId: {
 			type: Number,
 			required: true,
 		},
 	},
+
+	emits: {
+		'open-move-dialog': () => true,
+	},
+
 	data: () => {
 		return {
 			FEED_ORDER,
 			FEED_UPDATE_MODE,
-			UnreadSvg,
-			IgnoreSvg,
 		}
 	},
 
@@ -155,22 +201,33 @@ export default Vue.extend({
 			})
 		},
 	},
+
 	methods: {
 		markRead() {
 			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
 		},
+
+		setPreventUpdate(preventUpdate: boolean) {
+			this.$store.dispatch(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: this.feed, preventUpdate })
+		},
+
 		setPinned(pinned: boolean) {
 			this.$store.dispatch(ACTIONS.FEED_SET_PINNED, { feed: this.feed, pinned })
 		},
+
 		setOrdering(ordering: FEED_ORDER) {
+			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'feed-' + String(this.feedId), lastItem: undefined })
 			this.$store.dispatch(ACTIONS.FEED_SET_ORDERING, { feed: this.feed, ordering })
 		},
+
 		setFullText(fullTextEnabled: boolean) {
 			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed: this.feed, fullTextEnabled })
 		},
+
 		setUpdateMode(updateMode: FEED_UPDATE_MODE) {
 			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed: this.feed, updateMode })
 		},
+
 		rename() {
 			const title = window.prompt(t('news', 'Rename Feed'), this.feed.title)
 
@@ -179,6 +236,7 @@ export default Vue.extend({
 				this.$store.dispatch(ACTIONS.FEED_SET_TITLE, { feed: this.feed, title })
 			}
 		},
+
 		deleteFeed() {
 			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete?'))
 
@@ -192,16 +250,6 @@ export default Vue.extend({
 </script>
 
 <style>
-.custom-icon {
-	width: 44px;
-	height: 44px;
-	display: flex;
-	align-self: center;
-	justify-self: center;
-	align-items: center;
-	justify-content: center;
-}
-
 .feed-reverse-ordering {
 	transform: rotate(180deg);
 }

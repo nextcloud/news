@@ -55,6 +55,7 @@ class UpdaterService
     {
         $this->folderService->purgeDeleted(null, null);
         $this->feedService->purgeDeleted(null, null);
+        $this->feedService->purgeFeedLogos();
     }
 
 

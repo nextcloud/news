@@ -14,15 +14,15 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use Favicon\Favicon;
-use FeedIo\Adapter\ResponseInterface;
-use FeedIo\Feed\Item\Author;
-use FeedIo\Feed\Item\MediaInterface;
-use FeedIo\Feed\Node\Category;
-use FeedIo\Feed\ItemInterface;
-use FeedIo\FeedInterface;
-use FeedIo\FeedIo;
-use FeedIo\Reader\Result;
+use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
+use OCA\News\Vendor\FeedIo\Feed\Item\Author;
+use OCA\News\Vendor\FeedIo\Feed\Item\MediaInterface;
+use OCA\News\Vendor\FeedIo\Feed\Node\Category;
+use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
+use OCA\News\Vendor\FeedIo\FeedInterface;
+use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\FeedIo\Reader\Result;
 use OC\L10N\L10N;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
@@ -32,6 +32,7 @@ use OCA\News\Config\FetcherConfig;
 
 use OCA\News\Utility\Time;
 use OCA\News\Utility\Cache;
+use OCA\News\Utility\AppData;
 use OCP\IL10N;
 use OCP\ITempManager;
 
@@ -113,6 +114,11 @@ class FeedFetcherTest extends TestCase
      * @var MockObject|Cache
      */
     private $cache;
+
+    /**
+     * @var MockObject|AppData
+     */
+    private $appData;
 
     //metadata
     /**
@@ -202,16 +208,25 @@ class FeedFetcherTest extends TestCase
         $this->cache = $this->getMockBuilder(Cache::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->fetcher = new FeedFetcher(
-            $this->reader,
-            $this->favicon,
-            $this->scraper,
-            $this->l10n,
-            $timeFactory,
-            $this->logger,
-            $this->fetcherConfig,
-            $this->cache
-        );
+        $this->appData = $this->getMockBuilder(AppData::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->fetcher =  $this->getMockBuilder(FeedFetcher::class)
+            ->setConstructorArgs([
+                $this->reader,
+                $this->favicon,
+                $this->scraper,
+                $this->l10n,
+                $timeFactory,
+                $this->logger,
+                $this->fetcherConfig,
+                $this->cache,
+                $this->appData
+            ])
+            ->onlyMethods(['downloadFavicon'])
+            ->getMock();
+        $this->fetcher->method('downloadFavicon')
+            ->willReturn('http://anon.google.com');
         $this->url = 'http://tests/';
 
         $this->permalink = 'http://permalink';

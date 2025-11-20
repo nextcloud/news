@@ -1,7 +1,7 @@
 <?php
 use OCA\News\Plugin\Client\Plugin;
 
-script('news', 'nextcloud-news-main');
+script('news', 'news-main');
 
 // load plugin scripts and styles
 foreach (Plugin::getStyles() as $appName => $fileName) {

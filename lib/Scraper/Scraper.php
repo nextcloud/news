@@ -11,10 +11,10 @@
 
 namespace OCA\News\Scraper;
 
-use fivefilters\Readability\Readability;
-use fivefilters\Readability\Configuration;
-use fivefilters\Readability\ParseException;
-use League\Uri\Exceptions\SyntaxError;
+use OCA\News\Vendor\fivefilters\Readability\Readability;
+use OCA\News\Vendor\fivefilters\Readability\Configuration;
+use OCA\News\Vendor\fivefilters\Readability\ParseException;
+use OCA\News\Vendor\League\Uri\Exceptions\SyntaxError;
 use Psr\Log\LoggerInterface;
 use OCA\News\Config\FetcherConfig;
 
@@ -24,10 +24,12 @@ class Scraper implements IScraper
     private $config;
     private $readability;
     private $curl_opts;
+    private $fetcherConfig;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, FetcherConfig $fetcherConfig)
     {
         $this->logger = $logger;
+        $this->fetcherConfig = $fetcherConfig;
         $this->config = new Configuration([
             'FixRelativeURLs' => true,
             'SummonCthulhu' => true, // Remove <script>
@@ -38,7 +40,7 @@ class Scraper implements IScraper
             CURLOPT_RETURNTRANSFER => true,     // return web page
             CURLOPT_HEADER         => false,    // do not return headers
             CURLOPT_FOLLOWLOCATION => true,     // follow redirects
-            CURLOPT_USERAGENT      => FetcherConfig::DEFAULT_USER_AGENT, // who am i
+            CURLOPT_USERAGENT      => $this->fetcherConfig->getUserAgent(), // who am i
             CURLOPT_AUTOREFERER    => true,     // set referer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
             CURLOPT_TIMEOUT        => 120,      // timeout on response

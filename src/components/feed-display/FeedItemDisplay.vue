@@ -1,46 +1,54 @@
 <template>
-	<div class="feed-item-display"
-		:class="{ 'screenreader': screenReaderMode }"
-		:aria-posinset="itemIndex"
-		:aria-setsize="itemCount"
+	<div
+		class="feed-item-display"
+		:class="{ screenreader: screenReaderMode }"
+		:style="screenReaderItemHeight"
+		v-bind="screenReaderMode ? { 'aria-setsize': itemCount, 'aria-posinset': itemIndex } : {}"
 		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
-
+		<NcActions
+			v-if="splitModeOff && !screenReaderMode"
+			class="nav-icons"
+			:inline="2">
+			<NcActionButton
+				class="nav-button left"
+				:disabled="itemIndex <= 1"
+				:title="t('news', 'Previous Item')"
+				@click="prevItem">
+				<template #icon>
+					<ChevronLeftIcon :size="32" />
+				</template>
+			</NcActionButton>
+			<NcActionButton
+				class="nav-button right"
+				:disabled="itemIndex >= itemCount"
+				:title="t('news', 'Next Item')"
+				@click="nextItem">
+				<template #icon>
+					<ChevronRightIcon :size="32" />
+				</template>
+			</NcActionButton>
+		</NcActions>
 		<div class="action-bar">
-			<NcActions v-show="!splitModeOff"
-				class="action-bar-nav"
-				:inline="4">
-				<NcActionButton :title="t('news', 'Previous Item')"
-					@click="$root.$emit('prev-item')">
-					{{ t('news', 'Previous') }}
-					<template #icon>
-						<ArrowLeftThickIcon />
-					</template>
-				</NcActionButton>
-				<NcActionButton :title="t('news', 'Next Item')"
-					@click="$root.$emit('next-item')">
-					{{ t('news', 'Next') }}
-					<template #icon>
-						<ArrowRightThickIcon />
-					</template>
-				</NcActionButton>
-			</NcActions>
 			<NcActions :inline="4">
-				<NcActionButton :title="t('news', 'Share within Instance')"
+				<NcActionButton
+					:title="t('news', 'Share within Instance')"
 					@click="showShareMenu = true">
 					{{ t('news', 'Share within Instance') }}
 					<template #icon>
 						<ShareVariant />
 					</template>
 				</NcActionButton>
-				<NcActionButton :title="t('news', 'Toggle star article')"
+				<NcActionButton
+					:title="t('news', 'Toggle star article')"
 					@click="toggleStarred">
 					{{ t('news', 'Toggle star article') }}
 					<template #icon>
-						<StarIcon :class="{'starred': item.starred }" :size="24" />
+						<StarIcon :class="{ starred: item.starred }" :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="item.unread"
+				<NcActionButton
+					v-if="item.unread"
 					:title="t('news', 'Mark read')"
 					@click="toggleRead">
 					{{ t('news', 'Mark read') }}
@@ -48,7 +56,8 @@
 						<EyeIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="!item.unread"
+				<NcActionButton
+					v-if="!item.unread"
 					:title="t('news', 'Mark unread')"
 					@click="toggleRead">
 					{{ t('news', 'Mark unread') }}
@@ -56,9 +65,10 @@
 						<EyeCheckIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="!screenReaderMode"
+				<NcActionButton
+					v-if="!screenReaderMode"
 					:title="t('news', 'Close details')"
-					@click="splitModeOff ? $emit('show-details') : clearSelected()">
+					@click="splitModeOff ? closeDetails() : clearSelected()">
 					{{ t('news', 'Close details') }}
 					<template #icon>
 						<CloseIcon :size="24" />
@@ -69,7 +79,9 @@
 		<div class="article">
 			<div class="heading">
 				<h1 :dir="item.rtl && 'rtl'">
-					<a target="_blank"
+					<a
+						ref="titleLink"
+						target="_blank"
 						rel="noreferrer"
 						:href="item.url"
 						:title="item.title">
@@ -82,14 +94,11 @@
 			</div>
 
 			<div class="subtitle" :dir="item.rtl && 'rtl'">
-				<span v-show="item.author !== undefined && item.author !== null && item.author.trim() !== ''" class="author">
-					{{ t('news', 'by') }} {{ item.author }}
-				</span>
-				<span v-if="!item.sharedBy" class="source">{{ t('news', 'from') }}
-					<a :href="`#/feed/${item.feedId}/`">
-						{{ getFeed(item.feedId).title }}
-						<img v-if="getFeed(item.feedId).faviconLink"
-							:src="getFeed(item.feedId).faviconLink"
+				<span v-if="!item.sharedBy" class="source">
+					<a :href="feedUrl + '/' + feed.id">
+						{{ feed.title }}
+						<img
+							:src="feedIcon"
 							alt="favicon"
 							style="width: 16px">
 					</a>
@@ -99,13 +108,17 @@
 					{{ t('news', 'shared by') }}
 					{{ item.sharedByDisplayName }}
 				</span>
+				<span v-show="item.author !== undefined && item.author !== null && item.author.trim() !== ''" class="author">
+					{{ t('news', 'by') }} {{ item.author }}
+				</span>
 			</div>
 
 			<div v-if="getMediaType(item.enclosureMime) == 'audio'" class="enclosure audio">
 				<button @click="playAudio(item)">
 					{{ t('news', 'Play audio') }}
 				</button>
-				<a class="button"
+				<a
+					class="button"
 					style="text-decoration: none;"
 					:href="item.enclosureLink"
 					target="_blank"
@@ -114,14 +127,16 @@
 				</a>
 			</div>
 			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure video">
-				<video controls
+				<video
+					controls
 					preload="none"
 					:src="item.enclosureLink"
 					:type="item.enclosureMime"
-					:style="{ 'background-image': 'url('+item.mediaThumbnail+')' }"
+					:style="{ 'background-image': 'url(' + item.mediaThumbnail + ')' }"
 					@play="stopAudio()" />
 				<div class="download">
-					<a class="button"
+					<a
+						class="button"
 						style="text-decoration: none;"
 						:href="item.enclosureLink"
 						target="_blank"
@@ -141,34 +156,43 @@
 
 			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
 			<!--eslint-enable-->
+
+			<div v-if="item.categories?.length > 0" class="feed-item-categories">
+				<NcChip
+					v-for="category in item.categories"
+					:key="category"
+					:text="category"
+					no-close
+					variant="secondary" />
+			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapState } from 'vuex'
+import type { Feed } from '../../types/Feed.ts'
+import type { FeedItem } from '../../types/FeedItem.ts'
 
-import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
-import StarIcon from 'vue-material-design-icons/Star.vue'
-import CloseIcon from 'vue-material-design-icons/Close.vue'
-import ArrowLeftThickIcon from 'vue-material-design-icons/ArrowLeftThick.vue'
-import ArrowRightThickIcon from 'vue-material-design-icons/ArrowRightThick.vue'
-
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
-
-import ShareItem from '../ShareItem.vue'
-
-import { Feed } from '../../types/Feed'
-import { FeedItem } from '../../types/FeedItem'
-import { formatDate, formatDateISO } from '../../utils/dateUtils'
-import { ACTIONS, MUTATIONS } from '../../store'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
+import { defineComponent } from 'vue'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcChip from '@nextcloud/vue/components/NcChip'
+import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue'
+import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
+import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
+import StarIcon from 'vue-material-design-icons/Star.vue'
+import ShareItem from '../ShareItem.vue'
+import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { API_ROUTES } from '../../types/ApiRoutes.ts'
+import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
 
-export default Vue.extend({
+export default defineComponent({
 	name: 'FeedItemDisplay',
 	components: {
 		EyeCheckIcon,
@@ -178,47 +202,108 @@ export default Vue.extend({
 		ShareVariant,
 		NcActions,
 		NcActionButton,
+		NcChip,
 		ShareItem,
-		ArrowLeftThickIcon,
-		ArrowRightThickIcon,
+		ChevronLeftIcon,
+		ChevronRightIcon,
 	},
+
 	props: {
+		/**
+		 * The item to display
+		 */
 		item: {
 			type: Object,
 			required: true,
 		},
+
+		/**
+		 * The number of items in the current list
+		 */
 		itemCount: {
 			type: Number,
 			required: false,
 			default: null,
 		},
+
+		/**
+		 * The index of the item in the current list
+		 */
 		itemIndex: {
 			type: Number,
 			required: false,
 			default: null,
 		},
+
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
+		fetchKey: {
+			type: String,
+			required: true,
+		},
 	},
+
+	emits: {
+		'select-item': () => true,
+		'show-details': () => true,
+		'prev-item': () => true,
+		'next-item': () => true,
+	},
+
 	data: () => {
 		return {
+			isMobile: useIsMobile(),
 			keepUnread: false,
 			showShareMenu: false,
+			feedUrl: API_ROUTES.FEED,
 		}
 	},
+
 	computed: {
-		...mapState(['feeds']),
-		screenReaderMode() {
-			return this.$store.getters.displaymode === '2'
+		feed(): Feed {
+			return this.$store.getters.feeds.find((feed: Feed) => feed.id === this.item.feedId) || {}
 		},
+
+		feedIcon() {
+			return API_ROUTES.FAVICON + '/' + this.feed.urlHash
+		},
+
+		screenReaderMode() {
+			return this.$store.getters.displaymode === DISPLAY_MODE.SCREENREADER
+		},
+
 		splitModeOff() {
-			return this.$store.getters.splitmode === '2'
+			return (this.$store.getters.splitmode === SPLIT_MODE.OFF || this.isMobile)
+		},
+
+		isSelected() {
+			return this.$store.getters.selected === this.item
+		},
+
+		screenReaderItemHeight() {
+			return this.screenReaderMode ? { height: ITEM_HEIGHT.DEFAULT + 'px' } : undefined
 		},
 	},
+
+	watch: {
+		// Focus title link in article to emulate structural heading navigation
+		// with screen readers
+		async isSelected(newSelected) {
+			if (newSelected && this.screenReaderMode) {
+				await this.$nextTick()
+				this.$refs.titleLink.focus()
+			}
+		},
+	},
+
 	created() {
 		// create shortcuts
 		if (this.splitModeOff && !this.screenReaderMode) {
 			useHotKey('Escape', this.closeDetails)
 		}
 	},
+
 	methods: {
 		formatDate,
 		formatDateISO,
@@ -228,18 +313,16 @@ export default Vue.extend({
 		clearSelected(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: undefined })
 		},
+
 		/**
-		 * Use parent click handler to select item when focused,
-		 * needed by screen reader navigation
+		 * Select item when focused needed by screen reader navigation
 		 */
 		selectItemOnFocus(): void {
-			if (this.screenReaderMode && this.$store.getters.selected !== this.item) {
-				this.$emit('click-item')
+			if (this.screenReaderMode && !this.isSelected) {
+				this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id, key: this.fetchKey })
 			}
 		},
-		getFeed(id: number): Feed {
-			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
-		},
+
 		/**
 		 * Sends message to change the items starred property to the opposite value
 		 */
@@ -267,9 +350,11 @@ export default Vue.extend({
 			}
 			return false
 		},
+
 		playAudio(item: FeedItem) {
 			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, item)
 		},
+
 		stopAudio() {
 			const audioElements = document.getElementsByTagName('audio')
 
@@ -277,8 +362,17 @@ export default Vue.extend({
 				audioElements[i].pause()
 			}
 		},
+
 		closeDetails() {
 			this.$emit('show-details')
+		},
+
+		prevItem() {
+			this.$emit('prev-item')
+		},
+
+		nextItem() {
+			this.$emit('next-item')
 		},
 	},
 })
@@ -286,16 +380,13 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-	$breakpoint-mobile: 1024px;
-
 	.feed-item-display {
-		overflow-y: hidden;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.feed-item-display.screenreader {
-		height: 111px;
+		overflow: hidden;
 	}
 
 	.article {
@@ -303,8 +394,8 @@ export default Vue.extend({
 		width: 100%;
 		height: 100%;
 		max-width: 1024px;
-		margin-left: auto;
-		margin-right: auto;
+		margin-inline: auto;
+		margin-inline-end: auto;
 	}
 
 	.article video {
@@ -337,7 +428,7 @@ export default Vue.extend({
 
 	.article .body ul {
 		margin: 7px 0;
-		padding-left: 14px;
+		padding-inline-start: 14px;
 		list-style-type: disc;
 	}
 
@@ -351,9 +442,38 @@ export default Vue.extend({
 		margin: 7px 0 14px 0;
 	}
 
+	.article .body blockquote {
+		border-inline-start: 2px solid var(--color-border-dark);
+		padding-inline-start: 10px;
+		font-style: italic;
+		margin: 0;
+	}
+
+	.article .body code {
+		background: var(--color-background-hover);
+		font-family: monospace;
+		padding: 0.2em 0.4em;
+		border-radius: 4px;
+	}
+
+	.article .body pre {
+		background: var(--color-background-hover);
+		padding: 1em;
+		border-radius: 4px;
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
+	.article .body pre code {
+		font-family: monospace;
+		color: var(--color-text-lighter);
+	}
+
 	.article .subtitle {
 		color: var(--color-text-lighter);
+		display: flex;
 		font-size: 15px;
+		gap: 15px;
 		padding: 25px 0;
 	}
 
@@ -377,18 +497,30 @@ export default Vue.extend({
 	}
 
 	.action-bar {
+		position: sticky;
+		top: 0;
+		z-index: 10;
+		background: var(--color-main-background);
 		padding: 10px 20px 0px 20px;
-
 		display: flex;
 		justify-content: right;
 	}
 
 	.action-bar-nav {
 		flex-grow: 1;
+	}
 
-		@media only screen and (width > $breakpoint-mobile) {
-			display: none !important;
-		}
+	.nav-icons .nav-button {
+		position: absolute;
+		top: 50%;
+	}
+
+	.nav-icons .nav-button.left {
+		inset-inline-start: 1rem;
+	}
+
+	.nav-icons .nav-button.right {
+		inset-inline-end: 1rem;
 	}
 
 	.feed-item-display .action-bar .button-vue,
@@ -398,6 +530,13 @@ export default Vue.extend({
 		min-width: 30px;
 		min-height: 30px;
 		height: 30px;
+	}
+
+	.feed-item-categories {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--default-grid-baseline);
+		margin-top: var(--default-grid-baseline);
 	}
 
 </style>

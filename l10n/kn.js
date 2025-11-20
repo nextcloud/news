@@ -13,12 +13,8 @@ OC.L10N.register(
     "Documentation" : "ದಸ್ತಾವೇಜು",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
     "Delete" : "﻿ಅಳಿಸಿ",
-    "right" : "ಬಲ",
-    "left" : "ಎಡ",
     "Folder" : "ಕೋಶ",
-    "Create" : "ಸೃಷ್ಟಿಸಿ",
-    "Import" : "ಆಮದು",
-    "Export" : "ರಫ್ತು",
-    "Help" : "﻿ಸಹಾಯ"
+    "right" : "ಬಲ",
+    "left" : "ಎಡ"
 },
 "nplurals=2; plural=(n > 1);");

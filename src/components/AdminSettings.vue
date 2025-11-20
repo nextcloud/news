@@ -4,22 +4,42 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 -->
 
 <template>
-	<NcSettingsSection :name="t('news', 'News')"
+	<NcSettingsSection
+		:name="t('news', 'News')"
 		class="news-settings"
 		doc-url="https://nextcloud.github.io/news/admin/">
-		<template v-if="lastCron !== 0">
-			<NcNoteCard v-if="oldExecution" type="error">
-				{{ t('news', 'Last job execution ran {relativeTime}. Something seems wrong.', {relativeTime}) }}
+		<div class="field">
+			<NcNoteCard v-if="lastLogoPurge === 0" type="warning">
+				{{ t('news', 'Logo purge has never been run.') }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else-if="oldLastLogoPurge" type="error">
+				{{ t('news', 'Last logo purge ran {relativeLastLogoPurge}. Something is wrong.', { relativeLastLogoPurge }) }}
 			</NcNoteCard>
 
 			<NcNoteCard v-else type="success">
-				{{ t('news', 'Last job ran {relativeTime}.', {relativeTime}) }}
+				{{ t('news', 'Last logo purge job ran {relativeLastLogoPurge}.', { relativeLastLogoPurge }) }}
 			</NcNoteCard>
-		</template>
+		</div>
+
 		<div class="field">
-			<NcCheckboxRadioSwitch type="switch"
-				:checked.sync="useCronUpdates"
-				@update:checked="update('useCronUpdates', useCronUpdates)">
+			<NcNoteCard v-if="lastCron === 0" type="warning">
+				{{ t('news', 'No job execution data available. The cron job may not be running properly.') }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else-if="oldExecution" type="error">
+				{{ t('news', 'Last job execution ran {relativeTime}. Something is wrong.', { relativeTime }) }}
+			</NcNoteCard>
+
+			<NcNoteCard v-else type="success">
+				{{ t('news', 'Last job ran {relativeTime}.', { relativeTime }) }}
+			</NcNoteCard>
+		</div>
+		<div class="field">
+			<NcCheckboxRadioSwitch
+				v-model:model-value="useCronUpdates"
+				type="switch"
+				@update:model-value="update('useCronUpdates', useCronUpdates)">
 				{{ t("news", "Use system cron for updates") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -28,70 +48,77 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="autoPurgeCount"
+			<NcTextField
+				v-model:model-value="autoPurgeCount"
 				:label="t('news', 'Maximum read count per feed')"
 				:label-visible="true"
-				@update:value="update('autoPurgeCount', autoPurgeCount)" />
+				@update:model-value="update('autoPurgeCount', autoPurgeCount)" />
 		</div>
 		<p class="settings-hint">
-			{{ t( "news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
+			{{ t("news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
 		</p>
 
 		<div class="field">
-			<NcCheckboxRadioSwitch type="switch"
-				:checked.sync="purgeUnread"
-				@update:checked="update('purgeUnread', purgeUnread)">
+			<NcCheckboxRadioSwitch
+				v-model:model-value="purgeUnread"
+				type="switch"
+				@update:model-value="update('purgeUnread', purgeUnread)">
 				{{ t("news", "Delete unread articles automatically") }}
 			</NcCheckboxRadioSwitch>
 		</div>
 		<p class="settings-hint">
-			{{ t( "news", "Enable this if you also want to delete unread articles.") }}
+			{{ t("news", "Enable this if you also want to delete unread articles.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="maxRedirects"
+			<NcTextField
+				v-model:model-value="maxRedirects"
 				:label="t('news', 'Maximum redirects')"
 				:label-visible="true"
-				@update:value="update('maxRedirects', maxRedirects)" />
+				@update:model-value="update('maxRedirects', maxRedirects)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "How many redirects the feed fetcher should follow.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="feedFetcherTimeout"
+			<NcTextField
+				v-model:model-value="feedFetcherTimeout"
 				:label="t('news', 'Feed fetcher timeout')"
 				:label-visible="true"
-				@update:value="update('feedFetcherTimeout', feedFetcherTimeout)" />
+				@update:model-value="update('feedFetcherTimeout', feedFetcherTimeout)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="exploreUrl"
+			<NcTextField
+				v-model:model-value="exploreUrl"
 				:label="t('news', 'Explore Service URL')"
 				:label-visible="true"
-				@update:value="update('exploreUrl', exploreUrl)" />
+				@update:model-value="update('exploreUrl', exploreUrl)" />
 		</div>
 		<p class="settings-hint">
-			{{ t("news", "If given, this service's URL will be queried for displaying the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
+			{{ t("news", "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
 		</p>
 
 		<div class="field">
-			<NcTextField :value.sync="updateInterval"
+			<NcTextField
+				v-model:model-value="updateInterval"
 				:label="t('news', 'Update interval')"
 				:label-visible="true"
-				@update:value="update('updateInterval', updateInterval)" />
+				@update:model-value="update('updateInterval', updateInterval)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Interval in seconds in which the feeds will be updated.") }}
 		</p>
 
 		<div class="field">
-			<NcCheckboxRadioSwitch type="switch"
-				:checked.sync="useNextUpdateTime"
-				@update:checked="update('useNextUpdateTime', useNextUpdateTime)">
+			<NcCheckboxRadioSwitch
+				v-model:model-value="useNextUpdateTime"
+				type="switch"
+				@update:model-value="update('useNextUpdateTime', useNextUpdateTime)">
 				{{ t("news", "Use next update time for feed updates") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -102,23 +129,23 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 </template>
 
 <script>
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
-import NcTextField from '@nextcloud/vue/dist/Components/NcTextField.js'
-import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
-import { formatDateRelative } from '../utils/dateUtils'
-import { loadState } from '@nextcloud/initial-state'
-import { showError, showSuccess } from '@nextcloud/dialogs'
 import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
 import { confirmPassword } from '@nextcloud/password-confirmation'
+import { generateOcsUrl } from '@nextcloud/router'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
+import { formatDateRelative } from '../utils/dateUtils.ts'
 
 /**
  * Debounce helper for method
  * TODO: Should we remove this and use library?
  *
  * @param {Function} func - The callback function
- * @param {number}     wait - Time to wait in milliseconds
+ * @param {number} wait - Time to wait in milliseconds
  */
 function debounce(func, wait) {
 	let timeout
@@ -133,6 +160,7 @@ function debounce(func, wait) {
 
 const successMessage = debounce(() => showSuccess(t('news', 'Successfully updated news configuration')), 500)
 const lastCron = loadState('news', 'lastCron')
+const lastLogoPurge = loadState('news', 'lastLogoPurge')
 
 export default {
 	name: 'AdminSettings',
@@ -142,6 +170,7 @@ export default {
 		NcTextField,
 		NcNoteCard,
 	},
+
 	data() {
 		return {
 			useCronUpdates: loadState('news', 'useCronUpdates') === '1',
@@ -154,13 +183,21 @@ export default {
 			useNextUpdateTime: loadState('news', 'useNextUpdateTime') === '1',
 			relativeTime: formatDateRelative(lastCron),
 			lastCron,
+			relativeLastLogoPurge: formatDateRelative(lastLogoPurge),
+			lastLogoPurge,
 		}
 	},
+
 	computed: {
 		oldExecution() {
 			return Date.now() / 1000 - this.lastCron > (parseInt(this.updateInterval) * 2) + 900
 		},
+
+		oldLastLogoPurge() {
+			return Date.now() / 1000 - this.lastLogoPurge > 604800
+		},
 	},
+
 	methods: {
 		async update(key, value) {
 			await confirmPassword()
@@ -188,6 +225,7 @@ export default {
 				})
 			}
 		},
+
 		handleResponse({ status, errorMessage, error }) {
 			if (status !== 'ok') {
 				showError(errorMessage)

@@ -1,13 +1,20 @@
 <template>
-	<li class="feed-item-row"
-		:class="{ 'compact': compactMode }"
+	<li
+		class="feed-item-row"
+		:class="{ compact: compactMode }"
 		:aria-label="item.title"
 		:aria-setsize="itemCount"
 		:aria-posinset="itemIndex"
+		:style="{ height: `${itemHeight}px` }"
+		role="button"
+		tabindex="0"
+		@keydown.enter="select()"
+		@keydown.space.prevent="select()"
 		@click="select()">
 		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
-			<a class="external"
+			<a
+				class="external"
 				target="_blank"
 				rel="noreferrer"
 				:href="item.url"
@@ -15,29 +22,27 @@
 				:aria-label="`${t('news', 'Open website')} ${item.url}`"
 				@click.middle="markRead(item); $event.stopPropagation();"
 				@click="markRead(item); $event.stopPropagation();">
-				<span v-if="getFeed(item.feedId).faviconLink"
+				<span
 					class="favicon"
-					:style="{ 'backgroundImage': 'url(' + getFeed(item.feedId).faviconLink + ')' }" />
-				<RssIcon v-else />
+					:style="{ backgroundImage: 'url(' + feedIcon + ')' }" />
 			</a>
 		</div>
 
-		<div class="main-container" :class="{ 'compact': compactMode }">
-			<h1 class="title-container"
-				:class="{ 'compact': compactMode && !verticalSplit, 'unread': item.unread }"
+		<div class="main-container" :class="{ compact: compactMode }">
+			<h1
+				class="title-container"
+				:class="{ compact: compactMode, mobile: isMobile, unread: item.unread }"
 				:dir="item.rtl && 'rtl'">
-				<a href="#" @click="select()">
-					{{ item.title }}
-				</a>
+				{{ item.title }}
 			</h1>
 
-			<div class="intro-container" :class="{ 'compact': compactMode }">
+			<div class="intro-container" :class="{ compact: compactMode }">
 				<!-- eslint-disable vue/no-v-html -->
-				<span v-if="!compactMode || !verticalSplit" class="intro" v-html="item.intro" />
+				<span class="intro" v-html="item.intro" />
 				<!--eslint-enable-->
 			</div>
 
-			<div v-if="!compactMode || !verticalSplit" class="date-container" :class="{ 'compact': compactMode }">
+			<div class="date-container" :class="{ compact: compactMode }">
 				<time class="date" :title="formatDate(item.pubDate)" :datetime="formatDateISO(item.pubDate)">
 					{{ formatDateRelative(item.pubDate) }}
 				</time>
@@ -45,15 +50,17 @@
 		</div>
 
 		<div class="button-container" @click="$event.stopPropagation()">
-			<NcActions :inline="3">
-				<NcActionButton :title="t('news', 'Toggle star article')"
+			<NcActions :inline="isMobile ? 0 : 3">
+				<NcActionButton
+					:title="t('news', 'Toggle star article')"
 					@click="toggleStarred(item)">
 					{{ t('news', 'Toggle star article') }}
 					<template #icon>
-						<StarIcon :class="{'starred': item.starred }" :size="24" />
+						<StarIcon :class="{ starred: item.starred }" :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="item.unread && !item.keepUnread"
+				<NcActionButton
+					v-if="item.unread && !item.keepUnread"
 					:title="t('news', 'Keep article unread')"
 					@click="toggleKeepUnread(item)">
 					{{ t('news', 'Keep article unread') }}
@@ -61,7 +68,8 @@
 						<EyeIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="!item.unread && !item.keepUnread"
+				<NcActionButton
+					v-if="!item.unread && !item.keepUnread"
 					:title="t('news', 'Toggle keep current article unread')"
 					@click="toggleKeepUnread(item)">
 					{{ t('news', 'Toggle keep current article unread') }}
@@ -69,7 +77,8 @@
 						<EyeCheckIcon :size="24" />
 					</template>
 				</NcActionButton>
-				<NcActionButton v-if="item.keepUnread"
+				<NcActionButton
+					v-if="item.keepUnread"
 					:title="t('news', 'Remove keep article unread')"
 					@click="toggleKeepUnread(item)">
 					{{ t('news', 'Remove keep article unread') }}
@@ -89,27 +98,25 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { mapState } from 'vuex'
+import type { Feed } from '../../types/Feed.ts'
+import type { FeedItem } from '../../types/FeedItem.ts'
 
-import StarIcon from 'vue-material-design-icons/Star.vue'
+import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
+import { defineComponent } from 'vue'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActions from '@nextcloud/vue/components/NcActions'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import EyeLockIcon from 'vue-material-design-icons/EyeLock.vue'
-import RssIcon from 'vue-material-design-icons/Rss.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
-
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-
+import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
+import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
+import { ACTIONS, MUTATIONS } from '../../store/index.ts'
+import { API_ROUTES } from '../../types/ApiRoutes.ts'
+import { formatDate, formatDateISO, formatDateRelative } from '../../utils/dateUtils.ts'
 
-import { Feed } from '../../types/Feed'
-import { FeedItem } from '../../types/FeedItem'
-import { formatDate, formatDateRelative, formatDateISO } from '../../utils/dateUtils'
-import { ACTIONS, MUTATIONS } from '../../store'
-
-export default Vue.extend({
+export default defineComponent({
 	name: 'FeedItemRow',
 	components: {
 		StarIcon,
@@ -117,64 +124,109 @@ export default Vue.extend({
 		EyeCheckIcon,
 		EyeLockIcon,
 		ShareVariant,
-		RssIcon,
 		NcActions,
 		NcActionButton,
 		ShareItem,
 	},
+
 	props: {
+		/**
+		 * The item to display
+		 */
 		item: {
 			type: Object,
 			required: true,
 		},
+
+		/**
+		 * The number of items in the current list
+		 */
 		itemCount: {
 			type: Number,
 			required: true,
 		},
+
+		/**
+		 * The index of the item in the current list
+		 */
 		itemIndex: {
 			type: Number,
 			required: true,
 		},
+
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
+		fetchKey: {
+			type: String,
+			required: true,
+		},
 	},
+
+	emits: {
+		'show-details': () => true,
+	},
+
+	setup: () => {
+		return {
+			isMobile: useIsMobile(),
+		}
+	},
+
 	data: () => {
 		return {
 			showShareMenu: false,
 			shareItem: undefined,
 		}
 	},
+
 	computed: {
-		...mapState(['feeds']),
 		compactMode() {
-			return this.$store.getters.displaymode === '1'
+			return this.$store.getters.displaymode === DISPLAY_MODE.COMPACT
 		},
+
 		verticalSplit() {
-			return this.$store.getters.splitmode === '0'
+			return this.$store.getters.splitmode === SPLIT_MODE.VERTICAL
+		},
+
+		itemHeight() {
+			return this.compactMode ? ITEM_HEIGHT.COMPACT : ITEM_HEIGHT.DEFAULT
+		},
+
+		feedIcon() {
+			return API_ROUTES.FAVICON + '/' + this.getFeed(this.item.feedId).urlHash
 		},
 	},
+
 	methods: {
 		formatDate,
 		formatDateRelative,
 		formatDateISO,
 		select(): void {
-			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id })
+			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id, key: this.fetchKey })
 			this.markRead(this.item)
 			this.$emit('show-details')
 		},
+
 		getFeed(id: number): Feed {
 			return this.$store.getters.feeds.find((feed: Feed) => feed.id === id) || {}
 		},
+
 		markRead(item: FeedItem): void {
 			if (!item.keepUnread && item.unread) {
 				this.$store.dispatch(ACTIONS.MARK_READ, { item })
 			}
 		},
+
 		toggleKeepUnread(item: FeedItem): void {
-			this.$set(item, 'keepUnread', !item.keepUnread)
+			item.keepUnread = !item.keepUnread
 			this.$store.dispatch(ACTIONS.MARK_UNREAD, { item })
 		},
+
 		toggleStarred(item: FeedItem): void {
 			this.$store.dispatch(item.starred ? ACTIONS.UNSTAR_ITEM : ACTIONS.STAR_ITEM, { item })
 		},
+
 		closeShareMenu() {
 			this.showShareMenu = false
 		},
@@ -189,6 +241,7 @@ export default Vue.extend({
 	}
 
 	.feed-item-row.compact {
+		container-type: inline-size;
 		display: flex; padding: 4px 4px !important;
 		border-bottom: 1px solid var(--color-border);
 	}
@@ -206,7 +259,7 @@ export default Vue.extend({
 	}
 
 	.feed-item-row .link-container {
-		padding-right: 12px;
+		padding-inline-end: 12px;
 		display: flex;
 		flex-direction: row;
 		align-self: center;
@@ -231,17 +284,14 @@ export default Vue.extend({
 	}
 
 	.feed-item-row .title-container {
+		color: var(--color-text-lighter);
 		flex-grow: 1;
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 
-	.feed-item-row .title-container a {
-		color: var(--color-text-lighter);
-	}
-
-	.feed-item-row .title-container.unread a {
+	.feed-item-row .title-container.unread {
 		color: var(--color-main-text);
 		font-weight: bold;
 	}
@@ -249,9 +299,12 @@ export default Vue.extend({
 	.feed-item-row .title-container.compact {
 		flex: 0 1 auto;
 		overflow-y: unset;
-		overflow-x: scroll;
 		max-width: 100%;
 		text-overflow: clip;
+	}
+
+	.feed-item-row .title-container.mobile {
+		overflow-x: scroll;
 	}
 
 	.feed-item-row .intro-container {
@@ -291,10 +344,18 @@ export default Vue.extend({
 		white-space: nowrap;
 	}
 
-	.feed-item-row .date-container.compact {
-		flex: 0 0 auto;
-		font-size: small;
-		padding-right: 4px;
+	@container (min-width: 500px) {
+		.feed-item-row .date-container.compact {
+			flex: 0 0 auto;
+			font-size: small;
+			padding-inline-end: 4px;
+		}
+	}
+
+	@container (max-width: 499px) {
+		.feed-item-row .date-container.compact {
+			display: none;
+		}
 	}
 
 	.feed-item-row .button-container {

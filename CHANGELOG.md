@@ -5,15 +5,138 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
 
 # Unreleased
-## [26.x.x]
+## [28.x.x]
 ### Changed
 - Add feature to Group starred Items per Feed
 
 ### Fixed
 
-
 # Releases
-## [26.0.0-beta.1] - 2025-05-20
+## [28.0.0-beta.1] - 2025-11-13
+### Changed
+- Scope PHP dependencies to prevent conflicts with other Nextcloud apps (#3397)
+
+## [27.2.0] - 2025-11-13
+### Changed
+- Add support for `svg` feed logos (#3425)
+
+## [27.2.0-beta.3] - 2025-11-10
+### Changed
+- Show time of the last feed logo purge in admin settings (#3414)
+
+## [27.2.0-beta.2] - 2025-11-09
+### Changed
+- Download and store feed logos in the `appdata` directory (#3392)
+- Add API Endpoint to serve feed logos from backend (#3392)
+- Web-Frontend now uses feed logos fetched from backend (#3392)
+
+## [27.2.0-beta.1] - 2025-11-02
+### Changed
+- Replaced HTMLPurifier with Symfony HTML Sanitizer for improved performance and maintainability (#3393)
+
+### Fixed
+- `favicon` links not updated for existing feeds (#3391)
+
+## [27.1.0] - 2025-10-26
+### Changed
+- Display categories at the end of an article (#3380)
+
+## [27.0.1] - 2025-10-17
+### Fixed
+- Latvian accented characters messed up (#3363)
+
+## [27.0.0] - 2025-09-29
+### Changed
+- Add option to enable/disable sync of a feed (#3316)
+- Add option to modify feeds from feed info table (#3315)
+- Open article from unified search result (#3330)
+
+### Fixed
+- fulltext scraper did not use new user agent (#3320)
+- fix feed `url` in search results (#3329)
+
+## [27.0.0-beta.1] - 2025-08-31
+### Changed
+- Drop Support for Nextcloud 30 (#3294)
+- Add Support for Nextcloud 32 (#3294)
+- If feed has no favicon and no logo News will check the linked website of the feed (#3271)
+
+### Fixed
+- Unread counter displays a huge number of unread posts (#3267)
+- Nextcloud language setting is not respected for numbers and dates (#3278)
+- Handling HTML entities via mbstring is deprecated (#3269)
+
+## [26.1.0] - 2025-08-02
+### Changed
+- add refresh button to list header (#3259)
+
+## [26.1.0-beta.1] - 2025-07-17
+### Changed
+- add recently viewed list in the web interface (#3250)
+- switch to php-feed-io/feed-io, the new home for feed-io (#3249)
+
+### Fixed
+- only use Last-Modified header if a feed supports it (#3243)
+- better handling when feed update job status is unknown (#3248)
+
+## [26.0.2] - 2025-06-29
+### Changed
+- implement item navigation when showing details in no-split mode (#3191)
+- add swipe down event to refresh item list for mobile devices (#3240)
+- use three dot menu for `star`, `unread` and `share` button in item list on small devices (#3240)
+- Add script to automatically find PRs for Changelog lines
+
+### Fixed
+- style fixes for `<blockquote>`, `<pre>` and `<code>` in articles (#3211)
+- keep action bar position when scrolling article (#3211)
+- explore `url` does not work when called directly (#3222)
+- radio switches in add feed dialog not working (#3237)
+- incorrect feed `url` in article view when navigating in merged routes such as unread or a folder (#3224)
+- `mark read on scroll` can keep some items unread after refreshing item list (#3240)
+
+## [26.0.1] - 2025-06-04
+### Changed
+- enable title scrolling in compact mode on mobile only (#3205)
+
+### Fixed
+- prevent incorrect "mark read on scroll" behavior after route change (#3206)
+
+## [26.0.0] - 2025-05-29
+### Fixed
+- content splitter position not recognized when reloading app (#3193)
+- feed/folder action menu does not close when clicked outside (#3193)
+- fix feed url in details view (#3193)
+
+## [26.0.0-beta.5] - 2025-05-23
+### Changed
+- show intro and date if enough space in compact mode (#3186)
+
+### Fixed
+- since `26.0.0-beta.4` the first selected item can disappear from the list if you change from another type of route, e.g. from feed to folder (#3178)
+
+## [26.0.0-beta.4] - 2025-05-17
+### Changed
+- Open the feed info table during opml import to show what has been imported after completion (#3169)
+
+### Fixed
+- Wrong or none items in list after switching feed or folder (#3168)
+- opml import/export not working after vue router changes (#3169)
+
+## [26.0.0-beta.3] - 2025-05-13
+### Changed
+- Migrate frontend to Vue3 (#3163)
+- Migrate from webpack to vite (#3163)
+- Migrate from jest to vitest (#3163)
+
+### Fixed
+- subscribe_to URL path has changed (#3159)
+- change update mode menu text and icon in feed action menu (#3163)
+
+## [26.0.0-beta.2] - 2025-05-06
+### Fixed
+-  Item list not updated by automatic or manual refresh (#3155)
+
+## [26.0.0-beta.1] - 2025-05-02
 ### Changed
 - Drop support for Nextcloud 29 (#3146)
 

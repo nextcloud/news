@@ -14,16 +14,18 @@
 namespace OCA\News\Service;
 
 use DateTime;
-use FeedIo\Explorer;
-use FeedIo\Reader\ReadErrorException;
-use FeedIo\Reader\NoAccurateParserException;
-use HTMLPurifier;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Reader\NoAccurateParserException;
 
+use OCA\News\Constants;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\AppInfo\Application;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Utility\HtmlSanitizer;
+use OCA\News\Utility\AppData;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IAppConfig;
@@ -52,9 +54,9 @@ class FeedServiceV2 extends Service
      */
     protected $itemService;
     /**
-     * HTML Purifier
+     * HTML Sanitizer
      *
-     * @var HTMLPurifier
+     * @var HtmlSanitizer
      */
     protected $purifier;
     /**
@@ -67,6 +69,10 @@ class FeedServiceV2 extends Service
      * @var IAppConfig
      */
     protected $config;
+    /**
+     * @var AppData
+     */
+    protected $appData;
 
     /**
      * FeedService constructor.
@@ -75,7 +81,7 @@ class FeedServiceV2 extends Service
      * @param FeedFetcher     $feedFetcher FeedIO interface
      * @param ItemServiceV2   $itemService Service to manage items
      * @param Explorer        $explorer    Feed Explorer
-     * @param HTMLPurifier    $purifier    HTML Purifier
+     * @param HtmlSanitizer   $purifier    HTML Sanitizer
      * @param LoggerInterface $logger      Logger
      * @param IAppConfig      $config      App config
      */
@@ -84,9 +90,10 @@ class FeedServiceV2 extends Service
         FeedFetcher $feedFetcher,
         ItemServiceV2 $itemService,
         Explorer $explorer,
-        HTMLPurifier $purifier,
+        HtmlSanitizer $purifier,
         LoggerInterface $logger,
-        IAppConfig $config
+        IAppConfig $config,
+        AppData $appData
     ) {
         parent::__construct($mapper, $logger);
 
@@ -95,6 +102,7 @@ class FeedServiceV2 extends Service
         $this->explorer    = $explorer;
         $this->purifier    = $purifier;
         $this->config      = $config;
+        $this->appData     = $appData;
     }
 
     /**
@@ -208,7 +216,9 @@ class FeedServiceV2 extends Service
         bool $full_discover = true,
         ?string $httpLastModified = null
     ): Entity {
-        $httpLastModified ??= (new DateTime("-1 year"))->format(DateTime::RSS);
+        if ($this->feedFetcher->hasLastModifiedHeader($feedUrl)) {
+            $httpLastModified ??= (new DateTime("-1 year"))->format(DateTime::RSS);
+        }
         try {
             /**
              * @var Feed   $feed
@@ -368,6 +378,12 @@ class FeedServiceV2 extends Service
             $feed->setNextUpdateTime(null);
         }
 
+        // update favicon link
+        $fetchedFavicon = $fetchedFeed->getFaviconLink();
+        if ($fetchedFavicon) {
+            $feed->setFaviconLink($fetchedFavicon);
+        }
+
         foreach (array_reverse($items) as &$item) {
             $item->setFeedId($feed->getId())
                 ->setBody($this->purifier->purify($item->getBody()));
@@ -440,5 +456,61 @@ class FeedServiceV2 extends Service
         $feed = $this->find($userId, $id);
 
         return $this->mapper->read($userId, $feed->getId(), $maxItemID);
+    }
+
+    /**
+     * Purge unused feed logos
+     */
+    public function purgeFeedLogos(): void
+    {
+        $activeUrlHashes = [];
+        $activeLogoHashes = [];
+
+        // cleanup only once a week
+        $lastRun = (int)$this->config->getValueInt(Application::NAME, 'lastLogoPurge', 0);
+        if (time() - $lastRun < Constants::LOGO_PRUNE_INTERVAL) {
+            return;
+        }
+        $this->config->setValueInt(Application::NAME, 'lastLogoPurge', time());
+
+        // build map for active feed urls
+        foreach ($this->findAll() as $feed) {
+            $urlHash = $feed->getUrlHash();
+            $activeUrlHashes[$urlHash] = true;
+        }
+
+        $appFolder = $this->appData->getAppFolder(Constants::LOGO_INFO_DIR);
+
+        // check all url_/img_ files if they are still used and build map with active logos
+        foreach ($appFolder->getDirectoryListing() as $file) {
+            $filename = $file->getName();
+
+            if (preg_match('/^(url|img)_([a-f0-9]+)$/', $filename, $matches)) {
+                $hash = $matches[2];
+
+                if (!isset($activeUrlHashes[$hash])) {
+                    $file->delete();
+                } else {
+                    // save active logo hash
+                    if (str_starts_with($filename, 'img_')) {
+                        $logoHash = $this->appData->getFileContent(Constants::LOGO_INFO_DIR, $filename);
+                        $activeLogoHashes[$logoHash] = true;
+                    }
+                }
+            }
+        }
+
+        $appFolder = $this->appData->getAppFolder(Constants::LOGO_IMAGE_DIR);
+
+        // check all logo files if they are still used
+        foreach ($appFolder->getDirectoryListing() as $file) {
+            $filename = $file->getName();
+
+            if (preg_match('/^([a-f0-9]+)$/', $filename)) {
+                if (!isset($activeLogoHashes[$filename])) {
+                    $file->delete();
+                }
+            }
+        }
     }
 }

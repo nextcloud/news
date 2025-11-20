@@ -4,31 +4,38 @@
   - This file is licensed under the Affero General Public License version 3 or later. See the COPYING file.
   -->
 <script>
-import Vue from 'vue'
 import _ from 'lodash'
-
-import { ACTIONS } from '../../store'
+import { defineComponent, Fragment, h } from 'vue'
+import { DISPLAY_MODE, ITEM_HEIGHT } from '../../enums/index.ts'
+import { ACTIONS } from '../../store/index.ts'
+import { getOldestFirst } from '../../utils/itemFilter.ts'
 
 const GRID_ITEM_HEIGHT = 200 + 10
 
-export default Vue.extend({
+export default defineComponent({
 	name: 'VirtualScroll',
 	props: {
+		/**
+		 * The name of the view e.g. all, unread, feed-10
+		 */
 		fetchKey: {
 			type: String,
 			required: true,
 		},
 	},
+
+	emits: {
+		'load-more': () => true,
+	},
+
 	data() {
 		return {
 			viewport: null,
 			scrollTop: 0,
-			scrollHeight: 500,
-			elementToShow: null,
-			elementToFocus: null,
 			debouncedMarkRead: null,
 		}
 	},
+
 	computed: {
 		reachedEnd: {
 			cache: false,
@@ -36,33 +43,55 @@ export default Vue.extend({
 				return this.$store.state.items.allItemsLoaded[this.fetchKey] === true
 			},
 		},
+
 		fetching: {
 			cache: false,
 			get() {
 				return this.$store.state.items.fetchingItems[this.fetchKey]
 			},
 		},
+
 		displayMode: {
 			cache: false,
 			get() {
 				return this.$store.getters.displaymode
 			},
 		},
+
+		rowHeight() {
+			return this.displayMode === DISPLAY_MODE.COMPACT ? ITEM_HEIGHT.COMPACT : ITEM_HEIGHT.DEFAULT
+		},
 	},
+
 	watch: {
 		fetchKey: {
 			handler() {
 				this.scrollTop = 0
 				this._seenItems = new Map()
 			},
+
 			immediate: true,
 		},
+
+		reachedEnd: {
+			handler() {
+				/*
+				 * When sorting oldest to newest show new items when they arrive
+				 */
+				const oldestFirst = getOldestFirst(this.$store, this.fetchKey)
+				if (oldestFirst && !this.reachedEnd) {
+					this.loadMore()
+				}
+			},
+		},
 	},
+
 	created() {
 		this._lastRendered = null
 		this._lowerPaddingItems = 0
 		this.debouncedMarkRead = _.debounce(this.markReadOnScroll, 500)
 	},
+
 	mounted() {
 		this.loadMore()
 		this.$nextTick(() => {
@@ -73,25 +102,32 @@ export default Vue.extend({
 
 		window.addEventListener('resize', this.onScroll)
 	},
-	destroyed() {
+
+	unmounted() {
+		this.debouncedMarkRead.flush?.()
+		this.debouncedMarkRead.cancel?.()
 		window.removeEventListener('resize', this.onScroll)
 	},
+
 	updated() {
+		this.$el.scrollTop = this.scrollTop
 		this.$nextTick(this.loadMore)
-		if (!this.$store.getters.preventReadOnScroll) {
+		if (!this.$store.getters.preventReadOnScroll && !this.fetching) {
 			this.addToSeen(this._lastRendered)
 		}
 	},
+
 	methods: {
 		addToSeen(children) {
-			if (children) {
+			if (this.$el.offsetParent && children) {
 				children.forEach((child) => {
-					if (!this._seenItems.has(child.key) && child.componentOptions.propsData.item.unread) {
-						this._seenItems.set(child.key, { offset: child.elm.offsetTop, item: child.componentOptions.propsData.item })
+					if (child.el && !this._seenItems.has(child.key) && child.props.item) {
+						this._seenItems.set(child.key, { offset: child.el.offsetTop, item: child.props.item })
 					}
 				})
 			}
 		},
+
 		markReadOnScroll() {
 			for (const [key, value] of this._seenItems) {
 				if (this.scrollTop > value.offset) {
@@ -103,15 +139,16 @@ export default Vue.extend({
 				}
 			}
 		},
+
 		onScroll() {
 			this.scrollTop = this.$el.scrollTop
-			this.scrollHeight = this.$el.scrollHeight
 			this.loadMore()
 
 			if (!this.$store.getters.preventReadOnScroll) {
 				this.debouncedMarkRead()
 			}
 		},
+
 		loadMore() {
 			if (this._lowerPaddingItems === 0) {
 				if (!this.reachedEnd && !this.fetching) {
@@ -119,19 +156,46 @@ export default Vue.extend({
 				}
 			}
 		},
-		showElement(element) {
-			this.elementToShow = element
+
+		scrollToItem(currentIndex) {
+			this.$nextTick(() => {
+				/*
+				 * restore view port when closing details view
+				 */
+				if (this.$el.scrollHeight > 0 && this.viewport.height === 0) {
+					this.viewport = this.$el.getBoundingClientRect()
+				}
+				/*
+				 * set scroll position to current item
+				*/
+				this.scrollTop = this.rowHeight * currentIndex
+			})
 		},
 	},
-	render(h) {
+
+	render() {
 		let children = []
 		let renderedItems = 0
 		let upperPaddingItems = 0
 		let lowerPaddingItems = 0
-		const itemHeight = this.displayMode === '1' ? 44 : 111
+		const itemHeight = this.rowHeight
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.viewport) {
-			const childComponents = this.$slots.default.filter(child => !!child.componentOptions)
+			const childComponents = []
+
+			const findComponents = (vnodes, childComponents) => {
+				vnodes.forEach((vnode) => {
+					if (vnode.type?.name?.startsWith('FeedItem')) {
+						childComponents.push(vnode)
+						return
+					}
+					if (vnode.type === Fragment) {
+						findComponents(vnode.children, childComponents)
+					}
+				})
+			}
+			findComponents(this.$slots.default?.(), childComponents)
+
 			renderedItems = Math.floor((this.viewport.height + padding + padding) / itemHeight)
 			upperPaddingItems = Math.floor(Math.max(this.scrollTop - padding, 0) / itemHeight)
 			children = childComponents.slice(upperPaddingItems, upperPaddingItems + renderedItems)
@@ -143,34 +207,10 @@ export default Vue.extend({
 			return h('div', { class: 'virtual-scroll' })
 		}
 
-		const scrollTop = this.scrollTop
-		this.$nextTick(() => {
-			if (this.elementToShow) {
-				// Workaround for buggy scroll with screen readers.
-				// Remember currently selected item to focus on next tick
-				if (this.displayMode === '2') {
-					this.elementToFocus = this.elementToShow
-				}
-				this.elementToShow.scrollIntoView({ behavior: 'auto', block: 'start' })
-				this.elementToShow = null
-			} else {
-				this.$el.scrollTop = scrollTop
-			}
-			// Focus title link in article to emulate structural heading navigation
-			// with screen readers
-			if (this.elementToFocus) {
-				const titleLink = this.elementToFocus.querySelector('a')
-				if (titleLink) {
-					titleLink.focus()
-				}
-			}
-		})
-
 		return h('div', {
 			class: 'virtual-scroll',
-			on: { scroll: () => this.onScroll() },
-		},
-		[
+			onScroll: this.onScroll,
+		}, [
 			h('div', { class: 'upper-padding', style: { height: Math.max((upperPaddingItems) * itemHeight, 0) + 'px' } }),
 			h('div', {
 				class: 'container-window',

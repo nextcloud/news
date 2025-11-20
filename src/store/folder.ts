@@ -1,10 +1,11 @@
-import _ from 'lodash'
+import type { ActionParams } from '../store/index.ts'
+import type { Feed } from '../types/Feed.ts'
+import type { Folder } from '../types/Folder.ts'
 
-import { ActionParams } from '../store'
-import { Folder } from '../types/Folder'
-import { Feed } from '../types/Feed'
-import { FOLDER_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
+import _ from 'lodash'
+import { reactive } from 'vue'
 import { FolderService } from '../dataservices/folder.service'
+import { FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const FOLDER_ACTION_TYPES = {
 	FETCH_FOLDERS: 'FETCH_FOLDERS',
@@ -19,9 +20,9 @@ export type FolderState = {
 	folders: Folder[]
 }
 
-const state: FolderState = {
+const state: FolderState = reactive({
 	folders: [],
-}
+})
 
 const getters = {
 	folders(state: FolderState) {
@@ -70,8 +71,7 @@ export const mutations = {
 		folders: Folder[],
 	) {
 		const updatedFolders = [...state.folders, ...folders]
-			.filter((folder, index, self) =>
-				self.findIndex(f => f.id === folder.id) === index)
+			.filter((folder, index, self) => self.findIndex((f) => f.id === folder.id) === index)
 			.sort((a, b) => a.name.localeCompare(b.name))
 
 		state.folders = updatedFolders
@@ -89,14 +89,16 @@ export const mutations = {
 		state: FolderState,
 		feeds: Feed[],
 	) {
-		const updatedFolders = state.folders.map(folder => ({
+		const updatedFolders = state.folders.map((folder) => ({
 			...folder,
 			feeds: [] as Feed[],
 			feedCount: 0,
 			updateErrorCount: 0,
 		}))
-		feeds.forEach(it => {
-			const folder = updatedFolders.find((folder: Folder) => { return folder.id === it.folderId })
+		feeds.forEach((it) => {
+			const folder = updatedFolders.find((folder: Folder) => {
+				return folder.id === it.folderId
+			})
 			if (folder) {
 				folder.feeds.push(it)
 				folder.feedCount += it.unreadCount
@@ -112,7 +114,9 @@ export const mutations = {
 		state: FolderState,
 		feed: Feed,
 	) {
-		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === feed.folderId
+		})
 		if (folder) {
 			folder.feeds.push(feed)
 			folder.feedCount += feed.unreadCount
@@ -124,7 +128,9 @@ export const mutations = {
 		state: FolderState,
 		newFolder: Folder,
 	) {
-		const folder = state.folders.find((f: Folder) => { return f.id === newFolder.id })
+		const folder = state.folders.find((f: Folder) => {
+			return f.id === newFolder.id
+		})
 		if (folder) {
 			_.assign(folder, newFolder)
 		}
@@ -134,7 +140,9 @@ export const mutations = {
 		state: FolderState,
 		{ feedId, folderId, unreadCount }: { feedId: number, folderId: number, unreadCount: number },
 	) {
-		const folder = state.folders.find((folder: Folder) => { return folder.id === folderId })
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === folderId
+		})
 		if (folder) {
 			folder.feedCount -= unreadCount
 			const updatedFeeds = folder.feeds.filter((feed: Feed) => {
@@ -142,14 +150,15 @@ export const mutations = {
 			})
 			folder.feeds = [...updatedFeeds]
 		}
-
 	},
 
 	[FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT](
 		state: FolderState,
-		{ folderId, delta }: {folderId: number; delta: number },
+		{ folderId, delta }: { folderId: number, delta: number },
 	) {
-		const folder = state.folders.find((f: Folder) => { return f.id === folderId })
+		const folder = state.folders.find((f: Folder) => {
+			return f.id === folderId
+		})
 		if (folder) {
 			folder.feedCount += delta
 		}
@@ -159,7 +168,9 @@ export const mutations = {
 		state: FolderState,
 		feed: Feed,
 	) {
-		const folder = state.folders.find((folder: Folder) => { return folder.id === feed.folderId })
+		const folder = state.folders.find((folder: Folder) => {
+			return folder.id === feed.folderId
+		})
 
 		if (folder) {
 			folder.feedCount -= feed.unreadCount

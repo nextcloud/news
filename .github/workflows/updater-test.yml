@@ -17,12 +17,12 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.3']
-        nextcloud: ['stable30']
+        nextcloud: ['stable31']
         database: ['sqlite']
         experimental: [false]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: recursive
 
@@ -34,7 +34,7 @@ jobs:
           coverage: none
 
       - name: Setup BATS & httpie
-        run: sudo apt-get install -y httpie && sudo npm install -g bats@1.11.0
+        run: sudo apt-get update && sudo apt-get install -y httpie && sudo npm install -g bats@1.11.0
 
       - name: Set up server
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@main

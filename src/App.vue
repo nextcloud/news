@@ -6,7 +6,8 @@
 
 				<ul v-for="link of app.error.links" :key="link.url">
 					<li>
-						<a :href="link.url"
+						<a
+							:href="link.url"
 							target="_blank"
 							rel="noreferrer">
 							{{ link.text }}
@@ -24,16 +25,19 @@
 				<RouterView />
 			</div>
 			<div v-if="playingItem" class="podcast">
-				<audio controls
+				<audio
+					controls
 					autoplay
 					:src="playingItem.enclosureLink"
 					@play="stopVideo()" />
-				<a class="button podcast-download"
+				<a
+					class="button podcast-download"
 					:title="t('news', 'Download')"
 					:href="playingItem.enclosureLink"
 					target="_blank"
 					rel="noreferrer">{{ t('news', 'Download') }}</a>
-				<button class="podcast-close"
+				<button
+					class="podcast-close"
 					:title="t('news', 'Close')"
 					@click="stopPlaying()">
 					{{ t('news', 'Close') }}
@@ -45,42 +49,46 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcContent from '@nextcloud/vue/components/NcContent'
 import Sidebar from './components/Sidebar.vue'
-import { ACTIONS, MUTATIONS } from './store'
+import { ACTIONS, MUTATIONS } from './store/index.ts'
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcContent,
 		Sidebar,
 	},
+
 	computed: {
 		playingItem() {
 			return this.$store.state.items.playingItem
 		},
+
 		...mapState(['app']),
 	},
+
 	async created() {
-		// fetch starred to get starred count
-		await this.$store.dispatch(ACTIONS.FETCH_STARRED)
 		// fetch folders and feeds to build side bar
 		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
 		await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 
 		this.$store.commit(MUTATIONS.SET_LOADING, { value: false })
 	},
+
 	methods: {
 		stopPlaying() {
 			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, undefined)
 		},
+
 		stopVideo() {
 			const videoElements = document.getElementsByTagName('video')
 			for (let i = 0; i < videoElements.length; i++) {
 				videoElements[i].pause()
 			}
 		},
+
 		removeError() {
 			this.$store.commit(MUTATIONS.SET_ERROR, undefined)
 		},
@@ -97,7 +105,7 @@ export default Vue.extend({
 
 	#warning-box {
 		position: absolute;
-		right: 35px;
+		inset-inline-end: 35px;
 		top: 15px;
 		z-index: 5000;
 		padding: 5px 10px;

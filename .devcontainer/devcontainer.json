@@ -1,8 +1,10 @@
 {
     "image": "ghcr.io/juliusknorr/nextcloud-dev-php82:latest",
+	"remoteUser": "root",
+    "updateRemoteUserUID": true,
     "forwardPorts": [80],
     "containerEnv": {
-		"NEXTCLOUD_VERSION": "30",
+		"NEXTCLOUD_VERSION": "31",
         "NEXTCLOUD_AUTOINSTALL_APPS": "news",
 		"XDEBUG_MODE": "debug"
     },

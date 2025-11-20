@@ -10,8 +10,6 @@ OC.L10N.register(
     "Share" : "Compartir",
     "Settings" : "Configuración",
     "Rename" : "Renombrar",
-    "Delete" : "Borrar",
-    "Create" : "Crear",
-    "Help" : "Aduya"
+    "Delete" : "Borrar"
 },
 "nplurals=2; plural=(n != 1);");

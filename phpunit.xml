@@ -16,6 +16,7 @@
             <file>./lib/Controller/JSONHttpErrorTrait.php</file>
             <directory suffix=".php">./lib/*/Exceptions</directory>
             <directory suffix=".php">./lib/Migration</directory>
+            <directory suffix=".php">./lib/Vendor</directory>
             <file>./lib/Db/FeedType.php</file>
             <file>./lib/Db/IAPI.php</file>
         </exclude>

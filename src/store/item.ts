@@ -1,10 +1,11 @@
-import { ActionParams } from '../store'
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes'
+import type { ActionParams } from '../store/index.ts'
+import type { Feed } from '../types/Feed.ts'
+import type { FeedItem } from '../types/FeedItem.ts'
 
-import { FeedItem } from '../types/FeedItem'
-import { Feed } from '../types/Feed'
+import { reactive } from 'vue'
 import { ItemService } from '../dataservices/item.service'
-import { FEED_ACTION_TYPES } from './feed'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES } from '../types/MutationTypes.ts'
+import { FEED_ACTION_TYPES } from './feed.ts'
 
 export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_STARRED: 'FETCH_STARRED',
@@ -16,26 +17,26 @@ export const FEED_ITEM_ACTION_TYPES = {
 	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
 	FETCH_FOLDER_FEED_ITEMS: 'FETCH_FOLDER_FEED_ITEMS',
 	FETCH_ITEMS: 'FETCH_ITEMS',
-	RESET_LAST_ITEM_LOADED: 'RESET_LAST_ITEM_LOADED',
 }
 
 export type ItemState = {
-	fetchingItems: { [key: string]: boolean };
-	allItemsLoaded: { [key: string]: boolean };
-	lastItemLoaded: { [key: string]: number };
-	newestItemId: number;
-	syncNeeded: boolean;
+	fetchingItems: { [key: string]: boolean }
+	allItemsLoaded: { [key: string]: boolean }
+	lastItemLoaded: { [key: string]: number }
+	newestItemId: number
+	syncNeeded: boolean
 
-	starredCount: number;
-	unreadCount: number;
+	starredCount: number
+	unreadCount: number
 
-	allItems: FeedItem[];
+	allItems: FeedItem[]
+	recentItemIds: string[]
 
-	selectedId?: string;
+	selectedId?: string
 	playingItem?: FeedItem
 }
 
-const state: ItemState = {
+const state: ItemState = reactive({
 	fetchingItems: {},
 	allItemsLoaded: {},
 	lastItemLoaded: {},
@@ -46,10 +47,11 @@ const state: ItemState = {
 	unreadCount: 0,
 
 	allItems: [],
+	recentItemIds: [],
 
 	selectedId: undefined,
 	playingItem: undefined,
-}
+})
 
 const getters = {
 	starred(state: ItemState) {
@@ -64,10 +66,16 @@ const getters = {
 	allItems(state: ItemState) {
 		return state.allItems
 	},
+	recentItemIds(state: ItemState) {
+		return state.recentItemIds
+	},
 	newestItemId(state: ItemState) {
 		return state.newestItemId
 	},
 }
+
+// timestamp of the latest fetch request
+let latestFetchRequest = 0
 
 export const actions = {
 	/**
@@ -82,9 +90,18 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ start }: { start: number } = { start: 0 },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'unread', fetching: true })
 
-		const response = await ItemService.debounceFetchUnread(start || state.lastItemLoaded.unread)
+		const response = await ItemService.fetchUnread(start || state.lastItemLoaded.unread)
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -111,14 +128,24 @@ export const actions = {
 	 * @param param0.commit Commit param
 	 * @param param1 ActionArgs
 	 * @param param1.start Start data
+	 * @param param1.limit Number of items
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ start }: { start: number } = { start: 0 },
+		{ start, limit }: { start: number, limit: number } = { start: 0, limit: 40 },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'all', fetching: true })
 
-		const response = await ItemService.debounceFetchAll(start || state.lastItemLoaded.all)
+		const response = await ItemService.fetchAll(start || state.lastItemLoaded.all, limit)
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -151,9 +178,18 @@ export const actions = {
 		{ commit }: ActionParams<ItemState>,
 		{ feedId, start }: { feedId: number, start: number } = { feedId: 0, start: 0 },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'starred-' + feedId, fetching: true })
 
-		const response = await ItemService.debounceFetchStarred(feedId, start || state.lastItemLoaded['starred-' + feedId])
+		const response = await ItemService.fetchStarred(feedId, start || state.lastItemLoaded['starred-' + feedId])
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -186,10 +222,19 @@ export const actions = {
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ feedId, start }: { feedId: number; start: number },
+		{ feedId, start }: { feedId: number, start: number },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'feed-' + feedId, fetching: true })
-		const response = await ItemService.debounceFetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
+		const response = await ItemService.fetchFeedItems(feedId, start || state.lastItemLoaded['feed-' + feedId])
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -218,10 +263,19 @@ export const actions = {
 	 */
 	async [FEED_ITEM_ACTION_TYPES.FETCH_FOLDER_FEED_ITEMS](
 		{ commit }: ActionParams<ItemState>,
-		{ folderId, start }: { folderId: number; start: number },
+		{ folderId, start }: { folderId: number, start: number },
 	) {
+		const requestId = Date.now()
+		latestFetchRequest = requestId
+
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: true })
-		const response = await ItemService.debounceFetchFolderFeedItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
+		const response = await ItemService.fetchFolderItems(folderId, start || state.lastItemLoaded['folder-' + folderId])
+
+		// skip response if outdated
+		if (latestFetchRequest !== requestId) {
+			return
+		}
+
 		if (response?.data.newestItemId && response?.data.newestItemId !== state.newestItemId) {
 			state.syncNeeded = true
 		}
@@ -274,7 +328,7 @@ export const actions = {
 	 */
 	[FEED_ITEM_ACTION_TYPES.MARK_UNREAD](
 		{ commit, dispatch }: ActionParams<ItemState>,
-		{ item }: { item: FeedItem},
+		{ item }: { item: FeedItem },
 	) {
 		ItemService.markRead(item, false)
 
@@ -297,7 +351,7 @@ export const actions = {
 	 */
 	[FEED_ITEM_ACTION_TYPES.STAR_ITEM](
 		{ commit }: ActionParams<ItemState>,
-		{ item }: { item: FeedItem},
+		{ item }: { item: FeedItem },
 	) {
 		ItemService.markStarred(item, true)
 
@@ -318,7 +372,7 @@ export const actions = {
 	 */
 	[FEED_ITEM_ACTION_TYPES.UNSTAR_ITEM](
 		{ commit }: ActionParams<ItemState>,
-		{ item }: { item: FeedItem},
+		{ item }: { item: FeedItem },
 	) {
 		ItemService.markStarred(item, false)
 
@@ -326,7 +380,6 @@ export const actions = {
 		const feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
-		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: false })
 	},
 
 	/**
@@ -346,9 +399,16 @@ export const actions = {
 export const mutations = {
 	[FEED_ITEM_MUTATION_TYPES.SET_SELECTED_ITEM](
 		state: ItemState,
-		{ id }: { id: string },
+		{ id, key }: { id: string, key?: string },
 	) {
 		state.selectedId = id
+		if (id && key !== 'recent') {
+			state.recentItemIds = state.recentItemIds.filter((itemId) => itemId !== id)
+			state.recentItemIds.unshift(id)
+			if (state.recentItemIds.length > 20) {
+				state.recentItemIds.pop()
+			}
+		}
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_PLAYING_ITEM](
@@ -366,9 +426,11 @@ export const mutations = {
 			let newestFetchedItemId = 0
 			const newItems: FeedItem[] = []
 
-			items.forEach(it => {
+			items.forEach((it) => {
 				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
-					if (!it.title) { it.title = it.url }
+					if (!it.title) {
+						it.title = it.url
+					}
 					newItems.push(it)
 					if (state.newestItemId < Number(it.id)) {
 						newestFetchedItemId = Number(it.id)
@@ -412,34 +474,26 @@ export const mutations = {
 		{ item }: { item: FeedItem },
 	) {
 		const idx = state.allItems.findIndex((it) => it.id === item.id)
-		// Since spread-syntax doesn't work here properly with vue2, update
-		// each property on its own as workaround to prevent rebuilding
-		// the whole item list when changing the unread or starred status
-		// state.allItems[idx] = { ...state.allItems[idx], ...item }
-		state.allItems[idx].starred = item.starred
-		state.allItems[idx].unread = item.unread
-		// UPDATE_ITEM currently only used when toggle starred and unread
-		// add title to make js-test happy
-		state.allItems[idx].title = item.title
+		Object.assign(state.allItems[idx], item)
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_FETCHING](
 		state: ItemState,
-		{ fetching, key }: { fetching: boolean; key: string; },
+		{ fetching, key }: { fetching: boolean, key: string },
 	) {
 		state.fetchingItems[key] = fetching
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED](
 		state: ItemState,
-		{ loaded, key }: { loaded: boolean; key: string; },
+		{ loaded, key }: { loaded: boolean, key: string },
 	) {
 		state.allItemsLoaded[key] = loaded
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED](
 		state: ItemState,
-		{ lastItem, key }: { lastItem: number; key: string; },
+		{ lastItem, key }: { lastItem: number, key: string },
 	) {
 		state.lastItemLoaded[key] = lastItem
 	},

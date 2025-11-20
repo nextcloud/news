@@ -1,0 +1,7 @@
+[Cc]onfig
+(?i)eslint
+[Nn]extcloud
+[Vv]ite
+[Vv]itest
+[Vv]ue
+[Ww]ebpack

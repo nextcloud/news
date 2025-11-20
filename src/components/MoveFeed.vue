@@ -1,48 +1,56 @@
 <template>
-	<NcModal @close="$emit('close')">
-		<div class="modal__content">
-			<div class="form-group">
-				<NcSelect v-if="folders"
-					v-model="folder"
-					:options="folders"
-					:placeholder="'-- ' + t('news', 'No folder') + ' --'"
-					required
-					track-by="id"
-					label="name"
-					style="width: 90%;" />
-			</div>
-			<NcButton :wide="true"
-				type="primary"
+	<NcDialog
+		:name="t('news', 'Move feed')"
+		size="small"
+		@close="$emit('close')">
+		<template #default>
+			<NcSelect
+				v-if="folders"
+				v-model="folder"
+				:options="folders"
+				:placeholder="'-- ' + t('news', 'No folder') + ' --'"
+				required
+				:input-label="t('news', 'Please select the new folder')"
+				label="name"
+				style="width: 100%;" />
+		</template>
+		<template #actions>
+			<NcButton
+				:wide="true"
+				variant="primary"
 				:disabled="disableMoveFeed"
 				@click="moveFeed()">
 				{{ t("news", "Move") }}
 			</NcButton>
-		</div>
-	</NcModal>
+		</template>
+	</NcDialog>
 </template>
 
 <script lang="ts">
 
-import Vue from 'vue'
+import type { Folder } from '../types/Folder.ts'
 
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
-
-import { Folder } from '../types/Folder'
-import { ACTIONS } from '../store'
+import { defineComponent } from 'vue'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcDialog from '@nextcloud/vue/components/NcDialog'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
+import { ACTIONS } from '../store/index.ts'
 
 type MoveFeedState = {
-	folder?: Folder;
-};
+	folder?: Folder
+}
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
-		NcModal,
 		NcButton,
+		NcDialog,
 		NcSelect,
 	},
+
 	props: {
+		/**
+		 * The feed to move
+		 */
 		feed: {
 			type: Object,
 			required: false,
@@ -51,19 +59,27 @@ export default Vue.extend({
 			},
 		},
 	},
+
+	emits: {
+		close: () => true,
+	},
+
 	data: (): MoveFeedState => {
 		return {
 			folder: null,
 		}
 	},
+
 	computed: {
 		folders(): Folder[] {
 			return this.$store.state.folders.folders
 		},
+
 		disableMoveFeed(): boolean {
 			return (this.folder && this.folder.id === this.feed.folderId)
 		},
 	},
+
 	methods: {
 		/**
 		 * Move a Feed via the Vuex Store
@@ -82,20 +98,3 @@ export default Vue.extend({
 })
 
 </script>
-
-<style scoped>
-.invalid {
-	border: 1px solid rgb(251, 72, 72) !important;
-}
-
-.modal__content {
-	margin: 16px;
-}
-
-.form-group {
-	margin: calc(var(--default-grid-baseline) * 4) 0;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-}
-</style>

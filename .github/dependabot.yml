@@ -14,6 +14,22 @@ updates:
       - "dependencies"
       - "Skip-Changelog"
     versioning-strategy: increase
+    groups:
+      vue:
+        patterns:
+          - "vue"
+          - "vuex"
+          - "vue-router"
+          - "@vue/*"
+          - "vue-material-design-icons"
+      vite:
+        patterns:
+          - "vite"
+          - "vitest"
+          - "@vitest/*"
+      types:
+        patterns:
+          - "@types/*"
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"

@@ -14,15 +14,17 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use FeedIo\Explorer;
-use FeedIo\Reader\ReadErrorException;
+use OCA\News\Vendor\FeedIo\Explorer;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Utility\AppData;
 use OCA\News\Utility\Time;
+use OCA\News\Utility\HtmlSanitizer;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IAppConfig;
 
@@ -64,7 +66,7 @@ class FeedServiceTest extends TestCase
     private $time;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|\HTMLPurifier
+     * @var \PHPUnit\Framework\MockObject\MockObject|HtmlSanitizer
      */
     private $purifier;
 
@@ -82,6 +84,11 @@ class FeedServiceTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject|IAppConfig
      */
     private $config;
+
+    /**
+     * @var AppData
+     */
+    protected $appData;
 
     private $response;
 
@@ -115,11 +122,15 @@ class FeedServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->purifier = $this
-            ->getMockBuilder(\HTMLPurifier::class)
+            ->getMockBuilder(HtmlSanitizer::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->config = $this
             ->getMockBuilder(IAppConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->appData = $this
+            ->getMockBuilder(AppData::class)
             ->disableOriginalConstructor()
             ->getMock();
         
@@ -130,7 +141,8 @@ class FeedServiceTest extends TestCase
             $this->explorer,
             $this->purifier,
             $this->logger,
-            $this->config
+            $this->config,
+            $this->appData
         );
         $this->uid = 'jack';
     }
@@ -601,7 +613,7 @@ class FeedServiceTest extends TestCase
 
         $this->purifier->expects($this->exactly(2))
             ->method('purify')
-            ->withConsecutive(['2', null], ['1', null])
+            ->withConsecutive(['2'], ['1'])
             ->will($this->returnArgument(0));
 
         $this->itemService->expects($this->exactly(2))

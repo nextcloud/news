@@ -1,10 +1,11 @@
-import { Feed } from '../../../../src/types/Feed'
-import { AppState } from '../../../../src/store'
-import { FEED_ACTION_TYPES, mutations, actions } from '../../../../src/store/feed'
-import { FEED_ORDER, FEED_UPDATE_MODE, FeedService } from '../../../../src/dataservices/feed.service'
+import type { AppState } from '../../../../src/store/index.ts'
 
-import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes'
+import { describe, expect, it, vi } from 'vitest'
+import { FeedService } from '../../../../src/dataservices/feed.service'
 import { ItemService } from '../../../../src/dataservices/item.service'
+import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums/index.ts'
+import { actions, FEED_ACTION_TYPES, mutations } from '../../../../src/store/feed.ts'
+import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
 describe('feed.ts', () => {
 	'use strict'
@@ -12,10 +13,10 @@ describe('feed.ts', () => {
 	describe('actions', () => {
 		describe('FETCH_FEEDS', () => {
 			it('should call FeedService.fetchAllFeeds and commit returned feeds to state', async () => {
-				FeedService.fetchAllFeeds = jest.fn();
-				(FeedService.fetchAllFeeds as any).mockResolvedValue({ data: { feeds: [] } })
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FETCH_FEEDS] as any)({ commit })
+				FeedService.fetchAllFeeds = vi.fn()
+				FeedService.fetchAllFeeds.mockResolvedValue({ data: { feeds: [] } })
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FETCH_FEEDS]({ commit })
 				expect(FeedService.fetchAllFeeds).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEEDS, [])
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT, 0)
@@ -24,19 +25,19 @@ describe('feed.ts', () => {
 
 		describe('ADD_FEED', () => {
 			it('should call FeedService.addFeed and commit feed to state', async () => {
-				FeedService.addFeed = jest.fn();
-				(FeedService.addFeed as any).mockResolvedValue({ data: { feeds: [] } })
-				const commit = jest.fn()
-				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit } as any, { feedReq: { url: '' } } as any)
+				FeedService.addFeed = vi.fn()
+				FeedService.addFeed.mockResolvedValue({ data: { feeds: [] } })
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit }, { feedReq: { url: '' } })
 				expect(FeedService.addFeed).toBeCalled()
 				expect(commit).toBeCalled()
 			})
 
 			it('should call FeedService.addFeed and not call commit if error', async () => {
-				FeedService.addFeed = jest.fn();
-				(FeedService.addFeed as any).mockRejectedValue()
-				const commit = jest.fn()
-				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit } as any, { feedReq: { url: '' } } as any)
+				FeedService.addFeed = vi.fn()
+				FeedService.addFeed.mockRejectedValue()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.ADD_FEED]({ commit }, { feedReq: { url: '' } })
 				expect(FeedService.addFeed).toBeCalled()
 
 				expect(commit).not.toBeCalled()
@@ -45,25 +46,25 @@ describe('feed.ts', () => {
 
 		describe('FEED_MARK_READ', () => {
 			it('should call FeedService.markRead and commit all items read to state', async () => {
-				ItemService.fetchFeedItems = jest.fn();
-				(ItemService.fetchFeedItems as any).mockResolvedValue({ data: { items: [{ id: 123 }] } })
-				FeedService.markRead = jest.fn()
-				const commit = jest.fn()
+				ItemService.fetchFeedItems = vi.fn()
+				ItemService.fetchFeedItems.mockResolvedValue({ data: { items: [{ id: 123 }] } })
+				FeedService.markRead = vi.fn()
+				const commit = vi.fn()
 				const feed = { id: 1, title: 'feed' }
 
-				await (actions[FEED_ACTION_TYPES.FEED_MARK_READ] as any)({ commit }, { feed })
+				await actions[FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }, { feed })
 				expect(FeedService.markRead).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 			})
 
 			it('should commit MODIFY_FOLDER_UNREAD_COUNT with feed unreadCount if folderId exists on feed ', async () => {
-				ItemService.fetchFeedItems = jest.fn();
-				(ItemService.fetchFeedItems as any).mockResolvedValue({ data: { items: [{ id: 123 }] } })
-				FeedService.markRead = jest.fn()
-				const commit = jest.fn()
+				ItemService.fetchFeedItems = vi.fn()
+				ItemService.fetchFeedItems.mockResolvedValue({ data: { items: [{ id: 123 }] } })
+				FeedService.markRead = vi.fn()
+				const commit = vi.fn()
 				const feed = { id: 1, title: 'feed', folderId: 234, unreadCount: 2 }
 
-				await (actions[FEED_ACTION_TYPES.FEED_MARK_READ] as any)({ commit }, { feed })
+				await actions[FEED_ACTION_TYPES.FEED_MARK_READ]({ commit }, { feed })
 				expect(FeedService.markRead).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 				expect(commit).toBeCalledWith(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: 234, delta: -2 })
@@ -72,19 +73,29 @@ describe('feed.ts', () => {
 
 		describe('FEED_SET_PINNED', () => {
 			it('should call FeedService.updateFeed and commit updated `pinned` property to state', async () => {
-				FeedService.updateFeed = jest.fn()
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_PINNED] as any)({ commit }, { feed: { id: 1 }, pinned: true })
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_PINNED]({ commit }, { feed: { id: 1 }, pinned: true })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, pinned: true })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, pinned: true })
 			})
 		})
 
+		describe('FEED_SET_PREVENT_UPDATE', () => {
+			it('should call FeedService.updateFeed and commit updated `preventUpdate` property to state', async () => {
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_PREVENT_UPDATE]({ commit }, { feed: { id: 1 }, preventUpdate: true })
+				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, preventUpdate: true })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, preventUpdate: true })
+			})
+		})
+
 		describe('FEED_SET_ORDERING', () => {
 			it('should call FeedService.updateFeed and commit updated `ordering` property to state', async () => {
-				FeedService.updateFeed = jest.fn()
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_ORDERING] as any)({ commit }, { feed: { id: 1 }, ordering: FEED_ORDER.DEFAULT })
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_ORDERING]({ commit }, { feed: { id: 1 }, ordering: FEED_ORDER.DEFAULT })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, ordering: FEED_ORDER.DEFAULT })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, ordering: FEED_ORDER.DEFAULT })
 			})
@@ -92,9 +103,9 @@ describe('feed.ts', () => {
 
 		describe('FEED_SET_FULL_TEXT', () => {
 			it('should call FeedService.updateFeed and commit updated `fullTextEnabled` property to state', async () => {
-				FeedService.updateFeed = jest.fn()
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_FULL_TEXT] as any)({ commit }, { feed: { id: 1 }, fullTextEnabled: true })
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_FULL_TEXT]({ commit }, { feed: { id: 1 }, fullTextEnabled: true })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, fullTextEnabled: true })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, fullTextEnabled: true })
 			})
@@ -102,9 +113,9 @@ describe('feed.ts', () => {
 
 		describe('FEED_SET_UPDATE_MODE', () => {
 			it('should call FeedService.updateFeed and commit updated `updateMode` property to state', async () => {
-				FeedService.updateFeed = jest.fn()
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE] as any)({ commit }, { feed: { id: 1 }, updateMode: FEED_UPDATE_MODE.IGNORE })
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE]({ commit }, { feed: { id: 1 }, updateMode: FEED_UPDATE_MODE.IGNORE })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, updateMode: FEED_UPDATE_MODE.IGNORE })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, updateMode: FEED_UPDATE_MODE.IGNORE })
 			})
@@ -112,9 +123,9 @@ describe('feed.ts', () => {
 
 		describe('FEED_SET_TITLE', () => {
 			it('should call FeedService.updateFeed and commit updated `title` property to state', async () => {
-				FeedService.updateFeed = jest.fn()
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_SET_TITLE] as any)({ commit }, { feed: { id: 1 }, title: 'newTitle' })
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_TITLE]({ commit }, { feed: { id: 1 }, title: 'newTitle' })
 				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, title: 'newTitle' })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, title: 'newTitle' })
 			})
@@ -122,9 +133,9 @@ describe('feed.ts', () => {
 
 		describe('FEED_DELETE', () => {
 			it('should call FeedService.deleteFeed and commit to state', async () => {
-				FeedService.deleteFeed = jest.fn()
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.FEED_DELETE] as any)({ commit }, { feed: { id: 1 } })
+				FeedService.deleteFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_DELETE]({ commit }, { feed: { id: 1 } })
 				expect(FeedService.deleteFeed).toBeCalledWith({ feedId: 1 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.FEED_DELETE, 1)
 			})
@@ -135,8 +146,8 @@ describe('feed.ts', () => {
 				feeds: [{ id: 1 }],
 			}
 			it('should commit to state', async () => {
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT] as any)({ commit, state }, { feedId: 1, delta: -2 })
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT]({ commit, state }, { feedId: 1, delta: -2 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: 1, delta: -2 })
 			})
 
@@ -144,8 +155,8 @@ describe('feed.ts', () => {
 				const state = {
 					feeds: [{ id: 1, folderId: 234 }],
 				}
-				const commit = jest.fn()
-				await (actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT] as any)({ commit, state }, { feedId: 1, delta: -2 })
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.MODIFY_FEED_UNREAD_COUNT]({ commit, state }, { feedId: 1, delta: -2 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT, { feedId: 1, delta: -2 })
 				expect(commit).toBeCalledWith(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: 234, delta: -2 })
 			})
@@ -155,24 +166,51 @@ describe('feed.ts', () => {
 	describe('mutations', () => {
 		describe('SET_FEEDS', () => {
 			it('should add feeds to state', () => {
-				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				let feeds = [] as any
+				const state = { feeds: [], folders: [] } as AppState
+				let feeds = []
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds.length).toEqual(0)
 
-				feeds = [{ title: 'test' }] as Feed[]
+				feeds = [{ title: 'test' }]
 
 				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
 				expect(state.feeds.length).toEqual(1)
 				expect(state.feeds[0]).toEqual(feeds[0])
 			})
+
+			it('should sort feeds case insensitive by title', () => {
+				const state = { feeds: [], folders: [] } as AppState
+				const feeds = [{ title: 'gamma' }, { title: 'alpha' }, { title: 'Beta' }]
+
+				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
+				expect(state.feeds.length).toEqual(3)
+				expect(state.feeds[0].title).toEqual('alpha')
+				expect(state.feeds[1].title).toEqual('Beta')
+				expect(state.feeds[2].title).toEqual('gamma')
+			})
+
+			it('should set feed ordering when set', () => {
+				const state = { feeds: [], ordering: { 'feed-0': 0 } } as AppState
+				const feeds = [{ id: 0, title: 'test', ordering: 2 }]
+
+				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
+				expect(state.ordering['feed-0']).toEqual(2)
+			})
+
+			it('should convert unread count to number', () => {
+				const state = { feeds: [], folders: [] } as AppState
+				const feeds = [{ title: 'test', unreadCount: '10' }]
+
+				mutations[FEED_MUTATION_TYPES.SET_FEEDS](state, feeds)
+				expect(state.feeds[0].unreadCount).toEqual(10)
+			})
 		})
 
 		describe('ADD_FEED', () => {
 			it('should add a single feed to state', () => {
-				const state = { feeds: [] as Feed[], folders: [] as any[] } as AppState
-				const feed = { title: 'test' } as any
+				const state = { feeds: [], folders: [] } as AppState
+				const feed = { title: 'test' }
 
 				mutations[FEED_MUTATION_TYPES.ADD_FEED](state, feed)
 				expect(state.feeds.length).toEqual(1)
@@ -182,18 +220,27 @@ describe('feed.ts', () => {
 
 		describe('UPDATE_FEED', () => {
 			it('should update a feed in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1 }] as Feed[], folders: [] as any[] } as AppState
-				const feed = { title: 'test', id: 1 } as any
+				const state = { feeds: [{ title: 'oldName', id: 1 }], folders: [] } as AppState
+				const feed = { title: 'test', id: 1 }
 
 				mutations[FEED_MUTATION_TYPES.UPDATE_FEED](state, feed)
 				expect(state.feeds[0].title).toEqual('test')
 			})
 		})
 
+		describe('SET_NEWEST_ITEM_ID', () => {
+			it('should update newestItemId in state', () => {
+				const state = { newestItemId: 0 } as AppState
+
+				mutations[FEED_MUTATION_TYPES.SET_NEWEST_ITEM_ID](state, 123)
+				expect(state.newestItemId).toEqual(123)
+			})
+		})
+
 		describe('SET_FEED_ALL_READ', () => {
 			it('should update a feed unreadCount to 0 in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }] as Feed[], folders: [] as any[] } as AppState
-				const feed = { title: 'test', id: 1 } as any
+				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }], folders: [] } as AppState
+				const feed = { title: 'test', id: 1 }
 
 				mutations[FEED_MUTATION_TYPES.SET_FEED_ALL_READ](state, feed)
 				expect(state.feeds[0].unreadCount).toEqual(0)
@@ -202,18 +249,18 @@ describe('feed.ts', () => {
 
 		describe('MODIFY_FEED_UNREAD_COUNT', () => {
 			it('should update a feed unreadCount to 0 in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }] as Feed[], folders: [] as any[] } as AppState
+				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }], folders: [] } as AppState
 
-				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT](state, { feedId: 1, delta: -1 } as any)
+				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_UNREAD_COUNT](state, { feedId: 1, delta: -1 })
 				expect(state.feeds[0].unreadCount).toEqual(3)
 			})
 		})
 
 		describe('FEED_DELETE', () => {
 			it('should update a feed unreadCount to 0 in the state', () => {
-				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }] as Feed[], folders: [] as any[] } as AppState
+				const state = { feeds: [{ title: 'oldName', id: 1, unreadCount: 4 }], folders: [] } as AppState
 
-				mutations[FEED_MUTATION_TYPES.FEED_DELETE](state, 1 as any)
+				mutations[FEED_MUTATION_TYPES.FEED_DELETE](state, 1)
 				expect(state.feeds.length).toEqual(0)
 			})
 		})

@@ -37,6 +37,13 @@ class AdminSettings implements ISettings
 
         $this->initialState->provideInitialState("lastCron", $lastUpdate);
 
+        $lastLogoPurge = $this->config->getValueInt(
+            Application::NAME,
+            'lastLogoPurge',
+            0
+        );
+        $this->initialState->provideInitialState("lastLogoPurge", $lastLogoPurge);
+
         return new TemplateResponse(Application::NAME, 'admin', []);
     }
 

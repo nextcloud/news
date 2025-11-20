@@ -14,18 +14,11 @@ OC.L10N.register(
     "Share" : "බෙදාගන්න",
     "Settings" : "සැකසුම්",
     "Rename" : "නැවත නම් කරන්න",
-    "Previous" : "පෙර",
-    "from" : "සිට",
     "Open website" : "වියමන අඩවිය විවෘත කරන්න",
+    "Folder" : "බහාලුම",
     "right" : "දකුණ",
     "left" : "වම",
     "Load previous folder" : "පෙර බහාලුම පූරණය කරන්න",
-    "Load next folder" : "ඊළඟ බහාලුම පූරණය කරන්න",
-    "Description" : "විස්තරය",
-    "Folder" : "බහාලුම",
-    "Go back" : "ආපසු යන්න",
-    "New Folder" : "නව බහාලුම",
-    "Create" : "සාදන්න",
-    "Help" : "උපකාර"
+    "Load next folder" : "ඊළඟ බහාලුම පූරණය කරන්න"
 },
 "nplurals=2; plural=(n != 1);");

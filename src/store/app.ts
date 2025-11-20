@@ -1,35 +1,37 @@
 import { loadState } from '@nextcloud/initial-state'
-import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes'
+import { reactive } from 'vue'
+import { DISPLAY_MODE, SPLIT_MODE } from '../enums/index.ts'
+import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const APPLICATION_ACTION_TYPES = {
 	SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
 }
 
 export type AppInfoState = {
-	error?: Error;
-	loading: boolean;
-	displaymode: string;
-	splitmode: string;
-	oldestFirst: boolean;
-	preventReadOnScroll: boolean;
-	showAll: boolean;
-	disableRefresh: boolean;
-	lastViewedFeedId: string;
-	lastViewedFeedType: string;
+	error?: Error
+	loading: boolean
+	displaymode: string
+	splitmode: string
+	oldestFirst: boolean
+	preventReadOnScroll: boolean
+	showAll: boolean
+	disableRefresh: boolean
+	lastViewedFeedId: string
+	lastViewedFeedType: string
 }
 
-const state: AppInfoState = {
+const state: AppInfoState = reactive({
 	error: undefined,
 	loading: true,
-	displaymode: loadState('news', 'displaymode', '0'),
-	splitmode: loadState('news', 'splitmode', '0'),
+	displaymode: loadState('news', 'displaymode', DISPLAY_MODE.DEFAULT),
+	splitmode: loadState('news', 'splitmode', SPLIT_MODE.VERTICAL),
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
 	showAll: loadState('news', 'showAll', null) === '1',
 	disableRefresh: loadState('news', 'disableRefresh', null) === '1',
 	lastViewedFeedId: loadState('news', 'lastViewedFeedId', '0'),
 	lastViewedFeedType: loadState('news', 'lastViewedFeedType', '6'),
-}
+})
 
 const getters = {
 	error(state: AppInfoState) {

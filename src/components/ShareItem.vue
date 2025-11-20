@@ -3,7 +3,8 @@
 		<div id="share-item">
 			<form name="feedform">
 				<fieldset>
-					<input ref="nameInput"
+					<input
+						ref="nameInput"
 						v-model="userName"
 						type="text"
 						:placeholder="t('news', 'User Name')"
@@ -15,7 +16,8 @@
 
 					<div class="user-bubble-container">
 						<NcLoadingIcon v-if="searching" />
-						<NcUserBubble v-for="user in users"
+						<NcUserBubble
+							v-for="user in users"
 							v-else-if="!searching"
 							:key="user.shareName"
 							:size="30"
@@ -25,8 +27,9 @@
 							@click="clickUser(user)" />
 					</div>
 
-					<NcButton :wide="true"
-						type="primary"
+					<NcButton
+						:wide="true"
+						variant="primary"
 						:disabled="selected.length === 0"
 						@click="share()">
 						<template v-if="selected.length === 0">
@@ -47,34 +50,41 @@
 
 <script lang="ts">
 
-import Vue from 'vue'
 import _ from 'lodash'
-
-import NcModal from '@nextcloud/vue/dist/Components/NcModal.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcUserBubble from '@nextcloud/vue/dist/Components/NcUserBubble.js'
-import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
-
+import { defineComponent } from 'vue'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import NcModal from '@nextcloud/vue/components/NcModal'
+import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import { ShareService } from '../dataservices/share.service'
 
 type ShareUser = {
-  shareName: string;
-  displayName: string;
+	shareName: string
+	displayName: string
 }
 
-export default Vue.extend({
+export default defineComponent({
 	components: {
 		NcModal,
 		NcButton,
 		NcUserBubble,
 		NcLoadingIcon,
 	},
+
 	props: {
+		/**
+		 * The itemId from the item to share
+		 */
 		itemId: {
 			type: Number,
 			required: true,
 		},
 	},
+
+	emits: {
+		close: () => true,
+	},
+
 	data: () => {
 		return {
 			userName: '',
@@ -82,26 +92,29 @@ export default Vue.extend({
 			selected: [],
 			searching: false,
 		} as {
-      userName: string;
-      users: ShareUser[];
-      selected: ShareUser[];
-      searching: boolean;
-      debounceSearchUsers?: () => void;
-    }
+			userName: string
+			users: ShareUser[]
+			selected: ShareUser[]
+			searching: boolean
+			debounceSearchUsers?: () => void
+		}
 	},
+
 	created() {
 		this.debounceSearchUsers = _.debounce(this.searchUsers, 800)
 		this.$nextTick(() => this.$refs?.nameInput?.focus())
-
 	},
+
 	methods: {
 		/**
 		 * Adds or removes user to selected list
 		 *
-		 * @param {ShareUser} user - User that was clicked
+		 * @param user - User that was clicked
 		 */
 		clickUser(user: ShareUser) {
-			const selectedUsers = this.selected.map((val: ShareUser) => { return val.shareName })
+			const selectedUsers = this.selected.map((val: ShareUser) => {
+				return val.shareName
+			})
 			if (selectedUsers.includes(user.shareName)) {
 				this.selected.splice(selectedUsers.indexOf(user.shareName), 1)
 			} else {
@@ -127,7 +140,9 @@ export default Vue.extend({
 		 * Shares an item with another use in the same nextcloud instance
 		 */
 		async share() {
-			await ShareService.share(this.itemId, this.selected.map((val: ShareUser) => { return val.shareName }))
+			await ShareService.share(this.itemId, this.selected.map((val: ShareUser) => {
+				return val.shareName
+			}))
 
 			this.$emit('close')
 		},

@@ -19,18 +19,10 @@ OC.L10N.register(
     "Delete" : "Dileu",
     "Newest first" : "Diweddaraf gyntaf",
     "Oldest first" : "Hynaf gyntaf",
-    "Previous" : "Blaenorol",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
-    "from" : "oddi wrth",
-    "Not available" : "Ddim ar gael",
-    "Refresh" : "Adnewyddu",
-    "Description" : "Disgrifiad",
     "Folder" : "Plygell",
-    "Go back" : "Nôl",
-    "Create" : "Creu",
-    "Import" : "Mewnforio",
-    "Export" : "Allforio",
-    "Help" : "Cymorth"
+    "Not available" : "Ddim ar gael",
+    "Refresh" : "Adnewyddu"
 },
 "nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;");

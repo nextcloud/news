@@ -291,6 +291,7 @@ class FeedController extends Controller
      * @param int|null    $ordering
      * @param int|null    $folderId
      * @param string|null $title
+     * @param bool        $preventUpdate
      *
      * @return array|JSONResponse
      */
@@ -302,7 +303,8 @@ class FeedController extends Controller
         ?int $updateMode = null,
         ?int $ordering = null,
         ?int $folderId = -1,
-        ?string $title = null
+        ?string $title = null,
+        ?bool $preventUpdate = null
     ) {
         try {
             $feed = $this->feedService->find($this->getUserId(), $feedId);
@@ -328,6 +330,9 @@ class FeedController extends Controller
         }
         if ($title !== null) {
             $feed->setTitle($title);
+        }
+        if ($preventUpdate !== null) {
+            $feed->setPreventUpdate($preventUpdate);
         }
 
         try {
