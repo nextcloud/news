@@ -135,9 +135,9 @@ class ImportServiceTest extends TestCase
             ->with($this->equalTo($item->getBody()))
             ->will($this->returnValue($item->getBody()));
 
-        $result = $this->class->importArticles($this->uid, $items);
+        $result = $this->class->articles($this->uid, $items);
 
-        $this->assertEquals(null, $result);
+        $this->assertEquals(true, $result);
     }
 
 
@@ -210,12 +210,8 @@ class ImportServiceTest extends TestCase
             ->with($this->equalTo($item->getBody()))
             ->will($this->returnValue($item->getBody()));
 
-        $this->feedService->expects($this->once())
-            ->method('findByUrl')
-            ->will($this->returnValue($feed));
+        $result = $this->class->articles($this->uid, $items);
 
-        $result = $this->class->importArticles($this->uid, $items);
-
-        $this->assertEquals($feed, $result);
+        $this->assertEquals(true, $result);
     }
 }
