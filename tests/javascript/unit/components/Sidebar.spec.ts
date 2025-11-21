@@ -1,5 +1,5 @@
 import axios from '@nextcloud/axios'
-import { showError, showSuccess } from '@nextcloud/dialogs'
+import { showError } from '@nextcloud/dialogs'
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSidebar from '../../../../src/components/Sidebar.vue'
@@ -13,11 +13,14 @@ describe('Sidebar.vue', () => {
 	let wrapper: any
 	let commitMock
 	let gettersMock
+	let routeMock
 
 	const feeds = [{
 		id: 1, title: 'first',
 	}, {
 		id: 2, title: 'second', folderId: 123,
+	}, {
+		id: 3, title: 'three',
 	}]
 
 	const folder = {
@@ -27,12 +30,21 @@ describe('Sidebar.vue', () => {
 	}
 
 	const folders = [{
+		id: 123,
+		name: 'abc',
+		opened: true,
+		feeds: [feeds[1]],
+	}, {
 		id: 456,
 		name: 'def',
+	}, {
+		id: 789,
+		name: 'ghi',
 	}]
 
 	beforeEach(() => {
 		vi.restoreAllMocks()
+		Element.prototype.scrollIntoView = vi.fn()
 		gettersMock = {
 			feeds,
 			folders,
@@ -44,12 +56,21 @@ describe('Sidebar.vue', () => {
 				gettersMock.starredOpenState = payload.value
 			}
 		})
+		routeMock = {
+			query: {
+				subscribe_to: undefined,
+			},
+			name: 'unread',
+			params: { feedId: undefined, folderId: undefined },
+		}
 		wrapper = shallowMount(AppSidebar, {
 			global: {
 				mocks: {
-					$route: {
-						query: {
-							subscribe_to: undefined,
+					$route: routeMock,
+					$router: {
+						push: (route) => {
+							routeMock.name = route.name
+							routeMock.params = route.params
 						},
 					},
 					$store: {
@@ -72,9 +93,9 @@ describe('Sidebar.vue', () => {
 
 	describe('User Actions', () => {
 		it('should dispatch message to store with folder name to create new folder', () => {
-			wrapper.vm.newFolder('abc')
+			wrapper.vm.newFolder('xyz')
 
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.ADD_FOLDERS, { folder: { name: 'abc' } })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.ADD_FOLDERS, { folder: { name: 'xyz' } })
 		})
 
 		it('should not dispatch message to store with folder name to create new folder with existing name', () => {
@@ -100,19 +121,9 @@ describe('Sidebar.vue', () => {
 			expect(wrapper.vm.$store.dispatch).not.toHaveBeenCalled()
 		})
 
-		it('should set showAddFeed to true', () => {
-			wrapper.vm.addFeed()
-			expect(wrapper.vm.$data.showAddFeed).toBeTruthy()
-		})
-
-		it('should set showAddFeed to false', () => {
-			wrapper.vm.closeAddFeed()
-			expect(wrapper.vm.$data.showAddFeed).toBeFalsy()
-		})
-
 		it('should call mark feed read for all feeds in state', () => {
 			wrapper.vm.markAllRead()
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledTimes(2)
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledTimes(3)
 		})
 
 		it('should call mark feed read for all feeds in state with matching folderId', () => {
@@ -120,7 +131,7 @@ describe('Sidebar.vue', () => {
 			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledTimes(1)
 		})
 
-		it('should call disptch rename folder with response from user', () => {
+		it('should call dispatch rename folder with response from user', () => {
 			const name = 'new name'
 			window.prompt = vi.fn().mockReturnValue(name)
 			wrapper.vm.renameFolder({ id: 123 })
@@ -146,6 +157,18 @@ describe('Sidebar.vue', () => {
 			axios.post.mockRejectedValue('network error')
 			await wrapper.vm.toggleStarredOpenState.call(wrapper)
 			expect(showError).toHaveBeenCalledWith('Unable to save starred open state')
+		})
+
+		it('should toggle folder open state', () => {
+			const folder = { name: 'folder1', id: 123, opened: true }
+
+			wrapper.vm.toggleFolderState(folder)
+			expect(folder.opened).toBeFalsy()
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FOLDER_OPEN_STATE, { folder: { name: 'folder1', id: 123, opened: false } })
+
+			wrapper.vm.toggleFolderState(folder)
+			expect(folder.opened).toBeTruthy()
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FOLDER_OPEN_STATE, { folder: { name: 'folder1', id: 123, opened: true } })
 		})
 	})
 
@@ -236,7 +259,7 @@ describe('Sidebar.vue', () => {
 					getters: {
 						feeds,
 						folders,
-						showAll: () => { return true },
+						showAll: () => { return false },
 					},
 				},
 			})
@@ -246,106 +269,230 @@ describe('Sidebar.vue', () => {
 	})
 
 	describe('Methods', () => {
-		it('should show error when no file is selected', async () => {
-			const event = { target: { files: [] } }
-
-			await wrapper.vm.importArticles.call(wrapper, event)
-
-			expect(showError).toHaveBeenCalled()
+		it('should set showAddFeed to true', () => {
+			wrapper.vm.addFeed()
+			expect(wrapper.vm.$data.showAddFeed).toBeTruthy()
 		})
 
-		it('should show success when status is 200 and file is valid', async () => {
-			const mockFile = new File(['{}'], 'articles.json', { type: 'application/json' })
-			const event = { target: { files: [mockFile] } }
-
-			axios.post.mockResolvedValue({
-				status: 200,
-				data: { status: 'ok' },
-			})
-
-			await wrapper.vm.importArticles.call(wrapper, event)
-
-			expect(showSuccess).toHaveBeenCalled()
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEEDS)
+		it('should set showAddFeed to false', () => {
+			wrapper.vm.closeAddFeed()
+			expect(wrapper.vm.$data.showAddFeed).toBeFalsy()
 		})
 
-		it('should show backend error message when status 200 but backend returns error', async () => {
-			const mockFile = new File(['{}'], 'articles.json', { type: 'application/json' })
-			const event = { target: { files: [mockFile] } }
-
-			axios.post.mockResolvedValue({
-				status: 200,
-				data: { status: 'error', message: 'error importing articles' },
-			})
-
-			await wrapper.vm.importArticles.call(wrapper, event)
-
-			expect(showError).toHaveBeenCalledWith('error importing articles', { timeout: -1 })
+		it('should set showMoveFeed to true', () => {
+			wrapper.vm.openMoveFeed()
+			expect(wrapper.vm.$data.showMoveFeed).toBeTruthy()
 		})
 
-		it('should show error message when not status 200', async () => {
-			const mockFile = new File(['{}'], 'articles.json', { type: 'application/json' })
-			const event = { target: { files: [mockFile] } }
-
-			axios.post.mockResolvedValue({
-				status: 412,
-			})
-
-			await wrapper.vm.importArticles.call(wrapper, event)
-
-			expect(showError).toHaveBeenCalledWith('Error uploading the json file')
+		it('should set showMoveFeed to false', () => {
+			wrapper.vm.closeMoveFeed()
+			expect(wrapper.vm.$data.showMoveFeed).toBeFalsy()
 		})
 
-		it('should show network error on server error', async () => {
-			vi.spyOn(console, 'error').mockImplementation(() => {})
-			const mockFile = new File(['{}'], 'articles.json')
-			const event = { target: { files: [mockFile] } }
-
-			axios.post.mockRejectedValue('network error')
-
-			await wrapper.vm.importArticles.call(wrapper, event)
-
-			expect(showError).toHaveBeenCalledWith('Error connecting to the server')
+		it('should set openFeedSettings to true', () => {
+			wrapper.vm.openFeedSettings()
+			expect(wrapper.vm.$data.showFeedSettings).toBeTruthy()
 		})
 
-		it('should download file when status is 200', async () => {
-			const blob = { slice: vi.fn() }
-			axios.get.mockResolvedValue({ status: 200, data: blob })
-
-			const clickMock = vi.fn()
-
-			vi.spyOn(document, 'createElement').mockReturnValue({
-				href: '',
-				download: '',
-				click: clickMock,
-			})
-
-			vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob://test')
-
-			await wrapper.vm.exportArticles.call(wrapper)
-
-			expect(clickMock).toHaveBeenCalled()
+		it('should set closeFeedSettings to false', () => {
+			wrapper.vm.closeFeedSettings()
+			expect(wrapper.vm.$data.showFeedSettings).toBeFalsy()
 		})
 
-		it('should show error when status is not 200', async () => {
-			axios.get.mockResolvedValue({ status: 500 })
-
-			await wrapper.vm.exportArticles.call(wrapper)
-
-			expect(showError).toHaveBeenCalled()
+		it('should set openSettings to true', () => {
+			wrapper.vm.openSettings()
+			expect(wrapper.vm.$data.showSettings).toBeTruthy()
 		})
 
-		it('should show network error on server error', async () => {
-			vi.spyOn(console, 'error').mockImplementation(() => {})
-			axios.get.mockRejectedValue('network error')
+		it('should set closeSettings to false', () => {
+			wrapper.vm.closeSettings()
+			expect(wrapper.vm.$data.showSettings).toBeFalsy()
+		})
 
-			await wrapper.vm.exportArticles.call(wrapper)
+		it('should return true if item is folder', () => {
+			const folder = { name: 'folder1', id: 123 }
+			const isFolder = wrapper.vm.isFolder(folder)
+			expect(isFolder).toBeTruthy()
+		})
 
-			expect(showError).toHaveBeenCalledWith('Error connecting to the server')
+		it('should return true if feed is active and showAll is unset', () => {
+			gettersMock.showAll = false
+			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 1 } })
+
+			const feed = { title: 'feed1', id: 1 }
+			const showItem = wrapper.vm.showItem(feed)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if feed has unread items and showAll is unset', () => {
+			gettersMock.showAll = false
+
+			const feed = { title: 'feed1', id: 1, unreadCount: 5 }
+			const showItem = wrapper.vm.showItem(feed)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if feed error count is greater eight and showAll is unset', () => {
+			gettersMock.showAll = false
+
+			const feed = { title: 'feed1', id: 1, updateErrorCount: 9 }
+			const showItem = wrapper.vm.showItem(feed)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if feed has no unread items and no errors and showAll is set', () => {
+			gettersMock.showAll = true
+
+			const feed = { title: 'feed1', id: 1, unreadCount: 0, updateErrorCount: 0 }
+			const showItem = wrapper.vm.showItem(feed)
+			expect(wrapper.vm.showAll).toBe(true)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return false if feed has no unread items and no errors and showAll is not set', () => {
+			gettersMock.showAll = false
+
+			const feed = { title: 'feed1', id: 1, unreadCount: 0, updateErrorCount: 0 }
+			const showItem = wrapper.vm.showItem(feed)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeFalsy()
+		})
+
+		it('should return true if folder has active items and showAll is unset', () => {
+			gettersMock.showAll = false
+			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 1 } })
+
+			const feed = { title: 'feed1', id: 1, folderId: 123 }
+			const folder = { name: 'folder1', id: 123, feeds: [feed] }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if folder is active and showAll is unset', () => {
+			gettersMock.showAll = false
+			wrapper.vm.$router.push({ name: 'folder', params: { folderId: 123 } })
+
+			const feed = { title: 'feed1', id: 1, folderId: 123 }
+			const folder = { name: 'folder1', id: 123, feeds: [feed] }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if folder has unread items and showAll is unset', () => {
+			gettersMock.showAll = false
+
+			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 5 }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if folder error count is greater eight and showAll is unset', () => {
+			gettersMock.showAll = false
+
+			const folder = { name: 'folder1', id: 123, feeds: [], updateErrorCount: 9 }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if folder has no unread items and no errors and showAll is set', () => {
+			gettersMock.showAll = true
+
+			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 0, updateErrorCount: 0 }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(true)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return false if folder has no unread items and no errors and showAll is not set', () => {
+			gettersMock.showAll = false
+
+			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 0, updateErrorCount: 0 }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeFalsy()
+		})
+
+		// feeds are sorted alphabetically, so it is feedId 1 - 3 - 2
+		it('should switch from active feed to prev feed', async () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 2 } })
+
+			wrapper.vm.prevFeed()
+			expect(routeMock.params.feedId).toEqual('3')
+		})
+
+		// feeds are sorted alphabetically, so it is feedId 1 - 3 - 2
+		it('should switch from active feed to next feed', () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 1 } })
+
+			wrapper.vm.nextFeed()
+			expect(routeMock.params.feedId).toEqual('3')
+		})
+
+		// order feedId 1 - feedId 3 - folderId 123 - feedId 2 - folderId 456
+		it('should switch from active folder to prev feed', async () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'folder', params: { folderId: 123 } })
+
+			wrapper.vm.prevFeed()
+			expect(routeMock.params.feedId).toEqual('3')
+		})
+
+		// order feedId 1 - feedId 3 - folderId 123 - feedId 2 - folderId 456
+		it('should switch from active folder to next feed', () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'folder', params: { folderId: 123 } })
+
+			wrapper.vm.nextFeed()
+			expect(routeMock.params.feedId).toEqual('2')
+		})
+
+		// order folderId 123 - folderId 456 - folderId 789
+		it('should switch from active folder to prev folder', async () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'folder', params: { folderId: 789 } })
+
+			wrapper.vm.prevFolder()
+			expect(routeMock.params.folderId).toEqual('456')
+		})
+
+		// order folderId 123 - folderId 456 - folderId 789
+		it('should switch from active folder to next folder', () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'folder', params: { folderId: 123 } })
+
+			wrapper.vm.nextFolder()
+			expect(routeMock.params.folderId).toEqual('456')
+		})
+
+		// order feedId 1 - feedId 3 - folderId 123 - feedId 2 - folderId 456
+		it('should switch from active feed to prev folder', async () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 2 } })
+
+			wrapper.vm.prevFolder()
+			expect(routeMock.params.folderId).toEqual('123')
+		})
+
+		// order feedId 1 - feedId 3 - folderId 123 - feedId 2 - folderId 456
+		it('should switch from active feed to next folder', () => {
+			gettersMock.showAll = true
+			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 2 } })
+
+			wrapper.vm.nextFolder()
+			expect(routeMock.params.folderId).toEqual('456')
 		})
 
 		it('should return favicon route with feed url hash', () => {
-			const feed = { name: 'feed1', id: 1, urlHash: '51f108ce113f11fbcbb7da6083c621cd' }
+			const feed = { title: 'feed1', id: 1, urlHash: '51f108ce113f11fbcbb7da6083c621cd' }
 			const feedIcon = wrapper.vm.feedIcon(feed)
 			expect(feedIcon).toEqual('//index.php/apps/news/favicon/51f108ce113f11fbcbb7da6083c621cd')
 		})

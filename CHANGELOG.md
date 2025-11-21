@@ -12,6 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Add feature to Group starred Items per Feed
 - Add `occ` commands for importing/exporting articles
 - Add importing/exporting articles to frontend settings
+- App settings are now displayed in an app settings dialog
 
 ### Fixed
 - Special characters may be displayed incorrectly when full text is enabled
