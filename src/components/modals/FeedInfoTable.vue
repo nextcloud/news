@@ -6,10 +6,11 @@
 	<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
 	<NcModal
 		size="large"
+		close-on-click-outside="true"
 		@close="$emit('close')">
 		<div class="table-modal">
 			<div class="modal-header">
-				<h2>{{ t('news', 'Article feed information') }}</h2>
+				<h2>{{ t('news', 'Feed settings') }}</h2>
 				<div v-if="loading" class="loading-message">
 					<NcLoadingIcon size="36" />
 					<h1>{{ t('news', 'Importing feeds') }}...{{ t('news', 'Please wait') }}</h1>

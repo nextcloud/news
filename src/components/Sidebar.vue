@@ -2,6 +2,8 @@
 	<NcAppNavigation>
 		<AddFeed v-if="showAddFeed" @close="closeAddFeed()" />
 		<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
+		<FeedInfoTable v-if="showFeedSettings" @close="closeFeedSettings()" />
+		<AppSettingsDialog v-if="showSettings" @close="closeSettings()" />
 		<NcAppNavigationNew
 			:text="t('news', 'Subscribe')"
 			button-id="new-feed-button"
@@ -158,162 +160,31 @@
 					</template>
 				</NcAppNavigationItem>
 			</template>
-
-			<NcAppNavigationItem
-				:name="t('news', 'Explore')"
-				:to="{ name: ROUTES.EXPLORE }">
-				<template #icon>
-					<EarthIcon />
-				</template>
-			</NcAppNavigationItem>
 		</template>
 		<template #footer>
-			<NcAppNavigationSettings :name="t('news', 'Settings')">
-				<div class="settings-button">
-					<NcButton wide="true" target="_blank" href="https://nextcloud.github.io/news/">
-						{{ t('news', 'Documentation') }}
-					</NcButton>
-				</div>
-				<div class="settings-button">
-					<NcButton wide="true" @click="showHelp = true">
-						{{ t('news', 'Keyboard shortcuts') }}
-					</NcButton>
-				</div>
-				<HelpModal v-if="showHelp" @close="showHelp = false" />
-				<div class="settings-button">
-					<NcButton wide="true" @click="showFeedInfoTable = true">
-						{{ t('news', 'Article feed information') }}
-					</NcButton>
-				</div>
-				<FeedInfoTable v-if="showFeedInfoTable" @close="showFeedInfoTable = false" />
-				<div>
-					<div class="select-container">
-						<label>
-							{{ t('news', 'Display mode') }}
-						</label>
-						<select
-							id="select-displaymode"
-							v-model="displaymode"
-							:value="displaymode">
-							<option
-								v-for="displayMode in displayModeOptions"
-								:key="displayMode.id"
-								:value="displayMode.id">
-								{{ displayMode.name }}
-							</option>
-						</select>
-					</div>
-					<div class="select-container">
-						<label>
-							{{ t('news', 'Split mode') }}
-						</label>
-						<select
-							id="select-splitmode"
-							v-model="splitmode"
-							:disabled="displaymode === DISPLAY_MODE.SCREENREADER"
-							:value="splitmode">
-							<option
-								v-for="splitMode in splitModeOptions"
-								:key="splitMode.id"
-								:value="splitMode.id">
-								{{ splitMode.name }}
-							</option>
-						</select>
-					</div>
-					<div>
-						<input
-							id="toggle-preventreadonscroll"
-							v-model="preventReadOnScroll"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-preventreadonscroll">
-							{{ t('news', 'Disable mark read through scrolling') }}
-						</label>
-					</div>
-					<div>
-						<input
-							id="toggle-showall"
-							v-model="showAll"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-showall">
-							{{ t('news', 'Show all articles') }}
-						</label>
-					</div>
-					<div>
-						<input
-							id="toggle-oldestfirst"
-							v-model="oldestFirst"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-oldestfirst">
-							{{ t('news', 'Reverse ordering (oldest on top)') }}
-						</label>
-					</div>
-					<div>
-						<input
-							id="toggle-disableRefresh"
-							v-model="disableRefresh"
-							type="checkbox"
-							class="checkbox">
-						<label for="toggle-disableRefresh">
-							{{ t('news', 'Disable automatic refresh') }}
-						</label>
-					</div>
-					<h3>{{ t('news', 'Abonnements (OPML)') }}</h3>
-					<div class="button-container">
-						<NcButton
-							aria-label="UploadOpml"
-							:disabled="loading"
-							@click="$refs.fileSelect.click()">
-							<template #icon>
-								<UploadIcon :size="20" />
-							</template>
-						</NcButton>
-						<input
-							ref="fileSelect"
-							type="file"
-							class="hidden"
-							aria-hidden="true"
-							accept=".opml"
-							@change="importOpml">
-						<NcButton
-							aria-label="DownloadOpml"
-							:disabled="loading"
-							@click="exportOpml">
-							<template #icon>
-								<DownloadIcon :size="20" />
-							</template>
-						</NcButton>
-					</div>
-					<h3>{{ t('news', 'Articles (JSON)') }}</h3>
-					<div class="button-container">
-						<NcButton
-							aria-label="UploadArticles"
-							:disabled="loading"
-							@click="$refs.articlesFileSelect.click()">
-							<template #icon>
-								<UploadIcon :size="20" />
-							</template>
-						</NcButton>
-						<input
-							ref="articlesFileSelect"
-							type="file"
-							class="hidden"
-							aria-hidden="true"
-							accept=".json"
-							@change="importArticles">
-						<NcButton
-							aria-label="DownloadArticles"
-							:disabled="loading"
-							@click="exportArticles">
-							<template #icon>
-								<DownloadIcon :size="20" />
-							</template>
-						</NcButton>
-					</div>
-				</div>
-			</NcAppNavigationSettings>
+			<ul class="footer-container">
+				<NcAppNavigationItem
+					:name="t('news', 'Explore')"
+					:to="{ name: ROUTES.EXPLORE }">
+					<template #icon>
+						<EarthIcon />
+					</template>
+				</NcAppNavigationItem>
+				<NcAppNavigationItem
+					:name="t('news', 'Feed settings')"
+					@click.prevent.stop="openFeedSettings">
+					<template #icon>
+						<ListStatusIcon :size="20" />
+					</template>
+				</NcAppNavigationItem>
+				<NcAppNavigationItem
+					:name="t('news', 'News settings')"
+					@click.prevent.stop="openSettings">
+					<template #icon>
+						<CogIcon :size="20" />
+					</template>
+				</NcAppNavigationItem>
+			</ul>
 		</template>
 	</NcAppNavigation>
 </template>
@@ -324,9 +195,8 @@ import type { Feed } from '../types/Feed.ts'
 import type { Folder } from '../types/Folder.ts'
 
 import axios from '@nextcloud/axios'
-import { showError, showSuccess } from '@nextcloud/dialogs'
-import { subscribe } from '@nextcloud/event-bus'
-import { generateOcsUrl, generateUrl } from '@nextcloud/router'
+import { showError } from '@nextcloud/dialogs'
+import { generateOcsUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
@@ -335,27 +205,24 @@ import NcAppNavigation from '@nextcloud/vue/components/NcAppNavigation'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
 import NcAppNavigationNew from '@nextcloud/vue/components/NcAppNavigationNew'
 import NcAppNavigationNewItem from '@nextcloud/vue/components/NcAppNavigationNewItem'
-import NcAppNavigationSettings from '@nextcloud/vue/components/NcAppNavigationSettings'
-import NcButton from '@nextcloud/vue/components/NcButton'
 import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
-import DownloadIcon from 'vue-material-design-icons/Download.vue'
+import CogIcon from 'vue-material-design-icons/CogOutline.vue'
 import EarthIcon from 'vue-material-design-icons/Earth.vue'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import FolderIcon from 'vue-material-design-icons/Folder.vue'
 import FolderAlertIcon from 'vue-material-design-icons/FolderAlert.vue'
 import FolderPlusIcon from 'vue-material-design-icons/FolderPlus.vue'
 import HistoryIcon from 'vue-material-design-icons/History.vue'
+import ListStatusIcon from 'vue-material-design-icons/ListStatus.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
-import UploadIcon from 'vue-material-design-icons/Upload.vue'
 import AddFeed from './AddFeed.vue'
+import AppSettingsDialog from './modals/AppSettingsDialog.vue'
 import FeedInfoTable from './modals/FeedInfoTable.vue'
-import HelpModal from './modals/HelpModal.vue'
 import MoveFeed from './MoveFeed.vue'
 import SidebarFeedLinkActions from './SidebarFeedLinkActions.vue'
-import { DISPLAY_MODE } from '../enums/index.ts'
 import { ROUTES } from '../routes/index.ts'
-import { ACTIONS, MUTATIONS } from '../store/index.ts'
+import { ACTIONS } from '../store/index.ts'
 import { API_ROUTES } from '../types/ApiRoutes.ts'
 
 export default defineComponent({
@@ -365,12 +232,11 @@ export default defineComponent({
 		NcAppNavigationNew,
 		NcAppNavigationItem,
 		NcAppNavigationNewItem,
-		NcAppNavigationSettings,
 		NcCounterBubble,
 		NcActionButton,
-		NcButton,
 		AddFeed,
 		MoveFeed,
+		CogIcon,
 		RssIcon,
 		FolderIcon,
 		EyeIcon,
@@ -378,55 +244,22 @@ export default defineComponent({
 		FolderAlertIcon,
 		FolderPlusIcon,
 		HistoryIcon,
+		ListStatusIcon,
 		PlusIcon,
-		UploadIcon,
-		DownloadIcon,
 		SidebarFeedLinkActions,
-		HelpModal,
 		FeedInfoTable,
+		AppSettingsDialog,
 	},
 
 	data: () => {
 		return {
-			showAddFeed: false,
-			showMoveFeed: false,
-			feedToMove: undefined,
-			DISPLAY_MODE,
 			ROUTES,
-			showHelp: false,
-			showFeedInfoTable: false,
+			showAddFeed: false,
+			showFeedSettings: false,
+			showMoveFeed: false,
+			showSettings: false,
+			feedToMove: undefined,
 			polling: null,
-			uploadStatus: null,
-			selectedFile: null,
-			displayModeOptions: [
-				{
-					id: '0',
-					name: t('news', 'Default'),
-				},
-				{
-					id: '1',
-					name: t('news', 'Compact'),
-				},
-				{
-					id: '2',
-					name: t('news', 'Screenreader'),
-				},
-			],
-
-			splitModeOptions: [
-				{
-					id: '0',
-					name: t('news', 'Vertical'),
-				},
-				{
-					id: '1',
-					name: t('news', 'Horizontal'),
-				},
-				{
-					id: '2',
-					name: t('news', 'Off'),
-				},
-			],
 		}
 	},
 
@@ -459,80 +292,23 @@ export default defineComponent({
 			return this.$store.getters.feeds.filter((item: Feed) => item.starredCount !== 0)
 		},
 
-		loading: {
-			get() {
-				return this.$store.getters.loading
-			},
+		active() {
+			return {
+				feedId: Number(this.$route.params?.feedId),
+				folderId: Number(this.$route.params?.folderId),
+			}
 		},
 
-		displaymode: {
-			get() {
-				return this.$store.getters.displaymode
-			},
-
-			set(newValue) {
-				this.saveSetting('displaymode', newValue)
-			},
+		loading() {
+			return this.$store.getters.loading
 		},
 
-		splitmode: {
-			get() {
-				return this.$store.getters.splitmode
-			},
-
-			set(newValue) {
-				this.saveSetting('splitmode', newValue)
-			},
+		disableRefresh() {
+			return this.$store.getters.disableRefresh
 		},
 
-		oldestFirst: {
-			get() {
-				return this.$store.getters.oldestFirst
-			},
-
-			set(newValue) {
-				this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
-				this.saveSetting('oldestFirst', newValue)
-			},
-		},
-
-		preventReadOnScroll: {
-			get() {
-				return this.$store.getters.preventReadOnScroll
-			},
-
-			set(newValue) {
-				this.saveSetting('preventReadOnScroll', newValue)
-			},
-		},
-
-		showAll: {
-			get() {
-				return this.$store.getters.showAll
-			},
-
-			set(newValue) {
-				this.$store.commit(MUTATIONS.RESET_ITEM_STATES)
-				this.saveSetting('showAll', newValue)
-			},
-		},
-
-		disableRefresh: {
-			get() {
-				return this.$store.getters.disableRefresh
-			},
-
-			set(newValue) {
-				if (!newValue) {
-					// refresh feeds every minute
-					this.polling = setInterval(() => {
-						this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-					}, 60000)
-				} else {
-					clearInterval(this.polling)
-				}
-				this.saveSetting('disableRefresh', newValue)
-			},
+		showAll() {
+			return this.$store.getters.showAll
 		},
 
 		navFolder() {
@@ -582,179 +358,11 @@ export default defineComponent({
 		useHotKey('v', this.nextFolder)
 	},
 
-	mounted() {
-		subscribe('news:global:toggle-help-dialog', () => {
-			this.showHelp = !this.showHelp
-		})
-		subscribe('news:global:toggle-feed-info', () => {
-			this.showFeedInfoTable = !this.showFeedInfoTable
-		})
-	},
-
 	beforeUnmount() {
 		clearInterval(this.polling)
 	},
 
 	methods: {
-		async saveSetting(key, value) {
-			this.$store.commit(key, { value })
-			const url = generateOcsUrl(
-				'/apps/provisioning_api/api/v1/config/users/{appId}/{key}',
-				{
-					appId: 'news',
-					key,
-				},
-			)
-			if (typeof value === 'boolean') {
-				value = value ? '1' : '0'
-			}
-			try {
-				const { data } = await axios.post(url, {
-					configValue: value,
-				})
-				this.handleResponse({
-					status: data.ocs?.meta?.status,
-				})
-			} catch (e) {
-				this.handleResponse({
-					errorMessage: t('news', 'Unable to update news config'),
-					error: e,
-				})
-			}
-		},
-
-		async importOpml(event) {
-			const file = event.target.files[0]
-			if (file) {
-				this.selectedFile = file
-			} else {
-				showError(t('news', 'Please select a valid OPML file'))
-				return
-			}
-
-			this.$store.commit(MUTATIONS.SET_LOADING, { value: true })
-			this.showFeedInfoTable = true
-			const formData = new FormData()
-			formData.append('file', this.selectedFile)
-
-			try {
-				const response = await fetch(generateUrl('/apps/news/import/opml'), {
-					method: 'POST',
-					body: formData,
-				})
-
-				if (response.ok) {
-					const data = await response.json()
-					if (data.status === 'ok') {
-						showSuccess(t('news', 'File successfully uploaded'))
-					} else {
-						showError(data.message, { timeout: -1 })
-					}
-				} else {
-					showError(t('news', 'Error uploading the opml file'))
-				}
-			} catch (e) {
-				this.handleResponse({
-					errorMessage: t('news', 'Error connecting to the server'),
-					error: e,
-				})
-			}
-			// refresh feeds and folders after import
-			this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
-			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-			this.$store.commit(MUTATIONS.SET_LOADING, { value: false })
-		},
-
-		async exportOpml() {
-			try {
-				const response = await fetch(generateUrl('/apps/news/export/opml'))
-				if (response.ok) {
-					const formattedDate = new Date().toISOString().split('T')[0]
-					const blob = await response.blob()
-					const link = document.createElement('a')
-					link.href = URL.createObjectURL(blob)
-					link.download = 'subscriptions-' + formattedDate + '.opml'
-					link.click()
-				} else {
-					showError(t('news', 'Error retrieving the opml file'))
-				}
-			} catch (e) {
-				this.handleResponse({
-					errorMessage: t('news', 'Error connecting to the server'),
-					error: e,
-				})
-			}
-		},
-
-		async importArticles(event) {
-			const file = event.target.files[0]
-			if (!file) {
-				showError(t('news', 'Please select a valid json file'))
-				return
-			}
-
-			const formData = new FormData()
-			formData.append('file', file)
-
-			try {
-				const response = await axios.post(
-					generateUrl('/apps/news/import/articles'),
-					formData,
-					{ headers: {} },
-				)
-
-				if (response.status === 200) {
-					const data = await response.data
-					if (data.status === 'ok') {
-						showSuccess(t('news', 'File successfully uploaded'))
-						this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-					} else {
-						showError(data.message, { timeout: -1 })
-					}
-				} else {
-					showError(t('news', 'Error uploading the json file'))
-				}
-			} catch (e) {
-				this.handleResponse({
-					errorMessage: t('news', 'Error connecting to the server'),
-					error: e,
-				})
-			}
-		},
-
-		async exportArticles() {
-			try {
-				const response = await axios.get(
-					generateUrl('/apps/news/export/articles'),
-					{ responseType: 'blob' },
-				)
-
-				if (response.status === 200) {
-					const formattedDate = new Date().toISOString().split('T')[0]
-					const link = document.createElement('a')
-					link.href = URL.createObjectURL(response.data)
-					link.download = 'articles-' + formattedDate + '.json'
-					link.click()
-				} else {
-					showError(t('news', 'Error retrieving the json file'))
-				}
-			} catch (e) {
-				this.handleResponse({
-					errorMessage: t('news', 'Error connecting to the server'),
-					error: e,
-				})
-			}
-		},
-
-		handleResponse({ status, errorMessage, error }) {
-			if (status !== 'ok') {
-				showError(errorMessage)
-				console.error(errorMessage, error)
-			} else {
-				showSuccess(t('news', 'Successfully updated news configuration'))
-			}
-		},
-
 		newFolder(value: string) {
 			const folderName = value.trim()
 			if (this.$store.getters.folders.some((f) => f.name === folderName)) {
@@ -817,6 +425,22 @@ export default defineComponent({
 			this.showMoveFeed = false
 		},
 
+		openFeedSettings() {
+			this.showFeedSettings = true
+		},
+
+		closeFeedSettings() {
+			this.showFeedSettings = false
+		},
+
+		openSettings() {
+			this.showSettings = true
+		},
+
+		closeSettings() {
+			this.showSettings = false
+		},
+
 		isFolder(item: Feed | Folder) {
 			return (item as Folder).name !== undefined
 		},
@@ -836,19 +460,18 @@ export default defineComponent({
 					configValue,
 				})
 			} catch (e) {
-				this.handleResponse({
-					errorMessage: t('news', 'Unable to save starred open state'),
-					error: e,
-				})
+				const errorMessage = t('news', 'Unable to save starred open state')
+				showError(errorMessage)
+				console.error(errorMessage, e)
 			}
 		},
 
 		isActiveFeed(feed) {
-			return this.$route.name === 'feed' ? feed.id === Number(this.$route.params?.feedId) : false
+			return feed.id === this.active.feedId
 		},
 
 		isActiveFolder(folder) {
-			return this.$route.name === 'folder' ? folder.id === Number(this.$route.params?.folderId) : false
+			return folder.id === this.active.folderId
 		},
 
 		hasActiveFeeds(folder) {
@@ -909,7 +532,7 @@ export default defineComponent({
 			if (newIndex >= 0 && newIndex < this.navFeeds.length) {
 				const feedId = this.navFeeds[newIndex].id.toString()
 				this.$router.push({ name: 'feed', params: { feedId } })
-				this.$refs['feed-' + feedId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
+				this.$refs['feed-' + feedId]?.[0]?.$el?.scrollIntoView?.({ behavior: 'auto', block: 'nearest' })
 			}
 		},
 
@@ -926,7 +549,7 @@ export default defineComponent({
 			if (newIndex >= 0 && newIndex < this.navFolder.length) {
 				const folderId = this.navFolder[newIndex].id.toString()
 				this.$router.push({ name: 'folder', params: { folderId } })
-				this.$refs['folder-' + folderId][0].$el.scrollIntoView({ behavior: 'auto', block: 'nearest' })
+				this.$refs['folder-' + folderId]?.[0]?.$el?.scrollIntoView?.({ behavior: 'auto', block: 'nearest' })
 			}
 		},
 
@@ -947,28 +570,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.button-container {
-	display: flex;
-	width: 100%;
-}
-
-.button-container button {
-	flex: 1;
-}
-
-.select-container {
-	display: flex;
-	align-items: center;
-}
-
-.select-container select {
-	min-width: 140px;
-	text-overflow: ellipsis;
-	margin-inline-start: auto;
-}
-
-.settings-button {
-	padding: 2px;
+.footer-container {
+	padding: var(--app-navigation-padding);
 }
 
 .new-folder-container {
