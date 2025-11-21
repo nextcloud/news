@@ -380,6 +380,7 @@ export const actions = {
 		const feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
+		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: false })
 	},
 }
 

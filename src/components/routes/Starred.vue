@@ -25,15 +25,25 @@ export default defineComponent({
 	name: 'RoutesStarred',
 	components: {
 		ContentTemplate,
+		NcCounterBubble,
 	},
 
 	props: {
+		/**
+		 * Eindeutige Kennung des Feeds, dessen markierte (starred) Einträge von dieser Komponente angezeigt werden.
+		 *
+		 * @type {string|number}
+		 * @example "feed-123" oder 42
+		 *
+		 * Diese ID wird verwendet, um die relevanten Einträge vom Backend zu laden und die Anzeige zu filtern.
+		 */
 		feedId: {
 			type: String,
 			required: false,
 			default: undefined,
 		},
 	},
+
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
@@ -56,6 +66,7 @@ export default defineComponent({
 		oldestFirst() {
 			return this.$store.getters.oldestFirst
 		},
+
 		id(): number {
 			return Number(this.feedId)
 		},
