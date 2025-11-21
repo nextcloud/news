@@ -30,12 +30,12 @@ export default defineComponent({
 
 	props: {
 		/**
-		 * Eindeutige Kennung des Feeds, dessen markierte (starred) Einträge von dieser Komponente angezeigt werden.
+		 * Unique identifier of the feed whose starred entries this component displays.
 		 *
 		 * @type {string|number}
-		 * @example "feed-123" oder 42
+		 * @example "feed-123" or 42
 		 *
-		 * Diese ID wird verwendet, um die relevanten Einträge vom Backend zu laden und die Anzeige zu filtern.
+		 * Used to fetch the relevant entries from the backend and to filter the displayed items.
 		 */
 		feedId: {
 			type: String,

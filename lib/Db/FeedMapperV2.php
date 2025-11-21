@@ -51,32 +51,46 @@ class FeedMapperV2 extends NewsMapperV2
      */
     public function findAllFromUser(string $userId, array $params = []): array
     {
-        $builder = $this->db->getQueryBuilder();
+        $unreadSubquery = $this->db->getQueryBuilder();
+        $unreadSubquery
+            ->select('feed_id')
+            ->selectAlias($unreadSubquery->func()->count('id'), 'unread_count')
+            ->from(ItemMapperV2::TABLE_NAME)
+            ->where('unread = :unread')
+            ->groupBy('feed_id');
+
+        $starredSubquery = $this->db->getQueryBuilder();
+        $starredSubquery
+            ->select('feed_id')
+            ->selectAlias($starredSubquery->func()->count('id'), 'starred_count')
+            ->from(ItemMapperV2::TABLE_NAME)
+            ->where('starred = 1')
+            ->groupBy('feed_id');
+
         $builder
             ->select(
                 'feeds.*',
-                $builder->func()->count('items_unread.id', 'unreadCount'),
-                $builder->func()->count('items_starred.id', 'starredCount')
+                $builder->createFunction('COALESCE(unread_sub.unread_count, 0) AS unreadCount'),
+                $builder->createFunction('COALESCE(starred_sub.starred_count, 0) AS starredCount')
             )
             ->from(static::TABLE_NAME, 'feeds')
             ->leftJoin(
                 'feeds',
-                ItemMapperV2::TABLE_NAME,
-                'items_unread',
-                'items_unread.feed_id = feeds.id AND items_unread.unread = :unread'
+                '(' . $unreadSubquery->getSQL() . ')',
+                'unread_sub',
+                'unread_sub.feed_id = feeds.id'
             )
             ->leftJoin(
                 'feeds',
-                ItemMapperV2::TABLE_NAME,
-                'items_starred',
-                'items_starred.feed_id = feeds.id AND items_starred.starred = 1'
+                '(' . $starredSubquery->getSQL() . ')',
+                'starred_sub',
+                'starred_sub.feed_id = feeds.id'
             )
             ->where('feeds.user_id = :user_id')
             ->andWhere('feeds.deleted_at = 0')
-            ->groupBy('feeds.id')
             ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
             ->setParameter('user_id', $userId)
-            ->addOrderBy('title');
+            ->addOrderBy('feeds.title');
 
         return $this->findEntities($builder);
     }
