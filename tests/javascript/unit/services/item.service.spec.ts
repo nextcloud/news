@@ -28,7 +28,7 @@ describe('item.service.ts', () => {
 		it('should call GET with offset set to start param and STARRED item type', async () => {
 			axios.get.mockResolvedValue({ data: { feeds: [] } })
 
-			await ItemService.fetchStarred(0)
+			await ItemService.fetchStarred(0, 0)
 
 			expect(axios.get).toBeCalled()
 			const queryParams = axios.get.mock.calls[0][1].params
