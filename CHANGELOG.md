@@ -7,7 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [28.x.x]
 ### Changed
-
+- Replace deprecated PHPUnit `withConsecutive` method to prepare for PHPUnit 10 upgrade
 
 ### Fixed
 

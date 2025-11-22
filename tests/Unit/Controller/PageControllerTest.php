@@ -204,14 +204,20 @@ class PageControllerTest extends TestCase
              ->method('getLanguageCode')
              ->will($this->returnValue('de'));
 
+        $getUserValueCalls = [
+            ['becka', 'news', 'showAll', ''],
+            ['becka', 'news', 'preventReadOnScroll', ''],
+            ['becka', 'news', 'oldestFirst', '']
+        ];
+        $getUserValueIndex = 0;
+
         $this->config->expects($this->exactly(3))
                      ->method('getUserValue')
-                     ->withConsecutive(
-                        ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst']
-                     )
-                     ->will($this->returnValue('1'));
+                     ->willReturnCallback(function (...$args) use (&$getUserValueCalls, &$getUserValueIndex) {
+                         $this->assertEquals($getUserValueCalls[$getUserValueIndex], $args);
+                         $getUserValueIndex++;
+                         return '1';
+                     });
         $this->settings->expects($this->once())
                        ->method('getValueString')
                        ->with('news', 'exploreUrl')
@@ -243,14 +249,20 @@ class PageControllerTest extends TestCase
                    ->method('getLanguageCode')
                    ->will($this->returnValue('de'));
 
+        $getUserValueCalls = [
+            ['becka', 'news', 'showAll', ''],
+            ['becka', 'news', 'preventReadOnScroll', ''],
+            ['becka', 'news', 'oldestFirst', '']
+        ];
+        $getUserValueIndex = 0;
+
         $this->config->expects($this->exactly(3))
                     ->method('getUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst']
-                    )
-                    ->will($this->returnValue('1'));
+                    ->willReturnCallback(function (...$args) use (&$getUserValueCalls, &$getUserValueIndex) {
+                        $this->assertEquals($getUserValueCalls[$getUserValueIndex], $args);
+                        $getUserValueIndex++;
+                        return '1';
+                    });
         $this->settings->expects($this->once())
                         ->method('getValueString')
                         ->with('news', 'exploreUrl')
@@ -268,14 +280,20 @@ class PageControllerTest extends TestCase
      */
     public function testUpdateSettings()
     {
+        $setUserValueCalls = [
+            ['becka', 'news', 'showAll', '1', null],
+            ['becka', 'news', 'preventReadOnScroll', '0', null],
+            ['becka', 'news', 'oldestFirst', '1', null],
+            ['becka', 'news', 'disableRefresh', '0', null]
+        ];
+        $setUserValueIndex = 0;
+
         $this->config->expects($this->exactly(4))
                     ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'showAll', '1'],
-                        ['becka', 'news', 'preventReadOnScroll', '0'],
-                        ['becka', 'news', 'oldestFirst', '1'],
-                        ['becka', 'news', 'disableRefresh', '0']
-                    );
+                    ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
+                        $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
+                        $setUserValueIndex++;
+                    });
 
         $this->controller->updateSettings(true, false, true, false);
     }
@@ -283,12 +301,18 @@ class PageControllerTest extends TestCase
     public function testExplore()
     {
         $in = ['test'];
+        $setUserValueCalls = [
+            ['becka', 'news', 'lastViewedFeedId', 0, null],
+            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE, null]
+        ];
+        $setUserValueIndex = 0;
+
         $this->config->expects($this->exactly(2))
                     ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'lastViewedFeedId', 0],
-                        ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
-                    );
+                    ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
+                        $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
+                        $setUserValueIndex++;
+                    });
 
         $this->recommended->expects($this->once())
                         ->method('forLanguage')
@@ -302,12 +326,18 @@ class PageControllerTest extends TestCase
 
     public function testExploreError()
     {
+        $setUserValueCalls = [
+            ['becka', 'news', 'lastViewedFeedId', 0, null],
+            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE, null]
+        ];
+        $setUserValueIndex = 0;
+
         $this->config->expects($this->exactly(2))
                     ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'lastViewedFeedId', 0],
-                        ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
-                    );
+                    ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
+                        $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
+                        $setUserValueIndex++;
+                    });
 
         $this->recommended->expects($this->once())
                         ->method('forLanguage')
