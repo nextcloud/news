@@ -552,7 +552,7 @@ class ItemMapperTest extends MapperTestUtility
                 return $selectbuilder;
             });
 
-        $setParameterCalls = [['userId', 'admin', null], ['maxItemId', 4, null], ['unread', true, null]];
+        $setParameterCalls = [['userId', 'admin', null], ['maxItemId', 4, null], ['unread', true, 'boolean']];
         $setParameterIndex = 0;
 
         $selectbuilder->expects($this->exactly(3))
@@ -607,13 +607,19 @@ class ItemMapperTest extends MapperTestUtility
             ->with('id IN (:idList)')
             ->will($this->returnSelf());
 
-        $setParameterCalls2 = [['idList', [1, 2], null], ['unread', false, null], ['last_modified', null, null]];
+        $setParameterCalls2 = [['idList', [1, 2], 101], ['unread', false, 'boolean']];
         $setParameterIndex2 = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
             ->willReturnCallback(function (...$args) use (&$setParameterCalls2, &$setParameterIndex2) {
-                $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
+                if ($setParameterIndex2 < count($setParameterCalls2)) {
+                    $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
+                } else {
+                    // last_modified with dynamic timestamp - just check it's called
+                    $this->assertEquals('last_modified', $args[0]);
+                    $setParameterIndex2++;
+                }
                 return $this->builder;
             });
 

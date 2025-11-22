@@ -604,13 +604,19 @@ class FeedMapperTest extends MapperTestUtility
                 return $this->builder;
             });
 
-        $setParameterCalls2 = [['unread', false, null], ['idList', [1, 2], null], ['last_modified', null, null]];
+        $setParameterCalls2 = [['unread', false, 'boolean'], ['idList', [1, 2], 101]];
         $setParameterIndex2 = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
             ->willReturnCallback(function (...$args) use (&$setParameterCalls2, &$setParameterIndex2) {
-                $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
+                if ($setParameterIndex2 < count($setParameterCalls2)) {
+                    $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
+                } else {
+                    // last_modified with dynamic timestamp - just check it's called
+                    $this->assertEquals('last_modified', $args[0]);
+                    $setParameterIndex2++;
+                }
                 return $this->builder;
             });
         
@@ -731,13 +737,19 @@ class FeedMapperTest extends MapperTestUtility
                 return $this->builder;
             });
 
-        $setParameterCalls2 = [['unread', false, null], ['idList', [1, 2], null], ['last_modified', null, null]];
+        $setParameterCalls2 = [['unread', false, 'boolean'], ['idList', [1, 2], 101]];
         $setParameterIndex2 = 0;
 
         $this->builder->expects($this->exactly(3))
             ->method('setParameter')
             ->willReturnCallback(function (...$args) use (&$setParameterCalls2, &$setParameterIndex2) {
-                $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
+                if ($setParameterIndex2 < count($setParameterCalls2)) {
+                    $this->assertEquals($setParameterCalls2[$setParameterIndex2++], $args);
+                } else {
+                    // last_modified with dynamic timestamp - just check it's called
+                    $this->assertEquals('last_modified', $args[0]);
+                    $setParameterIndex2++;
+                }
                 return $this->builder;
             });
 
@@ -755,7 +767,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->db->expects($this->exactly(1))
             ->method('executeStatement')
-            ->with('QUERY');
+            ->with('QUERY', [], []);
 
         $this->class->read('admin', 1, 4);
     }

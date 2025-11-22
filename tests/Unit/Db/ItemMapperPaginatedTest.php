@@ -473,7 +473,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 return $this->builder;
             });
 
-        $setParameterCalls = [['userId', 'jack'], null, ['offset', 10], null, ['term0', '%key%'], null, ['term1', '%word%'], null, ['starred', true], null];
+        $setParameterCalls = [['userId', 'jack', null], ['offset', 10, null], ['term0', '%key%', null], ['term1', '%word%', null], ['starred', true, null]];
         $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(5))
@@ -879,7 +879,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 return $this->builder;
             });
 
-        $setParameterCalls = [['userId', 'jack'], null, ['feedId', 2], null, ['term0', '%key%'], null, ['term1', '%word%'], null, ['offset', 10], null];
+        $setParameterCalls = [['userId', 'jack', null], ['feedId', 2, null], ['term0', '%key%', null], ['term1', '%word%', null], ['offset', 10, null]];
         $setParameterIndex = 0;
 
         $this->builder->expects($this->exactly(5))
