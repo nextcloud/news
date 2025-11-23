@@ -2,6 +2,7 @@ import { config } from '@vue/test-utils'
 import { vi } from 'vitest'
 
 global.appName = 'news'
+global.appVersion = '1.0.0'
 
 global.OC = {
 	getLanguage() {
