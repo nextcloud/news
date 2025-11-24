@@ -99,6 +99,8 @@ OC.L10N.register(
     "Disable full text" : "Désactiver le texte intégral",
     "Mark as unread on update" : "Marquer comme non lu après mise à jour",
     "Keep read status on update" : "Conserver le statut de lecture après modification",
+    "Sync disabled" : "Synchronisation désactivée",
+    "Sync enabled" : "Synchronisation activée",
     "Previous Item" : "Elément précédent",
     "Next Item" : "Elément suivant",
     "Share within Instance" : "Partager au sein de l'instance",
