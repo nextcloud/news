@@ -266,7 +266,7 @@ describe('feed.ts', () => {
 		})
 
 		describe('MODIFY_STARRED_COUNT', () => {
-			it('should increments starredCount when addding starred items', () => {
+			it('should increments starredCount when adding starred items', () => {
 				const state: any = { feeds: [{ id: 1, starredCount: 0 }], unreadCount: 0, newestItemId: 0, ordering: {} }
 
 				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 1, add: true })

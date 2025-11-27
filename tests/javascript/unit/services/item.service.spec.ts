@@ -1,7 +1,7 @@
 import axios from '@nextcloud/axios'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { ITEM_TYPES, ItemService } from '../../../../src/dataservices/item.service'
-import { API_ROUTES } from '../../../../src/types/ApiRoutes'
+import { API_ROUTES } from '../../../../src/types/ApiRoutes.ts'
 
 describe('item.service.ts', () => {
 	'use strict'
