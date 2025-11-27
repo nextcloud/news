@@ -1,6 +1,8 @@
 <template>
 	<ContentTemplate
 		v-if="!loading"
+		:list-name="t('news', 'Starred')"
+		:list-count="items.starredCount"
 		:items="starred"
 		:fetch-key="fetchKey"
 		@load-more="fetchMore()">
