@@ -264,5 +264,29 @@ describe('feed.ts', () => {
 				expect(state.feeds.length).toEqual(0)
 			})
 		})
+
+		describe('MODIFY_STARRED_COUNT', () => {
+			it('should increments starredCount when addding starred items', () => {
+				const state: any = { feeds: [{ id: 1, starredCount: 0 }], unreadCount: 0, newestItemId: 0, ordering: {} }
+
+				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 1, add: true })
+				expect(state.feeds[0].starredCount).toBe(1)
+			})
+
+			it('should decrement starredCount when removing starring', () => {
+				const state: any = { feeds: [{ id: 2, starredCount: 2 }], unreadCount: 0, newestItemId: 0, ordering: {} }
+
+				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 2, add: false })
+				expect(state.feeds[0].starredCount).toBe(1)
+			})
+
+			it('should do nothing if no feed is found', () => {
+				const state: any = { feeds: [{ id: 3, starredCount: 5 }], unreadCount: 0, newestItemId: 0, ordering: {} }
+
+				// call with non-existing feedId
+				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 999, add: true })
+				expect(state.feeds[0].starredCount).toBe(5)
+			})
+		})
 	})
 })

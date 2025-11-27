@@ -52,20 +52,35 @@ class FeedMapperV2 extends NewsMapperV2
     public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
-        $builder->select('feeds.*', $builder->func()->count('items.id', 'unreadCount'))
+        $builder
+            ->select('feeds.*')
+            ->selectAlias(
+                $builder->createFunction('COUNT(DISTINCT items_unread.id)'),
+                'unreadCount'
+            )
+            ->selectAlias(
+                $builder->createFunction('COUNT(DISTINCT items_starred.id)'),
+                'starredCount'
+            )
             ->from(static::TABLE_NAME, 'feeds')
             ->leftJoin(
                 'feeds',
                 ItemMapperV2::TABLE_NAME,
-                'items',
-                'items.feed_id = feeds.id AND items.unread = :unread'
+                'items_unread',
+                'items_unread.feed_id = feeds.id AND items_unread.unread = :unread'
+            )
+            ->leftJoin(
+                'feeds',
+                ItemMapperV2::TABLE_NAME,
+                'items_starred',
+                'items_starred.feed_id = feeds.id AND items_starred.starred = 1'
             )
             ->where('feeds.user_id = :user_id')
             ->andWhere('feeds.deleted_at = 0')
             ->groupBy('feeds.id')
             ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
             ->setParameter('user_id', $userId)
-            ->addOrderBy('title');
+            ->addOrderBy('feeds.title');
 
         return $this->findEntities($builder);
     }

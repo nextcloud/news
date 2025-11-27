@@ -221,6 +221,79 @@ describe('Sidebar.vue', () => {
 		})
 	})
 
+	describe('computed properties', () => {
+		it('should return only feeds with starredCount for GroupedStars', () => {
+			const mockFeeds = [{ id: 1, title: 'Feed A', starredCount: 0 }, { id: 2, title: 'Feed B', starredCount: 3 }, { id: 3, title: 'Feed C', starredCount: 1 }]
+
+			const mockStore: any = {
+				getters: {
+					feeds: mockFeeds,
+					folders: [],
+					loading: false,
+					displaymode: '0',
+					splitmode: '0',
+					oldestFirst: false,
+					preventReadOnScroll: true,
+					showAll: false,
+					disableRefresh: true, // avoid setInterval in created()
+					items: { unreadCount: 0, starredCount: 0 },
+				},
+				dispatch: vi.fn(),
+				commit: vi.fn(),
+			}
+
+			const wrapper = shallowMount(AppSidebar as any, {
+				global: {
+					mocks: {
+						$store: mockStore,
+						t: (_ns: string, msg: string) => msg,
+						$route: { name: '', params: {} },
+						$router: { push: vi.fn() },
+					},
+					stubs: true,
+				},
+			})
+
+			const grouped = (wrapper.vm as any).GroupedStars
+			expect(Array.isArray(grouped)).toBe(true)
+			expect(grouped.length).toBe(2)
+			expect(grouped.map((g: any) => g.id).sort()).toEqual([2, 3])
+		})
+
+		it('should load getter reflects store.getters.loading', () => {
+			const mockStore: any = {
+				getters: {
+					feeds: [],
+					folders: [],
+					loading: true,
+					displaymode: '0',
+					splitmode: '0',
+					oldestFirst: false,
+					preventReadOnScroll: true,
+					showAll: false,
+					disableRefresh: true,
+					items: { unreadCount: 0, starredCount: 0 },
+				},
+				dispatch: vi.fn(),
+				commit: vi.fn(),
+			}
+
+			const wrapper = shallowMount(AppSidebar as any, {
+				global: {
+					mocks: {
+						$store: mockStore,
+						t: (_ns: string, msg: string) => msg,
+						$route: { name: '', params: {} },
+						$router: { push: vi.fn() },
+					},
+					stubs: true,
+				},
+			})
+
+			expect((wrapper.vm as any).loading).toBe(true)
+		})
+	})
+
 	// TODO: More Template Testing with https://test-utils.vuejs.org/guide/essentials/a-crash-course.html#adding-a-new-todo
 
 	afterEach(() => {

@@ -68,24 +68,30 @@ class FeedMapperTest extends MapperTestUtility
                  ->method('getQueryBuilder')
                  ->willReturn($this->builder);
 
-        $funcbuilder = $this->getMockBuilder(IFunctionBuilder::class)
-                            ->getMock();
+        $funcUnread = $this->getMockBuilder(IQueryFunction::class)
+                      ->getMock();
+        $funcStarred = $this->getMockBuilder(IQueryFunction::class)
+                      ->getMock();
 
-        $func = $this->getMockBuilder(IQueryFunction::class)
-                     ->getMock();
-
-        $funcbuilder->expects($this->once())
-                    ->method('count')
-                    ->with('items.id', 'unreadCount')
-                    ->will($this->returnValue($func));
-
-        $this->builder->expects($this->once())
-                      ->method('func')
-                      ->will($this->returnValue($funcbuilder));
+        $this->builder->expects($this->exactly(2))
+                ->method('createFunction')
+                ->withConsecutive(
+                ['COUNT(DISTINCT items_unread.id)'],
+                ['COUNT(DISTINCT items_starred.id)']
+                )
+                ->willReturnOnConsecutiveCalls($funcUnread, $funcStarred);
 
         $this->builder->expects($this->once())
-                      ->method('select')
-                      ->with('feeds.*', $func)
+                  ->method('select')
+                  ->with('feeds.*')
+                  ->will($this->returnSelf());
+
+        $this->builder->expects($this->exactly(2))
+                      ->method('selectAlias')
+                      ->withConsecutive(
+                      [$funcUnread, 'unreadCount'],
+                      [$funcStarred, 'starredCount']
+                      )
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -93,9 +99,12 @@ class FeedMapperTest extends MapperTestUtility
                       ->with('news_feeds', 'feeds')
                       ->will($this->returnSelf());
 
-        $this->builder->expects($this->once())
+        $this->builder->expects($this->exactly(2))
                       ->method('leftJoin')
-                      ->with('feeds', 'news_items', 'items', 'items.feed_id = feeds.id AND items.unread = :unread')
+                      ->withConsecutive(
+                        ['feeds', 'news_items', 'items_unread', 'items_unread.feed_id = feeds.id AND items_unread.unread = :unread'],
+                        ['feeds', 'news_items', 'items_starred', 'items_starred.feed_id = feeds.id AND items_starred.starred = :starred']
+                      )
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
@@ -115,7 +124,7 @@ class FeedMapperTest extends MapperTestUtility
 
         $this->builder->expects($this->exactly(2))
                       ->method('setParameter')
-                      ->withConsecutive(['unread', true], ['user_id', 'jack'])
+                      ->withConsecutive(['unread', true], ['starred', true], ['user_id', 'jack'])
                       ->will($this->returnSelf());
 
         $this->builder->expects($this->once())

@@ -187,7 +187,7 @@ class ItemServiceTest extends TestCase
         $type = ListType::STARRED;
         $this->mapper->expects($this->once())
             ->method('findAllItems')
-            ->with('jack', $type, 20, 5, true, [])
+            ->with(0, 'jack', $type, 20, 5, true, [])
             ->will($this->returnValue(['val']));
 
         $result = $this->class->findAllWithFilters('jack', $type, 20, 5, true);
@@ -202,7 +202,7 @@ class ItemServiceTest extends TestCase
 
         $this->mapper->expects($this->once())
             ->method('findAllItems')
-            ->with('jack', $type, 20, 5, true, $search)
+            ->with(0, 'jack', $type, 20, 5, true, $search)
             ->will($this->returnValue(['val']));
 
         $result = $this->class->findAllWithFilters('jack', $type, 20, 5, true, $search);
