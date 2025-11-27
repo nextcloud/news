@@ -73,12 +73,13 @@ class FeedMapperV2 extends NewsMapperV2
                 'feeds',
                 ItemMapperV2::TABLE_NAME,
                 'items_starred',
-                'items_starred.feed_id = feeds.id AND items_starred.starred = 1'
+                'items_starred.feed_id = feeds.id AND items_starred.starred = :starred'
             )
             ->where('feeds.user_id = :user_id')
             ->andWhere('feeds.deleted_at = 0')
             ->groupBy('feeds.id')
             ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('starred', true, IQueryBuilder::PARAM_BOOL)
             ->setParameter('user_id', $userId)
             ->addOrderBy('feeds.title');
 

@@ -122,7 +122,7 @@ class FeedMapperTest extends MapperTestUtility
                       ->with('feeds.id')
                       ->will($this->returnSelf());
 
-        $this->builder->expects($this->exactly(2))
+        $this->builder->expects($this->exactly(3))
                       ->method('setParameter')
                       ->withConsecutive(['unread', true], ['starred', true], ['user_id', 'jack'])
                       ->will($this->returnSelf());
