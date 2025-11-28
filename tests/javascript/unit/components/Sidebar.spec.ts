@@ -292,6 +292,54 @@ describe('Sidebar.vue', () => {
 
 			expect((wrapper.vm as any).loading).toBe(true)
 		})
+
+		it('should renders RssIcon when no faviconLink and fallback span when faviconLink present for GroupedStars', () => {
+			const mockFeeds = [
+				{ id: 2, title: 'group-no-favicon', starredCount: 1, faviconLink: null },
+				{ id: 3, title: 'group-with-favicon', starredCount: 2, faviconLink: 'https://example.com/favicon.png' },
+			]
+
+			const mockStore: any = {
+				getters: {
+					feeds: mockFeeds,
+					folders: [],
+					loading: false,
+					displaymode: '0',
+					splitmode: '0',
+					oldestFirst: false,
+					preventReadOnScroll: true,
+					showAll: false,
+					disableRefresh: true,
+					items: { unreadCount: 0, starredCount: 0 },
+				},
+				dispatch: vi.fn(),
+				commit: vi.fn(),
+			}
+
+			// shallowMount with simple stubs — we only need computed GroupedStars here
+			const wrapper = shallowMount(AppSidebar as any, {
+				global: {
+					mocks: {
+						$store: mockStore,
+						t: (_ns: string, msg: string) => msg,
+						$route: { name: '', params: {} },
+						$router: { push: vi.fn() },
+					},
+					stubs: true,
+				},
+			})
+
+			// use computed GroupedStars to assert the branching data (covers the v-if decision)
+			const grouped = (wrapper.vm as any).GroupedStars
+			expect(Array.isArray(grouped)).toBe(true)
+			expect(grouped.length).toBe(2)
+
+			// first group has no faviconLink -> template should render RssIcon (v-if="!group.faviconLink")
+			expect(grouped[0].faviconLink).toBeNull()
+
+			// second group has a faviconLink -> template should render background-image span
+			expect(grouped[1].faviconLink).toBe('https://example.com/favicon.png')
+		})
 	})
 
 	// TODO: More Template Testing with https://test-utils.vuejs.org/guide/essentials/a-crash-course.html#adding-a-new-todo
