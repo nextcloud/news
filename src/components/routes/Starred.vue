@@ -34,15 +34,14 @@ export default defineComponent({
 		/**
 		 * Unique identifier of the feed whose starred entries this component displays.
 		 *
-		 * @type {number}
-		 * @example 42 or 0
+		 * @type {string}
 		 *
 		 * Used to fetch the relevant entries from the backend and to filter the displayed items.
 		 */
 		feedId: {
-			type: Number,
+			type: String,
 			required: false,
-			default: 0,
+			default: undefined,
 		},
 	},
 
