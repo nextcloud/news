@@ -48,9 +48,11 @@ export default defineComponent({
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
-			let items = this.$store.getters.starred
-			if (this.feedId) {
-				items = this.$store.getters.starred.filter((item: FeedItem) => item.feedId === this.id)
+			const starred = this.$store.getters.starred
+
+			let items = this.feedId
+				? starred.filter((item: FeedItem) => item.feedId === this.id)
+				: starred
 			}
 			/*
 			 * Sorting items is needed because the allItems array can contain
