@@ -6,7 +6,6 @@ import { nextTick } from 'vue'
 import Vuex from 'vuex'
 import ContentTemplate from '../../../../../src/components/ContentTemplate.vue'
 import Starred from '../../../../../src/components/routes/Starred.vue'
-import { ACTIONS } from '../../../../../src/store/index.ts'
 
 describe('Starred.vue', () => {
 	'use strict'
@@ -136,59 +135,5 @@ describe('Starred.vue', () => {
 		const counter = wrapper.find('.nc-counter')
 		expect(counter.exists()).toBe(true)
 		expect(counter.attributes('data-count')).toBe('99')
-	})
-
-	it('should display the header counter only counting starred items for current feed, fetchKey includes id, and fetchMore dispatches with feed id', async () => {
-		// prepare a store with mixed feed ids
-		const mixedItems = [
-			{ id: 10, feedId: 2, starred: true },
-			{ id: 11, feedId: 2, starred: true },
-			{ id: 12, feedId: 3, starred: true },
-		]
-		const localStore = new Vuex.Store({
-			state: {
-				items: { fetchingItems: {}, lastItemLoaded: {}, starredCount: undefined },
-				app: { oldestFirst: false },
-			},
-			getters: {
-				starred: () => mixedItems,
-				oldestFirst: () => false,
-				loading: () => false,
-			},
-		})
-		localStore.dispatch = vi.fn()
-		localStore.commit = vi.fn()
-
-		const localWrapper = shallowMount(Starred as any, {
-			props: { feedId: 2 },
-			global: {
-				plugins: [localStore],
-				stubs: {
-					NcCounterBubble: {
-						props: ['count'],
-						template: '<span class="nc-counter" :data-count="count">{{ count }}</span>',
-					},
-					ContentTemplate: {
-						props: ['items', 'fetchKey'],
-						template: '<div><slot name="header"></slot><slot /></div>',
-					},
-				},
-			},
-		})
-
-		await nextTick()
-
-		// fetchKey should include feed id
-		expect(localWrapper.vm.fetchKey).toBe('starred-2')
-
-		// NcCounterBubble stub should show count of items with feedId === 2
-		const counter = localWrapper.find('.nc-counter')
-		expect(counter.exists()).toBe(true)
-		expect(counter.attributes('data-count')).toBe('2')
-
-		// fetchMore when not fetching -> dispatch ACTIONS.FETCH_STARRED with numeric feedId
-		localWrapper.vm.$store.state.items.fetchingItems['starred-2'] = false
-		await (localWrapper.vm as any).fetchMore()
-		expect(localStore.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_STARRED, { feedId: 2 })
 	})
 })

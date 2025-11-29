@@ -5,12 +5,7 @@
 		:list-count="items.starredCount"
 		:items="starred"
 		:fetch-key="fetchKey"
-		@load-more="fetchMore()">
-		<template #header>
-			{{ t('news', 'Starred') }}
-			<NcCounterBubble class="counter-bubble" :count="feedId ? starred.length : items.starredCount" />
-		</template>
-	</ContentTemplate>
+		@load-more="fetchMore()" />
 </template>
 
 <script lang="ts">
@@ -18,7 +13,6 @@ import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import ContentTemplate from '../ContentTemplate.vue'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { outOfScopeFilter, sortedFeedItems } from '../../utils/itemFilter.ts'
@@ -27,7 +21,6 @@ export default defineComponent({
 	name: 'RoutesStarred',
 	components: {
 		ContentTemplate,
-		NcCounterBubble,
 	},
 
 	props: {
@@ -53,7 +46,6 @@ export default defineComponent({
 			let items = this.feedId
 				? starred.filter((item: FeedItem) => item.feedId === this.id)
 				: starred
-			}
 			/*
 			 * Sorting items is needed because the allItems array can contain
 			 * different orderings due to possible individual feed sorting
