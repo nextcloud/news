@@ -53,6 +53,8 @@
 				icon="icon-starred"
 				:to="{ name: ROUTES.STARRED }"
 				:allow-collapse="true"
+				:open="isStarredCollapsed"
+				@update:open="isStarredCollapsed"
 				:force-menu="true">
 				<NcAppNavigationItem
 					v-for="group in GroupedStars"
@@ -525,6 +527,14 @@ export default defineComponent({
 			]
 		},
 
+		/**
+		 * Parent "Starred" is only collapsed when the route is STARRED
+		 * and there is a feedId param (i.e. viewing a specific starred group)
+		 */
+		isStarredCollapsed(): boolean {
+			// ROUTES is available via data() as this.ROUTES
+			return this.$route.name === this.ROUTES.STARRED && (this.$route.params && this.$route.params.feedId)
+		},
 	},
 
 	watch: {
