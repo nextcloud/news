@@ -1,8 +1,8 @@
 <template>
 	<ContentTemplate
 		v-if="!loading"
-		:list-name="t('news', 'Starred')"
-		:list-count="items.starredCount"
+		:list-name="starredFeed ? starredFeed.title : t('news', 'Starred')"
+		:list-count="starredFeed ? starredFeed.starredCount : items.starredCount"
 		:items="starred"
 		:fetch-key="fetchKey"
 		@load-more="fetchMore()" />
@@ -68,6 +68,12 @@ export default defineComponent({
 
 		fetchKey(): string {
 			return this.feedId ? 'starred-' + this.feedId : 'starred'
+		},
+
+		starredFeed(): Feed {
+			return this.feedId
+				? this.$store.getters.feeds.find((feed: Feed) => feed.id === this.id)
+				: undefined
 		},
 	},
 
