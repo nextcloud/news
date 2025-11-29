@@ -76,7 +76,7 @@ export default defineComponent({
 		 * When sorting newest to oldest lastItemLoaded needs to be reset to get new items for this route
 		 */
 		if (this.oldestFirst === false) {
-			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem: undefined })
+			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: this.fetchKey, lastItem: undefined })
 		}
 	},
 
