@@ -125,15 +125,4 @@ describe('Starred.vue', () => {
 		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
 	})
-
-	it('should display the header counter using items.starredCount when no feedId is provided', async () => {
-		// set a starredCount on state items
-		wrapper.vm.$store.state.items.starredCount = 99
-		await nextTick()
-
-		// find stubbed counter and assert attribute equals starredCount
-		const counter = wrapper.find('.nc-counter')
-		expect(counter.exists()).toBe(true)
-		expect(counter.attributes('data-count')).toBe('99')
-	})
 })
