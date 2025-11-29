@@ -70,11 +70,11 @@ export default defineComponent({
 		},
 
 		id(): number {
-			return Number(this.feedId)
+			return this.feedId ? Number(this.feedId) : 0
 		},
 
 		fetchKey(): string {
-			return (this.feedId === 0) ? 'starred' : 'starred-' + this.feedId
+			return this.feedId ? 'starred-' + this.feedId : 'starred'
 		},
 	},
 
