@@ -7,7 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [28.x.x]
 ### Changed
-
+- Add feature to Group starred Items per Feed
 
 ### Fixed
 

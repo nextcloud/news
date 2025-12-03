@@ -3,6 +3,7 @@ import type { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
 export type Feed = {
 	folderId?: number
 	unreadCount: number
+	starredCount: number
 	url: string
 	title?: string
 	autoDiscover?: boolean
