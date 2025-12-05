@@ -18,6 +18,7 @@ use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FolderServiceV2;
 
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\ExportService;
 use OCA\News\Service\OpmlService;
 use \OCA\News\Utility\OPMLExporter;
 use \OCA\News\Db\Item;
@@ -70,6 +71,9 @@ class ExportControllerTest extends TestCase
         $this->folderService = $this->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->exportService = $this->getMockBuilder(ExportService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->opmlService = $this->getMockBuilder(OpmlService::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -87,9 +91,7 @@ class ExportControllerTest extends TestCase
             ->getMock();
         $this->controller = new ExportController(
             $request,
-            $this->folderService,
-            $this->feedService,
-            $this->itemService,
+            $this->exportService,
             $this->opmlService,
             $this->userSession
         );
@@ -123,9 +125,11 @@ class ExportControllerTest extends TestCase
         $item1 = new Item();
         $item1->setFeedId(3);
         $item1->setGuid('guid');
+        $item1->setGuidHash(md5('guid'));
         $item2 = new Item();
         $item2->setFeedId(5);
         $item2->setGuid('guid');
+        $item2->setGuidHash(md5('guid'));
 
         $feed1 = new Feed();
         $feed1->setId(3);
@@ -137,14 +141,10 @@ class ExportControllerTest extends TestCase
 
         $articles = [$item1, $item2];
 
-        $this->feedService->expects($this->once())
-            ->method('findAllForUser')
+        $this->exportService->expects($this->exactly(1))
+            ->method('articles')
             ->with('user')
-            ->will($this->returnValue($feeds));
-        $this->itemService->expects($this->exactly(2))
-            ->method('findAllForUser')
-            ->withConsecutive(['user', ['unread' => false, 'starred' => true]], ['user', ['unread' => true]])
-            ->willReturnOnConsecutiveCalls($articles, []);
+            ->willReturn($articles);
 
 
         $return = $this->controller->articles();
@@ -155,15 +155,16 @@ class ExportControllerTest extends TestCase
         );
 
         $this->assertEquals(
-            '[{"guid":"guid","url":null,"title":null,' .
+            '[{"id":null,"guid":"guid","guidHash":"1e0ca5b1252f1f6b1e0ac91be7e7219e","url":null,"title":null,' .
             '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
-            '"enclosureLink":null,"mediaThumbnail":null,"mediaDescription":null,'.
-            '"unread":false,"starred":false,' .
-            '"feedLink":"http:\/\/goo","rtl":false},{"guid":"guid","url":null,' .
-            '"title":null,"author":null,"pubDate":null,"updatedDate":null,"body":null,' .
-            '"enclosureMime":null,"enclosureLink":null,"mediaThumbnail":null,'.
-            '"mediaDescription":null,"unread":false,' .
-            '"starred":false,"feedLink":"http:\/\/gee","rtl":false}]',
+            '"enclosureLink":null,"mediaThumbnail":null,"mediaDescription":null,' .
+            '"feedId":3,"unread":false,"starred":false,"lastModified":"0","rtl":false,"intro":"",' .
+            '"fingerprint":null,"categories":null,"sharedBy":null,"sharedByDisplayName":null},' .
+            '{"id":null,"guid":"guid","guidHash":"1e0ca5b1252f1f6b1e0ac91be7e7219e","url":null,"title":null,' .
+            '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
+            '"enclosureLink":null,"mediaThumbnail":null,"mediaDescription":null,' .
+            '"feedId":5,"unread":false,"starred":false,"lastModified":"0","rtl":false,"intro":"",' .
+            '"fingerprint":null,"categories":null,"sharedBy":null,"sharedByDisplayName":null}]',
             $return->render()
         );
     }

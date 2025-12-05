@@ -17,6 +17,7 @@ use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 
 use \Psr\Log\LoggerInterface;
+use \OCA\News\Service\Exceptions\ServiceValidationException;
 use \OCA\News\Utility\HtmlSanitizer;
 
 /**
@@ -71,9 +72,9 @@ class ImportService
      * @param string $userId
      * @param array  $json
      *
-     * @return \OCP\AppFramework\Db\Entity|null
+     * @return bool Status of the import
      */
-    public function importArticles(string $userId, array $json): ?\OCP\AppFramework\Db\Entity
+    public function articles(string $userId, array $json): bool
     {
         // build assoc array for fast access
         $feeds = $this->feedService->findAllForUser($userId);
@@ -82,20 +83,27 @@ class ImportService
             $feedsDict[$feed->getLink()] = $feed;
         }
 
-        $createdFeed = false;
         $feedLink = "";
+        $error = 0;
 
         // loop over all items and get the corresponding feed
         // if the feed does not exist, create a separate feed for them
         foreach ($json as $entry) {
-            $item = Item::fromImport($entry);
+            try {
+                $item = Item::fromImport($entry);
+            } catch (\TypeError $e) {
+                $error++;
+                $this->logger->error(
+                    'Invalid data in import entry: ' . $e->getMessage()
+                );
+                continue;
+            }
             $feedLink = $entry['feedLink'];  // this is not set on the item
 
             if (array_key_exists($feedLink, $feedsDict)) {
                 $feed = $feedsDict[$feedLink];
             } else {
                 $this->logger->info("Creating new feed for import of {url}", ['url' => $feedLink]);
-                $createdFeed = true;
                 $feed = new Feed();
                 $feed->setUserId($userId)
                      ->setUrlHash(md5($feedLink))
@@ -114,13 +122,15 @@ class ImportService
             $item->setFeedId($feed->getId())
                  ->setBody($this->purifier->purify($item->getBody()))
                  ->generateSearchIndex();
-            $this->itemService->insertOrUpdate($item);
+            if (!$this->itemService->insertOrUpdate($item)) {
+                $error++;
+            }
         }
 
-        if (!$createdFeed) {
-            return null;
+        if ($error > 0) {
+            throw new ServiceValidationException("Failed to import $error item(s). Please check the server log!");
         }
 
-        return $this->feedService->findByURL($userId, $feedLink);
+        return true;
     }
 }
