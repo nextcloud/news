@@ -282,7 +282,7 @@ class FolderServiceTest extends TestCase
 
         $this->mapper->expects($this->exactly(1))
             ->method('read')
-            ->withConsecutive(['jack', 1, null]);
+            ->with('jack', 1, null);
 
         $this->class->read('jack', 1);
     }

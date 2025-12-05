@@ -336,13 +336,24 @@ class FeedServiceTest extends TestCase
                        ->method('discover')
                        ->with($url)
                        ->will($this->returnValue(['http://discover.test']));
+
+        $expectedCalls = [
+            ['http://test', false, 'user', 'pass', null],
+            ['http://discover.test', false, 'user', 'pass', null]
+        ];
+        $callIndex = 0;
+
         $this->fetcher->expects($this->exactly(2))
             ->method('fetch')
-            ->withConsecutive(
-                ['http://test'],
-                ['http://discover.test']
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ReadErrorException('There is no feed')), $this->returnValue($return));
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex, $return) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                if ($callIndex === 0) {
+                    $callIndex++;
+                    throw new ReadErrorException('There is no feed');
+                }
+                $callIndex++;
+                return $return;
+            });
 
         $this->mapper->expects($this->once())
             ->method('insert')
@@ -611,15 +622,27 @@ class FeedServiceTest extends TestCase
             ->with($feed)
             ->will($this->returnValue($feed));
 
+        $purifyCalls = [['2'], ['1']];
+        $purifyIndex = 0;
+
         $this->purifier->expects($this->exactly(2))
             ->method('purify')
-            ->withConsecutive(['2'], ['1'])
-            ->will($this->returnArgument(0));
+            ->willReturnCallback(function (...$args) use (&$purifyCalls, &$purifyIndex) {
+                $this->assertEquals($purifyCalls[$purifyIndex], $args);
+                $purifyIndex++;
+                return $args[0]; // returnArgument(0)
+            });
+
+        $insertOrUpdateCalls = [[$item2], [$item1]];
+        $insertOrUpdateIndex = 0;
 
         $this->itemService->expects($this->exactly(2))
             ->method('insertOrUpdate')
-            ->withConsecutive([$item2], [$item1])
-            ->will($this->returnValue($feed));
+            ->willReturnCallback(function (...$args) use (&$insertOrUpdateCalls, &$insertOrUpdateIndex, $feed) {
+                $this->assertEquals($insertOrUpdateCalls[$insertOrUpdateIndex], $args);
+                $insertOrUpdateIndex++;
+                return $feed;
+            });
 
         $this->assertSame($feed, $this->class->fetch($feed));
         $this->assertEquals(2, $feed->getUnreadCount());
@@ -825,10 +848,16 @@ class FeedServiceTest extends TestCase
             ->with($this->uid)
             ->will($this->returnValue([$feed1, $feed2]));
 
+        $findAllInFeedCalls = [['jack', 1], ['jack', 2]];
+        $findAllInFeedIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
                           ->method('findAllInFeed')
-                          ->withConsecutive(['jack', 1], ['jack', 2])
-                          ->willReturn(['a']);
+                          ->willReturnCallback(function (...$args) use (&$findAllInFeedCalls, &$findAllInFeedIndex) {
+                              $this->assertEquals($findAllInFeedCalls[$findAllInFeedIndex], $args);
+                              $findAllInFeedIndex++;
+                              return ['a'];
+                          });
 
         $feeds = $this->class->findAllForUserRecursive($this->uid);
         $this->assertEquals(['a'], $feeds[0]->items);
@@ -847,7 +876,7 @@ class FeedServiceTest extends TestCase
 
         $this->mapper->expects($this->exactly(1))
                      ->method('read')
-                     ->withConsecutive(['jack', 1, null]);
+                     ->with('jack', 1, null);
 
         $this->class->read($this->uid, 1);
     }
