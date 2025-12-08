@@ -141,10 +141,20 @@ class ExportControllerTest extends TestCase
             ->method('findAllForUser')
             ->with('user')
             ->will($this->returnValue($feeds));
+
+        $expectedCalls = [
+            ['user', ['unread' => false, 'starred' => true]],
+            ['user', ['unread' => true]]
+        ];
+        $returns = [$articles, []];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('findAllForUser')
-            ->withConsecutive(['user', ['unread' => false, 'starred' => true]], ['user', ['unread' => true]])
-            ->willReturnOnConsecutiveCalls($articles, []);
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$returns, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                return $returns[$callIndex++];
+            });
 
 
         $return = $this->controller->articles();

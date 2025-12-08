@@ -192,10 +192,16 @@ class NewsMapperTest extends TestCase
             ->with('NAME')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['deleted_at != 0'], ['user_id = :user_id']];
+        $andWhereIndex = 0;
+
         $qb->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['deleted_at != 0'], ['user_id = :user_id'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex, $qb) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex], $args);
+                $andWhereIndex++;
+                return $qb;
+            });
 
         $qb->expects($this->once())
             ->method('setParameter')
@@ -225,10 +231,16 @@ class NewsMapperTest extends TestCase
             ->with('NAME')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['deleted_at != 0'], ['deleted_at < :deleted_at']];
+        $andWhereIndex = 0;
+
         $qb->expects($this->exactly(2))
             ->method('andWhere')
-            ->withConsecutive(['deleted_at != 0'], ['deleted_at < :deleted_at'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex, $qb) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex], $args);
+                $andWhereIndex++;
+                return $qb;
+            });
 
         $qb->expects($this->once())
             ->method('setParameter')
@@ -258,15 +270,27 @@ class NewsMapperTest extends TestCase
             ->with('NAME')
             ->will($this->returnSelf());
 
+        $andWhereCalls = [['deleted_at != 0'], ['user_id = :user_id'], ['deleted_at < :deleted_at']];
+        $andWhereIndex = 0;
+
         $qb->expects($this->exactly(3))
             ->method('andWhere')
-            ->withConsecutive(['deleted_at != 0'], ['user_id = :user_id'], ['deleted_at < :deleted_at'])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$andWhereCalls, &$andWhereIndex, $qb) {
+                $this->assertEquals($andWhereCalls[$andWhereIndex], $args);
+                $andWhereIndex++;
+                return $qb;
+            });
+
+        $setParameterCalls = [['user_id', 'jack', null], ['deleted_at', 1, null]];
+        $setParameterIndex = 0;
 
         $qb->expects($this->exactly(2))
             ->method('setParameter')
-            ->withConsecutive(['user_id', 'jack'], ['deleted_at', 1])
-            ->will($this->returnSelf());
+            ->willReturnCallback(function (...$args) use (&$setParameterCalls, &$setParameterIndex, $qb) {
+                $this->assertEquals($setParameterCalls[$setParameterIndex], $args);
+                $setParameterIndex++;
+                return $qb;
+            });
 
         $qb->expects($this->once())
             ->method('executeStatement');
