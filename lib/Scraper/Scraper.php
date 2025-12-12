@@ -56,6 +56,35 @@ class Scraper implements IScraper
         $header  = curl_getinfo($handler);
         curl_close($handler);
 
+        $charset = null;
+        // check if charset is set in http header
+        if (isset($header['content_type']) &&
+            preg_match('/charset\s*=\s*"?([\w\-]+)"?/i', $header['content_type'], $m)) {
+            $charset = strtoupper($m[1]);
+        }
+        // search content for meta tag with charset
+        if ($charset === null &&
+            preg_match('/<meta[^>]+charset\s*=\s*["\']?([\w\-]+)["\']?[^>]+>/i', $content, $m)) {
+            $charset = strtoupper($m[1]);
+        }
+        // try to detect encoding
+        if ($charset === null) {
+            $encodingList = ['UTF-8', 'ISO-8859-1', 'Windows-1252', 'ASCII', 'UTF-16', 'UTF-16BE', 'UTF-16LE'];
+            $charset = mb_detect_encoding($content, $encodingList, true);
+        }
+        // convert to utf-8 if necessary
+        if ($charset !== null && $charset !== 'UTF-8') {
+            $convertedContent = mb_convert_encoding($content, 'UTF-8', $charset);
+            if ($convertedContent !== false) {
+                $content = $convertedContent;
+            } else {
+                $this->logger->warning(
+                    'Failed to convert encoding from {from} to UTF-8 for feed item',
+                    ['from' => $charset]
+                );
+            }
+        }
+
         // Update the url after the redirects has been followed
         $url = $header['url'];
         return array($content, $header['url']);
