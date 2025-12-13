@@ -47,11 +47,13 @@ describe('Starred.vue', () => {
 			state: {
 				items: {
 					fetchingItems: {
+						'starred-0': false,
 						starred: false,
 					},
 					lastItemLoaded: {
 						starred: 1,
 					},
+					starredCount: undefined,
 				},
 				feeds: {
 				},
@@ -64,15 +66,28 @@ describe('Starred.vue', () => {
 			getters: {
 				starred: () => mockItems,
 				oldestFirst: (state) => state.app.oldestFirst,
+				loading: () => false,
 			},
 		})
 
 		store.dispatch = vi.fn()
 		store.commit = vi.fn()
 
+		// stub NcCounterBubble and ContentTemplate so counter and props are queryable
 		wrapper = shallowMount(Starred, {
 			global: {
 				plugins: [store],
+				stubs: {
+					NcCounterBubble: {
+						props: ['count'],
+						template: '<span class="nc-counter" :data-count="count">{{ count }}</span>',
+					},
+					// declare props so wrapper.findComponent(ContentTemplate).props() contains items/fetchKey
+					ContentTemplate: {
+						props: ['items', 'fetchKey'],
+						template: '<div><slot name="header"></slot><slot /></div>',
+					},
+				},
 			},
 		})
 	})
@@ -88,14 +103,14 @@ describe('Starred.vue', () => {
 	it('should get only first item from state ordering oldest>newest', async () => {
 		wrapper.vm.$store.state.items.lastItemLoaded.starred = 1
 		wrapper.vm.$store.state.app.oldestFirst = true
-		await nextTick
+		await nextTick()
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
 	it('should get only first item from state ordering newest>oldest', async () => {
 		wrapper.vm.$store.state.items.lastItemLoaded.starred = 4
 		wrapper.vm.$store.state.app.oldestFirst = false
-		await nextTick
+		await nextTick()
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 

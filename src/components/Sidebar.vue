@@ -48,7 +48,28 @@
 					<HistoryIcon />
 				</template>
 			</NcAppNavigationItem>
-			<NcAppNavigationItem :name="t('news', 'Starred')" icon="icon-starred" :to="{ name: ROUTES.STARRED }">
+			<NcAppNavigationItem
+				:name="t('news', 'Starred')"
+				icon="icon-starred"
+				:to="{ name: ROUTES.STARRED }"
+				:allow-collapse="true"
+				:force-menu="true"
+				:open="isStarredCollapsed"
+				@update:open="isStarredCollapsed">
+				<NcAppNavigationItem
+					v-for="group in GroupedStars"
+					:key="group.id"
+					:ref="'starred-' + group.id"
+					:name="group.title"
+					:to="{ name: ROUTES.STARRED, params: { feedId: group.id } }">
+					<template #icon>
+						<RssIcon v-if="!group.faviconLink" />
+						<span v-if="group.faviconLink" style="width: 16px; height: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + group.faviconLink + ')' }" />
+					</template>
+					<template #counter>
+						<NcCounterBubble :count="group.starredCount" />
+					</template>
+				</NcAppNavigationItem>
 				<template #counter>
 					<NcCounterBubble :count="items.starredCount" />
 				</template>
@@ -408,6 +429,10 @@ export default defineComponent({
 			return navItems
 		},
 
+		GroupedStars(): Array<Feed> {
+			return this.$store.getters.feeds.filter((item: Feed) => item.starredCount !== 0)
+		},
+
 		loading: {
 			get() {
 				return this.$store.getters.loading
@@ -502,6 +527,14 @@ export default defineComponent({
 			]
 		},
 
+		/**
+		 * Parent "Starred" is only collapsed when the route is STARRED
+		 * and there is a feedId param (i.e. viewing a specific starred group)
+		 */
+		isStarredCollapsed(): boolean {
+			// ROUTES is available via data() as this.ROUTES
+			return !!(this.$route.name === this.ROUTES.STARRED && (this.$route.params && this.$route.params.feedId))
+		},
 	},
 
 	watch: {
