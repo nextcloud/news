@@ -18,7 +18,6 @@ use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
 use OCP\IAppConfig;
 use OCP\Util;
-use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -27,6 +26,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\Config\IUserConfig;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
@@ -41,7 +41,7 @@ class PageController extends Controller
         IRequest $request,
         ?IUserSession $userSession,
         private IAppConfig $appConfig,
-        private IConfig $config,
+        private IUserConfig $userConfig,
         private IURLGenerator $urlGenerator,
         private IL10N $l10n,
         private RecommendedSites $recommendedSites,
@@ -76,25 +76,37 @@ class PageController extends Controller
             ]
         );
 
-        $usersettings = [
+        $userSettingsString = [
             'preventReadOnScroll',
             'oldestFirst',
             'showAll',
-            'lastViewedFeedId',
-            'lastViewedFeedType',
             'disableRefresh',
             'displaymode',
             'splitmode'
         ];
 
-        foreach ($usersettings as $setting) {
-            $this->initialState->provideInitialState($setting, $this->config->getUserValue(
+        foreach ($userSettingsString as $setting) {
+            $this->initialState->provideInitialState($setting, $this->userConfig->getValueString(
                 $this->getUserId(),
                 $this->appName,
                 $setting,
                 '0'
             ));
         }
+
+        $this->initialState->provideInitialState('lastViewedFeedId', (string) $this->userConfig->getValueInt(
+            $this->getUserId(),
+            $this->appName,
+            'lastViewedFeedId',
+            0
+        ));
+
+        $this->initialState->provideInitialState('lastViewedFeedType', (string) $this->userConfig->getValueInt(
+            $this->getUserId(),
+            $this->appName,
+            'lastViewedFeedType',
+            ListType::UNREAD
+        ));
 
         $exploreUrl = $this->appConfig->getValueString(
             $this->appName,
@@ -134,13 +146,13 @@ class PageController extends Controller
     #[NoAdminRequired]
     public function explore(string $lang)
     {
-        $this->config->setUserValue(
+        $this->userConfig->setValueInt(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             0
         );
-        $this->config->setUserValue(
+        $this->userConfig->setValueInt(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',

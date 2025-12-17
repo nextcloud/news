@@ -18,9 +18,9 @@ use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\FeedServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
-use \OCP\IConfig;
 use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\Config\IUserConfig;
 
 use \OCA\News\Service\Exceptions\ServiceException;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -42,14 +42,14 @@ class ItemController extends Controller
         private FeedServiceV2 $feedService,
         private ItemServiceV2 $itemService,
         private ShareService $shareService,
-        private IConfig $settings,
+        private IUserConfig $userConfig,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
         $this->itemService = $itemService;
         $this->feedService = $feedService;
         $this->shareService = $shareService;
-        $this->settings = $settings;
+        $this->userConfig = $userConfig;
     }
 
 
@@ -77,7 +77,7 @@ class ItemController extends Controller
         // in case this is called directly and not from the website use the
         // internal state
         if ($showAll === null) {
-            $showAll = $this->settings->getUserValue(
+            $showAll = $this->userConfig->getValueString(
                 $this->getUserId(),
                 $this->appName,
                 'showAll'
@@ -85,20 +85,20 @@ class ItemController extends Controller
         }
 
         if ($oldestFirst === null) {
-            $oldestFirst = $this->settings->getUserValue(
+            $oldestFirst = $this->userConfig->getValueString(
                 $this->getUserId(),
                 $this->appName,
                 'oldestFirst'
             ) === '1';
         }
 
-        $this->settings->setUserValue(
+        $this->userConfig->setValueInt(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             $id
         );
-        $this->settings->setUserValue(
+        $this->userConfig->setValueInt(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',
@@ -187,7 +187,7 @@ class ItemController extends Controller
     #[NoAdminRequired]
     public function newItems(int $type, int $id, $lastModified = 0): array
     {
-        $showAll = $this->settings->getUserValue(
+        $showAll = $this->userConfig->getValueString(
             $this->getUserId(),
             $this->appName,
             'showAll'

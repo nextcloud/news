@@ -20,12 +20,12 @@ use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http;
+use OCP\Config\IUserConfig;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\ListType;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Exceptions\ServiceConflictException;
-use OCP\IConfig;
 use OCP\IRequest;
 
 use OCP\IUser;
@@ -56,9 +56,9 @@ class FeedControllerTest extends TestCase
     private $itemService;
 
     /**
-     * @var MockObject|IConfig
+     * @var MockObject|IUserConfig
      */
-    private $settings;
+    private $userConfig;
 
     /**
      * @var MockObject|IUser
@@ -83,7 +83,7 @@ class FeedControllerTest extends TestCase
     {
         $this->appName = 'news';
         $this->uid = 'jack';
-        $this->settings = $this->getMockBuilder(IConfig::class)
+        $this->userConfig = $this->getMockBuilder(IUserConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService = $this
@@ -115,7 +115,7 @@ class FeedControllerTest extends TestCase
             $this->folderService,
             $this->feedService,
             $this->itemService,
-            $this->settings,
+            $this->userConfig,
             $this->userSession
         );
         $this->exampleResult = [
@@ -183,15 +183,15 @@ class FeedControllerTest extends TestCase
 
 
     /**
-     * Configure settings with active mocks
+     * Configure userConfig with active mocks
      *
      * @param $id
      * @param $type
      */
     private function activeInitMocks($id, $type): void
     {
-        $this->settings->expects($this->exactly(2))
-            ->method('getUserValue')
+        $this->userConfig->expects($this->exactly(2))
+            ->method('getValueInt')
             ->withConsecutive(
                 [$this->uid, $this->appName, 'lastViewedFeedId'],
                 [$this->uid, $this->appName, 'lastViewedFeedType']
@@ -312,14 +312,12 @@ class FeedControllerTest extends TestCase
     public function testActiveActiveIsNull()
     {
         $id = 3;
-        $type = null;
+        $type = -1;
         $result = $this->exampleResult;
-
 
         $this->activeInitMocks($id, $type);
 
         $response = $this->class->active();
-
         $this->assertEquals($result, $response);
     }
 
