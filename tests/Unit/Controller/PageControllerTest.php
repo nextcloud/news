@@ -20,13 +20,13 @@ use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Service\StatusService;
 use OCP\IAppConfig;
-use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Config\IUserConfig;
 use PHPUnit\Framework\TestCase;
 
 class PageControllerTest extends TestCase
@@ -38,9 +38,9 @@ class PageControllerTest extends TestCase
     private $settings;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     * @var \PHPUnit\Framework\MockObject\MockObject|IUserConfig
      */
-    private $config;
+    private $userConfig;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|IRequest
@@ -113,7 +113,7 @@ class PageControllerTest extends TestCase
         $this->settings = $this->getMockBuilder(IAppConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(IConfig::class)
+        $this->userConfig = $this->getMockBuilder(IUserConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(IRequest::class)
@@ -144,7 +144,7 @@ class PageControllerTest extends TestCase
             $this->request,
             $this->userSession,
             $this->settings,
-            $this->config,
+            $this->userConfig,
             $this->urlGenerator,
             $this->l10n,
             $this->recommended,
@@ -188,8 +188,8 @@ class PageControllerTest extends TestCase
     public function testExplore()
     {
         $in = ['test'];
-        $this->config->expects($this->exactly(2))
-                    ->method('setUserValue')
+        $this->userConfig->expects($this->exactly(2))
+                    ->method('setValueInt')
                     ->withConsecutive(
                         ['becka', 'news', 'lastViewedFeedId', 0],
                         ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
@@ -207,8 +207,8 @@ class PageControllerTest extends TestCase
 
     public function testExploreError()
     {
-        $this->config->expects($this->exactly(2))
-                    ->method('setUserValue')
+        $this->userConfig->expects($this->exactly(2))
+                    ->method('setValueInt')
                     ->withConsecutive(
                         ['becka', 'news', 'lastViewedFeedId', 0],
                         ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
