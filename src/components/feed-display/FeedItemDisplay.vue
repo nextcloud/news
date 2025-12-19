@@ -95,7 +95,7 @@
 
 			<div class="subtitle" :dir="item.rtl && 'rtl'">
 				<span v-if="!item.sharedBy" class="source">
-					<a :href="feedUrl + '/' + feed.id">
+					<a :href="feedUrl">
 						{{ feed.title }}
 						<img
 							:src="feedIcon"
@@ -173,6 +173,7 @@
 import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
+import { generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import { defineComponent } from 'vue'
@@ -256,7 +257,6 @@ export default defineComponent({
 			isMobile: useIsMobile(),
 			keepUnread: false,
 			showShareMenu: false,
-			feedUrl: API_ROUTES.FEED,
 		}
 	},
 
@@ -267,6 +267,10 @@ export default defineComponent({
 
 		feedIcon() {
 			return API_ROUTES.FAVICON + '/' + this.feed.urlHash
+		},
+
+		feedUrl() {
+			return generateUrl('/apps/news/feed/' + this.feed.id)
 		},
 
 		screenReaderMode() {
