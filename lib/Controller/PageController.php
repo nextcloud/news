@@ -40,7 +40,7 @@ class PageController extends Controller
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        private IAppConfig $settings,
+        private IAppConfig $appConfig,
         private IConfig $config,
         private IURLGenerator $urlGenerator,
         private IL10N $l10n,
@@ -96,6 +96,21 @@ class PageController extends Controller
             ));
         }
 
+        $exploreUrl = $this->appConfig->getValueString(
+            $this->appName,
+            'exploreUrl',
+            Application::DEFAULT_SETTINGS['exploreUrl']
+        );
+        if (trim($exploreUrl) === '') {
+                // default url should not feature the sites.en.json
+                $exploreUrl = $this->urlGenerator->linkToRoute(
+                    'news.page.explore',
+                    ['lang' => 'en']
+                );
+                $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
+        }
+        $this->initialState->provideInitialState("exploreUrl", $exploreUrl);
+
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
             ->addAllowedMediaDomain('*')
@@ -109,78 +124,6 @@ class PageController extends Controller
         $response->setContentSecurityPolicy($csp);
 
         return $response;
-    }
-
-    #[NoAdminRequired]
-    public function settings(): array
-    {
-        $settings = [
-            'showAll',
-            'preventReadOnScroll',
-            'oldestFirst'
-        ];
-
-        $exploreUrl = $this->settings->getValueString(
-            $this->appName,
-            'exploreUrl',
-            Application::DEFAULT_SETTINGS['exploreUrl']
-        );
-        if (trim($exploreUrl) === '') {
-            // default url should not feature the sites.en.json
-            $exploreUrl = $this->urlGenerator->linkToRoute(
-                'news.page.explore',
-                ['lang' => 'en']
-            );
-            $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
-        }
-
-        $result = [
-            'language' => $this->l10n->getLanguageCode(),
-            'exploreUrl' => $exploreUrl
-        ];
-
-        foreach ($settings as $setting) {
-            $result[$setting] = $this->config->getUserValue(
-                $this->getUserId(),
-                $this->appName,
-                $setting
-            ) === '1';
-        }
-        return ['settings' => $result];
-    }
-
-
-    /**
-     * @param bool $showAll
-     * @param bool $preventReadOnScroll
-     * @param bool $oldestFirst
-     * @param bool $disableRefresh
-     * @param int  $displaymode
-     * @param int  $splitmode
-     */
-    #[NoAdminRequired]
-    public function updateSettings(
-        bool $showAll,
-        bool $preventReadOnScroll,
-        bool $oldestFirst,
-        bool $disableRefresh,
-    ): void {
-        $settings = [
-            'showAll'             => $showAll,
-            'preventReadOnScroll' => $preventReadOnScroll,
-            'oldestFirst'         => $oldestFirst,
-            'disableRefresh'      => $disableRefresh
-        ];
-
-        foreach ($settings as $setting => $value) {
-            $value = $value ? '1' : '0';
-            $this->config->setUserValue(
-                $this->getUserId(),
-                $this->appName,
-                $setting,
-                $value
-            );
-        }
     }
 
     /**
