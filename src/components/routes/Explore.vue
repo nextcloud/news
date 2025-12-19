@@ -43,7 +43,7 @@ import type { ExploreSite } from '../../types/ExploreSite.ts'
 import type { Feed } from '../../types/Feed.ts'
 
 import axios from '@nextcloud/axios'
-import * as router from '@nextcloud/router'
+import { loadState } from '@nextcloud/initial-state'
 import { defineComponent } from 'vue'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcButton from '@nextcloud/vue/components/NcButton'
@@ -79,9 +79,7 @@ const ExploreComponent = defineComponent({
 
 	methods: {
 		async sites() {
-			const settings = await axios.get(router.generateUrl('/apps/news/settings'))
-
-			const exploreUrl = settings.data.settings?.exploreUrl + 'feeds.en.json'
+			const exploreUrl = loadState('news', 'exploreUrl') + 'feeds.en.json'
 			try {
 				const explore = await axios.get(exploreUrl)
 

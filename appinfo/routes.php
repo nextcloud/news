@@ -24,8 +24,6 @@ return ['routes' => [
 ['name' => 'page#index', 'url' => '/starred', 'verb' => 'GET', 'postfix' => 'view.starred'],
 ['name' => 'page#index', 'url' => '/starred/{feedId}', 'verb' => 'GET', 'postfix' => 'view.starred.feed'],
 ['name' => 'page#index', 'url' => '/unread', 'verb' => 'GET', 'postfix' => 'view.unread'],
-['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
-['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'PUT'],
 ['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
 ['name' => 'page#index', 'url' => '/explore', 'verb' => 'GET', 'postfix' => 'view.explore'],
 ['name' => 'page#explore', 'url' => '/explore/feeds.{lang}.json', 'verb' => 'GET'],
