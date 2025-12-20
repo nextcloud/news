@@ -66,6 +66,8 @@ class HtmlSanitizer
             // Allow relative links and media
             ->allowRelativeLinks(true)
             ->allowRelativeMedias(true)
+            // Disable input length limit
+            ->withMaxInputLength(-1)
             // Add custom iframe src sanitizer to restrict to YouTube, Vimeo, VK
             ->withAttributeSanitizer(new SafeIframeAttributeSanitizer());
 
