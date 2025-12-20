@@ -7,6 +7,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ## [28.x.x]
 ### Changed
+- Drop Support for Nextcloud 31
+- Add Support for Nextcloud 33
 
 
 ### Fixed
