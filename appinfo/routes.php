@@ -23,8 +23,6 @@ return ['routes' => [
 ['name' => 'page#index', 'url' => '/recent', 'verb' => 'GET', 'postfix' => 'view.recent'],
 ['name' => 'page#index', 'url' => '/starred', 'verb' => 'GET', 'postfix' => 'view.starred'],
 ['name' => 'page#index', 'url' => '/unread', 'verb' => 'GET', 'postfix' => 'view.unread'],
-['name' => 'page#settings', 'url' => '/settings', 'verb' => 'GET'],
-['name' => 'page#update_settings', 'url' => '/settings', 'verb' => 'PUT'],
 ['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
 ['name' => 'page#index', 'url' => '/explore', 'verb' => 'GET', 'postfix' => 'view.explore'],
 ['name' => 'page#explore', 'url' => '/explore/feeds.{lang}.json', 'verb' => 'GET'],
@@ -49,7 +47,6 @@ return ['routes' => [
 ['name' => 'feed#restore', 'url' => '/feeds/{feedId}/restore', 'verb' => 'POST'],
 ['name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'],
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
-['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],
 ['name' => 'feed#import', 'url' => '/feeds/import/articles', 'verb' => 'POST'],
 ['name' => 'feed#patch', 'url' => '/feeds/{feedId}', 'verb' => 'PATCH'],
 

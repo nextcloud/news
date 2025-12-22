@@ -20,13 +20,13 @@ use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCA\News\Explore\RecommendedSites;
 use OCA\News\Service\StatusService;
 use OCP\IAppConfig;
-use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Config\IUserConfig;
 use PHPUnit\Framework\TestCase;
 
 class PageControllerTest extends TestCase
@@ -38,9 +38,9 @@ class PageControllerTest extends TestCase
     private $settings;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     * @var \PHPUnit\Framework\MockObject\MockObject|IUserConfig
      */
-    private $config;
+    private $userConfig;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|IRequest
@@ -113,7 +113,7 @@ class PageControllerTest extends TestCase
         $this->settings = $this->getMockBuilder(IAppConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->config = $this->getMockBuilder(IConfig::class)
+        $this->userConfig = $this->getMockBuilder(IUserConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->request = $this->getMockBuilder(IRequest::class)
@@ -144,7 +144,7 @@ class PageControllerTest extends TestCase
             $this->request,
             $this->userSession,
             $this->settings,
-            $this->config,
+            $this->userConfig,
             $this->urlGenerator,
             $this->l10n,
             $this->recommended,
@@ -185,106 +185,11 @@ class PageControllerTest extends TestCase
         $this->assertEquals(true, $response->getParams()['warnings']['improperlyConfiguredCron']);
     }
 
-    /**
-     * @covers \OCA\News\Controller\PageController::settings
-     */
-    public function testSettings()
-    {
-        $result = [
-            'settings' => [
-                'showAll' => true,
-                'preventReadOnScroll' => true,
-                'oldestFirst' => true,
-                'language' => 'de',
-                'exploreUrl' => 'test'
-            ]
-        ];
-
-        $this->l10n->expects($this->once())
-             ->method('getLanguageCode')
-             ->will($this->returnValue('de'));
-
-        $this->config->expects($this->exactly(3))
-                     ->method('getUserValue')
-                     ->withConsecutive(
-                        ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst']
-                     )
-                     ->will($this->returnValue('1'));
-        $this->settings->expects($this->once())
-                       ->method('getValueString')
-                       ->with('news', 'exploreUrl')
-                       ->will($this->returnValue(' '));
-        $this->urlGenerator->expects($this->once())
-                           ->method('linkToRoute')
-                           ->with('news.page.explore', ['lang' => 'en'])
-                           ->will($this->returnValue('test'));
-
-
-        $response = $this->controller->settings();
-        $this->assertEquals($result, $response);
-    }
-
-
-    public function testSettingsExploreUrlSet()
-    {
-        $result = [
-            'settings' => [
-                'showAll' => true,
-                'preventReadOnScroll' => true,
-                'oldestFirst' => true,
-                'language' => 'de',
-                'exploreUrl' => 'abc'
-            ]
-        ];
-
-        $this->l10n->expects($this->once())
-                   ->method('getLanguageCode')
-                   ->will($this->returnValue('de'));
-
-        $this->config->expects($this->exactly(3))
-                    ->method('getUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'showAll'],
-                        ['becka', 'news', 'preventReadOnScroll'],
-                        ['becka', 'news', 'oldestFirst']
-                    )
-                    ->will($this->returnValue('1'));
-        $this->settings->expects($this->once())
-                        ->method('getValueString')
-                        ->with('news', 'exploreUrl')
-                        ->will($this->returnValue('abc'));
-        $this->urlGenerator->expects($this->never())
-            ->method('getAbsoluteURL');
-
-
-        $response = $this->controller->settings();
-        $this->assertEquals($result, $response);
-    }
-
-    /**
-     * @covers \OCA\News\Controller\PageController::updateSettings
-     */
-    public function testUpdateSettings()
-    {
-        $this->config->expects($this->exactly(4))
-                    ->method('setUserValue')
-                    ->withConsecutive(
-                        ['becka', 'news', 'showAll', '1'],
-                        ['becka', 'news', 'preventReadOnScroll', '0'],
-                        ['becka', 'news', 'oldestFirst', '1'],
-                        ['becka', 'news', 'disableRefresh', '0']
-                    );
-
-        $this->controller->updateSettings(true, false, true, false);
-    }
-
     public function testExplore()
     {
         $in = ['test'];
-        $this->config->expects($this->exactly(2))
-                    ->method('setUserValue')
+        $this->userConfig->expects($this->exactly(2))
+                    ->method('setValueInt')
                     ->withConsecutive(
                         ['becka', 'news', 'lastViewedFeedId', 0],
                         ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
@@ -302,8 +207,8 @@ class PageControllerTest extends TestCase
 
     public function testExploreError()
     {
-        $this->config->expects($this->exactly(2))
-                    ->method('setUserValue')
+        $this->userConfig->expects($this->exactly(2))
+                    ->method('setValueInt')
                     ->withConsecutive(
                         ['becka', 'news', 'lastViewedFeedId', 0],
                         ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]

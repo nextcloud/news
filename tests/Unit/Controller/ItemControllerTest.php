@@ -18,12 +18,12 @@ use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\ItemServiceV2;
 use OCA\News\Service\ShareService;
 use \OCP\AppFramework\Http;
+use OCP\Config\IUserConfig;
 
 use \OCA\News\Db\Item;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\ListType;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
-use OCP\IConfig;
 use OCP\IRequest;
 
 use OCP\IUser;
@@ -35,9 +35,9 @@ class ItemControllerTest extends TestCase
 
     private $appName;
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|IConfig
+     * @var \PHPUnit\Framework\MockObject\MockObject|IUserConfig
      */
-    private $settings;
+    private $userConfig;
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
      */
@@ -72,7 +72,7 @@ class ItemControllerTest extends TestCase
     public function setUp(): void
     {
         $this->appName = 'news';
-        $this->settings = $this->getMockBuilder(IConfig::class)
+        $this->userConfig = $this->getMockBuilder(IUserConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->itemService =
@@ -104,7 +104,7 @@ class ItemControllerTest extends TestCase
             $this->feedService,
             $this->itemService,
             $this->shareService,
-            $this->settings,
+            $this->userConfig,
             $this->userSession
         );
         $this->newestItemId = 12312;
@@ -236,7 +236,7 @@ class ItemControllerTest extends TestCase
     }
 
     /**
-     * Setup expectations for settings
+     * Setup expectations for userConfig
      *
      * @param        $id
      * @param        $type
@@ -244,15 +244,15 @@ class ItemControllerTest extends TestCase
      */
     private function itemsApiExpects($id, $type, $oldestFirst = '1'): void
     {
-        $this->settings->expects($this->exactly(2))
-            ->method('getUserValue')
+        $this->userConfig->expects($this->exactly(2))
+            ->method('getValueString')
             ->withConsecutive(
                 ['user', $this->appName, 'showAll'],
                 ['user', $this->appName, 'oldestFirst']
             )
             ->willReturnOnConsecutiveCalls('1', $oldestFirst);
-        $this->settings->expects($this->exactly(2))
-            ->method('setUserValue')
+        $this->userConfig->expects($this->exactly(2))
+            ->method('setValueInt')
             ->withConsecutive(
                 ['user', $this->appName, 'lastViewedFeedId', $id],
                 ['user', $this->appName, 'lastViewedFeedType', $type]
@@ -483,8 +483,8 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->settings->expects($this->once())
-            ->method('getUserValue')
+        $this->userConfig->expects($this->once())
+            ->method('getValueString')
             ->with('user', $this->appName, 'showAll')
             ->will($this->returnValue('1'));
 
@@ -528,8 +528,8 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->settings->expects($this->once())
-            ->method('getUserValue')
+        $this->userConfig->expects($this->once())
+            ->method('getValueString')
             ->with('user', $this->appName, 'showAll')
             ->will($this->returnValue('1'));
 
@@ -573,8 +573,8 @@ class ItemControllerTest extends TestCase
             'starred' => 3
         ];
 
-        $this->settings->expects($this->once())
-            ->method('getUserValue')
+        $this->userConfig->expects($this->once())
+            ->method('getValueString')
             ->with('user', $this->appName, 'showAll')
             ->will($this->returnValue('1'));
 
@@ -610,8 +610,8 @@ class ItemControllerTest extends TestCase
 
     public function testGetNewItemsNoNewestItemsId()
     {
-        $this->settings->expects($this->once())
-            ->method('getUserValue')
+        $this->userConfig->expects($this->once())
+            ->method('getValueString')
             ->with('user', $this->appName, 'showAll')
             ->will($this->returnValue('1'));
 

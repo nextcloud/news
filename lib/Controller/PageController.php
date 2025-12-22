@@ -18,7 +18,6 @@ use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
 use OCP\IRequest;
 use OCP\IAppConfig;
 use OCP\Util;
-use OCP\IConfig;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -27,6 +26,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\Config\IUserConfig;
 
 use OCA\News\Service\StatusService;
 use OCA\News\Explore\RecommendedSites;
@@ -40,8 +40,8 @@ class PageController extends Controller
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        private IAppConfig $settings,
-        private IConfig $config,
+        private IAppConfig $appConfig,
+        private IUserConfig $userConfig,
         private IURLGenerator $urlGenerator,
         private IL10N $l10n,
         private RecommendedSites $recommendedSites,
@@ -76,25 +76,52 @@ class PageController extends Controller
             ]
         );
 
-        $usersettings = [
+        $userSettingsString = [
             'preventReadOnScroll',
             'oldestFirst',
             'showAll',
-            'lastViewedFeedId',
-            'lastViewedFeedType',
             'disableRefresh',
             'displaymode',
             'splitmode'
         ];
 
-        foreach ($usersettings as $setting) {
-            $this->initialState->provideInitialState($setting, $this->config->getUserValue(
+        foreach ($userSettingsString as $setting) {
+            $this->initialState->provideInitialState($setting, $this->userConfig->getValueString(
                 $this->getUserId(),
                 $this->appName,
                 $setting,
                 '0'
             ));
         }
+
+        $this->initialState->provideInitialState('lastViewedFeedId', (string) $this->userConfig->getValueInt(
+            $this->getUserId(),
+            $this->appName,
+            'lastViewedFeedId',
+            0
+        ));
+
+        $this->initialState->provideInitialState('lastViewedFeedType', (string) $this->userConfig->getValueInt(
+            $this->getUserId(),
+            $this->appName,
+            'lastViewedFeedType',
+            ListType::UNREAD
+        ));
+
+        $exploreUrl = $this->appConfig->getValueString(
+            $this->appName,
+            'exploreUrl',
+            Application::DEFAULT_SETTINGS['exploreUrl']
+        );
+        if (trim($exploreUrl) === '') {
+                // default url should not feature the sites.en.json
+                $exploreUrl = $this->urlGenerator->linkToRoute(
+                    'news.page.explore',
+                    ['lang' => 'en']
+                );
+                $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
+        }
+        $this->initialState->provideInitialState("exploreUrl", $exploreUrl);
 
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
@@ -111,78 +138,6 @@ class PageController extends Controller
         return $response;
     }
 
-    #[NoAdminRequired]
-    public function settings(): array
-    {
-        $settings = [
-            'showAll',
-            'preventReadOnScroll',
-            'oldestFirst'
-        ];
-
-        $exploreUrl = $this->settings->getValueString(
-            $this->appName,
-            'exploreUrl',
-            Application::DEFAULT_SETTINGS['exploreUrl']
-        );
-        if (trim($exploreUrl) === '') {
-            // default url should not feature the sites.en.json
-            $exploreUrl = $this->urlGenerator->linkToRoute(
-                'news.page.explore',
-                ['lang' => 'en']
-            );
-            $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
-        }
-
-        $result = [
-            'language' => $this->l10n->getLanguageCode(),
-            'exploreUrl' => $exploreUrl
-        ];
-
-        foreach ($settings as $setting) {
-            $result[$setting] = $this->config->getUserValue(
-                $this->getUserId(),
-                $this->appName,
-                $setting
-            ) === '1';
-        }
-        return ['settings' => $result];
-    }
-
-
-    /**
-     * @param bool $showAll
-     * @param bool $preventReadOnScroll
-     * @param bool $oldestFirst
-     * @param bool $disableRefresh
-     * @param int  $displaymode
-     * @param int  $splitmode
-     */
-    #[NoAdminRequired]
-    public function updateSettings(
-        bool $showAll,
-        bool $preventReadOnScroll,
-        bool $oldestFirst,
-        bool $disableRefresh,
-    ): void {
-        $settings = [
-            'showAll'             => $showAll,
-            'preventReadOnScroll' => $preventReadOnScroll,
-            'oldestFirst'         => $oldestFirst,
-            'disableRefresh'      => $disableRefresh
-        ];
-
-        foreach ($settings as $setting => $value) {
-            $value = $value ? '1' : '0';
-            $this->config->setUserValue(
-                $this->getUserId(),
-                $this->appName,
-                $setting,
-                $value
-            );
-        }
-    }
-
     /**
      * @param string $lang
      *
@@ -191,13 +146,13 @@ class PageController extends Controller
     #[NoAdminRequired]
     public function explore(string $lang)
     {
-        $this->config->setUserValue(
+        $this->userConfig->setValueInt(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedId',
             0
         );
-        $this->config->setUserValue(
+        $this->userConfig->setValueInt(
             $this->getUserId(),
             $this->appName,
             'lastViewedFeedType',

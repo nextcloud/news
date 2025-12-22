@@ -21,9 +21,9 @@ use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
-use OCP\IConfig;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\Config\IUserConfig;
 
 use OCA\News\Db\ListType;
 use OCP\IUserSession;
@@ -38,7 +38,7 @@ class FeedController extends Controller
         private FeedServiceV2 $feedService,
         private ItemServiceV2 $itemService,
         private ImportService $importService,
-        private IConfig $settings,
+        private IUserConfig $userConfig,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
@@ -68,51 +68,6 @@ class FeedController extends Controller
         }
 
         return $params;
-    }
-
-
-    #[NoAdminRequired]
-    public function active(): array
-    {
-        $feedId = (int) $this->settings->getUserValue(
-            $this->getUserId(),
-            $this->appName,
-            'lastViewedFeedId'
-        );
-        $feedType = $this->settings->getUserValue(
-            $this->getUserId(),
-            $this->appName,
-            'lastViewedFeedType'
-        );
-
-        // check if feed or folder exists
-        try {
-            if ($feedType === null) {
-                throw new ServiceNotFoundException('First launch');
-            }
-
-            $feedType = intval($feedType);
-            switch ($feedType) {
-                case ListType::FOLDER:
-                    $this->folderService->find($this->getUserId(), $feedId);
-                    break;
-                case ListType::FEED:
-                    $this->feedService->find($this->getUserId(), $feedId);
-                    break;
-                default:
-                    break;
-            }
-        } catch (ServiceNotFoundException $ex) {
-            $feedId = 0;
-            $feedType = ListType::ALL_ITEMS;
-        }
-
-        return [
-            'activeFeed' => [
-                'id' => $feedId,
-                'type' => $feedType
-            ]
-        ];
     }
 
 
