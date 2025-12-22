@@ -48,7 +48,6 @@ return ['routes' => [
 ['name' => 'feed#restore', 'url' => '/feeds/{feedId}/restore', 'verb' => 'POST'],
 ['name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'],
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
-['name' => 'feed#active', 'url' => '/feeds/active', 'verb' => 'GET'],
 ['name' => 'feed#patch', 'url' => '/feeds/{feedId}', 'verb' => 'PATCH'],
 
 // items
