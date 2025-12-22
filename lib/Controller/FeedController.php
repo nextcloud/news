@@ -23,7 +23,6 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
-use OCP\Config\IUserConfig;
 
 use OCA\News\Db\ListType;
 use OCP\IUserSession;
@@ -37,7 +36,6 @@ class FeedController extends Controller
         private FolderServiceV2 $folderService,
         private FeedServiceV2 $feedService,
         private ItemServiceV2 $itemService,
-        private IUserConfig $userConfig,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
@@ -67,52 +65,6 @@ class FeedController extends Controller
         }
 
         return $params;
-    }
-
-
-    #[NoAdminRequired]
-    public function active(): array
-    {
-        $feedId = $this->userConfig->getValueInt(
-            $this->getUserId(),
-            $this->appName,
-            'lastViewedFeedId'
-        );
-        $feedType = $this->userConfig->getValueInt(
-            $this->getUserId(),
-            $this->appName,
-            'lastViewedFeedType',
-            -1
-        );
-
-        // check if feed or folder exists
-        try {
-            if ($feedType === -1) {
-                throw new ServiceNotFoundException('First launch');
-            }
-
-            $feedType = intval($feedType);
-            switch ($feedType) {
-                case ListType::FOLDER:
-                    $this->folderService->find($this->getUserId(), $feedId);
-                    break;
-                case ListType::FEED:
-                    $this->feedService->find($this->getUserId(), $feedId);
-                    break;
-                default:
-                    break;
-            }
-        } catch (ServiceNotFoundException $ex) {
-            $feedId = 0;
-            $feedType = ListType::ALL_ITEMS;
-        }
-
-        return [
-            'activeFeed' => [
-                'id' => $feedId,
-                'type' => $feedType
-            ]
-        ];
     }
 
 

@@ -20,7 +20,6 @@ use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemServiceV2;
 use OCP\AppFramework\Http;
-use OCP\Config\IUserConfig;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\ListType;
@@ -39,7 +38,6 @@ class FeedControllerTest extends TestCase
      * @var string
      */
     private $appName;
-    private $exampleResult;
     private $uid;
 
     /**
@@ -54,11 +52,6 @@ class FeedControllerTest extends TestCase
      * @var MockObject|ItemServiceV2
      */
     private $itemService;
-
-    /**
-     * @var MockObject|IUserConfig
-     */
-    private $userConfig;
 
     /**
      * @var MockObject|IUser
@@ -83,9 +76,6 @@ class FeedControllerTest extends TestCase
     {
         $this->appName = 'news';
         $this->uid = 'jack';
-        $this->userConfig = $this->getMockBuilder(IUserConfig::class)
-            ->disableOriginalConstructor()
-            ->getMock();
         $this->itemService = $this
             ->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
@@ -115,15 +105,8 @@ class FeedControllerTest extends TestCase
             $this->folderService,
             $this->feedService,
             $this->itemService,
-            $this->userConfig,
             $this->userSession
         );
-        $this->exampleResult = [
-            'activeFeed' => [
-                'id' => 0,
-                'type' => ListType::ALL_ITEMS
-            ]
-        ];
     }
 
 
@@ -178,146 +161,6 @@ class FeedControllerTest extends TestCase
 
         $response = $this->class->index();
 
-        $this->assertEquals($result, $response);
-    }
-
-
-    /**
-     * Configure userConfig with active mocks
-     *
-     * @param $id
-     * @param $type
-     */
-    private function activeInitMocks($id, $type): void
-    {
-        $this->userConfig->expects($this->exactly(2))
-            ->method('getValueInt')
-            ->withConsecutive(
-                [$this->uid, $this->appName, 'lastViewedFeedId'],
-                [$this->uid, $this->appName, 'lastViewedFeedType']
-            )
-            ->willReturnOnConsecutiveCalls($id, $type);
-    }
-
-
-    public function testActive()
-    {
-        $id = 3;
-        $type = ListType::STARRED;
-        $result = [
-            'activeFeed' => [
-                'id' => $id,
-                'type' => $type
-            ]
-        ];
-
-        $this->activeInitMocks($id, $type);
-
-        $response = $this->class->active();
-
-        $this->assertEquals($result, $response);
-    }
-
-
-    public function testActiveFeed()
-    {
-        $id = 3;
-        $type = ListType::FEED;
-        $result = [
-            'activeFeed' => [
-                'id' => $id,
-                'type' => $type
-            ]
-        ];
-
-        $this->feedService->expects($this->once())
-            ->method('find')
-            ->with($this->uid, $id)
-            ->will($this->returnValue(new Feed()));
-
-        $this->activeInitMocks($id, $type);
-
-        $response = $this->class->active();
-
-        $this->assertEquals($result, $response);
-    }
-
-
-    public function testActiveFeedDoesNotExist()
-    {
-        $id = 3;
-        $type = ListType::FEED;
-        $ex = new ServiceNotFoundException('hiu');
-        $result = $this->exampleResult;
-
-        $this->feedService->expects($this->once())
-            ->method('find')
-            ->with($this->uid, $id)
-            ->will($this->throwException($ex));
-
-        $this->activeInitMocks($id, $type);
-
-        $response = $this->class->active();
-
-        $this->assertEquals($result, $response);
-    }
-
-
-    public function testActiveFolder()
-    {
-        $type = ListType::FOLDER;
-        $folder = new Folder();
-        $folder->setId(3);
-
-        $result = [
-            'activeFeed' => [
-                'id' => 3,
-                'type' => 1
-            ]
-        ];
-
-        $this->folderService->expects($this->once())
-            ->method('find')
-            ->with($this->uid, 3)
-            ->will($this->returnValue($folder));
-
-        $this->activeInitMocks(3, $type);
-
-        $response = $this->class->active();
-
-        $this->assertEquals($result, $response);
-    }
-
-
-    public function testActiveFolderDoesNotExist()
-    {
-        $id = 3;
-        $type = ListType::FOLDER;
-        $ex = new ServiceNotFoundException('hiu');
-        $result = $this->exampleResult;
-
-        $this->folderService->expects($this->once())
-            ->method('find')
-            ->with($this->uid, $id)
-            ->will($this->throwException($ex));
-
-        $this->activeInitMocks($id, $type);
-
-        $response = $this->class->active();
-
-        $this->assertEquals($result, $response);
-    }
-
-
-    public function testActiveActiveIsNull()
-    {
-        $id = 3;
-        $type = -1;
-        $result = $this->exampleResult;
-
-        $this->activeInitMocks($id, $type);
-
-        $response = $this->class->active();
         $this->assertEquals($result, $response);
     }
 
