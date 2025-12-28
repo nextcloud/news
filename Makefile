@@ -40,7 +40,7 @@
 #    },
 
 app_name:=$(notdir $(CURDIR))
-build_tools_directory:=$(CURDIR)/build/tools
+build_tools_directory:=$(CURDIR)/.tools
 source_build_directory:=$(CURDIR)/build/source/$(app_name)
 source_artifact_directory:=$(CURDIR)/build/artifacts/source
 source_package_name:=$(source_artifact_directory)/$(app_name)
