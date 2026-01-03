@@ -39,10 +39,11 @@ export class ItemService {
 	/**
 	 * Makes backend call to retrieve starred items
 	 *
+	 * @param feedId (id of the feed to retrieve starred items for)
 	 * @param start (id of last starred item loaded)
 	 * @return response object containing backend request response
 	 */
-	static async fetchStarred(start: number): Promise<AxiosResponse> {
+	static async fetchStarred(feedId: number, start: number): Promise<AxiosResponse> {
 		return await axios.get(API_ROUTES.ITEMS, {
 			params: {
 				limit: 40,
@@ -51,6 +52,7 @@ export class ItemService {
 				showAll: store.state.showAll,
 				type: ITEM_TYPES.STARRED,
 				offset: start,
+				...(feedId !== 0 ? { id: feedId } : {}),
 			},
 		})
 	}

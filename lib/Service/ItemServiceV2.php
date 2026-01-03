@@ -388,8 +388,9 @@ class ItemServiceV2 extends Service
         int $limit,
         int $offset,
         bool $oldestFirst,
-        array $search = []
+        array $search = [],
+        int $id = 0
     ): array {
-        return $this->mapper->findAllItems($userId, $type, $limit, $offset, $oldestFirst, $search);
+        return $this->mapper->findAllItems($id, $userId, $type, $limit, $offset, $oldestFirst, $search);
     }
 }
