@@ -54,8 +54,7 @@
 				:to="{ name: ROUTES.STARRED }"
 				:allow-collapse="true"
 				:force-menu="true"
-				:open="isStarredCollapsed"
-				@update:open="isStarredCollapsed">
+				:open="isStarredCollapsed">
 				<NcAppNavigationItem
 					v-for="group in GroupedStars"
 					:key="group.id"
@@ -372,6 +371,7 @@ export default defineComponent({
 			polling: null,
 			uploadStatus: null,
 			selectedFile: null,
+			_wasStarredVisited: false,
 			displayModeOptions: [
 				{
 					id: '0',
@@ -532,8 +532,11 @@ export default defineComponent({
 		 * and there is a feedId param (i.e. viewing a specific starred group)
 		 */
 		isStarredCollapsed(): boolean {
-			// ROUTES is available via data() as this.ROUTES
-			return !!(this.$route.name === this.ROUTES.STARRED && (this.$route.params && this.$route.params.feedId))
+			if (!this._wasStarredVisited) {
+				this._wasStarredVisited = !!(this.$route.name === this.ROUTES.STARRED && (this.$route.params && this.$route.params.feedId))
+			}
+
+			return this._wasStarredVisited
 		},
 	},
 
