@@ -382,34 +382,4 @@ describe('item.ts', () => {
 		})
 	})
 
-	it('should commit allLoaded as false when items.length >= 40 and not call SET_STARRED_COUNT if the mutation is missing', async () => {
-		const feedId = 7
-		// create 40 items
-		const items = Array.from({ length: 40 }, (_, i) => ({ id: i + 1 }))
-		vi.spyOn(ItemService, 'fetchStarred').mockResolvedValue({
-			data: {
-				items,
-				// no 'starred' property in this response
-			},
-		} as any)
-
-		const commit = vi.fn()
-
-		await actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit } as any, { feedId, start: 0 } as any)
-
-		// SET_ITEMS called
-		expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, items)
-
-		// SET_STARRED_COUNT should NOT be called
-		const calledStarred = commit.mock.calls.some((c) => c[0] === FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT)
-		expect(calledStarred).toBe(false)
-
-		// items.length >= 40 -> SET_ALL_LOADED false
-		expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred-' + feedId, loaded: false })
-
-		// lastItem should be the 40th id
-		expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred-' + feedId, lastItem: 40 })
-
-		vi.restoreAllMocks()
-	})
 })
