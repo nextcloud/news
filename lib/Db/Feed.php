@@ -598,19 +598,6 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
-     * @param int $starredCount
-     */
-    public function setStarredCount(int $starredCount): Feed
-    {
-        if ($this->starredCount !== $starredCount) {
-            $this->starredCount = $starredCount;
-            $this->markFieldUpdated('starredCount');
-        }
-
-        return $this;
-    }
-
-    /**
      * @param int $updateErrorCount
      */
     public function setUpdateErrorCount(int $updateErrorCount): Feed
