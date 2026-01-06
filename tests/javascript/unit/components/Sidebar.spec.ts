@@ -212,20 +212,23 @@ describe('Sidebar.vue', () => {
 			expect(topLevelNav[0].name).toEqual('feed3')
 		})
 
-		it('should mark Starred collapsed when route is STARRED with feedId param', () => {
-			const isCollapsed = wrapper.vm.$options.computed?.isStarredCollapsed.call({
-				$route: { name: 'starred', params: { feedId: '123' } },
-				ROUTES: { STARRED: 'starred' },
-			})
-			expect(isCollapsed).toBe(true)
+		it('should set wasStarredVisited when route is STARRED with feedId param', () => {
+			wrapper.vm.wasStarredVisited = false
+			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'starred', params: { feedId: '123' } })
+			expect(wrapper.vm.wasStarredVisited).toBe(true)
 		})
 
-		it('should NOT mark Starred collapsed when route is STARRED without feedId param', () => {
-			const isCollapsed = wrapper.vm.$options.computed?.isStarredCollapsed.call({
-				$route: { name: 'starred' },
-				ROUTES: { STARRED: 'starred' },
-			})
-			expect(isCollapsed).toBe(false)
+		it('should set wasStarredVisited when route is STARRED with feedId param and stay set after a change', () => {
+			wrapper.vm.wasStarredVisited = false
+			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'starred', params: { feedId: '123' } })
+			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'fee', params: { feedId: '123' } })
+			expect(wrapper.vm.wasStarredVisited).toBe(true)
+		})
+
+		it('should NOT set wasStarredVisited when route is STARRED without feedId param', () => {
+			wrapper.vm.wasStarredVisited = false
+			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'starred' })
+			expect(wrapper.vm.wasStarredVisited).toBe(false)
 		})
 	})
 
