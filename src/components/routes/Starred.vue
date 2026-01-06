@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import type { FeedItem } from '../../types/FeedItem.ts'
 import type { Feed } from '../../types/Feed.ts'
+import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
