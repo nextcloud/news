@@ -21,7 +21,7 @@
     "New folder" : "يېڭى قىسقۇچ",
     "Folder exists already!" : "ھۆججەت قىسقۇچ ئاللىبۇرۇن مەۋجۇت!",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "HTTP Basic Auth كىنىشكىسى شىفىرسىز ساقلىنىشى كېرەك! مۇلازىمېتىر ياكى سانداننى زىيارەت قىلالايدىغانلارنىڭ ھەممىسى ئۇلارنى زىيارەت قىلالايدۇ!",
-    "Credentials" : "Credentials",
+    "Credentials" : "سالاھىيەتلەر",
     "Auto discover Feed" : "ئاپتوماتىك بايقاش",
     "Subscribe" : "مۇشتەرى بولۇش",
     "Successfully updated news configuration" : "خەۋەر سەپلىمىسى مۇۋەپپەقىيەتلىك يېڭىلاندى",
