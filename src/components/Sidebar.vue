@@ -54,7 +54,8 @@
 				:to="{ name: ROUTES.STARRED }"
 				:allow-collapse="true"
 				:force-menu="true"
-				:open="wasStarredVisited">
+				:open="isStarredOpen"
+				@update:open="toggleStarredOpenState">
 				<NcAppNavigationItem
 					v-for="group in GroupedStars"
 					:key="group.id"
@@ -397,7 +398,6 @@ export default defineComponent({
 			polling: null,
 			uploadStatus: null,
 			selectedFile: null,
-			wasStarredVisited: false,
 			displayModeOptions: [
 				{
 					id: '0',
@@ -553,6 +553,9 @@ export default defineComponent({
 			]
 		},
 
+		isStarredOpen() {
+			return this.$store.getters.starredOpenState
+		},
 	},
 
 	watch: {
@@ -562,17 +565,6 @@ export default defineComponent({
 					this.showAddFeed = true
 				}
 			},
-		},
-
-		// Watch route changes and set `wasStarredVisited`
-		$route: {
-			handler(to) {
-				if (to.name === this.ROUTES.STARRED && (to.params && to.params.feedId)) {
-					this.wasStarredVisited = true
-				}
-			},
-
-			immediate: true,
 		},
 	},
 
@@ -832,6 +824,23 @@ export default defineComponent({
 		toggleFolderState(folder: Folder) {
 			folder.opened = !folder.opened
 			this.$store.dispatch(ACTIONS.FOLDER_OPEN_STATE, { folder })
+		},
+
+		async toggleStarredOpenState() {
+			const value = !this.$store.getters.starredOpenState
+			this.$store.commit('starredOpenState', { value })
+			const configValue = value ? '1' : '0'
+			const url = generateOcsUrl('/apps/provisioning_api/api/v1/config/users/news/starredOpenState')
+			try {
+				await axios.post(url, {
+					configValue,
+				})
+			} catch (e) {
+				this.handleResponse({
+					errorMessage: t('news', 'Unable to save starred open state'),
+					error: e,
+				})
+			}
 		},
 
 		isActiveFeed(feed) {

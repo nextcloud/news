@@ -84,7 +84,8 @@ class PageController extends Controller
             'lastViewedFeedType',
             'disableRefresh',
             'displaymode',
-            'splitmode'
+            'splitmode',
+            'starredOpenState'
         ];
 
         foreach ($usersettings as $setting) {

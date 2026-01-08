@@ -80,6 +80,11 @@ describe('app.ts', () => {
 			store.state.appInfo.lastViewedFeedType = '6'
 			expect(store.getters.lastViewedFeedType).toBe('6')
 		})
+
+		it('should return starredOpenState state', () => {
+			store.state.appInfo.starredOpenState = true
+			expect(store.getters.starredOpenState).toBe(true)
+		})
 	})
 
 	// describe('actions', () => {
@@ -149,6 +154,13 @@ describe('app.ts', () => {
 
 			mutations.disableRefresh(state, { value: true })
 			expect(state.disableRefresh).toEqual(true)
+		})
+
+		it('starredOpenState should update the value in the state', () => {
+			const state = { starredOpenState: undefined } as AppInfoState
+
+			mutations.starredOpenState(state, { value: true })
+			expect(state.starredOpenState).toEqual(true)
 		})
 	})
 })
