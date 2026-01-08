@@ -82,7 +82,8 @@ class PageController extends Controller
             'showAll',
             'disableRefresh',
             'displaymode',
-            'splitmode'
+            'splitmode',
+            'starredOpenState'
         ];
 
         foreach ($userSettingsString as $setting) {

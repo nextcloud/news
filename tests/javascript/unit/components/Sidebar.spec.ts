@@ -1,7 +1,7 @@
 import axios from '@nextcloud/axios'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 import { shallowMount } from '@vue/test-utils'
-import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSidebar from '../../../../src/components/Sidebar.vue'
 import { ACTIONS } from '../../../../src/store/index.ts'
 
@@ -11,6 +11,8 @@ describe('Sidebar.vue', () => {
 	'use strict'
 
 	let wrapper: any
+	let commitMock
+	let gettersMock
 
 	const feeds = [{
 		id: 1, title: 'first',
@@ -29,7 +31,19 @@ describe('Sidebar.vue', () => {
 		name: 'def',
 	}]
 
-	beforeAll(() => {
+	beforeEach(() => {
+		vi.restoreAllMocks()
+		gettersMock = {
+			feeds,
+			folders,
+			showAll: true,
+			starredOpenState: false,
+		}
+		commitMock = vi.fn((type, payload) => {
+			if (type === 'starredOpenState') {
+				gettersMock.starredOpenState = payload.value
+			}
+		})
 		wrapper = shallowMount(AppSidebar, {
 			global: {
 				mocks: {
@@ -43,21 +57,13 @@ describe('Sidebar.vue', () => {
 							feeds,
 							folders: [],
 						},
-						getters: {
-							feeds,
-							folders,
-							showAll: () => { return true },
-						},
+						getters: gettersMock,
+						commit: commitMock,
 						dispatch: vi.fn(),
 					},
 				},
 			},
 		})
-	})
-
-	beforeEach(() => {
-		vi.restoreAllMocks()
-		wrapper.vm.$store.dispatch.mockReset()
 	})
 
 	it('should initialize without showing AddFeed Component', () => {
@@ -119,6 +125,27 @@ describe('Sidebar.vue', () => {
 			window.prompt = vi.fn().mockReturnValue(name)
 			wrapper.vm.renameFolder({ id: 123 })
 			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FOLDER_SET_NAME, { folder: { id: 123 }, name })
+		})
+
+		it('should toggle starred open state to open', async () => {
+			gettersMock.starredOpenState = false
+			await wrapper.vm.toggleStarredOpenState.call(wrapper)
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith('starredOpenState', { value: true })
+			expect(wrapper.vm.isStarredOpen).toBeTruthy()
+		})
+
+		it('should toggle starred open state to false', async () => {
+			gettersMock.starredOpenState = true
+			await wrapper.vm.toggleStarredOpenState.call(wrapper)
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith('starredOpenState', { value: false })
+			expect(wrapper.vm.isStarredOpen).toBeFalsy()
+		})
+
+		it('should show server error when saving starred open state failed', async () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			axios.post.mockRejectedValue('network error')
+			await wrapper.vm.toggleStarredOpenState.call(wrapper)
+			expect(showError).toHaveBeenCalledWith('Unable to save starred open state')
 		})
 	})
 
@@ -215,25 +242,6 @@ describe('Sidebar.vue', () => {
 			})
 
 			expect(topLevelNav[0].name).toEqual('feed3')
-		})
-
-		it('should set wasStarredVisited when route is STARRED with feedId param', () => {
-			wrapper.vm.wasStarredVisited = false
-			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'starred', params: { feedId: '123' } })
-			expect(wrapper.vm.wasStarredVisited).toBe(true)
-		})
-
-		it('should set wasStarredVisited when route is STARRED with feedId param and stay set after a change', () => {
-			wrapper.vm.wasStarredVisited = false
-			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'starred', params: { feedId: '123' } })
-			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'fee', params: { feedId: '123' } })
-			expect(wrapper.vm.wasStarredVisited).toBe(true)
-		})
-
-		it('should NOT set wasStarredVisited when route is STARRED without feedId param', () => {
-			wrapper.vm.wasStarredVisited = false
-			wrapper.vm.$options.watch?.$route.handler.call(wrapper.vm, { name: 'starred' })
-			expect(wrapper.vm.wasStarredVisited).toBe(false)
 		})
 	})
 

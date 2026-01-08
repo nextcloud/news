@@ -18,6 +18,7 @@ export type AppInfoState = {
 	disableRefresh: boolean
 	lastViewedFeedId: string
 	lastViewedFeedType: string
+	starredOpenState: boolean
 }
 
 const state: AppInfoState = reactive({
@@ -31,6 +32,7 @@ const state: AppInfoState = reactive({
 	disableRefresh: loadState('news', 'disableRefresh', null) === '1',
 	lastViewedFeedId: loadState('news', 'lastViewedFeedId', '0'),
 	lastViewedFeedType: loadState('news', 'lastViewedFeedType', '6'),
+	starredOpenState: loadState('news', 'starredOpenState', null) === '1',
 })
 
 const getters = {
@@ -64,6 +66,9 @@ const getters = {
 	},
 	lastViewedFeedType(state: AppInfoState) {
 		return state.lastViewedFeedType
+	},
+	starredOpenState(state: AppInfoState) {
+		return state.starredOpenState
 	},
 }
 
@@ -121,6 +126,12 @@ export const mutations = {
 		{ value }: { value: boolean },
 	) {
 		state.disableRefresh = value
+	},
+	starredOpenState(
+		state: AppInfoState,
+		{ value }: { value: boolean },
+	) {
+		state.starredOpenState = value
 	},
 }
 
