@@ -53,6 +53,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected $folderId;
     /** @var int */
     protected $unreadCount;
+    /** @var int */
+    protected $starredCount;
     /** @var string|null */
     protected $link = null;
     /** @var bool */
@@ -322,6 +324,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'added',
             'folderId',
             'unreadCount',
+            'starredCount',
             'link',
             'preventUpdate',
             'deletedAt',

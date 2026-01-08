@@ -155,7 +155,8 @@ class ItemController extends Controller
                         $limit,
                         $offset,
                         $oldestFirst,
-                        $search_items
+                        $search_items,
+                        $id
                     );
                     break;
             }

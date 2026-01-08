@@ -1,6 +1,7 @@
 import axios from '@nextcloud/axios'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { ITEM_TYPES, ItemService } from '../../../../src/dataservices/item.service'
+import { API_ROUTES } from '../../../../src/types/ApiRoutes.ts'
 
 describe('item.service.ts', () => {
 	'use strict'
@@ -28,13 +29,37 @@ describe('item.service.ts', () => {
 		it('should call GET with offset set to start param and STARRED item type', async () => {
 			axios.get.mockResolvedValue({ data: { feeds: [] } })
 
-			await ItemService.fetchStarred(0)
+			await ItemService.fetchStarred(0, 0)
 
 			expect(axios.get).toBeCalled()
 			const queryParams = axios.get.mock.calls[0][1].params
 
 			expect(queryParams.offset).toEqual(0)
 			expect(queryParams.type).toEqual(ITEM_TYPES.STARRED)
+		})
+
+		it('should return set feed by fetchKey', async () => {
+			const feedId = 5
+			await ItemService.fetchStarred(feedId, 0)
+
+			expect(axios.get).toHaveBeenCalled()
+			const calls = (axios.get as any).mock.calls
+			const [url, config] = calls[calls.length - 1] // use last call
+			expect(url).toBe(API_ROUTES.ITEMS)
+			expect(config).toHaveProperty('params')
+			expect(config.params).toHaveProperty('id', feedId)
+		})
+
+		it('should return non feed by fetchKey without id', async () => {
+			const feedId = 0
+			await ItemService.fetchStarred(feedId, 0)
+
+			expect(axios.get).toHaveBeenCalled()
+			const calls = (axios.get as any).mock.calls
+			const [url, config] = calls[calls.length - 1] // use last call
+			expect(url).toBe(API_ROUTES.ITEMS)
+			expect(config).toHaveProperty('params')
+			expect(config.params.id).toBeUndefined()
 		})
 	})
 

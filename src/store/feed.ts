@@ -305,6 +305,18 @@ export const mutations = {
 		}
 	},
 
+	[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](
+		state: FeedState,
+		{ feedId, add }: { feedId: number, add: boolean },
+	) {
+		const feed = state.feeds.find((feed: Feed) => {
+			return feed.id === feedId
+		})
+		if (feed) {
+			_.assign(feed, { starredCount: feed.starredCount + (add ? 1 : -1) })
+		}
+	},
+
 	[FEED_MUTATION_TYPES.FEED_DELETE](
 		state: FeedState,
 		feedId: number,

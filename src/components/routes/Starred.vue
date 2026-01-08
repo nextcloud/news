@@ -1,14 +1,15 @@
 <template>
 	<ContentTemplate
 		v-if="!loading"
+		:list-name="starredFeed ? starredFeed.title : t('news', 'Starred')"
+		:list-count="starredFeed ? starredFeed.starredCount : items.starredCount"
 		:items="starred"
-		:list-name="t('news', 'Starred')"
-		:list-count="items.starredCount"
-		fetch-key="starred"
+		:fetch-key="fetchKey"
 		@load-more="fetchMore()" />
 </template>
 
 <script lang="ts">
+import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
 import { defineComponent } from 'vue'
@@ -23,10 +24,29 @@ export default defineComponent({
 		ContentTemplate,
 	},
 
+	props: {
+		/**
+		 * Unique identifier of the feed whose starred entries this component displays.
+		 *
+		 * @type {string}
+		 *
+		 * Used to fetch the relevant entries from the backend and to filter the displayed items.
+		 */
+		feedId: {
+			type: String,
+			required: false,
+			default: undefined,
+		},
+	},
+
 	computed: {
 		...mapState(['items']),
 		starred(): FeedItem[] {
-			let items = this.$store.getters.starred
+			const starred = this.$store.getters.starred
+
+			let items = this.feedId
+				? starred.filter((item: FeedItem) => item.feedId === this.id)
+				: starred
 			/*
 			 * Sorting items is needed because the allItems array can contain
 			 * different orderings due to possible individual feed sorting
@@ -42,6 +62,20 @@ export default defineComponent({
 		oldestFirst() {
 			return this.$store.getters.oldestFirst
 		},
+
+		id(): number {
+			return this.feedId ? Number(this.feedId) : 0
+		},
+
+		fetchKey(): string {
+			return this.feedId ? 'starred-' + this.feedId : 'starred'
+		},
+
+		starredFeed(): Feed {
+			return this.feedId
+				? this.$store.getters.feeds.find((feed: Feed) => feed.id === this.id)
+				: undefined
+		},
 	},
 
 	created() {
@@ -49,14 +83,14 @@ export default defineComponent({
 		 * When sorting newest to oldest lastItemLoaded needs to be reset to get new items for this route
 		 */
 		if (this.oldestFirst === false) {
-			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'starred', lastItem: undefined })
+			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: this.fetchKey, lastItem: undefined })
 		}
 	},
 
 	methods: {
 		async fetchMore() {
-			if (!this.$store.state.items.fetchingItems.starred) {
-				this.$store.dispatch(ACTIONS.FETCH_STARRED)
+			if (!this.$store.state.items.fetchingItems[this.fetchKey]) {
+				this.$store.dispatch(ACTIONS.FETCH_STARRED, { feedId: this.id })
 			}
 		},
 	},

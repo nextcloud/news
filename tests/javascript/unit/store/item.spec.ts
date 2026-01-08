@@ -50,6 +50,76 @@ describe('item.ts', () => {
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, [{ id: 123 }])
 				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, 3)
 			})
+
+			it('commits items, starred count, all loaded true and last item when items.length < 40 and starred present', async () => {
+				const feedId = 42
+				const items = [{ id: 1 }, { id: 2 }]
+				// mock response with starred count and newestItemId
+				vi.spyOn(ItemService, 'fetchStarred').mockResolvedValue({
+					data: {
+						items,
+						starred: 5,
+						newestItemId: 999,
+					},
+				} as any)
+
+				const commit = vi.fn()
+
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit } as any, { feedId, start: 0 } as any)
+
+				// first commit: set fetching true
+				expect(commit.mock.calls[0][0]).toBe(FEED_ITEM_MUTATION_TYPES.SET_FETCHING)
+				expect(commit.mock.calls[0][1]).toEqual({ key: 'starred-' + feedId, fetching: true })
+
+				// SET_ITEMS
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, items)
+
+				// SET_STARRED_COUNT should be called with the starred value
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, 5)
+
+				// items.length < 40 -> SET_ALL_LOADED true
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred-' + feedId, loaded: true })
+
+				// last item set to last item's id
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred-' + feedId, lastItem: 2 })
+
+				// final commit: set fetching false
+				expect(commit.mock.calls[commit.mock.calls.length - 1][0]).toBe(FEED_ITEM_MUTATION_TYPES.SET_FETCHING)
+				expect(commit.mock.calls[commit.mock.calls.length - 1][1]).toEqual({ key: 'starred-' + feedId, fetching: false })
+
+				vi.restoreAllMocks()
+			})
+
+			it('commits all loaded false when items.length >= 40 and does not call SET_STARRED_COUNT if missing', async () => {
+				const feedId = 7
+				// create 40 items
+				const items = Array.from({ length: 40 }, (_, i) => ({ id: i + 1 }))
+				vi.spyOn(ItemService, 'fetchStarred').mockResolvedValue({
+					data: {
+						items,
+						// no 'starred' property in this response
+					},
+				} as any)
+
+				const commit = vi.fn()
+
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_STARRED]({ commit } as any, { feedId, start: 0 } as any)
+
+				// SET_ITEMS called
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ITEMS, items)
+
+				// SET_STARRED_COUNT should NOT be called
+				const calledStarred = commit.mock.calls.some((c) => c[0] === FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT)
+				expect(calledStarred).toBe(false)
+
+				// items.length >= 40 -> SET_ALL_LOADED false
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_ALL_LOADED, { key: 'starred-' + feedId, loaded: false })
+
+				// lastItem should be the 40th id
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'starred-' + feedId, lastItem: 40 })
+
+				vi.restoreAllMocks()
+			})
 		})
 
 		describe('FETCH_FEED_ITEMS', () => {

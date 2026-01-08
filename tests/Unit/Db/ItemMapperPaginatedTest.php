@@ -108,7 +108,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $this->class->findAllItems('jack', 232, 10, 10, false, []);
+        $this->class->findAllItems(0, 'jack', 232, 10, 10, false, []);
     }
 
     public function testFindAllItemsFullInverted()
@@ -174,7 +174,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $result = $this->class->findAllItems('jack', 3, 10, 10, true, []);
+        $result = $this->class->findAllItems(0, 'jack', 3, 10, 10, true, []);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
@@ -245,7 +245,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $result = $this->class->findAllItems('jack', 6, 10, 10, false, []);
+        $result = $this->class->findAllItems(0, 'jack', 6, 10, 10, false, []);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
@@ -314,7 +314,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $result = $this->class->findAllItems('jack', 6, -1, 10, false, []);
+        $result = $this->class->findAllItems(0, 'jack', 6, -1, 10, false, []);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
@@ -386,7 +386,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $result = $this->class->findAllItems('jack', 2, 10, 10, false, []);
+        $result = $this->class->findAllItems(0, 'jack', 2, 10, 10, false, []);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
@@ -470,7 +470,7 @@ class ItemMapperPaginatedTest extends MapperTestUtility
                 false
             );
 
-        $result = $this->class->findAllItems('jack', 2, 10, 10, false, ['key', 'word']);
+        $result = $this->class->findAllItems(0, 'jack', 2, 10, 10, false, ['key', 'word']);
         $this->assertEquals([Item::fromRow(['id' => 4])], $result);
     }
 
