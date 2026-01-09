@@ -63,7 +63,7 @@ const routes = [
 	},
 	{
 		name: ROUTES.STARRED,
-		path: '/starred/:feedId?',
+		path: '/starred/:starredFeedId?',
 		component: StarredPanel,
 		props: true,
 	},
