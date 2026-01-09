@@ -315,6 +315,17 @@ describe('Sidebar.vue', () => {
 			expect(isFolder).toBeTruthy()
 		})
 
+		it('should return true if feed is newly added', () => {
+			gettersMock.showAll = false
+
+			const added = 1768000576
+			const lastModified = added * 1000000
+			const feed = { title: 'feed1', id: 1, added, lastModified }
+			const showItem = wrapper.vm.showItem(feed)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
 		it('should return true if feed is active and showAll is unset', () => {
 			gettersMock.showAll = false
 			wrapper.vm.$router.push({ name: 'feed', params: { feedId: 1 } })
@@ -386,7 +397,7 @@ describe('Sidebar.vue', () => {
 		it('should return true if folder has unread items and showAll is unset', () => {
 			gettersMock.showAll = false
 
-			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 5 }
+			const folder = { name: 'folder1', id: 123, feeds, feedCount: 5 }
 			const showItem = wrapper.vm.showItem(folder)
 			expect(wrapper.vm.showAll).toBe(false)
 			expect(showItem).toBeTruthy()
@@ -395,7 +406,7 @@ describe('Sidebar.vue', () => {
 		it('should return true if folder error count is greater eight and showAll is unset', () => {
 			gettersMock.showAll = false
 
-			const folder = { name: 'folder1', id: 123, feeds: [], updateErrorCount: 9 }
+			const folder = { name: 'folder1', id: 123, feeds, updateErrorCount: 9 }
 			const showItem = wrapper.vm.showItem(folder)
 			expect(wrapper.vm.showAll).toBe(false)
 			expect(showItem).toBeTruthy()
@@ -404,16 +415,37 @@ describe('Sidebar.vue', () => {
 		it('should return true if folder has no unread items and no errors and showAll is set', () => {
 			gettersMock.showAll = true
 
-			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 0, updateErrorCount: 0 }
+			const folder = { name: 'folder1', id: 123, feeds, feedCount: 0, updateErrorCount: 0 }
 			const showItem = wrapper.vm.showItem(folder)
 			expect(wrapper.vm.showAll).toBe(true)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if folder has no feeds and no errors and showAll is not set', () => {
+			gettersMock.showAll = false
+
+			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 0, updateErrorCount: 0 }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
+			expect(showItem).toBeTruthy()
+		})
+
+		it('should return true if folder has newly added feeds and no errors and showAll is not set', () => {
+			gettersMock.showAll = false
+
+			const added = 1768000576
+			const modified = added * 1000000
+			const feed = { title: 'feed1', id: 1, folderId: 123, added, lastModified: modified }
+			const folder = { name: 'folder1', id: 123, feeds: [feed], feedCount: 0, updateErrorCount: 0 }
+			const showItem = wrapper.vm.showItem(folder)
+			expect(wrapper.vm.showAll).toBe(false)
 			expect(showItem).toBeTruthy()
 		})
 
 		it('should return false if folder has no unread items and no errors and showAll is not set', () => {
 			gettersMock.showAll = false
 
-			const folder = { name: 'folder1', id: 123, feeds: [], feedCount: 0, updateErrorCount: 0 }
+			const folder = { name: 'folder1', id: 123, feeds, feedCount: 0, updateErrorCount: 0 }
 			const showItem = wrapper.vm.showItem(folder)
 			expect(wrapper.vm.showAll).toBe(false)
 			expect(showItem).toBeFalsy()
