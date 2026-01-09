@@ -33,7 +33,7 @@ export default defineComponent({
 		 *
 		 * Used to fetch the relevant entries from the backend and to filter the displayed items.
 		 */
-		feedId: {
+		starredFeedId: {
 			type: String,
 			required: false,
 			default: undefined,
@@ -45,7 +45,7 @@ export default defineComponent({
 		starred(): FeedItem[] {
 			const starred = this.$store.getters.starred
 
-			let items = this.feedId
+			let items = this.starredFeedId
 				? starred.filter((item: FeedItem) => item.feedId === this.id)
 				: starred
 			/*
@@ -65,15 +65,15 @@ export default defineComponent({
 		},
 
 		id(): number {
-			return this.feedId ? Number(this.feedId) : 0
+			return this.starredFeedId ? Number(this.starredFeedId) : 0
 		},
 
 		fetchKey(): string {
-			return this.feedId ? 'starred-' + this.feedId : 'starred'
+			return this.starredFeedId ? 'starred-' + this.starredFeedId : 'starred'
 		},
 
 		starredFeed(): Feed {
-			return this.feedId
+			return this.starredFeedId
 				? this.$store.getters.feeds.find((feed: Feed) => feed.id === this.id)
 				: undefined
 		},
