@@ -1,11 +1,11 @@
 import axios from '@nextcloud/axios'
-import { showError, showSuccess } from '@nextcloud/dialogs'
+import { showError } from '@nextcloud/dialogs'
 import { generateOcsUrl } from '@nextcloud/router'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSettingsDialog from '../../../../../src/components/modals/AppSettingsDialog.vue'
 import { DISPLAY_MODE, SPLIT_MODE } from '../../../../../src/enums/index.ts'
-import { ACTIONS } from '../../../../../src/store/index.ts'
+import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
 
 vi.mock('@nextcloud/dialogs')
 
@@ -176,7 +176,8 @@ describe('AppSettingsDialog.vue', () => {
 
 			await wrapper.vm.importArticles.call(wrapper, event)
 
-			expect(showError).toHaveBeenCalled()
+			const value = { type: 'error', message: 'Please select a valid json file' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value })
 		})
 
 		it('should show success when status is 200 and file is valid', async () => {
@@ -190,7 +191,8 @@ describe('AppSettingsDialog.vue', () => {
 
 			await wrapper.vm.importArticles.call(wrapper, event)
 
-			expect(showSuccess).toHaveBeenCalled()
+			const value = { type: 'success', message: 'File successfully uploaded' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value })
 			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEEDS)
 		})
 
@@ -200,12 +202,13 @@ describe('AppSettingsDialog.vue', () => {
 
 			axios.post.mockResolvedValue({
 				status: 200,
-				data: { status: 'error', message: 'error importing articles' },
+				data: { status: 'error', message: 'Error importing articles' },
 			})
 
 			await wrapper.vm.importArticles.call(wrapper, event)
 
-			expect(showError).toHaveBeenCalledWith('error importing articles', { timeout: -1 })
+			const value = { type: 'error', message: 'Error importing articles' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value })
 		})
 
 		it('should show error message when not status 200', async () => {
@@ -218,7 +221,8 @@ describe('AppSettingsDialog.vue', () => {
 
 			await wrapper.vm.importArticles.call(wrapper, event)
 
-			expect(showError).toHaveBeenCalledWith('Error uploading the json file')
+			const value = { type: 'error', message: 'Error uploading the json file' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value })
 		})
 
 		it('should show network error on server error', async () => {
@@ -257,7 +261,8 @@ describe('AppSettingsDialog.vue', () => {
 
 			await wrapper.vm.exportArticles.call(wrapper)
 
-			expect(showError).toHaveBeenCalled()
+			const value = { type: 'error', message: 'Error retrieving the json file' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value })
 		})
 
 		it('should show network error on server error', async () => {

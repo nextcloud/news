@@ -10,6 +10,8 @@ export const APPLICATION_ACTION_TYPES = {
 export type AppInfoState = {
 	error?: Error
 	loading: boolean
+	lastOpmlImportMessage: { type: string, message: string } | undefined
+	lastArticlesImportMessage: { type: string, message: string } | undefined
 	displaymode: string
 	splitmode: string
 	oldestFirst: boolean
@@ -24,6 +26,8 @@ export type AppInfoState = {
 const state: AppInfoState = reactive({
 	error: undefined,
 	loading: true,
+	lastOpmlImportMessage: undefined,
+	lastArticlesImportMessage: undefined,
 	displaymode: loadState('news', 'displaymode', DISPLAY_MODE.DEFAULT),
 	splitmode: loadState('news', 'splitmode', SPLIT_MODE.VERTICAL),
 	oldestFirst: loadState('news', 'oldestFirst', null) === '1',
@@ -41,6 +45,12 @@ const getters = {
 	},
 	loading(state: AppInfoState) {
 		return state.loading
+	},
+	lastOpmlImportMessage(state: AppInfoState) {
+		return state.lastOpmlImportMessage
+	},
+	lastArticlesImportMessage(state: AppInfoState) {
+		return state.lastArticlesImportMessage
 	},
 	displaymode(state: AppInfoState) {
 		return state.displaymode
@@ -90,6 +100,18 @@ export const mutations = {
 		{ value }: { value: boolean },
 	) {
 		state.loading = value
+	},
+	[APPLICATION_MUTATION_TYPES.SET_OPML_IMPORT_MESSAGE](
+		state: AppInfoState,
+		{ value }: { value: { type: string, message: string } },
+	) {
+		state.lastOpmlImportMessage = value
+	},
+	[APPLICATION_MUTATION_TYPES.SET_ARTICLES_IMPORT_MESSAGE](
+		state: AppInfoState,
+		{ value }: { value: { type: string, message: string } },
+	) {
+		state.lastArticlesImportMessage = value
 	},
 	displaymode(
 		state: AppInfoState,

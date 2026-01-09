@@ -73,6 +73,15 @@
 						</template>
 					</NcButton>
 				</div>
+				<NcNoteCard v-if="loading" type="info">
+					<template #icon>
+						<NcLoadingIcon size="20" />
+					</template>
+					<template #default>
+						<h1>{{ t('news', 'Importing feeds') }}...{{ t('news', 'Please wait') }}</h1>
+					</template>
+				</NcNoteCard>
+				<NcNoteCard v-else-if="uploadOpmlStatusMessage" :type="uploadOpmlStatusType" :text="uploadOpmlStatusMessage" />
 			</NcFormGroup>
 			<NcFormGroup :label="t('news', 'Articles (JSON)')">
 				<div class="button-container">
@@ -100,6 +109,7 @@
 						</template>
 					</NcButton>
 				</div>
+				<NcNoteCard v-if="uploadArticlesStatusMessage" :type="uploadArticlesStatusType" :text="uploadArticlesStatusMessage" />
 			</NcFormGroup>
 		</NcAppSettingsSection>
 
@@ -204,6 +214,8 @@ import NcFormGroup from '@nextcloud/vue/components/NcFormGroup'
 import NcHotkey from '@nextcloud/vue/components/NcHotkey'
 import NcHotkeyList from '@nextcloud/vue/components/NcHotkeyList'
 import NcKbd from '@nextcloud/vue/components/NcKbd'
+import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcRadioGroup from '@nextcloud/vue/components/NcRadioGroup'
 import NcRadioGroupButton from '@nextcloud/vue/components/NcRadioGroupButton'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
@@ -224,6 +236,8 @@ export default defineComponent({
 		NcHotkey,
 		NcHotkeyList,
 		NcKbd,
+		NcLoadingIcon,
+		NcNoteCard,
 		NcRadioGroup,
 		NcRadioGroupButton,
 		DownloadIcon,
@@ -237,8 +251,6 @@ export default defineComponent({
 	data: () => {
 		return {
 			DISPLAY_MODE,
-			uploadStatus: null,
-			selectedFile: null,
 			showSettings: false,
 			displayModeOptions: [
 				{
@@ -348,6 +360,22 @@ export default defineComponent({
 				this.saveSetting('disableRefresh', newValue)
 			},
 		},
+
+		uploadOpmlStatusMessage() {
+			return this.$store.getters.lastOpmlImportMessage?.message
+		},
+
+		uploadOpmlStatusType() {
+			return this.$store.getters.lastOpmlImportMessage?.type
+		},
+
+		uploadArticlesStatusMessage() {
+			return this.$store.getters.lastArticlesImportMessage?.message
+		},
+
+		uploadArticlesStatusType() {
+			return this.$store.getters.lastArticlesImportMessage?.type
+		},
 	},
 
 	mounted() {
@@ -387,18 +415,17 @@ export default defineComponent({
 		},
 
 		async importOpml(event) {
+			let result
 			const file = event.target.files[0]
-			if (file) {
-				this.selectedFile = file
-			} else {
-				showError(t('news', 'Please select a valid OPML file'))
+			if (!file || !file.name.endsWith('.opml')) {
+				result = { type: 'error', message: t('news', 'Please select a valid OPML file') }
+				this.$store.commit(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value: result })
 				return
 			}
 
 			this.$store.commit(MUTATIONS.SET_LOADING, { value: true })
-			this.showFeedSettings = true
 			const formData = new FormData()
-			formData.append('file', this.selectedFile)
+			formData.append('file', file)
 
 			try {
 				const response = await fetch(generateUrl('/apps/news/import/opml'), {
@@ -409,13 +436,14 @@ export default defineComponent({
 				if (response.ok) {
 					const data = await response.json()
 					if (data.status === 'ok') {
-						showSuccess(t('news', 'File successfully uploaded'))
+						result = { type: 'success', message: t('news', 'File successfully uploaded') }
 					} else {
-						showError(data.message, { timeout: -1 })
+						result = { type: 'warning', message: data.message }
 					}
 				} else {
-					showError(t('news', 'Error uploading the opml file'))
+					result = { type: 'error', message: t('news', 'Error uploading the opml file') }
 				}
+				this.$store.commit(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value: result })
 			} catch (e) {
 				this.handleResponse({
 					errorMessage: t('news', 'Error connecting to the server'),
@@ -429,6 +457,7 @@ export default defineComponent({
 		},
 
 		async exportOpml() {
+			let result
 			try {
 				const response = await fetch(generateUrl('/apps/news/export/opml'))
 				if (response.ok) {
@@ -439,7 +468,8 @@ export default defineComponent({
 					link.download = 'subscriptions-' + formattedDate + '.opml'
 					link.click()
 				} else {
-					showError(t('news', 'Error retrieving the opml file'))
+					result = { type: 'error', message: t('news', 'Error retrieving the opml file') }
+					this.$store.commit(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value: result })
 				}
 			} catch (e) {
 				this.handleResponse({
@@ -450,9 +480,11 @@ export default defineComponent({
 		},
 
 		async importArticles(event) {
+			let result
 			const file = event.target.files[0]
-			if (!file) {
-				showError(t('news', 'Please select a valid json file'))
+			if (!file || !file.name.endsWith('.json')) {
+				result = { type: 'error', message: t('news', 'Please select a valid json file') }
+				this.$store.commit(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value: result })
 				return
 			}
 
@@ -469,23 +501,25 @@ export default defineComponent({
 				if (response.status === 200) {
 					const data = await response.data
 					if (data.status === 'ok') {
-						showSuccess(t('news', 'File successfully uploaded'))
-						this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+						result = { type: 'success', message: t('news', 'File successfully uploaded') }
 					} else {
-						showError(data.message, { timeout: -1 })
+						result = { type: 'error', message: data.message }
 					}
 				} else {
-					showError(t('news', 'Error uploading the json file'))
+					result = { type: 'error', message: t('news', 'Error uploading the json file') }
 				}
+				this.$store.commit(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value: result })
 			} catch (e) {
 				this.handleResponse({
 					errorMessage: t('news', 'Error connecting to the server'),
 					error: e,
 				})
 			}
+			this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 		},
 
 		async exportArticles() {
+			let result
 			try {
 				const response = await axios.get(
 					generateUrl('/apps/news/export/articles'),
@@ -499,7 +533,8 @@ export default defineComponent({
 					link.download = 'articles-' + formattedDate + '.json'
 					link.click()
 				} else {
-					showError(t('news', 'Error retrieving the json file'))
+					result = { type: 'error', message: t('news', 'Error retrieving the json file') }
+					this.$store.commit(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value: result })
 				}
 			} catch (e) {
 				this.handleResponse({
