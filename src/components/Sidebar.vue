@@ -478,15 +478,31 @@ export default defineComponent({
 			return folder.feeds.some((item) => this.isActiveFeed(item))
 		},
 
+		hasNewlyAddedFeeds(folder) {
+			return folder.feeds.some((item) => this.isNewlyAdded(item))
+		},
+
+		isNewlyAdded(feed) {
+			const lastModified = Math.floor(feed.lastModified / 1000000)
+			return feed.added + 3600 > lastModified
+		},
+
 		showItem(item: Feed | Folder) {
 			if (this.showAll) {
 				return true
 			}
 			if (this.isFolder(item)) {
-				return item.feedCount > 0 || this.isActiveFolder(item) || this.hasActiveFeeds(item) || item.updateErrorCount > 8
-			} else {
-				return item.unreadCount > 0 || item.updateErrorCount > 8 || this.isActiveFeed(item)
+				return item.feedCount > 0
+					|| item.updateErrorCount > 8
+					|| item.feeds.length === 0
+					|| this.isActiveFolder(item)
+					|| this.hasActiveFeeds(item)
+					|| this.hasNewlyAddedFeeds(item)
 			}
+			return item.unreadCount > 0
+				|| item.updateErrorCount > 8
+				|| this.isActiveFeed(item)
+				|| this.isNewlyAdded(item)
 		},
 
 		sortedFolderFeeds(item: Feed | Folder) {
