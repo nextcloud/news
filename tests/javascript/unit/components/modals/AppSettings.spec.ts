@@ -170,6 +170,118 @@ describe('AppSettingsDialog.vue', () => {
 		})
 	})
 
+	describe('test opml import/export', () => {
+		it('should show error when no file is selected', async () => {
+			const event = { target: { files: [] } }
+
+			await wrapper.vm.importOpml.call(wrapper, event)
+
+			const value = { type: 'error', message: 'Please select a valid OPML file' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value })
+		})
+
+		it('should show success when status is 200 and file is valid', async () => {
+			const mockFile = new File(['{}'], 'feeds.opml', { type: 'application/xml' })
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockResolvedValue({
+				status: 200,
+				data: { status: 'ok' },
+			})
+
+			await wrapper.vm.importOpml.call(wrapper, event)
+
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_LOADING, { value: true })
+			const value = { type: 'success', message: 'File successfully uploaded' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value })
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FOLDERS)
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEEDS)
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_LOADING, { value: false })
+		})
+
+		it('should show backend error message when status 200 but backend returns error', async () => {
+			const mockFile = new File(['{}'], 'feeds.opml', { type: 'application/xml' })
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockResolvedValue({
+				status: 200,
+				data: { status: 'error', message: 'Error importing feeds' },
+			})
+
+			await wrapper.vm.importOpml.call(wrapper, event)
+
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_LOADING, { value: true })
+			const value = { type: 'warning', message: 'Error importing feeds' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value })
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_LOADING, { value: false })
+		})
+
+		it('should show error message when not status 200', async () => {
+			const mockFile = new File(['{}'], 'feeds.opml', { type: 'application/xml' })
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockResolvedValue({
+				status: 412,
+			})
+
+			await wrapper.vm.importOpml.call(wrapper, event)
+
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_LOADING, { value: true })
+			const value = { type: 'error', message: 'Error uploading the opml file' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value })
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_LOADING, { value: false })
+		})
+
+		it('should show network error on server error', async () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			const mockFile = new File(['{}'], 'feeds.opml')
+			const event = { target: { files: [mockFile] } }
+
+			axios.post.mockRejectedValue('network error')
+
+			await wrapper.vm.importOpml.call(wrapper, event)
+
+			expect(showError).toHaveBeenCalledWith('Error connecting to the server')
+		})
+
+		it('should download file when status is 200', async () => {
+			const blob = { slice: vi.fn() }
+			axios.get.mockResolvedValue({ status: 200, data: blob })
+
+			const clickMock = vi.fn()
+
+			vi.spyOn(document, 'createElement').mockReturnValue({
+				href: '',
+				download: '',
+				click: clickMock,
+			})
+
+			vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob://test')
+
+			await wrapper.vm.exportOpml.call(wrapper)
+
+			expect(clickMock).toHaveBeenCalled()
+		})
+
+		it('should show error when status is not 200', async () => {
+			axios.get.mockResolvedValue({ status: 500 })
+
+			await wrapper.vm.exportOpml.call(wrapper)
+
+			const value = { type: 'error', message: 'Error retrieving the opml file' }
+			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value })
+		})
+
+		it('should show network error on server error', async () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			axios.get.mockRejectedValue('network error')
+
+			await wrapper.vm.exportOpml.call(wrapper)
+
+			expect(showError).toHaveBeenCalledWith('Error connecting to the server')
+		})
+	})
+
 	describe('test articles import/export', () => {
 		it('should show error when no file is selected', async () => {
 			const event = { target: { files: [] } }
@@ -207,7 +319,7 @@ describe('AppSettingsDialog.vue', () => {
 
 			await wrapper.vm.importArticles.call(wrapper, event)
 
-			const value = { type: 'error', message: 'Error importing articles' }
+			const value = { type: 'warning', message: 'Error importing articles' }
 			expect(wrapper.vm.$store.commit).toHaveBeenCalledWith(MUTATIONS.SET_ARTICLES_IMPORT_MESSAGE, { value })
 		})
 

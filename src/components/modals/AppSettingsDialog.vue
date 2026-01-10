@@ -428,13 +428,14 @@ export default defineComponent({
 			formData.append('file', file)
 
 			try {
-				const response = await fetch(generateUrl('/apps/news/import/opml'), {
-					method: 'POST',
-					body: formData,
-				})
+				const response = await axios.post(
+					generateUrl('/apps/news/import/opml'),
+					formData,
+					{ headers: {} },
+				)
 
-				if (response.ok) {
-					const data = await response.json()
+				if (response.status === 200) {
+					const data = response.data
 					if (data.status === 'ok') {
 						result = { type: 'success', message: t('news', 'File successfully uploaded') }
 					} else {
@@ -459,12 +460,15 @@ export default defineComponent({
 		async exportOpml() {
 			let result
 			try {
-				const response = await fetch(generateUrl('/apps/news/export/opml'))
-				if (response.ok) {
+				const response = await axios.get(
+					generateUrl('/apps/news/export/opml'),
+					{ responseType: 'blob' },
+				)
+
+				if (response.status === 200) {
 					const formattedDate = new Date().toISOString().split('T')[0]
-					const blob = await response.blob()
 					const link = document.createElement('a')
-					link.href = URL.createObjectURL(blob)
+					link.href = URL.createObjectURL(response.data)
 					link.download = 'subscriptions-' + formattedDate + '.opml'
 					link.click()
 				} else {
@@ -503,7 +507,7 @@ export default defineComponent({
 					if (data.status === 'ok') {
 						result = { type: 'success', message: t('news', 'File successfully uploaded') }
 					} else {
-						result = { type: 'error', message: data.message }
+						result = { type: 'warning', message: data.message }
 					}
 				} else {
 					result = { type: 'error', message: t('news', 'Error uploading the json file') }

@@ -34,6 +34,18 @@ describe('app.ts', () => {
 			expect(store.getters.loading).toEqual(true)
 		})
 
+		it('should return lastOpmlImportMessage from state', () => {
+			const value = { type: 'error', message: 'Error uploading file' }
+			store.state.appInfo.lastOpmlImportMessage = value
+			expect(store.getters.lastOpmlImportMessage).toEqual(value)
+		})
+
+		it('should return lastArticlesImportMessage from state', () => {
+			const value = { type: 'error', message: 'Error uploading file' }
+			store.state.appInfo.lastArticlesImportMessage = value
+			expect(store.getters.lastArticlesImportMessage).toEqual(value)
+		})
+
 		it('should return display mode', () => {
 			store.state.appInfo.displaymode = DISPLAY_MODE.COMPACT
 			expect(store.getters.displaymode).toBe(DISPLAY_MODE.COMPACT)
@@ -112,6 +124,22 @@ describe('app.ts', () => {
 
 			mutations[APPLICATION_MUTATION_TYPES.SET_LOADING](state, { value: false })
 			expect(state.loading).toEqual(false)
+		})
+
+		it('SET_OPML_IMPORT_MESSAGE should update the value in the state', () => {
+			const state = { value: { type: undefined, message: undefined } } as AppInfoState
+			const value = { type: 'error', message: 'Error uploading file' }
+
+			mutations[APPLICATION_MUTATION_TYPES.SET_OPML_IMPORT_MESSAGE](state, { value })
+			expect(state.lastOpmlImportMessage).toEqual(value)
+		})
+
+		it('SET_ARTICLES_IMPORT_MESSAGE should update the value in the state', () => {
+			const state = { value: { type: undefined, message: undefined } } as AppInfoState
+			const value = { type: 'error', message: 'Error uploading file' }
+
+			mutations[APPLICATION_MUTATION_TYPES.SET_ARTICLES_IMPORT_MESSAGE](state, { value })
+			expect(state.lastArticlesImportMessage).toEqual(value)
 		})
 
 		it('displaymode should update the value in the state', () => {
