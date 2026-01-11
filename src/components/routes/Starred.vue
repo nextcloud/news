@@ -1,6 +1,7 @@
 <template>
 	<ContentTemplate
 		v-if="!loading"
+		:key="fetchKey"
 		:list-name="starredFeed ? starredFeed.title : t('news', 'Starred')"
 		:list-count="starredFeed ? starredFeed.starredCount : items.starredCount"
 		:items="starred"
