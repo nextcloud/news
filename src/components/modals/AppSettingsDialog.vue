@@ -349,14 +349,6 @@ export default defineComponent({
 			},
 
 			set(newValue) {
-				if (!newValue) {
-					// refresh feeds every minute
-					this.polling = setInterval(() => {
-						this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-					}, 60000)
-				} else {
-					clearInterval(this.polling)
-				}
 				this.saveSetting('disableRefresh', newValue)
 			},
 		},
