@@ -259,7 +259,7 @@ export default defineComponent({
 			showMoveFeed: false,
 			showSettings: false,
 			feedToMove: undefined,
-			polling: null,
+			pollInterval: null,
 		}
 	},
 
@@ -335,6 +335,18 @@ export default defineComponent({
 	},
 
 	watch: {
+		disableRefresh: {
+			handler(newVal) {
+				if (newVal) {
+					this.disableAutoFetch()
+				} else {
+					this.enableAutoFetch()
+				}
+			},
+
+			immediate: true,
+		},
+
 		'$route.query.subscribe_to': {
 			handler() {
 				if (this.$route.query.subscribe_to) {
@@ -345,12 +357,6 @@ export default defineComponent({
 	},
 
 	created() {
-		if (!this.disableRefresh) {
-			// refresh feeds every minute
-			this.polling = setInterval(() => {
-				this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-			}, 60000)
-		}
 		// create shortcuts for feed/folder navigation
 		useHotKey('d', this.prevFeed)
 		useHotKey('f', this.nextFeed)
@@ -359,10 +365,28 @@ export default defineComponent({
 	},
 
 	beforeUnmount() {
-		clearInterval(this.polling)
+		this.disableAutoFetch()
 	},
 
 	methods: {
+		enableAutoFetch() {
+			if (this.pollInterval) {
+				return
+			}
+
+			if (!this.disableRefresh) {
+				// refresh feeds every minute
+				this.pollInterval = setInterval(() => {
+					this.$store.dispatch(ACTIONS.FETCH_FEEDS)
+				}, 60000)
+			}
+		},
+
+		disableAutoFetch() {
+			clearInterval(this.pollInterval)
+			this.pollInterval = null
+		},
+
 		newFolder(value: string) {
 			const folderName = value.trim()
 			if (this.$store.getters.folders.some((f) => f.name === folderName)) {

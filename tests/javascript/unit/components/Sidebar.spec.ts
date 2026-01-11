@@ -44,12 +44,14 @@ describe('Sidebar.vue', () => {
 
 	beforeEach(() => {
 		vi.restoreAllMocks()
+		vi.useFakeTimers()
 		Element.prototype.scrollIntoView = vi.fn()
 		gettersMock = {
 			feeds,
 			folders,
 			showAll: true,
 			starredOpenState: false,
+			disableRefresh: false,
 		}
 		commitMock = vi.fn((type, payload) => {
 			if (type === 'starredOpenState') {
@@ -269,6 +271,46 @@ describe('Sidebar.vue', () => {
 	})
 
 	describe('Methods', () => {
+		it('should enable automatic refresh', () => {
+			const setIntervalMock = vi.spyOn(global, 'setInterval')
+			gettersMock.disableRefresh = false
+			wrapper.vm.pollInterval = null
+			wrapper.vm.enableAutoFetch()
+			expect(setIntervalMock).toHaveBeenCalled()
+			expect(wrapper.vm.pollInterval).not.toBeNull()
+		})
+
+		it('should not enable automatic refresh twice', () => {
+			const setIntervalMock = vi.spyOn(global, 'setInterval')
+			gettersMock.disableRefresh = false
+			wrapper.vm.pollInterval = null
+			wrapper.vm.enableAutoFetch()
+			wrapper.vm.enableAutoFetch()
+			expect(setIntervalMock).toHaveBeenCalledTimes(1)
+		})
+
+		it('should disable automatic refresh', () => {
+			const clearIntervalMock = vi.spyOn(global, 'clearInterval')
+			gettersMock.disableRefresh = true
+			wrapper.vm.disableAutoFetch()
+			expect(clearIntervalMock).toHaveBeenCalled()
+			expect(wrapper.vm.pollInterval).toBeNull()
+		})
+
+		it('should automatic refresh feeds after 60 seconds', () => {
+			gettersMock.disableRefresh = false
+			wrapper.vm.enableAutoFetch()
+			vi.advanceTimersByTime(60000)
+			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEEDS)
+		})
+
+		it('should not automatic refresh feeds after 60 seconds', () => {
+			gettersMock.disableRefresh = true
+			wrapper.vm.disableAutoFetch()
+			vi.advanceTimersByTime(60000)
+			expect(wrapper.vm.$store.dispatch).not.toHaveBeenCalledWith(ACTIONS.FETCH_FEEDS)
+		})
+
 		it('should set showAddFeed to true', () => {
 			wrapper.vm.addFeed()
 			expect(wrapper.vm.$data.showAddFeed).toBeTruthy()
@@ -655,5 +697,6 @@ describe('Sidebar.vue', () => {
 
 	afterEach(() => {
 		vi.clearAllMocks()
+		vi.useRealTimers()
 	})
 })
