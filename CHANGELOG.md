@@ -17,6 +17,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Special characters may be displayed incorrectly when full text is enabled
 - Wrong url to feed page
 - Long articles are cut short
+- Dependency scoping incompatible with auto-downloaded composer (#3418)
 
 # Releases
 ## [28.0.0-beta.1] - 2025-11-13

@@ -1,5 +1,6 @@
 #specific to news app
 composer.phar
+.tools/
 node_modules/
 vendor/
 *.log

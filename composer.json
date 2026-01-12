@@ -94,11 +94,11 @@
   },
   "scripts": {
     "scope-dependencies": [
-      "cd vendor-bin/php-scoper && composer install --ignore-platform-reqs --no-interaction",
-      "rm -Rf build",
+      "@composer install --working-dir=vendor-bin/php-scoper --ignore-platform-reqs --no-interaction",
       "vendor-bin/php-scoper/vendor/bin/php-scoper add-prefix --force",
       "rm -Rf lib/Vendor",
       "@php lib-vendor-organizer.php build/ lib/Vendor/ \"OCA\\\\News\\\\Vendor\"",
+      "rm -Rf build",
       "composer dump-autoload"
     ]
   }

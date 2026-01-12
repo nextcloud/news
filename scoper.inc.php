@@ -9,7 +9,18 @@ $composerJson = \json_decode($composerJsonRaw, true);
 $dependencies = [];
 $finderConfig = [];
 
-$dependenciesListRaw = shell_exec('composer show --format=json --tree --no-dev');
+// Detect which composer to use (global or downloaded)
+$composerCmd = 'composer';
+$globalComposer = shell_exec('which composer 2>/dev/null');
+if ($globalComposer === null || $globalComposer === false || trim($globalComposer) === '') {
+    // No global composer, check for downloaded one
+    $downloadedComposer = __DIR__ . '/.tools/composer.phar';
+    if (file_exists($downloadedComposer)) {
+        $composerCmd = 'php "' . $downloadedComposer . '"';
+    }
+}
+
+$dependenciesListRaw = shell_exec($composerCmd . ' show --format=json --tree --no-dev');
 if($dependenciesListRaw === null || $dependenciesListRaw === false) {
     error_log('Cannot determine dependencies');
     exit(1);
