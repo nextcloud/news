@@ -5,22 +5,23 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
 
 # Unreleased
-## [28.x.x]
-### Changed
-- Drop Support for Nextcloud 31
-- Add Support for Nextcloud 33
-- Add feature to Group starred Items per Feed
-- Add `occ` commands for importing/exporting articles
-- Add importing/exporting articles to frontend settings
-- App settings are now displayed in an app settings dialog
-
-### Fixed
-- Special characters may be displayed incorrectly when full text is enabled
-- Wrong url to feed page
-- Long articles are cut short
-- Imported feeds or newly created folders do not disappear immediately when `showAll` is not set
 
 # Releases
+## [28.0.0-beta.2] - 2026-01-12
+### Changed
+- Drop Support for Nextcloud 31 (#3485)
+- Add Support for Nextcloud 33 (#3485)
+- Add feature to Group starred Items per Feed (#3148)
+- Add `occ` commands for importing/exporting articles (#3437)
+- Add importing/exporting articles to frontend settings (#3437)
+- App settings are now displayed in an app settings dialog (#3500)
+
+### Fixed
+- Special characters may be displayed incorrectly when full text is enabled (#3472)
+- Wrong url to feed page (#3486)
+- Long articles are cut short (#3489)
+- Imported feeds or newly created folders do not disappear immediately when `showAll` is not set (#3500)
+
 ## [28.0.0-beta.1] - 2025-11-13
 ### Changed
 - Scope PHP dependencies to prevent conflicts with other Nextcloud apps (#3397)
