@@ -23,6 +23,8 @@ use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\IL10N;
 use OCP\IUser;
+use OCP\Notification\IManager as INotificationManager;
+use OCP\Notification\INotification;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -59,6 +61,16 @@ class ShareServiceTest extends TestCase
      * @var MockObject|LoggerInterface
      */
     private $logger;
+
+    /**
+     * @var MockObject|INotificationManager
+     */
+    private $notificationManager;
+
+    /**
+     * @var MockObject|INotification
+     */
+    private $notification;
 
     /** @var ShareService */
     private $class;
@@ -102,6 +114,12 @@ class ShareServiceTest extends TestCase
         $this->l10n = $this->getMockBuilder(IL10N::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->notificationManager = $this->getMockBuilder(INotificationManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->notification = $this->getMockBuilder(INotification::class)
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->time = 333333;
 
@@ -111,6 +129,7 @@ class ShareServiceTest extends TestCase
             $this->urlGenerator,
             $this->userManager,
             $this->l10n,
+            $this->notificationManager,
             $this->logger
         );
 
@@ -173,6 +192,35 @@ class ShareServiceTest extends TestCase
             ->with($sharedItem)
             ->will($this->returnValue($sharedItem));
 
+        // Notification expectations
+        $this->notificationManager->expects($this->once())
+            ->method('createNotification')
+            ->will($this->returnValue($this->notification));
+
+        $this->notification->expects($this->once())
+            ->method('setApp')
+            ->with('news')
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setUser')
+            ->with($this->recipient)
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setDateTime')
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setObject')
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setSubject')
+            ->will($this->returnSelf());
+
+        $this->notificationManager->expects($this->once())
+            ->method('notify')
+            ->with($this->notification);
+
+        $this->logger->expects($this->once())
+            ->method('debug');
 
         $this->class->shareItemWithUser($this->uid, $itemId, $this->recipient);
     }
@@ -241,6 +289,35 @@ class ShareServiceTest extends TestCase
             ->with($sharedItem)
             ->will($this->returnValue($sharedItem));
 
+        // Notification expectations
+        $this->notificationManager->expects($this->once())
+            ->method('createNotification')
+            ->will($this->returnValue($this->notification));
+
+        $this->notification->expects($this->once())
+            ->method('setApp')
+            ->with('news')
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setUser')
+            ->with($this->recipient)
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setDateTime')
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setObject')
+            ->will($this->returnSelf());
+        $this->notification->expects($this->once())
+            ->method('setSubject')
+            ->will($this->returnSelf());
+
+        $this->notificationManager->expects($this->once())
+            ->method('notify')
+            ->with($this->notification);
+
+        $this->logger->expects($this->once())
+            ->method('debug');
 
         $this->class->shareItemWithUser($this->uid, $itemId, $this->recipient);
     }

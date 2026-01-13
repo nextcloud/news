@@ -17,6 +17,7 @@ use \Psr\Log\LoggerInterface;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use \OCP\IL10N;
+use OCP\Notification\IManager as INotificationManager;
 
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -63,14 +64,20 @@ class ShareService
     private $l10n;
 
     /**
+     * @var INotificationManager
+     */
+    private $notificationManager;
+
+    /**
      * ShareService constructor
      *
-     * @param FeedServiceV2   $feedService  Service for feeds
-     * @param ItemServiceV2   $itemService  Service to manage items
-     * @param IURLGenerator   $urlGenerator URL Generator
-     * @param IUserManager    $userManager  User Manager
-     * @param IL10N           $l10n         Localization interface
-     * @param LoggerInterface $logger       Logger
+     * @param FeedServiceV2        $feedService         Service for feeds
+     * @param ItemServiceV2        $itemService         Service to manage items
+     * @param IURLGenerator        $urlGenerator        URL Generator
+     * @param IUserManager         $userManager         User Manager
+     * @param IL10N                $l10n                Localization interface
+     * @param INotificationManager $notificationManager Notification Manager
+     * @param LoggerInterface      $logger              Logger
      */
     public function __construct(
         FeedServiceV2 $feedService,
@@ -78,6 +85,7 @@ class ShareService
         IURLGenerator $urlGenerator,
         IUserManager $userManager,
         IL10N $l10n,
+        INotificationManager $notificationManager,
         LoggerInterface $logger
     ) {
         $this->itemService  = $itemService;
@@ -85,6 +93,7 @@ class ShareService
         $this->urlGenerator = $urlGenerator;
         $this->userManager  = $userManager;
         $this->l10n         = $l10n;
+        $this->notificationManager = $notificationManager;
         $this->logger       = $logger;
     }
 
@@ -135,7 +144,55 @@ class ShareService
 
         $sharedItem->setFeedId($feed->getId());
 
-        return $this->itemService->insertOrUpdate($sharedItem);
+        $result = $this->itemService->insertOrUpdate($sharedItem);
+
+        // Send notification to recipient
+        $this->sendShareNotification($userId, $shareRecipientId, $item);
+
+        return $result;
+    }
+
+    /**
+     * Send a notification to the recipient about the shared article
+     *
+     * @param string $sharerId    ID of user sharing the item
+     * @param string $recipientId ID of user receiving the share
+     * @param Item   $item        The shared item
+     */
+    private function sendShareNotification(string $sharerId, string $recipientId, Item $item): void
+    {
+        try {
+            $notification = $this->notificationManager->createNotification();
+
+            $itemTitle = $item->getTitle();
+            if ($itemTitle === null || trim($itemTitle) === '') {
+                $itemTitle = $this->l10n->t('Untitled article');
+            } elseif (mb_strlen($itemTitle) > 100) {
+                $itemTitle = mb_substr($itemTitle, 0, 97) . '...';
+            }
+
+            $notification
+                ->setApp('news')
+                ->setUser($recipientId)
+                ->setDateTime(new \DateTime())
+                ->setObject('item', (string) $item->getId())
+                ->setSubject('shared_article', [
+                    'sharedBy' => $sharerId,
+                    'itemTitle' => $itemTitle,
+                ]);
+
+            $this->notificationManager->notify($notification);
+
+            $this->logger->debug(
+                'Sent share notification to {recipient} for item {itemId}',
+                ['recipient' => $recipientId, 'itemId' => $item->getId()]
+            );
+        } catch (\Exception $e) {
+            $this->logger->error(
+                'Failed to send share notification: {error}',
+                ['error' => $e->getMessage()]
+            );
+        }
     }
 
     /**

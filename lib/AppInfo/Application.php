@@ -35,6 +35,7 @@ use OCP\AppFramework\App;
 use OCA\News\Fetcher\FaviconDataAccess;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
+use OCA\News\Notification\Notifier;
 use OCP\User\Events\BeforeUserDeletedEvent;
 use OCP\Config\BeforePreferenceDeletedEvent;
 use OCP\Config\BeforePreferenceSetEvent;
@@ -90,6 +91,8 @@ class Application extends App implements IBootstrap
         $context->registerSearchProvider(FolderSearchProvider::class);
         $context->registerSearchProvider(FeedSearchProvider::class);
         $context->registerSearchProvider(ItemSearchProvider::class);
+
+        $context->registerNotifierService(Notifier::class);
 
 
         $context->registerEventListener(BeforeUserDeletedEvent::class, UserDeleteHook::class);
