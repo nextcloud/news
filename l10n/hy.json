@@ -8,10 +8,9 @@
     "Credentials" : "Credentials",
     "Move" : "Տեղափոխել",
     "Share" : "Կիսվել",
-    "Settings" : "Կարգավորումներ",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
-    "Folder" : "Պանակ",
-    "Refresh" : "Թարմացնել"
+    "Refresh" : "Թարմացնել",
+    "Folder" : "Պանակ"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

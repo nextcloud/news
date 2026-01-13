@@ -18,8 +18,6 @@ OC.L10N.register(
     "Share" : "Deelen",
     "All articles" : "All Artikelen",
     "Explore" : "Erfuerschen",
-    "Settings" : "Astellungen",
-    "Documentation" : "Dokumentatioun",
     "Rename" : "Ëm-benennen",
     "Delete" : "Läschen",
     "by" : "vun",
@@ -27,14 +25,10 @@ OC.L10N.register(
     "Download audio" : "Toun eroflueden",
     "Download video" : "Video eroflueden",
     "Open website" : "Oppe Websäit",
-    "Folder" : "Dossier",
-    "Jump to next article" : "Op den nächsten Artikel sprangen",
-    "Jump to previous article" : "Op den Artikel vu virdru sprangen",
-    "right" : "riets",
-    "left" : "lénks",
-    "Open article in new tab" : "Den Artikel an engem neien Tab opmaachen",
     "Refresh" : "Opfrëschen",
-    "Load previous folder" : "Den Dossier vu virdrun lueden",
-    "Load next folder" : "Den nächsten Dossier lueden"
+    "Jump to previous article" : "Op den Artikel vu virdru sprangen",
+    "Jump to next article" : "Op den nächsten Artikel sprangen",
+    "Open article in new tab" : "Den Artikel an engem neien Tab opmaachen",
+    "Folder" : "Dossier"
 },
 "nplurals=2; plural=(n != 1);");

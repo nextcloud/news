@@ -9,13 +9,12 @@ OC.L10N.register(
     "New folder" : "Täze papka döretmek",
     "Move" : "Göçüriň",
     "Share" : "Paýlaş",
-    "Default" : "Bellenen",
-    "Settings" : "Sazlamalar",
     "Rename" : "Adyny üýtgetmek",
     "Delete" : "Pozmak",
     "Newest first" : "Täze ilkinji",
     "Oldest first" : "Ilki bilen iň köne",
-    "Not available" : "Elýeterli däl",
-    "Refresh" : "Täzelemek"
+    "Default" : "Bellenen",
+    "Refresh" : "Täzelemek",
+    "Not available" : "Elýeterli däl"
 },
 "nplurals=2; plural=(n != 1);");

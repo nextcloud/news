@@ -11,17 +11,13 @@ OC.L10N.register(
     "Subscribe" : "Obuna boʻlish",
     "Move" : "Move",
     "Share" : "Ulashish",
-    "Default" : "Standart",
-    "Off" : "Oʻchirilgan",
-    "Settings" : "Sozlamalar",
-    "Documentation" : "Hujjatlar",
-    "Keyboard shortcuts" : "Klaviatura yorliqlari",
     "Rename" : "Nomini o'zgartirish",
     "Delete" : "O'chirish",
+    "Default" : "Standart",
+    "Off" : "Oʻchirilgan",
+    "Keyboard shortcuts" : "Klaviatura yorliqlari",
+    "Refresh" : "Refresh",
     "Title" : "Sarlavha",
-    "Not available" : "Mavjud emas",
-    "right" : "right",
-    "left" : "left",
-    "Refresh" : "Refresh"
+    "Not available" : "Mavjud emas"
 },
 "nplurals=1; plural=0;");

@@ -15,14 +15,10 @@ OC.L10N.register(
     "Share" : "Paylaş",
     "All articles" : "Bütün məqalələr",
     "Starred" : "Ulduzlu",
-    "Settings" : "Quraşdırmalar",
-    "Documentation" : "Sənədlər",
     "Rename" : "Adı dəyiş",
     "Delete" : "Sil",
     "by" : "onunla",
-    "Folder" : "Qovluq",
-    "right" : "Sağ",
-    "left" : "Sol",
-    "Refresh" : "Yenilə"
+    "Refresh" : "Yenilə",
+    "Folder" : "Qovluq"
 },
 "nplurals=2; plural=(n != 1);");

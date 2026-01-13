@@ -21,9 +21,6 @@ OC.L10N.register(
     "Mark read" : "Marki kiel legita",
     "All articles" : "Ĉiuj artikoloj",
     "Starred" : "Markita",
-    "Settings" : "Agordo",
-    "Documentation" : "Dokumentaro",
-    "Keyboard shortcuts" : "Fulmoklavoj",
     "Rename" : "Alinomigi",
     "Delete" : "Forigi",
     "Newest first" : "Pli novaj unue",
@@ -32,10 +29,9 @@ OC.L10N.register(
     "Close details" : "Fermi detalojn",
     "by" : "de",
     "Open website" : "Malfermi TTT-ejon",
+    "Keyboard shortcuts" : "Fulmoklavoj",
+    "Refresh" : "Refreŝigi",
     "Folder" : "Dosierujo",
-    "Not available" : "Ne disponeble",
-    "right" : "dekstro",
-    "left" : "maldekstro",
-    "Refresh" : "Refreŝigi"
+    "Not available" : "Ne disponeble"
 },
 "nplurals=2; plural=(n != 1);");

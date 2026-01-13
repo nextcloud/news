@@ -9,12 +9,8 @@ OC.L10N.register(
     "Credentials" : "﻿ರುಜುವಾತುಗಳು",
     "Move" : "Move",
     "Share" : "﻿ಹಂಚಿಕೊಳ್ಳಿ",
-    "Settings" : "ಆಯ್ಕೆ",
-    "Documentation" : "ದಸ್ತಾವೇಜು",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
     "Delete" : "﻿ಅಳಿಸಿ",
-    "Folder" : "ಕೋಶ",
-    "right" : "ಬಲ",
-    "left" : "ಎಡ"
+    "Folder" : "ಕೋಶ"
 },
 "nplurals=2; plural=(n > 1);");

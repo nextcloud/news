@@ -9,16 +9,15 @@ OC.L10N.register(
     "New folder" : "Akaram amaynut",
     "Move" : "Senkez",
     "Share" : "Bḍu",
-    "Default" : "Prédéfini(e)",
-    "Off" : "Ur irmid ara",
-    "Settings" : "Iɣewwaṛen",
-    "Keyboard shortcuts" : "Inegzumen n unasiw",
     "Rename" : "Beddel isem",
     "Delete" : "Kkes",
     "Newest first" : "Imaynuten d imezwura",
     "Oldest first" : "Iqbuṛen d imezwura",
+    "Default" : "Prédéfini(e)",
+    "Off" : "Ur irmid ara",
+    "Keyboard shortcuts" : "Inegzumen n unasiw",
+    "Refresh" : "Sismeḍ",
     "Title" : "Azwel",
-    "Folder" : "Akaram",
-    "Refresh" : "Sismeḍ"
+    "Folder" : "Akaram"
 },
 "nplurals=2; plural=(n != 1);");

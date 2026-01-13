@@ -8,7 +8,6 @@ OC.L10N.register(
     "Password" : "Clau",
     "New folder" : "Nueva carpeta",
     "Share" : "Compartir",
-    "Settings" : "Configuración",
     "Rename" : "Renombrar",
     "Delete" : "Borrar"
 },

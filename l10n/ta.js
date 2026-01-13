@@ -10,14 +10,12 @@ OC.L10N.register(
     "Credentials" : "சான்று ஆவணங்கள்",
     "Move" : "Move",
     "Share" : "பகிர்வு",
-    "Settings" : "அமைப்புகள்",
-    "Documentation" : "ஆவணமாக்கல்",
-    "Keyboard shortcuts" : "விசைப்பலகை குறுக்குவழிகள்",
     "Rename" : "பெயர்மாற்றம்",
     "Delete" : "நீக்குக",
     "by" : "மூலம்",
+    "Keyboard shortcuts" : "விசைப்பலகை குறுக்குவழிகள்",
+    "Refresh" : "மீள் ஏற்றுக",
     "Title" : "தலைப்பு",
-    "Folder" : "கோப்புறை",
-    "Refresh" : "மீள் ஏற்றுக"
+    "Folder" : "கோப்புறை"
 },
 "nplurals=2; plural=(n != 1);");

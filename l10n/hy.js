@@ -10,10 +10,9 @@ OC.L10N.register(
     "Credentials" : "Credentials",
     "Move" : "Տեղափոխել",
     "Share" : "Կիսվել",
-    "Settings" : "Կարգավորումներ",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
-    "Folder" : "Պանակ",
-    "Refresh" : "Թարմացնել"
+    "Refresh" : "Թարմացնել",
+    "Folder" : "Պանակ"
 },
 "nplurals=2; plural=(n != 1);");

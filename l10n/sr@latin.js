@@ -11,8 +11,6 @@ OC.L10N.register(
     "Move" : "Premesti",
     "Share" : "Podeli",
     "Starred" : "Ozvezdano",
-    "Settings" : "Postavke",
-    "Documentation" : "Dokumentacija",
     "Rename" : "Rename",
     "Delete" : "Delete",
     "Rename Feed" : "Preimenuj dovod",

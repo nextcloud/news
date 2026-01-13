@@ -9,12 +9,10 @@ OC.L10N.register(
     "Credentials" : "Credentials",
     "Move" : "Move",
     "Share" : "Kongsi",
-    "Settings" : "Tetapan",
-    "Documentation" : "Dokumentasi",
     "Rename" : "Namakan",
     "Delete" : "Padam",
     "by" : "oleh",
-    "Folder" : "Folder",
-    "Refresh" : "Refresh"
+    "Refresh" : "Refresh",
+    "Folder" : "Folder"
 },
 "nplurals=1; plural=0;");

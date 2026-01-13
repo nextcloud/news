@@ -17,9 +17,6 @@ OC.L10N.register(
     "Share" : "Deel",
     "All articles" : "Alle artikels",
     "Explore" : "Ontdek",
-    "Settings" : "Instellings",
-    "Documentation" : "Dokumentasie",
-    "Keyboard shortcuts" : "Sneltoetse",
     "Rename" : "Hernoem",
     "Delete" : "Skrap",
     "Newest first" : "Nuutste eerste",
@@ -28,12 +25,10 @@ OC.L10N.register(
     "Play audio" : "Speel oudio af",
     "Download audio" : "Laai oudio af",
     "Download video" : "Laai video af",
-    "Folder" : "Vouer",
-    "Keyboard shortcut" : "Snelsleutel",
-    "Jump to next article" : "Spring na volgende artikel",
+    "Keyboard shortcuts" : "Sneltoetse",
+    "Refresh" : "Verfris",
     "Jump to previous article" : "Spring na vorige artikel",
-    "right" : "regs",
-    "left" : "links",
-    "Refresh" : "Verfris"
+    "Jump to next article" : "Spring na volgende artikel",
+    "Folder" : "Vouer"
 },
 "nplurals=2; plural=(n != 1);");

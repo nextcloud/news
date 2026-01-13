@@ -10,12 +10,10 @@ OC.L10N.register(
     "Move" : "Move",
     "Share" : "Podjeli",
     "Starred" : "Označeno",
-    "Settings" : "Postavke",
-    "Documentation" : "Dokumentacija",
-    "Keyboard shortcuts" : "Tipkovni prečaci",
     "Rename" : "Preimenuj",
     "Delete" : "Obriši",
     "by" : "od strane",
+    "Keyboard shortcuts" : "Tipkovni prečaci",
     "Title" : "Naslov",
     "Folder" : "Fasikla"
 },

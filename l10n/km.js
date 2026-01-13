@@ -13,13 +13,9 @@ OC.L10N.register(
     "Share" : "ចែក​រំលែក",
     "All articles" : "អត្ថបទ​ទាំង​អស់",
     "Starred" : "បាន​ដាក់​ផ្កាយ",
-    "Settings" : "ការកំណត់",
-    "Documentation" : "កម្រង​ឯកសារ",
     "Rename" : "ប្ដូរ​ឈ្មោះ",
     "Delete" : "លុប",
     "by" : "ដោយ",
-    "Folder" : "ថត",
-    "right" : "ខាង​ស្ដាំ",
-    "left" : "ខាង​ឆ្វេង"
+    "Folder" : "ថត"
 },
 "nplurals=1; plural=0;");

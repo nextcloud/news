@@ -17,15 +17,11 @@ OC.L10N.register(
     "Share" : "ভাগাভাগি কর",
     "All articles" : "সব লেখা",
     "Starred" : "তারা চিহ্নিত",
-    "Settings" : "নিয়ামকসমূহ",
-    "Documentation" : "নথিবদ্ধকরণ",
-    "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
     "Rename" : "পূনঃনামকরণ",
     "Delete" : "মুছে",
     "by" : "কর্তৃক",
-    "Folder" : "ফোল্ডার",
-    "right" : "ডান",
-    "left" : "বাম",
-    "Refresh" : "নবোদ্যম"
+    "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
+    "Refresh" : "নবোদ্যম",
+    "Folder" : "ফোল্ডার"
 },
 "nplurals=2; plural=(n != 1);");
