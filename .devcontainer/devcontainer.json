@@ -21,6 +21,10 @@
 		}
 	},
 	"workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html/apps-extra/news,type=bind",
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli": "latest",
+		"ghcr.io/devcontainers/features/python": "latest"
+	},
 	"workspaceFolder": "/var/www/html/apps-extra/news",
 	"overrideCommand": true,
 	"postAttachCommand": "bash ./.devcontainer/setup.sh",
