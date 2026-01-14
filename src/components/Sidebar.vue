@@ -65,8 +65,7 @@
 					:name="group.title"
 					:to="{ name: ROUTES.STARRED, params: { starredFeedId: group.id } }">
 					<template #icon>
-						<RssIcon v-if="!group.faviconLink" />
-						<span v-else style="width: 16px; height: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + group.faviconLink + ')' }" />
+						<span style="width: 16px; height: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + feedIcon(group) + ')' }" />
 					</template>
 					<template #counter>
 						<NcCounterBubble :count="group.starredCount" />
