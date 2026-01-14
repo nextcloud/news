@@ -11,6 +11,8 @@ OC.L10N.register(
     "Share" : "﻿ಹಂಚಿಕೊಳ್ಳಿ",
     "Rename" : "﻿ಮರುಹೆಸರಿಸು",
     "Delete" : "﻿ಅಳಿಸಿ",
+    "Import" : "ಆಮದು",
+    "Export" : "ರಫ್ತು",
     "Folder" : "ಕೋಶ"
 },
 "nplurals=2; plural=(n > 1);");

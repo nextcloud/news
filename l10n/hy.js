@@ -12,6 +12,9 @@ OC.L10N.register(
     "Share" : "Կիսվել",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
+    "General" : "Ընդհանուր",
+    "Import" : "Ներմուծում",
+    "Export" : "Արտահանում",
     "Refresh" : "Թարմացնել",
     "Folder" : "Պանակ"
 },

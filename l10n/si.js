@@ -14,6 +14,7 @@ OC.L10N.register(
     "Share" : "බෙදාගන්න",
     "Rename" : "නැවත නම් කරන්න",
     "Open website" : "වියමන අඩවිය විවෘත කරන්න",
+    "General" : "සමාන්‍යය",
     "Folder" : "බහාලුම"
 },
 "nplurals=2; plural=(n != 1);");

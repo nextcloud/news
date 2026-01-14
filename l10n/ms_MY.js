@@ -12,6 +12,9 @@ OC.L10N.register(
     "Rename" : "Namakan",
     "Delete" : "Padam",
     "by" : "oleh",
+    "General" : "Umum",
+    "Import" : "Import",
+    "Export" : "Eksport",
     "Refresh" : "Refresh",
     "Folder" : "Folder"
 },

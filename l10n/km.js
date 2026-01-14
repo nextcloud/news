@@ -16,6 +16,9 @@ OC.L10N.register(
     "Rename" : "ប្ដូរ​ឈ្មោះ",
     "Delete" : "លុប",
     "by" : "ដោយ",
+    "General" : "ទូទៅ",
+    "Import" : "នាំយកចូល",
+    "Export" : "នាំចេញ",
     "Folder" : "ថត"
 },
 "nplurals=1; plural=0;");

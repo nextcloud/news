@@ -20,6 +20,9 @@ OC.L10N.register(
     "Rename" : "পূনঃনামকরণ",
     "Delete" : "মুছে",
     "by" : "কর্তৃক",
+    "General" : "সাধারণ",
+    "Import" : "আমদানি",
+    "Export" : "রপ্তানি",
     "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
     "Refresh" : "নবোদ্যম",
     "Folder" : "ফোল্ডার"

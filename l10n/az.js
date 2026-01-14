@@ -18,7 +18,11 @@ OC.L10N.register(
     "Rename" : "Adı dəyiş",
     "Delete" : "Sil",
     "by" : "onunla",
+    "General" : "Ümumi",
+    "Import" : "Əlavə et",
+    "Export" : "Çıxarış",
     "Refresh" : "Yenilə",
+    "Resources" : "Resurslar",
     "Folder" : "Qovluq"
 },
 "nplurals=2; plural=(n != 1);");

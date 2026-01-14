@@ -23,6 +23,8 @@ OC.L10N.register(
     "Play audio" : "Аудио тоглуулах",
     "Download audio" : "Аудиог татаж авах",
     "Download video" : "Видеог татаж авах",
+    "General" : "ерөнхий",
+    "Export" : "Экспорт",
     "Refresh" : "Сэргээх",
     "Jump to previous article" : "Өмнөх нийтлэл рүү очих",
     "Jump to next article" : "Дараагийн өгүүллийг үзээрэй",

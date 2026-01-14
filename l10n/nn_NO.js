@@ -19,6 +19,10 @@ OC.L10N.register(
     "Oldest first" : "Eldste fyrst",
     "by" : "av",
     "Download video" : "Last ned video",
+    "General" : "Generelt",
+    "Appearance" : "Utsjånad",
+    "Import" : "Importer",
+    "Export" : "Eksporter",
     "Keyboard shortcuts" : "Tastatursnarvegar",
     "Refresh" : "Oppfrisk",
     "Folder" : "Mappe"

@@ -13,6 +13,8 @@ OC.L10N.register(
     "Rename" : "Preimenuj",
     "Delete" : "Obriši",
     "by" : "od strane",
+    "Import" : "Uvezi",
+    "Export" : "Izvezi",
     "Keyboard shortcuts" : "Tipkovni prečaci",
     "Title" : "Naslov",
     "Folder" : "Fasikla"

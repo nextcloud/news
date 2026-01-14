@@ -10,6 +10,9 @@
     "Share" : "Կիսվել",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
+    "General" : "Ընդհանուր",
+    "Import" : "Ներմուծում",
+    "Export" : "Արտահանում",
     "Refresh" : "Թարմացնել",
     "Folder" : "Պանակ"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

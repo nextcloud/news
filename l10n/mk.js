@@ -29,8 +29,13 @@ OC.L10N.register(
     "Default" : "Предефиниран",
     "Vertical" : "Вертикално",
     "Horizontal" : "Хоризонтално",
+    "General" : "Општо",
+    "Appearance" : "Изглед",
+    "Import" : "Увези",
+    "Export" : "Извези",
     "Keyboard shortcuts" : "Кратенки преку тастатура",
     "Refresh" : "Освежи",
+    "Resources" : "Ресурси",
     "Title" : "Наслов",
     "Folder" : "Папка",
     "Not available" : "Недостапно"

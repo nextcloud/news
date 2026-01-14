@@ -16,8 +16,12 @@
     "Oldest first" : "Hynaf gyntaf",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
+    "General" : "Cyffredinol",
+    "Import" : "Mewnforio",
+    "Export" : "Allforio",
     "Keyboard shortcuts" : "Llwybrau byr bysellfwrdd",
     "Refresh" : "Adnewyddu",
+    "Resources" : "Adnoddau",
     "Folder" : "Plygell",
     "Not available" : "Ddim ar gael"
 },"pluralForm" :"nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != 11) ? 2 : 3;"

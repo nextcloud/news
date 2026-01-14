@@ -14,6 +14,7 @@ OC.L10N.register(
     "Newest first" : "Täze ilkinji",
     "Oldest first" : "Ilki bilen iň köne",
     "Default" : "Bellenen",
+    "General" : "Esasy",
     "Refresh" : "Täzelemek",
     "Not available" : "Elýeterli däl"
 },

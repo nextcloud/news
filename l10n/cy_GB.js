@@ -18,8 +18,12 @@ OC.L10N.register(
     "Oldest first" : "Hynaf gyntaf",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
+    "General" : "Cyffredinol",
+    "Import" : "Mewnforio",
+    "Export" : "Allforio",
     "Keyboard shortcuts" : "Llwybrau byr bysellfwrdd",
     "Refresh" : "Adnewyddu",
+    "Resources" : "Adnoddau",
     "Folder" : "Plygell",
     "Not available" : "Ddim ar gael"
 },

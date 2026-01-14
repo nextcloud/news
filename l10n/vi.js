@@ -29,8 +29,13 @@ OC.L10N.register(
     "by" : "bởi",
     "Open website" : "Mở trang web",
     "Off" : "Tắt",
+    "General" : "Cài đặt chung",
+    "Appearance" : "Giao diện",
+    "Import" : "Nhập vào",
+    "Export" : "Xuất ra",
     "Keyboard shortcuts" : "Phím tắt",
     "Refresh" : "Làm mới",
+    "Resources" : "Các nguồn lực",
     "Title" : "Tên",
     "Folder" : "Thư mục",
     "Not available" : "Không khả dụng"

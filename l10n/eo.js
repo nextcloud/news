@@ -29,8 +29,12 @@ OC.L10N.register(
     "Close details" : "Fermi detalojn",
     "by" : "de",
     "Open website" : "Malfermi TTT-ejon",
+    "General" : "Ĝenerala",
+    "Import" : "Importi",
+    "Export" : "Eksporti",
     "Keyboard shortcuts" : "Fulmoklavoj",
     "Refresh" : "Refreŝigi",
+    "Resources" : "Rimedoj",
     "Folder" : "Dosierujo",
     "Not available" : "Ne disponeble"
 },

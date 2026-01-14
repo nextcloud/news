@@ -25,10 +25,13 @@ OC.L10N.register(
     "Play audio" : "Speel oudio af",
     "Download audio" : "Laai oudio af",
     "Download video" : "Laai video af",
+    "Import" : "Invoer",
+    "Export" : "Voer uit",
     "Keyboard shortcuts" : "Sneltoetse",
     "Refresh" : "Verfris",
     "Jump to previous article" : "Spring na vorige artikel",
     "Jump to next article" : "Spring na volgende artikel",
+    "Resources" : "Hulpbronne",
     "Folder" : "Vouer"
 },
 "nplurals=2; plural=(n != 1);");

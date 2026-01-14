@@ -15,6 +15,8 @@ OC.L10N.register(
     "Oldest first" : "Iqbuṛen d imezwura",
     "Default" : "Prédéfini(e)",
     "Off" : "Ur irmid ara",
+    "General" : "Amatu",
+    "Appearance" : "Udem",
     "Keyboard shortcuts" : "Inegzumen n unasiw",
     "Refresh" : "Sismeḍ",
     "Title" : "Azwel",

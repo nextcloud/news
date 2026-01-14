@@ -15,8 +15,13 @@ OC.L10N.register(
     "Delete" : "O'chirish",
     "Default" : "Standart",
     "Off" : "Oʻchirilgan",
+    "General" : "Umumiy",
+    "Appearance" : "Tashqi ko'rinish",
+    "Import" : "Import",
+    "Export" : "Eksport",
     "Keyboard shortcuts" : "Klaviatura yorliqlari",
     "Refresh" : "Refresh",
+    "Resources" : "Resurslar",
     "Title" : "Sarlavha",
     "Not available" : "Mavjud emas"
 },
