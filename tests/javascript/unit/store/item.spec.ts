@@ -286,6 +286,18 @@ describe('item.ts', () => {
 			})
 		})
 
+		describe('MODIFY_STARRED_COUNT', () => {
+			it('should modify starredCount with value passed in', () => {
+				const state = { starredCount: 25 } as AppState
+
+				mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { delta: 5 })
+				expect(state.starredCount).toEqual(30)
+
+				mutations[FEED_ITEM_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { delta: -3 })
+				expect(state.starredCount).toEqual(27)
+			})
+		})
+
 		describe('SET_UNREAD_COUNT', () => {
 			it('should set unreadCount with value passed in', () => {
 				const state = { unreadCount: 0 } as AppState
