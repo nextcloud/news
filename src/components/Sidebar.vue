@@ -288,7 +288,7 @@ export default defineComponent({
 		},
 
 		GroupedStars(): Array<Feed> {
-			return this.$store.getters.feeds.filter((item: Feed) => item.starredCount !== 0)
+			return this.$store.getters.feeds.filter((item: Feed) => (item.starredCount ?? 0) !== 0)
 		},
 
 		active() {
