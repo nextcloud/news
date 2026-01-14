@@ -209,6 +209,9 @@ export const actions = {
 			commit(FOLDER_MUTATION_TYPES.REMOVE_FOLDER_FEED, { feedId: feed.id, folderId: feed.folderId, unreadCount: feed.unreadCount })
 		}
 
+		if (feed.starredCount > 0) {
+			commit(FEED_ITEM_MUTATION_TYPES.MODIFY_STARRED_COUNT, { delta: -feed.starredCount })
+		}
 		commit(FEED_MUTATION_TYPES.FEED_DELETE, feed.id)
 	},
 
@@ -305,7 +308,7 @@ export const mutations = {
 		}
 	},
 
-	[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](
+	[FEED_MUTATION_TYPES.MODIFY_FEED_STARRED_COUNT](
 		state: FeedState,
 		{ feedId, add }: { feedId: number, add: boolean },
 	) {

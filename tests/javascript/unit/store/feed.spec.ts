@@ -139,6 +139,15 @@ describe('feed.ts', () => {
 				expect(FeedService.deleteFeed).toBeCalledWith({ feedId: 1 })
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.FEED_DELETE, 1)
 			})
+
+			it('should call FeedService.deleteFeed, commit to global starred count and commit to state', async () => {
+				FeedService.deleteFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_DELETE]({ commit }, { feed: { id: 1, starredCount: 4 } })
+				expect(FeedService.deleteFeed).toBeCalledWith({ feedId: 1 })
+				expect(commit).toBeCalledWith(FEED_ITEM_MUTATION_TYPES.MODIFY_STARRED_COUNT, { delta: -4 })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.FEED_DELETE, 1)
+			})
 		})
 
 		describe('MODIFY_FEED_UNREAD_COUNT', () => {
@@ -265,18 +274,18 @@ describe('feed.ts', () => {
 			})
 		})
 
-		describe('MODIFY_STARRED_COUNT', () => {
+		describe('MODIFY_FEED_STARRED_COUNT', () => {
 			it('should increments starredCount when adding starred items', () => {
 				const state: any = { feeds: [{ id: 1, starredCount: 0 }], unreadCount: 0, newestItemId: 0, ordering: {} }
 
-				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 1, add: true })
+				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_STARRED_COUNT](state, { feedId: 1, add: true })
 				expect(state.feeds[0].starredCount).toBe(1)
 			})
 
 			it('should decrement starredCount when removing starring', () => {
 				const state: any = { feeds: [{ id: 2, starredCount: 2 }], unreadCount: 0, newestItemId: 0, ordering: {} }
 
-				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 2, add: false })
+				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_STARRED_COUNT](state, { feedId: 2, add: false })
 				expect(state.feeds[0].starredCount).toBe(1)
 			})
 
@@ -284,7 +293,7 @@ describe('feed.ts', () => {
 				const state: any = { feeds: [{ id: 3, starredCount: 5 }], unreadCount: 0, newestItemId: 0, ordering: {} }
 
 				// call with non-existing feedId
-				mutations[FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT](state, { feedId: 999, add: true })
+				mutations[FEED_MUTATION_TYPES.MODIFY_FEED_STARRED_COUNT](state, { feedId: 999, add: true })
 				expect(state.feeds[0].starredCount).toBe(5)
 			})
 		})

@@ -359,7 +359,7 @@ export const actions = {
 		const feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount + 1)
-		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: true })
+		commit(FEED_MUTATION_TYPES.MODIFY_FEED_STARRED_COUNT, { feedId, add: true })
 	},
 
 	/**
@@ -380,7 +380,7 @@ export const actions = {
 		const feedId = item.feedId
 		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 		commit(FEED_ITEM_MUTATION_TYPES.SET_STARRED_COUNT, state.starredCount - 1)
-		commit(FEED_MUTATION_TYPES.MODIFY_STARRED_COUNT, { feedId, add: false })
+		commit(FEED_MUTATION_TYPES.MODIFY_FEED_STARRED_COUNT, { feedId, add: false })
 	},
 }
 
@@ -441,6 +441,13 @@ export const mutations = {
 		count: number,
 	) {
 		state.starredCount = count
+	},
+
+	[FEED_ITEM_MUTATION_TYPES.MODIFY_STARRED_COUNT](
+		state: ItemState,
+		{ delta }: { delta: number },
+	) {
+		state.starredCount += delta
 	},
 
 	[FEED_ITEM_MUTATION_TYPES.SET_UNREAD_COUNT](
