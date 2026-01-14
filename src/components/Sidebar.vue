@@ -116,9 +116,9 @@
 						</template>
 					</NcAppNavigationItem>
 					<template #icon>
-						<FolderAlertIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount > 8" :title="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
-						<FolderIcon v-if="isFolder(topLevelItem) && topLevelItem.updateErrorCount <= 8" style="width:22px" />
 						<span v-if="!isFolder(topLevelItem)" style="height: 16px; width: 16px; background-size: contain;" :style="{ backgroundImage: 'url(' + feedIcon(topLevelItem) + ')' }" />
+						<FolderAlertIcon v-else-if="topLevelItem.updateErrorCount > 8" :title="t('news', 'Has feeds with errors!')" style="width: 22px; color: red" />
+						<FolderIcon v-else style="width:22px" />
 					</template>
 					<template #counter>
 						<NcCounterBubble
