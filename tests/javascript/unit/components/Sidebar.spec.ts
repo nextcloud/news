@@ -1,7 +1,7 @@
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { shallowMount } from '@vue/test-utils'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSidebar from '../../../../src/components/Sidebar.vue'
 import { ACTIONS } from '../../../../src/store/index.ts'
 
@@ -574,7 +574,12 @@ describe('Sidebar.vue', () => {
 
 	describe('computed properties', () => {
 		it('should return only feeds with starredCount for GroupedStars', () => {
-			const mockFeeds = [{ id: 1, title: 'Feed A', starredCount: 0 }, { id: 2, title: 'Feed B', starredCount: 3 }, { id: 3, title: 'Feed C', starredCount: 1 }]
+			const mockFeeds = [
+				{ id: 1, title: 'Feed A', starredCount: 0 },
+				{ id: 2, title: 'Feed B', starredCount: 3 },
+				{ id: 3, title: 'Feed C', starredCount: 1 },
+				{ id: 4, title: 'Feed D' },
+			]
 
 			const mockStore: any = {
 				getters: {
@@ -643,53 +648,91 @@ describe('Sidebar.vue', () => {
 
 			expect((wrapper.vm as any).loading).toBe(true)
 		})
+	})
 
-		it('should renders RssIcon when no faviconLink and fallback span when faviconLink present for GroupedStars', () => {
+	describe('rendering of navigation item icons', () => {
+		let wrapper
+		beforeAll(() => {
 			const mockFeeds = [
-				{ id: 2, title: 'group-no-favicon', starredCount: 1, faviconLink: null },
-				{ id: 3, title: 'group-with-favicon', starredCount: 2, faviconLink: 'https://example.com/favicon.png' },
+				{ id: 1, title: 'StarredFeed', starredCount: 3, urlHash: '51f108ce113f11fbcbb7da6083c621cd' },
+				{ id: 2, title: 'FolderFeed', folderId: 1, urlHash: 'aef6257dd8d606def70d42e64f70095b' },
+				{ id: 3, title: 'TopLevelFeed', urlHash: '6222ecb651666e00c83bb3ae27f4e714' },
 			]
 
-			const mockStore: any = {
-				getters: {
-					feeds: mockFeeds,
-					folders: [],
-					loading: false,
-					displaymode: '0',
-					splitmode: '0',
-					oldestFirst: false,
-					preventReadOnScroll: true,
-					showAll: false,
-					disableRefresh: true,
-					items: { unreadCount: 0, starredCount: 0 },
-				},
-				dispatch: vi.fn(),
-				commit: vi.fn(),
-			}
-
-			// shallowMount with simple stubs — we only need computed GroupedStars here
-			const wrapper = shallowMount(AppSidebar as any, {
+			const mockFolders = [
+				{ id: 1, name: 'Folder', feeds: [] },
+				{ id: 2, name: 'FolderWithError', feeds: [], updateErrorCount: 10 },
+				{ id: 3, name: 'FolderWithFeed', feeds: [mockFeeds[1]] },
+			]
+			wrapper = shallowMount(AppSidebar, {
 				global: {
 					mocks: {
-						$store: mockStore,
-						t: (_ns: string, msg: string) => msg,
-						$route: { name: '', params: {} },
-						$router: { push: vi.fn() },
+						$route: routeMock,
+						$store: {
+							getters: {
+								feeds: mockFeeds,
+								folders: mockFolders,
+							},
+						},
 					},
-					stubs: true,
+					stubs: {
+						'nc-app-navigation': {
+							template: '<div><slot /><slot name="list" /></div>',
+						},
+						'nc-app-navigation-item': {
+							template: '<div><slot /><slot name="icon" /></div>',
+						},
+					},
 				},
 			})
+		})
 
-			// use computed GroupedStars to assert the branching data (covers the v-if decision)
-			const grouped = (wrapper.vm as any).GroupedStars
-			expect(Array.isArray(grouped)).toBe(true)
-			expect(grouped.length).toBe(2)
+		it('should render starred feed icon', () => {
+			const starredDiv = wrapper.get('div[name="Starred"]')
+			const feedDiv = starredDiv.get('div[name="StarredFeed"]')
+			const span = feedDiv.get('span')
 
-			// first group has no faviconLink -> template should render RssIcon (v-if="!group.faviconLink")
-			expect(grouped[0].faviconLink).toBeNull()
+			const bgImage = span.element.style.backgroundImage
+			const url = bgImage.slice(4, -1).replace(/["']/g, '')
 
-			// second group has a faviconLink -> template should render background-image span
-			expect(grouped[1].faviconLink).toBe('https://example.com/favicon.png')
+			expect(url).toBe('//index.php/apps/news/favicon/51f108ce113f11fbcbb7da6083c621cd')
+		})
+
+		it('should render folder feed icon', () => {
+			const folderDiv = wrapper.get('div[name="FolderWithFeed"]')
+			const feedDiv = folderDiv.get('div[name="FolderFeed"]')
+			const span = feedDiv.get('span')
+
+			const bgImage = span.element.style.backgroundImage
+			const url = bgImage.slice(4, -1).replace(/["']/g, '')
+
+			expect(url).toBe('//index.php/apps/news/favicon/aef6257dd8d606def70d42e64f70095b')
+		})
+
+		it('should render top level feed icon', () => {
+			const feedDiv = wrapper.get('div[name="TopLevelFeed"]')
+			const span = feedDiv.get('span')
+
+			const bgImage = span.element.style.backgroundImage
+			const url = bgImage.slice(4, -1).replace(/["']/g, '')
+
+			expect(url).toBe('//index.php/apps/news/favicon/6222ecb651666e00c83bb3ae27f4e714')
+		})
+
+		it('should render folder icon', () => {
+			const folderDiv = wrapper.get('div[name="Folder"]')
+			const folderIcon = folderDiv.get('folder-icon-stub')
+			expect(folderIcon.exists()).toBe(true)
+		})
+
+		it('should render folder alert icon', () => {
+			const folderDiv = wrapper.get('div[name="FolderWithError"]')
+			const folderAlertIcon = folderDiv.get('folder-alert-icon-stub')
+			expect(folderAlertIcon.exists()).toBe(true)
+		})
+
+		afterAll(() => {
+			wrapper.unmount()
 		})
 	})
 
