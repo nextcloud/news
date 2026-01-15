@@ -62,6 +62,7 @@
     "Share with {num} users" : "Compartilhe com {num} usuários",
     "Rename Folder" : "Renomear Pasta",
     "Are you sure you want to delete?" : "Tem certeza de que deseja excluir?",
+    "Unable to save starred open state" : "Não é possível salvar o estado aberto com estrela",
     "Mark read" : "Marcar como lido",
     "All articles" : "Todos os artigos",
     "Recently viewed" : "Visto recentemente",
