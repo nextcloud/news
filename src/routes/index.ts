@@ -26,8 +26,8 @@ export const ROUTES = {
 /**
  *
  */
-function getInitialRoute() {
-	const params: { feedId?: string, folderId?: string } = {}
+export function getInitialRoute() {
+	const params: { feedId?: string, folderId?: string, starredFeedId?: string } = {}
 
 	switch (store.state.lastViewedFeedType) {
 		case '0':
@@ -43,7 +43,13 @@ function getInitialRoute() {
 				params,
 			}
 		case '2':
-			return { name: ROUTES.STARRED }
+			if (store.state.lastViewedFeedId > 0) {
+				params.starredFeedId = store.state.lastViewedFeedId
+			}
+			return {
+				name: ROUTES.STARRED,
+				params,
+			}
 		case '3':
 			return { name: ROUTES.ALL }
 		case '5':
