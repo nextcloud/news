@@ -38,7 +38,7 @@
     "Explore Service URL" : "探索服務 URL",
     "Update interval" : "更新間距",
     "Use system cron for updates" : "使用系統 cron 來更新",
-    "Disable this if you use a custom updater." : "如果使用自定義更新程序，請停用此功能。",
+    "Disable this if you use a custom updater." : "如果使用自訂更新程序，請停用此功能。",
     "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "定義每個 feed 可以讀取的最大文章數，清理作業不會刪除這些文章；如果舊文章在閱讀後又重新出現，請增加此值；負值（如 -1） 將會關閉此功能。",
     "Delete unread articles automatically" : "自動刪除未讀文章",
     "Enable this if you also want to delete unread articles." : "如果您還想刪除未讀的文章，請啟用此功能。",
