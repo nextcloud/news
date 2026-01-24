@@ -126,7 +126,7 @@ OC.L10N.register(
     "Display mode" : "Modo de exibição",
     "Split mode" : "Modo dividido",
     "Import" : "Importação",
-    "Export" : "Exportar",
+    "Export" : "Exportação",
     "Abonnements (OPML)" : "Inscrições (OPML)",
     "Importing feeds" : "Importando feeds",
     "Please wait" : "Por favor, espere",

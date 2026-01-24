@@ -65,6 +65,7 @@ OC.L10N.register(
     "Remove keep article unread" : "Verwijder ongelezen houden artikel",
     "Default" : "Standaard",
     "Compact" : "Compact",
+    "Off" : "Uit",
     "General" : "Algemeen",
     "Disable mark read through scrolling" : "Niet als gelezen markeren door scrollen",
     "Reverse ordering (oldest on top)" : "Omgekeerde volgorde (oudste boven)",
