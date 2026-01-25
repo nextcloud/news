@@ -56,7 +56,7 @@ OC.L10N.register(
     "User Name" : "Ім'я користувача",
     "Share" : "Спільний доступ",
     "Share with" : "Поділитися з",
-    "Share with {num} users" : "Поділіться з {num} користувачами",
+    "Share with {num} users" : "Поділітися з {num} користувачами",
     "Rename Folder" : "Перейменувати каталог",
     "Are you sure you want to delete?" : "Ви впевнені, що хочете видалити?",
     "Mark read" : "Позначити як прочитане",
