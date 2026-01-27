@@ -19,10 +19,10 @@ jobs:
         database: ['sqlite']
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@cf4cade2721270509d5b1c766ab3549210a39a2a #v2.33.0
+        uses: shivammathur/setup-php@cf4cade2721270509d5b1c766ab3549210a39a2a # v2.33.0
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip

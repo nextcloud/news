@@ -22,12 +22,12 @@ jobs:
         experimental: [false]
     steps:
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
         with:
           submodules: recursive
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@cf4cade2721270509d5b1c766ab3549210a39a2a # v2.33.0
         with:
           php-version: ${{ matrix.php-versions }}
           extensions: pdo_sqlite,pdo_mysql,pdo_pgsql,gd,zip
@@ -37,7 +37,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y httpie && sudo npm install -g bats@1.11.0
 
       - name: Set up server
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@7665802e389e40d21b49877c3728bacca324d6e0 #latest
         with:
           version: ${{ matrix.nextcloud }}
           cron: true
@@ -52,7 +52,7 @@ jobs:
         run: make
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@7665802e389e40d21b49877c3728bacca324d6e0 #latest
         with:
           app: 'news'
           check-code: false
