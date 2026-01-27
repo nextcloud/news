@@ -80,4 +80,5 @@ jobs:
           labels: |
             dependencies
             3. to review
+            Skip-Changelog
 
