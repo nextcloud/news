@@ -188,6 +188,7 @@ class FetcherConfig
     public function getClient(): ClientInterface
     {
         $config = [
+            'connect_timeout' => 3,
             'timeout' => $this->client_timeout,
             'headers' =>  [
                 'User-Agent' => $this->getUserAgent(),

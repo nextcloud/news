@@ -131,7 +131,11 @@ class FeedFetcher implements IFeedFetcher
     {
         $hasLastModified = false;
         try {
-            $client = new Client(['base_uri' => $url]);
+            $client = new Client([
+              'base_uri' => $url,
+              'connect_timeout' => 3,
+              'timeout' => 3,
+            ]);
             $response = $client->request('HEAD');
             $hasLastModified = $response->hasHeader('Last-Modified');
         } catch (\Exception) {
@@ -558,7 +562,11 @@ class FeedFetcher implements IFeedFetcher
 
         try {
             // Base_uri can only be set on creation, will be used when link is relative.
-            $client = new Client(['base_uri' => $base_url]);
+            $client = new Client([
+              'base_uri' => $base_url,
+              'connect_timeout' => 3,
+              'timeout' => 10,
+            ]);
             $response = $client->request(
                 'GET',
                 $favicon_url,
