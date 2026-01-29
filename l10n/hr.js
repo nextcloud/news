@@ -61,6 +61,8 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Prebaci i zadržati trenutni članak nepročitanim",
     "Remove keep article unread" : "Makni održavanje članaka nepročitanim",
     "Default" : "Zadani",
+    "Vertical" : "Okomito",
+    "Horizontal" : "Vodoravno",
     "General" : "Općenito",
     "Disable mark read through scrolling" : "Onemogući označavanje kao pročitano pri pomicanju",
     "Reverse ordering (oldest on top)" : "Obrnuti poredak (prvo najstariji)",
