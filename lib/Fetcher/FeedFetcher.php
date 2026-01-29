@@ -132,9 +132,9 @@ class FeedFetcher implements IFeedFetcher
         $hasLastModified = false;
         try {
             $client = new Client([
-              'base_uri' => $url,
-              'connect_timeout' => 3,
-              'timeout' => 3,
+                'base_uri' => $url,
+                'connect_timeout' => 3,
+                'timeout' => 3,
             ]);
             $response = $client->request('HEAD');
             $hasLastModified = $response->hasHeader('Last-Modified');
