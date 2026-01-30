@@ -19,7 +19,6 @@ use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
 use OCA\News\Vendor\FeedIo\FeedInterface;
 use OCA\News\Vendor\FeedIo\FeedIo;
 use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
-use GuzzleHttp\Client;
 use OCA\News\Vendor\GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
@@ -130,12 +129,12 @@ class FeedFetcher implements IFeedFetcher
     public function hasLastModifiedHeader(string $url): bool
     {
         $hasLastModified = false;
+        $httpClientConfig = [
+            'base_uri' => $url,
+            'timeout' => 3,
+        ];
         try {
-            $client = new Client([
-                'base_uri' => $url,
-                'connect_timeout' => 3,
-                'timeout' => 3,
-            ]);
+            $client = $this->fetcherConfig->getHttpClient($httpClientConfig);
             $response = $client->request('HEAD');
             $hasLastModified = $response->hasHeader('Last-Modified');
         } catch (\Exception) {
@@ -560,20 +559,19 @@ class FeedFetcher implements IFeedFetcher
             $last_modified = 0;
         }
 
+        // Base_uri can only be set on creation, will be used when link is relative.
+        $httpClientConfig = [
+            'base_uri' => $base_url,
+            'timeout' => 10,
+        ];
         try {
-            // Base_uri can only be set on creation, will be used when link is relative.
-            $client = new Client([
-              'base_uri' => $base_url,
-              'connect_timeout' => 3,
-              'timeout' => 10,
-            ]);
+            $client = $this->fetcherConfig->getHttpClient($httpClientConfig);
             $response = $client->request(
                 'GET',
                 $favicon_url,
                 [
                     'sink' => $favicon_cache,
                     'headers' => [
-                        'User-Agent'        => FetcherConfig::DEFAULT_USER_AGENT,
                         'Accept'            => 'image/*',
                         'If-Modified-Since' => date(DateTime::RFC7231, $last_modified),
                         'Accept-Encoding'   => $this->fetcherConfig->checkEncoding()

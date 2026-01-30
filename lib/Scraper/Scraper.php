@@ -46,6 +46,11 @@ class Scraper implements IScraper
             CURLOPT_TIMEOUT        => 120,      // timeout on response
             CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
         );
+
+        $proxy = $this->fetcherConfig->getProxy();
+        if (!is_null($proxy) && $proxy !== '') {
+            $this->curl_opts[CURLOPT_PROXY] = $proxy;
+        }
     }
 
     private function getHTTPContent(string $url): array

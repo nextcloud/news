@@ -75,6 +75,12 @@ class FetcherConfig
     public const SLEEPY_DURATION = 7 * 86400;
 
     /**
+     * Connect timeout for the guzzle http client
+     * @var int
+     */
+    public const CONNECT_TIMEOUT = 3;
+
+    /**
      * Logger
      * @var LoggerInterface
      */
@@ -181,21 +187,42 @@ class FetcherConfig
     }
 
     /**
-     * Configure a guzzle client
+     * Configure a feedio client
      *
-     * @return ClientInterface Client to guzzle.
+     * @return ClientInterface Client to feedio client.
      */
     public function getClient(): ClientInterface
     {
         $config = [
-            'connect_timeout' => 3,
-            'timeout' => $this->client_timeout,
             'headers' =>  [
-                'User-Agent' => $this->getUserAgent(),
                 'Accept' => static::DEFAULT_ACCEPT,
                 'Accept-Encoding' => $this->checkEncoding()
             ],
         ];
+        $client = $this->getHttpClient($config);
+        return new FeedIoClient($client);
+    }
+
+    /**
+     * Configure a guzzle client
+     *
+     * @param array $config
+     * @return \GuzzleHttp\Client configured Guzzle HTTP client
+     */
+    public function getHttpClient(array $config): \GuzzleHttp\Client
+    {
+        if (!isset($config['headers']) || !is_array($config['headers'])) {
+            $config['headers'] = [];
+        }
+        $config['headers']['User-Agent'] = $this->getUserAgent();
+
+        if (!isset($config['timeout'])) {
+            $config['timeout'] = $this->client_timeout;
+        }
+
+        if (!isset($config['connect_timeout'])) {
+            $config['connect_timeout'] = static::CONNECT_TIMEOUT;
+        }
 
         if (!is_null($this->proxy)) {
             $config['proxy'] = $this->proxy;
@@ -204,8 +231,7 @@ class FetcherConfig
             $config['redirect.max'] = $this->redirects;
         }
 
-        $client = new Client($config);
-        return new FeedIoClient($client);
+        return new Client($config);
     }
 
     /**
