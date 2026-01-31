@@ -1,22 +1,22 @@
 <template>
 	<NcAppContent
 		:layout="layout"
-		:show-details="showDetails"
-		:list-max-width="100"
-		@update:show-details="showItem(false)">
+		:showDetails="showDetails"
+		:listMaxWidth="100"
+		@update:showDetails="showItem(false)">
 		<template #list>
 			<NcAppContentList>
 				<FeedItemDisplayList
 					ref="itemListElement"
 					:items="items"
-					:list-name="listName"
-					:list-count="listCount"
-					:fetch-key="fetchKey"
+					:listName="listName"
+					:listCount="listCount"
+					:fetchKey="fetchKey"
 					role="region"
 					:aria-label="t('news', 'Article list')"
-					@show-details="showItem(true)"
-					@mark-read="emit('mark-read')"
-					@load-more="emit('load-more')">
+					@showDetails="showItem(true)"
+					@markRead="emit('markRead')"
+					@loadMore="emit('loadMore')">
 					<template #header>
 						<slot name="header" />
 					</template>
@@ -32,12 +32,12 @@
 				<FeedItemDisplay
 					v-if="selectedFeedItem"
 					:item="selectedFeedItem"
-					:item-count="items.length"
-					:item-index="currentIndex + 1"
-					:fetch-key="fetchKey"
-					@prev-item="previousItem"
-					@next-item="nextItem"
-					@show-details="showItem(false)" />
+					:itemCount="items.length"
+					:itemIndex="currentIndex + 1"
+					:fetchKey="fetchKey"
+					@prevItem="previousItem"
+					@nextItem="nextItem"
+					@showDetails="showItem(false)" />
 				<NcEmptyContent
 					v-else
 					style="margin-top: 20vh"
@@ -72,7 +72,13 @@ import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import {
 	type PropType,
 
-	computed, onBeforeMount, onBeforeUnmount, onMounted, onUpdated, ref, watch,
+	computed,
+	onBeforeMount,
+	onBeforeUnmount,
+	onMounted,
+	onUpdated,
+	ref,
+	watch,
 } from 'vue'
 import { useStore } from 'vuex'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
@@ -122,8 +128,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits<{
-	(event: 'load-more'): void
-	(event: 'mark-read'): void
+	(event: 'loadMore'): void
+	(event: 'markRead'): void
 }>()
 
 const store = useStore()
@@ -268,7 +274,7 @@ watch(allItemsLoaded, (newVal) => {
 	if (detailsView.value
 		&& newVal === false
 		&& currentIndex.value >= props.items.length - 1) {
-		emit('load-more')
+		emit('loadMore')
 	}
 })
 
@@ -292,7 +298,7 @@ watch(selectedFeedItem, (newSelectedFeedItem) => {
 		if (detailsView.value
 			&& !allItemsLoaded.value
 			&& currentIndex.value >= props.items.length - 5) {
-			emit('load-more')
+			emit('loadMore')
 		}
 	} else {
 		if (!noSplitMode.value) {

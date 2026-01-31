@@ -1,7 +1,7 @@
 <template>
 	<NcAppSettingsDialog
 		v-model:open="showSettings"
-		:show-navigation="true"
+		:showNavigation="true"
 		:name="t('news', 'News settings')"
 		@close="$emit('close')">
 		<NcAppSettingsSection id="settings-general" :name="t('news', 'General')">

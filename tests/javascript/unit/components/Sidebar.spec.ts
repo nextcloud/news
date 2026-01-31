@@ -16,11 +16,15 @@ describe('Sidebar.vue', () => {
 	let routeMock
 
 	const feeds = [{
-		id: 1, title: 'first',
+		id: 1,
+		title: 'first',
 	}, {
-		id: 2, title: 'second', folderId: 123,
+		id: 2,
+		title: 'second',
+		folderId: 123,
 	}, {
-		id: 3, title: 'three',
+		id: 3,
+		title: 'three',
 	}]
 
 	const folder = {

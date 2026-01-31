@@ -3,11 +3,11 @@
 		v-if="!loading"
 		:key="'feed-' + feedId"
 		:items="items"
-		:list-name="feed ? feed.title : ''"
-		:list-count="feed ? feed.unreadCount : 0"
-		:fetch-key="'feed-' + feedId"
-		@mark-read="markRead()"
-		@load-more="fetchMore()" />
+		:listName="feed ? feed.title : ''"
+		:listCount="feed ? feed.unreadCount : 0"
+		:fetchKey="'feed-' + feedId"
+		@markRead="markRead()"
+		@loadMore="fetchMore()" />
 </template>
 
 <script lang="ts">

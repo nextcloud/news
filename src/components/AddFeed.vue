@@ -33,7 +33,7 @@
 							v-model="folder"
 							:options="folders"
 							:placeholder="'-- ' + t('news', 'No folder') + ' --'"
-							track-by="id"
+							trackBy="id"
 							label="name"
 							style="flex-grow: 1;" />
 

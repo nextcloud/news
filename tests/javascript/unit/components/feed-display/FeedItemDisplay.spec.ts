@@ -211,25 +211,25 @@ describe('FeedItemDisplay.vue', () => {
 		expect(pauseStub).toBeCalled()
 	})
 
-	it('should emit "prev-item" when calling prevItem', () => {
+	it('should emit "prevItem" when calling prevItem', () => {
 		wrapper.vm.prevItem()
 
-		expect(wrapper.emitted()).toHaveProperty('prev-item')
-		expect(wrapper.emitted('prev-item')!.length).toBe(1)
+		expect(wrapper.emitted()).toHaveProperty('prevItem')
+		expect(wrapper.emitted('prevItem')!.length).toBe(1)
 	})
 
-	it('should emit "next-item" when calling nextItem', () => {
+	it('should emit "nextItem" when calling nextItem', () => {
 		wrapper.vm.nextItem()
 
-		expect(wrapper.emitted()).toHaveProperty('next-item')
-		expect(wrapper.emitted('next-item')!.length).toBe(1)
+		expect(wrapper.emitted()).toHaveProperty('nextItem')
+		expect(wrapper.emitted('nextItem')!.length).toBe(1)
 	})
 
-	it('should emit "show-details" when calling closeDetails', () => {
+	it('should emit "showDetails" when calling closeDetails', () => {
 		wrapper.vm.closeDetails()
 
-		expect(wrapper.emitted()).toHaveProperty('show-details')
-		expect(wrapper.emitted('show-details')!.length).toBe(1)
+		expect(wrapper.emitted()).toHaveProperty('showDetails')
+		expect(wrapper.emitted('showDetails')!.length).toBe(1)
 	})
 
 	it('should show no chips when item has no categories', () => {

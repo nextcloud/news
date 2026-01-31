@@ -18,19 +18,22 @@ describe('Folder.vue', () => {
 			title: 'feed item',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 2,
 			feedId: 456,
 			title: 'feed item 2',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 3,
 			feedId: 456,
 			title: 'feed item 3',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 4,
 			feedId: 789,
 			title: 'feed item 4',

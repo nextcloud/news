@@ -3,14 +3,14 @@
 		<NcActionButton
 			v-if="feed.unreadCount > 0"
 			icon="icon-checkmark"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="markRead">
 			{{ t("news", "Mark read") }}
 		</NcActionButton>
 		<NcActionButton
 			v-if="feed.pinned"
 			icon="icon-pinned"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="setPinned(false)">
 			<template #icon>
 				<PinOffIcon />
@@ -20,7 +20,7 @@
 		<NcActionButton
 			v-if="!feed.pinned"
 			icon="icon-pinned"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="setPinned(true)">
 			<template #icon>
 				<PinIcon />
@@ -83,14 +83,14 @@
 		</NcActionButton>
 		<NcActionButton
 			icon="icon-rename"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="rename()">
 			{{ t("news", "Rename") }}
 		</NcActionButton>
 		<NcActionButton
 			icon="icon-arrow"
-			:close-after-click="true"
-			@click="$emit('open-move-dialog')">
+			:closeAfterClick="true"
+			@click="$emit('openMoveDialog')">
 			<template #icon>
 				<ArrowRightIcon />
 			</template>
@@ -98,13 +98,13 @@
 		</NcActionButton>
 		<NcActionButton
 			icon="icon-delete"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
 		<NcActionButton
 			v-if="feed.preventUpdate"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="setPreventUpdate(false)">
 			<template #icon>
 				<SyncOff />
@@ -113,7 +113,7 @@
 		</NcActionButton>
 		<NcActionButton
 			v-if="!feed.preventUpdate"
-			:close-after-click="true"
+			:closeAfterClick="true"
 			@click="setPreventUpdate(true)">
 			<template #icon>
 				<Sync />
@@ -184,7 +184,7 @@ export default defineComponent({
 	},
 
 	emits: {
-		'open-move-dialog': () => true,
+		openMoveDialog: () => true,
 	},
 
 	data: () => {

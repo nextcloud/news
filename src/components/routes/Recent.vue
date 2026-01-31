@@ -1,8 +1,8 @@
 <template>
 	<ContentTemplate
 		:items="recentItems"
-		:list-name="t('news', 'Recently viewed')"
-		fetch-key="recent" />
+		:listName="t('news', 'Recently viewed')"
+		fetchKey="recent" />
 </template>
 
 <script lang="ts">

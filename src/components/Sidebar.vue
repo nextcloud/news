@@ -6,8 +6,8 @@
 		<AppSettingsDialog v-if="showSettings" @close="closeSettings()" />
 		<NcAppNavigationNew
 			:text="t('news', 'Subscribe')"
-			button-id="new-feed-button"
-			button-class="icon-add"
+			buttonId="new-feed-button"
+			buttonClass="icon-add"
 			@click="addFeed()">
 			<template #icon>
 				<PlusIcon />
@@ -16,7 +16,7 @@
 		<div class="new-folder-container">
 			<NcAppNavigationNewItem
 				:name="t('news', 'New folder')"
-				@new-item="newFolder">
+				@newItem="newFolder">
 				<template #icon>
 					<FolderPlusIcon />
 				</template>
@@ -54,8 +54,8 @@
 				:name="t('news', 'Starred')"
 				icon="icon-starred"
 				:to="{ name: ROUTES.STARRED }"
-				:allow-collapse="true"
-				:force-menu="true"
+				:allowCollapse="true"
+				:forceMenu="true"
 				:open="isStarredOpen"
 				@update:open="toggleStarredOpenState">
 				<NcAppNavigationItem
@@ -88,8 +88,8 @@
 					:name="topLevelItem.name || topLevelItem.title"
 					:open="topLevelItem.opened"
 					:to="isFolder(topLevelItem) ? { name: ROUTES.FOLDER, params: { folderId: topLevelItem.id.toString() } } : { name: ROUTES.FEED, params: { feedId: topLevelItem.id.toString() } }"
-					:allow-collapse="isFolder(topLevelItem)"
-					:force-menu="true"
+					:allowCollapse="isFolder(topLevelItem)"
+					:forceMenu="true"
 					@update:open="toggleFolderState(topLevelItem)">
 					<NcAppNavigationItem
 						v-for="feed in sortedFolderFeeds(topLevelItem)"
@@ -112,7 +112,7 @@
 						</template>
 
 						<template #actions>
-							<SidebarFeedLinkActions :feed-id="feed.id" @open-move-dialog="openMoveFeed(feed)" />
+							<SidebarFeedLinkActions :feedId="feed.id" @openMoveDialog="openMoveFeed(feed)" />
 						</template>
 					</NcAppNavigationItem>
 					<template #icon>
@@ -133,26 +133,26 @@
 					<template #actions>
 						<SidebarFeedLinkActions
 							v-if="topLevelItem.name === undefined && !topLevelItem.url.includes('news/sharedwithme')"
-							:feed-id="topLevelItem.id"
-							@open-move-dialog="openMoveFeed(topLevelItem)" />
+							:feedId="topLevelItem.id"
+							@openMoveDialog="openMoveFeed(topLevelItem)" />
 						<NcActionButton
 							v-if="topLevelItem.name !== undefined"
 							icon="icon-checkmark"
-							:close-after-click="true"
+							:closeAfterClick="true"
 							@click="markFolderRead(topLevelItem)">
 							{{ t("news", "Mark read") }}
 						</NcActionButton>
 						<NcActionButton
 							v-if="topLevelItem.name !== undefined"
 							icon="icon-rename"
-							:close-after-click="true"
+							:closeAfterClick="true"
 							@click="renameFolder(topLevelItem)">
 							{{ t("news", "Rename") }}
 						</NcActionButton>
 						<NcActionButton
 							v-if="topLevelItem.name !== undefined"
 							icon="icon-delete"
-							:close-after-click="true"
+							:closeAfterClick="true"
 							@click="deleteFolder(topLevelItem)">
 							{{ t("news", "Delete") }}
 						</NcActionButton>

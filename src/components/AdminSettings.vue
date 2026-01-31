@@ -7,7 +7,7 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 	<NcSettingsSection
 		:name="t('news', 'News')"
 		class="news-settings"
-		doc-url="https://nextcloud.github.io/news/admin/">
+		docUrl="https://nextcloud.github.io/news/admin/">
 		<div class="field">
 			<NcNoteCard v-if="lastLogoPurge === 0" type="warning">
 				{{ t('news', 'Logo purge has never been run.') }}
@@ -37,9 +37,9 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 		</div>
 		<div class="field">
 			<NcCheckboxRadioSwitch
-				v-model:model-value="useCronUpdates"
+				v-model:modelValue="useCronUpdates"
 				type="switch"
-				@update:model-value="update('useCronUpdates', useCronUpdates)">
+				@update:modelValue="update('useCronUpdates', useCronUpdates)">
 				{{ t("news", "Use system cron for updates") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -49,10 +49,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcTextField
-				v-model:model-value="autoPurgeCount"
+				v-model:modelValue="autoPurgeCount"
 				:label="t('news', 'Maximum read count per feed')"
-				:label-visible="true"
-				@update:model-value="update('autoPurgeCount', autoPurgeCount)" />
+				:labelVisible="true"
+				@update:modelValue="update('autoPurgeCount', autoPurgeCount)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off.") }}
@@ -60,9 +60,9 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcCheckboxRadioSwitch
-				v-model:model-value="purgeUnread"
+				v-model:modelValue="purgeUnread"
 				type="switch"
-				@update:model-value="update('purgeUnread', purgeUnread)">
+				@update:modelValue="update('purgeUnread', purgeUnread)">
 				{{ t("news", "Delete unread articles automatically") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -72,10 +72,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcTextField
-				v-model:model-value="maxRedirects"
+				v-model:modelValue="maxRedirects"
 				:label="t('news', 'Maximum redirects')"
-				:label-visible="true"
-				@update:model-value="update('maxRedirects', maxRedirects)" />
+				:labelVisible="true"
+				@update:modelValue="update('maxRedirects', maxRedirects)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "How many redirects the feed fetcher should follow.") }}
@@ -83,10 +83,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcTextField
-				v-model:model-value="feedFetcherTimeout"
+				v-model:modelValue="feedFetcherTimeout"
 				:label="t('news', 'Feed fetcher timeout')"
-				:label-visible="true"
-				@update:model-value="update('feedFetcherTimeout', feedFetcherTimeout)" />
+				:labelVisible="true"
+				@update:modelValue="update('feedFetcherTimeout', feedFetcherTimeout)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Maximum number of seconds to wait for an RSS or Atom feed to load; if it takes longer the update will be aborted.") }}
@@ -94,10 +94,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcTextField
-				v-model:model-value="exploreUrl"
+				v-model:modelValue="exploreUrl"
 				:label="t('news', 'Explore Service URL')"
-				:label-visible="true"
-				@update:model-value="update('exploreUrl', exploreUrl)" />
+				:labelVisible="true"
+				@update:modelValue="update('exploreUrl', exploreUrl)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "If provided, the URL of this service will be queried to display the feeds in the explore feed section. To fall back to the built in explore service, leave this input empty.") }}
@@ -105,10 +105,10 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcTextField
-				v-model:model-value="updateInterval"
+				v-model:modelValue="updateInterval"
 				:label="t('news', 'Update interval')"
-				:label-visible="true"
-				@update:model-value="update('updateInterval', updateInterval)" />
+				:labelVisible="true"
+				@update:modelValue="update('updateInterval', updateInterval)" />
 		</div>
 		<p class="settings-hint">
 			{{ t("news", "Interval in seconds in which the feeds will be updated.") }}
@@ -116,9 +116,9 @@ SPDX-Licence-Identifier: AGPL-3.0-or-later
 
 		<div class="field">
 			<NcCheckboxRadioSwitch
-				v-model:model-value="useNextUpdateTime"
+				v-model:modelValue="useNextUpdateTime"
 				type="switch"
-				@update:model-value="update('useNextUpdateTime', useNextUpdateTime)">
+				@update:modelValue="update('useNextUpdateTime', useNextUpdateTime)">
 				{{ t("news", "Use next update time for feed updates") }}
 			</NcCheckboxRadioSwitch>
 		</div>
@@ -144,7 +144,7 @@ import { formatDateRelative } from '../utils/dateUtils.ts'
  * Debounce helper for method
  * TODO: Should we remove this and use library?
  *
- * @param {Function} func - The callback function
+ * @param {(...args: unknown[]) => void} func - The callback function
  * @param {number} wait - Time to wait in milliseconds
  */
 function debounce(func, wait) {

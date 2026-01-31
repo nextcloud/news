@@ -2,10 +2,10 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="unread"
-		:list-name="t('news', 'Unread Articles')"
-		:list-count="items.unreadCount"
-		fetch-key="unread"
-		@load-more="fetchMore()" />
+		:listName="t('news', 'Unread Articles')"
+		:listCount="items.unreadCount"
+		fetchKey="unread"
+		@loadMore="fetchMore()" />
 </template>
 
 <script lang="ts">

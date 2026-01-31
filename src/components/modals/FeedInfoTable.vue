@@ -6,7 +6,7 @@
 	<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
 	<NcModal
 		size="large"
-		close-on-click-outside="true"
+		closeOnClickOutside="true"
 		@close="$emit('close')">
 		<div class="table-modal">
 			<div class="modal-header">
@@ -134,8 +134,8 @@
 						<td>
 							<NcActions>
 								<SidebarFeedLinkActions
-									:feed-id="feed.id"
-									@open-move-dialog="openMoveFeed(feed)" />
+									:feedId="feed.id"
+									@openMoveDialog="openMoveFeed(feed)" />
 							</NcActions>
 						</td>
 						<td class="text">

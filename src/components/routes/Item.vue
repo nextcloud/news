@@ -3,7 +3,7 @@
 		v-if="!loading"
 		:key="'item-' + itemId"
 		:items="item ? [item] : []"
-		fetch-key="item" />
+		fetchKey="item" />
 </template>
 
 <script lang="ts">

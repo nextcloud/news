@@ -21,29 +21,29 @@
 		<div class="feed-item-display-container">
 			<VirtualScroll
 				ref="virtualScroll"
-				:fetch-key="fetchKey"
-				@load-more="fetchMore()">
+				:fetchKey="fetchKey"
+				@loadMore="fetchMore()">
 				<template v-if="items && items.length > 0">
 					<template v-for="(item, index) in items">
 						<FeedItemDisplay
 							v-if="screenReaderMode"
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"
-							:item-count="items.length"
-							:item-index="index + 1"
+							:itemCount="items.length"
+							:itemIndex="index + 1"
 							:item="item"
-							:fetch-key="fetchKey"
+							:fetchKey="fetchKey"
 							:class="{ active: selectedItem && selectedItem.id === item.id }" />
 						<FeedItemRow
 							v-else
 							:key="item.id"
 							:ref="'feedItemRow' + item.id"
-							:item-count="items.length"
-							:item-index="index + 1"
+							:itemCount="items.length"
+							:itemIndex="index + 1"
 							:item="item"
-							:fetch-key="fetchKey"
+							:fetchKey="fetchKey"
 							:class="{ active: selectedItem && selectedItem.id === item.id }"
-							@show-details="showDetails" />
+							@showDetails="showDetails" />
 					</template>
 				</template>
 			</VirtualScroll>
@@ -112,9 +112,9 @@ export default defineComponent({
 	},
 
 	emits: {
-		'load-more': () => true,
-		'mark-read': () => true,
-		'show-details': () => true,
+		loadMore: () => true,
+		markRead: () => true,
+		showDetails: () => true,
 	},
 
 	setup() {
@@ -225,15 +225,15 @@ export default defineComponent({
 		},
 
 		fetchMore() {
-			this.$emit('load-more')
+			this.$emit('loadMore')
 		},
 
 		markRead() {
-			this.$emit('mark-read')
+			this.$emit('markRead')
 		},
 
 		showDetails() {
-			this.$emit('show-details')
+			this.$emit('showDetails')
 		},
 
 		scrollToItem(currentIndex) {

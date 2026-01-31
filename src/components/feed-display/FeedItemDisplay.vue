@@ -5,7 +5,7 @@
 		:style="screenReaderItemHeight"
 		v-bind="screenReaderMode ? { 'aria-setsize': itemCount, 'aria-posinset': itemIndex } : {}"
 		@focusin="selectItemOnFocus">
-		<ShareItem v-if="showShareMenu" :item-id="item.id" @close="closeShareMenu()" />
+		<ShareItem v-if="showShareMenu" :itemId="item.id" @close="closeShareMenu()" />
 		<NcActions
 			v-if="splitModeOff && !screenReaderMode"
 			class="nav-icons"
@@ -162,7 +162,7 @@
 					v-for="category in item.categories"
 					:key="category"
 					:text="category"
-					no-close
+					noClose
 					variant="secondary" />
 			</div>
 		</div>
@@ -246,10 +246,10 @@ export default defineComponent({
 	},
 
 	emits: {
-		'select-item': () => true,
-		'show-details': () => true,
-		'prev-item': () => true,
-		'next-item': () => true,
+		selectItem: () => true,
+		showDetails: () => true,
+		prevItem: () => true,
+		nextItem: () => true,
 	},
 
 	data: () => {
@@ -368,15 +368,15 @@ export default defineComponent({
 		},
 
 		closeDetails() {
-			this.$emit('show-details')
+			this.$emit('showDetails')
 		},
 
 		prevItem() {
-			this.$emit('prev-item')
+			this.$emit('prevItem')
 		},
 
 		nextItem() {
-			this.$emit('next-item')
+			this.$emit('nextItem')
 		},
 	},
 })
