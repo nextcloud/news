@@ -19,20 +19,23 @@ describe('Starred.vue', () => {
 			pubDate: Date.now() / 1000,
 			unread: true,
 			starred: true,
-		}, {
+		},
+		{
 			id: 2,
 			feedId: 1,
 			title: 'feed item 2',
 			pubDate: Date.now() / 1000,
 			unread: true,
 			starred: true,
-		}, {
+		},
+		{
 			id: 3,
 			feedId: 1,
 			title: 'feed item 3',
 			pubDate: Date.now() / 1000,
 			starred: true,
-		}, {
+		},
+		{
 			id: 4,
 			feedId: 1,
 			title: 'feed item 4',

@@ -10,7 +10,7 @@
 				:options="folders"
 				:placeholder="'-- ' + t('news', 'No folder') + ' --'"
 				required
-				:input-label="t('news', 'Please select the new folder')"
+				:inputLabel="t('news', 'Please select the new folder')"
 				label="name"
 				style="width: 100%;" />
 		</template>

@@ -5,7 +5,8 @@ window.store.commit('SET_ERROR', {
 		{
 			url: 'https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron',
 			text: t('news', 'How to set up the operating system cron'),
-		}, {
+		},
+		{
 			url: 'https://github.com/nextcloud/news-updater',
 			text: t('news', 'Install and set up a faster parallel updater that uses the News app\'s update API'),
 		},

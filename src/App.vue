@@ -1,5 +1,5 @@
 <template>
-	<NcContent app-name="news">
+	<NcContent appName="news">
 		<div v-if="app.error" id="warning-box">
 			<div>
 				{{ app.error }}

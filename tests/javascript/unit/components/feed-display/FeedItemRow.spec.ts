@@ -142,14 +142,14 @@ describe('FeedItemRow.vue', () => {
 		})
 	})
 
-	it('should commit selected item, mark as read, and emit show-details when clicked', async () => {
+	it('should commit selected item, mark as read, and emit showDetails when clicked', async () => {
 		const markReadSpy = vi.spyOn(wrapper.vm, 'markRead')
 
 		await wrapper.trigger('click')
 
 		expect(commitStub).toHaveBeenCalledWith(MUTATIONS.SET_SELECTED_ITEM, { id: mockItem.id, key: 'all' })
 		expect(markReadSpy).toHaveBeenCalledWith(mockItem)
-		expect(wrapper.emitted()).toHaveProperty('show-details')
+		expect(wrapper.emitted()).toHaveProperty('showDetails')
 	})
 
 	it('should set showShareMenu to false', () => {

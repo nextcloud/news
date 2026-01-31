@@ -20,17 +20,20 @@ describe('Feed.vue', () => {
 			title: 'feed item',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 2,
 			feedId: 123,
 			title: 'feed item 2',
 			pubDate: Date.now() / 1000,
-		}, {
+		},
+		{
 			id: 3,
 			feedId: 123,
 			title: 'feed item 3',
 			pubDate: Date.now() / 1000,
-		}, {
+		},
+		{
 			id: 4,
 			feedId: 123,
 			title: 'feed item 4',
@@ -178,7 +181,7 @@ describe('Feed.vue', () => {
 
 	it('should dispatch FETCH_FEED_ITEMS action from content template emit', async () => {
 		wrapper.vm.$store.state.items.fetchingItems['feed-123'] = false
-		wrapper.findComponent(ContentTemplate).vm.$emit('load-more')
+		wrapper.findComponent(ContentTemplate).vm.$emit('loadMore')
 		await nextTick()
 		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FETCH_FEED_ITEMS, { feedId: 123 })
 	})
@@ -189,7 +192,7 @@ describe('Feed.vue', () => {
 	})
 
 	it('should dispatch FEED_MARK_READ from content template emit', () => {
-		wrapper.findComponent(ContentTemplate).vm.$emit('mark-read')
+		wrapper.findComponent(ContentTemplate).vm.$emit('markRead')
 		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_MARK_READ, { feed: mockFeed })
 	})
 

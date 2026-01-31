@@ -3,11 +3,11 @@
 		v-if="!loading"
 		:key="'folder-' + folderId"
 		:items="items"
-		:list-name="folder ? folder.name : ''"
-		:list-count="folder ? unreadCount : 0"
-		:fetch-key="'folder-' + folderId"
-		@mark-read="markRead()"
-		@load-more="fetchMore()" />
+		:listName="folder ? folder.name : ''"
+		:listCount="folder ? unreadCount : 0"
+		:fetchKey="'folder-' + folderId"
+		@markRead="markRead()"
+		@loadMore="fetchMore()" />
 </template>
 
 <script lang="ts">

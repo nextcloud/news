@@ -25,7 +25,7 @@ export default defineComponent({
 	},
 
 	emits: {
-		'load-more': () => true,
+		loadMore: () => true,
 	},
 
 	data() {
@@ -152,7 +152,7 @@ export default defineComponent({
 		loadMore() {
 			if (this._lowerPaddingItems === 0) {
 				if (!this.reachedEnd && !this.fetching) {
-					this.$emit('load-more')
+					this.$emit('loadMore')
 				}
 			}
 		},

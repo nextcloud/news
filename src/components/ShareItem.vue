@@ -21,7 +21,7 @@
 							v-else-if="!searching"
 							:key="user.shareName"
 							:size="30"
-							:display-name="user.displayName"
+							:displayName="user.displayName"
 							:primary="selected.map((val) => { return val.shareName }).includes(user.shareName)"
 							:user="user.shareName"
 							@click="clickUser(user)" />

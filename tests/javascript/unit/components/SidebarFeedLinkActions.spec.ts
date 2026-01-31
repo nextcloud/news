@@ -10,9 +10,12 @@ describe('SidebarFeedLinkActions.vue', () => {
 	let wrapper: any
 
 	const feeds = [{
-		id: 1, title: 'first',
+		id: 1,
+		title: 'first',
 	}, {
-		id: 2, title: 'second', folderId: 123,
+		id: 2,
+		title: 'second',
+		folderId: 123,
 	}]
 
 	beforeAll(() => {

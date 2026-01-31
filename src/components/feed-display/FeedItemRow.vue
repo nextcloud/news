@@ -11,7 +11,7 @@
 		@keydown.enter="select()"
 		@keydown.space.prevent="select()"
 		@click="select()">
-		<ShareItem v-if="showShareMenu" :item-id="shareItem" @close="closeShareMenu()" />
+		<ShareItem v-if="showShareMenu" :itemId="shareItem" @close="closeShareMenu()" />
 		<div class="link-container">
 			<a
 				class="external"
@@ -164,7 +164,7 @@ export default defineComponent({
 	},
 
 	emits: {
-		'show-details': () => true,
+		showDetails: () => true,
 	},
 
 	setup: () => {
@@ -205,7 +205,7 @@ export default defineComponent({
 		select(): void {
 			this.$store.commit(MUTATIONS.SET_SELECTED_ITEM, { id: this.item.id, key: this.fetchKey })
 			this.markRead(this.item)
-			this.$emit('show-details')
+			this.$emit('showDetails')
 		},
 
 		getFeed(id: number): Feed {

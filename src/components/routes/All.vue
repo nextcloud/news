@@ -2,9 +2,9 @@
 	<ContentTemplate
 		v-if="!loading"
 		:items="allItems"
-		:list-name="t('news', 'All Articles')"
-		fetch-key="all"
-		@load-more="fetchMore()" />
+		:listName="t('news', 'All Articles')"
+		fetchKey="all"
+		@loadMore="fetchMore()" />
 </template>
 
 <script lang="ts">

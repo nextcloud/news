@@ -18,19 +18,22 @@ describe('Unread.vue', () => {
 			title: 'feed item',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 2,
 			feedId: 1,
 			title: 'feed item 2',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 3,
 			feedId: 1,
 			title: 'feed item 3',
 			pubDate: Date.now() / 1000,
 			unread: true,
-		}, {
+		},
+		{
 			id: 4,
 			feedId: 1,
 			title: 'feed item 4',
