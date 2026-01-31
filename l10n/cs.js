@@ -129,6 +129,7 @@ OC.L10N.register(
     "Articles (JSON)" : "Ćlánky (JSON)",
     "Keyboard shortcuts" : "Klávesové zkratky",
     "Refresh" : "Znovu načíst",
+    "Screenreader mode only" : "Pouze režim čtečky obrazovky",
     "Jump to previous article" : "Přejít na předchozí článek",
     "Jump to next article" : "Přejít na další článek",
     "Open article in new tab" : "Otevřít článek v novém panelu",
