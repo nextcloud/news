@@ -18,6 +18,7 @@ export type AppInfoState = {
 	preventReadOnScroll: boolean
 	showAll: boolean
 	disableRefresh: boolean
+	titleFilterRegex: string
 	lastViewedFeedId: string
 	lastViewedFeedType: string
 	starredOpenState: boolean
@@ -34,6 +35,7 @@ const state: AppInfoState = reactive({
 	preventReadOnScroll: loadState('news', 'preventReadOnScroll', null) === '1',
 	showAll: loadState('news', 'showAll', null) === '1',
 	disableRefresh: loadState('news', 'disableRefresh', null) === '1',
+	titleFilterRegex: loadState('news', 'titleFilterRegex', ''),
 	lastViewedFeedId: loadState('news', 'lastViewedFeedId', '0'),
 	lastViewedFeedType: loadState('news', 'lastViewedFeedType', '6'),
 	starredOpenState: loadState('news', 'starredOpenState', null) === '1',
@@ -70,6 +72,9 @@ const getters = {
 	},
 	disableRefresh(state: AppInfoState) {
 		return state.disableRefresh
+	},
+	titleFilterRegex(state: AppInfoState) {
+    	return state.titleFilterRegex
 	},
 	lastViewedFeedId(state: AppInfoState) {
 		return state.lastViewedFeedId
@@ -148,6 +153,12 @@ export const mutations = {
 		{ value }: { value: boolean },
 	) {
 		state.disableRefresh = value
+	},
+	titleFilterRegex(
+    state: AppInfoState,
+    { value }: { value: string },
+	) {
+    	state.titleFilterRegex = value
 	},
 	starredOpenState(
 		state: AppInfoState,

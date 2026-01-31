@@ -29,6 +29,7 @@ use OCA\News\Utility\AppData;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IAppConfig;
+use OCP\Config\IUserConfig;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
@@ -84,6 +85,7 @@ class FeedServiceV2 extends Service
      * @param HtmlSanitizer   $purifier    HTML Sanitizer
      * @param LoggerInterface $logger      Logger
      * @param IAppConfig      $config      App config
+     * @param IUserConfig     $userConfig  User config
      */
     public function __construct(
         FeedMapperV2 $mapper,
@@ -93,6 +95,7 @@ class FeedServiceV2 extends Service
         HtmlSanitizer $purifier,
         LoggerInterface $logger,
         IAppConfig $config,
+        IUserConfig $userConfig,
         AppData $appData
     ) {
         parent::__construct($mapper, $logger);
@@ -102,6 +105,7 @@ class FeedServiceV2 extends Service
         $this->explorer    = $explorer;
         $this->purifier    = $purifier;
         $this->config      = $config;
+        $this->userConfig  = $userConfig;
         $this->appData     = $appData;
     }
 
@@ -384,7 +388,14 @@ class FeedServiceV2 extends Service
             $feed->setFaviconLink($fetchedFavicon);
         }
 
-        foreach (array_reverse($items) as &$item) {
+	foreach (array_reverse($items) as &$item) {
+            $filterBy = $this->userConfig->getValueString( $feed->getUserId(), 'news', 'titleFilterRegex');
+            if( $item->getTitle() !== null && !empty($filterBy ) && preg_match( $filterBy, $item->getTitle() ) ) {
+                $this->logger->trace( 'Item filtered: {title}', [ 'title' => $item->getTitle() ] );
+                continue;
+            }
+
+
             $item->setFeedId($feed->getId())
                 ->setBody($this->purifier->purify($item->getBody()));
 

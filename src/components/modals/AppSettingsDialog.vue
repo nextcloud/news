@@ -20,8 +20,13 @@
 
 				<NcFormBoxSwitch
 					v-model="disableRefresh"
-					:label="t('news', 'Disable automatic refresh')" />
+					:label="t('news', 'Disable automatic refresh')" />				
 			</NcFormBox>
+			<NcTextField
+				v-model="titleFilterRegex"
+				:label="t('news', 'Drop new articles with title matching regex')"
+				:placeholder="t('news', 'spam|ads')"
+			/>
 		</NcAppSettingsSection>
 
 		<NcAppSettingsSection id="settings-display" :name="t('news', 'Appearance')">
@@ -218,6 +223,7 @@ import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
 import NcRadioGroup from '@nextcloud/vue/components/NcRadioGroup'
 import NcRadioGroupButton from '@nextcloud/vue/components/NcRadioGroupButton'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
 import UploadIcon from 'vue-material-design-icons/Upload.vue'
 import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
@@ -240,6 +246,7 @@ export default defineComponent({
 		NcNoteCard,
 		NcRadioGroup,
 		NcRadioGroupButton,
+		NcTextField,
 		DownloadIcon,
 		UploadIcon,
 	},
@@ -352,6 +359,15 @@ export default defineComponent({
 				this.saveSetting('disableRefresh', newValue)
 			},
 		},
+
+		titleFilterRegex: {
+			get() {
+				return this.$store.getters.titleFilterRegex
+			},
+			set(newValue) {
+				this.saveSetting('titleFilterRegex', newValue)
+			},
+		},		
 
 		uploadOpmlStatusMessage() {
 			return this.$store.getters.lastOpmlImportMessage?.message
