@@ -29,6 +29,7 @@ use OCA\News\Utility\AppData;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IAppConfig;
+use OCP\Config\IUserConfig;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
@@ -84,6 +85,7 @@ class FeedServiceV2 extends Service
      * @param HtmlSanitizer   $purifier    HTML Sanitizer
      * @param LoggerInterface $logger      Logger
      * @param IAppConfig      $config      App config
+     * @param IUserConfig     $userConfig  User config
      */
     public function __construct(
         FeedMapperV2 $mapper,
@@ -93,6 +95,7 @@ class FeedServiceV2 extends Service
         HtmlSanitizer $purifier,
         LoggerInterface $logger,
         IAppConfig $config,
+        IUserConfig $userConfig,
         AppData $appData
     ) {
         parent::__construct($mapper, $logger);
@@ -102,6 +105,7 @@ class FeedServiceV2 extends Service
         $this->explorer    = $explorer;
         $this->purifier    = $purifier;
         $this->config      = $config;
+        $this->userConfig  = $userConfig;
         $this->appData     = $appData;
     }
 
@@ -282,6 +286,25 @@ class FeedServiceV2 extends Service
         return $this->mapper->insert($feed);
     }
 
+    /**
+     * Get regex pattern for filtering article titles
+     *
+     * @param String $userId UserId for configuration access
+     *
+     * @return valid regex pattern or empty string if invalid
+     */
+    private function getTitleFilterRegex(String $userId): String
+    {
+        $pattern = $this->userConfig->getValueString($userId, 'news', 'titleFilterRegex');
+        if (empty($pattern)) {
+            return '';
+        }
+        if (@preg_match($pattern, '') === false) {
+            $this->logger->warning('Pattern in titleFilterRegex is not valid: {pattern}', [ 'pattern' => $pattern ]);
+            return '';
+        }
+        return $pattern;
+    }
 
     /**
      * Update a feed
@@ -384,7 +407,14 @@ class FeedServiceV2 extends Service
             $feed->setFaviconLink($fetchedFavicon);
         }
 
+        $filterBy = $this->getTitleFilterRegex($feed->getUserId());
         foreach (array_reverse($items) as &$item) {
+            if ($item->getTitle() !== null && !empty($filterBy) && preg_match($filterBy, $item->getTitle())) {
+                $this->logger->info('Item filtered: matched by = {filterBy} title = {title}', [ 'title' => $item->getTitle(), 'filterBy' => $filterBy ]);
+                continue;
+            }
+
+
             $item->setFeedId($feed->getId())
                 ->setBody($this->purifier->purify($item->getBody()));
 

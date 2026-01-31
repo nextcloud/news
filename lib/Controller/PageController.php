@@ -81,6 +81,7 @@ class PageController extends Controller
             'oldestFirst',
             'showAll',
             'disableRefresh',
+            'titleFilterRegex',
             'displaymode',
             'splitmode',
             'starredOpenState'
