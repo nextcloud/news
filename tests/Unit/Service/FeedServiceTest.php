@@ -27,6 +27,7 @@ use OCA\News\Utility\Time;
 use OCA\News\Utility\HtmlSanitizer;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\IAppConfig;
+use OCP\IUserConfig;
 
 use OCA\News\Db\Feed;
 use OCA\News\Db\Item;
@@ -129,11 +130,15 @@ class FeedServiceTest extends TestCase
             ->getMockBuilder(IAppConfig::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->userConfig = $this
+            ->getMockBuilder(IUserConfig::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->appData = $this
             ->getMockBuilder(AppData::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->class = new FeedServiceV2(
             $this->mapper,
             $this->fetcher,
@@ -142,6 +147,7 @@ class FeedServiceTest extends TestCase
             $this->purifier,
             $this->logger,
             $this->config,
+            $this->userConfig,
             $this->appData
         );
         $this->uid = 'jack';

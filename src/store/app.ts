@@ -74,7 +74,7 @@ const getters = {
 		return state.disableRefresh
 	},
 	titleFilterRegex(state: AppInfoState) {
-    	return state.titleFilterRegex
+		return state.titleFilterRegex
 	},
 	lastViewedFeedId(state: AppInfoState) {
 		return state.lastViewedFeedId
@@ -155,10 +155,10 @@ export const mutations = {
 		state.disableRefresh = value
 	},
 	titleFilterRegex(
-    state: AppInfoState,
-    { value }: { value: string },
+		state: AppInfoState,
+		{ value }: { value: string },
 	) {
-    	state.titleFilterRegex = value
+		state.titleFilterRegex = value
 	},
 	starredOpenState(
 		state: AppInfoState,

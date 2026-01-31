@@ -20,13 +20,12 @@
 
 				<NcFormBoxSwitch
 					v-model="disableRefresh"
-					:label="t('news', 'Disable automatic refresh')" />				
+					:label="t('news', 'Disable automatic refresh')" />
 			</NcFormBox>
 			<NcTextField
 				v-model="titleFilterRegex"
 				:label="t('news', 'Drop new articles with title matching regex')"
-				:placeholder="t('news', 'spam|ads')"
-			/>
+				:placeholder="t('news', '/spam|ads/')" />
 		</NcAppSettingsSection>
 
 		<NcAppSettingsSection id="settings-display" :name="t('news', 'Appearance')">
@@ -364,10 +363,11 @@ export default defineComponent({
 			get() {
 				return this.$store.getters.titleFilterRegex
 			},
+
 			set(newValue) {
 				this.saveSetting('titleFilterRegex', newValue)
 			},
-		},		
+		},
 
 		uploadOpmlStatusMessage() {
 			return this.$store.getters.lastOpmlImportMessage?.message

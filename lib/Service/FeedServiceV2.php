@@ -286,6 +286,25 @@ class FeedServiceV2 extends Service
         return $this->mapper->insert($feed);
     }
 
+    /**
+     * Get regex pattern for filtering article titles
+     *
+     * @param String $userId UserId for configuration access
+     *
+     * @return valid regex pattern or empty string if invalid
+     */
+    private function getTitleFilterRegex(String $userId): String
+    {
+        $pattern = $this->userConfig->getValueString($userId, 'news', 'titleFilterRegex');
+        if (empty($pattern)) {
+            return '';
+        }
+        if (@preg_match($pattern, '') === false) {
+            $this->logger->warning('Pattern in titleFilterRegex is not valid: {pattern}', [ 'pattern' => $pattern ]);
+            return '';
+        }
+        return $pattern;
+    }
 
     /**
      * Update a feed
@@ -388,10 +407,10 @@ class FeedServiceV2 extends Service
             $feed->setFaviconLink($fetchedFavicon);
         }
 
-	foreach (array_reverse($items) as &$item) {
-            $filterBy = $this->userConfig->getValueString( $feed->getUserId(), 'news', 'titleFilterRegex');
-            if( $item->getTitle() !== null && !empty($filterBy ) && preg_match( $filterBy, $item->getTitle() ) ) {
-                $this->logger->trace( 'Item filtered: {title}', [ 'title' => $item->getTitle() ] );
+        $filterBy = $this->getTitleFilterRegex($feed->getUserId());
+        foreach (array_reverse($items) as &$item) {
+            if ($item->getTitle() !== null && !empty($filterBy) && preg_match($filterBy, $item->getTitle())) {
+                $this->logger->info('Item filtered: matched by = {filterBy} title = {title}', [ 'title' => $item->getTitle(), 'filterBy' => $filterBy ]);
                 continue;
             }
 
