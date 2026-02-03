@@ -19,6 +19,7 @@ use OCP\IUserManager;
 use \OCP\IL10N;
 use OCP\Notification\IManager as INotificationManager;
 
+use OCA\News\AppInfo\Application;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCP\AppFramework\Db\DoesNotExistException;
 
@@ -172,7 +173,7 @@ class ShareService
             }
 
             $notification
-                ->setApp('news')
+                ->setApp(Application::NAME)
                 ->setUser($recipientId)
                 ->setDateTime(new \DateTime())
                 ->setObject('item', (string) $item->getId())

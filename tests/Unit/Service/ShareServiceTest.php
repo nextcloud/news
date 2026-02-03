@@ -199,7 +199,7 @@ class ShareServiceTest extends TestCase
 
         $this->notification->expects($this->once())
             ->method('setApp')
-            ->with('news')
+            ->with(\OCA\News\AppInfo\Application::NAME)
             ->will($this->returnSelf());
         $this->notification->expects($this->once())
             ->method('setUser')
@@ -296,7 +296,7 @@ class ShareServiceTest extends TestCase
 
         $this->notification->expects($this->once())
             ->method('setApp')
-            ->with('news')
+            ->with(\OCA\News\AppInfo\Application::NAME)
             ->will($this->returnSelf());
         $this->notification->expects($this->once())
             ->method('setUser')

@@ -14,6 +14,7 @@ use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
+use OCP\Notification\UnknownNotificationException;
 
 class Notifier implements INotifier
 {
@@ -44,7 +45,7 @@ class Notifier implements INotifier
     public function prepare(INotification $notification, string $languageCode): INotification
     {
         if ($notification->getApp() !== Application::NAME) {
-            throw new \InvalidArgumentException('Unknown app');
+            throw new UnknownNotificationException();
         }
 
         $l = $this->l10nFactory->get(Application::NAME, $languageCode);
@@ -54,7 +55,7 @@ class Notifier implements INotifier
                 return $this->prepareSharedArticle($notification, $l);
 
             default:
-                throw new \InvalidArgumentException('Unknown subject');
+                throw new UnknownNotificationException();
         }
     }
 
