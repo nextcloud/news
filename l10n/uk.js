@@ -29,7 +29,7 @@ OC.L10N.register(
     "Successfully updated news configuration" : "Конфігурацію новин успішно оновлено",
     "Unable to update news config" : "Не вдається оновити конфігурацію новин",
     "No job execution data available. The cron job may not be running properly." : "Дані про виконання завдання відсутні. Можливо, завдання cron не виконується належним чином.",
-    "Last job execution ran {relativeTime}. Something is wrong." : "Останнє завдання виконувалося {відносний час}. Щось не так.",
+    "Last job execution ran {relativeTime}. Something is wrong." : "Останнє завдання виконувалося {relativeTime}. Щось пішло не так.",
     "Last job ran {relativeTime}." : "Останнє завдання виконано {relativeTime}.",
     "Maximum read count per feed" : "Максимальна кількість статей для стрічки",
     "Maximum redirects" : "Максимум перенаправлень",
