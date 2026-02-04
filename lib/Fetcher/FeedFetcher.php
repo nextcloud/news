@@ -169,7 +169,11 @@ class FeedFetcher implements IFeedFetcher
             $lastModified = null;
         }
         $url = (string) $url2;
-        $resource = $this->reader->read($url, null, $lastModified);
+        try {
+            $resource = $this->reader->read($url, null, $lastModified);
+        } catch (\TypeError $e) {
+            throw new ReadErrorException($e->getMessage(), $e->getCode(), $e);
+        }
 
         $location     = $resource->getUrl();
         $parsedFeed   = $resource->getFeed();

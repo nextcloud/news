@@ -22,6 +22,7 @@ use OCA\News\Vendor\FeedIo\Feed\Node\Category;
 use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
 use OCA\News\Vendor\FeedIo\FeedInterface;
 use OCA\News\Vendor\FeedIo\FeedIo;
+use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use OCA\News\Vendor\FeedIo\Reader\Result;
 use OC\L10N\L10N;
 use \OCA\News\Db\Feed;
@@ -349,6 +350,17 @@ class FeedFetcherTest extends TestCase
         $result = $this->fetcher->fetch($this->url, false, null, null, null);
 
         $this->assertEquals([$feed, [$item]], $result);
+    }
+
+    public function testFetchWrapsTypeError(): void
+    {
+        $this->reader->expects($this->once())
+            ->method('read')
+            ->with($this->url)
+            ->will($this->throwException(new \TypeError('Invalid JSON')));
+
+        $this->expectException(ReadErrorException::class);
+        $this->fetcher->fetch($this->url, false, null, null, null);
     }
 
     /**
