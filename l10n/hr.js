@@ -21,6 +21,7 @@ OC.L10N.register(
     "Credentials" : "Vjerodajnice",
     "Auto discover Feed" : "Automatsko otkrivanje sažetaka događaja",
     "Subscribe" : "Preplata",
+    "Last job ran {relativeTime}." : "Posljednji zadatak je izvršen {relativeTime}.",
     "Maximum read count per feed" : "Maksimalni broj čitanja po sažetku",
     "Maximum redirects" : "Maksimalni broj preusmjeravanja",
     "Feed fetcher timeout" : "Vremensko ograničenje hvatača sažetaka",
