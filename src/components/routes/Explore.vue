@@ -147,7 +147,7 @@ export default ExploreComponent
 }
 
 #explore .grid-item .explore-title a {
-	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 #explore .grid-item .explore-title a:hover,
