@@ -22,7 +22,7 @@
     "Folder exists already!" : "Tá fillteán ann cheana féin!",
     "HTTP Basic Auth credentials must be stored unencrypted! Everyone with access to the server or database will be able to access them!" : "Ní mór dintiúir HTTP Basic Auth a stóráil gan chriptiú! Beidh gach duine a bhfuil rochtain acu ar an bhfreastalaí nó ar an mbunachar sonraí in ann rochtain a fháil orthu!",
     "Credentials" : "Dintiúir",
-    "Auto discover Feed" : "Auto discover Feed",
+    "Auto discover Feed" : "Fotha aimsithe go huathoibríoch",
     "Subscribe" : "Liostáil",
     "Successfully updated news configuration" : "Nuashonraíodh an chumraíocht nuachta go rathúil",
     "Unable to update news config" : "Ní féidir an chumraíocht nuachta a nuashonrú",
