@@ -25,3 +25,16 @@ export enum ITEM_HEIGHT {
 	DEFAULT = '111',
 	COMPACT = '44',
 }
+
+export enum SHOW_MEDIA {
+	ALWAYS = 0,
+	ASK = 1,
+	NEVER = 2,
+}
+
+export enum MEDIA_TYPE {
+	THUMBNAILS = 0,
+	IMAGES = 1,
+	IMAGES_BODY = 2,
+	IFRAMES_BODY = 3,
+}

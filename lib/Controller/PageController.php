@@ -95,6 +95,13 @@ class PageController extends Controller
             ));
         }
 
+        $this->initialState->provideInitialState('mediaOptions', $this->userConfig->getValueString(
+            $this->getUserId(),
+            $this->appName,
+            'mediaOptions',
+            '{"0":0,"1":0,"2":0,"3":0}'
+        ));
+
         $this->initialState->provideInitialState('lastViewedFeedId', (string) $this->userConfig->getValueInt(
             $this->getUserId(),
             $this->appName,

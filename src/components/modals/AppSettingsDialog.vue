@@ -24,6 +24,45 @@
 			</NcFormBox>
 		</NcAppSettingsSection>
 
+		<NcAppSettingsSection id="media-display" :name="t('news', 'Media')">
+			<NcRadioGroup
+				v-model="mediaThumbnails"
+				:label="t('news', 'Show enclosure thumbnails')">
+				<NcRadioGroupButton
+					v-for="externalOption in mediaModeOptions"
+					:key="externalOption.id"
+					:label="externalOption.name"
+					:value="externalOption.id" />
+			</NcRadioGroup>
+			<NcRadioGroup
+				v-model="mediaImages"
+				:label="t('news', 'Show enclosure images')">
+				<NcRadioGroupButton
+					v-for="externalOption in mediaModeOptions"
+					:key="externalOption.id"
+					:label="externalOption.name"
+					:value="externalOption.id" />
+			</NcRadioGroup>
+			<NcRadioGroup
+				v-model="mediaImagesBody"
+				:label="t('news', 'Show images in the article text')">
+				<NcRadioGroupButton
+					v-for="externalOption in mediaModeOptions"
+					:key="externalOption.id"
+					:label="externalOption.name"
+					:value="externalOption.id" />
+			</NcRadioGroup>
+			<NcRadioGroup
+				v-model="mediaIframesBody"
+				:label="t('news', 'Show iframes in the article text')">
+				<NcRadioGroupButton
+					v-for="externalOption in mediaModeOptions"
+					:key="externalOption.id"
+					:label="externalOption.name"
+					:value="externalOption.id" />
+			</NcRadioGroup>
+		</NcAppSettingsSection>
+
 		<NcAppSettingsSection id="settings-display" :name="t('news', 'Appearance')">
 			<NcRadioGroup
 				v-model="displaymode"
@@ -220,7 +259,7 @@ import NcRadioGroup from '@nextcloud/vue/components/NcRadioGroup'
 import NcRadioGroupButton from '@nextcloud/vue/components/NcRadioGroupButton'
 import DownloadIcon from 'vue-material-design-icons/Download.vue'
 import UploadIcon from 'vue-material-design-icons/Upload.vue'
-import { DISPLAY_MODE, SPLIT_MODE } from '../../enums/index.ts'
+import { DISPLAY_MODE, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
 export default defineComponent({
@@ -252,6 +291,7 @@ export default defineComponent({
 		return {
 			DISPLAY_MODE,
 			showSettings: false,
+			mediaOptions: undefined,
 			displayModeOptions: [
 				{
 					id: DISPLAY_MODE.DEFAULT,
@@ -279,6 +319,21 @@ export default defineComponent({
 				{
 					id: SPLIT_MODE.OFF,
 					name: t('news', 'Off'),
+				},
+			],
+
+			mediaModeOptions: [
+				{
+					id: SHOW_MEDIA.ALWAYS,
+					name: t('news', 'Always'),
+				},
+				{
+					id: SHOW_MEDIA.ASK,
+					name: t('news', 'Ask'),
+				},
+				{
+					id: SHOW_MEDIA.NEVER,
+					name: t('news', 'Never'),
 				},
 			],
 		}
@@ -353,6 +408,50 @@ export default defineComponent({
 			},
 		},
 
+		mediaThumbnails: {
+			get() {
+				return this.mediaOptions[MEDIA_TYPE.THUMBNAILS]
+			},
+
+			set(newValue) {
+				this.mediaOptions[MEDIA_TYPE.THUMBNAILS] = newValue
+				this.saveSetting('mediaOptions', JSON.stringify(this.mediaOptions))
+			},
+		},
+
+		mediaImages: {
+			get() {
+				return this.mediaOptions[MEDIA_TYPE.IMAGES]
+			},
+
+			set(newValue) {
+				this.mediaOptions[MEDIA_TYPE.IMAGES] = newValue
+				this.saveSetting('mediaOptions', JSON.stringify(this.mediaOptions))
+			},
+		},
+
+		mediaImagesBody: {
+			get() {
+				return this.mediaOptions[MEDIA_TYPE.IMAGES_BODY]
+			},
+
+			set(newValue) {
+				this.mediaOptions[MEDIA_TYPE.IMAGES_BODY] = newValue
+				this.saveSetting('mediaOptions', JSON.stringify(this.mediaOptions))
+			},
+		},
+
+		mediaIframesBody: {
+			get() {
+				return this.mediaOptions[MEDIA_TYPE.IFRAMES_BODY]
+			},
+
+			set(newValue) {
+				this.mediaOptions[MEDIA_TYPE.IFRAMES_BODY] = newValue
+				this.saveSetting('mediaOptions', JSON.stringify(this.mediaOptions))
+			},
+		},
+
 		uploadOpmlStatusMessage() {
 			return this.$store.getters.lastOpmlImportMessage?.message
 		},
@@ -372,6 +471,7 @@ export default defineComponent({
 
 	mounted() {
 		this.showSettings = true
+		this.mediaOptions = this.$store.getters.mediaOptions
 	},
 
 	beforeUnmount() {

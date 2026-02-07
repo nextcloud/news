@@ -2,15 +2,22 @@ import type { AppInfoState } from '../../../../src/store/app.ts'
 
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { createStore } from 'vuex'
-import { DISPLAY_MODE, SPLIT_MODE } from '../../../../src/enums/index.ts'
+import { DISPLAY_MODE, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../../../../src/enums/index.ts'
 import appInfo from '../../../../src/store/app.ts'
-import { mutations } from '../../../../src/store/app.ts'
+import { defaultMediaOptions, mutations, parseMediaOptions } from '../../../../src/store/app.ts'
 import { APPLICATION_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
 vi.mock('@nextcloud/router')
 
 describe('app.ts', () => {
 	'use strict'
+
+	const testMediaOptions = {
+		[MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.ALWAYS,
+		[MEDIA_TYPE.IMAGES]: SHOW_MEDIA.ASK,
+		[MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.ASK,
+		[MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.NEVER,
+	}
 
 	describe('getters', () => {
 		let store: ReturnType<typeof createStore>
@@ -96,6 +103,11 @@ describe('app.ts', () => {
 		it('should return starredOpenState state', () => {
 			store.state.appInfo.starredOpenState = true
 			expect(store.getters.starredOpenState).toBe(true)
+		})
+
+		it('should return mediaOptions state', () => {
+			store.state.appInfo.mediaOptions = testMediaOptions
+			expect(store.getters.mediaOptions).toStrictEqual(testMediaOptions)
 		})
 	})
 
@@ -189,6 +201,53 @@ describe('app.ts', () => {
 
 			mutations.starredOpenState(state, { value: true })
 			expect(state.starredOpenState).toEqual(true)
+		})
+
+		it('mediaOptions should update the value in the state', () => {
+			const state = { mediaOptions: undefined } as AppInfoState
+
+			mutations.mediaOptions(state, { value: JSON.stringify(testMediaOptions) })
+			expect(state.mediaOptions).toEqual(testMediaOptions)
+		})
+
+		it('mediaOptions should reset to default setting when committing invalid JSON', () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			const state = { mediaOptions: undefined } as AppInfoState
+
+			mutations.mediaOptions(state, { value: '{invalid json}' })
+			expect(state.mediaOptions).toEqual(defaultMediaOptions)
+		})
+	})
+
+	describe('parseMediaOptions', () => {
+		it('should return valid JSON with merged values from stored setting', () => {
+			const mediaOptionsString = JSON.stringify({
+				[MEDIA_TYPE.IMAGES]: SHOW_MEDIA.ASK,
+				[MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.ASK,
+			})
+
+			const result = parseMediaOptions(mediaOptionsString)
+			expect(result).toEqual({
+				[MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.ALWAYS,
+				[MEDIA_TYPE.IMAGES]: SHOW_MEDIA.ASK,
+				[MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.ASK,
+				[MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.ALWAYS,
+			})
+		})
+
+		it('should return defaultMediaOptions when the stored setting is a non-object JSON', () => {
+			const mediaOptionsString = '["array"]'
+
+			const result = parseMediaOptions(mediaOptionsString)
+			expect(result).toEqual(defaultMediaOptions)
+		})
+
+		it('should return defaultMediaOptions when the stored setting is invalid JSON', () => {
+			vi.spyOn(console, 'error').mockImplementation(() => {})
+			const mediaOptionsString = '{invalid json}'
+
+			const result = parseMediaOptions(mediaOptionsString)
+			expect(result).toEqual(defaultMediaOptions)
 		})
 	})
 })

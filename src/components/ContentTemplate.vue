@@ -31,6 +31,7 @@
 			<div ref="contentElement" class="feed-item-content-wrapper">
 				<FeedItemDisplay
 					v-if="selectedFeedItem"
+					:key="currentIndex"
 					:item="selectedFeedItem"
 					:itemCount="items.length"
 					:itemIndex="currentIndex + 1"
