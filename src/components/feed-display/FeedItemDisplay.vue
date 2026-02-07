@@ -126,13 +126,14 @@
 					{{ t('news', 'Download audio') }}
 				</a>
 			</div>
+
 			<div v-if="getMediaType(item.enclosureMime) == 'video'" class="enclosure video">
 				<video
 					controls
 					preload="none"
 					:src="item.enclosureLink"
 					:type="item.enclosureMime"
-					:style="{ 'background-image': 'url(' + item.mediaThumbnail + ')' }"
+					:poster="enclosureVideoThumbnail"
 					@play="stopAudio()" />
 				<div class="download">
 					<a
@@ -146,15 +147,42 @@
 				</div>
 			</div>
 
-			<div v-if="item.mediaThumbnail && getMediaType(item.enclosureMime) !== 'video'" class="enclosure thumbnail">
-				<a v-if="item.enclosureLink" :href="item.enclosureLink"><img :src="item.mediaThumbnail" alt=""></a>
-				<img v-else :src="item.mediaThumbnail" alt="">
+			<div v-if="enclosureMediaImage && getMediaType(item.enclosureMime) == 'image' && !feed.fullTextEnabled" class="enclosure image">
+				<div v-if="!showEnclosureImage" class="consent-banner">
+					<button class="consent-button" @click="allowImage()">
+						<span class="consent-title">{{ t('news', 'Show external media') + ' (image)' }}</span>
+						<span class="consent-src" :title="enclosureMediaImage">{{ t('news', 'from') + ' ' + getDomainName(enclosureMediaImage) }}</span>
+					</button>
+				</div>
+				<div v-else>
+					<img
+						:src="enclosureMediaImage"
+						width="100%"
+						height="auto">
+				</div>
+			</div>
+
+			<div v-else-if="enclosureMediaThumbnail && getMediaType(item.enclosureMime) !== 'video'" class="enclosure thumbnail">
+				<div v-if="!showEnclosureThumbnail" class="consent-banner">
+					<button class="consent-button" @click="allowThumbnail()">
+						<span class="consent-title">{{ t('news', 'Show external media') + ' (thumbnail)' }}</span>
+						<span class="consent-src" :title="item.enclosureLink">{{ t('news', 'from') + ' ' + getDomainName(enclosureMediaThumbnail) }}</span>
+					</button>
+				</div>
+				<div v-else>
+					<a v-if="item.enclosureLink" :href="item.enclosureLink"><img :src="enclosureMediaThumbnail" alt=""></a>
+					<img v-else :src="enclosureMediaThumbnail" alt="">
+				</div>
 			</div>
 
 			<!-- eslint-disable vue/no-v-html -->
 			<div v-if="item.mediaDescription" class="enclosure description" v-html="item.mediaDescription" />
 
-			<div class="body" :dir="item.rtl && 'rtl'" v-html="item.body" />
+			<div
+				class="body"
+				:dir="item.rtl && 'rtl'"
+				@click="onConsentClick"
+				v-html="sanitizedBody" />
 			<!--eslint-enable-->
 
 			<div v-if="item.categories?.length > 0" class="feed-item-categories">
@@ -188,7 +216,7 @@ import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
-import { DISPLAY_MODE, ITEM_HEIGHT, SPLIT_MODE } from '../../enums/index.ts'
+import { DISPLAY_MODE, ITEM_HEIGHT, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { API_ROUTES } from '../../types/ApiRoutes.ts'
 import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
@@ -257,6 +285,8 @@ export default defineComponent({
 			isMobile: useIsMobile(),
 			keepUnread: false,
 			showShareMenu: false,
+			allowEnclosureImage: false,
+			allowEnclosureThumbnail: false,
 		}
 	},
 
@@ -288,6 +318,80 @@ export default defineComponent({
 		screenReaderItemHeight() {
 			return this.screenReaderMode ? { height: ITEM_HEIGHT.DEFAULT + 'px' } : undefined
 		},
+
+		enclosureVideoThumbnail() {
+			return this.mediaOptions[MEDIA_TYPE.THUMBNAILS] === SHOW_MEDIA.ALWAYS ? this.item.mediaThumbnail : null
+		},
+
+		showEnclosureThumbnail() {
+			return this.mediaOptions[MEDIA_TYPE.THUMBNAILS] === SHOW_MEDIA.ALWAYS || this.allowEnclosureThumbnail
+		},
+
+		enclosureMediaThumbnail() {
+			return this.mediaOptions[MEDIA_TYPE.THUMBNAILS] !== SHOW_MEDIA.NEVER && this.item.mediaThumbnail
+		},
+
+		showEnclosureImage() {
+			return this.mediaOptions[MEDIA_TYPE.IMAGES] === SHOW_MEDIA.ALWAYS || this.allowEnclosureImage
+		},
+
+		enclosureMediaImage() {
+			return this.mediaOptions[MEDIA_TYPE.IMAGES] !== SHOW_MEDIA.NEVER && this.item.enclosureLink
+		},
+
+		mediaOptions() {
+			return this.$store.getters.mediaOptions
+		},
+
+		sanitizedBody() {
+			if (!this.item.body) {
+				return
+			}
+
+			const parser = new DOMParser()
+			const doc = parser.parseFromString(this.item.body, 'text/html')
+
+			doc.querySelectorAll('video').forEach((video) => {
+				video.setAttribute('preload', 'none')
+				if (this.mediaOptions[MEDIA_TYPE.THUMBNAILS] !== SHOW_MEDIA.ALWAYS) {
+					video.removeAttribute('poster')
+				}
+			})
+
+			doc.querySelectorAll('audio').forEach((audio) => {
+				audio.setAttribute('preload', 'none')
+			})
+
+			if (this.mediaOptions[MEDIA_TYPE.IMAGES_BODY] !== SHOW_MEDIA.ALWAYS) {
+				doc.querySelectorAll('picture').forEach((picture) => {
+					if (this.mediaOptions[MEDIA_TYPE.IMAGES_BODY] === SHOW_MEDIA.NEVER) {
+						picture.remove()
+						return
+					}
+					picture.hidden = true
+					const img = picture.querySelector('img')
+					const source = picture.querySelector('source')
+					const title = img?.getAttribute('alt') ?? img?.getAttribute('title')
+					const url = img?.src ?? source?.srcset ?? 'unknown'
+
+					this.modifyNode(picture, 'img')
+					this.modifyNode(picture, 'source')
+
+					this.createConsentButton(picture, url, title)
+				})
+			}
+
+			if (this.mediaOptions[MEDIA_TYPE.IMAGES_BODY] !== SHOW_MEDIA.ALWAYS) {
+				this.modifyNode(doc, 'img', this.mediaOptions[MEDIA_TYPE.IMAGES_BODY])
+			}
+
+			if (this.mediaOptions[MEDIA_TYPE.IFRAMES_BODY] !== SHOW_MEDIA.ALWAYS) {
+				this.modifyNode(doc, 'iframe', this.mediaOptions[MEDIA_TYPE.IFRAMES_BODY])
+			}
+
+			return doc.body.innerHTML
+		},
+
 	},
 
 	watch: {
@@ -346,11 +450,13 @@ export default defineComponent({
 			this.showShareMenu = false
 		},
 
-		getMediaType(mime: string): 'audio' | 'video' | false {
+		getMediaType(mime: string): 'audio' | 'video' | 'image' | false {
 			if (mime && mime.indexOf('audio') === 0) {
 				return 'audio'
 			} else if (mime && mime.indexOf('video') === 0) {
 				return 'video'
+			} else if (mime && mime.indexOf('image') === 0) {
+				return 'image'
 			}
 			return false
 		},
@@ -378,6 +484,128 @@ export default defineComponent({
 		nextItem() {
 			this.$emit('nextItem')
 		},
+
+		allowThumbnail() {
+			this.allowEnclosureThumbnail = true
+		},
+
+		allowImage() {
+			this.allowEnclosureImage = true
+		},
+
+		getDomainName(url) {
+			try {
+				return new URL(url).hostname
+			} catch {
+				return url
+			}
+		},
+
+		modifyNode(doc, element, mode?) {
+			doc.querySelectorAll(element).forEach((element) => {
+				if (mode === SHOW_MEDIA.NEVER) {
+					element.remove()
+					return
+				}
+				const srcset = element.getAttribute('srcset')
+				if (srcset) {
+					element.dataset.srcset = srcset
+					element.removeAttribute('srcset')
+				}
+				const src = element.getAttribute('src')
+				if (src) {
+					element.dataset.src = src
+					element.removeAttribute('src')
+				}
+				element.hidden = true
+				const url = src ?? srcset ?? 'unknown'
+				const title = element.getAttribute('alt') ?? element.getAttribute('title')
+
+				const parentNode = element.closest('picture')
+				if (!parentNode) {
+					this.createConsentButton(element, url, title)
+				}
+			})
+		},
+
+		onConsentClick(event) {
+			const banner = event.target.closest('.consent-banner')
+			if (!banner) {
+				return
+			}
+
+			event.preventDefault()
+			event.stopPropagation()
+
+			const picture = banner.querySelector('picture')
+			if (picture) {
+				picture.hidden = false
+				picture.querySelectorAll('source').forEach((source) => {
+					if (source.dataset.srcset) {
+						source.srcset = source.dataset.srcset
+					}
+				})
+			}
+
+			const img = banner.querySelector('img')
+			if (img?.dataset.src) {
+				img.src = img.dataset.src
+				img.loading = 'lazy'
+				img.decoding = 'async'
+				img.hidden = false
+			}
+			if (img?.dataset.srcset) {
+				img.srcset = img.dataset.srcset
+			}
+
+			const iframe = banner.querySelector('iframe')
+			if (iframe?.dataset.src) {
+				iframe.src = iframe.dataset.src
+				iframe.hidden = false
+			}
+
+			const button = banner.querySelector('button')
+			if (button) {
+				button.remove()
+			}
+		},
+
+		createConsentButton(element, src, description?) {
+			const button = document.createElement('button')
+			button.type = 'button'
+			button.className = 'consent-button'
+
+			const titleElement = document.createElement('span')
+			titleElement.className = 'consent-title'
+			titleElement.textContent = t('news', 'Show external media') + ' (' + element.localName + ')'
+			button.appendChild(titleElement)
+
+			const domain = this.getDomainName(src)
+			const srcElement = document.createElement('span')
+			srcElement.className = 'consent-src'
+			srcElement.textContent = t('news', 'from') + ' ' + domain
+			srcElement.title = src
+			srcElement.ariaLabel = t('news', 'External media loaded from') + ' ' + domain
+			button.appendChild(srcElement)
+
+			if (description) {
+				const descElement = document.createElement('span')
+				descElement.className = 'consent-desc'
+				descElement.textContent = description
+				button.appendChild(descElement)
+			}
+
+			const banner = document.createElement('div')
+			banner.className = 'consent-banner'
+			banner.appendChild(button)
+			element.parentNode.insertBefore(banner, element)
+			banner.appendChild(element)
+			const parentLink = element.closest('a')
+			if (parentLink) {
+				parentLink.style.textDecoration = 'none'
+			}
+		},
+
 	},
 })
 
@@ -541,6 +769,34 @@ export default defineComponent({
 		flex-wrap: wrap;
 		gap: var(--default-grid-baseline);
 		margin-top: var(--default-grid-baseline);
+	}
+
+	.consent-button {
+		align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		text-align: start;
+		width: 100% !important;
+	}
+
+	.consent-title {
+		font-size: 1rem;
+		font-weight: 700;
+		white-space: nowrap;
+	}
+
+	.consent-src,
+	.consent-desc {
+		color: var(--color-text-lighter);
+		font-size: 0.85rem;
+	}
+
+	.consent-desc {
+		border-top: 1px solid var(--color-border-dark);
+		padding-top: 6px;
+		margin-top: 4px;
+		width: 100%;
 	}
 
 </style>

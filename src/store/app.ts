@@ -1,10 +1,17 @@
 import { loadState } from '@nextcloud/initial-state'
 import { reactive } from 'vue'
-import { DISPLAY_MODE, SPLIT_MODE } from '../enums/index.ts'
+import { DISPLAY_MODE, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../enums/index.ts'
 import { APPLICATION_MUTATION_TYPES } from '../types/MutationTypes.ts'
 
 export const APPLICATION_ACTION_TYPES = {
 	SET_ERROR_MESSAGE: 'SET_ERROR_MESSAGE',
+}
+
+interface MediaOptions {
+	[MEDIA_TYPE.THUMBNAILS]: number
+	[MEDIA_TYPE.IMAGES]: number
+	[MEDIA_TYPE.IMAGES_BODY]: number
+	[MEDIA_TYPE.IFRAMES_BODY]: number
 }
 
 export type AppInfoState = {
@@ -12,6 +19,7 @@ export type AppInfoState = {
 	loading: boolean
 	lastOpmlImportMessage: { type: string, message: string } | undefined
 	lastArticlesImportMessage: { type: string, message: string } | undefined
+	mediaOptions: MediaOptions
 	displaymode: string
 	splitmode: string
 	oldestFirst: boolean
@@ -23,9 +31,39 @@ export type AppInfoState = {
 	starredOpenState: boolean
 }
 
+export const defaultMediaOptions: MediaOptions = {
+	[MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.ALWAYS,
+	[MEDIA_TYPE.IMAGES]: SHOW_MEDIA.ALWAYS,
+	[MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.ALWAYS,
+	[MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.ALWAYS,
+}
+
+/**
+ *
+ * @param value mediaOptions as string
+ */
+export function parseMediaOptions(value: string) {
+	try {
+		const parsed = JSON.parse(value)
+		if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+			return {
+				[MEDIA_TYPE.THUMBNAILS]: parsed[MEDIA_TYPE.THUMBNAILS] ?? SHOW_MEDIA.ALWAYS,
+				[MEDIA_TYPE.IMAGES]: parsed[MEDIA_TYPE.IMAGES] ?? SHOW_MEDIA.ALWAYS,
+				[MEDIA_TYPE.IMAGES_BODY]: parsed[MEDIA_TYPE.IMAGES_BODY] ?? SHOW_MEDIA.ALWAYS,
+				[MEDIA_TYPE.IFRAMES_BODY]: parsed[MEDIA_TYPE.IFRAMES_BODY] ?? SHOW_MEDIA.ALWAYS,
+			}
+		}
+		return defaultMediaOptions
+	} catch (error) {
+		console.error('Failed to parse json settings string:', error)
+		return defaultMediaOptions
+	}
+}
+
 const state: AppInfoState = reactive({
 	error: undefined,
 	loading: true,
+	mediaOptions: parseMediaOptions(loadState('news', 'mediaOptions', '{}')),
 	lastOpmlImportMessage: undefined,
 	lastArticlesImportMessage: undefined,
 	displaymode: loadState('news', 'displaymode', DISPLAY_MODE.DEFAULT),
@@ -58,6 +96,9 @@ const getters = {
 	splitmode(state: AppInfoState) {
 		// ignore split mode when screenreader mode is set
 		return state.displaymode === '2' ? '2' : state.splitmode
+	},
+	mediaOptions(state: AppInfoState) {
+		return state.mediaOptions
 	},
 	oldestFirst(state: AppInfoState) {
 		return state.oldestFirst
@@ -124,6 +165,17 @@ export const mutations = {
 		{ value }: { value: string },
 	) {
 		state.splitmode = value
+	},
+	mediaOptions(
+		state: AppInfoState,
+		{ value }: { value: string },
+	) {
+		try {
+			state.mediaOptions = JSON.parse(value)
+		} catch (error) {
+			console.error('Failed to set media settings using defaults:', error)
+			state.mediaOptions = defaultMediaOptions
+		}
 	},
 	oldestFirst(
 		state: AppInfoState,

@@ -4,7 +4,7 @@ import { generateOcsUrl } from '@nextcloud/router'
 import { mount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AppSettingsDialog from '../../../../../src/components/modals/AppSettingsDialog.vue'
-import { DISPLAY_MODE, SPLIT_MODE } from '../../../../../src/enums/index.ts'
+import { DISPLAY_MODE, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../../../../../src/enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
 
 vi.mock('@nextcloud/dialogs')
@@ -13,6 +13,13 @@ describe('AppSettingsDialog.vue', () => {
 	'use strict'
 
 	let wrapper: any
+
+	const mediaOptions = {
+		[MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.NEVER,
+		[MEDIA_TYPE.IMAGES]: SHOW_MEDIA.NEVER,
+		[MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.NEVER,
+		[MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.NEVER,
+	}
 
 	const apiUrl = generateOcsUrl('/apps/provisioning_api/api/v1/config/users/news/')
 
@@ -29,6 +36,7 @@ describe('AppSettingsDialog.vue', () => {
 							disableRefresh: true,
 							oldestFirst: false,
 							loading: false,
+							mediaOptions,
 						},
 						dispatch: vi.fn(),
 						commit: vi.fn(),
@@ -167,6 +175,158 @@ describe('AppSettingsDialog.vue', () => {
 				.find((c) => c.props('label') === 'Off')
 			await radioGroupButton.trigger('click')
 			expect(axios.post).toBeCalledWith(apiUrl + 'splitmode', { configValue: SPLIT_MODE.OFF })
+		})
+	})
+
+	describe('updates mediaThumbnail via v-model when user selects a radio button', () => {
+		let radioGroups
+		let radioGroup
+		beforeEach(() => {
+			radioGroups = wrapper.findAllComponents({ name: 'NcRadioGroup' })
+			radioGroup = radioGroups.find((g) => g.props('label') === 'Show enclosure thumbnails')
+		})
+		it('set mediaThumbnail to always', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Always')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.ALWAYS })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaThumbnail to ask', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Ask')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.ASK })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaThumbnail to never', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Never')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.THUMBNAILS]: SHOW_MEDIA.NEVER })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+	})
+
+	describe('updates mediaImages via v-model when user selects a radio button', () => {
+		let radioGroups
+		let radioGroup
+		beforeEach(() => {
+			radioGroups = wrapper.findAllComponents({ name: 'NcRadioGroup' })
+			radioGroup = radioGroups.find((g) => g.props('label') === 'Show enclosure images')
+		})
+		it('set mediaImages to always', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Always')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IMAGES]: SHOW_MEDIA.ALWAYS })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaImages to ask', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Ask')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IMAGES]: SHOW_MEDIA.ASK })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaImages to never', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Never')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IMAGES]: SHOW_MEDIA.NEVER })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+	})
+
+	describe('updates mediaImagesBody via v-model when user selects a radio button', () => {
+		let radioGroups
+		let radioGroup
+		beforeEach(() => {
+			radioGroups = wrapper.findAllComponents({ name: 'NcRadioGroup' })
+			radioGroup = radioGroups.find((g) => g.props('label') === 'Show images in the article text')
+		})
+		it('set mediaImagesBody to always', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Always')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.ALWAYS })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaImagesBody to ask', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Ask')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.ASK })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaImagesBody to never', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Never')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IMAGES_BODY]: SHOW_MEDIA.NEVER })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+	})
+
+	describe('updates mediaIframesBody via v-model when user selects a radio button', () => {
+		let radioGroups
+		let radioGroup
+		beforeEach(() => {
+			radioGroups = wrapper.findAllComponents({ name: 'NcRadioGroup' })
+			radioGroup = radioGroups.find((g) => g.props('label') === 'Show iframes in the article text')
+		})
+		it('set mediaIframesBody to always', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Always')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.ALWAYS })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaIframesBody to ask', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Ask')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.ASK })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
+		})
+
+		it('set mediaIframesBody to never', async () => {
+			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
+
+			const radioGroupButton = radioGroup.findAllComponents({ name: 'NcRadioGroupButton' })
+				.find((c) => c.props('label') === 'Never')
+			await radioGroupButton.trigger('click')
+			const configValue = JSON.stringify({ ...mediaOptions, [MEDIA_TYPE.IFRAMES_BODY]: SHOW_MEDIA.NEVER })
+			expect(axios.post).toBeCalledWith(apiUrl + 'mediaOptions', { configValue })
 		})
 	})
 

@@ -8,6 +8,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - Replace deprecated PHPUnit `withConsecutive` method to prepare for PHPUnit 10 upgrade
 - Add CI security scanning with Zizmor (#3560)
+- Add user settings to control loading external content in the frontend
+- Add support for Media RSS images in the frontend
 
 ### Fixed
 - Article sharing throws 404 error due to incorrect URL path construction
