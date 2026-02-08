@@ -4,7 +4,7 @@
     "updateRemoteUserUID": true,
     "forwardPorts": [80],
     "containerEnv": {
-		"NEXTCLOUD_VERSION": "31",
+		"NEXTCLOUD_VERSION": "32",
         "NEXTCLOUD_AUTOINSTALL_APPS": "news",
 		"XDEBUG_MODE": "debug"
     },
