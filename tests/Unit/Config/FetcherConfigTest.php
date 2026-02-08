@@ -29,6 +29,7 @@ use OCP\App\IAppManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use \GuzzleHttp\Client;
 
 /**
  * Class FetcherConfigTest
@@ -81,6 +82,69 @@ class FetcherConfigTest extends TestCase
         $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
 
         $this->assertInstanceOf(FeedIoClient::class, $this->class->getClient());
+    }
+
+    public function testGetHttpClient()
+    {
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $this->assertInstanceOf(\GuzzleHttp\Client::class, $this->class->getHttpClient([]));
+    }
+
+    public function testGetHttpClientHeadersMerge()
+    {
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+        $httpClientConfig = [
+            'headers' => [
+                'Accept' => 'application/rss+xml',
+                'Accept-Encoding' => 'gzip',
+            ]
+        ];
+
+        $client = $this->class->getHttpClient($httpClientConfig);
+
+        $this->assertInstanceOf(\GuzzleHttp\Client::class, $client);
+
+        $options = $client->getConfig();
+
+        $this->assertArrayHasKey('headers', $options);
+
+        $headers = $options['headers'];
+
+        $this->assertArrayHasKey('User-Agent', $headers);
+        $this->assertNotEmpty($headers['User-Agent']);
+
+        $this->assertArrayHasKey('Accept', $headers);
+        $this->assertEquals('application/rss+xml', $headers['Accept']);
+        $this->assertArrayHasKey('Accept-Encoding', $headers);
+        $this->assertEquals('gzip', $headers['Accept-Encoding']);
+
+        $keys = array_keys($headers);
+        $this->assertSame('User-Agent', $keys[0]);
+    }
+
+    public function testGetHttpClientRedirectsAndTimeout()
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10]
+            ]);
+        $this->class = new FetcherConfig($this->config, $this->sysconfig, $this->appmanager, $this->logger);
+
+        $client = $this->class->getHttpClient([]);
+
+        $options = $client->getConfig();
+
+        $this->assertArrayHasKey('timeout', $options);
+        $this->assertEquals(60, $options['timeout']);
+
+        $this->assertArrayHasKey('allow_redirects', $options);
+        $this->assertIsArray($options['allow_redirects']);
+
+        $this->assertArrayHasKey('max', $options['allow_redirects']);
+        $this->assertEquals(10, $options['allow_redirects']['max']);
     }
 
     public function testGetUserAgent()
