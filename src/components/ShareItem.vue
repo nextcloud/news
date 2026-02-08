@@ -12,6 +12,7 @@
 						pattern="[^\s]+"
 						required
 						autofocus
+						autocomplete="off"
 						@keyup="debounceSearchUsers()">
 
 					<div class="user-bubble-container">
