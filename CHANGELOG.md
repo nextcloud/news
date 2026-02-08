@@ -8,9 +8,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
-- global starred count not updated when deleting a feed with starred items
-- feed fetcher requests may get stuck
-- feed logo download and `fulltext` scraper don't use configured proxy
+- global starred count not updated when deleting a feed with starred items (#3507)
+- feed fetcher requests may get stuck (#3528)
+- feed logo download and `fulltext` scraper don't use configured proxy (#3533)
 
 # Releases
 ## [28.0.0-beta.2] - 2026-01-12
