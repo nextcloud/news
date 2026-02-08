@@ -63,12 +63,23 @@ class Notifier implements INotifier
     {
         $params = $notification->getSubjectParameters();
         $sharerUserId = $params['sharedBy'] ?? '';
-        $itemTitle = $params['itemTitle'] ?? $l->t('an article');
+        $itemTitle = $params['itemTitle'] ?? '';
 
-        $sharerDisplayName = $sharerUserId;
-        $user = $this->userManager->get($sharerUserId);
-        if ($user !== null) {
-            $sharerDisplayName = $user->getDisplayName();
+        // Normalize itemTitle - handle empty or whitespace-only strings
+        if (trim($itemTitle) === '') {
+            $itemTitle = $l->t('an article');
+        }
+
+        // Get sharer display name, with fallback for empty/missing user
+        $sharerDisplayName = $l->t('Someone');
+        if ($sharerUserId !== '') {
+            $user = $this->userManager->get($sharerUserId);
+            if ($user !== null) {
+                $sharerDisplayName = $user->getDisplayName();
+            } else {
+                // User ID provided but user doesn't exist anymore
+                $sharerDisplayName = $sharerUserId;
+            }
         }
 
         $notification->setParsedSubject(

@@ -299,7 +299,7 @@ class NotifierTest extends TestCase
 
         $notification->expects($this->once())
             ->method('setParsedSubject')
-            ->with(' shared "Test Article" with you')
+            ->with('Someone shared "Test Article" with you')
             ->willReturnSelf();
 
         $notification->method('setRichSubject')->willReturnSelf();
