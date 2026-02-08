@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Notifications for shared articles - recipients now receive a notification when someone shares an article with them
 
 ### Fixed
 - global starred count not updated when deleting a feed with starred items (#3507)
