@@ -1,7 +1,7 @@
 import type { AxiosResponse } from '@nextcloud/axios'
 
 import axios from '@nextcloud/axios'
-import { generateOcsUrl } from '@nextcloud/router'
+import { generateOcsUrl, generateUrl } from '@nextcloud/router'
 
 export class ShareService {
 	/**
@@ -17,7 +17,7 @@ export class ShareService {
 	static async share(id: number, users: string[]): Promise<boolean> {
 		const promises = []
 		for (const shareName of users) {
-			promises.push(axios.post(`items/${id}/share/${shareName}`))
+			promises.push(axios.post(generateUrl(`/apps/news/items/${id}/share/${shareName}`)))
 		}
 
 		await Promise.all(promises)
