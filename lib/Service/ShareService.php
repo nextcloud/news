@@ -148,7 +148,7 @@ class ShareService
         $result = $this->itemService->insertOrUpdate($sharedItem);
 
         // Send notification to recipient
-        $this->sendShareNotification($userId, $shareRecipientId, $item);
+        $this->sendShareNotification($userId, $shareRecipientId, $result);
 
         return $result;
     }
