@@ -211,24 +211,21 @@ class FetcherConfig
      */
     public function getHttpClient(array $config): \GuzzleHttp\Client
     {
-        if (!isset($config['headers']) || !is_array($config['headers'])) {
-            $config['headers'] = [];
-        }
-        $config['headers']['User-Agent'] = $this->getUserAgent();
+        $defaultConfig = [
+            'headers' => [
+                'User-Agent' => $this->getUserAgent(),
+            ],
+            'timeout' => $this->client_timeout,
+            'connect_timeout' => static::CONNECT_TIMEOUT,
+        ];
 
-        if (!isset($config['timeout'])) {
-            $config['timeout'] = $this->client_timeout;
-        }
-
-        if (!isset($config['connect_timeout'])) {
-            $config['connect_timeout'] = static::CONNECT_TIMEOUT;
-        }
+        $config = array_replace_recursive($defaultConfig, $config);
 
         if (!is_null($this->proxy)) {
             $config['proxy'] = $this->proxy;
         }
         if (!is_null($this->redirects)) {
-            $config['redirect.max'] = $this->redirects;
+            $config['allow_redirects']['max'] = $this->redirects;
         }
 
         return new Client($config);
