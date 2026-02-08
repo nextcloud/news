@@ -6,7 +6,15 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
-- Notifications for shared articles - recipients now receive a notification when someone shares an article with them
+
+
+### Fixed
+
+
+# Releases
+## [28.0.0-beta.3] - 2026-02-08
+### Changed
+- Notifications for shared articles - recipients now receive a notification when someone shares an article with them (#3542)
 
 ### Fixed
 - global starred count not updated when deleting a feed with starred items (#3507)
@@ -14,7 +22,6 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - feed logo download and `fulltext` scraper don't use configured proxy (#3533)
 - Dependency scoping incompatible with auto-downloaded composer (#3418)
 
-# Releases
 ## [28.0.0-beta.2] - 2026-01-12
 ### Changed
 - Drop Support for Nextcloud 31 (#3485)
