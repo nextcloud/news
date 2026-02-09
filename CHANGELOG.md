@@ -12,6 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 - Article sharing throws 404 error due to incorrect URL path construction
 - Password managers auto-filling the share recipient field
+- Improved error handling in `news:updater:update-feed` command with fallback message (#3561)
 
 # Releases
 ## [28.0.0-beta.3] - 2026-02-08
