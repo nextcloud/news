@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
 
       - name: typos-action
-        uses: crate-ci/typos@ad3053d3adbcce7f2e3c60fd4ddfc239787d1eff # v1.43.2
+        uses: crate-ci/typos@9066e9940a8a05b98fb4733c62a726f83c9e57f8 # v1.43.3
 
   vale:
     runs-on: ubuntu-latest
