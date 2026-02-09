@@ -126,6 +126,44 @@ class UpdateFeedTest extends TestCase
     }
 
     /**
+     * Test feed error with null last error message uses fallback
+     */
+    public function testValidFeedErrorWithNullMessage()
+    {
+        $this->consoleInput->expects($this->exactly(2))
+                           ->method('getArgument')
+                           ->will($this->returnValueMap([
+                               ['feed-id', '1'],
+                               ['user-id', 'admin'],
+                           ]));
+
+        $feed = $this->createMock(Feed::class);
+        $feed->expects($this->exactly(1))
+             ->method('getUpdateErrorCount')
+             ->willReturn(10);
+        $feed->expects($this->exactly(1))
+             ->method('getLastUpdateError')
+             ->willReturn(null);
+
+        $this->service->expects($this->exactly(1))
+                           ->method('find')
+                           ->with('admin', '1')
+                           ->willReturn($feed);
+
+        $this->service->expects($this->exactly(1))
+                           ->method('fetch')
+                           ->with($feed)
+                           ->willReturn($feed);
+
+        $this->consoleOutput->expects($this->exactly(1))
+                           ->method('writeln')
+                           ->with('Could not update feed with id 1 for user admin');
+
+        $result = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(255, $result);
+    }
+
+    /**
      * Test a valid call will work
      */
     public function testInValid()
