@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Noas",
     "News feeds" : "Fontes de noas",
     "Unread articles" : "Artìculos non lèghidos",
-    "News" : "Noas",
     "News folders" : "Cartellas de noas",
     "News articles" : "Artìculos de noas",
     "Shared with me" : "Cumpartzidos cun megus",

@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Notizie",
     "News feeds" : "Fonti di notizie",
     "Unread articles" : "Articoli non letti",
-    "News" : "Notizie",
     "News folders" : "Cartelle delle notizie",
     "Shared with me" : "Condivisi con me",
     "An RSS/Atom feed reader" : "Un lettore di fonti RSS/Atom",

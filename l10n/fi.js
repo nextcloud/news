@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Uutiset",
     "News feeds" : "Syötteet",
     "Unread articles" : "Lukemattomat artikkelit",
-    "News" : "Uutiset",
     "News folders" : "Syötekansiot",
     "News articles" : "Uutisartikkelit",
     "Shared with me" : "Jaettu kanssasi",

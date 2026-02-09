@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Unread articles" : "Artikujt e palexuar",
     "News" : "Lajme",
+    "Unread articles" : "Artikujt e palexuar",
     "Shared with me" : "Ndarë me mua",
     "Download" : "Shkarko",
     "Close" : "Mbylle",

@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Uudised",
     "News feeds" : "Uudisvood",
     "Unread articles" : "Lugemata artiklid",
-    "News" : "Uudised",
     "News folders" : "Uudiste kaustad",
     "News articles" : "Uudiste artiklid",
     "Shared with me" : "Jagatud minuga",

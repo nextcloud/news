@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Habari",
     "News feeds" : "Mipasho ya habari",
     "Unread articles" : "Makala ambayo hayajasomwa",
-    "News" : "Habari",
     "News folders" : "Folda ya Habari",
     "News articles" : "Makala ya habari",
     "Shared with me" : "Imeshirikiwa nami",

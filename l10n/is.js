@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Unread articles" : "Ólesnar greinar",
     "News" : "Fréttir",
+    "Unread articles" : "Ólesnar greinar",
     "Shared with me" : "Deilt með mér",
     "An RSS/Atom feed reader" : "RSS/Atom streymislesari",
     "Download" : "Niðurhal",

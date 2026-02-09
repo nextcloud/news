@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Νέα",
     "News feeds" : "Ροές ειδήσεων",
     "Unread articles" : "Μη αναγνωσμένα άρθρα",
-    "News" : "Νέα",
     "News folders" : "Φάκελοι ειδήσεων",
     "News articles" : "Άρθρα ειδήσεων",
     "Shared with me" : "Διαμοιρασμένα με εμένα",

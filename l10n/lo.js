@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "News",
     "News feeds" : "News feeds",
     "Unread articles" : "Unread articles",
-    "News" : "News",
     "News folders" : "News folders",
     "News articles" : "News articles",
     "Shared with me" : "Shared with me",

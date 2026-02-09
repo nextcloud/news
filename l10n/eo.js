@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Unread articles" : "Nelegitaj artikoloj",
     "News" : "Novaĵo",
+    "Unread articles" : "Nelegitaj artikoloj",
     "Download" : "Elŝuti",
     "Close" : "Fermi",
     "Web address" : "TTT-adreso",

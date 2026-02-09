@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Новини",
     "News feeds" : "Стрічки новин",
     "Unread articles" : "Непрочитані статті",
-    "News" : "Новини",
     "News folders" : "Папки з новинами",
     "News articles" : "Новинні статті",
     "Shared with me" : "Поділилися зі мною",

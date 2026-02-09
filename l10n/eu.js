@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Berriak",
     "News feeds" : "Albiste jarioak",
     "Unread articles" : "Irakurri gabeko artikuluak",
-    "News" : "Berriak",
     "News folders" : "Albiste karpetak",
     "News articles" : "Artikulu berriak",
     "Shared with me" : "Nirekin partekatuta",

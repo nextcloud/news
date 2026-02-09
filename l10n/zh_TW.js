@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "新聞",
     "News feeds" : "新聞 feed",
     "Unread articles" : "未讀文章",
-    "News" : "新聞",
     "News folders" : "新聞資料夾",
     "News articles" : "新聞文章",
     "Shared with me" : "與我分享",

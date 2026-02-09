@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "خەۋەرلەر",
     "News feeds" : "خەۋەرلەر",
     "Unread articles" : "ئوقۇلمىغان ماقالىلەر",
-    "News" : "خەۋەرلەر",
     "News folders" : "خەۋەر قىسقۇچلىرى",
     "News articles" : "خەۋەر ماقالىلىرى",
     "Shared with me" : "مەن بىلەن ئورتاقلاشتى",

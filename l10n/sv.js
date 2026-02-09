@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Nyheter",
     "News feeds" : "Nyhetsflöden",
     "Unread articles" : "Olästa artiklar",
-    "News" : "Nyheter",
     "News folders" : "Nyhetsmappar",
     "News articles" : "Nyhetsartiklar",
     "Shared with me" : "Delad med mig",

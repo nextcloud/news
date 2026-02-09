@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "新闻",
     "News feeds" : "新闻源",
     "Unread articles" : "未读文章",
-    "News" : "新闻",
     "News folders" : "新闻文件夹",
     "News articles" : "新闻文章",
     "Shared with me" : "与我分享",

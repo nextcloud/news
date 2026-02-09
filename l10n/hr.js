@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Vijesti",
     "News feeds" : "Sažeci vijesti",
     "Unread articles" : "Nepročitani članci",
-    "News" : "Vijesti",
     "News folders" : "Mape vijesti",
     "Shared with me" : "Dijeljeno sa mnom",
     "An RSS/Atom feed reader" : "RSS/Atom čitač sažetaka",

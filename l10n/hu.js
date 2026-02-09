@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Hírek",
     "News feeds" : "Hírcsatornák",
     "Unread articles" : "Olvasatlan cikkek",
-    "News" : "Hírek",
     "News folders" : "Hírek mappái",
     "News articles" : "Hírcikkek",
     "Shared with me" : "Megosztva velem",

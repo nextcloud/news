@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "ニュース",
     "News feeds" : "ニューズフィード",
     "Unread articles" : "未読の記事",
-    "News" : "ニュース",
     "News folders" : "ニューズフォルダー",
     "News articles" : "ニュース記事",
     "Shared with me" : "私と共有",

@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Unread articles" : "წაუკითხავი არტიკლები",
     "News" : "სიახლეები",
+    "Unread articles" : "წაუკითხავი არტიკლები",
     "Shared with me" : "გაზიარებულია ჩემთან",
     "Download" : "ჩამოტვირთვა",
     "Close" : "დახურვა",

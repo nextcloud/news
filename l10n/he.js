@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Unread articles" : "מאמרים שלא נקראו",
     "News" : "חדשות",
+    "Unread articles" : "מאמרים שלא נקראו",
     "Shared with me" : "משותף אתי",
     "An RSS/Atom feed reader" : "קורא ערוצי תוכן מסוג RSS/Atom",
     "Download" : "הורדה",

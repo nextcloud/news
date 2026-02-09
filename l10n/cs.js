@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Novinky",
     "News feeds" : "Kanály novinek",
     "Unread articles" : "Nepřečtené články",
-    "News" : "Novinky",
     "News folders" : "Složky novinek",
     "News articles" : "Nové články",
     "Shared with me" : "Sdíleno se mnou",

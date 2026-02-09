@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "اخبار",
     "News feeds" : "News feeds",
     "Unread articles" : "مطالب خوانده نشده",
-    "News" : "اخبار",
     "News folders" : "News folders",
     "News articles" : "News articles",
     "Shared with me" : "Shared with me",

@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "뉴스",
     "News feeds" : "뉴스 피드",
     "Unread articles" : "읽지 않은 글",
-    "News" : "뉴스",
     "News folders" : "뉴스 폴더",
     "News articles" : "뉴스 기사",
     "Shared with me" : "나와 공유됨",

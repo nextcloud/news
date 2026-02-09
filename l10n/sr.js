@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Вести",
     "News feeds" : "Наслови вести",
     "Unread articles" : "Непрочитани чланци",
-    "News" : "Вести",
     "News folders" : "Фолдери вести",
     "News articles" : "Чланци вести",
     "Shared with me" : "Дељено са мном",

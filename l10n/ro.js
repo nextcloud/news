@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Noutăți",
     "News feeds" : "Fluxuri de știri",
     "Unread articles" : "Articole necitite",
-    "News" : "Noutăți",
     "News folders" : "Fluxuri de știri",
     "Shared with me" : "Partajat cu mine",
     "An RSS/Atom feed reader" : "Un cititor de fluxuri RSS/Atom",

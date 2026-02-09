@@ -1,8 +1,8 @@
 OC.L10N.register(
     "news",
     {
-    "Unread articles" : "Непрочитани статии",
     "News" : "Новости",
+    "Unread articles" : "Непрочитани статии",
     "Download" : "Преземи",
     "Close" : "Затвори",
     "Folder name" : "Име на папка",

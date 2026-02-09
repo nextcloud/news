@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Nuacht",
     "News feeds" : "Fothaí nuachta",
     "Unread articles" : "Ailt gan léamh",
-    "News" : "Nuacht",
     "News folders" : "Fillteáin nuachta",
     "News articles" : "Ailt nuachta",
     "Shared with me" : "Roinnte liom",

@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Haberler",
     "News feeds" : "Haber akışları",
     "Unread articles" : "Okunmamış yazılar",
-    "News" : "Haberler",
     "News folders" : "Haberler klasörleri",
     "News articles" : "Haber yazıları",
     "Shared with me" : "Benimle paylaşılanlar",

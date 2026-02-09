@@ -1,9 +1,9 @@
 OC.L10N.register(
     "news",
     {
+    "News" : "Naujienos",
     "News feeds" : "Naujienų kanalai",
     "Unread articles" : "Neskaityti straipsniai",
-    "News" : "Naujienos",
     "News folders" : "Naujienų aplankai",
     "News articles" : "Naujienų straipsniai",
     "An RSS/Atom feed reader" : "RSS/Atom kanalų skaitytuvė",
