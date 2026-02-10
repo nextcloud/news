@@ -189,8 +189,8 @@ class PageControllerTest extends TestCase
     {
         $in = ['test'];
         $setUserValueCalls = [
-            ['becka', 'news', 'lastViewedFeedId', 0],
-            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
+            ['becka', 'news', 'lastViewedFeedId', 0, false, 0],
+            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE, false, 0]
         ];
         $setUserValueIndex = 0;
 
@@ -199,6 +199,7 @@ class PageControllerTest extends TestCase
                     ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
                         $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
                         $setUserValueIndex++;
+                        return true;
                     });
 
         $this->recommended->expects($this->once())
@@ -214,8 +215,8 @@ class PageControllerTest extends TestCase
     public function testExploreError()
     {
         $setUserValueCalls = [
-            ['becka', 'news', 'lastViewedFeedId', 0],
-            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE]
+            ['becka', 'news', 'lastViewedFeedId', 0, false, 0],
+            ['becka', 'news', 'lastViewedFeedType', ListType::EXPLORE, false, 0]
         ];
         $setUserValueIndex = 0;
 
@@ -224,6 +225,7 @@ class PageControllerTest extends TestCase
                     ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
                         $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
                         $setUserValueIndex++;
+                        return true;
                     });
 
         $this->recommended->expects($this->once())

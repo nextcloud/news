@@ -261,8 +261,8 @@ class ItemControllerTest extends TestCase
     private function itemsApiExpects($id, $type, $oldestFirst = '1'): void
     {
         $getUserValueCalls = [
-            ['user', $this->appName, 'showAll'],
-            ['user', $this->appName, 'oldestFirst']
+            ['user', $this->appName, 'showAll', '', false],
+            ['user', $this->appName, 'oldestFirst', '', false]
         ];
         $getUserValueReturns = ['1', $oldestFirst];
         $getUserValueIndex = 0;
@@ -275,8 +275,8 @@ class ItemControllerTest extends TestCase
             });
 
         $setUserValueCalls = [
-            ['user', $this->appName, 'lastViewedFeedId', $id],
-            ['user', $this->appName, 'lastViewedFeedType', $type]
+            ['user', $this->appName, 'lastViewedFeedId', $id, false, 0],
+            ['user', $this->appName, 'lastViewedFeedType', $type, false, 0]
         ];
         $setUserValueIndex = 0;
 
@@ -285,6 +285,7 @@ class ItemControllerTest extends TestCase
             ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
                 $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
                 $setUserValueIndex++;
+                return true;
             });
     }
 

@@ -123,9 +123,9 @@ class FeedMapperTest extends MapperTestUtility
                       ->will($this->returnSelf());
 
         $setParameterCalls = [
-            ['unread', true],
-            ['starred', true],
-            ['user_id', 'jack']
+            ['unread', true, 'boolean'],
+            ['starred', true, 'boolean'],
+            ['user_id', 'jack', null]
         ];
         $setParameterIndex = 0;
 
