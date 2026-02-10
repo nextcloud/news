@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Новости",
+    "Someone" : "Пользователь",
+    "%1$s shared \"%2$s\" with you" : "%1$s предоставил(а) вам доступ к «%2$s»",
     "News feeds" : "Новостные ленты",
     "Unread articles" : "Непрочтённые статьи",
     "News folders" : "Каталог новостей",

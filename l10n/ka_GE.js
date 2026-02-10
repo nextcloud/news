@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "სიახლეები",
+    "%1$s shared \"%2$s\" with you" : "%1$s-სგან გაგიზიარდათ \"%2$s\"",
     "Unread articles" : "წაუკითხავი არტიკლები",
     "Shared with me" : "გაზიარებულია ჩემთან",
     "Download" : "ჩამოტვირთვა",

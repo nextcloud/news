@@ -1,5 +1,7 @@
 { "translations": {
     "News" : "Noas",
+    "Someone" : "Calecuna persone",
+    "%1$s shared \"%2$s\" with you" : "%1$s at cumpartzidu \"%2$s\" cun tegus",
     "News feeds" : "Fontes de noas",
     "Unread articles" : "Artìculos non lèghidos",
     "News folders" : "Cartellas de noas",

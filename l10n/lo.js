@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "News",
+    "Someone" : "ບາງຄົນ",
+    "%1$s shared \"%2$s\" with you" : "%1$sແບ່ງປັນ\"%2$s\"ດ້ວຍທ່ານ",
     "News feeds" : "News feeds",
     "Unread articles" : "Unread articles",
     "News folders" : "News folders",

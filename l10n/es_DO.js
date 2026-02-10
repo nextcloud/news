@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "Noticias",
+    "%1$s shared \"%2$s\" with you" : "%1$s ha compartido \"%2$s\" contigo",
     "Unread articles" : "Artículos sin leer",
     "Shared with me" : "Compartido conmigo",
     "Download" : "Descargar",

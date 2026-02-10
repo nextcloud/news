@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "%1$s en deus rannet \"%2$s\" deoc'h",
     "Download" : "Pellgargañ",
     "Close" : "Serriñ",
     "Web address" : "Chom-lec'h web",

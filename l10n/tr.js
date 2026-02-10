@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Haberler",
+    "Someone" : "Biri",
+    "%1$s shared \"%2$s\" with you" : "%1$s, sizinle \"%2$s\" ögesini paylaştı",
     "News feeds" : "Haber akışları",
     "Unread articles" : "Okunmamış yazılar",
     "News folders" : "Haberler klasörleri",

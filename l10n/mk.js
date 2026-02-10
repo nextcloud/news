@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Новости",
+    "Someone" : "Некој",
+    "%1$s shared \"%2$s\" with you" : "%1$s сподели \"%2$s\" со тебе",
     "Unread articles" : "Непрочитани статии",
     "Download" : "Преземи",
     "Close" : "Затвори",

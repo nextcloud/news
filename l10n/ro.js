@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "Noutăți",
+    "%1$s shared \"%2$s\" with you" : "%1$s a partajat fișierul \"%2$s\" cu tine",
     "News feeds" : "Fluxuri de știri",
     "Unread articles" : "Articole necitite",
     "News folders" : "Fluxuri de știri",

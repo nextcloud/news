@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "Nuus",
+    "Someone" : "Iemand",
     "Shared with me" : "Gedeel met my",
     "Download" : "Laai Af",
     "Close" : "Sluit",

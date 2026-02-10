@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "Lajme",
+    "%1$s shared \"%2$s\" with you" : "%1$s ndau me ju \"%2$s\"",
     "Unread articles" : "Artikujt e palexuar",
     "Shared with me" : "Ndarë me mua",
     "Download" : "Shkarko",

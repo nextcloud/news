@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Berriak",
+    "Someone" : "Norbait",
+    "%1$s shared \"%2$s\" with you" : "%1$s(e)k \"%2$s\" partekatu du zurekin",
     "News feeds" : "Albiste jarioak",
     "Unread articles" : "Irakurri gabeko artikuluak",
     "News folders" : "Albiste karpetak",

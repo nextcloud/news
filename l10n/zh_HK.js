@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "新聞",
+    "Someone" : "某人",
+    "%1$s shared \"%2$s\" with you" : "%1$s 分享了 \"%2$s\" 給您",
     "News feeds" : "新聞提要",
     "Unread articles" : "未讀文章",
     "News folders" : "新聞資料夾",

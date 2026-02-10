@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Notícias",
+    "Someone" : "Alguém",
+    "%1$s shared \"%2$s\" with you" : "%1$s partilhou \"%2$s\" consigo",
     "News feeds" : "Feeds de notícias",
     "Unread articles" : "Artigos não lidos",
     "News folders" : "Novas pastas",

@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "%1$s deli „%2$s“ sa vama",
     "Download" : "Preuzmi",
     "Close" : "Zatvori",
     "Folder name" : "Naziv fascikle",

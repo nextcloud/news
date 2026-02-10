@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "%1$s huet \"%2$s\" mat dir gedeelt",
     "Unread articles" : "Ongeliesen Artikelen",
     "Download" : "Download",
     "Close" : "Zoumaachen",

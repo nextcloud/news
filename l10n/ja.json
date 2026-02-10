@@ -1,5 +1,7 @@
 { "translations": {
     "News" : "ニュース",
+    "Someone" : "誰か",
+    "%1$s shared \"%2$s\" with you" : "%1$s は \"%2$s\" をあなたと共有しました",
     "News feeds" : "ニューズフィード",
     "Unread articles" : "未読の記事",
     "News folders" : "ニューズフォルダー",

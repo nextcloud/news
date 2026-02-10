@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "خەۋەرلەر",
+    "Someone" : "بىرەيلەن",
+    "%1$s shared \"%2$s\" with you" : "%1$s سىز بىلەن ئورتاقلاشتى \\ \"%2$s $ s \"",
     "News feeds" : "خەۋەرلەر",
     "Unread articles" : "ئوقۇلمىغان ماقالىلەر",
     "News folders" : "خەۋەر قىسقۇچلىرى",

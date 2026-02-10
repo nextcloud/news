@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Naujienos",
+    "Someone" : "Kažkas",
+    "%1$s shared \"%2$s\" with you" : "%1$s pradėjo bendrinti su jumis „%2$s“",
     "News feeds" : "Naujienų kanalai",
     "Unread articles" : "Neskaityti straipsniai",
     "News folders" : "Naujienų aplankai",

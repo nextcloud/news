@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "뉴스",
+    "%1$s shared \"%2$s\" with you" : "%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다",
     "News feeds" : "뉴스 피드",
     "Unread articles" : "읽지 않은 글",
     "News folders" : "뉴스 폴더",

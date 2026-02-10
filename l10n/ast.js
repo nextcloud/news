@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Noticies",
+    "Someone" : "Daquień",
+    "%1$s shared \"%2$s\" with you" : "%1$s compartío \"%2$s\" contigo",
     "News feeds" : "Feeds de noticies",
     "Unread articles" : "Artículos ensin lleer",
     "News folders" : "Carpetes de noticies",

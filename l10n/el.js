@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Νέα",
+    "Someone" : "Κάποιος",
+    "%1$s shared \"%2$s\" with you" : "Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς",
     "News feeds" : "Ροές ειδήσεων",
     "Unread articles" : "Μη αναγνωσμένα άρθρα",
     "News folders" : "Φάκελοι ειδήσεων",

@@ -1,5 +1,7 @@
 { "translations": {
     "News" : "Notizie",
+    "Someone" : "Qualcuno",
+    "%1$s shared \"%2$s\" with you" : "%1$s ha condiviso \"%2$s\" con te",
     "News feeds" : "Fonti di notizie",
     "Unread articles" : "Articoli non letti",
     "News folders" : "Cartelle delle notizie",

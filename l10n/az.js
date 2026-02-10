@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "%1$s paylaşdı \"%2$s\" sizinlə",
     "Unread articles" : "Oxunulmamış məqalə",
     "Download" : "Yüklə",
     "Close" : "Bağla",

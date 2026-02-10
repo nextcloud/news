@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "Siziň bilen %1$spaýlaşdy%2$s",
     "Download" : "12",
     "Close" : "Ýap",
     "Folder name" : "Papkanyň ady",

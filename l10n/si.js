@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "පුවත්",
+    "Someone" : "යමෙක්",
     "Download" : "බාගන්න",
     "Close" : "වසන්න",
     "Web address" : "වියමන ලිපිනය",

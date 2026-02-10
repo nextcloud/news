@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Habari",
+    "Someone" : "Mtu fulani",
+    "%1$s shared \"%2$s\" with you" : "%1$s shirikiwa \"%2$s\" na wewe",
     "News feeds" : "Mipasho ya habari",
     "Unread articles" : "Makala ambayo hayajasomwa",
     "News folders" : "Folda ya Habari",

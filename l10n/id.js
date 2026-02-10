@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Berita",
+    "Someone" : "Seseorang",
+    "%1$s shared \"%2$s\" with you" : "%1$s dibagikan \"%2$s\" kepada Anda",
     "News feeds" : "Umpan berita",
     "Unread articles" : "Artikel belum dibaca",
     "News folders" : "Folder berita",

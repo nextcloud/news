@@ -2,6 +2,7 @@ OC.L10N.register(
     "news",
     {
     "News" : "Fréttir",
+    "%1$s shared \"%2$s\" with you" : "%1$s deildi \"%2$s\" með þér",
     "Unread articles" : "Ólesnar greinar",
     "Shared with me" : "Deilt með mér",
     "An RSS/Atom feed reader" : "RSS/Atom streymislesari",

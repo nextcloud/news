@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "Cho-roinn %1$s “%2$s” leat",
     "Download" : "Luchdaich a-nuas",
     "Close" : "Dùin",
     "Folder name" : "Ainm a’ phasgain",

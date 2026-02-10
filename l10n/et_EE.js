@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Uudised",
+    "Someone" : "Keegi",
+    "%1$s shared \"%2$s\" with you" : "%1$s jagas sinuga „%2$s“",
     "News feeds" : "Uudisvood",
     "Unread articles" : "Lugemata artiklid",
     "News folders" : "Uudiste kaustad",

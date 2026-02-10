@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "חדשות",
+    "Someone" : "מישהו",
+    "%1$s shared \"%2$s\" with you" : "%1$s משתף \"%2$s\" אתך",
     "Unread articles" : "מאמרים שלא נקראו",
     "Shared with me" : "משותף אתי",
     "An RSS/Atom feed reader" : "קורא ערוצי תוכן מסוג RSS/Atom",

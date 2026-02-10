@@ -1,6 +1,7 @@
 OC.L10N.register(
     "news",
     {
+    "%1$s shared \"%2$s\" with you" : "%1$s đã chia sẽ \"%2$s\" với bạn",
     "Unread articles" : "Bài chưa đọc",
     "Download" : "Tải về",
     "Close" : "Đóng",

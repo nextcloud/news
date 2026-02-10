@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Nyheter",
+    "Someone" : "Noen",
+    "%1$s shared \"%2$s\" with you" : "%1$s delte \"%2$s\" med deg",
     "News feeds" : "Nyhetsstrømmer",
     "Unread articles" : "Uleste artikler",
     "News folders" : "Nyhetsmapper",

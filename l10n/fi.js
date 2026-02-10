@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Uutiset",
+    "Someone" : "Joku",
+    "%1$s shared \"%2$s\" with you" : "%1$s jakoi kohteen \"%2$s\" kanssasi",
     "News feeds" : "Syötteet",
     "Unread articles" : "Lukemattomat artikkelit",
     "News folders" : "Syötekansiot",

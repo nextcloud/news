@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Hírek",
+    "Someone" : "Valaki",
+    "%1$s shared \"%2$s\" with you" : "%1$s megosztotta Önnel: „%2$s”",
     "News feeds" : "Hírcsatornák",
     "Unread articles" : "Olvasatlan cikkek",
     "News folders" : "Hírek mappái",

@@ -2,6 +2,8 @@ OC.L10N.register(
     "news",
     {
     "News" : "Novice",
+    "Someone" : "Nekdo",
+    "%1$s shared \"%2$s\" with you" : "Uporabnik %1$s je omogočil souporabo \"%2$s\"",
     "News feeds" : "Viri novic",
     "Unread articles" : "Neprebrani prispevki",
     "News folders" : "Mape novic",
