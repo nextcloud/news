@@ -1,10 +1,14 @@
 name: Static analysis
 on:
   pull_request
+
+permissions: {}
 jobs:
   static-phpstan-analysis:
     runs-on: ubuntu-latest
     continue-on-error: true
+    permissions:
+      contents: read
     strategy:
       matrix:
         php-versions: ['8.2', '8.3' ]
@@ -22,7 +26,9 @@ jobs:
     name: "phpstan: Nextcloud ${{ matrix.nextcloud }} with ${{ matrix.php-versions }}"
     steps:
       - name: Checkout
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
       - name: Set up php
         uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2.36.0
         with:
