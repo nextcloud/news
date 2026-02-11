@@ -30,6 +30,8 @@ updates:
       types:
         patterns:
           - "@types/*"
+    cooldown:
+      default-days: 7
 
   # Maintain dependencies for Composer
   - package-ecosystem: "composer"
@@ -40,6 +42,8 @@ updates:
       - "dependencies"
       - "Skip-Changelog"
     versioning-strategy: increase
+    cooldown:
+      default-days: 7
 
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
@@ -49,3 +53,5 @@ updates:
     labels:
       - "dependencies"
       - "Skip-Changelog"
+    cooldown:
+      default-days: 7
