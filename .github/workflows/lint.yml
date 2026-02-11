@@ -6,9 +6,13 @@ on:
     branches:
       - master
 
+permissions: {}
+
 jobs:
   eslint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     strategy:
       matrix:
@@ -17,6 +21,8 @@ jobs:
     name: eslint node${{ matrix.node-versions }}
     steps:
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Set up node ${{ matrix.node-versions }}
         uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
@@ -31,6 +37,8 @@ jobs:
 
   stylelint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     strategy:
       matrix:
@@ -39,6 +47,8 @@ jobs:
     name: stylelint node${{ matrix.node-versions }}
     steps:
       - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Set up node ${{ matrix.node-versions }}
         uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
