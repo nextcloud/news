@@ -51,7 +51,9 @@ jobs:
           node-version: ${{ steps.versions.outputs.nodeVersion }}
 
       - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
-        run: npm i -g 'npm@${{ steps.versions.outputs.npmVersion }}'
+        env:
+          NPM_VERSION: ${{ steps.versions.outputs.npmVersion }}
+        run: npm i -g "npm@${NPM_VERSION}"
 
       - name: Fix npm audit
         id: npm-audit
