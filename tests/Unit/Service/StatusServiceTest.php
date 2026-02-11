@@ -105,7 +105,7 @@ class StatusServiceTest extends TestCase
 
         $this->settings->expects($this->exactly(1))
              ->method('getValueBool')
-             ->with('news', 'useCronUpdates')
+             ->with('news', 'useCronUpdates', true, false)
              ->willReturn(true);
 
         $this->connection->expects($this->exactly(1))
@@ -170,7 +170,7 @@ class StatusServiceTest extends TestCase
 
         $this->settings->expects($this->exactly(1))
              ->method('getValueBool')
-             ->with('news', 'useCronUpdates')
+             ->with('news', 'useCronUpdates', true, false)
              ->willReturn(true);
 
         $this->connection->expects($this->exactly(1))
@@ -192,12 +192,12 @@ class StatusServiceTest extends TestCase
     {
         $this->settings->expects($this->exactly(1))
             ->method('getValueString')
-            ->with('core', 'backgroundjobs_mode')
+            ->with('core', 'backgroundjobs_mode', '', false)
             ->willReturn('ajax');
 
         $this->settings->expects($this->exactly(1))
              ->method('getValueBool')
-             ->with('news', 'useCronUpdates')
+             ->with('news', 'useCronUpdates', true, false)
              ->willReturn(true);
 
         $response = $this->service->isCronProperlyConfigured();
@@ -208,12 +208,12 @@ class StatusServiceTest extends TestCase
     {
         $this->settings->expects($this->exactly(1))
             ->method('getValueString')
-            ->with('core', 'backgroundjobs_mode')
+            ->with('core', 'backgroundjobs_mode', '', false)
             ->willReturn('cron');
 
         $this->settings->expects($this->exactly(1))
              ->method('getValueBool')
-             ->with('news', 'useCronUpdates')
+             ->with('news', 'useCronUpdates', true, false)
              ->willReturn(true);
 
         $response = $this->service->isCronProperlyConfigured();
@@ -224,12 +224,12 @@ class StatusServiceTest extends TestCase
     {
         $this->settings->expects($this->exactly(1))
             ->method('getValueString')
-            ->with('core', 'backgroundjobs_mode')
+            ->with('core', 'backgroundjobs_mode', '', false)
             ->willReturn('cron');
 
         $this->settings->expects($this->exactly(1))
              ->method('getValueBool')
-             ->with('news', 'useCronUpdates')
+             ->with('news', 'useCronUpdates', true, false)
              ->willReturn(true);
 
         $response = $this->service->isCronProperlyConfigured();
