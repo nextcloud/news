@@ -166,12 +166,19 @@ class ItemControllerTest extends TestCase
 
     public function testReadMultiple()
     {
+        $expectedCalls = [
+            ['user', 2, true],
+            ['user', 4, true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->withConsecutive(
-                ['user', 2, true],
-                ['user', 4, true]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
 
         $this->controller->readMultiple([2, 4]);
     }
@@ -180,13 +187,22 @@ class ItemControllerTest extends TestCase
     public function testReadMultipleDontStopOnException()
     {
 
+        $expectedCalls = [
+            ['user', 2, true],
+            ['user', 4, true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->withConsecutive(
-                ['user', 2, true],
-                ['user', 4, true]
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('yo')), new Item());
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                if ($callIndex === 1) {
+                    throw new ServiceNotFoundException('yo');
+                }
+                return new Item();
+            });
         $this->controller->readMultiple([2, 4]);
     }
 
@@ -244,19 +260,33 @@ class ItemControllerTest extends TestCase
      */
     private function itemsApiExpects($id, $type, $oldestFirst = '1'): void
     {
+        $getUserValueCalls = [
+            ['user', $this->appName, 'showAll', '', false],
+            ['user', $this->appName, 'oldestFirst', '', false]
+        ];
+        $getUserValueReturns = ['1', $oldestFirst];
+        $getUserValueIndex = 0;
+
         $this->userConfig->expects($this->exactly(2))
             ->method('getValueString')
-            ->withConsecutive(
-                ['user', $this->appName, 'showAll'],
-                ['user', $this->appName, 'oldestFirst']
-            )
-            ->willReturnOnConsecutiveCalls('1', $oldestFirst);
+            ->willReturnCallback(function (...$args) use (&$getUserValueCalls, &$getUserValueReturns, &$getUserValueIndex) {
+                $this->assertEquals($getUserValueCalls[$getUserValueIndex], $args);
+                return $getUserValueReturns[$getUserValueIndex++];
+            });
+
+        $setUserValueCalls = [
+            ['user', $this->appName, 'lastViewedFeedId', $id, false, 0],
+            ['user', $this->appName, 'lastViewedFeedType', $type, false, 0]
+        ];
+        $setUserValueIndex = 0;
+
         $this->userConfig->expects($this->exactly(2))
             ->method('setValueInt')
-            ->withConsecutive(
-                ['user', $this->appName, 'lastViewedFeedId', $id],
-                ['user', $this->appName, 'lastViewedFeedType', $type]
-            );
+            ->willReturnCallback(function (...$args) use (&$setUserValueCalls, &$setUserValueIndex) {
+                $this->assertEquals($setUserValueCalls[$setUserValueIndex], $args);
+                $setUserValueIndex++;
+                return true;
+            });
     }
 
 

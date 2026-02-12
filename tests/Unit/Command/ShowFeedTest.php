@@ -75,12 +75,18 @@ class ShowFeedTest extends TestCase
                            ->with('feed', true, 'user', 'user')
                            ->willReturn([['feed'], [['items']]]);
 
+        $expectedCalls = [
+            ["Feed: [\n    \"feed\"\n]", 0],  // writeln includes verbosity level
+            ["Items: [\n    [\n        \"items\"\n    ]\n]", 0]
+        ];
+        $callIndex = 0;
+
         $this->consoleOutput->expects($this->exactly(2))
                             ->method('writeln')
-                            ->withConsecutive(
-                                ["Feed: [\n    \"feed\"\n]"],
-                                ["Items: [\n    [\n        \"items\"\n    ]\n]"]
-                            );
+                            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                                $this->assertEquals($expectedCalls[$callIndex], $args);
+                                $callIndex++;
+                            });
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(0, $result);
@@ -109,12 +115,18 @@ class ShowFeedTest extends TestCase
                            ->with('feed', true, 'user', 'user')
                            ->will($this->throwException(new ServiceNotFoundException('test')));
 
+        $expectedCalls = [
+            ['<error>Failed to fetch feed info:</error>', 0],  // writeln includes verbosity level
+            ['test', 0]
+        ];
+        $callIndex = 0;
+
         $this->consoleOutput->expects($this->exactly(2))
                             ->method('writeln')
-                            ->withConsecutive(
-                                ['<error>Failed to fetch feed info:</error>'],
-                                ['test']
-                            );
+                            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                                $this->assertEquals($expectedCalls[$callIndex], $args);
+                                $callIndex++;
+                            });
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(1, $result);

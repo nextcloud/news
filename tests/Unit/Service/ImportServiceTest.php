@@ -204,7 +204,7 @@ class ImportServiceTest extends TestCase
 
         $this->itemService->expects($this->exactly(2))
             ->method('insertOrUpdate')
-            ->withConsecutive([$item]);
+            ->with($item);
         $this->purifier->expects($this->exactly(2))
             ->method('purify')
             ->with($this->equalTo($item->getBody()))

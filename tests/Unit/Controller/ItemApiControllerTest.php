@@ -392,37 +392,60 @@ class ItemApiControllerTest extends TestCase
 
     public function testReadMultiple()
     {
+        $expectedCalls = [
+            [$this->user->getUID(), 2, true],
+            [$this->user->getUID(), 4, true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, true],
-                [$this->user->getUID(), 4, true]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
         $this->class->readMultipleByIds([2, 4]);
     }
 
 
     public function testReadMultipleDoesntCareAboutException()
     {
+        $expectedCalls = [
+            [$this->user->getUID(), 2, true],
+            [$this->user->getUID(), 4, true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, true],
-                [$this->user->getUID(), 4, true]
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                if ($callIndex === 1) {
+                    throw new ServiceNotFoundException('');
+                }
+                return new Item();
+            });
         $this->class->readMultipleByIds([2, 4]);
     }
 
 
     public function testUnreadMultiple()
     {
+        $expectedCalls = [
+            [$this->user->getUID(), 2, false],
+            [$this->user->getUID(), 4, false]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('read')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, false],
-                [$this->user->getUID(), 4, false]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
         $this->class->unreadMultipleByIds([2, 4]);
     }
 
@@ -440,12 +463,19 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
+        $expectedCalls = [
+            [$this->user->getUID(), 2, 'a', true],
+            [$this->user->getUID(), 4, 'b', true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('starByGuid')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, 'a', true],
-                [$this->user->getUID(), 4, 'b', true]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
         $this->class->starMultiple($ids);
     }
 
@@ -463,13 +493,22 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
+        $expectedCalls = [
+            [$this->user->getUID(), 2, 'a', true],
+            [$this->user->getUID(), 4, 'b', true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('starByGuid')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, 'a', true],
-                [$this->user->getUID(), 4, 'b', true]
-            )
-            ->willReturnOnConsecutiveCalls($this->throwException(new ServiceNotFoundException('')), new Item());
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                if ($callIndex === 1) {
+                    throw new ServiceNotFoundException('');
+                }
+                return new Item();
+            });
 
         $this->class->starMultiple($ids);
     }
@@ -488,12 +527,19 @@ class ItemApiControllerTest extends TestCase
                     ]
                 ];
 
+        $expectedCalls = [
+            [$this->user->getUID(), 2, 'a', false],
+            [$this->user->getUID(), 4, 'b', false]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('starByGuid')
-            ->withConsecutive(
-                [$this->user->getUID(), 2, 'a', false],
-                [$this->user->getUID(), 4, 'b', false]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
 
         $this->class->unstarMultiple($ids);
     }
@@ -523,12 +569,19 @@ class ItemApiControllerTest extends TestCase
     {
         $ids = [ 345, 678 ];
 
+        $expectedCalls = [
+            [$this->user->getUID(), 345, true],
+            [$this->user->getUID(), 678, true]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('star')
-            ->withConsecutive(
-                [$this->user->getUID(), 345, true],
-                [$this->user->getUID(), 678, true]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
         $this->class->starMultipleByItemIds($ids);
     }
 
@@ -537,12 +590,19 @@ class ItemApiControllerTest extends TestCase
     {
         $ids = [ 345, 678 ];
 
+        $expectedCalls = [
+            [$this->user->getUID(), 345, false],
+            [$this->user->getUID(), 678, false]
+        ];
+        $callIndex = 0;
+
         $this->itemService->expects($this->exactly(2))
             ->method('star')
-            ->withConsecutive(
-                [$this->user->getUID(), 345, false],
-                [$this->user->getUID(), 678, false]
-            );
+            ->willReturnCallback(function (...$args) use (&$expectedCalls, &$callIndex) {
+                $this->assertEquals($expectedCalls[$callIndex], $args);
+                $callIndex++;
+                return new Item();
+            });
 
         $this->class->unstarMultipleByItemIds($ids);
     }
