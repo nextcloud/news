@@ -2,6 +2,8 @@ name: Updater Tests
 on:
   pull_request
 
+permissions: {}
+
 env:
   POSTGRES_PASSWORD: nc_test_db
   MYSQL_USER: nc_test
@@ -14,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     name: "Update Test: Nextcloud ${{ matrix.nextcloud }} - PHP ${{ matrix.php-versions }}"
+    permissions:
+      contents: read
     strategy:
       matrix:
         php-versions: ['8.3']
@@ -22,9 +26,10 @@ jobs:
         experimental: [false]
     steps:
       - name: Checkout
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           submodules: recursive
+          persist-credentials: false
 
       - name: Setup PHP
         uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2.36.0

@@ -7,11 +7,15 @@ on:
 env:
   APP_NAME: news
 
+permissions: {}
+
 jobs:
   build_and_publish:
     environment: release
     runs-on: ubuntu-latest
     name: "Release: build, sign and upload the app"
+    permissions:
+      contents: read
     strategy:
       matrix:
         php-versions: ['8.3']
@@ -19,7 +23,9 @@ jobs:
         database: ['sqlite']
     steps:
       - name: Checkout
-        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - name: Setup PHP
         uses: shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1 # v2.36.0
@@ -68,7 +74,7 @@ jobs:
           appstore_token: ${{ secrets.APPSTORE_TOKEN }}
           download_url: ${{ steps.attach_to_release.outputs.browser_download_url }}
           app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-          nightly: false          
+          nightly: false
 
       - name: Delete crt and key from local storage
         run: rm -f ~/.nextcloud/certificates/*

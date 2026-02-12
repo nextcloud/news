@@ -6,7 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
-
+- Add CI security scanning with Zizmor (#3560)
 
 ### Fixed
 - Article sharing throws 404 error due to incorrect URL path construction
