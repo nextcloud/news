@@ -18,6 +18,7 @@ use OCA\News\Db\Feed;
 use \OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\FolderServiceV2;
@@ -150,6 +151,11 @@ class FolderServiceTest extends TestCase
         $folder->setOpened(true);
 
         $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('john')
+            ->willReturn([]);
+
+        $this->mapper->expects($this->once())
             ->method('insert')
             ->with($folder)
             ->will($this->returnValue($folder));
@@ -157,6 +163,39 @@ class FolderServiceTest extends TestCase
         $result = $this->class->create('john', 'hey', 5);
 
         $this->assertEquals($folder, $result);
+    }
+
+    public function testCreateEmptyName()
+    {
+        $this->expectException(ServiceValidationException::class);
+        $this->expectExceptionMessage('Folder name must not be empty');
+
+        $this->class->create('john', '   ');
+    }
+
+    public function testCreateNameTooLong()
+    {
+        $this->expectException(ServiceValidationException::class);
+        $this->expectExceptionMessage('Folder name must not exceed 128 characters');
+
+        $this->class->create('john', str_repeat('a', 129));
+    }
+
+    public function testCreateDuplicateName()
+    {
+        $existing = new Folder();
+        $existing->setId(1);
+        $existing->setName('hey');
+
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('john')
+            ->willReturn([$existing]);
+
+        $this->expectException(ServiceConflictException::class);
+        $this->expectExceptionMessage('A folder with this name already exists');
+
+        $this->class->create('john', 'hey', 5);
     }
 
     public function testOpen()
@@ -183,6 +222,11 @@ class FolderServiceTest extends TestCase
         $folder->setName('jooohn');
 
         $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack')
+            ->willReturn([]);
+
+        $this->mapper->expects($this->once())
             ->method('findFromUser')
             ->with('jack', 3)
             ->will($this->returnValue($folder));
@@ -194,6 +238,59 @@ class FolderServiceTest extends TestCase
         $this->class->rename('jack', 3, 'newName');
 
         $this->assertEquals('newName', $folder->getName());
+    }
+
+    public function testRenameEmptyName()
+    {
+        $this->expectException(ServiceValidationException::class);
+        $this->expectExceptionMessage('Folder name must not be empty');
+
+        $this->class->rename('jack', 3, '');
+    }
+
+    public function testRenameDuplicateName()
+    {
+        $existing = new Folder();
+        $existing->setId(5);
+        $existing->setName('taken');
+
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack')
+            ->willReturn([$existing]);
+
+        $this->expectException(ServiceConflictException::class);
+
+        $this->class->rename('jack', 3, 'taken');
+    }
+
+    public function testRenameSameFolder()
+    {
+        // Renaming folder 5 to its own name should be allowed
+        $existing = new Folder();
+        $existing->setId(5);
+        $existing->setName('sameName');
+
+        $folder = new Folder();
+        $folder->setName('oldName');
+
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack')
+            ->willReturn([$existing]);
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 5)
+            ->willReturn($folder);
+
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($folder);
+
+        $this->class->rename('jack', 5, 'sameName');
+
+        $this->assertEquals('sameName', $folder->getName());
     }
 
     public function testMarkDeleted()

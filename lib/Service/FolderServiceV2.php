@@ -18,6 +18,7 @@ use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\AppFramework\Db\Entity;
 use Psr\Log\LoggerInterface;
 
@@ -79,6 +80,53 @@ class FolderServiceV2 extends Service
     }
 
     /**
+     * Validate a folder name.
+     *
+     * @param string $name Folder name to validate
+     *
+     * @return string Trimmed folder name
+     *
+     * @throws ServiceValidationException If the name is empty or too long
+     */
+    private function validateFolderName(string $name): string
+    {
+        $name = trim($name);
+
+        if ($name === '') {
+            throw new ServiceValidationException('Folder name must not be empty');
+        }
+
+        if (mb_strlen($name) > 128) {
+            throw new ServiceValidationException(
+                'Folder name must not exceed 128 characters'
+            );
+        }
+
+        return $name;
+    }
+
+    /**
+     * Check that a folder name is unique for a user.
+     *
+     * @param string   $userId   Folder owner
+     * @param string   $name     Folder name
+     * @param int|null $excludeId Folder ID to exclude from the check (for rename)
+     *
+     * @throws ServiceConflictException If a folder with the same name already exists
+     */
+    private function ensureUniqueName(string $userId, string $name, ?int $excludeId = null): void
+    {
+        $existing = $this->findAllForUser($userId);
+        foreach ($existing as $folder) {
+            if ($folder->getName() === $name && $folder->getId() !== $excludeId) {
+                throw new ServiceConflictException(
+                    'A folder with this name already exists'
+                );
+            }
+        }
+    }
+
+    /**
      * Create a folder
      *
      * @param string   $userId
@@ -86,9 +134,15 @@ class FolderServiceV2 extends Service
      * @param int|null $parent
      *
      * @return Folder
+     *
+     * @throws ServiceValidationException If the folder name is invalid
+     * @throws ServiceConflictException If a folder with the same name exists
      */
     public function create(string $userId, string $name, ?int $parent = null): Entity
     {
+        $name = $this->validateFolderName($name);
+        $this->ensureUniqueName($userId, $name);
+
         $folder = new Folder();
         $folder->setUserId($userId)
                ->setName($name)
@@ -121,9 +175,13 @@ class FolderServiceV2 extends Service
      * @return Folder
      * @throws ServiceConflictException
      * @throws ServiceNotFoundException
+     * @throws ServiceValidationException If the folder name is invalid
      */
     public function rename(string $userId, int $folderId, string $newName): Entity
     {
+        $newName = $this->validateFolderName($newName);
+        $this->ensureUniqueName($userId, $newName, $folderId);
+
         $folder = $this->find($userId, $folderId);
         $folder->setName($newName);
 
