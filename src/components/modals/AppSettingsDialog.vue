@@ -291,7 +291,7 @@ export default defineComponent({
 		return {
 			DISPLAY_MODE,
 			showSettings: false,
-			mediaOptions: undefined,
+			mediaOptions: {},
 			displayModeOptions: [
 				{
 					id: DISPLAY_MODE.DEFAULT,

@@ -372,7 +372,7 @@ export default defineComponent({
 					const img = picture.querySelector('img')
 					const source = picture.querySelector('source')
 					const title = img?.getAttribute('alt') ?? img?.getAttribute('title')
-					const url = img?.src ?? source?.srcset ?? 'unknown'
+					const url = img?.getAttribute('src') ?? source?.getAttribute('srcset') ?? 'unknown'
 
 					this.modifyNode(picture, 'img')
 					this.modifyNode(picture, 'source')
@@ -501,8 +501,8 @@ export default defineComponent({
 			}
 		},
 
-		modifyNode(doc, element, mode?) {
-			doc.querySelectorAll(element).forEach((element) => {
+		modifyNode(doc, tagName, mode?) {
+			doc.querySelectorAll(tagName).forEach((element) => {
 				if (mode === SHOW_MEDIA.NEVER) {
 					element.remove()
 					return
@@ -598,8 +598,8 @@ export default defineComponent({
 			const banner = document.createElement('div')
 			banner.className = 'consent-banner'
 			banner.appendChild(button)
-			element.parentNode.insertBefore(banner, element)
-			banner.appendChild(element)
+			element.before(banner)
+			banner.append(button, element)
 			const parentLink = element.closest('a')
 			if (parentLink) {
 				parentLink.style.textDecoration = 'none'
