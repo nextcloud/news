@@ -170,12 +170,7 @@ export const mutations = {
 		state: AppInfoState,
 		{ value }: { value: string },
 	) {
-		try {
-			state.mediaOptions = JSON.parse(value)
-		} catch (error) {
-			console.error('Failed to set media settings using defaults:', error)
-			state.mediaOptions = defaultMediaOptions
-		}
+		state.mediaOptions = parseMediaOptions(value)
 	},
 	oldestFirst(
 		state: AppInfoState,
