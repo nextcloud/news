@@ -6,6 +6,11 @@
 # better prompt
 echo 'export PS1="\[\e[32m\]root@devcontainer\[\e[0m\]:\[\e[34m\]\W\[\e[0m\]# "' >> ~/.bashrc
 
+# Install zizmor for GitHub Actions security analysis
+echo "Installing zizmor via pip..."
+pip3 install --quiet zizmor
+echo "zizmor installed: $(zizmor --version)"
+
 # Map NEXTCLOUD_VERSION to SERVER_BRANCH for the bootstrap script
 if [ -n "$NEXTCLOUD_VERSION" ]; then
     export SERVER_BRANCH="stable${NEXTCLOUD_VERSION}"
