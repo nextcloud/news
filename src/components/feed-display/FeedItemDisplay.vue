@@ -497,7 +497,7 @@ export default defineComponent({
 			try {
 				return new URL(url).hostname
 			} catch {
-				return url
+				return 'invalid domain'
 			}
 		},
 
@@ -584,8 +584,13 @@ export default defineComponent({
 			const srcElement = document.createElement('span')
 			srcElement.className = 'consent-src'
 			srcElement.textContent = t('news', 'from') + ' ' + domain
-			srcElement.title = src
 			srcElement.ariaLabel = t('news', 'External media loaded from') + ' ' + domain
+			try {
+				srcElement.title = new URL(src).href
+			} catch {
+				srcElement.title = 'invalid url'
+			}
+
 			button.appendChild(srcElement)
 
 			if (description) {

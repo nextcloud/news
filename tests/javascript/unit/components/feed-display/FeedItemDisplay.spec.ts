@@ -577,14 +577,14 @@ describe('FeedItemDisplay.vue', () => {
 
 	describe('createConsentButton', () => {
 		it('should create a consent button with the correct information', () => {
+			const src = 'https://example.com/video.mp4'
 			const element = document.createElement('img')
-			element.src = 'https://example.com/video.mp4'
 
 			const container = document.createElement('div')
 			container.appendChild(element)
 
 			wrapper.element.appendChild(container)
-			wrapper.vm.createConsentButton(element, element.src)
+			wrapper.vm.createConsentButton(element, src)
 
 			const button = wrapper.element.querySelector('.consent-button')
 			expect(button).not.toBeNull()
@@ -603,15 +603,29 @@ describe('FeedItemDisplay.vue', () => {
 			expect(banner.contains(element)).toBe(true)
 		})
 
-		it('should add a description if given', () => {
+		it('should use url encoded string when showing src in consent button tooltip', () => {
+			const src = 'https://example.com/image.png\u0000\u200B\u001F\uFEFF'
 			const element = document.createElement('img')
-			element.src = 'https://example.com/image.jpg'
 
 			const container = document.createElement('div')
 			container.appendChild(element)
 
 			wrapper.element.appendChild(container)
-			wrapper.vm.createConsentButton(element, element.src, 'A picture')
+			wrapper.vm.createConsentButton(element, src)
+
+			const srcElement = wrapper.element.querySelector('.consent-src')
+			expect(srcElement.title).toBe('https://example.com/image.png%00%E2%80%8B%1F%EF%BB%BF')
+		})
+
+		it('should add a description if given', () => {
+			const src = 'https://example.com/image.jpg'
+			const element = document.createElement('img')
+
+			const container = document.createElement('div')
+			container.appendChild(element)
+
+			wrapper.element.appendChild(container)
+			wrapper.vm.createConsentButton(element, src, 'A picture')
 
 			const descElement = wrapper.element.querySelector('.consent-desc')
 			expect(descElement).not.toBeNull()
@@ -619,13 +633,13 @@ describe('FeedItemDisplay.vue', () => {
 		})
 
 		it('should disable text-decoration on a possible parent a-href element', () => {
+			const src = 'http://example.com/video.mp4'
 			const element = document.createElement('img')
-			element.src = 'http://example.com/video.mp4'
 
 			const container = document.createElement('a')
 			container.appendChild(element)
 			wrapper.element.appendChild(container)
-			wrapper.vm.createConsentButton(element, element.src)
+			wrapper.vm.createConsentButton(element, src)
 
 			const button = wrapper.element.querySelector('.consent-button')
 			expect(button).not.toBeNull()
