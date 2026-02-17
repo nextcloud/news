@@ -7,7 +7,7 @@ env:
   MYSQL_USER: nc_test
   MYSQL_PASSWORD: nc_test_db
   MYSQL_DATABASE: nc_test
-  MYSQL_PORT: 3800
+  MYSQL_PORT: 3800 # hardcoded at services:mariadb:ports
 
 permissions: {}
 
@@ -30,6 +30,16 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432 # Maps tcp port 5432 on service container to the host
+      mariadb:
+        image: mariadb:10.5
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_USER: ${{ env.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ env.MYSQL_PASSWORD }}
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+        options: --health-cmd="mariadb-admin ping" --health-interval 5s --health-timeout 2s --health-retries 5
+        ports:
+          - 3800:3306/tcp
     strategy:
       matrix:
         php-versions: ['8.2', '8.3']
@@ -65,17 +75,6 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y httpie && sudo npm install -g bats@1.11.0
 
       ### MySQL specific setup
-      - name: Setup mysql
-        if: matrix.database == 'mysql'
-        uses: getong/mariadb-action@d6d2ec41fd5588f369be4c9398ce77ee725ca9ea # v1.11
-        with:
-          mariadb version: '10.5'
-          host port: ${{ env.MYSQL_PORT }}
-          mysql database: ${{ env.MYSQL_DATABASE }}
-          mysql root password: ${{ env.MYSQL_PASSWORD }}
-          mysql user: ${{ env.MYSQL_USER }}
-          mysql password: ${{ env.MYSQL_PASSWORD }}
-
       - name: Set up server MySQL
         if: matrix.database == 'mysql'
         uses: SMillerDev/nextcloud-actions/setup-nextcloud@7665802e389e40d21b49877c3728bacca324d6e0 #latest
