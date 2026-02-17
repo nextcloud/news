@@ -107,3 +107,66 @@ The tests expect to find Nextcloud at `http://localhost:8080`
 You can do this by running `make nextcloud-server`.
 
 The bats tests can be executed like this `bats tests/api`.
+
+### GitHub Actions Security Testing
+
+We use [zizmor](https://github.com/woodruffw/zizmor) to analyze GitHub Actions workflows for security issues and best practices. The tool runs automatically in CI, but you should test locally before pushing.
+
+#### Installing zizmor
+
+If using the devcontainer, zizmor is already installed via pip. Otherwise:
+
+```bash
+pip3 install zizmor
+```
+
+To update to the latest version:
+
+```bash
+pip3 install --upgrade zizmor
+```
+
+#### Running zizmor Locally
+
+**Basic usage** (offline mode - limited checks):
+```bash
+zizmor .github/workflows/
+```
+
+**Pedantic mode** (catches code smells):
+```bash
+zizmor --pedantic .github/workflows/
+```
+
+**With online checks** (matches CI behavior):
+```bash
+# Authenticate with GitHub first (if using devcontainer gh is already installed)
+gh auth login
+
+# Run with GitHub token for full audits
+zizmor --gh-token $(gh auth token) --pedantic .github/workflows/
+```
+
+**Check a single workflow:**
+```bash
+zizmor .github/workflows/lint-eslint.yml
+```
+
+#### Understanding Online vs Offline Mode
+
+**Offline mode** (default without `--gh-token`):
+- Performs static analysis only
+- Cannot verify action versions match their tags
+- May miss some issues that CI detects
+
+**Online mode** (with `--gh-token`):
+- Fetches data from GitHub API
+- Verifies action commit hashes match version comments (e.g., `# v3.0.2`)
+- Checks for known vulnerabilities
+- Detects mismatched or outdated action versions
+
+**Why CI catches issues you might miss locally:**
+The GitHub Actions workflow has a `GITHUB_TOKEN` automatically available, enabling online audits. Without authentication locally, zizmor runs in offline mode which skips these checks.
+
+
+For more information, see the [zizmor documentation](https://woodruffw.github.io/zizmor/).
