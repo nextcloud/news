@@ -122,12 +122,12 @@ class NotifierTest extends TestCase
             ->willReturn('https://cloud.example.com/apps/news');
 
         $this->urlGenerator->method('imagePath')
-            ->with(Application::NAME, 'news.svg')
-            ->willReturn('/apps/news/img/news.svg');
+            ->with(Application::NAME, 'app-dark.svg')
+            ->willReturn('/apps/news/img/app-dark.svg');
 
         $this->urlGenerator->method('getAbsoluteURL')
-            ->with('/apps/news/img/news.svg')
-            ->willReturn('https://cloud.example.com/apps/news/img/news.svg');
+            ->with('/apps/news/img/app-dark.svg')
+            ->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
         $notification->expects($this->once())
             ->method('setParsedSubject')
@@ -160,7 +160,7 @@ class NotifierTest extends TestCase
 
         $notification->expects($this->once())
             ->method('setIcon')
-            ->with('https://cloud.example.com/apps/news/img/news.svg')
+            ->with('https://cloud.example.com/apps/news/img/app-dark.svg')
             ->willReturnSelf();
 
         $result = $this->notifier->prepare($notification, 'en');
@@ -189,8 +189,8 @@ class NotifierTest extends TestCase
         $this->userManager->method('get')->with('deleted_user')->willReturn(null);
 
         $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news');
-        $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/news.svg');
-        $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/news.svg');
+        $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/app-dark.svg');
+        $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
         // When user doesn't exist, the raw user ID should be used as display name
         $notification->expects($this->once())
@@ -247,8 +247,8 @@ class NotifierTest extends TestCase
         $this->userManager->method('get')->with('alice')->willReturn($user);
 
         $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news');
-        $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/news.svg');
-        $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/news.svg');
+        $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/app-dark.svg');
+        $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
         // When title is missing, it should fall back to 'an article'
         $notification->expects($this->once())
@@ -294,8 +294,8 @@ class NotifierTest extends TestCase
         $this->userManager->method('get')->with('')->willReturn(null);
 
         $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news');
-        $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/news.svg');
-        $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/news.svg');
+        $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/app-dark.svg');
+        $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
         $notification->expects($this->once())
             ->method('setParsedSubject')

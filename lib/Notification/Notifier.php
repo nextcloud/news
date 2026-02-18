@@ -108,7 +108,7 @@ class Notifier implements INotifier
 
         $notification->setIcon(
             $this->urlGenerator->getAbsoluteURL(
-                $this->urlGenerator->imagePath(Application::NAME, 'news.svg')
+                $this->urlGenerator->imagePath(Application::NAME, 'app-dark.svg')
             )
         );
 
