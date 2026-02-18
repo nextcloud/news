@@ -103,7 +103,7 @@ class Notifier implements INotifier
         );
 
         $notification->setLink(
-            $this->urlGenerator->linkToRouteAbsolute('news.page.index')
+            $this->urlGenerator->linkToRouteAbsolute('news.page.index') . 'item/' . $notification->getObjectId()
         );
 
         $notification->setIcon(

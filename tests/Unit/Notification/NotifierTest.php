@@ -119,7 +119,7 @@ class NotifierTest extends TestCase
 
         $this->urlGenerator->method('linkToRouteAbsolute')
             ->with('news.page.index')
-            ->willReturn('https://cloud.example.com/apps/news');
+            ->willReturn('https://cloud.example.com/apps/news/');
 
         $this->urlGenerator->method('imagePath')
             ->with(Application::NAME, 'app-dark.svg')
@@ -155,7 +155,7 @@ class NotifierTest extends TestCase
 
         $notification->expects($this->once())
             ->method('setLink')
-            ->with('https://cloud.example.com/apps/news')
+            ->with('https://cloud.example.com/apps/news/item/42')
             ->willReturnSelf();
 
         $notification->expects($this->once())
@@ -188,7 +188,7 @@ class NotifierTest extends TestCase
 
         $this->userManager->method('get')->with('deleted_user')->willReturn(null);
 
-        $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news');
+        $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news/');
         $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/app-dark.svg');
         $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
@@ -246,7 +246,7 @@ class NotifierTest extends TestCase
         $user->method('getDisplayName')->willReturn('Alice');
         $this->userManager->method('get')->with('alice')->willReturn($user);
 
-        $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news');
+        $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news/');
         $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/app-dark.svg');
         $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
@@ -293,7 +293,7 @@ class NotifierTest extends TestCase
         // Empty sharedBy falls back to ''
         $this->userManager->method('get')->with('')->willReturn(null);
 
-        $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news');
+        $this->urlGenerator->method('linkToRouteAbsolute')->willReturn('https://cloud.example.com/apps/news/');
         $this->urlGenerator->method('imagePath')->willReturn('/apps/news/img/app-dark.svg');
         $this->urlGenerator->method('getAbsoluteURL')->willReturn('https://cloud.example.com/apps/news/img/app-dark.svg');
 
