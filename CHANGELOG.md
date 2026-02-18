@@ -6,17 +6,22 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
-- Replace deprecated PHPUnit `withConsecutive` method to prepare for PHPUnit 10 upgrade
-- Add CI security scanning with Zizmor (#3560)
-- Add user settings to control loading external content in the frontend
-- Add support for Media RSS images in the frontend
 
 ### Fixed
-- Article sharing throws 404 error due to incorrect URL path construction
-- Password managers auto-filling the share recipient field
-- Improved error handling in `news:updater:update-feed` command with fallback message (#3561)
 
 # Releases
+## [28.0.0-rc.1] - 2026-02-18
+### Changed
+- Replace deprecated PHPUnit `withConsecutive` method to prepare for PHPUnit 10 upgrade (#3434)
+- Add CI security scanning with Zizmor (#3560)
+- Add user settings to control loading external content in the frontend (#3566)
+- Add support for Media RSS images in the frontend (#3566)
+
+### Fixed
+- Article sharing throws 404 error due to incorrect URL path construction (#3551)
+- Password managers auto-filling the share recipient field (#3551)
+- Improved error handling in `news:updater:update-feed` command with fallback message (#3561)
+
 ## [28.0.0-beta.3] - 2026-02-08
 ### Changed
 - Notifications for shared articles - recipients now receive a notification when someone shares an article with them (#3542)

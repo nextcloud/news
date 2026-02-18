@@ -111,6 +111,7 @@
 * [Benedikt Geißler](mailto:benedikt@g5r.eu)
 * [Bernhard Posselt](mailto:bernhard@desktop.localdomain)
 * [Björn Bidar](mailto:bjorn.bidar@thaodan.de)
+* [Brian Schwartz](mailto:brian@wellvetted.co)
 * [Candid Dauth](mailto:cdauth@cdauth.eu)
 * [Carl Schwan](mailto:carl@carlschwan.eu)
 * [Carlos Silva](mailto:r3pek@r3pek.org)
