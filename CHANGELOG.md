@@ -10,6 +10,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [28.0.0-rc.2] - 2026-02-18
+Release pipeline was fixed.
+
 ## [28.0.0-rc.1] - 2026-02-18
 ### Changed
 - Replace deprecated PHPUnit `withConsecutive` method to prepare for PHPUnit 10 upgrade (#3434)
