@@ -119,7 +119,7 @@ OC.L10N.register(
     "Abonnements (OPML)" : "Підписки (OPML)",
     "Importing feeds" : "Імпорт кормів",
     "Please wait" : "Будь ласка, зачекайте",
-    "Keyboard shortcuts" : "Сполучення клавіш",
+    "Keyboard shortcuts" : "Клавіатурні скорочення",
     "Refresh" : "Оновити",
     "Jump to previous article" : "Попередня стаття",
     "Jump to next article" : "Наступна стаття",
