@@ -200,7 +200,7 @@ const detailsView = computed(() => {
 function showItem(value) {
 	showDetails.value = value
 	// store show details value in local storage
-	if (noSplitMode.value) {
+	if (noSplitMode.value && props.fetchKey !== 'item') {
 		browserStorage.setItem('news.show-details', value)
 	}
 	// scroll to selected item when closing details in no-split mode
@@ -314,6 +314,8 @@ watch(displayMode, (newDisplayMode) => {
 	} else {
 		disablePageHotkeys()
 	}
+	showDetails.value = false
+	browserStorage.removeItem('news.show-details')
 })
 
 onBeforeMount(() => {
@@ -327,12 +329,14 @@ onMounted(() => {
 	if (displayMode.value === DISPLAY_MODE.SCREENREADER) {
 		enablePageHotkeys()
 	}
-	// get show-details flag from browser storage
-	if (noSplitMode.value) {
-		showItem(browserStorage.getItem('news.show-details') === 'true')
-		if (showDetails.value) {
-			initialSelection.value = true
-		}
+
+	const shouldShowItem = props.fetchKey === 'item'
+		|| (noSplitMode.value && browserStorage.getItem('news.show-details') === 'true')
+
+	showItem(shouldShowItem)
+
+	if (shouldShowItem && showDetails.value) {
+		initialSelection.value = true
 	}
 })
 
@@ -341,12 +345,13 @@ onBeforeUnmount(() => {
 })
 
 onUpdated(() => {
-	// auto-select first item when in details view and initialSelection is set
-	if (initialSelection.value && detailsView.value && !fetchingItems.value) {
-		if (props.items.length > 0) {
-			selectItem(props.items[0])
-			initialSelection.value = false
-		}
+	// auto-select first item when in details view and initialSelection is set or on item route
+	if (!fetchingItems.value
+		&& initialSelection.value
+		&& (detailsView.value || props.fetchKey === 'item')
+		&& props.items.length > 0) {
+		selectItem(props.items[0])
+		initialSelection.value = false
 	}
 })
 
