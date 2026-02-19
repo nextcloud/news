@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Automatically select item when using single item route
 
 # Releases
 ## [28.0.0-rc.2] - 2026-02-18
