@@ -11,6 +11,7 @@ OC.L10N.register(
     "Share" : "Kongsi",
     "Rename" : "Namakan",
     "Delete" : "Padam",
+    "from" : "dari",
     "by" : "oleh",
     "General" : "Umum",
     "Import" : "Import",

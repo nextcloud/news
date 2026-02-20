@@ -22,6 +22,7 @@ OC.L10N.register(
     "Play audio" : "Loc'hañ an audio",
     "Download video" : "Pellkargañ ar video",
     "Open website" : "Digor al lec'hienn-web",
+    "Never" : "James",
     "General" : "Hollek",
     "Import" : "Emporzhiañ ",
     "Refresh" : "Freskaat",

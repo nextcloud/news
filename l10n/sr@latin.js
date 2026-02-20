@@ -17,6 +17,8 @@ OC.L10N.register(
     "Rename Feed" : "Preimenuj dovod",
     "Newest first" : "Prvo novije",
     "Oldest first" : "prvo starije",
+    "Always" : "Uvek",
+    "Never" : "Nikad",
     "Appearance" : "Izgled",
     "Refresh" : "Osveži"
 },

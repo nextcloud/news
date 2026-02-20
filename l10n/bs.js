@@ -12,6 +12,7 @@ OC.L10N.register(
     "Starred" : "Označeno",
     "Rename" : "Preimenuj",
     "Delete" : "Obriši",
+    "from" : "od",
     "by" : "od strane",
     "Import" : "Uvezi",
     "Export" : "Izvezi",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "New folder" : "Nueva carpeta",
     "Share" : "Compartir",
     "Rename" : "Renombrar",
-    "Delete" : "Borrar"
+    "Delete" : "Borrar",
+    "Never" : "Nunca"
 },
 "nplurals=2; plural=(n != 1);");

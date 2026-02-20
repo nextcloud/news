@@ -16,6 +16,7 @@ OC.L10N.register(
     "Default" : "Prédéfini(e)",
     "Off" : "Ur irmid ara",
     "General" : "Amatu",
+    "Media" : "Amidya",
     "Appearance" : "Udem",
     "Keyboard shortcuts" : "Inegzumen n unasiw",
     "Refresh" : "Sismeḍ",

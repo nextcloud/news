@@ -12,6 +12,7 @@ OC.L10N.register(
     "Share" : "Կիսվել",
     "Rename" : "Վերանվանել",
     "Delete" : "հեռացնել",
+    "Never" : "Երբեք",
     "General" : "Ընդհանուր",
     "Import" : "Ներմուծում",
     "Export" : "Արտահանում",

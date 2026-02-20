@@ -14,6 +14,7 @@ OC.L10N.register(
     "Update interval" : "යාවත්කාලීන කාල පරතරය",
     "Share" : "බෙදාගන්න",
     "Rename" : "නැවත නම් කරන්න",
+    "from" : "සිට",
     "Open website" : "වියමන අඩවිය විවෘත කරන්න",
     "General" : "සමාන්‍යය",
     "Folder" : "බහාලුම"

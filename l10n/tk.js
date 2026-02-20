@@ -16,6 +16,7 @@ OC.L10N.register(
     "Oldest first" : "Ilki bilen iň köne",
     "Default" : "Bellenen",
     "General" : "Esasy",
+    "Media" : "Mediýa",
     "Refresh" : "Täzelemek",
     "Not available" : "Elýeterli däl"
 },

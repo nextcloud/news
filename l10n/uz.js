@@ -15,6 +15,8 @@ OC.L10N.register(
     "Delete" : "O'chirish",
     "Default" : "Standart",
     "Off" : "Oʻchirilgan",
+    "Always" : "Har doim",
+    "Never" : "Hech qachon",
     "General" : "Umumiy",
     "Appearance" : "Tashqi ko'rinish",
     "Import" : "Import",

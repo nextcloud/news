@@ -17,6 +17,7 @@ OC.L10N.register(
     "Delete" : "Ta bort",
     "Newest first" : "Nyaste fyrst",
     "Oldest first" : "Eldste fyrst",
+    "from" : "frå",
     "by" : "av",
     "Download video" : "Last ned video",
     "General" : "Generelt",

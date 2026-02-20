@@ -16,6 +16,7 @@ OC.L10N.register(
     "Delete" : "Dileu",
     "Newest first" : "Diweddaraf gyntaf",
     "Oldest first" : "Hynaf gyntaf",
+    "from" : "oddi wrth",
     "Mark unread" : "Nodi heb ei ddarllen",
     "by" : "gan",
     "General" : "Cyffredinol",

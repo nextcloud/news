@@ -22,6 +22,7 @@ OC.L10N.register(
     "Delete" : "Skrap",
     "Newest first" : "Nuutste eerste",
     "Oldest first" : "Oudste eerste",
+    "from" : "van",
     "by" : "deur",
     "Play audio" : "Speel oudio af",
     "Download audio" : "Laai oudio af",

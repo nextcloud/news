@@ -21,6 +21,7 @@ OC.L10N.register(
     "Explore" : "Erfuerschen",
     "Rename" : "Ëm-benennen",
     "Delete" : "Läschen",
+    "from" : "vun",
     "by" : "vun",
     "Play audio" : "Toun ofspillen",
     "Download audio" : "Toun eroflueden",
