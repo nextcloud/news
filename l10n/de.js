@@ -119,6 +119,7 @@ OC.L10N.register(
     "Horizontal" : "Horizontal",
     "Off" : "Aus",
     "Always" : "Immer",
+    "Ask" : "Fragen",
     "Never" : "Niemals",
     "Please select a valid OPML file" : "Bitte eine gültige OPML-Datei auswählen",
     "File successfully uploaded" : "Datei hochgeladen",
