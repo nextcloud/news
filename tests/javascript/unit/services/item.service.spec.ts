@@ -131,4 +131,27 @@ describe('item.service.ts', () => {
 			expect(args[1].isStarred).toEqual(false)
 		})
 	})
+
+	describe('fetchFulltext', () => {
+		it('should call GET with item id', async () => {
+			await ItemService.fetchFulltext({ id: 1 })
+
+			expect(axios.get).toBeCalled()
+			const args = axios.get.mock.calls[0]
+
+			expect(args[0]).toContain('1')
+		})
+	})
+
+	describe('updateBodyText', () => {
+		it('should call POST with item id and body param ', async () => {
+			await ItemService.updateBodyText(1, 'content')
+
+			expect(axios.post).toBeCalled()
+			const args = axios.post.mock.calls[0]
+
+			expect(args[0]).toContain('1')
+			expect(args[1]).toEqual({ body: 'content' })
+		})
+	})
 })
