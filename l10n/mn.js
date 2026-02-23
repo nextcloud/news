@@ -28,6 +28,7 @@ OC.L10N.register(
     "Download audio" : "–ê—É–¥–∏–æ–≥ —Ç–∞—Ç–∞–∂ –∞–≤–∞—Ö",
     "Download video" : "–í–∏–¥–µ–æ–≥ —Ç–∞—Ç–∞–∂ –∞–≤–∞—Ö",
     "Default" : "Өгөгдмөл",
+    "Compact" : "Шахмал",
     "Vertical" : "Босоо",
     "Horizontal" : "Хэвтээ",
     "Off" : "Унтраах",
