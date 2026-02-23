@@ -204,6 +204,7 @@
 					</template>
 				</NcHotkey>
 				<NcHotkey :label="t('news', 'Toggle keep current article unread')" hotkey="U" />
+				<NcHotkey :label="t('news', 'Download web version of the selected article')" hotkey="X" />
 			</NcHotkeyList>
 			<NcHotkeyList :label="t('news', 'Feed/Folder navigation and control')">
 				<NcHotkey :label="t('news', 'Jump to previous feed')" hotkey="D" />

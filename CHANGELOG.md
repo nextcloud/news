@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Added a feature to download the web version of an article on demand, to avoid downloading unnecessary content
 
 ### Fixed
 

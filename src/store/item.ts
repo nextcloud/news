@@ -16,7 +16,9 @@ export const FEED_ITEM_ACTION_TYPES = {
 	UNSTAR_ITEM: 'UNSTAR_ITEM',
 	FETCH_FEED_ITEMS: 'FETCH_FEED_ITEMS',
 	FETCH_FOLDER_FEED_ITEMS: 'FETCH_FOLDER_FEED_ITEMS',
+	FETCH_FULLTEXT: 'FETCH_FULLTEXT',
 	FETCH_ITEMS: 'FETCH_ITEMS',
+	UPDATE_BODY: 'UPDATE_BODY',
 }
 
 export type ItemState = {
@@ -291,6 +293,35 @@ export const actions = {
 			commit(FEED_ITEM_MUTATION_TYPES.SET_LAST_ITEM_LOADED, { key: 'folder-' + folderId, lastItem })
 		}
 		commit(FEED_ITEM_MUTATION_TYPES.SET_FETCHING, { key: 'folder-' + folderId, fetching: false })
+	},
+
+	async [FEED_ITEM_ACTION_TYPES.FETCH_FULLTEXT](
+		{ commit }: ActionParams<ItemState>,
+		{ item }: { item: FeedItem },
+	) {
+		const response = await ItemService.fetchFulltext(item)
+		if (response?.status === 200) {
+			const newItem = response?.data[0]
+			if (newItem) {
+				commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item: newItem })
+			} else {
+				throw new Error(t('news', 'Empty Response'))
+			}
+		} else {
+			const errorMessage = response.statusText
+			throw new Error(errorMessage)
+		}
+	},
+
+	async [FEED_ITEM_ACTION_TYPES.UPDATE_BODY](
+		{ commit }: ActionParams<ItemState>,
+		{ item, body, intro }: { item: FeedItem, body: string, intro: string },
+	) {
+		ItemService.updateBodyText(item.id, body)
+		item.body = body
+		item.intro = intro
+
+		commit(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
 	},
 
 	/**

@@ -154,4 +154,29 @@ export class ItemService {
 			isStarred: read,
 		})
 	}
+
+	/**
+	 * Makes backend call to fetch full-text content for item
+	 *
+	 * @param item FeedItem (containing id) for which the content is to be fetched
+	 * @return response object containing backend request response
+	 */
+	static async fetchFulltext(item: FeedItem): Promise<AxiosResponse> {
+		return await axios.get(API_ROUTES.ITEMS + `/${item.id}/fulltext`, {
+			timeout: 5000,
+		})
+	}
+
+	/**
+	 * Makes backend call to update item content
+	 *
+	 * @param itemId for which the content is to be updated
+	 * @param body content used for the update
+	 * @return response object containing backend request response
+	 */
+	static async updateBodyText(itemId: string, body: string): Promise<void> {
+		await axios.post(API_ROUTES.ITEMS + `/${itemId}/body`, {
+			body,
+		})
+	}
 }
