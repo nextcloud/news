@@ -9,6 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - Automatically select item when using single item route
+- Scoped PHP dependencies are now correctly merged when multiple packages share the same namespace (e.g. league/uri + league/uri-interfaces, psr/http-factory + psr/http-message)
 
 # Releases
 ## [28.0.0-rc.2] - 2026-02-18
