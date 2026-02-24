@@ -174,25 +174,72 @@ function moveByPSR4(
             $namespace = str_replace($stripNamespacePrefix, "", $namespace);
         }
         $destination = $targetDirectory . str_replace("\\", "/", $namespace);
+        $source = $projectDir . $codeDir;
         if (file_exists($destination)) {
-            rmdir_recursive($destination);
-        }
-        if (!mkdir($destination, 0777, true)) {
-            printf(
-                "Failed to create %s" . PHP_EOL,
-                $destination
-            );
-            exit(5);
-        }
-        if (!rename($projectDir . $codeDir, $destination)) {
-            printf(
-                "Failed to move %s to %s" . PHP_EOL,
-                $projectDir . $codeDir,
-                $destination
-            );
-            exit(3);
+            // Destination already exists (another package shares this namespace).
+            // Merge contents instead of overwriting to avoid losing previously
+            // moved files (e.g. league/uri + league/uri-interfaces both use
+            // League\Uri\, psr/http-factory + psr/http-message both use
+            // Psr\Http\Message\).
+            merge_dirs($source, $destination);
+        } else {
+            if (!mkdir($destination, 0777, true)) {
+                printf(
+                    "Failed to create %s" . PHP_EOL,
+                    $destination
+                );
+                exit(5);
+            }
+            if (!rename($source, $destination)) {
+                printf(
+                    "Failed to move %s to %s" . PHP_EOL,
+                    $source,
+                    $destination
+                );
+                exit(3);
+            }
         }
         printf('Transformed namespace: %s' . PHP_EOL, $namespace);
+    }
+}
+
+function merge_dirs(string $source, string $destination): void {
+    $items = scandir($source);
+    if ($items === false) {
+        printf("Failed to read directory %s" . PHP_EOL, $source);
+        exit(3);
+    }
+    foreach ($items as $item) {
+        if ($item === '.' || $item === '..') {
+            continue;
+        }
+        $srcPath = rtrim($source, '/') . '/' . $item;
+        $dstPath = rtrim($destination, '/') . '/' . $item;
+        if (is_dir($srcPath)) {
+            if (!file_exists($dstPath)) {
+                mkdir($dstPath, 0777, true);
+            }
+            merge_dirs($srcPath, $dstPath);
+            // Clean up now-empty source subdirectory
+            @rmdir($srcPath);
+        } else {
+            // If destination file already exists, skip (same namespace classes
+            // should not be duplicated across packages).
+            if (file_exists($dstPath)) {
+                continue;
+            }
+            if (!rename($srcPath, $dstPath)) {
+                // Fallback for cross-filesystem moves
+                if (!copy($srcPath, $dstPath) || !unlink($srcPath)) {
+                    printf(
+                        "Failed to move %s to %s" . PHP_EOL,
+                        $srcPath,
+                        $dstPath
+                    );
+                    exit(3);
+                }
+            }
+        }
     }
 }
 
