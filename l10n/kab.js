@@ -18,6 +18,7 @@ OC.L10N.register(
     "General" : "Amatu",
     "Media" : "Amidya",
     "Appearance" : "Udem",
+    "Export" : "Sifeḍ",
     "Keyboard shortcuts" : "Inegzumen n unasiw",
     "Refresh" : "Sismeḍ",
     "Title" : "Azwel",
