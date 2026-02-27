@@ -23,8 +23,11 @@ class Scraper implements IScraper
     private $logger;
     private $config;
     private $readability;
-    private $curl_opts;
+    private $httpClient;
     private $fetcherConfig;
+
+    // Cached list of supported mbstring encodings
+    private static $supportedEncodingList = null;
 
     public function __construct(LoggerInterface $logger, FetcherConfig $fetcherConfig)
     {
@@ -35,70 +38,88 @@ class Scraper implements IScraper
             'SummonCthulhu' => true, // Remove <script>
         ]);
         $this->readability = null;
+        $httpClientConfig = [
+            'allow_redirects' => [
+                'referer'         => true,
+                'track_redirects' => true,
+            ],
+        ];
+        $this->httpClient = $this->fetcherConfig->getHttpClient($httpClientConfig);
 
-        $this->curl_opts = array(
-            CURLOPT_RETURNTRANSFER => true,     // return web page
-            CURLOPT_HEADER         => false,    // do not return headers
-            CURLOPT_FOLLOWLOCATION => true,     // follow redirects
-            CURLOPT_USERAGENT      => $this->fetcherConfig->getUserAgent(), // who am i
-            CURLOPT_AUTOREFERER    => true,     // set referer on redirect
-            CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
-            CURLOPT_TIMEOUT        => 120,      // timeout on response
-            CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
-        );
-
-        $proxy = $this->fetcherConfig->getProxy();
-        if (!is_null($proxy) && $proxy !== '') {
-            $this->curl_opts[CURLOPT_PROXY] = $proxy;
+        if (self::$supportedEncodingList === null) {
+            self::$supportedEncodingList = mb_list_encodings();
         }
     }
 
     private function getHTTPContent(string $url): array
     {
-        $handler = curl_init($url);
-        curl_setopt_array($handler, $this->curl_opts);
-        $content = curl_exec($handler);
-        $header  = curl_getinfo($handler);
-        curl_close($handler);
+        $effectiveUrl = $url;
+        try {
+            $response = $this->httpClient->request('GET', $url, [
+                'on_stats' => function ($stats) use (&$effectiveUrl) {
+                    $effectiveUrl = (string) $stats->getEffectiveUri();
+                }
+            ]);
 
-        $charset = null;
-        // check if charset is set in http header
-        if (isset($header['content_type']) &&
-            preg_match('/charset\s*=\s*"?([\w\-]+)"?/i', $header['content_type'], $m)) {
-            $charset = strtoupper($m[1]);
-        }
-        // search content for meta tag with charset
-        if ($charset === null &&
-            preg_match('/<meta[^>]+charset\s*=\s*["\']?([\w\-]+)["\']?[^>]+>/i', $content, $m)) {
-            $charset = strtoupper($m[1]);
-        }
-        // try to detect encoding
-        if ($charset === null) {
-            $encodingList = ['UTF-8', 'ISO-8859-1', 'Windows-1252', 'ASCII', 'UTF-16', 'UTF-16BE', 'UTF-16LE'];
-            $charset = mb_detect_encoding($content, $encodingList, true);
-        }
-        // convert to utf-8 if necessary
-        if ($charset !== null && $charset !== 'UTF-8') {
-            $convertedContent = mb_convert_encoding($content, 'UTF-8', $charset);
-            if ($convertedContent !== false) {
-                $content = $convertedContent;
-            } else {
-                $this->logger->warning(
-                    'Failed to convert encoding from {from} to UTF-8 for feed item',
-                    ['from' => $charset]
-                );
+            $content = $response->getBody()->getContents();
+            $contentType = $response->getHeaderLine('Content-Type');
+
+            $charset = null;
+            // check if charset is set in http header
+            if ($contentType &&
+                preg_match('/charset\s*=\s*"?([\w\-]+)"?/i', $contentType, $m)) {
+                $charset = strtoupper($m[1]);
             }
-        }
+            // search content for meta tag with charset
+            if ($charset === null &&
+                preg_match('/<meta[^>]+charset\s*=\s*["\']?([\w\-]+)["\']?[^>]+>/i', $content, $m)) {
+                $charset = strtoupper($m[1]);
+            }
+            // invalidate unsupported charsets to get the chance that a supported alias is detected
+            if ($charset !== null &&
+                !in_array($charset, self::$supportedEncodingList, true)) {
+                $this->logger->debug(
+                    'Ignoring unsupported charset {charset} from full text feed item',
+                    ['charset' => $charset]
+                );
+                $charset = null;
+            }
+            // try to detect encoding
+            if ($charset === null) {
+                $encodingList = ['UTF-8', 'ISO-8859-1', 'Windows-1252', 'ASCII', 'UTF-16', 'UTF-16BE', 'UTF-16LE'];
+                $charset = mb_detect_encoding($content, $encodingList, true);
+                if ($charset === false) {
+                    $charset = null;
+                }
+            }
+            // convert to utf-8 if necessary
+            if ($charset !== null && $charset !== 'UTF-8') {
+                $convertedContent = mb_convert_encoding($content, 'UTF-8', $charset);
+                if ($convertedContent !== false) {
+                    $content = $convertedContent;
+                } else {
+                    $this->logger->warning(
+                        'Failed to convert encoding from {from} to UTF-8 for full text feed item',
+                        ['from' => $charset]
+                    );
+                }
+            }
 
-        // Update the url after the redirects has been followed
-        $url = $header['url'];
-        return array($content, $header['url']);
+            // Update the url after the redirects has been followed
+            return array($content, $effectiveUrl);
+        } catch (\Throwable $e) {
+            $this->logger->debug('Error fetching {url} request returned {error}', [
+                'url' => $url,
+                'error' => $e->getMessage(),
+            ]);
+            return array(null, null);
+        }
     }
 
     public function scrape(string $url): bool
     {
         list($content, $redirected_url) = $this->getHTTPContent($url);
-        if ($content === false) {
+        if (is_null($content)) {
             $this->logger->error('Unable to receive content from {url}', [
                  'url' => $url,
             ]);
