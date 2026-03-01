@@ -40,6 +40,9 @@ class OPMLImporter
         $this->folders = [];
         $this->userId = $userId;
 
+        // Strip leading whitespace to handle OPML files with blank first lines
+        $data = ltrim($data);
+
         $document = new DOMDocument('1.0', 'UTF-8');
         $loaded = $document->loadXML($data);
         if ($loaded === false) {
