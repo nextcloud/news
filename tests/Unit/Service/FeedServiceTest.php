@@ -338,8 +338,8 @@ class FeedServiceTest extends TestCase
                        ->will($this->returnValue(['http://discover.test']));
 
         $expectedCalls = [
-            ['http://test', false, 'user', 'pass', null],
-            ['http://discover.test', false, 'user', 'pass', null]
+            ['http://test', false, 'user', 'pass', null, null],
+            ['http://discover.test', false, 'user', 'pass', null, null]
         ];
         $callIndex = 0;
 

@@ -48,6 +48,7 @@ class Fetcher
      * @param  string|null $user              if given, basic auth is set for this feed
      * @param  string|null $password          if given, basic auth is set for this feed. Ignored if user is empty
      * @param  string|null $httpLastModified  if given, will be used when sending a request to servers
+     * @param  array|null  $guidHashList      if given, contains the list of known items for this feed
      *
      * @throws ReadErrorException if FeedIO fails
      * @return array an array containing the new feed and its items, first
@@ -58,7 +59,8 @@ class Fetcher
         bool $fullTextEnabled = false,
         ?string $user = null,
         ?string $password = null,
-        ?string $httpLastModified = null
+        ?string $httpLastModified = null,
+        ?array $guidHashList = null
     ): array {
         foreach ($this->fetchers as $fetcher) {
             if (!$fetcher->canHandle($url)) {
@@ -69,7 +71,8 @@ class Fetcher
                 $fullTextEnabled,
                 $user,
                 $password,
-                $httpLastModified
+                $httpLastModified,
+                $guidHashList
             );
         }
 

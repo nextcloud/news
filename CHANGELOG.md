@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ### Changed
 - Refactor full text scraper to use guzzle http client and its admin settings `Maximum redirects` and `Feed fetcher timeout`
+- Limit full text scraper to download only new or updated articles
 
 ### Fixed
 - Some feeds are no longer being updated because the job is terminating due to incorrect encoding handling in the full text scraper

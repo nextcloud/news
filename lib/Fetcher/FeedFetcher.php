@@ -153,7 +153,8 @@ class FeedFetcher implements IFeedFetcher
         bool $fullTextEnabled,
         ?string $user,
         ?string $password,
-        ?string $httpLastModified
+        ?string $httpLastModified,
+        ?array $guidHashList
     ): array {
         $url2 = new Uri($url);
         if (!is_null($user) && trim($user) !== '') {
@@ -211,16 +212,48 @@ class FeedFetcher implements IFeedFetcher
             ]
         );
 
+        $feedTimestamp = $parsedFeed->getLastModified()?->getTimestamp();
         foreach ($parsedFeed as $item) {
             $body = null;
             $currRTL = $RTL;
 
-            // Scrape the content if full-text is enabled and if the feed provides a URL
-            if ($fullTextEnabled) {
+            // Scrape new content if full-text is enabled and if the feed provides a URL
+            if ($fullTextEnabled && isset($guidHashList)) {
+                $guidHash = md5($item->getPublicId());
+
+                // skip item if already exist and not updated
+                if (array_key_exists($guidHash, $guidHashList)) {
+                    // pubDate timestamp from DB/Item
+                    $oldPubDateTimestamp = $guidHashList[$guidHash];
+                    // pubDate/published timestamp from feed-io node/item interface
+                    $newPubDateTimestamp = $item->getLastModified()?->getTimestamp();
+
+                    // skip items with no valid pub date or when up to date
+                    if (is_null($newPubDateTimestamp) ||
+                        $newPubDateTimestamp === $feedTimestamp ||
+                        $oldPubDateTimestamp >= $newPubDateTimestamp) {
+                        $this->logger->debug(
+                            'Skipped fetching item {title} for feed {feed}, pub date not valid or item up to date',
+                            [
+                            'title' => $item->getTitle(),
+                            'feed'  => $feedName,
+                            ]
+                        );
+                        continue;
+                    }
+                }
                 $itemLink = $item->getLink();
                 if ($itemLink !== null && $this->scraper->scrape($itemLink)) {
                     $body = $this->scraper->getContent();
                     $currRTL = $this->scraper->getRTL($currRTL);
+                } else {
+                    $this->logger->debug(
+                        'Fetching full text item {title} for feed {feed} failed',
+                        [
+                        'title' => $item->getTitle(),
+                        'feed'  => $feedName,
+                        ]
+                    );
                 }
             }
 
