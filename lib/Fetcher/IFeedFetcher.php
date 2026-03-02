@@ -28,6 +28,7 @@ interface IFeedFetcher
      * @param  string|null $user          if given, basic auth is set for this feed
      * @param  string|null $password      if given, basic auth is set for this feed. Ignored if user is empty
      * @param  string|null $httpLastModified if given, will be used when sending a request to servers
+     * @param  array|null  $guidHashList  if given, contains the list of known items for this feed
      *
      * @return array<Feed, Item[]> an array containing the new feed and its items, first
      * element being the Feed and second element being an array of Items
@@ -39,7 +40,8 @@ interface IFeedFetcher
         bool $fullTextEnabled,
         ?string $user,
         ?string $password,
-        ?string $httpLastModified
+        ?string $httpLastModified,
+        ?array $guidHashList
     ): array;
 
     /**

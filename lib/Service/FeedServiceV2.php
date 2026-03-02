@@ -224,7 +224,14 @@ class FeedServiceV2 extends Service
              * @var Feed   $feed
              * @var Item[] $items
              */
-            list($feed, $items) = $this->feedFetcher->fetch($feedUrl, $full_text, $user, $password, $httpLastModified);
+            list($feed, $items) = $this->feedFetcher->fetch(
+                $feedUrl,
+                $full_text,
+                $user,
+                $password,
+                $httpLastModified,
+                null
+            );
         } catch (ReadErrorException $ex) {
             $this->logger->debug($ex->getMessage());
             if ($full_discover === false) {
@@ -245,7 +252,8 @@ class FeedServiceV2 extends Service
                     $full_text,
                     $user,
                     $password,
-                    $httpLastModified
+                    $httpLastModified,
+                    null,
                 );
             } catch (ReadErrorException $ex) {
                 throw new ServiceNotFoundException($ex->getMessage());
@@ -322,6 +330,11 @@ class FeedServiceV2 extends Service
         // yet, if so use the url
         $location = $feed->getLocation() ?? $feed->getUrl();
 
+        $guidHashList = null;
+        if ($feed->getFullTextEnabled()) {
+            $guidHashList = $this->mapper->findItemGuidHashesByFeedId($feed->getId());
+        }
+
         try {
             /**
              * @var Feed   $feed
@@ -332,7 +345,8 @@ class FeedServiceV2 extends Service
                 $feed->getFullTextEnabled(),
                 $feed->getBasicAuthUser(),
                 $feed->getBasicAuthPassword(),
-                $feed->getHttpLastModified()
+                $feed->getHttpLastModified(),
+                $guidHashList
             );
         } catch (ReadErrorException | NoAccurateParserException $ex) {
             $feed->setUpdateErrorCount($feed->getUpdateErrorCount() + 1);

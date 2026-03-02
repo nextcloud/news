@@ -145,6 +145,7 @@ class FeedFetcherTest extends TestCase
     private $updated;
     private $body;
     private $parsed_body;
+    private $fulltext_body;
     /**
      * @var Author
      */
@@ -237,6 +238,8 @@ class FeedFetcherTest extends TestCase
             = '<![CDATA[let the bodies hit the floor <a href="test">test</a>]]>';
         $this->parsed_body
             = 'let the bodies hit the floor <a href="test">test</a>';
+        $this->fulltext_body
+            = 'let the bodies hit the floor with full speed <a href="test">test</a>';
         $this->pub = 23111;
         $this->updated = 23444;
         $this->author = new Author();
@@ -277,7 +280,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, '0', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '0', false, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -329,7 +332,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, '0', false, null, null);
+        $result = $this->fetcher->fetch($this->url, '0', false, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
 
@@ -346,7 +349,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -365,7 +368,8 @@ class FeedFetcherTest extends TestCase
             false,
             'account@email.com',
             'F9sEU*Rt%:KFK8HMHT&',
-            null
+            null,
+            []
         );
 
         $this->assertEquals([$feed, [$item]], $result);
@@ -380,7 +384,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem('audio/ogg');
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -394,7 +398,7 @@ class FeedFetcherTest extends TestCase
         $item = $this->createItem('video/ogg');
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -409,7 +413,7 @@ class FeedFetcherTest extends TestCase
         $feed = $this->createFeed('de-DE');
         $item = $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
     }
@@ -423,7 +427,7 @@ class FeedFetcherTest extends TestCase
         $this->createFeed('he-IL');
         $this->createItem();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($_, $items) = $this->fetcher->fetch($this->url, false, null, null, null);
+        list($_, $items) = $this->fetcher->fetch($this->url, false, null, null, null, []);
         $this->assertTrue($items[0]->getRtl());
     }
 
@@ -449,7 +453,7 @@ class FeedFetcherTest extends TestCase
 
 
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null, []);
         $this->assertSame($items[0]->getPubDate(), 1522180229);
     }
 
@@ -475,7 +479,7 @@ class FeedFetcherTest extends TestCase
 
 
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null);
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null, []);
         $this->assertSame($items[0]->getPubDate(), 1519761029);
     }
 
@@ -488,7 +492,7 @@ class FeedFetcherTest extends TestCase
         $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null. null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
         //Explicitly assert GUID value
         $this->assertEquals(2, count($result));
         $this->assertEquals(1, count($result[1]));
@@ -506,13 +510,112 @@ class FeedFetcherTest extends TestCase
         $this->createItem();
         $feed = $this->createFeed();
         $this->mockIterator($this->feed_mock, [$this->item_mock]);
-        $result = $this->fetcher->fetch($this->url, false, null, null, null);
+        $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
         //Explicitly assert GUID value
         $this->assertEquals(2, count($result));
         $this->assertEquals(1, count($result[1]));
         $resultItem = $result[1][0];
         $this->assertEquals($this->permalink, $resultItem->getGuid());
     }
+
+    /**
+     * Test if the fetch function don't scrape the fulltext body if item does exist.
+     */
+    public function testFetchFulltextWhenItemExists()
+    {
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->never())
+            ->method('scrape')
+            ->with($this->permalink);
+        $this->scraper->expects($this->never())
+            ->method('getContent');
+
+        $guidHashList = [];
+        $guidHashList[$this->guid_hash] = $this->modified->getTimestamp();
+
+        $item = $this->createFulltextItem(true, false);
+        $feed = $this->createFeed();
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $result = $this->fetcher->fetch($this->url, true, null, null, null, $guidHashList);
+
+        $this->assertEquals([$feed, []], $result);
+    }
+
+    /**
+     * Test if the fetch function scrape the fulltext body if item does exist but has newer pub date.
+     */
+    public function testFetchFulltextWhenExistingItemIsUpdated()
+    {
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->will($this->returnValue(true));
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($this->fulltext_body));
+
+        $guidHashList[$this->guid_hash] = $this->modified->getTimestamp() - 1;
+
+        $item = $this->createFulltextItem(false, false);
+        $feed = $this->createFeed();
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $result = $this->fetcher->fetch($this->url, true, null, null, null, $guidHashList);
+
+        $this->assertEquals([$feed, [$item]], $result);
+    }
+
+    /**
+     * Test if the fetch function scrape the fulltext body if item does not exist.
+     */
+    public function testFetchFulltextWhenItemIsNew()
+    {
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->will($this->returnValue(true));
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($this->fulltext_body));
+
+        $item = $this->createFulltextItem(false, false);
+        $feed = $this->createFeed();
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $result = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertEquals([$feed, [$item]], $result);
+    }
+
+    /**
+     * Test if the fetch function returns the feed item if the fulltext body is invalid
+     */
+    public function testFetchWhenFetchedFulltextBodyIsInvalid()
+    {
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->will($this->returnValue(false));
+        $this->scraper->expects($this->never())
+            ->method('getContent');
+
+        $item = $this->createFulltextItem(false, true);
+        $feed = $this->createFeed();
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $result = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertEquals([$feed, [$item]], $result);
+    }
+
     /**
      * Mock an iteration option on an existing mock
      *
@@ -736,5 +839,56 @@ class FeedFetcherTest extends TestCase
 
 
         return $feed;
+    }
+
+    /**
+     * Create an fulltext item mock.
+     *
+     * @param bool   $itemExist
+     * @param bool   $itemInvalid
+     *
+     * @return Item
+     */
+    private function createFulltextItem(bool $itemExist, bool $itemInvalid)
+    {
+        $this->item_mock->expects($this->exactly($itemExist ? 0 : 2))
+            ->method('getLink')
+            ->will($this->returnValue($this->permalink));
+        $this->item_mock->expects($this->any())
+            ->method('getTitle')
+            ->will($this->returnValue($this->title));
+        $this->item_mock->expects($this->any())
+            ->method('getPublicId')
+            ->will($this->returnValue($this->guid));
+        $this->item_mock->expects($this->exactly($itemInvalid ? 1 : 0))
+            ->method('getContent')
+            ->will($this->returnValue($this->body));
+        $this->item_mock->expects($this->any())
+            ->method('getLastModified')
+            ->will($this->returnValue($this->modified));
+        $this->item_mock->expects($this->exactly($itemExist ? 0 : 1))
+            ->method('getAuthor')
+            ->will($this->returnValue($this->author));
+        $this->item_mock->expects($this->exactly($itemExist ? 0 : 1))
+            ->method('getCategories')
+            ->will($this->returnValue($this->categories));
+
+        $item = new Item();
+
+        $item->setUnread(true)
+            ->setUrl($this->permalink)
+            ->setTitle('my<\' title')
+            ->setGuid($this->guid)
+            ->setGuidHash($this->guid_hash)
+            ->setBody($itemInvalid ? $this->parsed_body : $this->fulltext_body)
+            ->setRtl(false)
+            ->setLastModified(3)
+            ->setPubDate(3)
+            ->setAuthor(html_entity_decode($this->author->getName()))
+            ->setCategoriesJson($this->categoriesJson);
+
+        $item->generateSearchIndex();
+
+        return $item;
     }
 }

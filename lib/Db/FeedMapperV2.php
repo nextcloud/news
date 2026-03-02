@@ -174,6 +174,30 @@ class FeedMapperV2 extends NewsMapperV2
     }
 
     /**
+     * @param int $id
+     *
+     * @return array
+     * @throws DBException
+     *
+     */
+    public function findItemGuidHashesByFeedId(int $id) : array
+    {
+        $guidHashBuilder = $this->db->getQueryBuilder();
+        $guidHashBuilder->select('items.guid_hash', 'items.pub_date')
+            ->from(ItemMapperV2::TABLE_NAME, 'items')
+            ->where('items.feed_id = :feedId')
+            ->setParameter('feedId', $id);
+
+        $guidHashList = [];
+        $rows = $this->db->executeQuery($guidHashBuilder->getSQL(), $guidHashBuilder->getParameters())->fetchAll();
+        foreach ($rows as $row) {
+            $guidHashList[$row['guid_hash']] = $row['pub_date'];
+        }
+
+        return $guidHashList;
+    }
+
+    /**
      * @param string   $userId
      * @param int      $id
      * @param int|null $maxItemID
