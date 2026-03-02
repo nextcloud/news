@@ -216,16 +216,31 @@ function merge_dirs(string $source, string $destination): void {
         $srcPath = rtrim($source, '/') . '/' . $item;
         $dstPath = rtrim($destination, '/') . '/' . $item;
         if (is_dir($srcPath)) {
-            if (!file_exists($dstPath)) {
-                mkdir($dstPath, 0777, true);
+            if (file_exists($dstPath) && !is_dir($dstPath)) {
+                printf(
+                    "Cannot merge: %s exists but is not a directory" . PHP_EOL,
+                    $dstPath
+                );
+                exit(3);
+            }
+            if (!file_exists($dstPath) && !mkdir($dstPath, 0777, true)) {
+                printf("Failed to create directory %s" . PHP_EOL, $dstPath);
+                exit(5);
             }
             merge_dirs($srcPath, $dstPath);
-            // Clean up now-empty source subdirectory
-            @rmdir($srcPath);
         } else {
-            // If destination file already exists, skip (same namespace classes
-            // should not be duplicated across packages).
+            // If destination file already exists, remove the duplicate from source
+            // so the source tree can be cleaned up deterministically (same namespace
+            // classes should not be duplicated across packages).
             if (file_exists($dstPath)) {
+                if (!unlink($srcPath)) {
+                    printf(
+                        "Failed to remove duplicate source file %s (destination %s already exists)" . PHP_EOL,
+                        $srcPath,
+                        $dstPath
+                    );
+                    exit(3);
+                }
                 continue;
             }
             if (!rename($srcPath, $dstPath)) {
@@ -241,6 +256,8 @@ function merge_dirs(string $source, string $destination): void {
             }
         }
     }
+    // Attempt to remove the (now possibly empty) source directory itself
+    @rmdir($source);
 }
 
 function rmdir_recursive($dir)
