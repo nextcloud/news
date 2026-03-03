@@ -183,7 +183,7 @@ describe('AppSettingsDialog.vue', () => {
 		let radioGroup
 		beforeEach(() => {
 			radioGroups = wrapper.findAllComponents({ name: 'NcRadioGroup' })
-			radioGroup = radioGroups.find((g) => g.props('label') === 'Show enclosure thumbnails')
+			radioGroup = radioGroups.find((g) => g.props('label') === 'Show embedded thumbnails')
 		})
 		it('set mediaThumbnail to always', async () => {
 			vi.spyOn(axios, 'post').mockResolvedValue({ data: { ocs: { meta: { status: 'ok' } } } })
