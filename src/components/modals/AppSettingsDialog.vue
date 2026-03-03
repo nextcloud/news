@@ -27,7 +27,7 @@
 		<NcAppSettingsSection id="media-display" :name="t('news', 'Media')">
 			<NcRadioGroup
 				v-model="mediaThumbnails"
-				:label="t('news', 'Show enclosure thumbnails')">
+				:label="t('news', 'Show embedded thumbnails')">
 				<NcRadioGroupButton
 					v-for="externalOption in mediaModeOptions"
 					:key="externalOption.id"
