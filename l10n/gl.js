@@ -134,7 +134,6 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "Ordenado inverso (máis vellos enriba)",
     "Disable automatic refresh" : "Desactivar a actualización automática",
     "Media" : "Multimedia",
-    "Show enclosure thumbnails" : "Amosar as miniaturas do cercado",
     "Show enclosure images" : "Amosar as imaxes do cercado",
     "Show images in the article text" : "Amosar as imaxes no texto do artigo",
     "Show iframes in the article text" : "Amosar os «iframe» no texto do artigo",

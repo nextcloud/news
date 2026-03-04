@@ -134,7 +134,6 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "Opačné řazení (od nejstarších)",
     "Disable automatic refresh" : "Vypnout automatické znovunačítání",
     "Media" : "Média",
-    "Show enclosure thumbnails" : "Zobrazovat náhledy obalu",
     "Show enclosure images" : "Zobrazovat obrázky obalu",
     "Show images in the article text" : "V textu článku zobrazovat obrázky",
     "Show iframes in the article text" : "V textu článku zobrazovat iframe rámce",

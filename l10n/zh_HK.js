@@ -134,7 +134,6 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "反向排序（最舊的文章排在最上面）",
     "Disable automatic refresh" : "停用自動刷新",
     "Media" : "媒體",
-    "Show enclosure thumbnails" : "顯示附件縮圖",
     "Show enclosure images" : "顯示附件圖像",
     "Show images in the article text" : "於文章內顯示圖像",
     "Show iframes in the article text" : "於文章內顯示 iframes",

@@ -134,7 +134,6 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "Sıralamayı tersine çevir (eskiden yeniye)",
     "Disable automatic refresh" : "Otomatik yenilenmesin",
     "Media" : "Ortam",
-    "Show enclosure thumbnails" : "Kutu küçük görselleri görüntülensin",
     "Show enclosure images" : "Kutu görselleri görüntülensin",
     "Show images in the article text" : "Görseller yazı içeriğinde görüntülensin ",
     "Show iframes in the article text" : "Iframe nesneleri yazı içeriğinde görüntülensin",
