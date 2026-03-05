@@ -132,6 +132,7 @@
     "Reverse ordering (oldest on top)" : "Sortierung umkehren (älteste zuerst)",
     "Disable automatic refresh" : "Automatisches Aktualisieren deaktivieren",
     "Media" : "Medien",
+    "Show embedded thumbnails" : "Titelbildvorschau anzeigen",
     "Show enclosure images" : "Titelbilder anzeigen",
     "Show images in the article text" : "Bilder im Artikeltext anzeigen",
     "Show iframes in the article text" : "IFrames im Artikeltext anzeigen",

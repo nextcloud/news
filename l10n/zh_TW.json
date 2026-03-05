@@ -132,6 +132,7 @@
     "Reverse ordering (oldest on top)" : "反向排序（最舊的文章排在最上面）",
     "Disable automatic refresh" : "停用自動重新整理",
     "Media" : "媒體",
+    "Show embedded thumbnails" : "顯示嵌入縮圖",
     "Show enclosure images" : "顯示附件影像",
     "Show images in the article text" : "在文章文字中顯示影像",
     "Show iframes in the article text" : "在文章文字中顯示 iframe",
