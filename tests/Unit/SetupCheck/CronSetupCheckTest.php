@@ -5,10 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author    Alessandro Cosentino <cosenal@gmail.com>
- * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright 2012 Alessandro Cosentino
- * @copyright 2012-2014 Bernhard Posselt
+ * @author    Clayton <claytonlin1110@gmail.com>
  */
 
 namespace OCA\News\Tests\Unit\SetupCheck;
@@ -22,20 +19,12 @@ use PHPUnit\Framework\TestCase;
 
 class CronSetupCheckTest extends TestCase
 {
+    private MockObject|IL10N $l10n;
+    private MockObject|StatusService $statusService;
     /**
-     * @var MockObject|IL10N
+     * The class to test
      */
-    private $l10n;
-
-    /**
-     * @var MockObject|StatusService
-     */
-    private $statusService;
-
-    /**
-     * @var CronSetupCheck
-     */
-    private $check;
+    private CronSetupCheck  $check;
 
     public function setUp(): void
     {

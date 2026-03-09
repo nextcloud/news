@@ -5,10 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author    Alessandro Cosentino <cosenal@gmail.com>
- * @author    Bernhard Posselt <dev@bernhard-posselt.com>
- * @copyright 2012 Alessandro Cosentino
- * @copyright 2012-2014 Bernhard Posselt
+ * @author    Clayton <claytonlin1110@gmail.com>
  */
 
 declare(strict_types=1);
@@ -49,7 +46,8 @@ class CronSetupCheck implements ISetupCheck
 
         return SetupResult::warning(
             $this->l10n->t('Ajax or webcron mode detected! Your feeds will not be updated!'),
-            'https://docs.nextcloud.org/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron'
+            'https://docs.nextcloud.org/server/latest/admin_manual/'
+            . 'configuration_server/background_jobs_configuration.html#cron'
         );
     }
 }
