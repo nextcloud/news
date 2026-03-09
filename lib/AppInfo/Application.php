@@ -24,6 +24,7 @@ use OCA\News\Search\FolderSearchProvider;
 use OCA\News\Search\ItemSearchProvider;
 use OCA\News\Listeners\AddMissingIndicesListener;
 use OCA\News\Listeners\UserSettingsListener;
+use OCA\News\SetupCheck\CronSetupCheck;
 use OCA\News\Utility\Cache;
 use OCA\News\Utility\HtmlSanitizer;
 
@@ -99,6 +100,8 @@ class Application extends App implements IBootstrap
         $context->registerEventListener(AddMissingIndicesEvent::class, AddMissingIndicesListener::class);
         $context->registerEventListener(BeforePreferenceDeletedEvent::class, UserSettingsListener::class);
         $context->registerEventListener(BeforePreferenceSetEvent::class, UserSettingsListener::class);
+
+        $context->registerSetupCheck(CronSetupCheck::class);
 
         // parameters
         $context->registerParameter('exploreDir', __DIR__ . '/../Explore/feeds');
