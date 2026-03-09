@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Implement the cron check as a setup check (#2831)
 
 # Releases
 ## [28.0.0] - 2026-03-03
