@@ -95,7 +95,6 @@ Nextcloud News is an RSS/Atom feed aggregator app for Nextcloud. It's a PHP back
 **Build Output**: JavaScript builds to `js/` directory (gitignored except in releases). Files include:
 - `news-main.mjs` - Main app bundle
 - `news-admin-settings.mjs` - Admin settings
-- `news-cron-warning.mjs` - Cron warning component
 - `*.chunk.mjs` - Code-split chunks
 - `*.license` - License info files
 

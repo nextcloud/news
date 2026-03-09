@@ -9,7 +9,6 @@ import { resolve } from 'node:path'
 export default createAppConfig({
 	main: 'src/main.js',
 	'admin-settings': 'src/main-admin.js',
-	'cron-warning': 'src/main-cron-warning.js',
 }, {
 	inlineCSS: { relativeCSSInjection: true },
 	config: {
