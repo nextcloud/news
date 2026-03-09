@@ -134,6 +134,7 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "Ordú droim ar ais (is sine ar an mbarr)",
     "Disable automatic refresh" : "Díchumasaigh athnuachan uathoibríoch",
     "Media" : "Meáin",
+    "Show embedded thumbnails" : "Taispeáin mionsamhlacha leabaithe",
     "Show enclosure images" : "Taispeáin íomhánna imfhálúcháin",
     "Show images in the article text" : "Taispeáin íomhánna i dtéacs an ailt",
     "Show iframes in the article text" : "Taispeáin iframes i dtéacs an ailt",
