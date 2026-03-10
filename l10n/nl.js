@@ -68,6 +68,8 @@ OC.L10N.register(
     "Remove keep article unread" : "Verwijder ongelezen houden artikel",
     "Default" : "Standaard",
     "Compact" : "Compact",
+    "Vertical" : "Verticaal",
+    "Horizontal" : "Horizontaal",
     "Off" : "Uit",
     "Always" : "Altijd",
     "Never" : "Nooit",
