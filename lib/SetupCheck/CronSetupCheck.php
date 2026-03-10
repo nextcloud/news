@@ -32,14 +32,14 @@ class CronSetupCheck implements ISetupCheck
 
     public function getCategory(): string
     {
-        return 'system';
+        return Application::NAME;
     }
 
     public function run(): SetupResult
     {
         if ($this->statusService->isCronProperlyConfigured()) {
             return SetupResult::success(
-                $this->l10n->t('Feed updates will run via the system cron job.')
+                $this->l10n->t('Feed update method is correctly configured.')
             );
         }
 

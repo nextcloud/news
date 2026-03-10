@@ -48,7 +48,7 @@ class CronSetupCheckTest extends TestCase
 
     public function testGetCategory(): void
     {
-        $this->assertSame('system', $this->check->getCategory());
+        $this->assertSame('news', $this->check->getCategory());
     }
 
     public function testRunSuccessWhenCronProperlyConfigured(): void
