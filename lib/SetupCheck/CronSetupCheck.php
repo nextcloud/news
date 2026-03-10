@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author    Clayton <claytonlin1110@gmail.com>
+ * @author Clayton <claytonlin1110@gmail.com>
  */
 
 declare(strict_types=1);
@@ -21,8 +21,8 @@ use OCP\SetupCheck\SetupResult;
 class CronSetupCheck implements ISetupCheck
 {
     public function __construct(
-        private IL10N $l10n,
-        private StatusService $statusService,
+        private readonly IL10N $l10n,
+        private readonly StatusService $statusService,
     ) {
     }
 

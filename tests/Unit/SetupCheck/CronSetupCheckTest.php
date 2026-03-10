@@ -5,7 +5,7 @@
  * This file is licensed under the Affero General Public License version 3 or
  * later. See the COPYING file.
  *
- * @author    Clayton <claytonlin1110@gmail.com>
+ * @author Clayton <claytonlin1110@gmail.com>
  */
 
 namespace OCA\News\Tests\Unit\SetupCheck;
@@ -60,6 +60,7 @@ class CronSetupCheckTest extends TestCase
         $result = $this->check->run();
 
         $this->assertInstanceOf(SetupResult::class, $result);
+        $this->assertSame(SetupResult::SUCCESS, $result->getSeverity());
     }
 
     public function testRunWarningWhenCronNotProperlyConfigured(): void
@@ -71,5 +72,6 @@ class CronSetupCheckTest extends TestCase
         $result = $this->check->run();
 
         $this->assertInstanceOf(SetupResult::class, $result);
+        $this->assertSame(SetupResult::WARNING, $result->getSeverity());
     }
 }
