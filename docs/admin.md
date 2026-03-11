@@ -51,7 +51,7 @@ If you are using the News app in your company/community, it might be interesting
 
 The URL should be a path to a directory which contains a JSON file in the format of **feeds.LANG_CODE.json** where LANG_CODE is a two character language code (e.g. **en** or **de**).
 
-For example, entering the URL **<https://domain.com/directory>** as explore URL will produce the following request for German users:
+For example, entering the URL **<https://domain.com/directory/>** as explore URL will produce the following request for German users:
 
     GET https://domain.com/directory/feeds.de.json
 
