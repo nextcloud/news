@@ -214,4 +214,73 @@ class ImportServiceTest extends TestCase
 
         $this->assertEquals(true, $result);
     }
+
+    public function testImportArticlesSanitizesMediaDescription()
+    {
+        $url = 'http://nextcloud/nofeed';
+
+        $feed = new Feed();
+        $feed->setId(3);
+        $feed->setUserId($this->uid);
+        $feed->setUrl($url);
+        $feed->setLink($url);
+        $feed->setTitle('Articles without feed');
+        $feed->setAdded($this->time);
+        $feed->setFolderId(0);
+        $feed->setPreventUpdate(true);
+
+        $feeds = [$feed];
+
+        $item = new Item();
+        $item->setFeedId(3);
+        $item->setAuthor('john');
+        $item->setGuid('s');
+        $item->setGuidHash('03c7c0ace395d80182db07ae2c30f034');
+        $item->setTitle('hey');
+        $item->setPubDate(333);
+        $item->setBody('<p>article body</p>');
+        $item->setMediaDescription('<p>media description with <script>alert("xss")</script></p>');
+        $item->setEnclosureMime('video/mp4');
+        $item->setEnclosureLink('http://example.com/video.mp4');
+        $item->setUnread(true);
+        $item->setStarred(false);
+        $item->generateSearchIndex();
+
+        $json = $item->toExport(['feed3' => $feed]);
+
+        $items = [$json];
+        
+        // After export, update item to match expected sanitized state for insertOrUpdate check
+        $item->setMediaDescription('<p>media description with alert("xss")</p>');
+        $item->generateSearchIndex();
+
+        $this->feedService->expects($this->once())
+            ->method('findAllForUser')
+            ->with($this->equalTo($this->uid))
+            ->will($this->returnValue($feeds));
+
+        $this->itemService->expects($this->once())
+            ->method('insertOrUpdate')
+            ->with($item);
+
+        // Purifier should be called twice: once for body, once for media description
+        $purifyCallIndex = 0;
+        $expectedPurifyCalls = [
+            '<p>article body</p>',
+            '<p>media description with <script>alert("xss")</script></p>'
+        ];
+        
+        $this->purifier->expects($this->exactly(2))
+            ->method('purify')
+            ->willReturnCallback(function ($input) use (&$purifyCallIndex, $expectedPurifyCalls) {
+                $this->assertEquals($expectedPurifyCalls[$purifyCallIndex], $input);
+                $purifyCallIndex++;
+                // Simulate sanitizer removing script tags
+                return str_replace(['<script>', '</script>'], '', $input);
+            });
+
+        $result = $this->class->articles($this->uid, $items);
+
+        $this->assertEquals(true, $result);
+    }
 }
