@@ -120,8 +120,15 @@ class ImportService
             }
 
             $item->setFeedId($feed->getId())
-                 ->setBody($this->purifier->purify($item->getBody()))
-                 ->generateSearchIndex();
+                 ->setBody($this->purifier->purify($item->getBody()));
+            
+            // Sanitize media description if present
+            $mediaDesc = $item->getMediaDescription();
+            if ($mediaDesc !== null) {
+                $item->setMediaDescription($this->purifier->purify($mediaDesc));
+            }
+            
+            $item->generateSearchIndex();
             if (!$this->itemService->insertOrUpdate($item)) {
                 $error++;
             }

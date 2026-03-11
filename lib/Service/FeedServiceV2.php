@@ -388,6 +388,12 @@ class FeedServiceV2 extends Service
             $item->setFeedId($feed->getId())
                 ->setBody($this->purifier->purify($item->getBody()));
 
+            // Sanitize media description if present
+            $mediaDesc = $item->getMediaDescription();
+            if ($mediaDesc !== null) {
+                $item->setMediaDescription($this->purifier->purify($mediaDesc));
+            }
+
             // update modes: 0 nothing, 1 set unread
             if ($feed->getUpdateMode() === Feed::UPDATE_MODE_NORMAL) {
                 $item->setUnread(true);
