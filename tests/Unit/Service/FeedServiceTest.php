@@ -648,6 +648,57 @@ class FeedServiceTest extends TestCase
         $this->assertEquals(2, $feed->getUnreadCount());
     }
 
+    public function testFetchSucceedsSanitizesMediaDescription()
+    {
+        $feed = Feed::fromParams([
+            'id'         => 1,
+            'location'   => 'url.com',
+            'updateMode' => 1,
+        ]);
+
+        $new_feed = $this->getMockBuilder(Feed::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $item1 = Item::fromParams([
+            'id' => 1, 
+            'body' => '<p>body content</p>',
+            'mediaDescription' => '<p>media desc with <script>alert("xss")</script></p>'
+        ]);
+        
+        $this->fetcher->expects($this->once())
+                      ->method('fetch')
+                      ->will($this->returnValue([$new_feed, [$item1]]));
+
+        $this->mapper->expects($this->exactly(1))
+            ->method('update')
+            ->with($feed)
+            ->will($this->returnValue($feed));
+
+        // Purifier should be called twice: once for body, once for media description
+        $purifyCallIndex = 0;
+        $expectedPurifyCalls = [
+            '<p>body content</p>',
+            '<p>media desc with <script>alert("xss")</script></p>'
+        ];
+
+        $this->purifier->expects($this->exactly(2))
+            ->method('purify')
+            ->willReturnCallback(function ($input) use (&$purifyCallIndex, $expectedPurifyCalls) {
+                $this->assertEquals($expectedPurifyCalls[$purifyCallIndex], $input);
+                $purifyCallIndex++;
+                // Simulate sanitizer removing script tags
+                return str_replace(['<script>', '</script>'], '', $input);
+            });
+
+        $this->itemService->expects($this->once())
+            ->method('insertOrUpdate')
+            ->willReturn($item1);
+
+        $this->assertSame($feed, $this->class->fetch($feed));
+        $this->assertEquals(1, $feed->getUnreadCount());
+    }
+
     public function testMarkDeleted()
     {
         $feed = Feed::fromParams(['id' => 3]);
