@@ -9,7 +9,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - Handle OPML files with leading blank lines (#3587)
-- Sanitize media descriptions to prevent potentially malicious HTML from untrusted feed content
+- Sanitize media descriptions to prevent potentially malicious HTML from untrusted feed content (#3588)
 
 # Releases
 ## [28.0.0] - 2026-03-03
