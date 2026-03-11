@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace OCA\News\SetupCheck;
 
+use OCA\News\AppInfo\Application;
 use OCA\News\Service\StatusService;
 use OCP\IL10N;
 use OCP\SetupCheck\ISetupCheck;
