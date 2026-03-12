@@ -121,15 +121,15 @@ class PageController extends Controller
             'exploreUrl',
             Application::DEFAULT_SETTINGS['exploreUrl']
         );
-        if (trim($exploreUrl) === '') {
-                // default url should not feature the sites.en.json
-                $exploreUrl = $this->urlGenerator->linkToRoute(
-                    'news.page.explore',
-                    ['lang' => 'en']
-                );
-                $exploreUrl = preg_replace('/feeds\.en\.json$/', '', $exploreUrl);
-        }
-        $this->initialState->provideInitialState("exploreUrl", $exploreUrl);
+
+        // Generate default URL - get the explore API endpoint and strip the filename
+        $defaultExploreUrl = $this->urlGenerator->linkToRoute('news.page.explore', ['lang' => 'en']);
+        // Remove just a trailing filename, keeping the /explore/ directory
+        $defaultExploreUrl = preg_replace('/feeds\.en\.json$/', '', $defaultExploreUrl);
+
+        // Provide both custom and default URLs to frontend
+        $this->initialState->provideInitialState('exploreUrl', trim($exploreUrl));
+        $this->initialState->provideInitialState('defaultExploreUrl', $defaultExploreUrl);
 
         $csp = new ContentSecurityPolicy();
         $csp->addAllowedImageDomain('*')
