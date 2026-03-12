@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Re-implement custom explore source function, admins can configure a custom url where the app will search for feeds.{$langcode}.json (#3609)
 
 ### Fixed
 
