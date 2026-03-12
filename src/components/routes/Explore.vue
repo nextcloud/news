@@ -44,6 +44,7 @@ import type { Feed } from '../../types/Feed.ts'
 
 import axios from '@nextcloud/axios'
 import { loadState } from '@nextcloud/initial-state'
+import { getLanguage } from '@nextcloud/l10n'
 import { defineComponent } from 'vue'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcButton from '@nextcloud/vue/components/NcButton'
@@ -79,20 +80,62 @@ const ExploreComponent = defineComponent({
 
 	methods: {
 		async sites() {
-			const exploreUrl = loadState('news', 'exploreUrl') + 'feeds.en.json'
+			const customUrl = loadState('news', 'exploreUrl', '')
+			const defaultUrl = loadState('news', 'defaultExploreUrl', '')
+			const language = getLanguage()
+
+			if (customUrl) {
+				// Admin configured custom URL - use language detection + fallback
+				await this.fetchFromCustomUrl(customUrl, language)
+			} else {
+				// Use default URL (backend only has English)
+				await this.fetchFromDefaultUrl(defaultUrl)
+			}
+		},
+
+		async fetchFromCustomUrl(baseUrl: string, language: string) {
+			const fileName = `feeds.${language}.json`
+			const exploreUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + fileName
+
 			try {
 				const explore = await axios.get(exploreUrl)
-
-				Object.keys(explore.data).forEach((key) => explore.data[key].forEach((value: ExploreSite) => {
-					if (this.exploreSites) {
-						this.exploreSites.push(value)
-					} else {
-						this.exploreSites = [value]
+				this.processExploreData(explore.data)
+			} catch {
+				// Fallback to English for custom URLs
+				if (language !== 'en') {
+					try {
+						const fallbackUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'feeds.en.json'
+						const explore = await axios.get(fallbackUrl)
+						this.processExploreData(explore.data)
+					} catch {
+						this.exploreSites = undefined
 					}
-				}))
+				} else {
+					this.exploreSites = undefined
+				}
+			}
+		},
+
+		async fetchFromDefaultUrl(baseUrl: string) {
+			// Default backend only has English feeds
+			const exploreUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'feeds.en.json'
+
+			try {
+				const explore = await axios.get(exploreUrl)
+				this.processExploreData(explore.data)
 			} catch {
 				this.exploreSites = undefined
 			}
+		},
+
+		processExploreData(data: Record<string, ExploreSite[]>) {
+			Object.keys(data).forEach((key) => data[key].forEach((value: ExploreSite) => {
+				if (this.exploreSites) {
+					this.exploreSites.push(value)
+				} else {
+					this.exploreSites = [value]
+				}
+			}))
 		},
 
 		subscribe(feed: Feed) {
