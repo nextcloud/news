@@ -89,6 +89,7 @@ OC.L10N.register(
     "Default" : "デフォルト",
     "Vertical" : "垂直",
     "Horizontal" : "水平",
+    "Off" : "オフ",
     "Always" : "常に",
     "Never" : "なし",
     "General" : "一般",
