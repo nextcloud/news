@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Implement the cron check as a setup check (#2831)
 
 ### Fixed
 
