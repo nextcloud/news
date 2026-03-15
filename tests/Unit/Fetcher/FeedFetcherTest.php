@@ -287,7 +287,7 @@ class FeedFetcherTest extends TestCase
      *
      * @return array
      */
-    public function feedBodyProvider()
+    public static function feedBodyProvider()
     {
         return [
             [

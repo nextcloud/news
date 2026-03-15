@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 - Re-implement custom explore source function, admins can configure a custom url where the app will search for feeds.{$langcode}.json (#3609)
 - Implement the cron check as a setup check (#2831)
+- DEV: update to phpunit 10
 
 ### Fixed
 

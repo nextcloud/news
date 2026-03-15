@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="tests/bootstrap.php" colors="true"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd">
+         displayDetailsOnPhpunitDeprecations="true"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd">
     <testsuites>
         <testsuite name="unit">
             <directory>./tests/Unit</directory>
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <source>
         <include>
             <directory suffix=".php">./lib/</directory>
         </include>
@@ -20,6 +21,9 @@
             <file>./lib/Db/FeedType.php</file>
             <file>./lib/Db/IAPI.php</file>
         </exclude>
+    </source>
+
+    <coverage>
         <report>
             <clover outputFile="./build/coverage.xml"/>
             <html outputDirectory="./build/report" lowUpperBound="35" highLowerBound="70"/>
