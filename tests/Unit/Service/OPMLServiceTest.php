@@ -53,6 +53,11 @@ class OPMLServiceTest extends TestCase
     private $class;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var string
      */
     private $uid;

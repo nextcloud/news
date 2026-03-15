@@ -52,6 +52,10 @@ class ExportControllerTest extends TestCase
      */
     private $itemService;
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|ExportService
+     */
+    private $exportService;
+    /**
      * @var \PHPUnit\Framework\MockObject\MockObject|OpmlService
      */
     private $opmlService;

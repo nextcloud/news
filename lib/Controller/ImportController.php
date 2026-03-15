@@ -44,8 +44,8 @@ class ImportController extends Controller
     public function opml(): array
     {
         $data = '';
-        if (isset($this->request->files['file'])) {
-            $file = $this->request->files['file'];
+        if (isset($this->request->getUploadedFile('file')['tmp_name'])) {
+            $file = $this->request->getUploadedFile('file');
             $data = file_get_contents($file['tmp_name']);
         } else {
             $data = $this->request->getContent();
@@ -75,8 +75,8 @@ class ImportController extends Controller
     public function articles(): array
     {
         $data = '';
-        if (isset($this->request->files['file'])) {
-            $file = $this->request->files['file'];
+        if (isset($this->request->getUploadedFile('file')['tmp_name'])) {
+            $file = $this->request->getUploadedFile('file');
             $data = file_get_contents($file['tmp_name']);
         }
 
