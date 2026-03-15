@@ -273,7 +273,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
 
     public function getIntro(): string
     {
-        return strip_tags($this->getBody());
+        return strip_tags($this->getBody() ?? '');
     }
 
     /**

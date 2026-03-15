@@ -75,11 +75,10 @@ class ImportControllerTest extends TestCase
         $tmpFile = tempnam(sys_get_temp_dir(), 'news-import-test_');
         file_put_contents($tmpFile, json_encode(['foo' => 'bar']));
 
-        $this->request->files = [
-            'file' => [
-                'tmp_name' => $tmpFile
-            ]
-        ];
+        $this->request->expects($this->any())
+            ->method('getUploadedFile')
+            ->with('file')
+            ->willReturn(['tmp_name' => $tmpFile]);
 
         $this->importService
             ->expects($this->once())
@@ -100,11 +99,10 @@ class ImportControllerTest extends TestCase
         $tmpFile = tempnam(sys_get_temp_dir(), 'news-import-test_');
         file_put_contents($tmpFile, json_encode(['foo' => 'bar']));
 
-        $this->request->files = [
-            'file' => [
-                'tmp_name' => $tmpFile
-            ]
-        ];
+        $this->request->expects($this->any())
+            ->method('getUploadedFile')
+            ->with('file')
+            ->willReturn(['tmp_name' => $tmpFile]);
 
         $this->importService
             ->method('articles')
@@ -123,11 +121,10 @@ class ImportControllerTest extends TestCase
         $tmpFile = tempnam(sys_get_temp_dir(), 'news-import-test_');
         file_put_contents($tmpFile, 'invalid json');
 
-        $this->request->files = [
-            'file' => [
-                'tmp_name' => $tmpFile
-            ]
-        ];
+        $this->request->expects($this->any())
+            ->method('getUploadedFile')
+            ->with('file')
+            ->willReturn(['tmp_name' => $tmpFile]);
 
         $this->importService
             ->expects($this->never())
@@ -142,7 +139,10 @@ class ImportControllerTest extends TestCase
 
     public function testImportArticlesEmptyUpload()
     {
-        $this->request->files = [];
+        $this->request->expects($this->any())
+            ->method('getUploadedFile')
+            ->with('file')
+            ->willReturn(null);
 
         $this->importService
             ->expects($this->never())
