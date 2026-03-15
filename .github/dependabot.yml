@@ -55,3 +55,14 @@ updates:
       - "Skip-Changelog"
     cooldown:
       default-days: 7
+
+  # Maintain Docker base image
+  - package-ecosystem: "docker"
+    directory: "/docker"
+    schedule:
+      interval: "daily"
+    labels:
+      - "dependencies"
+      - "Skip-Changelog"
+    cooldown:
+      default-days: 7
