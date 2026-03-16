@@ -6,6 +6,7 @@
     "News folders" : "뉴스 폴더",
     "News articles" : "뉴스 기사",
     "Shared with me" : "나와 공유됨",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax 및 웹 cron 모드가 감지되었습니다! 피드를 업데이트하지 않습니다!",
     "An RSS/Atom feed reader" : "RSS/Atom 피드 리더",
     "Download" : "다운로드",
     "Close" : "닫기",
@@ -93,9 +94,6 @@
     "All Articles" : "모든 글",
     "No feeds found to add" : "추가할 피드를 없음",
     "Subscribe to" : "다음을 구독",
-    "Unread Articles" : "읽지 않은 글",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax 및 웹 cron 모드가 감지되었습니다! 피드를 업데이트하지 않습니다!",
-    "How to set up the operating system cron" : "운영 체제 cron 설정 방법",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "뉴스 앱의 업데이트 API를 사용하는 빠른 병렬 업데이터 설치 및 설정"
+    "Unread Articles" : "읽지 않은 글"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

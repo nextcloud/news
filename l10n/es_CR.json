@@ -3,6 +3,7 @@
     "%1$s shared \"%2$s\" with you" : "%1$s ha compartido \"%2$s\" contigo",
     "Unread articles" : "Artículos sin leer",
     "Shared with me" : "Compartido conmigo",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Se ha detectado el modo Ajax o webron! ¡Tus fuentes no serán actualizadas!",
     "Download" : "Descargar",
     "Close" : "Cerrar",
     "Web address" : "Dirección web",
@@ -62,9 +63,6 @@
     "Jump to next article" : "Ir al artículo siguiente ",
     "Open article in new tab" : "Abrir el artículo en una nueva pestaña",
     "Resources" : "Recursos",
-    "Title" : "Título",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Se ha detectado el modo Ajax o webron! ¡Tus fuentes no serán actualizadas!",
-    "How to set up the operating system cron" : "Cómo establecer las tareas programadas del sistema operativo",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instala y configura un actualizador en paralelo más rápido que use el API de actualización de la nueva aplicación"
+    "Title" : "Título"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

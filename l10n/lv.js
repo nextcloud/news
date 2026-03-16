@@ -4,6 +4,7 @@ OC.L10N.register(
     "%1$s shared \"%2$s\" with you" : "%1$s koplietots \"%2$s\" ar tevi",
     "Unread articles" : "Nelasītie raksti",
     "Shared with me" : "Koplietots ar mani",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Noteikts AJAX vai tīmekļa cron. Tavas barotnes netiks atjauninātas.",
     "Download" : "Lejupielādēt",
     "Close" : "Aizvērt",
     "Web address" : "Tīmekļa adrese",
@@ -49,7 +50,6 @@ OC.L10N.register(
     "Resources" : "Resursi",
     "Title" : "Virsraksts",
     "Folder" : "Mape",
-    "Not available" : "Nav pieejams",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Noteikts AJAX vai tīmekļa cron. Tavas barotnes netiks atjauninātas."
+    "Not available" : "Nav pieejams"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

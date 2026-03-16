@@ -6,6 +6,7 @@
     "Unread articles" : "Ongelezen artikelen",
     "News folders" : "Nieuwsmappen",
     "Shared with me" : "Gedeeld met mij",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax of Web cron mode gedetecteerd! Je feeds worden niet bijgewerkt!",
     "An RSS/Atom feed reader" : "Een RSS/Atom kanaal lezer",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Een RSS/Atom Feed lezer App voor Nextcloud\n\n- 📲 Synchronizeer je feeds met meerdere mobiele of desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatische updates van je nieuwsfeeds\n- 🆓 Gratis en open source onder AGPLv3, geen advertenties of premium functies\n\n**Systeem Cron is momenteel vereist om deze app te laten werken**\n\nBenodigdheden kunnen [hier](https://nextcloud.github.io/news/install/#dependencies) gevonden worden\n\nHet Veranderingslogboek is [hier](https://github.com/nextcloud/news/blob/master/CHANGELOG.md) beschikbaar\n\nCreëer een [bug rapport](https://github.com/nextcloud/news/issues/new/choose)\n\nCreëer een [functie aanvraag](https://github.com/nextcloud/news/discussions/new)\n\nRapporteer een [feed probleem](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Downloaden",
@@ -88,9 +89,6 @@
     "Last update" : "Laatste update",
     "Title" : "Titel",
     "Folder" : "Map",
-    "Subscribe to" : "Abonneren op",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax of Web cron mode gedetecteerd! Je feeds worden niet bijgewerkt!",
-    "How to set up the operating system cron" : "Hoe wordt de cron-service van het operating system ingesteld",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Installeer en configureer een snellere parallel updater die gebruik maakt van de update API van de Nieuws app"
+    "Subscribe to" : "Abonneren op"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

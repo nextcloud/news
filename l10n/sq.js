@@ -5,6 +5,7 @@ OC.L10N.register(
     "%1$s shared \"%2$s\" with you" : "%1$s ndau me ju \"%2$s\"",
     "Unread articles" : "Artikujt e palexuar",
     "Shared with me" : "Ndarë me mua",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zbulohet modaliteti Ajax ose webcron! Feedet tuaja nuk do të përditësohen!",
     "Download" : "Shkarko",
     "Close" : "Mbylle",
     "Web address" : "Adresë Web",
@@ -66,9 +67,6 @@ OC.L10N.register(
     "Open article in new tab" : "Hape artikullin në skedë të re",
     "Resources" : "Burimet",
     "Title" : "Titulli",
-    "Folder" : "Dosje",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zbulohet modaliteti Ajax ose webcron! Feedet tuaja nuk do të përditësohen!",
-    "How to set up the operating system cron" : "Si të rregullohet cron-i i sistemit operativ",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instaloni dhe rregulloni për punë një përditësues paralel më të shpejtë që përdor për përditësime API-n e aplikacionit Lajme"
+    "Folder" : "Dosje"
 },
 "nplurals=2; plural=(n != 1);");

@@ -7,6 +7,7 @@
     "News folders" : "Carpetes de notícies",
     "News articles" : "Articles de notícies",
     "Shared with me" : "Compartit amb mi",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "S'ha detectat el mode Ajax o webcron. Els vostres canals no s'actualitzaran!",
     "An RSS/Atom feed reader" : "Un lector de notícies RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Una aplicació de lectura RSS/Atom Feed per a Nextcloud\n\n- 📲 Sincronitzeu els vostres canals amb diversos [clients] mòbils o d'escriptori (https://nextcloud.github.io/news/clients/)\n- 🔄 Actualitzacions automàtiques dels vostres canals de notícies\n- 🆓 Gratuït i de codi obert sota AGPLv3, sense anuncis ni funcions premium\n\n** Actualment es requereix el sistema Cron perquè aquesta aplicació funcioni**\n\nEls requisits es poden trobar [aquí] (https://nextcloud.github.io/news/install/#dependencies)\n\nEl registre de canvis està disponible [aquí] (https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreeu un [informe d'errors](https://github.com/nextcloud/news/issues/new/choose)\n\nCreeu una [sol·licitud de funció](https://github.com/nextcloud/news/discussions/new)\n\nInforma d'un [problema de feed] (https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Baixa",
@@ -135,9 +136,6 @@
     "All Articles" : "Tots els articles",
     "No feeds found to add" : "No s'han trobat canals per afegir",
     "Subscribe to" : "Subscriu a",
-    "Unread Articles" : "Articles sense llegir",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "S'ha detectat el mode Ajax o webcron. Els vostres canals no s'actualitzaran!",
-    "How to set up the operating system cron" : "Com configurar el cron del sistema operatiu",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instal·leu i configureu un actualitzador en paral·lel més ràpid que faci servir l'API d'actualització de l'aplicació de Notí­cies"
+    "Unread Articles" : "Articles sense llegir"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

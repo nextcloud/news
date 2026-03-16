@@ -55,7 +55,6 @@ OC.L10N.register(
     "Jump to next article" : "Anar al prochain article",
     "Open article in new tab" : "Dobrir l'article dins un nouvel onglet",
     "Title" : "Títol",
-    "Folder" : "Dorsièr",
-    "How to set up the operating system cron" : "Cossí configurar lo cron del sistèma operatiu"
+    "Folder" : "Dorsièr"
 },
 "nplurals=2; plural=(n > 1);");

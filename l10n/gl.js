@@ -12,6 +12,7 @@ OC.L10N.register(
     "News articles" : "Artigos de novas",
     "Shared with me" : "Compartido comigo",
     "Untitled article" : "Artigo sen título",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Detectouse o modo Ajax ou webcron! As súas fontes non van ser actualizadas!",
     "An RSS/Atom feed reader" : "Un lector de fontes RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Unha aplicación de lector de RSS/Atom Feed para Nextcloud\n\n- 📲 Sincroniza as súas fontes con varios [clientes](https://nextcloud.github.io/news/clients/) de móbil ou de escritorio \n- 🔄 Actualizacións automáticas das súas fontes de novas\n- 🆓 De Código aberto, libre e de balde, baixo AGPLv3, sen anuncios nin funcións de pago ou subscrición\n\n**Actualmente precísase do sistema «cron» para que esta aplicación funcione**\n\nOs requisitos pódense atopar [aquí](https://nextcloud.github.io/news/install/#dependencies)\n\nAs notas da versión están dispoñíbeis [aquí](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCrear un [informe de fallos](https://github.com/nextcloud/news/issues/new/choose)\n\nCrear unha [solicitude de función](https://github.com/nextcloud/news/discussions/new)\n\nInformar dun [problema de fontes](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Descargar",
@@ -178,9 +179,6 @@ OC.L10N.register(
     "All Articles" : "Todos os artigos",
     "No feeds found to add" : "Non se atopou ningunha fonte para engadir",
     "Subscribe to" : "Subscribirse a",
-    "Unread Articles" : "Artigos sen ler",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Detectouse o modo Ajax ou webcron! As súas fontes non van ser actualizadas!",
-    "How to set up the operating system cron" : "Cómo configurar o cron do sistema operativo",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instalar e configurar un actualizador paralelo máis rápido que utilice a API de actualización da aplicación Novas"
+    "Unread Articles" : "Artigos sen ler"
 },
 "nplurals=2; plural=(n != 1);");

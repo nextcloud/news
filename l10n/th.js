@@ -57,8 +57,6 @@ OC.L10N.register(
     "Jump to next article" : "ข้ามไปยังบทความถัดไป",
     "Open article in new tab" : "เปิดบทความในแท็บใหม่",
     "Resources" : "ทรัพยากร",
-    "Folder" : "โฟลเดอร์",
-    "How to set up the operating system cron" : "วิธีการตั้งค่า cron ของระบบปฏิบัติการ",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "ติดตั้งและตั้งค่าตัวอัปเดตขนานที่เร็วขึ้น ซึ่งใช้ API การอัปเดตของแอปข่าว"
+    "Folder" : "โฟลเดอร์"
 },
 "nplurals=1; plural=0;");

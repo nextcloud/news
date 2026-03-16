@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Carpetas de noticias",
     "News articles" : "Artículos de noticias",
     "Shared with me" : "Compartido conmigo",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Se ha detectado el modo Ajax o webron! ¡Tus fuentes no serán actualizadas!",
     "An RSS/Atom feed reader" : "Un lector de fuentes RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Una aplicación de lectura de fuentes RSS/Atom para Nextcloud\n      \n      - 📲 Sincroniza tus fuentes con múltiples clientes móviles o de escritorio [clients](https://nextcloud.github.io/news/clients/)\n      - 🔄 Actualización automática de tus fuentes de noticias\n      - 🆓 Gratis y de código abierto bajo la licencia AGPLv3, sin publicidad o funciones premium\n      \n      **Actualmente se requiere Cron del sistema para que esta aplicación funcione**\n      \n      Los requisitos se pueden encontrar [aquí](https://nextcloud.github.io/news/install/#dependencies)\n      \n      El registro de cambios está disponible [aquí](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n      \n      Crear un [informe de error](https://github.com/nextcloud/news/issues/new/choose)\n      \n      Crear una [solicitud de función](https://github.com/nextcloud/news/discussions/new)\n      \n      Informar de un [problema de fuente](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Descargar",
@@ -92,9 +93,6 @@ OC.L10N.register(
     "Title" : "Título",
     "Folder" : "Carpeta",
     "Not available" : "No disponible",
-    "Subscribe to" : "Suscribirse a",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Se ha detectado el modo Ajax o webron! ¡Tus fuentes no serán actualizadas!",
-    "How to set up the operating system cron" : "Cómo establecer las tareas programadas del sistema operativo",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instala y configura un actualizador en paralelo más rápido que use el API de actualización de la nueva aplicación"
+    "Subscribe to" : "Suscribirse a"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

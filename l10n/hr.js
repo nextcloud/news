@@ -12,6 +12,7 @@ OC.L10N.register(
     "News articles" : "Članci vijesti",
     "Shared with me" : "Dijeljeno sa mnom",
     "Untitled article" : "Članak bez naslova",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Otkriven je Ajax ili webcron! Vaši sažeci neće biti ažurirani!",
     "An RSS/Atom feed reader" : "RSS/Atom čitač sažetaka",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📮 Aplikacija čitača RSS/Atom izvora za Nextcloud\n\n- 📲 Sinkronizirajte svoje izvore s više mobilnih ili desktop [klijenata](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatsko ažuriranje vaših izvora vijesti\n- 🆓 Besplatno i otvorenog koda pod AGPLv3, bez oglasa ili premium funkcija\n\n**Za rad ove aplikacije trenutačno je potreban System Cron**\n\nPreduvjeti se nalaze [ovdje](https://nextcloud.github.io/news/install/#dependencies)\n\nPopis promjena dostupan je [ovdje](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nPrijavite [grešku](https://github.com/nextcloud/news/issues/new/choose)\n\nPredložite [novu značajku](https://github.com/nextcloud/news/discussions/new)\n\nPrijavite [problem s izvorom](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Preuzmi",
@@ -177,9 +178,6 @@ OC.L10N.register(
     "All Articles" : "Svi članci",
     "No feeds found to add" : "Nisu pronađeni izvori za dodavanje",
     "Subscribe to" : "Pretplati se na",
-    "Unread Articles" : "Nepročitani članci",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Otkriven je Ajax ili webcron! Vaši sažeci neće biti ažurirani!",
-    "How to set up the operating system cron" : "Kako postaviti cron operacijskog sustava",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instalirajte i postavite brži paralelni program za ažuriranje koji se koristi API-jem za ažuriranje aplikacije Vijesti"
+    "Unread Articles" : "Nepročitani članci"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

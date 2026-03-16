@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Φάκελοι ειδήσεων",
     "News articles" : "Άρθρα ειδήσεων",
     "Shared with me" : "Διαμοιρασμένα με εμένα",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ή webcron κατάσταση εντοπίστηκε! Οι ροές σας δεν θα ενημερωθούν!",
     "An RSS/Atom feed reader" : "Τροφοδότης ροής RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Μια εφαρμογή ανάγνωσης RSS/Atom Feed για το Nextcloud\n\n- 📲 Συγχρονίστε τα feeds σας με πολλαπλούς [πελάτες](https://nextcloud.github.io/news/clients/) για κινητά ή επιτραπέζιους υπολογιστές\n- 🔄 Αυτόματες ενημερώσεις των feeds ειδήσεων σας\n- 🆓 Δωρεάν και ανοιχτού κώδικα υπό AGPLv3, χωρίς διαφημίσεις ή premium λειτουργίες\n\n**Για να λειτουργήσει αυτή η εφαρμογή απαιτείται το System Cron**\n\nΟι απαιτήσεις βρίσκονται [εδώ](https://nextcloud.github.io/news/install/#dependencies)\n\nΤο αρχείο αλλαγών είναι διαθέσιμο [εδώ](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nΔημιουργήστε μια [αναφορά σφάλματος](https://github.com/nextcloud/news/issues/new/choose)\n\nΔημιουργήστε ένα [αίτημα για λειτουργία](https://github.com/nextcloud/news/discussions/new)\n\nΑναφέρετε ένα [πρόβλημα με το feed](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Λήψη",
@@ -151,9 +152,6 @@ OC.L10N.register(
     "All Articles" : "Όλα τα Άρθρα",
     "No feeds found to add" : "Δεν βρέθηκαν ροές για προσθήκη",
     "Subscribe to" : "Εγγραφή στο",
-    "Unread Articles" : "Μη Διαβασμένα Άρθρα",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ή webcron κατάσταση εντοπίστηκε! Οι ροές σας δεν θα ενημερωθούν!",
-    "How to set up the operating system cron" : "Πώς να ρυθμίσετε την υπηρεσία cron του λειτουργικού συστήματος",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Εγκαταστήστε και ρυθμίστε μιά παράλληλη γρηγορότερη ενημέρωση που χρησιμοποιεί το ΑΡΙ ενημέρωσης της εφαρμογής Νέα"
+    "Unread Articles" : "Μη Διαβασμένα Άρθρα"
 },
 "nplurals=2; plural=(n != 1);");

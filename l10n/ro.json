@@ -5,6 +5,7 @@
     "Unread articles" : "Articole necitite",
     "News folders" : "Fluxuri de știri",
     "Shared with me" : "Partajat cu mine",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Modul Ajax sau webcron este activ! Fluxurile dumneavoastră nu vor fi actualizate!",
     "An RSS/Atom feed reader" : "Un cititor de fluxuri RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 O aplicație pentru citirea știrilor RSS/Atom Feed pentru Nextcloud\n\n- 📲 Sincronizați-vă fluxurile cu dispozitive mobile sau desktop multiple [clienți](https://nextcloud.github.io/news/clients/)\n- 🔄 Actualizarea automată a fluxurilor de știri\n- 🆓 Gratis și open source sub AGPLv3, fără ads sau funcționalități premium\n\n**System Cron este necesar în prezent pentru funcționarea aplicației**\n\nCerințele se pot găsi [here](https://nextcloud.github.io/news/install/#dependencies)\n\nLista Changelog este disponibilă la [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreați un [raport de bug](https://github.com/nextcloud/news/issues/new/choose)\n\nCreați o [solicitare de funcționalități](https://github.com/nextcloud/news/discussions/new)\n\nRaportați o [problemă de feed](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Descarcă",
@@ -79,9 +80,6 @@
     "Resources" : "Resurse",
     "Title" : "Titlu",
     "Folder" : "Director",
-    "Subscribe to" : "Abonamează-te la",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Modul Ajax sau webcron este activ! Fluxurile dumneavoastră nu vor fi actualizate!",
-    "How to set up the operating system cron" : "Cum să setezi funcția cron a sistemului de operare",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instalează și setează un program de actualizări mai rapide ce folosește soluția de API a aplicației News"
+    "Subscribe to" : "Abonamează-te la"
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }

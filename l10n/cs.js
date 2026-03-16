@@ -12,6 +12,7 @@ OC.L10N.register(
     "News articles" : "Nové články",
     "Shared with me" : "Sdíleno se mnou",
     "Untitled article" : "Článek bez názvu",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zjištěn ajax nebo web cron režim! Kanály nebudou aktualizovány!",
     "An RSS/Atom feed reader" : "Čtečka RSS/Atom kanálů",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Aplikace čtečka RSS/Atom kanálů pro Nextcloud\n\n- 📲 Synchronizujte vámi odebírané kanály s vícero mobilními nebo desktopovými [klienty](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatické aktualizace vašich kanálů s novinkami\n- 🆓 Svobodné a open source pod licencí AGPLv3, žádné reklamy nebo funkce přístupné až po zaplacení\n\n**Aby tato aplikace fungovala, je v tuto chvíli zapotřebí systémový plánovač (cron)**\n\nPožadavky na instalaci dalších součástí jsou k nalezení [zde](https://nextcloud.github.io/news/install/#dependencies)\n\nSeznam změn je k dispozici [zde](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nVytvořte [hlášení chyby](https://github.com/nextcloud/news/issues/new/choose)\n\nVytvořte [žádost o přidání funkce](https://github.com/nextcloud/news/discussions/new)\n\nNahlaste [problém s kanálem}(https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Stáhnout",
@@ -177,9 +178,6 @@ OC.L10N.register(
     "All Articles" : "Všechny články",
     "No feeds found to add" : "Nenalezeny žádné kanály, které by bylo možné přidat",
     "Subscribe to" : "Přihlásit se k odběru",
-    "Unread Articles" : "Nepřečtené články",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Zjištěn ajax nebo web cron režim! Kanály nebudou aktualizovány!",
-    "How to set up the operating system cron" : "Jak nastavit službu plánovače operačního systému (cron)",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Nainstalovat a nastavit rychlejší paralelní systém aktualizace využívající aktualizační aplikační program. rozhraní (API) aplikace Novinky"
+    "Unread Articles" : "Nepřečtené články"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

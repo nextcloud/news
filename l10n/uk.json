@@ -7,6 +7,7 @@
     "News folders" : "Папки з новинами",
     "News articles" : "Новинні статті",
     "Shared with me" : "Поділилися зі мною",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Виявлено режим Ajax або webcron! Ваші канали не будуть оновлюватися!",
     "An RSS/Atom feed reader" : "Програма для читання RSS/Atom-стрічок",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Застосунок для читання RSS/Atom-каналів для Nextcloud\n\n- 📲 Синхронізуйте свої канали з декількома мобільними або настільними [клієнтами](https://nextcloud.github.io/news/clients/)\n- 🔄 Автоматичне оновлення ваших новинних каналів\n- 🆓 Безкоштовний та відкритий код під ліцензією AGPLv3, без реклами та преміум-функцій\n\n**Для роботи цього додатка наразі необхідний системний Cron**\n\nВимоги можна знайти [тут](https://nextcloud.github.io/news/install/#dependencies)\n\nЖурнал змін доступний [тут](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nСтворити [звіт про помилку](https://github.com/nextcloud/news/issues/new/choose)\n\nСтворити [запит на функцію](https://github.com/nextcloud/news/discussions/new)\n\nПовідомити про [проблему з стрічкою новин](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Звантажити",
@@ -145,9 +146,6 @@
     "All Articles" : "Всі статті",
     "No feeds found to add" : "Не знайдено кормів для додавання",
     "Subscribe to" : "Підпишіться на",
-    "Unread Articles" : "Непрочитані статті",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Виявлено режим Ajax або webcron! Ваші канали не будуть оновлюватися!",
-    "How to set up the operating system cron" : "Як налаштувати cron операційної системи",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Встановіть та налаштуйте швидший паралельний засіб оновлення, який використовуватиме API оновлення застосунку \"Новини\""
+    "Unread Articles" : "Непрочитані статті"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Nyhetsmappar",
     "News articles" : "Nyhetsartiklar",
     "Shared with me" : "Delad med mig",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax- eller webcron-läge upptäckt! Dina flöden kommer inte uppdateras!",
     "An RSS/Atom feed reader" : "En RSS/Atom feed-läsare",
     "Download" : "Hämta",
     "Close" : "Stäng",
@@ -153,9 +154,6 @@ OC.L10N.register(
     "All Articles" : "Alla artiklar",
     "No feeds found to add" : "Inga flöden hittades att lägga till",
     "Subscribe to" : "Prenumerera på",
-    "Unread Articles" : "Olästa artiklar",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax- eller webcron-läge upptäckt! Dina flöden kommer inte uppdateras!",
-    "How to set up the operating system cron" : "Hur man ställer in cron från operativsystemet",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Installera och konfigurera en snabbare parallell uppdaterare som använder programmet Nyheter uppdatering API"
+    "Unread Articles" : "Olästa artiklar"
 },
 "nplurals=2; plural=(n != 1);");

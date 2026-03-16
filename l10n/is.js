@@ -5,6 +5,7 @@ OC.L10N.register(
     "%1$s shared \"%2$s\" with you" : "%1$s deildi \"%2$s\" með þér",
     "Unread articles" : "Ólesnar greinar",
     "Shared with me" : "Deilt með mér",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax eða webcron fannst! Fréttastraumar þínir verða ekki uppfærðir!",
     "An RSS/Atom feed reader" : "RSS/Atom streymislesari",
     "Download" : "Niðurhal",
     "Close" : "Loka",
@@ -78,9 +79,6 @@ OC.L10N.register(
     "Open article in new tab" : "Opna grein í nýjum flipa",
     "Resources" : "Tilföng",
     "Folder" : "Mappa",
-    "Subscribe to" : "Gerast áskrifandi að",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax eða webcron fannst! Fréttastraumar þínir verða ekki uppfærðir!",
-    "How to set up the operating system cron" : "Hvernig á að setja upp cron-þjónustu stýrikerfis",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Setja upp og stilla hraðvirkari samhliða uppfærslueiningu sem notar API-forritsviðmót fréttaforritsins"
+    "Subscribe to" : "Gerast áskrifandi að"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

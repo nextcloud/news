@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Mape novic",
     "News articles" : "Novičarski prispevki",
     "Shared with me" : "V souporabi z mano",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "V uporabi je ali način Ajax ali pa webcron, kar pomeni, da izbrani viri ne bodo posodobljeni!",
     "An RSS/Atom feed reader" : "Bralnik virov RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Bralnik virov RSS/Atom za okolje Nextcloud\n\n- 📲 Omogoča sočasno usklajevanje virov z več mobilnimi in namiznimi [programi](https://nextcloud.github.io/news/clients/)\n- 🔄 Samodejno posodablja vire novic\n- 🆓 Je prosto in brezplačno orodje, objavljeno pod pogoji dovoljenjaAGPLv3, brez oglasov, brez dodatnih plačljivih možnosti\n\n**Za delovanje mora biti zagnano okolje Cron**\n\nZahteve programa so objavljene med podrobnostmi [namestitve](https://nextcloud.github.io/news/install/#dependencies)\n\nPodrobnosti objave so na voljo v datoteki [Changelog.md](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nPoročila o hroščih pa se zbirajo na spletišču [GitHub](https://github.com/nextcloud/news/issues/new/choose)\n\nO [predlogih novih zmožnosti](https://github.com/nextcloud/news/discussions/new) razpravlja živahna skupnost\n\nNapake objave vira, pa je mogoče objavljati med [pogovori](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Prejmi",
@@ -101,9 +102,6 @@ OC.L10N.register(
     "All Articles" : "Vsi prispevki",
     "No feeds found to add" : "Ni najdenih virov  za dodajanje",
     "Subscribe to" : "Naročnina na",
-    "Unread Articles" : "Neprebrani prispevki",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "V uporabi je ali način Ajax ali pa webcron, kar pomeni, da izbrani viri ne bodo posodobljeni!",
-    "How to set up the operating system cron" : "Oglejte si navodila, kako nastaviti opravila cron operacijskega sistema. ↗",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Namesti je mogoče vzporedni posodabljalnik, ki uporablja vmesnik API programa News ↗."
+    "Unread Articles" : "Neprebrani prispevki"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

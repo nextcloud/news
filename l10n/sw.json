@@ -7,6 +7,7 @@
     "News folders" : "Folda ya Habari",
     "News articles" : "Makala ya habari",
     "Shared with me" : "Imeshirikiwa nami",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax au hali ya webcron imegunduliwa! Milisho yako haitasasishwa!",
     "An RSS/Atom feed reader" : "Msomaji wa maingizo ya RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Programu ya kusoma RSS/Atom Feed ya Nextcloud\n\n- 📲 Sawazisha milisho yako na [wateja] wengi wa simu au kompyuta ya mezani(https://nextcloud.github.io/news/clients/)\n- 🔄 Masasisho ya kiotomatiki ya milisho yako ya habari\n- 🆓 Chanzo huria na huria chini ya AGPLv3, hakuna matangazo au vipengele vinavyolipiwa\n\n**Cron ya Mfumo inahitajika kwa sasa ili programu hii ifanye kazi**\n\nMahitaji yanaweza kupatikana [hapa](https://nextcloud.github.io/news/install/#dependencies)\n\nChangelog inapatikana [hapa](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nUnda [ripoti ya hitilafu](https://github.com/nextcloud/news/issues/new/choose)\n\nUnda [ombi la kipengele](https://github.com/nextcloud/news/discussions/new)\n\nRipoti [suala la mipasho](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Pakua",
@@ -148,9 +149,6 @@
     "All Articles" : "Makala zote",
     "No feeds found to add" : "Hakuna milisho yaliyopatikana ya kuongeza",
     "Subscribe to" : "Jisajili kwa",
-    "Unread Articles" : "Makala ambazo hazijasomwa",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax au hali ya webcron imegunduliwa! Milisho yako haitasasishwa!",
-    "How to set up the operating system cron" : "Jinsi ya kusanidi cron ya mfumo wa uendeshaji",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Sakinisha na uweke kisasisho sambamba cha haraka zaidi kinachotumia API ya kusasisha programu ya Habari"
+    "Unread Articles" : "Makala ambazo hazijasomwa"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

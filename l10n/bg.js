@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Нови папки",
     "News articles" : "Новинарски статии",
     "Shared with me" : "Споделено с мен",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Засечен е Ajax или webcron режим! Емисиите няма да бъдат актуализирани!",
     "An RSS/Atom feed reader" : "Четец за RSS/Atom емисии",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Приложение за четене на RSS/Atom Feed за Nextcloud\n\n- 📲 Синхронизирайте емисиите си с множество мобилни или настолни [клиенти](https://nextcloud.github.io/news/clients/)\n- 🔄 Автоматични актуализации на вашите новинарски емисии\n- 🆓 Безплатен и отворен код под AGPLv3, без реклами или премиум функции\n\n**За да работи това приложение, в момента се изисква System Cron**\n\nИзискванията могат да бъдат намерени [тук](https://nextcloud.github.io/news/install/#dependencies)\n\nРегистърът на промените е достъпен [тук](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nСъздайте [отчет за грешка](https://github.com/nextcloud/news/issues/new/choose)\n\nСъздайте [заявка за функция](https://github.com/nextcloud/news/discussions/new)\n\nПодайте сигнал за [проблем с емисия](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Изтегли",
@@ -92,9 +93,6 @@ OC.L10N.register(
     "Resources" : "Ресурси",
     "Title" : "Заглавие",
     "Folder" : "Папка",
-    "Subscribe to" : "Абониране за",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Засечен е Ajax или webcron режим! Емисиите няма да бъдат актуализирани!",
-    "How to set up the operating system cron" : "Как се настройва работещия системен cron",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Инсталирайте и настройте по-бърза паралелна програма за актуализиране, която използва API за актуализиране на приложението Новини"
+    "Subscribe to" : "Абониране за"
 },
 "nplurals=2; plural=(n != 1);");

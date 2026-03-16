@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "خەۋەر قىسقۇچلىرى",
     "News articles" : "خەۋەر ماقالىلىرى",
     "Shared with me" : "مەن بىلەن ئورتاقلاشتى",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ياكى webcron ھالىتى بايقالدى! يەملىرىڭىز يېڭىلانمايدۇ!",
     "An RSS/Atom feed reader" : "RSS / ئاتوم يەم ئوقۇغۇچ",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "Next Nextcloud ئۈچۈن RSS / Atom Feed ئوقۇغۇچ دېتالى\n\n- feed يەملىرىڭىزنى كۆپ كۆچمە ياكى ئۈستەل يۈزى [خېرىدارلار] بىلەن ماسقەدەملەڭ (https://nextcloud.github.io/news/clients/)\n- news خەۋەرلىرىڭىزنىڭ ئاپتوماتىك يېڭىلىنىشى\n- AG AGPLv3 دىكى ھەقسىز ۋە ئوچۇق مەنبە ، ھېچقانداق ئېلان ياكى يۇقىرى ئىقتىدار يوق\n\n** بۇ دېتالنىڭ ئىشلىشى ئۈچۈن سىستېما Cron ھازىر تەلەپ قىلىنىدۇ **\n\nتەلەپلەرنى [بۇ يەردىن] تاپقىلى بولىدۇ (https://nextcloud.github.io/news/install/#dependencies)\n\nChangelog نى بۇ يەردە ئىشلەتكىلى بولىدۇ (https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\n[خاتالىق دوكلاتى] قۇر (https://github.com/nextcloud/news/issues/new/choose)\n\n[ئىقتىدار تەلىپى] قۇرۇڭ (https://github.com/nextcloud/news/discussions/new)\n\n[يەم-خەشەك مەسىلىسى] نى دوكلات قىلىڭ (https://github.com/nextcloud/news/discussions/new)",
     "Download" : "چۈشۈر",
@@ -154,9 +155,6 @@ OC.L10N.register(
     "All Articles" : "بارلىق ماقالىلەر",
     "No feeds found to add" : "قوشۇشقا بولىدىغان يەم تېپىلمىدى",
     "Subscribe to" : "مۇشتەرى بولۇش",
-    "Unread Articles" : "ئوقۇلمىغان ماقالىلەر",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax ياكى webcron ھالىتى بايقالدى! يەملىرىڭىز يېڭىلانمايدۇ!",
-    "How to set up the operating system cron" : "مەشغۇلات سىستېمىسى كروننى قانداق تەڭشەش كېرەك",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "News ئەپنىڭ يېڭىلاش API نى ئىشلىتىدىغان تېخىمۇ تېز پاراللېل يېڭىلاش ئۈسكۈنىسىنى قاچىلاڭ"
+    "Unread Articles" : "ئوقۇلمىغان ماقالىلەر"
 },
 "nplurals=2; plural=(n != 1);");

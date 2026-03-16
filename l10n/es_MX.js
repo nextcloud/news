@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Carpetas de noticias",
     "News articles" : "Artículos de noticias",
     "Shared with me" : "Compartido conmigo",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Se ha detectado el modo Ajax o webron! ¡Tus fuentes no serán actualizadas!",
     "An RSS/Atom feed reader" : "Un lector de fuentes RSS/Atom",
     "Download" : "Descargar",
     "Close" : "Cerrar",
@@ -100,9 +101,6 @@ OC.L10N.register(
     "All Articles" : "Todos los artículos",
     "No feeds found to add" : "No se encontraron fuentes para añadir",
     "Subscribe to" : "Suscribirse a",
-    "Unread Articles" : "Artículos sin leer",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "¡Se ha detectado el modo Ajax o webron! ¡Tus fuentes no serán actualizadas!",
-    "How to set up the operating system cron" : "Cómo establecer las tareas programadas del sistema operativo",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instala y configura un actualizador en paralelo más rápido que use el API de actualización de la nueva aplicación"
+    "Unread Articles" : "Artículos sin leer"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

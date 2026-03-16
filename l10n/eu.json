@@ -7,6 +7,7 @@
     "News folders" : "Albiste karpetak",
     "News articles" : "Artikulu berriak",
     "Shared with me" : "Nirekin partekatuta",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax edo webcron modua detektatu da! Zure jarioak ez dira eguneratuko!",
     "An RSS/Atom feed reader" : "RSS/Atom jarioen irakurle bat",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 RSS/Atom Feed irakurgailu aplikazioa Nextcloud-entzat\n\n- 📲Sinkronizatu jarioak mugikorreko edo mahaigaineko [bezero](https://nextcloud.github.io/news/clients/) anitzekin \n- 🔄 Zure albisteen jarioen eguneratze automatikoak\n- 🆓 Kode irekia eta doakoa AGPLv3-pean, iragarkirik edo premium funtziorik gabe\n\n** Une honetan Cron beharrezkoa da aplikazio honek funtziona dezan **\n\nBaldintzak [hemen](https://nextcloud.github.io/news/install/#dependencies) aurki daitezke\n\nAldaketa-erregistroa eskuragarri dago [hemen](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nSortu [akatsen txostena](https://github.com/nextcloud/news/issues/new/choose)\n\nSortu [ezaugarri eskaera](https://github.com/nextcloud/news/discussions/new)\n\nEman [jarioaren arazo](https://github.com/nextcloud/news/discussions/new)-en berri",
     "Download" : "Deskargatu",
@@ -120,9 +121,6 @@
     "All Articles" : "Artikulu guztiak",
     "No feeds found to add" : "Ez da aurkitu jariorik gehitzeko",
     "Subscribe to" : "Harpidetu",
-    "Unread Articles" : "Irakurri gabeko artikuluak",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax edo webcron modua detektatu da! Zure jarioak ez dira eguneratuko!",
-    "How to set up the operating system cron" : "Nola konfiguratu sistema eragilearen cron-a",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instalatu eta konfiguratu Berriak aplikazioaren eguneraketa APIa erabiltzen duen eguneratzaile paralelo azkarrago bat"
+    "Unread Articles" : "Irakurri gabeko artikuluak"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -7,6 +7,7 @@
     "News folders" : "新闻文件夹",
     "News articles" : "新闻文章",
     "Shared with me" : "与我分享",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "检测到Ajax或Webcron 模式！您的订阅源将无法被更新！",
     "An RSS/Atom feed reader" : "一个RSS/Atom订阅源阅读器",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Nextcloud 的 RSS/Atom 订阅源阅读器应用\n\n- 📲 将您的订阅源与多个移动或桌面[客户端](https://nextcloud.github.io/news/clients/)同步\n- 🔄 自动更新您的消息订阅源\n- 🆓 遵循 AGPLv3 的自由开源软件，无广告或付费功能\n\n**此应用当前需要系统 Cron 才能工作**\n\n要求依赖可在[此处](https://nextcloud.github.io/news/install/#dependencies)找到\n\n更新日志可在[此处](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)获取\n\n创建[错误报告](https://github.com/nextcloud/news/issues/new/choose)\n\n创建[功能请求](https://github.com/nextcloud/news/discussions/new)\n\n报告[订阅源问题](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "下载",
@@ -166,9 +167,6 @@
     "All Articles" : "全部文章",
     "No feeds found to add" : "未找到要添加的订阅源",
     "Subscribe to" : "订阅",
-    "Unread Articles" : "未读文章",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "检测到Ajax或Webcron 模式！您的订阅源将无法被更新！",
-    "How to set up the operating system cron" : "如何设置操作系统定时任务",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "安装并设置一个更快速的更新程序，它使用新闻应用程序更新API"
+    "Unread Articles" : "未读文章"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

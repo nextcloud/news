@@ -6,6 +6,7 @@ OC.L10N.register(
     "%1$s shared \"%2$s\" with you" : "%1$s משתף \"%2$s\" אתך",
     "Unread articles" : "מאמרים שלא נקראו",
     "Shared with me" : "משותף אתי",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "זוהה מצב Ajax או webcron! ערוצי התוכן שלך לא יעודכנו!",
     "An RSS/Atom feed reader" : "קורא ערוצי תוכן מסוג RSS/Atom",
     "Download" : "הורדה",
     "Close" : "סגירה",
@@ -70,9 +71,6 @@ OC.L10N.register(
     "Open article in new tab" : "פתיחת מאמר בכרטיסייה חדשה",
     "Resources" : "משאבים",
     "Title" : "כותרת",
-    "Folder" : "תיקייה",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "זוהה מצב Ajax או webcron! ערוצי התוכן שלך לא יעודכנו!",
-    "How to set up the operating system cron" : "איך להגדיר את cron מערכת ההפעלה",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "התקנה והגדרת עדכון מקביל מהיר שמשתמש בעדכון יישום חדשות מבוסס API"
+    "Folder" : "תיקייה"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

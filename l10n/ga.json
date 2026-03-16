@@ -10,6 +10,7 @@
     "News articles" : "Ailt nuachta",
     "Shared with me" : "Roinnte liom",
     "Untitled article" : "Airteagal gan teideal",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Braitheadh ​​mód AJAX nó webcron! Ní dhéanfar d'fhothaí a nuashonrú!",
     "An RSS/Atom feed reader" : "Léitheoir fotha RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Aip léitheora RSS/Atom Feed do Nextcloud\n\n- 📲 Sioncronaigh do chuid fothaí le il-cliaint soghluaiste nó deisce [cliaint] ( https://nextcloud.github.io/news/clients/)\n- 🔄 Nuashonruithe uathoibríocha ar do chuid fothaí nuachta\n- 🆓 Foinse saor in aisce agus oscailte faoi AGPLv3, gan aon fhógraí ná feidhmeanna préimhe\n\n**Tá System Cron ag teastáil faoi láthair le go n-oibreoidh an aip seo**\n\nIs féidir na riachtanais a fháil [anseo]( https://nextcloud.github.io/news/install/#dependencies)\n\nTá an Changelog ar fáil [anseo]( https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCruthaigh [tuairisc fhabht](https://github.com/nextcloud/news/issues/new/choose)\n\nCruthaigh [iarratas gné](https://github.com/nextcloud/news/discussions/new)\n\nDéan tuairisc ar [saincheist fotha] (https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Íoslódáil",
@@ -176,9 +177,6 @@
     "All Articles" : "Gach Airteagal",
     "No feeds found to add" : "Níor aimsíodh fothaí le cur leis",
     "Subscribe to" : "Liostáil le",
-    "Unread Articles" : "Airteagail Neamhléite",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Braitheadh ​​mód AJAX nó webcron! Ní dhéanfar d'fhothaí a nuashonrú!",
-    "How to set up the operating system cron" : "Conas an córas oibriúcháin cron a shocrú",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Suiteáil agus socraigh nuashonróir comhthreomhar níos tapúla a úsáideann API nuashonraithe an aip Nuachta"
+    "Unread Articles" : "Airteagail Neamhléite"
 },"pluralForm" :"nplurals=5; plural=(n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n<11 ? 3 : 4);"
 }

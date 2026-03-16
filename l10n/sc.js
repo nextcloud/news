@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Cartellas de noas",
     "News articles" : "Artìculos de noas",
     "Shared with me" : "Cumpartzidos cun megus",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Rilevada modalidade crom Ajax o webcron! Is fontes tuas non ant a èssere agiornadas!",
     "An RSS/Atom feed reader" : "Unu letore de fontes RSS/Atom",
     "Download" : "Iscàrriga",
     "Close" : "Serra",
@@ -82,9 +83,6 @@ OC.L10N.register(
     "Title" : "Tìtulu",
     "Folder" : "Cartella",
     "All Articles" : "Totu is artìculos",
-    "Subscribe to" : "Sutaiscrie",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Rilevada modalidade crom Ajax o webcron! Is fontes tuas non ant a èssere agiornadas!",
-    "How to set up the operating system cron" : "Comente cunfigurare su cron de su sistema operativu",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Installa e cunfigura una funtzione de atualizatzione parallelu prus lestra chi impreat is API de atualizatzione de s'aplicatzione News"
+    "Subscribe to" : "Sutaiscrie"
 },
 "nplurals=2; plural=(n != 1);");

@@ -8,6 +8,7 @@ OC.L10N.register(
     "Unread articles" : "Neskaityti straipsniai",
     "News folders" : "Naujienų aplankai",
     "News articles" : "Naujienų straipsniai",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Aptikta AJAX ar webcron veiksena! Jūsų kanalai nebus atnaujinti!",
     "An RSS/Atom feed reader" : "RSS/Atom kanalų skaitytuvė",
     "Download" : "Atsisiųsti",
     "Close" : "Užverti",
@@ -98,9 +99,6 @@ OC.L10N.register(
     "Folder" : "Aplankas",
     "All Articles" : "Visi straipsniai",
     "Subscribe to" : "Prenumeruoti",
-    "Unread Articles" : "Neskaityti straipsniai",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Aptikta AJAX ar webcron veiksena! Jūsų kanalai nebus atnaujinti!",
-    "How to set up the operating system cron" : "Kaip nusistatyti operacinės sistemos cron",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Įdiekite ir nusistatykite greitesnę lygiagrečią atnaujinimo programą, kuri naudoja Naujienų programėlės atnaujinimo API"
+    "Unread Articles" : "Neskaityti straipsniai"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

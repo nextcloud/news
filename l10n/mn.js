@@ -46,7 +46,6 @@ OC.L10N.register(
     "Resources" : "Нөөцүүд",
     "Title" : "Гарчиг",
     "Folder" : "–•–∞–≤—Ç–∞—Å",
-    "Not available" : "Боломжгүй",
-    "How to set up the operating system cron" : "“Æ–π–ª–¥–ª–∏–π–Ω —Å–∏—Å—Ç–µ–º–∏–π–Ω cron-–≥ —Ö—ç—Ä—Ö—ç–Ω —Ç–æ—Ö–∏—Ä—É—É–ª–∞—Ö —Ç–∞–ª–∞–∞—Ä"
+    "Not available" : "Боломжгүй"
 },
 "nplurals=2; plural=(n != 1);");

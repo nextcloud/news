@@ -78,8 +78,6 @@ OC.L10N.register(
     "Time when the feed was last downloaded" : "A hora em que a \"feed\" foi transferida pela última vez",
     "Title" : "Título",
     "Folder" : "Pasta",
-    "Not available" : "Não disponível",
-    "How to set up the operating system cron" : "Como configurar o cron no sistema operativo",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Instale e configure um atualizador paralelo mais rápido que use a API de atualizações da aplicação Notícias"
+    "Not available" : "Não disponível"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

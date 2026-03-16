@@ -12,6 +12,7 @@ OC.L10N.register(
     "News articles" : "Artykuły z wiadomościami",
     "Shared with me" : "Udostępnione dla mnie",
     "Untitled article" : "Artykuł bez tytułu",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Wykryto ustawienie Ajax lub webcron! Twoje kanały nie będą aktualizowane!",
     "An RSS/Atom feed reader" : "Czytnik kanałów RSS/Atom",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Aplikacja do czytania kanałów RSS/Atom dla Nextcloud\n\n- 📲 Synchronizuj swoje kanały z wieloma [klientami](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatyczne aktualizacje kanałów informacyjnych\n- 🆓 Darmowe i otwarte źródło w ramach AGPLv3, bez reklam i funkcji premium\n\n**System Cron jest obecnie wymagany do działania tej aplikacji**\n\nWymagania można znaleźć [tutaj](https://nextcloud.github.io/news/install/#dependencies)\n\nDziennik zmian jest dostępna [tutaj](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nUtwórz [raport o błędzie](https://github.com/nextcloud/news/issues/new/choose)\n\nUtwórz [żądanie funkcji](https://github.com/nextcloud/news/discussions/new)\n\nZgłoś [problem z kanałem](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Pobierz",
@@ -171,9 +172,6 @@ OC.L10N.register(
     "All Articles" : "Wszystkie artykuły",
     "No feeds found to add" : "Nie znaleziono kanałów do dodania",
     "Subscribe to" : "Subskrybuj",
-    "Unread Articles" : "Nieprzeczytane artykuły",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Wykryto ustawienie Ajax lub webcron! Twoje kanały nie będą aktualizowane!",
-    "How to set up the operating system cron" : "Jak ustawić cron systemu operacyjnego",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Zainstaluj i ustaw szybszy równoległy aktualizator, który używa do aktualizacji API aplikacji News"
+    "Unread Articles" : "Nieprzeczytane artykuły"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

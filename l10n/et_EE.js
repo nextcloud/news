@@ -12,6 +12,7 @@ OC.L10N.register(
     "News articles" : "Uudiste artiklid",
     "Shared with me" : "Jagatud minuga",
     "Untitled article" : "Pealkirjata artikkel",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax või webcron aktiveeritud! Su voogusid ei uuendata!",
     "An RSS/Atom feed reader" : "RSS/Atom uudisvoogude lugeja",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 RSS/Atom uudisvoogude lugeja Nextcloudi jaoks\n\n- 📲 sünkroniseeri oma uudisvooge mitmete nutiseadmetele või töölauale [mõeldud klientidega](https://nextcloud.github.io/news/clients/)\n- 🔄 sinu uudisvoogude automaatsed uuendused\n- 🆓 vaba ja avatud lähtekoodil põhinev rakendus on litsentseeritud AGPLv3 alusel ning siin pole reklaame ega tasulist lisafunktsionaalsust\n\n**Selle rakenduse toimimiseks on serveris vajalik cron-teenuse olemasolu**\n\nTäpsemad nõuded [on siin](https://nextcloud.github.io/news/install/#dependencies)\n\nMuudatuste logi [leidub siin](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nTeata meile [vigadest siin](https://github.com/nextcloud/news/issues/new/choose)\n\nKoosta [arendusettepanek siin](https://github.com/nextcloud/news/discussions/new)\n\nTeata [uudisvoogude vigadest siin](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Laadi alla",
@@ -178,9 +179,6 @@ OC.L10N.register(
     "All Articles" : "Kõik artiklid",
     "No feeds found to add" : "Ei leia lisamiseks ühtegi uudisvoogu",
     "Subscribe to" : "Telli",
-    "Unread Articles" : "Lugemata artiklid",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax või webcron aktiveeritud! Su voogusid ei uuendata!",
-    "How to set up the operating system cron" : "Kuidas seadistada operatsioonisüsteemi ajastatud tegevust",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Paigalda ja seadista kiirem rööptöötlust kasutav uuendaja, mis põhineb uudisterakenduse liidestusel"
+    "Unread Articles" : "Lugemata artiklid"
 },
 "nplurals=2; plural=(n != 1);");

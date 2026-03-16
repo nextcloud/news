@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Nyhetsmapper",
     "News articles" : "Nyhetsartikler",
     "Shared with me" : "Delt med meg",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax eller webcron-metode påvist! Strømmene dine vil ikke bli oppdaterte!",
     "An RSS/Atom feed reader" : "En RSS/Atom-leser",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 En RSS/Atom Feed leseapp for Nextcloud\n\n- 📲 Synkroniser feed'ene dine med flere mobil eller desktop [klienter](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatisk oppdatering av nyhetsfeeder\n- 🆓 Gratis og open source under AGPLv3, ingen reklame eller premium funksjoner\n\n**System Cron er for øyeblikket påkrevet for at denne appen skal fungere**\n\nKrav kan bli funnet [her](https://nextcloud.github.io/news/install/#dependencies)\n\nEndringslogg er tilgjengelig [her](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nOpprett en [bug rapport](https://github.com/nextcloud/news/issues/new/choose)\n\nOpprett en [feature request](https://github.com/nextcloud/news/discussions/new)\n\nRapporter ett [feed problem](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "Last ned",
@@ -104,9 +105,6 @@ OC.L10N.register(
     "All Articles" : "Alle artikler",
     "No feeds found to add" : "Ingen nyhetsstrømmer funnet å legge til",
     "Subscribe to" : "Abonner på",
-    "Unread Articles" : "Uleste artikler",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax eller webcron-metode påvist! Strømmene dine vil ikke bli oppdaterte!",
-    "How to set up the operating system cron" : "Hvordan sette opp operativsystemets Cron",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Installer og sett opp en raskere parallel oppdaterer som bruker nyhetsappens oppdaterings-API"
+    "Unread Articles" : "Uleste artikler"
 },
 "nplurals=2; plural=(n != 1);");

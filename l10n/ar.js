@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "مجلدات الأخبار",
     "News articles" : "مقالات الأخبار",
     "Shared with me" : "تمّت مُشاركته معي",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "تمّ اكتشاف وضعية Ajax أو webcron! سوف لن يتم تحديث إلقامك!",
     "An RSS/Atom feed reader" : "قارئ اللُقم الإخبارية RSS/Atom ",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 تطبيق قارئ اللُقم الإخبارية من نكست كلاود RSS / Atom لـ Nextcloud\n\n- 📲 قم بمزامنة لُقمك مع [عملاء] أجهزة محمولة أو سطح مكتب متعددة (https://nextcloud.github.io/news/clients/) \n- تحديثات تلقائية للُقم الأخبار الخاصة بك \n\n- 🆓 مصدر مجاني ومفتوح بموجب AGPLv3 ، بدون إعلانات \n** مطلوب تشغيل \"مدير  الوظائف الخلفية\" System Cron كي يعمل هذا التطبيق \n\nيمكن إيجاد المتطلبات [هنا](https://nextcloud.github.io/news/install/#dependencies)\n\nسجل التغييرات [هنا](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nأنشيء [بلاغ عن مشكل](https://github.com/nextcloud/news/issues/new/choose)\n\nأنشيء [طلب تحسين](https://github.com/nextcloud/news/discussions/new)\n\nأبلغ عن [مشاكل في الإلقام](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "تنزيل",
@@ -138,9 +139,6 @@ OC.L10N.register(
     "All Articles" : "كل المقالات",
     "No feeds found to add" : "لم يمكن العثور على أي لقمة لإضافته",
     "Subscribe to" : "إشترك في",
-    "Unread Articles" : "المقالات غير المقروءة",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "تمّ اكتشاف وضعية Ajax أو webcron! سوف لن يتم تحديث إلقامك!",
-    "How to set up the operating system cron" : "كيفية تنصيب النظام cron",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "تثبيت وإعداد محدث مواز أسرع يستخدم التطبيقات الجديدة لتحديث واجهة برمجة التطبيقات \"API\""
+    "Unread Articles" : "المقالات غير المقروءة"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

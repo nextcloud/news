@@ -12,6 +12,7 @@ OC.L10N.register(
     "News articles" : "新聞文章",
     "Shared with me" : "與我分享",
     "Untitled article" : "未命名文章",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "偵測到 Ajax 或 webcron！您的 feed 將無法更新！",
     "An RSS/Atom feed reader" : "RSS/Atom feed 閱讀程式",
     "📰 A RSS/Atom Feed reader App for Nextcloud\n\n- 📲 Synchronize your feeds with multiple mobile or desktop [clients](https://nextcloud.github.io/news/clients/)\n- 🔄 Automatic updates of your news feeds\n- 🆓 Free and open source under AGPLv3, no ads or premium functions\n\n**System Cron is currently required for this app to work**\n\nRequirements can be found [here](https://nextcloud.github.io/news/install/#dependencies)\n\nThe Changelog is available [here](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)\n\nCreate a [bug report](https://github.com/nextcloud/news/issues/new/choose)\n\nCreate a [feature request](https://github.com/nextcloud/news/discussions/new)\n\nReport a [feed issue](https://github.com/nextcloud/news/discussions/new)" : "📰 Nextcloud 的 RSS/Atom Feed 閱讀器應用程式\n\n- 📲 讓您的 feed 在多個行動裝置與桌面[客戶端](https://nextcloud.github.io/news/clients/)間同步\n- 🔄 自動更新您的新聞 feed\n- 🆓 以 AGPLv3 授權的自由且開放原始碼軟體，無廣告或付費功能\n\n**此應用程式需要系統 Cron 才能正常運作**\n\n系統需求可[在此](https://nextcloud.github.io/news/install/#dependencies)檢視\n\n變更紀錄則[於此](https://github.com/nextcloud/news/blob/master/CHANGELOG.md)提供\n\n建立[臭蟲回報](https://github.com/nextcloud/news/issues/new/choose)\n\n建立[功能請求](https://github.com/nextcloud/news/discussions/new)\n\n建立 [feed 問題](https://github.com/nextcloud/news/discussions/new)",
     "Download" : "下載",
@@ -178,9 +179,6 @@ OC.L10N.register(
     "All Articles" : "所有文章",
     "No feeds found to add" : "找不到要新增的 feed",
     "Subscribe to" : "訂閱",
-    "Unread Articles" : "未讀文章",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "偵測到 Ajax 或 webcron！您的 feed 將無法更新！",
-    "How to set up the operating system cron" : "如何設定作業系統 cron",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "安裝並設定新聞應用程式的更新 API 的較快平行更新程式"
+    "Unread Articles" : "未讀文章"
 },
 "nplurals=1; plural=0;");

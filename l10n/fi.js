@@ -9,6 +9,7 @@ OC.L10N.register(
     "News folders" : "Syötekansiot",
     "News articles" : "Uutisartikkelit",
     "Shared with me" : "Jaettu kanssasi",
+    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax tai webcron on käytössä! Syötteitä ei päivitetä!",
     "An RSS/Atom feed reader" : "RSS-/Atom-syötteiden lukija",
     "Download" : "Lataa",
     "Close" : "Sulje",
@@ -95,9 +96,6 @@ OC.L10N.register(
     "Folder" : "Kansio",
     "All Articles" : "Kaikki artikkelit",
     "Subscribe to" : "Tilaa",
-    "Unread Articles" : "Lukemattomat artikkelit",
-    "Ajax or webcron mode detected! Your feeds will not be updated!" : "Ajax tai webcron on käytössä! Syötteitä ei päivitetä!",
-    "How to set up the operating system cron" : "Käyttöjärjestelmän cronin asettaminen",
-    "Install and set up a faster parallel updater that uses the News app's update API" : "Asenna ja ota käyttöön rinnakkainen päivitys käyttäen News-sovelluksen API:a"
+    "Unread Articles" : "Lukemattomat artikkelit"
 },
 "nplurals=2; plural=(n != 1);");
