@@ -1,4 +1,5 @@
 import argparse
+import json
 import re
 import subprocess
 import sys
@@ -58,20 +59,28 @@ def get_pr_for_commit(commit_sha: str) -> str | None:
             encoding="utf-8",
         )
         # The output is a JSON array, e.g., '[{"number":1234}]'
-        import json
-
         prs = json.loads(result.stdout)
         if prs:
             return str(prs[0]["number"])
         else:
             print(f"Info: No PR found for commit {commit_sha[:10]} on GitHub.", file=sys.stderr)
             return None
-    except (subprocess.CalledProcessError, FileNotFoundError, json.JSONDecodeError) as e:
+    except subprocess.CalledProcessError as e:
+        if e.returncode == 4:
+            print("\n" + "="*70, file=sys.stderr)
+            print("ERROR: GitHub CLI authentication required!", file=sys.stderr)
+            print("="*70, file=sys.stderr)
+            print("Please run: gh auth login", file=sys.stderr)
+            print("="*70 + "\n", file=sys.stderr)
+            sys.exit(1)
+        else:
+            print(f"Error finding PR for commit {commit_sha}: {e}", file=sys.stderr)
+            print(f"Command failed with exit code {e.returncode}", file=sys.stderr)
+        return None
+    except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"Error finding PR for commit {commit_sha}: {e}", file=sys.stderr)
-        print(
-            "Please ensure the GitHub CLI ('gh') is installed and you are authenticated ('gh auth login').",
-            file=sys.stderr,
-        )
+        if isinstance(e, FileNotFoundError):
+            print("Please ensure the GitHub CLI ('gh') is installed.", file=sys.stderr)
         return None
 
 
