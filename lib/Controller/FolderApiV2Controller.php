@@ -42,7 +42,7 @@ class FolderApiV2Controller extends ApiController
 
     /**
      * @param string $name
-     * @return DataResponse<Http::STATUS_OK, array{folder: array<string, mixed>}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: array{code: int, message: string}}, array{}>
+     * @return DataResponse<200, array{folder: array<string, mixed>}, array{}>|DataResponse<400, array{error: array{code: int, message: string}}, array{}>
      */
     #[CORS]
     #[NoCSRFRequired]
@@ -66,7 +66,7 @@ class FolderApiV2Controller extends ApiController
     /**
      * @param int    $folderId
      * @param string $name
-     * @return DataResponse<Http::STATUS_OK, array{folder: array<string, mixed>}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: array{code: int, message: string}}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{error: array{code: int, message: string}}, array{}>
+     * @return DataResponse<200, array{folder: array<string, mixed>}, array{}>|DataResponse<400, array{error: array{code: int, message: string}}, array{}>|DataResponse<404, array{error: array{code: int, message: string}}, array{}>
      */
     #[CORS]
     #[NoCSRFRequired]
@@ -93,7 +93,7 @@ class FolderApiV2Controller extends ApiController
 
     /**
      * @param int $folderId
-     * @return DataResponse<Http::STATUS_OK, array{folder: array<string, mixed>}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{error: array{code: int, message: string}}, array{}>
+     * @return DataResponse<200, array{folder: array<string, mixed>}, array{}>|DataResponse<404, array{error: array{code: int, message: string}}, array{}>
      */
     #[CORS]
     #[NoCSRFRequired]
