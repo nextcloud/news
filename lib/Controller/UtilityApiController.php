@@ -22,9 +22,12 @@ use \OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\OpenAPI;
 
 use \OCA\News\Service\StatusService;
 
+#[OpenAPI(scope: OpenAPI::SCOPE_DEFAULT)]
 class UtilityApiController extends ApiController
 {
 
@@ -42,6 +45,7 @@ class UtilityApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/version', requirements: ['apiVersion' => 'v(1-[23]|2)'])]
     public function version(): array
     {
         $version = $this->settings->getValueString(
@@ -54,6 +58,7 @@ class UtilityApiController extends ApiController
 
     #[CORS]
     #[NoCSRFRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/cleanup/before-update', requirements: ['apiVersion' => 'v1-[23]'])]
     public function beforeUpdate(): void
     {
         $this->updaterService->beforeUpdate();
@@ -61,6 +66,7 @@ class UtilityApiController extends ApiController
 
     #[CORS]
     #[NoCSRFRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/cleanup/after-update', requirements: ['apiVersion' => 'v1-[23]'])]
     public function afterUpdate(): void
     {
         $this->updaterService->afterUpdate();
@@ -69,6 +75,7 @@ class UtilityApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/status', requirements: ['apiVersion' => 'v1-[23]'])]
     public function status(): array
     {
         return $this->statusService->getStatus();

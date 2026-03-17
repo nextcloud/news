@@ -12,6 +12,7 @@ use OCP\IRequest;
 use OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\DataDownloadResponse;
 
 use OCA\News\Constants;
@@ -34,6 +35,7 @@ class FaviconController extends Controller
      */
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/favicon/{feedUrlHash}')]
     public function get(string $feedUrlHash)
     {
         $feed_logo = null;

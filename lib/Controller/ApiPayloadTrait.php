@@ -3,7 +3,7 @@
 namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http;
-use \OCP\AppFramework\Http\JSONResponse;
+use \OCP\AppFramework\Http\DataResponse;
 
 use OCA\News\Db\IAPI;
 
@@ -64,8 +64,8 @@ trait ApiPayloadTrait
         return $return;
     }
 
-    public function responseV2($data, $code = Http::STATUS_OK)
+    public function responseV2($data, $code = Http::STATUS_OK): DataResponse
     {
-        return new JSONResponse($data, $code);
+        return new DataResponse($data, $code);
     }
 }

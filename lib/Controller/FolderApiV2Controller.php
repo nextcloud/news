@@ -17,11 +17,15 @@ use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\OpenAPI;
+use OCP\AppFramework\Http\DataResponse;
 
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\ItemServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 
+#[OpenAPI(scope: OpenAPI::SCOPE_DEFAULT)]
 class FolderApiV2Controller extends ApiController
 {
     use ApiPayloadTrait;
@@ -38,12 +42,13 @@ class FolderApiV2Controller extends ApiController
 
     /**
      * @param string $name
-     * @return array|mixed|\OCP\AppFramework\Http\JSONResponse
+     * @return DataResponse<Http::STATUS_OK, array{folder: array<string, mixed>}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: array{code: int, message: string}}, array{}>
      */
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    public function create(string $name)
+    #[ApiRoute(verb: 'POST', url: '/api/v2/folders')]
+    public function create(string $name): DataResponse
     {
         if (trim($name) === '') {
             return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
@@ -61,12 +66,13 @@ class FolderApiV2Controller extends ApiController
     /**
      * @param int    $folderId
      * @param string $name
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @return DataResponse<Http::STATUS_OK, array{folder: array<string, mixed>}, array{}>|DataResponse<Http::STATUS_BAD_REQUEST, array{error: array{code: int, message: string}}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{error: array{code: int, message: string}}, array{}>
      */
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    public function update(int $folderId, string $name)
+    #[ApiRoute(verb: 'PATCH', url: '/api/v2/folders/{folderId}')]
+    public function update(int $folderId, string $name): DataResponse
     {
         if (trim($name) === '') {
             return $this->errorResponseV2('folder name is empty', 1, Http::STATUS_BAD_REQUEST);
@@ -87,12 +93,13 @@ class FolderApiV2Controller extends ApiController
 
     /**
      * @param int $folderId
-     * @return array|\OCP\AppFramework\Http\JSONResponse
+     * @return DataResponse<Http::STATUS_OK, array{folder: array<string, mixed>}, array{}>|DataResponse<Http::STATUS_NOT_FOUND, array{error: array{code: int, message: string}}, array{}>
      */
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    public function delete(int $folderId)
+    #[ApiRoute(verb: 'DELETE', url: '/api/v2/folders/{folderId}')]
+    public function delete(int $folderId): DataResponse
     {
         try {
             $responseData = $this->serializeEntityV2(

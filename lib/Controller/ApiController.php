@@ -23,8 +23,10 @@ use \OCP\IUser;
 use \OCP\IRequest;
 use \OCP\IUserSession;
 use \OCP\AppFramework\ApiController as BaseApiController;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
 use OCP\AppFramework\Http\Attribute\CORS;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\OpenAPI;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 
 /**
@@ -32,6 +34,7 @@ use OCP\AppFramework\Http\Attribute\PublicPage;
  *
  * @package OCA\News\Controller
  */
+#[OpenAPI(scope: OpenAPI::SCOPE_DEFAULT)]
 class ApiController extends BaseApiController
 {
     /**
@@ -75,6 +78,7 @@ class ApiController extends BaseApiController
     #[CORS]
     #[NoCSRFRequired]
     #[PublicPage]
+    #[ApiRoute(verb: 'GET', url: '/api')]
     public function index(): array
     {
         return [

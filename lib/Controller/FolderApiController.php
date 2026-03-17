@@ -22,12 +22,15 @@ use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\OpenAPI;
 
 use \OCA\News\Service\FolderServiceV2;
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
 use \OCA\News\Service\Exceptions\ServiceConflictException;
 use \OCA\News\Service\Exceptions\ServiceValidationException;
 
+#[OpenAPI(scope: OpenAPI::SCOPE_DEFAULT)]
 class FolderApiController extends ApiController
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
@@ -44,6 +47,7 @@ class FolderApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/folders', requirements: ['apiVersion' => 'v1-[23]'])]
     public function index(): array
     {
         $folders = $this->folderService->findAllForUser($this->getUserId());
@@ -59,6 +63,7 @@ class FolderApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/folders', requirements: ['apiVersion' => 'v1-[23]'])]
     public function create(string $name)
     {
         try {
@@ -81,6 +86,7 @@ class FolderApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'DELETE', url: '/api/{apiVersion}/folders/{folderId}', requirements: ['apiVersion' => 'v1-[23]'])]
     public function delete(?int $folderId)
     {
         if (is_null($folderId)) {
@@ -106,6 +112,7 @@ class FolderApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'PUT', url: '/api/{apiVersion}/folders/{folderId}', requirements: ['apiVersion' => 'v1-[23]'])]
     public function update(?int $folderId, string $name)
     {
         if (is_null($folderId)) {
@@ -133,6 +140,8 @@ class FolderApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/folders/{folderId}/read', requirements: ['apiVersion' => 'v1-3'])]
+    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/folders/{folderId}/read', postfix: 'v1.2')]
     public function read(?int $folderId, int $newestItemId): void
     {
         $folderId = $folderId === 0 ? null : $folderId;

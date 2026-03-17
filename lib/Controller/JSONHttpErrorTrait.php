@@ -11,26 +11,27 @@
 
 namespace OCA\News\Controller;
 
-use \OCP\AppFramework\Http\JSONResponse;
+use \OCP\AppFramework\Http;
+use \OCP\AppFramework\Http\DataResponse;
 
 trait JSONHttpErrorTrait
 {
     /**
      * @param \Exception $exception The exception to report
      * @param int        $code      The http error code
-     * @return JSONResponse
+     * @return DataResponse<int, array{message: string}, array{}>
      */
-    public function error(\Exception $exception, int $code)
+    public function error(\Exception $exception, int $code): DataResponse
     {
-        return new JSONResponse(['message' => $exception->getMessage()], $code);
+        return new DataResponse(['message' => $exception->getMessage()], $code);
     }
 
     /**
      * @param \Exception $exception
      * @param int $code
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return DataResponse<int, array{error: array{code: int, message: string}}, array{}>
      */
-    public function errorResponseWithExceptionV2(\Exception $exception, int $code): JSONResponse
+    public function errorResponseWithExceptionV2(\Exception $exception, int $code): DataResponse
     {
         return $this->errorResponseV2(
             $exception->getMessage(),
@@ -43,11 +44,11 @@ trait JSONHttpErrorTrait
      * @param string $message
      * @param int $code
      * @param int $httpStatusCode
-     * @return \OCP\AppFramework\Http\JSONResponse
+     * @return DataResponse<int, array{error: array{code: int, message: string}}, array{}>
      */
-    public function errorResponseV2(string $message, int $code, int $httpStatusCode): JSONResponse
+    public function errorResponseV2(string $message, int $code, int $httpStatusCode): DataResponse
     {
-        return new JSONResponse([
+        return new DataResponse([
             'error' => [
                 'code' => $code,
                 'message' => $message,

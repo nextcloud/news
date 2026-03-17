@@ -23,6 +23,7 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\IRequest;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 
 use OCA\News\Db\ListType;
 use OCP\IUserSession;
@@ -43,6 +44,7 @@ class FeedController extends Controller
 
 
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/feeds')]
     public function index(): array
     {
 
@@ -78,6 +80,7 @@ class FeedController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/feeds')]
     public function create(
         string $url,
         ?int $parentFolderId,
@@ -132,6 +135,7 @@ class FeedController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'DELETE', url: '/feeds/{feedId}')]
     public function delete(int $feedId)
     {
         try {
@@ -152,6 +156,7 @@ class FeedController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/feeds/{feedId}/update')]
     public function update(int $feedId)
     {
         try {
@@ -180,6 +185,7 @@ class FeedController extends Controller
      * @return array
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/feeds/{feedId}/read')]
     public function read(int $feedId, int $highestItemId): array
     {
         $this->feedService->read($this->getUserId(), $feedId, $highestItemId);
@@ -201,6 +207,7 @@ class FeedController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/feeds/{feedId}/restore')]
     public function restore(int $feedId)
     {
         try {
@@ -227,6 +234,7 @@ class FeedController extends Controller
      * @return array|JSONResponse
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'PATCH', url: '/feeds/{feedId}')]
     public function patch(
         int $feedId,
         ?bool $pinned = null,

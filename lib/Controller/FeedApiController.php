@@ -28,9 +28,12 @@ use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\Attribute\CORS;
 use \OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use \OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\OpenAPI;
 
 use Psr\Log\LoggerInterface;
 
+#[OpenAPI(scope: OpenAPI::SCOPE_DEFAULT)]
 class FeedApiController extends ApiController
 {
     use JSONHttpErrorTrait, ApiPayloadTrait;
@@ -49,6 +52,7 @@ class FeedApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/feeds', requirements: ['apiVersion' => 'v1-[23]'])]
     public function index(): array
     {
 
@@ -77,6 +81,7 @@ class FeedApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/feeds', requirements: ['apiVersion' => 'v1-[23]'])]
     public function create(string $url, ?int $folderId = null)
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -113,6 +118,7 @@ class FeedApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'DELETE', url: '/api/{apiVersion}/feeds/{feedId}', requirements: ['apiVersion' => 'v1-[23]'])]
     public function delete(int $feedId)
     {
         try {
@@ -133,6 +139,8 @@ class FeedApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/feeds/{feedId}/read', requirements: ['apiVersion' => 'v1-3'])]
+    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/feeds/{feedId}/read', postfix: 'v1.2')]
     public function read(int $feedId, int $newestItemId): void
     {
         $this->feedService->read($this->getUserId(), $feedId, $newestItemId);
@@ -149,6 +157,8 @@ class FeedApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/feeds/{feedId}/move', requirements: ['apiVersion' => 'v1-3'])]
+    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/feeds/{feedId}/move', postfix: 'v1.2')]
     public function move(int $feedId, ?int $folderId)
     {
         $folderId = $folderId === 0 ? null : $folderId;
@@ -176,6 +186,8 @@ class FeedApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/feeds/{feedId}/rename', requirements: ['apiVersion' => 'v1-3'])]
+    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/feeds/{feedId}/rename', postfix: 'v1.2')]
     public function rename(int $feedId, string $feedTitle)
     {
         try {
@@ -192,6 +204,7 @@ class FeedApiController extends ApiController
 
     #[CORS]
     #[NoCSRFRequired]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/feeds/all', requirements: ['apiVersion' => 'v1-[23]'])]
     public function fromAllUsers(): array
     {
         $feeds = $this->feedService->findAll();
@@ -215,6 +228,8 @@ class FeedApiController extends ApiController
      * @param int    $feedId
      */
     #[NoCSRFRequired]
+    #[ApiRoute(verb: 'PUT', url: '/api/{apiVersion}/feeds/{feedId}', requirements: ['apiVersion' => 'v1-[23]'])]
+    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/feeds/update', requirements: ['apiVersion' => 'v1-[23]'])]
     public function update(string $userId, int $feedId): void
     {
         try {

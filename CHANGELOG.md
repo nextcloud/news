@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- DEV: Migrate routes to `#[ApiRoute]`/`#[FrontpageRoute]` attributes and add `#[OpenAPI]` support to API controllers
 
 ### Fixed
 

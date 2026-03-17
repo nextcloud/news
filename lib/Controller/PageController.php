@@ -26,6 +26,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\Config\IUserConfig;
 
 use OCA\News\Service\StatusService;
@@ -53,6 +54,16 @@ class PageController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/')]
+    #[FrontpageRoute(verb: 'GET', url: '/all', postfix: 'view.all')]
+    #[FrontpageRoute(verb: 'GET', url: '/item/{itemId}', postfix: 'view.itemid')]
+    #[FrontpageRoute(verb: 'GET', url: '/feed/{feedId}', postfix: 'view.feedid')]
+    #[FrontpageRoute(verb: 'GET', url: '/folder/{folderId}', postfix: 'view.folderid')]
+    #[FrontpageRoute(verb: 'GET', url: '/recent', postfix: 'view.recent')]
+    #[FrontpageRoute(verb: 'GET', url: '/starred', postfix: 'view.starred')]
+    #[FrontpageRoute(verb: 'GET', url: '/starred/{starredFeedId}', postfix: 'view.starred.feed')]
+    #[FrontpageRoute(verb: 'GET', url: '/unread', postfix: 'view.unread')]
+    #[FrontpageRoute(verb: 'GET', url: '/explore', postfix: 'view.explore')]
     public function index(): TemplateResponse
     {
         $status = $this->statusService->getStatus();
@@ -152,6 +163,7 @@ class PageController extends Controller
      * @return Http\JSONResponse|array
      */
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'GET', url: '/explore/feeds.{lang}.json')]
     public function explore(string $lang)
     {
         $this->userConfig->setValueInt(

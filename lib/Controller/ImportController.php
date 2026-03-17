@@ -20,6 +20,7 @@ use \OCP\IRequest;
 use OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 
 /**
  * Class ExportController
@@ -41,6 +42,7 @@ class ImportController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/import/opml')]
     public function opml(): array
     {
         $data = '';
@@ -72,6 +74,7 @@ class ImportController extends Controller
 
     #[NoCSRFRequired]
     #[NoAdminRequired]
+    #[FrontpageRoute(verb: 'POST', url: '/import/articles')]
     public function articles(): array
     {
         $data = '';
