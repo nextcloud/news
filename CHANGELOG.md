@@ -6,14 +6,17 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
-- Re-implement custom explore source function, admins can configure a custom url where the app will search for feeds.{$langcode}.json (#3609)
-- Implement the cron check as a setup check (#2831)
-- DEV: update to phpunit 10
 
 ### Fixed
 
 
 # Releases
+## [28.1.0] - 2026-03-17
+### Changed
+- Re-implement custom explore source function, admins can configure a custom url where the app will search for feeds.{$langcode}.json (#3609)
+- Implement the cron check as a setup check, Admins need to check. (#2831)
+- DEV: update to phpunit 10 (#3616)
+
 ## [28.0.1] - 2026-03-11
 ### Fixed
 - Handle OPML files with leading blank lines (#3596)
