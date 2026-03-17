@@ -13,7 +13,7 @@ use OCP\IUserSession;
 use OCP\AppFramework\Http\Attribute\CORS;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
-use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\OpenAPI;
 use OCP\AppFramework\Http\DataDownloadResponse;
 
@@ -39,7 +39,7 @@ class FaviconApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/favicon/{feedUrlHash}', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'GET', url: '/api/{apiVersion}/favicon/{feedUrlHash}', requirements: ['apiVersion' => 'v1-3'])]
     public function get(string $feedUrlHash)
     {
         $feed_logo = null;

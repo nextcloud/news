@@ -13,17 +13,18 @@ namespace OCA\News\Controller;
 
 use \OCP\AppFramework\Http;
 use \OCP\AppFramework\Http\DataResponse;
+use \OCP\AppFramework\Http\JSONResponse;
 
 trait JSONHttpErrorTrait
 {
     /**
      * @param \Exception $exception The exception to report
      * @param int        $code      The http error code
-     * @return DataResponse<int, array{message: string}, array{}>
+     * @return JSONResponse
      */
-    public function error(\Exception $exception, int $code): DataResponse
+    public function error(\Exception $exception, int $code): JSONResponse
     {
-        return new DataResponse(['message' => $exception->getMessage()], $code);
+        return new JSONResponse(['message' => $exception->getMessage()], $code);
     }
 
     /**

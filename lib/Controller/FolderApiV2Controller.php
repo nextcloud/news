@@ -17,7 +17,7 @@ use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\CORS;
-use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\OpenAPI;
 use OCP\AppFramework\Http\DataResponse;
 
@@ -47,7 +47,7 @@ class FolderApiV2Controller extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/v2/folders')]
+    #[FrontpageRoute(verb: 'POST', url: '/api/v2/folders')]
     public function create(string $name): DataResponse
     {
         if (trim($name) === '') {
@@ -71,7 +71,7 @@ class FolderApiV2Controller extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PATCH', url: '/api/v2/folders/{folderId}')]
+    #[FrontpageRoute(verb: 'PATCH', url: '/api/v2/folders/{folderId}')]
     public function update(int $folderId, string $name): DataResponse
     {
         if (trim($name) === '') {
@@ -98,7 +98,7 @@ class FolderApiV2Controller extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'DELETE', url: '/api/v2/folders/{folderId}')]
+    #[FrontpageRoute(verb: 'DELETE', url: '/api/v2/folders/{folderId}')]
     public function delete(int $folderId): DataResponse
     {
         try {

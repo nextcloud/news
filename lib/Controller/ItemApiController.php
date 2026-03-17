@@ -26,7 +26,7 @@ use \OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\CORS;
-use OCP\AppFramework\Http\Attribute\ApiRoute;
+use OCP\AppFramework\Http\Attribute\FrontpageRoute;
 use OCP\AppFramework\Http\Attribute\OpenAPI;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -62,7 +62,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/items', requirements: ['apiVersion' => 'v1-[23]'])]
+    #[FrontpageRoute(verb: 'GET', url: '/api/{apiVersion}/items', requirements: ['apiVersion' => 'v1-[23]'])]
     public function index(
         int $type = 3,
         int $id = 0,
@@ -125,7 +125,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'GET', url: '/api/{apiVersion}/items/updated', requirements: ['apiVersion' => 'v1-[23]'])]
+    #[FrontpageRoute(verb: 'GET', url: '/api/{apiVersion}/items/updated', requirements: ['apiVersion' => 'v1-[23]'])]
     public function updated(int $type = 3, int $id = 0, int $lastModified = 0): array
     {
         // needs to be turned into a millisecond timestamp to work properly
@@ -178,8 +178,8 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/read', requirements: ['apiVersion' => 'v1-3'])]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/{itemId}/read', postfix: 'v1.2')]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/read', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/{itemId}/read', postfix: 'v1.2')]
     public function read(int $itemId)
     {
         return $this->setRead($itemId, true);
@@ -195,8 +195,8 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/unread', requirements: ['apiVersion' => 'v1-3'])]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/{itemId}/unread', postfix: 'v1.2')]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/unread', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/{itemId}/unread', postfix: 'v1.2')]
     public function unread(int $itemId)
     {
         return $this->setRead($itemId, false);
@@ -251,7 +251,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/{feedId}/{guidHash}/star')]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/{feedId}/{guidHash}/star')]
     public function star(int $feedId, string $guidHash)
     {
         return $this->setStarred($feedId, $guidHash, true);
@@ -268,7 +268,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/{feedId}/{guidHash}/unstar')]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/{feedId}/{guidHash}/unstar')]
     public function unstar(int $feedId, string $guidHash)
     {
         return $this->setStarred($feedId, $guidHash, false);
@@ -284,7 +284,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/star', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/star', requirements: ['apiVersion' => 'v1-3'])]
     public function starByItemId(int $itemId)
     {
         return $this->setStarredByItemId($itemId, true);
@@ -300,7 +300,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/unstar', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/{itemId}/unstar', requirements: ['apiVersion' => 'v1-3'])]
     public function unstarByItemId(int $itemId)
     {
         return $this->setStarredByItemId($itemId, false);
@@ -315,8 +315,8 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/read', requirements: ['apiVersion' => 'v1-3'])]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/read', postfix: 'v1.2')]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/read', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/read', postfix: 'v1.2')]
     public function readAll(int $newestItemId): void
     {
         $this->itemService->readAll($this->getUserId(), $newestItemId);
@@ -350,7 +350,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/read/multiple')]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/read/multiple')]
     public function readMultiple(array $items): void
     {
         $this->setMultipleRead($items, true);
@@ -367,7 +367,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/read/multiple', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/read/multiple', requirements: ['apiVersion' => 'v1-3'])]
     public function readMultipleByIds(array $itemIds): void
     {
         $this->setMultipleRead($itemIds, true);
@@ -384,7 +384,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/unread/multiple')]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/unread/multiple')]
     public function unreadMultiple(array $items): void
     {
         $this->setMultipleRead($items, false);
@@ -401,7 +401,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/unread/multiple', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/unread/multiple', requirements: ['apiVersion' => 'v1-3'])]
     public function unreadMultipleByIds(array $itemIds): void
     {
         $this->setMultipleRead($itemIds, false);
@@ -461,7 +461,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/star/multiple')]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/star/multiple')]
     public function starMultiple(array $items): void
     {
         $this->setMultipleStarred($items, true);
@@ -476,7 +476,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'PUT', url: '/api/v1-2/items/unstar/multiple')]
+    #[FrontpageRoute(verb: 'PUT', url: '/api/v1-2/items/unstar/multiple')]
     public function unstarMultiple(array $items): void
     {
         $this->setMultipleStarred($items, false);
@@ -491,7 +491,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/star/multiple', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/star/multiple', requirements: ['apiVersion' => 'v1-3'])]
     public function starMultipleByItemIds(array $itemIds): void
     {
         $this->setMultipleStarredByItemIds($itemIds, true);
@@ -506,7 +506,7 @@ class ItemApiController extends ApiController
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    #[ApiRoute(verb: 'POST', url: '/api/{apiVersion}/items/unstar/multiple', requirements: ['apiVersion' => 'v1-3'])]
+    #[FrontpageRoute(verb: 'POST', url: '/api/{apiVersion}/items/unstar/multiple', requirements: ['apiVersion' => 'v1-3'])]
     public function unstarMultipleByItemIds(array $itemIds): void
     {
         $this->setMultipleStarredByItemIds($itemIds, false);

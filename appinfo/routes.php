@@ -14,5 +14,14 @@
  */
 
 return ['routes' => [
+// admin (no AdminController class yet; kept here for future implementation)
+['name' => 'admin#update', 'url' => '/admin', 'verb' => 'PUT'],
+['name' => 'admin#migrate', 'url' => '/admin/migrate', 'verb' => 'POST'],
+
+// page manifest (no manifest() method on PageController)
+['name' => 'page#manifest', 'url' => '/manifest.webapp', 'verb' => 'GET'],
+
+// wildcard CORS preflight for all API routes (FrontpageRoute does not auto-handle OPTIONS)
+['name' => 'utility_api#preflighted_cors', 'url' => '/api/{apiVersion}/{path}', 'verb' => 'OPTIONS', 'requirements' => ['apiVersion' => 'v(1-[23]|2)', 'path' => '.+']],
 ]];
 
