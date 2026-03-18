@@ -42,8 +42,8 @@ jobs:
         uses: skjnldsv/read-package-engines-version-actions@06d6baf7d8f41934ab630e97d9e6c0bc9c9ac5e4 # v3
         id: versions
         with:
-          fallbackNode: '^20'
-          fallbackNpm: '^10'
+          fallbackNode: '^24'
+          fallbackNpm: '^11.3'
 
       - name: Set up node ${{ steps.versions.outputs.nodeVersion }}
         uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
@@ -71,7 +71,7 @@ jobs:
         if: steps.checkout.outcome == 'success'
         uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
         with:
-          token: ${{ secrets.COMMAND_BOT_PAT }}
+          token: ${{ secrets.COMMAND_BOT_PAT }} # zizmor: ignore[secrets-outside-env]
           commit-message: 'fix(deps): Fix npm audit'
           committer: GitHub <noreply@github.com>
           author: nextcloud-command <nextcloud-command@users.noreply.github.com>
