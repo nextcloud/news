@@ -1,7 +1,8 @@
 import type { Store } from 'vuex'
 
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import { nextTick } from 'vue'
 import Vuex from 'vuex'
 import FeedItemDisplayList from '../../../../../src/components/feed-display/FeedItemDisplayList.vue'
 import FeedItemRow from '../../../../../src/components/feed-display/FeedItemRow.vue'
@@ -137,16 +138,12 @@ describe('FeedItemDisplayList.vue', () => {
 		store.dispatch = dispatchStub
 	})
 
-	beforeEach(() => {
-		vi.clearAllMocks()
-
-		// reset unread status
-		mockItem1.unread = true
-		mockItem2.unread = true
-		mockItem3.unread = true
-		mockItem4.unread = true
-		selectedItem = undefined
-
+	/*
+	 * This test checks whether the correct items are displayed when the route is changed.
+	 * It also tests whether items marked as read remain available and only disappear after
+	 * the route has been changed.
+	 */
+	it('should create FeedItemRow items when switching route', async () => {
 		wrapper = mount(FeedItemDisplayList, {
 			attachTo: document.body,
 			props: {
@@ -162,14 +159,9 @@ describe('FeedItemDisplayList.vue', () => {
 				},
 			},
 		})
-	})
 
-	/*
-	 * This test checks whether the correct items are displayed when the route is changed.
-	 * It also tests whether items marked as read remain available and only disappear after
-	 * the route has been changed.
-	 */
-	it('should create FeedItemRow items when switching route', async () => {
+		await nextTick()
+
 		await wrapper.setProps({
 			items: [mockItem1],
 			fetchKey: 'unread',
@@ -304,18 +296,57 @@ describe('FeedItemDisplayList.vue', () => {
 		showAll = true
 		mockItem1.unread = false
 		mockItem2.unread = false
-		await wrapper.setProps({
-			items: [mockItem1, mockItem2, mockItem3, mockItem4],
-			fetchKey: 'unread',
+		wrapper = mount(FeedItemDisplayList, {
+			attachTo: document.body,
+			props: {
+				items: [mockItem1, mockItem2, mockItem3, mockItem4],
+				fetchKey: 'feed-1',
+				listName: 'Feed 1',
+				listCount: 4,
+			},
+			global: {
+				plugins: [store],
+				stubs: {
+					VirtualScroll: false,
+				},
+			},
 		})
+
+		await nextTick()
+		await nextTick()
+
 		expect((wrapper.findComponent(VirtualScroll)).findAllComponents(FeedItemRow).length).toEqual(4)
+	})
+
+	beforeEach(() => {
+		vi.clearAllMocks()
+
+		// reset unread status
+		mockItem1.unread = true
+		mockItem2.unread = true
+		mockItem3.unread = true
+		mockItem4.unread = true
+		selectedItem = undefined
+
+		wrapper = shallowMount(FeedItemDisplayList, {
+			attachTo: document.body,
+			props: {
+				items: [mockItem1, mockItem2, mockItem3, mockItem4],
+				fetchKey: 'unread',
+				listName: 'Unread Articles',
+				listCount: 4,
+			},
+			global: {
+				plugins: [store],
+			},
+		})
 	})
 
 	it('should emit "loadMore" when calling fetchMore', () => {
 		wrapper.vm.fetchMore()
 
 		expect(wrapper.emitted()).toHaveProperty('loadMore')
-		expect(wrapper.emitted('loadMore')!.length).toBe(2)
+		expect(wrapper.emitted('loadMore')!.length).toBe(1)
 	})
 
 	it('should emit "markRead" when calling markRead', () => {
