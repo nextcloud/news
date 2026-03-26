@@ -1,14 +1,29 @@
 import type { AppState } from '../../../../src/store/index.ts'
 
-import { describe, expect, it, vi } from 'vitest'
+import { showError } from '@nextcloud/dialogs'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { FeedService } from '../../../../src/dataservices/feed.service'
 import { ItemService } from '../../../../src/dataservices/item.service'
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums/index.ts'
 import { actions, FEED_ACTION_TYPES, mutations } from '../../../../src/store/feed.ts'
 import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } from '../../../../src/types/MutationTypes.ts'
 
+vi.mock('@nextcloud/dialogs')
+vi.mock('@nextcloud/l10n', async (importOriginal) => {
+	const actual = await importOriginal()
+
+	return {
+		...actual,
+		translate: (_app: string, text: string) => text,
+	}
+})
+
 describe('feed.ts', () => {
 	'use strict'
+
+	beforeEach(() => {
+		vi.clearAllMocks()
+	})
 
 	describe('actions', () => {
 		describe('FETCH_FEEDS', () => {
@@ -68,6 +83,51 @@ describe('feed.ts', () => {
 				expect(FeedService.markRead).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 				expect(commit).toBeCalledWith(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: 234, delta: -2 })
+			})
+		})
+
+		describe('MOVE_FEED', () => {
+			it('should not show an error when moving a feed succeeds', async () => {
+				FeedService.moveFeed = vi.fn()
+				FeedService.moveFeed.mockResolvedValue({ status: 204 })
+
+				await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(FeedService.moveFeed).toBeCalledWith({ feedId: 1, folderId: 2 })
+				expect(showError).not.toBeCalled()
+			})
+
+			it('should show an error when moving a feed returns no response', async () => {
+				FeedService.moveFeed = vi.fn()
+				FeedService.moveFeed.mockResolvedValue(undefined)
+				const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+				await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(showError).toBeCalledWith('Unable to move feed. Please try again later or check your connection.')
+				consoleError.mockRestore()
+			})
+
+			it('should show an error when moving a feed returns a non-2xx response', async () => {
+				FeedService.moveFeed = vi.fn()
+				FeedService.moveFeed.mockResolvedValue({ status: 500 })
+				const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+				await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(showError).toBeCalledWith('Unable to move feed. Please try again later or check your connection.')
+				consoleError.mockRestore()
+			})
+
+			it('should show an error when moving a feed throws', async () => {
+				FeedService.moveFeed = vi.fn()
+				FeedService.moveFeed.mockRejectedValue(new Error('backend failure'))
+				const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+				await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(showError).toBeCalledWith('Unable to move feed. Please try again later or check your connection.')
+				consoleError.mockRestore()
 			})
 		})
 
