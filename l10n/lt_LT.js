@@ -75,6 +75,7 @@ OC.L10N.register(
     "Keep article unread" : "Palikti straipsnį neskaitytą",
     "Remove keep article unread" : "Nebepalikti straipsnio neskaityto",
     "Default" : "Numatytasis",
+    "Compact" : "Kompaktinis",
     "Always" : "Visada",
     "Never" : "Niekada",
     "Please select a valid OPML file" : "Pasirinkite tinkamą OPML failą",
@@ -97,6 +98,7 @@ OC.L10N.register(
     "Next update" : "Kitas atnaujinimas",
     "Title" : "Pavadinimas",
     "Folder" : "Aplankas",
+    "Not available" : "Nėra",
     "All Articles" : "Visi straipsniai",
     "Subscribe to" : "Prenumeruoti",
     "Unread Articles" : "Neskaityti straipsniai"
