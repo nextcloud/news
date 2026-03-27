@@ -113,19 +113,14 @@ export const actions = {
 		state: FeedState,
 		{ feedId, folderId }: { feedId: number, folderId: number },
 	) {
-		// Check that url is resolvable
 		try {
-			const response = await FeedService.moveFeed({
+			return await FeedService.moveFeed({
 				feedId,
 				folderId,
 			})
-
-			if (!response) {
-				console.error('error moving feed %d', feedId)
-			}
 		} catch (e) {
-			// TODO: show error to user if failure
-			console.error(e)
+			console.error(`error moving feed ${feedId}`, e)
+			return { status: undefined }
 		}
 	},
 
