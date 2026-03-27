@@ -14,6 +14,8 @@
 namespace OCA\News\Tests\Unit\Service;
 
 use OCA\News\Db\ItemMapperV2;
+use OCA\News\Scraper\Scraper;
+use OCA\News\Utility\HtmlSanitizer;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -55,6 +57,17 @@ class ItemServiceTest extends TestCase
      * @var MockObject|LoggerInterface
      */
     private $logger;
+
+    /**
+     * @var MockObject|Scraper
+     */
+    private $scraper;
+
+    /**
+     * @var MockObject|HtmlSanitizer
+     */
+    private $purifier;
+
     /**
      * @var int
      */
@@ -86,10 +99,20 @@ class ItemServiceTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->scraper = $this->getMockBuilder(Scraper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->purifier = $this->getMockBuilder(HtmlSanitizer::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->class = new ItemServiceV2(
             $this->mapper,
             $this->logger,
-            $this->config
+            $this->config,
+            $this->scraper,
+            $this->purifier
         );
         $this->user = 'jack';
         $this->id = 3;
@@ -642,5 +665,140 @@ class ItemServiceTest extends TestCase
              ->with(5);
 
         $this->class->purgeOverThreshold(5);
+    }
+
+    public function testFetchFulltextSuccess()
+    {
+        $item = $this->getMockBuilder(Item::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $item->expects($this->once())
+             ->method('getUrl')
+             ->willReturn('http://example.com');
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
+            ->willReturn($item);
+
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with('http://example.com')
+            ->willReturn(true);
+
+        $htmlBody = '<p>content</p>';
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->willReturn($htmlBody);
+
+        $purifiedBody = 'content';
+        $this->purifier->expects($this->once())
+            ->method('purify')
+            ->with($htmlBody)
+            ->willReturn($purifiedBody);
+
+        $item->expects($this->once())
+            ->method('setBody')
+            ->with($purifiedBody);
+
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($item)
+            ->willReturn($item);
+
+        $result = $this->class->fetchFulltext('jack', 3);
+
+        $this->assertNotNull($result);
+    }
+
+    public function testFetchFulltextScrapeFails()
+    {
+        $item = $this->getMockBuilder(Item::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $item->expects($this->once())
+             ->method('getUrl')
+             ->will($this->returnValue('http://example.com'));
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
+            ->will($this->returnValue($item));
+
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with('http://example.com')
+            ->willReturn(false);
+
+        $this->mapper->expects($this->never())
+            ->method('update');
+
+        $result = $this->class->fetchFulltext('jack', 3);
+
+        $this->assertNull($result);
+    }
+
+    public function testFetchFulltextEmptyContent()
+    {
+        $item = $this->getMockBuilder(Item::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $item->expects($this->once())
+             ->method('getUrl')
+             ->will($this->returnValue('http://example.com'));
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
+            ->will($this->returnValue($item));
+
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with('http://example.com')
+            ->willReturn(true);
+
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->willReturn('');
+
+        $this->mapper->expects($this->never())
+            ->method('update');
+
+        $result = $this->class->fetchFulltext('jack', 3);
+
+        $this->assertNull($result);
+    }
+
+    public function testUpdateBody()
+    {
+        $item = $this->getMockBuilder(Item::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->mapper->expects($this->once())
+            ->method('findFromUser')
+            ->with('jack', 3)
+            ->will($this->returnValue($item));
+
+        $body = 'content';
+        $this->purifier->expects($this->once())
+            ->method('purify')
+            ->with($body)
+            ->willReturn($body);
+
+        $item->expects($this->once())
+            ->method('setBody')
+            ->with($body);
+
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->willReturn($item);
+
+        $result = $this->class->updateBodyText('jack', 3, 'content');
+
+        $this->assertNotNull($result);
     }
 }

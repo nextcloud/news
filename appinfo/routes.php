@@ -52,6 +52,8 @@ return ['routes' => [
 
 // items
 ['name' => 'item#index', 'url' => '/items', 'verb' => 'GET'],
+['name' => 'item#body', 'url' => '/items/{itemId}/body', 'verb' => 'POST'],
+['name' => 'item#fulltext', 'url' => '/items/{itemId}/fulltext', 'verb' => 'GET'],
 ['name' => 'item#new_items', 'url' => '/items/new', 'verb' => 'GET'],
 ['name' => 'item#readAll', 'url' => '/items/read', 'verb' => 'POST'],
 ['name' => 'item#read', 'url' => '/items/{itemId}/read', 'verb' => 'POST'],

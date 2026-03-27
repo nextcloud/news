@@ -332,4 +332,48 @@ class ItemController extends Controller
 
         return [];
     }
+
+    /**
+     * @param int $itemId              Item to fetch
+     *
+     * @return array|JSONResponse
+     */
+    #[NoAdminRequired]
+    public function fulltext(int $itemId)
+    {
+        $item = null;
+        try {
+            $item = $this->itemService->fetchFulltext($this->getUserId(), $itemId);
+        } catch (ServiceException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        if ($item === null) {
+            return new JSONResponse([], Http::STATUS_NO_CONTENT);
+        }
+
+        return [$item];
+    }
+
+    /**
+     * @param int $itemId              Item to update
+     * @param string $body             New content
+     *
+     * @return array|JSONResponse
+     */
+    #[NoAdminRequired]
+    public function body(int $itemId, string $body)
+    {
+        try {
+            $this->itemService->updateBodyText(
+                $this->getUserId(),
+                $itemId,
+                $body
+            );
+        } catch (ServiceException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        return [];
+    }
 }

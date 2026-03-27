@@ -1,9 +1,17 @@
+import { showError } from '@nextcloud/dialogs'
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick, reactive } from 'vue'
 import FeedItemDisplay from '../../../../../src/components/feed-display/FeedItemDisplay.vue'
 import { MEDIA_TYPE, SHOW_MEDIA } from '../../../../../src/enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../../../../src/store/index.ts'
+
+vi.mock('@nextcloud/dialogs', () => ({
+	showError: vi.fn(),
+	showLoading: vi.fn(() => ({
+		hideToast: vi.fn(),
+	})),
+}))
 
 describe('FeedItemDisplay.vue', () => {
 	'use strict'
@@ -14,6 +22,8 @@ describe('FeedItemDisplay.vue', () => {
 		feedId: 1,
 		title: 'feed item',
 		pubDate: Date.now() / 1000,
+		body: '<p>content</p>',
+		intro: 'content',
 	}
 	const mockFeeds = [
 		{
@@ -387,6 +397,85 @@ describe('FeedItemDisplay.vue', () => {
 
 		expect(wrapper.find('.enclosure.thumbnail').exists()).toBe(false)
 		expect(wrapper.find('.consent-button').exists()).toBe(false)
+	})
+
+	it('fetchFulltext successfully scraped website content', async () => {
+		await wrapper.vm.fetchFulltext()
+
+		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.FETCH_FULLTEXT, {
+			item: wrapper.vm.item,
+		})
+
+		expect(wrapper.vm.originalBody).toBe('<p>content</p>')
+		expect(wrapper.vm.originalIntro).toBe('content')
+		expect(wrapper.vm.isDownloading).toBeNull()
+	})
+
+	it('fetchFulltext shows error toast', async () => {
+		const error = new Error('Download error')
+		dispatchStub.mockRejectedValue(error)
+
+		await wrapper.vm.fetchFulltext()
+
+		expect(showError).toHaveBeenCalled()
+		expect(wrapper.vm.originalBody).toBeNull()
+		expect(wrapper.vm.originalIntro).toBeNull()
+		expect(wrapper.vm.isDownloading).toBeNull()
+	})
+
+	it('canUndoFulltext returns true if originalBody is set', async () => {
+		wrapper.vm.originalBody = 'original body'
+
+		const canUndo = wrapper.vm.$options.computed?.canUndoFulltext.call(wrapper.vm)
+		expect(canUndo).toBeTruthy()
+	})
+
+	it('undoFulltext restores original values', async () => {
+		wrapper.vm.originalBody = 'original body'
+		wrapper.vm.originalIntro = 'original intro'
+
+		await wrapper.vm.undoFulltext()
+
+		expect(dispatchStub).toHaveBeenCalledWith(ACTIONS.UPDATE_BODY, {
+			item: wrapper.vm.item,
+			body: 'original body',
+			intro: 'original intro',
+		})
+
+		expect(wrapper.vm.originalBody).toBeNull()
+		expect(wrapper.vm.originalIntro).toBeNull()
+	})
+
+	it('toggleFulltext calls fetchFulltext when originalBody is not set', async () => {
+		const spy = vi.spyOn(wrapper.vm, 'fetchFulltext')
+
+		wrapper.vm.originalBody = null
+		wrapper.vm.isDownloading = null
+
+		wrapper.vm.toggleFulltext()
+
+		expect(spy).toHaveBeenCalled()
+	})
+
+	it('toggleFulltext calls undoFulltext when originalBody exists', async () => {
+		const spy = vi.spyOn(wrapper.vm, 'undoFulltext')
+
+		wrapper.vm.originalBody = 'original body'
+		wrapper.vm.isDownloading = null
+
+		wrapper.vm.toggleFulltext()
+
+		expect(spy).toHaveBeenCalled()
+	})
+
+	it('toggleFulltext does nothing if downloading', () => {
+		const fetchSpy = vi.spyOn(wrapper.vm, 'fetchFulltext')
+
+		wrapper.vm.isDownloading = {}
+
+		wrapper.vm.toggleFulltext()
+
+		expect(fetchSpy).not.toHaveBeenCalled()
 	})
 
 	describe('sanitizedBody', () => {

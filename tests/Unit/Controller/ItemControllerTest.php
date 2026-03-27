@@ -653,4 +653,62 @@ class ItemControllerTest extends TestCase
         $response = $this->controller->newItems(ListType::FEED, 2, 3);
         $this->assertEquals([], $response);
     }
+
+
+    public function testFulltextSuccess()
+    {
+        $item = new Item();
+        $this->itemService->expects($this->once())
+            ->method('fetchFulltext')
+            ->with('user', 10)
+            ->willReturn($item);
+
+        $response = $this->controller->fulltext(10);
+        $this->assertEquals([$item], $response);
+    }
+
+
+    public function testFulltextNotFound()
+    {
+        $msg = 'not found';
+        $this->itemService->expects($this->once())
+            ->method('fetchFulltext')
+            ->with('user', 10)
+            ->will($this->throwException(new ServiceNotFoundException($msg)));
+
+        $response = $this->controller->fulltext(10);
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+        $this->assertEquals($msg, $params['message']);
+    }
+
+
+    public function testUpdateBodySuccess()
+    {
+        $item = new Item();
+        $this->itemService->expects($this->once())
+            ->method('updateBodyText')
+            ->with('user', 10, 'content')
+            ->willReturn($item);
+
+        $response = $this->controller->body(10, 'content');
+        $this->assertEquals([], $response);
+    }
+
+
+    public function testUpdateBodyNotFound()
+    {
+        $msg = 'not found';
+        $this->itemService->expects($this->once())
+            ->method('updateBodyText')
+            ->with('user', 10, 'content')
+            ->will($this->throwException(new ServiceNotFoundException($msg)));
+
+        $response = $this->controller->body(10, 'content');
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+        $this->assertEquals($msg, $params['message']);
+    }
 }

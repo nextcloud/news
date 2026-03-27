@@ -17,9 +17,11 @@ use OCA\News\Db\Feed;
 use OCA\News\Db\ListType;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
+use OCA\News\Scraper\Scraper;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Exceptions\ServiceValidationException;
+use OCA\News\Utility\HtmlSanitizer;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
@@ -40,11 +42,15 @@ class ItemServiceV2 extends Service
      * @param ItemMapperV2    $mapper
      * @param IAppConfig      $config
      * @param LoggerInterface $logger
+     * @param Scraper         $scraper
+     * @param HtmlSanitizer   $purifier
      */
     public function __construct(
         ItemMapperV2 $mapper,
         LoggerInterface $logger,
-        protected IAppConfig $config
+        protected IAppConfig $config,
+        protected Scraper $scraper,
+        protected HtmlSanitizer $purifier
     ) {
         parent::__construct($mapper, $logger);
     }
@@ -392,5 +398,54 @@ class ItemServiceV2 extends Service
         int $id = 0
     ): array {
         return $this->mapper->findAllItems($id, $userId, $type, $limit, $offset, $oldestFirst, $search);
+    }
+
+    /**
+     * Update item body with fetched content from item link
+     *
+     * @param string $userId
+     * @param int $id
+     *
+     * @return Entity|null
+     */
+    public function fetchFulltext(string $userId, int $id): Entity | null
+    {
+        /*
+         * limit execution time when fetching single item on demand
+         * to prevent a blocked request from running indefinitely
+         */
+        set_time_limit(6);
+
+        $body = null;
+        $item = $this->find($userId, $id);
+
+        $itemLink = $item->getUrl();
+        if ($itemLink !== null && $this->scraper->scrape($itemLink)) {
+            $body = $this->scraper->getContent();
+        }
+
+        if (is_null($body) || $body == '') {
+            return null;
+        }
+        $item->setBody($this->purifier->purify($body));
+
+        return $this->mapper->update($item);
+    }
+
+    /**
+     * Update item body with given content
+     *
+     * @param string $userId
+     * @param int $id
+     * @param string $body
+     *
+     * @return Entity
+     */
+    public function updateBodyText(string $userId, int $id, string $body): Entity
+    {
+        $item = $this->find($userId, $id);
+        $item->setBody($this->purifier->purify($body));
+
+        return $this->mapper->update($item);
     }
 }
