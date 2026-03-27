@@ -2,8 +2,6 @@ import type { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
 import type { ActionParams } from '../store/index.ts'
 import type { Feed } from '../types/Feed.ts'
 
-import { showError } from '@nextcloud/dialogs'
-import { translate as t } from '@nextcloud/l10n'
 import _ from 'lodash'
 import { reactive } from 'vue'
 import { FeedService } from '../dataservices/feed.service.ts'
@@ -46,19 +44,6 @@ const getters = {
 	feeds(state: FeedState) {
 		return state.feeds
 	},
-}
-
-/**
- * Shows a translated error notification when feed moves fail.
- *
- * @param feedId Feed identifier used for error logging
- * @param error Original error or response details
- */
-function showMoveFeedError(feedId: number, error?: unknown) {
-	const errorMessage = t('news', 'Unable to move feed. Please try again later or check your connection.')
-
-	showError(errorMessage)
-	console.error(`error moving feed ${feedId}`, error)
 }
 
 export const actions = {
@@ -129,16 +114,13 @@ export const actions = {
 		{ feedId, folderId }: { feedId: number, folderId: number },
 	) {
 		try {
-			const response = await FeedService.moveFeed({
+			return await FeedService.moveFeed({
 				feedId,
 				folderId,
 			})
-
-			if (!response || response.status < 200 || response.status >= 300) {
-				showMoveFeedError(feedId, response)
-			}
 		} catch (e) {
-			showMoveFeedError(feedId, e)
+			console.error(`error moving feed ${feedId}`, e)
+			return { status: undefined }
 		}
 	},
 
