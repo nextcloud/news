@@ -57,27 +57,27 @@ describe('FeedInfoTable.vue', () => {
 		name: 'third',
 	}]
 
-	beforeEach(() => {
-		store = new Vuex.Store({
-			state: {
-				feeds: { feeds },
-				folders: { folders },
-			},
-			getters: {
-				feeds: () => [feeds],
-				folders: () => [folders],
-				loading: () => false,
-			},
-		})
-		store.dispatch = vi.fn()
-		wrapper = shallowMount(FeedInfoTable, {
-			global: {
-				plugins: [store],
-			},
-		})
-	})
-
 	describe('Methods', () => {
+		beforeEach(() => {
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => feeds,
+					folders: () => folders,
+					loading: () => false,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = shallowMount(FeedInfoTable, {
+				global: {
+					plugins: [store],
+				},
+			})
+		})
+
 		it('should return folder name for a given feed', () => {
 			const folderName = wrapper.vm.folderName(feeds[0])
 			expect(folderName).toEqual('first')
@@ -117,6 +117,26 @@ describe('FeedInfoTable.vue', () => {
 	})
 
 	describe('Table Sorting', () => {
+		beforeEach(() => {
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => feeds,
+					folders: () => folders,
+					loading: () => false,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = shallowMount(FeedInfoTable, {
+				global: {
+					plugins: [store],
+				},
+			})
+		})
+
 		it('sort the feed table in ascending order by id', () => {
 			wrapper.vm.sortKey = 'id'
 			wrapper.vm.sortOrder = 1
@@ -238,14 +258,17 @@ describe('FeedInfoTable.vue', () => {
 					folders: { folders },
 				},
 				getters: {
-					feeds: () => [feeds],
-					folders: () => [folders],
+					feeds: () => feeds,
+					folders: () => folders,
 					loading: () => true,
 				},
 			})
 			store.dispatch = vi.fn()
 			wrapper = mount(FeedInfoTable, {
 				global: { plugins: [store] },
+				stubs: {
+					SidebarFeedLinkActions: true,
+				},
 			})
 		})
 
@@ -264,14 +287,17 @@ describe('FeedInfoTable.vue', () => {
 					folders: { folders },
 				},
 				getters: {
-					feeds: () => [feeds],
-					folders: () => [folders],
+					feeds: () => feeds,
+					folders: () => folders,
 					loading: () => false,
 				},
 			})
 			store.dispatch = vi.fn()
 			wrapper = mount(FeedInfoTable, {
 				global: { plugins: [store] },
+				stubs: {
+					SidebarFeedLinkActions: true,
+				},
 			})
 		})
 
@@ -280,7 +306,7 @@ describe('FeedInfoTable.vue', () => {
 				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-1')
 
 			const button = actions.findAll('button')
-				.find((btn) => btn.attributes('data-test') === 'disableFeedUpdate')
+				.find((btn) => btn.attributes('data-test') === 'enableFeedUpdate')
 			expect(button).toBeTruthy()
 			await button.trigger('click')
 
@@ -292,7 +318,7 @@ describe('FeedInfoTable.vue', () => {
 				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-2')
 
 			const button = actions.findAll('button')
-				.find((btn) => btn.attributes('data-test') === 'enableFeedUpdate')
+				.find((btn) => btn.attributes('data-test') === 'disableFeedUpdate')
 			expect(button).toBeTruthy()
 			await button.trigger('click')
 

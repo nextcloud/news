@@ -206,7 +206,7 @@
 								<NcActionButton
 									v-if="feed.preventUpdate"
 									:title="t('news', 'Enable feed update')"
-									data-test="disableFeedUpdate"
+									data-test="enableFeedUpdate"
 									@click="setPreventUpdate(feed, false)">
 									<template #icon>
 										<SyncOff />
@@ -215,7 +215,7 @@
 								<NcActionButton
 									v-if="!feed.preventUpdate"
 									:title="t('news', 'Disable feed update')"
-									data-test="enableFeedUpdate"
+									data-test="disableFeedUpdate"
 									@click="setPreventUpdate(feed, true)">
 									<template #icon>
 										<Sync />
