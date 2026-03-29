@@ -6,11 +6,14 @@
 	<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
 	<NcModal
 		size="large"
+		labelId="feed-settings-dialog"
 		:closeOnClickOutside="true"
 		@close="$emit('close')">
 		<div class="table-modal">
 			<div class="modal-header">
-				<h2>{{ t('news', 'Feed settings') }}</h2>
+				<h2 id="feed-settings-dialog">
+					{{ t('news', 'Feed settings') }}
+				</h2>
 			</div>
 			<table>
 				<tbody>
@@ -53,21 +56,21 @@
 				<tbody>
 					<tr>
 						<th colspan="4">
-							{{ t('news', 'Feed settings') }}
+							{{ t('news', 'Fetch options') }}
 						</th>
 					</tr>
 					<tr>
 						<td>
-							<TextShortIcon />
+							<Sync />
 						</td>
 						<td>
-							{{ t('news', 'Use article text provided by the feed') }}
+							{{ t('news', 'Feed update is enabled') }}
 						</td>
 						<td>
-							<TextLongIcon />
+							<SyncOff />
 						</td>
 						<td>
-							{{ t('news', 'Scrape web version of the article text') }}
+							{{ t('news', 'Feed update is disabled') }}
 						</td>
 					</tr>
 					<tr>
@@ -86,16 +89,16 @@
 					</tr>
 					<tr>
 						<td>
-							<Sync />
+							<TextShortIcon />
 						</td>
 						<td>
-							{{ t('news', 'Feed update is enabled') }}
+							{{ t('news', 'Use article text provided by the feed') }}
 						</td>
 						<td>
-							<SyncOff />
+							<TextLongIcon />
 						</td>
 						<td>
-							{{ t('news', 'Feed update is disabled') }}
+							{{ t('news', 'Scrape web version of the article text') }}
 						</td>
 					</tr>
 				</tbody>
@@ -202,8 +205,7 @@
 							<NcActions :inline="3">
 								<NcActionButton
 									v-if="feed.preventUpdate"
-									:closeAfterClick="true"
-									:title="t('news', 'Feed update is disabled')"
+									:title="t('news', 'Enable feed update')"
 									@click="setPreventUpdate(feed, false)">
 									<template #icon>
 										<SyncOff />
@@ -211,8 +213,7 @@
 								</NcActionButton>
 								<NcActionButton
 									v-if="!feed.preventUpdate"
-									:closeAfterClick="true"
-									:title="t('news', 'Feed update is enabled')"
+									:title="t('news', 'Disable feed update')"
 									@click="setPreventUpdate(feed, true)">
 									<template #icon>
 										<Sync />
@@ -220,8 +221,7 @@
 								</NcActionButton>
 								<NcActionButton
 									v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
-									icon="file-document-refresh"
-									:title="t('news', 'Mark as unread on update')"
+									:title="t('news', 'Disable marking items as unread on update')"
 									@click="setUpdateMode(feed, FEED_UPDATE_MODE.IGNORE)">
 									<template #icon>
 										<FileDocumentRefresh />
@@ -229,8 +229,7 @@
 								</NcActionButton>
 								<NcActionButton
 									v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
-									icon="file-document-check"
-									:title="t('news', 'Keep read status on update')"
+									:title="t('news', 'Enable marking items as unread on update')"
 									@click="setUpdateMode(feed, FEED_UPDATE_MODE.UNREAD)">
 									<template #icon>
 										<FileDocumentCheck />
@@ -238,8 +237,7 @@
 								</NcActionButton>
 								<NcActionButton
 									v-if="!feed.fullTextEnabled"
-									icon="icon-full-text-disabled"
-									:title="t('news', 'Use article text provided by the feed')"
+									:title="t('news', 'Enable web scraping')"
 									@click="setFullText(feed, true)">
 									<template #icon>
 										<TextShortIcon />
@@ -247,8 +245,7 @@
 								</NcActionButton>
 								<NcActionButton
 									v-if="feed.fullTextEnabled"
-									icon="icon-full-text-enabled"
-									:title="t('news', 'Scrape web version of the article text')"
+									:title="t('news', 'Disable web scraping')"
 									@click="setFullText(feed, false)">
 									<template #icon>
 										<TextLongIcon />
