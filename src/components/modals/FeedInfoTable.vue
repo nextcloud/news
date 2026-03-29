@@ -106,7 +106,7 @@
 			<NcNoteCard type="info">
 				{{ t('news', 'Please note that web scraping may be blocked by some providers and is generally discouraged.') }}
 			</NcNoteCard>
-			<NcNoteCard v-if="loading" type="info">
+			<NcNoteCard v-if="loading" type="info" data-test="loadingMessage">
 				<div class="loading-message">
 					<NcLoadingIcon size="24" />
 					<strong>{{ t('news', 'Loading feeds') }}...{{ t('news', 'Please wait') }}</strong>
@@ -202,10 +202,11 @@
 							</NcActions>
 						</td>
 						<td>
-							<NcActions :inline="3">
+							<NcActions :inline="3" :data-test="'feedOptions-' + feed.id">
 								<NcActionButton
 									v-if="feed.preventUpdate"
 									:title="t('news', 'Enable feed update')"
+									data-test="disableFeedUpdate"
 									@click="setPreventUpdate(feed, false)">
 									<template #icon>
 										<SyncOff />
@@ -214,6 +215,7 @@
 								<NcActionButton
 									v-if="!feed.preventUpdate"
 									:title="t('news', 'Disable feed update')"
+									data-test="enableFeedUpdate"
 									@click="setPreventUpdate(feed, true)">
 									<template #icon>
 										<Sync />
@@ -222,6 +224,7 @@
 								<NcActionButton
 									v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
 									:title="t('news', 'Disable marking items as unread on update')"
+									data-test="disableMarkUnread"
 									@click="setUpdateMode(feed, FEED_UPDATE_MODE.IGNORE)">
 									<template #icon>
 										<FileDocumentRefresh />
@@ -230,6 +233,7 @@
 								<NcActionButton
 									v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
 									:title="t('news', 'Enable marking items as unread on update')"
+									data-test="enableMarkUnread"
 									@click="setUpdateMode(feed, FEED_UPDATE_MODE.UNREAD)">
 									<template #icon>
 										<FileDocumentCheck />
@@ -238,6 +242,7 @@
 								<NcActionButton
 									v-if="!feed.fullTextEnabled"
 									:title="t('news', 'Enable web scraping')"
+									data-test="enableScraping"
 									@click="setFullText(feed, true)">
 									<template #icon>
 										<TextShortIcon />
@@ -246,6 +251,7 @@
 								<NcActionButton
 									v-if="feed.fullTextEnabled"
 									:title="t('news', 'Disable web scraping')"
+									data-test="disableScraping"
 									@click="setFullText(feed, false)">
 									<template #icon>
 										<TextLongIcon />

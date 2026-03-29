@@ -1,4 +1,4 @@
-import { shallowMount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import Vuex from 'vuex'
 import FeedInfoTable from '../../../../../src/components/modals/FeedInfoTable.vue'
@@ -19,6 +19,9 @@ describe('FeedInfoTable.vue', () => {
 		nextUpdateTime: 1,
 		articlesPerUpdate: 150,
 		updateErrorCount: 20,
+		updateMode: FEED_UPDATE_MODE.UNREAD,
+		fullTextEnabled: false,
+		preventUpdate: true,
 	}, {
 		id: 2,
 		title: 'second',
@@ -27,6 +30,9 @@ describe('FeedInfoTable.vue', () => {
 		nextUpdateTime: 4,
 		articlesPerUpdate: 50,
 		updateErrorCount: 40,
+		updateMode: FEED_UPDATE_MODE.IGNORE,
+		fullTextEnabled: true,
+		preventUpdate: false,
 	}, {
 		id: 3,
 		title: 'third',
@@ -35,6 +41,9 @@ describe('FeedInfoTable.vue', () => {
 		nextUpdateTime: 8,
 		articlesPerUpdate: 20,
 		updateErrorCount: 0,
+		updateMode: FEED_UPDATE_MODE.UNREAD,
+		fullTextEnabled: true,
+		preventUpdate: true,
 	}]
 
 	const folders = [{
@@ -57,6 +66,7 @@ describe('FeedInfoTable.vue', () => {
 			getters: {
 				feeds: () => [feeds],
 				folders: () => [folders],
+				loading: () => false,
 			},
 		})
 		store.dispatch = vi.fn()
@@ -220,23 +230,121 @@ describe('FeedInfoTable.vue', () => {
 		})
 	})
 
-	describe('Feed Actions', () => {
-		it('should dispatch message to store with feed object and preventUpdate', () => {
-			wrapper.vm.setPreventUpdate(feeds[0], true)
-
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: feeds[0], preventUpdate: true })
+	describe('Loading State', () => {
+		beforeEach(() => {
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => [feeds],
+					folders: () => [folders],
+					loading: () => true,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = mount(FeedInfoTable, {
+				global: { plugins: [store] },
+			})
 		})
 
-		it('should dispatch message to store with feed object and new updateMode', () => {
-			wrapper.vm.setUpdateMode(feeds[0], FEED_UPDATE_MODE.IGNORE)
+		it('should show loading note card when loading is true', async () => {
+			const noteCard = wrapper.findAllComponents({ name: 'NcNoteCard' })
+				.find((ncnotecard) => ncnotecard.attributes('data-test') === 'loadingMessage')
+			expect(noteCard.text()).toContain('Loading feeds')
+		})
+	})
 
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.IGNORE })
+	describe('Action Buttons', () => {
+		beforeEach(() => {
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => [feeds],
+					folders: () => [folders],
+					loading: () => false,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = mount(FeedInfoTable, {
+				global: { plugins: [store] },
+			})
 		})
 
-		it('should dispatch message to store with feed object and fullTextEnabled', () => {
-			wrapper.vm.setFullText(feeds[0], true)
+		it('should dispatch setPreventUpdate on click with preventUpdate false', async () => {
+			const actions = wrapper.findAllComponents({ name: 'NcActions' })
+				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-1')
 
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_FULL_TEXT, { feed: feeds[0], fullTextEnabled: true })
+			const button = actions.findAll('button')
+				.find((btn) => btn.attributes('data-test') === 'disableFeedUpdate')
+			expect(button).toBeTruthy()
+			await button.trigger('click')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: feeds[0], preventUpdate: false })
+		})
+
+		it('should dispatch setPreventUpdate on click with preventUpdate true', async () => {
+			const actions = wrapper.findAllComponents({ name: 'NcActions' })
+				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-2')
+
+			const button = actions.findAll('button')
+				.find((btn) => btn.attributes('data-test') === 'enableFeedUpdate')
+			expect(button).toBeTruthy()
+			await button.trigger('click')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: feeds[1], preventUpdate: true })
+		})
+
+		it('should dispatch setUpdateMode on click with FEED_UPDATE_MODE.IGNORE', async () => {
+			const actions = wrapper.findAllComponents({ name: 'NcActions' })
+				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-1')
+
+			const button = actions.findAll('button')
+				.find((btn) => btn.attributes('data-test') === 'disableMarkUnread')
+			expect(button).toBeTruthy()
+			await button.trigger('click')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.IGNORE })
+		})
+
+		it('should dispatch setUpdateMode on click with FEED_UPDATE_MODE.NORMAL', async () => {
+			const actions = wrapper.findAllComponents({ name: 'NcActions' })
+				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-2')
+
+			const button = actions.findAll('button')
+				.find((btn) => btn.attributes('data-test') === 'enableMarkUnread')
+			expect(button).toBeTruthy()
+			await button.trigger('click')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[1], updateMode: FEED_UPDATE_MODE.UNREAD })
+		})
+
+		it('should dispatch setFullText on click with fullTextEnabled true', async () => {
+			const actions = wrapper.findAllComponents({ name: 'NcActions' })
+				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-1')
+
+			const button = actions.findAll('button')
+				.find((btn) => btn.attributes('data-test') === 'enableScraping')
+			expect(button).toBeTruthy()
+			await button.trigger('click')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_FULL_TEXT, { feed: feeds[0], fullTextEnabled: true })
+		})
+
+		it('should dispatch setFullText on click with fullTextEnabled false', async () => {
+			const actions = wrapper.findAllComponents({ name: 'NcActions' })
+				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-2')
+
+			const button = actions.findAll('button')
+				.find((btn) => btn.attributes('data-test') === 'disableScraping')
+			expect(button).toBeTruthy()
+			await button.trigger('click')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_FULL_TEXT, { feed: feeds[1], fullTextEnabled: false })
 		})
 	})
 
