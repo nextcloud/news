@@ -6,15 +6,14 @@
 	<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
 	<NcModal
 		size="large"
-		closeOnClickOutside="true"
+		labelId="feed-settings-dialog"
+		:closeOnClickOutside="true"
 		@close="$emit('close')">
 		<div class="table-modal">
 			<div class="modal-header">
-				<h2>{{ t('news', 'Feed settings') }}</h2>
-				<div v-if="loading" class="loading-message">
-					<NcLoadingIcon size="36" />
-					<h1>{{ t('news', 'Importing feeds') }}...{{ t('news', 'Please wait') }}</h1>
-				</div>
+				<h2 id="feed-settings-dialog">
+					{{ t('news', 'Feed settings') }}
+				</h2>
 			</div>
 			<table>
 				<tbody>
@@ -23,7 +22,7 @@
 							{{ t('news', 'Last update') }}:
 						</td>
 						<td>
-							{{ t('news', 'Time when the feed was last downloaded') }}
+							{{ t('news', 'Time when the feed was last downloaded or modified') }}
 						</td>
 					</tr>
 					<tr>
@@ -54,6 +53,66 @@
 				</tbody>
 			</table>
 			<table>
+				<tbody>
+					<tr>
+						<th colspan="4">
+							{{ t('news', 'Fetch options') }}
+						</th>
+					</tr>
+					<tr>
+						<td>
+							<Sync />
+						</td>
+						<td>
+							{{ t('news', 'Feed update is enabled') }}
+						</td>
+						<td>
+							<SyncOff />
+						</td>
+						<td>
+							{{ t('news', 'Feed update is disabled') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<FileDocumentRefresh />
+						</td>
+						<td>
+							{{ t('news', 'Mark as unread on update') }}
+						</td>
+						<td>
+							<FileDocumentCheck />
+						</td>
+						<td>
+							{{ t('news', 'Keep read status on update') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<TextShortIcon />
+						</td>
+						<td>
+							{{ t('news', 'Use article text provided by the feed') }}
+						</td>
+						<td>
+							<TextLongIcon />
+						</td>
+						<td>
+							{{ t('news', 'Scrape web version of the article text') }}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<NcNoteCard type="info">
+				{{ t('news', 'Please note that web scraping may be blocked by some providers and is generally discouraged.') }}
+			</NcNoteCard>
+			<NcNoteCard v-if="loading" type="info" data-test="loadingMessage">
+				<div class="loading-message">
+					<NcLoadingIcon size="24" />
+					<strong>{{ t('news', 'Loading feeds') }}...{{ t('news', 'Please wait') }}</strong>
+				</div>
+			</NcNoteCard>
+			<table>
 				<thead>
 					<tr>
 						<th @click="sortBy('id')">
@@ -65,7 +124,11 @@
 								ID
 							</span>
 						</th>
-						<th />
+						<th colspan="2">
+							<span class="column-title">
+								{{ t('news', 'Options') }}
+							</span>
+						</th>
 						<th @click="sortBy('title')">
 							<span class="column-title">
 								<span class="sort-icon">
@@ -138,6 +201,64 @@
 									@openMoveDialog="openMoveFeed(feed)" />
 							</NcActions>
 						</td>
+						<td>
+							<NcActions :inline="3" :data-test="'feedOptions-' + feed.id">
+								<NcActionButton
+									v-if="feed.preventUpdate"
+									:title="t('news', 'Enable feed update')"
+									data-test="enableFeedUpdate"
+									@click="setPreventUpdate(feed, false)">
+									<template #icon>
+										<SyncOff />
+									</template>
+								</NcActionButton>
+								<NcActionButton
+									v-if="!feed.preventUpdate"
+									:title="t('news', 'Disable feed update')"
+									data-test="disableFeedUpdate"
+									@click="setPreventUpdate(feed, true)">
+									<template #icon>
+										<Sync />
+									</template>
+								</NcActionButton>
+								<NcActionButton
+									v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
+									:title="t('news', 'Disable marking items as unread on update')"
+									data-test="disableMarkUnread"
+									@click="setUpdateMode(feed, FEED_UPDATE_MODE.IGNORE)">
+									<template #icon>
+										<FileDocumentRefresh />
+									</template>
+								</NcActionButton>
+								<NcActionButton
+									v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
+									:title="t('news', 'Enable marking items as unread on update')"
+									data-test="enableMarkUnread"
+									@click="setUpdateMode(feed, FEED_UPDATE_MODE.UNREAD)">
+									<template #icon>
+										<FileDocumentCheck />
+									</template>
+								</NcActionButton>
+								<NcActionButton
+									v-if="!feed.fullTextEnabled"
+									:title="t('news', 'Enable web scraping')"
+									data-test="enableScraping"
+									@click="setFullText(feed, true)">
+									<template #icon>
+										<TextShortIcon />
+									</template>
+								</NcActionButton>
+								<NcActionButton
+									v-if="feed.fullTextEnabled"
+									:title="t('news', 'Disable web scraping')"
+									data-test="disableScraping"
+									@click="setFullText(feed, false)">
+									<template #icon>
+										<TextLongIcon />
+									</template>
+								</NcActionButton>
+							</NcActions>
+						</td>
 						<td class="text">
 							{{ feed.title }}
 						</td>
@@ -145,7 +266,7 @@
 							{{ folderName(feed) }}
 						</td>
 						<td class="date">
-							{{ feed.preventUpdate ? t('news', 'Sync disabled') : formatDate(feed.lastModified / 1000000) }}
+							{{ formatDate(feed.lastModified / 1000000) }}
 						</td>
 						<td class="date">
 							{{ feed.nextUpdateTime && !feed.preventUpdate ? formatDate(feed.nextUpdateTime) : t('news', 'Not available') }}
@@ -165,25 +286,43 @@
 
 <script>
 import { mapState } from 'vuex'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
+import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
+import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
+import Sync from 'vue-material-design-icons/Sync.vue'
+import SyncOff from 'vue-material-design-icons/SyncOff.vue'
+import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
+import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
 import MoveFeed from '../MoveFeed.vue'
 import SidebarFeedLinkActions from '../SidebarFeedLinkActions.vue'
+import { FEED_UPDATE_MODE } from '../../enums/index.ts'
+import { ACTIONS } from '../../store/index.ts'
 import { formatDate } from '../../utils/dateUtils.ts'
 
 export default {
 	name: 'FeedInfoTable',
 	components: {
 		NcActions,
+		NcActionButton,
 		NcLoadingIcon,
 		NcModal,
+		NcNoteCard,
 		MoveFeed,
 		SidebarFeedLinkActions,
+		FileDocumentRefresh,
+		FileDocumentCheck,
 		SortAscIcon,
 		SortDescIcon,
+		Sync,
+		SyncOff,
+		TextShortIcon,
+		TextLongIcon,
 	},
 
 	emits: {
@@ -196,6 +335,7 @@ export default {
 			showMoveFeed: false,
 			sortKey: 'title',
 			sortOrder: 1,
+			FEED_UPDATE_MODE,
 		}
 	},
 
@@ -217,7 +357,7 @@ export default {
 		},
 
 		sortedFeeds() {
-			const sorted = [...this.feeds]
+			const sorted = Array.isArray(this.feeds) ? [...this.feeds] : []
 			if (this.sortKey) {
 				sorted.sort((a, b) => {
 					const valueA = a[this.sortKey]
@@ -255,6 +395,18 @@ export default {
 				this.sortKey = key
 				this.sortOrder = 1
 			}
+		},
+
+		setPreventUpdate(feed, preventUpdate) {
+			this.$store.dispatch(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed, preventUpdate })
+		},
+
+		setUpdateMode(feed, updateMode) {
+			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed, updateMode })
+		},
+
+		setFullText(feed, fullTextEnabled) {
+			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed, fullTextEnabled })
 		},
 	},
 }

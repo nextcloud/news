@@ -46,42 +46,6 @@
 			{{ t("news", "Default order") }}
 		</NcActionButton>
 		<NcActionButton
-			v-if="!feed.fullTextEnabled"
-			icon="icon-full-text-disabled"
-			@click="setFullText(true)">
-			<template #icon>
-				<TextShortIcon />
-			</template>
-			{{ t("news", "Enable full text") }}
-		</NcActionButton>
-		<NcActionButton
-			v-if="feed.fullTextEnabled"
-			icon="icon-full-text-enabled"
-			@click="setFullText(false)">
-			<template #icon>
-				<TextLongIcon />
-			</template>
-			{{ t("news", "Disable full text") }}
-		</NcActionButton>
-		<NcActionButton
-			v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
-			icon="file-document-refresh"
-			@click="setUpdateMode(FEED_UPDATE_MODE.IGNORE)">
-			<template #icon>
-				<FileDocumentRefresh />
-			</template>
-			{{ t("news", "Mark as unread on update") }}
-		</NcActionButton>
-		<NcActionButton
-			v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
-			icon="file-document-check"
-			@click="setUpdateMode(FEED_UPDATE_MODE.UNREAD)">
-			<template #icon>
-				<FileDocumentCheck />
-			</template>
-			{{ t("news", "Keep read status on update") }}
-		</NcActionButton>
-		<NcActionButton
 			icon="icon-rename"
 			:closeAfterClick="true"
 			@click="rename()">
@@ -102,24 +66,6 @@
 			@click="deleteFeed()">
 			{{ t("news", "Delete") }}
 		</NcActionButton>
-		<NcActionButton
-			v-if="feed.preventUpdate"
-			:closeAfterClick="true"
-			@click="setPreventUpdate(false)">
-			<template #icon>
-				<SyncOff />
-			</template>
-			{{ t("news", "Sync disabled") }}
-		</NcActionButton>
-		<NcActionButton
-			v-if="!feed.preventUpdate"
-			:closeAfterClick="true"
-			@click="setPreventUpdate(true)">
-			<template #icon>
-				<Sync />
-			</template>
-			{{ t("news", "Sync enabled") }}
-		</NcActionButton>
 		<NcAppNavigationItem
 			:name="t('news', 'Open Feed URL')"
 			:href="feed.location">
@@ -138,16 +84,10 @@ import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcAppNavigationItem from '@nextcloud/vue/components/NcAppNavigationItem'
 import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
-import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
-import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import PinIcon from 'vue-material-design-icons/Pin.vue'
 import PinOffIcon from 'vue-material-design-icons/PinOff.vue'
 import RssIcon from 'vue-material-design-icons/Rss.vue'
-import Sync from 'vue-material-design-icons/Sync.vue'
-import SyncOff from 'vue-material-design-icons/SyncOff.vue'
-import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
-import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../enums/index.ts'
+import { FEED_ORDER } from '../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../store/index.ts'
 
 export default defineComponent({
@@ -164,13 +104,7 @@ export default defineComponent({
 		RssIcon,
 		PinIcon,
 		PinOffIcon,
-		Sync,
-		SyncOff,
-		TextShortIcon,
-		TextLongIcon,
 		ArrowRightIcon,
-		FileDocumentRefresh,
-		FileDocumentCheck,
 	},
 
 	props: {
@@ -190,7 +124,6 @@ export default defineComponent({
 	data: () => {
 		return {
 			FEED_ORDER,
-			FEED_UPDATE_MODE,
 		}
 	},
 
@@ -207,10 +140,6 @@ export default defineComponent({
 			this.$store.dispatch(ACTIONS.FEED_MARK_READ, { feed: this.feed })
 		},
 
-		setPreventUpdate(preventUpdate: boolean) {
-			this.$store.dispatch(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: this.feed, preventUpdate })
-		},
-
 		setPinned(pinned: boolean) {
 			this.$store.dispatch(ACTIONS.FEED_SET_PINNED, { feed: this.feed, pinned })
 		},
@@ -218,14 +147,6 @@ export default defineComponent({
 		setOrdering(ordering: FEED_ORDER) {
 			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'feed-' + String(this.feedId), lastItem: undefined })
 			this.$store.dispatch(ACTIONS.FEED_SET_ORDERING, { feed: this.feed, ordering })
-		},
-
-		setFullText(fullTextEnabled: boolean) {
-			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed: this.feed, fullTextEnabled })
-		},
-
-		setUpdateMode(updateMode: FEED_UPDATE_MODE) {
-			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed: this.feed, updateMode })
 		},
 
 		rename() {
