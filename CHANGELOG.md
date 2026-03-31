@@ -7,8 +7,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ### Changed
 - Rework feed options menu and feed settings
+- Added a feature to download the web version of an article on demand, to avoid downloading unnecessary content
 
 ### Fixed
+- Show a user-facing error when moving a feed fails (#3649)
 
 # Releases
 ## [28.2.0-beta.1] - 2026-03-22

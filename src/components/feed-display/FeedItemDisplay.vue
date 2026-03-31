@@ -30,7 +30,25 @@
 			</NcActionButton>
 		</NcActions>
 		<div class="action-bar">
-			<NcActions :inline="4">
+			<NcActions :inline="5">
+				<NcActionButton
+					v-if="canUndoFulltext"
+					:title="t('news', 'Undo article text replace')"
+					@click="toggleFulltext">
+					{{ t('news', 'Undo article text replace') }}
+					<template #icon>
+						<UndoIcon />
+					</template>
+				</NcActionButton>
+				<NcActionButton
+					v-else-if="!feed.fullTextEnabled && !screenReaderMode"
+					:title="t('news', 'Download web version of this article')"
+					@click="toggleFulltext">
+					{{ t('news', 'Download web version of this article') }}
+					<template #icon>
+						<TextLongIcon />
+					</template>
+				</NcActionButton>
 				<NcActionButton
 					:title="t('news', 'Share within Instance')"
 					@click="showShareMenu = true">
@@ -201,6 +219,7 @@
 import type { Feed } from '../../types/Feed.ts'
 import type { FeedItem } from '../../types/FeedItem.ts'
 
+import { showError, showLoading } from '@nextcloud/dialogs'
 import { generateUrl } from '@nextcloud/router'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
@@ -215,6 +234,8 @@ import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
+import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
+import UndoIcon from 'vue-material-design-icons/UndoVariant.vue'
 import ShareItem from '../ShareItem.vue'
 import { DISPLAY_MODE, ITEM_HEIGHT, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
@@ -235,6 +256,8 @@ export default defineComponent({
 		ShareItem,
 		ChevronLeftIcon,
 		ChevronRightIcon,
+		TextLongIcon,
+		UndoIcon,
 	},
 
 	props: {
@@ -287,6 +310,9 @@ export default defineComponent({
 			showShareMenu: false,
 			allowEnclosureImage: false,
 			allowEnclosureThumbnail: false,
+			originalBody: null,
+			originalIntro: null,
+			isDownloading: null,
 		}
 	},
 
@@ -341,6 +367,10 @@ export default defineComponent({
 
 		mediaOptions() {
 			return this.$store.getters.mediaOptions
+		},
+
+		canUndoFulltext() {
+			return this.originalBody !== null
 		},
 
 		sanitizedBody() {
@@ -407,8 +437,11 @@ export default defineComponent({
 
 	created() {
 		// create shortcuts
-		if (this.splitModeOff && !this.screenReaderMode) {
-			useHotKey('Escape', this.closeDetails)
+		if (!this.screenReaderMode) {
+			useHotKey('x', this.toggleFulltext)
+			if (this.splitModeOff) {
+				useHotKey('Escape', this.closeDetails)
+			}
 		}
 	},
 
@@ -443,6 +476,40 @@ export default defineComponent({
 				this.$store.dispatch(ACTIONS.MARK_READ, { item: this.item })
 			} else {
 				this.$store.dispatch(ACTIONS.MARK_UNREAD, { item: this.item })
+			}
+		},
+
+		async fetchFulltext(): void {
+			this.isDownloading = showLoading(t('news', 'Downloading article text'))
+			try {
+				this.originalBody = this.item.body
+				this.originalIntro = this.item.intro
+				await this.$store.dispatch(ACTIONS.FETCH_FULLTEXT, { item: this.item })
+			} catch (error) {
+				// axios errors are handled global
+				showError(t('news', 'Downloading of the article text has failed: {errorMessage}', { errorMessage: error.message }))
+				this.originalBody = null
+				this.originalIntro = null
+			} finally {
+				this.isDownloading.hideToast()
+				this.isDownloading = null
+			}
+		},
+
+		async undoFulltext(): void {
+			await this.$store.dispatch(ACTIONS.UPDATE_BODY, { item: this.item, body: this.originalBody, intro: this.originalIntro })
+			this.originalBody = null
+			this.originalIntro = null
+		},
+
+		toggleFulltext() {
+			if (this.feed.fullTextEnabled || this.isDownloading) {
+				return
+			}
+			if (this.originalBody === null) {
+				this.fetchFulltext()
+			} else {
+				this.undoFulltext()
 			}
 		},
 

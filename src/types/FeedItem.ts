@@ -8,4 +8,6 @@ export type FeedItem = {
 	pubDate: number
 	url: string
 	keepUnread: boolean
+	body: string
+	intro: string
 }

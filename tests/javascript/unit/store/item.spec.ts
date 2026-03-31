@@ -152,6 +152,59 @@ describe('item.ts', () => {
 			})
 		})
 
+		describe('FETCH_FULLTEXT', () => {
+			it('commits updated item when fulltext exists', async () => {
+				const item = { id: 123, body: 'old body', intro: 'old intro' }
+				const response = { status: 200, data: [{ id: 123, body: 'full text', intro: 'intro' }] }
+				const commit = vi.fn()
+				vi.spyOn(ItemService, 'fetchFulltext').mockResolvedValue(response)
+
+				await actions[FEED_ITEM_ACTION_TYPES.FETCH_FULLTEXT]({ commit }, { item })
+
+				expect(ItemService.fetchFulltext).toHaveBeenCalledWith(item)
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item: response.data[0] })
+			})
+
+			it('throws error when response data is empty', async () => {
+				const item = { id: 123, body: 'old body', intro: 'new body' }
+				const response = { status: 200, data: [] }
+				const commit = vi.fn()
+				vi.spyOn(ItemService, 'fetchFulltext').mockResolvedValue(response)
+
+				await expect(actions[FEED_ITEM_ACTION_TYPES.FETCH_FULLTEXT]({ commit }, { item }))
+					.rejects
+					.toThrow('Empty Response')
+			})
+
+			it('throws error when full text scraper fails', async () => {
+				const item = { id: 123, body: 'old body', intro: 'new body' }
+				const response = { status: 204, statusText: 'No Content', data: [] }
+				const commit = vi.fn()
+				vi.spyOn(ItemService, 'fetchFulltext').mockResolvedValue(response)
+
+				await expect(actions[FEED_ITEM_ACTION_TYPES.FETCH_FULLTEXT]({ commit }, { item }))
+					.rejects
+					.toThrow('No Content')
+			})
+		})
+
+		describe('UPDATE_BODY', () => {
+			it('updates body and intro and commits', async () => {
+				const item = { id: 123, body: 'full text', intro: 'intro' }
+				const body = 'old body'
+				const intro = 'old intro'
+				const commit = vi.fn()
+				vi.spyOn(ItemService, 'updateBodyText').mockResolvedValue(undefined)
+
+				await actions[FEED_ITEM_ACTION_TYPES.UPDATE_BODY]({ commit }, { item, body, intro })
+
+				expect(ItemService.updateBodyText).toHaveBeenCalledWith(item.id, body)
+				expect(item.body).toBe(body)
+				expect(item.intro).toBe(intro)
+				expect(commit).toHaveBeenCalledWith(FEED_ITEM_MUTATION_TYPES.UPDATE_ITEM, { item })
+			})
+		})
+
 		it('MARK_READ should call GET and commit returned feeds to state', async () => {
 			const item = { id: 1, feedId: 123, unread: true }
 			const commit = vi.fn()

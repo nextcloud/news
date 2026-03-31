@@ -30,6 +30,7 @@
 
 import type { Folder } from '../types/Folder.ts'
 
+import { showError } from '@nextcloud/dialogs'
 import { defineComponent } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcDialog from '@nextcloud/vue/components/NcDialog'
@@ -89,7 +90,11 @@ export default defineComponent({
 				feedId: this.feed.id,
 				folderId: this.folder ? this.folder.id : 0,
 			}
-			await this.$store.dispatch(ACTIONS.MOVE_FEED, data)
+			const response = await this.$store.dispatch(ACTIONS.MOVE_FEED, data)
+			if (!response?.status || response.status < 200 || response.status >= 300) {
+				showError(t('news', 'Unable to move feed. Please try again later or check your connection.'))
+				return
+			}
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 
 			this.$emit('close')
