@@ -52,7 +52,7 @@
 			<template #icon>
 				<TextShortIcon />
 			</template>
-			{{ t("news", "Enable full text") }}
+			{{ t("news", "Scrape full item text") }}
 		</NcActionButton>
 		<NcActionButton
 			v-if="feed.fullTextEnabled"
@@ -61,7 +61,7 @@
 			<template #icon>
 				<TextLongIcon />
 			</template>
-			{{ t("news", "Disable full text") }}
+			{{ t("news", "Use feed text") }}
 		</NcActionButton>
 		<NcActionButton
 			v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
