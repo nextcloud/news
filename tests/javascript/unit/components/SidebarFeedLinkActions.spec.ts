@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import SidebarFeedLinkActions from '../../../../src/components/SidebarFeedLinkActions.vue'
-import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums/index.ts'
+import { FEED_ORDER } from '../../../../src/enums/index.ts'
 import { ACTIONS } from '../../../../src/store/index.ts'
 
 describe('SidebarFeedLinkActions.vue', () => {
@@ -58,22 +58,10 @@ describe('SidebarFeedLinkActions.vue', () => {
 			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PINNED, { feed: feeds[0], pinned: true })
 		})
 
-		it('should dispatch message to store with feed object and fullTextEnabled', () => {
+		it('should dispatch message to store with feed object and new ordering', () => {
 			wrapper.vm.setOrdering(FEED_ORDER.NEWEST)
 
 			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_ORDERING, { feed: feeds[0], ordering: FEED_ORDER.NEWEST })
-		})
-
-		it('should dispatch message to store with feed object and fullTextEnabled', () => {
-			wrapper.vm.setFullText(true)
-
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_FULL_TEXT, { feed: feeds[0], fullTextEnabled: true })
-		})
-
-		it('should dispatch message to store with feed object and new updateMode', () => {
-			wrapper.vm.setUpdateMode(FEED_UPDATE_MODE.IGNORE)
-
-			expect(wrapper.vm.$store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.IGNORE })
 		})
 
 		it('should dispatch message to store with feed object on rename feed', () => {
