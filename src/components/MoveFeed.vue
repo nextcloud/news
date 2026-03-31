@@ -91,7 +91,7 @@ export default defineComponent({
 				folderId: this.folder ? this.folder.id : 0,
 			}
 			const response = await this.$store.dispatch(ACTIONS.MOVE_FEED, data)
-			if (!response || response.status < 200 || response.status >= 300) {
+			if (!response?.status || response.status < 200 || response.status >= 300) {
 				showError(t('news', 'Unable to move feed. Please try again later or check your connection.'))
 				return
 			}
