@@ -1,6 +1,6 @@
 import type { AppState } from '../../../../src/store/index.ts'
 
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { FeedService } from '../../../../src/dataservices/feed.service'
 import { ItemService } from '../../../../src/dataservices/item.service'
 import { FEED_ORDER, FEED_UPDATE_MODE } from '../../../../src/enums/index.ts'
@@ -9,6 +9,10 @@ import { FEED_ITEM_MUTATION_TYPES, FEED_MUTATION_TYPES, FOLDER_MUTATION_TYPES } 
 
 describe('feed.ts', () => {
 	'use strict'
+
+	beforeEach(() => {
+		vi.clearAllMocks()
+	})
 
 	describe('actions', () => {
 		describe('FETCH_FEEDS', () => {
@@ -68,6 +72,49 @@ describe('feed.ts', () => {
 				expect(FeedService.markRead).toBeCalled()
 				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.SET_FEED_ALL_READ, feed)
 				expect(commit).toBeCalledWith(FOLDER_MUTATION_TYPES.MODIFY_FOLDER_UNREAD_COUNT, { folderId: 234, delta: -2 })
+			})
+		})
+
+		describe('MOVE_FEED', () => {
+			it('should return the service response when moving a feed succeeds', async () => {
+				FeedService.moveFeed = vi.fn()
+				const response = { status: 204 }
+				FeedService.moveFeed.mockResolvedValue(response)
+
+				const result = await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(FeedService.moveFeed).toBeCalledWith({ feedId: 1, folderId: 2 })
+				expect(result).toBe(response)
+			})
+
+			it('should return undefined when moving a feed returns no response', async () => {
+				FeedService.moveFeed = vi.fn()
+				FeedService.moveFeed.mockResolvedValue(undefined)
+
+				const result = await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(result).toBeUndefined()
+			})
+
+			it('should return non-2xx responses so the component can handle them', async () => {
+				FeedService.moveFeed = vi.fn()
+				const response = { status: 500 }
+				FeedService.moveFeed.mockResolvedValue(response)
+
+				const result = await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(result).toBe(response)
+			})
+
+			it('should return a fallback status when moving a feed throws', async () => {
+				FeedService.moveFeed = vi.fn()
+				FeedService.moveFeed.mockRejectedValue(new Error('backend failure'))
+				const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+				const result = await actions[FEED_ACTION_TYPES.MOVE_FEED]({} as never, { feedId: 1, folderId: 2 })
+
+				expect(result).toEqual({ status: undefined })
+				consoleError.mockRestore()
 			})
 		})
 
