@@ -63,9 +63,14 @@ class HtmlSanitizer
             ->allowLinkSchemes(['http', 'https', 'mailto', 'ftp', 'nntp', 'news', 'tel'])
             // Configure allowed URI schemes for media (img, video, audio)
             ->allowMediaSchemes(['http', 'https', 'data'])
-            // Allow relative links and media
-            ->allowRelativeLinks(true)
-            ->allowRelativeMedias(true)
+            // Relative links are fixed by Readability and feed-io
+            // Disallow relative links and media just in case
+            ->allowRelativeLinks(false)
+            ->allowRelativeMedias(false)
+            // Remove dialog from articles
+            ->dropElement('dialog')
+            // Remove id attribute to not break CSS
+            ->dropAttribute('id', '*')
             // Disable input length limit
             ->withMaxInputLength(-1)
             // Add custom iframe src sanitizer to restrict to YouTube, Vimeo, VK

@@ -190,21 +190,18 @@ class HtmlSanitizerTest extends TestCase
         $this->assertStringContainsString('<strong>', $output);
     }
 
-    public function testPurifyAllowsRelativeLinks(): void
+    public function testPurifyDisallowsRelativeLinks(): void
     {
         $input = '<a href="/relative/path">Relative Link</a>';
         $output = $this->sanitizer->purify($input);
-        $this->assertStringContainsString('href=', $output);
-        $this->assertStringContainsString('/relative/path', $output);
+        $this->assertStringNotContainsString('/relative/path', $output);
     }
 
-    public function testPurifyAllowsRelativeImages(): void
+    public function testPurifyDisallowsRelativeImages(): void
     {
         $input = '<img src="/images/photo.jpg" alt="Photo">';
         $output = $this->sanitizer->purify($input);
-        $this->assertStringContainsString('<img', $output);
-        $this->assertStringContainsString('/images/photo.jpg', $output);
-        $this->assertStringContainsString('alt', $output);
+        $this->assertStringNotContainsString('/images/photo.jpg', $output);
     }
 
     public function testPurifyPreservesTableStructure(): void
@@ -237,5 +234,20 @@ class HtmlSanitizerTest extends TestCase
         $this->assertStringContainsString('inline code', $output);
         $this->assertStringContainsString('<pre>', $output);
         $this->assertStringContainsString('block code', $output);
+    }
+
+    public function testPurifyRemovesDialog(): void
+    {
+        $input = '<dialog><button>Click</button></dialog>';
+        $output = $this->sanitizer->purify($input);
+        $this->assertEquals('', $output);
+    }
+
+    public function testPurifyRemovesIdAttribute(): void
+    {
+        $input = '<section id="content"><article>Text</article></section>';
+        $output = $this->sanitizer->purify($input);
+        $this->assertStringNotContainsString('id="content"', $output);
+        $this->assertStringContainsString('<section>', $output);
     }
 }
