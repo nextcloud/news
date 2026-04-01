@@ -398,11 +398,15 @@ class FeedFetcher implements IFeedFetcher
         }
         $item->setCategories($categories);
 
+        $feedBody = $parsedItem->getValue('content:encoded')
+                ?? $parsedItem->getContent()
+                ?? $parsedItem->getSummary();
+
         // Use description from feed if body is not provided (by a scraper)
         if ($body === null) {
-            $body = $parsedItem->getValue('content:encoded')
-                    ?? $parsedItem->getContent()
-                    ?? $parsedItem->getSummary();
+            $body = $feedBody;
+        } else {
+            $body = $this->mergeMissingLeadContent($body, $feedBody);
         }
 
         // purification is done in the service layer
@@ -462,6 +466,46 @@ class FeedFetcher implements IFeedFetcher
 
         $item->generateSearchIndex();
         return $item;
+    }
+
+    private function normalizeHtmlText(string $content): string
+    {
+        $decoded = html_entity_decode($content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $decoded = strip_tags($decoded);
+        $decoded = preg_replace('/\s+/u', ' ', $decoded) ?? $decoded;
+
+        return trim($decoded);
+    }
+
+    private function mergeMissingLeadContent(string $scrapedBody, ?string $feedBody): string
+    {
+        if ($feedBody === null || trim($feedBody) === '') {
+            return $scrapedBody;
+        }
+
+        $scrapedText = $this->normalizeHtmlText($scrapedBody);
+        $feedText = $this->normalizeHtmlText($feedBody);
+        if ($scrapedText === '' || $feedText === '') {
+            return $scrapedBody;
+        }
+
+        if (mb_strpos($scrapedText, $feedText) !== false) {
+            return $scrapedBody;
+        }
+
+        $leadHtml = null;
+        if (preg_match('/<p\b[^>]*>.*?<\/p>/is', $feedBody, $matches) === 1) {
+            $leadHtml = trim($matches[0]);
+        } else {
+            $leadHtml = trim($feedBody);
+        }
+
+        $leadText = $this->normalizeHtmlText($leadHtml);
+        if ($leadText === '' || mb_strpos($scrapedText, $leadText) !== false) {
+            return $scrapedBody;
+        }
+
+        return $leadHtml . "\n" . $scrapedBody;
     }
 
     /**

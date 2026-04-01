@@ -594,6 +594,79 @@ class FeedFetcherTest extends TestCase
     }
 
     /**
+     * Test if the fetch function keeps the lead teaser from feed content
+     * when full-text scraping misses the first paragraph.
+     */
+    public function testFetchFulltextPrependsMissingLeadParagraph()
+    {
+        $bodyBackup = $this->body;
+        $fulltextBackup = $this->fulltext_body;
+
+        $scrapedBody = '<div><p>Main article body only.</p></div>';
+        $this->body = '<p>Lead teaser paragraph.</p><p>Main article body only.</p>';
+        $this->fulltext_body = '<p>Lead teaser paragraph.</p>' . "\n" . $scrapedBody;
+
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->will($this->returnValue(true));
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($scrapedBody));
+
+        $item = $this->createFulltextItem(false, false);
+        $feed = $this->createFeed();
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $result = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertEquals([$feed, [$item]], $result);
+
+        $this->body = $bodyBackup;
+        $this->fulltext_body = $fulltextBackup;
+    }
+
+    /**
+     * Test Spiegel-like feeds where teaser and first paragraph are in feed content
+     * but scraper output starts later in the article.
+     */
+    public function testFetchFulltextSpiegelLikeTeaserAndIntroArePreserved()
+    {
+        $bodyBackup = $this->body;
+        $fulltextBackup = $this->fulltext_body;
+
+        $this->body = '<p class="teaser">Teaser sentence from feed.</p>'
+            . '<p>First intro paragraph from feed.</p>'
+            . '<p>Main body paragraph one.</p>'
+            . '<p>Main body paragraph two.</p>';
+        $scrapedBody = '<div><p>Main body paragraph one.</p><p>Main body paragraph two.</p></div>';
+        $this->fulltext_body = '<p class="teaser">Teaser sentence from feed.</p>' . "\n" . $scrapedBody;
+
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->will($this->returnValue(true));
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->will($this->returnValue($scrapedBody));
+
+        $item = $this->createFulltextItem(false, false);
+        $feed = $this->createFeed();
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $result = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertEquals([$feed, [$item]], $result);
+
+        $this->body = $bodyBackup;
+        $this->fulltext_body = $fulltextBackup;
+    }
+
+    /**
      * Test if the fetch function returns the feed item if the fulltext body is invalid
      */
     public function testFetchWhenFetchedFulltextBodyIsInvalid()
@@ -860,7 +933,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->expects($this->any())
             ->method('getPublicId')
             ->will($this->returnValue($this->guid));
-        $this->item_mock->expects($this->exactly($itemInvalid ? 1 : 0))
+        $this->item_mock->expects($this->exactly($itemExist ? 0 : 1))
             ->method('getContent')
             ->will($this->returnValue($this->body));
         $this->item_mock->expects($this->any())
