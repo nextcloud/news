@@ -52,8 +52,6 @@ OC.L10N.register(
     "Newest first" : "Nieuwste eerst",
     "Oldest first" : "Oudste eerst",
     "Default order" : "Standaard volgorde",
-    "Enable full text" : "Inschakelen volledige tekst",
-    "Disable full text" : "Uitschakelen volledige tekst",
     "from" : "van",
     "Toggle star article" : "Omswitchen artikelmarkering ",
     "Mark unread" : "Markeer ongelezen",
@@ -89,6 +87,7 @@ OC.L10N.register(
     "Open article in new tab" : "Open artikel in nieuwe tab",
     "Resources" : "Bronnen",
     "Last update" : "Laatste update",
+    "Options" : "Opties",
     "Title" : "Titel",
     "Folder" : "Map",
     "Subscribe to" : "Abonneren op"

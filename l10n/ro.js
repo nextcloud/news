@@ -49,8 +49,6 @@ OC.L10N.register(
     "Newest first" : "Cel mai nou mai întâi",
     "Oldest first" : "Cel mai vechi mai întâi",
     "Default order" : "Ordinea impicită",
-    "Enable full text" : "Activează afișarea textului complet",
-    "Disable full text" : "Dezactivează afișarea textului complet",
     "from" : "de la",
     "Toggle star article" : "Scoate articolul din favorite",
     "shared by" : "partajat de",
@@ -80,6 +78,7 @@ OC.L10N.register(
     "Jump to next article" : "Sari la următorul articol",
     "Open article in new tab" : "Deschide articolul într-un tab nou",
     "Resources" : "Resurse",
+    "Options" : "Opțiuni",
     "Title" : "Titlu",
     "Folder" : "Director",
     "Subscribe to" : "Abonamează-te la"

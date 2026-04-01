@@ -64,8 +64,6 @@ OC.L10N.register(
     "Newest first" : "Newest first",
     "Oldest first" : "Oldest first",
     "Default order" : "Default order",
-    "Enable full text" : "Enable full text",
-    "Disable full text" : "Disable full text",
     "from" : "from",
     "Share within Instance" : "Share within Instance",
     "Toggle star article" : "Toggle star article",

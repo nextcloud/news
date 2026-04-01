@@ -21,6 +21,7 @@ OC.L10N.register(
     "General" : "ទូទៅ",
     "Import" : "នាំយកចូល",
     "Export" : "នាំចេញ",
+    "Options" : "ជម្រើស",
     "Folder" : "ថត"
 },
 "nplurals=1; plural=0;");

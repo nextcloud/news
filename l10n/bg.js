@@ -58,8 +58,6 @@ OC.L10N.register(
     "Newest first" : "Най-нов",
     "Oldest first" : "Най-стар",
     "Default order" : "Стандартна подредба",
-    "Enable full text" : "Показвай целия текст",
-    "Disable full text" : "Не показвай целия текст",
     "from" : "от",
     "Toggle star article" : "Превключи означаването със звезда",
     "Mark unread" : "Маркирай като непрочетено",

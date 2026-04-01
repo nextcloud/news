@@ -42,6 +42,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Кратенки преку тастатура",
     "Refresh" : "Освежи",
     "Resources" : "Ресурси",
+    "Options" : "Опции",
     "Title" : "Наслов",
     "Folder" : "Папка",
     "Not available" : "Недостапно"

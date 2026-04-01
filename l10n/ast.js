@@ -45,8 +45,6 @@ OC.L10N.register(
     "Newest first" : "Primero lo nuevo",
     "Oldest first" : "Primero lo antiguo",
     "Default order" : "Orde predetermináu",
-    "Enable full text" : "Activar el testu completu",
-    "Disable full text" : "Desactivar el testu completu",
     "from" : "de",
     "by" : "por",
     "Play audio" : "Reproducir l'audiu",

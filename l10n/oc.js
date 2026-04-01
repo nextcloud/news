@@ -54,6 +54,7 @@ OC.L10N.register(
     "Jump to previous article" : "Anar a l'article precedent",
     "Jump to next article" : "Anar al prochain article",
     "Open article in new tab" : "Dobrir l'article dins un nouvel onglet",
+    "Options" : "Opcions",
     "Title" : "Títol",
     "Folder" : "Dorsièr"
 },

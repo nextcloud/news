@@ -41,6 +41,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Phím tắt",
     "Refresh" : "Làm mới",
     "Resources" : "Các nguồn lực",
+    "Options" : "Tùy chọn",
     "Title" : "Tên",
     "Folder" : "Thư mục",
     "Not available" : "Không khả dụng"

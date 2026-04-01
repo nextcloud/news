@@ -39,8 +39,6 @@ OC.L10N.register(
     "Newest first" : "Më të rejat në fillim",
     "Oldest first" : "Më të vjetrat në fillim",
     "Default order" : "Rradhë e parazgjedhur",
-    "Enable full text" : "Aktivizo tekst të plotë",
-    "Disable full text" : "Çaktivizo tekstin e plotë",
     "from" : "nga",
     "Toggle star article" : "Vëri/hiqi yll artikullit",
     "by" : "nga",

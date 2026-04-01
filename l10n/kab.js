@@ -21,6 +21,7 @@ OC.L10N.register(
     "Export" : "Sifeḍ",
     "Keyboard shortcuts" : "Inegzumen n unasiw",
     "Refresh" : "Sismeḍ",
+    "Options" : "Tixtiṛiyin",
     "Title" : "Azwel",
     "Folder" : "Akaram"
 },

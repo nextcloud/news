@@ -39,8 +39,6 @@ OC.L10N.register(
     "Newest first" : "ჯერ ახლები",
     "Oldest first" : "ჯერ ძველები",
     "Default order" : "საწყისი განლაგება",
-    "Enable full text" : "სრული ტექსტის ამოქმედება",
-    "Disable full text" : "სრული ტექსტის გათიშვა",
     "from" : "ვისგან",
     "Toggle star article" : "არტიკლის ვარსკლავის გადართვა",
     "Close details" : "დეტალების დახურვა",

@@ -46,8 +46,6 @@ OC.L10N.register(
     "Newest first" : "Nýjast fyrst",
     "Oldest first" : "Elsta fyrst",
     "Default order" : "Sjálfgefin röðun",
-    "Enable full text" : "Virkja allan texta",
-    "Disable full text" : "Afvirkja allan texta",
     "from" : "frá",
     "Toggle star article" : "Víxla stjörnumerkingu af/á grein",
     "Mark unread" : "Merkja sem ólesið",
@@ -78,6 +76,7 @@ OC.L10N.register(
     "Jump to next article" : "Hoppa á næstu grein",
     "Open article in new tab" : "Opna grein í nýjum flipa",
     "Resources" : "Tilföng",
+    "Options" : "Valkostir",
     "Folder" : "Mappa",
     "Subscribe to" : "Gerast áskrifandi að"
 },

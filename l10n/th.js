@@ -57,6 +57,7 @@ OC.L10N.register(
     "Jump to next article" : "ข้ามไปยังบทความถัดไป",
     "Open article in new tab" : "เปิดบทความในแท็บใหม่",
     "Resources" : "ทรัพยากร",
+    "Options" : "ตัวเลือก",
     "Folder" : "โฟลเดอร์"
 },
 "nplurals=1; plural=0;");

@@ -44,6 +44,7 @@ OC.L10N.register(
     "Jump to previous article" : "”®–º–Ω”©—Ö –Ω–∏–π—Ç–ª—ç–ª —Ä“Ø“Ø –æ—á–∏—Ö",
     "Jump to next article" : "–î–∞—Ä–∞–∞–≥–∏–π–Ω ”©–≥“Ø“Ø–ª–ª–∏–π–≥ “Ø–∑—ç—ç—Ä—ç–π",
     "Resources" : "Нөөцүүд",
+    "Options" : "Сонголтууд",
     "Title" : "Гарчиг",
     "Folder" : "–•–∞–≤—Ç–∞—Å",
     "Not available" : "Боломжгүй"

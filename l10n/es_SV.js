@@ -39,8 +39,6 @@ OC.L10N.register(
     "Newest first" : "Más reciente primero",
     "Oldest first" : "Más antiguo primero",
     "Default order" : "Ordenamiento predeterminado",
-    "Enable full text" : "Habilitar texto completo",
-    "Disable full text" : "Deshabilitar texto completo",
     "from" : "de",
     "Toggle star article" : "Alternar artículos marcados",
     "Close details" : "Cerrar detalles",

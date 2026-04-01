@@ -24,6 +24,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Klaviatura yorliqlari",
     "Refresh" : "Refresh",
     "Resources" : "Resurslar",
+    "Options" : "Variantlar",
     "Title" : "Sarlavha",
     "Not available" : "Mavjud emas"
 },

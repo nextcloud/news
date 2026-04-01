@@ -41,8 +41,6 @@ OC.L10N.register(
     "Newest first" : "החדש ביותר ראשון",
     "Oldest first" : "הישן ביותר ראשון",
     "Default order" : "סדר בררת המחדל",
-    "Enable full text" : "הפעלת טקסט מלא",
-    "Disable full text" : "השבתת טקסט מלא",
     "from" : "התחלה",
     "Toggle star article" : "החלפת מצב סימון מאמר בכוכב",
     "Mark unread" : "סימון כלא נקרא",
@@ -70,6 +68,7 @@ OC.L10N.register(
     "Jump to next article" : "קפיצה למאמר הבא",
     "Open article in new tab" : "פתיחת מאמר בכרטיסייה חדשה",
     "Resources" : "משאבים",
+    "Options" : "אפשרויות",
     "Title" : "כותרת",
     "Folder" : "תיקייה"
 },

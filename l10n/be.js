@@ -23,8 +23,6 @@ OC.L10N.register(
     "Delete" : "Выдаліць",
     "Newest first" : "Спачатку новыя",
     "Oldest first" : "Спачатку старыя",
-    "Sync disabled" : "Сінхранізацыя адключана",
-    "Sync enabled" : "Сінхранізацыя ўключана",
     "Previous Item" : "Папярэдні элемент",
     "Next Item" : "Наступны элемент",
     "Play audio" : "Прайграць аўдыя",
