@@ -505,7 +505,33 @@ class FeedFetcher implements IFeedFetcher
             return $scrapedBody;
         }
 
+        // Feed item text is often a short excerpt of the same article the scraper returns in full.
+        // If the opening of the lead matches most of the lead while scraped continues the article,
+        // do not prepend (avoids duplicating the feed excerpt before full text).
+        $leadLen = mb_strlen($leadText);
+        if ($leadLen > 0) {
+            $commonPrefixLen = $this->longestCommonPrefixLength($leadText, $scrapedText);
+            $threshold = min(40, (int)ceil($leadLen * 0.5));
+            if ($commonPrefixLen >= $threshold && mb_strlen($scrapedText) > $leadLen) {
+                return $scrapedBody;
+            }
+        }
+
         return $leadHtml . "\n" . $scrapedBody;
+    }
+
+    private function longestCommonPrefixLength(string $a, string $b): int
+    {
+        $max = min(mb_strlen($a), mb_strlen($b));
+        $len = 0;
+        for ($i = 0; $i < $max; $i++) {
+            if (mb_substr($a, $i, 1) !== mb_substr($b, $i, 1)) {
+                break;
+            }
+            $len++;
+        }
+
+        return $len;
     }
 
     /**
