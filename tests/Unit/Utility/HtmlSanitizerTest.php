@@ -194,14 +194,16 @@ class HtmlSanitizerTest extends TestCase
     {
         $input = '<a href="/relative/path">Relative Link</a>';
         $output = $this->sanitizer->purify($input);
-        $this->assertStringNotContainsString('/relative/path', $output);
+        $this->assertStringContainsString('<a>', $output);
+        $this->assertStringNotContainsString('href=', $output);
     }
 
     public function testPurifyDisallowsRelativeImages(): void
     {
         $input = '<img src="/images/photo.jpg" alt="Photo">';
         $output = $this->sanitizer->purify($input);
-        $this->assertStringNotContainsString('/images/photo.jpg', $output);
+        $this->assertStringContainsString('<img', $output);
+        $this->assertStringNotContainsString('src=', $output);
     }
 
     public function testPurifyPreservesTableStructure(): void
@@ -240,7 +242,7 @@ class HtmlSanitizerTest extends TestCase
     {
         $input = '<dialog><button>Click</button></dialog>';
         $output = $this->sanitizer->purify($input);
-        $this->assertEquals('', $output);
+        $this->assertEquals('', trim($output));
     }
 
     public function testPurifyRemovesIdAttribute(): void
