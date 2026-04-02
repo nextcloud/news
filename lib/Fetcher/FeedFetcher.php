@@ -412,18 +412,7 @@ class FeedFetcher implements IFeedFetcher
         // purification is done in the service layer
         if (!is_null($body)) {
             // First, handle CDATA sections if present
-            if (strpos($body, 'CDATA') !== false) {
-                libxml_use_internal_errors(true);
-                $data = simplexml_load_string(
-                    "<?xml version=\"1.0\"?><item>$body</item>",
-                    SimpleXMLElement::class,
-                    LIBXML_NOCDATA
-                );
-                if ($data !== false && libxml_get_last_error() === false) {
-                    $body = (string) $data;
-                }
-                libxml_clear_errors();
-            }
+            $body = $this->unwrapCdataIfPresent($body);
             
             if (!mb_check_encoding($body, 'UTF-8')) {
                 // Convert to UTF-8 if needed with comprehensive encoding detection
@@ -483,8 +472,14 @@ class FeedFetcher implements IFeedFetcher
             return $scrapedBody;
         }
 
+        // Same as post-merge body handling: CDATA must be unwrapped before text/HTML comparison.
+        $feedPlain = trim($this->unwrapCdataIfPresent($feedBody));
+        if ($feedPlain === '') {
+            return $scrapedBody;
+        }
+
         $scrapedText = $this->normalizeHtmlText($scrapedBody);
-        $feedText = $this->normalizeHtmlText($feedBody);
+        $feedText = $this->normalizeHtmlText($feedPlain);
         if ($scrapedText === '' || $feedText === '') {
             return $scrapedBody;
         }
@@ -494,10 +489,10 @@ class FeedFetcher implements IFeedFetcher
         }
 
         $leadHtml = null;
-        if (preg_match('/<p\b[^>]*>.*?<\/p>/is', $feedBody, $matches) === 1) {
+        if (preg_match('/<p\b[^>]*>.*?<\/p>/is', $feedPlain, $matches) === 1) {
             $leadHtml = trim($matches[0]);
         } else {
-            $leadHtml = trim($feedBody);
+            $leadHtml = $feedPlain;
         }
 
         $leadText = $this->normalizeHtmlText($leadHtml);
@@ -518,6 +513,28 @@ class FeedFetcher implements IFeedFetcher
         }
 
         return $leadHtml . "\n" . $scrapedBody;
+    }
+
+    private function unwrapCdataIfPresent(string $fragment): string
+    {
+        if (strpos($fragment, 'CDATA') === false) {
+            return $fragment;
+        }
+
+        libxml_use_internal_errors(true);
+        $data = simplexml_load_string(
+            "<?xml version=\"1.0\"?><item>$fragment</item>",
+            SimpleXMLElement::class,
+            LIBXML_NOCDATA
+        );
+        if ($data !== false && libxml_get_last_error() === false) {
+            libxml_clear_errors();
+
+            return (string) $data;
+        }
+        libxml_clear_errors();
+
+        return $fragment;
     }
 
     private function longestCommonPrefixLength(string $a, string $b): int
