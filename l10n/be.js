@@ -48,6 +48,7 @@ OC.L10N.register(
     "Jump to previous article" : "Перайсці да папярэдняга артыкула",
     "Jump to next article" : "Перайсці да наступнага артыкула",
     "Resources" : "Рэсурсы",
+    "Options" : "Параметры",
     "Title" : "Загаловак",
     "Folder" : "Папка"
 },

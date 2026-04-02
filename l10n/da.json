@@ -138,6 +138,7 @@
     "Number of errors that have occurred since the last successful feed update" : "Antallet af fejl som er forekommet siden den seneste succesfulde feed-opdatering",
     "Mark as unread on update" : "Markér som ulæst ved opdatering",
     "Keep read status on update" : "Behold læsestatus ved opdatering",
+    "Options" : "Muligheder",
     "Title" : "Titel",
     "Folder" : "Mappe",
     "Not available" : "Ikke tilgængelig",

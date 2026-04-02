@@ -127,6 +127,7 @@
     "Maximum number of articles reached in a feed update" : "Nombre màxim d'articles assolit en una actualització del canal",
     "Error Count" : "Recompte d'errors",
     "Number of errors that have occurred since the last successful feed update" : "Nombre d'errors que s'han produït des de l'última actualització correcta del canal",
+    "Options" : "Opcions",
     "Title" : "Títol",
     "Folder" : "Carpeta",
     "Not available" : "No disponible",

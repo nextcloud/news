@@ -170,6 +170,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Počet chyb, ke kterým došlo od poslední úspěšné aktualizace kanálu",
     "Mark as unread on update" : "Při aktualizaci označit jako nepřečtené",
     "Keep read status on update" : "I po aktualizaci ponechat stav přečtené",
+    "Options" : "Možnosti",
     "Title" : "Titul",
     "Folder" : "Složka",
     "Not available" : "Není k dispozici",

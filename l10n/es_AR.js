@@ -63,6 +63,7 @@ OC.L10N.register(
     "Jump to next article" : "Ir al artículo siguiente ",
     "Open article in new tab" : "Abrir el artículo en una nueva pestaña",
     "Resources" : "Recursos",
+    "Options" : "Opciones",
     "Folder" : "Carpeta",
     "Not available" : "No disponible"
 },

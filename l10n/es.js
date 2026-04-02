@@ -170,6 +170,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Número de errores que han occurido desde la última actualización correcta de la fuente",
     "Mark as unread on update" : "Marcar como no leído al actualizar",
     "Keep read status on update" : "Mantener el estado de lectura al actualizar",
+    "Options" : "Opciones",
     "Title" : "Título",
     "Folder" : "Carpeta",
     "Not available" : "No disponible",

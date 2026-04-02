@@ -66,6 +66,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "Atayos del tecláu",
     "Refresh" : "Anovar",
     "Resources" : "Recursos",
+    "Options" : "Opciones",
     "Title" : "Títulu",
     "Folder" : "Carpeta",
     "Not available" : "Nun ta disponible",

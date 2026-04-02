@@ -141,6 +141,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Αριθμός σφαλμάτων που έχουν συμβεί από την τελευταία επιτυχή ενημέρωση ροής",
     "Mark as unread on update" : "Σήμανση ως μη διαβασμένου κατά την ενημέρωση",
     "Keep read status on update" : "Διατήρηση κατάστασης ανάγνωσης κατά την ενημέρωση",
+    "Options" : "Επιλογές",
     "Title" : "Τίτλος",
     "Folder" : "Φάκελος",
     "Not available" : "Μη διαθέσιμο",

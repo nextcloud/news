@@ -170,6 +170,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Number of errors that have occurred since the last successful feed update",
     "Mark as unread on update" : "Mark as unread on update",
     "Keep read status on update" : "Keep read status on update",
+    "Options" : "Options",
     "Title" : "Title",
     "Folder" : "Folder",
     "Not available" : "Not available",

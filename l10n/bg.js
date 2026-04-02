@@ -89,6 +89,7 @@ OC.L10N.register(
     "Jump to next article" : "Отиди на следващата статия",
     "Open article in new tab" : "Отвори статия в нов таб",
     "Resources" : "Ресурси",
+    "Options" : "Опции",
     "Title" : "Заглавие",
     "Folder" : "Папка",
     "Subscribe to" : "Абониране за"
