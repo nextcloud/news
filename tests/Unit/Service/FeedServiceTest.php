@@ -604,15 +604,15 @@ class FeedServiceTest extends TestCase
         $feed = Feed::fromParams([
             'id'         => 1,
             'location'   => 'url.com',
-            'updateMode' => 1,
+            'updateMode' => FEED::UPDATE_MODE_NORMAL,
         ]);
 
         $new_feed = $this->getMockBuilder(Feed::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $item1 = Item::fromParams(['id' => 1, 'body' => '1']);
-        $item2 = Item::fromParams(['id' => 2, 'body' => '2']);
+        $item1 = Item::fromParams(['id' => 1, 'body' => '1', 'unread' => true]);
+        $item2 = Item::fromParams(['id' => 2, 'body' => '2', 'unread' => true]);
         $this->fetcher->expects($this->once())
                       ->method('fetch')
                       ->will($this->returnValue([$new_feed, [$item1, $item2]]));
@@ -633,7 +633,7 @@ class FeedServiceTest extends TestCase
                 return $args[0]; // returnArgument(0)
             });
 
-        $insertOrUpdateCalls = [[$item2], [$item1]];
+        $insertOrUpdateCalls = [[$item2, FEED::UPDATE_MODE_NORMAL], [$item1, FEED::UPDATE_MODE_NORMAL]];
         $insertOrUpdateIndex = 0;
 
         $this->itemService->expects($this->exactly(2))
@@ -663,6 +663,7 @@ class FeedServiceTest extends TestCase
         $item1 = Item::fromParams([
             'id' => 1, 
             'body' => '<p>body content</p>',
+            'unread' => true,
             'mediaDescription' => '<p>media desc with <script>alert("xss")</script></p>'
         ]);
         

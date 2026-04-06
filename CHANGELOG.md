@@ -12,6 +12,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 - Show a user-facing error when moving a feed fails (#3649)
 - `HTML Sanitizer` options adjusted to fix broken layouts
+- Feed setting `Mark as unread on update` had no effect
 
 # Releases
 ## [28.2.0-beta.1] - 2026-03-22

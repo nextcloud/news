@@ -128,8 +128,14 @@ class ImportService
                 $item->setMediaDescription($this->purifier->purify($mediaDesc));
             }
             $item->generateSearchIndex();
-            if (!$this->itemService->insertOrUpdate($item)) {
+            try {
+                $this->itemService->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT);
+            } catch (\Throwable $e) {
                 $error++;
+                $this->logger->error(
+                    'Failed to import item for feed {url}: ' . $e->getMessage(),
+                    ['url' => $feedLink]
+                );
             }
         }
 
