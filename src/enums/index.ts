@@ -11,8 +11,8 @@ export enum FEED_ORDER {
 }
 
 export enum FEED_UPDATE_MODE {
-	UNREAD = 0,
-	IGNORE = 1,
+	SILENT = 0,
+	NORMAL = 1,
 }
 
 export enum SPLIT_MODE {

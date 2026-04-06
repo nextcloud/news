@@ -19,7 +19,7 @@ describe('FeedInfoTable.vue', () => {
 		nextUpdateTime: 1,
 		articlesPerUpdate: 150,
 		updateErrorCount: 20,
-		updateMode: FEED_UPDATE_MODE.UNREAD,
+		updateMode: FEED_UPDATE_MODE.NORMAL,
 		fullTextEnabled: false,
 		preventUpdate: true,
 	}, {
@@ -30,7 +30,7 @@ describe('FeedInfoTable.vue', () => {
 		nextUpdateTime: 4,
 		articlesPerUpdate: 50,
 		updateErrorCount: 40,
-		updateMode: FEED_UPDATE_MODE.IGNORE,
+		updateMode: FEED_UPDATE_MODE.SILENT,
 		fullTextEnabled: true,
 		preventUpdate: false,
 	}, {
@@ -41,7 +41,7 @@ describe('FeedInfoTable.vue', () => {
 		nextUpdateTime: 8,
 		articlesPerUpdate: 20,
 		updateErrorCount: 0,
-		updateMode: FEED_UPDATE_MODE.UNREAD,
+		updateMode: FEED_UPDATE_MODE.NORMAL,
 		fullTextEnabled: true,
 		preventUpdate: true,
 	}]
@@ -325,7 +325,7 @@ describe('FeedInfoTable.vue', () => {
 			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed: feeds[1], preventUpdate: true })
 		})
 
-		it('should dispatch setUpdateMode on click with FEED_UPDATE_MODE.IGNORE', async () => {
+		it('should dispatch setUpdateMode on click with FEED_UPDATE_MODE.SILENT', async () => {
 			const actions = wrapper.findAllComponents({ name: 'NcActions' })
 				.find((ncactions) => ncactions.attributes('data-test') === 'feedOptions-1')
 
@@ -334,7 +334,7 @@ describe('FeedInfoTable.vue', () => {
 			expect(button).toBeTruthy()
 			await button.trigger('click')
 
-			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.IGNORE })
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[0], updateMode: FEED_UPDATE_MODE.SILENT })
 		})
 
 		it('should dispatch setUpdateMode on click with FEED_UPDATE_MODE.NORMAL', async () => {
@@ -346,7 +346,7 @@ describe('FeedInfoTable.vue', () => {
 			expect(button).toBeTruthy()
 			await button.trigger('click')
 
-			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[1], updateMode: FEED_UPDATE_MODE.UNREAD })
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_UPDATE_MODE, { feed: feeds[1], updateMode: FEED_UPDATE_MODE.NORMAL })
 		})
 
 		it('should dispatch setFullText on click with fullTextEnabled true', async () => {

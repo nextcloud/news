@@ -162,9 +162,9 @@ describe('feed.ts', () => {
 			it('should call FeedService.updateFeed and commit updated `updateMode` property to state', async () => {
 				FeedService.updateFeed = vi.fn()
 				const commit = vi.fn()
-				await actions[FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE]({ commit }, { feed: { id: 1 }, updateMode: FEED_UPDATE_MODE.IGNORE })
-				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, updateMode: FEED_UPDATE_MODE.IGNORE })
-				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, updateMode: FEED_UPDATE_MODE.IGNORE })
+				await actions[FEED_ACTION_TYPES.FEED_SET_UPDATE_MODE]({ commit }, { feed: { id: 1 }, updateMode: FEED_UPDATE_MODE.SILENT })
+				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, updateMode: FEED_UPDATE_MODE.SILENT })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, updateMode: FEED_UPDATE_MODE.SILENT })
 			})
 		})
 
