@@ -83,18 +83,22 @@ class ItemServiceV2 extends Service
      * Insert an item or update.
      *
      * @param Item $item
+     * @param int $updateMode
      *
      * @return Entity|Item The updated/inserted item
      */
-    public function insertOrUpdate(Item $item): Entity
+    public function insertOrUpdate(Item $item, int $updateMode): Entity
     {
         try {
             /** @var Item $db_item */
             $db_item = $this->findByGuidHash($item->getFeedId(), $item->getGuidHash());
 
+            // Keep unread state when configured in feed settings
+            if ($updateMode === FEED::UPDATE_MODE_SILENT) {
+                $item->setUnread($db_item->isUnread());
+            }
             // Transfer user modifications
-            $item->setUnread($db_item->isUnread())
-                 ->setStarred($db_item->isStarred())
+            $item->setStarred($db_item->isStarred())
                  ->setId($db_item->getId());
 
             $item->generateSearchIndex();//generates fingerprint

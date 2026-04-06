@@ -398,8 +398,10 @@ class FeedServiceV2 extends Service
             $feed->setFaviconLink($fetchedFavicon);
         }
 
+        $feedId = $feed->getId();
+        $updateMode = $feed->getUpdateMode();
         foreach (array_reverse($items) as &$item) {
-            $item->setFeedId($feed->getId())
+            $item->setFeedId($feedId)
                 ->setBody($this->purifier->purify($item->getBody()));
 
             // Sanitize media description if present
@@ -408,12 +410,7 @@ class FeedServiceV2 extends Service
                 $item->setMediaDescription($this->purifier->purify($mediaDesc));
             }
 
-            // update modes: 0 nothing, 1 set unread
-            if ($feed->getUpdateMode() === Feed::UPDATE_MODE_NORMAL) {
-                $item->setUnread(true);
-            }
-
-            $item = $this->itemService->insertOrUpdate($item);
+            $item = $this->itemService->insertOrUpdate($item, $updateMode);
         }
 
 

@@ -128,7 +128,7 @@ class ImportServiceTest extends TestCase
 
         $this->itemService->expects($this->once())
             ->method('insertOrUpdate')
-            ->with($item);
+            ->with($item, FEED::UPDATE_MODE_SILENT);
 
         $this->purifier->expects($this->once())
             ->method('purify')
@@ -204,7 +204,7 @@ class ImportServiceTest extends TestCase
 
         $this->itemService->expects($this->exactly(2))
             ->method('insertOrUpdate')
-            ->with($item);
+            ->with($item, FEED::UPDATE_MODE_SILENT);
         $this->purifier->expects($this->exactly(2))
             ->method('purify')
             ->with($this->equalTo($item->getBody()))
@@ -261,7 +261,7 @@ class ImportServiceTest extends TestCase
 
         $this->itemService->expects($this->once())
             ->method('insertOrUpdate')
-            ->with($item);
+            ->with($item, FEED::UPDATE_MODE_SILENT);
 
         // Purifier should be called twice: once for body, once for media description
         $purifyCallIndex = 0;

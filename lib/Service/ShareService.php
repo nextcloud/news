@@ -145,7 +145,7 @@ class ShareService
 
         $sharedItem->setFeedId($feed->getId());
 
-        $result = $this->itemService->insertOrUpdate($sharedItem);
+        $result = $this->itemService->insertOrUpdate($sharedItem, FEED::UPDATE_MODE_SILENT);
 
         // Send notification to recipient
         $this->sendShareNotification($userId, $shareRecipientId, $result);

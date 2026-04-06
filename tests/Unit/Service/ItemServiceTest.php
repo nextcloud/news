@@ -22,6 +22,7 @@ use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Db\DoesNotExistException;
 
+use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use \OCA\News\Db\ListType;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
@@ -452,7 +453,7 @@ class ItemServiceTest extends TestCase
             ->with($item)
             ->will($this->returnValue($item));
 
-        $result = $this->class->insertOrUpdate($item);
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT);
 
         $this->assertEquals($item, $result);
     }
@@ -515,7 +516,7 @@ class ItemServiceTest extends TestCase
             ->with($item)
             ->will($this->returnValue($item));
 
-        $result = $this->class->insertOrUpdate($item);
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT);
 
         $this->assertEquals($item, $result);
     }
@@ -578,9 +579,49 @@ class ItemServiceTest extends TestCase
             ->with($item)
             ->will($this->returnValue($item));
 
-        $result = $this->class->insertOrUpdate($item);
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT);
 
         $this->assertEquals($item, $result);
+    }
+
+    public function testInsertOrUpdatePreservesUnread()
+    {
+        $item = Item::fromParams(['id' => 1, 'feedId' => '1', 'guidHash' => 'hash', 'unread' => true]);
+        $db_item = Item::fromParams(['id' => 1, 'feedId' => '1', 'guidHash' => 'hash', 'unread' => false]);
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'hash')
+            ->will($this->returnValue($db_item));
+
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($item)
+            ->will($this->returnValue($item));
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT);
+
+        $this->assertFalse($result->isUnread());
+    }
+
+    public function testInsertOrUpdateUpdatesUnread()
+    {
+        $item = Item::fromParams(['id' => 1, 'feedId' => '1', 'guidHash' => 'hash', 'unread' => true]);
+        $db_item = Item::fromParams(['id' => 1, 'feedId' => '1', 'guidHash' => 'hash', 'unread' => false]);
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'hash')
+            ->will($this->returnValue($db_item));
+
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($item)
+            ->will($this->returnValue($item));
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_NORMAL);
+
+        $this->assertTrue($result->isUnread());
     }
 
     public function testFindByGuidHash()
