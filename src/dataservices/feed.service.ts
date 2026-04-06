@@ -59,7 +59,7 @@ export class FeedService {
 	 * @param param0.pinned {Boolean} should be pinned (true) or not pinned (flse)
 	 * @param param0.ordering {FEED_ORDER} sets feed order (0 = NEWEST, 1 = OLDEST, 2 = DEFAULT)
 	 * @param param0.fullTextEnabled {Boolean} should be full text be enabled (true) or not (flse)
-	 * @param param0.updateMode {FEED_UPDATE_MODE} sets updateMode (0 = UNREAD, 1 = IGNORE)
+	 * @param param0.updateMode {FEED_UPDATE_MODE} sets updateMode (0 = SILENT, 1 = NORMAL)
 	 * @param param0.preventUpdate {boolean} enable/disable feed sync
 	 * @param param0.title {String} title of feed to display
 	 * @return Null value is returned on success

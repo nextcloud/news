@@ -75,16 +75,16 @@
 					</tr>
 					<tr>
 						<td>
-							<FileDocumentRefresh />
-						</td>
-						<td>
-							{{ t('news', 'Mark as unread on update') }}
-						</td>
-						<td>
 							<FileDocumentCheck />
 						</td>
 						<td>
 							{{ t('news', 'Keep read status on update') }}
+						</td>
+						<td>
+							<FileDocumentRefresh />
+						</td>
+						<td>
+							{{ t('news', 'Mark as unread on update') }}
 						</td>
 					</tr>
 					<tr>
@@ -222,19 +222,19 @@
 									</template>
 								</NcActionButton>
 								<NcActionButton
-									v-if="feed.updateMode === FEED_UPDATE_MODE.UNREAD"
+									v-if="feed.updateMode === FEED_UPDATE_MODE.NORMAL"
 									:title="t('news', 'Disable marking items as unread on update')"
 									data-test="disableMarkUnread"
-									@click="setUpdateMode(feed, FEED_UPDATE_MODE.IGNORE)">
+									@click="setUpdateMode(feed, FEED_UPDATE_MODE.SILENT)">
 									<template #icon>
 										<FileDocumentRefresh />
 									</template>
 								</NcActionButton>
 								<NcActionButton
-									v-if="feed.updateMode === FEED_UPDATE_MODE.IGNORE"
+									v-if="feed.updateMode === FEED_UPDATE_MODE.SILENT"
 									:title="t('news', 'Enable marking items as unread on update')"
 									data-test="enableMarkUnread"
-									@click="setUpdateMode(feed, FEED_UPDATE_MODE.UNREAD)">
+									@click="setUpdateMode(feed, FEED_UPDATE_MODE.NORMAL)">
 									<template #icon>
 										<FileDocumentCheck />
 									</template>
