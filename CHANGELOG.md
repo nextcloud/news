@@ -6,15 +6,20 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
-- Rework feed options menu and feed settings
-- Added a feature to download the web version of an article on demand, to avoid downloading unnecessary content
+
+### Fixed
+
+# Releases
+## [28.2.0-beta.2] - 2026-04-08
+### Changed
+- Rework feed options menu and feed settings (#3655)
+- Added a feature to download the web version of an article on demand, to avoid downloading unnecessary content (#3647)
 
 ### Fixed
 - Show a user-facing error when moving a feed fails (#3649)
-- `HTML Sanitizer` options adjusted to fix broken layouts
-- Feed setting `Mark as unread on update` had no effect
+- `HTML Sanitizer` options adjusted to fix broken layouts (#3658)
+- Feed setting `Mark as unread on update` had no effect (#3668)
 
-# Releases
 ## [28.2.0-beta.1] - 2026-03-22
 ### Changed
 - Refactor full text scraper to use guzzle http client and its admin settings `Maximum redirects` and `Feed fetcher timeout` (#3630)
