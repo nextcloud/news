@@ -278,7 +278,7 @@ describe('item.ts', () => {
 		})
 
 		describe('SET_ITEMS', () => {
-			it('should add feeds to state', () => {
+			it('should add items to state', () => {
 				const state = { allItems: [] }
 				let items = []
 
@@ -294,6 +294,24 @@ describe('item.ts', () => {
 				items = [{ title: 'test2', id: 234 }]
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems.length).toEqual(2)
+			})
+
+			it('should update items in state', () => {
+				const state = { allItems: [
+					{ id: 1, feedId: 123, title: 'item1', unread: false },
+					{ id: 2, feedId: 345, title: 'item2', unread: true },
+					{ id: 3, feedId: 678, title: 'item3', unread: false },
+				] }
+				const items = [
+					{ id: 1, feedId: 123, title: 'item1', unread: true },
+					{ id: 2, feedId: 345, title: 'item2 updated', unread: true },
+				]
+
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
+				expect(state.allItems.length).toEqual(3)
+				expect(state.allItems[0].unread).toBeTruthy()
+				expect(state.allItems[1].title).toEqual('item2 updated')
+				expect(state.allItems[2].title).toEqual('item3')
 			})
 
 			it('should not add duplicates', () => {
@@ -327,6 +345,19 @@ describe('item.ts', () => {
 
 				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, items)
 				expect(state.allItems[0].title).toEqual('https://feedurl')
+			})
+
+			it('should not change state when items undefined', () => {
+				const state = { allItems: [{ id: 1, title: 'abc' }] } as AppState
+				const originalAllItems = state.allItems
+				const originalState = {
+					...state,
+					allItems: state.allItems.map((item) => ({ ...item })),
+				}
+
+				mutations[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](state, undefined)
+				expect(state).toEqual(originalState)
+				expect(state.allItems).toBe(originalAllItems)
 			})
 		})
 
