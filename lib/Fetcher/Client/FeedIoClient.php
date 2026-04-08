@@ -17,6 +17,8 @@ use OCA\News\Vendor\FeedIo\Adapter\Http\Response;
 use OCA\News\Vendor\FeedIo\Adapter\HttpRequestException;
 use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
 use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
+use OCP\Http\Client\IClientService;
+use GuzzleHttp\ClientInterface as BaseClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
 use OCA\News\Vendor\GuzzleHttp\Psr7\Response as ScopedPsr7Response;
@@ -27,16 +29,16 @@ use OCA\News\Vendor\GuzzleHttp\Psr7\Response as ScopedPsr7Response;
 class FeedIoClient implements ClientInterface
 {
     /**
-     * @param \GuzzleHttp\ClientInterface $guzzleClient
+     * @param BaseClientInterface $guzzleClient
      */
-    protected $guzzleClient;
+    protected readonly BaseClientInterface $guzzleClient;
 
     /**
-     * @param \GuzzleHttp\ClientInterface $guzzleClient
+     * @param IClientService $clientService
      */
-    public function __construct(\GuzzleHttp\ClientInterface $guzzleClient)
+    public function __construct(IClientService $clientService)
     {
-        $this->guzzleClient = $guzzleClient;
+        $this->guzzleClient = $clientService->newClient();
     }
 
     /**
