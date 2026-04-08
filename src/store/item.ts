@@ -439,31 +439,55 @@ export const mutations = {
 
 	[FEED_ITEM_MUTATION_TYPES.SET_ITEMS](
 		state: ItemState,
-		items: FeedItem[],
+		items?: FeedItem[],
 	) {
-		if (items) {
-			let newestFetchedItemId = 0
-			const newItems: FeedItem[] = []
+		if (!items) {
+			return
+		}
 
-			items.forEach((it) => {
-				if (state.allItems.find((existing: FeedItem) => existing.id === it.id) === undefined) {
-					if (!it.title) {
-						it.title = it.url
-					}
-					newItems.push(it)
-					if (state.newestItemId < Number(it.id)) {
-						newestFetchedItemId = Number(it.id)
-					}
+		let newestFetchedItemId = state.newestItemId
+
+		const itemIndexMap = new Map<number, number>()
+		state.allItems.forEach((item, index) => {
+			itemIndexMap.set(Number(item.id), index)
+		})
+
+		const updatedMap = new Map<number, FeedItem>()
+		const newItems: FeedItem[] = []
+
+		for (const it of items) {
+			const id = Number(it.id)
+			const itemIndex = itemIndexMap.get(id)
+
+			if (!it.title) {
+				it.title = it.url
+			}
+
+			if (itemIndex === undefined) {
+				newItems.push(it)
+
+				if (id > newestFetchedItemId) {
+					newestFetchedItemId = id
 				}
-			})
-
-			if (newItems.length > 0) {
-				state.allItems = [...state.allItems, ...newItems]
+			} else {
+				const item = state.allItems[itemIndex]
+				updatedMap.set(Number(item.id), {
+					...item,
+					...it,
+				})
 			}
+		}
 
-			if (newestFetchedItemId > state.newestItemId) {
-				state.syncNeeded = true
-			}
+		const mergedItems = state.allItems.map((item) => {
+			const id = Number(item.id)
+			const updated = updatedMap.get(id)
+			return updated ?? item
+		})
+
+		state.allItems = [...mergedItems, ...newItems]
+
+		if (newestFetchedItemId > state.newestItemId) {
+			state.syncNeeded = true
 		}
 	},
 

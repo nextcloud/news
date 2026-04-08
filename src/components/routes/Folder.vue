@@ -96,11 +96,10 @@ export default defineComponent({
 		folderId: {
 			handler() {
 				/*
-				 * When sorting newest to oldest lastItemLoaded needs to reset to get new items for this route
+				 * Reset the offset so that updated items can be fetched again when changing the route
 				 */
-				if (this.oldestFirst === false) {
-					this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'folder-' + this.folderId, lastItem: undefined })
-				}
+				this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: 'folder-' + this.folderId, lastItem: undefined })
+				this.$store.commit(MUTATIONS.SET_ALL_LOADED, { key: 'folder-' + this.folderId, loaded: false })
 			},
 
 			immediate: true,

@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Update items that have been reloaded from the backend
 
 # Releases
 ## [28.2.0-beta.2] - 2026-04-08

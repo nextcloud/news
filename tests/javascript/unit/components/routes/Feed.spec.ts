@@ -85,6 +85,9 @@ describe('Feed.vue', () => {
 				SET_LAST_ITEM_LOADED(state, { key, lastItem }) {
 					state.items.lastItemLoaded[key] = lastItem
 				},
+				SET_ALL_LOADED(state, { key, loaded }) {
+					state.items.allItemsLoaded[key] = loaded
+				},
 			},
 			getters: {
 				feeds: () => [mockFeed],
