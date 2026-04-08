@@ -41,6 +41,7 @@ use OCP\User\Events\BeforeUserDeletedEvent;
 use OCP\Config\BeforePreferenceDeletedEvent;
 use OCP\Config\BeforePreferenceSetEvent;
 use OCP\DB\Events\AddMissingIndicesEvent;
+use OCP\Http\Client\IClientService;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
@@ -122,7 +123,7 @@ class Application extends App implements IBootstrap
 
         $context->registerService(FaviconDataAccess::class, function (ContainerInterface $c): FaviconDataAccess {
             $config = $c->get(FetcherConfig::class);
-            return new FaviconDataAccess($config);
+            return new FaviconDataAccess($config, $c->get(IClientService::class), $c->get(LoggerInterface::class));
         });
 
         $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {

@@ -112,6 +112,10 @@ jobs:
           check-code: false
           force: ${{ matrix.experimental }}
 
+      - name: Allow local remote servers
+        working-directory: ../server
+        run: ./occ config:system:set allow_local_remote_servers --type=boolean --value=true
+
       - name: Run API tests
         working-directory: ../server
         run: |
