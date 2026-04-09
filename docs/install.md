@@ -28,7 +28,7 @@ Also see the [Nextcloud documentation](https://docs.nextcloud.com/server/stable/
 * Use the [updater script to thread and speed up the update](https://github.com/nextcloud/news-updater)
 
 ## Cache
-News and it's libraries require a writeable temporary directory used as cache. The base directory depends on your system.
+News and it's libraries require a writable temporary directory used as cache. The base directory depends on your system.
 You can [configure a custom directory](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=temp#tempdirectory) if you want.
 
 In most cases the base directory will be `/tmp`. News will create a folder `news-$instanceID` the [instance ID is defined by Nextcloud](https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/config_sample_php_parameters.html?highlight=temp#instanceid).
