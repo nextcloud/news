@@ -15,7 +15,7 @@ namespace OCA\News\Config;
 
 use OCA\News\Vendor\FeedIo\Adapter\ClientInterface;
 use Psr\Log\LoggerInterface;
-use \GuzzleHttp\Client;
+use Psr\Http\Client\ClientInterface as PsrClientInterface;
 use \GuzzleHttp\Psr7\Uri;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
@@ -34,25 +34,25 @@ class FetcherConfig
      * Timeout before the client should abort.
      * @var string
      */
-    protected $client_timeout;
+    protected readonly string $client_timeout;
 
     /**
      * Configuration for an HTTP proxy.
      * @var string
      */
-    protected $proxy;
+    protected readonly string $proxy;
 
     /**
      * Amount of allowed redirects.
      * @var string
      */
-    protected $redirects;
+    protected readonly string $redirects;
 
     /**
      * Version number for the news application.
      * @var string
      */
-    private $version;
+    private readonly string $version;
 
     /**
      * User agent for the client.
@@ -81,12 +81,6 @@ class FetcherConfig
     public const CONNECT_TIMEOUT = 3;
 
     /**
-     * Logger
-     * @var LoggerInterface
-     */
-    private LoggerInterface $logger;
-
-    /**
      * FetcherConfig constructor.
      *
      * @param IAppConfig $config    App configuration
@@ -98,9 +92,9 @@ class FetcherConfig
         IAppConfig $config,
         IConfig $systemconfig,
         IAppManager $appManager,
-        LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        private readonly IClientService $clientService,
     ) {
-        $this->logger = $logger;
         $this->version = $appManager->getAppVersion(Application::NAME);
         $this->client_timeout = $config->getValueInt(
             Application::NAME,
@@ -112,55 +106,6 @@ class FetcherConfig
             'maxRedirects',
             Application::DEFAULT_SETTINGS['maxRedirects']
         );
-
-        $proxy = $systemconfig->getSystemValue('proxy', null);
-        if (is_null($proxy)) {
-            $this->logger->debug('No proxy configuration found');
-            return $this;
-        }
-        $this->logger->debug(
-            'Proxy configuration found: {proxy}',
-            ['proxy' => $proxy]
-        );
-
-        $url = new Uri($proxy);
-
-        $creds = $systemconfig->getSystemValue('proxyuserpwd', null);
-        if ($creds !== null) {
-            $auth = explode(':', $creds, 2);
-            $url = $url->withUserInfo($auth[0], $auth[1]);
-        }
-
-        // prevent broken scheme '//'
-        $scheme = $url->getScheme();
-
-        if ($scheme !== 'http' && $scheme !== 'https') {
-            $url = $url->withScheme('http');
-            $scheme = $url->getScheme();
-        }
-
-        //Uri removes standard ports by default, therefore we add it manually
-        $url_string = (string) $url;
-        $port = $url->getPort();
-
-        if ($port === null && $scheme === 'http') {
-            $port = 80;
-        } elseif ($port === null && $scheme === 'https') {
-            $port = 443;
-        }
-
-        if ($port !== null && strpos($url_string, ':' . $port) === false) {
-            $url_string .= ':' . $port;
-        }
-
-        $this->proxy = $url_string;
-
-        $this->logger->debug(
-            'Proxy configuration finalized: {proxy}',
-            ['proxy' => $this->proxy]
-        );
-
-        return $this;
     }
 
     /**
@@ -207,9 +152,9 @@ class FetcherConfig
      * Configure a guzzle client
      *
      * @param array $config
-     * @return \GuzzleHttp\Client configured Guzzle HTTP client
+     * @return PsrClientInterface configured Guzzle HTTP client
      */
-    public function getHttpClient(array $config): \GuzzleHttp\Client
+    public function getHttpClient(array $config): PsrClientInterface
     {
         $defaultConfig = [
             'headers' => [
@@ -221,13 +166,12 @@ class FetcherConfig
 
         $config = array_replace_recursive($defaultConfig, $config);
 
-        if (!is_null($this->proxy)) {
-            $config['proxy'] = $this->proxy;
-        }
         if (!is_null($this->redirects)) {
             $config['allow_redirects']['max'] = $this->redirects;
         }
 
+        // TODO: activate this when configuration is allowed
+        // return $this->clientService->newClient($config);
         return new Client($config);
     }
 

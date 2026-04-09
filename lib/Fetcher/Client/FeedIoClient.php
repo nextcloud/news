@@ -18,9 +18,10 @@ use OCA\News\Vendor\FeedIo\Adapter\HttpRequestException;
 use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
 use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
 use OCP\Http\Client\IClientService;
-use GuzzleHttp\ClientInterface as BaseClientInterface;
+use Psr\Http\Client\ClientInterface as PsrClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
+use OCA\News\Vendor\GuzzleHttp\Psr7\Request;
 use OCA\News\Vendor\GuzzleHttp\Psr7\Response as ScopedPsr7Response;
 
 /**
@@ -29,16 +30,16 @@ use OCA\News\Vendor\GuzzleHttp\Psr7\Response as ScopedPsr7Response;
 class FeedIoClient implements ClientInterface
 {
     /**
-     * @param BaseClientInterface $guzzleClient
+     * @param PsrClientInterface $httpClient
      */
-    protected readonly BaseClientInterface $guzzleClient;
+    protected readonly PsrClientInterface $httpClient;
 
     /**
      * @param IClientService $clientService
      */
     public function __construct(IClientService $clientService)
     {
-        $this->guzzleClient = $clientService->newClient();
+        $this->httpClient = $clientService->newClient();
     }
 
     /**
@@ -70,17 +71,15 @@ class FeedIoClient implements ClientInterface
     public function getResponse(string $url, ?DateTime $modifiedSince = null) : ResponseInterface
     {
         try {
-            $options = [
-                'headers' => []
-            ];
-
+            $headers = [];
             if ($modifiedSince !== null && $modifiedSince->format('U') >= 0) {
                 $modifiedSince->setTimezone(new \DateTimeZone('GMT'));
-                $options['headers']['If-Modified-Since'] = $modifiedSince->format('D, d M Y H:i:s') . ' GMT';
+                $headers['If-Modified-Since'] = $modifiedSince->format('D, d M Y H:i:s') . ' GMT';
             }
 
             $start = microtime(true);
-            $psrResponse = $this->guzzleClient->request('get', $url, $options);
+            $request = new Request('GET', $url, $headers);
+            $psrResponse = $this->httpClient->sendRequest($request);
             $duration = intval(round(microtime(true) - $start, 3) * 1000);
 
             return new Response($this->wrapResponse($psrResponse), $duration);
