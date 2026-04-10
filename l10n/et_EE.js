@@ -170,13 +170,19 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Peale viimast uudisvoo õnnestunud uuendust on tekkinud mitu viga",
     "Keep read status on update" : "Uuendamisel säilita lugemise olek",
     "Mark as unread on update" : "Uuendamisel märgi mitteloetuks",
+    "Loading feeds" : "Laadin uudisvooge",
     "Options" : "Eelistused",
     "Title" : "Pealkiri",
     "Folder" : "Kaust",
+    "Enable feed update" : "Lülita uudisvoo uuendamine sisse",
+    "Disable feed update" : "Lülita uudisvoo uuendamine välja",
+    "Enable web scraping" : "Lülita veebiskreipimine sisse",
+    "Disable web scraping" : "Lülita veebiskreipimine välja",
     "Not available" : "Pole saadaval",
     "All Articles" : "Kõik artiklid",
     "No feeds found to add" : "Ei leia lisamiseks ühtegi uudisvoogu",
     "Subscribe to" : "Telli",
-    "Unread Articles" : "Lugemata artiklid"
+    "Unread Articles" : "Lugemata artiklid",
+    "Empty Response" : "Tühi vastus"
 },
 "nplurals=2; plural=(n != 1);");
