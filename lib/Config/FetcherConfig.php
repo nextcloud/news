@@ -246,6 +246,16 @@ class FetcherConfig
     }
 
     /**
+     * Get the admin-configured request timeout in seconds.
+     *
+     * @return int
+     */
+    public function getClientTimeout(): int
+    {
+        return $this->client_timeout;
+    }
+
+    /**
      * Get the proxy configuration
      *
      * @return string|null

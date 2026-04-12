@@ -6,6 +6,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Refactor FaviconDataAccess to use Nextclouds IClientService (#3671)
+- Refactor Scraper to use Nextclouds IClientService (#3679)
 
 ### Fixed
 
