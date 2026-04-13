@@ -63,6 +63,10 @@ jobs:
           check-code: false
           force: ${{ matrix.experimental }}
 
+      - name: Allow local remote servers
+        working-directory: ../server
+        run: ./occ config:system:set allow_local_remote_servers --type=boolean --value=true
+
       - name: Install composer install php-feed-generator
         working-directory: ../server
         run: composer install -d apps/news/tests/test_helper/php-feed-generator
