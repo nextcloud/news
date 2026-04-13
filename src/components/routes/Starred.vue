@@ -81,11 +81,10 @@ export default defineComponent({
 
 	created() {
 		/*
-		 * When sorting newest to oldest lastItemLoaded needs to be reset to get new items for this route
+		 * Reset the offset so that updated items can be fetched again when changing the route
 		 */
-		if (this.oldestFirst === false) {
-			this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: this.fetchKey, lastItem: undefined })
-		}
+		this.$store.commit(MUTATIONS.SET_LAST_ITEM_LOADED, { key: this.fetchKey, lastItem: undefined })
+		this.$store.commit(MUTATIONS.SET_ALL_LOADED, { key: this.fetchKey, loaded: false })
 	},
 
 	methods: {
