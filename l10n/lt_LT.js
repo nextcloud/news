@@ -73,7 +73,7 @@ OC.L10N.register(
     "Keep article unread" : "Palikti straipsnį neskaitytą",
     "Remove keep article unread" : "Nebepalikti straipsnio neskaityto",
     "Default" : "Numatytasis",
-    "Compact" : "Kompaktinis",
+    "Compact" : "Kompaktiškas",
     "Vertical" : "Vertikalus",
     "Horizontal" : "Horizontalus",
     "Always" : "Visada",
