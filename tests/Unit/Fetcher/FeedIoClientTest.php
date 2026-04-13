@@ -9,6 +9,7 @@ use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
 use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
+use OCP\Http\Client\IClientService;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -21,18 +22,21 @@ class FeedIoClientTest extends TestCase
     /**
      * @var FeedIoClient
      */
-    protected $class;
+    protected FeedIoClient $class;
     /**
      * @var ClientInterface|MockObject
      */
-    protected $guzzleClient;
+    protected ClientInterface|MockObject $guzzleClient;
 
     protected function setUp(): void
     {
         $this->guzzleClient = $this->getMockBuilder(ClientInterface::class)
                                    ->getMock();
 
-        $this->class = new FeedIoClient($this->guzzleClient);
+        $service = $this->getMockBuilder(IClientService::class)->getMock();
+        $service->method('newClient')->willReturn($this->guzzleClient);
+
+        $this->class = new FeedIoClient($service);
     }
 
     public function testGetResponseSuccess(): void

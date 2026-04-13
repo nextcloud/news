@@ -28,8 +28,7 @@ class ScraperTest extends TestCase
     {
         $this->logger = $this->createMock(LoggerInterface::class);
 
-        $this->httpClient = $this->getMockBuilder(Client::class)
-            ->getMock();
+        $this->httpClient = $this->getMockBuilder(Client::class)->getMock();
 
         $this->fetcherConfig = $this->createMock(FetcherConfig::class);
         $this->fetcherConfig->method('getHttpClient')
@@ -47,7 +46,7 @@ class ScraperTest extends TestCase
         $response->method('getBody')->willReturn($body);
 
         $this->httpClient->method('request')
-            ->willReturn($response);
+                         ->willReturn($response);
 
         $result = $this->scraper->scrape('https://example.com');
 
@@ -59,7 +58,7 @@ class ScraperTest extends TestCase
     public function testHttpClientThrowsException(): void
     {
         $this->httpClient->method('request')
-            ->will($this->throwException(new \Exception('Network error')));
+                         ->will($this->throwException(new \Exception('Network error')));
 
         $this->logger->expects($this->once())
             ->method('error')
