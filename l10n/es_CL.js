@@ -50,6 +50,7 @@ OC.L10N.register(
     "Keep article unread" : "Mantener el artículo como no-leído",
     "Toggle keep current article unread" : "Alternar mantener artículo actual como no leído",
     "Remove keep article unread" : "Eliminar mantener artículo como no leído",
+    "Default" : "Por defecto",
     "Never" : "Nunca",
     "General" : "General",
     "Disable mark read through scrolling" : "Deshabilitar el marcar como leído al desplazar",
