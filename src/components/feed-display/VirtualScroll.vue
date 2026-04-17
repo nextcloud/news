@@ -174,10 +174,10 @@ export default defineComponent({
 	},
 
 	render() {
-		let children = []
-		let renderedItems = 0
-		let upperPaddingItems = 0
-		let lowerPaddingItems = 0
+		let children
+		let renderedItems
+		let upperPaddingItems
+		let lowerPaddingItems
 		const itemHeight = this.rowHeight
 		const padding = GRID_ITEM_HEIGHT
 		if (this.$slots.default && this.viewport) {
