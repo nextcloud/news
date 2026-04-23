@@ -26,6 +26,7 @@ OC.L10N.register(
     "Resources" : "Resurslar",
     "Options" : "Variantlar",
     "Title" : "Sarlavha",
+    "Folder" : "Jild",
     "Not available" : "Mavjud emas"
 },
 "nplurals=1; plural=0;");
