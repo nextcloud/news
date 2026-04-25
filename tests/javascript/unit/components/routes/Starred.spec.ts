@@ -116,13 +116,13 @@ describe('Starred.vue', () => {
 		expect((wrapper.findComponent(ContentTemplate)).props().items.length).toEqual(1)
 	})
 
-	it('should dispatch FETCH_STARRED action if not fetchingItems.starred', () => {
+	it('should dispatch FETCH_STARRED action if not fetchingItems[starred-0]', () => {
 		wrapper.vm.$store.state.items.fetchingItems['starred-0'] = false
 		wrapper.vm.fetchMore()
 		expect(store.dispatch).toBeCalled()
 	})
 
-	it('should not dispatch FETCH_STARRED action if fetchingItems.starred', () => {
+	it('should not dispatch FETCH_STARRED action if fetchingItems[starred-0]', () => {
 		wrapper.vm.$store.state.items.fetchingItems['starred-0'] = true
 		wrapper.vm.fetchMore()
 		expect(store.dispatch).not.toBeCalled()
