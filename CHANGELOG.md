@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Starred view fired an endless stream of requests due to a `fetchKey` mismatch between the component and the store (#3682)
 
 # Releases
 ## [28.2.0] - 2026-04-20
