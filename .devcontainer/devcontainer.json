@@ -1,6 +1,6 @@
 {
-    "image": "ghcr.io/juliusknorr/nextcloud-dev-php83:latest",
-	"remoteUser": "root",
+    "image": "ghcr.io/grotax/nextcloud-news-devcontainer:1.0",
+	"remoteUser": "vscode",
     "updateRemoteUserUID": true,
     "forwardPorts": [80],
     "containerEnv": {
@@ -11,8 +11,9 @@
     "customizations": {
 		"vscode": {
 			"extensions": [
-				"felixfbecker.php-intellisense",
-				"octref.vetur"
+				"Vue.volar",
+				"Vue.vscode-typescript-vue-plugin",
+				"bmewburn.vscode-intelephense-client"
 			],
 			"settings": {
 				"php.suggest.basic": false,
@@ -22,8 +23,7 @@
 	},
 	"workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html/apps-extra/news,type=bind",
 	"features": {
-		"ghcr.io/devcontainers/features/github-cli": "latest",
-		"ghcr.io/devcontainers/features/python": "latest"
+		"ghcr.io/devcontainers/features/github-cli": "latest"
 	},
 	"workspaceFolder": "/var/www/html/apps-extra/news",
 	"overrideCommand": true,
