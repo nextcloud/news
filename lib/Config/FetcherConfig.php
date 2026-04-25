@@ -14,14 +14,12 @@
 namespace OCA\News\Config;
 
 use OCA\News\Vendor\FeedIo\Adapter\ClientInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Http\Client\ClientInterface as PsrClientInterface;
-use \GuzzleHttp\Psr7\Uri;
 use OCA\News\AppInfo\Application;
 use OCA\News\Fetcher\Client\FeedIoClient;
-use OCP\IConfig;
 use OCP\IAppConfig;
 use OCP\App\IAppManager;
+use OCP\Http\Client\IClient;
+use OCP\Http\Client\IClientService;
 
 /**
  * Class FetcherConfig
@@ -32,21 +30,15 @@ class FetcherConfig
 {
     /**
      * Timeout before the client should abort.
-     * @var string
+     * @var int
      */
-    protected readonly string $client_timeout;
-
-    /**
-     * Configuration for an HTTP proxy.
-     * @var string
-     */
-    protected readonly string $proxy;
+    protected readonly int $client_timeout;
 
     /**
      * Amount of allowed redirects.
-     * @var string
+     * @var int
      */
-    protected readonly string $redirects;
+    protected readonly int $redirects;
 
     /**
      * Version number for the news application.
@@ -84,15 +76,12 @@ class FetcherConfig
      * FetcherConfig constructor.
      *
      * @param IAppConfig $config    App configuration
-     * @param IConfig $systemconfig System configuration
      * @param IAppManager $appManager App manager
-     * @param LoggerInterface $logger Logger
+     * @param IClientService $clientService HTTP client service (provides SSRF protection)
      */
     public function __construct(
         IAppConfig $config,
-        IConfig $systemconfig,
         IAppManager $appManager,
-        private readonly LoggerInterface $logger,
         private readonly IClientService $clientService,
     ) {
         $this->version = $appManager->getAppVersion(Application::NAME);
@@ -132,47 +121,61 @@ class FetcherConfig
     }
 
     /**
-     * Configure a feedio client
+     * Configure a feed-io client backed by Nextcloud's IClientService.
      *
-     * @return ClientInterface Client to feedio client.
+     * The returned client benefits from Nextcloud's built-in SSRF protection
+     * and automatic system proxy configuration.
+     *
+     * @return ClientInterface
      */
     public function getClient(): ClientInterface
     {
-        $config = [
-            'headers' =>  [
-                'Accept' => static::DEFAULT_ACCEPT,
-                'Accept-Encoding' => $this->checkEncoding()
+        return new FeedIoClient(
+            $this->clientService,
+            [
+                'User-Agent'      => $this->getUserAgent(),
+                'Accept'          => static::DEFAULT_ACCEPT,
+                'Accept-Encoding' => $this->checkEncoding(),
             ],
-        ];
-        $client = $this->getHttpClient($config);
-        return new FeedIoClient($client);
+            [
+                'timeout'         => $this->client_timeout,
+                'connect_timeout' => static::CONNECT_TIMEOUT,
+                'allow_redirects' => ['max' => $this->redirects, 'referer' => true],
+            ]
+        );
     }
 
     /**
-     * Configure a guzzle client
+     * Return a raw IClient for direct HTTP requests (e.g. favicon downloads).
      *
-     * @param array $config
-     * @return PsrClientInterface configured Guzzle HTTP client
+     * Nextcloud's IClientService applies SSRF protection and honours the
+     * system proxy configuration automatically.
+     *
+     * @return IClient
      */
-    public function getHttpClient(array $config): PsrClientInterface
+    public function getHttpClient(): IClient
     {
-        $defaultConfig = [
-            'headers' => [
-                'User-Agent' => $this->getUserAgent(),
-            ],
-            'timeout' => $this->client_timeout,
-            'connect_timeout' => static::CONNECT_TIMEOUT,
-        ];
+        return $this->clientService->newClient();
+    }
 
-        $config = array_replace_recursive($defaultConfig, $config);
+    /**
+     * Gets the configured HTTP client timeout in seconds.
+     *
+     * @return int
+     */
+    public function getClientTimeout(): int
+    {
+        return $this->client_timeout;
+    }
 
-        if (!is_null($this->redirects)) {
-            $config['allow_redirects']['max'] = $this->redirects;
-        }
-
-        // TODO: activate this when configuration is allowed
-        // return $this->clientService->newClient($config);
-        return new Client($config);
+    /**
+     * Gets the configured maximum number of redirects.
+     *
+     * @return int
+     */
+    public function getMaxRedirects(): int
+    {
+        return $this->redirects;
     }
 
     /**
@@ -182,20 +185,6 @@ class FetcherConfig
      */
     public function getUserAgent(): string
     {
-        if (is_null($this->version)) {
-            return self::DEFAULT_USER_AGENT;
-        }
-
         return 'NextCloud-News/' . $this->version;
-    }
-
-    /**
-     * Get the proxy configuration
-     *
-     * @return string|null
-     */
-    public function getProxy(): ?string
-    {
-        return $this->proxy;
     }
 }

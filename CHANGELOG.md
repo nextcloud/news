@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Replace direct Guzzle HTTP client usage with Nextcloud's `IClientService` for SSRF protection and automatic system proxy support (#3672, #3671, #3679)
 
 ### Fixed
 

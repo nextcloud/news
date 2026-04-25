@@ -20,8 +20,10 @@ use OCA\News\Vendor\FeedIo\FeedInterface;
 use OCA\News\Vendor\FeedIo\FeedIo;
 use OCA\News\Vendor\FeedIo\Reader\ReadErrorException;
 use OCA\News\Vendor\GuzzleHttp\Psr7\Uri;
+use OCA\News\Vendor\GuzzleHttp\Psr7\UriResolver;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Exception\ConnectException;
+use OCP\Http\Client\LocalServerException;
 
 use OCP\IL10N;
 
@@ -129,14 +131,20 @@ class FeedFetcher implements IFeedFetcher
     public function hasLastModifiedHeader(string $url): bool
     {
         $hasLastModified = false;
-        $httpClientConfig = [
-            'base_uri' => $url,
-            'timeout' => 3,
-        ];
         try {
-            $client = $this->fetcherConfig->getHttpClient($httpClientConfig);
-            $response = $client->request('HEAD');
-            $hasLastModified = $response->hasHeader('Last-Modified');
+            $client = $this->fetcherConfig->getHttpClient();
+            $response = $client->head($url, [
+                'timeout'     => 3,
+                'http_errors' => false,
+                'headers'     => [
+                    'User-Agent' => $this->fetcherConfig->getUserAgent(),
+                ],
+            ]);
+            $statusCode = $response->getStatusCode();
+            if ($statusCode >= 200 && $statusCode < 300) {
+                // IResponse has no hasHeader() — check for empty string instead
+                $hasLastModified = $response->getHeader('Last-Modified') !== '';
+            }
         } catch (\Exception) {
             $this->logger->warning('Check for Last-Modified header failed for ' . $url);
         }
@@ -592,22 +600,23 @@ class FeedFetcher implements IFeedFetcher
             $last_modified = 0;
         }
 
-        // Base_uri can only be set on creation, will be used when link is relative.
-        $httpClientConfig = [
-            'base_uri' => $base_url,
-            'timeout' => 10,
-        ];
+        // Resolve the favicon URL against the base URL in case it is relative.
+        $absoluteFaviconUrl = (string) UriResolver::resolve(
+            new Uri($base_url),
+            new Uri($favicon_url)
+        );
+
         try {
-            $client = $this->fetcherConfig->getHttpClient($httpClientConfig);
-            $response = $client->request(
-                'GET',
-                $favicon_url,
+            $client = $this->fetcherConfig->getHttpClient();
+            $response = $client->get(
+                $absoluteFaviconUrl,
                 [
-                    'sink' => $favicon_cache,
+                    'timeout' => 10,
                     'headers' => [
                         'Accept'            => 'image/*',
                         'If-Modified-Since' => date(DateTime::RFC7231, $last_modified),
-                        'Accept-Encoding'   => $this->fetcherConfig->checkEncoding()
+                        'Accept-Encoding'   => $this->fetcherConfig->checkEncoding(),
+                        'User-Agent'        => $this->fetcherConfig->getUserAgent(),
                     ]
                 ]
             );
@@ -626,10 +635,16 @@ class FeedFetcher implements IFeedFetcher
                 return $favicon_url;
             }
 
+            $body = $response->getBody();
+            if ($body === null || $body === '') {
+                return null;
+            }
+            file_put_contents($favicon_cache, $body);
+
             if (!file_exists($favicon_cache) || filesize($favicon_cache) === 0) {
                 return null;
             }
-        } catch (RequestException | ConnectException $e) {
+        } catch (RequestException | ConnectException | LocalServerException $e) {
             $this->logger->info(
                 'An error occurred while trying to download the feed logo of {url}: {error}',
                 [
