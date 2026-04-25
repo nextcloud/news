@@ -6,12 +6,17 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+
+### Fixed
+
+# Releases
+## [28.3.0-beta.1] - 2026-04-25
+### Changed
 - Replace direct Guzzle HTTP client usage with Nextcloud's `IClientService` for SSRF protection and automatic system proxy support (#3672, #3671, #3679)
 
 ### Fixed
 - Starred view fired an endless stream of requests due to a `fetchKey` mismatch between the component and the store (#3682)
 
-# Releases
 ## [28.2.0] - 2026-04-20
 ### Fixed
 - Update items that have been reloaded from the backend (#3677)
