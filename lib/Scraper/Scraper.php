@@ -15,36 +15,31 @@ use OCA\News\Vendor\fivefilters\Readability\Readability;
 use OCA\News\Vendor\fivefilters\Readability\Configuration;
 use OCA\News\Vendor\fivefilters\Readability\ParseException;
 use OCA\News\Vendor\League\Uri\Exceptions\SyntaxError;
+use OCP\Http\Client\IClientService;
+use OCP\Http\Client\LocalServerException;
+use OCP\Security\IRemoteHostValidator;
 use Psr\Log\LoggerInterface;
 use OCA\News\Config\FetcherConfig;
 
 class Scraper implements IScraper
 {
-    private $logger;
     private $config;
     private $readability;
-    private $httpClient;
-    private $fetcherConfig;
 
     // Cached list of supported mbstring encodings
     private static $supportedEncodingList = null;
 
-    public function __construct(LoggerInterface $logger, FetcherConfig $fetcherConfig)
-    {
-        $this->logger = $logger;
-        $this->fetcherConfig = $fetcherConfig;
+    public function __construct(
+        private readonly LoggerInterface $logger,
+        private readonly FetcherConfig $fetcherConfig,
+        private readonly IClientService $clientService,
+        private readonly IRemoteHostValidator $hostValidator
+    ) {
         $this->config = new Configuration([
             'FixRelativeURLs' => true,
             'SummonCthulhu' => true, // Remove <script>
         ]);
         $this->readability = null;
-        $httpClientConfig = [
-            'allow_redirects' => [
-                'referer'         => true,
-                'track_redirects' => true,
-            ],
-        ];
-        $this->httpClient = $this->fetcherConfig->getHttpClient($httpClientConfig);
 
         if (self::$supportedEncodingList === null) {
             self::$supportedEncodingList = mb_list_encodings();
@@ -55,14 +50,55 @@ class Scraper implements IScraper
     {
         $effectiveUrl = $url;
         try {
-            $response = $this->httpClient->request('GET', $url, [
-                'on_stats' => function ($stats) use (&$effectiveUrl) {
-                    $effectiveUrl = (string) $stats->getEffectiveUri();
-                }
+            $response = $this->clientService->newClient()->get($url, [
+                'timeout'     => $this->fetcherConfig->getClientTimeout(),
+                'http_errors' => false,
+                'headers'     => [
+                    'User-Agent' => $this->fetcherConfig->getUserAgent(),
+                ],
+                // track_redirects populates X-Guzzle-Redirect-History in the response
+                // so we can determine the effective URL after all redirects are followed.
+                // We replicate Nextcloud's SSRF on_redirect check here because passing a
+                // custom allow_redirects array overrides the IClientService default that
+                // would otherwise inject an SSRF-checking on_redirect callback.
+                'allow_redirects' => [
+                    'referer'         => true,
+                    'track_redirects' => true,
+                    'max'             => $this->fetcherConfig->getMaxRedirects(),
+                    'on_redirect'     => function ($request, $response, $uri): void {
+                        $host = parse_url((string) $uri, PHP_URL_HOST);
+                        if ($host === false || $host === null) {
+                            throw new LocalServerException('Could not determine host for redirect destination');
+                        }
+                        if (!$this->hostValidator->isValid($host)) {
+                            throw new LocalServerException(
+                                'Redirect destination "' . $host . '" violates local access rules'
+                            );
+                        }
+                    },
+                ],
             ]);
 
-            $content = $response->getBody()->getContents();
-            $contentType = $response->getHeaderLine('Content-Type');
+            // Guzzle's RedirectMiddleware stores each redirect destination in
+            // X-Guzzle-Redirect-History. Normalize to an array because IResponse
+            // may return the header as either a string or an array depending on
+            // implementation. The effective URL is the LAST recorded destination.
+            $headers = array_change_key_case($response->getHeaders(), CASE_LOWER);
+            $history = $headers['x-guzzle-redirect-history'] ?? [];
+            if (is_string($history)) {
+                $history = [$history];
+            }
+            if ($history !== []) {
+                $effectiveUrl = end($history);
+            }
+
+            // Treat non-2xx responses as fetch failures so error pages aren't scraped.
+            if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 300) {
+                return array(null, null);
+            }
+
+            $content     = $response->getBody();
+            $contentType = $response->getHeader('Content-Type');
 
             $charset = null;
             // check if charset is set in http header
@@ -109,7 +145,7 @@ class Scraper implements IScraper
             return array($content, $effectiveUrl);
         } catch (\Throwable $e) {
             $this->logger->debug('Error fetching {url} request returned {error}', [
-                'url' => $url,
+                'url'   => $url,
                 'error' => $e->getMessage(),
             ]);
             return array(null, null);
@@ -138,7 +174,7 @@ class Scraper implements IScraper
                  'url' => $url,
             ]);
             $this->logger->debug('Error during parsing of {url} ran into {error}', [
-                'url' => $url,
+                'url'   => $url,
                 'error' => $e,
             ]);
         }

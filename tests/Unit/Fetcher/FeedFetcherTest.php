@@ -891,4 +891,63 @@ class FeedFetcherTest extends TestCase
 
         return $item;
     }
+
+    public function testHasLastModifiedHeaderReturnsTrueOn200WithHeader(): void
+    {
+        $iResponse = $this->createMock(\OCP\Http\Client\IResponse::class);
+        $iResponse->method('getStatusCode')->willReturn(200);
+        $iResponse->method('getHeader')->with('Last-Modified')->willReturn('Thu, 01 Jan 2026 00:00:00 GMT');
+
+        $iClient = $this->createMock(\OCP\Http\Client\IClient::class);
+        $iClient->method('head')->willReturn($iResponse);
+
+        $this->fetcherConfig->method('getHttpClient')->willReturn($iClient);
+        $this->fetcherConfig->method('getUserAgent')->willReturn('TestAgent/1.0');
+
+        $this->assertTrue($this->fetcher->hasLastModifiedHeader('https://example.com'));
+    }
+
+    public function testHasLastModifiedHeaderReturnsFalseOn200WithoutHeader(): void
+    {
+        $iResponse = $this->createMock(\OCP\Http\Client\IResponse::class);
+        $iResponse->method('getStatusCode')->willReturn(200);
+        $iResponse->method('getHeader')->with('Last-Modified')->willReturn('');
+
+        $iClient = $this->createMock(\OCP\Http\Client\IClient::class);
+        $iClient->method('head')->willReturn($iResponse);
+
+        $this->fetcherConfig->method('getHttpClient')->willReturn($iClient);
+        $this->fetcherConfig->method('getUserAgent')->willReturn('TestAgent/1.0');
+
+        $this->assertFalse($this->fetcher->hasLastModifiedHeader('https://example.com'));
+    }
+
+    public function testHasLastModifiedHeaderReturnsFalseOnErrorStatus(): void
+    {
+        $iResponse = $this->createMock(\OCP\Http\Client\IResponse::class);
+        $iResponse->method('getStatusCode')->willReturn(404);
+        // Header present on the error response — must still return false
+        $iResponse->method('getHeader')->with('Last-Modified')->willReturn('Thu, 01 Jan 2026 00:00:00 GMT');
+
+        $iClient = $this->createMock(\OCP\Http\Client\IClient::class);
+        $iClient->method('head')->willReturn($iResponse);
+
+        $this->fetcherConfig->method('getHttpClient')->willReturn($iClient);
+        $this->fetcherConfig->method('getUserAgent')->willReturn('TestAgent/1.0');
+
+        $this->assertFalse($this->fetcher->hasLastModifiedHeader('https://example.com'));
+    }
+
+    public function testHasLastModifiedHeaderReturnsFalseOnException(): void
+    {
+        $iClient = $this->createMock(\OCP\Http\Client\IClient::class);
+        $iClient->method('head')->willThrowException(new \Exception('timeout'));
+
+        $this->fetcherConfig->method('getHttpClient')->willReturn($iClient);
+        $this->fetcherConfig->method('getUserAgent')->willReturn('TestAgent/1.0');
+
+        $this->logger->expects($this->once())->method('warning');
+
+        $this->assertFalse($this->fetcher->hasLastModifiedHeader('https://example.com'));
+    }
 }

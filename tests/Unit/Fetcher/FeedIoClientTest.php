@@ -5,56 +5,53 @@ namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
 use OCA\News\Vendor\FeedIo\Adapter\Http\Response;
+use OCA\News\Vendor\FeedIo\Adapter\HttpRequestException;
 use OCA\News\Vendor\FeedIo\Adapter\NotFoundException;
 use OCA\News\Vendor\FeedIo\Adapter\ServerErrorException;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\BadResponseException;
+use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
+use OCP\Http\Client\IResponse;
 use OCA\News\Fetcher\Client\FeedIoClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 class FeedIoClientTest extends TestCase
 {
-
-    /**
-     * @var FeedIoClient
-     */
+    /** @var FeedIoClient */
     protected FeedIoClient $class;
-    /**
-     * @var ClientInterface|MockObject
-     */
-    protected ClientInterface|MockObject $guzzleClient;
+
+    /** @var IClient|MockObject */
+    protected IClient|MockObject $iClient;
 
     protected function setUp(): void
     {
-        $this->guzzleClient = $this->getMockBuilder(ClientInterface::class)
-                                   ->getMock();
+        $this->iClient = $this->getMockBuilder(IClient::class)->getMock();
 
         $service = $this->getMockBuilder(IClientService::class)->getMock();
-        $service->method('newClient')->willReturn($this->guzzleClient);
+        $service->method('newClient')->willReturn($this->iClient);
 
         $this->class = new FeedIoClient($service);
     }
 
+    private function makeIResponse(int $status, string $body = ''): IResponse
+    {
+        $iResponse = $this->getMockBuilder(IResponse::class)->getMock();
+        $iResponse->method('getStatusCode')->willReturn($status);
+        $iResponse->method('getHeaders')->willReturn([]);
+        $iResponse->method('getBody')->willReturn($body);
+        return $iResponse;
+    }
+
     public function testGetResponseSuccess(): void
     {
-        $response = $this->getMockBuilder(ResponseInterface::class)
-                         ->getMock();
-        
-        // Mock methods needed for wrapResponse
-        $response->method('getStatusCode')->willReturn(200);
-        $response->method('getHeaders')->willReturn([]);
-        $response->method('getBody')->willReturn($this->createMock(\Psr\Http\Message\StreamInterface::class));
-        $response->method('getProtocolVersion')->willReturn('1.1');
-        $response->method('getReasonPhrase')->willReturn('OK');
-
-        $this->guzzleClient->expects($this->once())
-                           ->method('request')
-                           ->with('get', 'url', ['headers' => ['If-Modified-Since' => 'Thu, 01 Jan 1970 00:00:00 GMT']])
-                           ->will($this->returnValue($response));
+        $this->iClient->expects($this->once())
+            ->method('get')
+            ->with(
+                'url',
+                $this->callback(fn($opts) => ($opts['http_errors'] ?? null) === false
+                    && isset($opts['headers']['If-Modified-Since']))
+            )
+            ->willReturn($this->makeIResponse(200));
 
         $result = $this->class->getResponse('url', new DateTime('@0'));
         $this->assertInstanceOf(Response::class, $result);
@@ -63,46 +60,54 @@ class FeedIoClientTest extends TestCase
     public function testGetResponse404(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('error');
 
-        $request = $this->getMockBuilder(RequestInterface::class)
-            ->getMock();
-        $response = $this->getMockBuilder(ResponseInterface::class)
-            ->getMock();
-
-        $response->expects($this->exactly(2))
-                 ->method('getStatusCode')
-                 ->willReturn(404);
-
-        $this->guzzleClient->expects($this->once())
-            ->method('request')
-            ->with('get', 'url', ['headers' => ['If-Modified-Since' => 'Thu, 01 Jan 1970 00:00:00 GMT']])
-            ->will($this->throwException(new BadResponseException('error', $request, $response)));
+        $this->iClient->expects($this->once())
+            ->method('get')
+            ->willReturn($this->makeIResponse(404));
 
         $this->class->getResponse('url', new DateTime('@0'));
+    }
+
+    /**
+     * @dataProvider otherClientErrorProvider
+     */
+    public function testGetResponseOtherClientErrorThrowsHttpRequestException(int $status): void
+    {
+        $this->expectException(HttpRequestException::class);
+
+        $this->iClient->expects($this->once())
+            ->method('get')
+            ->willReturn($this->makeIResponse($status));
+
+        $this->class->getResponse('url', new DateTime('@0'));
+    }
+
+    public static function otherClientErrorProvider(): array
+    {
+        return [[400], [401], [403], [429]];
     }
 
     public function testGetResponseThrows(): void
     {
         $this->expectException(ServerErrorException::class);
-        $this->expectExceptionMessage('error');
 
-        $request = $this->getMockBuilder(RequestInterface::class)
-                         ->getMock();
-        $response = $this->getMockBuilder(ResponseInterface::class)
-                         ->getMock();
+        $this->iClient->expects($this->once())
+            ->method('get')
+            ->willReturn($this->makeIResponse(500));
 
-        // Mock methods needed for wrapResponse in the exception handler
-        $response->method('getStatusCode')->willReturn(500);
-        $response->method('getHeaders')->willReturn([]);
-        $response->method('getBody')->willReturn($this->createMock(\Psr\Http\Message\StreamInterface::class));
-        $response->method('getProtocolVersion')->willReturn('1.1');
-        $response->method('getReasonPhrase')->willReturn('Internal Server Error');
+        $this->class->getResponse('url', new DateTime('@0'));
+    }
 
-        $this->guzzleClient->expects($this->once())
-                           ->method('request')
-                           ->with('get', 'url', ['headers' => ['If-Modified-Since' => 'Thu, 01 Jan 1970 00:00:00 GMT']])
-                           ->will($this->throwException(new BadResponseException('error', $request, $response)));
+    public function testGetResponseTransportErrorThrowsHttpRequestException(): void
+    {
+        $this->expectException(HttpRequestException::class);
+
+        $transportException = new class('Network unreachable') extends \RuntimeException
+            implements \Psr\Http\Client\ClientExceptionInterface {};
+
+        $this->iClient->expects($this->once())
+            ->method('get')
+            ->willThrowException($transportException);
 
         $this->class->getResponse('url', new DateTime('@0'));
     }

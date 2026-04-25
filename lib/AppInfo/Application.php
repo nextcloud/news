@@ -37,6 +37,7 @@ use OCA\News\Fetcher\FaviconDataAccess;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Notification\Notifier;
+use OCP\Http\Client\IClientService;
 use OCP\User\Events\BeforeUserDeletedEvent;
 use OCP\Config\BeforePreferenceDeletedEvent;
 use OCP\Config\BeforePreferenceSetEvent;
@@ -122,7 +123,7 @@ class Application extends App implements IBootstrap
 
         $context->registerService(FaviconDataAccess::class, function (ContainerInterface $c): FaviconDataAccess {
             $config = $c->get(FetcherConfig::class);
-            return new FaviconDataAccess($config);
+            return new FaviconDataAccess($config, $c->get(IClientService::class), $c->get(LoggerInterface::class));
         });
 
         $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {

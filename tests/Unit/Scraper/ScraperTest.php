@@ -13,40 +13,55 @@ namespace OCA\News\Tests\Unit\Scraper;
 use PHPUnit\Framework\TestCase;
 use OCA\News\Scraper\Scraper;
 use OCA\News\Config\FetcherConfig;
+use OCP\Http\Client\IClient;
+use OCP\Http\Client\IClientService;
+use OCP\Http\Client\IResponse;
+use OCP\Security\IRemoteHostValidator;
 use Psr\Log\LoggerInterface;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Client;
 
 class ScraperTest extends TestCase
 {
-    private $logger;
-    private $fetcherConfig;
-    private $httpClient;
-    private $scraper;
+    private LoggerInterface $logger;
+    private FetcherConfig $fetcherConfig;
+    private IClient $client;
+    private IClientService $clientService;
+    private IRemoteHostValidator $hostValidator;
+    private Scraper $scraper;
 
     protected function setUp(): void
     {
         $this->logger = $this->createMock(LoggerInterface::class);
 
-        $this->httpClient = $this->getMockBuilder(Client::class)->getMock();
+        $this->client = $this->createMock(IClient::class);
+
+        $this->clientService = $this->createMock(IClientService::class);
+        $this->clientService->method('newClient')->willReturn($this->client);
+
+        $this->hostValidator = $this->createMock(IRemoteHostValidator::class);
+        $this->hostValidator->method('isValid')->willReturn(true);
 
         $this->fetcherConfig = $this->createMock(FetcherConfig::class);
-        $this->fetcherConfig->method('getHttpClient')
-            ->willReturn($this->httpClient);
+        $this->fetcherConfig->method('getClientTimeout')->willReturn(30);
+        $this->fetcherConfig->method('getUserAgent')->willReturn('TestAgent/1.0');
+        $this->fetcherConfig->method('getMaxRedirects')->willReturn(10);
 
-        $this->scraper = new Scraper($this->logger, $this->fetcherConfig);
+        $this->scraper = new Scraper(
+            $this->logger,
+            $this->fetcherConfig,
+            $this->clientService,
+            $this->hostValidator
+        );
     }
 
     public function testScrapeReturnsTrueAndSetsContent(): void
     {
-        $body = $this->createMock(\Psr\Http\Message\StreamInterface::class);
-        $body->method('getContents')->willReturn('<html><body>Scrape full text content</body></html>');
+        $response = $this->createMock(IResponse::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('<html><body>Scrape full text content</body></html>');
+        $response->method('getHeader')->willReturn('');
+        $response->method('getHeaders')->willReturn([]);
 
-        $response = $this->createMock(ResponseInterface::class);
-        $response->method('getBody')->willReturn($body);
-
-        $this->httpClient->method('request')
-                         ->willReturn($response);
+        $this->client->method('get')->willReturn($response);
 
         $result = $this->scraper->scrape('https://example.com');
 
@@ -57,8 +72,8 @@ class ScraperTest extends TestCase
 
     public function testHttpClientThrowsException(): void
     {
-        $this->httpClient->method('request')
-                         ->will($this->throwException(new \Exception('Network error')));
+        $this->client->method('get')
+            ->will($this->throwException(new \Exception('Network error')));
 
         $this->logger->expects($this->once())
             ->method('error')
@@ -78,31 +93,28 @@ class ScraperTest extends TestCase
         $expectedUtf8 = "Scrape full text content: äöüß ÄÖÜ ñ µ";
         $isoString = mb_convert_encoding($expectedUtf8, 'ISO-8859-1', 'UTF-8');
 
-        $body = $this->createMock(\Psr\Http\Message\StreamInterface::class);
-        $body->method('getContents')->willReturn('<html><body>'.$isoString.'</body></html>');
+        $response = $this->createMock(IResponse::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('<html><body>' . $isoString . '</body></html>');
+        $response->method('getHeader')->willReturn('text/html; charset="ISO-8859-1"');
+        $response->method('getHeaders')->willReturn([]);
 
-        $response = $this->createMock(ResponseInterface::class);
-        $response->method('getBody')->willReturn($body);
-        $response->method('getHeaderLine')->willReturn('text/html; charset="ISO-8859-1"');
-
-        $this->httpClient->method('request')
-            ->willReturn($response);
+        $this->client->method('get')->willReturn($response);
 
         $result = $this->scraper->scrape('https://example.com');
 
         $this->assertTrue($result);
         $content = $this->scraper->getContent();
-        $this->assertEquals('<div>'.$expectedUtf8.'</div>', $content);
+        $this->assertEquals('<div>' . $expectedUtf8 . '</div>', $content);
     }
 
     public function testUnsupportedCharsetIsIgnored(): void
     {
-        $body = $this->createMock(\Psr\Http\Message\StreamInterface::class);
-        $body->method('getContents')->willReturn('<html><body>Scrape full text content</body></html>');
-
-        $response = $this->createMock(ResponseInterface::class);
-        $response->method('getBody')->willReturn($body);
-        $response->method('getHeaderLine')->willReturn('text/html; charset="invalid"');
+        $response = $this->createMock(IResponse::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('<html><body>Scrape full text content</body></html>');
+        $response->method('getHeader')->willReturn('text/html; charset="invalid"');
+        $response->method('getHeaders')->willReturn([]);
 
         $this->logger->expects($this->once())
             ->method('debug')
@@ -110,8 +122,7 @@ class ScraperTest extends TestCase
                 $this->stringContains('Ignoring unsupported charset')
             );
 
-        $this->httpClient->method('request')
-            ->willReturn($response);
+        $this->client->method('get')->willReturn($response);
 
         $result = $this->scraper->scrape('https://example.com');
 
@@ -122,14 +133,13 @@ class ScraperTest extends TestCase
 
     public function testReadabilityParseThrowsException(): void
     {
-        $body = $this->createMock(\Psr\Http\Message\StreamInterface::class);
-        $body->method('getContents')->willReturn('Scrape invalid html content');
+        $response = $this->createMock(IResponse::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('Scrape invalid html content');
+        $response->method('getHeader')->willReturn('');
+        $response->method('getHeaders')->willReturn([]);
 
-        $response = $this->createMock(ResponseInterface::class);
-        $response->method('getBody')->willReturn($body);
-
-        $this->httpClient->method('request')
-            ->willReturn($response);
+        $this->client->method('get')->willReturn($response);
 
         $this->logger->expects($this->once())
             ->method('error')
@@ -142,5 +152,47 @@ class ScraperTest extends TestCase
         $this->assertTrue($result);
         $content = $this->scraper->getContent();
         $this->assertNull($content);
+    }
+
+    public function testRedirectHistoryUsedAsEffectiveUrl(): void
+    {
+        // X-Guzzle-Redirect-History contains all redirect destinations in order;
+        // the scraper should use the LAST one as the effective URL.
+        // Readability rewrites relative URLs against the originalURL (= effective URL),
+        // so asserting that a relative link becomes absolute against the last redirect
+        // URL proves the correct URL was used.
+        $finalRedirectUrl = 'https://redirected.example.com/article';
+
+        $html = '<html><head><title>Test</title></head><body><article>'
+            . '<h1>Test Article About Redirects</h1>'
+            . '<p>This is a substantial article with enough content for Readability to process. '
+            . 'It contains a <a href="/related">relative link</a> that should be rewritten '
+            . 'against the effective URL after redirects are followed.</p>'
+            . '<p>Additional paragraph to meet Readability content thresholds. '
+            . 'Readability requires a reasonable amount of text within the candidate node '
+            . 'before it will select it as the main article content.</p>'
+            . '<p>A third paragraph further ensures the content density is high enough for '
+            . 'the scoring algorithm to detect this block as the primary article body.</p>'
+            . '</article></body></html>';
+
+        $response = $this->createMock(IResponse::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn($html);
+        $response->method('getHeader')->willReturn('');
+        $response->method('getHeaders')->willReturn([
+            // Two hops; scraper must pick the last one
+            'X-Guzzle-Redirect-History' => ['https://intermediate.example.com', $finalRedirectUrl],
+        ]);
+
+        $this->client->method('get')->willReturn($response);
+
+        $result = $this->scraper->scrape('https://example.com');
+
+        $this->assertTrue($result);
+        // The relative href "/related" must be resolved against the final redirect URL,
+        // NOT the original request URL.
+        $content = $this->scraper->getContent();
+        $this->assertStringContainsString('https://redirected.example.com/related', $content);
+        $this->assertStringNotContainsString('https://example.com/related', $content);
     }
 }
