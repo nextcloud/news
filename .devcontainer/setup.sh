@@ -6,11 +6,6 @@
 # better prompt
 echo 'export PS1="\[\e[32m\]root@devcontainer\[\e[0m\]:\[\e[34m\]\W\[\e[0m\]# "' >> ~/.bashrc
 
-# Install zizmor for GitHub Actions security analysis
-echo "Installing zizmor via pip..."
-pip3 install --quiet zizmor
-echo "zizmor installed: $(zizmor --version)"
-
 # Map NEXTCLOUD_VERSION to SERVER_BRANCH for the bootstrap script
 if [ -n "$NEXTCLOUD_VERSION" ]; then
     export SERVER_BRANCH="stable${NEXTCLOUD_VERSION}"
@@ -22,8 +17,10 @@ echo "Environment variables:"
 env | grep -E "(NEXTCLOUD|SERVER_BRANCH)" | sort
 
 (
-    cd /tmp && /usr/local/bin/bootstrap.sh apache2ctl start
+    cd /tmp && sudo /usr/local/bin/bootstrap.sh apache2ctl start
 )
 
 make composer
+
+sudo chown -R "$(id -u):$(id -g)" node_modules 2>/dev/null || true
 make npm
