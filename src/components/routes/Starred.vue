@@ -53,7 +53,7 @@ export default defineComponent({
 			 * different orderings due to possible individual feed sorting
 			 */
 			items = sortedFeedItems(items, this.oldestFirst)
-			return outOfScopeFilter(this.$store, items, 'starred')
+			return outOfScopeFilter(this.$store, items, this.fetchKey)
 		},
 
 		loading() {
@@ -69,7 +69,7 @@ export default defineComponent({
 		},
 
 		fetchKey(): string {
-			return this.starredFeedId ? 'starred-' + this.starredFeedId : 'starred'
+			return 'starred-' + this.id
 		},
 
 		starredFeed(): Feed {
