@@ -123,7 +123,7 @@ OC.L10N.register(
     "Export" : "Exportera",
     "Abonnements (OPML)" : "Prenumerationer (OPML)",
     "Importing feeds" : "Importerar flöden",
-    "Please wait" : "Vänligen vänta",
+    "Please wait" : "Vänta",
     "Keyboard shortcuts" : "Tangentbordsgenvägar",
     "Refresh" : "Uppdatera",
     "Jump to previous article" : "Hoppa till föregående artikel",
