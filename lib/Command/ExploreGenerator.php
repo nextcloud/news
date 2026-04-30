@@ -11,7 +11,7 @@
 namespace OCA\News\Command;
 
 use OCA\News\Vendor\FeedIo\FeedIo;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Fetcher\FaviconDiscovery;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,10 +34,10 @@ class ExploreGenerator extends Command
     /**
      * Set up class.
      *
-     * @param FeedIo  $reader  Feed reader
-     * @param Favicon $favicon Favicon fetcher
+     * @param FeedIo           $reader  Feed reader
+     * @param FaviconDiscovery $favicon Favicon discovery
      */
-    public function __construct(FeedIo $reader, Favicon $favicon)
+    public function __construct(FeedIo $reader, FaviconDiscovery $favicon)
     {
         $this->reader  = $reader;
         $this->favicon = $favicon;
@@ -77,7 +77,7 @@ class ExploreGenerator extends Command
             $feed = $resource->getFeed();
             $result = [
                 'title'       => $feed->getTitle(),
-                'favicon'     => $this->favicon->get($feed->getLink()),
+                'favicon'     => $this->favicon->discover($feed->getLink()),
                 'url'         => $feed->getLink(),
                 'feed'        => $url,
                 'description' => $feed->getDescription(),

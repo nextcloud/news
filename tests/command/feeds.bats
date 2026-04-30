@@ -39,7 +39,8 @@ teardown() {
   assert_output --partial "Something-${BATS_SUITE_TEST_NUMBER}"
 }
 
-# Test if Feed-Logo is used if available (NC_FEED) and if favicon is used if no logo is provided (HEISE_FEED)
+# Test if Feed-Logo is used if available (NC_FEED) and if apple-touch-icon
+# discovery is used when no feed logo is provided (HEISE_FEED).
 @test "[$TESTSUITE] Favicon" {
 
   ./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}"
@@ -49,7 +50,7 @@ teardown() {
   assert_success
     
   assert_output --partial '"faviconLink": "http:\/\/localhost:8090\/logo.png",'
-  assert_output --partial  '"faviconLink": "http:\/\/localhost:8090\/favicon.ico'
+  assert_output --partial  '"faviconLink": "http:\/\/localhost:8090\/apple-touch-icon.png'
 }
 
 @test "[$TESTSUITE] List all items" {

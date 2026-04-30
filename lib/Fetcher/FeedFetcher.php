@@ -14,7 +14,7 @@
 namespace OCA\News\Fetcher;
 
 use DateTime;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Fetcher\FaviconDiscovery;
 use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
 use OCA\News\Vendor\FeedIo\FeedInterface;
 use OCA\News\Vendor\FeedIo\FeedIo;
@@ -42,7 +42,7 @@ class FeedFetcher implements IFeedFetcher
 {
 
     /**
-     * @var Favicon
+     * @var FaviconDiscovery
      */
     private $faviconFactory;
 
@@ -88,7 +88,7 @@ class FeedFetcher implements IFeedFetcher
 
     public function __construct(
         FeedIo $fetcher,
-        Favicon $favicon,
+        FaviconDiscovery $favicon,
         Scraper $scraper,
         IL10N $l10n,
         Time $time,
@@ -482,8 +482,6 @@ class FeedFetcher implements IFeedFetcher
      */
     protected function getFavicon(FeedInterface $feed, string $url): ?string
     {
-        ini_set('user_agent', $this->fetcherConfig->getUserAgent());
-
         $base_url = new Uri($url);
         $base_url = (string) $base_url->withPath('/');
 
@@ -517,7 +515,7 @@ class FeedFetcher implements IFeedFetcher
         }
 
         // Step 3: Try to get favicon from the feed URL
-        $feed_favicon = $this->faviconFactory->get($base_url);
+        $feed_favicon = $this->faviconFactory->discover($base_url);
         if (is_string($feed_favicon) && $feed_favicon !== '') {
             $this->logger->debug(
                 "Found favicon from feed URL: {favicon} for feed: {feed}",
@@ -540,7 +538,7 @@ class FeedFetcher implements IFeedFetcher
                 $link_base_url = (string) $link_uri->withPath('/');
                 
                 if ($link_base_url !== $base_url) { // Only try if it's different from feed URL
-                    $link_favicon = $this->faviconFactory->get($link_base_url);
+                    $link_favicon = $this->faviconFactory->discover($link_base_url);
                     if (is_string($link_favicon) && $link_favicon !== '') {
                         $this->logger->debug(
                             "Found favicon from feed link: {favicon} for feed: {feed}",
