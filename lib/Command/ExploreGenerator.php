@@ -75,10 +75,11 @@ class ExploreGenerator extends Command
         try {
             $resource = $this->reader->read($url);
             $feed = $resource->getFeed();
+            $feedLink = $feed->getLink();
             $result = [
                 'title'       => $feed->getTitle(),
-                'favicon'     => $this->favicon->discover($feed->getLink()),
-                'url'         => $feed->getLink(),
+                'favicon'     => $this->discoverFavicon($feedLink),
+                'url'         => $feedLink,
                 'feed'        => $url,
                 'description' => $feed->getDescription(),
                 'votes'       => $votes,
@@ -91,5 +92,34 @@ class ExploreGenerator extends Command
             $output->writeln($ex->getMessage());
             return 1;
         }
+    }
+
+    private function discoverFavicon(?string $feedLink): ?string
+    {
+        $siteUrl = $this->normaliseSiteUrl($feedLink);
+        if ($siteUrl === null) {
+            return null;
+        }
+
+        return $this->favicon->discover($siteUrl);
+    }
+
+    private function normaliseSiteUrl(?string $url): ?string
+    {
+        if ($url === null || trim($url) === '') {
+            return null;
+        }
+
+        $parts = parse_url($url);
+        if ($parts === false || !isset($parts['scheme'], $parts['host'])) {
+            return null;
+        }
+
+        $siteUrl = $parts['scheme'] . '://' . $parts['host'];
+        if (isset($parts['port'])) {
+            $siteUrl .= ':' . $parts['port'];
+        }
+
+        return $siteUrl;
     }
 }

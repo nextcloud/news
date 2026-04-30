@@ -37,6 +37,7 @@ use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Notification\Notifier;
 use OCP\Http\Client\IClientService;
+use OCP\Security\IRemoteHostValidator;
 use OCP\User\Events\BeforeUserDeletedEvent;
 use OCP\Config\BeforePreferenceDeletedEvent;
 use OCP\Config\BeforePreferenceSetEvent;
@@ -126,7 +127,8 @@ class Application extends App implements IBootstrap
                 $config,
                 $c->get(IClientService::class),
                 $c->get(AppData::class),
-                $c->get(LoggerInterface::class)
+                $c->get(LoggerInterface::class),
+                $c->get(IRemoteHostValidator::class)
             );
         });
     }

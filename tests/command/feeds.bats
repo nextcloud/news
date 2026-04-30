@@ -50,7 +50,7 @@ teardown() {
   assert_success
     
   assert_output --partial '"faviconLink": "http:\/\/localhost:8090\/logo.png",'
-  assert_output --partial  '"faviconLink": "http:\/\/localhost:8090\/apple-touch-icon.png'
+  assert_output --partial '"faviconLink": "http:\/\/localhost:8090\/apple-touch-icon.png"'
 }
 
 @test "[$TESTSUITE] List all items" {

@@ -143,7 +143,43 @@ teardown() {
   done
 }
 
-@test "[$TESTSUITE] Create Feed and check for nextUpdateTime {
+@test "[$TESTSUITE] Favicon link is set from RSS logo element" {
+  # NC_FEED has an <image><url>…</url></image> logo entry; it should be used as faviconLink.
+  output=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].faviconLink')
+
+  assert_output '"http://localhost:8090/logo.png"'
+}
+
+@test "[$TESTSUITE] Favicon link is discovered from HTML apple-touch-icon" {
+  # HEISE_FEED has no feed-level logo; the alternate link points to the test server root
+  # whose index.html declares <link rel="apple-touch-icon" href="/apple-touch-icon.png">.
+  output=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$HEISE_FEED | jq '.feeds | .[0].faviconLink')
+
+  assert_output '"http://localhost:8090/apple-touch-icon.png"'
+}
+
+@test "[$TESTSUITE] Favicon API endpoint returns image for feed with logo" {
+  # Create the feed so the favicon is fetched and cached.
+  http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$NC_FEED > /dev/null
+
+  # The favicon API uses md5(feed_url) as the path segment.
+  FEED_HASH=$(echo -n "$NC_FEED" | md5sum | cut -d' ' -f1)
+
+  run http --ignore-stdin --print=h -a ${user}:${APP_PASSWORD} \
+    GET "${NC_HOST}/index.php/apps/news/api/v1-3/favicon/${FEED_HASH}"
+
+  assert_output --partial "Content-Type: image/png"
+}
+
+@test "[$TESTSUITE] Favicon API endpoint returns SVG fallback for unknown hash" {
+  # Requesting a hash that has never been cached should return the bundled rss.svg.
+  run http --ignore-stdin --print=h -a ${user}:${APP_PASSWORD} \
+    GET "${NC_HOST}/index.php/apps/news/api/v1-3/favicon/00000000000000000000000000000000"
+
+  assert_output --partial "Content-Type: image/svg+xml"
+}
+
+@test "[$TESTSUITE] Create Feed and check for nextUpdateTime" {
   # run is not working here.
   output=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv1}/feeds url=$NC_FEED | jq '.feeds | .[0].nextUpdateTime')
 

@@ -78,9 +78,9 @@ class ExploreGeneratorTest extends TestCase
         $feed->expects($this->once())
             ->method('getTitle')
             ->willReturn('Title');
-        $feed->expects($this->exactly(2))
+        $feed->expects($this->once())
             ->method('getLink')
-            ->willReturn('Link');
+            ->willReturn('https://feed.io/articles?id=1');
         $feed->expects($this->once())
             ->method('getDescription')
             ->willReturn('Description');
@@ -91,6 +91,7 @@ class ExploreGeneratorTest extends TestCase
 
         $this->favicon->expects($this->once())
             ->method('discover')
+            ->with('https://feed.io')
             ->willReturn('https://feed.io/favicon.ico');
 
         $this->feedio->expects($this->once())
@@ -171,9 +172,9 @@ class ExploreGeneratorTest extends TestCase
         $feed->expects($this->once())
             ->method('getTitle')
             ->willReturn('Title');
-        $feed->expects($this->exactly(2))
+        $feed->expects($this->once())
             ->method('getLink')
-            ->willReturn('Link');
+            ->willReturn('https://feed.io/articles?id=2');
         $feed->expects($this->once())
             ->method('getDescription')
             ->willReturn('Description');
@@ -184,6 +185,7 @@ class ExploreGeneratorTest extends TestCase
 
         $this->favicon->expects($this->once())
             ->method('discover')
+            ->with('https://feed.io')
             ->willReturn('https://feed.io/favicon.ico');
 
         $this->feedio->expects($this->once())
