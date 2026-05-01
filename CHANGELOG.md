@@ -10,6 +10,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [28.3.0] - 2026-05-01
+### Security
+- **Update recommended**: Replaces direct Guzzle HTTP client with Nextcloud's `IClientService`, adding SSRF protection. Security advisory pending. 
+
 ## [28.3.0-beta.1] - 2026-04-25
 ### Changed
 - Replace direct Guzzle HTTP client usage with Nextcloud's `IClientService` for SSRF protection and automatic system proxy support (#3672, #3671, #3679)
