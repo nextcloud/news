@@ -35,7 +35,7 @@ jobs:
           coverage: none
 
       - name: Set up server non MySQL
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@7665802e389e40d21b49877c3728bacca324d6e0 #latest
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@7665802e389e40d21b49877c3728bacca324d6e0 # main
         with:
           cron: false
           version: ${{ matrix.nextcloud }}
@@ -45,7 +45,7 @@ jobs:
         run: make
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@7665802e389e40d21b49877c3728bacca324d6e0 #latest
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@7665802e389e40d21b49877c3728bacca324d6e0 # main
         with:
           app: ${{ env.APP_NAME }}
           check-code: false
