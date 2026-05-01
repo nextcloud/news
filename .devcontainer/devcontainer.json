@@ -27,7 +27,7 @@
 	},
 	"workspaceFolder": "/var/www/html/apps-extra/news",
 	"overrideCommand": true,
-	"postAttachCommand": "bash ./.devcontainer/setup.sh",
+	"postCreateCommand": "bash ./.devcontainer/setup.sh",
 	"portsAttributes": {
 		"80": {
 			"label": "Webserver"
