@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up server non MySQL
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@7665802e389e40d21b49877c3728bacca324d6e0 # main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@b13a04eb6a4e48972d31fa07559619843fcc2102 # main
         with:
           cron: true
           version: ${{ matrix.nextcloud }}
@@ -49,7 +49,7 @@ jobs:
         run: make composer
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@7665802e389e40d21b49877c3728bacca324d6e0 # main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@b13a04eb6a4e48972d31fa07559619843fcc2102 # main
         with:
           app: 'news'
           check-code: false
