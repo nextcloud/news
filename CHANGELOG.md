@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Replace `arthurhoaro/favicon` library with in-source `FaviconDiscovery` service for improved priority-order favicon detection (apple-touch-icon, sized icons, /favicon.ico, og:image), persistent AppData caching, and negative-cache sentinels (#3695)
 
 ### Fixed
 

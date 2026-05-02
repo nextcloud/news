@@ -14,7 +14,7 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Fetcher\FaviconDiscovery;
 use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
 use OCA\News\Vendor\FeedIo\Feed\Item\Author;
 use OCA\News\Vendor\FeedIo\Feed\Item\MediaInterface;
@@ -76,7 +76,7 @@ class FeedFetcherTest extends TestCase
     private $response;
 
     /**
-     * @var MockObject|Favicon
+     * @var MockObject|FaviconDiscovery
      */
     private $favicon;
 
@@ -173,7 +173,7 @@ class FeedFetcherTest extends TestCase
         $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->favicon = $this->getMockBuilder(Favicon::class)
+        $this->favicon = $this->getMockBuilder(FaviconDiscovery::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->result = $this->getMockBuilder(Result::class)
@@ -416,6 +416,73 @@ class FeedFetcherTest extends TestCase
         $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
+    }
+
+    public function testGetFaviconForcesRediscoveryAfterDiscoveredDownloadFailure(): void
+    {
+        $timeFactory = $this->getMockBuilder(Time::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $timeFactory->method('getTime')->willReturn($this->time);
+
+        $fetcher = $this->getMockBuilder(FeedFetcher::class)
+            ->setConstructorArgs([
+                $this->reader,
+                $this->favicon,
+                $this->scraper,
+                $this->l10n,
+                $timeFactory,
+                $this->logger,
+                $this->fetcherConfig,
+                $this->cache,
+                $this->appData,
+            ])
+            ->onlyMethods(['downloadFavicon'])
+            ->getMock();
+
+        $feed = $this->getMockBuilder(FeedInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $feed->method('getLogo')->willReturn(null);
+        $feed->method('getLink')->willReturn(null);
+
+        $discoverCalls = [];
+        $this->favicon->expects($this->exactly(2))
+            ->method('discover')
+            ->willReturnCallback(function (string $baseUrl, bool $forceRefresh = false) use (&$discoverCalls): ?string {
+                $discoverCalls[] = ['baseUrl' => $baseUrl, 'forceRefresh' => $forceRefresh];
+
+                return $forceRefresh
+                    ? 'http://tests/refreshed-favicon.ico'
+                    : 'http://tests/stale-favicon.ico';
+            });
+
+        $downloadCalls = [];
+        $fetcher->expects($this->exactly(2))
+            ->method('downloadFavicon')
+            ->willReturnCallback(function (string $faviconUrl, string $baseUrl, string $feedUrl, bool $useMtime) use (&$downloadCalls): ?string {
+                $downloadCalls[] = [
+                    'faviconUrl' => $faviconUrl,
+                    'baseUrl' => $baseUrl,
+                    'feedUrl' => $feedUrl,
+                    'useMtime' => $useMtime,
+                ];
+
+                // First candidate fails (stale cache), refreshed candidate succeeds.
+                return count($downloadCalls) === 1 ? null : $faviconUrl;
+            });
+
+        $method = new \ReflectionMethod(FeedFetcher::class, 'getFavicon');
+        $method->setAccessible(true);
+        $result = $method->invoke($fetcher, $feed, 'http://tests/feed.xml');
+
+        $this->assertSame('http://tests/refreshed-favicon.ico', $result);
+        $this->assertSame([
+            ['baseUrl' => 'http://tests/', 'forceRefresh' => false],
+            ['baseUrl' => 'http://tests/', 'forceRefresh' => true],
+        ], $discoverCalls);
+        $this->assertSame('http://tests/stale-favicon.ico', $downloadCalls[0]['faviconUrl']);
+        $this->assertSame('http://tests/refreshed-favicon.ico', $downloadCalls[1]['faviconUrl']);
     }
 
     /**
@@ -833,7 +900,7 @@ class FeedFetcherTest extends TestCase
 
         $feed->setFaviconLink('http://anon.google.com');
         $this->favicon->expects($this->exactly(1))
-            ->method('get')
+            ->method('discover')
             ->with($this->equalTo($url))
             ->will($this->returnValue($this->web_favicon));
 

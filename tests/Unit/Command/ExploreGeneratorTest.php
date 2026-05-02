@@ -22,7 +22,7 @@ namespace OCA\News\Tests\Unit\Command;
 
 use OCA\News\Vendor\FeedIo\Feed;
 use OCA\News\Vendor\FeedIo\FeedIo;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Fetcher\FaviconDiscovery;
 use OCA\News\Vendor\FeedIo\Reader\Result;
 use OCA\News\Command\ExploreGenerator;
 
@@ -54,7 +54,7 @@ class ExploreGeneratorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $favicon = $this->favicon = $this->getMockBuilder(Favicon::class)
+        $favicon = $this->favicon = $this->getMockBuilder(FaviconDiscovery::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->consoleInput = $this->getMockBuilder(InputInterface::class)->getMock();
@@ -78,9 +78,9 @@ class ExploreGeneratorTest extends TestCase
         $feed->expects($this->once())
             ->method('getTitle')
             ->willReturn('Title');
-        $feed->expects($this->exactly(2))
+        $feed->expects($this->once())
             ->method('getLink')
-            ->willReturn('Link');
+            ->willReturn('https://feed.io/articles?id=1');
         $feed->expects($this->once())
             ->method('getDescription')
             ->willReturn('Description');
@@ -90,7 +90,8 @@ class ExploreGeneratorTest extends TestCase
             ->willReturn($feed);
 
         $this->favicon->expects($this->once())
-            ->method('get')
+            ->method('discover')
+            ->with('https://feed.io')
             ->willReturn('https://feed.io/favicon.ico');
 
         $this->feedio->expects($this->once())
@@ -123,7 +124,7 @@ class ExploreGeneratorTest extends TestCase
     {
 
         $this->favicon->expects($this->never())
-            ->method('get');
+            ->method('discover');
 
         $this->feedio->expects($this->once())
             ->method('read')
@@ -171,9 +172,9 @@ class ExploreGeneratorTest extends TestCase
         $feed->expects($this->once())
             ->method('getTitle')
             ->willReturn('Title');
-        $feed->expects($this->exactly(2))
+        $feed->expects($this->once())
             ->method('getLink')
-            ->willReturn('Link');
+            ->willReturn('https://feed.io/articles?id=2');
         $feed->expects($this->once())
             ->method('getDescription')
             ->willReturn('Description');
@@ -183,7 +184,8 @@ class ExploreGeneratorTest extends TestCase
             ->willReturn($feed);
 
         $this->favicon->expects($this->once())
-            ->method('get')
+            ->method('discover')
+            ->with('https://feed.io')
             ->willReturn('https://feed.io/favicon.ico');
 
         $this->feedio->expects($this->once())
