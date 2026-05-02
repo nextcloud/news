@@ -1,12 +1,7 @@
 <?php
 /**
- * Nextcloud - News
- *
- * This file is licensed under the Affero General Public License version 3 or
- * later. See the COPYING file.
- *
- * @author    Nextcloud GmbH and Nextcloud contributors
- * @copyright 2025 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2026 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 namespace OCA\News\Fetcher;
@@ -56,9 +51,10 @@ class FaviconDiscovery
      * domains with no favicon are not re-probed on every feed update.
      *
      * @param string $baseUrl The base URL of the site (e.g. "https://example.com/")
+     * @param bool $forceRefresh If true, bypasses cache read and performs a fresh probe.
      * @return string|null The resolved candidate URL, or null if nothing was found.
      */
-    public function discover(string $baseUrl): ?string
+    public function discover(string $baseUrl, bool $forceRefresh = false): ?string
     {
         $baseUrl = $this->normaliseBaseUrl($baseUrl);
         if ($baseUrl === null) {
@@ -67,12 +63,14 @@ class FaviconDiscovery
 
         $cacheKey = 'disco_' . md5($baseUrl);
 
-        $cached = $this->appData->getFileContent(Constants::LOGO_INFO_DIR, $cacheKey);
-        if ($cached !== null) {
-            // Honour 7-day TTL; re-discover after expiry.
-            $mtime = $this->appData->getMTime(Constants::LOGO_INFO_DIR, $cacheKey);
-            if ($mtime !== null && (time() - $mtime) < self::CACHE_TTL) {
-                return $cached === '' ? null : $cached;
+        if (!$forceRefresh) {
+            $cached = $this->appData->getFileContent(Constants::LOGO_INFO_DIR, $cacheKey);
+            if ($cached !== null) {
+                // Honour 7-day TTL; re-discover after expiry.
+                $mtime = $this->appData->getMTime(Constants::LOGO_INFO_DIR, $cacheKey);
+                if ($mtime !== null && (time() - $mtime) < self::CACHE_TTL) {
+                    return $cached === '' ? null : $cached;
+                }
             }
         }
 
@@ -376,6 +374,9 @@ class FaviconDiscovery
 
     /**
      * Perform a HEAD request and return true if the final response is 2xx.
+     *
+     * Some origins reject HEAD for static assets while serving GET normally.
+     * In those cases we do a minimal GET probe before rejecting the candidate.
      */
     private function headExists(mixed $client, string $url, ?string &$effectiveUrl = null): bool
     {
@@ -385,6 +386,40 @@ class FaviconDiscovery
             $response = $client->head($url, $this->getHttpOptions());
             $effectiveUrl = $this->extractEffectiveUrl($response, $url);
             $status = $response->getStatusCode();
+
+            if ($status >= 200 && $status < 300) {
+                return true;
+            }
+
+            // 403/405 are common for HEAD on CDN-backed static files.
+            if ($status === 403 || $status === 405) {
+                return $this->getExists($client, $url, $effectiveUrl);
+            }
+
+            return false;
+        } catch (\Throwable) {
+            $effectiveUrl = $url;
+            return false;
+        }
+    }
+
+    /**
+     * Perform a lightweight GET probe and return true if the final response is 2xx.
+     */
+    private function getExists(mixed $client, string $url, ?string &$effectiveUrl = null): bool
+    {
+        $effectiveUrl = $url;
+
+        try {
+            $options = $this->getHttpOptions();
+            // Request only the first byte to keep probe traffic minimal.
+            $options['headers']['Range'] = 'bytes=0-0';
+            $options['headers']['Accept'] = 'image/*';
+
+            $response = $client->get($url, $options);
+            $effectiveUrl = $this->extractEffectiveUrl($response, $url);
+            $status = $response->getStatusCode();
+
             return $status >= 200 && $status < 300;
         } catch (\Throwable) {
             $effectiveUrl = $url;

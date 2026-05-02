@@ -528,6 +528,16 @@ class FeedFetcher implements IFeedFetcher
             if ($logo_result !== null) {
                 return $logo_result;
             }
+
+            // Cached discovery can be stale after site rebranding.
+            // Force one fresh probe and retry once with the refreshed URL.
+            $refreshedFeedFavicon = $this->faviconFactory->discover($base_url, true);
+            if (is_string($refreshedFeedFavicon) && $refreshedFeedFavicon !== '' && $refreshedFeedFavicon !== $feed_favicon) {
+                $logo_result = $this->downloadFavicon($refreshedFeedFavicon, $base_url, $url, false);
+                if ($logo_result !== null) {
+                    return $logo_result;
+                }
+            }
         }
 
         // Step 4: Try to get favicon from the feed's link element (website URL)
@@ -550,6 +560,16 @@ class FeedFetcher implements IFeedFetcher
                         $logo_result = $this->downloadFavicon($link_favicon, $base_url, $url, false);
                         if ($logo_result !== null) {
                                 return $logo_result;
+                        }
+
+                        // If the discovered URL failed to download, force a
+                        // one-off re-discovery to avoid stale cache results.
+                        $refreshedLinkFavicon = $this->faviconFactory->discover($link_base_url, true);
+                        if (is_string($refreshedLinkFavicon) && $refreshedLinkFavicon !== '' && $refreshedLinkFavicon !== $link_favicon) {
+                            $logo_result = $this->downloadFavicon($refreshedLinkFavicon, $base_url, $url, false);
+                            if ($logo_result !== null) {
+                                return $logo_result;
+                            }
                         }
                     }
                 }

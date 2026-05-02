@@ -715,6 +715,47 @@ class FaviconDiscoveryTest extends TestCase
         $this->assertTrue(is_callable($capturedOpts['allow_redirects']['on_redirect']));
     }
 
+    public function testHead403FallsBackToGetProbeAndSucceeds(): void
+    {
+        $this->appData->method('getFileContent')->willReturn(null);
+        $this->appData->method('putFileContent');
+
+        $pageResponse = $this->createMock(IResponse::class);
+        $pageResponse->method('getStatusCode')->willReturn(200);
+        $pageResponse->method('getBody')->willReturn('<html><head></head></html>');
+        $pageResponse->method('getHeaders')->willReturn([]);
+
+        $getProbeResponse = $this->createMock(IResponse::class);
+        $getProbeResponse->method('getStatusCode')->willReturn(200);
+        $getProbeResponse->method('getHeaders')->willReturn([]);
+
+        $this->client->method('get')->willReturnCallback(
+            function (string $url, array $opts = []) use ($pageResponse, $getProbeResponse): IResponse {
+                if ($url === 'https://example.com/') {
+                    return $pageResponse;
+                }
+
+                if ($url === 'https://example.com/favicon.ico') {
+                    $this->assertArrayHasKey('Range', $opts['headers']);
+                    $this->assertSame('bytes=0-0', $opts['headers']['Range']);
+                    $this->assertSame('image/*', $opts['headers']['Accept']);
+                    return $getProbeResponse;
+                }
+
+                throw new \RuntimeException('Unexpected GET URL ' . $url);
+            }
+        );
+
+        $headResponse403 = $this->createMock(IResponse::class);
+        $headResponse403->method('getStatusCode')->willReturn(403);
+        $headResponse403->method('getHeaders')->willReturn([]);
+        $this->headCallback = fn(string $url, array $opts): IResponse => $headResponse403;
+
+        $result = $this->discovery->discover('https://example.com');
+
+        $this->assertSame('https://example.com/favicon.ico', $result);
+    }
+
     // -------------------------------------------------------------------------
     // HTTP error handling
     // -------------------------------------------------------------------------
@@ -749,6 +790,43 @@ class FaviconDiscoveryTest extends TestCase
         $result = $this->discovery->discover('https://example.com');
 
         $this->assertNull($result);
+    }
+
+    public function testForceRefreshBypassesCachedDiscoveryResult(): void
+    {
+        $cacheKey = 'disco_' . md5('https://example.com');
+
+        $this->appData
+            ->expects($this->exactly(1))
+            ->method('getFileContent')
+            ->with(Constants::LOGO_INFO_DIR, $cacheKey)
+            ->willReturn('https://example.com/stale.ico');
+
+        $this->appData
+            ->expects($this->exactly(1))
+            ->method('getMTime')
+            ->with(Constants::LOGO_INFO_DIR, $cacheKey)
+            ->willReturn(time());
+
+        $this->appData
+            ->expects($this->once())
+            ->method('putFileContent')
+            ->with(Constants::LOGO_INFO_DIR, $cacheKey, 'https://example.com/new.ico');
+
+        $this->mockPageFetch('<html><head><link rel="icon" href="/new.ico"></head></html>');
+
+        $this->headCallback = function (string $url, array $opts): IResponse {
+            $response = $this->createMock(IResponse::class);
+            $response->method('getStatusCode')->willReturn(200);
+            $response->method('getHeaders')->willReturn([]);
+            return $response;
+        };
+
+        $stale = $this->discovery->discover('https://example.com');
+        $fresh = $this->discovery->discover('https://example.com', true);
+
+        $this->assertSame('https://example.com/stale.ico', $stale);
+        $this->assertSame('https://example.com/new.ico', $fresh);
     }
 
     public function testSsrfRedirectIsRejectedDuringHeadProbe(): void
