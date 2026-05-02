@@ -420,6 +420,26 @@ class FeedFetcherTest extends TestCase
 
     public function testGetFaviconForcesRediscoveryAfterDiscoveredDownloadFailure(): void
     {
+        $timeFactory = $this->getMockBuilder(Time::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $timeFactory->method('getTime')->willReturn($this->time);
+
+        $fetcher = $this->getMockBuilder(FeedFetcher::class)
+            ->setConstructorArgs([
+                $this->reader,
+                $this->favicon,
+                $this->scraper,
+                $this->l10n,
+                $timeFactory,
+                $this->logger,
+                $this->fetcherConfig,
+                $this->cache,
+                $this->appData,
+            ])
+            ->onlyMethods(['downloadFavicon'])
+            ->getMock();
+
         $feed = $this->getMockBuilder(FeedInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -438,7 +458,7 @@ class FeedFetcherTest extends TestCase
             });
 
         $downloadCalls = [];
-        $this->fetcher->expects($this->exactly(2))
+        $fetcher->expects($this->exactly(2))
             ->method('downloadFavicon')
             ->willReturnCallback(function (string $faviconUrl, string $baseUrl, string $feedUrl, bool $useMtime) use (&$downloadCalls): ?string {
                 $downloadCalls[] = [
@@ -454,7 +474,7 @@ class FeedFetcherTest extends TestCase
 
         $method = new \ReflectionMethod(FeedFetcher::class, 'getFavicon');
         $method->setAccessible(true);
-        $result = $method->invoke($this->fetcher, $feed, 'http://tests/feed.xml');
+        $result = $method->invoke($fetcher, $feed, 'http://tests/feed.xml');
 
         $this->assertSame('http://tests/refreshed-favicon.ico', $result);
         $this->assertSame([
