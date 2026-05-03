@@ -15,7 +15,8 @@ namespace OCA\News\AppInfo;
 
 use OCA\News\Vendor\FeedIo\Explorer;
 use OCA\News\Vendor\FeedIo\FeedIo;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery;
+use OCA\News\Vendor\GuzzleHttp\Psr7\HttpFactory;
 
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Hooks\UserDeleteHook;
@@ -27,17 +28,18 @@ use OCA\News\Listeners\UserSettingsListener;
 use OCA\News\SetupCheck\CronSetupCheck;
 use OCA\News\Utility\Cache;
 use OCA\News\Utility\HtmlSanitizer;
+use OCA\News\Http\ScopedClient;
+use OCA\News\Vendor\Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use OCA\News\Vendor\Symfony\Component\Cache\Psr16Cache;
 
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\App;
 
-use OCA\News\Fetcher\FaviconDataAccess;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Fetcher\Fetcher;
 use OCA\News\Notification\Notifier;
-use OCP\Http\Client\IClientService;
 use OCP\User\Events\BeforeUserDeletedEvent;
 use OCP\Config\BeforePreferenceDeletedEvent;
 use OCP\Config\BeforePreferenceSetEvent;
@@ -121,16 +123,22 @@ class Application extends App implements IBootstrap
             return new Explorer($config->getClient(), $c->get(LoggerInterface::class));
         });
 
-        $context->registerService(FaviconDataAccess::class, function (ContainerInterface $c): FaviconDataAccess {
+        $context->registerService(FaviconDiscovery::class, function (ContainerInterface $c): FaviconDiscovery {
             $config = $c->get(FetcherConfig::class);
-            return new FaviconDataAccess($config, $c->get(IClientService::class), $c->get(LoggerInterface::class));
-        });
-
-        $context->registerService(Favicon::class, function (ContainerInterface $c): Favicon {
-            $favicon = new Favicon();
-            $favicon->cache(['dir' => $c->get(Cache::class)->getCache("feedFavicon")]);
-            $favicon->setDataAccess($c->get(FaviconDataAccess::class));
-            return $favicon;
+            return new FaviconDiscovery(
+                httpClient: new ScopedClient(
+                    $config->getHttpClient(),
+                    [
+                        'timeout' => $config->getClientTimeout(),
+                        'connect_timeout' => FetcherConfig::CONNECT_TIMEOUT,
+                        'allow_redirects' => ['max' => $config->getMaxRedirects(), 'referer' => true],
+                    ]
+                ),
+                requestFactory: new HttpFactory(),
+                cache: new Psr16Cache(new FilesystemAdapter(directory: $c->get(Cache::class)->getCache('feedFavicon'))),
+                logger: $c->get(LoggerInterface::class),
+                userAgent: $config->getUserAgent(),
+            );
         });
     }
 

@@ -14,7 +14,7 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery;
 use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
 use OCA\News\Vendor\FeedIo\Feed\Item\Author;
 use OCA\News\Vendor\FeedIo\Feed\Item\MediaInterface;
@@ -76,7 +76,7 @@ class FeedFetcherTest extends TestCase
     private $response;
 
     /**
-     * @var MockObject|Favicon
+    * @var MockObject|FaviconDiscovery
      */
     private $favicon;
 
@@ -173,7 +173,7 @@ class FeedFetcherTest extends TestCase
         $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->favicon = $this->getMockBuilder(Favicon::class)
+        $this->favicon = $this->getMockBuilder(FaviconDiscovery::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->result = $this->getMockBuilder(Result::class)
@@ -833,7 +833,7 @@ class FeedFetcherTest extends TestCase
 
         $feed->setFaviconLink('http://anon.google.com');
         $this->favicon->expects($this->exactly(1))
-            ->method('get')
+            ->method('discover')
             ->with($this->equalTo($url))
             ->will($this->returnValue($this->web_favicon));
 
