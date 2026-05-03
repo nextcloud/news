@@ -43,7 +43,7 @@
   "require": {
     "php": "^8.2",
     "php-feed-io/feed-io": "^v6.2.0",
-    "arthurhoaro/favicon": "^2.0.1",
+    "php-feed-io/favicon-io": "dev-main",
     "fivefilters/readability.php": "^3.3",
     "ext-json": "*",
     "ext-simplexml": "*",
@@ -52,6 +52,7 @@
     "ext-curl": "*",
     "guzzlehttp/psr7": "^2.8",
     "php-http/guzzle7-adapter": "^1.0",
+    "symfony/cache": "^7.3",
     "symfony/html-sanitizer": "^7.3",
     "bamarni/composer-bin-plugin": "^1.9"
   },
