@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Changed
+- Replace `arthurhoaro/favicon` with `php-feed-io/favicon-io` for favicon discovery, using PSR-based HTTP interfaces and Symfony-backed discovery caching (#3710)
 
 ### Fixed
 

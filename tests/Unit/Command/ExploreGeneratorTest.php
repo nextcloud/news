@@ -22,7 +22,7 @@ namespace OCA\News\Tests\Unit\Command;
 
 use OCA\News\Vendor\FeedIo\Feed;
 use OCA\News\Vendor\FeedIo\FeedIo;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery;
 use OCA\News\Vendor\FeedIo\Reader\Result;
 use OCA\News\Command\ExploreGenerator;
 
@@ -54,13 +54,13 @@ class ExploreGeneratorTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $favicon = $this->favicon = $this->getMockBuilder(Favicon::class)
+        $favicon = $this->favicon = $this->getMockBuilder(FaviconDiscovery::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->consoleInput = $this->getMockBuilder(InputInterface::class)->getMock();
         $this->consoleOutput = $this->getMockBuilder(OutputInterface::class)->getMock();
 
-        /** @var \FeedIo\FeedIo $feedio, \Favicon\Favicon $favicon */
+        /** @var \OCA\News\Vendor\FeedIo\FeedIo $feedio, \OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery $favicon */
         $this->command = new ExploreGenerator($feedio, $favicon);
     }
 
@@ -90,7 +90,7 @@ class ExploreGeneratorTest extends TestCase
             ->willReturn($feed);
 
         $this->favicon->expects($this->once())
-            ->method('get')
+            ->method('discover')
             ->willReturn('https://feed.io/favicon.ico');
 
         $this->feedio->expects($this->once())
@@ -123,7 +123,7 @@ class ExploreGeneratorTest extends TestCase
     {
 
         $this->favicon->expects($this->never())
-            ->method('get');
+            ->method('discover');
 
         $this->feedio->expects($this->once())
             ->method('read')
@@ -183,7 +183,7 @@ class ExploreGeneratorTest extends TestCase
             ->willReturn($feed);
 
         $this->favicon->expects($this->once())
-            ->method('get')
+            ->method('discover')
             ->willReturn('https://feed.io/favicon.ico');
 
         $this->feedio->expects($this->once())
@@ -207,5 +207,55 @@ class ExploreGeneratorTest extends TestCase
 
         $result = $this->command->run($this->consoleInput, $this->consoleOutput);
         $this->assertSame(0, $result);
+    }
+
+    public function testFaviconFailureDoesNotFailCommand(): void
+    {
+        $result = $this->getMockBuilder(Result::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $feed = $this->getMockBuilder(Feed::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $feed->expects($this->once())
+            ->method('getTitle')
+            ->willReturn('Title');
+        $feed->expects($this->exactly(2))
+            ->method('getLink')
+            ->willReturn('Link');
+        $feed->expects($this->once())
+            ->method('getDescription')
+            ->willReturn('Description');
+
+        $result->expects($this->once())
+            ->method('getFeed')
+            ->willReturn($feed);
+
+        $this->favicon->expects($this->once())
+            ->method('discover')
+            ->with('Link')
+            ->willThrowException(new \RuntimeException('temporary favicon error'));
+
+        $this->feedio->expects($this->once())
+            ->method('read')
+            ->with('https://feed.io/rss.xml')
+            ->willReturn($result);
+
+        $this->consoleInput->expects($this->once())
+            ->method('getArgument')
+            ->with('feed')
+            ->willReturn('https://feed.io/rss.xml');
+
+        $this->consoleInput->expects($this->once())
+            ->method('getOption')
+            ->with('votes')
+            ->willReturn(100);
+
+        $this->consoleOutput->expects($this->once())
+            ->method('writeln')
+            ->with($this->stringContains('"favicon": null'));
+
+        $exitCode = $this->command->run($this->consoleInput, $this->consoleOutput);
+        $this->assertSame(0, $exitCode);
     }
 }
