@@ -13,9 +13,11 @@
 
 namespace OCA\News\Controller;
 
+use OCA\News\Db\Filter;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FilterService;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemServiceV2;
@@ -36,6 +38,7 @@ class FeedController extends Controller
         private FolderServiceV2 $folderService,
         private FeedServiceV2 $feedService,
         private ItemServiceV2 $itemService,
+        private FilterService $filterService,
         ?IUserSession $userSession
     ) {
         parent::__construct($request, $userSession);
@@ -273,5 +276,95 @@ class FeedController extends Controller
         }
 
         return [];
+    }
+
+    /**
+     * Get the filter for a feed
+     *
+     * @param int $feedId
+     *
+     * @return array|JSONResponse
+     */
+    #[NoAdminRequired]
+    public function getFilter(int $feedId)
+    {
+        $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+
+        if ($filter === null) {
+            return [
+                'filter' => [
+                    'feedId'        => $feedId,
+                    'titleKeywords' => '',
+                    'bodyKeywords'  => '',
+                    'urlKeywords'   => '',
+                ]
+            ];
+        }
+
+        return ['filter' => $filter->toAPI()];
+    }
+
+    /**
+     * Save (create or update) a filter for a feed
+     *
+     * @param int         $feedId
+     * @param string|null $titleKeywords
+     * @param string|null $bodyKeywords
+     * @param string|null $urlKeywords
+     *
+     * @return array|JSONResponse
+     */
+    #[NoAdminRequired]
+    public function saveFilter(
+        int $feedId,
+        ?string $titleKeywords = null,
+        ?string $bodyKeywords = null,
+        ?string $urlKeywords = null
+    ) {
+        try {
+            $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+
+            if ($filter === null) {
+                $filter = new Filter();
+                $filter->setFeedId($feedId);
+            }
+
+            $filter->setTitleKeywords($titleKeywords);
+            $filter->setBodyKeywords($bodyKeywords);
+            $filter->setUrlKeywords($urlKeywords);
+
+            if ($filter->getId() === null) {
+                $filter = $this->filterService->insert($filter);
+            } else {
+                $filter = $this->filterService->update($this->getUserId(), $filter);
+            }
+
+            return ['filter' => $filter->toAPI()];
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Delete the filter for a feed
+     *
+     * @param int $feedId
+     *
+     * @return array|JSONResponse
+     */
+    #[NoAdminRequired]
+    public function deleteFilter(int $feedId)
+    {
+        try {
+            $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+
+            if ($filter !== null) {
+                $this->filterService->delete($this->getUserId(), $filter->getId());
+            }
+
+            return [];
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
     }
 }
