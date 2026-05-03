@@ -49,6 +49,9 @@ return ['routes' => [
 ['name' => 'feed#read', 'url' => '/feeds/{feedId}/read', 'verb' => 'POST'],
 ['name' => 'feed#update', 'url' => '/feeds/{feedId}/update', 'verb' => 'POST'],
 ['name' => 'feed#patch', 'url' => '/feeds/{feedId}', 'verb' => 'PATCH'],
+['name' => 'feed#getFilter', 'url' => '/feeds/{feedId}/filter', 'verb' => 'GET'],
+['name' => 'feed#saveFilter', 'url' => '/feeds/{feedId}/filter', 'verb' => 'POST'],
+['name' => 'feed#deleteFilter', 'url' => '/feeds/{feedId}/filter', 'verb' => 'DELETE'],
 
 // items
 ['name' => 'item#index', 'url' => '/items', 'verb' => 'GET'],
@@ -105,6 +108,11 @@ return ['routes' => [
 ['name' => 'feed_api#read', 'url' => '/api/{apiVersion}/feeds/{feedId}/read', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
 ['name' => 'feed_api#read', 'url' => '/api/v1-2/feeds/{feedId}/read', 'verb' => 'PUT', 'postfix' => 'v1.2'], // Backward compatibility. Corrected HTTP method as of v1.3
 ['name' => 'feed_api#update', 'url' => '/api/{apiVersion}/feeds/update', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
+
+// feed filters (API)
+['name' => 'feed_api#getFilter', 'url' => '/api/{apiVersion}/feeds/{feedId}/filter', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'feed_api#saveFilter', 'url' => '/api/{apiVersion}/feeds/{feedId}/filter', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
+['name' => 'feed_api#deleteFilter', 'url' => '/api/{apiVersion}/feeds/{feedId}/filter', 'verb' => 'DELETE', 'requirements' => ['apiVersion' => 'v1-3']],
 
 // items
 ['name' => 'item_api#index', 'url' => '/api/{apiVersion}/items', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
