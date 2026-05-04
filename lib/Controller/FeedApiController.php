@@ -277,6 +277,7 @@ class FeedApiController extends ApiController
         ?string $urlKeywords = null
     ) {
         try {
+            $this->feedService->find($this->getUserId(), $feedId);
             $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
 
             if ($filter === null) {

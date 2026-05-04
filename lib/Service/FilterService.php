@@ -212,14 +212,11 @@ class FilterService extends Service
      */
     private function keywordsMatch(array $keywords, string $text): bool
     {
-        $textLower = mb_strtolower($text, 'UTF-8');
-
         foreach ($keywords as $keyword) {
             if (mb_stripos($text, $keyword, 0, 'UTF-8') !== false) {
                 return true;
             }
         }
-
         return false;
     }
 }
