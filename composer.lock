@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a88f1a397f80f6933b0393bbf6be9e01",
+    "content-hash": "d6003c43a84ce513a18e1bd5cd09dbf1",
     "packages": [
         {
             "name": "arthurhoaro/favicon",
@@ -632,16 +632,16 @@
         },
         {
             "name": "php-feed-io/feed-io",
-            "version": "v6.2.0",
+            "version": "v6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-feed-io/feed-io.git",
-                "reference": "2ce072d4b20188bf8ecdaed40ee60ea739287102"
+                "reference": "77c10d2eafc91cbaa8f07cba25e119ee9ef365e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/2ce072d4b20188bf8ecdaed40ee60ea739287102",
-                "reference": "2ce072d4b20188bf8ecdaed40ee60ea739287102",
+                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/77c10d2eafc91cbaa8f07cba25e119ee9ef365e4",
+                "reference": "77c10d2eafc91cbaa8f07cba25e119ee9ef365e4",
                 "shasum": ""
             },
             "require": {
@@ -656,13 +656,13 @@
                 "psr/log": "~1.0|~2.0|~3.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.5",
-                "monolog/monolog": "1.*|2.*",
+                "friendsofphp/php-cs-fixer": "^3.95",
+                "monolog/monolog": "^3.10.0",
                 "php-http/guzzle7-adapter": "^1.1",
                 "php-http/mock-client": "^1.5",
                 "phpstan/phpstan": "^2.1.22",
-                "phpunit/phpunit": "~9.3.0",
-                "rector/rector": "^2.1"
+                "phpunit/phpunit": "~10.5.62",
+                "rector/rector": "^2.4"
             },
             "suggest": {
                 "monolog/monolog": "Allows to handle logs",
@@ -704,7 +704,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-feed-io/feed-io/issues",
-                "source": "https://github.com/php-feed-io/feed-io/tree/v6.2.0"
+                "source": "https://github.com/php-feed-io/feed-io/tree/v6.3.1"
             },
             "funding": [
                 {
@@ -712,7 +712,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-11-13T18:44:34+00:00"
+            "time": "2026-04-26T08:56:59+00:00"
         },
         {
             "name": "php-http/discovery",
