@@ -113,6 +113,23 @@
 				</div>
 			</NcNoteCard>
 			<table>
+					<tbody>
+							<tr>
+									<th colspan="4">
+											{{ t('news', 'Keyword filters') }}
+									</th>
+							</tr>
+							<tr>
+									<td>
+											<FilterIcon />
+									</td>
+									<td colspan="3">
+											{{ t('news', 'Hide articles that match comma-separated keywords (case-insensitive) in the title, body, or URL') }}
+									</td>
+							</tr>
+					</tbody>
+			</table>
+			<table>
 				<thead>
 					<tr>
 						<th @click="sortBy('id')">
@@ -202,7 +219,7 @@
 							</NcActions>
 						</td>
 						<td>
-							<NcActions :inline="3" :data-test="'feedOptions-' + feed.id">
+							<NcActions :inline="4" :data-test="'feedOptions-' + feed.id">
 								<NcActionButton
 									v-if="feed.preventUpdate"
 									:title="t('news', 'Enable feed update')"
@@ -257,6 +274,13 @@
 										<TextLongIcon />
 									</template>
 								</NcActionButton>
+								<NcActionButton
+										:title="t('news', 'Keyword filters')"
+										@click="openFilterDialog(feed)">
+										<template #icon>
+												<FilterIcon />
+										</template>
+								</NcActionButton>
 							</NcActions>
 						</td>
 						<td class="text">
@@ -281,6 +305,25 @@
 				</tbody>
 			</table>
 		</div>
+		<NcModal v-if="filterFeed" size="small" @close="closeFilterDialog()">
+				<div class="filter-dialog">
+						<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
+						
+						<label>{{ t('news', 'Title keywords') }}</label>
+						<input v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
+						
+						<label>{{ t('news', 'Body keywords') }}</label>
+						<input v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
+						
+						<label>{{ t('news', 'URL keywords') }}</label>
+						<input v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
+						
+						<div class="filter-actions">
+								<NcButton @click="saveFilter()">{{ t('news', 'Save') }}</NcButton>
+								<NcButton @click="clearFilter()">{{ t('news', 'Clear') }}</NcButton>
+						</div>
+				</div>
+		</NcModal>
 	</NcModal>
 </template>
 
@@ -288,9 +331,11 @@
 import { mapState } from 'vuex'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
+import NcButton from '@nextcloud/vue/components/NcButton'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
 import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
@@ -323,6 +368,8 @@ export default {
 		SyncOff,
 		TextShortIcon,
 		TextLongIcon,
+		FilterIcon,
+		NcButton,
 	},
 
 	emits: {
@@ -336,6 +383,12 @@ export default {
 			sortKey: 'title',
 			sortOrder: 1,
 			FEED_UPDATE_MODE,
+			filterFeed: undefined,
+			filterForm: {
+				titleKeywords: '',
+				bodyKeywords: '',
+				urlKeywords: '',
+			},
 		}
 	},
 
@@ -407,6 +460,39 @@ export default {
 
 		setFullText(feed, fullTextEnabled) {
 			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed, fullTextEnabled })
+		},
+
+		openFilterDialog(feed) {
+			this.filterFeed = feed
+			this.$store.dispatch(ACTIONS.FEED_GET_FILTER, { feed }).then((response) => {
+				if (response?.data?.filter) {
+					this.filterForm.titleKeywords = response.data.filter.titleKeywords || ''
+					this.filterForm.bodyKeywords = response.data.filter.bodyKeywords || ''
+					this.filterForm.urlKeywords = response.data.filter.urlKeywords || ''
+				}
+			})
+		},
+
+		closeFilterDialog() {
+			this.filterFeed = undefined
+		},
+
+		saveFilter() {
+			this.$store.dispatch(ACTIONS.FEED_SAVE_FILTER, {
+				feed: this.filterFeed,
+				titleKeywords: this.filterForm.titleKeywords,
+				bodyKeywords: this.filterForm.bodyKeywords,
+				urlKeywords: this.filterForm.urlKeywords,
+			})
+			this.closeFilterDialog()
+		},
+
+		clearFilter() {
+			this.$store.dispatch(ACTIONS.FEED_DELETE_FILTER, { feed: this.filterFeed })
+			this.filterForm.titleKeywords = ''
+			this.filterForm.bodyKeywords = ''
+			this.filterForm.urlKeywords = ''
+			this.closeFilterDialog()
 		},
 	},
 }
@@ -502,4 +588,35 @@ export default {
 		width: max-content;
 		max-height: min(90%, 100% - 2 * var(--header-height));
 	}
+
+.filter-dialog {
+    padding: 20px;
+
+    h3 {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: bold;
+    }
+
+    input {
+        display: block;
+        width: 100%;
+        margin-bottom: 12px;
+        padding: 8px;
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+    }
+
+    .filter-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        margin-top: 16px;
+    }
+}
 </style>
