@@ -113,21 +113,21 @@
 				</div>
 			</NcNoteCard>
 			<table>
-					<tbody>
-							<tr>
-									<th colspan="4">
-											{{ t('news', 'Keyword filters') }}
-									</th>
-							</tr>
-							<tr>
-									<td>
-											<FilterIcon />
-									</td>
-									<td colspan="3">
-											{{ t('news', 'Hide articles that match comma-separated keywords (case-insensitive) in the title, body, or URL') }}
-									</td>
-							</tr>
-					</tbody>
+				<tbody>
+					<tr>
+						<th colspan="4">
+							{{ t('news', 'Keyword filters') }}
+						</th>
+					</tr>
+					<tr>
+						<td>
+							<FilterIcon />
+						</td>
+						<td colspan="3">
+							{{ t('news', 'Hide articles that match comma-separated keywords (case-insensitive) in the title, body, or URL') }}
+						</td>
+					</tr>
+				</tbody>
 			</table>
 			<table>
 				<thead>
@@ -275,11 +275,11 @@
 									</template>
 								</NcActionButton>
 								<NcActionButton
-										:title="t('news', 'Keyword filters')"
-										@click="openFilterDialog(feed)">
-										<template #icon>
-												<FilterIcon />
-										</template>
+									:title="t('news', 'Keyword filters')"
+									@click="openFilterDialog(feed)">
+									<template #icon>
+										<FilterIcon />
+									</template>
 								</NcActionButton>
 							</NcActions>
 						</td>
@@ -306,23 +306,27 @@
 			</table>
 		</div>
 		<NcModal v-if="filterFeed" size="small" @close="closeFilterDialog()">
-				<div class="filter-dialog">
-						<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
-						
-						<label>{{ t('news', 'Title keywords') }}</label>
-						<input v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
-						
-						<label>{{ t('news', 'Body keywords') }}</label>
-						<input v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
-						
-						<label>{{ t('news', 'URL keywords') }}</label>
-						<input v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
-						
-						<div class="filter-actions">
-								<NcButton @click="saveFilter()">{{ t('news', 'Save') }}</NcButton>
-								<NcButton @click="clearFilter()">{{ t('news', 'Clear') }}</NcButton>
-						</div>
+			<div class="filter-dialog">
+				<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
+
+				<label for="filter-title-keywords">{{ t('news', 'Title keywords') }}</label>
+				<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
+
+				<label for="filter-body-keywords">{{ t('news', 'Body keywords') }}</label>
+				<input id="filter-body-keywords" v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
+
+				<label for="filter-url-keywords">{{ t('news', 'URL keywords') }}</label>
+				<input id="filter-url-keywords" v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
+
+				<div class="filter-actions">
+					<NcButton @click="saveFilter()">
+						{{ t('news', 'Save') }}
+					</NcButton>
+					<NcButton @click="clearFilter()">
+						{{ t('news', 'Clear') }}
+					</NcButton>
 				</div>
+			</div>
 		</NcModal>
 	</NcModal>
 </template>
@@ -335,9 +339,9 @@ import NcButton from '@nextcloud/vue/components/NcButton'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
-import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
 import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
+import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
 import Sync from 'vue-material-design-icons/Sync.vue'

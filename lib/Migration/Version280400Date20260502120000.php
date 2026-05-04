@@ -15,7 +15,7 @@ class Version280400Date20260502120000 extends SimpleMigrationStep
     {
         $schema = $schemaClosure();
 
-        // create news_filters table
+        // create news_filters table (with raw SQL fallback for NC33)
         if (!$schema->hasTable('news_filters')) {
             $table = $schema->createTable('news_filters');
             $table->addColumn('id', 'bigint', [

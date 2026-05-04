@@ -407,21 +407,32 @@ class FeedServiceV2 extends Service
 
         $feedId = $feed->getId();
         $updateMode = $feed->getUpdateMode();
+        $userId = $feed->getUserId();
+
+        // load filter once before the loop
+        $filter = $this->filterService->findByFeedId($userId, $feedId);
+        $filteredCount = 0;
+        
         foreach (array_reverse($items) as &$item) {
             $item->setFeedId($feedId)
                 ->setBody($this->purifier->purify($item->getBody()));
 
-            // Sanitize media description if present
+            // sanitize media description if present
             $mediaDesc = $item->getMediaDescription();
             if ($mediaDesc !== null) {
                 $item->setMediaDescription($this->purifier->purify($mediaDesc));
             }
 
+            // apply filter before insert if item matches
+            if ($filter !== null && $this->filterService->itemMatchesFilter($item, $filter)) {
+                $item->setUnread(false);
+                $item->setFiltered(true);
+                $filteredCount++;
+            }
+
             $item = $this->itemService->insertOrUpdate($item, $updateMode);
         }
 
-        // apply keyword filters to new items
-        $filteredCount = $this->filterService->applyFilters($feed->getUserId(), $feedId);
         if ($filteredCount > 0) {
             $this->logger->info('Filtered {count} items from feed {feedUrl}', [
                 'count'   => $filteredCount,

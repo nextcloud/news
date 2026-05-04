@@ -322,6 +322,7 @@ class FeedController extends Controller
         ?string $urlKeywords = null
     ) {
         try {
+            $this->feedService->find($this->getUserId(), $feedId);
             $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
 
             if ($filter === null) {
@@ -338,6 +339,8 @@ class FeedController extends Controller
             } else {
                 $filter = $this->filterService->update($this->getUserId(), $filter);
             }
+
+            $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
 
             return ['filter' => $filter->toAPI()];
         } catch (ServiceNotFoundException $ex) {
@@ -361,6 +364,8 @@ class FeedController extends Controller
             if ($filter !== null) {
                 $this->filterService->delete($this->getUserId(), $filter->getId());
             }
+
+            $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
 
             return [];
         } catch (ServiceNotFoundException $ex) {

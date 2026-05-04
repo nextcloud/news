@@ -277,6 +277,7 @@ class FeedApiController extends ApiController
         ?string $urlKeywords = null
     ) {
         try {
+            $this->feedService->find($this->getUserId(), $feedId);
             $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
 
             if ($filter === null) {
@@ -293,6 +294,8 @@ class FeedApiController extends ApiController
             } else {
                 $filter = $this->filterService->update($this->getUserId(), $filter);
             }
+
+            $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
 
             return ['filter' => $filter->toAPI()];
         } catch (ServiceNotFoundException $ex) {
@@ -318,6 +321,8 @@ class FeedApiController extends ApiController
             if ($filter !== null) {
                 $this->filterService->delete($this->getUserId(), $filter->getId());
             }
+
+            $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
 
             return [];
         } catch (ServiceNotFoundException $ex) {

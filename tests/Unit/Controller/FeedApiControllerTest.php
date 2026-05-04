@@ -18,6 +18,7 @@ namespace OCA\News\Tests\Unit\Controller;
 use Exception;
 use OCA\News\Controller\FeedApiController;
 use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FilterService;
 use OCA\News\Service\ItemServiceV2;
 use \OCP\AppFramework\Http;
 
@@ -43,6 +44,11 @@ class FeedApiControllerTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject|ItemServiceV2
      */
     private $itemService;
+
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FilterService
+     */
+    private $filterService;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject|LoggerInterface
@@ -83,12 +89,16 @@ class FeedApiControllerTest extends TestCase
         $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->filterService = $this->getMockBuilder(FilterService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->class = new FeedApiController(
             $request,
             $userSession,
             $this->feedService,
             $this->itemService,
-            $this->logger
+            $this->logger,
+            $this->filterService
         );
         $this->msg = 'hohoho';
     }
