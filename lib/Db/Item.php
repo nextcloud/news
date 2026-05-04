@@ -391,6 +391,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
+            'filtered' => $this->isFiltered(),
             'lastModified' => $this->getLastModified(),
             'rtl' => $this->getRtl(),
             'intro' => $this->getIntro(),
@@ -676,6 +677,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
+            'filtered' => $this->isFiltered(),
             'lastModified' => $this->cropApiLastModified(),
             'rtl' => $this->getRtl(),
             'fingerprint' => $this->getFingerprint(),
@@ -689,7 +691,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             return [
                 'id' => $this->getId(),
                 'isUnread' => $this->isUnread(),
-                'isStarred' => $this->isStarred()
+                'isStarred' => $this->isStarred(),
+                'isFiltered' => $this->isFiltered()
             ];
         }
 
@@ -708,6 +711,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'feedId' => $this->getFeedId(),
             'isUnread' => $this->isUnread(),
             'isStarred' => $this->isStarred(),
+            'isFiltered' => $this->isFiltered(),
             'fingerprint' => $this->getFingerprint(),
             'contentHash' => $this->getContentHash()
         ];
