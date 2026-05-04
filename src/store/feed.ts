@@ -21,6 +21,10 @@ export const FEED_ACTION_TYPES = {
 	FEED_SET_UPDATE_MODE: 'FEED_SET_UPDATE_MODE',
 	FEED_SET_TITLE: 'FEED_SET_TITLE',
 
+	FEED_GET_FILTER: 'FEED_GET_FILTER',
+	FEED_SAVE_FILTER: 'FEED_SAVE_FILTER',
+	FEED_DELETE_FILTER: 'FEED_DELETE_FILTER',
+
 	MODIFY_FEED_UNREAD_COUNT: 'MODIFY_FEED_UNREAD_COUNT',
 
 	FEED_DELETE: 'FEED_DELETE',
@@ -192,6 +196,41 @@ export const actions = {
 		await FeedService.updateFeed({ feedId: feed.id as number, title })
 
 		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, title })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_GET_FILTER](
+		{ commit }: ActionParams<FeedState>,
+		{ feed }: { feed: Feed },
+	) {
+		const response = await FeedService.getFilter({ feedId: feed.id as number })
+		if (response?.data?.filter) {
+			commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: response.data.filter })
+		}
+		return response
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SAVE_FILTER](
+		{ commit }: ActionParams<FeedState>,
+		{ feed, titleKeywords, bodyKeywords, urlKeywords }: { feed: Feed, titleKeywords?: string, bodyKeywords?: string, urlKeywords?: string },
+	) {
+		const response = await FeedService.saveFilter({
+			feedId: feed.id as number,
+			titleKeywords,
+			bodyKeywords,
+			urlKeywords,
+		})
+		if (response?.data?.filter) {
+			commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: response.data.filter })
+		}
+		return response
+	},
+
+	async [FEED_ACTION_TYPES.FEED_DELETE_FILTER](
+		{ commit }: ActionParams<FeedState>,
+		{ feed }: { feed: Feed },
+	) {
+		await FeedService.deleteFilter({ feedId: feed.id as number })
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: null })
 	},
 
 	async [FEED_ACTION_TYPES.FEED_DELETE](
