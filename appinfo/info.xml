@@ -21,10 +21,11 @@ Create a [feature request](https://github.com/nextcloud/news/discussions/new)
 
 Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     ]]></description>
-    <version>28.3.0</version>
+    <version>28.4.0</version>
     <licence>agpl</licence>
     <author>Benjamin Brahmer</author>
     <author>Sean Molenaar</author>
+    <author>Eryk J.</author>
     <author>Bernhard Posselt (former)</author>
     <author>Alessandro Cosentino (former)</author>
     <author>Jan-Christoph Borchardt (former)</author>
@@ -65,6 +66,7 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
     <repair-steps>
         <post-migration>
                 <step>OCA\News\Migration\RemoveUnusedJob</step>
+                <step>OCA\News\Migration\CreateFiltersTable</step>
         </post-migration>
     </repair-steps>
 

@@ -65,6 +65,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
     protected $unread = false;
     /** @var bool */
     protected $starred = false;
+    /** @var bool */
+    protected $filtered = false;
     /** @var string|null */
     protected $categoriesJson;
     /** @var string|null */
@@ -93,6 +95,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
         $this->addType('fingerprint', 'string');
         $this->addType('unread', 'boolean');
         $this->addType('starred', 'boolean');
+        $this->addType('filtered', 'boolean');
         $this->addType('categoriesJson', 'string');
         $this->addType('sharedBy', 'string');
     }
@@ -326,6 +329,12 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this->starred;
     }
 
+
+    public function isFiltered(): bool
+    {
+        return $this->filtered;
+    }
+
     public function isUnread(): bool
     {
         return $this->unread;
@@ -382,6 +391,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
+            'filtered' => $this->isFiltered(),
             'lastModified' => $this->getLastModified(),
             'rtl' => $this->getRtl(),
             'intro' => $this->getIntro(),
@@ -560,6 +570,16 @@ class Item extends Entity implements IAPI, \JsonSerializable
         return $this;
     }
 
+    public function setFiltered(bool $filtered): self
+    {
+        if ($this->filtered !== $filtered) {
+            $this->filtered = $filtered;
+            $this->markFieldUpdated('filtered');
+        }
+
+        return $this;
+    }
+
     public function setTitle(?string $title = null): self
     {
         if (!is_null($title)) {
@@ -657,6 +677,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'feedId' => $this->getFeedId(),
             'unread' => $this->isUnread(),
             'starred' => $this->isStarred(),
+            'filtered' => $this->isFiltered(),
             'lastModified' => $this->cropApiLastModified(),
             'rtl' => $this->getRtl(),
             'fingerprint' => $this->getFingerprint(),
@@ -670,7 +691,8 @@ class Item extends Entity implements IAPI, \JsonSerializable
             return [
                 'id' => $this->getId(),
                 'isUnread' => $this->isUnread(),
-                'isStarred' => $this->isStarred()
+                'isStarred' => $this->isStarred(),
+                'isFiltered' => $this->isFiltered()
             ];
         }
 
@@ -689,6 +711,7 @@ class Item extends Entity implements IAPI, \JsonSerializable
             'feedId' => $this->getFeedId(),
             'isUnread' => $this->isUnread(),
             'isStarred' => $this->isStarred(),
+            'isFiltered' => $this->isFiltered(),
             'fingerprint' => $this->getFingerprint(),
             'contentHash' => $this->getContentHash()
         ];

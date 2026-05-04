@@ -22,6 +22,7 @@ use OCA\News\Constants;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\AppInfo\Application;
+use OCA\News\Service\FilterService;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Utility\HtmlSanitizer;
@@ -73,6 +74,10 @@ class FeedServiceV2 extends Service
      * @var AppData
      */
     protected $appData;
+    /**
+     * @var FilterService
+     */
+    protected $filterService;
 
     /**
      * FeedService constructor.
@@ -93,7 +98,8 @@ class FeedServiceV2 extends Service
         HtmlSanitizer $purifier,
         LoggerInterface $logger,
         IAppConfig $config,
-        AppData $appData
+        AppData $appData,
+        FilterService $filterService
     ) {
         parent::__construct($mapper, $logger);
 
@@ -103,6 +109,7 @@ class FeedServiceV2 extends Service
         $this->purifier    = $purifier;
         $this->config      = $config;
         $this->appData     = $appData;
+        $this->filterService  = $filterService;
     }
 
     /**
@@ -413,6 +420,14 @@ class FeedServiceV2 extends Service
             $item = $this->itemService->insertOrUpdate($item, $updateMode);
         }
 
+        // apply keyword filters to new items
+        $filteredCount = $this->filterService->applyFilters($feed->getUserId(), $feedId);
+        if ($filteredCount > 0) {
+            $this->logger->info('Filtered {count} items from feed {feedUrl}', [
+                'count'   => $filteredCount,
+                'feedUrl' => $feed->getUrl(),
+            ]);
+        }
 
         // mark feed as successfully updated
         $feed->setUpdateErrorCount(0);

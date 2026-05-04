@@ -60,31 +60,40 @@
 					</template>
 				</NcActionButton>
 				<NcActionButton
-					v-if="item.unread && !item.keepUnread"
-					:title="t('news', 'Keep article unread')"
-					@click="toggleKeepUnread(item)">
-					{{ t('news', 'Keep article unread') }}
-					<template #icon>
-						<EyeIcon :size="24" />
-					</template>
+						v-if="item.unread && !item.keepUnread"
+						:title="t('news', 'Keep article unread')"
+						@click="toggleKeepUnread(item)">
+						{{ t('news', 'Keep article unread') }}
+						<template #icon>
+								<EyeIcon :size="24" />
+						</template>
 				</NcActionButton>
 				<NcActionButton
-					v-if="!item.unread && !item.keepUnread"
-					:title="t('news', 'Toggle keep current article unread')"
-					@click="toggleKeepUnread(item)">
-					{{ t('news', 'Toggle keep current article unread') }}
-					<template #icon>
-						<EyeCheckIcon :size="24" />
-					</template>
+						v-if="!item.unread && item.filtered && !item.keepUnread"
+						:title="t('news', 'Keep article unread (auto-filtered)')"
+						@click="toggleKeepUnread(item)">
+						{{ t('news', 'Keep article unread (auto-filtered)') }}
+						<template #icon>
+								<FilterIcon :size="24" :style="{ color: 'var(--color-placeholder-dark)' }" />
+						</template>
 				</NcActionButton>
 				<NcActionButton
-					v-if="item.keepUnread"
-					:title="t('news', 'Remove keep article unread')"
-					@click="toggleKeepUnread(item)">
-					{{ t('news', 'Remove keep article unread') }}
-					<template #icon>
-						<EyeLockIcon :size="24" />
-					</template>
+						v-if="!item.unread && !item.filtered && !item.keepUnread"
+						:title="t('news', 'Toggle keep current article unread')"
+						@click="toggleKeepUnread(item)">
+						{{ t('news', 'Toggle keep current article unread') }}
+						<template #icon>
+								<EyeCheckIcon :size="24" />
+						</template>
+				</NcActionButton>
+				<NcActionButton
+						v-if="item.keepUnread"
+						:title="t('news', 'Remove keep article unread')"
+						@click="toggleKeepUnread(item)">
+						{{ t('news', 'Remove keep article unread') }}
+						<template #icon>
+								<EyeLockIcon :size="24" />
+						</template>
 				</NcActionButton>
 				<NcActionButton :title="t('news', 'Share within Instance')" @click="shareItem = item.id; showShareMenu = true">
 					{{ t('news', 'Share within Instance') }}
@@ -108,6 +117,7 @@ import NcActions from '@nextcloud/vue/components/NcActions'
 import EyeIcon from 'vue-material-design-icons/Eye.vue'
 import EyeCheckIcon from 'vue-material-design-icons/EyeCheck.vue'
 import EyeLockIcon from 'vue-material-design-icons/EyeLock.vue'
+import FilterIcon from 'vue-material-design-icons/Filter.vue'
 import ShareVariant from 'vue-material-design-icons/ShareVariant.vue'
 import StarIcon from 'vue-material-design-icons/Star.vue'
 import ShareItem from '../ShareItem.vue'
@@ -123,6 +133,7 @@ export default defineComponent({
 		EyeIcon,
 		EyeCheckIcon,
 		EyeLockIcon,
+		FilterIcon,
 		ShareVariant,
 		NcActions,
 		NcActionButton,

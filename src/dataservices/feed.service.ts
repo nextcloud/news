@@ -99,4 +99,44 @@ export class FeedService {
 	static deleteFeed({ feedId }: { feedId: number }): Promise<AxiosResponse> {
 		return axios.delete(API_ROUTES.FEED + `/${feedId}`)
 	}
+
+	/**
+	 * Get the filter for a feed
+	 *
+	 * @param param0 Data for the feed
+	 * @param param0.feedId {Number} ID number of feed
+	 * @return Filter object
+	 */
+	static getFilter({ feedId }: { feedId: number }): Promise<AxiosResponse> {
+		return axios.get(API_ROUTES.FEED + `/${feedId}/filter`)
+	}
+
+	/**
+	 * Save a filter for a feed
+	 *
+	 * @param param0 Data for the filter
+	 * @param param0.feedId {Number} ID number of feed
+	 * @param param0.titleKeywords {String} Comma-separated keywords for title filtering
+	 * @param param0.bodyKeywords {String} Comma-separated keywords for body filtering
+	 * @param param0.urlKeywords {String} Comma-separated keywords for URL filtering
+	 * @return Filter object
+	 */
+	static saveFilter({ feedId, titleKeywords, bodyKeywords, urlKeywords }: { feedId: number, titleKeywords?: string, bodyKeywords?: string, urlKeywords?: string }): Promise<AxiosResponse> {
+		return axios.post(API_ROUTES.FEED + `/${feedId}/filter`, {
+			titleKeywords: titleKeywords || '',
+			bodyKeywords: bodyKeywords || '',
+			urlKeywords: urlKeywords || '',
+		})
+	}
+
+	/**
+	 * Delete the filter for a feed
+	 *
+	 * @param param0 Data for the feed
+	 * @param param0.feedId {Number} ID number of feed
+	 * @return Null value is returned on success
+	 */
+	static deleteFilter({ feedId }: { feedId: number }): Promise<AxiosResponse> {
+		return axios.delete(API_ROUTES.FEED + `/${feedId}/filter`)
+	}
 }

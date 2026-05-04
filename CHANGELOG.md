@@ -5,6 +5,9 @@ The format is mostly based on [Keep a Changelog](https://keepachangelog.com/en/1
 You can also check [on GitHub](https://github.com/nextcloud/news/releases), the release notes there are generated automatically and include every pull request.
 
 # Unreleased
+### Added
+- Feed keyword filtering: hide articles matching keywords in title, body, or URL
+
 ### Changed
 
 ### Fixed
