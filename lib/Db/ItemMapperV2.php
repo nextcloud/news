@@ -645,4 +645,22 @@ class ItemMapperV2 extends NewsMapperV2
 
         return 'items.id < :offset';
     }
+
+    /**
+     * Clear the filtered flag on all items in a feed.
+     *
+     * @param int $feedId
+     *
+     * @return void
+     */
+    public function clearFilteredFlag(int $feedId): void
+    {
+        $builder = $this->db->getQueryBuilder();
+        $builder->update($this->tableName)
+            ->set('filtered', $builder->createNamedParameter(false, IQueryBuilder::PARAM_BOOL))
+            ->andWhere('feed_id = :feed_id')
+            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT);
+
+        $builder->executeStatement();
+    }
 }

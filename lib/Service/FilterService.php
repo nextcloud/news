@@ -127,6 +127,25 @@ class FilterService extends Service
     }
 
     /**
+     * Clear filtered flag on all items in a feed, then re-apply the filter
+     * to all unread items. Used when a user updates their filter keywords.
+     *
+     * @param string $userId
+     * @param int    $feedId
+     *
+     * @return int Number of items marked as read
+     */
+    public function clearAndReapplyFilter(string $userId, int $feedId): int
+    {
+        $filter = $this->findByFeedId($userId, $feedId);
+        $this->itemMapper->clearFilteredFlag($feedId);
+        if ($filter === null || $this->filterIsEmpty($filter)) {
+            return 0;
+        }
+        return $this->applyFilters($userId, $feedId);
+    }
+
+    /**
      * Check if a filter has no keywords in any field.
      *
      * @param Filter $filter
@@ -152,24 +171,24 @@ class FilterService extends Service
      *
      * @return bool
      */
-    private function itemMatchesFilter(Item $item, Filter $filter): bool
+    public function itemMatchesFilter(Item $item, Filter $filter): bool
     {
         $titleKeywords = $this->parseKeywords($filter->getTitleKeywords());
         $bodyKeywords  = $this->parseKeywords($filter->getBodyKeywords());
         $urlKeywords   = $this->parseKeywords($filter->getUrlKeywords());
 
         // Check title
-        if (!empty($titleKeywords) && $this->keywordsMatch($titleKeywords, $item->getTitle() ?? '')) {
+        if ($titleKeywords !== [] && $this->keywordsMatch($titleKeywords, $item->getTitle() ?? '')) {
             return true;
         }
 
         // Check body
-        if (!empty($bodyKeywords) && $this->keywordsMatch($bodyKeywords, $item->getBody() ?? '')) {
+        if ($bodyKeywords !== [] && $this->keywordsMatch($bodyKeywords, $item->getBody() ?? '')) {
             return true;
         }
 
         // Check URL
-        if (!empty($urlKeywords) && $this->keywordsMatch($urlKeywords, $item->getUrl() ?? '')) {
+        if ($urlKeywords !== [] && $this->keywordsMatch($urlKeywords, $item->getUrl() ?? '')) {
             return true;
         }
 
@@ -212,14 +231,11 @@ class FilterService extends Service
      */
     private function keywordsMatch(array $keywords, string $text): bool
     {
-        $textLower = mb_strtolower($text, 'UTF-8');
-
         foreach ($keywords as $keyword) {
             if (mb_stripos($text, $keyword, 0, 'UTF-8') !== false) {
                 return true;
             }
         }
-
         return false;
     }
 }
