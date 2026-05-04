@@ -74,7 +74,7 @@ class FeedServiceV2 extends Service
      * @var AppData
      */
     protected $appData;
-    /** 
+    /**
      * @var FilterService
      */
     protected $filterService;
