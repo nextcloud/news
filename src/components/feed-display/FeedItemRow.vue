@@ -70,8 +70,9 @@
 				</NcActionButton>
 				<NcActionButton
 						v-if="!item.unread && item.filtered && !item.keepUnread"
-						:title="t('news', 'Article filtered by keyword')">
-						{{ t('news', 'Article filtered by keyword') }}
+						:title="t('news', 'Keep article unread (auto-filtered)')"
+						@click="toggleKeepUnread(item)">
+						{{ t('news', 'Keep article unread (auto-filtered)') }}
 						<template #icon>
 								<FilterIcon :size="24" :style="{ color: 'var(--color-placeholder-dark)' }" />
 						</template>
