@@ -17,7 +17,7 @@ class Version280400Date20260502120000 extends SimpleMigrationStep
     {
         $schema = $schemaClosure();
 
-        // create news_filters table (with raw SQL fallback for NC33)
+        // create news_filters table
         if (!$schema->hasTable('news_filters')) {
             $table = $schema->createTable('news_filters');
             $table->addColumn('id', 'bigint', [
@@ -52,8 +52,8 @@ class Version280400Date20260502120000 extends SimpleMigrationStep
             $table->setPrimaryKey(['id']);
             $table->addUniqueIndex(['feed_id'], 'news_filters_feed_id_idx');
 
-            // NC33 workaround: createTable via changeSchema return value
-            // may not be applied. Execute raw SQL directly.
+            // createTable via changeSchema return value may not be applied
+            // execute raw SQL directly
             /** @var IDBConnection $db */
             $db = Server::get(IDBConnection::class);
             $db->executeStatement("
