@@ -309,14 +309,14 @@
 				<div class="filter-dialog">
 						<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
 						
-						<label>{{ t('news', 'Title keywords') }}</label>
-						<input v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
+						<label for="filter-title-keywords">{{ t('news', 'Title keywords') }}</label>
+						<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
 						
-						<label>{{ t('news', 'Body keywords') }}</label>
-						<input v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
+						<label for="filter-body-keywords">{{ t('news', 'Body keywords') }}</label>
+						<input id="filter-body-keywords" v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
 						
-						<label>{{ t('news', 'URL keywords') }}</label>
-						<input v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
+						<label for="filter-url-keywords">{{ t('news', 'URL keywords') }}</label>
+						<input id="filter-url-keywords" v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
 						
 						<div class="filter-actions">
 								<NcButton @click="saveFilter()">{{ t('news', 'Save') }}</NcButton>
