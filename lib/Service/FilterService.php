@@ -127,6 +127,25 @@ class FilterService extends Service
     }
 
     /**
+     * Clear filtered flag on all items in a feed, then re-apply the filter
+     * to all unread items. Used when a user updates their filter keywords.
+     *
+     * @param string $userId
+     * @param int    $feedId
+     *
+     * @return int Number of items marked as read
+     */
+    public function clearAndReapplyFilter(string $userId, int $feedId): int
+    {
+        $filter = $this->findByFeedId($userId, $feedId);
+        $this->itemMapper->clearFilteredFlag($feedId);
+        if ($filter === null || $this->filterIsEmpty($filter)) {
+            return 0;
+        }
+        return $this->applyFilters($userId, $feedId);
+    }
+
+    /**
      * Check if a filter has no keywords in any field.
      *
      * @param Filter $filter
@@ -152,7 +171,7 @@ class FilterService extends Service
      *
      * @return bool
      */
-    private function itemMatchesFilter(Item $item, Filter $filter): bool
+    public function itemMatchesFilter(Item $item, Filter $filter): bool
     {
         $titleKeywords = $this->parseKeywords($filter->getTitleKeywords());
         $bodyKeywords  = $this->parseKeywords($filter->getBodyKeywords());

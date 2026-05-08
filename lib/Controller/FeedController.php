@@ -340,6 +340,8 @@ class FeedController extends Controller
                 $filter = $this->filterService->update($this->getUserId(), $filter);
             }
 
+            $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
+
             return ['filter' => $filter->toAPI()];
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
