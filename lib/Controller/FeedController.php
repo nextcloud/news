@@ -365,6 +365,8 @@ class FeedController extends Controller
                 $this->filterService->delete($this->getUserId(), $filter->getId());
             }
 
+            $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
+
             return [];
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
