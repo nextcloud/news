@@ -35,7 +35,7 @@ class ExploreGenerator extends Command
      * Set up class.
      *
      * @param FeedIo  $reader  Feed reader
-    * @param FaviconDiscovery $favicon Favicon fetcher
+     * @param FaviconDiscovery $favicon Favicon fetcher
      */
     public function __construct(FeedIo $reader, FaviconDiscovery $favicon)
     {

@@ -64,7 +64,7 @@ class ScopedClient implements ClientInterface
             $request->getMethod(),
             (string) $request->getUri(),
             $request->getHeaders(),
-            Utils::streamFor((string) $request->getBody()),
+            (string) $request->getBody(),
             $request->getProtocolVersion()
         );
     }

@@ -42,7 +42,7 @@ class FeedFetcher implements IFeedFetcher
 {
 
     /**
-        * @var FaviconDiscovery
+     * @var FaviconDiscovery
      */
     private $faviconFactory;
 
