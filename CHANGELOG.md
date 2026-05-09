@@ -7,6 +7,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 # Unreleased
 ### Added
 - Feed keyword filtering: hide articles matching keywords in title, body, or URL
+- Feed settings now support selecting multiple feeds and moving/deleting them in throttled, sequential requests.
 
 ### Changed
 - Replace `arthurhoaro/favicon` with `php-feed-io/favicon-io` for favicon discovery, using PSR-based HTTP interfaces and Symfony-backed discovery caching (#3710)
