@@ -178,17 +178,17 @@ class FilterService extends Service
         $urlKeywords   = $this->parseKeywords($filter->getUrlKeywords());
 
         // Check title
-        if (!empty($titleKeywords) && $this->keywordsMatch($titleKeywords, $item->getTitle() ?? '')) {
+        if ($titleKeywords !== [] && $this->keywordsMatch($titleKeywords, $item->getTitle() ?? '')) {
             return true;
         }
 
         // Check body
-        if (!empty($bodyKeywords) && $this->keywordsMatch($bodyKeywords, $item->getBody() ?? '')) {
+        if ($bodyKeywords !== [] && $this->keywordsMatch($bodyKeywords, $item->getBody() ?? '')) {
             return true;
         }
 
         // Check URL
-        if (!empty($urlKeywords) && $this->keywordsMatch($urlKeywords, $item->getUrl() ?? '')) {
+        if ($urlKeywords !== [] && $this->keywordsMatch($urlKeywords, $item->getUrl() ?? '')) {
             return true;
         }
 
