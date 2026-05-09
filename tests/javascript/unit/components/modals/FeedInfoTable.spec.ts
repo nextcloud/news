@@ -426,6 +426,64 @@ describe('FeedInfoTable.vue', () => {
 		})
 	})
 
+	describe('Feed Filter dialog', () => {
+		beforeEach(() => {
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => feeds,
+					folders: () => folders,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = mount(FeedInfoTable, {
+				global: { plugins: [store] },
+				stubs: {
+					SidebarFeedLinkActions: true,
+				},
+			})
+		})
+		it('Should update title filter via v-model', async () => {
+			await wrapper.vm.openFilterDialog(feeds[0])
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_GET_FILTER, { feed: feeds[0] })
+
+			const textField = wrapper.findAllComponents({ name: 'NcTextField' })
+				.find((c) => c.props('id') === 'filter-title-keywords')
+			await textField.setValue('filter text')
+			await wrapper.vm.saveFilter()
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SAVE_FILTER, { feed: feeds[0], titleKeywords: 'filter text', bodyKeywords: '', urlKeywords: '' })
+		})
+		it('Should update body filter via v-model', async () => {
+			await wrapper.vm.openFilterDialog(feeds[0])
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_GET_FILTER, { feed: feeds[0] })
+
+			const textField = wrapper.findAllComponents({ name: 'NcTextField' })
+				.find((c) => c.props('id') === 'filter-body-keywords')
+			await textField.setValue('filter text')
+			await wrapper.vm.saveFilter()
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SAVE_FILTER, { feed: feeds[0], titleKeywords: '', bodyKeywords: 'filter text', urlKeywords: '' })
+		})
+		it('Should update url filter via v-model', async () => {
+			await wrapper.vm.openFilterDialog(feeds[0])
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_GET_FILTER, { feed: feeds[0] })
+
+			const textField = wrapper.findAllComponents({ name: 'NcTextField' })
+				.find((c) => c.props('id') === 'filter-url-keywords')
+			await textField.setValue('filter text')
+			await wrapper.vm.saveFilter()
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SAVE_FILTER, { feed: feeds[0], titleKeywords: '', bodyKeywords: '', urlKeywords: 'filter text' })
+		})
+	})
+
 	afterEach(() => {
 		vi.clearAllMocks()
 	})
