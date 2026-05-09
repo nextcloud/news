@@ -105,6 +105,7 @@ class ItemTest extends TestCase
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
+            'filtered' => false,
             'lastModified' => 1111111111,
             'rtl' => true,
             'fingerprint' => 'fingerprint',
@@ -152,6 +153,7 @@ class ItemTest extends TestCase
                 'feedId' => 1,
                 'isUnread' => true,
                 'isStarred' => true,
+                'isFiltered' => false,
                 'fingerprint' => 'fingerprint',
                 'contentHash' => 'contentHash'
             ],
@@ -171,7 +173,8 @@ class ItemTest extends TestCase
             [
                 'id' => 3,
                 'isUnread' => true,
-                'isStarred' => true
+                'isStarred' => true,
+                'isFiltered' => false
             ],
             $item->toAPI2(true)
         );
@@ -221,7 +224,8 @@ class ItemTest extends TestCase
             'feedId' => 1,
             'unread' => true,
             'starred' => true,
-            'lastModified' => 321,
+            'filtered' => false,
+            'lastModified' => '321',
             'rtl' => true,
             'intro' => 'this is a test',
             'fingerprint' => 'fingerprint',
