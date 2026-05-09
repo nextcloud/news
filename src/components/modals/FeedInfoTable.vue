@@ -3,7 +3,11 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <template>
-	<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
+	<MoveFeed
+		v-if="showMoveFeed"
+		:feed="feedToMove"
+		:feeds="feedsToMove"
+		@close="closeMoveFeed()" />
 	<NcModal
 		size="large"
 		labelId="feed-settings-dialog"
@@ -129,9 +133,60 @@
 					</tr>
 				</tbody>
 			</table>
-			<table>
+			<table ref="feedsTable" class="feeds-table" :style="feedsTableStyle">
+				<colgroup>
+					<col style="width: 36px;">
+					<col style="width: 64px;">
+					<col style="width: 44px;">
+					<col style="width: 180px;">
+					<col style="width: 260px;">
+					<col style="width: 170px;">
+					<col style="width: 160px;">
+					<col style="width: 160px;">
+					<col style="width: 70px;">
+					<col style="width: 70px;">
+				</colgroup>
 				<thead>
-					<tr>
+					<tr v-if="hasSelectedFeeds" class="selection-header-row">
+						<th class="select-column">
+							<NcCheckboxRadioSwitch
+								:modelValue="allSelected"
+								:indeterminate="isPartiallySelected"
+								data-test="selectAllFeeds"
+								:aria-label="t('news', 'Select all feeds')"
+								:disabled="processingBatch || sortedFeeds.length === 0"
+								class="table-select-checkbox"
+								@update:modelValue="toggleSelectAllByValue" />
+						</th>
+						<th colspan="9" class="selection-header-cell">
+							<div class="selection-header-content">
+								<strong>{{ t('news', 'Selected feeds') }}: {{ selectedFeedIds.length }}</strong>
+								<NcButton
+									:disabled="!canMoveSelected"
+									data-test="moveSelectedFeeds"
+									@click="openMoveSelectedFeedsDialog">
+									{{ t('news', 'Move selected') }}
+								</NcButton>
+								<NcButton
+									:disabled="!canDeleteSelected"
+									data-test="deleteSelectedFeeds"
+									@click="deleteSelectedFeeds">
+									{{ t('news', 'Delete selected') }}
+								</NcButton>
+							</div>
+						</th>
+					</tr>
+					<tr v-else>
+						<th class="select-column">
+							<NcCheckboxRadioSwitch
+								:modelValue="allSelected"
+								:indeterminate="isPartiallySelected"
+								data-test="selectAllFeeds"
+								:aria-label="t('news', 'Select all feeds')"
+								:disabled="processingBatch || sortedFeeds.length === 0"
+								class="table-select-checkbox"
+								@update:modelValue="toggleSelectAllByValue" />
+						</th>
 						<th @click="sortBy('id')">
 							<span class="column-title">
 								<div class="sort-icon">
@@ -208,6 +263,15 @@
 				</thead>
 				<tbody>
 					<tr v-for="feed in sortedFeeds" :key="feed.id">
+						<td class="select-column">
+							<NcCheckboxRadioSwitch
+								v-model="selectedFeedIds"
+								:value="feed.id"
+								:disabled="processingBatch"
+								:aria-label="t('news', 'Select feed {feed}', { feed: feed.title || String(feed.id) })"
+								:data-test="'selectFeed-' + feed.id"
+								class="table-select-checkbox" />
+						</td>
 						<td class="number">
 							{{ feed.id }}
 						</td>
@@ -338,10 +402,12 @@
 </template>
 
 <script>
+import { showError } from '@nextcloud/dialogs'
 import { mapState } from 'vuex'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
 import NcButton from '@nextcloud/vue/components/NcButton'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
@@ -366,6 +432,8 @@ export default {
 		NcActions,
 		NcActionButton,
 		NcLoadingIcon,
+		NcButton,
+		NcCheckboxRadioSwitch,
 		NcModal,
 		NcNoteCard,
 		MoveFeed,
@@ -379,7 +447,6 @@ export default {
 		TextShortIcon,
 		TextLongIcon,
 		FilterIcon,
-		NcButton,
 	},
 
 	emits: {
@@ -389,7 +456,12 @@ export default {
 	data() {
 		return {
 			feedToMove: undefined,
+			feedsToMove: [],
 			showMoveFeed: false,
+			selectedFeedIds: [],
+			preservedTableWidth: null,
+			processingBatch: false,
+			batchRequestDelay: 150,
 			sortKey: 'title',
 			sortOrder: 1,
 			FEED_UPDATE_MODE,
@@ -421,6 +493,41 @@ export default {
 			return this.$store.getters.loading
 		},
 
+		allSelected() {
+			return this.sortedFeeds.length > 0 && this.selectedFeedIds.length === this.sortedFeeds.length
+		},
+
+		isPartiallySelected() {
+			return this.selectedFeedIds.length > 0 && this.selectedFeedIds.length < this.sortedFeeds.length
+		},
+
+		canDeleteSelected() {
+			return !this.processingBatch && this.selectedFeedIds.length > 0
+		},
+
+		canMoveSelected() {
+			return !this.processingBatch && this.selectedFeedIds.length > 0
+		},
+
+		hasSelectedFeeds() {
+			return this.selectedFeedIds.length > 0
+		},
+
+		feedsTableStyle() {
+			if (!this.hasSelectedFeeds || !this.preservedTableWidth) {
+				return undefined
+			}
+
+			return {
+				minWidth: `${this.preservedTableWidth}px`,
+			}
+		},
+
+		selectedFeeds() {
+			const selectedFeedIdSet = new Set(this.selectedFeedIds)
+			return this.feeds.filter((feed) => selectedFeedIdSet.has(feed.id))
+		},
+
 		sortedFeeds() {
 			const sorted = Array.isArray(this.feeds) ? [...this.feeds] : []
 			if (this.sortKey) {
@@ -438,18 +545,100 @@ export default {
 		},
 	},
 
+	watch: {
+		feeds() {
+			const feedIds = new Set(this.feeds.map((feed) => feed.id))
+			this.selectedFeedIds = this.selectedFeedIds.filter((feedId) => feedIds.has(feedId))
+			this.$nextTick(() => {
+				if (!this.hasSelectedFeeds) {
+					this.updatePreservedTableWidth()
+				}
+			})
+		},
+
+		hasSelectedFeeds(selected) {
+			if (!selected) {
+				this.$nextTick(() => {
+					this.updatePreservedTableWidth()
+				})
+			}
+		},
+	},
+
+	mounted() {
+		this.$nextTick(() => {
+			this.updatePreservedTableWidth()
+		})
+		window.addEventListener('resize', this.handleResize)
+	},
+
+	beforeUnmount() {
+		window.removeEventListener('resize', this.handleResize)
+	},
+
 	methods: {
 		formatDate,
+
+		handleResize() {
+			if (this.hasSelectedFeeds) {
+				return
+			}
+
+			this.$nextTick(() => {
+				this.updatePreservedTableWidth()
+			})
+		},
+
+		updatePreservedTableWidth() {
+			const table = this.$refs.feedsTable
+			if (!table) {
+				return
+			}
+
+			const width = table.getBoundingClientRect().width
+			if (width > 0) {
+				this.preservedTableWidth = Math.ceil(width)
+			}
+		},
+
 		folderName(feed) {
 			return this.folderMap[feed.folderId] || ''
 		},
 
+		async pauseBetweenBatchRequests() {
+			await new Promise((resolve) => setTimeout(resolve, this.batchRequestDelay))
+		},
+
+		getFolderIdOrDefault(feed) {
+			return typeof feed.folderId === 'number' ? feed.folderId : 0
+		},
+
+		toggleSelectAllByValue(checked) {
+			if (checked) {
+				this.selectedFeedIds = this.sortedFeeds.map((feed) => feed.id)
+				return
+			}
+			this.selectedFeedIds = []
+		},
+
 		openMoveFeed(feed) {
+			this.feedsToMove = []
 			this.feedToMove = feed
 			this.showMoveFeed = true
 		},
 
+		openMoveSelectedFeedsDialog() {
+			if (!this.canMoveSelected) {
+				return
+			}
+			this.feedToMove = undefined
+			this.feedsToMove = [...this.selectedFeeds]
+			this.showMoveFeed = true
+		},
+
 		closeMoveFeed() {
+			this.feedToMove = undefined
+			this.feedsToMove = []
 			this.showMoveFeed = false
 		},
 
@@ -539,6 +728,41 @@ export default {
 		filterErrorMessage(error) {
 			return error?.response?.data?.message || t('news', 'Unable to update keyword filters. Please try again.')
 		},
+
+		async deleteSelectedFeeds() {
+			if (!this.canDeleteSelected) {
+				return
+			}
+
+			const selectedFeeds = [...this.selectedFeeds]
+			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete {count} selected feeds?', { count: selectedFeeds.length }))
+			if (!shouldDelete) {
+				return
+			}
+
+			this.processingBatch = true
+			let failedDeletes = 0
+
+			try {
+				for (const [index, feed] of selectedFeeds.entries()) {
+					try {
+						await this.$store.dispatch(ACTIONS.FEED_DELETE, { feed })
+					} catch (error) {
+						failedDeletes++
+						console.error(`error deleting selected feed ${feed.id}`, error)
+					}
+					if (index < selectedFeeds.length - 1) {
+						await this.pauseBetweenBatchRequests()
+					}
+				}
+			} finally {
+				this.processingBatch = false
+			}
+
+			if (failedDeletes > 0) {
+				showError(t('news', 'Some selected feeds could not be deleted. Please try again later or check your connection.'))
+			}
+		},
 	},
 }
 </script>
@@ -563,6 +787,50 @@ export default {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+	}
+
+	.selection-header-cell {
+		cursor: default;
+
+		&:hover {
+			background-color: transparent;
+			border-radius: 0;
+		}
+	}
+
+	.selection-header-content {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 0.75rem;
+		padding: 0 1rem 0 0;
+		min-height: 52px;
+		white-space: nowrap;
+	}
+
+	.feeds-table {
+		table-layout: fixed;
+
+		thead tr {
+			height: 52px;
+		}
+
+		th {
+			height: 52px;
+			vertical-align: middle;
+		}
+
+		.column-title {
+			min-height: 52px;
+		}
+
+		:deep(.table-select-checkbox.checkbox-radio-switch) {
+			min-height: auto;
+			padding: 0;
+			display: inline-flex;
+			justify-content: center;
+			max-width: unset;
+		}
 	}
 
 	table {
@@ -623,6 +891,12 @@ export default {
 		.sort-icon {
 			height: 20px;
 			width: 20px;
+		}
+
+		.select-column {
+			text-align: center;
+			padding-inline-end: .5rem;
+			min-width: 36px;
 		}
 
 	}

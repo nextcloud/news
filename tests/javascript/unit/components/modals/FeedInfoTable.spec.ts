@@ -1,9 +1,14 @@
+import { showError } from '@nextcloud/dialogs'
 import { mount, shallowMount } from '@vue/test-utils'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import Vuex from 'vuex'
 import FeedInfoTable from '../../../../../src/components/modals/FeedInfoTable.vue'
 import { FEED_UPDATE_MODE } from '../../../../../src/enums/index.ts'
 import { ACTIONS } from '../../../../../src/store/index.ts'
+
+vi.mock('@nextcloud/dialogs', () => ({
+	showError: vi.fn(),
+}))
 
 describe('FeedInfoTable.vue', () => {
 	'use strict'
@@ -165,6 +170,59 @@ describe('FeedInfoTable.vue', () => {
 			expect(wrapper.vm.filterForm.urlKeywords).toEqual('baz')
 			expect(wrapper.vm.filterDialogError).toEqual('Unable to update keyword filters. Please try again.')
 			expect(wrapper.vm.filterDialogSaving).toEqual(false)
+		})
+
+		it('should toggle selecting all feeds', () => {
+			wrapper.vm.toggleSelectAllByValue(true)
+			expect(wrapper.vm.selectedFeedIds).toEqual([1, 2, 3])
+
+			wrapper.vm.toggleSelectAllByValue(false)
+			expect(wrapper.vm.selectedFeedIds).toEqual([])
+		})
+
+		it('should open move selected feeds dialog with selected feeds', () => {
+			wrapper.vm.selectedFeedIds = [1, 2]
+
+			wrapper.vm.openMoveSelectedFeedsDialog()
+
+			expect(wrapper.vm.feedToMove).toEqual(undefined)
+			expect(wrapper.vm.feedsToMove).toEqual([feeds[0], feeds[1]])
+			expect(wrapper.vm.showMoveFeed).toEqual(true)
+		})
+
+		it('should not open move selected feeds dialog when nothing is selected', () => {
+			wrapper.vm.selectedFeedIds = []
+
+			wrapper.vm.openMoveSelectedFeedsDialog()
+
+			expect(wrapper.vm.showMoveFeed).toEqual(false)
+			expect(wrapper.vm.feedsToMove).toEqual([])
+		})
+
+		it('should delete selected feeds after confirmation', async () => {
+			const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)
+			store.dispatch = vi.fn().mockResolvedValue(undefined)
+			const pauseSpy = vi.spyOn(wrapper.vm, 'pauseBetweenBatchRequests').mockResolvedValue(undefined)
+
+			wrapper.vm.selectedFeedIds = [1, 2]
+			await wrapper.vm.deleteSelectedFeeds()
+
+			expect(store.dispatch).toHaveBeenNthCalledWith(1, ACTIONS.FEED_DELETE, { feed: feeds[0] })
+			expect(store.dispatch).toHaveBeenNthCalledWith(2, ACTIONS.FEED_DELETE, { feed: feeds[1] })
+			expect(confirmSpy).toHaveBeenCalledTimes(1)
+			expect(confirmSpy).toHaveBeenCalledWith(expect.stringContaining('{count} selected feeds'))
+			expect(pauseSpy).toHaveBeenCalledTimes(1)
+		})
+
+		it('should show an error if deleting selected feeds fails', async () => {
+			vi.spyOn(window, 'confirm').mockReturnValue(true)
+			store.dispatch = vi.fn().mockRejectedValue(new Error('delete failed'))
+
+			wrapper.vm.selectedFeedIds = [1]
+			await wrapper.vm.deleteSelectedFeeds()
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_DELETE, { feed: feeds[0] })
+			expect(showError).toHaveBeenCalledWith('Some selected feeds could not be deleted. Please try again later or check your connection.')
 		})
 	})
 
@@ -427,6 +485,7 @@ describe('FeedInfoTable.vue', () => {
 	})
 
 	afterEach(() => {
+		vi.restoreAllMocks()
 		vi.clearAllMocks()
 	})
 })
