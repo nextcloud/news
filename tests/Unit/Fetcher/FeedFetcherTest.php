@@ -14,7 +14,7 @@
 namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
-use OCA\News\Vendor\Favicon\Favicon;
+use OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery;
 use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
 use OCA\News\Vendor\FeedIo\Feed\Item\Author;
 use OCA\News\Vendor\FeedIo\Feed\Item\MediaInterface;
@@ -76,7 +76,7 @@ class FeedFetcherTest extends TestCase
     private $response;
 
     /**
-     * @var MockObject|Favicon
+    * @var MockObject|FaviconDiscovery
      */
     private $favicon;
 
@@ -173,7 +173,7 @@ class FeedFetcherTest extends TestCase
         $this->reader = $this->getMockBuilder(FeedIo::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $this->favicon = $this->getMockBuilder(Favicon::class)
+        $this->favicon = $this->getMockBuilder(FaviconDiscovery::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->result = $this->getMockBuilder(Result::class)
@@ -416,6 +416,34 @@ class FeedFetcherTest extends TestCase
         $result = $this->fetcher->fetch($this->url, false, null, null, null, []);
 
         $this->assertEquals([$feed, [$item]], $result);
+    }
+
+    public function testFaviconDiscoveryFailureDoesNotAbortFetch(): void
+    {
+        $this->setUpReader($this->url);
+
+        $item = $this->createItem();
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        $this->feed_mock->expects($this->exactly(3))
+            ->method('getTitle')
+            ->will($this->returnValue($this->feed_title));
+        $this->feed_mock->expects($this->exactly(2))
+            ->method('getLink')
+            ->will($this->returnValue($this->feed_link));
+        $this->feed_mock->expects($this->once())
+            ->method('getLanguage')
+            ->will($this->returnValue('de-DE'));
+
+        $this->favicon->expects($this->once())
+            ->method('discover')
+            ->with($this->equalTo($this->url))
+            ->will($this->throwException(new \RuntimeException('discovery failed')));
+
+        list($feed, $items) = $this->fetcher->fetch($this->url, false, null, null, null, []);
+
+        $this->assertNull($feed->getFaviconLink());
+        $this->assertEquals([$item], $items);
     }
 
     /**
@@ -833,7 +861,7 @@ class FeedFetcherTest extends TestCase
 
         $feed->setFaviconLink('http://anon.google.com');
         $this->favicon->expects($this->exactly(1))
-            ->method('get')
+            ->method('discover')
             ->with($this->equalTo($url))
             ->will($this->returnValue($this->web_favicon));
 
