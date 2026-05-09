@@ -288,7 +288,12 @@ class FeedController extends Controller
     #[NoAdminRequired]
     public function getFilter(int $feedId)
     {
-        $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+        try {
+            $this->feedService->find($this->getUserId(), $feedId);
+            $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
 
         if ($filter === null) {
             return [
@@ -359,6 +364,7 @@ class FeedController extends Controller
     public function deleteFilter(int $feedId)
     {
         try {
+            $this->feedService->find($this->getUserId(), $feedId);
             $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
 
             if ($filter !== null) {

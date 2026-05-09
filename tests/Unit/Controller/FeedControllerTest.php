@@ -14,6 +14,7 @@
 namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\FeedController;
+use OCA\News\Db\Filter;
 use OCA\News\Db\Folder;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FilterService;
@@ -598,5 +599,86 @@ class FeedControllerTest extends TestCase
 
         $this->assertEquals('test', $params['message']);
         $this->assertEquals($response->getStatus(), Http::STATUS_NOT_FOUND);
+    }
+
+    public function testGetFilterReturnsNotFoundForMissingFeed()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 404)
+            ->will($this->throwException(new ServiceNotFoundException('missing')));
+
+        $response = $this->class->getFilter(404);
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals('missing', $params['message']);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+    }
+
+    public function testGetFilterReturnsDefaultForExistingFeedWithoutFilter()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 12)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('findByFeedId')
+            ->with($this->uid, 12)
+            ->will($this->returnValue(null));
+
+        $response = $this->class->getFilter(12);
+
+        $this->assertEquals(
+            [
+                'filter' => [
+                    'feedId' => 12,
+                    'titleKeywords' => '',
+                    'bodyKeywords' => '',
+                    'urlKeywords' => '',
+                ],
+            ],
+            $response
+        );
+    }
+
+    public function testDeleteFilterReturnsNotFoundForMissingFeed()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 99)
+            ->will($this->throwException(new ServiceNotFoundException('missing')));
+        $this->filterService->expects($this->never())
+            ->method('clearAndReapplyFilter');
+
+        $response = $this->class->deleteFilter(99);
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals('missing', $params['message']);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+    }
+
+    public function testDeleteFilterChecksFeedOwnershipBeforeClear()
+    {
+        $filter = new Filter();
+        $filter->setId(55);
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 8)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('findByFeedId')
+            ->with($this->uid, 8)
+            ->will($this->returnValue($filter));
+        $this->filterService->expects($this->once())
+            ->method('delete')
+            ->with($this->uid, 55);
+        $this->filterService->expects($this->once())
+            ->method('clearAndReapplyFilter')
+            ->with($this->uid, 8);
+
+        $response = $this->class->deleteFilter(8);
+
+        $this->assertEquals([], $response);
     }
 }

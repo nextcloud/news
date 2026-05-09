@@ -72,3 +72,13 @@ teardown() {
   assert_output --partial '"filter":{"feedId":'$FEEDID
   assert_output --partial '"titleKeywords":""'
 }
+
+@test "[$TESTSUITE] Read filter for missing feed returns 404" {
+  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} GET ${BASE_URLv3}/feeds/999999/filter 2>&1 | grep HTTP/)
+  echo "$STATUS_CODE" | grep '404' > /dev/null
+}
+
+@test "[$TESTSUITE] Delete filter for missing feed returns 404" {
+  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} DELETE ${BASE_URLv3}/feeds/999999/filter 2>&1 | grep HTTP/)
+  echo "$STATUS_CODE" | grep '404' > /dev/null
+}
