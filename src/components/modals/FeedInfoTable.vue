@@ -308,9 +308,15 @@
 		<NcModal v-if="filterFeed" size="small" @close="closeFilterDialog()">
 			<div class="filter-dialog">
 				<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
+				<p class="filter-help-text">
+					{{ t('news', 'Matching is case-insensitive. Title and body keywords match whole words, while URL keywords match URL fragments.') }}
+				</p>
+				<NcNoteCard v-if="filterDialogError" type="error">
+					{{ filterDialogError }}
+				</NcNoteCard>
 
 				<label for="filter-title-keywords">{{ t('news', 'Title keywords') }}</label>
-				<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
+				<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. android, ios')">
 
 				<label for="filter-body-keywords">{{ t('news', 'Body keywords') }}</label>
 				<input id="filter-body-keywords" v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
@@ -319,10 +325,10 @@
 				<input id="filter-url-keywords" v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
 
 				<div class="filter-actions">
-					<NcButton @click="saveFilter()">
+					<NcButton :disabled="filterDialogSaving" @click="saveFilter()">
 						{{ t('news', 'Save') }}
 					</NcButton>
-					<NcButton @click="clearFilter()">
+					<NcButton :disabled="filterDialogSaving" @click="clearFilter()">
 						{{ t('news', 'Clear') }}
 					</NcButton>
 				</div>
@@ -388,6 +394,8 @@ export default {
 			sortOrder: 1,
 			FEED_UPDATE_MODE,
 			filterFeed: undefined,
+			filterDialogError: undefined,
+			filterDialogSaving: false,
 			filterForm: {
 				titleKeywords: '',
 				bodyKeywords: '',
@@ -466,37 +474,70 @@ export default {
 			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed, fullTextEnabled })
 		},
 
-		openFilterDialog(feed) {
+		async openFilterDialog(feed) {
 			this.filterFeed = feed
-			this.$store.dispatch(ACTIONS.FEED_GET_FILTER, { feed }).then((response) => {
+			this.filterDialogError = undefined
+			try {
+				const response = await this.$store.dispatch(ACTIONS.FEED_GET_FILTER, { feed })
 				if (response?.data?.filter) {
 					this.filterForm.titleKeywords = response.data.filter.titleKeywords || ''
 					this.filterForm.bodyKeywords = response.data.filter.bodyKeywords || ''
 					this.filterForm.urlKeywords = response.data.filter.urlKeywords || ''
 				}
-			})
+			} catch (error) {
+				this.filterDialogError = this.filterErrorMessage(error)
+			}
 		},
 
 		closeFilterDialog() {
 			this.filterFeed = undefined
+			this.filterDialogError = undefined
 		},
 
-		saveFilter() {
-			this.$store.dispatch(ACTIONS.FEED_SAVE_FILTER, {
-				feed: this.filterFeed,
-				titleKeywords: this.filterForm.titleKeywords,
-				bodyKeywords: this.filterForm.bodyKeywords,
-				urlKeywords: this.filterForm.urlKeywords,
-			})
-			this.closeFilterDialog()
+		async saveFilter() {
+			if (!this.filterFeed || this.filterDialogSaving) {
+				return
+			}
+
+			this.filterDialogError = undefined
+			this.filterDialogSaving = true
+			try {
+				await this.$store.dispatch(ACTIONS.FEED_SAVE_FILTER, {
+					feed: this.filterFeed,
+					titleKeywords: this.filterForm.titleKeywords,
+					bodyKeywords: this.filterForm.bodyKeywords,
+					urlKeywords: this.filterForm.urlKeywords,
+				})
+				this.closeFilterDialog()
+			} catch (error) {
+				this.filterDialogError = this.filterErrorMessage(error)
+			} finally {
+				this.filterDialogSaving = false
+			}
 		},
 
-		clearFilter() {
-			this.$store.dispatch(ACTIONS.FEED_DELETE_FILTER, { feed: this.filterFeed })
-			this.filterForm.titleKeywords = ''
-			this.filterForm.bodyKeywords = ''
-			this.filterForm.urlKeywords = ''
-			this.closeFilterDialog()
+		async clearFilter() {
+			if (!this.filterFeed || this.filterDialogSaving) {
+				return
+			}
+
+			this.filterDialogError = undefined
+			this.filterDialogSaving = true
+			try {
+				await this.$store.dispatch(ACTIONS.FEED_DELETE_FILTER, { feed: this.filterFeed })
+				this.filterForm.titleKeywords = ''
+				this.filterForm.bodyKeywords = ''
+				this.filterForm.urlKeywords = ''
+				this.closeFilterDialog()
+			} catch (error) {
+				this.filterDialogError = this.filterErrorMessage(error)
+			} finally {
+				this.filterDialogSaving = false
+			}
+		},
+
+		filterErrorMessage(error) {
+			return error?.response?.data?.message || t('news', 'Unable to update keyword filters. Please try again.')
 		},
 	},
 }
@@ -593,34 +634,44 @@ export default {
 		max-height: min(90%, 100% - 2 * var(--header-height));
 	}
 
-.filter-dialog {
-    padding: 20px;
+	.filter-dialog {
+		padding: 20px;
 
-    h3 {
-        font-size: 1.2rem;
-        margin-bottom: 16px;
-    }
+		h3 {
+			font-size: 1.2rem;
+			margin-bottom: 16px;
+		}
 
-    label {
-        display: block;
-        margin-bottom: 4px;
-        font-weight: bold;
-    }
+		.filter-help-text {
+			margin: 0 0 12px;
+			color: var(--color-text-maxcontrast);
+			font-size: 0.95rem;
+		}
 
-    input {
-        display: block;
-        width: 100%;
-        margin-bottom: 12px;
-        padding: 8px;
-        border: 1px solid var(--color-border);
-        border-radius: 4px;
-    }
+		:deep(.notecard) {
+			margin-bottom: 12px;
+		}
 
-    .filter-actions {
-        display: flex;
-        gap: 8px;
-        justify-content: flex-end;
-        margin-top: 16px;
-    }
-}
+		label {
+			display: block;
+			margin-bottom: 4px;
+			font-weight: bold;
+		}
+
+		input {
+			display: block;
+			width: 100%;
+			margin-bottom: 12px;
+			padding: 8px;
+			border: 1px solid var(--color-border);
+			border-radius: 4px;
+		}
+
+		.filter-actions {
+			display: flex;
+			gap: 8px;
+			justify-content: flex-end;
+			margin-top: 16px;
+		}
+	}
 </style>

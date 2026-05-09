@@ -16,6 +16,7 @@ namespace OCA\News\Controller;
 use OCA\News\Db\Filter;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FilterService;
 use OCA\News\Service\FolderServiceV2;
@@ -288,7 +289,12 @@ class FeedController extends Controller
     #[NoAdminRequired]
     public function getFilter(int $feedId)
     {
-        $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+        try {
+            $this->feedService->find($this->getUserId(), $feedId);
+            $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
 
         if ($filter === null) {
             return [
@@ -323,6 +329,11 @@ class FeedController extends Controller
     ) {
         try {
             $this->feedService->find($this->getUserId(), $feedId);
+            $keywords = $this->filterService->sanitizeAndValidateFilterKeywords(
+                $titleKeywords,
+                $bodyKeywords,
+                $urlKeywords
+            );
             $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
 
             if ($filter === null) {
@@ -330,9 +341,30 @@ class FeedController extends Controller
                 $filter->setFeedId($feedId);
             }
 
-            $filter->setTitleKeywords($titleKeywords);
-            $filter->setBodyKeywords($bodyKeywords);
-            $filter->setUrlKeywords($urlKeywords);
+            $filter->setTitleKeywords($keywords['titleKeywords'] ?? '');
+            $filter->setBodyKeywords($keywords['bodyKeywords'] ?? '');
+            $filter->setUrlKeywords($keywords['urlKeywords'] ?? '');
+
+            $allEmpty = trim($filter->getTitleKeywords() ?? '') === ''
+                && trim($filter->getBodyKeywords() ?? '') === ''
+                && trim($filter->getUrlKeywords() ?? '') === '';
+
+            if ($allEmpty) {
+                if ($filter->getId() !== null) {
+                    $this->filterService->delete($this->getUserId(), $filter->getId());
+                }
+
+                $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
+
+                return [
+                    'filter' => [
+                        'feedId' => $feedId,
+                        'titleKeywords' => '',
+                        'bodyKeywords' => '',
+                        'urlKeywords' => '',
+                    ]
+                ];
+            }
 
             if ($filter->getId() === null) {
                 $filter = $this->filterService->insert($filter);
@@ -343,6 +375,8 @@ class FeedController extends Controller
             $this->filterService->clearAndReapplyFilter($this->getUserId(), $feedId);
 
             return ['filter' => $filter->toAPI()];
+        } catch (ServiceValidationException $ex) {
+            return $this->error($ex, Http::STATUS_UNPROCESSABLE_ENTITY);
         } catch (ServiceNotFoundException $ex) {
             return $this->error($ex, Http::STATUS_NOT_FOUND);
         }
@@ -359,6 +393,7 @@ class FeedController extends Controller
     public function deleteFilter(int $feedId)
     {
         try {
+            $this->feedService->find($this->getUserId(), $feedId);
             $filter = $this->filterService->findByFeedId($this->getUserId(), $feedId);
 
             if ($filter !== null) {

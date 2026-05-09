@@ -13,8 +13,6 @@ namespace OCA\News\Db;
 
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\Entity;
-use OCP\DB\Exception as DBException;
-use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 /**

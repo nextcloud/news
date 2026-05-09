@@ -17,9 +17,11 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use Exception;
 use OCA\News\Controller\FeedApiController;
+use OCA\News\Db\Filter;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FilterService;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -422,5 +424,141 @@ class FeedApiControllerTest extends TestCase
             ->with('Could not update feed ' . $this->msg);
 
         $this->class->update($userId, $feedId);
+    }
+
+    public function testGetFilterReturnsNotFoundForMissingFeed()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 999)
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+
+        $response = $this->class->getFilter(999);
+        $data = $response->getData();
+
+        $this->assertEquals($this->msg, $data['message']);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+    }
+
+    public function testGetFilterReturnsDefaultForExistingFeedWithoutFilter()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 7)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('findByFeedId')
+            ->with($this->userID, 7)
+            ->will($this->returnValue(null));
+
+        $response = $this->class->getFilter(7);
+
+        $this->assertEquals(
+            [
+                'filter' => [
+                    'feedId' => 7,
+                    'titleKeywords' => '',
+                    'bodyKeywords' => '',
+                    'urlKeywords' => '',
+                ],
+            ],
+            $response
+        );
+    }
+
+    public function testDeleteFilterReturnsNotFoundForMissingFeed()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 321)
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+        $this->filterService->expects($this->never())
+            ->method('clearAndReapplyFilter');
+
+        $response = $this->class->deleteFilter(321);
+        $data = $response->getData();
+
+        $this->assertEquals($this->msg, $data['message']);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
+    }
+
+    public function testDeleteFilterChecksFeedOwnershipBeforeClear()
+    {
+        $filter = new Filter();
+        $filter->setId(10);
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 5)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('findByFeedId')
+            ->with($this->userID, 5)
+            ->will($this->returnValue($filter));
+        $this->filterService->expects($this->once())
+            ->method('delete')
+            ->with($this->userID, 10);
+        $this->filterService->expects($this->once())
+            ->method('clearAndReapplyFilter')
+            ->with($this->userID, 5);
+
+        $response = $this->class->deleteFilter(5);
+
+        $this->assertEquals([], $response);
+    }
+
+    public function testSaveFilterWithEmptyPayloadDeletesExistingFilter()
+    {
+        $filter = new Filter();
+        $filter->setId(22);
+        $filter->setFeedId(9);
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 9)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('findByFeedId')
+            ->with($this->userID, 9)
+            ->will($this->returnValue($filter));
+        $this->filterService->expects($this->once())
+            ->method('delete')
+            ->with($this->userID, 22);
+        $this->filterService->expects($this->once())
+            ->method('clearAndReapplyFilter')
+            ->with($this->userID, 9);
+        $this->filterService->expects($this->never())
+            ->method('insert');
+
+        $response = $this->class->saveFilter(9, '', '', '');
+
+        $this->assertEquals(
+            [
+                'filter' => [
+                    'feedId' => 9,
+                    'titleKeywords' => '',
+                    'bodyKeywords' => '',
+                    'urlKeywords' => '',
+                ],
+            ],
+            $response
+        );
+    }
+
+    public function testSaveFilterReturnsValidationErrorForInvalidPayload()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->userID, 17)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('sanitizeAndValidateFilterKeywords')
+            ->will($this->throwException(new ServiceValidationException('invalid')));
+
+        $response = $this->class->saveFilter(17, 'bad', null, null);
+        $data = $response->getData();
+
+        $this->assertEquals('invalid', $data['message']);
+        $this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
     }
 }
