@@ -6,10 +6,8 @@ namespace OCA\News\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;
-use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
-use OCP\Server;
 
 class Version280400Date20260502120000 extends SimpleMigrationStep
 {
@@ -51,22 +49,6 @@ class Version280400Date20260502120000 extends SimpleMigrationStep
             ]);
             $table->setPrimaryKey(['id']);
             $table->addUniqueIndex(['feed_id'], 'news_filters_feed_id_idx');
-
-            // createTable via changeSchema return value may not be applied
-            // execute raw SQL directly
-            /** @var IDBConnection $db */
-            $db = Server::get(IDBConnection::class);
-            $db->executeStatement("
-                CREATE TABLE IF NOT EXISTS news_filters (
-                    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    feed_id BIGINT UNSIGNED NOT NULL,
-                    title_keywords TEXT DEFAULT NULL,
-                    body_keywords TEXT DEFAULT NULL,
-                    url_keywords TEXT DEFAULT NULL,
-                    last_modified BIGINT UNSIGNED DEFAULT 0,
-                    UNIQUE INDEX news_filters_feed_id_idx (feed_id)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin
-            ");
         }
 
         // add filtered column to news_items
