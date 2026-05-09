@@ -173,8 +173,52 @@ class FilterServiceTest extends TestCase
 
         $this->assertEquals(0, $marked);
         $this->assertFalse($readFiltered->isFiltered());
+        $this->assertTrue($readFiltered->isUnread());
         $this->assertFalse($unreadFiltered->isFiltered());
         $this->assertTrue($unreadFiltered->isUnread());
+    }
+
+    public function testClearAndReapplyWithEmptyFilterRestoresUnreadForPreviouslyFilteredItems(): void
+    {
+        $filter = new Filter();
+        $filter->setFeedId(10);
+        $filter->setTitleKeywords('');
+        $filter->setBodyKeywords('');
+        $filter->setUrlKeywords('');
+
+        $readFiltered = Item::fromParams([
+            'id' => 13,
+            'title' => 'filtered before',
+            'unread' => false,
+            'filtered' => true,
+        ]);
+        $readNotFiltered = Item::fromParams([
+            'id' => 14,
+            'title' => 'already read by user',
+            'unread' => false,
+            'filtered' => false,
+        ]);
+
+        $this->mapper->expects($this->once())
+            ->method('findByFeedId')
+            ->with('jack', 10)
+            ->willReturn($filter);
+        $this->itemMapper->expects($this->once())
+            ->method('findAllInFeedAfter')
+            ->with('jack', 10, 0, false)
+            ->willReturn([$readFiltered, $readNotFiltered]);
+        $this->itemMapper->expects($this->once())
+            ->method('update')
+            ->with($readFiltered)
+            ->willReturn($readFiltered);
+
+        $marked = $this->service->clearAndReapplyFilter('jack', 10);
+
+        $this->assertEquals(0, $marked);
+        $this->assertFalse($readFiltered->isFiltered());
+        $this->assertTrue($readFiltered->isUnread());
+        $this->assertFalse($readNotFiltered->isFiltered());
+        $this->assertFalse($readNotFiltered->isUnread());
     }
 
     public function testSanitizeAndValidateFilterKeywordsNormalizesAndDeduplicates(): void
@@ -208,5 +252,66 @@ class FilterServiceTest extends TestCase
         $this->expectExceptionMessage('exceeds max keyword count');
 
         $this->service->sanitizeAndValidateFilterKeywords($keywords, null, null);
+    }
+
+    public function testItemMatchesFilterUsesWholeWordMatchForTitleAndBody(): void
+    {
+        $filter = new Filter();
+        $filter->setTitleKeywords('AI');
+
+        $maintenanceItem = Item::fromParams([
+            'id' => 21,
+            'title' => 'April maintenance releases: Nextcloud Hub',
+            'body' => '',
+            'url' => 'https://nextcloud.com/blog/maintenance-release/',
+            'unread' => true,
+            'filtered' => false,
+        ]);
+        $aioItem = Item::fromParams([
+            'id' => 22,
+            'title' => 'Nextcloud AIO usability updates',
+            'body' => '',
+            'url' => 'https://nextcloud.com/blog/aio-updates/',
+            'unread' => true,
+            'filtered' => false,
+        ]);
+        $aiItem = Item::fromParams([
+            'id' => 23,
+            'title' => 'AI in Nextcloud: What, why and how',
+            'body' => '',
+            'url' => 'https://nextcloud.com/blog/ai-in-nextcloud/',
+            'unread' => true,
+            'filtered' => false,
+        ]);
+
+        $this->assertFalse($this->service->itemMatchesFilter($maintenanceItem, $filter));
+        $this->assertFalse($this->service->itemMatchesFilter($aioItem, $filter));
+        $this->assertTrue($this->service->itemMatchesFilter($aiItem, $filter));
+    }
+
+    public function testItemMatchesFilterKeepsSubstringMatchForUrls(): void
+    {
+        $filter = new Filter();
+        $filter->setUrlKeywords('/sport/');
+
+        $sportItem = Item::fromParams([
+            'id' => 31,
+            'title' => 'Sports article',
+            'body' => '',
+            'url' => 'https://example.com/news/sport/highlights',
+            'unread' => true,
+            'filtered' => false,
+        ]);
+        $nonSportItem = Item::fromParams([
+            'id' => 32,
+            'title' => 'Business article',
+            'body' => '',
+            'url' => 'https://example.com/news/business/report',
+            'unread' => true,
+            'filtered' => false,
+        ]);
+
+        $this->assertTrue($this->service->itemMatchesFilter($sportItem, $filter));
+        $this->assertFalse($this->service->itemMatchesFilter($nonSportItem, $filter));
     }
 }

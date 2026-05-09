@@ -145,14 +145,14 @@ class FilterService extends Service
     {
         $filter = $this->findByFeedId($userId, $feedId);
         $items = $this->itemMapper->findAllInFeedAfter($userId, $feedId, 0, false);
+        $hasActiveFilter = $filter !== null && !$this->filterIsEmpty($filter);
 
         $markedCount = 0;
 
         foreach ($items as $item) {
             /** @var Item $item */
-            $matches = $filter !== null
-                && !$this->filterIsEmpty($filter)
-                && $this->itemMatchesFilter($item, $filter);
+            $wasFiltered = $item->isFiltered();
+            $matches = $hasActiveFilter && $this->itemMatchesFilter($item, $filter);
 
             $needsUpdate = false;
 
@@ -165,6 +165,12 @@ class FilterService extends Service
                 $item->setUnread(false);
                 $needsUpdate = true;
                 $markedCount++;
+            }
+
+            // When filter is removed, restore unread state for items hidden by that filter.
+            if (!$hasActiveFilter && $wasFiltered && !$item->isUnread()) {
+                $item->setUnread(true);
+                $needsUpdate = true;
             }
 
             if ($needsUpdate) {
@@ -207,18 +213,18 @@ class FilterService extends Service
         $bodyKeywords  = $this->parseKeywords($filter->getBodyKeywords());
         $urlKeywords   = $this->parseKeywords($filter->getUrlKeywords());
 
-        // Check title
-        if ($titleKeywords !== [] && $this->keywordsMatch($titleKeywords, $item->getTitle() ?? '')) {
+        // Check title using whole-word matching to avoid partial-word false positives.
+        if ($titleKeywords !== [] && $this->keywordsMatchByWordBoundary($titleKeywords, $item->getTitle() ?? '')) {
             return true;
         }
 
-        // Check body
-        if ($bodyKeywords !== [] && $this->keywordsMatch($bodyKeywords, $item->getBody() ?? '')) {
+        // Check body using whole-word matching to avoid partial-word false positives.
+        if ($bodyKeywords !== [] && $this->keywordsMatchByWordBoundary($bodyKeywords, $item->getBody() ?? '')) {
             return true;
         }
 
-        // Check URL
-        if ($urlKeywords !== [] && $this->keywordsMatch($urlKeywords, $item->getUrl() ?? '')) {
+        // URL matching remains substring-based for path fragments like "/sport/".
+        if ($urlKeywords !== [] && $this->keywordsMatchBySubstring($urlKeywords, $item->getUrl() ?? '')) {
             return true;
         }
 
@@ -259,13 +265,36 @@ class FilterService extends Service
      *
      * @return bool
      */
-    private function keywordsMatch(array $keywords, string $text): bool
+    private function keywordsMatchBySubstring(array $keywords, string $text): bool
     {
         foreach ($keywords as $keyword) {
             if (mb_stripos($text, $keyword, 0, 'UTF-8') !== false) {
                 return true;
             }
         }
+
+        return false;
+    }
+
+    /**
+     * Check if ANY keyword appears as a full term separated by non-word boundaries.
+     *
+     * Matching is case-insensitive and unicode-aware.
+     *
+     * @param string[] $keywords
+     * @param string   $text
+     *
+     * @return bool
+     */
+    private function keywordsMatchByWordBoundary(array $keywords, string $text): bool
+    {
+        foreach ($keywords as $keyword) {
+            $pattern = '/(?<![\\p{L}\\p{N}_])' . preg_quote($keyword, '/') . '(?![\\p{L}\\p{N}_])/iu';
+            if (preg_match($pattern, $text) === 1) {
+                return true;
+            }
+        }
+
         return false;
     }
 

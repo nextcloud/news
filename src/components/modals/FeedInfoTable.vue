@@ -308,12 +308,15 @@
 		<NcModal v-if="filterFeed" size="small" @close="closeFilterDialog()">
 			<div class="filter-dialog">
 				<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
+				<p class="filter-help-text">
+					{{ t('news', 'Matching is case-insensitive. Title and body keywords match whole words, while URL keywords match URL fragments.') }}
+				</p>
 				<NcNoteCard v-if="filterDialogError" type="error">
 					{{ filterDialogError }}
 				</NcNoteCard>
 
 				<label for="filter-title-keywords">{{ t('news', 'Title keywords') }}</label>
-				<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. trump, ios')">
+				<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. android, ios')">
 
 				<label for="filter-body-keywords">{{ t('news', 'Body keywords') }}</label>
 				<input id="filter-body-keywords" v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
@@ -637,6 +640,12 @@ export default {
 		h3 {
 			font-size: 1.2rem;
 			margin-bottom: 16px;
+		}
+
+		.filter-help-text {
+			margin: 0 0 12px;
+			color: var(--color-text-maxcontrast);
+			font-size: 0.95rem;
 		}
 
 		:deep(.notecard) {
