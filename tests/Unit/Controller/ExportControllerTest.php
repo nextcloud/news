@@ -162,12 +162,12 @@ class ExportControllerTest extends TestCase
             '[{"id":null,"guid":"guid","guidHash":"1e0ca5b1252f1f6b1e0ac91be7e7219e","url":null,"title":null,' .
             '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
             '"enclosureLink":null,"mediaThumbnail":null,"mediaDescription":null,' .
-            '"feedId":3,"unread":false,"starred":false,"lastModified":"0","rtl":false,"intro":"",' .
+            '"feedId":3,"unread":false,"starred":false,"filtered":false,"lastModified":"0","rtl":false,"intro":"",' .
             '"fingerprint":null,"categories":null,"sharedBy":null,"sharedByDisplayName":null},' .
             '{"id":null,"guid":"guid","guidHash":"1e0ca5b1252f1f6b1e0ac91be7e7219e","url":null,"title":null,' .
             '"author":null,"pubDate":null,"updatedDate":null,"body":null,"enclosureMime":null,' .
             '"enclosureLink":null,"mediaThumbnail":null,"mediaDescription":null,' .
-            '"feedId":5,"unread":false,"starred":false,"lastModified":"0","rtl":false,"intro":"",' .
+            '"feedId":5,"unread":false,"starred":false,"filtered":false,"lastModified":"0","rtl":false,"intro":"",' .
             '"fingerprint":null,"categories":null,"sharedBy":null,"sharedByDisplayName":null}]',
             $return->render()
         );

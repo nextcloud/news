@@ -16,6 +16,7 @@ namespace OCA\News\Tests\Unit\Controller;
 use OCA\News\Controller\FeedController;
 use OCA\News\Db\Folder;
 use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FilterService;
 use OCA\News\Service\FolderServiceV2;
 use OCA\News\Service\ImportService;
 use OCA\News\Service\ItemServiceV2;
@@ -52,6 +53,10 @@ class FeedControllerTest extends TestCase
      * @var MockObject|ItemServiceV2
      */
     private $itemService;
+    /**
+     * @var MockObject|FilterService
+     */
+    private $filterService;
 
     /**
      * @var MockObject|IUser
@@ -88,6 +93,10 @@ class FeedControllerTest extends TestCase
             ->getMockBuilder(FolderServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->filterService = $this
+            ->getMockBuilder(FilterService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->user = $this->getMockBuilder(IUser::class)->getMock();
         $this->user->expects($this->any())
             ->method('getUID')
@@ -105,6 +114,7 @@ class FeedControllerTest extends TestCase
             $this->folderService,
             $this->feedService,
             $this->itemService,
+            $this->filterService,
             $this->userSession
         );
     }

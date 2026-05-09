@@ -21,6 +21,7 @@ use OCA\News\Db\FeedMapperV2;
 use OCA\News\Fetcher\FeedFetcher;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
+use OCA\News\Service\FilterService;
 use OCA\News\Service\ItemServiceV2;
 use OCA\News\Utility\AppData;
 use OCA\News\Utility\Time;
@@ -90,6 +91,11 @@ class FeedServiceTest extends TestCase
      */
     protected $appData;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject|FilterService
+     */
+    private $filterService;
+
     private $response;
 
     protected function setUp(): void
@@ -133,6 +139,10 @@ class FeedServiceTest extends TestCase
             ->getMockBuilder(AppData::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->filterService = $this
+            ->getMockBuilder(FilterService::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         
         $this->class = new FeedServiceV2(
             $this->mapper,
@@ -142,7 +152,8 @@ class FeedServiceTest extends TestCase
             $this->purifier,
             $this->logger,
             $this->config,
-            $this->appData
+            $this->appData,
+            $this->filterService
         );
         $this->uid = 'jack';
     }
@@ -566,22 +577,12 @@ class FeedServiceTest extends TestCase
 
     public function testFetchSucceedsEmptyItems()
     {
-        $feed = $this->getMockBuilder(Feed::class)
-                     ->disableOriginalConstructor()
-                     ->getMock();
-
-        $feed->expects($this->once())
-             ->method('getPreventUpdate')
-             ->will($this->returnValue(false));
-
-        $feed->expects($this->once())
-             ->method('getLocation')
-             ->will($this->returnValue('location'));
-
-        $feed->expects($this->once())
-             ->method('setUnreadCount')
-             ->with(0)
-             ->will($this->returnSelf());
+           $feed = Feed::fromParams([
+              'id' => 1,
+              'userId' => 'jack',
+              'location' => 'location',
+              'updateMode' => FEED::UPDATE_MODE_NORMAL,
+           ]);
 
         $new_feed = $this->getMockBuilder(Feed::class)
             ->disableOriginalConstructor()
@@ -597,6 +598,7 @@ class FeedServiceTest extends TestCase
             ->will($this->returnValue($feed));
 
         $this->assertEquals($feed, $this->class->fetch($feed));
+        $this->assertEquals(0, $feed->getUnreadCount());
     }
 
     public function testFetchSucceedsFullItems()
