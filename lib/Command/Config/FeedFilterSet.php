@@ -6,6 +6,7 @@ namespace OCA\News\Command\Config;
 
 use OCA\News\Db\Filter;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\FilterService;
 use Symfony\Component\Console\Command\Command;
@@ -64,7 +65,15 @@ class FeedFilterSet extends Command
 
         try {
             $this->feedService->find($userId, $feedId);
+            $keywords = $this->filterService->sanitizeAndValidateFilterKeywords(
+                $title !== null ? (string) $title : null,
+                $body !== null ? (string) $body : null,
+                $url !== null ? (string) $url : null
+            );
         } catch (ServiceNotFoundException $e) {
+            $output->writeln($e->getMessage());
+            return 1;
+        } catch (ServiceValidationException $e) {
             $output->writeln($e->getMessage());
             return 1;
         }
@@ -77,13 +86,31 @@ class FeedFilterSet extends Command
         }
 
         if ($title !== null) {
-            $filter->setTitleKeywords((string) $title);
+            $filter->setTitleKeywords($keywords['titleKeywords']);
         }
         if ($body !== null) {
-            $filter->setBodyKeywords((string) $body);
+            $filter->setBodyKeywords($keywords['bodyKeywords']);
         }
         if ($url !== null) {
-            $filter->setUrlKeywords((string) $url);
+            $filter->setUrlKeywords($keywords['urlKeywords']);
+        }
+
+        $allEmpty = trim($filter->getTitleKeywords() ?? '') === ''
+            && trim($filter->getBodyKeywords() ?? '') === ''
+            && trim($filter->getUrlKeywords() ?? '') === '';
+
+        if ($allEmpty) {
+            if ($filter->getId() !== null) {
+                $this->filterService->delete($userId, $filter->getId());
+            }
+            $this->filterService->clearAndReapplyFilter($userId, $feedId);
+            $output->writeln((string) json_encode([
+                'feedId' => $feedId,
+                'titleKeywords' => '',
+                'bodyKeywords' => '',
+                'urlKeywords' => '',
+            ], JSON_PRETTY_PRINT));
+            return 0;
         }
 
         if ($filter->getId() === null) {

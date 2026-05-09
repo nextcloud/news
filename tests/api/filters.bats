@@ -73,6 +73,19 @@ teardown() {
   assert_output --partial '"titleKeywords":""'
 }
 
+@test "[$TESTSUITE] Save empty payload behaves as delete" {
+  FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv3}/feeds url=$NC_FEED | grep -Po '"id":\K([0-9]+)')
+
+  http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv3}/feeds/$FEEDID/filter titleKeywords='keep' bodyKeywords='body' urlKeywords='/url/' > /dev/null
+
+  run http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv3}/feeds/$FEEDID/filter titleKeywords='' bodyKeywords='' urlKeywords=''
+
+  assert_output --partial '"filter":{"feedId":'$FEEDID
+  assert_output --partial '"titleKeywords":""'
+  assert_output --partial '"bodyKeywords":""'
+  assert_output --partial '"urlKeywords":""'
+}
+
 @test "[$TESTSUITE] Read filter for missing feed returns 404" {
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} GET ${BASE_URLv3}/feeds/999999/filter 2>&1 | grep HTTP/)
   echo "$STATUS_CODE" | grep '404' > /dev/null
@@ -81,4 +94,13 @@ teardown() {
 @test "[$TESTSUITE] Delete filter for missing feed returns 404" {
   STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} DELETE ${BASE_URLv3}/feeds/999999/filter 2>&1 | grep HTTP/)
   echo "$STATUS_CODE" | grep '404' > /dev/null
+}
+
+@test "[$TESTSUITE] Save rejects overlong keyword payload" {
+  FEEDID=$(http --ignore-stdin -b -a ${user}:${APP_PASSWORD} POST ${BASE_URLv3}/feeds url=$NC_FEED | grep -Po '"id":\K([0-9]+)')
+  LONG=$(head -c 129 < /dev/zero | tr '\0' 'a')
+
+  STATUS_CODE=$(http --ignore-stdin -hdo /tmp/body -a ${user}:${APP_PASSWORD} POST ${BASE_URLv3}/feeds/$FEEDID/filter titleKeywords="$LONG" 2>&1 | grep HTTP/)
+
+  echo "$STATUS_CODE" | grep '422' > /dev/null
 }

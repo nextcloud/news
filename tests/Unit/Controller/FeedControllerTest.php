@@ -27,6 +27,7 @@ use OCA\News\Db\Feed;
 use OCA\News\Db\ListType;
 use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\Exceptions\ServiceConflictException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\IRequest;
 
 use OCP\IUser;
@@ -680,5 +681,60 @@ class FeedControllerTest extends TestCase
         $response = $this->class->deleteFilter(8);
 
         $this->assertEquals([], $response);
+    }
+
+    public function testSaveFilterWithEmptyPayloadDeletesExistingFilter()
+    {
+        $filter = new Filter();
+        $filter->setId(11);
+        $filter->setFeedId(15);
+
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 15)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('findByFeedId')
+            ->with($this->uid, 15)
+            ->will($this->returnValue($filter));
+        $this->filterService->expects($this->once())
+            ->method('delete')
+            ->with($this->uid, 11);
+        $this->filterService->expects($this->once())
+            ->method('clearAndReapplyFilter')
+            ->with($this->uid, 15);
+        $this->filterService->expects($this->never())
+            ->method('insert');
+
+        $response = $this->class->saveFilter(15, '', '', '');
+
+        $this->assertEquals(
+            [
+                'filter' => [
+                    'feedId' => 15,
+                    'titleKeywords' => '',
+                    'bodyKeywords' => '',
+                    'urlKeywords' => '',
+                ],
+            ],
+            $response
+        );
+    }
+
+    public function testSaveFilterReturnsValidationErrorForInvalidPayload()
+    {
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->with($this->uid, 18)
+            ->will($this->returnValue(new Feed()));
+        $this->filterService->expects($this->once())
+            ->method('sanitizeAndValidateFilterKeywords')
+            ->will($this->throwException(new ServiceValidationException('invalid')));
+
+        $response = $this->class->saveFilter(18, 'bad', null, null);
+        $params = json_decode($response->render(), true);
+
+        $this->assertEquals('invalid', $params['message']);
+        $this->assertEquals(Http::STATUS_UNPROCESSABLE_ENTITY, $response->getStatus());
     }
 }

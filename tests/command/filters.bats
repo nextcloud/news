@@ -56,3 +56,13 @@ teardown() {
   assert_output --partial '"id": null'
   assert_output --partial '"titleKeywords": ""'
 }
+
+@test "[$TESTSUITE] Set rejects overlong keyword payload" {
+  ID=$(./occ news:feed:add "$user" "$NC_FEED" --title "Something-${BATS_SUITE_TEST_NUMBER}" | grep -Po '"id": \K([0-9]+)')
+  LONG=$(head -c 129 < /dev/zero | tr '\0' 'a')
+
+  run ./occ news:feed:filter:set "$user" "$ID" --title "$LONG"
+
+  assert_failure
+  assert_output --partial 'exceeds max length'
+}
