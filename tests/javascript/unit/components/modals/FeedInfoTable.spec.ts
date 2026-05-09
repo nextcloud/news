@@ -114,6 +114,58 @@ describe('FeedInfoTable.vue', () => {
 			expect(wrapper.vm.sortKey).toEqual('id')
 			expect(wrapper.vm.sortOrder).toEqual(-1)
 		})
+
+		it('should close filter dialog after successful save', async () => {
+			store.dispatch = vi.fn().mockResolvedValue({})
+			wrapper.vm.filterFeed = feeds[0]
+			wrapper.vm.filterForm.titleKeywords = 'foo'
+
+			await wrapper.vm.saveFilter()
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SAVE_FILTER, {
+				feed: feeds[0],
+				titleKeywords: 'foo',
+				bodyKeywords: '',
+				urlKeywords: '',
+			})
+			expect(wrapper.vm.filterFeed).toEqual(undefined)
+			expect(wrapper.vm.filterDialogError).toEqual(undefined)
+			expect(wrapper.vm.filterDialogSaving).toEqual(false)
+		})
+
+		it('should keep filter dialog open and set error on failed save', async () => {
+			store.dispatch = vi.fn().mockRejectedValue({
+				response: {
+					data: {
+						message: 'Validation failed',
+					},
+				},
+			})
+			wrapper.vm.filterFeed = feeds[0]
+
+			await wrapper.vm.saveFilter()
+
+			expect(wrapper.vm.filterFeed).toEqual(feeds[0])
+			expect(wrapper.vm.filterDialogError).toEqual('Validation failed')
+			expect(wrapper.vm.filterDialogSaving).toEqual(false)
+		})
+
+		it('should keep filter dialog open and preserve form values on failed clear', async () => {
+			store.dispatch = vi.fn().mockRejectedValue(new Error('network'))
+			wrapper.vm.filterFeed = feeds[0]
+			wrapper.vm.filterForm.titleKeywords = 'foo'
+			wrapper.vm.filterForm.bodyKeywords = 'bar'
+			wrapper.vm.filterForm.urlKeywords = 'baz'
+
+			await wrapper.vm.clearFilter()
+
+			expect(wrapper.vm.filterFeed).toEqual(feeds[0])
+			expect(wrapper.vm.filterForm.titleKeywords).toEqual('foo')
+			expect(wrapper.vm.filterForm.bodyKeywords).toEqual('bar')
+			expect(wrapper.vm.filterForm.urlKeywords).toEqual('baz')
+			expect(wrapper.vm.filterDialogError).toEqual('Unable to update keyword filters. Please try again.')
+			expect(wrapper.vm.filterDialogSaving).toEqual(false)
+		})
 	})
 
 	describe('Table Sorting', () => {

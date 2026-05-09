@@ -409,8 +409,9 @@ class FeedServiceV2 extends Service
         $updateMode = $feed->getUpdateMode();
         $userId = $feed->getUserId();
 
-        // load filter once before the loop
+        // Load and compile filter once before processing items.
         $filter = $this->filterService->findByFeedId($userId, $feedId);
+        $compiledFilter = $this->filterService->compileFilterMatcher($filter);
         $filteredCount = 0;
         
         foreach (array_reverse($items) as &$item) {
@@ -423,8 +424,8 @@ class FeedServiceV2 extends Service
                 $item->setMediaDescription($this->purifier->purify($mediaDesc));
             }
 
-            // apply filter before insert if item matches
-            if ($filter !== null && $this->filterService->itemMatchesFilter($item, $filter)) {
+            // Apply filter before insert if item matches.
+            if ($compiledFilter !== null && $this->filterService->itemMatchesCompiledFilter($item, $compiledFilter)) {
                 $item->setUnread(false);
                 $item->setFiltered(true);
                 $filteredCount++;

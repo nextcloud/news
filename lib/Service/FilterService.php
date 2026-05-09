@@ -15,9 +15,8 @@ use OCA\News\Db\Filter;
 use OCA\News\Db\FilterMapperV2;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
-use OCA\News\Service\Exceptions\ServiceNotFoundException;
+use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\Entity;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -27,6 +26,10 @@ use Psr\Log\LoggerInterface;
  */
 class FilterService extends Service
 {
+    private const MAX_FIELD_LENGTH = 2048;
+    private const MAX_KEYWORDS_PER_FIELD = 100;
+    private const MAX_KEYWORD_LENGTH = 128;
+
     /**
      * FilterService constructor.
      *
@@ -105,7 +108,8 @@ class FilterService extends Service
             return 0;
         }
 
-        $items = $this->itemMapper->findAllInFeedAfter($userId, $feedId, 0, false);
+        // Only unread items can be marked as read here.
+        $items = $this->itemMapper->findAllInFeedAfter($userId, $feedId, 0, true);
 
         $markedCount = 0;
 
@@ -138,11 +142,35 @@ class FilterService extends Service
     public function clearAndReapplyFilter(string $userId, int $feedId): int
     {
         $filter = $this->findByFeedId($userId, $feedId);
-        $this->itemMapper->clearFilteredFlag($feedId);
-        if ($filter === null || $this->filterIsEmpty($filter)) {
-            return 0;
+        $items = $this->itemMapper->findAllInFeedAfter($userId, $feedId, 0, false);
+
+        $markedCount = 0;
+
+        foreach ($items as $item) {
+            /** @var Item $item */
+            $matches = $filter !== null
+                && !$this->filterIsEmpty($filter)
+                && $this->itemMatchesFilter($item, $filter);
+
+            $needsUpdate = false;
+
+            if ($item->isFiltered() !== $matches) {
+                $item->setFiltered($matches);
+                $needsUpdate = true;
+            }
+
+            if ($matches && $item->isUnread()) {
+                $item->setUnread(false);
+                $needsUpdate = true;
+                $markedCount++;
+            }
+
+            if ($needsUpdate) {
+                $this->itemMapper->update($item);
+            }
         }
-        return $this->applyFilters($userId, $feedId);
+
+        return $markedCount;
     }
 
     /**
@@ -173,22 +201,68 @@ class FilterService extends Service
      */
     public function itemMatchesFilter(Item $item, Filter $filter): bool
     {
+        $compiledFilter = $this->compileFilterMatcher($filter);
+        if ($compiledFilter === null) {
+            return false;
+        }
+
+        return $this->itemMatchesCompiledFilter($item, $compiledFilter);
+    }
+
+    /**
+     * Compile filter keywords once into a matcher structure.
+     *
+     * @param Filter|null $filter
+     *
+     * @return array{titlePatterns: string[], bodyPatterns: string[], urlKeywords: string[]}|null
+     */
+    public function compileFilterMatcher(?Filter $filter): ?array
+    {
+        if ($filter === null || $this->filterIsEmpty($filter)) {
+            return null;
+        }
+
         $titleKeywords = $this->parseKeywords($filter->getTitleKeywords());
-        $bodyKeywords  = $this->parseKeywords($filter->getBodyKeywords());
-        $urlKeywords   = $this->parseKeywords($filter->getUrlKeywords());
+        $bodyKeywords = $this->parseKeywords($filter->getBodyKeywords());
+        $urlKeywords = $this->parseKeywords($filter->getUrlKeywords());
 
-        // Check title
-        if ($titleKeywords !== [] && $this->keywordsMatch($titleKeywords, $item->getTitle() ?? '')) {
+        return [
+            'titlePatterns' => $this->compileWordBoundaryPatterns($titleKeywords),
+            'bodyPatterns' => $this->compileWordBoundaryPatterns($bodyKeywords),
+            'urlKeywords' => $urlKeywords,
+        ];
+    }
+
+    /**
+     * Evaluate an item against a precompiled filter matcher.
+     *
+     * @param Item                                                   $item
+     * @param array{titlePatterns: string[], bodyPatterns: string[], urlKeywords: string[]} $compiledFilter
+     *
+     * @return bool
+     */
+    public function itemMatchesCompiledFilter(Item $item, array $compiledFilter): bool
+    {
+        $titlePatterns = $compiledFilter['titlePatterns'];
+        $bodyPatterns = $compiledFilter['bodyPatterns'];
+        $urlKeywords = $compiledFilter['urlKeywords'];
+
+        // Check title using whole-word matching to avoid partial-word false positives.
+        if ($titlePatterns !== []
+            && $this->compiledWordBoundaryPatternsMatch($titlePatterns, $item->getTitle() ?? '')
+        ) {
             return true;
         }
 
-        // Check body
-        if ($bodyKeywords !== [] && $this->keywordsMatch($bodyKeywords, $item->getBody() ?? '')) {
+        // Check body using whole-word matching to avoid partial-word false positives.
+        if ($bodyPatterns !== []
+            && $this->compiledWordBoundaryPatternsMatch($bodyPatterns, $item->getBody() ?? '')
+        ) {
             return true;
         }
 
-        // Check URL
-        if ($urlKeywords !== [] && $this->keywordsMatch($urlKeywords, $item->getUrl() ?? '')) {
+        // URL matching remains substring-based for path fragments like "/sport/".
+        if ($urlKeywords !== [] && $this->keywordsMatchBySubstring($urlKeywords, $item->getUrl() ?? '')) {
             return true;
         }
 
@@ -229,13 +303,148 @@ class FilterService extends Service
      *
      * @return bool
      */
-    private function keywordsMatch(array $keywords, string $text): bool
+    private function keywordsMatchBySubstring(array $keywords, string $text): bool
     {
         foreach ($keywords as $keyword) {
             if (mb_stripos($text, $keyword, 0, 'UTF-8') !== false) {
                 return true;
             }
         }
+
         return false;
+    }
+
+    /**
+     * Check if ANY keyword appears as a full term separated by non-word boundaries.
+     *
+     * Matching is case-insensitive and unicode-aware.
+     *
+     * @param string[] $keywords
+     * @param string   $text
+     *
+     * @return bool
+     */
+    private function keywordsMatchByWordBoundary(array $keywords, string $text): bool
+    {
+        return $this->compiledWordBoundaryPatternsMatch($this->compileWordBoundaryPatterns($keywords), $text);
+    }
+
+    /**
+     * @param string[] $keywords
+     *
+     * @return string[]
+     */
+    private function compileWordBoundaryPatterns(array $keywords): array
+    {
+        $patterns = [];
+        foreach ($keywords as $keyword) {
+            $patterns[] = '/(?<![\\p{L}\\p{N}_])' . preg_quote($keyword, '/') . '(?![\\p{L}\\p{N}_])/iu';
+        }
+
+        return $patterns;
+    }
+
+    /**
+     * @param string[] $patterns
+     * @param string   $text
+     *
+     * @return bool
+     */
+    private function compiledWordBoundaryPatternsMatch(array $patterns, string $text): bool
+    {
+        foreach ($patterns as $pattern) {
+            if (preg_match($pattern, $text) === 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Normalize and validate user keyword input across all fields.
+     *
+     * @param string|null $titleKeywords
+     * @param string|null $bodyKeywords
+     * @param string|null $urlKeywords
+     *
+     * @return array{titleKeywords: string, bodyKeywords: string, urlKeywords: string}
+     *
+     * @throws ServiceValidationException
+     */
+    public function sanitizeAndValidateFilterKeywords(
+        ?string $titleKeywords,
+        ?string $bodyKeywords,
+        ?string $urlKeywords
+    ): array {
+        return [
+            'titleKeywords' => $this->normalizeAndValidateKeywordField($titleKeywords, 'titleKeywords'),
+            'bodyKeywords' => $this->normalizeAndValidateKeywordField($bodyKeywords, 'bodyKeywords'),
+            'urlKeywords' => $this->normalizeAndValidateKeywordField($urlKeywords, 'urlKeywords'),
+        ];
+    }
+
+    /**
+     * @param string|null $keywordString
+     * @param string      $fieldName
+     *
+     * @return string
+     *
+     * @throws ServiceValidationException
+     */
+    private function normalizeAndValidateKeywordField(?string $keywordString, string $fieldName): string
+    {
+        $raw = trim($keywordString ?? '');
+
+        if ($raw === '') {
+            return '';
+        }
+
+        if (mb_strlen($raw, 'UTF-8') > self::MAX_FIELD_LENGTH) {
+            throw new ServiceValidationException(
+                "$fieldName exceeds max length of " . self::MAX_FIELD_LENGTH . ' characters'
+            );
+        }
+
+        $parts = array_map('trim', explode(',', $raw));
+        $parts = array_values(array_filter($parts, static function (string $kw): bool {
+            return $kw !== '';
+        }));
+
+        if (count($parts) > self::MAX_KEYWORDS_PER_FIELD) {
+            throw new ServiceValidationException(
+                "$fieldName exceeds max keyword count of " . self::MAX_KEYWORDS_PER_FIELD
+            );
+        }
+
+        $normalized = [];
+        $seen = [];
+
+        foreach ($parts as $kw) {
+            if (mb_strlen($kw, 'UTF-8') > self::MAX_KEYWORD_LENGTH) {
+                throw new ServiceValidationException(
+                    "A keyword in $fieldName exceeds max length of "
+                    . self::MAX_KEYWORD_LENGTH
+                    . ' characters'
+                );
+            }
+
+            $key = mb_strtolower($kw, 'UTF-8');
+            if (isset($seen[$key])) {
+                continue;
+            }
+
+            $seen[$key] = true;
+            $normalized[] = $kw;
+        }
+
+        $normalizedString = implode(', ', $normalized);
+        if (mb_strlen($normalizedString, 'UTF-8') > self::MAX_FIELD_LENGTH) {
+            throw new ServiceValidationException(
+                "$fieldName exceeds max length of " . self::MAX_FIELD_LENGTH . ' characters'
+            );
+        }
+
+        return $normalizedString;
     }
 }
