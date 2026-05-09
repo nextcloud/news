@@ -305,9 +305,15 @@
 				</tbody>
 			</table>
 		</div>
-		<NcModal v-if="filterFeed" size="small" @close="closeFilterDialog()">
+		<NcModal
+			v-if="filterFeed"
+			labelId="feed-filter-dialog"
+			size="small"
+			@close="closeFilterDialog()">
 			<div class="filter-dialog">
-				<h3>{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}</h3>
+				<h3 id="feed-filter-dialog">
+					{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}
+				</h3>
 				<p class="filter-help-text">
 					{{ t('news', 'Matching is case-insensitive. Title and body keywords match whole words, while URL keywords match URL fragments.') }}
 				</p>
@@ -315,14 +321,24 @@
 					{{ filterDialogError }}
 				</NcNoteCard>
 
-				<label for="filter-title-keywords">{{ t('news', 'Title keywords') }}</label>
-				<input id="filter-title-keywords" v-model="filterForm.titleKeywords" :placeholder="t('news', 'e.g. android, ios')">
+				<div class="filter-inputs">
+					<NcTextField
+						id="filter-title-keywords"
+						v-model:modelValue="filterForm.titleKeywords"
+						:label="t('news', 'Title keywords')"
+						:placeholder="t('news', 'e.g. android, ios')" />
+					<NcTextField
+						id="filter-body-keywords"
+						v-model:modelValue="filterForm.bodyKeywords"
+						:label="t('news', 'Body keywords')"
+						:placeholder="t('news', 'e.g. advertisement')" />
 
-				<label for="filter-body-keywords">{{ t('news', 'Body keywords') }}</label>
-				<input id="filter-body-keywords" v-model="filterForm.bodyKeywords" :placeholder="t('news', 'e.g. advertisement')">
-
-				<label for="filter-url-keywords">{{ t('news', 'URL keywords') }}</label>
-				<input id="filter-url-keywords" v-model="filterForm.urlKeywords" :placeholder="t('news', 'e.g. /sport/')">
+					<NcTextField
+						id="filter-url-keywords"
+						v-model:modelValue="filterForm.urlKeywords"
+						:label="t('news', 'URL keywords')"
+						:placeholder="t('news', 'e.g. /sport/')" />
+				</div>
 
 				<div class="filter-actions">
 					<NcButton :disabled="filterDialogSaving" @click="saveFilter()">
@@ -345,6 +361,7 @@ import NcButton from '@nextcloud/vue/components/NcButton'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcTextField from '@nextcloud/vue/components/NcTextField'
 import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
 import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
@@ -368,6 +385,7 @@ export default {
 		NcLoadingIcon,
 		NcModal,
 		NcNoteCard,
+		NcTextField,
 		MoveFeed,
 		SidebarFeedLinkActions,
 		FileDocumentRefresh,
@@ -652,19 +670,10 @@ export default {
 			margin-bottom: 12px;
 		}
 
-		label {
-			display: block;
-			margin-bottom: 4px;
-			font-weight: bold;
-		}
-
-		input {
-			display: block;
-			width: 100%;
-			margin-bottom: 12px;
-			padding: 8px;
-			border: 1px solid var(--color-border);
-			border-radius: 4px;
+		.filter-inputs {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
 		}
 
 		.filter-actions {
