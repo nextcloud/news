@@ -45,20 +45,58 @@ echo "→ Running bootstrap (Apache + Nextcloud installer)…"
 (cd /tmp && sudo -E /usr/local/bin/bootstrap.sh apache2ctl start)
 
 # Wait for the background installer to finish (up to 5 minutes).
-echo "→ Waiting for Nextcloud installation to complete…"
+# Fun messages are printed every 10 seconds to keep the developer entertained.
+FUN_TASKS=(
+    "Summoning PHP 8.3 🐘"
+    "Cloning Nextcloud ${SERVER_BRANCH:-master} 🌿"
+    "Setting up the database 🗄️"
+    "Running maintenance:install 🔧"
+    "Enabling apps 🧩"
+    "Configuring Apache 🪁"
+    "Calibrating Xdebug 🔍"
+    "Feeding the RSS gnomes 📰"
+    "Polishing the user interface ✨"
+    "Teaching owls to hoot 🦉"
+    "Brewing extra coffee ☕"
+    "Checking for gremlins 🐛"
+    "Untangling spaghetti code 🍝"
+    "Counting database rows 🔢"
+    "Crossing fingers 🤞"
+    "Chanting install mantras 🙏"
+    "Bribing the build gods ⚡"
+    "Asking the PHP fairy nicely 🧚"
+    "Definitely almost done ⏳"
+)
+TASK_INDEX=0
 TIMEOUT=300
 ELAPSED=0
+
+echo "→ Waiting for Nextcloud installation to complete…"
+echo ""
+
 until sudo -u www-data php "$WEBROOT/occ" status 2>/dev/null | grep -q "installed: true"; do
     if [ "$ELAPSED" -ge "$TIMEOUT" ]; then
+        echo ""
         echo "✘ Timed out waiting for Nextcloud installation" >&2
         exit 1
     fi
     sleep 5
     ELAPSED=$((ELAPSED + 5))
-    printf "\r   %ds / %ds…" "$ELAPSED" "$TIMEOUT"
+    # Print a new "completed task" every 10 seconds to entertain the developer.
+    if [ "$ELAPSED" -gt "0" ] && [ "$(( ELAPSED % 10 ))" -eq "0" ]; then
+        printf "  ✔ %s\n" "${FUN_TASKS[$TASK_INDEX]}"
+        TASK_INDEX=$(( (TASK_INDEX + 1) % ${#FUN_TASKS[@]} ))
+    fi
 done
 echo ""
 echo "✔ Nextcloud installed"
+
+# Disable the profiler.  The dev base image enables it by default; it must be
+# turned off after the installer finishes writing config.php (any earlier
+# attempt races against the background installer and gets overwritten).
+echo "→ Disabling Nextcloud profiler…"
+sudo -u www-data php "$WEBROOT/occ" config:system:set profiler --value=false --type=bool
+echo "✔ Profiler disabled"
 
 # Fix ownership so the vscode developer can read/write these directories
 # without sudo.  Apache (www-data) retains access via group membership.
@@ -69,5 +107,12 @@ for dir in config data apps-writable apps-extra apps-shared; do
     sudo chown -R "$(id -u):www-data" "$target"
     sudo chmod -R g+rwX "$target"
 done
+
+# Bootstrap runs as root (via sudo -E), so any Nextcloud temp files it created
+# in /tmp are owned by root.  Remove them so the vscode user can recreate them
+# with the correct owner on the first `./occ` run (otherwise FileSequence
+# finds a root-owned directory that exists but is not writable).
+sudo find /tmp -maxdepth 1 -type d -user root \( -name 'oc_*' -o -name 'nc_*' \) \
+    -exec rm -rf {} + 2>/dev/null || true
 
 echo "✔ Nextcloud is ready at http://localhost (admin / admin)"
