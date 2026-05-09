@@ -83,6 +83,9 @@ Report a [feed issue](https://github.com/nextcloud/news/discussions/new)
         <command>OCA\News\Command\Config\FeedAdd</command>
         <command>OCA\News\Command\Config\FeedDelete</command>
         <command>OCA\News\Command\Config\FeedDelete</command>
+        <command>OCA\News\Command\Config\FeedFilterGet</command>
+        <command>OCA\News\Command\Config\FeedFilterSet</command>
+        <command>OCA\News\Command\Config\FeedFilterDelete</command>
         <command>OCA\News\Command\Config\OpmlExport</command>
         <command>OCA\News\Command\Config\OpmlImport</command>
         <command>OCA\News\Command\Config\ItemExport</command>
