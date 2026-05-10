@@ -57,7 +57,7 @@ Open the feed in a new tab or window.
 You can hide unwanted articles per feed by defining keyword filters.
 
 How to open filters for a feed:
-- Open **Feed Settings**.
+- Open **Feed settings**.
 - In the feed table, find your feed and click the **Keyword filters** icon in the options column.
 
 How to add or change filters:
