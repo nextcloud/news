@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "启用网络抓取",
     "Disable web scraping" : "禁用网络抓取",
     "Not available" : "不可用",
+    "Save" : "保存",
+    "Clear" : "清除",
     "All Articles" : "全部文章",
     "No feeds found to add" : "未找到要添加的订阅源",
     "Subscribe to" : "订阅",

@@ -44,6 +44,8 @@ OC.L10N.register(
     "Options" : "Tùy chọn",
     "Title" : "Tên",
     "Folder" : "Thư mục",
-    "Not available" : "Không khả dụng"
+    "Not available" : "Không khả dụng",
+    "Save" : "Lưu",
+    "Clear" : "Xóa"
 },
 "nplurals=1; plural=0;");

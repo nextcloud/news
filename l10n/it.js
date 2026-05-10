@@ -105,6 +105,8 @@ OC.L10N.register(
     "Title" : "Titolo",
     "Folder" : "Cartella",
     "Not available" : "Non disponibile",
+    "Save" : "Salva",
+    "Clear" : "Pulisci",
     "All Articles" : "Tutti gli articoli",
     "No feeds found to add" : "Nessuna fonte trovata da aggiungere",
     "Subscribe to" : "Sottoscrivi",

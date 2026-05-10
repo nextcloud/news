@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "Ativar a extração de dados da web",
     "Disable web scraping" : "Desativar a extração de dados da web",
     "Not available" : "Não disponível",
+    "Save" : "Salvar",
+    "Clear" : "Limpar",
     "All Articles" : "Todos os Artigos",
     "No feeds found to add" : "Nenhum feed encontrado para adicionar",
     "Subscribe to" : "Inscrever-se em",

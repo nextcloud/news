@@ -22,6 +22,7 @@ OC.L10N.register(
     "Import" : "នាំយកចូល",
     "Export" : "នាំចេញ",
     "Options" : "ជម្រើស",
-    "Folder" : "ថត"
+    "Folder" : "ថត",
+    "Save" : "រក្សាទុក"
 },
 "nplurals=1; plural=0;");

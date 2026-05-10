@@ -92,6 +92,7 @@ OC.L10N.register(
     "Options" : "Опции",
     "Title" : "Заглавие",
     "Folder" : "Папка",
+    "Clear" : "Изчистване",
     "Subscribe to" : "Абониране за"
 },
 "nplurals=2; plural=(n != 1);");

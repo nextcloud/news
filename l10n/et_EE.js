@@ -179,6 +179,8 @@ OC.L10N.register(
     "Enable web scraping" : "Lülita veebiskreipimine sisse",
     "Disable web scraping" : "Lülita veebiskreipimine välja",
     "Not available" : "Pole saadaval",
+    "Save" : "Salvesta",
+    "Clear" : "Tühjenda",
     "All Articles" : "Kõik artiklid",
     "No feeds found to add" : "Ei leia lisamiseks ühtegi uudisvoogu",
     "Subscribe to" : "Telli",

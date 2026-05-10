@@ -81,6 +81,8 @@ OC.L10N.register(
     "Options" : "Optziones",
     "Title" : "Tìtulu",
     "Folder" : "Cartella",
+    "Save" : "Sarva",
+    "Clear" : "Lìmpia",
     "All Articles" : "Totu is artìculos",
     "Subscribe to" : "Sutaiscrie"
 },

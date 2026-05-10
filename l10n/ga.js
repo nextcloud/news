@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "Cumasaigh scríobadh gréasáin",
     "Disable web scraping" : "Díchumasaigh scríobadh gréasáin",
     "Not available" : "Níl sé ar fáil",
+    "Save" : "Sábháil",
+    "Clear" : "Glan",
     "All Articles" : "Gach Airteagal",
     "No feeds found to add" : "Níor aimsíodh fothaí le cur leis",
     "Subscribe to" : "Liostáil le",

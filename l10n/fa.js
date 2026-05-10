@@ -95,6 +95,8 @@ OC.L10N.register(
     "Title" : "Title",
     "Folder" : "پوشه",
     "Not available" : "در دسترس نیست",
+    "Save" : "ذخیره",
+    "Clear" : "پاک کردن",
     "Subscribe to" : "Subscribe to"
 },
 "nplurals=2; plural=(n > 1);");

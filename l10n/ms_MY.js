@@ -17,6 +17,7 @@ OC.L10N.register(
     "Import" : "Import",
     "Export" : "Eksport",
     "Refresh" : "Refresh",
-    "Folder" : "Folder"
+    "Folder" : "Folder",
+    "Save" : "Simpan"
 },
 "nplurals=1; plural=0;");

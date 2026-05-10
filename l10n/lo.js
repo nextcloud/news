@@ -148,6 +148,8 @@ OC.L10N.register(
     "Title" : "ຫົວຂໍ້",
     "Folder" : "Folder",
     "Not available" : "Not available",
+    "Save" : "ບັນທຶກ",
+    "Clear" : "ລຶບລ້າງ",
     "All Articles" : "All Articles",
     "No feeds found to add" : "No feeds found to add",
     "Subscribe to" : "Subscribe to",

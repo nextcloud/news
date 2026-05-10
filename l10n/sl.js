@@ -98,6 +98,8 @@ OC.L10N.register(
     "Options" : "Možnosti",
     "Title" : "Naslov",
     "Folder" : "Mapa",
+    "Save" : "Shrani",
+    "Clear" : "Počisti",
     "All Articles" : "Vsi prispevki",
     "No feeds found to add" : "Ni najdenih virov  za dodajanje",
     "Subscribe to" : "Naročnina na",

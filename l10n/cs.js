@@ -174,6 +174,7 @@ OC.L10N.register(
     "Title" : "Titul",
     "Folder" : "Složka",
     "Not available" : "Není k dispozici",
+    "Clear" : "Vyčistit",
     "All Articles" : "Všechny články",
     "No feeds found to add" : "Nenalezeny žádné kanály, které by bylo možné přidat",
     "Subscribe to" : "Přihlásit se k odběru",

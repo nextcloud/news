@@ -145,6 +145,8 @@ OC.L10N.register(
     "Title" : "Τίτλος",
     "Folder" : "Φάκελος",
     "Not available" : "Μη διαθέσιμο",
+    "Save" : "Αποθήκευση",
+    "Clear" : "Εκκαθάριση",
     "All Articles" : "Όλα τα Άρθρα",
     "No feeds found to add" : "Δεν βρέθηκαν ροές για προσθήκη",
     "Subscribe to" : "Εγγραφή στο",

@@ -27,6 +27,8 @@ OC.L10N.register(
     "Options" : "Variantlar",
     "Title" : "Sarlavha",
     "Folder" : "Jild",
-    "Not available" : "Mavjud emas"
+    "Not available" : "Mavjud emas",
+    "Save" : "Saqlash",
+    "Clear" : "Toza"
 },
 "nplurals=1; plural=0;");

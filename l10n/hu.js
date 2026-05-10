@@ -100,6 +100,8 @@ OC.L10N.register(
     "Title" : "Cím",
     "Folder" : "Mappa",
     "Not available" : "Nem érhető el",
+    "Save" : "Mentés",
+    "Clear" : "Törlés",
     "All Articles" : "Minden cikk",
     "Subscribe to" : "Feliratkozás:"
 },

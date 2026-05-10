@@ -93,6 +93,8 @@ OC.L10N.register(
     "Resources" : "Resources",
     "Folder" : "Folder",
     "Not available" : "Not available",
+    "Save" : "დამახსოვრება",
+    "Clear" : "Clear",
     "All Articles" : "All Articles",
     "No feeds found to add" : "No feeds found to add",
     "Subscribe to" : "Subscribe to",

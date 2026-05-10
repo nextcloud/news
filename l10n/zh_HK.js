@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "啟用網頁擷取",
     "Disable web scraping" : "停用網頁擷取",
     "Not available" : "不可用",
+    "Save" : "儲存",
+    "Clear" : "清除",
     "All Articles" : "所有文章",
     "No feeds found to add" : "找不到要新增的 feed",
     "Subscribe to" : "訂閱",

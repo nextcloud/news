@@ -20,6 +20,7 @@ OC.L10N.register(
     "Keyboard shortcuts" : "விசைப்பலகை குறுக்குவழிகள்",
     "Refresh" : "மீள் ஏற்றுக",
     "Title" : "தலைப்பு",
-    "Folder" : "கோப்புறை"
+    "Folder" : "கோப்புறை",
+    "Save" : "சேமிக்க "
 },
 "nplurals=2; plural=(n != 1);");

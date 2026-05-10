@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "Povoliť web scraping",
     "Disable web scraping" : "Zakázať web scraping",
     "Not available" : "Nie je dostupné",
+    "Save" : "Uložiť",
+    "Clear" : "Vyčistiť",
     "All Articles" : "Všetky články",
     "No feeds found to add" : "Žiadne kanály na pridanie neboli nájdené.",
     "Subscribe to" : "Odobrať z",

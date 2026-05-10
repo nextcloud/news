@@ -70,6 +70,8 @@ OC.L10N.register(
     "Resources" : "משאבים",
     "Options" : "אפשרויות",
     "Title" : "כותרת",
-    "Folder" : "תיקייה"
+    "Folder" : "תיקייה",
+    "Save" : "שמירה",
+    "Clear" : "פינוי"
 },
 "nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;");

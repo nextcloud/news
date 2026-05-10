@@ -40,6 +40,7 @@ OC.L10N.register(
     "Jump to previous article" : "Saltar al articulo previe",
     "Jump to next article" : "Saltar al articulo sequente",
     "Open article in new tab" : "Aperir articulo in nove scheda",
-    "Folder" : "Dossier"
+    "Folder" : "Dossier",
+    "Save" : "Salveguardar"
 },
 "nplurals=2; plural=(n != 1);");

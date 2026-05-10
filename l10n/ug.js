@@ -148,6 +148,8 @@ OC.L10N.register(
     "Title" : "ماۋزۇ",
     "Folder" : "قىسقۇچ",
     "Not available" : "ئىشلەتكىلى بولمايدۇ",
+    "Save" : "ساقلا",
+    "Clear" : "تازلا",
     "All Articles" : "بارلىق ماقالىلەر",
     "No feeds found to add" : "قوشۇشقا بولىدىغان يەم تېپىلمىدى",
     "Subscribe to" : "مۇشتەرى بولۇش",

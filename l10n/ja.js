@@ -108,6 +108,8 @@ OC.L10N.register(
     "Options" : "オプション",
     "Title" : "タイトル",
     "Folder" : "フォルダー",
+    "Save" : "保存する",
+    "Clear" : "クリア",
     "All Articles" : "全ての記事",
     "No feeds found to add" : "追加するフィードが見つかりません",
     "Subscribe to" : "次を購読:",

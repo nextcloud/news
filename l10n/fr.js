@@ -148,6 +148,8 @@ OC.L10N.register(
     "Title" : "Titre",
     "Folder" : "Dossier",
     "Not available" : "Non disponible",
+    "Save" : "Enregistrer",
+    "Clear" : "Effacer",
     "All Articles" : "Tous les articles",
     "No feeds found to add" : "Aucun flux à ajouter trouvé",
     "Subscribe to" : "S'abonner à ",

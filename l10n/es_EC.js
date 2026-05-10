@@ -92,6 +92,8 @@ OC.L10N.register(
     "Title" : "Título",
     "Folder" : "Carpeta",
     "Not available" : "No disponible",
+    "Save" : "Guardar",
+    "Clear" : "Limpiar",
     "Subscribe to" : "Suscribirse a"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

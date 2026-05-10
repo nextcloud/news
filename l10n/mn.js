@@ -47,6 +47,8 @@ OC.L10N.register(
     "Options" : "Сонголтууд",
     "Title" : "Гарчиг",
     "Folder" : "–•–∞–≤—Ç–∞—Å",
-    "Not available" : "Боломжгүй"
+    "Not available" : "Боломжгүй",
+    "Save" : "–•–∞–¥–≥–∞–ª–∞—Ö",
+    "Clear" : "Цэвэрлэх"
 },
 "nplurals=2; plural=(n != 1);");

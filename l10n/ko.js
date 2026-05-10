@@ -92,6 +92,8 @@ OC.L10N.register(
     "Options" : "옵션들",
     "Title" : "제목",
     "Folder" : "폴더",
+    "Save" : "저장",
+    "Clear" : "비우기",
     "All Articles" : "모든 글",
     "No feeds found to add" : "추가할 피드를 없음",
     "Subscribe to" : "다음을 구독",

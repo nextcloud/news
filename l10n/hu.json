@@ -98,6 +98,8 @@
     "Title" : "Cím",
     "Folder" : "Mappa",
     "Not available" : "Nem érhető el",
+    "Save" : "Mentés",
+    "Clear" : "Törlés",
     "All Articles" : "Minden cikk",
     "Subscribe to" : "Feliratkozás:"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

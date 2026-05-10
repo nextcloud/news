@@ -101,6 +101,8 @@ OC.L10N.register(
     "Title" : "Navn",
     "Folder" : "Mappe",
     "Not available" : "Ikke ledig",
+    "Save" : "Lagre",
+    "Clear" : "Tøm",
     "All Articles" : "Alle artikler",
     "No feeds found to add" : "Ingen nyhetsstrømmer funnet å legge til",
     "Subscribe to" : "Abonner på",

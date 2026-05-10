@@ -78,6 +78,8 @@ OC.L10N.register(
     "Resources" : "Tilföng",
     "Options" : "Valkostir",
     "Folder" : "Mappa",
+    "Save" : "Vista",
+    "Clear" : "Hreinsa",
     "Subscribe to" : "Gerast áskrifandi að"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

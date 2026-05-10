@@ -90,6 +90,8 @@ OC.L10N.register(
     "Options" : "Opties",
     "Title" : "Titel",
     "Folder" : "Map",
+    "Save" : "Opslaan",
+    "Clear" : "Terug",
     "Subscribe to" : "Abonneren op"
 },
 "nplurals=2; plural=(n != 1);");

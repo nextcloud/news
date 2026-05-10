@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "Įgalinti žiniatinklio nuskaitymą",
     "Disable web scraping" : "Išjungti žiniatinklio nuskaitymą",
     "Not available" : "Nėra",
+    "Save" : "Išsaugoti",
+    "Clear" : "Išvalyti",
     "All Articles" : "Visi straipsniai",
     "No feeds found to add" : "Nerasta jokių sklaidos kanalų, kuriuos būtų galima pridėti",
     "Subscribe to" : "Prenumeruoti",

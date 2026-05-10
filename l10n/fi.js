@@ -93,6 +93,8 @@ OC.L10N.register(
     "Options" : "Valinnat",
     "Title" : "Nimeke",
     "Folder" : "Kansio",
+    "Save" : "Tallenna",
+    "Clear" : "Tyhjennä",
     "All Articles" : "Kaikki artikkelit",
     "Subscribe to" : "Tilaa",
     "Unread Articles" : "Lukemattomat artikkelit"

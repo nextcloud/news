@@ -119,6 +119,8 @@ OC.L10N.register(
     "Options" : "Aukerak",
     "Title" : "Izenburua",
     "Folder" : "Karpeta",
+    "Save" : "Gorde",
+    "Clear" : "Garbitu",
     "All Articles" : "Artikulu guztiak",
     "No feeds found to add" : "Ez da aurkitu jariorik gehitzeko",
     "Subscribe to" : "Harpidetu",

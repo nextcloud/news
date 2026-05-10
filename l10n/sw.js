@@ -144,6 +144,8 @@ OC.L10N.register(
     "Title" : "Kichwa cha habari",
     "Folder" : "Kisanduku",
     "Not available" : "Haipatikani",
+    "Save" : "Hifadhi",
+    "Clear" : "Futa",
     "All Articles" : "Makala zote",
     "No feeds found to add" : "Hakuna milisho yaliyopatikana ya kuongeza",
     "Subscribe to" : "Jisajili kwa",

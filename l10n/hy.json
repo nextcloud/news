@@ -15,6 +15,7 @@
     "Import" : "Ներմուծում",
     "Export" : "Արտահանում",
     "Refresh" : "Թարմացնել",
-    "Folder" : "Պանակ"
+    "Folder" : "Պանակ",
+    "Save" : "Պահպանել"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

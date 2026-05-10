@@ -162,6 +162,8 @@ OC.L10N.register(
     "Title" : "Judul",
     "Folder" : "Folder",
     "Not available" : "Tidak tersedia",
+    "Save" : "Simpan",
+    "Clear" : "Bersihkan",
     "All Articles" : "Semua Artikel",
     "No feeds found to add" : "Tidak ada feed yang ditemukan untuk ditambahkan",
     "Subscribe to" : "Berlangganan ke",

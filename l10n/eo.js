@@ -40,6 +40,8 @@ OC.L10N.register(
     "Refresh" : "Refreŝigi",
     "Resources" : "Rimedoj",
     "Folder" : "Dosierujo",
-    "Not available" : "Ne disponeble"
+    "Not available" : "Ne disponeble",
+    "Save" : "Konservi",
+    "Clear" : "Viŝi"
 },
 "nplurals=2; plural=(n != 1);");

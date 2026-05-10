@@ -50,6 +50,8 @@ OC.L10N.register(
     "Resources" : "Resursi",
     "Title" : "Virsraksts",
     "Folder" : "Mape",
-    "Not available" : "Nav pieejams"
+    "Not available" : "Nav pieejams",
+    "Save" : "Saglabāt",
+    "Clear" : "Notīrīt"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

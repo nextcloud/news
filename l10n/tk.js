@@ -18,6 +18,7 @@ OC.L10N.register(
     "General" : "Esasy",
     "Media" : "Mediýa",
     "Refresh" : "Täzelemek",
-    "Not available" : "Elýeterli däl"
+    "Not available" : "Elýeterli däl",
+    "Save" : "Saklamak"
 },
 "nplurals=2; plural=(n != 1);");

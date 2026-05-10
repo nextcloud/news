@@ -194,6 +194,8 @@ OC.L10N.register(
     "Enable web scraping" : "Omogući izdvajanje sadržaja s web stranica",
     "Disable web scraping" : "Onemogući izdvajanje sadržaja s web stranica",
     "Not available" : "Nije dostupno",
+    "Save" : "Spremi",
+    "Clear" : "Izbriši",
     "All Articles" : "Svi članci",
     "No feeds found to add" : "Nisu pronađeni izvori za dodavanje",
     "Subscribe to" : "Pretplati se na",

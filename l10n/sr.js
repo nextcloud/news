@@ -145,6 +145,8 @@ OC.L10N.register(
     "Title" : "Наслов",
     "Folder" : "Фасцикла",
     "Not available" : "Није доступно",
+    "Save" : "Сачувај",
+    "Clear" : "Очисти",
     "All Articles" : "Сви чланци",
     "No feeds found to add" : "Није пронађен ниједан наслов који може да се дода",
     "Subscribe to" : "Претплати се на",

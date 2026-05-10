@@ -133,6 +133,7 @@ OC.L10N.register(
     "Title" : "Títol",
     "Folder" : "Carpeta",
     "Not available" : "No disponible",
+    "Clear" : "Neteja",
     "All Articles" : "Tots els articles",
     "No feeds found to add" : "No s'han trobat canals per afegir",
     "Subscribe to" : "Subscriu a",

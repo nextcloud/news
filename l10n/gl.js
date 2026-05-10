@@ -172,6 +172,8 @@ OC.L10N.register(
     "Title" : "Titulo",
     "Folder" : "Cartafol",
     "Not available" : "Non dispoñíbel",
+    "Save" : "Gardar",
+    "Clear" : "Limpar",
     "All Articles" : "Todos os artigos",
     "No feeds found to add" : "Non se atopou ningunha fonte para engadir",
     "Subscribe to" : "Subscribirse a",

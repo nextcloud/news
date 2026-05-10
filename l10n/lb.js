@@ -34,6 +34,7 @@ OC.L10N.register(
     "Jump to previous article" : "Op den Artikel vu virdru sprangen",
     "Jump to next article" : "Op den nächsten Artikel sprangen",
     "Open article in new tab" : "Den Artikel an engem neien Tab opmaachen",
-    "Folder" : "Dossier"
+    "Folder" : "Dossier",
+    "Save" : "Späicheren"
 },
 "nplurals=2; plural=(n != 1);");

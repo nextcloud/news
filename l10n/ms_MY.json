@@ -15,6 +15,7 @@
     "Import" : "Import",
     "Export" : "Eksport",
     "Refresh" : "Refresh",
-    "Folder" : "Folder"
+    "Folder" : "Folder",
+    "Save" : "Simpan"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

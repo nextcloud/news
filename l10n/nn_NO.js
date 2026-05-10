@@ -26,6 +26,7 @@ OC.L10N.register(
     "Export" : "Eksporter",
     "Keyboard shortcuts" : "Tastatursnarvegar",
     "Refresh" : "Oppfrisk",
-    "Folder" : "Mappe"
+    "Folder" : "Mappe",
+    "Save" : "Lagre"
 },
 "nplurals=2; plural=(n != 1);");

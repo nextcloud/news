@@ -23,6 +23,8 @@ OC.L10N.register(
     "Refresh" : "Sismeḍ",
     "Options" : "Tixtiṛiyin",
     "Title" : "Azwel",
-    "Folder" : "Akaram"
+    "Folder" : "Akaram",
+    "Save" : "Sekles",
+    "Clear" : "Ṣfeḍ"
 },
 "nplurals=2; plural=(n != 1);");

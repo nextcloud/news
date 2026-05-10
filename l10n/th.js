@@ -58,6 +58,8 @@ OC.L10N.register(
     "Open article in new tab" : "เปิดบทความในแท็บใหม่",
     "Resources" : "ทรัพยากร",
     "Options" : "ตัวเลือก",
-    "Folder" : "โฟลเดอร์"
+    "Folder" : "โฟลเดอร์",
+    "Save" : "บันทึก",
+    "Clear" : "ล้าง"
 },
 "nplurals=1; plural=0;");

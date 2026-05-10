@@ -143,6 +143,8 @@ OC.L10N.register(
     "Title" : "Заголовок",
     "Folder" : "Каталог",
     "Not available" : "Не доступно",
+    "Save" : "Зберегти",
+    "Clear" : "Очистити",
     "All Articles" : "Всі статті",
     "No feeds found to add" : "Не знайдено кормів для додавання",
     "Subscribe to" : "Підпишіться на",

@@ -64,6 +64,8 @@ OC.L10N.register(
     "Jump to next article" : "შემდეგ არტიკლზე გადასვლა",
     "Open article in new tab" : "არტიკლის ახალ ტაბში გახნსა",
     "Resources" : "რესურსები",
-    "Title" : "სათაური"
+    "Title" : "სათაური",
+    "Save" : "შენახვა",
+    "Clear" : "გასუფთავება"
 },
 "nplurals=2; plural=(n!=1);");

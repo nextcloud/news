@@ -45,6 +45,8 @@ OC.L10N.register(
     "Options" : "Опции",
     "Title" : "Наслов",
     "Folder" : "Папка",
-    "Not available" : "Недостапно"
+    "Not available" : "Недостапно",
+    "Save" : "Сними",
+    "Clear" : "Исчисти"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");

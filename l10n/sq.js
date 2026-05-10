@@ -65,6 +65,8 @@ OC.L10N.register(
     "Open article in new tab" : "Hape artikullin në skedë të re",
     "Resources" : "Burimet",
     "Title" : "Titulli",
-    "Folder" : "Dosje"
+    "Folder" : "Dosje",
+    "Save" : "Ruaje",
+    "Clear" : "Pastro"
 },
 "nplurals=2; plural=(n != 1);");

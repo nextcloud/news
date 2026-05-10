@@ -127,6 +127,8 @@ OC.L10N.register(
     "Title" : "Название",
     "Folder" : "Каталог",
     "Not available" : "Не доступен",
+    "Save" : "Сохранить",
+    "Clear" : "Очистить",
     "All Articles" : "Все статьи",
     "No feeds found to add" : "Не найдено ни одного канала для добавления",
     "Subscribe to" : "Подписаться",

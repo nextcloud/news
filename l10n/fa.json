@@ -93,6 +93,8 @@
     "Title" : "Title",
     "Folder" : "پوشه",
     "Not available" : "در دسترس نیست",
+    "Save" : "ذخیره",
+    "Clear" : "پاک کردن",
     "Subscribe to" : "Subscribe to"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -97,6 +97,8 @@ OC.L10N.register(
     "Options" : "Opciones",
     "Folder" : "Carpeta",
     "Not available" : "No disponible",
+    "Save" : "Guardar",
+    "Clear" : "Limpiar",
     "All Articles" : "Todos los artículos",
     "No feeds found to add" : "No se encontraron fuentes para añadir",
     "Subscribe to" : "Suscribirse a",

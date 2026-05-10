@@ -174,6 +174,8 @@ OC.L10N.register(
     "Title" : "Başlık",
     "Folder" : "Klasör",
     "Not available" : "Kullanılamaz",
+    "Save" : "Kaydet",
+    "Clear" : "Temizle",
     "All Articles" : "Tüm yazılar",
     "No feeds found to add" : "Eklenebilecek bir akış bulunamadı",
     "Subscribe to" : "Şuna abone ol",

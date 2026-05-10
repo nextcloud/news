@@ -56,6 +56,8 @@ OC.L10N.register(
     "Open article in new tab" : "Dobrir l'article dins un nouvel onglet",
     "Options" : "Opcions",
     "Title" : "Títol",
-    "Folder" : "Dorsièr"
+    "Folder" : "Dorsièr",
+    "Save" : "Enregistrar",
+    "Clear" : "Escafar"
 },
 "nplurals=2; plural=(n > 1);");

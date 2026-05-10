@@ -25,6 +25,8 @@
     "Options" : "Variantlar",
     "Title" : "Sarlavha",
     "Folder" : "Jild",
-    "Not available" : "Mavjud emas"
+    "Not available" : "Mavjud emas",
+    "Save" : "Saqlash",
+    "Clear" : "Toza"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

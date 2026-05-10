@@ -13,6 +13,7 @@ OC.L10N.register(
     "Delete" : "﻿ಅಳಿಸಿ",
     "Import" : "ಆಮದು",
     "Export" : "ರಫ್ತು",
-    "Folder" : "ಕೋಶ"
+    "Folder" : "ಕೋಶ",
+    "Save" : "﻿ಉಳಿಸಿ"
 },
 "nplurals=2; plural=(n > 1);");

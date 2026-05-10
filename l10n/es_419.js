@@ -64,6 +64,7 @@ OC.L10N.register(
     "Open article in new tab" : "Abrir el artículo en una nueva pestaña",
     "Resources" : "Recursos",
     "Title" : "Título",
-    "Folder" : "Carpeta"
+    "Folder" : "Carpeta",
+    "Save" : "Guardar"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -61,6 +61,7 @@ OC.L10N.register(
     "Jump to previous article" : "Ir al artículo anterior",
     "Jump to next article" : "Ir al artículo siguiente ",
     "Open article in new tab" : "Abrir el artículo en una nueva pestaña",
-    "Resources" : "Recursos"
+    "Resources" : "Recursos",
+    "Save" : "Guardar"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

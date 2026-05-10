@@ -78,6 +78,8 @@ OC.L10N.register(
     "Options" : "Opções",
     "Title" : "Título",
     "Folder" : "Pasta",
-    "Not available" : "Não disponível"
+    "Not available" : "Não disponível",
+    "Save" : "Guardar",
+    "Clear" : "Limpar"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

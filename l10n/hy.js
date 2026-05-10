@@ -17,6 +17,7 @@ OC.L10N.register(
     "Import" : "Ներմուծում",
     "Export" : "Արտահանում",
     "Refresh" : "Թարմացնել",
-    "Folder" : "Պանակ"
+    "Folder" : "Պանակ",
+    "Save" : "Պահպանել"
 },
 "nplurals=2; plural=(n != 1);");

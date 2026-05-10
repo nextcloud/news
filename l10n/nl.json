@@ -88,6 +88,8 @@
     "Options" : "Opties",
     "Title" : "Titel",
     "Folder" : "Map",
+    "Save" : "Opslaan",
+    "Clear" : "Terug",
     "Subscribe to" : "Abonneren op"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
