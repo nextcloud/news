@@ -22,7 +22,7 @@ Provide a username and password if required for a feed. Please note that the pas
 ### Auto discover Feed
 Check this option if you want the app to automatically detect the RSS feed from the entered URL. This is useful when you’re unsure of the exact feed URL, as the system will scan the provided website for RSS links.
 
-## Feed options
+## Feed settings
 
 ### Mark Read
 Mark the feed as read.
@@ -52,6 +52,41 @@ Delete the feed.
 
 ### Open Feed URL
 Open the feed in a new tab or window.
+
+### Keyword Filters
+You can hide unwanted articles per feed by defining keyword filters.
+
+How to open filters for a feed:
+- Open **Feed Settings**.
+- In the feed table, find your feed and click the **Keyword filters** icon in the options column.
+
+How to add or change filters:
+- Enter comma-separated keywords in one or more fields:
+  - **Title keywords**
+  - **Body keywords**
+  - **URL keywords**
+- Click **Save**.
+
+How matching works:
+- Matching is **case-insensitive**.
+- **Title** and **Body** keywords match **whole words**.
+- **URL** keywords match **URL fragments**.
+- If an article matches any configured keyword, it is hidden for that feed.
+
+How to see that items were filtered:
+- Filtered items are hidden from the article list.
+- If you expect an article but do not see it, open the feed's **Keyword filters** and review the configured keywords.
+- To verify quickly, temporarily remove a keyword (or click **Clear**) and check if the article appears.
+
+How to remove filters:
+- Open the same dialog and click **Clear** to remove all keywords for that feed.
+
+Simple example:
+- You want to hide promotional posts in one feed.
+- Set **Title keywords** to `sponsored, advertisement`.
+- Set **Body keywords** to `partner content`.
+- Click **Save**.
+- Articles from that feed that contain these keywords will no longer be shown as unread.
 
 ## Settings
 
@@ -115,7 +150,15 @@ Feed lists in OPML format can be imported and exported here. Feeds that cannot b
 
 # Using News with Clients
 
-## TODO
-This documentation is work in progress.
-explain sync and link to clients page
+To use News with a mobile or desktop client:
+- Add your Nextcloud server URL and your account/app password in the client.
+- Follow the setup steps from the client itself (server address, credentials, and sync options).
+- After setup, the client syncs with your News server.
+
+What gets synced:
+- Read/unread status
+- Starred items
+- Feed and folder structure
+
+See the available clients and setup links on the [Clients](clients.md) page.
 
