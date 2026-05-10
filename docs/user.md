@@ -72,7 +72,7 @@ How matching works:
 - **Title** and **Body** keywords match **whole words**.
 - **URL** keywords match **URL fragments**.
 - If an article matches any configured keyword, it is marked as read and treated as filtered.
-- In unread-focused views this effectively hides the item from the unread list.
+- Because matching articles are marked as read, they drop out of unread-focused views; whether they remain visible depends on the current view and settings.
 - If **Show all articles** is enabled, filtered items are still visible but marked as filtered.
 
 How to see that items were filtered:
