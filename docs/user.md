@@ -71,12 +71,16 @@ How matching works:
 - Matching is **case-insensitive**.
 - **Title** and **Body** keywords match **whole words**.
 - **URL** keywords match **URL fragments**.
-- If an article matches any configured keyword, it is hidden for that feed.
+- If an article matches any configured keyword, it is marked as read and treated as filtered.
+- In unread-focused views this effectively hides the item from the unread list.
+- If **Show all articles** is enabled, filtered items are still visible but marked as filtered.
 
 How to see that items were filtered:
-- Filtered items are hidden from the article list.
+- In the web frontend, filtered items show a **filtered icon**.
+- Filtered items usually disappear from unread-focused views because they are marked as read.
 - If you expect an article but do not see it, open the feed's **Keyword filters** and review the configured keywords.
-- To verify quickly, temporarily remove a keyword (or click **Clear**) and check if the article appears.
+- Clearing or changing filters does **not** automatically restore unread status for items that were already marked as read by filtering.
+- To verify a filter, check newly fetched articles (or manually mark older items as unread first).
 
 How to remove filters:
 - Open the same dialog and click **Clear** to remove all keywords for that feed.
