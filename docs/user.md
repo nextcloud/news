@@ -77,7 +77,7 @@ How matching works:
 
 How to see that items were filtered:
 - In the web frontend, filtered items show a **filtered icon**.
-- Filtered items usually disappear from unread-focused views because they are marked as read.
+- Filtered items are hidden from unread-focused views because they are marked as read, but they remain visible in views that show all articles.
 - If you expect an article but do not see it, open the feed's **Keyword filters** and review the configured keywords.
 - Clearing or changing filters does **not** automatically restore unread status for items that were already marked as read by filtering.
 - To verify a filter, check newly fetched articles (or manually mark older items as unread first).
