@@ -5,7 +5,7 @@ If you are the developer of an app, feel free to create a PR to add your app to 
 
 ## Recommended Clients
 
-Based on activity and maintenance status we can recommend these clients:
+Based on activity and maintenance status, we can recommend these clients:
 
 - Android: [Nextcloud News Reader](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader) (official Nextcloud News client)
 - Desktop (Windows/Linux/macOS): [RSS Guard](https://github.com/martinrotter/rssguard)
