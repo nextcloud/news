@@ -6,15 +6,27 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Added
-- Feed keyword filtering: hide articles matching keywords in title, body, or URL
-- Feed settings now support selecting multiple feeds and moving/deleting them in throttled, sequential requests.
 
 ### Changed
-- Replace `arthurhoaro/favicon` with `php-feed-io/favicon-io` for favicon discovery, using PSR-based HTTP interfaces and Symfony-backed discovery caching (#3710)
 
 ### Fixed
 
 # Releases
+## [28.4.0-beta.1] - 2026-05-10
+### Changed
+- Feed keyword filtering: hide articles matching keywords in title, body, or URL (#3711)
+
+  New occ commands:
+  ```bash
+  news:feed:filter:get
+  news:feed:filter:set
+  news:feed:filter:delete
+  ```
+  Added API v1-3 `GET|POST|DELETE /api/v1-3/feeds/{feedId}/filter` 
+
+- Feed settings now support selecting multiple feeds and moving/deleting them in throttled, sequential requests. (#3728)
+- Replace `arthurhoaro/favicon` with `php-feed-io/favicon-io` for favicon discovery, using PSR-based HTTP interfaces and Symfony-backed discovery caching (#3710)
+
 ## [28.3.0] - 2026-05-01
 ### Security
 - **Update recommended**: Replaces direct Guzzle HTTP client with Nextcloud's `IClientService`, adding SSRF protection. Security advisory pending. 
