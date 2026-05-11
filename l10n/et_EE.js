@@ -171,6 +171,7 @@ OC.L10N.register(
     "Keep read status on update" : "Uuendamisel säilita lugemise olek",
     "Mark as unread on update" : "Uuendamisel märgi mitteloetuks",
     "Loading feeds" : "Laadin uudisvooge",
+    "Delete selected" : "Kustuta valitud",
     "Options" : "Eelistused",
     "Title" : "Pealkiri",
     "Folder" : "Kaust",

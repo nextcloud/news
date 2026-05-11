@@ -34,6 +34,7 @@ OC.L10N.register(
     "Jump to previous article" : "Spring na vorige artikel",
     "Jump to next article" : "Spring na volgende artikel",
     "Resources" : "Hulpbronne",
-    "Folder" : "Vouer"
+    "Folder" : "Vouer",
+    "Save" : "Stoor"
 },
 "nplurals=2; plural=(n != 1);");

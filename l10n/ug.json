@@ -142,6 +142,7 @@
     "Number of errors that have occurred since the last successful feed update" : "ئاخىرقى مۇۋاپىقىيەتلىك يەم يېڭىلاشتىن كىيىنكى يۈز بەرگەن خاتالىق سانى",
     "Keep read status on update" : "يېڭىلانغاندا ئوقۇش ھالىتىنى ساقلا",
     "Mark as unread on update" : "يېڭىلانغاندا ئوقۇمىغانلىك بەلگىسىنى قوي",
+    "Delete selected" : "تاللانغاننى ئۆچۈرۈڭ",
     "Options" : "تاللانما",
     "Title" : "ماۋزۇ",
     "Folder" : "قىسقۇچ",

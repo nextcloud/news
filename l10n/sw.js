@@ -140,6 +140,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Idadi ya makosa ambayo yametokea tangu sasisho la mwisho la mipasho iliyofaulu",
     "Keep read status on update" : "Weka hali ya kusoma kwenye sasisho",
     "Mark as unread on update" : "Weka alama kama haijasomwa kwenye sasisho",
+    "Delete selected" : "Futa iliyoteuliwa",
     "Options" : "Machaguo",
     "Title" : "Kichwa cha habari",
     "Folder" : "Kisanduku",

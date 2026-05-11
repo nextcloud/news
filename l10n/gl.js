@@ -168,6 +168,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Número de erros que se produciron desde a última actualización correcta de fontes",
     "Keep read status on update" : "Manter o estado de lectura na actualización",
     "Mark as unread on update" : "Marcar como non lido na actualización",
+    "Delete selected" : "Eliminar a selección",
     "Options" : "Opcións",
     "Title" : "Titulo",
     "Folder" : "Cartafol",

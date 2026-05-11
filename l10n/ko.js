@@ -89,6 +89,7 @@ OC.L10N.register(
     "Jump to next article" : "다음 글로 이동",
     "Open article in new tab" : "새 탭으로 글 열기",
     "Resources" : "자원",
+    "Delete selected" : "선택 항목 삭제",
     "Options" : "옵션들",
     "Title" : "제목",
     "Folder" : "폴더",

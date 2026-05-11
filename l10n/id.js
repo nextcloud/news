@@ -158,6 +158,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Jumlah kesalahan yang terjadi sejak pembaruan feed terakhir yang berhasil",
     "Keep read status on update" : "Pertahankan status dibaca saat pembaruan",
     "Mark as unread on update" : "Tandai sebagai belum dibaca saat pembaruan",
+    "Delete selected" : "Hapus yang dipilih",
     "Options" : "Pilihan",
     "Title" : "Judul",
     "Folder" : "Folder",

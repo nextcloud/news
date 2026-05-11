@@ -139,6 +139,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Кількість помилок, що виникли з моменту останнього успішного оновлення каналу",
     "Keep read status on update" : "Тримайте статус читання в курсі оновлень",
     "Mark as unread on update" : "Позначити як непрочитане при оновленні",
+    "Delete selected" : "Вилучити вибране",
     "Options" : "Параметри",
     "Title" : "Заголовок",
     "Folder" : "Каталог",

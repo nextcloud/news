@@ -92,6 +92,7 @@ OC.L10N.register(
     "Options" : "Опции",
     "Title" : "Заглавие",
     "Folder" : "Папка",
+    "Save" : "Запиши",
     "Clear" : "Изчистване",
     "Subscribe to" : "Абониране за"
 },

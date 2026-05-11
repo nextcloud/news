@@ -134,6 +134,8 @@ OC.L10N.register(
     "Title" : "العنوان",
     "Folder" : "مجلد",
     "Not available" : "غير متاح",
+    "Save" : "حفظ",
+    "Clear" : "محو",
     "All Articles" : "كل المقالات",
     "No feeds found to add" : "لم يمكن العثور على أي لقمة لإضافته",
     "Subscribe to" : "إشترك في",

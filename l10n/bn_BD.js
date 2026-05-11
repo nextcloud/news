@@ -27,6 +27,7 @@ OC.L10N.register(
     "Export" : "রপ্তানি",
     "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
     "Refresh" : "নবোদ্যম",
-    "Folder" : "ফোল্ডার"
+    "Folder" : "ফোল্ডার",
+    "Save" : "সংরক্ষণ"
 },
 "nplurals=2; plural=(n != 1);");

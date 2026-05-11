@@ -143,6 +143,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Antal fel som har inträffat sedan den senaste framgångsrika flödesuppdateringen",
     "Keep read status on update" : "Behåll lässtatus vid uppdatering",
     "Mark as unread on update" : "Markera som oläst vid uppdatering",
+    "Delete selected" : "Ta bort markerade",
     "Options" : "Alternativ",
     "Title" : "Titel",
     "Folder" : "Mapp",

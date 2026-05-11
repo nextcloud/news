@@ -141,6 +141,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Број грешака који се догодио након последњег успешног ажурирања довода",
     "Keep read status on update" : "Задржи статус читања приликом ажурирања",
     "Mark as unread on update" : "Означи као непрочитано приликом ажурирања",
+    "Delete selected" : "Обриши изабрано",
     "Options" : "Избори",
     "Title" : "Наслов",
     "Folder" : "Фасцикла",

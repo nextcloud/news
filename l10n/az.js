@@ -27,6 +27,7 @@ OC.L10N.register(
     "Export" : "Çıxarış",
     "Refresh" : "Yenilə",
     "Resources" : "Resurslar",
-    "Folder" : "Qovluq"
+    "Folder" : "Qovluq",
+    "Save" : "Saxla"
 },
 "nplurals=2; plural=(n != 1);");

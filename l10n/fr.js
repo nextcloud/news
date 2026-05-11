@@ -144,6 +144,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Nombre d'erreurs survenues depuis la dernière mise à jour de flux réussie",
     "Keep read status on update" : "Conserver le statut de lecture après modification",
     "Mark as unread on update" : "Marquer comme non lu après mise à jour",
+    "Delete selected" : "Supprimer la sélection",
     "Options" : "Options",
     "Title" : "Titre",
     "Folder" : "Dossier",

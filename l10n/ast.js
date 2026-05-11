@@ -70,6 +70,8 @@ OC.L10N.register(
     "Title" : "Títulu",
     "Folder" : "Carpeta",
     "Not available" : "Nun ta disponible",
+    "Save" : "Guardar",
+    "Clear" : "Borrar",
     "All Articles" : "Tolos artículos",
     "Subscribe to" : "Soscribise a",
     "Unread Articles" : "Artículos ensin lleer"

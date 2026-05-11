@@ -168,6 +168,7 @@
     "Number of errors that have occurred since the last successful feed update" : "Son sorunsuz akış güncellemesinden bu yana çıkan sorun sayısı",
     "Keep read status on update" : "Güncellemede okunmuş durumu korunsun",
     "Mark as unread on update" : "Güncellemede okunmamış olarak işaretlensin",
+    "Delete selected" : "Seçilmişleri sil",
     "Options" : "Seçenekler",
     "Title" : "Başlık",
     "Folder" : "Klasör",

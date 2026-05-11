@@ -87,6 +87,7 @@ OC.L10N.register(
     "Open article in new tab" : "Open artikel in nieuwe tab",
     "Resources" : "Bronnen",
     "Last update" : "Laatste update",
+    "Delete selected" : "Wis geselcteerde",
     "Options" : "Opties",
     "Title" : "Titel",
     "Folder" : "Map",

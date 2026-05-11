@@ -144,6 +144,7 @@ OC.L10N.register(
     "Title" : "Titel",
     "Folder" : "Mappe",
     "Not available" : "Ikke tilgængelig",
+    "Save" : "Gem",
     "Clear" : "Ryd",
     "All Articles" : "Alle artikler",
     "No feeds found to add" : "Der blev ikke fundet nogen feeds at tilføje",

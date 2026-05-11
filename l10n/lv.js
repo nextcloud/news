@@ -48,6 +48,7 @@ OC.L10N.register(
     "Refresh" : "Atsvaidzināt",
     "Open article in new tab" : "Atvērt rakstu jaunā cilnē",
     "Resources" : "Resursi",
+    "Delete selected" : "Izdzēst atlasītās",
     "Title" : "Virsraksts",
     "Folder" : "Mape",
     "Not available" : "Nav pieejams",
