@@ -266,7 +266,7 @@
 						<td class="select-column">
 							<NcCheckboxRadioSwitch
 								v-model="selectedFeedIds"
-								:value="feed.id"
+								:value="String(feed.id)"
 								:disabled="processingBatch"
 								:aria-label="t('news', 'Select feed {feed}', { feed: feed.title || String(feed.id) })"
 								:data-test="'selectFeed-' + feed.id"
@@ -543,7 +543,7 @@ export default {
 
 		selectedFeeds() {
 			const selectedFeedIdSet = new Set(this.selectedFeedIds)
-			return this.feeds.filter((feed) => selectedFeedIdSet.has(feed.id))
+			return this.feeds.filter((feed) => selectedFeedIdSet.has(String(feed.id)))
 		},
 
 		sortedFeeds() {
@@ -633,7 +633,7 @@ export default {
 
 		toggleSelectAllByValue(checked) {
 			if (checked) {
-				this.selectedFeedIds = this.sortedFeeds.map((feed) => feed.id)
+				this.selectedFeedIds = this.sortedFeeds.map((feed) => String(feed.id))
 				return
 			}
 			this.selectedFeedIds = []
