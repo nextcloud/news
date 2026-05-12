@@ -89,11 +89,11 @@ describe('FeedInfoTable.vue', () => {
 		})
 
 		it('should set triggers to open and close move feed dialog', () => {
-			expect(wrapper.vm.feedToMove).toEqual(undefined)
+			expect(wrapper.vm.feedsToMove).toEqual([])
 			expect(wrapper.vm.showMoveFeed).toEqual(false)
 
 			wrapper.vm.openMoveFeed(feeds[0])
-			expect(wrapper.vm.feedToMove).toEqual(feeds[0])
+			expect(wrapper.vm.feedsToMove).toEqual([feeds[0]])
 			expect(wrapper.vm.showMoveFeed).toEqual(true)
 
 			wrapper.vm.closeMoveFeed(feeds[0])
@@ -185,7 +185,6 @@ describe('FeedInfoTable.vue', () => {
 
 			wrapper.vm.openMoveSelectedFeedsDialog()
 
-			expect(wrapper.vm.feedToMove).toEqual(undefined)
 			expect(wrapper.vm.feedsToMove).toEqual([feeds[0], feeds[1]])
 			expect(wrapper.vm.showMoveFeed).toEqual(true)
 		})
