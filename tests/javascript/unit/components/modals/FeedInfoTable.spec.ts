@@ -174,14 +174,14 @@ describe('FeedInfoTable.vue', () => {
 
 		it('should toggle selecting all feeds', () => {
 			wrapper.vm.toggleSelectAllByValue(true)
-			expect(wrapper.vm.selectedFeedIds).toEqual([1, 2, 3])
+			expect(wrapper.vm.selectedFeedIds).toEqual(['1', '2', '3'])
 
 			wrapper.vm.toggleSelectAllByValue(false)
 			expect(wrapper.vm.selectedFeedIds).toEqual([])
 		})
 
 		it('should open move selected feeds dialog with selected feeds', () => {
-			wrapper.vm.selectedFeedIds = [1, 2]
+			wrapper.vm.selectedFeedIds = ['1', '2']
 
 			wrapper.vm.openMoveSelectedFeedsDialog()
 
@@ -204,7 +204,7 @@ describe('FeedInfoTable.vue', () => {
 			store.dispatch = vi.fn().mockResolvedValue(undefined)
 			const pauseSpy = vi.spyOn(wrapper.vm, 'pauseBetweenBatchRequests').mockResolvedValue(undefined)
 
-			wrapper.vm.selectedFeedIds = [1, 2]
+			wrapper.vm.selectedFeedIds = ['1', '2']
 			await wrapper.vm.deleteSelectedFeeds()
 
 			expect(store.dispatch).toHaveBeenNthCalledWith(1, ACTIONS.FEED_DELETE, { feed: feeds[0] })
@@ -216,9 +216,10 @@ describe('FeedInfoTable.vue', () => {
 
 		it('should show an error if deleting selected feeds fails', async () => {
 			vi.spyOn(window, 'confirm').mockReturnValue(true)
+			vi.spyOn(console, 'error').mockImplementation(() => {})
 			store.dispatch = vi.fn().mockRejectedValue(new Error('delete failed'))
 
-			wrapper.vm.selectedFeedIds = [1]
+			wrapper.vm.selectedFeedIds = ['1']
 			await wrapper.vm.deleteSelectedFeeds()
 
 			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_DELETE, { feed: feeds[0] })
