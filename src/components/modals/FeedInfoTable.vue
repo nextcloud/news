@@ -5,7 +5,6 @@
 <template>
 	<MoveFeed
 		v-if="showMoveFeed"
-		:feed="feedToMove"
 		:feeds="feedsToMove"
 		@close="closeMoveFeed()" />
 	<NcModal
@@ -60,7 +59,7 @@
 				<tbody>
 					<tr>
 						<th colspan="4">
-							{{ t('news', 'Fetch options') }}
+							{{ t('news', 'Feed fetch options') }}
 						</th>
 					</tr>
 					<tr>
@@ -473,7 +472,6 @@ export default {
 
 	data() {
 		return {
-			feedToMove: undefined,
 			feedsToMove: [],
 			showMoveFeed: false,
 			selectedFeedIds: [],
@@ -640,8 +638,7 @@ export default {
 		},
 
 		openMoveFeed(feed) {
-			this.feedsToMove = []
-			this.feedToMove = feed
+			this.feedsToMove = [feed]
 			this.showMoveFeed = true
 		},
 
@@ -649,13 +646,11 @@ export default {
 			if (!this.canMoveSelected) {
 				return
 			}
-			this.feedToMove = undefined
 			this.feedsToMove = [...this.selectedFeeds]
 			this.showMoveFeed = true
 		},
 
 		closeMoveFeed() {
-			this.feedToMove = undefined
 			this.feedsToMove = []
 			this.showMoveFeed = false
 		},

@@ -18,8 +18,8 @@
 			<NcButton
 				:wide="true"
 				variant="primary"
-				:disabled="disableMoveFeed || moving"
-				@click="moveFeed()">
+				:disabled="disableMoveFeed || Boolean(movingToast)"
+				@click="moveFeeds()">
 				{{ t("news", "Move") }}
 			</NcButton>
 		</template>
@@ -30,7 +30,7 @@
 
 import type { Folder } from '../types/Folder.ts'
 
-import { showError } from '@nextcloud/dialogs'
+import { showError, showLoading } from '@nextcloud/dialogs'
 import { defineComponent } from 'vue'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcDialog from '@nextcloud/vue/components/NcDialog'
@@ -39,7 +39,7 @@ import { ACTIONS } from '../store/index.ts'
 
 type MoveFeedState = {
 	folder: Folder | null
-	moving: boolean
+	movingToast: ReturnType<typeof showLoading> | null
 	batchRequestDelay: number
 }
 
@@ -52,20 +52,11 @@ export default defineComponent({
 
 	props: {
 		/**
-		 * The feed to move
+		 * The feeds to move
 		 */
-		feed: {
-			type: Object,
-			required: false,
-			default: () => {
-				return { url: '' }
-			},
-		},
-
 		feeds: {
 			type: Array,
-			required: false,
-			default: () => [],
+			required: true,
 		},
 	},
 
@@ -76,7 +67,7 @@ export default defineComponent({
 	data: (): MoveFeedState => {
 		return {
 			folder: null,
-			moving: false,
+			movingToast: null,
 			batchRequestDelay: 150,
 		}
 	},
@@ -91,14 +82,18 @@ export default defineComponent({
 		},
 
 		isBatchMove(): boolean {
-			return Array.isArray(this.feeds) && this.feeds.length > 0
+			return Array.isArray(this.feeds) && this.feeds.length > 1
 		},
 
 		disableMoveFeed(): boolean {
 			if (this.isBatchMove) {
 				return false
 			}
-			return (this.folder && this.folder.id === this.feed.folderId)
+			const firstFeed = this.feeds?.[0]
+			if (!firstFeed) {
+				return true
+			}
+			return (this.folder && this.folder.id === firstFeed.folderId)
 		},
 	},
 
@@ -110,55 +105,39 @@ export default defineComponent({
 		/**
 		 * Move a Feed via the Vuex Store
 		 */
-		async moveFeed() {
-			this.moving = true
+		async moveFeeds() {
+			this.movingToast = showLoading(t('news', 'Moving feeds…'))
 			const folderId = this.folder ? this.folder.id : 0
 
-			if (this.isBatchMove) {
-				let failedMoves = 0
-				const feedsToMove = this.feeds.filter((feed) => (typeof feed.folderId === 'number' ? feed.folderId : 0) !== folderId)
-				try {
-					for (const [index, feed] of feedsToMove.entries()) {
-						try {
-							const response = await this.$store.dispatch(ACTIONS.MOVE_FEED, { feedId: feed.id, folderId })
-							if (!response?.status || response.status < 200 || response.status >= 300) {
-								failedMoves++
-							}
-						} catch {
+			let failedMoves = 0
+			const feedsToMove = this.feeds.filter((feed) => (typeof feed.folderId === 'number' ? feed.folderId : 0) !== folderId)
+			try {
+				for (const [index, feed] of feedsToMove.entries()) {
+					try {
+						const response = await this.$store.dispatch(ACTIONS.MOVE_FEED, { feedId: feed.id, folderId })
+						if (!response?.status || response.status < 200 || response.status >= 300) {
 							failedMoves++
 						}
-
-						if (index < feedsToMove.length - 1) {
-							await this.pauseBetweenBatchRequests()
-						}
+					} catch {
+						failedMoves++
 					}
-					await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
-				} finally {
-					this.moving = false
+
+					if (index < feedsToMove.length - 1) {
+						await this.pauseBetweenBatchRequests()
+					}
 				}
-
-				if (failedMoves > 0) {
-					showError(t('news', 'Some selected feeds could not be moved. Please try again later or check your connection.'))
-					return
-				}
-
-				this.$emit('close')
-				return
-			}
-
-			const data = {
-				feedId: this.feed.id,
-				folderId,
-			}
-			let response
-			try {
-				response = await this.$store.dispatch(ACTIONS.MOVE_FEED, data)
 			} finally {
-				this.moving = false
+				this.movingToast?.hideToast()
+				this.movingToast = null
 			}
-			if (!response?.status || response.status < 200 || response.status >= 300) {
-				showError(t('news', 'Unable to move feed. Please try again later or check your connection.'))
-				return
+
+			if (failedMoves > 0) {
+				if (feedsToMove.length === 1) {
+					showError(t('news', 'Unable to move feed. Please try again later or check your connection.'))
+					return
+				} else {
+					showError(t('news', 'Some selected feeds could not be moved. Please try again later or check your connection.'))
+				}
 			}
 			await this.$store.dispatch(ACTIONS.FETCH_FEEDS)
 

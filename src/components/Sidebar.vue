@@ -1,7 +1,7 @@
 <template>
 	<NcAppNavigation>
 		<AddFeed v-if="showAddFeed" @close="closeAddFeed()" />
-		<MoveFeed v-if="showMoveFeed" :feed="feedToMove" @close="closeMoveFeed()" />
+		<MoveFeed v-if="showMoveFeed" :feeds="[feedToMove]" @close="closeMoveFeed()" />
 		<FeedInfoTable v-if="showFeedSettings" @close="closeFeedSettings()" />
 		<AppSettingsDialog v-if="showSettings" @close="closeSettings()" />
 		<NcAppNavigationNew
