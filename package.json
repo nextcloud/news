@@ -65,7 +65,7 @@
   "devDependencies": {
     "@nextcloud/browserslist-config": "^3.1.2",
     "@nextcloud/eslint-config": "^9.0.0-rc.9",
-    "@nextcloud/stylelint-config": "^3.2.1",
+    "@nextcloud/stylelint-config": "^3.2.2",
     "@nextcloud/vite-config": "^2.5.2",
     "@types/lodash": "^4.17.24",
     "@types/node": "^25.6.0",
