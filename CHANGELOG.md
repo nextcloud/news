@@ -12,6 +12,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [28.4.0] - 2026-05-15
+No notable changes since the beta release.
+
 ## [28.4.0-beta.1] - 2026-05-10
 ### Changed
 - Feed keyword filtering: hide articles matching keywords in title, body, or URL (#3711)
