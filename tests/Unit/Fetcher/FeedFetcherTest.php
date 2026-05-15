@@ -622,6 +622,92 @@ class FeedFetcherTest extends TestCase
     }
 
     /**
+     * The scraped fulltext body should have the RSS lead image prepended
+     * when the body does not already contain it (Readability often strips
+     * the article's hero image).
+     */
+    public function testFetchFulltextPrependsLeadImageWhenMissing()
+    {
+        $imageUrl = 'http://image.example/lead.jpg';
+        $scrapedBody = '<p>scraped article without lead image</p>';
+
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->willReturn(true);
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->willReturn($scrapedBody);
+
+        $media = $this->getMockBuilder(MediaInterface::class)->getMock();
+        $media->method('getType')->willReturn('image/jpeg');
+        $media->method('getUrl')->willReturn($imageUrl);
+        $media->method('getThumbnail')->willReturn(null);
+        $media->method('getDescription')->willReturn(null);
+
+        $this->item_mock->method('getLink')->willReturn($this->permalink);
+        $this->item_mock->method('getTitle')->willReturn($this->title);
+        $this->item_mock->method('getPublicId')->willReturn($this->guid);
+        $this->item_mock->method('getLastModified')->willReturn($this->modified);
+        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getCategories')->willReturn($this->categories);
+        $this->item_mock->method('hasMedia')->willReturn(true);
+        $this->item_mock->method('getMedias')->willReturn([$media]);
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        [, $items] = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertCount(1, $items);
+        $this->assertSame(
+            '<p><img src="' . $imageUrl . '" alt=""></p>' . $scrapedBody,
+            $items[0]->getBody()
+        );
+    }
+
+    /**
+     * The scraped fulltext body should not be modified when it already
+     * contains the RSS lead image URL (no duplicate <img>).
+     */
+    public function testFetchFulltextDoesNotDuplicateExistingLeadImage()
+    {
+        $imageUrl = 'http://image.example/lead.jpg';
+        $scrapedBody = '<p><img src="' . $imageUrl . '"></p><p>article body</p>';
+
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->willReturn(true);
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->willReturn($scrapedBody);
+
+        $media = $this->getMockBuilder(MediaInterface::class)->getMock();
+        $media->method('getType')->willReturn('image/jpeg');
+        $media->method('getUrl')->willReturn($imageUrl);
+        $media->method('getThumbnail')->willReturn(null);
+        $media->method('getDescription')->willReturn(null);
+
+        $this->item_mock->method('getLink')->willReturn($this->permalink);
+        $this->item_mock->method('getTitle')->willReturn($this->title);
+        $this->item_mock->method('getPublicId')->willReturn($this->guid);
+        $this->item_mock->method('getLastModified')->willReturn($this->modified);
+        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getCategories')->willReturn($this->categories);
+        $this->item_mock->method('hasMedia')->willReturn(true);
+        $this->item_mock->method('getMedias')->willReturn([$media]);
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        [, $items] = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertCount(1, $items);
+        $this->assertSame($scrapedBody, $items[0]->getBody());
+    }
+
+    /**
      * Test if the fetch function returns the feed item if the fulltext body is invalid
      */
     public function testFetchWhenFetchedFulltextBodyIsInvalid()

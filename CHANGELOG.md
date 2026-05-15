@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Preserve the RSS-provided lead image when web content scraping (full text) is enabled by injecting it into the scraped article body if missing — keeps the lead image visible in the web app and in third-party clients (iOS, etc.) that render only the body
 
 # Releases
 ## [28.4.0-beta.1] - 2026-05-10
