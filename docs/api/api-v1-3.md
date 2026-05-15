@@ -419,6 +419,74 @@ Deletes a feed with the id feedId and all of its  items
 * **HTTP 404**: If the feed does not exist
 * **Returns**: nothing
 
+#### Get a feed filter
+
+* **Status**: Implemented in News 28.4.0
+* **Method**: GET
+* **Route**: /feeds/{feedId}/filter
+* **Parameters**: none
+* **Return codes**:
+* **HTTP 404**: If the feed does not exist
+* **Returns**:
+
+```json
+{
+  "filter": {
+    "feedId": 12,
+    "titleKeywords": "sponsored,ads",
+    "bodyKeywords": "tracking",
+    "urlKeywords": "utm_"
+  }
+}
+```
+
+If no filter exists for the feed, all keyword fields are returned as empty strings.
+
+#### Create or update a feed filter
+
+* **Status**: Implemented in News 28.4.0
+* **Method**: POST
+* **Route**: /feeds/{feedId}/filter
+* **Parameters**:
+
+```json
+{
+  "titleKeywords": "sponsored,ads",
+  "bodyKeywords": "tracking",
+  "urlKeywords": "utm_"
+}
+```
+
+* **Notes**:
+* Keywords are comma-separated and matched case-insensitively
+* If all keyword fields are empty, the existing filter is removed
+* **Return codes**:
+* **HTTP 404**: If the feed does not exist
+* **HTTP 422**: If keyword input is invalid
+* **Returns**:
+
+```json
+{
+  "filter": {
+    "id": 5,
+    "feedId": 12,
+    "titleKeywords": "sponsored,ads",
+    "bodyKeywords": "tracking",
+    "urlKeywords": "utm_"
+  }
+}
+```
+
+#### Delete a feed filter
+
+* **Status**: Implemented in News 28.4.0
+* **Method**: DELETE
+* **Route**: /feeds/{feedId}/filter
+* **Parameters**: none
+* **Return codes**:
+* **HTTP 404**: If the feed does not exist
+* **Returns**: nothing
+
 ### Items
 
 #### Sanitation
@@ -444,6 +512,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 | enclosureMime    |         | string\|null |
 | feedId           |         | int          |
 | fingerprint      |         | string\|null |
+| filtered         | false   | bool         |
 | guid             |         | string       |
 | guidHash         |         | string       |
 | id               |         | int          |
@@ -497,6 +566,7 @@ The following attributes are **not sanitized** meaning: including them in your w
       "feedId": 67,
       "unread": true,
       "starred": false,
+      "filtered": false, // new in 28.4.0
       "rtl": false, // new in 6.0.2
       "lastModified": 1367273003,
       "fingerprint": "aeaae2123"  // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
@@ -575,6 +645,7 @@ This is used to stay up to date.
       "feedId": 67,
       "unread": true,
       "starred": false,
+      "filtered": false, // new in 28.4.0
       "lastModified": 1367273003,
       "fingerprint": "aeaae2123"  // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
     }, // etc
