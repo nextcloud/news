@@ -175,7 +175,6 @@ OC.L10N.register(
     "Maximum number of articles reached in a feed update" : "Maximum number of articles reached in a feed update",
     "Error Count" : "Error Count",
     "Number of errors that have occurred since the last successful feed update" : "Number of errors that have occurred since the last successful feed update",
-    "Fetch options" : "Fetch options",
     "Feed update is enabled" : "Feed update is enabled",
     "Feed update is disabled" : "Feed update is disabled",
     "Keep read status on update" : "Keep read status on update",

@@ -173,7 +173,6 @@
     "Maximum number of articles reached in a feed update" : "Osiągnięto maksymalną liczbę artykułów w aktualizacji kanału",
     "Error Count" : "Liczba błędów",
     "Number of errors that have occurred since the last successful feed update" : "Liczba błędów, które wystąpiły od ostatniej udanej aktualizacji kanału",
-    "Fetch options" : "Opcje pobierania",
     "Feed update is enabled" : "Aktualizacja kanału jest włączona",
     "Feed update is disabled" : "Aktualizacja kanału jest wyłączona",
     "Keep read status on update" : "Zachowaj status przeczytania przy aktualizacji",

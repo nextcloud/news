@@ -175,7 +175,6 @@ OC.L10N.register(
     "Maximum number of articles reached in a feed update" : "Dosegnut je maksimalan broj članaka pri ažuriranju izvora",
     "Error Count" : "Broj pogrešaka",
     "Number of errors that have occurred since the last successful feed update" : "Broj pogrešaka koje su se dogodile od zadnjeg uspješnog ažuriranja izvora",
-    "Fetch options" : "Opcije dohvaćanja",
     "Feed update is enabled" : "Ažuriranje izvora je omogućeno",
     "Feed update is disabled" : "Ažuriranje izvora je onemogućeno",
     "Keep read status on update" : "Pri ažuriranju zadrži status pročitano",

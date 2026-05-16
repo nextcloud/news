@@ -175,7 +175,6 @@ OC.L10N.register(
     "Maximum number of articles reached in a feed update" : "订阅源更新中达到的最大文章数",
     "Error Count" : "错误数",
     "Number of errors that have occurred since the last successful feed update" : "自上次成功更新订阅源以来发生的错误数",
-    "Fetch options" : "获取选项",
     "Feed update is enabled" : "订阅源更新已启用",
     "Feed update is disabled" : "订阅源更新已禁用",
     "Keep read status on update" : "更新时保持阅读状态",

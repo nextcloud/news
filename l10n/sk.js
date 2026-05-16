@@ -175,7 +175,6 @@ OC.L10N.register(
     "Maximum number of articles reached in a feed update" : "V aktualizácii informačného kanála bol dosiahnutý maximálny počet článkov",
     "Error Count" : "Počet chýb",
     "Number of errors that have occurred since the last successful feed update" : "Počet chýb, ktoré sa vyskytli od poslednej úspešnej aktualizácie informačného kanála",
-    "Fetch options" : "Možnosti získavania",
     "Feed update is enabled" : "Aktualizácia feedu je povolená",
     "Feed update is disabled" : "Aktualizácia zdroja je vypnutá",
     "Keep read status on update" : "Zachovať stav prečítania pri aktualizácii",
