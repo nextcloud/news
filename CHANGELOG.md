@@ -12,6 +12,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [28.4.1] - 2026-05-22
+Added safety check for release process.
+
 ## [28.4.0] - 2026-05-15
 No notable changes since the beta release.
 
