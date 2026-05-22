@@ -27,6 +27,22 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Validate release tag matches app version
+        run: |
+          APP_VERSION="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' appinfo/info.xml | head -n 1)"
+
+          if [[ -z "$APP_VERSION" ]]; then
+            echo "::error title=Unable to read app version::Could not find a <version> value in appinfo/info.xml."
+            exit 1
+          fi
+
+          if [[ "$GITHUB_REF_NAME" != "$APP_VERSION" ]]; then
+            echo "::error title=Release tag/version mismatch::Release tag '$GITHUB_REF_NAME' does not match appinfo/info.xml version '$APP_VERSION'. Update appinfo/info.xml before publishing this release."
+            exit 1
+          fi
+
+          echo "Release tag matches appinfo/info.xml version: $APP_VERSION"
+
       - name: Setup PHP
         uses: shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc # 2.37.1
         with:
