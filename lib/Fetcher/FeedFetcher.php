@@ -293,10 +293,13 @@ class FeedFetcher implements IFeedFetcher
             return $body;
         }
         $imageUrl = $this->extractLeadImageUrl($parsedItem);
-        if ($imageUrl === null || $imageUrl === '' || str_contains($body, $imageUrl)) {
+        if ($imageUrl === null || $imageUrl === '') {
             return $body;
         }
         $escaped = htmlspecialchars($imageUrl, ENT_QUOTES, 'UTF-8');
+        if (str_contains($body, $imageUrl) || str_contains($body, $escaped)) {
+            return $body;
+        }
         return '<p><img src="' . $escaped . '" alt=""></p>' . $body;
     }
 
@@ -313,7 +316,8 @@ class FeedFetcher implements IFeedFetcher
         foreach ($parsedItem->getMedias() as $media) {
             $type = $media->getType();
             $url = $media->getUrl();
-            if ($url !== null && $url !== '' && $type !== null && str_starts_with($type, 'image/')) {
+            $isImage = $type !== null && str_starts_with(strtolower($type), 'image/');
+            if ($url !== null && $url !== '' && $isImage) {
                 return $url;
             }
             if ($thumbnailFallback === null) {

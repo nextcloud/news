@@ -707,6 +707,93 @@ class FeedFetcherTest extends TestCase
     }
 
     /**
+     * The duplicate check must also recognise the HTML-escaped form of the
+     * URL (e.g. `&` rendered as `&amp;` inside an `src` attribute), so that
+     * a URL with query-string ampersands is not re-injected.
+     */
+    public function testFetchFulltextDoesNotDuplicateExistingLeadImageWhenUrlIsHtmlEscaped()
+    {
+        $imageUrl = 'http://image.example/lead.jpg?w=320&h=240';
+        $escapedUrl = htmlspecialchars($imageUrl, ENT_QUOTES, 'UTF-8');
+        $scrapedBody = '<p><img src="' . $escapedUrl . '"></p><p>article body</p>';
+
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->willReturn(true);
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->willReturn($scrapedBody);
+
+        $media = $this->getMockBuilder(MediaInterface::class)->getMock();
+        $media->method('getType')->willReturn('image/jpeg');
+        $media->method('getUrl')->willReturn($imageUrl);
+        $media->method('getThumbnail')->willReturn(null);
+        $media->method('getDescription')->willReturn(null);
+
+        $this->item_mock->method('getLink')->willReturn($this->permalink);
+        $this->item_mock->method('getTitle')->willReturn($this->title);
+        $this->item_mock->method('getPublicId')->willReturn($this->guid);
+        $this->item_mock->method('getLastModified')->willReturn($this->modified);
+        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getCategories')->willReturn($this->categories);
+        $this->item_mock->method('hasMedia')->willReturn(true);
+        $this->item_mock->method('getMedias')->willReturn([$media]);
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        [, $items] = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertCount(1, $items);
+        $this->assertSame($scrapedBody, $items[0]->getBody());
+    }
+
+    /**
+     * MIME types are case-insensitive per RFC 2045 — a media entry typed
+     * `Image/JPEG` should still be picked up as a lead image.
+     */
+    public function testFetchFulltextPrependsLeadImageWhenMediaTypeIsMixedCase()
+    {
+        $imageUrl = 'http://image.example/lead.jpg';
+        $scrapedBody = '<p>scraped article without lead image</p>';
+
+        $this->setUpReader($this->url);
+        $this->scraper->expects($this->once())
+            ->method('scrape')
+            ->with($this->permalink)
+            ->willReturn(true);
+        $this->scraper->expects($this->once())
+            ->method('getContent')
+            ->willReturn($scrapedBody);
+
+        $media = $this->getMockBuilder(MediaInterface::class)->getMock();
+        $media->method('getType')->willReturn('Image/JPEG');
+        $media->method('getUrl')->willReturn($imageUrl);
+        $media->method('getThumbnail')->willReturn(null);
+        $media->method('getDescription')->willReturn(null);
+
+        $this->item_mock->method('getLink')->willReturn($this->permalink);
+        $this->item_mock->method('getTitle')->willReturn($this->title);
+        $this->item_mock->method('getPublicId')->willReturn($this->guid);
+        $this->item_mock->method('getLastModified')->willReturn($this->modified);
+        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getCategories')->willReturn($this->categories);
+        $this->item_mock->method('hasMedia')->willReturn(true);
+        $this->item_mock->method('getMedias')->willReturn([$media]);
+
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        [, $items] = $this->fetcher->fetch($this->url, true, null, null, null, []);
+
+        $this->assertCount(1, $items);
+        $this->assertSame(
+            '<p><img src="' . $imageUrl . '" alt=""></p>' . $scrapedBody,
+            $items[0]->getBody()
+        );
+    }
+
+    /**
      * Test if the fetch function returns the feed item if the fulltext body is invalid
      */
     public function testFetchWhenFetchedFulltextBodyIsInvalid()
