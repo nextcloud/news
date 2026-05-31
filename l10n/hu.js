@@ -76,6 +76,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Cikk olvasatlanul hagyása be/ki",
     "Remove keep article unread" : "Cikk olvasatlanul hagyásának eltávolítása",
     "Default" : "Alapértelmezett",
+    "Compact" : "Kompakt",
     "Vertical" : "Függőleges",
     "Horizontal" : "Vízszintes",
     "Off" : "Ki",
