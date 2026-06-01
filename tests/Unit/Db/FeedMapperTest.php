@@ -13,13 +13,12 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
-use OC\DB\QueryBuilder\Parameter;
-use OC\DB\ResultAdapter;
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Utility\Time;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\DB\IResult;
 use OCP\DB\QueryBuilder\IFunctionBuilder;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\DB\QueryBuilder\IQueryFunction;
@@ -578,7 +577,7 @@ class FeedMapperTest extends MapperTestUtility
             ->method('getParameters')
             ->will($this->returnValue([]));
 
-        $result = $this->getMockBuilder(ResultAdapter::class)
+        $result = $this->getMockBuilder(IResult::class)
                        ->disableOriginalConstructor()
                        ->getMock();
 
@@ -711,7 +710,7 @@ class FeedMapperTest extends MapperTestUtility
             ->method('getParameters')
             ->will($this->returnValue([]));
 
-        $result = $this->getMockBuilder(ResultAdapter::class)
+        $result = $this->getMockBuilder(IResult::class)
                        ->disableOriginalConstructor()
                        ->getMock();
 

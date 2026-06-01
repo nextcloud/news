@@ -13,7 +13,7 @@
 
 namespace OCA\News\Service;
 
-use OC\AppFramework\Utility\TimeFactory;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
@@ -32,7 +32,7 @@ class FolderServiceV2 extends Service
         FolderMapperV2 $mapper,
         LoggerInterface $logger,
         private FeedServiceV2 $feedService,
-        private TimeFactory $timeFactory,
+        private ITimeFactory $timeFactory,
     ) {
         parent::__construct($mapper, $logger);
     }

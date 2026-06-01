@@ -23,7 +23,6 @@ use OCA\News\Vendor\FeedIo\Feed\ItemInterface;
 use OCA\News\Vendor\FeedIo\FeedInterface;
 use OCA\News\Vendor\FeedIo\FeedIo;
 use OCA\News\Vendor\FeedIo\Reader\Result;
-use OC\L10N\L10N;
 use \OCA\News\Db\Feed;
 use \OCA\News\Db\Item;
 use OCA\News\Scraper\Scraper;
@@ -81,7 +80,7 @@ class FeedFetcherTest extends TestCase
     private $favicon;
 
     /**
-     * @var MockObject|L10N
+        * @var MockObject|IL10N
      */
     private $l10n;
 

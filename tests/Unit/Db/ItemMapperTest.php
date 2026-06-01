@@ -13,9 +13,6 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
-use OC\DB\QueryBuilder\Literal;
-use OC\DB\QueryBuilder\Parameter;
-use OC\DB\ResultAdapter;
 use OCA\News\Db\Feed;
 use OCA\News\Db\FeedMapperV2;
 use OCA\News\Db\Folder;
@@ -570,7 +567,7 @@ class ItemMapperTest extends MapperTestUtility
             ->method('getParameters')
             ->will($this->returnValue([]));
 
-        $result = $this->getMockBuilder(ResultAdapter::class)
+        $result = $this->getMockBuilder(IResult::class)
             ->disableOriginalConstructor()
             ->getMock();
 

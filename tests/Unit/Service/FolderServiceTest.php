@@ -13,7 +13,6 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
-use OC\AppFramework\Utility\TimeFactory;
 use OCA\News\Db\Feed;
 use \OCA\News\Db\Folder;
 use OCA\News\Db\FolderMapperV2;
@@ -21,6 +20,7 @@ use OCA\News\Service\Exceptions\ServiceNotFoundException;
 use OCA\News\Service\FeedServiceV2;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\FolderServiceV2;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
@@ -65,7 +65,7 @@ class FolderServiceTest extends TestCase
     {
         $this->time = 222;
 
-        $timeFactory = $this->getMockBuilder(TimeFactory::class)
+        $timeFactory = $this->getMockBuilder(ITimeFactory::class)
             ->disableOriginalConstructor()
             ->getMock();
 

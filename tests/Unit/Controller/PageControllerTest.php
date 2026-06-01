@@ -13,7 +13,6 @@
 
 namespace OCA\News\Tests\Unit\Controller;
 
-use OC\L10N\L10N;
 use OCA\News\Controller\PageController;
 use \OCA\News\Db\ListType;
 use OCA\News\Explore\Exceptions\RecommendedSiteNotFoundException;
@@ -53,7 +52,7 @@ class PageControllerTest extends TestCase
     private $controller;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject|L10N
+        * @var \PHPUnit\Framework\MockObject\MockObject|IL10N
      */
     private $l10n;
 
