@@ -68,7 +68,8 @@
     "guzzlehttp/guzzle": "^7.3.0",
     "doctrine/dbal": "^3.10.5",
     "symfony/console": "^4.4.19",
-    "psr/log": "^1.1.0"
+    "psr/log": "^1.1.0",
+    "nextcloud/ocp": "^33.0"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
