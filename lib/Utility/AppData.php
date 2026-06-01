@@ -11,6 +11,7 @@ use OCP\Files\IAppData;
 use OCP\Files\GenericFileException;
 use OCP\Files\NotFoundException;
 use OCP\Files\NotPermittedException;
+use OCP\Files\SimpleFS\ISimpleFolder;
 use OCP\Files\StorageNotAvailableException;
 use \Psr\Log\LoggerInterface;
 
@@ -23,7 +24,7 @@ class AppData
 
     /**
      * @var IAppData
-    */
+     */
     private $appData;
 
     public function __construct(
@@ -40,9 +41,9 @@ class AppData
      *
      * @param string $foldername for the directory
      *
-     * @return SimpleFolder The object of the appdata folder
+    * @return ISimpleFolder|null The object of the appdata folder
      */
-    public function getAppFolder(string $foldername): ?\OC\Files\SimpleFS\SimpleFolder
+    public function getAppFolder(string $foldername): ?ISimpleFolder
     {
         try {
             return $this->appData->getFolder($foldername);

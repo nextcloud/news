@@ -13,12 +13,12 @@
 
 namespace OCA\News\Tests\Unit\Db;
 
-use OC\DB\QueryBuilder\Literal;
 use OCA\News\Db\Item;
 use OCA\News\Db\ItemMapperV2;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Utility\Time;
 use OCP\DB\QueryBuilder\IExpressionBuilder;
+use OCP\DB\QueryBuilder\IQueryBuilder;
 
 /**
  * Class ItemMapperTest
@@ -1307,9 +1307,14 @@ class ItemMapperPaginatedTest extends MapperTestUtility
             ->method('expr')
             ->will($this->returnValue($expr));
 
+        $this->builder->expects($this->once())
+            ->method('createNamedParameter')
+            ->with(2, IQueryBuilder::PARAM_INT, null)
+            ->willReturn(':folderId');
+
         $expr->expects($this->once())
              ->method('eq')
-             ->with('feeds.folder_id', new Literal(2))
+             ->with('feeds.folder_id', ':folderId')
              ->will($this->returnValue('x = y'));
 
         $this->db->expects($this->once())

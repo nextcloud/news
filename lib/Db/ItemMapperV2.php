@@ -12,7 +12,6 @@
 
 namespace OCA\News\Db;
 
-use OC\DB\QueryBuilder\Literal;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use PDO;
 use OCA\News\Utility\Time;
@@ -513,7 +512,7 @@ class ItemMapperV2 extends NewsMapperV2
         if ($folderId === null) {
             $folderWhere = $builder->expr()->isNull('feeds.folder_id');
         } else {
-            $folderWhere = $builder->expr()->eq('feeds.folder_id', new Literal($folderId), IQueryBuilder::PARAM_INT);
+            $folderWhere = $builder->expr()->eq('feeds.folder_id', $builder->createNamedParameter($folderId, IQueryBuilder::PARAM_INT));
         }
 
         $builder->select('items.*')
