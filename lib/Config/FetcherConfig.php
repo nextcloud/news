@@ -20,6 +20,8 @@ use OCP\IAppConfig;
 use OCP\App\IAppManager;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
+use OCP\Http\Client\LocalServerException;
+use OCP\Security\IRemoteHostValidator;
 
 /**
  * Class FetcherConfig
@@ -83,6 +85,7 @@ class FetcherConfig
         IAppConfig $config,
         IAppManager $appManager,
         private readonly IClientService $clientService,
+        private readonly IRemoteHostValidator $hostValidator,
     ) {
         $this->version = $appManager->getAppVersion(Application::NAME);
         $this->client_timeout = $config->getValueInt(
@@ -140,7 +143,22 @@ class FetcherConfig
             [
                 'timeout'         => $this->client_timeout,
                 'connect_timeout' => static::CONNECT_TIMEOUT,
-                'allow_redirects' => ['max' => $this->redirects, 'referer' => true],
+                'allow_redirects' => [
+                    'max'             => $this->redirects,
+                    'referer'         => true,
+                    'track_redirects' => true,
+                    'on_redirect'     => function ($request, $response, $uri): void {
+                        $host = parse_url((string) $uri, PHP_URL_HOST);
+                        if ($host === false || $host === null) {
+                            throw new LocalServerException('Could not determine host for redirect destination');
+                        }
+                        if (!$this->hostValidator->isValid($host)) {
+                            throw new LocalServerException(
+                                'Redirect destination "' . $host . '" violates local access rules'
+                            );
+                        }
+                    },
+                ],
             ]
         );
     }
