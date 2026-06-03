@@ -105,6 +105,10 @@ jobs:
       - name: Prime app build
         run: make composer
 
+      - name: Mimic appstore vendor cleanup
+        run: |
+          find vendor -mindepth 1 -maxdepth 1 ! -name 'composer' ! -name 'autoload.php' -exec rm -rf {} +
+
       - name: Configure server with app
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@b13a04eb6a4e48972d31fa07559619843fcc2102 # main
         with:

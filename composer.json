@@ -101,7 +101,8 @@
       "rm -Rf lib/Vendor",
       "@php lib-vendor-organizer.php build/ lib/Vendor/ \"OCA\\\\News\\\\Vendor\"",
       "rm -Rf build",
-      "composer dump-autoload"
+      "composer dump-autoload",
+      "@php bin/tools/fix-scoped-autoload-files.php"
     ]
   }
 }
