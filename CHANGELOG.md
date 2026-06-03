@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Fix FetcherConfig not handling on_redirect, which disables SSRF protection when a host redirects to a local address. (#3773)
 
 # Releases
 ## [28.4.1] - 2026-05-22
