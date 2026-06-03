@@ -23,10 +23,12 @@ namespace OCA\News\Tests\Config;
 
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Fetcher\Client\FeedIoClient;
+use OCP\Http\Client\LocalServerException;
 use OCP\IAppConfig;
 use OCP\App\IAppManager;
 use OCP\Http\Client\IClient;
 use OCP\Http\Client\IClientService;
+use OCP\Security\IRemoteHostValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -54,6 +56,9 @@ class FetcherConfigTest extends TestCase
     /** @var MockObject|IClient */
     protected $client;
 
+    /** @var MockObject|IRemoteHostValidator */
+    protected $hostValidator;
+
     protected function setUp(): void
     {
         $this->config = $this->getMockBuilder(IAppConfig::class)
@@ -72,6 +77,10 @@ class FetcherConfigTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->hostValidator = $this->getMockBuilder(IRemoteHostValidator::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->clientService->method('newClient')->willReturn($this->client);
     }
 
@@ -80,16 +89,51 @@ class FetcherConfigTest extends TestCase
      */
     public function testGetClient()
     {
-        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService);
+        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService, $this->hostValidator);
 
         $this->assertInstanceOf(FeedIoClient::class, $this->class->getClient());
     }
 
     public function testGetHttpClient()
     {
-        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService);
+        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService, $this->hostValidator);
 
         $this->assertInstanceOf(IClient::class, $this->class->getHttpClient());
+    }
+
+    public function testGetClientIncludesRedirectHostValidation(): void
+    {
+        $this->config->expects($this->exactly(2))
+            ->method('getValueInt')
+            ->willReturnMap([
+                ['news', 'feedFetcherTimeout', 60, false, 60],
+                ['news', 'maxRedirects', 10, false, 10],
+            ]);
+
+        $this->appmanager->expects($this->exactly(1))
+            ->method('getAppVersion')
+            ->willReturn('1.2.3');
+
+        $this->hostValidator->expects($this->once())
+            ->method('isValid')
+            ->with('127.0.0.1')
+            ->willReturn(false);
+
+        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService, $this->hostValidator);
+
+        $client = $this->class->getClient();
+        $reflection = new \ReflectionClass($client);
+        $property = $reflection->getProperty('requestOptions');
+        $property->setAccessible(true);
+
+        $options = $property->getValue($client);
+
+        $this->assertArrayHasKey('allow_redirects', $options);
+        $this->assertArrayHasKey('on_redirect', $options['allow_redirects']);
+        $this->assertIsCallable($options['allow_redirects']['on_redirect']);
+
+        $this->expectException(LocalServerException::class);
+        $options['allow_redirects']['on_redirect'](null, null, 'http://127.0.0.1/path');
     }
 
     public function testGetUserAgent()
@@ -105,7 +149,7 @@ class FetcherConfigTest extends TestCase
             ->method('getAppVersion')
             ->willReturn('123.45');
 
-        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService);
+        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService, $this->hostValidator);
 
         $expected = 'NextCloud-News/123.45';
         $response = $this->class->getUserAgent();
@@ -125,7 +169,7 @@ class FetcherConfigTest extends TestCase
             ->method('getAppVersion')
             ->willReturn('1.0');
 
-        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService);
+        $this->class = new FetcherConfig($this->config, $this->appmanager, $this->clientService, $this->hostValidator);
 
         $expected = 'NextCloud-News/1.0';
         $response = $this->class->getUserAgent();
