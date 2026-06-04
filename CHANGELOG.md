@@ -13,6 +13,10 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Fixed News not starting since 28.5.0 due to php class loading issues (#3780)
 
 # Releases
+## [28.5.1-beta.1] - 2026-06-04
+### Fixed
+- Fixed News not starting since 28.5.0 due to php class loading issues (#3780)
+
 ## [28.5.0] - 2026-06-03
 ### Security
 - **Update recommended**: This version fixes a gap in the SSRF protection that occurs when the remote host redirects to a local address.
