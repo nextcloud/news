@@ -17,6 +17,7 @@ use OCA\News\Vendor\FeedIo\Explorer;
 use OCA\News\Vendor\FeedIo\FeedIo;
 use OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery;
 use OCA\News\Vendor\GuzzleHttp\Psr7\HttpFactory;
+use OCA\News\Vendor\Psr\Http\Client\ClientInterface as ScopedPsrClientInterface;
 
 use OCA\News\Config\FetcherConfig;
 use OCA\News\Hooks\UserDeleteHook;
@@ -125,34 +126,40 @@ class Application extends App implements IBootstrap
             return new Explorer($config->getClient(), $c->get(LoggerInterface::class));
         });
 
-        $context->registerService(FaviconDiscovery::class, function (ContainerInterface $c): FaviconDiscovery {
+        $context->registerService(ScopedPsrClientInterface::class, function (ContainerInterface $c): ScopedPsrClientInterface {
             $config = $c->get(FetcherConfig::class);
             $hostValidator = $c->get(IRemoteHostValidator::class);
+
+            return new ScopedClient(
+                $config->getHttpClient(),
+                [
+                    'timeout' => $config->getClientTimeout(),
+                    'connect_timeout' => FetcherConfig::CONNECT_TIMEOUT,
+                    // Keep Nextcloud's SSRF redirect protections when customizing redirect behavior.
+                    'allow_redirects' => [
+                        'max' => $config->getMaxRedirects(),
+                        'referer' => true,
+                        'track_redirects' => true,
+                        'on_redirect' => static function ($request, $response, $uri) use ($hostValidator): void {
+                            $host = parse_url((string) $uri, PHP_URL_HOST);
+                            if ($host === false || $host === null) {
+                                throw new LocalServerException('Could not determine host for redirect destination');
+                            }
+                            if (!$hostValidator->isValid($host)) {
+                                throw new LocalServerException(
+                                    'Redirect destination "' . $host . '" violates local access rules'
+                                );
+                            }
+                        },
+                    ],
+                ]
+            );
+        });
+
+        $context->registerService(FaviconDiscovery::class, function (ContainerInterface $c): FaviconDiscovery {
+            $config = $c->get(FetcherConfig::class);
             return new FaviconDiscovery(
-                httpClient: new ScopedClient(
-                    $config->getHttpClient(),
-                    [
-                        'timeout' => $config->getClientTimeout(),
-                        'connect_timeout' => FetcherConfig::CONNECT_TIMEOUT,
-                        // Keep Nextcloud's SSRF redirect protections when customizing redirect behavior.
-                        'allow_redirects' => [
-                            'max' => $config->getMaxRedirects(),
-                            'referer' => true,
-                            'track_redirects' => true,
-                            'on_redirect' => static function ($request, $response, $uri) use ($hostValidator): void {
-                                $host = parse_url((string) $uri, PHP_URL_HOST);
-                                if ($host === false || $host === null) {
-                                    throw new LocalServerException('Could not determine host for redirect destination');
-                                }
-                                if (!$hostValidator->isValid($host)) {
-                                    throw new LocalServerException(
-                                        'Redirect destination "' . $host . '" violates local access rules'
-                                    );
-                                }
-                            },
-                        ],
-                    ]
-                ),
+                httpClient: $c->get(ScopedPsrClientInterface::class),
                 requestFactory: new HttpFactory(),
                 cache: new Psr16Cache(new FilesystemAdapter(directory: $c->get(Cache::class)->getCache('feedFavicon'))),
                 logger: $c->get(LoggerInterface::class),
