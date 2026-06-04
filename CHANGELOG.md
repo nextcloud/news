@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Fixed News not starting since 28.5.0 due to php class loading issues (#3780)
 
 # Releases
 ## [28.5.0] - 2026-06-03

@@ -103,7 +103,7 @@ jobs:
           database-password: ${{ env.POSTGRES_PASSWORD }}
 
       - name: Prime app build
-        run: make composer
+        run: make php-test-dependencies-appstore
 
       - name: Configure server with app
         uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@b13a04eb6a4e48972d31fa07559619843fcc2102 # main

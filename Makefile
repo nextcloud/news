@@ -51,8 +51,12 @@ appstore_sign_dir=$(appstore_build_directory)/sign
 cert_dir=$(HOME)/.nextcloud/certificates
 npm:=$(shell which npm 2> /dev/null)
 composer:=$(shell which composer 2> /dev/null)
+phpunit:=$(shell which phpunit 2> /dev/null)
 ifeq (,$(composer))
 	composer:=php "$(build_tools_directory)/composer.phar"
+endif
+ifeq (,$(phpunit))
+	phpunit:=./vendor/phpunit/phpunit/phpunit
 endif
 
 #Support xDebug 3.0+
@@ -99,12 +103,12 @@ clean:
 
 # Reports PHP codestyle violations
 .PHONY: phpcs
-phpcs:
+phpcs: php-dev-dependencies-if-needed
 	./vendor/bin/phpcs --standard=PSR2 --ignore=lib/Migration/Version*.php,lib/Vendor/* lib
 
 # Reports PHP static violations
 .PHONY: phpstan
-phpstan:
+phpstan: php-dev-dependencies-if-needed
 	./vendor/bin/phpstan analyse --level=1 lib
 
 # Same as clean but also removes dependencies installed by composer and
@@ -207,11 +211,32 @@ php-test-dependencies:
 	$(composer) install --prefer-dist
 	$(composer) scope-dependencies
 
+.PHONY: php-test-dependencies-appstore
+php-test-dependencies-appstore:
+	COMPOSER_NO_PLUGINS=1 $(composer) install --prefer-dist --no-dev --no-scripts
+	COMPOSER_NO_PLUGINS=1 $(composer) scope-dependencies
+	php ./bin/tools/fix_scoped_autoload.php
+	find "vendor" -mindepth 1 -maxdepth 1 ! -name 'composer' ! -name 'autoload.php' -exec rm -rf {} +
+
 .PHONY: php-test-dependencies-if-needed
 php-test-dependencies-if-needed:
 	@if [ ! -x "./vendor/phpunit/phpunit/phpunit" ]; then \
 		echo "PHP test dependencies not found. Installing dev dependencies..."; \
 		$(MAKE) php-test-dependencies; \
+	fi
+
+.PHONY: php-dev-dependencies-if-needed
+php-dev-dependencies-if-needed:
+	@if [ ! -x "./vendor/bin/phpstan" ]; then \
+		echo "Dev dependencies not found. Installing dev dependencies..."; \
+		$(MAKE) php-test-dependencies; \
+	fi
+
+.PHONY: php-test-dependencies-if-needed-appstore
+php-test-dependencies-if-needed-appstore:
+	@if [ ! -f "vendor/autoload.php" ] || [ ! -d "lib/Vendor" ]; then \
+		echo "Appstore-style PHP test dependencies not found. Installing scoped runtime dependencies..."; \
+		$(MAKE) php-test-dependencies-appstore; \
 	fi
 
 .PHONY: scope-if-needed
@@ -224,6 +249,10 @@ scope-if-needed:
 .PHONY: unit-test
 unit-test: php-test-dependencies-if-needed scope-if-needed
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
+
+.PHONY: unit-test-appstore
+unit-test-appstore: php-test-dependencies-if-needed-appstore scope-if-needed
+	$(phpunit) -c phpunit.xml --coverage-clover build/php-unit.clover
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
