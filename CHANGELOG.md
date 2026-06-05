@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Added
+- Support for Nextcloud Server 34 (Hub 26 spring) (#3786)
 
 ### Changed
 

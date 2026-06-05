@@ -130,7 +130,7 @@ Nextcloud News is an RSS/Atom feed aggregator app for Nextcloud. It's a PHP back
 cd /home/runner/work/news  # Or use: cd $(dirname $(pwd))/.. if in news/news
 
 # Step 1: Clone Nextcloud server (adjacent to News repo)
-git clone --depth 1 --branch stable32 https://github.com/nextcloud/server.git
+git clone --depth 1 --branch stable34 https://github.com/nextcloud/server.git
 cd server
 git submodule update --init
 
