@@ -14,12 +14,12 @@ jobs:
     strategy:
       matrix:
         php-versions: ['8.3']
-        nextcloud: ['stable32']
+        nextcloud: ['stable34']
         database: ['sqlite']
         experimental: [false]
         include:
           - php-versions: 8.3
-            nextcloud: stable32
+            nextcloud: stable34
             database: sqlite
             experimental: false
     steps:
