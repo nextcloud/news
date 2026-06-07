@@ -36,6 +36,7 @@
 					:itemCount="items.length"
 					:itemIndex="currentIndex + 1"
 					:fetchKey="fetchKey"
+					:selectedByKeyboard="selectedByKeyboard"
 					@prevItem="previousItem"
 					@nextItem="nextItem"
 					@showDetails="showItem(false)" />
@@ -74,6 +75,7 @@ import {
 	type PropType,
 
 	computed,
+	nextTick,
 	onBeforeMount,
 	onBeforeUnmount,
 	onMounted,
@@ -147,6 +149,7 @@ const stopPageDownHotkey = ref(null)
 
 const contentElement = ref()
 const itemListElement = ref()
+const selectedByKeyboard = ref(false)
 
 const displayMode = computed(() => {
 	return store.getters.displaymode
@@ -232,8 +235,10 @@ function selectItem(item: FeedItem) {
 function previousItem() {
 	// Jump to the previous item
 	if (currentIndex.value > 0) {
+		selectedByKeyboard.value = true
 		const previousItem = props.items[currentIndex.value - 1]
 		selectItem(previousItem)
+		resetSelectedByKeyboard()
 	}
 }
 
@@ -244,9 +249,20 @@ function previousItem() {
 function nextItem() {
 	// Jump to the first item, if none was selected, otherwise jump to the next item
 	if (props.items.length > 0 && currentIndex.value < props.items.length - 1) {
+		selectedByKeyboard.value = true
 		const nextItem = props.items[currentIndex.value + 1]
 		selectItem(nextItem)
+		resetSelectedByKeyboard()
 	}
+}
+
+/**
+ * reset selected by keyboard flag
+ */
+function resetSelectedByKeyboard() {
+	nextTick(() => {
+		selectedByKeyboard.value = false
+	})
 }
 
 /**

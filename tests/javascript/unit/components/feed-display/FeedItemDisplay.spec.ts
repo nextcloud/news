@@ -102,23 +102,40 @@ describe('FeedItemDisplay.vue', () => {
 		expect(feed).toEqual(mockFeeds[0])
 	})
 
-	it('should focus on new selected item when using screen reader mode', async () => {
+	it('should focus title on new selected item when using screen reader mode', async () => {
 		const el = { focus: vi.fn() }
 		Object.defineProperty(wrapper.vm.$refs, 'titleLink', { value: el, configurable: true })
 
 		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(true)
-		wrapper.vm.$options.watch.isSelected.call(wrapper.vm, true)
+		wrapper.vm.$options.watch.isSelected.handler.call(wrapper.vm, true)
 		await nextTick()
 
 		expect(el.focus).toHaveBeenCalled()
 	})
 
-	it('should not focus on new selected item when not using screen reader mode', async () => {
+	it('should focus article pane when selected using keyboard navigation', async () => {
+		await wrapper.setProps({
+			selectedByKeyboard: true,
+		})
 		const el = { focus: vi.fn() }
-		Object.defineProperty(wrapper.vm.$refs, 'titleLink', { value: el, configurable: true })
+		Object.defineProperty(wrapper.vm.$refs, 'displayElement', { value: el, configurable: true })
 
 		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(false)
-		wrapper.vm.$options.watch.isSelected.call(wrapper.vm, true)
+		wrapper.vm.$options.watch.isSelected.handler.call(wrapper.vm, true)
+		await nextTick()
+
+		expect(el.focus).toHaveBeenCalled()
+	})
+
+	it('should not focus article pane when selected without keyboard navigation', async () => {
+		await wrapper.setProps({
+			selectedByKeyboard: false,
+		})
+		const el = { focus: vi.fn() }
+		Object.defineProperty(wrapper.vm.$refs, 'displayElement', { value: el, configurable: true })
+
+		vi.spyOn(wrapper.vm, 'screenReaderMode', 'get').mockReturnValue(false)
+		wrapper.vm.$options.watch.isSelected.handler.call(wrapper.vm, true)
 		await nextTick()
 
 		expect(el.focus).not.toHaveBeenCalled()
