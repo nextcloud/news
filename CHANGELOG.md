@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Focus article view when item selected via keyboard navigation
 
 # Releases
 ## [28.5.1] - 2026-06-04

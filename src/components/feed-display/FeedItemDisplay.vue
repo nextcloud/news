@@ -1,8 +1,10 @@
 <template>
 	<div
+		ref="displayElement"
 		class="feed-item-display"
 		:class="{ screenreader: screenReaderMode }"
 		:style="screenReaderItemHeight"
+		:tabindex="screenReaderMode ? undefined : '-1'"
 		v-bind="screenReaderMode ? { 'aria-setsize': itemCount, 'aria-posinset': itemIndex } : {}"
 		@focusin="selectItemOnFocus">
 		<ShareItem v-if="showShareMenu" :itemId="item.id" @close="closeShareMenu()" />
@@ -294,6 +296,15 @@ export default defineComponent({
 			type: String,
 			required: true,
 		},
+
+		/**
+		 * Whether the item was selected via keyboard navigation
+		 */
+		selectedByKeyboard: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 	},
 
 	emits: {
@@ -425,13 +436,26 @@ export default defineComponent({
 	},
 
 	watch: {
-		// Focus title link in article to emulate structural heading navigation
-		// with screen readers
-		async isSelected(newSelected) {
-			if (newSelected && this.screenReaderMode) {
+		// Focus title link in article to emulate structural heading navigation with
+		// screen readers or focus the article view when selected via keyboard navigation
+		isSelected: {
+			async handler(newSelected) {
+				if (!newSelected) {
+					return
+				}
+				const screenReaderMode = this.screenReaderMode
+				const selectedByKeyboard = this.selectedByKeyboard
+
 				await this.$nextTick()
-				this.$refs.titleLink.focus()
-			}
+
+				if (screenReaderMode) {
+					this.$refs.titleLink?.focus()
+				} else if (selectedByKeyboard) {
+					this.$refs.displayElement?.focus()
+				}
+			},
+
+			immediate: true,
 		},
 	},
 
@@ -687,6 +711,10 @@ export default defineComponent({
 	.feed-item-display {
 		display: flex;
 		flex-direction: column;
+	}
+
+	.feed-item-display:focus {
+		outline: none;
 	}
 
 	.feed-item-display.screenreader {
