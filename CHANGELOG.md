@@ -6,14 +6,19 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Added
-- Support for Nextcloud Server 34 (Hub 26 spring) (#3786)
 
 ### Changed
 
 ### Fixed
-- Focus article view when item selected via keyboard navigation
 
 # Releases
+## [28.6.0] - 2026-06-08
+### Added
+- Added support for Nextcloud Server 34 "Hub 26 spring" (#3786)
+
+### Fixed
+- Focus article view when item selected via keyboard navigation (#3791)
+
 ## [28.5.1] - 2026-06-04
 No notable changes since the beta release.
 
