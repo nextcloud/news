@@ -110,7 +110,7 @@ Reverses the order so that older articles are displayed first.
 ### Disable Automatic Refresh
 This option disables automatic feed synchronization with the backend, which occurs every 60 seconds.
 
-### Abonnements (OPML)
+### Subscriptions (OPML)
 Feed lists in OPML format can be imported and exported here. Feeds that cannot be loaded during the import will be ignored.
 
 # Using News with Clients

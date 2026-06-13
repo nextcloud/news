@@ -85,7 +85,7 @@
 		</NcAppSettingsSection>
 
 		<NcAppSettingsSection id="settings-opml" :name="t('news', 'Import') + '/' + t('news', 'Export')">
-			<NcFormGroup :label="t('news', 'Abonnements (OPML)')">
+			<NcFormGroup :label="t('news', 'Subscriptions (OPML)')">
 				<div class="button-container">
 					<NcButton
 						aria-label="UploadOpml"
