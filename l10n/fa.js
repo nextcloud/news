@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "حالت تقسیم‌شده",
     "Import" : "وارد کردن",
     "Export" : "دریافت خروجی",
-    "Abonnements (OPML)" : "اشتراک‌ها (OPML)",
+    "Subscriptions (OPML)" : "اشتراک‌ها (OPML)",
     "Importing feeds" : "در حال وارد کردن فیدها",
     "Please wait" : "لطفاً صبر کنید",
     "Articles (JSON)" : "مقالات (JSON)",

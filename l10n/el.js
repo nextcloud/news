@@ -119,7 +119,7 @@ OC.L10N.register(
     "Split mode" : "Λειτουργία διαχωρισμού",
     "Import" : "Εισαγωγή",
     "Export" : "Εξαγωγή",
-    "Abonnements (OPML)" : "Συνδρομές (OPML)",
+    "Subscriptions (OPML)" : "Συνδρομές (OPML)",
     "Importing feeds" : "Εισαγωγή ροών",
     "Please wait" : "Παρακαλούμε περιμένετε",
     "Keyboard shortcuts" : "Συντομεύσεις πλητρολογίου",

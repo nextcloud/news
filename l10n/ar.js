@@ -111,7 +111,6 @@ OC.L10N.register(
     "Split mode" : "الوضعية المُجزَّأة",
     "Import" : "إستيراد",
     "Export" : "تصدير",
-    "Abonnements (OPML)" : "الاشتراكات (OPML)",
     "Please wait" : "يرجى الانتظار ...",
     "Keyboard shortcuts" : "اختصارات لوحة المفاتيح",
     "Refresh" : "تحديث",

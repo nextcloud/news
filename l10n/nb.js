@@ -90,6 +90,7 @@ OC.L10N.register(
     "Appearance" : "Utseende",
     "Import" : "Importer",
     "Export" : "Eksporter",
+    "Subscriptions (OPML)" : "Abonnement (OPML)",
     "Please wait" : "Vent",
     "Keyboard shortcuts" : "Tastatursnarveier",
     "Refresh" : "Oppdater",

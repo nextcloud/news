@@ -44,6 +44,7 @@ OC.L10N.register(
     "Appearance" : "Izskats",
     "Import" : "Ievietot",
     "Export" : "Izgūt",
+    "Subscriptions (OPML)" : "Abonementi (OPML)",
     "Keyboard shortcuts" : "Tastatūras saīsnes",
     "Refresh" : "Atsvaidzināt",
     "Open article in new tab" : "Atvērt rakstu jaunā cilnē",

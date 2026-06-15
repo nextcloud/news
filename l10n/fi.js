@@ -83,6 +83,7 @@ OC.L10N.register(
     "Appearance" : "Ulkoasu",
     "Import" : "Tuo",
     "Export" : "Vie",
+    "Subscriptions (OPML)" : "Tilaukset (OPML)",
     "Please wait" : "Odota hetki",
     "Keyboard shortcuts" : "Pikanäppäimet",
     "Refresh" : "Päivitä",

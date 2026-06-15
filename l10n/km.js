@@ -21,6 +21,7 @@ OC.L10N.register(
     "General" : "ទូទៅ",
     "Import" : "នាំយកចូល",
     "Export" : "នាំចេញ",
+    "Subscriptions (OPML)" : "ការ​តាមដាន (OPML)",
     "Options" : "ជម្រើស",
     "Folder" : "ថត",
     "Save" : "រក្សាទុក"

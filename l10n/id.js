@@ -128,7 +128,7 @@ OC.L10N.register(
     "Split mode" : "Mode pemisahan",
     "Import" : "Impor",
     "Export" : "Ekspor",
-    "Abonnements (OPML)" : "Langganan (OPML)",
+    "Subscriptions (OPML)" : "Berlangganan (OPML)",
     "Importing feeds" : "Mengimpor feed",
     "Please wait" : "Mohon tunggu",
     "Articles (JSON)" : "Artikel (JSON)",

@@ -118,7 +118,7 @@ OC.L10N.register(
     "Split mode" : "Delt tilstand",
     "Import" : "Importér",
     "Export" : "Eksportér",
-    "Abonnements (OPML)" : "Abonnementer (OPML)",
+    "Subscriptions (OPML)" : "Abonnementer (OPML)",
     "Importing feeds" : "Importerer feeds",
     "Please wait" : "Vent venligst",
     "Keyboard shortcuts" : "Tastaturgenveje",

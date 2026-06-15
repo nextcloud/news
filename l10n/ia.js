@@ -35,6 +35,7 @@ OC.L10N.register(
     "Disable mark read through scrolling" : "Disactivar le marcation como legite per rolamento",
     "Reverse ordering (oldest on top)" : "Ordination reverse (le plus ancian in le topo)",
     "Export" : "Exportar",
+    "Subscriptions (OPML)" : "Subscriptiones (OPML)",
     "Keyboard shortcuts" : "Combinationes de claves",
     "Refresh" : "Refrescar",
     "Jump to previous article" : "Saltar al articulo previe",

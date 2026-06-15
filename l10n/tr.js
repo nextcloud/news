@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "Bölünmüş kip",
     "Import" : "İçe aktar",
     "Export" : "Dışa aktar",
-    "Abonnements (OPML)" : "Abonelikler (OPML)",
+    "Subscriptions (OPML)" : "Abonelikler (OPML)",
     "Importing feeds" : "Akışlar içe aktarılıyor",
     "Please wait" : "Lütfen bekleyin",
     "Articles (JSON)" : "Yazılar (JSON)",

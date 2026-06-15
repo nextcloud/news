@@ -118,7 +118,6 @@ OC.L10N.register(
     "Split mode" : "Hali ya mgawanyiko",
     "Import" : "Ingiza",
     "Export" : "Agiza",
-    "Abonnements (OPML)" : "Usajili (OPML)",
     "Importing feeds" : "Kuagiza milisho",
     "Please wait" : "Tafadhali subiri",
     "Keyboard shortcuts" : "Mikato ya keyboard",

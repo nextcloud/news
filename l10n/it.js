@@ -92,6 +92,7 @@ OC.L10N.register(
     "Appearance" : "Aspetto",
     "Import" : "Importa",
     "Export" : "Esporta",
+    "Subscriptions (OPML)" : "Sottoscrizioni (OPML)",
     "Please wait" : "Attendere",
     "Articles (JSON)" : "Articoli (JSON)",
     "Keyboard shortcuts" : "Scorciatoie da tastiera",

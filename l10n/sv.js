@@ -148,7 +148,7 @@ OC.L10N.register(
     "Split mode" : "Delat läge",
     "Import" : "Importera",
     "Export" : "Exportera",
-    "Abonnements (OPML)" : "Prenumerationer (OPML)",
+    "Subscriptions (OPML)" : "Abonnemang (OPML)",
     "Importing feeds" : "Importerar flöden",
     "Please wait" : "Vänta",
     "Articles (JSON)" : "Artiklar (JSON)",

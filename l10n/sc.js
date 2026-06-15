@@ -72,6 +72,7 @@ OC.L10N.register(
     "Appearance" : "Aspetu",
     "Import" : "Importa",
     "Export" : "Esporta",
+    "Subscriptions (OPML)" : "Sutaiscritziones (OPML)",
     "Keyboard shortcuts" : "Curtziadòrgios de tecladu",
     "Refresh" : "Agiorna",
     "Jump to previous article" : "Brinca a s'artìculu de in antis",

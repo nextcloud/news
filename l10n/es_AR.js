@@ -56,6 +56,7 @@ OC.L10N.register(
     "Media" : "Media",
     "Import" : "Importar",
     "Export" : "Exportar",
+    "Subscriptions (OPML)" : "Subscripciones (OPML)",
     "Please wait" : "Pro favor espere",
     "Keyboard shortcuts" : "Atajos de teclado",
     "Refresh" : "Actualizar",

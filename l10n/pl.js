@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "Tryb podziału",
     "Import" : "Importuj",
     "Export" : "Eksportuj",
-    "Abonnements (OPML)" : "Subskrypcje (OPML)",
+    "Subscriptions (OPML)" : "Subskrypcje (OPML)",
     "Importing feeds" : "Importowanie kanałów",
     "Please wait" : "Proszę czekać",
     "Articles (JSON)" : "Artykuły (JSON)",

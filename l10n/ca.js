@@ -110,7 +110,7 @@ OC.L10N.register(
     "Split mode" : "Mode dividit",
     "Import" : "Importa",
     "Export" : "Exporta",
-    "Abonnements (OPML)" : "Abonaments (OPML)",
+    "Subscriptions (OPML)" : "Subscripcions (OPML)",
     "Please wait" : "Espereu si us plau",
     "Keyboard shortcuts" : "Dreceres de teclat",
     "Refresh" : "Refresca",

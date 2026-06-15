@@ -50,6 +50,7 @@ OC.L10N.register(
     "Appearance" : "ลักษณะที่ปรากฏ",
     "Import" : "นำเข้า",
     "Export" : "ส่งออก",
+    "Subscriptions (OPML)" : "การสมัครใช้งาน (OPML)",
     "Please wait" : "โปรดรอ",
     "Keyboard shortcuts" : "แป้นพิมพ์ลัด",
     "Refresh" : "รีเฟรช",

@@ -30,6 +30,7 @@ OC.L10N.register(
     "General" : "Allgemeng",
     "Import" : "Import",
     "Export" : "Exportéieren",
+    "Subscriptions (OPML)" : "Abonnementer (OPML)",
     "Refresh" : "Opfrëschen",
     "Jump to previous article" : "Op den Artikel vu virdru sprangen",
     "Jump to next article" : "Op den nächsten Artikel sprangen",

@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "Poolitatud vaade",
     "Import" : "Impordi",
     "Export" : "Ekspordi",
-    "Abonnements (OPML)" : "Tellimused (OPML)",
+    "Subscriptions (OPML)" : "Tellimused (OPML)",
     "Importing feeds" : "Impordin uudisvooge",
     "Please wait" : "Palun oota",
     "Articles (JSON)" : "Artiklid (JSON-vormingus)",

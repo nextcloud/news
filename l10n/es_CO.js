@@ -57,6 +57,7 @@ OC.L10N.register(
     "Media" : "Medios de comunicación",
     "Import" : "Importar",
     "Export" : "Exportar",
+    "Subscriptions (OPML)" : "Suscripciones (OPML)",
     "Please wait" : "Por favor aguarda",
     "Keyboard shortcuts" : "Atajos del teclado",
     "Refresh" : "Actualizar",

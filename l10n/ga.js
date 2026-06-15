@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "Modh scoilte",
     "Import" : "Iompórtáil",
     "Export" : "Easpórtáil",
-    "Abonnements (OPML)" : "Trócaire (OPML)",
+    "Subscriptions (OPML)" : "Síntiúis (OPML)",
     "Importing feeds" : "Fothaí á n-iompórtáil",
     "Please wait" : "Fán le do thoil",
     "Articles (JSON)" : "Airteagail (JSON)",

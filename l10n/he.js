@@ -62,6 +62,7 @@ OC.L10N.register(
     "Appearance" : "מראה",
     "Import" : "ייבוא",
     "Export" : "ייצוא",
+    "Subscriptions (OPML)" : "הרשמות (OPML)",
     "Keyboard shortcuts" : "קיצורי מקלדת",
     "Refresh" : "רענון",
     "Jump to previous article" : "קפיצה למאמר הקודם",

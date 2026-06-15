@@ -57,6 +57,7 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "Renditje e përmbusyr (më të vjetrat në krye)",
     "Import" : "Import",
     "Export" : "Eksport",
+    "Subscriptions (OPML)" : "Pajtime (OPML)",
     "Please wait" : "Ju lutem prisni",
     "Keyboard shortcuts" : "Shkurtore tastiere",
     "Refresh" : "Rifreskoje",

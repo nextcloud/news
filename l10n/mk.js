@@ -39,6 +39,7 @@ OC.L10N.register(
     "Appearance" : "Изглед",
     "Import" : "Увези",
     "Export" : "Извези",
+    "Subscriptions (OPML)" : "Претплати (OPML)",
     "Keyboard shortcuts" : "Кратенки преку тастатура",
     "Refresh" : "Освежи",
     "Resources" : "Ресурси",

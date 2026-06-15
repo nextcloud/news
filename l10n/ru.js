@@ -108,7 +108,7 @@ OC.L10N.register(
     "Split mode" : "Раздельный режим",
     "Import" : "Импортировать",
     "Export" : "Экспорт",
-    "Abonnements (OPML)" : "Подписки (OPML)",
+    "Subscriptions (OPML)" : "Подписки (OPML)",
     "Importing feeds" : "Импортирование лент",
     "Please wait" : "Подождите",
     "Keyboard shortcuts" : "Горячие клавиши",

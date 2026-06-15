@@ -69,6 +69,7 @@ OC.L10N.register(
     "Appearance" : "Útlit",
     "Import" : "Flytja inn",
     "Export" : "Flytja út",
+    "Subscriptions (OPML)" : "Áskriftir (OPML)",
     "Please wait" : "Bíddu aðeins",
     "Keyboard shortcuts" : "Flýtilyklar",
     "Refresh" : "Endurlesa",

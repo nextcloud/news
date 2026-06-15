@@ -119,7 +119,7 @@ OC.L10N.register(
     "Split mode" : "Подељени режим",
     "Import" : "Увоз",
     "Export" : "Извези",
-    "Abonnements (OPML)" : "Абонмани (OPML)",
+    "Subscriptions (OPML)" : "Претплате (ОПМЛ)",
     "Importing feeds" : "Увозе се новости",
     "Please wait" : "Сачекајте",
     "Keyboard shortcuts" : "Пречице тастатуре",

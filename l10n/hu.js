@@ -89,6 +89,7 @@ OC.L10N.register(
     "Appearance" : "Megjelenés",
     "Import" : "Importálás",
     "Export" : "Exportálás",
+    "Subscriptions (OPML)" : "Feliratkozások (OPML)",
     "Please wait" : "Kis türelmet",
     "Keyboard shortcuts" : "Gyorsbillentyűk",
     "Refresh" : "Frissítés",

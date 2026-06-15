@@ -56,6 +56,7 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "Orden inverso (más antiguo arriba)",
     "Import" : "Importar",
     "Export" : "Exportar",
+    "Subscriptions (OPML)" : "Suscripciones (OPML)",
     "Please wait" : "Por favor aguarda",
     "Keyboard shortcuts" : "Atajos del teclado",
     "Refresh" : "Actualizar",

@@ -49,6 +49,7 @@ OC.L10N.register(
     "Appearance" : "Aparéncia",
     "Import" : "Importar",
     "Export" : "Exportar",
+    "Subscriptions (OPML)" : "Abonaments (OPML)",
     "Keyboard shortcuts" : "Acorchis de clavièr",
     "Refresh" : "Refrescar",
     "Jump to previous article" : "Anar a l'article precedent",

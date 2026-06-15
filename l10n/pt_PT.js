@@ -67,6 +67,7 @@ OC.L10N.register(
     "Appearance" : "Aspeto",
     "Import" : "Importar",
     "Export" : "Exportar",
+    "Subscriptions (OPML)" : "Subscrições (OPML)",
     "Please wait" : "Por favor aguarde",
     "Keyboard shortcuts" : "Atalhos de teclado",
     "Refresh" : "Atualizar",

@@ -104,7 +104,7 @@ OC.L10N.register(
     "Split mode" : "Modu banatua",
     "Import" : "Inportatu",
     "Export" : "Esportatu",
-    "Abonnements (OPML)" : "Abonamenduak (OPML)",
+    "Subscriptions (OPML)" : "Harpidetzak (OPML)",
     "Please wait" : "Itxaron mesedez",
     "Keyboard shortcuts" : "Teklatuaren lasterbideak",
     "Refresh" : "Freskatu",

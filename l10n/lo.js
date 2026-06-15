@@ -122,7 +122,6 @@ OC.L10N.register(
     "Split mode" : "Split mode",
     "Import" : "ນຳເຂົ້າ",
     "Export" : "ສົ່ງອອກ",
-    "Abonnements (OPML)" : "Abonnements (OPML)",
     "Importing feeds" : "Importing feeds",
     "Please wait" : "Please wait",
     "Keyboard shortcuts" : "Keyboard shortcuts",

@@ -57,6 +57,7 @@ OC.L10N.register(
     "Reverse ordering (oldest on top)" : "უკუგანლაგება (ძველები ზემოთ)",
     "Import" : "იმპორტი",
     "Export" : "ექსპორტი",
+    "Subscriptions (OPML)" : "გამოწერები (OPML)",
     "Please wait" : "გთხოვთ მოითმინოთ",
     "Keyboard shortcuts" : "კლავიატურის კომბინაციები",
     "Refresh" : "განახლება",

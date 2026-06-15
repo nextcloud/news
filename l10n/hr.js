@@ -145,7 +145,7 @@ OC.L10N.register(
     "Split mode" : "Podijeljeni prikaz",
     "Import" : "Uvezi",
     "Export" : "Izvoz",
-    "Abonnements (OPML)" : "Pretplate (OPML)",
+    "Subscriptions (OPML)" : "Pretplate (OPML)",
     "Importing feeds" : "Uvoz izvora",
     "Please wait" : "Pričekajte",
     "Articles (JSON)" : "Članci (JSON)",

@@ -140,7 +140,7 @@ OC.L10N.register(
     "Split mode" : "Dělený režim",
     "Import" : "Naimportovat",
     "Export" : "Exportovat",
-    "Abonnements (OPML)" : "Odběry (OPML)",
+    "Subscriptions (OPML)" : "Odběry (OPML)",
     "Importing feeds" : "Importování kanálů",
     "Please wait" : "Vyčkejte",
     "Articles (JSON)" : "Ćlánky (JSON)",

@@ -87,6 +87,7 @@ OC.L10N.register(
     "Appearance" : "Videz",
     "Import" : "Uvozi",
     "Export" : "Izvozi",
+    "Subscriptions (OPML)" : "Naročnine (OPML)",
     "Please wait" : "Počakajte ...",
     "Keyboard shortcuts" : "Tipkovne bližnjice",
     "Refresh" : "Osveži",

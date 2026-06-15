@@ -122,7 +122,7 @@ OC.L10N.register(
     "Split mode" : "بۆلۈنۈش ھالىتى",
     "Import" : "ئەكىر",
     "Export" : "ئېكسپورت",
-    "Abonnements (OPML)" : "Abonnements (OPML)",
+    "Subscriptions (OPML)" : "مۇشتەرىلىك (OPML)",
     "Importing feeds" : "يەملەرنى كىرگۈزىۋاتىدۇ",
     "Please wait" : "ساقلاپ تۇرۇڭ",
     "Keyboard shortcuts" : "كۇنۇپكا تاختىسى تېزلەتمىسى",

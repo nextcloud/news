@@ -25,6 +25,7 @@ OC.L10N.register(
     "General" : "সাধারণ",
     "Import" : "আমদানি",
     "Export" : "রপ্তানি",
+    "Subscriptions (OPML)" : "সাবস্ক্রিপশন (OPML)",
     "Keyboard shortcuts" : "কী-বোর্ড শর্টকাট",
     "Refresh" : "নবোদ্যম",
     "Folder" : "ফোল্ডার",

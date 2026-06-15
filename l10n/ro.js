@@ -72,6 +72,7 @@ OC.L10N.register(
     "Appearance" : "Aspect",
     "Import" : "Importă",
     "Export" : "Exportă",
+    "Subscriptions (OPML)" : "Subscripţii (OPLM)",
     "Keyboard shortcuts" : "Scurtături din tastatură",
     "Refresh" : "Împrospătare",
     "Jump to previous article" : "Sari la următorul articol",

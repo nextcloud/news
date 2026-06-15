@@ -82,6 +82,7 @@ OC.L10N.register(
     "Appearance" : "외형",
     "Import" : "가져오기",
     "Export" : "내보내기",
+    "Subscriptions (OPML)" : "구독(OPML)",
     "Please wait" : "기다려 주세요.",
     "Keyboard shortcuts" : "키보드 단축키",
     "Refresh" : "새로 고침",

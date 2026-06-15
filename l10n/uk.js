@@ -117,7 +117,7 @@ OC.L10N.register(
     "Split mode" : "Роздільний режим",
     "Import" : "Імпорт",
     "Export" : "Експортувати",
-    "Abonnements (OPML)" : "Підписки (OPML)",
+    "Subscriptions (OPML)" : "Підписки (OPML)",
     "Importing feeds" : "Імпорт кормів",
     "Please wait" : "Будь ласка, зачекайте",
     "Keyboard shortcuts" : "Клавіатурні скорочення",

@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "Split-Modus",
     "Import" : "Importieren",
     "Export" : "Exportieren",
-    "Abonnements (OPML)" : "Abonnements (OPML)",
+    "Subscriptions (OPML)" : "Abonnements (OPML)",
     "Importing feeds" : "Importiere Feeds",
     "Please wait" : "Bitte warten",
     "Articles (JSON)" : "Artikel (JSON)",

@@ -79,6 +79,7 @@ OC.L10N.register(
     "Appearance" : "Uiterlijk",
     "Import" : "Import",
     "Export" : "Exporteren",
+    "Subscriptions (OPML)" : "Abonnementen (OPML)",
     "Please wait" : "Even geduld",
     "Keyboard shortcuts" : "Sneltoetsen",
     "Refresh" : "Vernieuwen",

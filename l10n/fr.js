@@ -122,7 +122,7 @@ OC.L10N.register(
     "Split mode" : "Mode découpé",
     "Import" : "Importer",
     "Export" : "Exporter",
-    "Abonnements (OPML)" : "Abonnements (OPML)",
+    "Subscriptions (OPML)" : "Abonnements (OPML)",
     "Importing feeds" : "Importer les flux",
     "Please wait" : "Veuillez patienter",
     "Keyboard shortcuts" : "Raccourcis clavier",

@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "Padalijimo režimas",
     "Import" : "Importuoti",
     "Export" : "Eksportuoti",
-    "Abonnements (OPML)" : "Prenumeratos (OPML)",
+    "Subscriptions (OPML)" : "Prenumeratos (OPML)",
     "Importing feeds" : "Importuojami sklaidos kanalai",
     "Please wait" : "Prašome palaukti",
     "Articles (JSON)" : "Straipsniai (JSON)",

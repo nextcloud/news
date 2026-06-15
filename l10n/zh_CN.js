@@ -149,7 +149,7 @@ OC.L10N.register(
     "Split mode" : "分离模式",
     "Import" : "导入",
     "Export" : "导出",
-    "Abonnements (OPML)" : "订阅（OPML）",
+    "Subscriptions (OPML)" : "订阅（OPML）",
     "Importing feeds" : "正在导入订阅源",
     "Please wait" : "请稍候",
     "Articles (JSON)" : "文章（JSON）",

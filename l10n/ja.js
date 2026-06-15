@@ -96,6 +96,7 @@ OC.L10N.register(
     "Appearance" : "表示",
     "Import" : "インポート",
     "Export" : "エクスポート",
+    "Subscriptions (OPML)" : "RSS購読リスト (OPML)",
     "Please wait" : "お待ちください",
     "Keyboard shortcuts" : "キーボードショートカット",
     "Refresh" : "同期",
