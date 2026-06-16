@@ -62,6 +62,7 @@ OC.L10N.register(
     "Appearance" : "Aspeutu",
     "Import" : "Importa",
     "Export" : "Esportar",
+    "Subscriptions (OPML)" : "Soscripciones (OPML)",
     "Please wait" : "Espera",
     "Keyboard shortcuts" : "Atayos del tecláu",
     "Refresh" : "Anovar",

@@ -25,6 +25,7 @@ OC.L10N.register(
     "General" : "Ümumi",
     "Import" : "Əlavə et",
     "Export" : "Çıxarış",
+    "Subscriptions (OPML)" : "Abunəliklər(OPML)",
     "Refresh" : "Yenilə",
     "Resources" : "Resurslar",
     "Folder" : "Qovluq",
