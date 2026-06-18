@@ -63,18 +63,75 @@ class FeedMapperTest extends MapperTestUtility
      */
     public function testFindAllFromUser()
     {
-        $this->db->expects($this->once())
+        $unreadBuilder = $this->getMockBuilder(IQueryBuilder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $starredBuilder = $this->getMockBuilder(IQueryBuilder::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $funcCount = $this->getMockBuilder(IQueryFunction::class)->getMock();
+        $funcUnread = $this->getMockBuilder(IQueryFunction::class)->getMock();
+        $funcStarred = $this->getMockBuilder(IQueryFunction::class)->getMock();
+
+        $this->db->expects($this->exactly(3))
                  ->method('getQueryBuilder')
-                 ->willReturn($this->builder);
+                 ->willReturnOnConsecutiveCalls($this->builder, $unreadBuilder, $starredBuilder);
 
-        $funcUnread = $this->getMockBuilder(IQueryFunction::class)
-                      ->getMock();
-        $funcStarred = $this->getMockBuilder(IQueryFunction::class)
-                      ->getMock();
+        // Unread count subquery
+        $unreadBuilder->expects($this->once())
+            ->method('createFunction')
+            ->with('COUNT(*)')
+            ->willReturn($funcCount);
+        $unreadBuilder->expects($this->once())
+            ->method('select')
+            ->with($funcCount)
+            ->will($this->returnSelf());
+        $unreadBuilder->expects($this->once())
+            ->method('from')
+            ->with('news_items', 'items_unread')
+            ->will($this->returnSelf());
+        $unreadBuilder->expects($this->once())
+            ->method('where')
+            ->with('items_unread.feed_id = feeds.id')
+            ->will($this->returnSelf());
+        $unreadBuilder->expects($this->once())
+            ->method('andWhere')
+            ->with('items_unread.unread = :unread')
+            ->will($this->returnSelf());
+        $unreadBuilder->expects($this->once())
+            ->method('getSQL')
+            ->willReturn('UNREAD_SQL');
 
+        // Starred count subquery
+        $starredBuilder->expects($this->once())
+            ->method('createFunction')
+            ->with('COUNT(*)')
+            ->willReturn($funcCount);
+        $starredBuilder->expects($this->once())
+            ->method('select')
+            ->with($funcCount)
+            ->will($this->returnSelf());
+        $starredBuilder->expects($this->once())
+            ->method('from')
+            ->with('news_items', 'items_starred')
+            ->will($this->returnSelf());
+        $starredBuilder->expects($this->once())
+            ->method('where')
+            ->with('items_starred.feed_id = feeds.id')
+            ->will($this->returnSelf());
+        $starredBuilder->expects($this->once())
+            ->method('andWhere')
+            ->with('items_starred.starred = :starred')
+            ->will($this->returnSelf());
+        $starredBuilder->expects($this->once())
+            ->method('getSQL')
+            ->willReturn('STARRED_SQL');
+
+        // Main query
         $createFunctionCalls = [
-            ['COUNT(DISTINCT items_unread.id)'],
-            ['COUNT(DISTINCT items_starred.id)']
+            ['(UNREAD_SQL)'],
+            ['(STARRED_SQL)']
         ];
         $createFunctionReturns = [$funcUnread, $funcStarred];
         $createFunctionIndex = 0;
@@ -109,19 +166,6 @@ class FeedMapperTest extends MapperTestUtility
                       ->with('news_feeds', 'feeds')
                       ->will($this->returnSelf());
 
-        $leftJoinCalls = [
-            ['feeds', 'news_items', 'items_unread', 'items_unread.feed_id = feeds.id AND items_unread.unread = :unread'],
-            ['feeds', 'news_items', 'items_starred', 'items_starred.feed_id = feeds.id AND items_starred.starred = :starred']
-        ];
-        $leftJoinIndex = 0;
-
-        $this->builder->expects($this->exactly(2))
-                      ->method('leftJoin')
-                      ->willReturnCallback(function (...$args) use (&$leftJoinCalls, &$leftJoinIndex) {
-                          $this->assertEquals($leftJoinCalls[$leftJoinIndex++], $args);
-                          return $this->builder;
-                      });
-
         $this->builder->expects($this->once())
                       ->method('where')
                       ->with('feeds.user_id = :user_id')
@@ -130,11 +174,6 @@ class FeedMapperTest extends MapperTestUtility
         $this->builder->expects($this->once())
                       ->method('andWhere')
                       ->with('feeds.deleted_at = 0')
-                      ->will($this->returnSelf());
-
-        $this->builder->expects($this->once())
-                      ->method('groupby')
-                      ->with('feeds.id')
                       ->will($this->returnSelf());
 
         $setParameterCalls = [
@@ -150,6 +189,11 @@ class FeedMapperTest extends MapperTestUtility
                           $this->assertEquals($setParameterCalls[$setParameterIndex++], $args);
                           return $this->builder;
                       });
+
+        $this->builder->expects($this->once())
+                      ->method('addOrderBy')
+                      ->with('feeds.title')
+                      ->will($this->returnSelf());
 
         $this->builder->expects($this->once())
                       ->method('executeQuery')

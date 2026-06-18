@@ -52,32 +52,34 @@ class FeedMapperV2 extends NewsMapperV2
     public function findAllFromUser(string $userId, array $params = []): array
     {
         $builder = $this->db->getQueryBuilder();
+
+        $unreadCount = $this->db->getQueryBuilder();
+        $unreadCount->select($unreadCount->createFunction('COUNT(*)'))
+            ->from(ItemMapperV2::TABLE_NAME, 'items_unread')
+            ->where('items_unread.feed_id = feeds.id')
+            ->andWhere('items_unread.unread = :unread');
+        $unreadSQL = $unreadCount->getSQL();
+
+        $starredCount = $this->db->getQueryBuilder();
+        $starredCount->select($starredCount->createFunction('COUNT(*)'))
+            ->from(ItemMapperV2::TABLE_NAME, 'items_starred')
+            ->where('items_starred.feed_id = feeds.id')
+            ->andWhere('items_starred.starred = :starred');
+        $starredSQL = $starredCount->getSQL();
+
         $builder
             ->select('feeds.*')
             ->selectAlias(
-                $builder->createFunction('COUNT(DISTINCT items_unread.id)'),
+                $builder->createFunction('(' . $unreadSQL . ')'),
                 'unreadCount'
             )
             ->selectAlias(
-                $builder->createFunction('COUNT(DISTINCT items_starred.id)'),
+                $builder->createFunction('(' . $starredSQL . ')'),
                 'starredCount'
             )
             ->from(static::TABLE_NAME, 'feeds')
-            ->leftJoin(
-                'feeds',
-                ItemMapperV2::TABLE_NAME,
-                'items_unread',
-                'items_unread.feed_id = feeds.id AND items_unread.unread = :unread'
-            )
-            ->leftJoin(
-                'feeds',
-                ItemMapperV2::TABLE_NAME,
-                'items_starred',
-                'items_starred.feed_id = feeds.id AND items_starred.starred = :starred'
-            )
             ->where('feeds.user_id = :user_id')
             ->andWhere('feeds.deleted_at = 0')
-            ->groupBy('feeds.id')
             ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
             ->setParameter('starred', true, IQueryBuilder::PARAM_BOOL)
             ->setParameter('user_id', $userId)
