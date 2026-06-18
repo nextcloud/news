@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Added
 
 ### Changed
+- Optimize the feed listing query to use correlated subqueries for unread/starred counts instead of double LEFT JOINs with COUNT(DISTINCT), avoiding row multiplication and improving performance for feeds with many items.
 
 ### Fixed
 
