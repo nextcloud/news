@@ -170,6 +170,7 @@ OC.L10N.register(
     "Number of errors that have occurred since the last successful feed update" : "Počet chyb, ke kterým došlo od poslední úspěšné aktualizace kanálu",
     "Keep read status on update" : "I po aktualizaci ponechat stav přečtené",
     "Mark as unread on update" : "Při aktualizaci označit jako nepřečtené",
+    "Loading feeds" : "Načítání kanálů",
     "Delete selected" : "Smazat vybrané",
     "Options" : "Možnosti",
     "Title" : "Titul",
@@ -180,6 +181,7 @@ OC.L10N.register(
     "All Articles" : "Všechny články",
     "No feeds found to add" : "Nenalezeny žádné kanály, které by bylo možné přidat",
     "Subscribe to" : "Přihlásit se k odběru",
-    "Unread Articles" : "Nepřečtené články"
+    "Unread Articles" : "Nepřečtené články",
+    "Empty Response" : "Prázdná odpověď"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");
