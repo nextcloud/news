@@ -254,6 +254,10 @@ class FeedFetcher implements IFeedFetcher
                 if ($itemLink !== null && $this->scraper->scrape($itemLink)) {
                     $body = $this->scraper->getContent();
                     $currRTL = $this->scraper->getRTL($currRTL);
+                    // Readability frequently drops the article's hero image. Inject the
+                    // RSS-provided lead image so clients that render only the body
+                    // still show it at the top of the article.
+                    $body = $this->prependLeadImageIfMissing($body, $item);
                 } else {
                     $this->logger->debug(
                         'Fetching full text item {title} for feed {feed} failed',
@@ -278,6 +282,52 @@ class FeedFetcher implements IFeedFetcher
         }
 
         return [$feed, $items];
+    }
+
+    /**
+     * Prepend the RSS-provided lead image to a scraped body when missing.
+     */
+    private function prependLeadImageIfMissing(?string $body, ItemInterface $parsedItem): ?string
+    {
+        if ($body === null || $body === '') {
+            return $body;
+        }
+        $imageUrl = $this->extractLeadImageUrl($parsedItem);
+        if ($imageUrl === null || $imageUrl === '') {
+            return $body;
+        }
+        $escaped = htmlspecialchars($imageUrl, ENT_QUOTES, 'UTF-8');
+        if (str_contains($body, $imageUrl) || str_contains($body, $escaped)) {
+            return $body;
+        }
+        return '<p><img src="' . $escaped . '" alt=""></p>' . $body;
+    }
+
+    /**
+     * Pick a lead image URL from an item's media: first image enclosure URL,
+     * otherwise first non-empty media:thumbnail.
+     */
+    private function extractLeadImageUrl(ItemInterface $parsedItem): ?string
+    {
+        if (!$parsedItem->hasMedia()) {
+            return null;
+        }
+        $thumbnailFallback = null;
+        foreach ($parsedItem->getMedias() as $media) {
+            $type = $media->getType();
+            $url = $media->getUrl();
+            $isImage = $type !== null && str_starts_with(strtolower($type), 'image/');
+            if ($url !== null && $url !== '' && $isImage) {
+                return $url;
+            }
+            if ($thumbnailFallback === null) {
+                $thumb = $media->getThumbnail();
+                if ($thumb !== null && $thumb !== '') {
+                    $thumbnailFallback = $thumb;
+                }
+            }
+        }
+        return $thumbnailFallback;
     }
 
     /**
