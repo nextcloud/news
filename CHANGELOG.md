@@ -8,12 +8,16 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Added
 
 ### Changed
-- Optimize the feed listing query to use correlated subqueries for unread/starred counts instead of double LEFT JOINs with COUNT(DISTINCT), avoiding row multiplication and improving performance for feeds with many items.
 
 ### Fixed
-- Preserve the RSS-provided lead image when web content scraping (full text) is enabled by injecting it into the scraped article body if missing — keeps the lead image visible in the web app and in third-party clients (iOS, etc.) that render only the body
+
 
 # Releases
+## [28.7.0-beta.1] - 2026-07-19
+### Changed
+- Optimize the feed listing query to use correlated subqueries for unread/starred counts instead of double LEFT JOINs with COUNT(DISTINCT), avoiding row multiplication and improving performance for feeds with many items. (#3827)
+- Preserve the RSS-provided lead image when web content scraping (full text) is enabled by injecting it into the scraped article body if missing — keeps the lead image visible in the web app and in third-party clients (iOS, etc.) that render only the body (#3738)
+
 ## [28.6.0] - 2026-06-08
 ### Added
 - Added support for Nextcloud Server 34 "Hub 26 spring" (#3786)
