@@ -15,7 +15,7 @@ Based on activity and maintenance status, we can recommend these clients:
 
 A sync client can be used to read news and synchronize via the API.
 
-Last reviewed: May 2026
+Last reviewed: June 2026
 
 | Name                                                                                                             | OS/Platform                  | License              | Source                                                             |
 |------------------------------------------------------------------------------------------------------------------|------------------------------|----------------------|--------------------------------------------------------------------|
