@@ -92,6 +92,7 @@ OC.L10N.register(
     "Options" : "Opties",
     "Title" : "Titel",
     "Folder" : "Map",
+    "Not available" : "Niet beschikbaar",
     "Save" : "Opslaan",
     "Clear" : "Terug",
     "Subscribe to" : "Abonneren op"

@@ -82,6 +82,7 @@ OC.L10N.register(
     "Appearance" : "Изглед",
     "Import" : "Импортиране /внасяне/",
     "Export" : "Експорт /изнасям/",
+    "Subscriptions (OPML)" : "Абонаменти (OPML)",
     "Please wait" : "Моля, изчакайте",
     "Keyboard shortcuts" : "Клавишни комбинации",
     "Refresh" : "Опресняване",
