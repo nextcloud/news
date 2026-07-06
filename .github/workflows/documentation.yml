@@ -21,6 +21,6 @@ jobs:
           persist-credentials: false
 
       - name: Deploy docs
-        uses: mhausenblas/mkdocs-deploy-gh-pages@d77dd03172e96abbcdb081d8c948224762033653 # master
+        uses: mhausenblas/mkdocs-deploy-gh-pages@a31c6b13a80e4a4fbb525eeb7a2a78253bb15fa5 # master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
