@@ -77,7 +77,7 @@ jobs:
       ### MySQL specific setup
       - name: Set up server MySQL
         if: matrix.database == 'mysql'
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@b13a04eb6a4e48972d31fa07559619843fcc2102 # main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@22a24817796b0b755fdb390f094e5e2362e0b83b # main
         with:
           version: ${{ matrix.nextcloud }}
           cron: true
@@ -91,7 +91,7 @@ jobs:
       ### Back to normal setup
       - name: Set up server non MySQL
         if: matrix.database != 'mysql'
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@b13a04eb6a4e48972d31fa07559619843fcc2102 # main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@22a24817796b0b755fdb390f094e5e2362e0b83b # main
         with:
           version: ${{ matrix.nextcloud }}
           cron: true
@@ -106,7 +106,7 @@ jobs:
         run: make php-test-dependencies-appstore
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@b13a04eb6a4e48972d31fa07559619843fcc2102 # main
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@22a24817796b0b755fdb390f094e5e2362e0b83b # main
         with:
           app: 'news'
           check-code: false
