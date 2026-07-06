@@ -50,11 +50,6 @@ jobs:
         with:
           node-version: ${{ steps.versions.outputs.nodeVersion }}
 
-      - name: Set up npm ${{ steps.versions.outputs.npmVersion }}
-        env:
-          NPM_VERSION: ${{ steps.versions.outputs.npmVersion }}
-        run: npm i -g "npm@${NPM_VERSION}"
-
       - name: Fix npm audit
         id: npm-audit
         uses: nextcloud-libraries/npm-audit-action@1b1728b2b4a7a78d69de65608efcf4db0e3e42d0 # v0.2.0
