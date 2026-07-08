@@ -41,7 +41,7 @@ OC.L10N.register(
     "Update interval" : "Інтервал оновлення",
     "Use system cron for updates" : "Використовуйте системний cron для оновлень",
     "Disable this if you use a custom updater." : "Вимкніть цей параметр, якщо ви використовуєте користувацький апдейтер.",
-    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Визначає максимальну кількість статей, які можна прочитати на канал, які не будуть видалені під час завдання очищення; якщо старі статті знову з’являються після прочитання, збільште це значення; від'ємні значення, такі як -1, вимкнуть цю функцію.",
+    "Defines the maximum amount of articles that can be read per feed which will not be deleted by the cleanup job; if old articles reappear after being read, increase this value; negative values such as -1 will turn this feature off." : "Визначає максимальну кількість статей, які можна прочитати на канал, які не буде прибрано під час завдання очищення; якщо старі статті знову з’являються після прочитання, збільште це значення; від'ємні значення, такі як -1, вимкнуть цю функцію.",
     "Delete unread articles automatically" : "Автоматично видаляти непрочитані статті",
     "Enable this if you also want to delete unread articles." : "Увімкніть цю опцію, якщо ви також хочете видаляти непрочитані статті.",
     "How many redirects the feed fetcher should follow." : "Скільки перенаправлень повинен виконати кормозаготівельник.",
