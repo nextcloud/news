@@ -66,14 +66,13 @@
  * for more information, see https://vuejs.org/guide/extras/composition-api-faq.html
  */
 
+import type { PropType } from 'vue'
 import type { FeedItem } from '../types/FeedItem.ts'
 
 import { getBuilder } from '@nextcloud/browser-storage'
 import { useHotKey } from '@nextcloud/vue/composables/useHotKey'
 import { useIsMobile } from '@nextcloud/vue/composables/useIsMobile'
 import {
-	type PropType,
-
 	computed,
 	nextTick,
 	onBeforeMount,
