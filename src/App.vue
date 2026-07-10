@@ -55,6 +55,8 @@ import NcContent from '@nextcloud/vue/components/NcContent'
 import Sidebar from './components/Sidebar.vue'
 import { ACTIONS, MUTATIONS } from './store/index.ts'
 
+const TOKEN_EXPIRED_ERROR = 'Token expired or app not enabled! Reload the page!'
+
 export default defineComponent({
 	components: {
 		NcContent,
@@ -69,6 +71,17 @@ export default defineComponent({
 		...mapState(['app']),
 	},
 
+	watch: {
+		'app.error': {
+			immediate: true,
+			handler(error) {
+				if (typeof error?.message === 'string' && error.message.includes(TOKEN_EXPIRED_ERROR)) {
+					this.reloadPage()
+				}
+			},
+		},
+	},
+
 	async created() {
 		// fetch folders and feeds to build side bar
 		await this.$store.dispatch(ACTIONS.FETCH_FOLDERS)
@@ -78,6 +91,10 @@ export default defineComponent({
 	},
 
 	methods: {
+		reloadPage() {
+			window.location.reload()
+		},
+
 		stopPlaying() {
 			this.$store.commit(MUTATIONS.SET_PLAYING_ITEM, undefined)
 		},
