@@ -148,7 +148,7 @@ OC.L10N.register(
     "Display mode" : "顯示模式",
     "Split mode" : "分割模式",
     "Import" : "導入",
-    "Export" : "導出",
+    "Export" : "匯出",
     "Subscriptions (OPML)" : "訂閱（OPML）",
     "Importing feeds" : "正在導入 feeds",
     "Please wait" : "請稍候",
