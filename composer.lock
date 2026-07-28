@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46eec78859bb511d5d7b56d93c8ef986",
+    "content-hash": "bfa34a582b90e0867ba6be3a091bba4b",
     "packages": [
         {
             "name": "bamarni/composer-bin-plugin",
@@ -633,16 +633,16 @@
         },
         {
             "name": "php-feed-io/feed-io",
-            "version": "v6.3.1",
+            "version": "v6.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-feed-io/feed-io.git",
-                "reference": "77c10d2eafc91cbaa8f07cba25e119ee9ef365e4"
+                "reference": "16413926182193e7e5d01cc6691b33b4fc2744bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/77c10d2eafc91cbaa8f07cba25e119ee9ef365e4",
-                "reference": "77c10d2eafc91cbaa8f07cba25e119ee9ef365e4",
+                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/16413926182193e7e5d01cc6691b33b4fc2744bb",
+                "reference": "16413926182193e7e5d01cc6691b33b4fc2744bb",
                 "shasum": ""
             },
             "require": {
@@ -661,9 +661,9 @@
                 "monolog/monolog": "^3.10.0",
                 "php-http/guzzle7-adapter": "^1.1",
                 "php-http/mock-client": "^1.5",
-                "phpstan/phpstan": "^2.1.22",
+                "phpstan/phpstan": "^2.2.5",
                 "phpunit/phpunit": "~10.5.62",
-                "rector/rector": "^2.4"
+                "rector/rector": "^2.5"
             },
             "suggest": {
                 "monolog/monolog": "Allows to handle logs",
@@ -705,7 +705,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-feed-io/feed-io/issues",
-                "source": "https://github.com/php-feed-io/feed-io/tree/v6.3.1"
+                "source": "https://github.com/php-feed-io/feed-io/tree/v6.4.1"
             },
             "funding": [
                 {
@@ -713,7 +713,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-26T08:56:59+00:00"
+            "time": "2026-07-19T09:42:58+00:00"
         },
         {
             "name": "php-http/discovery",
