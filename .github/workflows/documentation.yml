@@ -1,10 +1,14 @@
 name: Publish docs via GitHub Pages
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
     paths:
       - 'docs/**'
+      - 'mkdocs.yml'
+      - 'overrides/**'
+      - '.github/workflows/documentation.yml'
 
 permissions: {}
 
@@ -19,8 +23,15 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set docs build metadata
+        shell: bash
+        run: |
+          echo "DOCS_BUILD_COMMIT_SHORT=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
 
       - name: Deploy docs
         uses: mhausenblas/mkdocs-deploy-gh-pages@a31c6b13a80e4a4fbb525eeb7a2a78253bb15fa5 # master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCS_BUILD_COMMIT_SHORT: ${{ env.DOCS_BUILD_COMMIT_SHORT }}
