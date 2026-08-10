@@ -14,9 +14,9 @@ News offers an API that can be used by clients to synchronize with the server.
 There are two API declarations, so far only V1 has been fully implemented.
 Work on V2 has started with low priority.
 
-- [API-V1.2](api/api-v1-2.md)
-- [API-V1.3](api/api-v1-3.md)
-- [API-V2](api/api-v2.md)
+- [API-V1.2](development/api/api-v1-2.md)
+- [API-V1.3](development/api/api-v1-3.md)
+- [API-V2](development/api/api-v2.md)
 
 ## PHP Dependency Scoping
 
@@ -32,7 +32,7 @@ composer install --no-dev
 composer scope-dependencies
 ```
 
-For detailed information about how dependency scoping works, configuration, and implementation details, see the [PHP Dependency Scoping documentation](dependencies-scoping.md).
+For detailed information about how dependency scoping works, configuration, and implementation details, see the [PHP Dependency Scoping documentation](development/dependencies-scoping.md).
 
 ## Coding Style Guidelines
 

@@ -18,14 +18,17 @@ nav:
     - Custom CSS: features/customCSS.md
     - Plugins: features/plugins.md
     - Themes: features/themes.md
-  - REST API:
-    - API v1.2: api/api-v1-2.md
-    - API v1.3: api/api-v1-3.md
-    - API v2: api/api-v2.md
+  - Development:
+    - Dependency scope: development/dependencies-scoping.md
+    - REST API:
+      - API v1.2: development/api/api-v1-2.md
+      - API v1.3: development/api/api-v1-3.md
+      - API v2: development/api/api-v2.md
   - maintenance.md
 
 theme:
   name: material
+  custom_dir: docs/overrides
   logo: assets/logo.svg
   favicon: assets/favicon.png
   font: false
@@ -62,6 +65,5 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.superfences
 
-# extra:
-#   version:
-#     provider: mike
+extra:
+  build_commit: !ENV [DOCS_BUILD_COMMIT_SHORT, 'local']
