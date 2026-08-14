@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Allow OPML import with `.xml` file extension (#3888)
 
 
 # Releases

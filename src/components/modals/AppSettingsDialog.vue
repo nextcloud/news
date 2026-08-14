@@ -100,7 +100,7 @@
 						ref="fileSelect"
 						type="file"
 						class="hidden"
-						accept=".opml"
+						accept=".opml,.xml"
 						@change="importOpml">
 
 					<NcButton
@@ -510,7 +510,7 @@ export default defineComponent({
 		async importOpml(event) {
 			let result
 			const file = event.target.files[0]
-			if (!file || !file.name.endsWith('.opml')) {
+			if (!file || !(file.name.endsWith('.opml') || file.name.endsWith('.xml'))) {
 				result = { type: 'error', message: t('news', 'Please select a valid OPML file') }
 				this.$store.commit(MUTATIONS.SET_OPML_IMPORT_MESSAGE, { value: result })
 				return
