@@ -186,6 +186,8 @@
     "Folder" : "Dossier",
     "Enable feed update" : "Activer la mise à jour de flux",
     "Disable feed update" : "Désactiver la mise à jour de flux",
+    "Disable marking items as unread on update" : "Désactiver le marquage des éléments comme non lus lors de la mise à jour",
+    "Enable marking items as unread on update" : "Activer le marquage des éléments comme non lus lors de la mise à jour",
     "Enable web scraping" : "Activer le moissonnage",
     "Disable web scraping" : "Désactiver le moissonnage",
     "Not available" : "Non disponible",
