@@ -26,6 +26,7 @@ Last reviewed: June 2026
 | [Nextcloud News Reader](https://play.google.com/store/apps/details?id=de.luhmer.owncloudnewsreader)              | Android                      | GPL-3.0 License      | [GitHub](https://github.com/nextcloud/news-android-app)            |
 | [Readrops](https://f-droid.org/en/packages/com.readrops.app/)                                                    | Android                      | GPL-3.0 License      | [GitHub](https://github.com/readrops/Readrops)                     |
 | [Fiery Feeds](http://cocoacake.net/)                                    | iOS, macOS                             | -                            | -                    |
+| [Nextnews](https://apps.apple.com/us/app/nextnews/id1573041539)                                                  | iOS                          | -                    | -                                                                  |
 | [py3status](https://github.com/ultrabug/py3status/)                                                              | i3wm                         | BSD-3-Clause License | [GitHub](https://github.com/ultrabug/py3status/)                   |
 | [newsboat](https://newsboat.org/)                                                                                | Unix Terminal                | MIT License          | [GitHub](https://github.com/newsboat/newsboat)                     |
 
