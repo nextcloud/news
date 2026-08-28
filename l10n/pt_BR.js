@@ -80,7 +80,7 @@ OC.L10N.register(
     "Mark read" : "Marcar como lido",
     "All articles" : "Todos os artigos",
     "Recently viewed" : "Visto recentemente",
-    "Starred" : "Destacado",
+    "Starred" : "Marcado com estrela",
     "Has feeds with errors!" : "Tem feeds com erros!",
     "Explore" : "Explorar",
     "Feed settings" : "Configurações do feed",
