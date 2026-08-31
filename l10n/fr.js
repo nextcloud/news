@@ -150,6 +150,7 @@ OC.L10N.register(
     "Articles (JSON)" : "Articles (JSON)",
     "Keyboard shortcuts" : "Raccourcis clavier",
     "Refresh" : "Rafraîchir",
+    "Screenreader mode only" : "Mode lecteur d'écran uniquement",
     "Jump to previous article" : "Aller à l’article précédent",
     "Jump to next article" : "Aller au prochain article",
     "Item navigation and control" : "Contrôle et navigation des éléments",
