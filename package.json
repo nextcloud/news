@@ -54,9 +54,9 @@
     "@nextcloud/vue": "^9.9.0",
     "@vueuse/core": "^14.4.0",
     "lodash": "^4.17.23",
-    "vue": "^3.5.41",
+    "vue": "^3.5.42",
     "vue-material-design-icons": "^5.3.1",
-    "vue-router": "^5.2.0",
+    "vue-router": "^5.3.0",
     "vuex": "^4.1.0"
   },
   "browserslist": [
@@ -70,7 +70,7 @@
     "@types/lodash": "^4.17.25",
     "@types/node": "^26.3.0",
     "@vitest/coverage-istanbul": "^4.1.11",
-    "@vue/test-utils": "^2.4.11",
+    "@vue/test-utils": "^2.5.0",
     "@vue/tsconfig": "^0.9.1",
     "jsdom": "^30.0.1",
     "regenerator-runtime": "^0.14.1",
