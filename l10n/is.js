@@ -61,6 +61,7 @@ OC.L10N.register(
     "Default" : "Sjálfgefið",
     "Vertical" : "Lóðrétt",
     "Horizontal" : "Lárétt",
+    "Always" : "Alltaf",
     "Never" : "Aldrei",
     "General" : "Almennt",
     "Disable mark read through scrolling" : "Gera óvirkt að merkja sem lesið við skrun",
