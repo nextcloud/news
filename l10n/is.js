@@ -79,6 +79,7 @@ OC.L10N.register(
     "Open article in new tab" : "Opna grein í nýjum flipa",
     "Resources" : "Tilföng",
     "Options" : "Valkostir",
+    "Title" : "Titill",
     "Folder" : "Mappa",
     "Save" : "Vista",
     "Clear" : "Hreinsa",
