@@ -1,5 +1,5 @@
 {
-    "image": "ghcr.io/grotax/nextcloud-news-devcontainer:1.0",
+    "image": "ghcr.io/grotax/nextcloud-news-devcontainer:1.1",
 	"remoteUser": "vscode",
     "updateRemoteUserUID": true,
     "forwardPorts": [80],
