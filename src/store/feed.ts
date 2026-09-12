@@ -220,7 +220,10 @@ export const actions = {
 			urlKeywords,
 		})
 		if (response?.data?.filter) {
-			commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: response.data.filter })
+			const savedFilter = response.data.filter
+			const hasActiveFilter = [savedFilter.titleKeywords, savedFilter.bodyKeywords, savedFilter.urlKeywords]
+				.some((keywords: string | null | undefined) => (keywords ?? '').trim() !== '')
+			commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: savedFilter, hasFilter: hasActiveFilter })
 		}
 		return response
 	},
@@ -230,7 +233,7 @@ export const actions = {
 		{ feed }: { feed: Feed },
 	) {
 		await FeedService.deleteFilter({ feedId: feed.id as number })
-		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: null })
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, filter: null, hasFilter: false })
 	},
 
 	async [FEED_ACTION_TYPES.FEED_DELETE](
