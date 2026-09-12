@@ -53,8 +53,10 @@ class FeedController extends Controller
         // this method is also used to update the interface
         // because of this we also pass the starred count and the newest
         // item id which will be used for marking feeds read
+        $feeds = $this->feedService->findAllForUser($this->getUserId());
+        $this->filterService->populateFeedsHasFilter($this->getUserId(), $feeds);
         $params = [
-            'feeds' => $this->feedService->findAllForUser($this->getUserId()),
+            'feeds' => $feeds,
             'starred' => count($this->itemService->starred($this->getUserId()))
         ];
 
