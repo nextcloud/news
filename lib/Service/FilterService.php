@@ -11,6 +11,7 @@
 
 namespace OCA\News\Service;
 
+use OCA\News\Db\Feed;
 use OCA\News\Db\Filter;
 use OCA\News\Db\FilterMapperV2;
 use OCA\News\Db\Item;
@@ -82,6 +83,29 @@ class FilterService extends Service
             return $this->mapper->findByFeedId($userId, $feedId);
         } catch (DoesNotExistException $ex) {
             return null;
+        }
+    }
+
+    /**
+     * Populate the Feed::$hasFilter flag
+     *
+     * @param string $userId
+     * @param array  $feeds  Feed entities to flag in place
+     */
+    public function populateFeedsHasFilter(string $userId, array $feeds): void
+    {
+        if ($feeds === []) {
+            return;
+        }
+        $filters = $this->findAllForUser($userId);
+        $filterFeedIdSet = array_fill_keys(
+            array_map(fn (Filter $filter) => (int)$filter->getFeedId(), $filters),
+            true
+        );
+        foreach ($feeds as $feed) {
+            if ($feed instanceof Feed && $feed->getId() !== null) {
+                $feed->setHasFilter(isset($filterFeedIdSet[(int)$feed->getId()]));
+            }
         }
     }
 

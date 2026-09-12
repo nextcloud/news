@@ -127,6 +127,7 @@ class FeedTest extends TestCase
             'nextUpdateTime' => null,
             'lastModified' => '0',
             'starredCount' => null,
+            'hasFilter' => false,
             ],
             $feed->jsonSerialize()
         );
@@ -206,5 +207,15 @@ class FeedTest extends TestCase
         $feed = new Feed();
         $feed->setPinned(true);
         $this->assertEquals(true, $feed->getPinned());
+    }
+
+    public function testHasFilterDefaultsFalseAndCanBeSet()
+    {
+        $feed = new Feed();
+        $this->assertFalse($feed->getHasFilter());
+
+        $feed->setHasFilter(true);
+        $this->assertTrue($feed->getHasFilter());
+        $this->assertTrue($feed->jsonSerialize()['hasFilter']);
     }
 }

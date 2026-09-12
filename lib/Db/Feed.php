@@ -89,6 +89,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     protected ?int $nextUpdateTime = null;
     /** @var Item[] */
     public $items = [];
+    /** @var bool **/
+    public $hasFilter = false;
 
     public function __construct()
     {
@@ -309,6 +311,18 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         return $this->nextUpdateTime;
     }
 
+    public function getHasFilter(): bool
+    {
+        return (bool)($this->hasFilter ?? false);
+    }
+
+    public function setHasFilter(bool $hasFilter): self
+    {
+        $this->hasFilter = $hasFilter;
+
+        return $this;
+    }
+
     /**
      * Turns entity attributes into an array
      */
@@ -339,7 +353,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'basicAuthUser',
             'basicAuthPassword',
             'nextUpdateTime',
-            'lastModified'
+            'lastModified',
+            'hasFilter'
         ]);
 
         if (is_null($this->link)) {
