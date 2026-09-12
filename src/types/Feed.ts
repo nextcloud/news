@@ -17,4 +17,5 @@ export type Feed = {
 	updateErrorCount: number
 	lastUpdateError: string
 	location: string
+	hasFilter?: boolean
 }

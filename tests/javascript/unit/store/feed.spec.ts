@@ -178,6 +178,63 @@ describe('feed.ts', () => {
 			})
 		})
 
+		describe('FEED_SAVE_FILTER', () => {
+			it('should call FeedService.saveFilter and commit returned filter with hasFilter true to state', async () => {
+				FeedService.saveFilter = vi.fn()
+				const filter = { titleKeywords: 'foo', bodyKeywords: '', urlKeywords: '' }
+				FeedService.saveFilter.mockResolvedValue({ data: { filter } })
+				const commit = vi.fn()
+				const feed = { id: 1 } as any
+
+				const response = await actions[FEED_ACTION_TYPES.FEED_SAVE_FILTER]({ commit }, { feed, titleKeywords: 'foo', bodyKeywords: 'bar', urlKeywords: 'baz' })
+
+				expect(FeedService.saveFilter).toBeCalledWith({ feedId: 1, titleKeywords: 'foo', bodyKeywords: 'bar', urlKeywords: 'baz' })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, filter, hasFilter: true })
+				expect(feed.hasFilter).toBeUndefined()
+				expect(response).toEqual({ data: { filter } })
+			})
+
+			it('should commit hasFilter false when saving a cleared (all-empty) filter', async () => {
+				FeedService.saveFilter = vi.fn()
+				const filter = { titleKeywords: '', bodyKeywords: '   ', urlKeywords: '' }
+				FeedService.saveFilter.mockResolvedValue({ data: { filter } })
+				const commit = vi.fn()
+				const feed = { id: 1 } as any
+
+				await actions[FEED_ACTION_TYPES.FEED_SAVE_FILTER]({ commit }, { feed, titleKeywords: '', bodyKeywords: '', urlKeywords: '' })
+
+				expect(FeedService.saveFilter).toBeCalled()
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, filter, hasFilter: false })
+				expect(feed.hasFilter).toBeUndefined()
+			})
+
+			it('should skip commit when response contains no filter', async () => {
+				FeedService.saveFilter = vi.fn()
+				FeedService.saveFilter.mockResolvedValue({ data: {} })
+				const commit = vi.fn()
+				const feed = { id: 1, hasFilter: false } as any
+
+				await actions[FEED_ACTION_TYPES.FEED_SAVE_FILTER]({ commit }, { feed })
+
+				expect(FeedService.saveFilter).toBeCalled()
+				expect(commit).not.toBeCalled()
+			})
+		})
+
+		describe('FEED_DELETE_FILTER', () => {
+			it('should call FeedService.deleteFilter and commit filter null with hasFilter false to state', async () => {
+				FeedService.deleteFilter = vi.fn()
+				FeedService.deleteFilter.mockResolvedValue({ status: 200 })
+				const commit = vi.fn()
+				const feed = { id: 1, hasFilter: true } as any
+
+				await actions[FEED_ACTION_TYPES.FEED_DELETE_FILTER]({ commit }, { feed })
+
+				expect(FeedService.deleteFilter).toBeCalledWith({ feedId: 1 })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, filter: null, hasFilter: false })
+			})
+		})
+
 		describe('FEED_DELETE', () => {
 			it('should call FeedService.deleteFeed and commit to state', async () => {
 				FeedService.deleteFeed = vi.fn()

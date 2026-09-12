@@ -341,7 +341,8 @@
 									:title="t('news', 'Keyword filters')"
 									@click="openFilterDialog(feed)">
 									<template #icon>
-										<FilterIcon />
+										<FilterIcon v-if="feed.hasFilter" />
+										<FilterOffIcon v-else />
 									</template>
 								</NcActionButton>
 							</NcActions>
@@ -430,6 +431,7 @@ import NcTextField from '@nextcloud/vue/components/NcTextField'
 import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
 import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
+import FilterOffIcon from 'vue-material-design-icons/FilterOff.vue'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
 import Sync from 'vue-material-design-icons/Sync.vue'
@@ -466,6 +468,7 @@ export default {
 		TextShortIcon,
 		TextLongIcon,
 		FilterIcon,
+		FilterOffIcon,
 	},
 
 	emits: {
