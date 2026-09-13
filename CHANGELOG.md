@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Added
 
 ### Changed
+- Use different icons to indicate whether feed filters have been configured
 
 ### Fixed
 - Allow OPML import with `.xml` file extension (#3888)
