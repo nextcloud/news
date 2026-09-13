@@ -263,6 +263,8 @@ import UploadIcon from 'vue-material-design-icons/Upload.vue'
 import { DISPLAY_MODE, MEDIA_TYPE, SHOW_MEDIA, SPLIT_MODE } from '../../enums/index.ts'
 import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 
+import '@nextcloud/dialogs/style.css'
+
 export default defineComponent({
 	name: 'AppSettingsDialog',
 	components: {

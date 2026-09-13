@@ -224,6 +224,8 @@ import { ROUTES } from '../routes/index.ts'
 import { ACTIONS } from '../store/index.ts'
 import { API_ROUTES } from '../types/ApiRoutes.ts'
 
+import '@nextcloud/dialogs/style.css'
+
 export default defineComponent({
 	name: 'SidebarNavigation',
 	components: {

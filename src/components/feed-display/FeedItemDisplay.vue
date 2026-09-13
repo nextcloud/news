@@ -244,6 +244,8 @@ import { ACTIONS, MUTATIONS } from '../../store/index.ts'
 import { API_ROUTES } from '../../types/ApiRoutes.ts'
 import { formatDate, formatDateISO } from '../../utils/dateUtils.ts'
 
+import '@nextcloud/dialogs/style.css'
+
 export default defineComponent({
 	name: 'FeedItemDisplay',
 	components: {
