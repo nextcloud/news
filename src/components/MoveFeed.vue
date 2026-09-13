@@ -37,6 +37,8 @@ import NcDialog from '@nextcloud/vue/components/NcDialog'
 import NcSelect from '@nextcloud/vue/components/NcSelect'
 import { ACTIONS } from '../store/index.ts'
 
+import '@nextcloud/dialogs/style.css'
+
 type MoveFeedState = {
 	folder: Folder | null
 	movingToast: ReturnType<typeof showLoading> | null

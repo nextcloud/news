@@ -442,6 +442,8 @@ import { FEED_UPDATE_MODE } from '../../enums/index.ts'
 import { ACTIONS } from '../../store/index.ts'
 import { formatDate } from '../../utils/dateUtils.ts'
 
+import '@nextcloud/dialogs/style.css'
+
 export default {
 	name: 'FeedInfoTable',
 	components: {
