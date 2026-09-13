@@ -22,6 +22,7 @@ describe('AdminSettings.vue', () => {
 	'use strict'
 
 	let wrapper: any
+	let loadStateCallCount: number
 
 	beforeAll(() => {
 		loadState.mockReturnValue('')
@@ -32,6 +33,7 @@ describe('AdminSettings.vue', () => {
 				}
 			},
 		})
+		loadStateCallCount = (loadState as any).mock.calls.length
 	})
 
 	beforeEach(() => {
@@ -39,7 +41,7 @@ describe('AdminSettings.vue', () => {
 	})
 
 	it('should initialize and fetch settings from state', () => {
-		expect(loadState).toBeCalledTimes(10)
+		expect(loadStateCallCount).toBe(10)
 	})
 
 	it('returns true when lastCron is too old', async () => {
