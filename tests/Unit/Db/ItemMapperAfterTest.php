@@ -101,7 +101,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -177,7 +177,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -255,7 +255,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -339,7 +339,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -413,7 +413,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -487,7 +487,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -555,7 +555,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false
@@ -626,7 +626,7 @@ class ItemMapperAfterTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->never())
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 false

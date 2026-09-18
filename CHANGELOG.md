@@ -9,6 +9,8 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Changed
 - Use different icons to indicate whether feed filters have been configured
+- Add support for Nextcloud 35 and drop EOL 32 (#3934)
+- Require PHP 8.3 or later. (#3934)
 
 ### Fixed
 - Allow OPML import with `.xml` file extension (#3888)

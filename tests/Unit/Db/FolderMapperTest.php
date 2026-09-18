@@ -84,11 +84,11 @@ class FolderMapperTest extends MapperTestUtility
                       ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(3))
-                     ->method('fetch')
+                     ->method('fetchAssociative')
                      ->willReturnOnConsecutiveCalls(
                          ['id' => 4],
                          ['id' => 5],
-                         null
+                         false
                      );
 
         $result = $this->class->findAllFromUser('jack', []);
@@ -144,7 +144,7 @@ class FolderMapperTest extends MapperTestUtility
                       ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-                     ->method('fetch')
+                     ->method('fetchAssociative')
                      ->willReturnOnConsecutiveCalls(
                          ['id' => 4],
                          false
@@ -203,7 +203,7 @@ class FolderMapperTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(1))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 false
             );
@@ -262,7 +262,7 @@ class FolderMapperTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(2))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 1],
                 ['id' => 2]
@@ -301,11 +301,11 @@ class FolderMapperTest extends MapperTestUtility
             ->willReturn($this->cursor);
 
         $this->cursor->expects($this->exactly(3))
-            ->method('fetch')
+            ->method('fetchAssociative')
             ->willReturnOnConsecutiveCalls(
                 ['id' => 4],
                 ['id' => 5],
-                null
+                false
             );
 
         $result = $this->class->findAll();

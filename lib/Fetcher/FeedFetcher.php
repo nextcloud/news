@@ -360,6 +360,9 @@ class FeedFetcher implements IFeedFetcher
     protected function determineRtl(FeedInterface $parsedFeed): bool
     {
         $language = $parsedFeed->getLanguage();
+        if (!is_string($language) || trim($language) === '') {
+            return false;
+        }
 
         $language = strtolower($language);
         $rtl_languages = array(
