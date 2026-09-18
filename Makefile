@@ -248,11 +248,11 @@ scope-if-needed:
 
 .PHONY: unit-test
 unit-test: php-test-dependencies-if-needed scope-if-needed
-	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --coverage-clover build/php-unit.clover
+	./vendor/phpunit/phpunit/phpunit -c phpunit.xml --display-deprecations --display-phpunit-deprecations --coverage-clover build/php-unit.clover
 
 .PHONY: unit-test-appstore
 unit-test-appstore: php-test-dependencies-if-needed-appstore scope-if-needed
-	$(phpunit) -c phpunit.xml --coverage-clover build/php-unit.clover
+	$(phpunit) -c phpunit.xml --display-deprecations --display-phpunit-deprecations --coverage-clover build/php-unit.clover
 
 # Command for running JS and PHP tests. Works for package.json files in the js/
 # and root directory. If phpunit is not installed systemwide, a copy is fetched
