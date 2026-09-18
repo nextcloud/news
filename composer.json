@@ -41,7 +41,7 @@
     "source": "https://github.com/nextcloud/news/"
   },
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
     "php-feed-io/feed-io": "^v6.4.1",
     "php-feed-io/favicon-io": "v1.0.0",
     "fivefilters/readability.php": "^3.3",
@@ -69,7 +69,7 @@
     "doctrine/dbal": "^3.10.6",
     "symfony/console": "^4.4.19",
     "psr/log": "^1.1.0",
-    "nextcloud/ocp": "dev-stable34"
+    "nextcloud/ocp": "dev-stable35"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",
