@@ -58,4 +58,13 @@ describe('FeedItemDisplay.vue', () => {
 
 		expect(commitStub).toBeCalledWith(MUTATIONS.SET_ERROR, undefined)
 	})
+
+	it('should reload when token error is shown', () => {
+		const reloadSpy = vi.spyOn(wrapper.vm, 'reloadPage').mockImplementation(() => {})
+		const error = new Error('Token expired or app not enabled! Reload the page!')
+
+		wrapper.vm.$options.watch['app.error'].handler.call(wrapper.vm, error)
+
+		expect(reloadSpy).toHaveBeenCalled()
+	})
 })
