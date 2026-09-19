@@ -20,8 +20,8 @@ jobs:
       contents: read
     strategy:
       matrix:
-        php-versions: ['8.3']
-        nextcloud: ['stable34']
+        php-versions: ['8.5']
+        nextcloud: ['stable35']
         database: ['sqlite']
         experimental: [false]
     steps:

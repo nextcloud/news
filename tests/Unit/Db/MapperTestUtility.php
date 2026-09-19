@@ -71,5 +71,14 @@ abstract class MapperTestUtility extends TestCase
         $this->cursor = $this->getMockBuilder(IResult::class)
                              ->disableOriginalConstructor()
                              ->getMock();
+
+        if (method_exists(IResult::class, 'fetchAssociative')) {
+            $this->cursor->method('fetchAssociative')
+                ->willReturnCallback(function () {
+                    $row = $this->cursor->fetch();
+
+                    return $row === null ? false : $row;
+                });
+        }
     }
 }
