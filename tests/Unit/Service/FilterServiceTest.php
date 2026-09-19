@@ -8,6 +8,7 @@
 
 namespace OCA\News\Tests\Unit\Service;
 
+use OCA\News\Db\Feed;
 use OCA\News\Db\Filter;
 use OCA\News\Db\FilterMapperV2;
 use OCA\News\Db\Item;
@@ -175,6 +176,24 @@ class FilterServiceTest extends TestCase
         $this->assertFalse($readFiltered->isFiltered());
         $this->assertFalse($unreadFiltered->isFiltered());
         $this->assertTrue($unreadFiltered->isUnread());
+    }
+
+    public function testPopulateFeedsHasFilterMarksFeedsWithActiveFilters(): void
+    {
+        $feedWithFilter = Feed::fromParams(['id' => 11]);
+        $feedWithoutFilter = Feed::fromParams(['id' => 12]);
+        $activeFilter = new Filter();
+        $activeFilter->setFeedId(11);
+
+        $this->mapper->expects($this->once())
+            ->method('findAllFromUser')
+            ->with('jack')
+            ->willReturn([$activeFilter]);
+
+        $this->service->populateFeedsHasFilter('jack', [$feedWithFilter, $feedWithoutFilter]);
+
+        $this->assertTrue($feedWithFilter->getHasFilter());
+        $this->assertFalse($feedWithoutFilter->getHasFilter());
     }
 
     public function testSanitizeAndValidateFilterKeywordsNormalizesAndDeduplicates(): void
