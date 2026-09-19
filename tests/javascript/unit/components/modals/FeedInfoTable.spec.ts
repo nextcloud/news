@@ -226,6 +226,72 @@ describe('FeedInfoTable.vue', () => {
 		})
 	})
 
+	describe('Filter icon state', () => {
+		it('should render the filter icon for feeds with an active filter', () => {
+			const feedsWithFilterState = [{
+				...feeds[0],
+				hasFilter: true,
+			}]
+
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds: feedsWithFilterState },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => feedsWithFilterState,
+					folders: () => folders,
+					loading: () => false,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = mount(FeedInfoTable, {
+				global: { plugins: [store] },
+				stubs: {
+					SidebarFeedLinkActions: true,
+				},
+			})
+
+			const filterIcons = wrapper.findAllComponents({ name: 'FilterIcon' })
+			const filterOffIcons = wrapper.findAllComponents({ name: 'FilterOffIcon' })
+
+			expect(filterIcons.length).toBe(2)
+			expect(filterOffIcons.length).toBe(0)
+		})
+
+		it('should render the filter-off icon for feeds without an active filter', () => {
+			const feedsWithoutFilterState = [{
+				...feeds[0],
+				hasFilter: false,
+			}]
+
+			store = new Vuex.Store({
+				state: {
+					feeds: { feeds: feedsWithoutFilterState },
+					folders: { folders },
+				},
+				getters: {
+					feeds: () => feedsWithoutFilterState,
+					folders: () => folders,
+					loading: () => false,
+				},
+			})
+			store.dispatch = vi.fn()
+			wrapper = mount(FeedInfoTable, {
+				global: { plugins: [store] },
+				stubs: {
+					SidebarFeedLinkActions: true,
+				},
+			})
+
+			const filterIcons = wrapper.findAllComponents({ name: 'FilterIcon' })
+			const filterOffIcons = wrapper.findAllComponents({ name: 'FilterOffIcon' })
+
+			expect(filterIcons.length).toBe(1)
+			expect(filterOffIcons.length).toBe(1)
+		})
+	})
+
 	describe('Table Sorting', () => {
 		beforeEach(() => {
 			store = new Vuex.Store({

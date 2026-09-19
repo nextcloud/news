@@ -134,6 +134,9 @@ class FeedControllerTest extends TestCase
             ->method('findAllForUser')
             ->with($this->uid)
             ->will($this->returnValue($result['feeds']));
+        $this->filterService->expects($this->once())
+            ->method('populateFeedsHasFilter')
+            ->with($this->uid, $result['feeds']);
         $this->itemService->expects($this->once())
             ->method('newest')
             ->with($this->uid)
@@ -162,6 +165,9 @@ class FeedControllerTest extends TestCase
             ->method('findAllForUser')
             ->with($this->uid)
             ->will($this->returnValue($result['feeds']));
+        $this->filterService->expects($this->once())
+            ->method('populateFeedsHasFilter')
+            ->with($this->uid, $result['feeds']);
         $this->itemService->expects($this->once())
             ->method('newest')
             ->with($this->uid)

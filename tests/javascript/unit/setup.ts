@@ -10,6 +10,12 @@ global.OC = {
 	},
 }
 
+global.ResizeObserver = class {
+	observe() {}
+	unobserve() {}
+	disconnect() {}
+}
+
 // Mock nextcloud translate functions
 config.global.mocks.$t = function(_app: any, string: any) {
 	return string
