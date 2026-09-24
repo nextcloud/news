@@ -114,7 +114,7 @@ jobs:
         run: make php-test-dependencies-appstore
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@b1c014e0f61226d04cdbace85b2b4ad3a74a2d57 # 2026.09.14.1
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@ae95709955d06dea39756101e07ec5b6134f14d7 # 2026.09.21.1
         with:
           app: 'news'
           check-code: false
