@@ -55,6 +55,9 @@ import NcContent from '@nextcloud/vue/components/NcContent'
 import Sidebar from './components/Sidebar.vue'
 import { ACTIONS, MUTATIONS } from './store/index.ts'
 
+const TOKEN_EXPIRED_RELOAD_KEY = 'news-token-expired-reload-timestamp'
+const TOKEN_EXPIRED_RELOAD_COOLDOWN_MS = 10000
+
 export default defineComponent({
 	components: {
 		NcContent,
@@ -67,6 +70,15 @@ export default defineComponent({
 		},
 
 		...mapState(['app']),
+	},
+
+	watch: {
+		'app.error': {
+			handler(error) {
+				this.reloadPageIfNeeded(error)
+			},
+			immediate: true,
+		},
 	},
 
 	async created() {
@@ -91,6 +103,36 @@ export default defineComponent({
 
 		removeError() {
 			this.$store.commit(MUTATIONS.SET_ERROR, undefined)
+		},
+
+		reloadPageIfNeeded(error) {
+			const message = typeof error === 'string'
+				? error
+				: error?.message ?? error?.response?.data?.message ?? String(error ?? '')
+
+			if (!message || !message.toLowerCase().includes('token expired') && !message.toLowerCase().includes('app not enabled')) {
+				return false
+			}
+
+			try {
+				const now = Date.now()
+				const lastReload = Number(window.sessionStorage.getItem(TOKEN_EXPIRED_RELOAD_KEY) ?? '0')
+
+				if (Number.isFinite(lastReload) && now - lastReload < TOKEN_EXPIRED_RELOAD_COOLDOWN_MS) {
+					return false
+				}
+
+				window.sessionStorage.setItem(TOKEN_EXPIRED_RELOAD_KEY, String(now))
+				this.reloadPage()
+				return true
+			} catch (e) {
+				console.warn('Failed to reload due to token expiration:', e)
+				return false
+			}
+		},
+
+		reloadPage() {
+			window.location.reload()
 		},
 	},
 })
