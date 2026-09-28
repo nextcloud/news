@@ -114,7 +114,7 @@ OC.L10N.register(
     "Download video" : "Stiahnuť video",
     "Refresh list" : "Obnoviť zoznam",
     "Open website" : "Otvoriť webstránku",
-    "Keep article unread" : "Ponechať ako neprečítaný",
+    "Keep article unread" : "Ponechať článok ako neprečítaný",
     "Keep article unread (auto-filtered)" : "Ponechať článok ako neprečítaný (automaticky filtrovaný)",
     "Toggle keep current article unread" : "Prepnúť ponechanie článku ako neprečítaný",
     "Remove keep article unread" : "Odstrániť označenie ako neprečítaný",
