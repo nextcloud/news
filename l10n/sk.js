@@ -107,7 +107,7 @@ OC.L10N.register(
     "Toggle star article" : "Prepnúť hviezdičku",
     "Mark unread" : "Označiť ako neprečítané",
     "Close details" : "Zatvoriť podrobnosti",
-    "shared by" : "zdieľané s",
+    "shared by" : "zdieľané používateľom",
     "by" : "od",
     "Play audio" : "Prehrávanie audia",
     "Download audio" : "Stiahnuť audio",
