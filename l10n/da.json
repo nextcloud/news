@@ -71,7 +71,7 @@
     "User Name" : "Brugernavn",
     "Share" : "Del",
     "Share with" : "Del med",
-    "Share with {num} users" : "Del med %n brugere",
+    "Share with {num} users" : "Del med {num} brugere",
     "Rename Folder" : "Omdøb mappe",
     "Are you sure you want to delete?" : "Er du sikker på at du vil slette?",
     "Unable to save starred open state" : "Kan ikke gemme stjerneklar open state",
