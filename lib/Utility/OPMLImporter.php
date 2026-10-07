@@ -10,7 +10,6 @@ namespace OCA\News\Utility;
 
 use \DOMDocument;
 use \DOMElement;
-use \DOMText;
 
 /**
  * Imports the OPML
@@ -55,7 +54,7 @@ class OPMLImporter
         }
 
         foreach ($bodies[0]->childNodes as $node) {
-            if ($node instanceof DOMText) {
+            if (!$node instanceof DOMElement) {
                 continue;
             }
 
@@ -90,7 +89,7 @@ class OPMLImporter
         }
 
         foreach ($outline->childNodes as $child) {
-            if ($child instanceof DOMText) {
+            if (!$child instanceof DOMElement) {
                 continue;
             }
 

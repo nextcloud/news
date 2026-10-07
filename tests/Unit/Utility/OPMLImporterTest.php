@@ -99,4 +99,28 @@ class OPMLImporterTest extends TestCase
         $this->assertNotNull($result, 'Should handle multiple leading blank lines');
         $this->assertCount(1, $result[1]);
     }
+
+    public function testImportWithXmlCommentsDoesNotThrowTypeError(): void
+    {
+        $userId = 'test-user';
+        $opmlWithComments = '<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+  <head>
+    <title>Subscriptions</title>
+  </head>
+  <body>
+    <!-- Top-level body comment -->
+    <outline text="Folder with comment" title="Folder with comment">
+      <!-- Comment inside folder -->
+      <outline type="rss" text="Feed" title="Feed" htmlUrl="http://example.com/feed" xmlUrl="http://example.com/rss"/>
+    </outline>
+  </body>
+</opml>';
+
+        $result = $this->importer->import($userId, $opmlWithComments);
+
+        $this->assertNotNull($result);
+        $this->assertCount(1, $result[0], 'Should have 1 folder');
+        $this->assertCount(1, $result[1], 'Should have 1 feed');
+    }
 }

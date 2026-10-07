@@ -10,6 +10,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Changed
 
 ### Fixed
+- Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
 
 # Releases
 ## [29.0.0] - 2026-10-10
