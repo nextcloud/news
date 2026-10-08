@@ -89,7 +89,7 @@ OC.L10N.register(
     "Delete" : "Zmazať",
     "Rename Feed" : "Premenovať kanál",
     "Open Feed URL" : "Otvoriť adresu kanála",
-    "Unpin from top" : "Odobnuť zhora",
+    "Unpin from top" : "Odopnúť zhora",
     "Pin to top" : "Pripnúť nahor",
     "Newest first" : "Od najnovších",
     "Oldest first" : "Od najstarších",
