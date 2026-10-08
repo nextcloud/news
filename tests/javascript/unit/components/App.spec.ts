@@ -3,7 +3,7 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from '../../../../src/App.vue'
 import { MUTATIONS } from '../../../../src/store/index.ts'
 
-describe('FeedItemDisplay.vue', () => {
+describe('App.vue', () => {
 	'use strict'
 	let wrapper: any
 
@@ -36,6 +36,7 @@ describe('FeedItemDisplay.vue', () => {
 	beforeEach(() => {
 		dispatchStub.mockReset()
 		commitStub.mockReset()
+		sessionStorage.clear()
 	})
 
 	it('should send SET_PLAYING_ITEM with undefined to stop playback', () => {
@@ -57,5 +58,36 @@ describe('FeedItemDisplay.vue', () => {
 		wrapper.vm.removeError()
 
 		expect(commitStub).toBeCalledWith(MUTATIONS.SET_ERROR, undefined)
+	})
+
+	it('should reload when the token expired error is detected', () => {
+		const reloadSpy = vi.spyOn(wrapper.vm, 'reloadPage').mockImplementation(() => {})
+
+		const didReload = wrapper.vm.reloadPageIfNeeded('Token expired or app not enabled! Reload the page!')
+
+		expect(didReload).toBe(true)
+		expect(reloadSpy).toHaveBeenCalledTimes(1)
+		reloadSpy.mockRestore()
+	})
+
+	it('should not reload repeatedly within the cooldown window', () => {
+		const reloadSpy = vi.spyOn(wrapper.vm, 'reloadPage').mockImplementation(() => {})
+		window.sessionStorage.setItem('news-token-expired-reload-timestamp', String(Date.now()))
+
+		const didReload = wrapper.vm.reloadPageIfNeeded('Token expired or app not enabled! Reload the page!')
+
+		expect(didReload).toBe(false)
+		expect(reloadSpy).not.toHaveBeenCalled()
+		reloadSpy.mockRestore()
+	})
+
+	it('should ignore unrelated errors', () => {
+		const reloadSpy = vi.spyOn(wrapper.vm, 'reloadPage').mockImplementation(() => {})
+
+		const didReload = wrapper.vm.reloadPageIfNeeded('Some unrelated network error')
+
+		expect(didReload).toBe(false)
+		expect(reloadSpy).not.toHaveBeenCalled()
+		reloadSpy.mockRestore()
 	})
 })
