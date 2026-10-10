@@ -134,6 +134,20 @@ class FeedTest extends TestCase
     }
 
 
+    public function testSerializeWithMalformedLinkDoesNotCrash(): void
+    {
+        $feed = new Feed();
+        $feed->setLink('http:');
+        $serialized = $feed->jsonSerialize();
+        $this->assertArrayNotHasKey('cssClass', $serialized);
+
+        $feed2 = new Feed();
+        $feed2->setLink('http://');
+        $serialized2 = $feed2->jsonSerialize();
+        $this->assertArrayNotHasKey('cssClass', $serialized2);
+    }
+
+
     public function testSetXSSUrl()
     {
         $this->expectException(\TypeError::class);
