@@ -12,6 +12,9 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Fixed
 
 # Releases
+## [29.0.0] - 2026-10-10
+No notable changes since the beta.
+
 ## [29.0.0-beta.1] - 2026-09-20
 ### Changed
 - Use different icons to indicate whether feed filters have been configured (#3922)
