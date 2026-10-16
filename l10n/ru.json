@@ -206,7 +206,7 @@
     "Enable web scraping" : "Включить извлечение текста с веб-страницы",
     "Disable web scraping" : "Выключить извлечение текста с веб-страницы",
     "Not available" : "Недоступно",
-    "Keyword Filters for {feed}" : "Фильтры по ключевым словам для {feed}",
+    "Keyword Filters for {feed}" : "Фильтры по ключевым словам для ленты «{feed}»",
     "Matching is case-insensitive. Title and body keywords match whole words, while URL keywords match URL fragments." : "Регистр не учитывается. Ключевые слова в заголовке и тексте ищутся как целые слова, а в URL — как фрагменты.",
     "Title keywords" : "Ключевые слова в заголовке",
     "e.g. android, ios" : "например: android, ios",
