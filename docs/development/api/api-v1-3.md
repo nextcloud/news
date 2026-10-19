@@ -516,7 +516,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 | guid             |         | string       |
 | guidHash         |         | string       |
 | id               |         | int          |
-| lastModified     | \"0\"   | string\|null |
+| lastModified     | 0       | int          |
 | mediaDescription |         | string\|null |
 | mediaThumbnail   |         | string\|null |
 | pubDate          |         | int\|null    |
@@ -524,7 +524,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 | starred          | false   | bool         |
 | title            |         | string\|null |
 | unread           | false   | bool         |
-| updatedDate      |         | string\|null |
+| updatedDate      | null    | null         |
 | url              |         | string\|null |
 
 #### Get items
@@ -558,6 +558,7 @@ The following attributes are **not sanitized** meaning: including them in your w
       "title": "Plasma-nm after the solid sprint",
       "author": "Jan Grulich (grulja)",
       "pubDate": 1367270544,
+      "updatedDate": null,
       "body": "<p>At first I have to say...</p>",
       "enclosureMime": null,
       "enclosureLink": null,
@@ -569,7 +570,8 @@ The following attributes are **not sanitized** meaning: including them in your w
       "filtered": false, // new in 28.4.0
       "rtl": false, // new in 6.0.2
       "lastModified": 1367273003,
-      "fingerprint": "aeaae2123"  // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
+      "fingerprint": "aeaae2123", // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
+      "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
     }, // etc
   ]
 }
@@ -587,7 +589,7 @@ Autopaging would work like this:
 {
   "batchSize": 20,
   "offset": 0,
-  "type": 1,
+  "type": 0,
   "id": 12,
   "getRead": false
 }
@@ -601,7 +603,7 @@ The item with the lowest item id is 43.
 {
   "batchSize": 20,
   "offset": 43,
-  "type": 1,
+  "type": 0,
   "id": 12,
   "getRead": false
 }
@@ -639,15 +641,20 @@ This is used to stay up to date.
       "title": "Plasma-nm after the solid sprint",
       "author": "Jan Grulich (grulja)",
       "pubDate": 1367270544,
+      "updatedDate": null,
       "body": "<p>At first I have to say...</p>",
       "enclosureMime": null,
       "enclosureLink": null,
+      "mediaThumbnail": null,
+      "mediaDescription": null,
       "feedId": 67,
       "unread": true,
       "starred": false,
       "filtered": false, // new in 28.4.0
+      "rtl": false,
       "lastModified": 1367273003,
-      "fingerprint": "aeaae2123"  // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
+      "fingerprint": "aeaae2123", // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
+      "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
     }, // etc
   ]
 }
