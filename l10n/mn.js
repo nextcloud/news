@@ -17,6 +17,7 @@ OC.L10N.register(
     "Last job ran {relativeTime}." : "Сүүлийн ажил {relativeTime}-д ажилласан.",
     "Move" : "–ó”©”©—Ö",
     "Share" : "–¢“Ø–≥—ç—ç—Ö",
+    "Starred" : "Одтой",
     "Explore" : "–•–∞–π—Ö",
     "Rename" : "–ù—ç—Ä–ª—ç–Ω—ç “Ø“Ø",
     "Delete" : "–£—Å—Ç–≥–∞—Ö",
