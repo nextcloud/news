@@ -32,6 +32,7 @@ OC.L10N.register(
     "Default" : "Предефиниран",
     "Vertical" : "Вертикално",
     "Horizontal" : "Хоризонтално",
+    "Off" : "Исклучено",
     "Always" : "Секогаш",
     "Never" : "Никогаш",
     "General" : "Општо",
