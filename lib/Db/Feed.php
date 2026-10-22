@@ -362,6 +362,9 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         }
 
         $url = parse_url($this->link, PHP_URL_HOST);
+        if (is_string($url) === false) {
+            return $serialized;
+        }
 
         // strip leading www. to avoid css class confusion
         if (strpos($url, 'www.') === 0) {
