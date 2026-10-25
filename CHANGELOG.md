@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 ### Fixed
 - Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
+- Avoid crashes when serializing feeds with malformed links that have no parseable host. (#3954)
 
 # Releases
 ## [29.0.0] - 2026-10-10
