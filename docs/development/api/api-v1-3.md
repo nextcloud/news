@@ -570,7 +570,7 @@ The following attributes are **not sanitized** meaning: including them in your w
       "filtered": false, // new in 28.4.0
       "rtl": false, // new in 6.0.2
       "lastModified": 1367273003,
-      "fingerprint": "aeaae2123", // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
+      "fingerprint": "0123456789abcdef0123456789abcdef", // new in 8.4.0 MD5 hash over title, URL, body and enclosure link. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
       "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
     }, // etc
   ]
@@ -653,7 +653,7 @@ This is used to stay up to date.
       "filtered": false, // new in 28.4.0
       "rtl": false,
       "lastModified": 1367273003,
-      "fingerprint": "aeaae2123", // new in 8.4.0 hash over title, enclosures, body and url. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
+      "fingerprint": "0123456789abcdef0123456789abcdef", // new in 8.4.0 MD5 hash over title, URL, body and enclosure link. Same fingerprint means same item and it's advised to locally mark the other one read as well and filter out duplicates in folder and all articles view
       "contentHash": "08ffbcf94bd95a1faa6e9e799cc29054"
     }, // etc
   ]
