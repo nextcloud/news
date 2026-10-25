@@ -470,12 +470,14 @@ The following attributes are **not sanitized** meaning: including them in your w
 {
   "batchSize": 10, //  the number of items that should be returned, defaults to -1, new in 5.2.3: -1 returns all items
   "offset": 30, // only return older (lower than equal that id) items than the one with id 30
-  "type": 1, // the type of the query (Feed: 0, Folder: 1, Starred: 2, All: 3)
-  "id": 12, // the id of the folder or feed, Use 0 for Starred and All
-  "getRead": true, // if true it returns all items, false returns only unread items
+  "type": 1, // the type of the query (Feed: 0, Folder: 1, Starred: 2, All: 3, Unread: 6)
+  "id": 12, // the id of the folder or feed, Use 0 for Starred, All and Unread
+  "getRead": true, // if true it returns all items, false returns only unread items (Feed, Folder and All only, see below)
   "oldestFirst": false  // implemented in 3.002, if true it reverse the sort order
 }
 ```
+
+`getRead` only applies to the Feed, Folder and All types, and `type=3` with `getRead=false` returns the same items as `type=6`. With any other type, `getRead=false` returns HTTP 200 with `{"message": "Setting getRead on an already filtered list is not allowed!"}` instead of an `items` list. Types other than 0, 1, 2, 3 and 6 (`ListType` also defines 4 and 5 for the web interface) fail with HTTP 500.
 
 * **Returns**:
 
@@ -555,10 +557,12 @@ This is used to stay up to date.
   "lastModified": 123231, // returns only items with a lastModified timestamp >= than this one
                           // this may also return already existing items whose read or starred status
                           // has been changed
-  "type": 1, // the type of the query (Feed: 0, Folder: 1, Starred: 2, All: 3)
-  "id": 12 // the id of the folder or feed, Use 0 for Starred and All
+  "type": 1, // the type of the query (Feed: 0, Folder: 1, Starred: 2, All: 3, Unread: 6)
+  "id": 12 // the id of the folder or feed, Use 0 for Starred, All and Unread
 }
 ```
+
+`lastModified` is in seconds. A value with more than 10 digits is taken as microseconds, so a 13-digit millisecond timestamp matches almost every item. As with `/items`, types other than 0, 1, 2, 3 and 6 fail with HTTP 500.
 
 * **Returns**:
 
