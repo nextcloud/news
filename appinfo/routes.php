@@ -67,7 +67,6 @@ return ['routes' => [
 // export
 ['name' => 'export#opml', 'url' => '/export/opml', 'verb' => 'GET'],
 ['name' => 'export#articles', 'url' => '/export/articles', 'verb' => 'GET'],
-['name' => 'item#share', 'url' => '/items/{itemId}/share/{shareRecipientId}', 'verb' => 'POST'],
 
 // import
 ['name' => 'import#opml', 'url' => '/import/opml', 'verb' => 'POST'],
@@ -98,7 +97,6 @@ return ['routes' => [
 // feeds
 ['name' => 'feed_api#index', 'url' => '/api/{apiVersion}/feeds', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'feed_api#create', 'url' => '/api/{apiVersion}/feeds', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-[23]']],
-['name' => 'feed_api#update', 'url' => '/api/{apiVersion}/feeds/{feedId}', 'verb' => 'PUT', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'feed_api#delete', 'url' => '/api/{apiVersion}/feeds/{feedId}', 'verb' => 'DELETE', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'feed_api#from_all_users', 'url' => '/api/{apiVersion}/feeds/all', 'verb' => 'GET', 'requirements' => ['apiVersion' => 'v1-[23]']],
 ['name' => 'feed_api#move', 'url' => '/api/{apiVersion}/feeds/{feedId}/move', 'verb' => 'POST', 'requirements' => ['apiVersion' => 'v1-3']],
