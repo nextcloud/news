@@ -19,6 +19,7 @@
     "from" : "frå",
     "by" : "av",
     "Download video" : "Last ned video",
+    "Compact" : "Kompakt",
     "Never" : "Aldri",
     "General" : "Generelt",
     "Appearance" : "Utsjånad",
@@ -26,6 +27,7 @@
     "Export" : "Eksporter",
     "Keyboard shortcuts" : "Tastatursnarvegar",
     "Refresh" : "Oppfrisk",
+    "Options" : "Alternativ",
     "Folder" : "Mappe",
     "Save" : "Lagre"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

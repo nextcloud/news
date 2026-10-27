@@ -14,6 +14,7 @@ OC.L10N.register(
     "Rename" : "Nomini o'zgartirish",
     "Delete" : "O'chirish",
     "Default" : "Standart",
+    "Compact" : "Ixcham",
     "Off" : "Oʻchirilgan",
     "Always" : "Har doim",
     "Never" : "Hech qachon",

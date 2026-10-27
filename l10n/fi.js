@@ -72,6 +72,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Pidä lukemattomana/aseta luetuksi",
     "Remove keep article unread" : "Poista artikkelin pitäminen lukemattomana",
     "Default" : "Oletus",
+    "Compact" : "Tiivis",
     "Vertical" : "Pystysuora",
     "Horizontal" : "Vaakasuora",
     "Always" : "Aina",

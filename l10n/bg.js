@@ -71,6 +71,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Промяна запазва статуса на статията като непрочетена",
     "Remove keep article unread" : "Премахни постоянното означаване като непрочетена",
     "Default" : "По подразбиране",
+    "Compact" : "Компактно",
     "Vertical" : "Вертикално",
     "Horizontal" : "Хоризонтално",
     "Off" : "Изключен",

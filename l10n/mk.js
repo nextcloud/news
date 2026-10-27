@@ -30,6 +30,7 @@ OC.L10N.register(
     "by" : "од",
     "Open website" : "Отвори вебсајт",
     "Default" : "Предефиниран",
+    "Compact" : "Компактно",
     "Vertical" : "Вертикално",
     "Horizontal" : "Хоризонтално",
     "Off" : "Исклучено",

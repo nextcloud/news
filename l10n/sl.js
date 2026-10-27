@@ -77,6 +77,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Preklopi ohranjanje prispevka kot neprebranega",
     "Remove keep article unread" : "Odstrani možnost ohranjanja prispevkov neprebranih",
     "Default" : "privzeto",
+    "Compact" : "Strnjeno",
     "Vertical" : "Navpično",
     "Horizontal" : "Vodoravno",
     "Always" : "Vedno",

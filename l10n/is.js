@@ -59,6 +59,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Víxla af/á að halda greininni sem ólesinni",
     "Remove keep article unread" : "Fjarlægja að halda greininni sem ólesinni",
     "Default" : "Sjálfgefið",
+    "Compact" : "Þjappað",
     "Vertical" : "Lóðrétt",
     "Horizontal" : "Lárétt",
     "Always" : "Alltaf",

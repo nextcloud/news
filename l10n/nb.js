@@ -79,6 +79,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Veksle å beholde denne artikkelen ulest",
     "Remove keep article unread" : "Fjern behold artikkelen ulest",
     "Default" : "Forvalg",
+    "Compact" : "Kompakt",
     "Vertical" : "Vertikal",
     "Horizontal" : "Horisontal",
     "Off" : "Av",

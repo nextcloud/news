@@ -77,6 +77,7 @@ OC.L10N.register(
     "Toggle keep current article unread" : "Alternar mantener artículo actual como no leído",
     "Remove keep article unread" : "Eliminar mantener artículo como no leído",
     "Default" : "Por omisión",
+    "Compact" : "Compacto",
     "Vertical" : "Vertical",
     "Horizontal" : "Horizontal",
     "Off" : "Desactivado",

@@ -14,9 +14,12 @@ OC.L10N.register(
     "Delete" : "Obriši",
     "from" : "od",
     "by" : "od strane",
+    "Compact" : "Kompaktno",
+    "Appearance" : "Izgled",
     "Import" : "Uvezi",
     "Export" : "Izvezi",
     "Keyboard shortcuts" : "Tipkovni prečaci",
+    "Options" : "Opcije",
     "Title" : "Naslov",
     "Folder" : "Fasikla",
     "Save" : "Spremi"

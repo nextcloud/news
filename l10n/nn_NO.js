@@ -21,6 +21,7 @@ OC.L10N.register(
     "from" : "frå",
     "by" : "av",
     "Download video" : "Last ned video",
+    "Compact" : "Kompakt",
     "Never" : "Aldri",
     "General" : "Generelt",
     "Appearance" : "Utsjånad",
@@ -28,6 +29,7 @@ OC.L10N.register(
     "Export" : "Eksporter",
     "Keyboard shortcuts" : "Tastatursnarvegar",
     "Refresh" : "Oppfrisk",
+    "Options" : "Alternativ",
     "Folder" : "Mappe",
     "Save" : "Lagre"
 },
