@@ -42,7 +42,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y httpie && sudo npm install -g bats@1.13.0
 
       - name: Set up server
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@86ea139d16492bcec127944d7c21efd2269c763b # 2026.10.19.1
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@1292f89b194f41cbba1a53086918ba6a71e73863 # 2026.10.26.1
         with:
           version: ${{ matrix.nextcloud }}
           cron: true
