@@ -53,7 +53,7 @@
     "guzzlehttp/psr7": "^3.2",
     "php-http/guzzle7-adapter": "^1.0",
     "symfony/cache": "^7.4",
-    "symfony/html-sanitizer": "^7.3",
+    "symfony/html-sanitizer": "^8.1",
     "bamarni/composer-bin-plugin": "^1.9"
   },
   "require-dev": {
