@@ -50,7 +50,7 @@ jobs:
         run: make
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@86ea139d16492bcec127944d7c21efd2269c763b # 2026.10.19.1
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@1292f89b194f41cbba1a53086918ba6a71e73863 # 2026.10.26.1
         with:
           app: 'news'
           check-code: false
