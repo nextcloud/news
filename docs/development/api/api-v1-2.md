@@ -477,7 +477,7 @@ The following attributes are **not sanitized** meaning: including them in your w
 }
 ```
 
-`getRead` only applies to the Feed, Folder and All types, and `type=3` with `getRead=false` returns the same items as `type=6`. With any other type, `getRead=false` returns HTTP 200 with `{"message": "Setting getRead on an already filtered list is not allowed!"}` instead of an `items` list. Types other than 0, 1, 2, 3 and 6 (`ListType` also defines 4 and 5 for the web interface) fail with HTTP 500.
+`getRead` only applies to the Feed, Folder and All types, and `type=3` with `getRead=false` returns the same items as `type=6`. With `getRead=false`, any other type returns HTTP 200 with `{"message": "Setting getRead on an already filtered list is not allowed!"}` instead of an `items` list. With `getRead=true`, types other than 0, 1, 2, 3 and 6 (`ListType` also defines 4 and 5 for the web interface) fail with HTTP 500.
 
 * **Returns**:
 
