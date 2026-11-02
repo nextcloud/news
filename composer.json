@@ -42,7 +42,7 @@
   },
   "require": {
     "php": "^8.3",
-    "php-feed-io/feed-io": "^v6.4.1",
+    "php-feed-io/feed-io": "^v6.5.0",
     "php-feed-io/favicon-io": "v1.0.0",
     "fivefilters/readability.php": "^3.3",
     "ext-json": "*",
