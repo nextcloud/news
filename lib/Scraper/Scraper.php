@@ -11,10 +11,9 @@
 
 namespace OCA\News\Scraper;
 
-use OCA\News\Vendor\fivefilters\Readability\Readability;
-use OCA\News\Vendor\fivefilters\Readability\Configuration;
+use OCA\News\Vendor\fivefilters\Readability\Article;
 use OCA\News\Vendor\fivefilters\Readability\ParseException;
-use OCA\News\Vendor\League\Uri\Exceptions\SyntaxError;
+use OCA\News\Vendor\fivefilters\Readability\Readability;
 use OCP\Http\Client\IClientService;
 use OCP\Http\Client\LocalServerException;
 use OCP\Security\IRemoteHostValidator;
@@ -23,8 +22,7 @@ use OCA\News\Config\FetcherConfig;
 
 class Scraper implements IScraper
 {
-    private $config;
-    private $readability;
+    private ?Article $article;
 
     // Cached list of supported mbstring encodings
     private static $supportedEncodingList = null;
@@ -35,11 +33,7 @@ class Scraper implements IScraper
         private readonly IClientService $clientService,
         private readonly IRemoteHostValidator $hostValidator
     ) {
-        $this->config = new Configuration([
-            'FixRelativeURLs' => true,
-            'SummonCthulhu' => true, // Remove <script>
-        ]);
-        $this->readability = null;
+        $this->article = null;
 
         if (self::$supportedEncodingList === null) {
             self::$supportedEncodingList = mb_list_encodings();
@@ -159,17 +153,17 @@ class Scraper implements IScraper
             $this->logger->error('Unable to receive content from {url}', [
                  'url' => $url,
             ]);
-            $this->readability = null;
+            $this->article = null;
             return false;
         }
 
-        // Update URL used to convert relative URLs
-        $this->config->setOriginalURL($redirected_url);
-        $this->readability = new Readability($this->config);
-
+        $this->article = null;
         try {
-            $this->readability->parse($content);
-        } catch (ParseException | SyntaxError $e) {
+            $this->article = (new Readability(
+                fixRelativeURLs: true,
+                originalURL: $redirected_url,
+            ))->parse($content);
+        } catch (ParseException $e) {
             $this->logger->error('Unable to parse content from {url}', [
                  'url' => $url,
             ]);
@@ -183,19 +177,19 @@ class Scraper implements IScraper
 
     public function getContent(): ?string
     {
-        if ($this->readability === null) {
+        if ($this->article === null) {
             return null;
         }
-        return $this->readability->getContent();
+        return $this->article->content;
     }
 
     public function getRTL(bool $default = false): bool
     {
-        if ($this->readability === null) {
+        if ($this->article === null) {
             return $default;
         }
 
-        $RTL = $this->readability->getDirection();
+        $RTL = $this->article->dir;
         if ($RTL === null) {
             return $default;
         }

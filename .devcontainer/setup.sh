@@ -47,7 +47,7 @@ echo "→ Running bootstrap (Apache + Nextcloud installer)…"
 # Wait for the background installer to finish (up to 5 minutes).
 # Fun messages are printed every 10 seconds to keep the developer entertained.
 FUN_TASKS=(
-    "Summoning PHP 8.3 🐘"
+    "Summoning PHP 8.4 🐘"
     "Cloning Nextcloud ${SERVER_BRANCH:-master} 🌿"
     "Setting up the database 🗄️"
     "Running maintenance:install 🔧"

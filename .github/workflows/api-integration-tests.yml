@@ -47,10 +47,6 @@ jobs:
         database: ['sqlite', 'pgsql', 'mysql']
         experimental: [false]
         include:
-          - php-versions: 8.3
-            nextcloud: stable35
-            database: sqlite
-            experimental: false
           - php-versions: 8.4
             nextcloud: stable33
             database: sqlite
@@ -125,6 +121,7 @@ jobs:
         run: php ./occ config:system:set allow_local_remote_servers --type=boolean --value=true
 
       - name: Run API tests
+        id: api-tests
         working-directory: ../server
         run: |
           php -S localhost:8080 &> /tmp/webserver.log &
@@ -139,6 +136,17 @@ jobs:
           # Kill php server
           kill %1
           kill %2
+
+      - name: Show API test server logs
+        if: failure() && steps.api-tests.conclusion == 'failure'
+        working-directory: ../server
+        run: |
+          echo '=== Nextcloud web server log ==='
+          tail -n 200 /tmp/webserver.log || true
+          echo '=== Feed server log ==='
+          tail -n 100 /tmp/feedserver.log || true
+          echo '=== Nextcloud application log ==='
+          tail -n 500 data/nextcloud.log || true
 
       - name: Functional tests maintenance
         working-directory: ../server
