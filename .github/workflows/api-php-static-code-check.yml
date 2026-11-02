@@ -15,10 +15,6 @@ jobs:
         nextcloud: [ 'stable35' ]
         database: [ 'sqlite' ]
         include:
-          - php-versions: 8.3
-            nextcloud: stable35
-            database: sqlite
-            experimental: false
           - php-versions: 8.4
             nextcloud: stable33
             database: sqlite
