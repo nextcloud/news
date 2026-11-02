@@ -75,14 +75,29 @@ function mapVendorPathToScopedPath(string $relativeVendorPath, string $scopedDir
         return null;
     }
 
+    $packagePath = $parts[0] . '/' . $parts[1];
+    $composerPath = dirname($scopedDir, 2) . '/vendor/' . $packagePath . '/composer.json';
+    $tail = implode('/', array_slice($parts, 2));
+    if (is_file($composerPath)) {
+        $packageInfo = json_decode(file_get_contents($composerPath), true);
+        foreach ($packageInfo['autoload']['psr-4'] ?? [] as $namespace => $codeDir) {
+            $codeDir = trim($codeDir, '/');
+            if ($codeDir !== '' && !str_starts_with($tail, $codeDir . '/')) {
+                continue;
+            }
+
+            $relativePath = $codeDir === '' ? $tail : substr($tail, strlen($codeDir) + 1);
+            $namespacePath = str_replace('\\', '/', trim($namespace, '\\'));
+            $candidate = $namespacePath . '/' . $relativePath;
+            if (is_file($scopedDir . '/' . $candidate)) {
+                return $candidate;
+            }
+        }
+    }
+
     $vendor = normalizePackageSegment($parts[0]);
     $packageParts = array_map('normalizePackageSegment', explode('-', $parts[1]));
-    $tail = array_slice($parts, 2);
-
-    $candidate = $vendor . '/' . implode('/', $packageParts);
-    if ($tail !== []) {
-        $candidate .= '/' . implode('/', $tail);
-    }
+    $candidate = $vendor . '/' . implode('/', $packageParts) . '/' . $tail;
 
     return is_file($scopedDir . '/' . $candidate) ? $candidate : null;
 }

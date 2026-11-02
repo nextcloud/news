@@ -68,5 +68,18 @@ foreach (array_keys($dependencies) as $name) {
 return [
     "prefix" => "OCA\\News\\Vendor",
     'exclude-namespaces' => [ 'Psr\\Log\\' ],
+    'patchers' => [
+        static function (string $filePath, string $prefix, string $contents): string {
+            if (!str_contains($filePath, '/rowbot/idna/src/')) {
+                return $contents;
+            }
+
+            return str_replace(
+                "__DIR__ . DS . '..' . DS . 'resources' . DS",
+                "__DIR__ . DS . 'Resource' . DS",
+                $contents
+            );
+        },
+    ],
     "finders" => $finderConfig,
 ];

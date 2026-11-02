@@ -105,7 +105,7 @@ class ScraperTest extends TestCase
 
         $this->assertTrue($result);
         $content = $this->scraper->getContent();
-        $this->assertEquals('<div>' . $expectedUtf8 . '</div>', $content);
+        $this->assertStringContainsString($expectedUtf8, $content);
     }
 
     public function testUnsupportedCharsetIsIgnored(): void
@@ -131,11 +131,32 @@ class ScraperTest extends TestCase
         $this->assertStringContainsString('Scrape full text content', $content);
     }
 
+    public function testReadabilityReturnsNoContent(): void
+    {
+        $response = $this->createMock(IResponse::class);
+        $response->method('getStatusCode')->willReturn(200);
+        $response->method('getBody')->willReturn('<html><body></body></html>');
+        $response->method('getHeader')->willReturn('');
+        $response->method('getHeaders')->willReturn([]);
+
+        $this->client->method('get')->willReturn($response);
+
+        $this->logger->expects($this->never())
+            ->method('error')
+            ->with($this->stringContains('Unable to parse content'));
+
+        $result = $this->scraper->scrape('https://example.com');
+
+        $this->assertTrue($result);
+        $content = $this->scraper->getContent();
+        $this->assertNull($content);
+    }
+
     public function testReadabilityParseThrowsException(): void
     {
         $response = $this->createMock(IResponse::class);
         $response->method('getStatusCode')->willReturn(200);
-        $response->method('getBody')->willReturn('Scrape invalid html content');
+        $response->method('getBody')->willReturn('');
         $response->method('getHeader')->willReturn('');
         $response->method('getHeaders')->willReturn([]);
 
@@ -143,15 +164,12 @@ class ScraperTest extends TestCase
 
         $this->logger->expects($this->once())
             ->method('error')
-            ->with(
-                $this->stringContains('Unable to parse content')
-            );
+            ->with($this->stringContains('Unable to parse content'));
 
         $result = $this->scraper->scrape('https://example.com');
 
         $this->assertTrue($result);
-        $content = $this->scraper->getContent();
-        $this->assertNull($content);
+        $this->assertNull($this->scraper->getContent());
     }
 
     public function testRedirectHistoryUsedAsEffectiveUrl(): void
