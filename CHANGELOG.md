@@ -8,6 +8,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 ### Added
 
 ### Changed
+- Require PHP 8.4 or later.
 
 ### Fixed
 - Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
