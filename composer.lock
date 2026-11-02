@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "420428f9d4870117ca966115eba7b94a",
+    "content-hash": "667cc0184be9600609840c4a7192a450",
     "packages": [
         {
             "name": "bamarni/composer-bin-plugin",
@@ -1281,33 +1281,29 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v7.4.23",
+            "version": "v8.1.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "bbaa2ca4a93a94532285bdd5a0caf225d34ff578"
+                "reference": "60b6bfd51e671219b1ab9066b94c617d1760d7cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/bbaa2ca4a93a94532285bdd5a0caf225d34ff578",
-                "reference": "bbaa2ca4a93a94532285bdd5a0caf225d34ff578",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/60b6bfd51e671219b1ab9066b94c617d1760d7cf",
+                "reference": "60b6bfd51e671219b1ab9066b94c617d1760d7cf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.2",
+                "php": ">=8.4.1",
                 "psr/cache": "^2.0|^3.0",
                 "psr/log": "^1.1|^2|^3",
                 "symfony/cache-contracts": "^3.6",
-                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/service-contracts": "^2.5|^3",
-                "symfony/var-exporter": "^6.4|^7.0|^8.0"
+                "symfony/var-exporter": "^8.1.1"
             },
             "conflict": {
-                "doctrine/dbal": "<3.6",
-                "ext-relay": "<0.12.1",
-                "symfony/dependency-injection": "<6.4",
-                "symfony/http-kernel": "<6.4",
-                "symfony/var-dumper": "<6.4"
+                "ext-redis": "<6.1",
+                "ext-relay": "<0.12.1"
             },
             "provide": {
                 "psr/cache-implementation": "2.0|3.0",
@@ -1316,16 +1312,16 @@
             },
             "require-dev": {
                 "cache/integration-tests": "^1.0.3",
-                "doctrine/dbal": "^3.6|^4",
+                "doctrine/dbal": "^4.3",
                 "predis/predis": "^1.1|^2.0",
                 "psr/simple-cache": "^1.0|^2.0|^3.0",
-                "symfony/clock": "^6.4|^7.0|^8.0",
-                "symfony/config": "^6.4|^7.0|^8.0",
-                "symfony/dependency-injection": "^6.4|^7.0|^8.0",
-                "symfony/filesystem": "^6.4|^7.0|^8.0",
-                "symfony/http-kernel": "^6.4|^7.0|^8.0",
-                "symfony/messenger": "^6.4|^7.0|^8.0",
-                "symfony/var-dumper": "^6.4|^7.0|^8.0"
+                "symfony/clock": "^7.4|^8.0",
+                "symfony/config": "^7.4|^8.0",
+                "symfony/dependency-injection": "^7.4|^8.0",
+                "symfony/filesystem": "^7.4|^8.0",
+                "symfony/http-kernel": "^7.4|^8.0",
+                "symfony/messenger": "^7.4|^8.0",
+                "symfony/var-dumper": "^7.4|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -1360,7 +1356,7 @@
                 "psr6"
             ],
             "support": {
-                "source": "https://github.com/symfony/cache/tree/v7.4.23"
+                "source": "https://github.com/symfony/cache/tree/v8.1.11"
             },
             "funding": [
                 {
@@ -1380,7 +1376,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-01T22:26:51+00:00"
+            "time": "2026-11-01T22:27:46+00:00"
         },
         {
             "name": "symfony/cache-contracts",
