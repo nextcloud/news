@@ -75,6 +75,7 @@ OC.L10N.register(
     "Compact" : "Tiivis",
     "Vertical" : "Pystysuora",
     "Horizontal" : "Vaakasuora",
+    "Off" : "Pois",
     "Always" : "Aina",
     "Never" : "Ei koskaan",
     "General" : "Yleiset",
