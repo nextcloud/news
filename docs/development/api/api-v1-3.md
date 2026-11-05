@@ -863,7 +863,7 @@ php -f nextcloud/occ news:updater:all-feeds
 ```
 
 * **Return codes**:
-* **HTTP 404**: If the feed does not exist
+* **HTTP 200**: Also if the feed does not exist. Feed errors are reported in the feed's `updateErrorCount` and `lastUpdateError`.
 * **Returns**: Nothing
 
 **New in 8.1.0**: The console command for achieving the same result is:
