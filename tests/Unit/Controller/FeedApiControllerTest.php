@@ -407,7 +407,26 @@ class FeedApiControllerTest extends TestCase
             ->method('fetch')
             ->with($feed);
 
-        $this->class->update($userId, $feedId);
+        $this->assertEquals([], $this->class->update($userId, $feedId));
+    }
+
+
+    public function testUpdateDoesNotExist()
+    {
+        $feedId = 3;
+        $userId = 'hi';
+        $this->feedService->expects($this->once())
+            ->method('find')
+            ->will($this->throwException(new ServiceNotFoundException($this->msg)));
+
+        $this->feedService->expects($this->never())
+            ->method('fetch');
+
+        $response = $this->class->update($userId, $feedId);
+
+        $data = $response->getData();
+        $this->assertEquals($this->msg, $data['message']);
+        $this->assertEquals(Http::STATUS_NOT_FOUND, $response->getStatus());
     }
 
 
@@ -415,15 +434,22 @@ class FeedApiControllerTest extends TestCase
     {
         $feedId = 3;
         $userId = 'hi';
+        $feed = new Feed();
+
         $this->feedService->expects($this->once())
             ->method('find')
+            ->with($userId, $feedId)
+            ->willReturn($feed);
+
+        $this->feedService->expects($this->once())
+            ->method('fetch')
             ->will($this->throwException(new Exception($this->msg)));
 
         $this->logger->expects($this->once())
             ->method('debug')
             ->with('Could not update feed ' . $this->msg);
 
-        $this->class->update($userId, $feedId);
+        $this->assertEquals([], $this->class->update($userId, $feedId));
     }
 
     public function testGetFilterReturnsNotFoundForMissingFeed()

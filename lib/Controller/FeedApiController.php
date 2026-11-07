@@ -217,17 +217,26 @@ class FeedApiController extends ApiController
      *
      * @param string $userId
      * @param int    $feedId
+     *
+     * @return array|JSONResponse
      */
     #[NoCSRFRequired]
-    public function update(string $userId, int $feedId): void
+    public function update(string $userId, int $feedId)
     {
         try {
             $feed = $this->feedService->find($userId, $feedId);
+        } catch (ServiceNotFoundException $ex) {
+            return $this->error($ex, Http::STATUS_NOT_FOUND);
+        }
+
+        try {
             $this->feedService->fetch($feed);
             // ignore update failure
         } catch (Exception $ex) {
             $this->logger->debug('Could not update feed ' . $ex->getMessage());
         }
+
+        return [];
     }
 
     /**
