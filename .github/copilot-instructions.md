@@ -50,7 +50,7 @@ Nextcloud News is an RSS/Atom feed aggregator app for Nextcloud. It's a PHP back
 
 ### Prerequisites
 **CRITICAL**: The project requires specific versions:
-- **PHP**: 8.2+ (8.3 recommended)
+- **PHP**: 8.4+ (8.5 recommended)
 - **Node.js**: 24.x (package.json specifies ^24.0.0)
 - **npm**: 11.3+ (package.json specifies ^11.3.0)
 - **Composer**: 2.x
@@ -298,11 +298,11 @@ All PRs must pass these checks:
 4. **PHP Tests** (`.github/workflows/api-php-tests.yml`)
    - Sets up Nextcloud server with the app
    - Runs `make` then `make php-test-dependencies` then `make unit-test`
-   - Tests with PHP 8.3, Nextcloud stable31, SQLite
+   - Tests with PHP 8.4, Nextcloud stable35, SQLite
    - Must pass for merge
 
 5. **Static Analysis** (`.github/workflows/api-php-static-code-check.yml`)
-   - Multiple PHP versions (8.2, 8.3, 8.4) and Nextcloud versions
+   - Multiple PHP versions (8.4, 8.5) and Nextcloud versions
    - Runs `make composer`, `make php-test-dependencies`, `make phpcs`, `make phpstan`
    - May fail for experimental versions (continue-on-error)
 
