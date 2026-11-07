@@ -15,6 +15,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Avoid crashes when serializing feeds with malformed links that have no parseable host. (#3954)
 - Remove the unreachable `PUT /api/{v1-2,v1-3}/feeds/{feedId}` route and a duplicate `item#share` route entry (#3984)
 - Added dependencies to mbstring and fileinfo (suggested)
+- Return HTTP 404 from `GET /api/{v1-2,v1-3}/feeds/update` for a missing feed, as documented (#4000)
 
 # Releases
 ## [29.0.0] - 2026-10-10
