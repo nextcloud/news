@@ -85,7 +85,7 @@ jobs:
       ### MySQL specific setup
       - name: Set up server MySQL
         if: matrix.database == 'mysql'
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@1292f89b194f41cbba1a53086918ba6a71e73863 # 2026.10.26.1
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@ad50305ba42bc994539b999084bbf16dcaace954 # 2026.11.02.1
         with:
           version: ${{ matrix.nextcloud }}
           cron: true
@@ -99,7 +99,7 @@ jobs:
       ### Back to normal setup
       - name: Set up server non MySQL
         if: matrix.database != 'mysql'
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud@1292f89b194f41cbba1a53086918ba6a71e73863 # 2026.10.26.1
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud@ad50305ba42bc994539b999084bbf16dcaace954 # 2026.11.02.1
         with:
           version: ${{ matrix.nextcloud }}
           cron: true
