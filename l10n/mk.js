@@ -5,6 +5,7 @@ OC.L10N.register(
     "Someone" : "Некој",
     "%1$s shared \"%2$s\" with you" : "%1$s сподели \"%2$s\" со тебе",
     "Unread articles" : "Непрочитани статии",
+    "Shared with me" : "Споделени со мене",
     "Download" : "Преземи",
     "Close" : "Затвори",
     "Folder name" : "Име на папка",
