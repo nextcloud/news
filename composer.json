@@ -50,6 +50,7 @@
     "ext-libxml": "*",
     "ext-dom": "*",
     "ext-curl": "*",
+    "ext-mbstring": "*",
     "guzzlehttp/psr7": "^3.2",
     "php-http/guzzle7-adapter": "^1.0",
     "symfony/cache": "^7.4",
@@ -70,6 +71,9 @@
     "symfony/console": "^4.4.19",
     "psr/log": "^1.1.0",
     "nextcloud/ocp": "dev-stable35"
+  },
+  "suggest": {
+        "ext-fileinfo": "To use with the Scraper"
   },
   "replace": {
     "guzzlehttp/guzzle": "*",

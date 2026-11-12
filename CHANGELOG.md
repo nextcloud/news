@@ -14,6 +14,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
 - Avoid crashes when serializing feeds with malformed links that have no parseable host. (#3954)
 - Remove the unreachable `PUT /api/{v1-2,v1-3}/feeds/{feedId}` route and a duplicate `item#share` route entry (#3984)
+- Added dependencies to mbstring and fileinfo (suggested)
 
 # Releases
 ## [29.0.0] - 2026-10-10
@@ -73,14 +74,14 @@ No notable changes since the beta release.
   news:feed:filter:set
   news:feed:filter:delete
   ```
-  Added API v1-3 `GET|POST|DELETE /api/v1-3/feeds/{feedId}/filter` 
+  Added API v1-3 `GET|POST|DELETE /api/v1-3/feeds/{feedId}/filter`
 
 - Feed settings now support selecting multiple feeds and moving/deleting them in throttled, sequential requests. (#3728)
 - Replace `arthurhoaro/favicon` with `php-feed-io/favicon-io` for favicon discovery, using PSR-based HTTP interfaces and Symfony-backed discovery caching (#3710)
 
 ## [28.3.0] - 2026-05-01
 ### Security
-- **Update recommended**: Replaces direct Guzzle HTTP client with Nextcloud's `IClientService`, adding SSRF protection. Security advisory pending. 
+- **Update recommended**: Replaces direct Guzzle HTTP client with Nextcloud's `IClientService`, adding SSRF protection. Security advisory pending.
 
 ## [28.3.0-beta.1] - 2026-04-25
 ### Changed
