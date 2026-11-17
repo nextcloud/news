@@ -61,7 +61,7 @@ jobs:
         run: make composer
 
       - name: Configure server with app
-        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@ad50305ba42bc994539b999084bbf16dcaace954 # 2026.11.02.1
+        uses: SMillerDev/nextcloud-actions/setup-nextcloud-app@9088c021dc5f30e36dba59229d00f601cf35a07f # 2026.11.16.1
         with:
           app: 'news'
           check-code: false
