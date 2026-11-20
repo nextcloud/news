@@ -110,37 +110,6 @@ After some time has passed the timestamp should be close to the current time.
 
 If this did not help, check the logs and open a issue or discussion on GitHub.
 
-#### Outdated Steps
-
-Follow these steps if you are running an older version of News and Nextcloud.
-
-* Check if you are using the system cron (Cron) setting on the admin page. AJAX and Web cron will not update feeds
-* Check if the cronjob exists with `crontab -u www-data -e` (replace www-data with your httpd user)
-* Check the file permissions of the cron.php file and if www-data (or whatever your httpd user is called like) can read and execute that script
-* Check if you can execute the cron with `sudo -u www-data php -f nextcloud/cron.php` (replace www-data with your httpd user)
-* Check your `data/nextcloud.log` for errors
-* Check if the cronjob is ever executed by placing an `error_log('updating');` in the [background job file](https://github.com/nextcloud/news/blob/master/lib/Service/UpdaterService.php#L55). If the cronjob runs, there should be an updating log statement in your httpd log.
-* If there is no updating statement in your logs check if your cronjob is executed by executing a different script
-* Check if the oc_jobs table has a reserved_at entry with a value other than 0. If it does for whatever reason, set it to 0. You can check this by executing:
-
-  ```sql
-  SELECT * from oc_jobs WHERE class LIKE '%News%' ORDER BY id;
-  ```
-
-You will get two rows where column class will be `OCA\News\Cron\Updater` and `OCA\News\Cron\UpdaterJob`.
-
-!!! info
-
-    In newer versions of News (21.x.x) the old job OCA\News\Cron\Updater was removed from the DB.
-
- Reset the reserved_at by executing
-
-  ```sql
-  UPDATE oc_jobs SET reserved_at = 0 WHERE id = <id from above SELECT statement>;
-  ```
-
- If your cron works fine, but Nextcloud's cronjobs are never executed, file a bug in [server](https://github.com/nextcloud/server/)
-
 ### Using External Updater
 
 * Check if your configuration is set to not use the system cron.
