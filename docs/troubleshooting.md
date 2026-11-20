@@ -44,6 +44,95 @@ The only fix for this issue is that feed providers serve their content over HTTP
 
 This is very often caused by missing or old files, e.g. by failing to upload all the News app files or errors during installation. Before you report a bug, please recheck if all files from the archive are in place and accessible.
 
+## Old Items show up in the feed
+
+News does not use the publication date to decide whether an item is new. When a
+feed is added, News downloads the feed file and stores all items it contains.
+During an update it sends the stored `If-Modified-Since` value, if available. A
+feed server can answer with `304 Not Modified`; otherwise News parses every item
+in the returned feed file again, including items with an older publication date.
+Most feeds only return their newest entries, but this is not required.
+
+News identifies an existing item by its GUID within the feed. If the feed does
+not provide a GUID, News uses the item URL instead. For an item that still has
+a database record, News keeps its starred state and handles its read state
+according to the feed's update mode. The default **Keep read status on update**
+keeps an already-read item read when its content changes. Alternatively, **Mark
+as unread on update** makes a changed item unread again. A changed GUID is a
+different item, so the update mode does not apply and News treats it as new.
+Well-behaved feeds use stable GUIDs, so parsing an old entry again normally
+updates nothing.
+
+An older item can appear as new when:
+
+* The feed reuses items without stable GUIDs, or changes their GUIDs or URLs.
+* The old database item was removed by auto purging and the feed now includes it
+  again.
+* An existing item's content changed and the feed is configured to **Mark as
+  unread on update**.
+* The feed is not a normal rolling news feed. It may return a complete archive,
+  a changing historical selection, or old database records selected by the
+  publisher.
+
+Some feeds contain hundreds of historical items with stable GUIDs. This is not
+an error by itself: News processes all entries the publisher returns, regardless
+of their age.
+
+### Debug an affected feed
+
+The following commands require an administrator with shell access. Replace
+`www-data`, `USER`, and `FEED_ID` with the HTTP server user, Nextcloud user ID,
+and News feed ID. You can find the feed ID and URL with:
+
+```bash
+sudo -u www-data php ./occ news:feed:list USER
+```
+
+Temporarily enable Nextcloud debug logging. Note the previous value and restore
+it afterwards because debug logging is verbose and may contain sensitive
+information.
+
+```bash
+sudo -u www-data php ./occ config:system:get loglevel
+sudo -u www-data php ./occ config:system:set loglevel --value=0 --type=integer
+sudo -u www-data php ./occ news:updater:update-feed USER FEED_ID
+```
+
+Check `data/nextcloud.log` for the feed URL around the time of the update.
+Messages include the number of parsed items, items that News considered for
+insertion or update, and a debug message when an item has no GUID and its URL is
+used instead. If the log says that the next update time was not reached, no
+feed download took place; wait for the scheduled update instead.
+
+Compare the affected item's GUID in the source feed with its stored values:
+
+```bash
+sudo -u www-data php ./occ news:item:list-feed USER FEED_ID --limit 100
+```
+
+If the GUID or URL changed, provide the feed URL and the old and new item IDs
+to the feed publisher. News treats a changed GUID as a new item. If the GUID
+stayed the same but the item content changed, use the **Mark as unread on
+update** / **Keep read status on update** toggle to choose whether the item
+should become unread again. If the database no longer contains the item, check
+the auto-purge settings and whether the feed continues to publish items older
+than the purge limit. Do not re-add the feed as a workaround: News will treat
+its current entries as a fresh subscription.
+
+Increasing the **Maximum read count per feed** can prevent this when the same
+GUID is returned but its database record was previously purged. The default is
+200, but News automatically raises the retention floor for an individual feed
+to the largest number of items it has seen in one response. Increasing the
+global limit is therefore mainly useful for old items that remain outside the
+feed for a while and later return. It prevents future purging but cannot undo
+an earlier deletion. It also increases database usage.
+
+If the feed returns old items that News has never stored, a larger auto-purge
+limit will not prevent their first appearance. Contact the publisher if the
+feed unexpectedly serves historical entries. There is no universal
+publication-date cutoff because doing so would hide valid old items from feeds
+that publish historical content.
+
 ## Feeds not updated
 
 Feeds can be updated using Nextcloud's system cron or an external updater via the API. **The feed update is not run in Webcron and AJAX cron mode!**
