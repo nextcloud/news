@@ -37,6 +37,7 @@ class FeedTest extends TestCase
         $feed->setFullTextEnabled(true);
         $feed->setPinned(true);
         $feed->setUpdateMode(1);
+        $feed->setMaxUnreadAge(7);
         $feed->setUpdateErrorCount(2);
         $feed->setLastUpdateError('hi');
         $feed->setBasicAuthUser('user');
@@ -63,7 +64,8 @@ class FeedTest extends TestCase
                 'updateErrorCount' => 2,
                 'lastUpdateError' => 'hi',
                 'items' => [],
-                'nextUpdateTime' => ''
+                'nextUpdateTime' => '',
+                'maxUnreadAge' => 7
             ],
             $feed->toAPI()
         );
@@ -83,6 +85,7 @@ class FeedTest extends TestCase
                 'ordering' => 2,
                 'fullTextEnabled' => true,
                 'updateMode' => 1,
+                'maxUnreadAge' => 7,
                 'isPinned' => true,
                 'error' => [
                     'code' => 1,
@@ -120,6 +123,7 @@ class FeedTest extends TestCase
             'fullTextEnabled' => true,
             'pinned' => true,
             'updateMode' => 1,
+            'maxUnreadAge' => 7,
             'updateErrorCount' => 2,
             'lastUpdateError' => 'hi',
             'basicAuthUser' => 'user',

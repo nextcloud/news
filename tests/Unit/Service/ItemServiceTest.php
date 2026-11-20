@@ -458,6 +458,43 @@ class ItemServiceTest extends TestCase
         $this->assertEquals($item, $result);
     }
 
+    public function testUnreadAgeClassification()
+    {
+        $oldItem = new Item();
+        $oldItem->setPubDate(time() - (8 * 86400));
+        $recentItem = new Item();
+        $recentItem->setPubDate(time() - (2 * 86400));
+        $missingDateItem = new Item();
+        $missingDateItem->setPubDate(0);
+
+        $this->assertTrue($this->class->isOlderThanUnreadAge($oldItem, 7));
+        $this->assertFalse($this->class->isOlderThanUnreadAge($recentItem, 7));
+        $this->assertFalse($this->class->isOlderThanUnreadAge($missingDateItem, 7));
+        $this->assertFalse($this->class->isOlderThanUnreadAge($oldItem, 0));
+    }
+
+    public function testInsertOrUpdateMarksOldItemRead()
+    {
+        $item = new Item();
+        $item->setUnread(true);
+        $item->setPubDate(time() - (8 * 86400));
+        $item->setFeedId(1);
+        $item->setGuidHash('old');
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'old')
+            ->will($this->throwException(new DoesNotExistException('exception')));
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($item)
+            ->will($this->returnValue($item));
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_NORMAL, 7);
+
+        $this->assertFalse($result->isUnread());
+    }
+
     public function testInsertOrUpdateUpdates()
     {
         $item = $this->getMockBuilder(Item::class)

@@ -64,7 +64,7 @@ export class FeedService {
 	 * @param param0.title {String} title of feed to display
 	 * @return Null value is returned on success
 	 */
-	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode, preventUpdate, title }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE, preventUpdate?: boolean, title?: string }): Promise<AxiosResponse> {
+	static updateFeed({ feedId, pinned, ordering, fullTextEnabled, updateMode, preventUpdate, title, maxUnreadAge }: { feedId: number, pinned?: boolean, ordering?: FEED_ORDER, fullTextEnabled?: boolean, updateMode?: FEED_UPDATE_MODE, preventUpdate?: boolean, title?: string, maxUnreadAge?: number }): Promise<AxiosResponse> {
 		return axios.patch(API_ROUTES.FEED + `/${feedId}`, {
 			pinned,
 			ordering,
@@ -72,6 +72,7 @@ export class FeedService {
 			updateMode,
 			preventUpdate,
 			title,
+			maxUnreadAge,
 		})
 	}
 

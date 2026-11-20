@@ -81,14 +81,31 @@ class ItemServiceV2 extends Service
 
     /**
      * Insert an item or update.
+     */
+    public function isOlderThanUnreadAge(Item $item, int $maxUnreadAge): bool
+    {
+        $pubDate = $item->getPubDate();
+        if ($maxUnreadAge <= 0 || $pubDate === null || $pubDate <= 0) {
+            return false;
+        }
+
+        return $pubDate < time() - ($maxUnreadAge * 86400);
+    }
+
+    /**
+     * Insert an item or update.
      *
      * @param Item $item
      * @param int $updateMode
      *
      * @return Entity|Item The updated/inserted item
      */
-    public function insertOrUpdate(Item $item, int $updateMode): Entity
+    public function insertOrUpdate(Item $item, int $updateMode, int $maxUnreadAge = 0): Entity
     {
+        if ($maxUnreadAge > 0 && $this->isOlderThanUnreadAge($item, $maxUnreadAge)) {
+            $item->setUnread(false);
+        }
+
         try {
             /** @var Item $db_item */
             $db_item = $this->findByGuidHash($item->getFeedId(), $item->getGuidHash());
@@ -96,6 +113,9 @@ class ItemServiceV2 extends Service
             // Keep unread state when configured in feed settings
             if ($updateMode === FEED::UPDATE_MODE_SILENT) {
                 $item->setUnread($db_item->isUnread());
+            }
+            if ($maxUnreadAge > 0 && $this->isOlderThanUnreadAge($item, $maxUnreadAge)) {
+                $item->setUnread(false);
             }
             // Transfer user modifications
             $item->setStarred($db_item->isStarred())

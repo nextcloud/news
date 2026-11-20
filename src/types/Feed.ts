@@ -14,6 +14,7 @@ export type Feed = {
 	ordering: FEED_ORDER
 	fullTextEnabled: boolean
 	updateMode: FEED_UPDATE_MODE
+	maxUnreadAge: number
 	updateErrorCount: number
 	lastUpdateError: string
 	location: string

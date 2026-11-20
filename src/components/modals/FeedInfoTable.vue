@@ -142,6 +142,7 @@
 					<col style="width: 170px;">
 					<col style="width: 160px;">
 					<col style="width: 160px;">
+					<col style="width: 100px;">
 					<col style="width: 70px;">
 					<col style="width: 70px;">
 				</colgroup>
@@ -157,7 +158,7 @@
 								class="table-select-checkbox"
 								@update:modelValue="toggleSelectAllByValue" />
 						</th>
-						<th colspan="9" class="selection-header-cell">
+						<th colspan="10" class="selection-header-cell">
 							<div class="selection-header-content">
 								<strong>{{ t('news', 'Selected feeds') }}: {{ selectedFeedIds.length }}</strong>
 								<NcButton
@@ -245,6 +246,11 @@
 									<SortDescIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder !== 1" :size="20" />
 								</span>
 								APU
+							</span>
+						</th>
+						<th :title="t('news', 'Maximum age for unread items')">
+							<span class="column-title">
+								{{ t('news', 'Unread age') }}
 							</span>
 						</th>
 						<th
@@ -361,6 +367,15 @@
 						</td>
 						<td class="number">
 							{{ feed.articlesPerUpdate }}
+						</td>
+						<td class="number">
+							<input
+								type="number"
+								min="0"
+								step="1"
+								:value="feed.maxUnreadAge || 0"
+								:aria-label="t('news', 'Maximum age for unread items')"
+								@change="setMaxUnreadAge(feed, $event)" />
 						</td>
 						<td class="number" :title="feed.lastUpdateError">
 							{{ feed.updateErrorCount }}
@@ -677,6 +692,12 @@ export default {
 
 		setFullText(feed, fullTextEnabled) {
 			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed, fullTextEnabled })
+		},
+
+		setMaxUnreadAge(feed, event) {
+			const maxUnreadAge = Math.max(0, parseInt(event.target.value, 10) || 0)
+			event.target.value = String(maxUnreadAge)
+			this.$store.dispatch(ACTIONS.FEED_SET_MAX_UNREAD_AGE, { feed, maxUnreadAge })
 		},
 
 		async openFilterDialog(feed) {
