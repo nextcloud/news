@@ -78,6 +78,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     /** @var int */
     protected $updateMode = 0;
     /** @var int */
+    protected $maxUnreadAge = 0;
+    /** @var int */
     protected $updateErrorCount = 0;
     /** @var string|null */
     protected $lastUpdateError = '';
@@ -112,6 +114,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
         $this->addType('fullTextEnabled', 'boolean');
         $this->addType('pinned', 'boolean');
         $this->addType('updateMode', 'integer');
+        $this->addType('maxUnreadAge', 'integer');
         $this->addType('updateErrorCount', 'integer');
         $this->addType('lastUpdateError', 'string');
         $this->addType('basicAuthUser', 'string');
@@ -280,6 +283,14 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
+     * Maximum age of unread items in days. Zero disables the limit.
+     */
+    public function getMaxUnreadAge(): int
+    {
+        return $this->maxUnreadAge;
+    }
+
+    /**
      * @return string
      */
     public function getUrl(): string
@@ -348,6 +359,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'fullTextEnabled',
             'pinned',
             'updateMode',
+            'maxUnreadAge',
             'updateErrorCount',
             'lastUpdateError',
             'basicAuthUser',
@@ -642,6 +654,20 @@ class Feed extends Entity implements IAPI, \JsonSerializable
     }
 
     /**
+     * @param int $maxUnreadAge Maximum age in days, or zero to disable
+     */
+    public function setMaxUnreadAge(int $maxUnreadAge): Feed
+    {
+        $maxUnreadAge = max(0, $maxUnreadAge);
+        if ($this->maxUnreadAge !== $maxUnreadAge) {
+            $this->maxUnreadAge = $maxUnreadAge;
+            $this->markFieldUpdated('maxUnreadAge');
+        }
+
+        return $this;
+    }
+
+    /**
      * @param string $url
      */
     public function setUrl(string $url): Feed
@@ -710,7 +736,8 @@ class Feed extends Entity implements IAPI, \JsonSerializable
                 'updateErrorCount',
                 'lastUpdateError',
                 'items',
-                'nextUpdateTime'
+                'nextUpdateTime',
+                'maxUnreadAge'
             ]
         );
     }
@@ -725,6 +752,7 @@ class Feed extends Entity implements IAPI, \JsonSerializable
             'ordering' => $this->getOrdering(),
             'fullTextEnabled' => $this->getFullTextEnabled(),
             'updateMode' => $this->getUpdateMode(),
+            'maxUnreadAge' => $this->getMaxUnreadAge(),
             'isPinned' => $this->getPinned(),
             'nextUpdateTime' => $this->getNextUpdateTime(),
         ];

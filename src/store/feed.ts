@@ -19,6 +19,7 @@ export const FEED_ACTION_TYPES = {
 	FEED_SET_ORDERING: 'FEED_SET_ORDERING',
 	FEED_SET_FULL_TEXT: 'FEED_SET_FULL_TEXT',
 	FEED_SET_UPDATE_MODE: 'FEED_SET_UPDATE_MODE',
+	FEED_SET_MAX_UNREAD_AGE: 'FEED_SET_MAX_UNREAD_AGE',
 	FEED_SET_TITLE: 'FEED_SET_TITLE',
 
 	FEED_GET_FILTER: 'FEED_GET_FILTER',
@@ -187,6 +188,15 @@ export const actions = {
 		await FeedService.updateFeed({ feedId: feed.id as number, updateMode })
 
 		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, updateMode })
+	},
+
+	async [FEED_ACTION_TYPES.FEED_SET_MAX_UNREAD_AGE](
+		{ commit }: ActionParams<FeedState>,
+		{ feed, maxUnreadAge }: { feed: Feed, maxUnreadAge: number },
+	) {
+		await FeedService.updateFeed({ feedId: feed.id as number, maxUnreadAge })
+
+		commit(FEED_MUTATION_TYPES.UPDATE_FEED, { id: feed.id, maxUnreadAge })
 	},
 
 	async [FEED_ACTION_TYPES.FEED_SET_TITLE](

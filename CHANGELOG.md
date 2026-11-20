@@ -6,6 +6,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 
 # Unreleased
 ### Added
+- Add per-feed maximum ages for unread items.
 
 ### Changed
 - Require PHP 8.4 or later.

@@ -407,7 +407,9 @@ class FeedServiceV2 extends Service
 
         $feedId = $feed->getId();
         $updateMode = $feed->getUpdateMode();
+        $maxUnreadAge = $feed->getMaxUnreadAge();
         $userId = $feed->getUserId();
+        $storedItems = [];
 
         // Load and compile filter once before processing items.
         $filter = $this->filterService->findByFeedId($userId, $feedId);
@@ -431,7 +433,19 @@ class FeedServiceV2 extends Service
                 $filteredCount++;
             }
 
-            $item = $this->itemService->insertOrUpdate($item, $updateMode);
+            $item = $this->itemService->insertOrUpdate($item, $updateMode, $maxUnreadAge);
+        }
+
+        if ($maxUnreadAge > 0) {
+            $storedItems = $this->itemService->findAllInFeed($userId, $feedId);
+            foreach ($storedItems as $storedItem) {
+                if ($storedItem->isUnread()
+                    && $this->itemService->isOlderThanUnreadAge($storedItem, $maxUnreadAge)
+                ) {
+                    $this->itemService->read($userId, $storedItem->getId(), true);
+                    $storedItem->setUnread(false);
+                }
+            }
         }
 
         if ($filteredCount > 0) {
@@ -446,14 +460,22 @@ class FeedServiceV2 extends Service
         $feed->setLastUpdateError(null);
 
         $unreadCount = 0;
-        array_map(
-            function (Item $item) use (&$unreadCount): void {
-                if ($item->isUnread()) {
+        if ($maxUnreadAge > 0) {
+            foreach ($storedItems as $storedItem) {
+                if ($storedItem->isUnread()) {
                     $unreadCount++;
                 }
-            },
-            $items
-        );
+            }
+        } else {
+            array_map(
+                function (Item $item) use (&$unreadCount): void {
+                    if ($item->isUnread()) {
+                        $unreadCount++;
+                    }
+                },
+                $items
+            );
+        }
 
         return $this->mapper->update($feed)->setUnreadCount($unreadCount);
     }
