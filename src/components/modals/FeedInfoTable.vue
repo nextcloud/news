@@ -6,467 +6,329 @@
 	<MoveFeed
 		v-if="showMoveFeed"
 		:feeds="feedsToMove"
-		@close="closeMoveFeed()" />
+		@close="closeMoveFeed" />
+	<FeedSettingsDialog
+		v-if="configuredFeed"
+		:feed="configuredFeed"
+		@move="openMoveFeed"
+		@close="closeFeedConfiguration" />
 	<NcModal
+		v-if="!configuredFeed && !showMoveFeed"
 		size="large"
 		labelId="feed-settings-dialog"
-		:closeOnClickOutside="true"
+		:closeOnClickOutside="false"
 		@close="$emit('close')">
 		<div class="table-modal">
-			<div class="modal-header">
-				<h2 id="feed-settings-dialog">
-					{{ t('news', 'Feed settings') }}
-				</h2>
-			</div>
-			<table>
-				<tbody>
-					<tr>
-						<td>
-							{{ t('news', 'Last update') }}:
-						</td>
-						<td>
-							{{ t('news', 'Time when the feed was last downloaded or modified') }}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							{{ t('news', 'Next update') }}:
-						</td>
-						<td>
-							{{ t('news', 'Time when the next feed update will be done') }}<br>
-							({{ t('news', 'Only if activated in the admin settings, otherwise the regular update interval is used') }})
-						</td>
-					</tr>
-					<tr>
-						<td>
-							APU ({{ t('news', 'Articles per update') }}):
-						</td>
-						<td>
-							{{ t('news', 'Maximum number of articles reached in a feed update') }}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							EC ({{ t('news', 'Error Count') }}):
-						</td>
-						<td>
-							{{ t('news', 'Number of errors that have occurred since the last successful feed update') }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<table>
-				<tbody>
-					<tr>
-						<th colspan="4">
-							{{ t('news', 'Feed fetch options') }}
-						</th>
-					</tr>
-					<tr>
-						<td>
-							<Sync />
-						</td>
-						<td>
-							{{ t('news', 'Feed update is enabled') }}
-						</td>
-						<td>
-							<SyncOff />
-						</td>
-						<td>
-							{{ t('news', 'Feed update is disabled') }}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<FileDocumentCheck />
-						</td>
-						<td>
-							{{ t('news', 'Keep read status on update') }}
-						</td>
-						<td>
-							<FileDocumentRefresh />
-						</td>
-						<td>
-							{{ t('news', 'Mark as unread on update') }}
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<TextShortIcon />
-						</td>
-						<td>
-							{{ t('news', 'Use article text provided by the feed') }}
-						</td>
-						<td>
-							<TextLongIcon />
-						</td>
-						<td>
-							{{ t('news', 'Scrape web version of the article text') }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<NcNoteCard type="info">
-				{{ t('news', 'Please note that web scraping may be blocked by some providers and is generally discouraged.') }}
-			</NcNoteCard>
+			<header class="modal-header">
+				<div class="modal-heading">
+					<div>
+						<h2 id="feed-settings-dialog">
+							{{ t('news', 'Feed settings') }}
+						</h2>
+						<p>{{ t('news', 'Manage updates, reading behavior, and filters for your subscriptions.') }}</p>
+					</div>
+					<span class="feed-count">
+						{{ feeds.length === 1 ? t('news', '1 feed') : t('news', '{count} feeds', { count: feeds.length }) }}
+					</span>
+				</div>
+			</header>
+
 			<NcNoteCard v-if="loading" type="info" data-test="loadingMessage">
 				<div class="loading-message">
-					<NcLoadingIcon size="24" />
-					<strong>{{ t('news', 'Loading feeds') }}...{{ t('news', 'Please wait') }}</strong>
+					<NcLoadingIcon :size="24" />
+					<strong>{{ t('news', 'Loading feeds') }}... {{ t('news', 'Please wait') }}</strong>
 				</div>
 			</NcNoteCard>
-			<table>
-				<tbody>
-					<tr>
-						<th colspan="4">
-							{{ t('news', 'Keyword filters') }}
-						</th>
-					</tr>
-					<tr>
-						<td>
-							<FilterIcon />
-						</td>
-						<td colspan="3">
-							{{ t('news', 'Hide articles that match comma-separated keywords (case-insensitive) in the title, body, or URL') }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<table ref="feedsTable" class="feeds-table" :style="feedsTableStyle">
-				<colgroup>
-					<col style="width: 36px;">
-					<col style="width: 64px;">
-					<col style="width: 44px;">
-					<col style="width: 180px;">
-					<col style="width: 260px;">
-					<col style="width: 170px;">
-					<col style="width: 160px;">
-					<col style="width: 160px;">
-					<col style="width: 70px;">
-					<col style="width: 70px;">
-				</colgroup>
-				<thead>
-					<tr v-if="hasSelectedFeeds" class="selection-header-row">
-						<th class="select-column">
-							<NcCheckboxRadioSwitch
-								:modelValue="allSelected"
-								:indeterminate="isPartiallySelected"
-								data-test="selectAllFeeds"
-								:aria-label="t('news', 'Select all feeds')"
-								:disabled="processingBatch || sortedFeeds.length === 0"
-								class="table-select-checkbox"
-								@update:modelValue="toggleSelectAllByValue" />
-						</th>
-						<th colspan="9" class="selection-header-cell">
-							<div class="selection-header-content">
-								<strong>{{ t('news', 'Selected feeds') }}: {{ selectedFeedIds.length }}</strong>
-								<NcButton
-									:disabled="!canMoveSelected"
-									data-test="moveSelectedFeeds"
-									@click="openMoveSelectedFeedsDialog">
-									{{ t('news', 'Move selected') }}
-								</NcButton>
-								<NcButton
-									:disabled="!canDeleteSelected"
-									data-test="deleteSelectedFeeds"
-									@click="deleteSelectedFeeds">
-									{{ t('news', 'Delete selected') }}
-								</NcButton>
-							</div>
-						</th>
-					</tr>
-					<tr v-else>
-						<th class="select-column">
-							<NcCheckboxRadioSwitch
-								:modelValue="allSelected"
-								:indeterminate="isPartiallySelected"
-								data-test="selectAllFeeds"
-								:aria-label="t('news', 'Select all feeds')"
-								:disabled="processingBatch || sortedFeeds.length === 0"
-								class="table-select-checkbox"
-								@update:modelValue="toggleSelectAllByValue" />
-						</th>
-						<th @click="sortBy('id')">
-							<span class="column-title">
-								<div class="sort-icon">
-									<SortAscIcon v-show="sortKey === 'id' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-show="sortKey === 'id' && sortOrder !== 1" :size="20" />
-								</div>
-								ID
-							</span>
-						</th>
-						<th colspan="2">
-							<span class="column-title">
-								{{ t('news', 'Options') }}
-							</span>
-						</th>
-						<th @click="sortBy('title')">
-							<span class="column-title">
-								<span class="sort-icon">
-									<SortAscIcon v-show="sortKey === 'title' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-show="sortKey === 'title' && sortOrder !== 1" :size="20" />
-								</span>
-								{{ t('news', 'Title') }}
-							</span>
-						</th>
-						<th @click="sortBy('folderId')">
-							<span class="column-title">
-								<span class="sort-icon">
-									<SortAscIcon v-show="sortKey === 'folderId' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-show="sortKey === 'folderId' && sortOrder !== 1" :size="20" />
-								</span>
-								{{ t('news', 'Folder') }}
-							</span>
-						</th>
-						<th @click="sortBy('lastModified')">
-							<span class="column-title">
-								<span class="sort-icon">
-									<SortAscIcon v-show="sortKey === 'lastModified' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-show="sortKey === 'lastModified' && sortOrder !== 1" :size="20" />
-								</span>
-								{{ t('news', 'Last update') }}
-							</span>
-						</th>
-						<th @click="sortBy('nextUpdateTime')">
-							<span class="column-title">
-								<span class="sort-icon">
-									<SortAscIcon v-show="sortKey === 'nextUpdateTime' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-show="sortKey === 'nextUpdateTime' && sortOrder !== 1" :size="20" />
-								</span>
-								{{ t('news', 'Next update') }}
-							</span>
-						</th>
-						<th
-							:title="t('news', 'Articles per update')"
-							@click="sortBy('articlesPerUpdate')">
-							<span class="column-title">
-								<span class="sort-icon">
-									<SortAscIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-show="sortKey === 'articlesPerUpdate' && sortOrder !== 1" :size="20" />
-								</span>
-								APU
-							</span>
-						</th>
-						<th
-							:title="t('news', 'Error Count') "
-							@click="sortBy('updateErrorCount')">
-							<span class="column-title">
-								<span class="sort-icon">
-									<SortAscIcon v-if="sortKey === 'updateErrorCount' && sortOrder === 1" :size="20" />
-									<SortDescIcon v-if="sortKey === 'updateErrorCount' && sortOrder !== 1" :size="20" />
-								</span>
-								EC
-							</span>
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="feed in sortedFeeds" :key="feed.id">
-						<td class="select-column">
-							<NcCheckboxRadioSwitch
-								v-model="selectedFeedIds"
-								:value="String(feed.id)"
-								:disabled="processingBatch"
-								:aria-label="t('news', 'Select feed {feed}', { feed: feed.title || String(feed.id) })"
-								:data-test="'selectFeed-' + feed.id"
-								class="table-select-checkbox" />
-						</td>
-						<td class="number">
-							{{ feed.id }}
-						</td>
-						<td>
-							<NcActions>
-								<SidebarFeedLinkActions
-									:feedId="feed.id"
-									@openMoveDialog="openMoveFeed(feed)" />
-							</NcActions>
-						</td>
-						<td>
-							<NcActions :inline="4" :data-test="'feedOptions-' + feed.id">
-								<NcActionButton
-									v-if="feed.preventUpdate"
-									:title="t('news', 'Enable feed update')"
-									data-test="enableFeedUpdate"
-									@click="setPreventUpdate(feed, false)">
-									<template #icon>
-										<SyncOff />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="!feed.preventUpdate"
-									:title="t('news', 'Disable feed update')"
-									data-test="disableFeedUpdate"
-									@click="setPreventUpdate(feed, true)">
-									<template #icon>
-										<Sync />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="feed.updateMode === FEED_UPDATE_MODE.NORMAL"
-									:title="t('news', 'Disable marking items as unread on update')"
-									data-test="disableMarkUnread"
-									@click="setUpdateMode(feed, FEED_UPDATE_MODE.SILENT)">
-									<template #icon>
-										<FileDocumentRefresh />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="feed.updateMode === FEED_UPDATE_MODE.SILENT"
-									:title="t('news', 'Enable marking items as unread on update')"
-									data-test="enableMarkUnread"
-									@click="setUpdateMode(feed, FEED_UPDATE_MODE.NORMAL)">
-									<template #icon>
-										<FileDocumentCheck />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="!feed.fullTextEnabled"
-									:title="t('news', 'Enable web scraping')"
-									data-test="enableScraping"
-									@click="setFullText(feed, true)">
-									<template #icon>
-										<TextShortIcon />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="feed.fullTextEnabled"
-									:title="t('news', 'Disable web scraping')"
-									data-test="disableScraping"
-									@click="setFullText(feed, false)">
-									<template #icon>
-										<TextLongIcon />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									:title="t('news', 'Keyword filters')"
-									@click="openFilterDialog(feed)">
-									<template #icon>
-										<FilterIcon v-if="feed.hasFilter" />
-										<FilterOffIcon v-else />
-									</template>
-								</NcActionButton>
-							</NcActions>
-						</td>
-						<td class="text">
-							{{ feed.title }}
-						</td>
-						<td class="text">
-							{{ folderName(feed) }}
-						</td>
-						<td class="date">
-							{{ formatDate(feed.lastModified / 1000000) }}
-						</td>
-						<td class="date">
-							{{ feed.nextUpdateTime && !feed.preventUpdate ? formatDate(feed.nextUpdateTime) : t('news', 'Not available') }}
-						</td>
-						<td class="number">
-							{{ feed.articlesPerUpdate }}
-						</td>
-						<td class="number" :title="feed.lastUpdateError">
-							{{ feed.updateErrorCount }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<NcModal
-			v-if="filterFeed"
-			labelId="feed-filter-dialog"
-			size="small"
-			@close="closeFilterDialog()">
-			<div class="filter-dialog">
-				<h3 id="feed-filter-dialog">
-					{{ t('news', 'Keyword Filters for {feed}', { feed: filterFeed.title }) }}
-				</h3>
-				<p class="filter-help-text">
-					{{ t('news', 'Matching is case-insensitive. Title and body keywords match whole words, while URL keywords match URL fragments.') }}
-				</p>
-				<NcNoteCard v-if="filterDialogError" type="error">
-					{{ filterDialogError }}
-				</NcNoteCard>
 
-				<div class="filter-inputs">
-					<NcTextField
-						id="filter-title-keywords"
-						v-model:modelValue="filterForm.titleKeywords"
-						:label="t('news', 'Title keywords')"
-						:placeholder="t('news', 'e.g. android, ios')" />
-					<NcTextField
-						id="filter-body-keywords"
-						v-model:modelValue="filterForm.bodyKeywords"
-						:label="t('news', 'Body keywords')"
-						:placeholder="t('news', 'e.g. advertisement')" />
-
-					<NcTextField
-						id="filter-url-keywords"
-						v-model:modelValue="filterForm.urlKeywords"
-						:label="t('news', 'URL keywords')"
-						:placeholder="t('news', 'e.g. /sport/')" />
-				</div>
-
-				<div class="filter-actions">
-					<NcButton :disabled="filterDialogSaving" @click="saveFilter()">
-						{{ t('news', 'Save') }}
+			<section v-if="hasSelectedFeeds" class="bulk-toolbar" data-test="bulkToolbar">
+				<div class="selection-summary">
+					<NcButton
+						variant="tertiary"
+						:aria-label="t('news', 'Clear selection')"
+						@click="selectedFeedIds = []">
+						<template #icon>
+							<CloseIcon />
+						</template>
 					</NcButton>
-					<NcButton :disabled="filterDialogSaving" @click="clearFilter()">
-						{{ t('news', 'Clear') }}
+					<strong>{{ t('news', '{count} selected', { count: selectedFeedIds.length }) }}</strong>
+				</div>
+				<div class="bulk-actions">
+					<NcButton :disabled="processingBatch" data-test="enableSelectedFeeds" @click="bulkSetPreventUpdate(false)">
+						{{ t('news', 'Enable') }}
+					</NcButton>
+					<NcButton :disabled="processingBatch" data-test="disableSelectedFeeds" @click="bulkSetPreventUpdate(true)">
+						{{ t('news', 'Disable') }}
+					</NcButton>
+					<NcButton :disabled="!canMoveSelected" data-test="moveSelectedFeeds" @click="openMoveSelectedFeedsDialog">
+						{{ t('news', 'Move to folder') }}
+					</NcButton>
+					<NcActions
+						:menuName="t('news', 'Mark read policy')"
+						:disabled="processingBatch"
+						:forceMenu="true"
+						data-test="bulkReadPolicy">
+						<NcActionButton :closeAfterClick="true" @click="bulkSetUpdateMode(FEED_UPDATE_MODE.SILENT)">
+							{{ t('news', 'Keep read status on update') }}
+						</NcActionButton>
+						<NcActionButton :closeAfterClick="true" @click="bulkSetUpdateMode(FEED_UPDATE_MODE.NORMAL)">
+							{{ t('news', 'Mark as unread on update') }}
+						</NcActionButton>
+					</NcActions>
+					<NcButton
+						variant="error"
+						:disabled="!canDeleteSelected"
+						data-test="deleteSelectedFeeds"
+						@click="deleteSelectedFeeds">
+						{{ t('news', 'Delete') }}
+					</NcButton>
+				</div>
+			</section>
+
+			<section v-else class="filter-toolbar">
+				<NcTextField
+					v-model:modelValue="searchQuery"
+					class="feed-search"
+					:label="t('news', 'Search feeds')"
+					:placeholder="t('news', 'Search by title or URL')" />
+				<NcSelect
+					v-model="folderFilter"
+					class="folder-filter"
+					:options="folderOptions"
+					trackBy="value"
+					label="label"
+					:clearable="false"
+					:searchable="false"
+					:inputLabel="t('news', 'Filter by folder')" />
+				<NcCheckboxRadioSwitch
+					type="switch"
+					:modelValue="errorsOnly"
+					:disabled="errorFeedCount === 0"
+					:aria-label="t('news', 'Filter feeds with errors')"
+					data-test="errorsOnly"
+					class="errors-filter"
+					@update:modelValue="errorsOnly = $event">
+					<span>{{ t('news', 'Feeds with errors') }}</span>
+					<NcCounterBubble v-if="errorFeedCount > 0" :count="errorFeedCount" />
+				</NcCheckboxRadioSwitch>
+			</section>
+
+			<div class="table-container">
+				<table class="feeds-table">
+					<thead>
+						<tr>
+							<th class="select-column">
+								<NcCheckboxRadioSwitch
+									:modelValue="allSelected"
+									:indeterminate="isPartiallySelected"
+									:aria-label="t('news', 'Select all visible feeds')"
+									:disabled="processingBatch || sortedFeeds.length === 0"
+									data-test="selectAllFeeds"
+									class="table-select-checkbox"
+									@update:modelValue="toggleSelectAllByValue" />
+							</th>
+							<th>
+								<button type="button" class="sort-button" @click="sortBy('title')">
+									{{ t('news', 'Title') }}
+									<SortAscIcon v-if="sortKey === 'title' && sortOrder === 1" :size="18" />
+									<SortDescIcon v-else-if="sortKey === 'title'" :size="18" />
+								</button>
+							</th>
+							<th class="folder-column">
+								<button type="button" class="sort-button" @click="sortBy('folderId')">
+									{{ t('news', 'Folder') }}
+									<SortAscIcon v-if="sortKey === 'folderId' && sortOrder === 1" :size="18" />
+									<SortDescIcon v-else-if="sortKey === 'folderId'" :size="18" />
+								</button>
+							</th>
+							<th class="update-column">
+								<span :title="t('news', 'Time when the feed was last downloaded or modified. Hover over a date for the next update and article limit.')">
+									{{ t('news', 'Last update') }}
+								</span>
+							</th>
+							<th class="errors-column">
+								<span :title="t('news', 'Number of errors since the last successful feed update')">
+									{{ t('news', 'Errors') }}
+								</span>
+							</th>
+							<th class="quick-column">
+								{{ t('news', 'Quick toggles') }}
+							</th>
+							<th class="configure-column">
+								<span class="visually-hidden">{{ t('news', 'Actions') }}</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							v-for="feed in sortedFeeds"
+							:key="feed.id"
+							:class="{ selected: isFeedSelected(feed) }">
+							<td class="select-column">
+								<NcCheckboxRadioSwitch
+									v-model="selectedFeedIds"
+									:value="String(feed.id)"
+									:disabled="processingBatch"
+									:aria-label="t('news', 'Select feed {feed}', { feed: feed.title || String(feed.id) })"
+									:data-test="'selectFeed-' + feed.id"
+									class="table-select-checkbox" />
+							</td>
+							<td class="feed-title-cell">
+								<button type="button" class="feed-title" @click="openFeedConfiguration(feed)">
+									<span class="feed-initial">{{ (feed.title || '?').charAt(0).toUpperCase() }}</span>
+									<span class="feed-title-text">
+										<strong>{{ feed.title }}</strong>
+										<small>{{ displayFeedUrl(feed) }}</small>
+									</span>
+								</button>
+							</td>
+							<td class="folder-column">
+								<span v-if="folderName(feed)" class="folder-pill">
+									<FolderIcon :size="16" />
+									{{ folderName(feed) }}
+								</span>
+								<span v-else class="muted">{{ t('news', 'No folder') }}</span>
+							</td>
+							<td class="update-column">
+								<div
+									class="update-status"
+									:title="updateDetails(feed)">
+									<strong>{{ formatDate(feed.lastModified / 1000000) }}</strong>
+									<small>{{ t('news', 'Articles in last update: {count}', { count: feed.articlesPerUpdate }) }}</small>
+								</div>
+							</td>
+							<td class="errors-column" :title="feed.lastUpdateError || undefined">
+								<span v-if="feed.updateErrorCount > 0" class="error-badge">
+									<AlertCircleIcon :size="14" />
+									{{ feed.updateErrorCount }}
+								</span>
+								<span v-else class="muted">0</span>
+							</td>
+							<td class="quick-column">
+								<div class="quick-toggles">
+									<NcButton
+										variant="tertiary"
+										:pressed="!feed.preventUpdate"
+										:aria-label="updateToggleLabel(feed)"
+										:title="updateToggleLabel(feed)"
+										:class="{ 'is-active': !feed.preventUpdate }"
+										data-test="toggleFeedUpdate"
+										@click="setPreventUpdate(feed, !feed.preventUpdate)">
+										<template #icon>
+											<SyncIcon />
+										</template>
+									</NcButton>
+									<NcButton
+										variant="tertiary"
+										:pressed="feed.updateMode === FEED_UPDATE_MODE.SILENT"
+										:aria-label="readPolicyLabel(feed)"
+										:title="readPolicyLabel(feed)"
+										:class="{ 'is-active': feed.updateMode === FEED_UPDATE_MODE.SILENT }"
+										data-test="toggleReadPolicy"
+										@click="setUpdateMode(feed, feed.updateMode === FEED_UPDATE_MODE.SILENT ? FEED_UPDATE_MODE.NORMAL : FEED_UPDATE_MODE.SILENT)">
+										<template #icon>
+											<FileDocumentCheckIcon />
+										</template>
+									</NcButton>
+									<NcButton
+										variant="tertiary"
+										:pressed="feed.fullTextEnabled"
+										:aria-label="scrapingLabel(feed)"
+										:title="scrapingLabel(feed)"
+										:class="{ 'is-active': feed.fullTextEnabled }"
+										data-test="toggleScraping"
+										@click="setFullText(feed, !feed.fullTextEnabled)">
+										<template #icon>
+											<TextBoxSearchIcon />
+										</template>
+									</NcButton>
+								</div>
+							</td>
+							<td class="configure-column">
+								<NcButton @click="openFeedConfiguration(feed)">
+									<template #icon>
+										<TuneIcon />
+									</template>
+									{{ t('news', 'Configure') }}
+								</NcButton>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div v-if="sortedFeeds.length === 0 && !loading" class="empty-state">
+					<MagnifyIcon :size="36" />
+					<h3>{{ t('news', 'No matching feeds found') }}</h3>
+					<p>{{ t('news', 'Try changing or clearing the current filters.') }}</p>
+					<NcButton variant="primary" @click="resetFilters">
+						{{ t('news', 'Reset filters') }}
 					</NcButton>
 				</div>
 			</div>
-		</NcModal>
+		</div>
 	</NcModal>
 </template>
 
-<script>
+<script lang="ts">
+import type { Feed } from '../../types/Feed.ts'
+
 import { showError } from '@nextcloud/dialogs'
-import { mapState } from 'vuex'
+import { defineComponent } from 'vue'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcCounterBubble from '@nextcloud/vue/components/NcCounterBubble'
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
-import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
-import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
-import FilterIcon from 'vue-material-design-icons/Filter.vue'
-import FilterOffIcon from 'vue-material-design-icons/FilterOff.vue'
+import AlertCircleIcon from 'vue-material-design-icons/AlertCircle.vue'
+import CloseIcon from 'vue-material-design-icons/Close.vue'
+import FileDocumentCheckIcon from 'vue-material-design-icons/FileDocumentCheck.vue'
+import FolderIcon from 'vue-material-design-icons/Folder.vue'
+import MagnifyIcon from 'vue-material-design-icons/Magnify.vue'
 import SortAscIcon from 'vue-material-design-icons/SortAscending.vue'
 import SortDescIcon from 'vue-material-design-icons/SortDescending.vue'
-import Sync from 'vue-material-design-icons/Sync.vue'
-import SyncOff from 'vue-material-design-icons/SyncOff.vue'
-import TextLongIcon from 'vue-material-design-icons/TextLong.vue'
-import TextShortIcon from 'vue-material-design-icons/TextShort.vue'
+import SyncIcon from 'vue-material-design-icons/Sync.vue'
+import TextBoxSearchIcon from 'vue-material-design-icons/TextBoxSearch.vue'
+import TuneIcon from 'vue-material-design-icons/Tune.vue'
 import MoveFeed from '../MoveFeed.vue'
-import SidebarFeedLinkActions from '../SidebarFeedLinkActions.vue'
+import FeedSettingsDialog from './FeedSettingsDialog.vue'
 import { FEED_UPDATE_MODE } from '../../enums/index.ts'
 import { ACTIONS } from '../../store/index.ts'
 import { formatDate } from '../../utils/dateUtils.ts'
 
-export default {
-	name: 'FeedInfoTable',
+type FeedWithMetadata = Feed & {
+	lastModified: number
+	nextUpdateTime: number
+	articlesPerUpdate: number
+}
+
+export default defineComponent({
 	components: {
 		NcActions,
 		NcActionButton,
-		NcLoadingIcon,
 		NcButton,
 		NcCheckboxRadioSwitch,
+		NcCounterBubble,
+		NcLoadingIcon,
 		NcModal,
 		NcNoteCard,
+		NcSelect,
 		NcTextField,
-		MoveFeed,
-		SidebarFeedLinkActions,
-		FileDocumentRefresh,
-		FileDocumentCheck,
+		AlertCircleIcon,
+		CloseIcon,
+		FileDocumentCheckIcon,
+		FolderIcon,
+		MagnifyIcon,
 		SortAscIcon,
 		SortDescIcon,
-		Sync,
-		SyncOff,
-		TextShortIcon,
-		TextLongIcon,
-		FilterIcon,
-		FilterOffIcon,
+		SyncIcon,
+		TextBoxSearchIcon,
+		TuneIcon,
+		MoveFeed,
+		FeedSettingsDialog,
 	},
 
 	emits: {
@@ -475,172 +337,196 @@ export default {
 
 	data() {
 		return {
-			feedsToMove: [],
+			feedsToMove: [] as Feed[],
 			showMoveFeed: false,
-			selectedFeedIds: [],
-			preservedTableWidth: null,
+			configuredFeed: undefined as FeedWithMetadata | undefined,
+			selectedFeedIds: [] as string[],
 			processingBatch: false,
 			batchRequestDelay: 150,
+			searchQuery: '',
+			folderFilter: null as null | { value: number, label: string },
+			errorsOnly: false,
 			sortKey: 'title',
 			sortOrder: 1,
 			FEED_UPDATE_MODE,
-			filterFeed: undefined,
-			filterDialogError: undefined,
-			filterDialogSaving: false,
-			filterForm: {
-				titleKeywords: '',
-				bodyKeywords: '',
-				urlKeywords: '',
-			},
 		}
 	},
 
 	computed: {
-		...mapState({
-			feeds: (state) => state.feeds.feeds,
-			folders: (state) => state.folders.folders,
-		}),
-
-		folderMap() {
-			return this.folders.reduce((map, folder) => {
-				map[folder.id] = folder.name
-				return map
-			}, {})
+		feeds(): FeedWithMetadata[] {
+			return this.$store.state.feeds.feeds
 		},
 
-		loading() {
+		folders(): Array<{ id: number, name: string }> {
+			return this.$store.state.folders.folders
+		},
+
+		loading(): boolean {
 			return this.$store.getters.loading
 		},
 
-		allSelected() {
-			return this.sortedFeeds.length > 0 && this.selectedFeedIds.length === this.sortedFeeds.length
+		folderMap(): Record<number, string> {
+			return Object.fromEntries(this.folders.map((folder) => [folder.id, folder.name]))
 		},
 
-		isPartiallySelected() {
-			return this.selectedFeedIds.length > 0 && this.selectedFeedIds.length < this.sortedFeeds.length
+		folderOptions() {
+			return [
+				{ value: -1, label: this.t('news', 'All folders') },
+				{ value: 0, label: this.t('news', 'No folder') },
+				...this.folders.map((folder) => ({ value: folder.id, label: folder.name })),
+			]
 		},
 
-		canDeleteSelected() {
-			return !this.processingBatch && this.selectedFeedIds.length > 0
+		errorFeedCount(): number {
+			return this.feeds.filter((feed) => feed.updateErrorCount > 0).length
 		},
 
-		canMoveSelected() {
-			return !this.processingBatch && this.selectedFeedIds.length > 0
+		filteredFeeds(): FeedWithMetadata[] {
+			const query = this.searchQuery.trim().toLocaleLowerCase()
+			const selectedFolderId = this.folderFilter?.value ?? -1
+			return this.feeds.filter((feed) => {
+				const matchesQuery = !query
+					|| (feed.title || '').toLocaleLowerCase().includes(query)
+					|| (feed.url || feed.location || '').toLocaleLowerCase().includes(query)
+				const matchesFolder = selectedFolderId === -1 || (feed.folderId || 0) === selectedFolderId
+				const matchesErrors = !this.errorsOnly || feed.updateErrorCount > 0
+				return matchesQuery && matchesFolder && matchesErrors
+			})
 		},
 
-		hasSelectedFeeds() {
+		sortedFeeds(): FeedWithMetadata[] {
+			return [...this.filteredFeeds].sort((a, b) => {
+				const valueA = a[this.sortKey as keyof FeedWithMetadata]
+				const valueB = b[this.sortKey as keyof FeedWithMetadata]
+				if (typeof valueA === 'string' && typeof valueB === 'string') {
+					return valueA.localeCompare(valueB) * this.sortOrder
+				}
+				return ((Number(valueA) || 0) - (Number(valueB) || 0)) * this.sortOrder
+			})
+		},
+
+		allSelected(): boolean {
+			return this.sortedFeeds.length > 0
+				&& this.sortedFeeds.every((feed) => this.selectedFeedIds.includes(String(feed.id)))
+		},
+
+		isPartiallySelected(): boolean {
+			return !this.allSelected && this.sortedFeeds.some((feed) => this.selectedFeedIds.includes(String(feed.id)))
+		},
+
+		selectedFeeds(): FeedWithMetadata[] {
+			const selectedIds = new Set(this.selectedFeedIds)
+			return this.feeds.filter((feed) => selectedIds.has(String(feed.id)))
+		},
+
+		hasSelectedFeeds(): boolean {
 			return this.selectedFeedIds.length > 0
 		},
 
-		feedsTableStyle() {
-			if (!this.hasSelectedFeeds || !this.preservedTableWidth) {
-				return undefined
-			}
-
-			return {
-				minWidth: `${this.preservedTableWidth}px`,
-			}
+		canDeleteSelected(): boolean {
+			return !this.processingBatch && this.selectedFeedIds.length > 0
 		},
 
-		selectedFeeds() {
-			const selectedFeedIdSet = new Set(this.selectedFeedIds)
-			return this.feeds.filter((feed) => selectedFeedIdSet.has(String(feed.id)))
-		},
-
-		sortedFeeds() {
-			const sorted = Array.isArray(this.feeds) ? [...this.feeds] : []
-			if (this.sortKey) {
-				sorted.sort((a, b) => {
-					const valueA = a[this.sortKey]
-					const valueB = b[this.sortKey]
-					if (typeof valueA === 'string') {
-						return valueA.localeCompare(valueB) * this.sortOrder
-					} else {
-						return (valueA - valueB) * this.sortOrder
-					}
-				})
-			}
-			return sorted
+		canMoveSelected(): boolean {
+			return !this.processingBatch && this.selectedFeedIds.length > 0
 		},
 	},
 
 	watch: {
-		feeds() {
-			const feedIds = new Set(this.feeds.map((feed) => feed.id))
-			this.selectedFeedIds = this.selectedFeedIds.filter((feedId) => feedIds.has(feedId))
-			this.$nextTick(() => {
-				if (!this.hasSelectedFeeds) {
-					this.updatePreservedTableWidth()
-				}
-			})
+		feeds: {
+			handler() {
+				const feedIds = new Set(this.feeds.map((feed) => String(feed.id)))
+				this.selectedFeedIds = this.selectedFeedIds.filter((feedId) => feedIds.has(feedId))
+			},
+
+			deep: true,
 		},
-
-		hasSelectedFeeds(selected) {
-			if (!selected) {
-				this.$nextTick(() => {
-					this.updatePreservedTableWidth()
-				})
-			}
-		},
-	},
-
-	mounted() {
-		this.$nextTick(() => {
-			this.updatePreservedTableWidth()
-		})
-		window.addEventListener('resize', this.handleResize)
-	},
-
-	beforeUnmount() {
-		window.removeEventListener('resize', this.handleResize)
 	},
 
 	methods: {
 		formatDate,
 
-		handleResize() {
-			if (this.hasSelectedFeeds) {
-				return
+		folderName(feed: Feed): string {
+			return feed.folderId ? this.folderMap[feed.folderId] || '' : ''
+		},
+
+		displayFeedUrl(feed: Feed): string {
+			return (feed.url || feed.location || '').replace(/^https?:\/\//, '')
+		},
+
+		updateDetails(feed: FeedWithMetadata): string {
+			const nextUpdate = feed.nextUpdateTime && !feed.preventUpdate
+				? formatDate(feed.nextUpdateTime)
+				: this.t('news', 'Not available')
+			return `${this.t('news', 'Next update')}: ${nextUpdate}\n${this.t('news', 'Articles in last update')}: ${feed.articlesPerUpdate}`
+		},
+
+		updateToggleLabel(feed: Feed): string {
+			return feed.preventUpdate
+				? this.t('news', 'Feed updates disabled — click to enable')
+				: this.t('news', 'Feed updates enabled — click to disable')
+		},
+
+		readPolicyLabel(feed: Feed): string {
+			return feed.updateMode === FEED_UPDATE_MODE.SILENT
+				? this.t('news', 'Keep read status on update — click to mark updated articles unread')
+				: this.t('news', 'Mark updated articles unread — click to keep read status')
+		},
+
+		scrapingLabel(feed: Feed): string {
+			return feed.fullTextEnabled
+				? this.t('news', 'Web scraping enabled — click to disable')
+				: this.t('news', 'Web scraping disabled — click to enable')
+		},
+
+		isFeedSelected(feed: Feed): boolean {
+			return this.selectedFeedIds.includes(String(feed.id))
+		},
+
+		toggleSelectAllByValue(checked: boolean) {
+			const visibleIds = this.sortedFeeds.map((feed) => String(feed.id))
+			const selected = new Set(this.selectedFeedIds)
+			visibleIds.forEach((feedId) => checked ? selected.add(feedId) : selected.delete(feedId))
+			this.selectedFeedIds = [...selected]
+		},
+
+		sortBy(key: string) {
+			if (this.sortKey === key) {
+				this.sortOrder *= -1
+			} else {
+				this.sortKey = key
+				this.sortOrder = 1
 			}
-
-			this.$nextTick(() => {
-				this.updatePreservedTableWidth()
-			})
 		},
 
-		updatePreservedTableWidth() {
-			const table = this.$refs.feedsTable
-			if (!table) {
-				return
-			}
-
-			const width = table.getBoundingClientRect().width
-			if (width > 0) {
-				this.preservedTableWidth = Math.ceil(width)
-			}
+		resetFilters() {
+			this.searchQuery = ''
+			this.folderFilter = null
+			this.errorsOnly = false
 		},
 
-		folderName(feed) {
-			return this.folderMap[feed.folderId] || ''
+		setPreventUpdate(feed: Feed, preventUpdate: boolean) {
+			return this.$store.dispatch(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed, preventUpdate })
 		},
 
-		async pauseBetweenBatchRequests() {
-			await new Promise((resolve) => setTimeout(resolve, this.batchRequestDelay))
+		setUpdateMode(feed: Feed, updateMode: FEED_UPDATE_MODE) {
+			return this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed, updateMode })
 		},
 
-		getFolderIdOrDefault(feed) {
-			return typeof feed.folderId === 'number' ? feed.folderId : 0
+		setFullText(feed: Feed, fullTextEnabled: boolean) {
+			return this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed, fullTextEnabled })
 		},
 
-		toggleSelectAllByValue(checked) {
-			if (checked) {
-				this.selectedFeedIds = this.sortedFeeds.map((feed) => String(feed.id))
-				return
-			}
-			this.selectedFeedIds = []
+		openFeedConfiguration(feed: FeedWithMetadata) {
+			this.configuredFeed = feed
 		},
 
-		openMoveFeed(feed) {
+		closeFeedConfiguration() {
+			this.configuredFeed = undefined
+		},
+
+		openMoveFeed(feed: Feed) {
+			this.closeFeedConfiguration()
 			this.feedsToMove = [feed]
 			this.showMoveFeed = true
 		},
@@ -658,301 +544,401 @@ export default {
 			this.showMoveFeed = false
 		},
 
-		sortBy(key) {
-			if (this.sortKey === key) {
-				this.sortOrder *= -1
-			} else {
-				this.sortKey = key
-				this.sortOrder = 1
+		async pauseBetweenBatchRequests() {
+			await new Promise((resolve) => setTimeout(resolve, this.batchRequestDelay))
+		},
+
+		async runBatch(action: (feed: FeedWithMetadata) => Promise<unknown>, failureMessage: string) {
+			if (this.processingBatch || this.selectedFeeds.length === 0) {
+				return
 			}
-		},
-
-		setPreventUpdate(feed, preventUpdate) {
-			this.$store.dispatch(ACTIONS.FEED_SET_PREVENT_UPDATE, { feed, preventUpdate })
-		},
-
-		setUpdateMode(feed, updateMode) {
-			this.$store.dispatch(ACTIONS.FEED_SET_UPDATE_MODE, { feed, updateMode })
-		},
-
-		setFullText(feed, fullTextEnabled) {
-			this.$store.dispatch(ACTIONS.FEED_SET_FULL_TEXT, { feed, fullTextEnabled })
-		},
-
-		async openFilterDialog(feed) {
-			this.filterFeed = feed
-			this.filterDialogError = undefined
+			const feeds = [...this.selectedFeeds]
+			const successfulIds = new Set<string>()
+			let failed = 0
+			this.processingBatch = true
 			try {
-				const response = await this.$store.dispatch(ACTIONS.FEED_GET_FILTER, { feed })
-				if (response?.data?.filter) {
-					this.filterForm.titleKeywords = response.data.filter.titleKeywords || ''
-					this.filterForm.bodyKeywords = response.data.filter.bodyKeywords || ''
-					this.filterForm.urlKeywords = response.data.filter.urlKeywords || ''
+				for (const [index, feed] of feeds.entries()) {
+					try {
+						await action(feed)
+						successfulIds.add(String(feed.id))
+					} catch (error) {
+						failed++
+						console.error(`error updating selected feed ${feed.id}`, error)
+					}
+					if (index < feeds.length - 1) {
+						await this.pauseBetweenBatchRequests()
+					}
 				}
-			} catch (error) {
-				this.filterDialogError = this.filterErrorMessage(error)
-			}
-		},
-
-		closeFilterDialog() {
-			this.filterFeed = undefined
-			this.filterDialogError = undefined
-		},
-
-		async saveFilter() {
-			if (!this.filterFeed || this.filterDialogSaving) {
-				return
-			}
-
-			this.filterDialogError = undefined
-			this.filterDialogSaving = true
-			try {
-				await this.$store.dispatch(ACTIONS.FEED_SAVE_FILTER, {
-					feed: this.filterFeed,
-					titleKeywords: this.filterForm.titleKeywords,
-					bodyKeywords: this.filterForm.bodyKeywords,
-					urlKeywords: this.filterForm.urlKeywords,
-				})
-				this.closeFilterDialog()
-			} catch (error) {
-				this.filterDialogError = this.filterErrorMessage(error)
 			} finally {
-				this.filterDialogSaving = false
+				this.processingBatch = false
+				this.selectedFeedIds = this.selectedFeedIds.filter((feedId) => !successfulIds.has(feedId))
+			}
+			if (failed > 0) {
+				showError(this.t('news', failureMessage))
 			}
 		},
 
-		async clearFilter() {
-			if (!this.filterFeed || this.filterDialogSaving) {
-				return
-			}
-
-			this.filterDialogError = undefined
-			this.filterDialogSaving = true
-			try {
-				await this.$store.dispatch(ACTIONS.FEED_DELETE_FILTER, { feed: this.filterFeed })
-				this.filterForm.titleKeywords = ''
-				this.filterForm.bodyKeywords = ''
-				this.filterForm.urlKeywords = ''
-				this.closeFilterDialog()
-			} catch (error) {
-				this.filterDialogError = this.filterErrorMessage(error)
-			} finally {
-				this.filterDialogSaving = false
-			}
+		bulkSetPreventUpdate(preventUpdate: boolean) {
+			return this.runBatch(
+				(feed) => this.setPreventUpdate(feed, preventUpdate),
+				'Some selected feeds could not be updated. Please try again later or check your connection.',
+			)
 		},
 
-		filterErrorMessage(error) {
-			return error?.response?.data?.message || t('news', 'Unable to update keyword filters. Please try again.')
+		bulkSetUpdateMode(updateMode: FEED_UPDATE_MODE) {
+			return this.runBatch(
+				(feed) => this.setUpdateMode(feed, updateMode),
+				'The read policy could not be updated for some selected feeds. Please try again later.',
+			)
 		},
 
 		async deleteSelectedFeeds() {
 			if (!this.canDeleteSelected) {
 				return
 			}
-
-			const selectedFeeds = [...this.selectedFeeds]
-			const shouldDelete = window.confirm(t('news', 'Are you sure you want to delete {count} selected feeds?', { count: selectedFeeds.length }))
+			const count = this.selectedFeeds.length
+			const shouldDelete = window.confirm(this.t('news', 'Are you sure you want to delete {count} selected feeds?', { count }))
 			if (!shouldDelete) {
 				return
 			}
-
-			this.processingBatch = true
-			let failedDeletes = 0
-
-			try {
-				for (const [index, feed] of selectedFeeds.entries()) {
-					try {
-						await this.$store.dispatch(ACTIONS.FEED_DELETE, { feed })
-					} catch (error) {
-						failedDeletes++
-						console.error(`error deleting selected feed ${feed.id}`, error)
-					}
-					if (index < selectedFeeds.length - 1) {
-						await this.pauseBetweenBatchRequests()
-					}
-				}
-			} finally {
-				this.processingBatch = false
-			}
-
-			if (failedDeletes > 0) {
-				showError(t('news', 'Some selected feeds could not be deleted. Please try again later or check your connection.'))
-			}
+			return this.runBatch(
+				(feed) => this.$store.dispatch(ACTIONS.FEED_DELETE, { feed }),
+				'Some selected feeds could not be deleted. Please try again later or check your connection.',
+			)
 		},
 	},
-}
+})
 </script>
 
 <style lang="scss" scoped>
-	.table-modal {
-		width: max-content;
-		padding: 30px 40px 20px;
+.table-modal {
+	width: 100%;
+	padding: 24px;
+	overflow: hidden;
+}
 
-		h2 {
-			font-weight: bold;
+.modal-header {
+	display: flex;
+	align-items: center;
+	padding-inline-end: 48px;
+	margin-bottom: 20px;
+}
+
+.modal-heading {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+
+	h2 {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	p {
+		margin: 4px 0 0;
+		color: var(--color-text-maxcontrast);
+	}
+}
+
+.feed-count,
+.folder-pill,
+.error-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius-pill);
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.feed-count {
+	padding: 3px 10px;
+	background: var(--color-background-dark);
+}
+
+.loading-message,
+.filter-toolbar,
+.bulk-toolbar,
+.bulk-actions,
+.selection-summary,
+.quick-toggles {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.filter-toolbar,
+.bulk-toolbar {
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+
+.filter-toolbar {
+	.feed-search {
+		flex: 1;
+		max-width: 520px;
+	}
+
+	.folder-filter {
+		width: 220px;
+	}
+
+	.errors-filter {
+		flex-shrink: 0;
+		min-height: 44px;
+
+		:deep(.checkbox-radio-switch__content) {
+			gap: 8px;
 		}
 	}
+}
 
-	.modal-header {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
+.bulk-toolbar {
+	min-height: 52px;
+	padding: 8px 12px;
+	border: 1px solid var(--color-primary-element-light);
+	border-radius: var(--border-radius-large);
+	background: var(--color-primary-element-light);
+}
+
+.selection-summary {
+	white-space: nowrap;
+}
+
+.bulk-actions {
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
+.table-container {
+	max-width: 100%;
+	overflow-x: auto;
+	border: 1px solid var(--color-border);
+	border-radius: var(--border-radius-large);
+}
+
+.feeds-table {
+	width: 100%;
+	min-width: 980px;
+	border-collapse: collapse;
+	table-layout: fixed;
+
+	thead {
+		background: var(--color-background-dark);
 	}
 
-	.loading-message {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
+	th {
+		height: 48px;
+		padding: 8px 12px;
+		color: var(--color-text-maxcontrast);
+		font-size: 12px;
+		font-weight: 600;
+		text-align: start;
 	}
 
-	.selection-header-cell {
-		cursor: default;
+	td {
+		height: 68px;
+		padding: 10px 12px;
+		border-top: 1px solid var(--color-border);
+		vertical-align: middle;
+	}
+
+	tbody tr {
+		transition: background-color .15s ease;
 
 		&:hover {
-			background-color: transparent;
-			border-radius: 0;
+			background: var(--color-background-hover);
+		}
+
+		&.selected {
+			background: var(--color-primary-element-light);
 		}
 	}
 
-	.selection-header-content {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		gap: 0.75rem;
-		padding: 0 1rem 0 0;
-		min-height: 52px;
+	.select-column {
+		width: 44px;
+		padding-inline: 12px 4px;
+		text-align: center;
+	}
+
+	.folder-column {
+		width: 170px;
+	}
+
+	.update-column {
+		width: 170px;
+	}
+
+	.errors-column {
+		width: 90px;
+		text-align: center;
+	}
+
+	.quick-column {
+		width: 190px;
+	}
+
+	.configure-column {
+		width: 130px;
+		text-align: end;
+	}
+}
+
+.sort-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+}
+
+.feed-title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	min-width: 0;
+	padding: 0;
+	border: 0;
+	background: transparent;
+	color: var(--color-main-text);
+	text-align: start;
+}
+
+.feed-initial {
+	display: grid;
+	flex: 0 0 34px;
+	height: 34px;
+	place-items: center;
+	border: 1px solid var(--color-primary-element-light);
+	border-radius: var(--border-radius-large);
+	background: var(--color-primary-element-light);
+	color: var(--color-primary-element);
+	font-weight: 700;
+}
+
+.feed-title-text {
+	display: flex;
+	overflow: hidden;
+	flex-direction: column;
+	min-width: 0;
+
+	strong,
+	small {
+		overflow: hidden;
+		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 
-	.feeds-table {
-		table-layout: fixed;
+	small {
+		color: var(--color-text-maxcontrast);
+	}
+}
 
-		thead tr {
-			height: 52px;
-		}
+.folder-pill {
+	max-width: 100%;
+	padding: 4px 8px;
+	background: var(--color-background-dark);
+}
 
-		th {
-			height: 52px;
-			vertical-align: middle;
-		}
+.update-status {
+	display: flex;
+	flex-direction: column;
 
-		.column-title {
-			min-height: 52px;
-		}
-
-		:deep(.table-select-checkbox.checkbox-radio-switch) {
-			min-height: auto;
-			padding: 0;
-			display: inline-flex;
-			justify-content: center;
-			max-width: unset;
-		}
+	strong {
+		font-size: 13px;
 	}
 
-	table {
-		margin-top: 24px;
-		border-collapse: collapse;
+	small {
+		color: var(--color-text-maxcontrast);
+	}
+}
 
-		tbody tr {
-			&:hover, &:focus, &:active {
-				background-color: transparent !important;
-			}
-		}
+.error-badge {
+	padding: 2px 8px;
+	border-color: var(--color-error);
+	background: var(--color-error-background);
+	color: var(--color-error-text);
+	font-weight: 600;
+}
 
-		thead tr {
-			border: none;
-		}
+.quick-toggles {
+	:deep(.button-vue) {
+		border: 1px solid var(--color-border);
+	}
 
-		th {
-			cursor: pointer;
-			font-weight: bold;
-			border-bottom: 2px solid var(--color-background-darker);
-			&:hover {
-				background-color: var(--color-background-hover);
-				border-radius: 10px;
-			}
-		}
+	:deep(.button-vue.is-active) {
+		border-color: var(--color-primary-element);
+		background: var(--color-primary-element-light);
+		color: var(--color-primary-element);
+	}
+}
 
-		th * {
-			cursor: pointer;
-		}
+.empty-state {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	gap: 8px;
+	min-height: 260px;
+	padding: 32px;
+	color: var(--color-text-maxcontrast);
+	text-align: center;
 
-		td {
-			padding: .25rem 1rem .25rem 0;
-			border-top: 1px solid var(--color-background-dark);
-			border-bottom: unset;
+	h3 {
+		margin: 4px 0 0;
+		color: var(--color-main-text);
+	}
 
-			&.text {
-				text-align: start;
-			}
+	p {
+		margin: 0 0 8px;
+	}
+}
 
-			&.number {
-				text-align: end;
-			}
+.muted {
+	color: var(--color-text-maxcontrast);
+}
 
-			&.date {
-				text-align: center;
-			}
-		}
+:deep(.table-select-checkbox.checkbox-radio-switch) {
+	display: inline-flex;
+	justify-content: center;
+	max-width: unset;
+	min-height: auto;
+	padding: 0;
+}
 
-		.column-title {
+:deep(.modal-wrapper--large > .modal-container) {
+	width: min(94vw, 1500px);
+	max-width: 94vw;
+	max-height: min(90vh, calc(100vh - 2 * var(--header-height)));
+}
+
+:deep(.modal-container__close) {
+	top: 20px;
+	inset-inline-end: 20px;
+}
+
+@media (max-width: 900px) {
+	.filter-toolbar,
+	.bulk-toolbar {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.filter-toolbar {
+		.feed-search,
+		.folder-filter {
 			width: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			gap: 4px;
-			padding: .25rem 1rem .25rem 0;
-		}
-
-		.sort-icon {
-			height: 20px;
-			width: 20px;
-		}
-
-		.select-column {
-			text-align: center;
-			padding-inline-end: .5rem;
-			min-width: 36px;
-		}
-
-	}
-
-	/* overwrite the fixed large modal width */
-	:deep(.modal-wrapper--large > .modal-container) {
-		max-width: 90%;
-		width: max-content;
-		max-height: min(90%, 100% - 2 * var(--header-height));
-	}
-
-	.filter-dialog {
-		padding: 20px;
-
-		h3 {
-			font-size: 1.2rem;
-			margin-bottom: 16px;
-		}
-
-		.filter-help-text {
-			margin: 0 0 12px;
-			color: var(--color-text-maxcontrast);
-			font-size: 0.95rem;
-		}
-
-		:deep(.notecard) {
-			margin-bottom: 12px;
-		}
-
-		.filter-inputs {
-			display: flex;
-			flex-direction: column;
-			gap: 8px;
-		}
-
-		.filter-actions {
-			display: flex;
-			gap: 8px;
-			justify-content: flex-end;
-			margin-top: 16px;
+			max-width: none;
 		}
 	}
+
+	.bulk-actions {
+		justify-content: flex-start;
+	}
+}
 </style>

@@ -458,6 +458,136 @@ class ItemServiceTest extends TestCase
         $this->assertEquals($item, $result);
     }
 
+    public function testUnreadAgeClassification()
+    {
+        $oldItem = new Item();
+        $oldItem->setPubDate(time() - (8 * 86400));
+        $recentItem = new Item();
+        $recentItem->setPubDate(time() - (2 * 86400));
+        $missingDateItem = new Item();
+        $missingDateItem->setPubDate(0);
+
+        $this->assertTrue($this->class->isOlderThanUnreadAge($oldItem, 7));
+        $this->assertFalse($this->class->isOlderThanUnreadAge($recentItem, 7));
+        $this->assertFalse($this->class->isOlderThanUnreadAge($missingDateItem, 7));
+        $this->assertFalse($this->class->isOlderThanUnreadAge($oldItem, 0));
+    }
+
+    public function testMarkOldUnreadAsReadUsesAgeCutoff()
+    {
+        $before = time() - (7 * 86400);
+        $this->mapper->expects($this->once())
+            ->method('markOldUnreadAsRead')
+            ->with(1, $this->callback(function (int $cutoff) use ($before): bool {
+                return $cutoff >= $before && $cutoff <= time() - (7 * 86400);
+            }))
+            ->willReturn(3);
+
+        $this->assertSame(3, $this->class->markOldUnreadAsRead(1, 7));
+    }
+
+    public function testInsertOrUpdateMarksOldItemRead()
+    {
+        $item = new Item();
+        $item->setUnread(true);
+        $item->setPubDate(time() - (8 * 86400));
+        $item->setFeedId(1);
+        $item->setGuidHash('old');
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'old')
+            ->will($this->throwException(new DoesNotExistException('exception')));
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($item)
+            ->will($this->returnValue($item));
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_NORMAL, 7);
+
+        $this->assertFalse($result->isUnread());
+    }
+
+    public function testInsertOrUpdateKeepsRecentAndMissingDateUnread()
+    {
+        $recentItem = new Item();
+        $recentItem->setUnread(true);
+        $recentItem->setPubDate(time() - (2 * 86400));
+        $recentItem->setFeedId(1);
+        $recentItem->setGuidHash('recent');
+
+        $missingDateItem = new Item();
+        $missingDateItem->setUnread(true);
+        $missingDateItem->setPubDate(0);
+        $missingDateItem->setFeedId(1);
+        $missingDateItem->setGuidHash('missing');
+
+        $this->mapper->expects($this->exactly(2))
+            ->method('findByGuidHash')
+            ->will($this->throwException(new DoesNotExistException('exception')));
+        $this->mapper->expects($this->exactly(2))
+            ->method('insert')
+            ->willReturnArgument(0);
+
+        $this->assertTrue(
+            $this->class->insertOrUpdate($recentItem, FEED::UPDATE_MODE_NORMAL, 7)->isUnread()
+        );
+        $this->assertTrue(
+            $this->class->insertOrUpdate($missingDateItem, FEED::UPDATE_MODE_NORMAL, 7)->isUnread()
+        );
+    }
+
+    public function testInsertOrUpdateKeepsOldItemUnreadWhenDisabled()
+    {
+        $item = new Item();
+        $item->setUnread(true);
+        $item->setPubDate(time() - (8 * 86400));
+        $item->setFeedId(1);
+        $item->setGuidHash('disabled');
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'disabled')
+            ->will($this->throwException(new DoesNotExistException('exception')));
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($item)
+            ->will($this->returnValue($item));
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_NORMAL, 0);
+
+        $this->assertTrue($result->isUnread());
+    }
+
+    public function testInsertOrUpdateKeepsStarredOldItemUnread()
+    {
+        $item = Item::fromParams([
+            'feedId' => 1,
+            'guidHash' => 'starred',
+            'unread' => true,
+            'pubDate' => time() - (8 * 86400),
+        ]);
+        $storedItem = Item::fromParams([
+            'id' => 1,
+            'starred' => true,
+            'unread' => true,
+        ]);
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'starred')
+            ->willReturn($storedItem);
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($item)
+            ->willReturn($item);
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT, 7);
+
+        $this->assertTrue($result->isStarred());
+        $this->assertTrue($result->isUnread());
+    }
+
     public function testInsertOrUpdateUpdates()
     {
         $item = $this->getMockBuilder(Item::class)

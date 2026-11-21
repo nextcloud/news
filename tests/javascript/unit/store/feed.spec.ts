@@ -168,6 +168,16 @@ describe('feed.ts', () => {
 			})
 		})
 
+		describe('FEED_SET_MAX_UNREAD_AGE', () => {
+			it('should call FeedService.updateFeed and commit updated `maxUnreadAge` property to state', async () => {
+				FeedService.updateFeed = vi.fn()
+				const commit = vi.fn()
+				await actions[FEED_ACTION_TYPES.FEED_SET_MAX_UNREAD_AGE]({ commit }, { feed: { id: 1 }, maxUnreadAge: 7 })
+				expect(FeedService.updateFeed).toBeCalledWith({ feedId: 1, maxUnreadAge: 7 })
+				expect(commit).toBeCalledWith(FEED_MUTATION_TYPES.UPDATE_FEED, { id: 1, maxUnreadAge: 7 })
+			})
+		})
+
 		describe('FEED_SET_TITLE', () => {
 			it('should call FeedService.updateFeed and commit updated `title` property to state', async () => {
 				FeedService.updateFeed = vi.fn()

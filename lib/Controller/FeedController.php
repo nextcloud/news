@@ -241,7 +241,8 @@ class FeedController extends Controller
         ?int $ordering = null,
         ?int $folderId = -1,
         ?string $title = null,
-        ?bool $preventUpdate = null
+        ?bool $preventUpdate = null,
+        ?int $maxUnreadAge = null
     ) {
         try {
             $feed = $this->feedService->find($this->getUserId(), $feedId);
@@ -261,6 +262,9 @@ class FeedController extends Controller
         }
         if ($updateMode !== null) {
             $feed->setUpdateMode($updateMode);
+        }
+        if ($maxUnreadAge !== null) {
+            $feed->setMaxUnreadAge($maxUnreadAge);
         }
         if ($ordering !== null) {
             $feed->setOrdering($ordering);

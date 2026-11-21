@@ -180,6 +180,42 @@ class ItemMapperV2 extends NewsMapperV2
         return $this->findEntities($builder);
     }
 
+    public function markOldUnreadAsRead(int $feedId, int $cutoff): int
+    {
+        $time = new Time();
+        $builder = $this->db->getQueryBuilder();
+        $builder->update($this->tableName)
+            ->set('unread', $builder->createParameter('read'))
+            ->set('last_modified', $builder->createParameter('last_modified'))
+            ->where('feed_id = :feed_id')
+            ->andWhere('unread = :unread')
+            ->andWhere('starred = :starred')
+            ->andWhere('filtered = :filtered')
+            ->andWhere('pub_date > 0')
+            ->andWhere('pub_date < :cutoff')
+            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT)
+            ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('starred', false, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('filtered', false, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('cutoff', $cutoff, IQueryBuilder::PARAM_INT)
+            ->setParameter('read', false, IQueryBuilder::PARAM_BOOL)
+            ->setParameter('last_modified', $time->getMicroTime(), IQueryBuilder::PARAM_STR);
+        $builder->executeStatement();
+
+        $builder = $this->db->getQueryBuilder();
+        $builder->select($builder->createFunction('COUNT(*)'))
+            ->from($this->tableName)
+            ->where('feed_id = :feed_id')
+            ->andWhere('unread = :unread')
+            ->setParameter('feed_id', $feedId, IQueryBuilder::PARAM_INT)
+            ->setParameter('unread', true, IQueryBuilder::PARAM_BOOL);
+        $result = $builder->executeQuery();
+        $count = $result->fetchOne();
+        $result->closeCursor();
+
+        return (int)$count;
+    }
+
     /**
      * Delete items from feed that are over the max item threshold
      *
