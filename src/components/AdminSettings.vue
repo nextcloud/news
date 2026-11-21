@@ -140,8 +140,6 @@ import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
 import { formatDateRelative } from '../utils/dateUtils.ts'
 
-import '@nextcloud/dialogs/style.css'
-
 /**
  * Debounce helper for method
  * TODO: Should we remove this and use library?
