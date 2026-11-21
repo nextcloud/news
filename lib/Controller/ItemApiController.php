@@ -19,6 +19,8 @@ use OCA\News\Db\ListType;
 use OCA\News\Service\Exceptions\ServiceConflictException;
 use OCA\News\Service\Exceptions\ServiceValidationException;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\UpdatedItemsResponse;
+use OCP\AppFramework\Http\StreamResponse;
 use OCP\AppFramework\Http\JSONResponse;
 use \OCP\IRequest;
 use \OCP\IUserSession;
@@ -41,7 +43,8 @@ class ItemApiController extends ApiController
     public function __construct(
         IRequest $request,
         ?IUserSession $userSession,
-        private ItemServiceV2 $itemService
+        private ItemServiceV2 $itemService,
+        private UpdatedItemsResponse $updatedItemsResponse
     ) {
         parent::__construct($request, $userSession);
     }
@@ -114,36 +117,19 @@ class ItemApiController extends ApiController
      * @param int $type
      * @param int $id
      * @param int $lastModified
-     * @return array|JSONResponse
+     * @return StreamResponse
      *
      * @throws ServiceValidationException
      */
     #[CORS]
     #[NoCSRFRequired]
     #[NoAdminRequired]
-    public function updated(int $type = 3, int $id = 0, int $lastModified = 0): array
+    public function updated(int $type = 3, int $id = 0, int $lastModified = 0): StreamResponse
     {
-        // needs to be turned into a millisecond timestamp to work properly
-        if (strlen((string) $lastModified) <= 10) {
-            $paddedLastModified = $lastModified * 1000000;
-        } else {
-            $paddedLastModified = $lastModified;
-        }
-
-        switch ($type) {
-            case ListType::FEED:
-                $items = $this->itemService->findAllInFeedAfter($this->getUserId(), $id, $paddedLastModified, false);
-                break;
-            case ListType::FOLDER:
-                $items = $this->itemService->findAllInFolderAfter($this->getUserId(), $id, $paddedLastModified, false);
-                break;
-            default:
-                $items = $this->itemService->findAllAfter($this->getUserId(), $type, $paddedLastModified);
-                break;
-        }
-
-        return ['items' => $this->serialize($items)];
+        $updatedSince = strlen((string)$lastModified) <= 10 ? $lastModified * 1000000 : $lastModified;
+        return $this->updatedItemsResponse->createResponse($this->getUserId(), $type, $id, $updatedSince);
     }
+
 
     /**
      * @param int  $itemId

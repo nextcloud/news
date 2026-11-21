@@ -17,6 +17,8 @@ namespace OCA\News\Tests\Unit\Controller;
 
 use OCA\News\Controller\ItemApiController;
 use OCA\News\Service\ItemServiceV2;
+use OCA\News\Service\UpdatedItemsResponse;
+use OCP\AppFramework\Http\StreamResponse;
 use \OCP\AppFramework\Http;
 
 use \OCA\News\Service\Exceptions\ServiceNotFoundException;
@@ -33,6 +35,7 @@ class ItemApiControllerTest extends TestCase
      * @var ItemServiceV2|\PHPUnit\Framework\MockObject\MockObject
      */
     private $itemService;
+    private $updatedItemsResponse;
     /**
      * @var IUserSession|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -71,10 +74,12 @@ class ItemApiControllerTest extends TestCase
         $this->itemService = $this->getMockBuilder(ItemServiceV2::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $this->updatedItemsResponse = $this->createMock(UpdatedItemsResponse::class);
         $this->class = new ItemApiController(
             $this->request,
             $this->userSession,
-            $this->itemService
+            $this->itemService,
+            $this->updatedItemsResponse
         );
         $this->msg = 'hi';
     }
@@ -192,78 +197,27 @@ class ItemApiControllerTest extends TestCase
     }
 
 
-    public function testUpdatedFeed()
+    /** @dataProvider updatedRequests */
+    public function testUpdated(int $type, int $id, int $timestamp, int $expectedTimestamp): void
     {
-        $item = new Item();
-        $item->setId(5);
-        $item->setGuid('guid');
-        $item->setGuidHash('guidhash');
-        $item->setFeedId(123);
+        $response = new StreamResponse(tmpfile());
+        $this->itemService->expects($this->never())->method('findAllAfter');
+        $this->updatedItemsResponse->expects($this->once())
+            ->method('createResponse')
+            ->with($this->uid, $type, $id, $expectedTimestamp)
+            ->willReturn($response);
 
-        $this->itemService->expects($this->once())
-            ->method('findAllInFeedAfter')
-            ->with($this->uid, 2, 30000000, false)
-            ->will($this->returnValue([$item]));
-
-        $response = $this->class->updated(0, 2, 30);
-
-        $this->assertEquals(['items' => [$item->toApi()]], $response);
+        $this->assertSame($response, $this->class->updated($type, $id, $timestamp));
     }
 
-
-    public function testUpdatedFolder()
+    public static function updatedRequests(): array
     {
-        $item = new Item();
-        $item->setId(5);
-        $item->setGuid('guid');
-        $item->setGuidHash('guidhash');
-        $item->setFeedId(123);
-
-        $this->itemService->expects($this->once())
-            ->method('findAllInFolderAfter')
-            ->with($this->uid, 2, 30000000, false)
-            ->will($this->returnValue([$item]));
-
-        $response = $this->class->updated(1, 2, 30);
-
-        $this->assertEquals(['items' => [$item->toApi()]], $response);
-    }
-
-
-    public function testUpdatedItems()
-    {
-        $item = new Item();
-        $item->setId(5);
-        $item->setGuid('guid');
-        $item->setGuidHash('guidhash');
-        $item->setFeedId(123);
-
-        $this->itemService->expects($this->once())
-            ->method('findAllAfter')
-            ->with($this->uid, 3, 30000000)
-            ->will($this->returnValue([$item]));
-
-        $response = $this->class->updated(3, 2, 30);
-
-        $this->assertEquals(['items' => [$item->toApi()]], $response);
-    }
-
-    public function testUpdatedFeedFullTimestamp()
-    {
-        $item = new Item();
-        $item->setId(5);
-        $item->setGuid('guid');
-        $item->setGuidHash('guidhash');
-        $item->setFeedId(123);
-
-        $this->itemService->expects($this->once())
-            ->method('findAllInFeedAfter')
-            ->with($this->uid, 2, 1609598359000000, false)
-            ->will($this->returnValue([$item]));
-
-        $response = $this->class->updated(0, 2, '1609598359000000');
-
-        $this->assertEquals(['items' => [$item->toApi()]], $response);
+        return [
+            'feed with seconds' => [0, 2, 30, 30000000],
+            'folder with seconds' => [1, 2, 30, 30000000],
+            'all items with seconds' => [3, 2, 30, 30000000],
+            'feed with microseconds' => [0, 2, 1609598359000000, 1609598359000000],
+        ];
     }
 
 
