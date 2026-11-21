@@ -465,6 +465,10 @@ class FeedControllerTest extends TestCase
              ->method('setUpdateMode')
              ->with(1);
 
+        $feed->expects($this->once())
+             ->method('setMaxUnreadAge')
+             ->with(7);
+
 
         $feed->expects($this->never())
              ->method('setOrdering')
@@ -488,7 +492,7 @@ class FeedControllerTest extends TestCase
             ->method('update')
             ->with($this->uid, $feed);
 
-        $this->class->patch(4, true, false, 1);
+        $this->class->patch(4, true, false, 1, null, -1, null, null, 7);
     }
 
     public function testPatchFolder()

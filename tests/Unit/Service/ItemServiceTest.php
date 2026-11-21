@@ -495,6 +495,57 @@ class ItemServiceTest extends TestCase
         $this->assertFalse($result->isUnread());
     }
 
+    public function testInsertOrUpdateKeepsRecentAndMissingDateUnread()
+    {
+        $recentItem = new Item();
+        $recentItem->setUnread(true);
+        $recentItem->setPubDate(time() - (2 * 86400));
+        $recentItem->setFeedId(1);
+        $recentItem->setGuidHash('recent');
+
+        $missingDateItem = new Item();
+        $missingDateItem->setUnread(true);
+        $missingDateItem->setPubDate(0);
+        $missingDateItem->setFeedId(1);
+        $missingDateItem->setGuidHash('missing');
+
+        $this->mapper->expects($this->exactly(2))
+            ->method('findByGuidHash')
+            ->will($this->throwException(new DoesNotExistException('exception')));
+        $this->mapper->expects($this->exactly(2))
+            ->method('insert')
+            ->willReturnArgument(0);
+
+        $this->assertTrue(
+            $this->class->insertOrUpdate($recentItem, FEED::UPDATE_MODE_NORMAL, 7)->isUnread()
+        );
+        $this->assertTrue(
+            $this->class->insertOrUpdate($missingDateItem, FEED::UPDATE_MODE_NORMAL, 7)->isUnread()
+        );
+    }
+
+    public function testInsertOrUpdateKeepsOldItemUnreadWhenDisabled()
+    {
+        $item = new Item();
+        $item->setUnread(true);
+        $item->setPubDate(time() - (8 * 86400));
+        $item->setFeedId(1);
+        $item->setGuidHash('disabled');
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'disabled')
+            ->will($this->throwException(new DoesNotExistException('exception')));
+        $this->mapper->expects($this->once())
+            ->method('insert')
+            ->with($item)
+            ->will($this->returnValue($item));
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_NORMAL, 0);
+
+        $this->assertTrue($result->isUnread());
+    }
+
     public function testInsertOrUpdateUpdates()
     {
         $item = $this->getMockBuilder(Item::class)

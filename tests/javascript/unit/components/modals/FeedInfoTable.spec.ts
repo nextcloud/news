@@ -120,6 +120,46 @@ describe('FeedInfoTable.vue', () => {
 			expect(wrapper.vm.sortOrder).toEqual(-1)
 		})
 
+		it('should set the maximum unread age for a feed', () => {
+			const event = {
+				target: {
+					value: '-2',
+				},
+			}
+
+			wrapper.vm.setMaxUnreadAge(feeds[0], event)
+
+			expect(event.target.value).toEqual('0')
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_MAX_UNREAD_AGE, {
+				feed: feeds[0],
+				maxUnreadAge: 0,
+			})
+		})
+
+		it('should classify unread age values and presets', () => {
+			expect(wrapper.vm.getUnreadAgeOption({ maxUnreadAge: 0 }).value).toEqual(0)
+			expect(wrapper.vm.getUnreadAgeOption({ maxUnreadAge: 7 }).value).toEqual(7)
+			expect(wrapper.vm.getUnreadAgeOption({ maxUnreadAge: 2 }).value).toEqual(-1)
+		})
+
+		it('should set a preset unread age', () => {
+			wrapper.vm.setUnreadAgeOption(feeds[0], { value: 14, label: '14 days' })
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_MAX_UNREAD_AGE, {
+				feed: feeds[0],
+				maxUnreadAge: 14,
+			})
+		})
+
+		it('should set a custom unread age', () => {
+			wrapper.vm.setCustomUnreadAge(feeds[0], '21')
+
+			expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_MAX_UNREAD_AGE, {
+				feed: feeds[0],
+				maxUnreadAge: 21,
+			})
+		})
+
 		it('should close filter dialog after successful save', async () => {
 			store.dispatch = vi.fn().mockResolvedValue({})
 			wrapper.vm.filterFeed = feeds[0]
