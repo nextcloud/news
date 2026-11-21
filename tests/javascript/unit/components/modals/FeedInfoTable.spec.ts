@@ -491,7 +491,7 @@ describe('FeedSettingsDialog.vue', () => {
 		wrapper.vm.filterForm.titleKeywords = 'foo'
 		wrapper.vm.filterForm.bodyKeywords = 'bar'
 		wrapper.vm.filterForm.urlKeywords = 'baz'
-		store.dispatch.mockClear()
+		vi.mocked(store.dispatch).mockClear()
 
 		wrapper.vm.clearFilter()
 
@@ -590,6 +590,7 @@ describe('FeedSettingsDialog.vue', () => {
 	})
 
 	it('saves filters and title before closing', async () => {
+		await flushPromises()
 		wrapper.vm.title = 'Renamed feed'
 		await wrapper.vm.saveAndClose()
 
@@ -603,6 +604,38 @@ describe('FeedSettingsDialog.vue', () => {
 			feed: feeds[0],
 			title: 'Renamed feed',
 		})
+		expect(wrapper.emitted('close')).toBeTruthy()
+	})
+
+	it('does not save filters when loading failed', async () => {
+		store.dispatch = vi.fn().mockRejectedValueOnce(new Error('load failed')).mockResolvedValue({})
+		wrapper = shallowMount(FeedSettingsDialog, {
+			props: { feed: feeds[0] },
+			global: { plugins: [store] },
+		})
+		await flushPromises()
+		wrapper.vm.title = 'Renamed feed'
+
+		await wrapper.vm.saveAndClose()
+
+		expect(store.dispatch).not.toHaveBeenCalledWith(ACTIONS.FEED_SAVE_FILTER, expect.anything())
+		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_TITLE, {
+			feed: feeds[0],
+			title: 'Renamed feed',
+		})
+		expect(wrapper.emitted('close')).toBeTruthy()
+	})
+
+	it('does not save filters while loading is pending', async () => {
+		store.dispatch = vi.fn().mockReturnValue(new Promise(() => {}))
+		wrapper = shallowMount(FeedSettingsDialog, {
+			props: { feed: feeds[0] },
+			global: { plugins: [store] },
+		})
+
+		await wrapper.vm.saveAndClose()
+
+		expect(store.dispatch).not.toHaveBeenCalledWith(ACTIONS.FEED_SAVE_FILTER, expect.anything())
 		expect(wrapper.emitted('close')).toBeTruthy()
 	})
 
