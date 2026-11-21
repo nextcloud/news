@@ -107,18 +107,21 @@
 				</NcNoteCard>
 				<NcTextField
 					v-model:modelValue="filterForm.titleKeywords"
+					:disabled="!filterLoaded"
 					:label="t('news', 'Title keywords')"
 					:placeholder="t('news', 'e.g. android, ios')" />
 				<NcTextField
 					v-model:modelValue="filterForm.bodyKeywords"
+					:disabled="!filterLoaded"
 					:label="t('news', 'Body keywords')"
 					:placeholder="t('news', 'e.g. advertisement')" />
 				<NcTextField
 					v-model:modelValue="filterForm.urlKeywords"
+					:disabled="!filterLoaded"
 					:label="t('news', 'URL keywords')"
 					:placeholder="t('news', 'e.g. /sport/')" />
 				<div class="section-actions">
-					<NcButton :disabled="filterSaving" @click="clearFilter">
+					<NcButton :disabled="filterSaving || !filterLoaded" @click="clearFilter">
 						{{ t('news', 'Clear') }}
 					</NcButton>
 				</div>
@@ -199,6 +202,7 @@ export default defineComponent({
 		return {
 			title: (this.feed as Feed).title || '',
 			filterSaving: false,
+			filterLoaded: false,
 			filterError: undefined as string | undefined,
 			filterForm: {
 				titleKeywords: '',
@@ -233,6 +237,7 @@ export default defineComponent({
 				this.filterForm.bodyKeywords = filter.bodyKeywords || ''
 				this.filterForm.urlKeywords = filter.urlKeywords || ''
 			}
+			this.filterLoaded = true
 		} catch (error) {
 			this.filterError = this.filterErrorMessage(error)
 		}
@@ -306,7 +311,7 @@ export default defineComponent({
 		},
 
 		async saveAndClose() {
-			if (!await this.saveFilter()) {
+			if (this.filterLoaded && !await this.saveFilter()) {
 				return
 			}
 			const title = this.title.trim()

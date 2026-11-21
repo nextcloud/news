@@ -546,6 +546,35 @@ class ItemServiceTest extends TestCase
         $this->assertTrue($result->isUnread());
     }
 
+    public function testInsertOrUpdateKeepsStarredOldItemUnread()
+    {
+        $item = Item::fromParams([
+            'feedId' => 1,
+            'guidHash' => 'starred',
+            'unread' => true,
+            'pubDate' => time() - (8 * 86400),
+        ]);
+        $storedItem = Item::fromParams([
+            'id' => 1,
+            'starred' => true,
+            'unread' => true,
+        ]);
+
+        $this->mapper->expects($this->once())
+            ->method('findByGuidHash')
+            ->with(1, 'starred')
+            ->willReturn($storedItem);
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($item)
+            ->willReturn($item);
+
+        $result = $this->class->insertOrUpdate($item, FEED::UPDATE_MODE_SILENT, 7);
+
+        $this->assertTrue($result->isStarred());
+        $this->assertTrue($result->isUnread());
+    }
+
     public function testInsertOrUpdateUpdates()
     {
         $item = $this->getMockBuilder(Item::class)

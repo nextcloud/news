@@ -102,10 +102,6 @@ class ItemServiceV2 extends Service
      */
     public function insertOrUpdate(Item $item, int $updateMode, int $maxUnreadAge = 0): Entity
     {
-        if ($maxUnreadAge > 0 && $this->isOlderThanUnreadAge($item, $maxUnreadAge)) {
-            $item->setUnread(false);
-        }
-
         try {
             /** @var Item $db_item */
             $db_item = $this->findByGuidHash($item->getFeedId(), $item->getGuidHash());
@@ -114,7 +110,9 @@ class ItemServiceV2 extends Service
             if ($updateMode === FEED::UPDATE_MODE_SILENT) {
                 $item->setUnread($db_item->isUnread());
             }
-            if ($maxUnreadAge > 0 && $this->isOlderThanUnreadAge($item, $maxUnreadAge)) {
+            if ($maxUnreadAge > 0 && !$db_item->isStarred()
+                && $this->isOlderThanUnreadAge($item, $maxUnreadAge)
+            ) {
                 $item->setUnread(false);
             }
             // Transfer user modifications
@@ -131,6 +129,9 @@ class ItemServiceV2 extends Service
 
             return $this->mapper->update($item);
         } catch (DoesNotExistException $exception) {
+            if ($maxUnreadAge > 0 && $this->isOlderThanUnreadAge($item, $maxUnreadAge)) {
+                $item->setUnread(false);
+            }
             return $this->mapper->insert($item);
         }
     }

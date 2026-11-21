@@ -440,6 +440,8 @@ class FeedServiceV2 extends Service
             $storedItems = $this->itemService->findAllInFeed($userId, $feedId);
             foreach ($storedItems as $storedItem) {
                 if ($storedItem->isUnread()
+                    && !$storedItem->isStarred()
+                    && !$storedItem->isFiltered()
                     && $this->itemService->isOlderThanUnreadAge($storedItem, $maxUnreadAge)
                 ) {
                     $this->itemService->read($userId, $storedItem->getId(), true);

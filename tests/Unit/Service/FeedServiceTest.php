@@ -630,11 +630,25 @@ class FeedServiceTest extends TestCase
             'pubDate' => time() - (2 * 86400),
             'unread' => true,
         ]);
+        $starredItem = Item::fromParams([
+            'id' => 12,
+            'feedId' => 1,
+            'pubDate' => time() - (8 * 86400),
+            'unread' => true,
+            'starred' => true,
+        ]);
+        $filteredItem = Item::fromParams([
+            'id' => 13,
+            'feedId' => 1,
+            'pubDate' => time() - (8 * 86400),
+            'unread' => true,
+            'filtered' => true,
+        ]);
 
         $this->itemService->expects($this->once())
             ->method('findAllInFeed')
             ->with($this->uid, 1)
-            ->willReturn([$oldItem, $recentItem]);
+            ->willReturn([$oldItem, $recentItem, $starredItem, $filteredItem]);
         $this->itemService->expects($this->exactly(2))
             ->method('isOlderThanUnreadAge')
             ->willReturnCallback(function (Item $item, int $days): bool {
@@ -650,7 +664,11 @@ class FeedServiceTest extends TestCase
             ->willReturn($feed);
 
         $this->assertSame($feed, $this->class->fetch($feed));
-        $this->assertEquals(1, $feed->getUnreadCount());
+        $this->assertFalse($oldItem->isUnread());
+        $this->assertTrue($recentItem->isUnread());
+        $this->assertTrue($starredItem->isUnread());
+        $this->assertTrue($filteredItem->isUnread());
+        $this->assertEquals(3, $feed->getUnreadCount());
     }
 
     public function testFetchSucceedsFullItems()
