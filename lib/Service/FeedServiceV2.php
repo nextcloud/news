@@ -409,7 +409,6 @@ class FeedServiceV2 extends Service
         $updateMode = $feed->getUpdateMode();
         $maxUnreadAge = $feed->getMaxUnreadAge();
         $userId = $feed->getUserId();
-        $storedItems = [];
 
         // Load and compile filter once before processing items.
         $filter = $this->filterService->findByFeedId($userId, $feedId);
@@ -436,20 +435,6 @@ class FeedServiceV2 extends Service
             $item = $this->itemService->insertOrUpdate($item, $updateMode, $maxUnreadAge);
         }
 
-        if ($maxUnreadAge > 0) {
-            $storedItems = $this->itemService->findAllInFeed($userId, $feedId);
-            foreach ($storedItems as $storedItem) {
-                if ($storedItem->isUnread()
-                    && !$storedItem->isStarred()
-                    && !$storedItem->isFiltered()
-                    && $this->itemService->isOlderThanUnreadAge($storedItem, $maxUnreadAge)
-                ) {
-                    $this->itemService->read($userId, $storedItem->getId(), true);
-                    $storedItem->setUnread(false);
-                }
-            }
-        }
-
         if ($filteredCount > 0) {
             $this->logger->info('Filtered {count} items from feed {feedUrl}', [
                 'count'   => $filteredCount,
@@ -463,11 +448,7 @@ class FeedServiceV2 extends Service
 
         $unreadCount = 0;
         if ($maxUnreadAge > 0) {
-            foreach ($storedItems as $storedItem) {
-                if ($storedItem->isUnread()) {
-                    $unreadCount++;
-                }
-            }
+            $unreadCount = $this->itemService->markOldUnreadAsRead($feedId, $maxUnreadAge);
         } else {
             array_map(
                 function (Item $item) use (&$unreadCount): void {

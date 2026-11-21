@@ -618,56 +618,18 @@ class FeedServiceTest extends TestCase
             ->method('fetch')
             ->willReturn([$newFeed, []]);
 
-        $oldItem = Item::fromParams([
-            'id' => 10,
-            'feedId' => 1,
-            'pubDate' => time() - (8 * 86400),
-            'unread' => true,
-        ]);
-        $recentItem = Item::fromParams([
-            'id' => 11,
-            'feedId' => 1,
-            'pubDate' => time() - (2 * 86400),
-            'unread' => true,
-        ]);
-        $starredItem = Item::fromParams([
-            'id' => 12,
-            'feedId' => 1,
-            'pubDate' => time() - (8 * 86400),
-            'unread' => true,
-            'starred' => true,
-        ]);
-        $filteredItem = Item::fromParams([
-            'id' => 13,
-            'feedId' => 1,
-            'pubDate' => time() - (8 * 86400),
-            'unread' => true,
-            'filtered' => true,
-        ]);
-
         $this->itemService->expects($this->once())
-            ->method('findAllInFeed')
-            ->with($this->uid, 1)
-            ->willReturn([$oldItem, $recentItem, $starredItem, $filteredItem]);
-        $this->itemService->expects($this->exactly(2))
-            ->method('isOlderThanUnreadAge')
-            ->willReturnCallback(function (Item $item, int $days): bool {
-                return $item->getId() === 10;
-            });
-        $this->itemService->expects($this->once())
-            ->method('read')
-            ->with($this->uid, 10, true)
-            ->willReturn($oldItem);
+            ->method('markOldUnreadAsRead')
+            ->with(1, 7)
+            ->willReturn(3);
+        $this->itemService->expects($this->never())->method('findAllInFeed');
+        $this->itemService->expects($this->never())->method('read');
         $this->mapper->expects($this->once())
             ->method('update')
             ->with($feed)
             ->willReturn($feed);
 
         $this->assertSame($feed, $this->class->fetch($feed));
-        $this->assertFalse($oldItem->isUnread());
-        $this->assertTrue($recentItem->isUnread());
-        $this->assertTrue($starredItem->isUnread());
-        $this->assertTrue($filteredItem->isUnread());
         $this->assertEquals(3, $feed->getUnreadCount());
     }
 

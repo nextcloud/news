@@ -64,6 +64,66 @@ class ItemMapperTest extends MapperTestUtility
         $this->assertEquals('news_items', $this->class->getTableName());
     }
 
+    public function testMarkOldUnreadAsRead(): void
+    {
+        $countBuilder = $this->createMock(IQueryBuilder::class);
+        $countFunction = $this->createMock(IQueryFunction::class);
+        $this->db->expects($this->exactly(2))
+            ->method('getQueryBuilder')
+            ->willReturnOnConsecutiveCalls($this->builder, $countBuilder);
+
+        $this->builder->method('createParameter')
+            ->willReturnCallback(fn ($name) => ':' . $name);
+        $this->builder->expects($this->once())->method('update')->with('news_items')->willReturnSelf();
+        $sets = [];
+        $this->builder->expects($this->exactly(2))->method('set')
+            ->willReturnCallback(function ($column, $value) use (&$sets) {
+                $sets[$column] = $value;
+                return $this->builder;
+            });
+        $this->builder->expects($this->once())->method('where')->with('feed_id = :feed_id')->willReturnSelf();
+        $conditions = [];
+        $this->builder->expects($this->exactly(5))->method('andWhere')
+            ->willReturnCallback(function ($condition) use (&$conditions) {
+                $conditions[] = $condition;
+                return $this->builder;
+            });
+        $parameters = [];
+        $this->builder->expects($this->exactly(7))->method('setParameter')
+            ->willReturnCallback(function ($name, $value, $type) use (&$parameters) {
+                $parameters[$name] = [$value, $type];
+                return $this->builder;
+            });
+        $this->builder->expects($this->once())->method('executeStatement')->willReturn(1);
+
+        $countBuilder->expects($this->once())->method('createFunction')->with('COUNT(*)')->willReturn($countFunction);
+        $countBuilder->expects($this->once())->method('select')->with($countFunction)->willReturnSelf();
+        $countBuilder->expects($this->once())->method('from')->with('news_items')->willReturnSelf();
+        $countBuilder->expects($this->once())->method('where')->with('feed_id = :feed_id')->willReturnSelf();
+        $countBuilder->expects($this->once())->method('andWhere')->with('unread = :unread')->willReturnSelf();
+        $countBuilder->expects($this->exactly(2))->method('setParameter')->willReturnSelf();
+        $countBuilder->expects($this->once())->method('executeQuery')->willReturn($this->cursor);
+        $this->cursor->expects($this->once())->method('fetchOne')->willReturn(3);
+        $this->cursor->expects($this->once())->method('closeCursor');
+
+        $this->assertSame(3, $this->class->markOldUnreadAsRead(1, 12345));
+        $this->assertSame(['unread' => ':read', 'last_modified' => ':last_modified'], $sets);
+        $this->assertSame([
+            'unread = :unread',
+            'starred = :starred',
+            'filtered = :filtered',
+            'pub_date > 0',
+            'pub_date < :cutoff',
+        ], $conditions);
+        $this->assertSame([1, IQueryBuilder::PARAM_INT], $parameters['feed_id']);
+        $this->assertSame([true, IQueryBuilder::PARAM_BOOL], $parameters['unread']);
+        $this->assertSame([false, IQueryBuilder::PARAM_BOOL], $parameters['starred']);
+        $this->assertSame([false, IQueryBuilder::PARAM_BOOL], $parameters['filtered']);
+        $this->assertSame([12345, IQueryBuilder::PARAM_INT], $parameters['cutoff']);
+        $this->assertSame([false, IQueryBuilder::PARAM_BOOL], $parameters['read']);
+        $this->assertSame(IQueryBuilder::PARAM_STR, $parameters['last_modified'][1]);
+    }
+
     /**
      * @covers \OCA\News\Db\ItemMapperV2::findAllFromUser
      */
