@@ -601,6 +601,58 @@ class FeedServiceTest extends TestCase
         $this->assertEquals(0, $feed->getUnreadCount());
     }
 
+    public function testFetchMarksExistingOldUnreadItemsRead()
+    {
+        $feed = Feed::fromParams([
+            'id' => 1,
+            'userId' => $this->uid,
+            'location' => 'url.com',
+            'updateMode' => FEED::UPDATE_MODE_NORMAL,
+            'maxUnreadAge' => 7,
+        ]);
+
+        $newFeed = $this->getMockBuilder(Feed::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->willReturn([$newFeed, []]);
+
+        $oldItem = Item::fromParams([
+            'id' => 10,
+            'feedId' => 1,
+            'pubDate' => time() - (8 * 86400),
+            'unread' => true,
+        ]);
+        $recentItem = Item::fromParams([
+            'id' => 11,
+            'feedId' => 1,
+            'pubDate' => time() - (2 * 86400),
+            'unread' => true,
+        ]);
+
+        $this->itemService->expects($this->once())
+            ->method('findAllInFeed')
+            ->with($this->uid, 1)
+            ->willReturn([$oldItem, $recentItem]);
+        $this->itemService->expects($this->exactly(2))
+            ->method('isOlderThanUnreadAge')
+            ->willReturnCallback(function (Item $item, int $days): bool {
+                return $item->getId() === 10;
+            });
+        $this->itemService->expects($this->once())
+            ->method('read')
+            ->with($this->uid, 10, true)
+            ->willReturn($oldItem);
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($feed)
+            ->willReturn($feed);
+
+        $this->assertSame($feed, $this->class->fetch($feed));
+        $this->assertEquals(1, $feed->getUnreadCount());
+    }
+
     public function testFetchSucceedsFullItems()
     {
         $feed = Feed::fromParams([
@@ -635,7 +687,10 @@ class FeedServiceTest extends TestCase
                 return $args[0]; // returnArgument(0)
             });
 
-        $insertOrUpdateCalls = [[$item2, FEED::UPDATE_MODE_NORMAL], [$item1, FEED::UPDATE_MODE_NORMAL]];
+        $insertOrUpdateCalls = [
+            [$item2, FEED::UPDATE_MODE_NORMAL, 0],
+            [$item1, FEED::UPDATE_MODE_NORMAL, 0],
+        ];
         $insertOrUpdateIndex = 0;
 
         $this->itemService->expects($this->exactly(2))

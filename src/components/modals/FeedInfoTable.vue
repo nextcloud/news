@@ -58,8 +58,8 @@
 			<table>
 				<tbody>
 					<tr>
-						<th colspan="4">
-							{{ t('news', 'Feed fetch options') }}
+						<th colspan="2">
+							{{ t('news', 'Feed option icons') }}
 						</th>
 					</tr>
 					<tr>
@@ -69,6 +69,8 @@
 						<td>
 							{{ t('news', 'Feed update is enabled') }}
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<SyncOff />
 						</td>
@@ -83,6 +85,8 @@
 						<td>
 							{{ t('news', 'Keep read status on update') }}
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<FileDocumentRefresh />
 						</td>
@@ -97,11 +101,29 @@
 						<td>
 							{{ t('news', 'Use article text provided by the feed') }}
 						</td>
+					</tr>
+					<tr>
 						<td>
 							<TextLongIcon />
 						</td>
 						<td>
 							{{ t('news', 'Scrape web version of the article text') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<FilterIcon />
+						</td>
+						<td>
+							{{ t('news', 'Keyword filters open a dialog') }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<ClockOutline />
+						</td>
+						<td>
+							{{ t('news', 'Articles older than your setting will be automatically marked as read') }}
 						</td>
 					</tr>
 				</tbody>
@@ -115,35 +137,17 @@
 					<strong>{{ t('news', 'Loading feeds') }}...{{ t('news', 'Please wait') }}</strong>
 				</div>
 			</NcNoteCard>
-			<table>
-				<tbody>
-					<tr>
-						<th colspan="4">
-							{{ t('news', 'Keyword filters') }}
-						</th>
-					</tr>
-					<tr>
-						<td>
-							<FilterIcon />
-						</td>
-						<td colspan="3">
-							{{ t('news', 'Hide articles that match comma-separated keywords (case-insensitive) in the title, body, or URL') }}
-						</td>
-					</tr>
-				</tbody>
-			</table>
 			<table ref="feedsTable" class="feeds-table" :style="feedsTableStyle">
 				<colgroup>
 					<col style="width: 36px;">
 					<col style="width: 64px;">
 					<col style="width: 44px;">
-					<col style="width: 180px;">
+					<col style="width: 260px;">
 					<col style="width: 260px;">
 					<col style="width: 170px;">
 					<col style="width: 160px;">
 					<col style="width: 160px;">
 					<col style="width: 100px;">
-					<col style="width: 70px;">
 					<col style="width: 70px;">
 				</colgroup>
 				<thead>
@@ -158,7 +162,7 @@
 								class="table-select-checkbox"
 								@update:modelValue="toggleSelectAllByValue" />
 						</th>
-						<th colspan="10" class="selection-header-cell">
+						<th colspan="9" class="selection-header-cell">
 							<div class="selection-header-content">
 								<strong>{{ t('news', 'Selected feeds') }}: {{ selectedFeedIds.length }}</strong>
 								<NcButton
@@ -248,11 +252,6 @@
 								APU
 							</span>
 						</th>
-						<th :title="t('news', 'Maximum age for unread items')">
-							<span class="column-title">
-								{{ t('news', 'Unread age') }}
-							</span>
-						</th>
 						<th
 							:title="t('news', 'Error Count') "
 							@click="sortBy('updateErrorCount')">
@@ -288,70 +287,92 @@
 							</NcActions>
 						</td>
 						<td>
-							<NcActions :inline="4" :data-test="'feedOptions-' + feed.id">
-								<NcActionButton
-									v-if="feed.preventUpdate"
-									:title="t('news', 'Enable feed update')"
-									data-test="enableFeedUpdate"
-									@click="setPreventUpdate(feed, false)">
-									<template #icon>
-										<SyncOff />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="!feed.preventUpdate"
-									:title="t('news', 'Disable feed update')"
-									data-test="disableFeedUpdate"
-									@click="setPreventUpdate(feed, true)">
-									<template #icon>
-										<Sync />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="feed.updateMode === FEED_UPDATE_MODE.NORMAL"
-									:title="t('news', 'Disable marking items as unread on update')"
-									data-test="disableMarkUnread"
-									@click="setUpdateMode(feed, FEED_UPDATE_MODE.SILENT)">
-									<template #icon>
-										<FileDocumentRefresh />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="feed.updateMode === FEED_UPDATE_MODE.SILENT"
-									:title="t('news', 'Enable marking items as unread on update')"
-									data-test="enableMarkUnread"
-									@click="setUpdateMode(feed, FEED_UPDATE_MODE.NORMAL)">
-									<template #icon>
-										<FileDocumentCheck />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="!feed.fullTextEnabled"
-									:title="t('news', 'Enable web scraping')"
-									data-test="enableScraping"
-									@click="setFullText(feed, true)">
-									<template #icon>
-										<TextShortIcon />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									v-if="feed.fullTextEnabled"
-									:title="t('news', 'Disable web scraping')"
-									data-test="disableScraping"
-									@click="setFullText(feed, false)">
-									<template #icon>
-										<TextLongIcon />
-									</template>
-								</NcActionButton>
-								<NcActionButton
-									:title="t('news', 'Keyword filters')"
-									@click="openFilterDialog(feed)">
-									<template #icon>
-										<FilterIcon v-if="feed.hasFilter" />
-										<FilterOffIcon v-else />
-									</template>
-								</NcActionButton>
-							</NcActions>
+							<div class="feed-options">
+								<NcActions :inline="4" :data-test="'feedOptions-' + feed.id">
+									<NcActionButton
+										v-if="feed.preventUpdate"
+										:title="t('news', 'Enable feed update')"
+										data-test="enableFeedUpdate"
+										@click="setPreventUpdate(feed, false)">
+										<template #icon>
+											<SyncOff />
+										</template>
+									</NcActionButton>
+									<NcActionButton
+										v-if="!feed.preventUpdate"
+										:title="t('news', 'Disable feed update')"
+										data-test="disableFeedUpdate"
+										@click="setPreventUpdate(feed, true)">
+										<template #icon>
+											<Sync />
+										</template>
+									</NcActionButton>
+									<NcActionButton
+										v-if="feed.updateMode === FEED_UPDATE_MODE.NORMAL"
+										:title="t('news', 'Disable marking items as unread on update')"
+										data-test="disableMarkUnread"
+										@click="setUpdateMode(feed, FEED_UPDATE_MODE.SILENT)">
+										<template #icon>
+											<FileDocumentRefresh />
+										</template>
+									</NcActionButton>
+									<NcActionButton
+										v-if="feed.updateMode === FEED_UPDATE_MODE.SILENT"
+										:title="t('news', 'Enable marking items as unread on update')"
+										data-test="enableMarkUnread"
+										@click="setUpdateMode(feed, FEED_UPDATE_MODE.NORMAL)">
+										<template #icon>
+											<FileDocumentCheck />
+										</template>
+									</NcActionButton>
+									<NcActionButton
+										v-if="!feed.fullTextEnabled"
+										:title="t('news', 'Enable web scraping')"
+										data-test="enableScraping"
+										@click="setFullText(feed, true)">
+										<template #icon>
+											<TextShortIcon />
+										</template>
+									</NcActionButton>
+									<NcActionButton
+										v-if="feed.fullTextEnabled"
+										:title="t('news', 'Disable web scraping')"
+										data-test="disableScraping"
+										@click="setFullText(feed, false)">
+										<template #icon>
+											<TextLongIcon />
+										</template>
+									</NcActionButton>
+									<NcActionButton
+										:title="t('news', 'Keyword filters')"
+										@click="openFilterDialog(feed)">
+										<template #icon>
+											<FilterIcon v-if="feed.hasFilter" />
+											<FilterOffIcon v-else />
+										</template>
+									</NcActionButton>
+								</NcActions>
+								<div class="unread-age-option" :title="t('news', 'Maximum age for unread items')">
+									<ClockOutline :size="20" />
+									<NcSelect
+										:modelValue="getUnreadAgeOption(feed)"
+										:options="unreadAgeOptions"
+										trackBy="value"
+										label="label"
+										:ariaLabelCombobox="t('news', 'Maximum age for unread items')"
+										:clearable="false"
+										:searchable="false"
+										@update:modelValue="setUnreadAgeOption(feed, $event)" />
+									<NcTextField
+										v-if="getUnreadAgeOption(feed).value === -1"
+										:modelValue="String(feed.maxUnreadAge || 1)"
+										type="number"
+										min="1"
+										step="1"
+										:label="t('news', 'Custom number of days')"
+										@update:modelValue="setCustomUnreadAge(feed, $event)" />
+								</div>
+							</div>
 						</td>
 						<td class="text">
 							{{ feed.title }}
@@ -367,15 +388,6 @@
 						</td>
 						<td class="number">
 							{{ feed.articlesPerUpdate }}
-						</td>
-						<td class="number">
-							<input
-								type="number"
-								min="0"
-								step="1"
-								:value="feed.maxUnreadAge || 0"
-								:aria-label="t('news', 'Maximum age for unread items')"
-								@change="setMaxUnreadAge(feed, $event)" />
 						</td>
 						<td class="number" :title="feed.lastUpdateError">
 							{{ feed.updateErrorCount }}
@@ -442,7 +454,9 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwit
 import NcLoadingIcon from '@nextcloud/vue/components/NcLoadingIcon'
 import NcModal from '@nextcloud/vue/components/NcModal'
 import NcNoteCard from '@nextcloud/vue/components/NcNoteCard'
+import NcSelect from '@nextcloud/vue/components/NcSelect'
 import NcTextField from '@nextcloud/vue/components/NcTextField'
+import ClockOutline from 'vue-material-design-icons/ClockOutline.vue'
 import FileDocumentCheck from 'vue-material-design-icons/FileDocumentCheck.vue'
 import FileDocumentRefresh from 'vue-material-design-icons/FileDocumentRefresh.vue'
 import FilterIcon from 'vue-material-design-icons/Filter.vue'
@@ -469,7 +483,9 @@ export default {
 		NcCheckboxRadioSwitch,
 		NcModal,
 		NcNoteCard,
+		NcSelect,
 		NcTextField,
+		ClockOutline,
 		MoveFeed,
 		SidebarFeedLinkActions,
 		FileDocumentRefresh,
@@ -525,6 +541,18 @@ export default {
 
 		loading() {
 			return this.$store.getters.loading
+		},
+
+		unreadAgeOptions() {
+			return [
+				{ value: 0, label: this.t('news', 'Disabled - current behavior') },
+				{ value: 1, label: this.t('news', '1 day') },
+				{ value: 3, label: this.t('news', '3 days') },
+				{ value: 7, label: this.t('news', '7 days') },
+				{ value: 14, label: this.t('news', '14 days') },
+				{ value: 30, label: this.t('news', '30 days') },
+				{ value: -1, label: this.t('news', 'Custom number of days') },
+			]
 		},
 
 		allSelected() {
@@ -697,6 +725,37 @@ export default {
 		setMaxUnreadAge(feed, event) {
 			const maxUnreadAge = Math.max(0, parseInt(event.target.value, 10) || 0)
 			event.target.value = String(maxUnreadAge)
+			this.$store.dispatch(ACTIONS.FEED_SET_MAX_UNREAD_AGE, { feed, maxUnreadAge })
+		},
+
+		getUnreadAgeOption(feed) {
+			const maxUnreadAge = feed.maxUnreadAge || 0
+			if (maxUnreadAge === 0) {
+				return this.unreadAgeOptions[0]
+			}
+
+			const option = this.unreadAgeOptions.find(({ value }) => value === maxUnreadAge)
+			return option || this.unreadAgeOptions[this.unreadAgeOptions.length - 1]
+		},
+
+		setUnreadAgeOption(feed, option) {
+			if (!option) {
+				return
+			}
+
+			if (option.value === -1) {
+				const maxUnreadAge = feed.maxUnreadAge && !this.unreadAgeOptions.some(({ value }) => value === feed.maxUnreadAge)
+					? feed.maxUnreadAge
+					: 2
+				this.$store.dispatch(ACTIONS.FEED_SET_MAX_UNREAD_AGE, { feed, maxUnreadAge })
+				return
+			}
+
+			this.$store.dispatch(ACTIONS.FEED_SET_MAX_UNREAD_AGE, { feed, maxUnreadAge: option.value })
+		},
+
+		setCustomUnreadAge(feed, value) {
+			const maxUnreadAge = Math.max(1, parseInt(String(value), 10) || 1)
 			this.$store.dispatch(ACTIONS.FEED_SET_MAX_UNREAD_AGE, { feed, maxUnreadAge })
 		},
 
@@ -934,6 +993,28 @@ export default {
 			text-align: center;
 			padding-inline-end: .5rem;
 			min-width: 36px;
+		}
+
+		.feed-options {
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			gap: 8px;
+		}
+
+		.unread-age-option {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+
+			.vs__search,
+			.vs__selected {
+				white-space: nowrap;
+			}
+
+			:deep(.vs__dropdown-toggle) {
+				width: 150px;
+			}
 		}
 
 	}
