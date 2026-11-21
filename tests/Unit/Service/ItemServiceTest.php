@@ -473,6 +473,19 @@ class ItemServiceTest extends TestCase
         $this->assertFalse($this->class->isOlderThanUnreadAge($oldItem, 0));
     }
 
+    public function testMarkOldUnreadAsReadUsesAgeCutoff()
+    {
+        $before = time() - (7 * 86400);
+        $this->mapper->expects($this->once())
+            ->method('markOldUnreadAsRead')
+            ->with(1, $this->callback(function (int $cutoff) use ($before): bool {
+                return $cutoff >= $before && $cutoff <= time() - (7 * 86400);
+            }))
+            ->willReturn(3);
+
+        $this->assertSame(3, $this->class->markOldUnreadAsRead(1, 7));
+    }
+
     public function testInsertOrUpdateMarksOldItemRead()
     {
         $item = new Item();

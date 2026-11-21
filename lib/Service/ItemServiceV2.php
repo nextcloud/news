@@ -92,6 +92,11 @@ class ItemServiceV2 extends Service
         return $pubDate < time() - ($maxUnreadAge * 86400);
     }
 
+    public function markOldUnreadAsRead(int $feedId, int $maxUnreadAge): int
+    {
+        return $this->mapper->markOldUnreadAsRead($feedId, time() - ($maxUnreadAge * 86400));
+    }
+
     /**
      * Insert an item or update.
      *
