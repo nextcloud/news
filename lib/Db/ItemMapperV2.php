@@ -398,6 +398,57 @@ class ItemMapperV2 extends NewsMapperV2
     }
 
     /**
+     * Bounded, descending-ID pages for a single repeatable-read snapshot.
+     * @return Item[]
+     */
+    public function findUpdatedBatch(
+        string $userId,
+        int $type,
+        int $id,
+        int $updatedSince,
+        ?int $beforeId,
+        int $batchSize
+    ): array {
+        if ($batchSize < 1 || $batchSize > 500) {
+            throw new \InvalidArgumentException('Invalid News sync batch size');
+        }
+        $builder = $this->db->getQueryBuilder();
+        $builder->select('items.*')
+            ->from($this->tableName, 'items')
+            ->innerJoin('items', FeedMapperV2::TABLE_NAME, 'feeds', 'items.feed_id = feeds.id')
+            ->andWhere('items.last_modified >= :updatedSince')
+            ->andWhere('feeds.deleted_at = 0')
+            ->andWhere('feeds.user_id = :userId')
+            ->setParameters(['updatedSince' => $updatedSince, 'userId' => $userId])
+            ->addOrderBy('items.id', 'DESC')
+            ->setMaxResults($batchSize);
+        if ($beforeId !== null) {
+            $builder->andWhere('items.id < :beforeId')->setParameter('beforeId', $beforeId, IQueryBuilder::PARAM_INT);
+        }
+        switch ($type) {
+            case ListType::FEED:
+                $builder->andWhere('feeds.id = :feedId')->setParameter('feedId', $id, IQueryBuilder::PARAM_INT);
+                break;
+            case ListType::FOLDER:
+                // Preserve the legacy folder join and its treatment of folder ID 0.
+                $builder->innerJoin('feeds', FolderMapperV2::TABLE_NAME, 'folders', 'feeds.folder_id = folders.id')
+                    ->andWhere('folders.id = :folderId')->setParameter('folderId', $id, IQueryBuilder::PARAM_INT);
+                break;
+            case ListType::STARRED:
+                $builder->andWhere('items.starred = :starred')->setParameter('starred', true);
+                break;
+            case ListType::UNREAD:
+                $builder->andWhere('items.unread = :unread')->setParameter('unread', true);
+                break;
+            case ListType::ALL_ITEMS:
+                break;
+            default:
+                throw new ServiceValidationException('Trying to find in unknown type');
+        }
+        return $this->findEntities($builder);
+    }
+
+    /**
      * @param string $userId
      * @param int    $updatedSince
      * @param int    $feedType
