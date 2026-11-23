@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6a393cada3112de0bb4bf22f46ba6148",
+    "content-hash": "b43bdebda25bd32ec32725259803af6b",
     "packages": [
         {
             "name": "bamarni/composer-bin-plugin",
@@ -627,16 +627,16 @@
         },
         {
             "name": "php-feed-io/feed-io",
-            "version": "v6.5.0",
+            "version": "v7.0.0-beta.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-feed-io/feed-io.git",
-                "reference": "b1dd89b46f3dd00de5969f1a7a339f15dd52aad2"
+                "reference": "1e4553f07566f4b054ac67c94d835daccd819d05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/b1dd89b46f3dd00de5969f1a7a339f15dd52aad2",
-                "reference": "b1dd89b46f3dd00de5969f1a7a339f15dd52aad2",
+                "url": "https://api.github.com/repos/php-feed-io/feed-io/zipball/1e4553f07566f4b054ac67c94d835daccd819d05",
+                "reference": "1e4553f07566f4b054ac67c94d835daccd819d05",
                 "shasum": ""
             },
             "require": {
@@ -699,7 +699,7 @@
             ],
             "support": {
                 "issues": "https://github.com/php-feed-io/feed-io/issues",
-                "source": "https://github.com/php-feed-io/feed-io/tree/v6.5.0"
+                "source": "https://github.com/php-feed-io/feed-io/tree/v7.0.0-beta.1"
             },
             "funding": [
                 {
@@ -707,7 +707,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-10-25T07:16:52+00:00"
+            "time": "2026-10-31T08:14:25+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -4983,7 +4983,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "nextcloud/ocp": 20
+        "nextcloud/ocp": 20,
+        "php-feed-io/feed-io": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -4993,8 +4994,9 @@
         "ext-simplexml": "*",
         "ext-libxml": "*",
         "ext-dom": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-mbstring": "*"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
