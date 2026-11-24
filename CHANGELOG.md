@@ -11,6 +11,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Require PHP 8.4 or later.
 - Update article extraction to the latest Readability version, which may change the extracted full-text content.
 - Document how News identifies feed items and how administrators can debug old items that reappear.
+- Add Apps for Nextcloud to the list of sync clients (#4039)
 
 ### Fixed
 - Avoid a misleading error log when a user is deleted in debug mode (#4020).
