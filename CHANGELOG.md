@@ -13,6 +13,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Document how News identifies feed items and how administrators can debug old items that reappear.
 
 ### Fixed
+- Avoid a misleading error log when a user is deleted in debug mode (#4020).
 - Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
 - Avoid crashes when serializing feeds with malformed links that have no parseable host. (#3954)
 - Remove the unreachable `PUT /api/{v1-2,v1-3}/feeds/{feedId}` route and a duplicate `item#share` route entry (#3984)
