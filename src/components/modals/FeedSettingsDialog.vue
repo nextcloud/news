@@ -6,7 +6,7 @@
 	<NcModal
 		size="normal"
 		labelId="feed-configuration-title"
-		:closeOnClickOutside="false"
+		:closeOnClickOutside="true"
 		@close="$emit('close')">
 		<div class="feed-configuration">
 			<header>
@@ -95,6 +95,9 @@
 					step="1"
 					:label="t('news', 'Custom number of days')"
 					@update:modelValue="setCustomUnreadAge($event)" />
+				<p class="helper">
+					{{ t('news', 'Changes are applied to new and existing articles during the next feed update.') }}
+				</p>
 			</section>
 
 			<section class="settings-section">
@@ -199,8 +202,10 @@ export default defineComponent({
 	},
 
 	data() {
+		const maxUnreadAge = (this.feed as Feed).maxUnreadAge || 0
 		return {
 			title: (this.feed as Feed).title || '',
+			customUnreadAgeSelected: maxUnreadAge > 0 && ![1, 3, 7, 14, 30].includes(maxUnreadAge),
 			filterSaving: false,
 			filterLoaded: false,
 			filterError: undefined as string | undefined,
@@ -259,6 +264,9 @@ export default defineComponent({
 		},
 
 		getUnreadAgeOption(feed: Feed) {
+			if (this.customUnreadAgeSelected) {
+				return this.unreadAgeOptions[this.unreadAgeOptions.length - 1]
+			}
 			const maxUnreadAge = feed.maxUnreadAge || 0
 			return this.unreadAgeOptions.find(({ value }) => value === maxUnreadAge)
 				|| this.unreadAgeOptions[this.unreadAgeOptions.length - 1]
@@ -269,6 +277,7 @@ export default defineComponent({
 				return
 			}
 			const isPreset = option.value !== -1
+			this.customUnreadAgeSelected = !isPreset
 			const maxUnreadAge = isPreset
 				? option.value
 				: (this.feed as Feed).maxUnreadAge > 0 ? (this.feed as Feed).maxUnreadAge : 2

@@ -213,7 +213,8 @@ describe('FeedInfoTable.vue', () => {
 		wrapper.vm.openFeedConfiguration(feeds[0])
 		await wrapper.vm.$nextTick()
 		expect(wrapper.vm.configuredFeed).toEqual(feeds[0])
-		expect(wrapper.findComponent({ name: 'NcModal' }).exists()).toBe(false)
+		expect(wrapper.findComponent({ name: 'NcModal' }).exists()).toBe(true)
+		expect(wrapper.findComponent({ name: 'NcModal' }).props('closeOnClickOutside')).toBe(true)
 	})
 
 	it('opens bulk move with the selected feeds', () => {
@@ -558,6 +559,8 @@ describe('FeedSettingsDialog.vue', () => {
 	it('handles custom unread-age selection and invalid values', () => {
 		wrapper.vm.setUnreadAgeOption(null)
 		wrapper.vm.setUnreadAgeOption({ value: -1 })
+		expect(wrapper.vm.customUnreadAgeSelected).toBe(true)
+		expect(wrapper.vm.getUnreadAgeOption(feeds[0]).value).toBe(-1)
 		wrapper.vm.setCustomUnreadAge('invalid')
 
 		expect(store.dispatch).toHaveBeenCalledWith(ACTIONS.FEED_SET_MAX_UNREAD_AGE, {
@@ -568,6 +571,14 @@ describe('FeedSettingsDialog.vue', () => {
 			feed: feeds[0],
 			maxUnreadAge: 1,
 		})
+	})
+
+	it('keeps preset unread-age selections stable', () => {
+		wrapper.vm.setUnreadAgeOption({ value: -1 })
+		wrapper.vm.setUnreadAgeOption({ value: 7 })
+
+		expect(wrapper.vm.customUnreadAgeSelected).toBe(false)
+		expect(wrapper.vm.getUnreadAgeOption(feeds[1]).value).toBe(7)
 	})
 
 	it('dispatches the dialog toggle updates', async () => {

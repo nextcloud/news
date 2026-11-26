@@ -13,10 +13,9 @@
 		@move="openMoveFeed"
 		@close="closeFeedConfiguration" />
 	<NcModal
-		v-if="!configuredFeed && !showMoveFeed"
 		size="large"
 		labelId="feed-settings-dialog"
-		:closeOnClickOutside="false"
+		:closeOnClickOutside="true"
 		@close="$emit('close')">
 		<div class="table-modal">
 			<header class="modal-header">
@@ -612,7 +611,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .table-modal {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
+	height: 90vh;
 	padding: 24px;
 	overflow: hidden;
 }
@@ -712,8 +714,10 @@ export default defineComponent({
 }
 
 .table-container {
+	flex: 1;
+	min-height: 0;
 	max-width: 100%;
-	overflow-x: auto;
+	overflow: auto;
 	border: 1px solid var(--color-border);
 	border-radius: var(--border-radius-large);
 }
@@ -780,7 +784,7 @@ export default defineComponent({
 	}
 
 	.configure-column {
-		width: 130px;
+		width: 140px;
 		text-align: end;
 	}
 }
@@ -923,6 +927,10 @@ export default defineComponent({
 }
 
 @media (max-width: 900px) {
+	.feed-initial {
+		display: none;
+	}
+
 	.filter-toolbar,
 	.bulk-toolbar {
 		align-items: stretch;
