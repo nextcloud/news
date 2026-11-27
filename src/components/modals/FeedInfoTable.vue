@@ -695,6 +695,11 @@ export default defineComponent({
 		:deep(.checkbox-radio-switch__content) {
 			gap: 8px;
 		}
+		
+		&__label {
+				display: inline-flex;
+				gap: 8px;
+		}
 	}
 }
 
