@@ -106,6 +106,12 @@ class ItemServiceV2 extends Service
             // We don't want to update the database record if there is no
             // change in the fetched item
             if ($db_item->getFingerprint() === $item->getFingerprint()) {
+                // Authors are not part of the fingerprint. Refresh them without changing read or starred state.
+                if ($db_item->getAuthor() !== $item->getAuthor()) {
+                    $db_item->setAuthor($item->getAuthor());
+                    $db_item->generateSearchIndex();
+                    return $this->mapper->update($db_item);
+                }
                 $item->resetUpdatedFields();
             }
 

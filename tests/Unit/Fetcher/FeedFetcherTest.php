@@ -15,6 +15,11 @@ namespace OCA\News\Tests\Unit\Fetcher;
 
 use DateTime;
 use OCA\News\Vendor\FeedIo\FaviconIo\FaviconDiscovery;
+use OCA\News\Vendor\FeedIo\Feed as ParsedFeed;
+use OCA\News\Vendor\FeedIo\Parser\XmlParser;
+use OCA\News\Vendor\FeedIo\Reader\Document;
+use OCA\News\Vendor\FeedIo\Rule\DateTimeBuilder;
+use OCA\News\Vendor\FeedIo\Standard\Atom;
 use OCA\News\Vendor\FeedIo\Adapter\ResponseInterface;
 use OCA\News\Vendor\FeedIo\Feed\Item\Author;
 use OCA\News\Vendor\FeedIo\Feed\Item\MediaInterface;
@@ -38,6 +43,7 @@ use OCP\ITempManager;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 /**
  * Class FeedFetcherTest
@@ -353,6 +359,30 @@ class FeedFetcherTest extends TestCase
         $this->assertEquals([$feed, [$item]], $result);
     }
 
+    public function testFetchUsesAllFeedAuthorsWhenEntryHasNone(): void
+    {
+        $first = new Author();
+        $first->setName('Feed One');
+        $second = new Author();
+        $second->setName('Feed Two');
+        $this->setUpReader($this->url);
+        $this->createFeed();
+        $this->feed_mock->method('getAuthors')->willReturn([$first, $second]);
+        $this->item_mock->method('getAuthors')->willReturn([]);
+        $this->item_mock->method('getLink')->willReturn($this->permalink);
+        $this->item_mock->method('getTitle')->willReturn($this->title);
+        $this->item_mock->method('getPublicId')->willReturn($this->guid);
+        $this->item_mock->method('getContent')->willReturn($this->body);
+        $this->item_mock->method('getLastModified')->willReturn($this->modified);
+        $this->item_mock->method('getCategories')->willReturn($this->categories);
+        $this->mockIterator($this->feed_mock, [$this->item_mock]);
+
+        [, $items] = $this->fetcher->fetch($this->url, false, null, null, null, []);
+
+        $this->assertCount(1, $items);
+        $this->assertSame('Feed One, Feed Two', $items[0]->getAuthor());
+    }
+
     /**
      * Test if fetching a feed with authentication works.
      */
@@ -649,7 +679,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->method('getTitle')->willReturn($this->title);
         $this->item_mock->method('getPublicId')->willReturn($this->guid);
         $this->item_mock->method('getLastModified')->willReturn($this->modified);
-        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getAuthors')->willReturn([$this->author]);
         $this->item_mock->method('getCategories')->willReturn($this->categories);
         $this->item_mock->method('hasMedia')->willReturn(true);
         $this->item_mock->method('getMedias')->willReturn([$media]);
@@ -693,7 +723,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->method('getTitle')->willReturn($this->title);
         $this->item_mock->method('getPublicId')->willReturn($this->guid);
         $this->item_mock->method('getLastModified')->willReturn($this->modified);
-        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getAuthors')->willReturn([$this->author]);
         $this->item_mock->method('getCategories')->willReturn($this->categories);
         $this->item_mock->method('hasMedia')->willReturn(true);
         $this->item_mock->method('getMedias')->willReturn([$media]);
@@ -736,7 +766,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->method('getTitle')->willReturn($this->title);
         $this->item_mock->method('getPublicId')->willReturn($this->guid);
         $this->item_mock->method('getLastModified')->willReturn($this->modified);
-        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getAuthors')->willReturn([$this->author]);
         $this->item_mock->method('getCategories')->willReturn($this->categories);
         $this->item_mock->method('hasMedia')->willReturn(true);
         $this->item_mock->method('getMedias')->willReturn([$media]);
@@ -777,7 +807,7 @@ class FeedFetcherTest extends TestCase
         $this->item_mock->method('getTitle')->willReturn($this->title);
         $this->item_mock->method('getPublicId')->willReturn($this->guid);
         $this->item_mock->method('getLastModified')->willReturn($this->modified);
-        $this->item_mock->method('getAuthor')->willReturn($this->author);
+        $this->item_mock->method('getAuthors')->willReturn([$this->author]);
         $this->item_mock->method('getCategories')->willReturn($this->categories);
         $this->item_mock->method('hasMedia')->willReturn(true);
         $this->item_mock->method('getMedias')->willReturn([$media]);
@@ -923,6 +953,41 @@ class FeedFetcherTest extends TestCase
     }
 
     /**
+     * Real Atom parsing retains all entry authors, or all feed authors as a fallback.
+     */
+    public function testAtomAuthorsArePreservedInTheItemAuthorField(): void
+    {
+        $cases = [
+            ['<author><name>Alice</name></author><author><name>Bob</name></author>',
+                '<author><name>Feed Author</name></author>', 'Alice, Bob'],
+            ['<author><name>Alice</name></author>', '<author><name>Feed Author</name></author>', 'Alice'],
+            ['', '<author><name>Feed One</name></author><author><name>Feed Two</name></author>', 'Feed One, Feed Two'],
+            ['', '<author><name>Feed Author</name></author>', 'Feed Author'],
+            ['', '', null],
+        ];
+        $parser = new XmlParser(
+            new Atom(new DateTimeBuilder()),
+            new NullLogger()
+        );
+        $class = new \ReflectionClass(FeedFetcher::class);
+        $formatAuthors = $class->getMethod('formatAuthors');
+        $buildItem = $class->getMethod('buildItem');
+        foreach ($cases as [$entryAuthors, $feedAuthors, $expected]) {
+            $xml = '<feed xmlns="http://www.w3.org/2005/Atom"><title>Test</title><id>urn:feed:test</id>'
+                . '<updated>2026-01-01T00:00:00Z</updated>' . $feedAuthors
+                . '<entry><title>Article</title><id>urn:entry:one</id><updated>2026-01-01T00:00:00Z</updated>'
+                . '<link href="https://example.org/article"/><content>Example</content>'
+                . $entryAuthors . '</entry></feed>';
+            $feed = $parser->parse(new Document($xml), new ParsedFeed());
+            $fallback = $formatAuthors->invoke($this->fetcher, $feed->getAuthors());
+            $item = $buildItem->invoke($this->fetcher, $feed->current(), null, false, $fallback);
+            $this->assertSame($expected, $item->getAuthor());
+            $item->setFeedId(1);
+            $this->assertSame($expected, $item->jsonSerialize()['author']);
+        }
+    }
+
+    /**
      * Create an item mock.
      *
      * @param string|null $enclosureType Media type.
@@ -947,8 +1012,8 @@ class FeedFetcherTest extends TestCase
             ->method('getLastModified')
             ->will($this->returnValue($this->modified));
         $this->item_mock->expects($this->exactly(1))
-            ->method('getAuthor')
-            ->will($this->returnValue($this->author));
+            ->method('getAuthors')
+            ->will($this->returnValue([$this->author]));
         $this->item_mock->expects($this->exactly(1))
             ->method('getCategories')
             ->will($this->returnValue($this->categories));
@@ -1067,8 +1132,8 @@ class FeedFetcherTest extends TestCase
             ->method('getLastModified')
             ->will($this->returnValue($this->modified));
         $this->item_mock->expects($this->exactly($itemExist ? 0 : 1))
-            ->method('getAuthor')
-            ->will($this->returnValue($this->author));
+            ->method('getAuthors')
+            ->will($this->returnValue([$this->author]));
         $this->item_mock->expects($this->exactly($itemExist ? 0 : 1))
             ->method('getCategories')
             ->will($this->returnValue($this->categories));

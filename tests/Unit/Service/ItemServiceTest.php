@@ -584,6 +584,40 @@ class ItemServiceTest extends TestCase
         $this->assertEquals($item, $result);
     }
 
+    public function testInsertOrUpdateRefreshesOnlyAuthorMetadataForUnchangedContent(): void
+    {
+        $stored = Item::fromParams([
+            'id' => 1, 'feedId' => 1, 'guidHash' => 'hash', 'title' => 'Article',
+            'url' => 'https://example.org', 'body' => 'Text', 'author' => 'Bob',
+            'unread' => false, 'starred' => true,
+        ]);
+        $stored->generateSearchIndex();
+        $stored->resetUpdatedFields();
+        $oldContentHash = $stored->getContentHash();
+        $incoming = Item::fromParams([
+            'feedId' => 1, 'guidHash' => 'hash', 'title' => 'Article',
+            'url' => 'https://example.org', 'body' => 'Text', 'author' => 'Alice, Bob',
+            'unread' => true, 'starred' => false,
+        ]);
+        $this->mapper->method('findByGuidHash')->with(1, 'hash')->willReturn($stored);
+        $this->mapper->expects($this->once())->method('update')->willReturnCallback(
+            function (Item $updated) use ($stored, $oldContentHash) {
+                $this->assertSame($stored, $updated);
+                $this->assertSame('Alice, Bob', $updated->getAuthor());
+                $this->assertFalse($updated->isUnread());
+                $this->assertTrue($updated->isStarred());
+                $this->assertStringContainsString('alice, bob', $updated->getSearchIndex());
+                $this->assertNotSame($oldContentHash, $updated->getContentHash());
+                $this->assertArrayHasKey('author', $updated->getUpdatedFields());
+                $this->assertArrayNotHasKey('unread', $updated->getUpdatedFields());
+                $this->assertArrayNotHasKey('starred', $updated->getUpdatedFields());
+                return $updated;
+            }
+        );
+
+        $this->class->insertOrUpdate($incoming, FEED::UPDATE_MODE_NORMAL);
+    }
+
     public function testInsertOrUpdatePreservesUnread()
     {
         $item = Item::fromParams(['id' => 1, 'feedId' => '1', 'guidHash' => 'hash', 'unread' => true]);

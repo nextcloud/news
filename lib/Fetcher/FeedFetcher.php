@@ -210,7 +210,7 @@ class FeedFetcher implements IFeedFetcher
         $items = [];
         $RTL = $this->determineRtl($parsedFeed);
         $feedName = $parsedFeed->getTitle();
-        $feedAuthor = $parsedFeed->getAuthor();
+        $feedAuthor = $this->formatAuthors($parsedFeed->getAuthors());
         $this->logger->debug(
             'Feed {url} was modified since last fetch. #{count} items, nextUpdateTime is {nextUpdateTime}',
             [
@@ -384,6 +384,24 @@ class FeedFetcher implements IFeedFetcher
     }
 
     /**
+     * Combine authors into the existing author string used by clients.
+     *
+     * @param iterable $authors Feed-io author objects in feed order
+     * @return string|null
+     */
+    private function formatAuthors(iterable $authors): ?string
+    {
+        $names = [];
+        foreach ($authors as $author) {
+            if ($author->getName() !== null) {
+                $names[] = $this->decodeTwice($author->getName());
+            }
+        }
+
+        return count($names) > 0 ? implode(', ', $names) : null;
+    }
+
+    /**
      * Build an item based on a feed.
      *
      * @param ItemInterface $parsedItem The item to use
@@ -397,7 +415,7 @@ class FeedFetcher implements IFeedFetcher
         ItemInterface $parsedItem,
         ?string $body = null,
         bool $RTL = false,
-        $feedAuthor = null
+        ?string $feedAuthor = null
     ): Item {
         $item = new Item();
         $item->setUnread(true);
@@ -445,10 +463,10 @@ class FeedFetcher implements IFeedFetcher
             $item->setTitle($this->decodeTwice($itemTitle));
         }
 
-        $author = $parsedItem->getAuthor() ?? $feedAuthor;
+        $author = $this->formatAuthors($parsedItem->getAuthors()) ?? $feedAuthor;
 
-        if ($author !== null && $author->getName() !== null) {
-            $item->setAuthor($this->decodeTwice($author->getName()));
+        if ($author !== null) {
+            $item->setAuthor($author);
         }
 
         $categories = [];

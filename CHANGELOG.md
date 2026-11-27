@@ -14,6 +14,7 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Add Apps for Nextcloud to the list of sync clients (#4039)
 
 ### Fixed
+- Display all feed and entry authors while preserving the existing item author field. (#3898)
 - Avoid a misleading error log when a user is deleted in debug mode (#4020).
 - Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
 - Avoid crashes when serializing feeds with malformed links that have no parseable host. (#3954)
