@@ -457,7 +457,7 @@ export default defineComponent({
 			const nextUpdate = feed.nextUpdateTime && !feed.preventUpdate
 				? formatDate(feed.nextUpdateTime)
 				: this.t('news', 'Not available')
-			return `${this.t('news', 'Next update')}: ${nextUpdate}\n${this.t('news', 'Articles in last update')}: ${feed.articlesPerUpdate}`
+			return `${this.t('news', 'Next update')}: ${nextUpdate}\n${this.t('news', 'Max articles per update')}: ${feed.articlesPerUpdate}`
 		},
 
 		updateToggleLabel(feed: Feed): string {
