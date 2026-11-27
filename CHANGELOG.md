@@ -11,9 +11,11 @@ You can also check [on GitHub](https://github.com/nextcloud/news/releases), the 
 - Require PHP 8.4 or later.
 - Update article extraction to the latest Readability version, which may change the extracted full-text content.
 - Document how News identifies feed items and how administrators can debug old items that reappear.
+- Add Apps for Nextcloud to the list of sync clients (#4039)
 
 ### Fixed
 - Display all feed and entry authors while preserving the existing item author field. (#3898)
+- Avoid a misleading error log when a user is deleted in debug mode (#4020).
 - Ignore XML comments and other non-element nodes when importing OPML instead of failing with a TypeError (#3953)
 - Avoid crashes when serializing feeds with malformed links that have no parseable host. (#3954)
 - Remove the unreachable `PUT /api/{v1-2,v1-3}/feeds/{feedId}` route and a duplicate `item#share` route entry (#3984)
