@@ -194,7 +194,7 @@
 									class="update-status"
 									:title="updateDetails(feed)">
 									<strong>{{ formatDate(feed.lastModified / 1000000) }}</strong>
-									<small>{{ t('news', 'Articles in last update: {count}', { count: feed.articlesPerUpdate }) }}</small>
+									<small>{{ t('news', 'Max articles per update: {count}', { count: feed.articlesPerUpdate }) }}</small>
 								</div>
 							</td>
 							<td class="errors-column" :title="feed.lastUpdateError || undefined">
