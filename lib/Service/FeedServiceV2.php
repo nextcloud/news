@@ -407,6 +407,7 @@ class FeedServiceV2 extends Service
 
         $feedId = $feed->getId();
         $updateMode = $feed->getUpdateMode();
+        $maxUnreadAge = $feed->getMaxUnreadAge();
         $userId = $feed->getUserId();
 
         // Load and compile filter once before processing items.
@@ -431,7 +432,7 @@ class FeedServiceV2 extends Service
                 $filteredCount++;
             }
 
-            $item = $this->itemService->insertOrUpdate($item, $updateMode);
+            $item = $this->itemService->insertOrUpdate($item, $updateMode, $maxUnreadAge);
         }
 
         if ($filteredCount > 0) {
@@ -446,14 +447,18 @@ class FeedServiceV2 extends Service
         $feed->setLastUpdateError(null);
 
         $unreadCount = 0;
-        array_map(
-            function (Item $item) use (&$unreadCount): void {
-                if ($item->isUnread()) {
-                    $unreadCount++;
-                }
-            },
-            $items
-        );
+        if ($maxUnreadAge > 0) {
+            $unreadCount = $this->itemService->markOldUnreadAsRead($feedId, $maxUnreadAge);
+        } else {
+            array_map(
+                function (Item $item) use (&$unreadCount): void {
+                    if ($item->isUnread()) {
+                        $unreadCount++;
+                    }
+                },
+                $items
+            );
+        }
 
         return $this->mapper->update($feed)->setUnreadCount($unreadCount);
     }

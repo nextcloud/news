@@ -20,6 +20,15 @@ Provide a username and password if required for a feed. Please note that the pas
 Check this option if you want the app to automatically detect the RSS feed from the entered URL. This is useful when you’re unsure of the exact feed URL, as the system will scan the provided website for RSS links.
 
 ### Feed settings
+Open **Feed settings** to search and filter subscriptions by folder or update errors. Select one or more rows to reveal bulk actions for enabling or disabling updates, moving feeds, changing their read policy, or deleting them.
+
+The table provides quick controls for scheduled updates, read status on update, and web scraping. Hover over a control or update timestamp to see an explanation. Select **Configure** to edit a feed's detailed settings.
+
+#### Search and filter feeds
+- Search by feed title or URL.
+- Filter by folder.
+- Enable **Feeds with errors** to find feeds with failed updates.
+
 #### Mark Read
 Mark the feed as read.
 
@@ -36,6 +45,11 @@ When enabled, articles will be fully retrieved from the website during the next 
 #### Mark as unread/Keep read status on update
 - If **Mark as unread on update** is selected, previously read articles will be marked as unread when updated.
 - If **Keep read status on update** is selected, changes to articles will be ignored.
+
+#### Automatically mark older articles as read
+Set an age threshold in **Configure** to mark articles older than that threshold as read during feed updates.
+
+This setting is evaluated on both newly fetched articles and existing unread articles. A newly configured threshold takes effect after the next feed update; it does not immediately scan articles when the setting is saved.
 
 #### Rename
 Rename the feed.
@@ -54,14 +68,16 @@ You can hide unwanted articles per feed by defining keyword filters.
 
 How to open filters for a feed:
 - Open **Feed settings**.
-- In the feed table, find your feed and click the **Keyword filters** icon in the options column.
+- Select **Configure** and open the **Keyword filters** section.
 
 How to add or change filters:
 - Enter comma-separated keywords in one or more fields:
   - **Title keywords**
   - **Body keywords**
   - **URL keywords**
-- Click **Save**.
+- Select **Save changes** at the bottom of the dialog.
+
+Selecting **Clear** removes the keyword values from the form. Select **Save changes** to persist the cleared filters.
 
 How matching works:
 - Matching is **case-insensitive**.

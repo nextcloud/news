@@ -601,6 +601,38 @@ class FeedServiceTest extends TestCase
         $this->assertEquals(0, $feed->getUnreadCount());
     }
 
+    public function testFetchMarksExistingOldUnreadItemsRead()
+    {
+        $feed = Feed::fromParams([
+            'id' => 1,
+            'userId' => $this->uid,
+            'location' => 'url.com',
+            'updateMode' => FEED::UPDATE_MODE_NORMAL,
+            'maxUnreadAge' => 7,
+        ]);
+
+        $newFeed = $this->getMockBuilder(Feed::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->fetcher->expects($this->once())
+            ->method('fetch')
+            ->willReturn([$newFeed, []]);
+
+        $this->itemService->expects($this->once())
+            ->method('markOldUnreadAsRead')
+            ->with(1, 7)
+            ->willReturn(3);
+        $this->itemService->expects($this->never())->method('findAllInFeed');
+        $this->itemService->expects($this->never())->method('read');
+        $this->mapper->expects($this->once())
+            ->method('update')
+            ->with($feed)
+            ->willReturn($feed);
+
+        $this->assertSame($feed, $this->class->fetch($feed));
+        $this->assertEquals(3, $feed->getUnreadCount());
+    }
+
     public function testFetchSucceedsFullItems()
     {
         $feed = Feed::fromParams([
@@ -635,7 +667,10 @@ class FeedServiceTest extends TestCase
                 return $args[0]; // returnArgument(0)
             });
 
-        $insertOrUpdateCalls = [[$item2, FEED::UPDATE_MODE_NORMAL], [$item1, FEED::UPDATE_MODE_NORMAL]];
+        $insertOrUpdateCalls = [
+            [$item2, FEED::UPDATE_MODE_NORMAL, 0],
+            [$item1, FEED::UPDATE_MODE_NORMAL, 0],
+        ];
         $insertOrUpdateIndex = 0;
 
         $this->itemService->expects($this->exactly(2))
