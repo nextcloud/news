@@ -106,8 +106,10 @@
 					data-test="errorsOnly"
 					class="errors-filter"
 					@update:modelValue="errorsOnly = $event">
-					<span>{{ t('news', 'Feeds with errors') }}</span>
-					<NcCounterBubble v-if="errorFeedCount > 0" :count="errorFeedCount" />
+					<span class="errors-filter__label">
+										{{ t('news', 'Feeds with errors') }}
+										<NcCounterBubble v-if="errorFeedCount > 0" :count="errorFeedCount" />
+					</span>
 				</NcCheckboxRadioSwitch>
 			</section>
 
